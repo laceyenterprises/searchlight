@@ -33,7 +33,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Fetch pull-request history
-        if: runner.os == 'Linux' && matrix.python == '3.12'
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -63,20 +63,20 @@ jobs:
       - name: Installed standalone doctor
         run: sew doctor | tee doctor.txt && grep 'mode         standalone' doctor.txt
       - name: Portable hardcode denylist
-        if: runner.os == 'Linux' && matrix.python == '3.12'
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         run: python3 scripts/publication-gates.py hardcodes
       - name: Retain historical topology visibility report
-        if: runner.os == 'Linux' && matrix.python == '3.12'
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: publication-hardcode-history
           path: publication-hardcode-history.json
           if-no-files-found: error
       - name: Tree and full reachable history secret scan
-        if: runner.os == 'Linux' && matrix.python == '3.12'
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         run: python3 scripts/publication-gates.py secrets
       - name: Permissive public dependency licences
-        if: runner.os == 'Linux' && matrix.python == '3.12'
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         run: python3 scripts/publication-gates.py licences
       - name: Fresh installed clone suite without external network
         run: |
