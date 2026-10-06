@@ -28,12 +28,11 @@ def mermaid_problems(root=ROOT):
             if not inside:
                 inside = stripped.endswith('sequenceDiagram') or stripped.endswith('"""sequenceDiagram')
                 continue
-            if stripped.startswith('```') or '"""' in stripped:
-                inside = False
-                continue
             if ';' in stripped:
                 problems.append(f'{path.relative_to(root)}:{number}: ";" in a Mermaid sequence diagram ends the '
                                 f'statement early; use a comma: {stripped}')
+            if stripped.startswith('```') or '"""' in stripped:
+                inside = False
     return problems
 
 
