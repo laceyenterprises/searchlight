@@ -374,12 +374,19 @@ def test_header_and_phone_layout():
     phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', css).group(1)
     assert '.after-phone' not in phone
     # A desktop rule must not satisfy a missing phone declaration.
-    moved = css.replace('.board thead{display:none}', '') + '\n.board thead{display:none}'
+    header_rule = re.search(r'\.board thead\{[^{}]*\}', phone).group(0)
+    moved = css.replace(header_rule, '') + '\n' + header_rule
     moved_phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', moved).group(1)
-    assert '.board thead{display:none}' not in moved_phone
+    assert header_rule not in moved_phone
+    # Keep column headers available to screen readers while visually hiding them.
+    header_style = re.search(r'\.board thead\{([^{}]*)\}', phone).group(1)
+    for declaration in ('position:absolute', 'width:1px', 'height:1px', 'overflow:hidden',
+                        'clip:rect(0,0,0,0)'):
+        assert declaration in header_style
+    assert 'display:none' not in header_style and 'visibility:hidden' not in header_style
     # The header stays pinned on phones: one row with the mark and the links.
     assert 'position:static' not in phone and 'position:sticky' in re.search(r'\.top\{([^{}]*)\}', site.CSS).group(1)
-    for rule in ('.top .brand span,.top .gh{display:none}', '.board thead{display:none}',
+    for rule in ('.top .brand span,.top .gh{display:none}',
                  '.board td.gap::before,.board td.tps::before{content:attr(data-label)', '.infographic svg{min-width:0}',
                  '.diagram svg{min-width:600px'):
         assert rule in phone, rule
