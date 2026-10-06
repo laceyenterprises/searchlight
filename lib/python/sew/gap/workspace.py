@@ -487,31 +487,50 @@ def _shell_body(args):
     return None
 
 
-def _shell_substitutions(command):
+# Bound both substitution scanning and recursive shell-body interpretation.
+# Excessive nesting is uncertifiable, never an exception or a clean command.
+SHELL_PARSE_MAX_DEPTH = 64
+
+
+def _shell_substitutions(command, *, _depth=0):
     """Separate active command substitutions from literal quoted command text.
 
     Leave a dynamic argument marker in the outer command, so pip source checks
     still refuse to certify arguments produced by arbitrary shell execution.
     """
-    def scan(index, end=None):
+    def scan(index, end=None, nesting=_depth):
+        if nesting >= SHELL_PARSE_MAX_DEPTH:
+            return None, [], index
         text, bodies = [], []
         quote = None
         depth = 0
+        word_start = True
         while index < len(command):
             char = command[index]
             if quote is None and end == "`" and char == "`":
                 return "".join(text), bodies, index + 1
+            if quote is None and word_start and char == "#":
+                # Comments cannot execute substitutions or close the current
+                # substitution. Resume at the next physical newline.
+                newline = command.find("\n", index)
+                index = newline if newline >= 0 else len(command)
+                continue
             if char == "\\" and quote != "'":
                 text.append(command[index:index + 2])
+                if command[index:index + 2] != "\\\n":
+                    word_start = False
                 index += 2
                 continue
             if quote != "'" and (command.startswith("$(", index) or char == "`"):
                 closing = ")" if char == "$" else "`"
-                body, nested, index = scan(index + (2 if char == "$" else 1), closing)
+                body, nested, index = scan(
+                    index + (2 if char == "$" else 1), closing, nesting + 1
+                )
                 if body is None:
                     return None, [], index
-                bodies.extend([body, *nested])
+                bodies.extend([(body, nesting + 1), *nested])
                 text.append("$GAP_SUBSTITUTION")
+                word_start = False
                 continue
             if quote is None and end == ")" and char == "(":
                 depth += 1
@@ -525,6 +544,7 @@ def _shell_substitutions(command):
                 elif quote == char:
                     quote = None
             text.append(char)
+            word_start = quote is None and char in " \t\r\n;&|()<>"
             index += 1
         return (None if end else "".join(text)), bodies, index
 
@@ -609,10 +629,12 @@ def pip_command_is_exempt(command, env) -> bool:
 
 
 def _shell_network_segments(
-    command: str, *, inherited_offline_override=False
+    command: str, *, inherited_offline_override=False, _depth=0
 ) -> list[list[str]] | None:
     """Share quote-aware invocation parsing between detection and attribution."""
-    command, substitutions = _shell_substitutions(command)
+    if _depth >= SHELL_PARSE_MAX_DEPTH:
+        return None
+    command, substitutions = _shell_substitutions(command, _depth=_depth)
     if command is None:
         return None
     segments = _shell_segments(command)
@@ -621,8 +643,10 @@ def _shell_network_segments(
     invocations = [_shell_invocation(args) for args in segments]
     offline_override = inherited_offline_override or any(override for _, _, override in invocations)
     network_segments = []
-    for body in substitutions:
-        nested = _shell_network_segments(body, inherited_offline_override=offline_override)
+    for body, nesting in substitutions:
+        nested = _shell_network_segments(
+            body, inherited_offline_override=offline_override, _depth=nesting
+        )
         if nested is None:
             return None
         network_segments.extend(nested)
@@ -635,7 +659,9 @@ def _shell_network_segments(
             network_segments.append(args)
             continue
         if (body := _shell_body(args)) is not None:
-            nested = _shell_network_segments(body, inherited_offline_override=offline_override)
+            nested = _shell_network_segments(
+                body, inherited_offline_override=offline_override, _depth=_depth + 1
+            )
             if nested is None:
                 return None
             network_segments.extend(nested)
@@ -726,9 +752,11 @@ def call_payloads(value, *, include_id=False):
                 yield from call_payloads(value[key], include_id=include_id)
 
 
-def _network_invocation_is_last(command, *, inherited_offline_override=False):
+def _network_invocation_is_last(command, *, inherited_offline_override=False, _depth=0):
     """Reject trailing shell segments that could supply output or exit status."""
-    command, substitutions = _shell_substitutions(command)
+    if _depth >= SHELL_PARSE_MAX_DEPTH:
+        return False
+    command, substitutions = _shell_substitutions(command, _depth=_depth)
     if command is None or substitutions:
         return False  # substitution output/status can be replaced by the outer command
     segments = _shell_segments(command)
@@ -743,9 +771,13 @@ def _network_invocation_is_last(command, *, inherited_offline_override=False):
     if not args:
         return False
     if (body := _shell_body(args)) is not None:
-        return _network_invocation_is_last(body, inherited_offline_override=offline_override)
+        return _network_invocation_is_last(
+            body, inherited_offline_override=offline_override, _depth=_depth + 1
+        )
     return bool(
-        _shell_network_segments(shlex.join(args), inherited_offline_override=offline_override)
+        _shell_network_segments(
+            shlex.join(args), inherited_offline_override=offline_override, _depth=_depth
+        )
     )
 
 

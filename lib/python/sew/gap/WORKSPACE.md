@@ -313,7 +313,14 @@ recursing into `bash`/`sh`/`zsh` command bodies (including `-i -c` and `-- -c`)
 and `eval`, and recognizing simple `nohup`, `time` and `xargs` wrappers.
 Pip global flags and versioned executables use the same parsing for detection
 and default PyPI denial targets. Literal arguments to `echo`, `printf` and `rg`
-are not executable requests. Active command substitutions are detected, but
+are not executable requests. Unquoted shell comments at word boundaries are
+ignored through the next newline, including any substitutions in the comment;
+quoted or escaped `#` characters remain ordinary argument text.
+Substitution scanning and recursive shell-body parsing share a 64-level depth
+limit. Requests reaching the limit are uncertifiable and contaminate as
+`workspace:shell-network`, without denial attribution or an audit exception,
+so the runner can still publish its terminal evidence bundle.
+Active command substitutions are detected, but
 cannot receive denial attribution because the outer command can replace their
 output or exit status. A wrapped command with local
 setup or a local pipeline still has one network invocation; two network

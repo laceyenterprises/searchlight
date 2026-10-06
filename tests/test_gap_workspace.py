@@ -2453,6 +2453,77 @@ def test_pip_substitution_is_detected_but_outer_output_cannot_prove_denial(harne
     assert not denied
 
 
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("command", [
+    f"echo ok # $(pip download {PIP_PIN})",
+    f"echo ok # `pip download {PIP_PIN}`",
+    f"# $(pip download {PIP_PIN})\necho ok",
+    f"echo ok;# $(pip download {PIP_PIN})\necho still-ok",
+    f"echo ok # ' $(pip download {PIP_PIN}\necho still-ok",
+    "echo ok # " + "$(" * 2000 + "\necho still-ok",
+    f"echo $(echo ok # $(pip download {PIP_PIN})\n)",
+    "sh -c " + shlex.quote(f"echo ok # $(pip download {PIP_PIN})"),
+])
+def test_commented_substitutions_leave_audit_clean(harness, command):
+    from sew.arms import ArmContract
+
+    transcript = _pip_result(harness, command)
+    denied, neutralized = set(), set()
+    assert not gap_workspace.shell_network_attempt(command)
+    assert audit_workspace_calls(
+        transcript, cell_env=STRICT_PIP_ENV,
+        denied_attempts=denied, neutralized_attempts=neutralized,
+    ) == []
+    contract = ArmContract(
+        kind="floor", harness_id=harness, provider_id="floor", workspace_profile=True
+    )
+    audit = audit_transcript(contract, transcript, cell_env=STRICT_PIP_ENV)
+    assert not audit.contaminated
+    assert audit.denied_network_attempts == audit.config_neutralized_network_attempts == 0
+    assert not denied
+    assert not neutralized
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("command", [
+    f"echo ok # ignored\necho $(pip download {PIP_PIN})",
+    f"echo ok # $(echo literal)\necho `pip download {PIP_PIN}`",
+    f'echo "# $(pip download {PIP_PIN})"',
+    f"echo \\#$(pip download {PIP_PIN})",
+    f"echo literal#$(pip download {PIP_PIN})",
+    f"echo ''#$(pip download {PIP_PIN})",
+])
+def test_comment_scanning_preserves_active_substitutions(harness, command):
+    assert gap_workspace.shell_network_attempt(command)
+    assert audit_workspace_calls(_pip_result(harness, command)) == ["workspace:shell-network"]
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("shape", ["substitutions", "shell-bodies", "mixed"])
+@pytest.mark.parametrize("body", ["echo ok", f"pip download {PIP_PIN}"])
+def test_deep_shell_requests_contaminate_without_crashing(harness, shape, body):
+    from sew.arms import ArmContract
+
+    if shape == "substitutions":
+        command = "echo " + "$(" * 2000 + body + ")" * 2000
+    elif shape == "shell-bodies":
+        command = "eval " * 2000 + body
+    else:
+        command = "echo " + "$(" * 40 + "eval " * 40 + body + ")" * 40
+    transcript = _pip_result(harness, command, "network: Permission denied", failed=True)
+    assert gap_workspace.shell_network_attempt(command)
+    assert not gap_workspace.denied_network_commands(transcript)
+    assert not gap_workspace._network_invocation_is_last(command)
+    assert audit_workspace_calls(transcript, cell_env=STRICT_PIP_ENV) == ["workspace:shell-network"]
+    contract = ArmContract(
+        kind="floor", harness_id=harness, provider_id="floor", workspace_profile=True
+    )
+    audit = audit_transcript(contract, transcript, cell_env=STRICT_PIP_ENV)
+    assert audit.contaminated
+    assert audit.violations == ("workspace:shell-network",)
+    assert audit.denied_network_attempts == audit.config_neutralized_network_attempts == 0
+
+
 @pytest.mark.parametrize(
     "env",
     [

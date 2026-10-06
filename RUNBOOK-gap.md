@@ -321,6 +321,10 @@ Qualifying calls count in `arm_audit.config_neutralized_network_attempts`; see
 Detection and denial attribution share invocation parsing: quoted pip text in
 ordinary command arguments is harmless, while recognized wrappers can receive
 attributable denials without qualifying for configuration neutralization.
+Substitutions inside unquoted shell comments are ignored until the next
+newline. Substitution and shell-body parsing share a 64-level nesting limit;
+requests reaching it record `workspace:shell-network` contamination without
+denial attribution, and the audit returns normally for result publication.
 Cell setup strips all supplied `PIP_*` settings and supplies only the driver's
 `PIP_NO_INDEX`, `PIP_FIND_LINKS`, `PIP_CONFIG_FILE`,
 `PIP_DISABLE_PIP_VERSION_CHECK` and `PIP_REQUIRE_VIRTUALENV`. The exemption
