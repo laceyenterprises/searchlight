@@ -162,6 +162,36 @@ def test_landing_page_is_plain_language_and_complete():
     assert 'href="results.html"' in html and 'href="methodology.html"' in html
 
 
+def test_results_use_plain_language_in_leaderboards_and_full_reports():
+    rendered = site.build()['results.html']
+    text = re.sub(r'<style[^>]*>.*?</style>', ' ', rendered, flags=re.S)
+    text = re.sub(r'<[^>]+>', ' ', text)
+    assert not re.search(r'\b(?:arms?|cells?|harness(?:es)?)\b', text, re.I)
+    assert '21 runs per setup' in text and '42 runs per setup' in text
+    assert 'internal terms' not in text
+    assert 'tokens/run' in text
+
+
+def test_results_language_preserves_links_anchors_and_identifiers():
+    markup = ('<h3 id="21-cells-per-arm">21 cells per arm</h3>'
+              '<a href="#21-cells-per-arm">Arms</a>'
+              '<a href="config/provider-arm-tools.yaml">Harnesses</a>'
+              '<code>tokens/cell</code> cross-harness cells cells_with_refused_calls')
+    assert site.results_language(markup) == (
+        '<h3 id="21-cells-per-arm">21 runs per setup</h3>'
+        '<a href="#21-cells-per-arm">Setups</a>'
+        '<a href="config/provider-arm-tools.yaml">Agents</a>'
+        '<code>tokens/run</code> cross-agent runs cells_with_refused_calls')
+
+
+def test_site_chart_css_variables_are_defined():
+    for name in ('index.html', 'results.html', 'methodology.html'):
+        rendered = site.build()[name]
+        defined = set(re.findall(r'(--[\w-]+)\s*:', rendered))
+        referenced = set(re.findall(r'var\((--[\w-]+)\)', rendered))
+        assert referenced <= defined, (name, referenced - defined)
+
+
 def test_markdown_renderer_handles_lists_quotes_and_anchors():
     rendered = site.markdown('# Title\n\n> **Note** with [link](#a-b)\n\n- one\n  - two\n- three\n\nText `code`.', 'r')
     assert '<h2 id="r-title">' in rendered

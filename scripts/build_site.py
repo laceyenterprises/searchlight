@@ -815,6 +815,7 @@ LOGO = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" 
 CSS = """
 :root{--ink:#111111;--ink2:#4F5761;--muted:#6B7480;--paper:#FFFFFF;--soft:#F4F6F9;--rule:#E3E7EC;
 --accent:#007BFF;--accent-soft:#EAF3FF;--charcoal:#404040;--radius:22px;--wrap:1120px;
+--beam:var(--accent);--beam-soft:var(--accent-soft);--hatch:#C5CCD3;--ref:#8A949E;
 --sans:'Inter',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
 color-scheme:light}
 *{box-sizing:border-box}
@@ -1093,6 +1094,24 @@ Codex.</p>
                      'index.html', main)
 
 
+def results_language(markup: str) -> str:
+    """Use executive-facing terms in text, preserving report anchors and URLs.
+
+    Input is generated HTML without scripts or styles. Published source reports
+    and machine-readable leaderboard fields retain their original terminology.
+    """
+    terms = {'arm': 'setup', 'arms': 'setups', 'cell': 'run', 'cells': 'runs',
+             'harness': 'agent', 'harnesses': 'agents'}
+
+    def replace(match):
+        word = match.group()
+        replacement = terms[word.lower()]
+        return replacement.capitalize() if word[0].isupper() else replacement
+
+    return ''.join(part if i % 2 else re.sub(r'\b(?:arms?|cells?|harness(?:es)?)\b', replace, part, flags=re.I)
+                   for i, part in enumerate(re.split(r'(<[^>]*>)', markup)))
+
+
 def results_page(reports: dict, boards: list[dict], analysis: dict, body_only: bool = False) -> str:
     runs = []
     for name in REPORTS:
@@ -1139,12 +1158,12 @@ sources without seeing which provider produced them.</li>
 </section>
 
 <section id="runs"><h2>Full reports</h2>
-<p>The recorded reports, transcribed and checked by <code>scripts/check_reports.py</code>. They use the benchmark's internal
-terms: an <em>arm</em> is one search setup, a <em>cell</em> is one test run and a <em>harness</em> is the agent program
-(see the <a href="methodology.html#terms">glossary</a>).</p>
+<p>The recorded reports, transcribed and checked by <code>scripts/check_reports.py</code>, with plain-language labels
+for search setups, test runs and agents.</p>
 {''.join(runs)}
 </section>
 </div>"""
+    main = results_language(main)
     if body_only:
         return main
     return _document('Searchlight Results', 'Searchlight results: pass rates, leaderboards and full reports.',

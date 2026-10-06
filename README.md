@@ -356,6 +356,10 @@ SEW_MODE=standalone python3 -m pytest -q
 
 ### How the leaderboard stays current
 
+The results page displays search setups, test runs and agents in place of internal
+benchmark terms. Source reports, machine-readable fields and link anchors retain
+their original names.
+
 The builder accepts integer or decimal percentage intervals with hyphens or en dashes.
 Zero-count groups display 0% with their counts; short table rows receive empty cells,
 and code blocks missing a closing fence retain their content. Relative links are bounded
