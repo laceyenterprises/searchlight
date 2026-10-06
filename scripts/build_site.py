@@ -546,9 +546,10 @@ def infographic(boards: list[dict], analysis: dict) -> str:
     # ---- header
     body.append(f'<rect x="0" y="0" width="{W}" height="150" fill="{P["ink"]}"/>')
     body.append(f'<path d="M {W} 0 L {W} 150 L {W - 420} 150 Z" fill="{P["beam"]}" opacity="0.22"/>')
-    body.append(f'<g transform="translate({M} 30) scale(1.25)">'
-                '<path d="M10.5 21.5 L18 2 A21 21 0 0 1 30 14 Z" fill="#007BFF"/>'
-                '<circle cx="10" cy="22" r="7" fill="#FFFFFF"/><circle cx="12.2" cy="19.8" r="2.1" fill="#111111"/></g>')
+    body.append(f'<g transform="translate({M} 28) scale(0.42)">'
+                '<circle cx="31" cy="67" r="22" fill="#FFFFFF"/>'
+                '<path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/>'
+                '<circle cx="34" cy="69.5" r="6.4" fill="#111111"/></g>')
     body.append(_text(M + 52, 62, 'SEARCHLIGHT', 24, P['paper'], FONT, '500', spacing=5))
     body.append(_text(M, 100, 'Does web search help coding agents do real work?', 22, P['paper']))
     providers = len({r['arm'] for b in boards for r in b['rows']} - {'native', 'no-search'})
@@ -808,9 +809,10 @@ def configs_html(configs: list[dict]) -> str:
 
 SITE_URL = 'https://searchlightai.dev'
 LACEY_URL = 'https://www.laceyenterprises.com'
-LOGO = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" '
-        'aria-label="Searchlight"><path d="M10.5 21.5 L18 2 A21 21 0 0 1 30 14 Z" fill="#007BFF"/>'
-        '<circle cx="10" cy="22" r="7" fill="#111111"/><circle cx="12.2" cy="19.8" r="2.1" fill="#FFFFFF"/></svg>')
+LOGO = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" role="img" '
+        'aria-label="Searchlight"><circle cx="31" cy="67" r="22" fill="#111111"/>'
+        '<path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/>'
+        '<circle cx="34" cy="69.5" r="6.4" fill="#FFFFFF"/></svg>')
 
 CSS = """
 :root{--ink:#111111;--ink2:#4F5761;--muted:#6B7480;--paper:#FFFFFF;--soft:#F4F6F9;--rule:#E3E7EC;
