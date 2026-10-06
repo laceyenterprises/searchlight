@@ -22,7 +22,8 @@ SERVER = Path(__file__).parent / "fixtures/slow_mcp_server.py"
 # A harness that discovers tools, makes no calls, and delivers an answer even
 # when discovery times out. This is the incident's critical grading trigger.
 DISCOVERY_HARNESS = r"""
-import json, os, selectors, subprocess, sys, tomllib
+import json, os, selectors, sys, tomllib
+import subprocess
 argv = sys.argv[1:]
 sys.stdin.read()
 if "--mcp-config" in argv:
@@ -46,7 +47,8 @@ finally:
         p.wait(timeout=5)
     except subprocess.TimeoutExpired:
         # A slow wrapper teardown must not crash the harness before it answers.
-        p.kill(); p.wait()
+        p.kill()
+        p.wait()
 answer = json.dumps({"answer": "Offline answer", "citation_urls": []})
 events = ([{"type":"system", "subtype":"init", "model":"fixture"},
            {"type":"result", "subtype":"success", "is_error":False, "result":answer,
