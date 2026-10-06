@@ -1,0 +1,47 @@
+{
+ "method": "Derived from the raw S5 outputs (review F8): per provider and list, entities returned (raw) and how many carried a homepage URL. Counts only; no provider text.",
+ "lists": {
+  "S5a": {
+   "exa": {
+    "returned_raw": 6,
+    "with_url": 6
+   },
+   "parallel": {
+    "returned_raw": 2,
+    "with_url": 2
+   },
+   "firecrawl": {
+    "returned_raw": 3,
+    "with_url": 3
+   }
+  },
+  "S5b": {
+   "exa": {
+    "returned_raw": 13,
+    "with_url": 13
+   },
+   "parallel": {
+    "returned_raw": 17,
+    "with_url": 17
+   },
+   "firecrawl": {
+    "returned_raw": 5,
+    "with_url": 5
+   }
+  },
+  "S5c": {
+   "exa": {
+    "returned_raw": 17,
+    "with_url": 10
+   },
+   "parallel": {
+    "returned_raw": 7,
+    "with_url": 7
+   },
+   "firecrawl": {
+    "returned_raw": 15,
+    "with_url": 15
+   }
+  }
+ }
+}

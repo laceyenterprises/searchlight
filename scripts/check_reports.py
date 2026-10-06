@@ -7,7 +7,8 @@ import os
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORTS = ('2026-09-29-web-search-bakeoff', '2026-10-03-search-gap-bench', '2026-10-05-agent-search-behavior')
+REPORTS = ('2026-09-29-web-search-bakeoff', '2026-10-03-search-gap-bench', '2026-10-05-agent-search-behavior',
+           '2026-09-26-search-api-head-to-head')
 # Private infrastructure and credentials are never valid report content.
 # File URIs need an explicit branch: the path boundary below permits web URLs.
 FORBIDDEN = re.compile(

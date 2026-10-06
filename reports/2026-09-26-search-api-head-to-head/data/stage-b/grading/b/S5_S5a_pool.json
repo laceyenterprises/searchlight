@@ -1,0 +1,253 @@
+{
+ "list": {
+  "id": "S5a",
+  "objective": "Find systems integrators, IT-services firms, and consultancies that have an agentic-AI practice and have published a web-search integration for AI agents.",
+  "criteria": [
+   {
+    "name": "services_firm",
+    "description": "The company is a systems integrator, IT-services firm, or consultancy that sells implementation or consulting services to enterprises. It is not a software product company."
+   },
+   {
+    "name": "agentic_ai_practice",
+    "description": "The company's own website describes a named practice, offering, platform, or accelerator for agentic AI or AI agents."
+   },
+   {
+    "name": "published_web_search_integration",
+    "description": "The company has published, on its own site, GitHub, blog, or a partner page, a solution, blueprint, reference architecture, open-source repository, or case study in which an AI agent calls a named web search API or tool (for example Exa, Tavily, Brave, Bing, Google, Perplexity, SerpApi, Parallel, or Firecrawl)."
+   }
+  ],
+  "fields": {
+   "name": "Company name",
+   "url": "Official homepage URL",
+   "practice": "Name of the agentic-AI practice, offering, or accelerator",
+   "web_search_providers": "The web search API(s) or tool(s) named in the published integration",
+   "evidence_url": "URL of the published integration"
+  }
+ },
+ "entities": [
+  {
+   "eid": "S5a-e1",
+   "key": "chaosgears.com",
+   "names": [
+    "Chaos Gears"
+   ],
+   "urls": [
+    "https://chaosgears.com/"
+   ],
+   "evidence_urls": [
+    "https://chaosgears.com/blog/amazon-bedrock-agents-tavily-search-guide"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e2",
+   "key": "epcgroup.net",
+   "names": [
+    "EPC Group"
+   ],
+   "urls": [
+    "https://www.epcgroup.net/"
+   ],
+   "evidence_urls": [
+    "https://www.epcgroup.net/perplexity-ai-consulting"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e3",
+   "key": "cloudjournee.com",
+   "names": [
+    "CloudJournee"
+   ],
+   "urls": [
+    "https://www.cloudjournee.com/"
+   ],
+   "evidence_urls": [
+    "https://www.cloudjournee.com/case-studies/from-days-of-research-to-a-finished-e-book-in-15-minutes/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e4",
+   "key": "linkedin.com/[redacted-8a8de823d5ed]",
+   "names": [
+    "SuperteamAI"
+   ],
+   "urls": [
+    "https://www.linkedin.com/[redacted-6ab346ea7bad]"
+   ],
+   "evidence_urls": [
+    "https://superteamai.com/blog/free-ai-agents/seo-research-and-content-ai-agent-with-perplexity/",
+    "https://superteamai.com/",
+    "https://superteamai.com/blog/free-ai-agents/seo-research-and-content-ai-agent-with-perplexity",
+    "https://superteamai.com/about",
+    "https://superteamai.com/real-estate-ai-india/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "agentic_ai_practice",
+    "evidence_url",
+    "practice",
+    "published_web_search_integration",
+    "services_firm",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e5",
+   "key": "davydovconsulting.com",
+   "names": [
+    "Davydov Consulting"
+   ],
+   "urls": [
+    "https://www.davydovconsulting.com/"
+   ],
+   "evidence_urls": [
+    "https://www.davydovconsulting.com/ai-perplexity"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e6",
+   "key": "coherentsolutions.com",
+   "names": [
+    "Coherent Solutions"
+   ],
+   "urls": [
+    "https://www.coherentsolutions.com"
+   ],
+   "evidence_urls": [
+    "https://www.coherentsolutions.com/artificial-intelligence/agentic-ai"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e7",
+   "key": "oaktreecloud.com",
+   "names": [
+    "Oak Tree Software"
+   ],
+   "urls": [
+    "https://www.oaktreecloud.com/"
+   ],
+   "evidence_urls": [
+    "https://www.oaktreecloud.com/perplexity-integration-experts/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e8",
+   "key": "ibm.com",
+   "names": [
+    "International Business Machines Corporation"
+   ],
+   "urls": [
+    "https://www.ibm.com/about"
+   ],
+   "evidence_urls": [
+    "https://docs.tavily.com/documentation/partnerships/ibm",
+    "https://www.ibm.com/consulting/ai-integration",
+    "https://docs.tavily.com/documentation/partnerships/ibm.md",
+    "http://ibm.com/downloads/documents/us-en/15db52348fc203a4",
+    "http://sec.gov/Archives/edgar/data/51143/000005114326000010/ibm-20251231.htm",
+    "https://www.ibm.com/consulting"
+   ],
+   "matches_exclusion": "IBM Consulting",
+   "claimed_fields": [
+    "agentic_ai_practice",
+    "evidence_url",
+    "practice",
+    "published_web_search_integration",
+    "services_firm",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e9",
+   "key": "techsyspro.com",
+   "names": [
+    "Techsyspro"
+   ],
+   "urls": [
+    "https://techsyspro.com"
+   ],
+   "evidence_urls": [
+    "https://techsyspro.com/services/ai-agent-development"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e10",
+   "key": "bacancytechnology.com",
+   "names": [
+    "Bacancy Technology"
+   ],
+   "urls": [
+    "https://www.bacancytechnology.com"
+   ],
+   "evidence_urls": [
+    "https://www.bacancytechnology.com/hire-langchain-developer"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  },
+  {
+   "eid": "S5a-e11",
+   "key": "advetfly.com",
+   "names": [
+    "Advetfly Solutions LLP"
+   ],
+   "urls": [
+    "https://www.advetfly.com/"
+   ],
+   "evidence_urls": [
+    "https://www.advetfly.com/experties"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "practice",
+    "web_search_providers"
+   ]
+  }
+ ]
+}

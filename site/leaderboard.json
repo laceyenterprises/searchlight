@@ -2,7 +2,8 @@
   "generated_from": [
     "reports/2026-09-29-web-search-bakeoff/summary.json",
     "reports/2026-10-03-search-gap-bench/summary.json",
-    "reports/2026-10-05-agent-search-behavior/summary.json"
+    "reports/2026-10-05-agent-search-behavior/summary.json",
+    "reports/2026-09-26-search-api-head-to-head/summary.json"
   ],
   "note": "Pass rates and intervals as published; WSB intervals are Wilson 95% computed from published counts. Overlapping intervals are not rankings.",
   "boards": [
@@ -406,5 +407,96 @@
       "source": "2026-09-29-web-search-bakeoff",
       "top_lower_bound": 78
     }
-  ]
+  ],
+  "search_api_head_to_head": {
+    "title": "Search API head-to-head",
+    "source": "2026-09-26-search-api-head-to-head",
+    "providers": [
+      "Exa",
+      "Tavily",
+      "Parallel",
+      "Firecrawl"
+    ],
+    "measures": [
+      {
+        "id": "s1",
+        "label": "New or correcting claims, 40 open questions",
+        "of": null,
+        "values": {
+          "Exa": 25,
+          "Tavily": 11,
+          "Parallel": 19,
+          "Firecrawl": 10
+        },
+        "source_row": "S1 new or correcting claims, strict (known unknowns, 40 questions)"
+      },
+      {
+        "id": "s4",
+        "label": "New dated facts, two weeks of company news",
+        "of": null,
+        "values": {
+          "Exa": 20,
+          "Tavily": 12,
+          "Parallel": 3,
+          "Firecrawl": 2
+        },
+        "source_row": "S4 new dated facts, strict (10 companies, two weeks)"
+      },
+      {
+        "id": "s3",
+        "label": "Pages other tools could not read, recovered",
+        "of": 15,
+        "values": {
+          "Exa": 5,
+          "Tavily": 10,
+          "Parallel": 12,
+          "Firecrawl": 14
+        },
+        "source_row": "S3 pages recovered that native tools couldn't read (of 15)"
+      },
+      {
+        "id": "s6",
+        "label": "Schema values right on ground truth",
+        "of": 133,
+        "values": {
+          "Exa": 105,
+          "Parallel": 113,
+          "Firecrawl": 94
+        },
+        "source_row": "S6 right on KB ground truth, strict (of 133 cells)"
+      },
+      {
+        "id": "s5",
+        "label": "Entities new to the knowledge base, three lists",
+        "of": null,
+        "values": {
+          "Exa": 28,
+          "Parallel": 7,
+          "Firecrawl": 19
+        },
+        "source_row": "S5 entities verified and new to the KB (3 lists, fact-level rule)"
+      },
+      {
+        "id": "sv",
+        "label": "New tier-1 claims on four big vendors (no lead significant)",
+        "of": null,
+        "values": {
+          "Exa": 16,
+          "Tavily": 13,
+          "Parallel": 14,
+          "Firecrawl": 9
+        },
+        "source_row": "New tier-1 claims (either arm)"
+      }
+    ],
+    "monitors": {
+      "monitors": 5,
+      "runs": 49,
+      "runs_with_changes": 14,
+      "changes": 20,
+      "confirmed": 14,
+      "monitors_passing": 3
+    },
+    "note": "Counts of verified items from one run per question, transcribed from the report. No intervals were published; differences of a few items are within noise."
+  }
 }

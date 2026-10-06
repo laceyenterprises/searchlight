@@ -1,0 +1,64 @@
+{
+  "set": "SM",
+  "description": "Exa-only probe: five Monitors on direct competitors' pricing and changelog pages, run daily for two weeks (2026-09-26 to 2026-10-10). Question: does a monitor surface real pricing or product changes within the KB's 30-day staleness window for competitive leaves? Results are polled through the API. The webhook subscribes only to monitor.deleted and points at a non-existent path on Exa's own site (owner's choice of a placeholder, 2026-09-26; Exa rejected example.com), so no results are delivered anywhere.",
+  "trigger": {
+    "type": "interval",
+    "period": "1d"
+  },
+  "num_results": 10,
+  "webhook": {
+    "url": "https://exa.ai/provider-eval-webhook-placeholder",
+    "events": [
+      "monitor.deleted"
+    ]
+  },
+  "delete_after": "2026-10-10",
+  "monitors": [
+    {
+      "id": "m01",
+      "name": "provider-eval SM m01 Tavily",
+      "query": "Tavily API pricing, credits, plans, or changelog update",
+      "include_domains": [
+        "tavily.com",
+        "docs.tavily.com"
+      ]
+    },
+    {
+      "id": "m02",
+      "name": "provider-eval SM m02 Parallel",
+      "query": "Parallel Web Systems API pricing, processors, or changelog update",
+      "include_domains": [
+        "parallel.ai",
+        "docs.parallel.ai"
+      ]
+    },
+    {
+      "id": "m03",
+      "name": "provider-eval SM m03 Firecrawl",
+      "query": "Firecrawl pricing, credits, plans, or changelog update",
+      "include_domains": [
+        "firecrawl.dev",
+        "docs.firecrawl.dev"
+      ]
+    },
+    {
+      "id": "m04",
+      "name": "provider-eval SM m04 Perplexity API",
+      "query": "Perplexity API pricing, Search API, or API changelog update",
+      "include_domains": [
+        "docs.perplexity.ai",
+        "perplexity.ai"
+      ]
+    },
+    {
+      "id": "m05",
+      "name": "provider-eval SM m05 Brave Search API",
+      "query": "Brave Search API pricing, plans, or changelog update",
+      "include_domains": [
+        "brave.com",
+        "api-dashboard.search.brave.com"
+      ]
+    }
+  ],
+  "grading": "At the end, each result is judged: a real, dated pricing or product change on the competitor's own page (yes/no), and whether the KB leaf already has it. Metric: real changes surfaced per monitor, and how many landed inside the 30-day staleness window."
+}

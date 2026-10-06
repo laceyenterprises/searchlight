@@ -126,7 +126,7 @@ def test_infographic_names_every_arm_and_no_private_paths():
 def test_page_has_apparatus_diagrams_and_resolved_links():
     files = site.build()
     methodology, results = files['methodology.html'], files['results.html']
-    assert methodology.count('<pre class="mermaid">') == 4
+    assert methodology.count('<pre class="mermaid">') == 5
     assert (f'<script src="{site.MERMAID_URL}" '
             'integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" '
             'crossorigin="anonymous"></script>') in methodology
@@ -165,6 +165,8 @@ def test_landing_page_is_plain_language_and_complete():
 def test_results_use_plain_language_in_leaderboards_and_full_reports():
     rendered = site.build()['results.html']
     text = re.sub(r'<style[^>]*>.*?</style>', ' ', rendered, flags=re.S)
+    # The head-to-head's full report keeps its own words (a table cell, a search or research arm, its scripts).
+    text = re.sub(rf'<section id="run-{site.H2H}">.*?</section>', ' ', text, flags=re.S)
     text = re.sub(r'<[^>]+>', ' ', text)
     assert not re.search(r'\b(?:arms?|cells?|harness(?:es)?)\b', text, re.I)
     assert '21 runs per setup' in text and '42 runs per setup' in text
@@ -243,6 +245,57 @@ def test_boards_describe_interval_overlap_and_benchmark_token_coverage():
     assert 'divided by measured successes' in wsb['token_accounting']
     assert 'per-arm coverage counts were not retained' in wsb['token_accounting']
     assert 'Tokens per success is complete' not in site.build()['results.html']
+
+
+@pytest.mark.parametrize('cell, expected', [
+    ('25', (25, None)), ('**16**', (16, None)), ('105/133 (78.9%)', (105, 133)), (' 7/149 (4.7%) ', (7, 149)),
+])
+def test_tallies_accept_report_cells(cell, expected):
+    assert site.parse_tally(cell) == expected
+
+
+@pytest.mark.parametrize('cell', ['$0.50', '28/36 extra', ''])
+def test_tallies_reject_other_cells(cell):
+    with pytest.raises(ValueError, match='expected'):
+        site.parse_tally(cell)
+
+
+def test_head_to_head_transcribes_report_tables():
+    reports = site.load_reports()
+    h2h = site.head_to_head(reports)
+    measures = {m['id']: m for m in h2h['measures']}
+    assert h2h['providers'] == ['Exa', 'Tavily', 'Parallel', 'Firecrawl']
+    assert measures['s1']['values'] == {'Exa': 25, 'Tavily': 11, 'Parallel': 19, 'Firecrawl': 10}
+    assert measures['s3']['of'] == 15 and measures['s6']['of'] == 133
+    assert 'Tavily' not in measures['s6']['values'] and 'Tavily' not in measures['s5']['values']
+    assert measures['sv']['values'] == {'Exa': 16, 'Tavily': 13, 'Parallel': 14, 'Firecrawl': 9}
+    probe = h2h['monitors']
+    assert (probe['monitors'], probe['runs'], probe['changes']) == (5, 49, 20)
+    # Every measure is a row of a transcribed table, so REPORT.md shows the same cells.
+    report = (site.ROOT / 'reports' / site.H2H / 'REPORT.md').read_text(encoding='utf-8')
+    assert all(m['source_row'] in report for m in h2h['measures'])
+
+
+def test_head_to_head_report_keeps_its_own_terms():
+    results = site.build()['results.html']
+    section = re.search(rf'<section id="run-{site.H2H}">.*?</section>', results, re.S).group()
+    assert 'ground-truth cells' in section and 'a research arm' in section
+    assert '>code/harness.py</a>' in section and 'code/agent.py' not in results
+    assert 'Schema values right on ground truth' in results and 'Schema runs' not in results
+
+
+def test_head_to_head_appears_on_every_surface():
+    files = site.build()
+    results, methodology, landing = files['results.html'], files['methodology.html'], files['index.html']
+    assert 'id="head-to-head"' in results and f'href="#run-{site.H2H}"' in results
+    assert 'id="direct-api"' in methodology and f'results.html#method-{site.H2H}' in methodology
+    assert 'Search API head-to-head' in landing
+    assert 'FINDING 5' in files['infographic.svg'] and 'not run' in files['infographic.svg']
+    data = json.loads(files['leaderboard.json'])
+    assert data['search_api_head_to_head']['source'] == site.H2H
+    assert f'reports/{site.H2H}/summary.json' in data['generated_from']
+    # The agent-benchmark caveat no longer claims direct APIs were never tested.
+    assert 'Direct APIs, other search modes and other tools were not tested' not in results + files['infographic.svg']
 
 
 def test_blockquote_preserves_paragraph_breaks():

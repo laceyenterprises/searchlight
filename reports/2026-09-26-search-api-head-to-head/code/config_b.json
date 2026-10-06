@@ -1,0 +1,50 @@
+{
+  "stage": "B",
+  "total_cap_usd": 40.0,
+  "caps_b": {
+    "exa": {
+      "usd": 17.5
+    },
+    "parallel": {
+      "usd": 18.0
+    },
+    "firecrawl": {
+      "credits": 2500
+    }
+  },
+  "credit_usd": {
+    "tavily": 0.008,
+    "firecrawl": 0.005
+  },
+  "max_items": 20,
+  "exa": {
+    "list_effort": "auto",
+    "list_max_cost_usd": 5.0,
+    "row_effort": "medium",
+    "row_price_usd": 0.1,
+    "similar_num_results": 10
+  },
+  "parallel": {
+    "findall_generator": "core",
+    "findall_fixed_usd": 2.0,
+    "findall_per_match_usd": 0.15,
+    "enrich_processor": "base",
+    "enrich_per_match_usd": 0.01,
+    "task_processor": "pro",
+    "task_price_usd": 0.1
+  },
+  "firecrawl": {
+    "s5_max_credits": 2500,
+    "s6_max_credits": 1000,
+    "rows_per_run": 5,
+    "free_runs_per_day": 5,
+    "note": "Owner (2026-09-26): Firecrawl usage past the free plan spills over to a paid plan. Paid credits are valued at $0.005 for the total guard."
+  },
+  "poll_seconds": {
+    "exa": 12,
+    "parallel": 15,
+    "firecrawl": 35
+  },
+  "timeout_minutes": 60,
+  "guard_wait_minutes": 45
+}

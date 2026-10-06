@@ -1,0 +1,172 @@
+{
+ "set": "SM",
+ "id": "m05",
+ "provider": "exa",
+ "name": "provider-eval SM m05 Brave Search API",
+ "status_at_harvest": "active",
+ "search": {
+  "query": "Brave Search API pricing, plans, or changelog update",
+  "numResults": 10,
+  "includeDomains": [
+   "brave.com",
+   "api-dashboard.search.brave.com"
+  ]
+ },
+ "trigger": {
+  "type": "interval",
+  "period": "1d"
+ },
+ "output_schema": null,
+ "created": "2026-09-27T00:16:14.700Z",
+ "runs": [
+  {
+   "run": 1,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-27T05:31:56.919Z",
+   "startedAt": "2026-09-27T05:31:56.919Z",
+   "completedAt": "2026-09-27T05:31:57.829Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1072,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 2,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-28T05:48:26.670Z",
+   "startedAt": "2026-09-28T05:48:26.670Z",
+   "completedAt": "2026-09-28T05:48:27.870Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1472,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 3,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-29T05:41:15.862Z",
+   "startedAt": "2026-09-29T05:41:15.862Z",
+   "completedAt": "2026-09-29T05:41:18.121Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2421,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 4,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-30T05:45:54.207Z",
+   "startedAt": "2026-09-30T05:45:54.207Z",
+   "completedAt": "2026-09-30T05:45:57.510Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3370,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 5,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-01T05:35:20.146Z",
+   "startedAt": "2026-10-01T05:35:20.146Z",
+   "completedAt": "2026-10-01T05:35:24.645Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 4579,
+   "note_chars": 355,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://api-dashboard.search.brave.com/documentation/pricing",
+     "domain": "api-dashboard.search.brave.com",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://api-dashboard.search.brave.com/documentation/pricing:118b9b1c49d4bbb549b82632c2eab8ff14599283532bd1152e35efaa39df2f34",
+     "title_chars": 40,
+     "summary_chars": 117
+    },
+    {
+     "rank": 2,
+     "url": "https://api-dashboard.search.brave.com/app/plans?tab=normal",
+     "domain": "api-dashboard.search.brave.com",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://api-dashboard.search.brave.com/app/plans?tab=normal:625d9f505c7eaa2cf814ce6fb4f9bf3015436687888c40ccc14f6a32f47b4992",
+     "title_chars": 40,
+     "summary_chars": 125
+    }
+   ]
+  },
+  {
+   "run": 6,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-02T05:29:05.967Z",
+   "startedAt": "2026-10-02T05:29:05.967Z",
+   "completedAt": "2026-10-02T05:29:07.631Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1841,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 7,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-03T05:52:11.635Z",
+   "startedAt": "2026-10-03T05:52:11.635Z",
+   "completedAt": "2026-10-03T05:52:14.893Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3424,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 8,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-04T05:37:47.908Z",
+   "startedAt": "2026-10-04T05:37:47.908Z",
+   "completedAt": "2026-10-04T05:37:49.227Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1500,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 9,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-05T05:29:30.606Z",
+   "startedAt": "2026-10-05T05:29:30.606Z",
+   "completedAt": "2026-10-05T05:29:31.992Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1555,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 10,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-06T05:46:35.062Z",
+   "startedAt": "2026-10-06T05:46:35.062Z",
+   "completedAt": "2026-10-06T05:46:36.248Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1334,
+   "note_chars": 43,
+   "results": []
+  }
+ ]
+}

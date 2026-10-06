@@ -1,0 +1,1141 @@
+{
+ "set": "S6",
+ "cells": [
+  {
+   "cell": "c01.web_search_source",
+   "values": [
+    {
+     "vid": "c01.web_search_source.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.tavily.com/documentation/search-crawler",
+     "note": "The crawler page supports Tavily having its own crawler and index. But the value leaves out the fallback: the privacy policy (updated 2025-11-24) says Tavily may send queries to third-party search index providers, with Google as the example, when its own index can't retrieve the content. So the KB's 'mix' stands."
+    },
+    {
+     "vid": "c01.web_search_source.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.tavily.com/documentation/search-crawler",
+     "note": "Same gap as v1. It's true that the crawler page names no upstream provider, but the privacy policy names Google as a limited fallback, so 'own index' alone is incomplete."
+    }
+   ]
+  },
+  {
+   "cell": "c01.soc2",
+   "values": [
+    {
+     "vid": "c01.soc2.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.tavily.com/",
+     "note": "Verified on the rendered trust center: SOC 2 Type II, with a resource titled 'Tavily - SOC2 Type II - 2026'. The KB's 'no report date stated' is stale, because the trust center dates the 2026 report (update posted 2026-06-17)."
+    },
+    {
+     "vid": "c01.soc2.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.tavily.com/",
+     "note": "Verified: a trust-center update titled \"2026 SOC 2 Type II Report Now Available\" was published June 17, 2026. The KB says no report date is stated; it should record the 2026 report, posted 2026-06-17."
+    },
+    {
+     "vid": "c01.soc2.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB (Type II, no date on the financial-services page). Citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c01.zero_data_retention",
+   "values": [
+    {
+     "vid": "c01.zero_data_retention.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.tavily.com/faq/faq",
+     "note": "The FAQ lists zero data retention next to SOC 2 and ties it to no plan. Matches the KB (yes; plan not stated)."
+    },
+    {
+     "vid": "c01.zero_data_retention.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.tavily.com/solutions/financial-services",
+     "note": "The page does list ZDR among \"Enterprise security features\", but no Tavily page states a plan restriction, and the FAQ states ZDR generally. 'Enterprise' as the plan is an inference; the KB says the plan isn't stated."
+    },
+    {
+     "vid": "c01.zero_data_retention.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://aws.amazon.com/marketplace/pp/prodview-myijjwd7qoky4",
+     "note": "Accurate: the AWS listing, titled Tavily Enterprise, advertises SOC 2 with zero data retention. But the listing doesn't establish ZDR as Enterprise-only, so the plan attribution is imprecise; the KB says the plan isn't stated."
+    }
+   ]
+  },
+  {
+   "cell": "c01.hipaa_baa",
+   "values": [
+    {
+     "vid": "c01.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://trust.tavily.com/",
+     "note": "The trust center lists only ISO 27001:2022 and SOC 2 Type II, and its FAQ tab covers only SOC 2. No HIPAA or BAA, which matches the KB's absence."
+    },
+    {
+     "vid": "c01.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c01.hipaa_baa.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c01.official_mcp_server",
+   "values": [
+    {
+     "vid": "c01.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.tavily.com/documentation/mcp",
+     "note": "The docs link github.com/tavily-ai/tavily-mcp and give the remote server at mcp.tavily.com/mcp."
+    },
+    {
+     "vid": "c01.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c01.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c01.free_tier",
+   "values": [
+    {
+     "vid": "c01.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.tavily.com/pricing",
+     "note": "Pricing shows the Researcher plan free at 1,000 API credits a month, no credit card."
+    },
+    {
+     "vid": "c01.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c01.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c01.list_price",
+   "values": [
+    {
+     "vid": "c01.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.tavily.com/documentation/api-credits",
+     "note": "Pay-as-you-go is $0.008 a credit and a basic search costs 1 credit, so $8 per 1,000. It leaves out advanced ($16 per 1,000) but correctly gives the default tier."
+    },
+    {
+     "vid": "c01.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c01.list_price.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.tavily.com/documentation/api-credits",
+     "note": "The unit price is right, but the value doesn't convert it to USD per 1,000 requests or name the search depth ($8 per 1,000 basic, $16 per 1,000 advanced), as the definition asks."
+    }
+   ]
+  },
+  {
+   "cell": "c01.last_funding",
+   "values": [
+    {
+     "vid": "c01.last_funding.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://www.tavily.com/blog/big-news-from-tavily-announcing-25m-series-a-to-power-the-internet-of-agents",
+     "note": "Stale: Nebius acquired Tavily (announced 2026-02-10, closed 2026-02-19). The cited blog (Aug 6, 2025) calls the whole $25M a Series A led by Insight and Alpha Wave; the $20M Series A split isn't on that page."
+    },
+    {
+     "vid": "c01.last_funding.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://nebius.com/newsroom/nebius-announces-agreement-to-acquire-tavily-to-add-agentic-search-to-its-ai-cloud-platform",
+     "note": "The release (Feb 10, 2026) does say \"The transaction value has not been disclosed\". But the deal closed 2026-02-19, and Nebius's filings now disclose about $189M in fair-value consideration, so the value is incomplete."
+    },
+    {
+     "vid": "c01.last_funding.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm",
+     "note": "Verified in Nebius's interim statements for the period ended 2026-06-30: acquired Feb 19, 2026; total fair value $189.4M ($177.0M cash, $10.0M vested holdback, $2.4M equity) after a $0.3M Q2 measurement-period reduction. The KB's $189.7M and $177.2M are the superseded Q1 figures. The value leaves out the up-to-$67.3M earnout."
+    }
+   ]
+  },
+  {
+   "cell": "c02.web_search_source",
+   "values": [
+    {
+     "vid": "c02.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/",
+     "note": "The homepage says every query is served by Parallel's own web index over hundreds of billions of pages, and that users can \"force a live crawl\"."
+    },
+    {
+     "vid": "c02.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c02.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c02.soc2",
+   "values": [
+    {
+     "vid": "c02.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.parallel.ai/resources/faqs",
+     "note": "FAQ: \"SOC-II Type 1 and Type II certified as of April 2025\". Matches the KB's FAQ wording."
+    },
+    {
+     "vid": "c02.soc2.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/",
+     "note": "The homepage does show SOC 2 Type 2 without a date, but dates are public elsewhere: the FAQ says April 2025, and the KB records trust-center reports dated 2.25.26. The status is right; the date is missing."
+    },
+    {
+     "vid": "c02.soc2.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/solutions/finance",
+     "note": "The finance page says Parallel is SOC 2 Type 2 certified, so the status is right. It leaves out the publicly stated date (April 2025 in the FAQ) that the definition asks for."
+    }
+   ]
+  },
+  {
+   "cell": "c02.zero_data_retention",
+   "values": [
+    {
+     "vid": "c02.zero_data_retention.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/pricing",
+     "note": "The pricing page's Enterprise tier lists Zero Data Retention (ZDR). Matches the KB."
+    },
+    {
+     "vid": "c02.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c02.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c02.hipaa_baa",
+   "values": [
+    {
+     "vid": "c02.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/solutions/finance",
+     "note": "The finance page advertises a HIPAA-ready offering but never mentions a BAA. Matches the KB's absence."
+    },
+    {
+     "vid": "c02.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c02.official_mcp_server",
+   "values": [
+    {
+     "vid": "c02.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.parallel.ai/integrations/mcp/search-mcp",
+     "note": "The Search MCP docs configure https://search.parallel.ai/mcp and also list an mcp-oauth endpoint."
+    },
+    {
+     "vid": "c02.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c02.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c02.free_tier",
+   "values": [
+    {
+     "vid": "c02.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/pricing",
+     "note": "The pricing page offers up to $80 at signup plus $5 in free credits a month. The $5 monthly credit is the KB's core fact, and the value mentions the signup credit without the amount."
+    },
+    {
+     "vid": "c02.free_tier.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/pricing",
+     "note": "The page says \"up to 5,000 requests per month for free\" ($5 at $0.001 a request). Dropping 'up to' overstates it, and the signup credit is left out."
+    },
+    {
+     "vid": "c02.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c02.list_price",
+   "values": [
+    {
+     "vid": "c02.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/pricing",
+     "note": "The Search API table shows Turbo $1, Fast $1, Basic $5, and Advanced $5 per 1,000 requests with 10 results. Matches the KB."
+    },
+    {
+     "vid": "c02.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c02.list_price.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/pricing",
+     "note": "The page does give a $0.001 to $0.005 per-request range for 10 results, but the value doesn't map prices to modes (Turbo and Fast $1, Basic and Advanced $5), as the definition asks."
+    }
+   ]
+  },
+  {
+   "cell": "c02.last_funding",
+   "values": [
+    {
+     "vid": "c02.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://parallel.ai/blog/series-b",
+     "note": "The post (April 29, 2026) announces a $100M Series B at a $2B valuation, led by Sequoia Capital, with $230M raised in total."
+    },
+    {
+     "vid": "c02.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c02.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c03.web_search_source",
+   "values": [
+    {
+     "vid": "c03.web_search_source.v1",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.sistrix.com/ask-sistrix/ai-basics/perplexity-ai",
+     "note": "Sistrix, a third-party SEO article modified 2025-11-20, does say Perplexity \"accesses the Bing Index\". But Perplexity's own engineering post (Sep 25, 2025, live on its hub) describes its own index of 200B+ URLs built by its own crawler and indexing fleets."
+    },
+    {
+     "vid": "c03.web_search_source.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.perplexity.ai/docs/resources/faq",
+     "note": "The FAQ says the API shares the UI's search system and names no provider. But the value never says 'own index' and hedges on an undisclosed upstream. The KB says own index (200B+ URLs)."
+    },
+    {
+     "vid": "c03.web_search_source.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.perplexity.ai/docs/search/quickstart",
+     "note": "The quickstart documents POST /search and names no upstream, but it doesn't establish that Perplexity crawls and indexes the web itself. Imprecise next to the KB's own-index finding."
+    }
+   ]
+  },
+  {
+   "cell": "c03.soc2",
+   "values": [
+    {
+     "vid": "c03.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.perplexity.ai/docs/resources/faq",
+     "note": "The FAQ says Perplexity maintains a SOC 2 Type II report. Matches the KB."
+    },
+    {
+     "vid": "c03.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c03.soc2.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.perplexity.ai/hub/blog/how-we-built-security-into-computer",
+     "note": "Verified: the post (May 13, 2026) says Perplexity's infrastructure \"completed its 2026 SOC 2 Type II attestation\". The KB says no date is stated, but the 2026 attestation year is public."
+    }
+   ]
+  },
+  {
+   "cell": "c03.zero_data_retention",
+   "values": [
+    {
+     "vid": "c03.zero_data_retention.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.perplexity.ai/docs/resources/faq",
+     "note": "The FAQ covers the whole Perplexity API, Search included: \"We do not retain any query data sent through the API\", and it says zero-day retention is the API default. The KB limits ZDR to Chat Completions, following the privacy page; the FAQ's API-wide statement contradicts that. No plan restriction is stated."
+    },
+    {
+     "vid": "c03.zero_data_retention.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.perplexity.ai/docs/resources/faq",
+     "note": "Verified on the same FAQ: by default the API has zero-day retention of user prompt data, which is never used for training. This applies API-wide, not only to Chat Completions as the KB says."
+    },
+    {
+     "vid": "c03.zero_data_retention.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.perplexity.ai/docs/resources/privacy-security",
+     "note": "The privacy page does state ZDR for Chat Completions only, and the caveat matches the KB. But the 'yes' headline answers for another API in a Search API cell, and the value misses the FAQ's API-wide no-retention statement."
+    }
+   ]
+  },
+  {
+   "cell": "c03.hipaa_baa",
+   "values": [
+    {
+     "vid": "c03.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.perplexity.ai/hub/legal/enterprise-terms-of-service",
+     "note": "The Enterprise Terms (updated 2026-08-03, section 5.2) bar PHI \"unless Customer and Perplexity have executed a Business Associate Agreement\". The value accurately reads this as unconfirmed, consistent with the KB's absence."
+    },
+    {
+     "vid": "c03.hipaa_baa.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.perplexity.ai/hub/legal/perplexity-api-terms-of-service",
+     "note": "The API Terms (updated 2026-01-23, section 6.2) permit PHI only once Customer and Perplexity have executed a BAA, and the Enterprise Terms (section 5.2) say the same. The KB's 'no BAA stated' misses this contractual BAA path, which also undercuts the KB's claim that only Exa's public pages offer a BAA. Caveat: no plan is named and no BAA is publicly offered."
+    },
+    {
+     "vid": "c03.hipaa_baa.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c03.official_mcp_server",
+   "values": [
+    {
+     "vid": "c03.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.perplexity.ai/docs/getting-started/integrations/mcp-server",
+     "note": "The docs give the remote server at https://api.perplexity.ai/mcp and the local package @[handle]-ai/mcp-server."
+    },
+    {
+     "vid": "c03.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c03.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c03.free_tier",
+   "values": [
+    {
+     "vid": "c03.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+     "note": "The pricing page lists no free API credits or trial. Matches the KB's absence."
+    },
+    {
+     "vid": "c03.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'None found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c03.list_price",
+   "values": [
+    {
+     "vid": "c03.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+     "note": "The Search API is $5.00 per 1,000 successful requests with no token-based charges. The value leaves out Fast ($1 per 1,000) but correctly gives the standard tier."
+    },
+    {
+     "vid": "c03.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c03.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c03.last_funding",
+   "values": [
+    {
+     "vid": "c03.last_funding.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.perplexity.ai/hub/blog/perplexity-x-cristiano-ronaldo",
+     "note": "Perplexity's post (Dec 4, 2025) says Ronaldo \"is now also an investor in Perplexity\", amount undisclosed. That's later than the KB's Sept 2025 round, and Tracxn lists it as the latest round (Angel). The KB leaves it out. Caveat: it's a small, partnership-linked investment, and the last priced round is still Sept 2025."
+    },
+    {
+     "vid": "c03.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB ($200M at $20B, reported Sept 10, 2025). Citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c03.last_funding.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.perplexity.ai/hub/blog/perplexity-x-cristiano-ronaldo",
+     "note": "The cited Tracxn page does list an undisclosed Angel round by Ronaldo on Dec 5, 2025 as the latest round. Perplexity's own post confirms the investment but dates it Dec 4, 2025, a day earlier. The KB leaves out this later investment."
+    }
+   ]
+  },
+  {
+   "cell": "c04.web_search_source",
+   "values": [
+    {
+     "vid": "c04.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brave.com/search/api/",
+     "note": "The API page claims the \"largest independent index of the Web\", with 30B+ pages."
+    },
+    {
+     "vid": "c04.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c04.soc2",
+   "values": [
+    {
+     "vid": "c04.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brave.com/blog/soc2/",
+     "note": "Brave's post announcing a SOC 2 Type II attestation for the Search API was published Oct 24, 2025."
+    },
+    {
+     "vid": "c04.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.soc2.v3",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://brave.com/search/api/",
+     "note": "The cited API page itself says the Search API is \"SOC 2 Type II attested\" and links the trust center. The KB has Type II, announced 2025-10-24."
+    }
+   ]
+  },
+  {
+   "cell": "c04.zero_data_retention",
+   "values": [
+    {
+     "vid": "c04.zero_data_retention.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brave.com/blog/search-api-zero-data-retention",
+     "note": "The post says ZDR is available to customers on a custom enterprise plan and is enabled through API support."
+    },
+    {
+     "vid": "c04.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c04.hipaa_baa",
+   "values": [
+    {
+     "vid": "c04.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://api-dashboard.search.brave.com/privacy-policy",
+     "note": "The Search API privacy policy never mentions HIPAA or a BAA; it offers ZDR for enterprise clients. Matches the KB's absence."
+    },
+    {
+     "vid": "c04.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.hipaa_baa.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c04.official_mcp_server",
+   "values": [
+    {
+     "vid": "c04.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://github.com/brave/brave-search-mcp-server",
+     "note": "The repo sits under the official brave GitHub org and implements a Brave Search MCP server for the Search API."
+    },
+    {
+     "vid": "c04.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c04.free_tier",
+   "values": [
+    {
+     "vid": "c04.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://api-dashboard.search.brave.com/documentation/pricing",
+     "note": "Every prepaid plan includes $5 in free credits each month. The value leaves out the card requirement, which the API page's FAQ confirms."
+    },
+    {
+     "vid": "c04.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.free_tier.v3",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brave.com/search/api/guides/use-with-claude-desktop-with-mcp/",
+     "note": "The guide (published May 6, 2025) does say \"2,000 free queries\", but that free plan is gone. Current pricing has no free plan, only a $5 monthly credit."
+    }
+   ]
+  },
+  {
+   "cell": "c04.list_price",
+   "values": [
+    {
+     "vid": "c04.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://api-dashboard.search.brave.com/documentation/pricing",
+     "note": "The Search Prepaid plan is $5.00 per 1,000 requests at 50 requests per second. Matches the KB."
+    },
+    {
+     "vid": "c04.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c04.last_funding",
+   "values": [
+    {
+     "vid": "c04.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://sacra.com/c/brave/",
+     "note": "Sacra reports a $50M Series A-7 led by Page One Ventures in February 2022, and $252M raised in total. This is aggregator-only, as the KB notes."
+    },
+    {
+     "vid": "c04.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c04.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c05.web_search_source",
+   "values": [
+    {
+     "vid": "c05.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b",
+     "note": "The post says Alexandria combines official data providers, custom connectors, and Firecrawl's own indexes with the live web, and names no search provider. Matches the KB in substance: own specialty indexes plus an unnamed upstream for web search."
+    },
+    {
+     "vid": "c05.web_search_source.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b",
+     "note": "An accurate summary of Alexandria, but it leaves out the KB's main point: general web search (/search) runs on an unnamed upstream provider."
+    },
+    {
+     "vid": "c05.web_search_source.v3",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://deepwiki.com/firecrawl/firecrawl/4.6-search-endpoints",
+     "note": "DeepWiki, a third-party AI-generated wiki, does name Google Search. But the current firecrawl repo (apps/api/src/search) tries Fire Engine first, then SearXNG, then DuckDuckGo, with no Google. Fire Engine is the hosted path, and its upstream isn't named. The value also misses Firecrawl's own indexes."
+    }
+   ]
+  },
+  {
+   "cell": "c05.soc2",
+   "values": [
+    {
+     "vid": "c05.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/enterprise",
+     "note": "The enterprise page says SOC 2 Type II certified, with no date. Matches the KB."
+    },
+    {
+     "vid": "c05.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c05.soc2.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c05.zero_data_retention",
+   "values": [
+    {
+     "vid": "c05.zero_data_retention.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/enterprise",
+     "note": "Zero-data retention is among the enterprise features, and the page says data is processed and immediately deleted. Matches the KB (Enterprise only)."
+    },
+    {
+     "vid": "c05.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c05.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c05.hipaa_baa",
+   "values": [
+    {
+     "vid": "c05.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/enterprise",
+     "note": "The enterprise page never mentions HIPAA or a BAA. Matches the KB's absence."
+    },
+    {
+     "vid": "c05.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c05.hipaa_baa.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "'Not found' matches the KB's absence. Citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c05.official_mcp_server",
+   "values": [
+    {
+     "vid": "c05.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.firecrawl.dev/mcp-server",
+     "note": "The docs give hosted endpoints at https://mcp.firecrawl.dev/v2/mcp-oauth and /v2/mcp, and point to running the server locally."
+    },
+    {
+     "vid": "c05.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c05.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c05.free_tier",
+   "values": [
+    {
+     "vid": "c05.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/pricing",
+     "note": "The free plan is 1,000 credits a month, refreshed monthly, with no card required. Matches the KB."
+    },
+    {
+     "vid": "c05.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c05.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  },
+  {
+   "cell": "c05.list_price",
+   "values": [
+    {
+     "vid": "c05.list_price.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.firecrawl.dev/pricing",
+     "note": "Verified on the pricing page (effective 2026-09-04). Search costs 2 credits per 10 results, and Hobby pay-as-you-go adds 1,000 credits per $5, so $10 per 1,000 searches at the entry rate. The KB's ~$5 per 1,000 is third-party and names no tier; it holds only at the Standard top-up rate (2,000 credits per $5)."
+    },
+    {
+     "vid": "c05.list_price.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/pricing",
+     "note": "The top-up rates are right (1,000, 2,000, 2,500, and 5,000 credits per $5 on Hobby, Standard, Growth, and Scale). But the value gives no USD per 1,000 requests and not the search credit cost, as the definition asks."
+    },
+    {
+     "vid": "c05.list_price.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.firecrawl.dev/pricing",
+     "note": "Same math as v1, verified on the current pricing page: 2 credits per search at $5 per 1,000 Hobby credits is $10 per 1,000 searches. The KB's $5 per 1,000 matches only the Standard top-up rate."
+    }
+   ]
+  },
+  {
+   "cell": "c05.last_funding",
+   "values": [
+    {
+     "vid": "c05.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b",
+     "note": "The post (Sep 22, 2026) announces a $75M Series B led by Smash Capital. Matches the KB."
+    },
+    {
+     "vid": "c05.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    },
+    {
+     "vid": "c05.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance; citation not sampled (non-v1 correct)."
+    }
+   ]
+  }
+ ]
+}

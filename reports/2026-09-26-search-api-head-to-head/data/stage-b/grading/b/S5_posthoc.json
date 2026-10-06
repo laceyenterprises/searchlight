@@ -1,0 +1,31 @@
+{
+ "method": "Post hoc, Amendment 7. The judges applied two novelty rules (S5b entity-level, S5c fact-level). The primary rule is now fact-level: an entity is new when the KB's leaves (not _scratch/) don't record the fact the list asks for: that the product answers from the web, and with what (S5b), or that the company names Exa (S5c). The entity-level rule (new only if the company appears nowhere in the KB's leaves) is reported as a sensitivity. Under both rules, _scratch/ research notes don't count as the KB.",
+ "fact_level_to_novel": {
+  "S5b-e20": "Aisera: the only KB mention is a _scratch/ partner list; no leaf records its Public Search on Google.",
+  "S5b-e12": "Snowflake Cortex Agents and Snowflake Intelligence: the leaves record Cortex Agents only as a channel for Exa's own integration; that Snowflake's built-in web search runs on Brave is only in _scratch/.",
+  "S5b-e1": "Grok Business and Enterprise: the xAI leaf covers Grok's API web search, not the workplace product that searches Google Drive and the web."
+ },
+ "entity_level_to_known": {
+  "S5c-e24": "Apollo.io is in the KB as a competitor (competitive/b2b-data-providers.md).",
+  "S5c-e20": "Gamma is in the KB as a Firecrawl logo (competitive/firecrawl.md:59).",
+  "S5c-e12": "Jan is in the KB as a Serper integration (competitive/serper.md:73).",
+  "S5c-e6": "Novita is in the KB as another customer's subprocessor (customer-stories/anara-scientific-paper-discovery.md:68)."
+ },
+ "exclusion_flag_fixes": {
+  "S5b-e5": {
+   "to": null,
+   "reason": "GitHub Copilot matched 'supermemory Company Brain' only because that exclusion's URL is on github.com, a shared host."
+  },
+  "S5b-e26": {
+   "to": "ChatGPT Enterprise and Business",
+   "reason": "On the exclusion list under that name; the key (chatgpt.com) didn't match the listed URL."
+  },
+  "S5c-e25": {
+   "to": "Google (Gemini Enterprise, Grounding with Exa, …)",
+   "reason": "On the exclusion list; the key was about.google."
+  }
+ },
+ "entity_level_to_novel": {
+  "S5b-e20": "Aisera appears only in a _scratch/ partner list, and _scratch/ doesn't count as the KB under either rule."
+ }
+}

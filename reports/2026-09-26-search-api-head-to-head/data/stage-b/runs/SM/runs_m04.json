@@ -1,0 +1,218 @@
+{
+ "set": "SM",
+ "id": "m04",
+ "provider": "exa",
+ "name": "provider-eval SM m04 Perplexity API",
+ "status_at_harvest": "active",
+ "search": {
+  "query": "Perplexity API pricing, Search API, or API changelog update",
+  "numResults": 10,
+  "includeDomains": [
+   "docs.perplexity.ai",
+   "perplexity.ai"
+  ]
+ },
+ "trigger": {
+  "type": "interval",
+  "period": "1d"
+ },
+ "output_schema": null,
+ "created": "2026-09-27T00:16:12.488Z",
+ "runs": [
+  {
+   "run": 1,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-27T21:09:27.798Z",
+   "startedAt": "2026-09-27T21:09:27.798Z",
+   "completedAt": "2026-09-27T21:09:38.263Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 10644,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 2,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-28T20:41:43.730Z",
+   "startedAt": "2026-09-28T20:41:43.730Z",
+   "completedAt": "2026-09-28T20:41:56.601Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 13051,
+   "note_chars": 430,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.perplexity.ai/docs/resources/changelog",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/resources/changelog:20b27f0fb5cd1f7740903c5dd767f088a1b884c8c616c77636ec2c067b951474",
+     "title_chars": 37,
+     "summary_chars": 85
+    },
+    {
+     "rank": 2,
+     "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:494d4c902ea5d7dcb4c08e70e82f3dbb31815352d1b562dbbb0d0a10977310d7",
+     "title_chars": 32,
+     "summary_chars": 137
+    }
+   ]
+  },
+  {
+   "run": 3,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-29T21:05:26.922Z",
+   "startedAt": "2026-09-29T21:05:26.922Z",
+   "completedAt": "2026-09-29T21:05:38.730Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 11963,
+   "note_chars": 222,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.perplexity.ai/docs/resources/changelog",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/resources/changelog:74595ed35d2b03911ff31b31f04df36509fde3f71f83e2aad6814ea0ddc6077f",
+     "title_chars": 41,
+     "summary_chars": 154
+    }
+   ]
+  },
+  {
+   "run": 4,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-30T20:58:48.455Z",
+   "startedAt": "2026-09-30T20:58:48.455Z",
+   "completedAt": "2026-09-30T20:59:00.321Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 12083,
+   "note_chars": 165,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:6191a44379c1e18c50bc1c5247fcf13928fb5e833502cff9936139001611f0e5",
+     "title_chars": 27,
+     "summary_chars": 126
+    }
+   ]
+  },
+  {
+   "run": 5,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-01T20:51:03.853Z",
+   "startedAt": "2026-10-01T20:51:03.853Z",
+   "completedAt": "2026-10-01T20:51:16.235Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 12544,
+   "note_chars": 115,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:3f3d3d5b397c76c6fbd8aab70bcdd67d18f9cf712af5c3150b39a4230f7b296f",
+     "title_chars": 21,
+     "summary_chars": 115
+    }
+   ]
+  },
+  {
+   "run": 6,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-02T20:43:43.113Z",
+   "startedAt": "2026-10-02T20:43:43.113Z",
+   "completedAt": "2026-10-02T20:43:55.126Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 12188,
+   "note_chars": 111,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:a35fa200580a089ea34a02453d8187665b3ac9107218f7bde5c8d2a97360f14d",
+     "title_chars": 34,
+     "summary_chars": 99
+    }
+   ]
+  },
+  {
+   "run": 7,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-03T20:55:24.331Z",
+   "startedAt": "2026-10-03T20:55:24.331Z",
+   "completedAt": "2026-10-03T20:55:35.380Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 11309,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 8,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-04T20:44:41.929Z",
+   "startedAt": "2026-10-04T20:44:41.929Z",
+   "completedAt": "2026-10-04T20:44:52.802Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 11043,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 9,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-05T21:07:27.799Z",
+   "startedAt": "2026-10-05T21:07:27.799Z",
+   "completedAt": "2026-10-05T21:07:42.132Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 14461,
+   "note_chars": 442,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.perplexity.ai/docs/resources/changelog",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/resources/changelog:eba532058d37492d87e6753a6b0e2eb882262f439a6dc5373618161f44ad8249",
+     "title_chars": 44,
+     "summary_chars": 185
+    },
+    {
+     "rank": 2,
+     "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+     "domain": "docs.perplexity.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:170475bab2ad74d46bbaa8b210b2d8b71c6368b490df853bf31537ef2ccda386",
+     "title_chars": 29,
+     "summary_chars": 141
+    }
+   ]
+  }
+ ]
+}

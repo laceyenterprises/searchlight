@@ -1,0 +1,1788 @@
+{
+ "about": "Amendment 12 (post hoc): the claim-level correction layer for Stage C. claims.json and scores.json keep the as-judged verdicts; score_c.py applies these entries to write scores_corrected.json. Every entry names its claim, the change and its reason. No provider was re-run and no claim was re-judged: the corrections come from the recorded data, the KB baseline and the PR #38 review's evidence.",
+ "baseline": "2a055dc",
+ "rules": {
+  "novelty": "Primary: the KB checkout at 2a055dc counts as known, _scratch/ included (the page's stated rule, applied to every question). A new claim is corrected to known only when everything it states is in the baseline or in a claim another judge found known. The correction layer doesn't overrule a judge's reading of a main-KB leaf the judge used.",
+  "tiers": "Tier 1 is a figure that enters a line's arithmetic (prereg:313-314); tier 2 is supply and named adoption (prereg:315). o5's supply shares move to tier 2. For the primary, g3 and m3 aren't 'the denominator the sizing uses' (SV's own kb_context says 'Not used by the sizing'), so their tier-1 claims move to tier 2; prices stay tier 1 on any question (g3#29, m3#45).",
+  "dedupe": "A fact written in two or more questions counts once per provider-arm. Two claims are one fact when they are on the same verified URL (normalized: scheme, www., trailing slash, default.aspx and Wayback notes dropped) and state the same figure or statement, or when a second page relays the same statistic. Attribution, praise quotes and 'gives no figure' caveats don't make a claim different. The fact takes the tier of the claim in the question it belongs to (the canonical); failing a facet match, the primary page; failing that, the earlier question in SV's order. A claim that only restates claims another question wrote separately (a bundle) isn't counted for a provider-arm already credited with all of them. A claim that adds a figure or term stays its own fact; claims contained in it stay too. A fact is known if any of its claims is known.",
+  "tavily_prereg330": {
+   "arm": "tavily:research",
+   "questions": [
+    "o3",
+    "m2",
+    "m3",
+    "m6"
+   ],
+   "rule": "prereg:330: 'A run the caps refuse is logged as skipped and scored as returning nothing.' The 800-credit cap refused o3 (logged skipped_cap); m2, m3 and m6 were waiting under the guard when the run was stopped. Amendment 10 re-ran all four; the primary scores them as returning nothing, so Tavily research's items on those questions are out, with their 131 credits."
+  },
+  "stage_b_novelty": "Sensitivity: Stage B's rule (prereg:265, '_scratch/ research notes don't count as the KB'), applied mechanically: every claim known only through _scratch/ paths in its kb_file counts as new. The fact groups above cover those claims too, so a fact written twice is still counted once.",
+  "g3m3_counted": "Sensitivity: g3 and m3 keep the tier 1 that SV gives them.",
+  "amendment10": "Sensitivity: Amendment 10's scoring, with Tavily research's four re-runs counted."
+ },
+ "screens": [
+  {
+   "screen": "tier-1 baseline check",
+   "scope": "all 54 new tier-1 claims",
+   "method": "grep of each claim's figures and names across the 2a055dc checkout (experiments/ excluded), hits read",
+   "found": [
+    "o4#6",
+    "o4#7",
+    "o1#10",
+    "o4#8"
+   ]
+  },
+  {
+   "screen": "tier-2 _scratch/ figure screen",
+   "scope": "every new tier-2 claim with a distinctive figure",
+   "method": "all of a claim's figures on one _scratch/ line that names the claim's vendor; 56 claims flagged, hits read",
+   "found": [
+    "m3#23"
+   ]
+  },
+  {
+   "screen": "same-URL groups",
+   "scope": "every claim; 40 URL groups span two or more questions (170 new/new and 194 new/known pairs)",
+   "method": "each group read",
+   "found": "the same-page facts and bundles below, and a2#23"
+  },
+  {
+   "screen": "cross-page screens",
+   "scope": "new claims, and claims known only through _scratch/, across questions",
+   "method": "shared distinctive figures (57 new/new pairs, 84 new/known pairs, 128 _scratch/-known pairs) and word overlap (15 and 82 pairs), read",
+   "found": "the relayed-statistic facts below, and a1#6"
+  },
+  {
+   "screen": "not done",
+   "scope": "tier-2 claims without a distinctive figure",
+   "method": "not re-checked against _scratch/ (that would be re-judging); six questions' judges (g5, g6, a4, a6, o4, o6) cite no _scratch/ file",
+   "found": []
+  }
+ ],
+ "claims": [
+  {
+   "claim": "o4#6",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt1/verify-V5-prices.md",
+   "evidence": "_scratch/review/market-sizing-red-team/code/rt1/verify-V5-prices.md:38 at 2a055dc: the March 2025 capture lists gpt-4o search at $30/$35/$50 and gpt-4o-mini at $25/$27.50/$30 per 1,000 calls.",
+   "found_by": "review M1",
+   "reason": "_scratch/ counts as known; the o2 judge marked the same fact known (o2#6).",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "o4#7",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt1/verify-V5-prices.md",
+   "evidence": "_scratch/review/market-sizing-red-team/code/rt1/verify-V5-prices.md:38: the July 2025 capture has $25 for the 4o/4.1 family and $10 for o3/o4-mini, and the changelog's Jun 24 entry; competitive/openai-web-search.md:241 dates the cut to 2025-06-24.",
+   "found_by": "review M1",
+   "reason": "_scratch/ counts as known.",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "o1#10",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt1/verify-V5-prices.md",
+   "evidence": "_scratch/review/market-sizing-red-team/code/rt1/verify-V5-prices.md:38: the March 2025 price table the forum thread quotes.",
+   "found_by": "review M1",
+   "reason": "_scratch/ counts as known; o2#6, the same fact on the same forum URL, was judged known.",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "o4#8",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-D-use-cases.md",
+   "evidence": "_scratch/review/market-sizing-red-team/code/rt3/research-D-use-cases.md:72-73: o3-deep-research $10 in / $40 out and o4-mini-deep-research $2 in / $8 out per 1M tokens.",
+   "found_by": "tier-1 baseline check (the review cited :72 and called it partly known; :73 has the o4-mini prices)",
+   "reason": "_scratch/ counts as known; every figure is in the note.",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "g1#3",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+   "evidence": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md:58 (G3): 16B+ tokens a minute in Q1 2026 after 10B+ in Q4 2025 (the 60% is their ratio).",
+   "found_by": "review M1",
+   "reason": "_scratch/ counts as known; g3#2 and g2#11 were judged known.",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "m3#23",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-D-use-cases.md",
+   "evidence": "_scratch/review/market-sizing-red-team/code/rt3/research-D-use-cases.md:27: Microsoft AI business ARR >$37B, +123% YoY (29 Apr 2026).",
+   "found_by": "tier-2 _scratch/ figure screen",
+   "reason": "_scratch/ counts as known.",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "a1#6",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-D-use-cases.md",
+   "evidence": "_scratch/review/market-sizing-red-team/code/rt3/research-D-use-cases.md:75: Anthropic's docs, simple queries 1-3 searches and multi-entity research 10+; the max_uses cap is a2#5, judged known.",
+   "found_by": "cross-page screen",
+   "reason": "_scratch/ counts as known; everything the claim states is in the baseline.",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "a2#23",
+   "change": "verdict",
+   "from": "new",
+   "to": "known",
+   "kb_file": "_scratch/review/market-sizing-red-team/code/rt1/verify-V4-revenue.md",
+   "evidence": "a3#14, the same statement on the same Sacra page, was judged known (verify-V4-revenue.md).",
+   "found_by": "same-URL groups (cross-judge consistency)",
+   "reason": "A fact another judge found in the KB is known.",
+   "variants": "primary; reverts to new under stage_b_novelty (kb_file is _scratch/ only)"
+  },
+  {
+   "claim": "o5#1",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "o5",
+   "reason": "Shares of ChatGPT's result sources are supply: prereg:315 puts supply in tier 2, SV marks o5 tier 2, and brief:69 puts 'a supplier' in tier 2.",
+   "found_by": "review M1",
+   "variants": "primary"
+  },
+  {
+   "claim": "o5#2",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "o5",
+   "reason": "Shares of ChatGPT's result sources are supply: prereg:315 puts supply in tier 2, SV marks o5 tier 2, and brief:69 puts 'a supplier' in tier 2.",
+   "found_by": "review M1",
+   "variants": "primary"
+  },
+  {
+   "claim": "o5#3",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "o5",
+   "reason": "Shares of ChatGPT's result sources are supply: prereg:315 puts supply in tier 2, SV marks o5 tier 2, and brief:69 puts 'a supplier' in tier 2.",
+   "found_by": "review M1",
+   "variants": "primary"
+  },
+  {
+   "claim": "o5#4",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "o5",
+   "reason": "Shares of ChatGPT's result sources are supply: prereg:315 puts supply in tier 2, SV marks o5 tier 2, and brief:69 puts 'a supplier' in tier 2.",
+   "found_by": "review M1",
+   "variants": "primary"
+  },
+  {
+   "claim": "g3#1",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#2",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#3",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#4",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#5",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#6",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#10",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#11",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#12",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "g3#13",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; g3's kb_context says 'Not used by the sizing, which prices grounding directly', and the page calls these counts context, not an anchor.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#1",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#2",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#3",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#4",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#5",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#6",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#7",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#8",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#9",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#10",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#11",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "m3#12",
+   "change": "tier",
+   "from": 1,
+   "to": 2,
+   "group": "g3m3",
+   "reason": "prereg:313 counts 'the denominator the sizing uses'; m3's kb_context says 'Not used by the sizing'.",
+   "found_by": "review M3; owner's ruling",
+   "variants": "primary; kept at tier 1 under g3m3_counted"
+  },
+  {
+   "claim": "o3#8",
+   "change": "fact_id",
+   "fact_id": "F01",
+   "canonical": true,
+   "fact": "Meridian48: OpenAI API revenue $1.6B (2025), $3.5B (2026)",
+   "reason": "Canonical claim of F01 (same page).",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "o2#15",
+   "change": "fact_id",
+   "fact_id": "F01",
+   "same_as": "o3#8",
+   "fact": "Meridian48: OpenAI API revenue $1.6B (2025), $3.5B (2026)",
+   "reason": "States the same figure or statement as o3#8 (same page); counted once per provider-arm.",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "a1#1",
+   "change": "fact_id",
+   "fact_id": "F02",
+   "canonical": true,
+   "fact": "Claude used web search on 36.6% of prompts",
+   "reason": "Canonical claim of F02 (another page relays it (an SEO page with no source)).",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "a2#25",
+   "change": "fact_id",
+   "fact_id": "F02",
+   "same_as": "a1#1",
+   "fact": "Claude used web search on 36.6% of prompts",
+   "reason": "States the same statistic as a1#1 (another page relays it (an SEO page with no source)); counted once per provider-arm.",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "o3#6",
+   "change": "fact_id",
+   "fact_id": "F03",
+   "canonical": true,
+   "fact": "Searchlab: OpenAI API about 25% of revenue, $3.2B",
+   "reason": "Canonical claim of F03 (same page).",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "o2#16",
+   "change": "fact_id",
+   "fact_id": "F03",
+   "same_as": "o3#6",
+   "fact": "Searchlab: OpenAI API about 25% of revenue, $3.2B",
+   "reason": "States the same figure or statement as o3#6 (same page); counted once per provider-arm.",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "o3#9",
+   "change": "fact_id",
+   "fact_id": "F04",
+   "canonical": true,
+   "fact": "FutureSearch: OpenAI API at a $510M annualized rate, June 2024",
+   "reason": "Canonical claim of F04 (same page).",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "o2#14",
+   "change": "fact_id",
+   "fact_id": "F04",
+   "same_as": "o3#9",
+   "fact": "FutureSearch: OpenAI API at a $510M annualized rate, June 2024",
+   "reason": "States the same figure or statement as o3#9 (same page); counted once per provider-arm. o2#14 adds the same estimate's 15% share and $41.2M month.",
+   "found_by": "review M1; owner's ruling"
+  },
+  {
+   "claim": "a6#1",
+   "change": "fact_id",
+   "fact_id": "F05",
+   "canonical": true,
+   "fact": "Anthropic's API launch post names Quora's Poe as a web search customer",
+   "reason": "Canonical claim of F05 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "a2#9",
+   "change": "fact_id",
+   "fact_id": "F05",
+   "same_as": "a6#1",
+   "fact": "Anthropic's API launch post names Quora's Poe as a web search customer",
+   "reason": "States the same figure or statement as a6#1 (same page); counted once per provider-arm.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "a6#2",
+   "change": "fact_id",
+   "fact_id": "F06",
+   "canonical": true,
+   "fact": "The same post names Adaptive.ai",
+   "reason": "Canonical claim of F06 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "a2#10",
+   "change": "fact_id",
+   "fact_id": "F06",
+   "same_as": "a6#2",
+   "fact": "The same post names Adaptive.ai",
+   "reason": "States the same figure or statement as a6#2 (same page); counted once per provider-arm.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "g3#18",
+   "change": "fact_id",
+   "fact_id": "F07",
+   "canonical": true,
+   "fact": "Q2 2025 call: 85,000+ enterprises build with Gemini; usage up 35x",
+   "reason": "Canonical claim of F07 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "g1#4",
+   "change": "fact_id",
+   "fact_id": "F07",
+   "same_as": "g3#18",
+   "fact": "Q2 2025 call: 85,000+ enterprises build with Gemini; usage up 35x",
+   "reason": "States the same figure or statement as g3#18 (same page); counted once per provider-arm.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "o4#15",
+   "change": "fact_id",
+   "fact_id": "F08",
+   "canonical": true,
+   "fact": "OpenAI support: one web search invocation can run several sub-searches, each billed",
+   "reason": "Canonical claim of F08 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "o1#12",
+   "change": "fact_id",
+   "fact_id": "F08",
+   "same_as": "o4#15",
+   "fact": "OpenAI support: one web search invocation can run several sub-searches, each billed",
+   "reason": "States the same figure or statement as o4#15 (same page); counted once per provider-arm.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "o2#7",
+   "change": "fact_id",
+   "fact_id": "F08",
+   "same_as": "o4#15",
+   "fact": "OpenAI support: one web search invocation can run several sub-searches, each billed",
+   "reason": "States the same figure or statement as o4#15 (same page); counted once per provider-arm.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m3#3",
+   "change": "fact_id",
+   "fact_id": "F09",
+   "canonical": true,
+   "fact": "FY25 Q4 call: 14,000 customers use Foundry Agent Service",
+   "reason": "Canonical claim of F09 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m1#9",
+   "change": "fact_id",
+   "fact_id": "F09",
+   "same_as": "m3#3",
+   "fact": "FY25 Q4 call: 14,000 customers use Foundry Agent Service",
+   "reason": "States the same figure or statement as m3#3 (same page); counted once per provider-arm.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m4#78",
+   "change": "fact_id",
+   "fact_id": "F10",
+   "canonical": true,
+   "fact": "Enterprise-integration terms let customers store output as part of their own work product",
+   "reason": "Canonical claim of F10 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m5#8",
+   "change": "fact_id",
+   "fact_id": "F10",
+   "same_as": "m4#78",
+   "fact": "Enterprise-integration terms let customers store output as part of their own work product",
+   "reason": "States the same figure or statement as m4#78 (same page); counted once per provider-arm. m5#8's other clauses are known (m4#75, m4#82, m4#69).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "g3#24",
+   "change": "fact_id",
+   "fact_id": "F11",
+   "canonical": true,
+   "fact": "Google Cloud revenue $17.7B in Q4 2025, up 48%",
+   "reason": "Canonical claim of F11 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "g2#29",
+   "change": "fact_id",
+   "fact_id": "F11",
+   "same_as": "g3#24",
+   "fact": "Google Cloud revenue $17.7B in Q4 2025, up 48%",
+   "reason": "States the same figure or statement as g3#24 (same page); counted once per provider-arm.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "a3#16",
+   "change": "fact_id",
+   "fact_id": "F12",
+   "canonical": true,
+   "fact": "Anthropic's reported 2028 revenue projection, $190-200B",
+   "reason": "Canonical claim of F12 (another page relays it (both relay Reuters)).",
+   "found_by": "cross-page screen; review M1 (tier conflict)"
+  },
+  {
+   "claim": "a2#22",
+   "change": "fact_id",
+   "fact_id": "F12",
+   "same_as": "a3#16",
+   "fact": "Anthropic's reported 2028 revenue projection, $190-200B",
+   "reason": "States the same statistic as a3#16 (another page relays it (both relay Reuters)); counted once per provider-arm. The fact takes a3's tier 2: a 2028 projection doesn't enter the 2026 line (prereg:313).",
+   "found_by": "cross-page screen; review M1 (tier conflict)"
+  },
+  {
+   "claim": "o4#20",
+   "change": "fact_id",
+   "fact_id": "F13",
+   "canonical": true,
+   "fact": "2026-07-30 GPT-5.6 Luna and Terra API price cuts",
+   "reason": "Canonical claim of F13 (another page relays it).",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "o3#25",
+   "change": "fact_id",
+   "fact_id": "F13",
+   "same_as": "o4#20",
+   "fact": "2026-07-30 GPT-5.6 Luna and Terra API price cuts",
+   "reason": "States the same statistic as o4#20 (another page relays it); counted once per provider-arm.",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "g3#12",
+   "change": "fact_id",
+   "fact_id": "F14",
+   "canonical": true,
+   "fact": "Aggregators: 85B Gemini API requests a month (Jan 2026, +142%)",
+   "reason": "Canonical claim of F14 (another page relays it).",
+   "found_by": "cross-page screen; review M1 (tier conflict)"
+  },
+  {
+   "claim": "g1#5",
+   "change": "fact_id",
+   "fact_id": "F14",
+   "same_as": "g3#12",
+   "fact": "Aggregators: 85B Gemini API requests a month (Jan 2026, +142%)",
+   "reason": "States the same statistic as g3#12 (another page relays it); counted once per provider-arm.",
+   "found_by": "cross-page screen; review M1 (tier conflict)"
+  },
+  {
+   "claim": "o2#20",
+   "change": "fact_id",
+   "fact_id": "F15",
+   "canonical": true,
+   "fact": "9,000+ organizations over 10B API tokens; about 200 over 1T",
+   "reason": "Canonical claim of F15 (another page relays it (a press report of OpenAI's report)).",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "o3#22",
+   "change": "fact_id",
+   "fact_id": "F15",
+   "same_as": "o2#20",
+   "fact": "9,000+ organizations over 10B API tokens; about 200 over 1T",
+   "reason": "States the same statistic as o2#20 (another page relays it (a press report of OpenAI's report)); counted once per provider-arm.",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "m5#9",
+   "change": "fact_id",
+   "fact_id": "F16",
+   "canonical": true,
+   "fact": "Yahoo's Scout runs on Microsoft's Bing grounding API (January 2026)",
+   "reason": "Canonical claim of F16 (another page relays it (two PPC Land posts)).",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "m2#10",
+   "change": "fact_id",
+   "fact_id": "F16",
+   "same_as": "m5#9",
+   "fact": "Yahoo's Scout runs on Microsoft's Bing grounding API (January 2026)",
+   "reason": "States the same statistic as m5#9 (another page relays it (two PPC Land posts)); counted once per provider-arm.",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "a5#23",
+   "change": "fact_id",
+   "fact_id": "F17",
+   "canonical": true,
+   "fact": "Google's doc names Brave Search as the service Claude's web search calls",
+   "reason": "Canonical claim of F17 (another page relays it (MERJ and Profound on Google's doc)).",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "a6#7",
+   "change": "fact_id",
+   "fact_id": "F17",
+   "same_as": "a5#23",
+   "fact": "Google's doc names Brave Search as the service Claude's web search calls",
+   "reason": "States the same statistic as a5#23 (another page relays it (MERJ and Profound on Google's doc)); counted once per provider-arm. Canonical by facet (a5 is supply).",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "a3#13",
+   "change": "fact_id",
+   "fact_id": "F18",
+   "canonical": true,
+   "fact": "About 80% of Anthropic's revenue is from business customers",
+   "reason": "Canonical claim of F18 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "a2#16",
+   "change": "fact_id",
+   "fact_id": "F18",
+   "same_as": "a3#13",
+   "fact": "About 80% of Anthropic's revenue is from business customers",
+   "reason": "States the same figure or statement as a3#13 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "a3#12",
+   "change": "fact_id",
+   "fact_id": "F19",
+   "canonical": true,
+   "fact": "Anthropic's Q1 2026 revenue $4.73B",
+   "reason": "Canonical claim of F19 (another page relays it).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "a2#20",
+   "change": "fact_id",
+   "fact_id": "F19",
+   "same_as": "a3#12",
+   "fact": "Anthropic's Q1 2026 revenue $4.73B",
+   "reason": "States the same statistic as a3#12 (another page relays it); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g3#25",
+   "change": "fact_id",
+   "fact_id": "F20",
+   "canonical": true,
+   "fact": "Revenue from Google's gen-AI products up nearly 800% in Q1 2026",
+   "reason": "Canonical claim of F20 (another page relays it).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g2#4",
+   "change": "fact_id",
+   "fact_id": "F20",
+   "same_as": "g3#25",
+   "fact": "Revenue from Google's gen-AI products up nearly 800% in Q1 2026",
+   "reason": "States the same statistic as g3#25 (another page relays it); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g3#22",
+   "change": "fact_id",
+   "fact_id": "F21",
+   "canonical": true,
+   "fact": "Google Cloud $24.8B in Q2 2026, up 82%",
+   "reason": "Canonical claim of F21 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g2#5",
+   "change": "fact_id",
+   "fact_id": "F21",
+   "same_as": "g3#22",
+   "fact": "Google Cloud $24.8B in Q2 2026, up 82%",
+   "reason": "States the same figure or statement as g3#22 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g3#23",
+   "change": "fact_id",
+   "fact_id": "F22",
+   "canonical": true,
+   "fact": "Google Cloud about $20B in Q1 2026, up 63%",
+   "reason": "Canonical claim of F22 (another page relays it).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g2#6",
+   "change": "fact_id",
+   "fact_id": "F22",
+   "same_as": "g3#23",
+   "fact": "Google Cloud about $20B in Q1 2026, up 63%",
+   "reason": "States the same statistic as g3#23 (another page relays it); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g3#6",
+   "change": "fact_id",
+   "fact_id": "F23",
+   "canonical": true,
+   "fact": "7B tokens a minute of direct API use, Q3 2025",
+   "reason": "Canonical claim of F23 (another page relays it).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g2#9",
+   "change": "fact_id",
+   "fact_id": "F23",
+   "same_as": "g3#6",
+   "fact": "7B tokens a minute of direct API use, Q3 2025",
+   "reason": "States the same statistic as g3#6 (another page relays it); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g3#5",
+   "change": "fact_id",
+   "fact_id": "F24",
+   "canonical": true,
+   "fact": "10B+ tokens a minute of direct API use, Q4 2025",
+   "reason": "Canonical claim of F24 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g2#10",
+   "change": "fact_id",
+   "fact_id": "F24",
+   "same_as": "g3#5",
+   "fact": "10B+ tokens a minute of direct API use, Q4 2025",
+   "reason": "States the same figure or statement as g3#5 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#11",
+   "change": "fact_id",
+   "fact_id": "F25",
+   "canonical": true,
+   "fact": "OpenAI's run-rate about $40B in July 2026",
+   "reason": "Canonical claim of F25 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#8",
+   "change": "fact_id",
+   "fact_id": "F25",
+   "same_as": "o3#11",
+   "fact": "OpenAI's run-rate about $40B in July 2026",
+   "reason": "States the same figure or statement as o3#11 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#17",
+   "change": "fact_id",
+   "fact_id": "F26",
+   "canonical": true,
+   "fact": "OpenAI's CFO: ARR $2B (2023), $6B (2024), $20B+ (2025)",
+   "reason": "Canonical claim of F26 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#9",
+   "change": "fact_id",
+   "fact_id": "F26",
+   "same_as": "o3#17",
+   "fact": "OpenAI's CFO: ARR $2B (2023), $6B (2024), $20B+ (2025)",
+   "reason": "States the same figure or statement as o3#17 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#12",
+   "change": "fact_id",
+   "fact_id": "F27",
+   "canonical": true,
+   "fact": "OpenAI: $2B of revenue a month (2026-03-31)",
+   "reason": "Canonical claim of F27 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#33",
+   "change": "fact_id",
+   "fact_id": "F27",
+   "same_as": "o3#12",
+   "fact": "OpenAI: $2B of revenue a month (2026-03-31)",
+   "reason": "States the same figure or statement as o3#12 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#10",
+   "change": "fact_id",
+   "fact_id": "F28",
+   "canonical": true,
+   "fact": "Sacra: OpenAI's API is 15-20% of revenue",
+   "reason": "Canonical claim of F28 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#13",
+   "change": "fact_id",
+   "fact_id": "F28",
+   "same_as": "o3#10",
+   "fact": "Sacra: OpenAI's API is 15-20% of revenue",
+   "reason": "States the same figure or statement as o3#10 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#21",
+   "change": "fact_id",
+   "fact_id": "F29",
+   "canonical": true,
+   "fact": "Sacra: OpenAI revenue $5.7B (Q1 2026), $6.7B (Q2 2026)",
+   "reason": "Canonical claim of F29 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#31",
+   "change": "fact_id",
+   "fact_id": "F29",
+   "same_as": "o3#21",
+   "fact": "Sacra: OpenAI revenue $5.7B (Q1 2026), $6.7B (Q2 2026)",
+   "reason": "States the same figure or statement as o3#21 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#15",
+   "change": "fact_id",
+   "fact_id": "F30",
+   "canonical": true,
+   "fact": "OpenAI: enterprise over 40% of revenue, parity by end-2026",
+   "reason": "Canonical claim of F30 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#34",
+   "change": "fact_id",
+   "fact_id": "F30",
+   "same_as": "o3#15",
+   "fact": "OpenAI: enterprise over 40% of revenue, parity by end-2026",
+   "reason": "States the same figure or statement as o3#15 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#18",
+   "change": "fact_id",
+   "fact_id": "F31",
+   "canonical": true,
+   "fact": "OpenAI's APIs process over 15B tokens a minute",
+   "reason": "Canonical claim of F31 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#17",
+   "change": "fact_id",
+   "fact_id": "F31",
+   "same_as": "o3#18",
+   "fact": "OpenAI's APIs process over 15B tokens a minute",
+   "reason": "States the same figure or statement as o3#18 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o3#16",
+   "change": "fact_id",
+   "fact_id": "F32",
+   "canonical": true,
+   "fact": "OpenAI's CFO: entered 2026 at 60-40 consumer to enterprise; enterprise now larger",
+   "reason": "Canonical claim of F32 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#12",
+   "change": "fact_id",
+   "fact_id": "F32",
+   "same_as": "o3#16",
+   "fact": "OpenAI's CFO: entered 2026 at 60-40 consumer to enterprise; enterprise now larger",
+   "reason": "States the same figure or statement as o3#16 (same page); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g3#2",
+   "change": "fact_id",
+   "fact_id": "F33",
+   "canonical": true,
+   "fact": "16B+ tokens a minute of direct API use, Q1 2026",
+   "reason": "Canonical claim of F33 (another page relays it).",
+   "found_by": "review M1"
+  },
+  {
+   "claim": "g1#3",
+   "change": "fact_id",
+   "fact_id": "F33",
+   "same_as": "g3#2",
+   "fact": "16B+ tokens a minute of direct API use, Q1 2026",
+   "reason": "States the same statistic as g3#2 (another page relays it); counted once per provider-arm. Both known after the correction; matters under stage_b_novelty.",
+   "found_by": "review M1"
+  },
+  {
+   "claim": "a3#14",
+   "change": "fact_id",
+   "fact_id": "F34",
+   "canonical": true,
+   "fact": "Sacra: Anthropic books reseller revenue gross",
+   "reason": "Canonical claim of F34 (same page).",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "a2#23",
+   "change": "fact_id",
+   "fact_id": "F34",
+   "same_as": "a3#14",
+   "fact": "Sacra: Anthropic books reseller revenue gross",
+   "reason": "States the same figure or statement as a3#14 (same page); counted once per provider-arm. Both known after the correction; matters under stage_b_novelty.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "o4#6",
+   "change": "fact_id",
+   "fact_id": "F35",
+   "canonical": true,
+   "fact": "OpenAI's launch web search prices, March 2025",
+   "reason": "Canonical claim of F35 (same page (o1#10, o2#6) and the launch post (o4#6)).",
+   "found_by": "review M1"
+  },
+  {
+   "claim": "o1#10",
+   "change": "fact_id",
+   "fact_id": "F35",
+   "same_as": "o4#6",
+   "fact": "OpenAI's launch web search prices, March 2025",
+   "reason": "States the same figure or statement as o4#6 (same page (o1#10, o2#6) and the launch post (o4#6)); counted once per provider-arm. All known after the corrections; matters under stage_b_novelty.",
+   "found_by": "review M1"
+  },
+  {
+   "claim": "o2#6",
+   "change": "fact_id",
+   "fact_id": "F35",
+   "same_as": "o4#6",
+   "fact": "OpenAI's launch web search prices, March 2025",
+   "reason": "States the same figure or statement as o4#6 (same page (o1#10, o2#6) and the launch post (o4#6)); counted once per provider-arm. All known after the corrections; matters under stage_b_novelty.",
+   "found_by": "review M1"
+  },
+  {
+   "claim": "g6#17",
+   "change": "fact_id",
+   "fact_id": "F36",
+   "canonical": true,
+   "fact": "$35 per 1,000 grounded queries at the 2024-10-31 launch",
+   "reason": "Canonical claim of F36 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g1#9",
+   "change": "fact_id",
+   "fact_id": "F36",
+   "same_as": "g6#17",
+   "fact": "$35 per 1,000 grounded queries at the 2024-10-31 launch",
+   "reason": "States the same figure or statement as g6#17 (same page); counted once per provider-arm. g6#17 is known through the main leaf, so the fact stays known under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "a5#22",
+   "change": "fact_id",
+   "fact_id": "F37",
+   "canonical": true,
+   "fact": "Claude's image search is powered by Bing",
+   "reason": "Canonical claim of F37 (another page relays it).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "a1#11",
+   "change": "fact_id",
+   "fact_id": "F37",
+   "same_as": "a5#22",
+   "fact": "Claude's image search is powered by Bing",
+   "reason": "States the same statistic as a5#22 (another page relays it); counted once per provider-arm. Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "m1#1",
+   "change": "fact_id",
+   "fact_id": "F38",
+   "canonical": true,
+   "fact": "Microsoft: Web IQ is used by ChatGPT among other AI assistants (FY26 Q4)",
+   "reason": "Canonical claim of F38 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "m2#25",
+   "change": "fact_id",
+   "fact_id": "F38",
+   "same_as": "m1#1",
+   "fact": "Microsoft: Web IQ is used by ChatGPT among other AI assistants (FY26 Q4)",
+   "reason": "States the same figure or statement as m1#1 (same page); counted once per provider-arm. m1#1 is known through the main KB, so the fact stays known under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o2#27",
+   "change": "fact_id",
+   "fact_id": "F39",
+   "canonical": true,
+   "fact": "ChatGPT search draws on third-party search providers plus partners' content (2024-10-31)",
+   "reason": "Canonical claim of F39 (same page).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "o5#15",
+   "change": "fact_id",
+   "fact_id": "F39",
+   "same_as": "o2#27",
+   "fact": "ChatGPT search draws on third-party search providers plus partners' content (2024-10-31)",
+   "reason": "States the same figure or statement as o2#27 (same page); counted once per provider-arm. o2#27 is known through the main leaf, so the fact stays known under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "m6#12",
+   "change": "fact_id",
+   "fact_id": "F40",
+   "canonical": true,
+   "fact": "Grounding with Bing is a First Party Consumption Service under its terms and the Privacy Statement",
+   "reason": "Canonical claim of F40 (another page states it).",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "m4#72",
+   "change": "fact_id",
+   "fact_id": "F40",
+   "same_as": "m6#12",
+   "fact": "Grounding with Bing is a First Party Consumption Service under its terms and the Privacy Statement",
+   "reason": "States the same figure or statement as m6#12 (another page states it); counted once per provider-arm. m6#12 is known through the main leaf, so the fact stays known under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "a1#14",
+   "change": "bundle",
+   "restates": [
+    "a6#1",
+    "a6#2"
+   ],
+   "reason": "Restates claims another question wrote separately, and adds nothing: Names Poe and Adaptive.ai (a6#1, a6#2); 'no usage figures' is a caveat.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m5#7",
+   "change": "bundle",
+   "restates": [
+    "m4#36",
+    "m4#37"
+   ],
+   "reason": "Restates claims another question wrote separately, and adds nothing: The 60-day and 7-day cure windows, written separately in m4.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m3#52",
+   "change": "bundle",
+   "restates": [
+    "m4#13",
+    "m4#14"
+   ],
+   "reason": "Restates claims another question wrote separately, and adds nothing: 5 results by default and 50 at most, written separately in m4.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "o2#22",
+   "change": "bundle",
+   "restates": [
+    "o6#1",
+    "o6#2",
+    "o6#3"
+   ],
+   "reason": "Restates claims another question wrote separately, and adds nothing: The three names, the developer count and the token count, written separately in o6.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m5#18",
+   "change": "bundle",
+   "restates": [
+    "m2#1",
+    "m2#3"
+   ],
+   "reason": "Restates claims another question wrote separately, and adds nothing: The Search advertising segment's make-up (m2#1) and the unnamed search partnerships (m2#3, which covers both 10-Ks).",
+   "found_by": "cross-page screen"
+  },
+  {
+   "claim": "a2#18",
+   "change": "bundle",
+   "restates": [
+    "a3#7",
+    "a3#8"
+   ],
+   "reason": "Restates claims another question wrote separately, and adds nothing: $65B at the end of July (a3#7) up from $47B in May (a3#8). Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "g2#11",
+   "change": "bundle",
+   "restates": [
+    "g3#1",
+    "g3#2"
+   ],
+   "reason": "Restates claims another question wrote separately, and adds nothing: 22B tokens a minute in Q2 2026 (g3#1) up from 16B (g3#2). Both known; matters under stage_b_novelty.",
+   "found_by": "_scratch/-known screen"
+  },
+  {
+   "claim": "m3#3",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#4",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#5",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#6",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#7",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#35",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#36",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#37",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#38",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#39",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#42",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#44",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#45",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#46",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#47",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#52",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m3#53",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#6",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#10",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#11",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#12",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#13",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#15",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#16",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#17",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#18",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#19",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#20",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#21",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#24",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#25",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#26",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#28",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "o3#29",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m2#1",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m2#2",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m2#3",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m2#17",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m2#18",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "m2#21",
+   "change": "arms",
+   "remove": "tavily:research",
+   "rule": "prereg:330",
+   "reason": "Tavily research's run on this question was refused by the cap and re-run under Amendment 10; the primary scores the refused run as returning nothing. No other arm stated it, so under the primary no counted run found this claim.",
+   "variants": "primary; restored under amendment10"
+  },
+  {
+   "claim": "g1#2",
+   "change": "none",
+   "reason": "Its token counts are in research-A-ai-spend.md:58, as g2#9, g2#10, g3#5 and g3#6 were judged; but it also states Alphabet's 'over 120,000 enterprises use Gemini', which the baseline doesn't have. A claim becomes known only when everything it states is in the KB. Tier 2.",
+   "found_by": "review M1 (g1#2)"
+  },
+  {
+   "claim": "o2#5",
+   "change": "none",
+   "reason": "Its content is in competitive/openai-web-search.md:85, a leaf the o2 judge cited; the correction layer doesn't overrule a judge's reading of a main-KB leaf. Tier 2.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m4#67",
+   "change": "none",
+   "reason": "Custom Search's configured scope is in competitive/microsoft-grounding-with-bing.md:84, a leaf the m4 judge cited; left as judged, as o2#5. Tier 2.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "g3#29",
+   "change": "none",
+   "reason": "A price, tier 1 on any question; known.",
+   "found_by": "same-URL groups"
+  },
+  {
+   "claim": "m3#45",
+   "change": "none",
+   "reason": "A price, tier 1 on any question; known.",
+   "found_by": "same-URL groups"
+  }
+ ],
+ "tier1_check": [
+  {
+   "claim": "m3#3",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#4",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#5",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#6",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#7",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#8",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#9",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#10",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#11",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m3#12",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "m4#4",
+   "result": "new: the leaf's 2025 history gives $35 for Grounding with Bing Search only"
+  },
+  {
+   "claim": "m4#5",
+   "result": "new: verify-V5-prices.md:48 bounds the cut between the 2025-11-17 and 2026-02-13 captures; the 2026-01-08 portal label isn't in the KB"
+  },
+  {
+   "claim": "a2#21",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "a2#22",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "a2#25",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o5#1",
+   "result": "new: the source names (Labrador, Bright, Oxylabs, SERP) are in competitive/openai-web-search.md:48, the shares aren't"
+  },
+  {
+   "claim": "o5#2",
+   "result": "new: the source names are in the KB, Resoneo's shares aren't"
+  },
+  {
+   "claim": "o5#3",
+   "result": "new: the source names are in the KB, Resoneo's shares aren't"
+  },
+  {
+   "claim": "o5#4",
+   "result": "new: the source names are in the KB, Resoneo's shares aren't"
+  },
+  {
+   "claim": "o1#1",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o1#5",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o1#10",
+   "result": "known (verify-V5-prices.md:38)"
+  },
+  {
+   "claim": "a1#1",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o4#5",
+   "result": "new: gpt-5-search-api is named in _scratch/research/comp-model-native.md:39, without prices"
+  },
+  {
+   "claim": "o4#6",
+   "result": "known (verify-V5-prices.md:38)"
+  },
+  {
+   "claim": "o4#7",
+   "result": "known (verify-V5-prices.md:38)"
+  },
+  {
+   "claim": "o4#8",
+   "result": "known (research-D-use-cases.md:72-73)"
+  },
+  {
+   "claim": "g1#1",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "g4#22",
+   "result": "new: the image-search grounding preview is in competitive/google-search-grounding.md:88, without a price"
+  },
+  {
+   "claim": "g2#32",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#1",
+   "result": "new: the $40B run-rate is known (o2#8); the split isn't"
+  },
+  {
+   "claim": "o3#2",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#3",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#4",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#5",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#6",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#7",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#8",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o3#9",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "a3#2",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "a3#3",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "a3#4",
+   "result": "new: the $65B July figure is known (a2#18); the $100B pace isn't"
+  },
+  {
+   "claim": "a3#6",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "a4#1",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "a4#2",
+   "result": "new: CCU billing on AWS is in _scratch/research/si-partners-channel.md:677; the $0.01 rate and Foundry aren't"
+  },
+  {
+   "claim": "o2#10",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o2#14",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o2#15",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o2#16",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "o2#29",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "g3#10",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "g3#11",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "g3#12",
+   "result": "new: no baseline match"
+  },
+  {
+   "claim": "g3#13",
+   "result": "new: no baseline match"
+  }
+ ]
+}

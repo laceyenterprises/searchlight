@@ -1,0 +1,501 @@
+{
+ "set": "S1",
+ "questions": [
+  {
+   "id": "q01",
+   "status": "partial",
+   "answer": "Anthropic doesn't say which index serves the tool. Its Trust Center lists two Web Search subprocessors: Brave Search (all products) and TurboPuffer (all products except Claude for Government, added in a 2026-05-06 update). Its help center says Claude for Government's Web Search connector calls the Brave Search API. Claude Desktop on third-party clouds uses the cloud provider's own search, or a bundled server backed by Brave, Tavily, Exa, or a custom endpoint.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Anthropic's Trust Center subprocessor list (read 2026-09-26) names Brave Search under Web Search, scoped to all products.",
+     "support_rids_full": [
+      "q01-r30",
+      "q01-r16",
+      "q01-r26",
+      "q01-r28",
+      "q01-r4"
+     ],
+     "support_rids_partial": [
+      "q01-r24",
+      "q01-r19",
+      "q01-r10",
+      "q01-r31",
+      "q01-r15",
+      "q01-r18",
+      "q01-r5",
+      "q01-r20",
+      "q01-r3"
+     ],
+     "verified_url": "https://trust.anthropic.com/subprocessors",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/anthropic-web-search.md:49",
+     "usefulness": 1
+    },
+    {
+     "claim": "A Trust Center update published 2026-05-06 added TurboPuffer as a Web Search subprocessor for all Anthropic products except Claude for Government.",
+     "support_rids_full": [
+      "q01-r23",
+      "q01-r26",
+      "q01-r25",
+      "q01-r24",
+      "q01-r4"
+     ],
+     "support_rids_partial": [
+      "q01-r30",
+      "q01-r16",
+      "q01-r10",
+      "q01-r28",
+      "q01-r19",
+      "q01-r15",
+      "q01-r31"
+     ],
+     "verified_url": "https://trust.anthropic.com/trust",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/anthropic-web-search.md:241",
+     "usefulness": 1
+    },
+    {
+     "claim": "Anthropic's help center says Claude for Government's Web Search MCP connector calls the Brave Search API, sends only the query string, and that Brave doesn't persistently store queries.",
+     "support_rids_full": [
+      "q01-r12"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://support.claude.com/en/articles/14503775-mcp-web-search",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Anthropic's Claude Desktop third-party docs say Web Search runs at the inference provider (the provider's own backend on Google Cloud's Agent Platform and Microsoft Foundry; not native on Amazon Bedrock), and a bundled websearch server lets admins pick Brave, Tavily, Exa, or a custom backend.",
+     "support_rids_full": [
+      "q01-r7"
+     ],
+     "support_rids_partial": [
+      "q01-r1"
+     ],
+     "verified_url": "https://claude.com/docs/third-party/claude-desktop/web-tools",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "Trust Center is a Vanta JS app; read in a rendering browser. r16 redirects to the same subprocessor list. No Anthropic page says which subprocessor serves the API web_search tool (r21 names none); citation-overlap studies (r22, r4, r24) are inference. Image search 'powered by Bing' (Anthropic help article; stated by r18 and r31) is already in competitive/enterprise-search-and-workplace-ai.md:110. r1 is an admin-configured Brave MCP for Cowork on Bedrock, not native search. r11 returned 403 (unverifiable); r2 (Reddit) couldn't be fetched."
+  },
+  {
+   "id": "q02",
+   "status": "unresolved",
+   "answer": "Not named. Firecrawl's docs refer only to 'our upstream search provider'. Its open-source code sends /search to Firecrawl's closed Fire-engine service when configured, else to a SearXNG endpoint, else to DuckDuckGo scraping. What Fire-engine queries upstream isn't public.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Firecrawl's open-source search service calls the closed Fire-engine search service when FIRE_ENGINE_BETA_URL is set, else a configured SearXNG endpoint, else DuckDuckGo HTML scraping.",
+     "support_rids_full": [
+      "q02-r23"
+     ],
+     "support_rids_partial": [
+      "q02-r13"
+     ],
+     "verified_url": "https://github.com/firecrawl/firecrawl/blob/main/apps/api/src/search/v2/index.ts",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/firecrawl.md:96",
+     "usefulness": 1
+    }
+   ],
+   "notes": "DeepWiki (r23, r13) also says Fire-engine returns Google results. No primary source confirms it: the code only posts to FIRE_ENGINE_BETA_URL/search with Google-style tbs, lang, and country params. Not counted. Firecrawl docs (r10, r2), blogs (r3, r11, r17), and READMEs (r1, r22) name no upstream provider; r19 is the v2 controller and names none."
+  },
+  {
+   "id": "q03",
+   "status": "partial",
+   "answer": "No public BAA. Tavily's Platform Terms (updated 2026-05-04) make customers warrant their input holds no HIPAA-protected health information. The DPA and the Acceptable Use Policy (updated 2026-05-05) allow such data only with Tavily's prior written consent. None mentions a BAA, and the trust center lists only SOC 2 Type II and ISO 27001:2022. Whether Tavily would sign a BAA under the consent carve-out isn't public.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Tavily's standard terms bar customers from submitting HIPAA-protected health information: Platform Terms section 8.2, with the DPA and the AUP also barring it absent Tavily's written consent.",
+     "support_rids_full": [
+      "q03-r19",
+      "q03-r33",
+      "q03-r14"
+     ],
+     "support_rids_partial": [
+      "q03-r24"
+     ],
+     "verified_url": "https://www.tavily.com/terms",
+     "novelty": "contradicts_kb",
+     "kb_ref": "competitive/tavily.md:276: \"No HIPAA or BAA mention on Tavily's public pages (absence of evidence)\"",
+     "usefulness": 3
+    },
+    {
+     "claim": "Tavily's DPA (section 1.8 of the MSA/DPA/SLA) and its AUP allow HIPAA PHI only with Tavily's prior written consent; neither references a BAA.",
+     "support_rids_full": [
+      "q03-r33",
+      "q03-r14"
+     ],
+     "support_rids_partial": [
+      "q03-r24"
+     ],
+     "verified_url": "https://www.tavily.com/legal/tavily-msa-dpa-sla.pdf",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Tavily's trust center lists SOC 2 Type II and ISO/IEC 27001:2022 as its compliance frameworks, with no HIPAA entry.",
+     "support_rids_full": [
+      "q03-r30"
+     ],
+     "support_rids_partial": [
+      "q03-r21"
+     ],
+     "verified_url": "https://trust.tavily.com/",
+     "novelty": "already_in_kb",
+     "kb_ref": "compliance/hipaa-coverage.md:124",
+     "usefulness": 0
+    }
+   ],
+   "notes": "r24 (tavily.org) looks like a static mirror (relative ../cdn links), not Tavily's domain; its AUP text matches the official page, so it's partial. Nudge Security (r17) shows a 'HIPAA Compliant' badge with no source, contradicted by Tavily's own terms; not counted. aitoolsatlas (r18) marks HIPAA unknown. The privacy policy (r7, updated 2025-11-24) and help pages (r21, r29) don't mention HIPAA. The generic BAA guides in the pool aren't about Tavily. PDF read with macOS PDFKit."
+  },
+  {
+   "id": "q04",
+   "status": "partial",
+   "answer": "Tavily publishes no numeric keyless cap. Its docs call keyless Search and Extract free and rate-limited, with limits separate from API-key limits (the 100 RPM dev and 1,000 RPM prod limits don't apply). Tavily's JS SDK source says keyless requests can hit hourly, daily, or monthly caps. At a cap, the API returns a structured error with retry-after seconds and next steps.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Tavily publishes no numeric keyless limit; its own docs and SDK pages describe keyless Search and Extract only as free and rate-limited (a fair-use cap).",
+     "support_rids_full": [
+      "q04-r20",
+      "q04-r2",
+      "q04-r11",
+      "q04-r13",
+      "q04-r4",
+      "q04-r14",
+      "q04-r25",
+      "q04-r16",
+      "q04-r5"
+     ],
+     "support_rids_partial": [
+      "q04-r7",
+      "q04-r10",
+      "q04-r23"
+     ],
+     "verified_url": "https://docs.tavily.com/documentation/keyless",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:83",
+     "usefulness": 1
+    },
+    {
+     "claim": "When a keyless cap is hit, the API returns a structured error that Tavily's SDKs raise as TavilyKeylessLimitError, carrying the cap code or window, retry-after seconds, and next actions such as signing up or bonus credits.",
+     "support_rids_full": [
+      "q04-r14",
+      "q04-r25",
+      "q04-r16"
+     ],
+     "support_rids_partial": [
+      "q04-r13",
+      "q04-r4",
+      "q04-r20",
+      "q04-r11"
+     ],
+     "verified_url": "https://github.com/tavily-ai/tavily-python/blob/master/README.md",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 0
+    },
+    {
+     "claim": "Keyless caps are time-windowed: Tavily's JS SDK source says a keyless request can be rejected when an hourly, daily, or monthly cap is reached.",
+     "support_rids_full": [],
+     "support_rids_partial": [
+      "q04-r16",
+      "q04-r14",
+      "q04-r25"
+     ],
+     "verified_url": "https://github.com/tavily-ai/tavily-js/blob/main/src/errors.ts",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "r11 (rate-limits doc) says keyless uses separate limits and a different error format. The hourly/daily/monthly wording is in src/errors.ts, not on the pooled README (r16). r5 says outright that Tavily doesn't publish the keyless limit. Keyed limits (r11, r15, r18, r19) are already in the KB. No page gives keyless numbers."
+  },
+  {
+   "id": "q05",
+   "status": "partial",
+   "answer": "OpenAI doesn't name the provider behind the Responses API web_search tool; its docs mention only cached/indexed results for cache-only mode. OpenAI's help center confirms an OpenAI search index: HIPAA-eligible ChatGPT workspaces search only that index and send no queries to third-party providers such as Bing, which implies Bing is used otherwise. On Azure, the Azure OpenAI Responses web_search runs on Grounding with Bing. Traffic studies of ChatGPT found four result sources: labrador (OpenAI's index), bright, oxylabs, and serp.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "OpenAI's help center confirms an OpenAI-run search index: in HIPAA-eligible ChatGPT workspaces, web search and deep research use information in OpenAI's index.",
+     "support_rids_full": [
+      "q05-r24"
+     ],
+     "support_rids_partial": [
+      "q05-r22",
+      "q05-r15"
+     ],
+     "verified_url": "https://help.openai.com/en/articles/20001069-hipaa-eligible-products-and-functionality",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "OpenAI names Bing among ChatGPT's third-party search providers: the HIPAA page says those workspaces send no queries to third-party providers 'e.g., Bing', and the search help page points to Microsoft's privacy statement.",
+     "support_rids_full": [],
+     "support_rids_partial": [
+      "q05-r24",
+      "q05-r5",
+      "q05-r15"
+     ],
+     "verified_url": "https://help.openai.com/en/articles/20001069-hipaa-eligible-products-and-functionality",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "On Azure, the Azure OpenAI Responses API web_search tool uses Grounding with Bing Search and/or Bing Custom Search, and data leaves the customer's compliance and geo boundary.",
+     "support_rids_full": [
+      "q05-r20"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/web-search",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/openai-web-search.md:49",
+     "usefulness": 1
+    },
+    {
+     "claim": "Independent 2026 analyses of ChatGPT's streamed search events found four result sources: labrador (OpenAI's own index), bright and oxylabs (scraping providers), and serp.",
+     "support_rids_full": [
+      "q05-r15"
+     ],
+     "support_rids_partial": [
+      "q05-r22",
+      "q05-r24"
+     ],
+     "verified_url": "https://rentierdigital.xyz/blog/chatgpt-labrador-search-engine-index",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "Claims 1, 2, and 4 are about ChatGPT, and claim 3 about Azure, not the first-party Responses API tool. Tying the API tool to OpenAI's index is inference (its cache-only mode mirrors the HIPAA setup). help.openai.com returned 403 to WebFetch and was read in a rendering browser. r23 (Search Engine Land) sat behind a Cloudflare bot check: unverifiable. r5's view that Bing is still the main source is the author's inference. OpenAI's API docs (r4, r12, r21) name no provider; r14 (Parallel) says only that OpenAI locks the index."
+  },
+  {
+   "id": "q06",
+   "status": "unresolved",
+   "answer": "Undisclosed. xAI's Web Search docs describe a server-side tool that searches and browses the web but name no index or vendor. Third-party claims that xAI runs its own index cite no xAI source.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "xAI's web_search documentation doesn't name the index or search vendor behind the tool, and xAI hasn't disclosed it.",
+     "support_rids_full": [
+      "q06-r25",
+      "q06-r22"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://docs.x.ai/developers/tools/web-search",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/xai-and-mistral-web-search.md:51",
+     "usefulness": 1
+    }
+   ],
+   "notes": "r18 (Storyzee) asserts a proprietary xAI index and attributes it to xAI docs, but those docs don't say so. r13 (PromptAlpha) gives no source. Neither is counted. xAI pages (r2, r3, r24) and guides (r5, r10, r16, r17) describe the tools only."
+  },
+  {
+   "id": "q07",
+   "status": "resolved",
+   "answer": "Brave. Mistral's Trust Center lists Brave Software, Inc. as its only Web Search subprocessor (US; Vibe and Studio/API), and the websearch docs' example output tags each web_search reference with source 'brave'. Retention: the privacy policy (effective 2026-09-03) keeps Agents API inputs and outputs until the account is terminated, versus 30 rolling days for most APIs. Zero data retention excludes Agents and Conversations, the only APIs that run web_search.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Mistral's Trust Center lists Brave Software, Inc. as its only Web Search subprocessor (United States), for Vibe and Studio/API.",
+     "support_rids_full": [],
+     "support_rids_partial": [
+      "q07-r22"
+     ],
+     "verified_url": "https://trust.mistral.ai/subprocessors/",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Mistral's websearch docs show example web_search tool_reference results tagged with source 'brave'.",
+     "support_rids_full": [
+      "q07-r4",
+      "q07-r3",
+      "q07-r12"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://docs.mistral.ai/studio/agents/agent-tools/websearch",
+     "novelty": "contradicts_kb",
+     "kb_ref": "competitive/xai-and-mistral-web-search.md:61: \"The API docs don't name the engine behind `web_search`\"",
+     "usefulness": 3
+    },
+    {
+     "claim": "Mistral's privacy policy keeps Agents API inputs and outputs until the user terminates the account; most other API data is kept 30 rolling days for abuse monitoring unless ZDR is on.",
+     "support_rids_full": [
+      "q07-r30"
+     ],
+     "support_rids_partial": [
+      "q07-r5",
+      "q07-r16"
+     ],
+     "verified_url": "https://legal.mistral.ai/terms/privacy-policy",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Mistral's zero data retention applies only to stateless endpoints and excludes Agents and Conversations.",
+     "support_rids_full": [
+      "q07-r19",
+      "q07-r28"
+     ],
+     "support_rids_partial": [
+      "q07-r5",
+      "q07-r16"
+     ],
+     "verified_url": "https://docs.mistral.ai/admin/monitor-comply/zero-data-retention",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "The Trust Center (JS app) was read in a rendering browser: 25 subprocessors, with Brave the only Web Search entry; Le Chat isn't in Brave's listed scope. Willison (r22, 2025) inferred Brave from the same list. r3 and r12 redirect to the r4 page. The docs' example output is dated 2025-05-27, and the docs say web_search works only in the Conversations and Agents APIs. anarlog (r5, r16) gives the 30-day rule but omits the Agents exception. r14 is mistral.rs (DuckDuckGo), a different project; r15 is speculation."
+  },
+  {
+   "id": "q08",
+   "status": "resolved",
+   "answer": "Yes, by AWS's general rule. The HIPAA Eligible Services Reference (updated 2026-09-03) lists Amazon Bedrock AgentCore with no exclusions and says every feature of a listed service is eligible unless noted. Web Search is an AgentCore Gateway connector, and AWS's FAQ calls AgentCore HIPAA eligible. No AWS page names Web Search in HIPAA terms.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "AWS's HIPAA Eligible Services Reference (last updated 2026-09-03) lists Amazon Bedrock AgentCore with no feature exclusions and says all features of listed services are eligible unless specifically noted.",
+     "support_rids_full": [
+      "q08-r18"
+     ],
+     "support_rids_partial": [
+      "q08-r24",
+      "q08-r15"
+     ],
+     "verified_url": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference/",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "AWS's AgentCore FAQ says AgentCore is HIPAA eligible and lists the Web Search tool as a pre-built AgentCore Gateway connector.",
+     "support_rids_full": [
+      "q08-r14"
+     ],
+     "support_rids_partial": [
+      "q08-r5"
+     ],
+     "verified_url": "https://aws.amazon.com/bedrock/agentcore/faqs/",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/aws-agentcore-web-search.md:52",
+     "usefulness": 1
+    }
+   ],
+   "notes": "The Web Search docs and launch posts (r2, r3, r4, r10, r17, r21, r26) don't mention HIPAA. r24's copy of the list shows an older Bedrock exclusion (Fable and Mythos models) that the live page no longer carries; AgentCore has none in either. r7 is the separate Amazon Bedrock Web Search tool (GPT models), not AgentCore. Eligibility still needs a BAA and customer configuration (r12, r25)."
+  },
+  {
+   "id": "q09",
+   "status": "unresolved",
+   "answer": "No page explains the 404. Google's Web Search Service API docs (last updated 2026-09-09) described a partner-only API that needs a Cloud project, API key, and partner client ID. They still returned 404 on 2026-09-26, and nothing in the pool says whether they were deprecated, renamed, or moved. The only rename in the pool is Vertex AI Search becoming Agent Search, a different product.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Reports from 2026-09-11 to 2026-09-16 say Google's Web Search Service API docs, last updated 2026-09-09, described a partner-only, non-self-serve API for retrieving and displaying Google Search results.",
+     "support_rids_full": [
+      "q09-r16",
+      "q09-r37",
+      "q09-r6"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.shahidali.co/blog/google-web-search-service-api/",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/google-search-grounding.md:56",
+     "usefulness": 1
+    }
+   ],
+   "notes": "developers.google.com/web-search-service/overview (r11) and sibling paths returned 404 on 2026-09-26, so the primary is unverifiable; r36 returned 403. r4 (Reddit, a Feb 2026 Google email naming a 'Future Web Search Service') couldn't be fetched. r13, r15, r19, r22, and r28 cover the 2010-2014 AJAX Web Search API retirement, a different product. The Custom Search JSON API closure (r5, r27, r30) is already in the KB."
+  },
+  {
+   "id": "q10",
+   "status": "partial",
+   "answer": "Nebius never disclosed a price. Press reports put it at $275 million (Bloomberg). Calcalist reported $275M initially, rising to as much as $400M on milestones. Nebius's 6-K described upfront cash plus an earnout in cash or shares. The pool doesn't give the close date: announcements said 'the next few weeks', and Tracxn wrongly dates the acquisition 2026-02-11. Nebius's filing, already in the KB, says the deal closed 2026-02-19 at $189.7M fair value plus up to $67.3M in earnout.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Press reports put the deal value at $275 million.",
+     "support_rids_full": [
+      "q10-r3",
+      "q10-r1",
+      "q10-r10",
+      "q10-r19",
+      "q10-r16",
+      "q10-r2",
+      "q10-r12",
+      "q10-r15",
+      "q10-r5",
+      "q10-r9",
+      "q10-r13",
+      "q10-r7"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.bloomberg.com/news/articles/2026-02-10/nebius-agrees-to-buy-ai-agent-search-company-tavily-for-275-million",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:56",
+     "usefulness": 1
+    },
+    {
+     "claim": "Reports led by Calcalist describe $275 million as the initial amount, rising to as much as $400 million if milestones are met.",
+     "support_rids_full": [
+      "q10-r7",
+      "q10-r5",
+      "q10-r9",
+      "q10-r13"
+     ],
+     "support_rids_partial": [
+      "q10-r22",
+      "q10-r20"
+     ],
+     "verified_url": "https://www.calcalistech.com/ctechnews/article/r168bhodbe",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:56",
+     "usefulness": 1
+    },
+    {
+     "claim": "Nebius's 2026-02-10 announcement and 6-K didn't disclose the value; the 6-K says upfront consideration is cash plus a performance-based earnout payable in cash or Class A shares, with closing expected within weeks.",
+     "support_rids_full": [
+      "q10-r11"
+     ],
+     "support_rids_partial": [
+      "q10-r4",
+      "q10-r16",
+      "q10-r12",
+      "q10-r5",
+      "q10-r9",
+      "q10-r13"
+     ],
+     "verified_url": "https://www.stocktitan.net/sec-filings/NBIS/6-k-nebius-group-n-v-current-report-foreign-issuer-d4c0da26ac8e.html",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:55",
+     "usefulness": 1
+    },
+    {
+     "claim": "The acquisition closed on 2026-02-19, when Nebius acquired 100% of Tavily for $189.7M fair value of consideration plus up to $67.3M in ARR-based earnout.",
+     "support_rids_full": [],
+     "support_rids_partial": [
+      "q10-r23"
+     ],
+     "verified_url": "https://www.sec.gov/Archives/edgar/data/0001513845/000110465926064092/nbis-20260331xex99d2.htm",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:47",
+     "usefulness": 0
+    }
+   ],
+   "notes": "Tracxn (r15) dates the acquisition 2026-02-11, which conflicts with the filing's 2026-02-19 close. Wikipedia (r8) says 'around $400 million', which is inaccurate. Nebius's May blog (r23) confirms only that the deal completed. r6 (BusinessWire) returned 403. r3 was verified from its headline only (paywall). CTech's cash figure conflicts with the filing's $177.2M cash at close, as the KB already notes."
+  }
+ ]
+}

@@ -1,0 +1,136 @@
+{
+ "method": "Post hoc (Amendment 6), after unblinding; provider identity plays no part. For each S6 cell without ground truth, the company's KB leaf at 933777c was grepped for the field's keywords and every hit was read.",
+ "cells": {
+  "c08.free_tier": {
+   "kb_states_it": true,
+   "evidence": "competitive/valyu.md:105 states the free credits (linked, not tagged)",
+   "fact_type": "positive"
+  },
+  "c09.free_tier": {
+   "kb_states_it": true,
+   "evidence": "competitive/nimble.md:109 states 5,000 free pages or requests (linked, not tagged)",
+   "fact_type": "positive"
+  },
+  "c10.soc2": {
+   "kb_states_it": true,
+   "evidence": "competitive/crustdata.md:97 says no SOC 2 claim was found (untagged)",
+   "fact_type": "absence"
+  },
+  "c10.zero_data_retention": {
+   "kb_states_it": true,
+   "evidence": "competitive/crustdata.md:97 says no ZDR claim was found (untagged)",
+   "fact_type": "absence"
+  },
+  "c10.hipaa_baa": {
+   "kb_states_it": true,
+   "evidence": "competitive/crustdata.md:205 says no comparable claims (untagged)",
+   "fact_type": "absence"
+  },
+  "c11.soc2": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "positive"
+  },
+  "c11.hipaa_baa": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c11.last_funding": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "positive"
+  },
+  "c12.official_mcp_server": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c13.soc2": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c13.zero_data_retention": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c13.hipaa_baa": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c15.zero_data_retention": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c16.free_tier": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c17.soc2": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "positive"
+  },
+  "c17.zero_data_retention": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c17.hipaa_baa": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c18.zero_data_retention": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "positive"
+  },
+  "c18.official_mcp_server": {
+   "kb_states_it": false,
+   "evidence": "Corrected in Amendment 7: competitive/browser-infrastructure.md:96 is under the Kernel heading and describes Kernel. No KB leaf states Browserbase's MCP server.",
+   "fact_type": "positive"
+  },
+  "c19.soc2": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c19.zero_data_retention": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "positive"
+  },
+  "c19.hipaa_baa": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c19.official_mcp_server": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "positive"
+  },
+  "c20.soc2": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "positive"
+  },
+  "c20.zero_data_retention": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  },
+  "c20.hipaa_baa": {
+   "kb_states_it": false,
+   "evidence": "no statement found in the company's leaf (grep of field keywords, hits read)",
+   "fact_type": "absence"
+  }
+ },
+ "corrections": "Amendment 7: c18.official_mcp_server re-checked (the KB doesn't state it); c10 cells re-labelled as absences."
+}

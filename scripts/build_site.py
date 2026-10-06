@@ -36,7 +36,10 @@ REPORT_TITLES = {
     '2026-09-29-web-search-bakeoff': 'Web search bakeoff',
     '2026-10-03-search-gap-bench': 'Search gap bench',
     '2026-10-05-agent-search-behavior': 'How agents used search',
+    '2026-09-26-search-api-head-to-head': 'Search API head-to-head',
 }
+H2H = '2026-09-26-search-api-head-to-head'
+H2H_PROVIDERS = ('Exa', 'Tavily', 'Parallel', 'Firecrawl')
 
 
 # ---------------------------------------------------------------- data
@@ -182,6 +185,59 @@ def arm_configs(root: Path = ROOT) -> list[dict]:
 
 def behavior(reports: dict) -> dict:
     return reports['2026-10-05-agent-search-behavior']['summary']['analysis']
+
+
+def parse_tally(cell: str) -> tuple[int, int | None]:
+    """'25' -> (25, None); '105/133 (78.9%)' -> (105, 133). Bold markers are ignored."""
+    match = re.fullmatch(r'\s*\**(\d+)\**(?:/(\d+))?(?:\s*\([^)]*\))?\s*', cell)
+    if not match:
+        raise ValueError(f'expected a count or k/n in {cell!r}')
+    return int(match.group(1)), int(match.group(2)) if match.group(2) else None
+
+
+def head_to_head(reports: dict) -> dict:
+    """Figures from the search API head-to-head, read from its transcribed tables; nothing is recalculated."""
+    pairs = tables(reports[H2H]['summary'])
+    stage_a = next(t for _, t in pairs if t[0][0].startswith('Stage A'))
+    stage_b = next(t for _, t in pairs if t[0][0] == 'Stage B')
+    stage_c = next(t for _, t in pairs if t[0][:2] == ['Provider', 'New tier-1 claims (either arm)'])
+    monitors = next(t for _, t in pairs if t[0][0].startswith('Monitor'))
+
+    def measure(table, prefix, key, label):
+        row = next(r for r in data_rows(table) if r[0].startswith(prefix))
+        values, of = {}, None
+        for provider, cell in zip(table[0][1:], row[1:]):
+            values[provider], n = parse_tally(cell)
+            of = of or n
+        bound = re.search(r'\(of (\d+)', row[0])
+        return {'id': key, 'label': label, 'of': of or (int(bound.group(1)) if bound else None),
+                'values': values, 'source_row': row[0]}
+
+    c_rows = {r[0]: r for r in data_rows(stage_c)}
+    measures = [
+        measure(stage_a, 'S1 new or correcting claims', 's1', 'New or correcting claims, 40 open questions'),
+        measure(stage_a, 'S4 new dated facts', 's4', 'New dated facts, two weeks of company news'),
+        measure(stage_a, 'S3 pages recovered', 's3', 'Pages other tools could not read, recovered'),
+        measure(stage_b, 'S6 right on KB ground truth', 's6', 'Schema values right on ground truth'),
+        measure(stage_b, 'S5 entities verified and new', 's5', 'Entities new to the knowledge base, three lists'),
+        {'id': 'sv', 'label': 'New tier-1 claims on four big vendors (no lead significant)', 'of': None,
+         'values': {p: parse_tally(c_rows[p][1])[0] for p in H2H_PROVIDERS}, 'source_row': stage_c[0][1]},
+    ]
+    rows = data_rows(monitors)
+    probe = {'monitors': len(rows), 'runs': sum(int(r[1]) for r in rows),
+             'runs_with_changes': sum(int(r[2]) for r in rows), 'changes': sum(int(r[3]) for r in rows)}
+    if len(monitors[0]) > 4:
+        probe['confirmed'] = sum(int(r[4]) for r in rows)
+        probe['monitors_passing'] = sum(r[5].startswith('yes') for r in rows)
+    return {'title': REPORT_TITLES[H2H], 'source': H2H, 'providers': list(H2H_PROVIDERS), 'measures': measures,
+            'monitors': probe,
+            'note': 'Counts of verified items from one run per question, transcribed from the report. No intervals '
+                    'were published; differences of a few items are within noise.'}
+
+
+def leader(measure: dict) -> str:
+    top = max(measure['values'].values())
+    return ' and '.join(p for p, v in measure['values'].items() if v == top)
 
 
 # ---------------------------------------------------------------- markdown
@@ -334,7 +390,7 @@ def render_report(summary: dict, report: str) -> str:
 
 PALETTE = {  # the infographic is a single-theme graphic with its own ground
     'paper': '#F5F7FA', 'surface': '#FFFFFF', 'ink': '#111111', 'ink2': '#555D67', 'rule': '#E1E5EA',
-    'beam': '#007BFF', 'beam_soft': '#D7E8FF', 'ref': '#8A949E', 'hatch': '#C5CCD3',
+    'beam': '#007BFF', 'beam_soft': '#D7E8FF', 'beam_mid': '#8DBDFF', 'ref': '#8A949E', 'hatch': '#C5CCD3',
 }
 FONT = "'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif"
 MONO = "ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
@@ -511,7 +567,41 @@ def _tiles(tiles, x, y, width, P) -> tuple[list[str], float]:
     return out, th
 
 
-def infographic(boards: list[dict], analysis: dict) -> str:
+def _h2h_panels(h2h: dict, x, y, width, P, ids=('s1', 's4', 's3', 's6')) -> tuple[list[str], float]:
+    """Small multiples, one per measure: a bar per provider on that measure's own scale, the leader in full colour."""
+    out = []
+    gap, row_h, label_w, value_w = 28, 22, 74, 66
+    pw = (width - gap) / 2
+    measures = [m for m in h2h['measures'] if m['id'] in ids]
+    panel_h = 26 + row_h * len(h2h['providers']) + 10
+    for i, m in enumerate(measures):
+        px, py = x + (i % 2) * (pw + gap), y + (i // 2) * (panel_h + 14)
+        scale = m['of'] or max(m['values'].values()) or 1
+        top = max(m['values'].values())
+        out.append(_text(px, py + 12, m['label'] + (f' (of {m["of"]})' if m['of'] else ''), 13, weight='600'))
+        bx, bw = px + label_w, pw - label_w - value_w
+        for j, provider in enumerate(h2h['providers']):
+            cy = py + 26 + row_h * j + row_h / 2
+            out.append(_text(px, cy + 4, provider, 12, P['ink2']))
+            out.append(f'<rect x="{bx:.1f}" y="{cy - 6:.1f}" width="{bw:.1f}" height="12" rx="2" fill="{P["rule"]}"/>')
+            if provider not in m['values']:
+                out.append(_text(bx + 6, cy + 4, 'not run', 11, P['ink2'], MONO))
+                continue
+            value = m['values'][provider]
+            fill = P['beam'] if value == top else P['beam_mid']
+            out.append(f'<rect x="{bx:.1f}" y="{cy - 6:.1f}" width="{max(2.0, bw * value / scale):.1f}" height="12" '
+                       f'rx="2" fill="{fill}"/>')
+            out.append(_text(px + pw, cy + 4, str(value), 12, P['ink'], MONO, '600' if value == top else None,
+                             anchor='end'))
+    rows = (len(measures) + 1) // 2
+    height = rows * panel_h + (rows - 1) * 14
+    note, nh = _para(x, y + height + 12, 'Counts of verified items, one run per question; no 95% ranges were '
+                     'published, so differences of a few items are within noise. Tavily sells no structured '
+                     'extraction, so it was not run on the schema.', 104, 12, 16, fill=P['ink2'])
+    return out + note, height + 12 + nh
+
+
+def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> str:
     P = PALETTE
     W, M = 1200, 48
     gap_cc = next(b for b in boards if b['id'] == 'gap-claude-code')
@@ -553,8 +643,12 @@ def infographic(boards: list[dict], analysis: dict) -> str:
     body.append(_text(M + 52, 62, 'SEARCHLIGHT', 24, P['paper'], FONT, '500', spacing=5))
     body.append(_text(M, 100, 'Does web search help coding agents do real work?', 22, P['paper']))
     providers = len({r['arm'] for b in boards for r in b['rows']} - {'native', 'no-search'})
-    body.append(_text(M, 128, f'Results to date, 2026-09-29 to 2026-10-05 · {runs} graded test runs · 2 AI coding '
-                      f'agents · {providers} search providers · 2 benchmarks', 14, '#C9D3DA', MONO))
+    if h2h:
+        body.append(_text(M, 128, f'Results to date, 2026-09-26 to 2026-10-06 · {runs} graded agent runs · 2 coding '
+                          f'agents · {providers} providers · 1 API study', 14, '#C9D3DA', MONO))
+    else:
+        body.append(_text(M, 128, f'Results to date, 2026-09-29 to 2026-10-05 · {runs} graded test runs · 2 AI coding '
+                          f'agents · {providers} search providers · 2 benchmarks', 14, '#C9D3DA', MONO))
 
     # ---- method strip
     y = 206
@@ -592,8 +686,8 @@ def infographic(boards: list[dict], analysis: dict) -> str:
                         f'L {ax - 7:.1f} {cy0 + ch / 2 + 10:.1f}" fill="none" stroke="{P["beam"]}" stroke-width="3" '
                         f'stroke-linecap="round" stroke-linejoin="round"/>')
     y = cy0 + ch + 30
-    body.append(_text(M, y, 'Every result below is a pass rate with its 95% range. Where two ranges overlap, the '
-                      'data cannot tell them apart.', 14, P['ink2']))
+    body.append(_text(M, y, 'Pass rates are shown with their 95% range. Where two ranges overlap, the data cannot '
+                      'tell them apart.' + (' Finding 5 counts verified items instead.' if h2h else ''), 14, P['ink2']))
 
     # ---- findings
     y += 62
@@ -642,6 +736,20 @@ def infographic(boards: list[dict], analysis: dict) -> str:
                                                     f'({hit[0]}/{hit[1]}) vs without it ({miss[0]}/{miss[1]}).'),
          ], right_x, yy + 8, right_w, P)),
     ]
+    if h2h:
+        hm = {m['id']: m for m in h2h['measures']}
+        s1, s4, s3, s6 = hm['s1'], hm['s4'], hm['s3'], hm['s6']
+        news = '' if leader(s4) == leader(s1) else f'{leader(s4)} '
+        findings.append((
+            'Called directly, each search API led a different job',
+            f'A separate study called four search APIs directly on a research workload. {leader(s1)} added the most '
+            f'verified new claims ({max(s1["values"].values())} on 40 open questions) and {news}the most new dated '
+            f'news facts ({max(s4["values"].values())}). {leader(s3)} read the most pages other tools could not '
+            f'({max(s3["values"].values())} of {s3["of"]}), and {leader(s6)} filled a fixed schema most accurately '
+            f'({max(s6["values"].values())} of {s6["of"]} values).',
+            'Choose by job: discovery, rendering and structured extraction rewarded different providers. The study '
+            'was run for a knowledge base about Exa, one of the four, so read its context note.',
+            lambda yy: _h2h_panels(h2h, right_x, yy + 8, right_w, P)))
     for n, (headline, text, sowhat, chart) in enumerate(findings, start=1):
         left: list[str] = [_text(M, y + 4, f'FINDING {n}', 12, P['beam'], MONO, '700', spacing=1)]
         hl, hh = _para(M, y + 34, headline, 29, 24, 28, family=COND, weight='700')
@@ -671,8 +779,10 @@ def infographic(boards: list[dict], analysis: dict) -> str:
     body.append(_text(M + 24, y + 34, 'Read before comparing', 18, P['ink'], COND, '700'))
     caveats = [
         f'{cells[0]}–{cells[-1]} test runs per provider: ranges are wide, and neighbouring positions are not rankings.',
-        'Each provider ran through its own MCP server at a pinned version and default settings. Direct APIs, '
-        'other search modes and other tools were not tested.',
+        ('In the agent benchmarks each provider ran through its own MCP server at default settings; the API study '
+         'called tuned APIs directly.' if h2h else
+         'Each provider ran through its own MCP server at a pinned version and default settings. Direct APIs, '
+         'other search modes and other tools were not tested.'),
         'Grading used automatic checks and blinded model graders. Provider dollar spend was only partly metered.',
         f'Search behavior comes from {queries} logged queries; its links to pass rates are correlations.',
     ]
@@ -684,9 +794,13 @@ def infographic(boards: list[dict], analysis: dict) -> str:
     head = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
             'role="img" aria-labelledby="ig-title ig-desc">',
             '<title id="ig-title">Searchlight results to date</title>',
-            '<desc id="ig-desc">How the Searchlight test works, four findings with their evidence (pass rates '
-            'with 95% ranges for search providers on two benchmarks and two coding agents, and how the agents '
-            'searched), and the caveats for reading them.</desc>',
+            '<desc id="ig-desc">How the Searchlight test works, '
+            + ('five findings with their evidence (pass rates with 95% ranges for search providers on two benchmarks '
+               'and two coding agents, how the agents searched, and counts from a study that called four search APIs '
+               'directly)' if h2h else
+               'four findings with their evidence (pass rates with 95% ranges for search providers on two benchmarks '
+               'and two coding agents, and how the agents searched)')
+            + ', and the caveats for reading them.</desc>',
             f'<rect width="{W}" height="{H}" fill="{P["paper"]}"/>']
     return '\n'.join(head + body + ['</svg>'])
 
@@ -746,6 +860,13 @@ APPARATUS = {
   J1-->>A: key-fact recall, unsupported claims, decision
   J2-->>A: independent labels, agreement recorded
   Note over A,J2: pass = right decision AND recall >= 0.7 AND unsupported <= 0.25""",
+    'direct': """flowchart LR
+  Q[pre-registered question sets<br/>from one knowledge base] --> E[Exa] & T[Tavily] & P[Parallel] & F[Firecrawl]
+  E & T & P & F --> PO[(results pooled,<br/>deduplicated, shuffled)]
+  PO --> J[blind model judges<br/>verify each claim on its page]
+  J --> K{already in the<br/>knowledge base?}
+  K --> A[attribution rejoined:<br/>credit only where the provider's<br/>own page states the claim]
+  A --> R[reports/*/summary.json]""",
 }
 
 
@@ -1084,10 +1205,12 @@ Codex.</p>
 
 <section id="report"><div class="wrap report">
 <div><h2>The report</h2>
-<p class="section-lede" style="margin-bottom:16px">Three studies, published with their data, methodology and corrections.</p>
+<p class="section-lede" style="margin-bottom:16px">Four studies, published with their data, methodology and corrections.</p>
 <ul><li><strong>Search gap bench:</strong> research briefs and code fixes about events after the models' training data.</li>
 <li><strong>Web search bakeoff:</strong> research questions with well-documented answers.</li>
-<li><strong>How agents used search:</strong> what the agents actually typed and opened, across both benchmarks.</li></ul>
+<li><strong>How agents used search:</strong> what the agents actually typed and opened, across both benchmarks.</li>
+<li><strong>Search API head-to-head:</strong> four search APIs called directly on a research workload, with the full
+pre-registered record.</li></ul>
 <div class="actions"><a class="btn solid" href="results.html">Read the full results</a>
 <a class="btn" href="methodology.html">Methodology</a></div></div>
 <a class="shot" href="results.html#infographic"><img src="infographic.svg" alt="Searchlight results infographic" loading="lazy"></a>
@@ -1115,29 +1238,60 @@ def results_language(markup: str) -> str:
 
 
 def results_page(reports: dict, boards: list[dict], analysis: dict, body_only: bool = False) -> str:
+    # The head-to-head report uses "cell" for a table cell, "arm" for its search and research arms and "harness" for
+    # its own scripts, not the agent benchmarks' glossary terms, so its full report keeps its words.
+    protected = {}
     runs = []
     for name in REPORTS:
         summary = reports[name]['summary']
-        runs.append(
+        section = (
             f'<section id="run-{name}"><h3>{esc(REPORT_TITLES[name])} <span class="flag">({name[:10]})</span></h3>'
             f'<details class="run" {"open" if name == REPORTS[-1] else ""}><summary>Full recorded report</summary>'
             f'{render_report(summary, name)}</details>'
             f'<details class="run" id="method-{name}"><summary>Methodology for this study</summary>'
             f'{markdown(reports[name]["methodology"], name + "-method", heading_shift=2, base=name)}</details>'
             f'<p class="flag">Files: <a href="{REPO_URL}/tree/main/reports/{name}">reports/{name}/</a></p></section>')
+        if name == H2H:
+            protected[f'\x00{name}\x00'] = section
+            section = f'\x00{name}\x00'
+        runs.append(section)
     h = headline(boards, analysis)
+    h2h = head_to_head(reports)
+    head = ['Measure', *h2h['providers']]
+    rows = [head] + [[m['label'] + (f' (of {m["of"]})' if m['of'] else '')]
+                     + [str(m['values'][p]) if p in m['values'] else '—' for p in h2h['providers']]
+                     for m in h2h['measures']]
+    probe = h2h['monitors']
+    probe_text = (f'An Exa-only Monitors probe made {probe["runs"]} daily runs on {probe["monitors"]} competitors\' pricing and '
+                  f'changelog pages and reported {probe["changes"]} changes'
+                  + (f', {probe["confirmed"]} of them confirmed on the page; {probe["monitors_passing"]} of '
+                     f'{probe["monitors"]} monitors surfaced a real, dated pricing or product change.'
+                     if 'confirmed' in probe else '.'))
+    direct = f"""<section id="head-to-head"><h2>Search APIs called directly</h2>
+<p>A separate study ({esc(REPORT_TITLES[H2H])}, 2026-09-26 to 2026-10-06) sent the same pre-registered research questions to
+four search APIs directly, with each vendor's best-practice parameters, and had blind model judges verify every counted item
+on its source page. It measures what each API adds to a knowledge base already built with built-in search, not what an
+agent does with it.</p>
+{table_html(rows, H2H)}
+<p class="flag">{esc(h2h['note'])} A dash means not run: Tavily sells no list-building or structured-extraction product.
+{esc(probe_text)}</p>
+<p class="flag">Context: the study was run while building a go-to-market knowledge base about Exa, one of the four providers,
+and its questions come from that knowledge base. Full report: <a href="#run-{H2H}">{esc(REPORT_TITLES[H2H])}</a>.</p>
+</section>"""
     main = f"""<div class="wrap doc">
 <div class="page-head"><p class="eyebrow">Results</p><h1>What the benchmark measured</h1>
-<p class="lede">Two benchmarks, two AI coding agents, {h['providers']} search providers and {h['runs']} graded test runs. Every
-number on this page is generated from the published report data.</p></div>
+<p class="lede">Two agent benchmarks, two AI coding agents, {h['providers']} search providers and {h['runs']} graded test runs,
+plus a study that called four search APIs directly. Every number on this page is generated from the published report
+data.</p></div>
 
 <section id="before"><h2>Read this before comparing providers</h2>
 <ul class="caveats">
 <li><strong>Small samples</strong>{h['min_runs']} to {h['max_runs']} test runs per provider. The 95% ranges overlap widely, so
 neighbouring positions are not rankings, and no provider beat answering from memory on the documented-knowledge benchmark by
 a statistically clear margin.</li>
-<li><strong>One connection per provider</strong>Each provider ran through its own official MCP server at a pinned version and
-default settings. Direct APIs, other search modes and other tools were not tested.</li>
+<li><strong>One connection per provider</strong>In the two agent benchmarks, each provider ran through its own official MCP
+server at a pinned version and default settings; other search modes and tools were not tested there. The search API
+head-to-head called the APIs directly with tuned parameters, and its results do not transfer to agents, or back.</li>
 <li><strong>The agent matters</strong>Rankings changed between Claude Code and Codex. A result on one agent does not transfer
 to another.</li>
 <li><strong>Built-in search defect</strong>Claude Code's built-in search could not open pages in these runs, so its rows are
@@ -1149,7 +1303,7 @@ sources without seeing which provider produced them.</li>
 </ul></section>
 
 <section id="infographic"><h2>Results at a glance</h2>
-<figure><div class="infographic">{infographic(boards, analysis)}</div>
+<figure><div class="infographic">{infographic(boards, analysis, h2h)}</div>
 <figcaption>Generated from <code>reports/*/summary.json</code>. Download:
 <a href="infographic.svg">infographic.svg</a>.</figcaption></figure></section>
 
@@ -1159,6 +1313,8 @@ sources without seeing which provider produced them.</li>
 {''.join(board_html(b) for b in boards)}
 </section>
 
+{direct}
+
 <section id="runs"><h2>Full reports</h2>
 <p>The recorded reports, transcribed and checked by <code>scripts/check_reports.py</code>, with plain-language labels
 for search setups, test runs and agents.</p>
@@ -1166,6 +1322,8 @@ for search setups, test runs and agents.</p>
 </section>
 </div>"""
     main = results_language(main)
+    for marker, section in protected.items():
+        main = main.replace(marker, section)
     if body_only:
         return main
     return _document('Searchlight Results', 'Searchlight results: pass rates, leaderboards and full reports.',
@@ -1241,10 +1399,22 @@ has one, and otherwise a single blinded grader scores the task rubric.</p></sect
 provider's server advertised was available to the agent; no provider tool was hidden.</p>
 {configs_html(configs)}</section>
 
+<section id="direct-api"><h2>The search API head-to-head</h2>
+<p>One study tests the search APIs themselves rather than an agent using them. It sends the same pre-registered research
+questions to Exa, Tavily, Parallel and Firecrawl, each with the parameters its own documentation recommends, on the same
+day and with the same number of results. The results are pooled and shuffled, and blind model judges verify every counted
+claim on its source page. A provider is credited only when its own result page states the claim, and a claim counts as new
+only if the knowledge base the questions came from did not already have it. Unlike the benchmarks above, each question ran
+once, so the study reports counts without intervals.</p>
+{mermaid('direct')}
+<p>Its sets, endpoints, amendments and costs are in the study's
+<a href="results.html#method-{H2H}">methodology</a>, and its full pre-registered record is in
+<a href="{REPO_URL}/tree/main/reports/{H2H}">reports/{H2H}/</a>.</p></section>
+
 <section id="reproduce"><h2>Reproduce, correct, contribute</h2>
 <p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw transcripts and
 provider responses are not distributed, so exact replay of the published numbers is not possible; a new run measures the
-same method. If you run a tested service and a configuration here misrepresents it, open an issue with the configuration you
+same method. The one exception is the search API head-to-head's Monitors probe, whose raw responses are published. If you run a tested service and a configuration here misrepresents it, open an issue with the configuration you
 recommend: corrections are rerun and published beside the original, never silently replaced.</p>
 <pre><code>pipx install 'git+{REPO_URL}'
 sew doctor
@@ -1274,18 +1444,20 @@ def build(root: Path = ROOT) -> dict[str, str]:
     boards = leaderboards(reports)
     configs = arm_configs(root)
     analysis = behavior(reports)
+    h2h = head_to_head(reports)
     data = {
         'generated_from': [f'reports/{name}/summary.json' for name in REPORTS],
         'note': 'Pass rates and intervals as published; WSB intervals are Wilson 95% computed from published counts. '
                 'Overlapping intervals are not rankings.',
         'boards': boards,
+        'search_api_head_to_head': h2h,
     }
     return {
         'index.html': landing(root, boards, analysis),
         'results.html': results_page(reports, boards, analysis),
         'methodology.html': methodology_page(configs),
         'logo.svg': LOGO + '\n',
-        'infographic.svg': infographic(boards, analysis) + '\n',
+        'infographic.svg': infographic(boards, analysis, h2h) + '\n',
         'leaderboard.json': json.dumps(data, indent=2, ensure_ascii=False) + '\n',
     }
 

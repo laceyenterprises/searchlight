@@ -1,0 +1,207 @@
+{
+ "monitor": {
+  "id": "01m3g3g2qt1ym4j1av1f2pzyh1",
+  "name": "provider-eval SM m01 Tavily",
+  "status": "active",
+  "search": {
+   "query": "Tavily API pricing, credits, plans, or changelog update",
+   "numResults": 10,
+   "includeDomains": [
+    "tavily.com",
+    "docs.tavily.com"
+   ]
+  },
+  "trigger": {
+   "type": "interval",
+   "period": "1d"
+  },
+  "outputSchema": null,
+  "metadata": {
+   "probe": "SM",
+   "stage": "B",
+   "experiment": "provider-eval",
+   "delete_after": "2026-10-10"
+  },
+  "webhook": {
+   "url": "https://exa.ai/provider-eval-webhook-placeholder",
+   "events": [
+    "monitor.deleted"
+   ]
+  },
+  "nextRunAt": "2026-10-07T06:41:06.459Z",
+  "createdAt": "2026-09-27T00:16:04.346Z",
+  "updatedAt": "2026-09-27T00:16:07.589Z"
+ },
+ "runs": [
+  {
+   "id": "01m47zhhkdb3ka98kymsf6nnht",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-06T06:48:44.397Z",
+   "completedAt": "2026-10-06T06:48:46.371Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2137,
+   "createdAt": "2026-10-06T06:48:44.397Z",
+   "updatedAt": "2026-10-06T06:48:46.372Z"
+  },
+  {
+   "id": "01m45dxwkb07tqmp91hg21t16y",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-05T07:02:25.643Z",
+   "completedAt": "2026-10-05T07:02:27.295Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1885,
+   "createdAt": "2026-10-05T07:02:25.643Z",
+   "updatedAt": "2026-10-05T07:02:27.296Z"
+  },
+  {
+   "id": "01m42vkbewrtqqxamtc1pbhy4p",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-04T07:03:37.180Z",
+   "completedAt": "2026-10-04T07:03:38.981Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1948,
+   "createdAt": "2026-10-04T07:03:37.180Z",
+   "updatedAt": "2026-10-04T07:03:38.982Z"
+  },
+  {
+   "id": "01m40949zw4z3pe33m89ba6frp",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-03T07:02:20.924Z",
+   "completedAt": "2026-10-03T07:02:22.418Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1680,
+   "createdAt": "2026-10-03T07:02:20.924Z",
+   "updatedAt": "2026-10-03T07:02:22.419Z"
+  },
+  {
+   "id": "01m3xpcwkps8yr98tjxvcr220e",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-02T06:56:30.326Z",
+   "completedAt": "2026-10-02T06:56:35.301Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5156,
+   "createdAt": "2026-10-02T06:56:30.326Z",
+   "updatedAt": "2026-10-02T06:56:35.303Z"
+  },
+  {
+   "id": "01m3v4ettrv2p8ek97r121t33t",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-01T07:04:30.808Z",
+   "completedAt": "2026-10-01T07:04:32.648Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2028,
+   "createdAt": "2026-10-01T07:04:30.808Z",
+   "updatedAt": "2026-10-01T07:04:32.649Z"
+  },
+  {
+   "id": "01m3rhrr9ja24htdw09gtxpppv",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-30T06:59:24.082Z",
+   "completedAt": "2026-09-30T06:59:25.195Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1256,
+   "createdAt": "2026-09-30T06:59:24.082Z",
+   "updatedAt": "2026-09-30T06:59:25.195Z"
+  },
+  {
+   "id": "01m3ny5tp3q1j33b3hxx1hkrbc",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-29T06:38:32.131Z",
+   "completedAt": "2026-09-29T06:38:33.508Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1557,
+   "createdAt": "2026-09-29T06:38:32.131Z",
+   "updatedAt": "2026-09-29T06:38:33.509Z"
+  },
+  {
+   "id": "01m3kcw4s3gv1g4ntv87t91msj",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-28T06:57:40.131Z",
+   "completedAt": "2026-09-28T06:57:41.132Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1163,
+   "createdAt": "2026-09-28T06:57:40.131Z",
+   "updatedAt": "2026-09-28T06:57:41.132Z"
+  },
+  {
+   "id": "01m3gt5ayahs6peq85bz9p8vy7",
+   "monitorId": "01m3g3g2qt1ym4j1av1f2pzyh1",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-27T06:52:09.546Z",
+   "completedAt": "2026-09-27T06:52:10.662Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1289,
+   "createdAt": "2026-09-27T06:52:09.546Z",
+   "updatedAt": "2026-09-27T06:52:10.663Z"
+  }
+ ]
+}

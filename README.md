@@ -21,7 +21,10 @@ records every tool call, so you can see *how* the agent used the tool it was giv
 
 > **Before comparing vendors:**
 > - Each arm ran 18 to 42 cells, and the 95% intervals overlap almost everywhere.
-> - Every vendor was tested through its own MCP server at a pinned version with default settings.
+> - In the agent benchmarks, every vendor was tested through its own MCP server at a pinned version with default
+>   settings. The separate [search API head-to-head](reports/2026-09-26-search-api-head-to-head/REPORT.md) called
+>   four vendors' APIs directly with tuned parameters, ran each question once, and was run for a knowledge base about
+>   Exa, one of the four.
 > - Rankings changed between the two agents.
 >
 > Read [Fairness and known limitations](#fairness-and-known-limitations) before quoting a position.
@@ -249,9 +252,11 @@ Engineers from every tested service will read this, so the limitations come firs
   - No WSB arm differs from answering without search at 95% confidence.
 - **One interface per vendor.** Each vendor ran through its own MCP server at the version
   pinned in [`config/provider-arm-tools.yaml`](config/provider-arm-tools.yaml), with default
-  settings. Every tool the server advertised was available. Direct APIs, other modes, and
-  vendor features the MCP server does not expose were not tested. For example, Exa's
-  advanced search tool was not enabled, and Parallel's hosted server ran without a pinned mode.
+  settings. Every tool the server advertised was available. In the agent benchmarks, direct
+  APIs, other modes, and vendor features the MCP server does not expose were not tested. For
+  example, Exa's advanced search tool was not enabled, and Parallel's hosted server ran without a
+  pinned mode. The [search API head-to-head](reports/2026-09-26-search-api-head-to-head/REPORT.md)
+  tested the APIs directly, with no agent; its results do not transfer to agents, or back.
 - **The agent matters.** Parallel led on Claude Code and tied for last on codex. A provider's
   position on one harness does not transfer to another.
 - **Native-arm defect (corrected).**
@@ -345,7 +350,8 @@ environment reference. See [configuration and metering](WORKBENCH.md) and
 
 Each report directory contains `reproduce.md`, with exact historical and shipped catalog
 hashes. Raw transcripts and provider responses are not distributed, so the published
-aggregates cannot be replayed exactly. A new live run measures the same method on today's
+aggregates cannot be replayed exactly. The one exception is the search API head-to-head's
+Monitors probe, whose raw responses are published with its report. A new live run measures the same method on today's
 models, indexes and sources.
 
 ```sh
