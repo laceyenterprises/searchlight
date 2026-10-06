@@ -359,3 +359,17 @@ def test_card_png_stamp_round_trips_and_detects_staleness(tmp_path):
     assert 'different card source' in site.card_problem(tmp_path, 'changed source')
     (tmp_path / 'social-card.png').write_bytes(b'not a png')
     assert 'not a PNG' in site.card_problem(tmp_path, 'source')
+
+
+def test_header_and_phone_layout():
+    files = site.build()
+    for name in ('index.html', 'results.html', 'methodology.html'):
+        header = re.search(r'<header class="top">.*?</header>', files[name], re.S).group(0)
+        nav = re.search(r'<nav class="nav"[^>]*>.*?</nav>', header, re.S).group(0)
+        assert site.REPO_URL not in nav, 'GitHub sits beside the brand on phones, not in the link row'
+        assert f'<a class="btn gh" href="{site.REPO_URL}">GitHub</a>' in header
+    phone = re.search(r'@media \(max-width:640px\)\{(.*)\}', site.CSS, re.S).group(1)
+    for rule in ('.top{position:static}', 'grid-template-areas:"brand gh" "nav nav"', '.infographic svg{min-width:0}',
+                 '.diagram svg{min-width:600px'):
+        assert rule in phone, rule
+    assert 'Open the infographic full size' in files['results.html']
