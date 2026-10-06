@@ -932,7 +932,7 @@ def configs_html(configs: list[dict]) -> str:
     return table_html(rows, 'apparatus')
 
 
-SITE_URL = 'https://searchlightai.dev'
+SITE_URL = 'https://www.searchlightai.dev'
 LACEY_URL = 'https://www.laceyenterprises.com'
 LOGO = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" role="img" '
         'aria-label="Searchlight"><circle cx="31" cy="67" r="22" fill="#111111"/>'

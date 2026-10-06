@@ -2,7 +2,7 @@
 
 # Searchlight
 
-**Website: [searchlightai.dev](https://searchlightai.dev)**
+**Website: [searchlightai.dev](https://www.searchlightai.dev)**
 
 **An open benchmark of what web search does for coding agents.** Searchlight runs real
 agent harnesses (Claude Code and codex) against task catalogs. Each run gives the agent
@@ -12,9 +12,9 @@ records every tool call, so you can see *how* the agent used the tool it was giv
 
 ![Searchlight results to date: pass rates with 95% intervals per search arm, and how agents searched](site/infographic.svg)
 
-- **Website:** [searchlightai.dev](https://searchlightai.dev): an overview, then
-  [results](https://searchlightai.dev/results.html) (leaderboards and full run reports) and
-  [methodology](https://searchlightai.dev/methodology.html). Generated into [`site/`](site/) and
+- **Website:** [searchlightai.dev](https://www.searchlightai.dev): an overview, then
+  [results](https://www.searchlightai.dev/results.html) (leaderboards and full run reports) and
+  [methodology](https://www.searchlightai.dev/methodology.html). Generated into [`site/`](site/) and
   published from `main` on every report change.
 - **Machine-readable leaderboard:** [`site/leaderboard.json`](site/leaderboard.json).
 - **Recorded reports:** [`reports/`](reports/README.md).

@@ -335,11 +335,11 @@ def test_social_card_is_short_plain_and_sourced():
 
 def test_every_page_carries_social_metadata():
     files = site.build()
-    for name, url in (('index.html', 'https://searchlightai.dev/'),
-                      ('results.html', 'https://searchlightai.dev/results.html'),
-                      ('methodology.html', 'https://searchlightai.dev/methodology.html')):
+    for name, url in (('index.html', 'https://www.searchlightai.dev/'),
+                      ('results.html', 'https://www.searchlightai.dev/results.html'),
+                      ('methodology.html', 'https://www.searchlightai.dev/methodology.html')):
         html = files[name]
-        assert '<meta property="og:image" content="https://searchlightai.dev/social-card.png">' in html
+        assert '<meta property="og:image" content="https://www.searchlightai.dev/social-card.png">' in html
         assert '<meta name="twitter:card" content="summary_large_image">' in html
         assert f'<meta property="og:url" content="{url}">' in html
         assert f'<link rel="canonical" href="{url}">' in html
