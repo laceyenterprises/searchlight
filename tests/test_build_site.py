@@ -368,8 +368,15 @@ def test_header_and_phone_layout():
         nav = re.search(r'<nav class="nav"[^>]*>.*?</nav>', header, re.S).group(0)
         assert site.REPO_URL not in nav, 'GitHub sits beside the brand on phones, not in the link row'
         assert f'<a class="btn gh" href="{site.REPO_URL}">GitHub</a>' in header
-    phone = re.search(r'@media \(max-width:640px\)\{(.*)\}', site.CSS, re.S).group(1)
+    # Include complete rule bodies, but stop at the media query's closing brace.
+    # A trailing query must not leak into the phone assertions.
+    css = site.CSS + '\n@media (min-width:1200px){.after-phone{color:red}}'
+    phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', css).group(1)
+    assert '.after-phone' not in phone
     for rule in ('.top{position:static}', 'grid-template-areas:"brand gh" "nav nav"', '.infographic svg{min-width:0}',
                  '.diagram svg{min-width:600px'):
         assert rule in phone, rule
+    # The phone SVG minimum width relies on the base frame being scrollable.
+    diagram = re.search(r'\.diagram\{([^{}]*)\}', site.CSS).group(1)
+    assert 'overflow-x:auto' in diagram
     assert 'Open the infographic full size' in files['results.html']
