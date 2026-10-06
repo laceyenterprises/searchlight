@@ -373,6 +373,10 @@ def test_header_and_phone_layout():
     css = site.CSS + '\n@media (min-width:1200px){.after-phone{color:red}}'
     phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', css).group(1)
     assert '.after-phone' not in phone
+    # A desktop rule must not satisfy a missing phone declaration.
+    moved = css.replace('.top{position:static}', '') + '\n.top{position:static}'
+    moved_phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', moved).group(1)
+    assert '.top{position:static}' not in moved_phone
     for rule in ('.top{position:static}', 'grid-template-areas:"brand gh" "nav nav"', '.infographic svg{min-width:0}',
                  '.diagram svg{min-width:600px'):
         assert rule in phone, rule
