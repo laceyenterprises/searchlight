@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from . import broker_auth
+from . import harnesses as harness_registry
 from .host import HostUnavailable
 from .agent_lane import AGENT_ARMS, CONTROL_ARM, TIERS, AgentLaneError
 from .agent_lane import run_lane as run_agent_lane
@@ -801,7 +802,7 @@ def build_parser() -> argparse.ArgumentParser:
         "run-live-harness",
         help=f"spawn one real Codex/Claude Code cell (operator-gated: {LIVE_ENV}=1)",
     )
-    live_harness.add_argument("--harness", required=True, choices=("claude-code", "codex"))
+    live_harness.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
     live_harness.add_argument("--output-root", help="override output root for the run bundle")
     live_harness.add_argument("--task-id", default="current-fact-lookup-v1")
     live_harness.add_argument("--prompt-text", help="send this prompt instead of the task's")
@@ -907,7 +908,7 @@ def build_parser() -> argparse.ArgumentParser:
     gap = sub.add_parser("gap", help="Search Gap Bench knowledge-gap calibration")
     gap_sub = gap.add_subparsers(dest="gap_command", required=True)
     gap_run = gap_sub.add_parser("run", help="run admitted GAP tasks or project calibration spend")
-    gap_run.add_argument("--harness", required=True, choices=("claude-code", "codex"))
+    gap_run.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
     gap_run.add_argument("--model", required=True)
     gap_run.add_argument("--arm", action="append", required=True, help="arm ID; repeatable")
     gap_run.add_argument("--task", action="append", help="admitted task ID; repeatable")
@@ -940,7 +941,7 @@ def build_parser() -> argparse.ArgumentParser:
     gap_run.add_argument("--price-table", type=Path)
     gap_run.set_defaults(func=_gap_run)
     calibration = gap_sub.add_parser("calibrate", help="run floor and ceiling admission references")
-    calibration.add_argument("--harness", required=True, choices=("claude-code", "codex"))
+    calibration.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
     calibration.add_argument(
         "--model", required=True, help="explicit model ID for per-model admission"
     )
@@ -978,7 +979,7 @@ def build_parser() -> argparse.ArgumentParser:
     recalibration = gap_sub.add_parser(
         "recalibrate", help="check admitted floors after a model change"
     )
-    recalibration.add_argument("--harness", required=True, choices=("claude-code", "codex"))
+    recalibration.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
     recalibration.add_argument("--model", required=True)
     recalibration.add_argument("--previous-model", required=True)
     recalibration.add_argument("--reps", type=int, default=5)

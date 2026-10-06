@@ -9,9 +9,11 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
-from typing import Any, Iterable
+from typing import AbstractSet, Any, Iterable
 
 import yaml
+
+from . import harnesses
 
 SCHEMA_VERSION = 1
 PROVIDERS = frozenset(
@@ -29,7 +31,8 @@ PROVIDERS = frozenset(
         "fixture",
     }
 )
-HARNESSES = frozenset({"codex", "claude-code", "pi", "fixture"})
+# Every registered harness id, read live from the harness registry.
+HARNESSES = harnesses.ids()
 TASK_CLASSES = frozenset(
     {
         "fact_lookup",
@@ -455,7 +458,7 @@ def _schema_version(data: dict[str, Any], where: str) -> None:
         raise SchemaError(f"{where}.schema_version must be {SCHEMA_VERSION}")
 
 
-def _closed(value: str, allowed: frozenset[str], where: str) -> None:
+def _closed(value: str, allowed: AbstractSet[str], where: str) -> None:
     if value not in allowed:
         raise SchemaError(f"{where} must be one of {sorted(allowed)}, got {value!r}")
 
