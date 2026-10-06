@@ -295,13 +295,9 @@ def calibrate(
     if (not selected and _previous is None) or set(selected) - tasks.keys():
         raise CalibrationError("calibration needs known, nonempty GAP tasks")
     if judges is None and any(tasks[t]["task_type"] == "brief" for t in selected):
-        from ..judge import Judge
-        from ..judge_transport import HarnessJudgeTransport
+        from .judges import default_brief_judges
 
-        judges = [
-            Judge(h, HarnessJudgeTransport(h, harness_auth=harness_auth))
-            for h in ("claude-code", "codex")
-        ]
+        judges = default_brief_judges(harness_auth)
     execute = execute or run_harness
     grader = grader or _grade
     digest = hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()

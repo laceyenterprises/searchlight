@@ -155,8 +155,10 @@ def grade_brief(
     """
     decision = task["family"] == "decision-brief"
     validate_rubric(rubric, decision=decision)
-    if [j.judge_id for j in judges] != ["claude-code", "codex"]:
-        raise ValueError("brief grading requires claude-code then codex judges")
+    # The primary (claude-code) always decides the verdict; codex, when present,
+    # only measures agreement. A primary-only list defers that measurement.
+    if [j.judge_id for j in judges] not in (["claude-code", "codex"], ["claude-code"]):
+        raise ValueError("brief grading requires claude-code then codex judges, or claude-code alone")
     rule = {**DEFAULT_PASS_RULE, **rubric.get("pass_rule", {})}
     record = {
         "record_version": "gap-brief-grade-v1",
@@ -308,20 +310,27 @@ def grade_brief(
             "passed": bool(passed),
         }
 
-    first, second = [scores(j) for j in scored]
-    disagreement = [key for key in dimensions if first["labels"][key] != second["labels"][key]]
-    agreement = {
-        "status": "measured",
-        "cohens_kappa": quadratic_weighted_kappa(
-            [first["labels"][key] for key in dimensions],
-            [second["labels"][key] for key in dimensions],
-            minimum=0,
-            maximum=1,
-        ),
-        "label_pairs": len(dimensions),
-        "disagreements": disagreement,
-        "verdict_disputed": first["passed"] != second["passed"],
-    }
+    graded = [scores(j) for j in scored]
+    first = graded[0]
+    if len(graded) == 1:
+        # One judge (SEW_GAP_JUDGES): the primary still decides the verdict;
+        # agreement is measured later by regrading with a second judge.
+        agreement = {"status": "not_measured", "reason": "single_judge"}
+    else:
+        second = graded[1]
+        disagreement = [key for key in dimensions if first["labels"][key] != second["labels"][key]]
+        agreement = {
+            "status": "measured",
+            "cohens_kappa": quadratic_weighted_kappa(
+                [first["labels"][key] for key in dimensions],
+                [second["labels"][key] for key in dimensions],
+                minimum=0,
+                maximum=1,
+            ),
+            "label_pairs": len(dimensions),
+            "disagreements": disagreement,
+            "verdict_disputed": first["passed"] != second["passed"],
+        }
     return {
         **record,
         "status": "scored",
@@ -329,6 +338,6 @@ def grade_brief(
         "outcome": "pass" if first["passed"] else "fail",
         "key_fact_recall": first["key_fact_recall"],
         "unsupported_claim_rate": first["unsupported_claim_rate"],
-        "judge_scores": [first, second],
+        "judge_scores": graded,
         "agreement": agreement,
     }

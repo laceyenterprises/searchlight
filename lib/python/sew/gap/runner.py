@@ -279,13 +279,9 @@ def _run_locked(
         # bundles remain on disk. Restrict this invocation to unavailable cells.
         state["unavailable_streak"] = []
     if judges is None and any(catalog[t]["task_type"] == "brief" for t in selected):
-        from ..judge import Judge
-        from ..judge_transport import HarnessJudgeTransport
+        from .judges import default_brief_judges
 
-        judges = [
-            Judge(h, HarnessJudgeTransport(h, harness_auth=harness_auth))
-            for h in ("claude-code", "codex")
-        ]
+        judges = default_brief_judges(harness_auth)
     state["stopped_reason"] = None
     for task_id in selected:
         task = catalog[task_id]
