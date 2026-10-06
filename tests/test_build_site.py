@@ -359,3 +359,28 @@ def test_card_png_stamp_round_trips_and_detects_staleness(tmp_path):
     assert 'different card source' in site.card_problem(tmp_path, 'changed source')
     (tmp_path / 'social-card.png').write_bytes(b'not a png')
     assert 'not a PNG' in site.card_problem(tmp_path, 'source')
+
+
+def test_header_and_phone_layout():
+    files = site.build()
+    for name in ('index.html', 'results.html', 'methodology.html'):
+        header = re.search(r'<header class="top">.*?</header>', files[name], re.S).group(0)
+        nav = re.search(r'<nav class="nav"[^>]*>.*?</nav>', header, re.S).group(0)
+        assert site.REPO_URL not in nav, 'GitHub sits beside the brand on phones, not in the link row'
+        assert f'<a class="btn gh" href="{site.REPO_URL}">GitHub</a>' in header
+    # Include complete rule bodies, but stop at the media query's closing brace.
+    # A trailing query must not leak into the phone assertions.
+    css = site.CSS + '\n@media (min-width:1200px){.after-phone{color:red}}'
+    phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', css).group(1)
+    assert '.after-phone' not in phone
+    # A desktop rule must not satisfy a missing phone declaration.
+    moved = css.replace('.top{position:static}', '') + '\n.top{position:static}'
+    moved_phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', moved).group(1)
+    assert '.top{position:static}' not in moved_phone
+    for rule in ('.top{position:static}', 'grid-template-areas:"brand gh" "nav nav"', '.infographic svg{min-width:0}',
+                 '.diagram svg{min-width:600px'):
+        assert rule in phone, rule
+    # The phone SVG minimum width relies on the base frame being scrollable.
+    diagram = re.search(r'\.diagram\{([^{}]*)\}', site.CSS).group(1)
+    assert 'overflow-x:auto' in diagram
+    assert 'Open the infographic full size' in files['results.html']

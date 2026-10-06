@@ -16,14 +16,15 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:500;letter-spacing:.2em;font-size:14px}
 .brand:hover{text-decoration:none}.brand svg{width:28px;height:28px}
 .top{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:5}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px;flex-wrap:wrap}
-.nav{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.top .wrap{display:flex;align-items:center;gap:16px 28px;min-height:72px}
+.top .brand{margin-right:auto}
+.nav{display:flex;align-items:center;gap:28px}
 .nav a{color:var(--ink);font-size:15px;letter-spacing:.02em}.nav a.on{font-weight:600}
 .btn{display:inline-block;border-radius:999px;padding:11px 22px;font-size:15px;font-weight:500;border:1.5px solid var(--ink);
 color:var(--ink);background:transparent;line-height:1.2}
 .btn:hover{text-decoration:none;background:var(--soft)}
 .btn.solid{background:var(--ink);color:var(--paper)}.btn.solid:hover{background:#2A2A2A}
-.nav .btn{padding:8px 18px;font-size:14px}
+.top .gh{padding:8px 18px;font-size:14px}
 section{padding-block:72px}
 .soft{background:var(--soft)}
 .eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 14px}
@@ -89,10 +90,29 @@ pre code{background:none;padding:0}
 pre.mermaid{background:none;padding:0;margin:0;font-size:.85rem;text-align:center}
 .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
 .terms div{background:var(--soft);border-radius:14px;padding:14px 16px;font-size:15px}.terms b{display:block}
-@media (max-width:640px){section{padding-block:52px}.nav{gap:16px}.facts strong{font-size:24px}}
+@media (max-width:640px){
+section{padding-block:48px}
+.top{position:static}
+.top .wrap{display:grid;grid-template-columns:1fr auto;grid-template-areas:"brand gh" "nav nav";gap:8px 12px;
+min-height:0;padding-block:12px 8px}
+.top .brand{grid-area:brand;margin:0}
+.top .gh{grid-area:gh;padding:7px 16px}
+.nav{grid-area:nav;gap:24px;overflow-x:auto;scrollbar-width:none}
+.nav a{white-space:nowrap;padding-block:6px}
+.eyebrow{font-size:12px;letter-spacing:.12em}
+.actions .btn{flex:1 1 auto;text-align:center}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
+.facts strong{font-size:26px}
+.card{padding:20px}
+.board{padding:16px}
+.infographic{overflow:hidden}
+.infographic svg{min-width:0}
+.diagram{padding:14px}
+.diagram svg{min-width:600px;max-width:none!important}
+}
 </style>
 </head><body>
-<header class="top"><div class="wrap"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="Searchlight"><circle cx="31" cy="67" r="22" fill="#111111"/><path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/><circle cx="34" cy="69.5" r="6.4" fill="#FFFFFF"/></svg><span>SEARCHLIGHT</span></a><nav class="nav" aria-label="Site"><a href="index.html" class="on">Overview</a><a href="results.html">Results</a><a href="methodology.html">Methodology</a><a class="btn" href="https://github.com/laceyenterprises/searchlight">GitHub</a></nav></div></header>
+<header class="top"><div class="wrap"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="Searchlight"><circle cx="31" cy="67" r="22" fill="#111111"/><path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/><circle cx="34" cy="69.5" r="6.4" fill="#FFFFFF"/></svg><span>SEARCHLIGHT</span></a><nav class="nav" aria-label="Site"><a href="index.html" class="on">Overview</a><a href="results.html">Results</a><a href="methodology.html">Methodology</a></nav><a class="btn gh" href="https://github.com/laceyenterprises/searchlight">GitHub</a></div></header>
 <main>
 <section><div class="wrap">
 <p class="eyebrow">Open benchmark · by Lacey Enterprises</p>
