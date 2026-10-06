@@ -28,6 +28,7 @@ REPO_URL = 'https://github.com/laceyenterprises/searchlight'
 MERMAID_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js'
 # SHA-384 of the pinned CDN asset; update together with MERMAID_URL.
 MERMAID_INTEGRITY = 'sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I'
+RERUN_NOTE = 'Rerun 2026-10-06 with page opening fixed'
 ARM_LABEL = {
     'no-search': 'No search', 'native': 'Built-in', 'brave': 'Brave', 'tavily': 'Tavily', 'exa': 'Exa',
     'parallel-web': 'Parallel', 'firecrawl': 'Firecrawl', 'perplexity': 'Perplexity',
@@ -98,7 +99,6 @@ def parse_pct_ci(cell: str) -> tuple[float, float, float]:
 
 def leaderboards(reports: dict) -> list[dict]:
     boards = []
-    native_wsb = next(r for r in behavior(reports)['bakeoff_rows'] if r['arm'] == 'native')
     gap = reports['2026-10-03-search-gap-bench']['summary']
     for intro, table in tables(gap):
         if table[0][:3] != ['Arm', 'Gap closure (95% CI)', 'Pass rate (Wilson 95% CI)']:
@@ -116,8 +116,8 @@ def leaderboards(reports: dict) -> list[dict]:
                 'arm': arm, 'label': ARM_LABEL.get(arm, row[0]), 'pass_pct': point, 'ci': [lo, hi],
                 'passes': round(point * cells / 100), 'cells': cells, 'gap_closure': row[1],
                 'tokens_per_success': row[3], 'vs_floor': row[4],
-                'note': 'WebFetch refused by the harness (search only); not comparable'
-                        if harness == 'claude-code' and arm == 'native' else '',
+                'note': RERUN_NOTE if harness == 'claude-code' and arm == 'native' else '',
+                'flagged': False,
             })
         reference = {r[0].split(' ')[0]: r[2] for r in data_rows(table) if r[0].startswith(('ceiling', 'floor'))}
         boards.append({
@@ -142,9 +142,8 @@ def leaderboards(reports: dict) -> list[dict]:
         rows.append({
             'arm': arm, 'label': ARM_LABEL.get(arm, arm), 'pass_pct': round(100 * k / n) if n else 0, 'ci': [round(lo), round(hi)],
             'passes': k, 'cells': n, 'gap_closure': None, 'tokens_per_success': row[2], 'vs_floor': None,
-            'note': 'reference arm' if arm == 'no-search' else
-                    (f"WebFetch refused in {native_wsb['cells_with_refused_calls']} of {native_wsb['cells']} cells"
-                     if arm == 'native' else ''),
+            'note': 'reference arm' if arm == 'no-search' else (RERUN_NOTE if arm == 'native' else ''),
+            'flagged': False,
         })
     boards.append({
         'id': 'wsb-competitive', 'bench': 'WSB', 'harness': 'claude-code',
@@ -420,7 +419,7 @@ def forest(board: dict, x: float, y: float, width: float, row_h: float = 30, lab
     for i, row in enumerate(rows):
         cy = y + row_h * i + row_h / 2
         lo, hi = row['ci']
-        muted = bool(row['note']) and row['arm'] != 'no-search'
+        muted = row.get('flagged', False) and row['arm'] != 'no-search'
         stroke = c('ref', 'ref') if muted or row['arm'] == 'no-search' else c('beam', 'beam')
         parts.append(f'<text x="{x:.1f}" y="{cy + 4:.1f}" font-family="{FONT}" font-size="13" '
                      f'fill="{c("ink", "ink")}">{esc(row["label"])}{" *" if muted else ""}</text>')
@@ -546,8 +545,8 @@ def _gap_forests(boards, x, y, width, P) -> tuple[list[str], float]:
         svg, h = forest(board, bx, y + 18, each, row_h=26, label_w=80, value_w=100, ticks=(0, 50, 100))
         out.append(svg)
         height = max(height, 18 + h)
-    note, nh = _para(x, y + height + 10, '* Claude Code built-in search: the agent was not allowed to open pages, so '
-                     'it searched without reading them. Not comparable to the provider rows; fixed for future runs.',
+    note, nh = _para(x, y + height + 10, 'Claude Code built-in search: rerun on 2026-10-06 after a fix let the agent '
+                     'open pages. In the original runs it could only search.',
                      110, 12, 16, fill=P['ink2'])
     return out + note, height + 10 + nh
 
@@ -872,7 +871,7 @@ APPARATUS = {
 
 def ci_svg(row: dict, top_lo: float) -> str:
     lo, hi = row['ci']
-    muted = bool(row['note'])
+    muted = row.get('flagged', False) or row['arm'] == 'no-search'
     color = 'var(--ref)' if muted else 'var(--beam)'
     return (f'<svg viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true">'
             f'<line x1="0" y1="11" x2="100" y2="11" stroke="var(--rule)" stroke-width="1" vector-effect="non-scaling-stroke"/>'
@@ -1294,8 +1293,8 @@ server at a pinned version and default settings; other search modes and tools we
 head-to-head called the APIs directly with tuned parameters, and its results do not transfer to agents, or back.</li>
 <li><strong>The agent matters</strong>Rankings changed between Claude Code and Codex. A result on one agent does not transfer
 to another.</li>
-<li><strong>Built-in search defect</strong>Claude Code's built-in search could not open pages in these runs, so its rows are
-flagged and not comparable. Fixed for future runs.</li>
+<li><strong>Built-in search rerun</strong>In the original runs Claude Code's built-in search could not open pages. After the
+fix it was rerun on 2026-10-06, and its rows here come from that rerun. The original rows stay on record in the reports.</li>
 <li><strong>Cost coverage</strong>Token counts are reported; provider dollar spend was only partly metered, so dollar
 comparisons are omitted.</li>
 <li><strong>Who graded</strong>Automatic checks where possible; otherwise model graders that compared answers with the captured

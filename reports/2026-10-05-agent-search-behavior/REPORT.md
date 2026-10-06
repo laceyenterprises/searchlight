@@ -110,7 +110,8 @@ it yet"). In the GAP battery every native WebFetch call was refused
 (50 calls in 21 of 21 cells); in the bakeoff, 110 calls in 40 of 54 cells. No
 provider arm and no codex arm had a refused call. The Claude Code native results in both
 batteries therefore understate that harness's web tools. The arm configuration is fixed and
-covered by a regression test. The fetch counts in this report include refused attempts.
+covered by a regression test. The fetch counts in this report include refused attempts. The arm was rerun with fetching
+working; see [Native rerun (2026-10-06)](#native-rerun-2026-10-06).
 
 ## Primary-source retrieval (GAP battery)
 
@@ -135,6 +136,26 @@ requirement for passing.
 | codex | Parallel | 18 | 0 | 17/18 | 12/17 | 1/1 |
 | codex | Firecrawl | 18 | 0 | 15/18 | 14/15 | 2/3 |
 | codex | Perplexity | 18 | 0 | 18/18 | 13/18 | — |
+
+## Native rerun (2026-10-06)
+
+The Claude Code native arm was rerun on both batteries with WebFetch pre-approved: the 21 GAP cells
+and all 54 bakeoff cells, on the same tasks, repetitions and model. No call was refused. The tables
+above keep the original cells, because they document the refusal; the GAP and bakeoff reports use
+the rerun for their native rows.
+
+With page fetching available, the agent searched far less and read pages instead. On GAP it
+issued 45 queries instead of 101, and it fetched 126 pages. On the bakeoff it issued 19 queries
+instead of 137, and 36 of its 54 cells fetched remembered pages without searching at all.
+
+| Battery | Cells | Queries (original) | Fetch calls | Refused calls (original) | Fetched without searching | Primary source surfaced | Pass when surfaced | Pass when not surfaced |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| GAP | 21 | 45 (101) | 126 | 0 (50) | 0 | 17/21 | 15/17 | 1/4 |
+| Bakeoff | 54 | 19 (137) | 426 | 0 (110) | 36 | — | — | — |
+
+The rerun's GAP queries read as natural language in 2.2% of cases (original 7%), with a
+median of 8 words (original 11). The rerun's run bundles are private, like the originals.
+
 ## Limits
 
 - Cell counts per arm are small (18 to 21 in GAP, 54 to 55 in the bakeoff). Per-arm

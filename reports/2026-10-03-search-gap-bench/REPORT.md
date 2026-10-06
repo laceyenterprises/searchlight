@@ -1,12 +1,17 @@
 # GAP battery results, 2026-10-03: does search change the outcome of the job?
 
-> **Correction (2026-10-06): the Claude Code native arm could not fetch pages.** The arm exposed
-> WebSearch and WebFetch but pre-approved only WebSearch, and headless Claude Code refuses tools that
-> are not pre-approved. Every WebFetch call in the native arm was refused (50 calls across all
-> 21 native cells). Each provider arm could use its vendor's fetch tool, so the Claude Code native
-> row measures search without page fetching and is not comparable to the provider rows. The codex
-> native arm was unaffected. The configuration is fixed and pinned by a test; the recorded numbers
-> below are unchanged. Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md).
+> **Update (2026-10-06): the Claude Code native arm was rerun with page fetching working.** In the
+> original battery the arm exposed WebSearch and WebFetch but pre-approved only WebSearch, and
+> headless Claude Code refused all 50 WebFetch calls across its 21 cells, so that row measured
+> search without page fetching. The configuration is fixed and pinned by a test. The arm's 21 cells
+> were rerun on 2026-10-06 on the same 7 tasks, repetitions, model and calibration; no call was
+> refused. The Claude Code native row and every figure derived from it below use the rerun:
+> 16/21 passed (76%), gap closure 0.80 (0.53–1.00), 61k tokens per success. The original row
+> recorded 13/21 (62%), gap closure 0.65 (0.37–0.91) and 66k. The other arms are unchanged.
+> The rerun's verdicts come from the claude-code primary judge, which decides every verdict in this
+> battery; codex agreement for those 21 cells is pending until codex quota returns (2026-10-09).
+> The rerun's agents used about 1.0M tokens. The codex native arm was unaffected.
+> Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md#native-rerun-2026-10-06).
 
 The first full Search Gap Bench (GAP) battery ran on 2026-10-03, operator-approved: brief tasks on two harnesses, nine arms each, three repetitions.
 - GAP grades the job, not the retrieval.
@@ -15,7 +20,7 @@ The first full Search Gap Bench (GAP) battery ran on 2026-10-03, operator-approv
 - Tokens are reported beside every outcome.
 
 **Headline.** On these tasks, search decides the outcome.
-- The floor passed **0%** on both harnesses, and every search arm passed 62–95%.
+- The floor passed **0%** on both harnesses, and every search arm passed 71–95%.
 - Which provider is best depends on the harness: Parallel led on claude-code and Brave on codex.
 - Pass rate did not predict cost: providers with similar pass rates differed almost twofold in tokens per success.
 
@@ -65,15 +70,15 @@ Every floor scored 0, so every task has a real knowledge gap. All rejections are
 | Firecrawl | 0.95 (0.83–1.00) | 90% (71–97%) | 116k | p < 0.0001 |
 | Brave | 0.85 (0.62–1.00) | 81% (60–92%) | 93k | p < 0.0001 |
 | Perplexity | 0.80 (0.50–1.00) | 76% (55–89%) | 74k | p < 0.0001 |
+| native | 0.80 (0.53–1.00) | 76% (55–89%) | 61k | p < 0.0001 |
 | Exa | 0.75 (0.47–0.95) | 71% (50–86%) | 89k | p < 0.0001 |
 | Tavily | 0.75 (0.43–1.00) | 71% (50–86%) | 83k | p < 0.0001 |
-| native | 0.65 (0.37–0.91) | 62% (41–79%) | 66k | p = 0.0002 |
 | ceiling (reference) | 1.00 | 95% | 4k |  |
 | floor (reference) | 0.00 | 0% | — |  |
 
 By family:
-- **Research briefs:** every provider arm passed 100% (native 89%).
-- **Decision briefs:** they separate the providers. Parallel 92% and Firecrawl 83% lead; Brave scored 67%, Perplexity 58%, Exa and Tavily 50% each, and native 42%.
+- **Research briefs:** every search arm passed 100%, native included.
+- **Decision briefs:** they separate the providers. Parallel 92% and Firecrawl 83% lead; Brave scored 67%, Perplexity and native 58% each, and Exa and Tavily 50% each.
 
 ### codex (6 tasks, 18 cells per arm)
 
@@ -113,12 +118,12 @@ The first pass's estimates that excluded the 31 tool-less cells were close to th
    - Parallel tied for last on codex (72%), even with its tool loaded in every cell. On codex decision briefs it passed 44%, against 92% on claude-code.
    - So a provider's ranking on one harness does not carry over to another.
 3. **Pass rate does not predict cost between providers.** Tokens per success counts every agent token in the arm, failed cells included, divided by passing cells.
-   - The hypothesis that better search shows up as both lower token spend and higher success holds against no search, which spent tokens and passed nothing. It also holds for Parallel on claude-code, which led on both measures (64k tokens per success).
-   - It does not hold as a ranking. Among the seven search arms, the rank correlation between pass rate and tokens per success was +0.13 on claude-code and −0.20 on codex; negative means higher-passing arms cost less. With seven arms, neither value is distinguishable from zero.
-   - Per-cell spend varied widely: 41k (native) to 105k (Firecrawl) on claude-code, and 84k (Perplexity) to 148k (Firecrawl) on codex. Firecrawl passed 90% at 116k tokens per success, against Parallel's 95% at 64k.
+   - The hypothesis that better search shows up as both lower token spend and higher success holds against no search, which spent tokens and passed nothing. On claude-code, Parallel paired the top pass rate (95%) with 64k tokens per success; only native search, at 76%, spent less per success (61k).
+   - It does not hold as a ranking. Among the seven search arms, the rank correlation between pass rate and tokens per success was +0.05 on claude-code and −0.20 on codex; negative means higher-passing arms cost less. With seven arms, neither value is distinguishable from zero.
+   - Per-cell spend varied widely: 46k (native) to 105k (Firecrawl) on claude-code, and 84k (Perplexity) to 148k (Firecrawl) on codex. Firecrawl passed 90% at 116k tokens per success, against Parallel's 95% at 64k.
    - Choosing a provider means weighing pass rate and cost separately.
-4. **Decision briefs separate the providers; research briefs mostly don't.** Research briefs passed at or near 100% on both harnesses. Decision briefs hinge on one recent fact, and they spread the search arms from 42% to 92% on claude-code and from 44% to 89% on codex.
-5. **Native search was not the best choice on either harness.** It came last among search arms on claude-code (62%). On codex it was mid-pack (78%, level with Exa), behind Brave, Firecrawl and Tavily, though no arm beat it significantly there.
+4. **Decision briefs separate the providers; research briefs mostly don't.** Research briefs passed at or near 100% on both harnesses. Decision briefs hinge on one recent fact, and they spread the search arms from 50% to 92% on claude-code and from 44% to 89% on codex.
+5. **Native search was mid-pack on both harnesses.** On claude-code it passed 76%, level with Perplexity and behind Parallel, Firecrawl and Brave. On codex it passed 78%, level with Exa and behind Brave, Firecrawl and Tavily. No search arm beat it significantly on either harness; on claude-code the largest gain was Parallel's, +19.0 points (p = 0.22).
 
 ## Changes made during the run
 
