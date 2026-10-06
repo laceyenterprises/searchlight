@@ -1,0 +1,2647 @@
+{
+  "generated_from": "searchlight e02eaa1 (pre-registry)",
+  "refused_harness_args": {
+    "claude-code/code": [
+      "--mcp-config",
+      "--mcp-config=x.json",
+      "--strict-mcp-config",
+      "--allowedTools",
+      "--allowed-tools",
+      "--disallowedTools",
+      "--disallowed-tools",
+      "--tools",
+      "--model",
+      "--fallback-model",
+      "--settings",
+      "--setting-sources",
+      "--permission-mode",
+      "--add-dir",
+      "--dangerously-skip-permissions",
+      "--allow-dangerously-skip-permissions",
+      "--sandbox",
+      "-s",
+      "--full-auto",
+      "--yolo",
+      "--dangerously-bypass-approvals-and-sandbox",
+      "--ask-for-approval",
+      "-a",
+      "--permission-profile",
+      "-P",
+      "--cd",
+      "-C",
+      "--plugin-dir"
+    ],
+    "claude-code/search": [
+      "--mcp-config",
+      "--mcp-config=x.json",
+      "--strict-mcp-config",
+      "--allowedTools",
+      "--allowed-tools",
+      "--disallowedTools",
+      "--disallowed-tools",
+      "--tools",
+      "--model",
+      "--fallback-model"
+    ],
+    "codex/code": [
+      "--model",
+      "-c",
+      "-ckey=v",
+      "--config",
+      "--enable",
+      "--search",
+      "--ignore-user-config",
+      "-m",
+      "-p",
+      "--profile",
+      "--settings",
+      "--setting-sources",
+      "--permission-mode",
+      "--add-dir",
+      "--dangerously-skip-permissions",
+      "--allow-dangerously-skip-permissions",
+      "--sandbox",
+      "-s",
+      "--full-auto",
+      "--yolo",
+      "--dangerously-bypass-approvals-and-sandbox",
+      "--ask-for-approval",
+      "-a",
+      "--permission-profile",
+      "-P",
+      "--cd",
+      "-C",
+      "--plugin-dir"
+    ],
+    "codex/search": [
+      "--model",
+      "-c",
+      "-ckey=v",
+      "--config",
+      "--enable",
+      "--search",
+      "--ignore-user-config",
+      "-m",
+      "-p",
+      "--profile"
+    ]
+  },
+  "surfaces": {
+    "claude-code/code/brave": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash,ToolSearch",
+        "--allowedTools",
+        "Read,Edit,Write,Bash,mcp__brave__*",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "brave"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "brave",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"brave\": {\"args\": [\"--arm\", \"brave\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/ceiling": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash",
+        "--allowedTools",
+        "Read,Edit,Write,Bash",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "ceiling",
+        "native_search": false,
+        "oracle_excerpt_sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79",
+        "provider_id": null,
+        "reference_arm": "ceiling",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/exa": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash,ToolSearch",
+        "--allowedTools",
+        "Read,Edit,Write,Bash,mcp__exa__*",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "exa"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "exa",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"exa\": {\"args\": [\"--arm\", \"exa\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/firecrawl": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash,ToolSearch",
+        "--allowedTools",
+        "Read,Edit,Write,Bash,mcp__firecrawl__*",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "firecrawl"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "firecrawl",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"firecrawl\": {\"args\": [\"--arm\", \"firecrawl\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/floor": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash",
+        "--allowedTools",
+        "Read,Edit,Write,Bash",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "floor",
+        "native_search": false,
+        "oracle_excerpt_sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79",
+        "provider_id": null,
+        "reference_arm": "floor",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/native": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash,WebSearch,WebFetch",
+        "--allowedTools",
+        "Read,Edit,Write,Bash,WebSearch,WebFetch",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "native",
+        "native_search": true,
+        "provider_id": null,
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/no-search": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash",
+        "--allowedTools",
+        "Read,Edit,Write,Bash",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "no-search",
+        "native_search": false,
+        "provider_id": null,
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/parallel-web": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash,ToolSearch",
+        "--allowedTools",
+        "Read,Edit,Write,Bash,mcp__parallel__*",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "parallel"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "parallel-web",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"parallel\": {\"args\": [\"--arm\", \"parallel-web\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/perplexity": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash,ToolSearch",
+        "--allowedTools",
+        "Read,Edit,Write,Bash,mcp__perplexity__*",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "perplexity"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "perplexity",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"perplexity\": {\"args\": [\"--arm\", \"perplexity\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/code/tavily": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Edit,Write,Bash,ToolSearch",
+        "--allowedTools",
+        "Read,Edit,Write,Bash,mcp__tavily__*",
+        "--settings",
+        "<SCRATCH>/claude-workspace-settings.json",
+        "--setting-sources",
+        "",
+        "--permission-mode",
+        "acceptEdits"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "tavily"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "tavily",
+        "workspace_profile": true
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"tavily\": {\"args\": [\"--arm\", \"tavily\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        },
+        "claude-workspace-settings.json": {
+          "mode": "0o644",
+          "text": "{\"sandbox\": {\"enabled\": true, \"failIfUnavailable\": true, \"autoAllowBashIfSandboxed\": true, \"allowUnsandboxedCommands\": false, \"excludedCommands\": [], \"network\": {\"allowedDomains\": [], \"deniedDomains\": [\"*\"], \"strictAllowlist\": true, \"allowLocalBinding\": false, \"allowAllUnixSockets\": false}}, \"disableAllHooks\": true}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/brave": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "ToolSearch,Read",
+        "--allowedTools",
+        "mcp__brave__*"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "brave"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "brave"
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"brave\": {\"args\": [\"--arm\", \"brave\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/exa": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "ToolSearch,Read",
+        "--allowedTools",
+        "mcp__exa__*"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "exa"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "exa"
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"exa\": {\"args\": [\"--arm\", \"exa\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/exa-header": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "ToolSearch,Read",
+        "--allowedTools",
+        "mcp__exa__*"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "exa"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "exa"
+      },
+      "files": {
+        ".secrets/provider-header.txt": {
+          "mode": "0o600",
+          "text": "X-Golden: golden-header-value\n"
+        },
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"exa\": {\"args\": [\"--arm\", \"exa\", \"--header-file\", \"<SCRATCH>/.secrets/provider-header.txt\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/firecrawl": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "ToolSearch,Read",
+        "--allowedTools",
+        "mcp__firecrawl__*"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "firecrawl"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "firecrawl"
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"firecrawl\": {\"args\": [\"--arm\", \"firecrawl\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/native": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "WebSearch,WebFetch,Read",
+        "--allowedTools",
+        "WebSearch,WebFetch"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "native",
+        "native_search": true,
+        "provider_id": null
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/native-unpinned": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "WebSearch,WebFetch,Read",
+        "--allowedTools",
+        "WebSearch,WebFetch"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "native",
+        "native_search": true,
+        "provider_id": null
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/no-search": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "",
+        "--allowedTools",
+        ""
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "no-search",
+        "native_search": false,
+        "provider_id": null
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/no-search-broker": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "",
+        "--allowedTools",
+        ""
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "no-search",
+        "native_search": false,
+        "provider_id": null
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/parallel-web": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "ToolSearch,Read",
+        "--allowedTools",
+        "mcp__parallel__*"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "parallel"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "parallel-web"
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"parallel\": {\"args\": [\"--arm\", \"parallel-web\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/perplexity": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "ToolSearch,Read",
+        "--allowedTools",
+        "mcp__perplexity__*"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "perplexity"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "perplexity"
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"perplexity\": {\"args\": [\"--arm\", \"perplexity\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "claude-code/search/tavily": {
+      "argv": [
+        "/opt/golden/bin/claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--no-session-persistence",
+        "--model",
+        "golden-model",
+        "--mcp-config",
+        "<SCRATCH>/claude-mcp.json",
+        "--strict-mcp-config",
+        "--tools",
+        "ToolSearch,Read",
+        "--allowedTools",
+        "mcp__tavily__*"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SOURCE_CODEX_HOME>",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "tavily"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "tavily"
+      },
+      "files": {
+        "claude-mcp.json": {
+          "mode": "0o644",
+          "text": "{\"mcpServers\": {\"tavily\": {\"args\": [\"--arm\", \"tavily\"], \"command\": \"/opt/golden/provider-mcp\"}}}\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/claude-mcp.json",
+      "surface_env": {}
+    },
+    "codex/code/brave": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "brave"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "brave",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\"\n[mcp_servers.brave]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"brave\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/ceiling": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "ceiling",
+        "native_search": false,
+        "oracle_excerpt_sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79",
+        "provider_id": null,
+        "reference_arm": "ceiling",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/exa": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "exa"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "exa",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\"\n[mcp_servers.exa]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"exa\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/firecrawl": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "firecrawl"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "firecrawl",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\"\n[mcp_servers.firecrawl]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"firecrawl\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/floor": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "floor",
+        "native_search": false,
+        "oracle_excerpt_sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79",
+        "provider_id": null,
+        "reference_arm": "floor",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/native": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "--search",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "native",
+        "native_search": true,
+        "provider_id": null,
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"live\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/no-search": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "no-search",
+        "native_search": false,
+        "provider_id": null,
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/parallel-web": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "parallel"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "parallel-web",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\"\n[mcp_servers.parallel]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"parallel-web\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/perplexity": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "perplexity"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "perplexity",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\"\n[mcp_servers.perplexity]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"perplexity\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/code/tavily": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "workspace-write",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/opt/golden/venv/bin:/usr/bin",
+        "PIP_NO_INDEX": "1",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC",
+        "VIRTUAL_ENV": "/opt/golden/venv"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "tavily"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "tavily",
+        "workspace_profile": true
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\napproval_policy = \"never\"\n[sandbox_workspace_write]\nnetwork_access = false\n[shell_environment_policy.set]\nPATH = \"/opt/golden/venv/bin:/usr/bin\"\nVIRTUAL_ENV = \"/opt/golden/venv\"\nPIP_NO_INDEX = \"1\"\n[mcp_servers.tavily]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"tavily\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/brave": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "brave"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "brave"
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\n[mcp_servers.brave]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"brave\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/exa": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "exa"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "exa"
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\n[mcp_servers.exa]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"exa\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/exa-header": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "exa"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "exa"
+      },
+      "files": {
+        ".secrets/provider-header.txt": {
+          "mode": "0o600",
+          "text": "X-Golden: golden-header-value\n"
+        },
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\n[mcp_servers.exa]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"exa\", \"--header-file\", \"<SCRATCH>/.secrets/provider-header.txt\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/firecrawl": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "firecrawl"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "firecrawl"
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\n[mcp_servers.firecrawl]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"firecrawl\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/native": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "--search",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "native",
+        "native_search": true,
+        "provider_id": null
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"live\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/native-unpinned": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "--search",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "native",
+        "native_search": true,
+        "provider_id": null
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"live\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/no-search": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "no-search",
+        "native_search": false,
+        "provider_id": null
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/no-search-broker": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [],
+        "kind": "no-search",
+        "native_search": false,
+        "provider_id": null
+      },
+      "files": {
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\""
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/parallel-web": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "parallel"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "parallel-web"
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\n[mcp_servers.parallel]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"parallel-web\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/perplexity": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "perplexity"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "perplexity"
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\n[mcp_servers.perplexity]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"perplexity\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    },
+    "codex/search/tavily": {
+      "argv": [
+        "/opt/golden/bin/codex",
+        "exec",
+        "--json",
+        "--ephemeral",
+        "--skip-git-repo-check",
+        "--sandbox",
+        "read-only",
+        "--output-last-message",
+        "<SCRATCH>/last-message.txt",
+        "--model",
+        "golden-model",
+        "--disable",
+        "shell_tool",
+        "--disable",
+        "unified_exec",
+        "--disable",
+        "browser_use",
+        "--disable",
+        "browser_use_external",
+        "--disable",
+        "browser_use_full_cdp_access",
+        "--disable",
+        "computer_use",
+        "--disable",
+        "in_app_browser",
+        "--disable",
+        "in_app_local_automation",
+        "--disable",
+        "apps",
+        "--disable",
+        "plugins",
+        "--disable",
+        "remote_plugin",
+        "--disable",
+        "skill_mcp_dependency_install",
+        "--disable",
+        "tool_suggest",
+        "-"
+      ],
+      "child_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home",
+        "HOME": "<HOME>",
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C",
+        "PATH": "/usr/bin:/bin",
+        "SEW_GOLDEN_CELL": "1",
+        "TZ": "UTC"
+      },
+      "contract": {
+        "allowed_mcp_servers": [
+          "tavily"
+        ],
+        "kind": "provider",
+        "native_search": false,
+        "provider_id": "tavily"
+      },
+      "files": {
+        "codex-home/auth.json": {
+          "mode": "0o644",
+          "text": "{\"golden\": \"account-login\"}\n"
+        },
+        "codex-home/config.toml": {
+          "mode": "0o600",
+          "text": "web_search = \"disabled\"\n[mcp_servers.tavily]\nstartup_timeout_sec = 120\nrequired = true\ncommand = \"/opt/golden/provider-mcp\"\nargs = [\"--arm\", \"tavily\"]\ndefault_tools_approval_mode = \"approve\"\n"
+        }
+      },
+      "mcp_config_path": "<SCRATCH>/codex-home/config.toml",
+      "surface_env": {
+        "CODEX_HOME": "<SCRATCH>/codex-home"
+      }
+    }
+  }
+}
