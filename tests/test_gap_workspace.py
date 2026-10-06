@@ -1977,32 +1977,28 @@ def test_bubblewrap_claude_refuses_without_host_srt_probe(
 
 
 @pytest.mark.parametrize("attempt", [0, 1])
-def test_captured_pip_results_require_verified_sources(attempt):
+def test_captured_compound_pip_results_are_not_exempt(attempt):
+    # Both captured requests chain pip with other shell commands.
     transcript = json.loads(
         (Path(__file__).parent / "fixtures/gap-pip-local-results.json").read_text()
     )[attempt]
     neutralized, denied = set(), set()
-    assert (
-        audit_workspace_calls(
-            transcript,
-            cell_env={"PIP_NO_INDEX": "1", "PIP_CONFIG_FILE": "/dev/null"},
-            neutralized_attempts=neutralized,
-            denied_attempts=denied,
-        )
-        == (["workspace:shell-network"] if attempt == 0 else [])
-    )
-    assert len(neutralized) == (0 if attempt == 0 else 1)
+    assert audit_workspace_calls(
+        transcript,
+        cell_env={"PIP_NO_INDEX": "1", "PIP_CONFIG_FILE": "/dev/null"},
+        neutralized_attempts=neutralized,
+        denied_attempts=denied,
+    ) == ["workspace:shell-network"]
+    assert not neutralized
     assert not denied
     assert audit_workspace_calls(transcript) == ["workspace:shell-network"]
 
 
-def test_pip_background_result_without_indirect_sources_is_neutralized():
+def test_pip_background_result_for_allowlisted_command_is_neutralized():
     transcript = json.loads(
         (Path(__file__).parent / "fixtures/gap-pip-local-results.json").read_text()
     )[0]
-    transcript[0]["input"]["command"] = transcript[0]["input"]["command"].replace(
-        "pip install -r requirements.txt pytest", "pip install pytest"
-    )
+    transcript[0]["input"]["command"] = "pip download stripe==15.6.1 --no-deps -d downloads"
     neutralized = set()
     assert audit_workspace_calls(
         transcript,
@@ -2083,11 +2079,19 @@ def test_pip_indirect_sources_cannot_certify_truncated_success(
     assert not denied
 
 
-def test_pip_download_from_cell_wheelhouse_still_qualifies(gap_config, tmp_path):
+@pytest.mark.parametrize(
+    "command",
+    [
+        "pip download stripe==15.6.1 --no-deps -d downloads",
+        "pip3 download -q --no-index --find-links {wheelhouse} --dest downloads stripe==15.6.1",
+        "python3 -m pip install --quiet --no-deps --find-links {wheelhouse} stripe==15.6.1",
+    ],
+)
+def test_pip_download_from_cell_wheelhouse_still_qualifies(gap_config, tmp_path, command):
     scratch = tmp_path / "scratch"
     scratch.mkdir()
     _, _, env = prepare_workspace(gap_config, scratch, *workspace_task(gap_config))
-    command = "pip download stripe==15.6.1 --no-deps -d downloads 2>&1 | tail -1"
+    command = command.format(wheelhouse=env["PIP_FIND_LINKS"])
     neutralized = set()
     assert audit_workspace_calls(
         [
@@ -2109,11 +2113,10 @@ def test_pip_download_from_cell_wheelhouse_still_qualifies(gap_config, tmp_path)
 @pytest.mark.parametrize(
     "command",
     [
-        "pip download stripe==15.6.1 --no-deps -d $TMPDIR",
-        "python -m pip download stripe==15.6.1 --no-deps -d $TMPDIR/x",
+        "pip download stripe==15.6.1 --no-deps -d /tmp/x",
+        "python -m pip download stripe==15.6.1 --no-deps -d downloads",
         "/tmp/venv/bin/pip install pytest",
         "pip install stripe",
-        "printenv PIP_NO_INDEX; pip download stripe",
     ],
 )
 @pytest.mark.parametrize(
@@ -2192,19 +2195,353 @@ def test_pip_overrides_and_other_network_calls_remain_contaminating(command):
     assert not neutralized
 
 
+STRICT_PIP_ENV = {
+    "PIP_NO_INDEX": "1",
+    "PIP_CONFIG_FILE": "/dev/null",
+    "PIP_FIND_LINKS": "/tmp/cell/wheelhouse",
+}
+PIP_PIN = "stripe==15.6.1"
+
+
+def _pip_result(harness, command, output="Successfully downloaded stripe", *, failed=False):
+    if harness == "codex":
+        return [
+            {
+                "type": "command_execution",
+                "id": "pip",
+                "command": command,
+                "status": "failed" if failed else "completed",
+                "exit_code": 1 if failed else 0,
+                "aggregated_output": output,
+            }
+        ]
+    return [
+        {"type": "tool_use", "id": "pip", "name": "Bash", "input": {"command": command}},
+        {"type": "tool_result", "tool_use_id": "pip", "content": output, "is_error": failed},
+    ]
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        f"echo 'pip download {PIP_PIN}'",
+        f'echo "pip --isolated download {PIP_PIN}"',
+        f"printf '%s\\n' 'pip download {PIP_PIN}'",
+        f"rg 'pip download {PIP_PIN}' .",
+        "rg 'pip install https://example.org/stripe.whl' .",
+        f"echo '$(pip download {PIP_PIN})'",
+        f"printf '%s' '`pip download {PIP_PIN}`'",
+        f"bash -i -c \"echo 'pip download {PIP_PIN}'\"",
+        f"eval \"echo 'pip download {PIP_PIN}'\"",
+    ],
+)
+def test_quoted_pip_arguments_do_not_contaminate(harness, command):
+    neutralized, denied = set(), set()
+    assert not gap_workspace.shell_network_attempt(command)
+    assert audit_workspace_calls(
+        _pip_result(harness, command),
+        cell_env=STRICT_PIP_ENV,
+        neutralized_attempts=neutralized,
+        denied_attempts=denied,
+    ) == []
+    assert not neutralized
+    assert not denied
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        f"pip download {PIP_PIN}",
+        f"pip3 install {PIP_PIN}",
+        f"python -m pip download {PIP_PIN} other-name==2.0.0rc1",
+        f"python3 -m pip install {PIP_PIN} --no-deps",
+        f"pip download --no-deps -d downloads --no-index -q {PIP_PIN}",
+        f"pip download --dest /tmp/out --quiet -q {PIP_PIN}",
+        f"pip download --find-links /tmp/cell/wheelhouse {PIP_PIN}",
+        f"pip install --no-index --find-links /tmp/cell/wheelhouse {PIP_PIN}",
+    ],
+)
+def test_strict_pip_allowlist_is_exempt(harness, command):
+    neutralized = set()
+    assert audit_workspace_calls(
+        _pip_result(harness, command), cell_env=STRICT_PIP_ENV, neutralized_attempts=neutralized
+    ) == []
+    assert gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV)
+    # Neutralization counts detected attempts; a plain offline install is not one.
+    assert len(neutralized) == int(gap_workspace.shell_network_attempt(command))
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        # Reported bypasses of the command-text exemption.
+        "pip download -r requirements.txt",
+        f"pip download --no-deps -r requirements.txt {PIP_PIN}",
+        f"pip download -qd downloads {PIP_PIN}",
+        f"pip download -qr requirements.txt {PIP_PIN}",
+        f"pip install -qvi /tmp/my_index {PIP_PIN}",
+        f"bash -i -c 'pip download {PIP_PIN}'",
+        f"bash -- -c 'pip download {PIP_PIN}'",
+        f"bash -c 'pip download {PIP_PIN}'",
+        f"bash -lc 'pip download {PIP_PIN}'",
+        f"/bin/zsh -lc 'pip download {PIP_PIN}'",
+        f"sh -c 'pip download {PIP_PIN}'",
+        "bash -i -c 'pip install https://example.org/stripe-15.6.1-py3-none-any.whl'",
+        f"env pip download {PIP_PIN}",
+        f"env -u PIP_NO_INDEX pip download {PIP_PIN}",
+        f"PIP_NO_INDEX=0 pip download {PIP_PIN}",
+        f"xargs pip download {PIP_PIN} < /dev/null",
+        f"eval pip download {PIP_PIN}",
+        f"nohup pip download {PIP_PIN}",
+        f"time pip download {PIP_PIN}",
+        f"(pip download {PIP_PIN})",
+        f"echo $(pip download {PIP_PIN})",
+        f"echo `pip download {PIP_PIN}`",
+        f"pip download {PIP_PIN} | tail -1",
+        f"pip download {PIP_PIN} 2>&1 | tail -1",
+        f"pip download {PIP_PIN} > log",
+        f"cd /tmp && pip download {PIP_PIN}",
+        f"pip download {PIP_PIN}; true",
+        f"pip download {PIP_PIN} || true",
+        f"pip download {PIP_PIN} & wait",
+        f"pip download {PIP_PIN}\ntrue",
+        f"pip download {PIP_PIN} # comment",
+        # Forms from earlier review rounds of the exemption.
+        f"pip download {PIP_PIN} -ihttps://pypi.org/simple",
+        f"pip download {PIP_PIN} -i /tmp/index",
+        f"pip download {PIP_PIN} --index-url https://pypi.org/simple",
+        f"pip download {PIP_PIN} --extra-index-url https://pypi.org/simple",
+        f"pip download {PIP_PIN} --index /tmp/index",
+        f"pip download {PIP_PIN} --trusted-host pypi.org",
+        f"pip download {PIP_PIN} --config-settings key=value",
+        f"pip download {PIP_PIN} --isolated",
+        f"pip download {PIP_PIN} --no-index=false",
+        f"pip download {PIP_PIN} -c constraints.txt",
+        f"pip download {PIP_PIN} --constraint constraints.txt",
+        f"pip download {PIP_PIN} --requirement requirements.txt",
+        f"pip download {PIP_PIN} -e .",
+        f"pip download {PIP_PIN} -f /tmp/cell/wheelhouse",
+        f"pip download {PIP_PIN} --find-links=/tmp/cell/wheelhouse",
+        f"pip download {PIP_PIN} --find-links /tmp/cell/wheelhouse/",
+        f"pip download {PIP_PIN} --find-links /tmp/other",
+        f"pip download {PIP_PIN} --find-links https://example.org/wheels/",
+        f"pip download {PIP_PIN} --find-links file:///tmp/cell/wheelhouse",
+        f"pip download {PIP_PIN} -d https://example.org/out",
+        f"pip download {PIP_PIN} --dest=downloads",
+        f"pip download {PIP_PIN} -d",
+        f"pip download {PIP_PIN} -qq",
+        f"pip download {PIP_PIN} -d $TMPDIR",
+        f"pip download $(echo -r requirements.txt) {PIP_PIN}",
+        f"pip download '{PIP_PIN}'",
+        f"pip download p''ip {PIP_PIN}",
+        f"pip download {PIP_PIN}' '",
+        "pip download stripe",
+        "pip download stripe>=15",
+        "pip download stripe==15.*",
+        "pip download stripe[extra]==15.6.1",
+        "pip download stripe===15.6.1",
+        "pip download https://example.org/stripe-15.6.1-py3-none-any.whl",
+        "pip download stripe==1.zip",
+        "pip download ./stripe==15.6.1",
+        f"pip -q download {PIP_PIN}",
+        f"pip --isolated download {PIP_PIN}",
+        f"python -I -m pip download {PIP_PIN}",
+        f"python3.12 -m pip download {PIP_PIN}",
+        f"pip3.12 download {PIP_PIN}",
+        f"/tmp/venv/bin/pip download {PIP_PIN}",
+        f"uv pip download {PIP_PIN}",
+        "printenv PIP_NO_INDEX; pip download stripe",
+    ],
+)
+def test_non_allowlisted_pip_requests_are_contamination(harness, command):
+    neutralized, denied = set(), set()
+    assert audit_workspace_calls(
+        _pip_result(harness, command),
+        cell_env=STRICT_PIP_ENV,
+        neutralized_attempts=neutralized,
+        denied_attempts=denied,
+    ) == ["workspace:shell-network"]
+    assert not neutralized
+    assert not denied
+    assert not gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV)
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        f"pip download {PIP_PIN} --index-url https://pypi.org/simple",
+        f"pip download -r requirements.txt {PIP_PIN}",
+        f"pip download {PIP_PIN}",
+        f"nohup pip --isolated download {PIP_PIN}",
+        f"time pip --isolated download {PIP_PIN}",
+        f"xargs pip --isolated download {PIP_PIN} < /dev/null",
+        f"eval 'pip --isolated download {PIP_PIN}'",
+        f"bash -i -c 'pip --isolated download {PIP_PIN}'",
+        f"bash -- -c 'pip --isolated download {PIP_PIN}'",
+        f"/bin/zsh -lc 'nohup pip --isolated download {PIP_PIN}'",
+        f"pip3.12 --isolated download {PIP_PIN}",
+        f"python -I -m pip --isolated download {PIP_PIN}",
+    ],
+)
+def test_sandbox_denied_pip_request_counts_as_denied_attempt(harness, command):
+    output = (
+        "<sandbox_violations>\n"
+        "deny network-outbound pypi.org:443 (host is on the deny list)\n"
+        "</sandbox_violations>"
+    )
+    transcript = _pip_result(harness, command, output, failed=True)
+    neutralized, denied = set(), set()
+    assert audit_workspace_calls(
+        transcript,
+        cell_env=STRICT_PIP_ENV,
+        neutralized_attempts=neutralized,
+        denied_attempts=denied,
+    ) == []
+    assert denied == {("pip", command)}
+    assert not neutralized
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        f"nohup pip --isolated download {PIP_PIN}",
+        f"bash -i -c 'pip --isolated download {PIP_PIN}'",
+        f"eval 'pip --isolated download {PIP_PIN}'",
+    ],
+)
+@pytest.mark.parametrize("defect", ["wrong-target", "multiple", "trailing-command", "trailing-output", "duplicate-block"])
+def test_wrapped_pip_denial_requires_structural_attribution(harness, command, defect):
+    output = (
+        "<sandbox_violations>\n"
+        "deny network-outbound pypi.org:443 (host is on the deny list)\n"
+        "</sandbox_violations>"
+    )
+    if defect == "wrong-target":
+        output = output.replace("pypi.org", "unrelated.example")
+    elif defect == "multiple":
+        command += f"; pip download {PIP_PIN}"
+    elif defect == "trailing-command":
+        command += "; true"
+    elif defect == "trailing-output":
+        output += "\nmore output"
+    elif defect == "duplicate-block":
+        output += "\n" + output
+    denied = set()
+    assert audit_workspace_calls(
+        _pip_result(harness, command, output, failed=True),
+        cell_env=STRICT_PIP_ENV,
+        denied_attempts=denied,
+    ) == ["workspace:shell-network"]
+    assert not denied
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("body", ["$(pip download stripe)", "`pip download stripe`", "$(echo $(pip download stripe))"])
+def test_pip_substitution_is_detected_but_outer_output_cannot_prove_denial(harness, body):
+    command = f'printf "%s" "{body}"'
+    assert gap_workspace.shell_network_attempt(command)
+    denied = set()
+    assert audit_workspace_calls(
+        _pip_result(harness, command, "network: Permission denied", failed=True),
+        denied_attempts=denied,
+    ) == ["workspace:shell-network"]
+    assert not denied
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("command", [
+    f"echo ok # $(pip download {PIP_PIN})",
+    f"echo ok # `pip download {PIP_PIN}`",
+    f"# $(pip download {PIP_PIN})\necho ok",
+    f"echo ok;# $(pip download {PIP_PIN})\necho still-ok",
+    f"echo ok # ' $(pip download {PIP_PIN}\necho still-ok",
+    "echo ok # " + "$(" * 2000 + "\necho still-ok",
+    f"echo $(echo ok # $(pip download {PIP_PIN})\n)",
+    "sh -c " + shlex.quote(f"echo ok # $(pip download {PIP_PIN})"),
+])
+def test_commented_substitutions_leave_audit_clean(harness, command):
+    from sew.arms import ArmContract
+
+    transcript = _pip_result(harness, command)
+    denied, neutralized = set(), set()
+    assert not gap_workspace.shell_network_attempt(command)
+    assert audit_workspace_calls(
+        transcript, cell_env=STRICT_PIP_ENV,
+        denied_attempts=denied, neutralized_attempts=neutralized,
+    ) == []
+    contract = ArmContract(
+        kind="floor", harness_id=harness, provider_id="floor", workspace_profile=True
+    )
+    audit = audit_transcript(contract, transcript, cell_env=STRICT_PIP_ENV)
+    assert not audit.contaminated
+    assert audit.denied_network_attempts == audit.config_neutralized_network_attempts == 0
+    assert not denied
+    assert not neutralized
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("command", [
+    f"echo ok # ignored\necho $(pip download {PIP_PIN})",
+    f"echo ok # $(echo literal)\necho `pip download {PIP_PIN}`",
+    f'echo "# $(pip download {PIP_PIN})"',
+    f"echo \\#$(pip download {PIP_PIN})",
+    f"echo literal#$(pip download {PIP_PIN})",
+    f"echo ''#$(pip download {PIP_PIN})",
+])
+def test_comment_scanning_preserves_active_substitutions(harness, command):
+    assert gap_workspace.shell_network_attempt(command)
+    assert audit_workspace_calls(_pip_result(harness, command)) == ["workspace:shell-network"]
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("shape", ["substitutions", "shell-bodies", "mixed"])
+@pytest.mark.parametrize("body", ["echo ok", f"pip download {PIP_PIN}"])
+def test_deep_shell_requests_contaminate_without_crashing(harness, shape, body):
+    from sew.arms import ArmContract
+
+    if shape == "substitutions":
+        command = "echo " + "$(" * 2000 + body + ")" * 2000
+    elif shape == "shell-bodies":
+        command = "eval " * 2000 + body
+    else:
+        command = "echo " + "$(" * 40 + "eval " * 40 + body + ")" * 40
+    transcript = _pip_result(harness, command, "network: Permission denied", failed=True)
+    assert gap_workspace.shell_network_attempt(command)
+    assert not gap_workspace.denied_network_commands(transcript)
+    assert not gap_workspace._network_invocation_is_last(command)
+    assert audit_workspace_calls(transcript, cell_env=STRICT_PIP_ENV) == ["workspace:shell-network"]
+    contract = ArmContract(
+        kind="floor", harness_id=harness, provider_id="floor", workspace_profile=True
+    )
+    audit = audit_transcript(contract, transcript, cell_env=STRICT_PIP_ENV)
+    assert audit.contaminated
+    assert audit.violations == ("workspace:shell-network",)
+    assert audit.denied_network_attempts == audit.config_neutralized_network_attempts == 0
+
+
 @pytest.mark.parametrize(
     "env",
     [
         {},
         {"PIP_NO_INDEX": "0", "PIP_CONFIG_FILE": "/dev/null"},
         {"PIP_NO_INDEX": "1", "PIP_CONFIG_FILE": "/tmp/pip.conf"},
+        {
+            "PIP_NO_INDEX": "1",
+            "PIP_CONFIG_FILE": "/dev/null",
+            "PIP_FIND_LINKS": "https://example.org/wheels/",
+        },
     ],
 )
 def test_pip_neutralization_requires_enforced_cell_config(env):
     event = {
         "type": "command_execution",
         "id": "pip",
-        "command": "pip download stripe",
+        "command": "pip download stripe==15.6.1",
         "status": "failed",
         "aggregated_output": "ERROR: (from versions: none)\nNo matching distribution found",
     }
@@ -2239,7 +2576,7 @@ def test_dynamic_pip_sources_cannot_certify_success(command):
 def test_inherited_pip_sources_cannot_neutralize_truncated_success(tmp_path, harness, setting):
     requirements = tmp_path / "requirements.txt"
     requirements.write_text("--find-links https://example.org/wheels/\n")
-    command = "pip download stripe==15.6.1 --retries 0 --timeout 1 2>&1 | tail -1"
+    command = "pip download stripe==15.6.1 --no-deps -d downloads"
     output = "Successfully downloaded stripe"
     transcript = (
         [{"type": "command_execution", "id": "pip", "command": command,
@@ -2264,7 +2601,7 @@ def test_arm_audit_records_neutralized_pip_separately():
     event = {
         "type": "command_execution",
         "id": "pip",
-        "command": "pip download stripe",
+        "command": "pip download stripe==15.6.1",
         "status": "completed",
         "aggregated_output": "Successfully downloaded stripe",
     }
@@ -2287,7 +2624,7 @@ def test_pip_neutralization_requires_local_result_evidence(output):
     event = {
         "type": "command_execution",
         "id": "pip",
-        "command": "pip download stripe",
+        "command": "pip download stripe==15.6.1",
         "status": "failed",
         "aggregated_output": output,
     }
