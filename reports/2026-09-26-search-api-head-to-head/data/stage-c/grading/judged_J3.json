@@ -1,0 +1,1211 @@
+{
+ "judge": "J3",
+ "questions": [
+  {
+   "id": "o5",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "Chris Green's repeated-prompt test (1,000 prompts, 9,946 runs; reported by Search Engine Land on 2026-07-08) found that labrador, OpenAI's own index, was the primary search source 88.1% of the time, Bright 9.9%, Oxylabs 1.7% and SERP 0.3%. 11.6% of prompts switched primary source between runs.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 3,
+     "verified_url": "https://searchengineland.com/chatgpt-citations-change-hidden-search-pipelines-481843",
+     "date": "2026-07-08",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "c9",
+      "c40",
+      "c41",
+      "c54",
+      "c56",
+      "c64",
+      "c71"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Resoneo's replay (Search Engine Land, 2026-08-17) found that free-account Think mode drew 74.7% of results from labrador, 22.2% from oxylabs and 3.1% from classic scraped Google results.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://searchengineland.com/chatgpt-retrieval-stack-index-cache-pages-485036",
+     "date": "2026-08-17",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r9",
+      "c21",
+      "c23",
+      "c24",
+      "c32",
+      "c33",
+      "c38",
+      "c42",
+      "c52",
+      "c60",
+      "c65",
+      "c73",
+      "c81",
+      "c82"
+     ],
+     "support_partial": [
+      "r16",
+      "r36"
+     ]
+    },
+    {
+     "claim": "The same Resoneo study found that paid-account Thinking mode drew 75.3% of results from scraped Google and 24.7% from labrador.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://searchengineland.com/chatgpt-retrieval-stack-index-cache-pages-485036",
+     "date": "2026-08-17",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r9",
+      "c21",
+      "c23",
+      "c24",
+      "c32",
+      "c33",
+      "c38",
+      "c42",
+      "c52",
+      "c60",
+      "c65",
+      "c73",
+      "c81",
+      "c82"
+     ],
+     "support_partial": [
+      "r16",
+      "r36",
+      "r38"
+     ]
+    },
+    {
+     "claim": "Resoneo found that instant mode, the fast default for free users, grounds essentially all search citations in labrador. The exception is near-live questions, which split roughly 50/50 with scraped Google.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://searchengineland.com/chatgpt-retrieval-stack-index-cache-pages-485036",
+     "date": "2026-08-17",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r9",
+      "c21",
+      "c23",
+      "c24",
+      "c32",
+      "c33",
+      "c38",
+      "c42",
+      "c52",
+      "c60",
+      "c65",
+      "c73",
+      "c81",
+      "c82"
+     ],
+     "support_partial": [
+      "r38",
+      "r36"
+     ]
+    },
+    {
+     "claim": "Two independent traffic studies, Resoneo (via Search Engine Land) and Peec AI, describe ChatGPT's bright and oxylabs pipelines as scraped Google results, with oxylabs feeding the news vertical.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://searchengineland.com/chatgpt-retrieval-stack-index-cache-pages-485036",
+     "date": "2026-08-17",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r9",
+      "c21",
+      "c23",
+      "c24",
+      "c32",
+      "c33",
+      "c38",
+      "c42",
+      "c52",
+      "c60",
+      "c65",
+      "c73",
+      "c81",
+      "c82",
+      "r4"
+     ],
+     "support_partial": [
+      "r16",
+      "c8",
+      "c9",
+      "c40",
+      "c41",
+      "c54",
+      "c56",
+      "c64",
+      "c71",
+      "r36"
+     ]
+    },
+    {
+     "claim": "Resoneo found that Bing doesn't supply labrador: only 1.5% of labrador URLs appear in Bing's top 20 for the same fan-out queries, and no labrador snippet matches a Bing snippet.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://searchengineland.com/chatgpt-retrieval-stack-index-cache-pages-485036",
+     "date": "2026-08-17",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r9",
+      "c21",
+      "c23",
+      "c24",
+      "c32",
+      "c33",
+      "c38",
+      "c42",
+      "c52",
+      "c60",
+      "c65",
+      "c73",
+      "c81",
+      "c82",
+      "r16",
+      "r36"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI's Enterprise and Edu help page says ChatGPT may share disassociated search queries with Bing for web results, and structured data with Bing or third-party data providers. ChatGPT for Healthcare workspaces use neither.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://help.openai.com/en/articles/10093903-chatgpt-search-for-enterprise-and-edu",
+     "date": "page captured 2026-09-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c17",
+      "c68"
+     ],
+     "support_partial": [
+      "r11",
+      "r16",
+      "r36"
+     ]
+    },
+    {
+     "claim": "Peec AI (2026-09-04) reports that ChatGPT still draws on at least eight external providers besides its own index, including Yelp, TripAdvisor and Microsoft's Web IQ, and that Bing shows up mainly in Deep Research.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://peec.ai/blog/chatgpt-built-its-own-search-index",
+     "date": "2026-09-04",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r4"
+     ],
+     "support_partial": [
+      "r18"
+     ]
+    },
+    {
+     "claim": "Peec AI saw an A/B test, prefer-index-over-serp-v3, running on 8% of chats in mid-August 2026, and says OpenAI tests its own product index on traffic slices of up to 20%.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://peec.ai/blog/chatgpt-built-its-own-search-index",
+     "date": "2026-09-04",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The plaintiffs' remedies findings in US v. Google (filed 2025-05-29) summarize Nick Turley's testimony: OpenAI began grounding ChatGPT on third-party search results in 2023, Google declined its 2024 request for search API access, and it still has significant quality issues with non-Google search API partners. It is building web indices, a search index and ranking signals, and would need at least five years to learn whether its own index could answer all queries.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.justice.gov/atr/media/1402141/dl",
+     "date": "2025-05-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c75"
+     ],
+     "support_partial": [
+      "r4",
+      "r18",
+      "r36",
+      "r6",
+      "c7",
+      "c13",
+      "c22",
+      "c83",
+      "r33"
+     ]
+    },
+    {
+     "claim": "The Information reported in August 2025 (relayed by Search Engine Land and Search Engine Roundtable) that OpenAI used SerpApi-scraped Google results for real-time ChatGPT answers such as news and sports. SerpApi had listed OpenAI as a customer as recently as May 2024 before removing it; no price, volume or terms were reported.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://searchengineland.com/openai-chatgpt-serpapi-google-search-results-461226",
+     "date": "2025-08-26",
+     "source_type": "press report",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md (also _scratch/research/market-sizing-ai-consumer-llm.md)",
+     "support_full": [
+      "c7",
+      "c13",
+      "c22",
+      "c83",
+      "r33",
+      "c15",
+      "c51"
+     ],
+     "support_partial": [
+      "r17",
+      "r15",
+      "r1",
+      "c25",
+      "c30",
+      "c43",
+      "c46",
+      "c61",
+      "c66",
+      "c76"
+     ]
+    },
+    {
+     "claim": "Sacra says about 40% of SerpApi's revenue comes from AI startups (naming OpenAI, Cursor, Perplexity and Meta), about 40% from SEO and marketing firms, and about 20% from other uses such as bank background checks.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://sacra.com/c/serpapi",
+     "date": "undated, read 2026-09-27",
+     "source_type": "analyst estimate",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "c25",
+      "c30",
+      "c43",
+      "c46",
+      "c61",
+      "c66",
+      "c76"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "SerpApi's public list prices run from Starter at $25 a month for 1,000 searches, through Production at $150 for 15,000, to Cloud 1M at $3,750 for 1,000,000, with custom enterprise plans on request. OpenAI's terms are not published.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://serpapi.com/pricing",
+     "date": "current page, read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/serpapi.md",
+     "support_full": [
+      "c26",
+      "c49",
+      "c53",
+      "c79"
+     ],
+     "support_partial": [
+      "r34"
+     ]
+    },
+    {
+     "claim": "OpenAI's ChatGPT search help page says search sometimes partners with other search providers, rewriting queries into targeted queries sent to them, and links Microsoft's and Shopify's privacy policies. It gives no provider shares.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://help.openai.com/en/articles/9237897-searching-the-web-with-chatgpt",
+     "date": "page captured 2026-09-23",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c1",
+      "c45"
+     ],
+     "support_partial": [
+      "r16",
+      "r36"
+     ]
+    },
+    {
+     "claim": "OpenAI's ChatGPT search launch post (2024-10-31) says search leverages third-party search providers plus content supplied directly by partners, without naming any provider.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/introducing-chatgpt-search/",
+     "date": "2024-10-31",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-B-search-vendors.md",
+     "support_full": [
+      "r24",
+      "c36",
+      "c44",
+      "c55",
+      "c77",
+      "c78",
+      "r36"
+     ],
+     "support_partial": [
+      "r16",
+      "r30"
+     ]
+    },
+    {
+     "claim": "OpenAI's crawler documentation says OAI-SearchBot surfaces websites in ChatGPT search, and that sites that opt out are not shown in search answers. It discloses no index size or share.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/bots",
+     "date": "current page, read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "r3",
+      "r14",
+      "r19",
+      "c16",
+      "c27",
+      "c58",
+      "c80"
+     ],
+     "support_partial": [
+      "r20",
+      "c59",
+      "c63"
+     ]
+    },
+    {
+     "claim": "Profound (2025-08-06) measured ChatGPT's citation alignment with Google results rising from 12% in April to 33% in July 2025, while its alignment with Bing fell from 26% to 8%.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.tryprofound.com/blog/ai-search-shift",
+     "date": "2025-08-06",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "c6",
+      "c11",
+      "c62",
+      "c74",
+      "r6"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Ahrefs (2025-08-20; 118,931 fan-out queries) found that only 6.82% of ChatGPT's results were in Google's top 10, 9.85% in its top 20 and 16.61% anywhere in Google's results for the same queries. Ahrefs inferred a hybrid of Google, Bing, OpenAI's own index and third-party APIs.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://ahrefs.com/blog/is-chatgpt-really-powered-by-google/",
+     "date": "2025-08-20",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "c10",
+      "c20",
+      "c29",
+      "c31",
+      "c69",
+      "c72",
+      "c84"
+     ],
+     "support_partial": [
+      "c15",
+      "c51"
+     ]
+    },
+    {
+     "claim": "Synscribe's June 2026 inspection of three ChatGPT conversations counted 484 results tagged bright and 5 tagged labrador. It treats Bright Data as a middleware layer whose upstream engine is undisclosed.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.synscribe.com/blog/search-engine-powering-chatgpt-bing-google-brightdata",
+     "date": "2026-06-24",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "c2",
+      "c5",
+      "c67"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "CNBC reported (2026-04-27, citing an unnamed source) that under the amended partnership OpenAI keeps paying Microsoft a 20% revenue share, capped and running through 2030, while Microsoft stops paying OpenAI. The report doesn't tie the share to search.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.cnbc.com/2026/04/27/openai-microsoft-partnership-revenue-cap.html",
+     "date": "2026-04-27",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "c18"
+     ],
+     "support_partial": [
+      "c3"
+     ]
+    },
+    {
+     "claim": "Microsoft's 2026-04-27 post says OpenAI's revenue-share payments to Microsoft continue through 2030 at the same percentage, subject to a total cap. It doesn't mention Bing or search.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/",
+     "date": "2026-04-27",
+     "source_type": "company statement",
+     "kb_file": "projects/exa-market-sizing/market-sizing.md",
+     "support_full": [
+      "c3"
+     ],
+     "support_partial": [
+      "c18"
+     ]
+    },
+    {
+     "claim": "In a December 2024 letter in US v. Google, Microsoft agreed to produce the parts of its agreements with OpenAI (and Perplexity, Inflection and G42) that concern AI integration into Bing or Copilot, search or search-ad services, or search-related data. The letter discloses no terms.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://storage.courtlistener.com/recap/gov.uscourts.dcd.223205/gov.uscourts.dcd.223205.1085.1.pdf",
+     "date": "2024-12-03",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c14",
+      "c37",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "In November 2024 OpenAI's VP of Engineering said, in an AMA relayed by Search Engine Roundtable, that ChatGPT search uses a set of services and that Bing is an important one.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.seroundtable.com/bing-powers-chatgpt-search-38345.html",
+     "date": "2024-11-04",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "c70"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Falia's September 2026 review of the summer measurements says Bing is almost absent from ChatGPT's consumer retrieval path: the in-house index dominates, scraped Google comes next, and Bing is still named only for Enterprise and Edu.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://falia.co/en/insights/ai-visibility/what-search-engine-does-chatgpt-use/",
+     "date": "2026-09-08",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r36"
+     ],
+     "support_partial": [
+      "r4"
+     ]
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "unverifiable",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "irrelevant",
+    "c10": "supported",
+    "c11": "irrelevant",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "unsupported",
+    "c15": "false",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "unsupported",
+    "c20": "irrelevant",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "irrelevant",
+    "c24": "irrelevant",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "irrelevant",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "supported",
+    "c35": "irrelevant",
+    "c36": "supported",
+    "c37": "unsupported",
+    "c38": "supported",
+    "c39": "irrelevant",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "irrelevant",
+    "c43": "supported",
+    "c44": "supported",
+    "c45": "supported",
+    "c46": "supported",
+    "c47": "irrelevant",
+    "c48": "supported",
+    "c49": "supported",
+    "c50": "supported",
+    "c51": "supported",
+    "c52": "supported",
+    "c53": "supported",
+    "c54": "irrelevant",
+    "c55": "supported",
+    "c56": "supported",
+    "c57": "irrelevant",
+    "c58": "supported",
+    "c59": "irrelevant",
+    "c60": "supported",
+    "c61": "supported",
+    "c62": "supported",
+    "c63": "unsupported",
+    "c64": "supported",
+    "c65": "supported",
+    "c66": "supported",
+    "c67": "supported",
+    "c68": "supported",
+    "c69": "supported",
+    "c70": "supported",
+    "c71": "supported",
+    "c72": "supported",
+    "c73": "irrelevant",
+    "c74": "irrelevant",
+    "c75": "supported",
+    "c76": "supported",
+    "c77": "supported",
+    "c78": "supported",
+    "c79": "supported",
+    "c80": "irrelevant",
+    "c81": "irrelevant",
+    "c82": "irrelevant",
+    "c83": "supported",
+    "c84": "irrelevant"
+   },
+   "notes": "No public source gives OpenAI's contracted supplier terms or official shares. What the pool supports is third-party traffic measurement from May to August 2026. It shows labrador (OpenAI's own index) dominating free and instant use, scraped Google bought through Bright Data and Oxylabs dominating paid Thinking, and a small serp channel. Bing is rare in consumer ChatGPT; OpenAI names it only for Enterprise and Edu. This conflicts with the KB's supply-side line that the non-in-house remainder is SerpApi and Bing, so Green's shares get usefulness 3. Shares are sample-based and vary by account tier and mode; Synscribe's three-conversation sample (almost all bright) conflicts with Green's 88.1% labrador. c15 is false: SER quotes The Information as May last year (May 2024; SEL states May 2024), not May 2025. c14 and c37 are unsupported: the cited Exhibit A (a Dec 2024 Microsoft letter) never mentions a crawling agreement or Bing Index data drops; it supports c48 only. c19 is unsupported: the Deep Quarry post (Nov 2025) describes the October 2025 terms, keeps API products Azure-exclusive, and never mentions a primary-cloud clause. c63 is unsupported: proxies.sx never calls the index real-time. c4 (Reuters) returned 401 live and on Wayback. Sacra's $3,750 for 100,000 searches (c30) conflicts with SerpApi's own pricing page ($3,750 buys Cloud 1M, 1,000,000 searches, c26). The DOJ filing (c75's page) also cites an exhibit listing three search API providers ChatGPT relies on; no item claims it. Irrelevant here: sample sizes, citation funnels, classifier accuracy, fan-out rates, OpenAI's own API price, crawler IP prefixes and robots timing. SEL, OpenAI and help-center pages were read via Wayback (403 live)."
+  },
+  {
+   "id": "m1",
+   "status": "unanswered",
+   "claims": [
+    {
+     "claim": "Microsoft says Web IQ is already used by ChatGPT among other AI assistants (Build launch materials, the June 2026 Microsoft Advertising post, and the FY26 Q4 earnings call), but it gives no query or transaction count.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-06-02 to 2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "projects/exa-market-sizing/market-sizing.md (also competitive/microsoft-grounding-with-bing.md)",
+     "support_full": [
+      "c25",
+      "c37",
+      "c1",
+      "r11",
+      "c6",
+      "c23",
+      "c24",
+      "r13",
+      "r9",
+      "r24",
+      "r26",
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says its grounding already powers most of the major AI assistants on the market (a Feb 2026 Bing blog says nearly all of them; the June 2026 Command Line post says most), without naming a count or disclosing volume.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://blogs.bing.com/search/February-2026/Elevating-the-Role-of-Grounding-on-the-AI-Web",
+     "date": "2026-02-12",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "c7",
+      "c1",
+      "r11"
+     ],
+     "support_partial": [
+      "c6",
+      "c23",
+      "c25"
+     ]
+    },
+    {
+     "claim": "Microsoft's President of Search and AI, Jordi Ribas, told Search Engine Land (relayed by SEO Handbook, June 2026) that ChatGPT uses Web IQ for only some of its web answers, while Copilot and Bing's Copilot answers also run on it.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://seohandbook.co.uk/seo-news-updates/microsoft-web-iq-ai-agents-grounding-api/",
+     "date": "2026-06-02",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Search and Grounding with Bing Custom Search are both listed at $14 per 1,000 transactions.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-pricing",
+     "date": "undated page, read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r29",
+      "c2",
+      "c5",
+      "c10",
+      "c11",
+      "c15",
+      "c20",
+      "c21",
+      "c22",
+      "c27",
+      "c29",
+      "c33",
+      "c36"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Each Grounding with Bing plan (Search and Custom Search) is capped at 150 transactions per second and 1 million transactions per day; these are plan limits, not served volume.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-pricing",
+     "date": "undated page, read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r29",
+      "c2",
+      "c5",
+      "c10",
+      "c11",
+      "c15",
+      "c20",
+      "c21",
+      "c22",
+      "c27",
+      "c29",
+      "c33",
+      "c36"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft counts Grounding with Bing transactions by the number of tool calls in an agent run, so one run can bill several transactions.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry-classic/agents/how-to/tools-classic/bing-grounding",
+     "date": "2026-03-06",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c26",
+      "r25",
+      "r10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing is sold only as an add-on inside select Microsoft products (Foundry Agent Service, and Web Knowledge Source in Azure AI Search and Foundry Knowledge), and its outputs are not directly usable in other applications.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated page, read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r29",
+      "c2",
+      "c5",
+      "c10",
+      "c11",
+      "c15",
+      "c20",
+      "c21",
+      "c22",
+      "c27",
+      "c29",
+      "c33",
+      "c36"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ is offered only in limited access to select enterprise or Azure customers, who must request access or join a waitlist.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "2026-06 to 2026-09",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c4",
+      "c9",
+      "c12",
+      "c19",
+      "c28",
+      "c35",
+      "r18",
+      "r2",
+      "r17",
+      "r22",
+      "c18",
+      "c6",
+      "c23",
+      "c24",
+      "r13",
+      "r8"
+     ],
+     "support_partial": [
+      "c37",
+      "r27",
+      "r20",
+      "r28"
+     ]
+    },
+    {
+     "claim": "Microsoft said on its FY25 Q4 call (2025-07-30) that 14,000 customers were using Foundry Agent Service, the service Grounding with Bing plugs into, to build agents.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q4",
+     "date": "2025-07-30",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c30",
+      "c32"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft names Nasdaq as a Web IQ customer, using it in its Nasdaq Boardvantage board software.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://about.ads.microsoft.com/en/blog/post/june-2026/building-a-new-ai-economy-that-creates-value-for-everyone",
+     "date": "2026-06",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md (Boardvantage in _scratch/review/verification/pr24-glean-microsoft-verification.md)",
+     "support_full": [
+      "c6",
+      "c23",
+      "c4",
+      "c9",
+      "c12",
+      "c19",
+      "c28",
+      "c35",
+      "r18",
+      "r2",
+      "r17",
+      "r22",
+      "c18",
+      "r8"
+     ],
+     "support_partial": [
+      "c1",
+      "r11"
+     ]
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "unverifiable",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "irrelevant",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "irrelevant",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "irrelevant",
+    "c17": "irrelevant",
+    "c18": "irrelevant",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "irrelevant",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "irrelevant",
+    "c32": "irrelevant",
+    "c33": "supported",
+    "c34": "supported",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported"
+   },
+   "notes": "No verified page discloses a Grounding with Bing transaction count or a Web IQ query count for 2025 or 2026, so the volume facet stays unpinned; the 1.1B / 2.9B / 8.6B a year remains an imputation. The only figures are the $14 per 1,000 price and per-plan caps (150 TPS, 1M a day), which bound one resource, not the total. Adoption statements are qualitative: Microsoft says Web IQ serves ChatGPT and most major assistants, and Ribas qualifies ChatGPT's use as some of its web answers. Verification: microsoft.com pages returned 403 to curl, so they were read via WebFetch and Wayback captures (Sept 2026); webiq.microsoft.ai doc URLs serve the same landing text. c3 is a YouTube recording of the FY26 Q4 call: the claim would be in the audio, captions could not be fetched, so it is unverifiable (the same statement is verified on Microsoft's IR page, c25). Marked irrelevant: benchmark query-set sizes (c16, c17, c31), latency and coverage (c18, c28), Bing consumer MAU (c8), Copilot queries per user (c13) and Foundry token volume (c32); all are stated on their pages but none measures grounding volume. r1 and r21 (Medium) and r3 (client-rendered) did not load usable text."
+  },
+  {
+   "id": "o1",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "OpenAI's ChatGPT search product lead, Adam Fry, told WIRED on 2025-04-28 that ChatGPT users were already running more than 1 billion web searches a week.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 3,
+     "verified_url": "https://www.wired.com/story/openai-adds-shopping-to-chatgpt/",
+     "date": "2025-04-28",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "c22"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI said in July 2025 that users send more than 2.5 billion messages a day to ChatGPT and its other tools, over 330 million of them from the US.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/global-affairs/new-economic-analysis/",
+     "date": "2025-07-22",
+     "source_type": "company statement",
+     "kb_file": "_scratch/research/market-sizing-ai-consumer-llm.md (also _scratch/research/market-sizing-supply-side.md)",
+     "support_full": [
+      "c3",
+      "c6",
+      "c14",
+      "c17",
+      "c23",
+      "r7",
+      "r32",
+      "r6"
+     ],
+     "support_partial": [
+      "r3",
+      "c4",
+      "c31",
+      "r9",
+      "r12",
+      "c12",
+      "c24",
+      "r28",
+      "r25",
+      "r26"
+     ]
+    },
+    {
+     "claim": "Nectiv's study (reported by Search Engine Land on 2025-10-15) found that 31% of 8,500+ tracked ChatGPT prompts triggered at least one web search, averaging 2.17 searches.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://nectivdigital.com/new-data-study-what-queries-is-chatgpt-using-behind-the-scenes/",
+     "date": "2025-10-15",
+     "source_type": "other",
+     "kb_file": "_scratch/research/market-sizing-ai-consumer-llm.md",
+     "support_full": [
+      "c1",
+      "c7",
+      "c15",
+      "c19",
+      "c28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Otterly (updated 2026-08-04) models 500 to 875 million ChatGPT queries a day using live web retrieval (20-35% of about 2.5B prompts). It is an assumption-based estimate; Otterly notes that OpenAI hasn't disclosed the figure.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://otterly.ai/blog/how-often-does-chatgpt-trigger-a-web-search/",
+     "date": "2026-08-04",
+     "source_type": "analyst estimate",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r3",
+      "c4",
+      "c31"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "NP Digital data, charted by Visual Capitalist (2025-06-06), puts ChatGPT at 1 billion searches a day.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.visualcapitalist.com/chatgpt-lags-far-behind-google-in-daily-search-volume",
+     "date": "2025-06-06",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "c11",
+      "c21"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Ahrefs (relayed by AlmCorp) classes 65% of ChatGPT's 2.5B daily prompts as search-like, about 1.625 billion a day or roughly 12% of Google's volume. That is an intent classification, not a count of web searches.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://ahrefs.com/blog/chatgpt-has-12-percent-of-googles-search-volume",
+     "date": "2026-02-11",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "c24",
+      "r28",
+      "c12"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "seoClarity's refined model (2025-09-17) puts ChatGPT at about 1.0 billion search-like tasks a day (range 0.45-1.2B), from about 2.63B consumer messages a day.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.seoclarity.net/research/how-many-searches-really-happen-on-chatgpt-new-data-refined-model",
+     "date": "2025-09-17",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r15"
+     ],
+     "support_partial": [
+      "c5"
+     ]
+    },
+    {
+     "claim": "Otterly estimates 1.0 to 1.75 billion search-like ChatGPT prompts a day, assuming 40-70% of 2.5B prompts have search intent.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://otterly.ai/blog/how-often-does-chatgpt-trigger-a-web-search/",
+     "date": "2026-08-04",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r3",
+      "c4",
+      "c31"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI's API list price for web search is $10 per 1,000 calls plus search content tokens (all models, image search, and the preview tool on reasoning models). The preview tool on non-reasoning models costs $25 per 1,000 with free content tokens, and gpt-4o-mini and gpt-4.1-mini bill a fixed 8,000 input tokens per call.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "current page, read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "r1",
+      "c9",
+      "c16",
+      "c18",
+      "c25",
+      "c26",
+      "c29",
+      "c33"
+     ],
+     "support_partial": [
+      "r5",
+      "r22",
+      "r11",
+      "c35"
+     ]
+    },
+    {
+     "claim": "A March 2025 OpenAI developer-forum thread quotes OpenAI's pricing table at the time: web search calls cost $25-50 per 1,000 depending on model and search context size (gpt-4o $30 / $35 / $50; gpt-4o-mini $25 / $27.50 / $30).",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://community.openai.com/t/open-ai-charging-too-much-for-web-searches/1141592",
+     "date": "2025-03-12",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r13"
+     ],
+     "support_partial": [
+      "r27"
+     ]
+    },
+    {
+     "claim": "OpenAI currently charges $25-50 per 1,000 web search tool calls, depending on search context size (c35's claim).",
+     "tier": 1,
+     "verdict": "false",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI support told a developer (April 2025) that one web_search invocation can run several internal sub-searches, each billed as a separate call.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://community.openai.com/t/heads-up-web-search-tool-billing-can-be-higher-than-you-expect-here-s-why/1236954",
+     "date": "2025-04-21",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r27"
+     ],
+     "support_partial": [
+      "r13"
+     ]
+    },
+    {
+     "claim": "In the Responses API, web search is optional: the model decides whether to search, reasoning models can search repeatedly, and each search action is billed as a tool call. Chat Completions search models always search before answering.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+     "date": "current page, read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "r24",
+      "c10",
+      "c13",
+      "c27",
+      "c32"
+     ],
+     "support_partial": [
+      "r16"
+     ]
+    },
+    {
+     "claim": "gpt-4o-search-preview and gpt-4o-mini-search-preview are deprecated and were shut down on 2026-07-23; gpt-5-search-api is the remaining Chat Completions search model.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+     "date": "2026-07-23",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "r24",
+      "c10",
+      "c13",
+      "c27",
+      "c32"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "ChatGPT search rewrites a user's query into one or more targeted queries, sends them to third-party search providers (with possible follow-up queries), and links Microsoft's and Shopify's privacy policies for those providers.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://help.openai.com/en/articles/9237897-chatgpt-search",
+     "date": "page captured 2026-09-23",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c36",
+      "c37"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "irrelevant",
+    "c2": "irrelevant",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "unsupported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "irrelevant",
+    "c20": "supported",
+    "c21": "false",
+    "c22": "irrelevant",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported",
+    "c30": "irrelevant",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "unverifiable",
+    "c35": "false",
+    "c36": "unsupported",
+    "c37": "supported"
+   },
+   "notes": "No page discloses how many web_search calls OpenAI's API serves, so the API half of the facet is unanswered. The ChatGPT half is pinned for one date only: Fry told WIRED that users ran over a billion web searches a week (April 2025). That is about 143M a day (derived, not stated). The anchor sits near the supply side's low searched share and far below the labs group's 0.5 calls per prompt. Reuters (c34) makes the same claim but returned 401 live and on every Wayback capture, so c34 is unverifiable. The claim is verified on c22's WIRED page, although c22's own claim, about shopping UX, is off-facet. c21 is false: the Visual Capitalist page gives 1 billion searches a day, not 66M search-like prompts (the 66M figure appears only in unrelated LinkedIn sidebar text). c5 is unsupported: the LinkedIn post gives 0.45-1.2B and 'up to a billion', not the quoted ~1.0B (that figure is on seoClarity's page, r15). c35 is false: the cited Parallel page now states $10 per 1,000 calls; $25-50 was the pre-June-2025 price. c36 is unsupported: the help page links Microsoft's privacy statement and never names Bing. Third-party search-like estimates (Ahrefs/AlmCorp, seoClarity, Otterly, NP Digital) are modeled from intent shares, not counts. They conflict with each other and with Fry's figure. Sample sizes (c1, c19), rate limits (c30) and publisher and shopping details (c2, c22) are off-facet. The Verge's Dec 2024 figure of over 1B messages a day (c20) is supported but predates the 2025-26 window. openai.com and help.openai.com pages were read via Wayback captures (2026-09-05 to 2026-09-23)."
+  }
+ ]
+}

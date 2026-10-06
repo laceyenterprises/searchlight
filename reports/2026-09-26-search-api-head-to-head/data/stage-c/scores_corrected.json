@@ -1,0 +1,3915 @@
+{
+ "about": "Amendment 12 (post hoc). The corrected primary and its sensitivities, from corrections.json; scores.json keeps the as-judged figures.",
+ "cost_basis": {
+  "credit_range_usd": {
+   "tavily": [
+    0.005,
+    0.008
+   ],
+   "firecrawl": [
+    0.00075,
+    0.005
+   ]
+  },
+  "list_value_usd": {
+   "tavily": 0.008,
+   "firecrawl": 0.005
+  },
+  "by_provider": {
+   "exa": "billed (the API's costDollars)",
+   "parallel": "list-price estimate ($0.005 a search call, $0.10 a Task run)",
+   "tavily": "credits",
+   "firecrawl": "credits"
+  }
+ },
+ "variants": {
+  "as_judged": {
+   "label": "As judged",
+   "switches": {
+    "novelty": false,
+    "stage_b": false,
+    "tier_o5": false,
+    "tier_g3m3": false,
+    "dedupe": false,
+    "tavily_prereg": false
+   },
+   "arms": {
+    "exa:search": {
+     "new_tier1": 26,
+     "unique_new_tier1": 3,
+     "new_all": 104,
+     "unique_new_all": 16,
+     "useful_new_tier1": 12,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.168,
+     "credits": 0,
+     "cost_usd_low": 0.168,
+     "cost_usd_high": 0.168,
+     "cost_per_new_low": 0.0016,
+     "cost_per_new_high": 0.0016,
+     "cost_per_new_tier1_low": 0.0065,
+     "cost_per_new_tier1_high": 0.0065,
+     "cost_per_new_tier1_list": 0.0065,
+     "median_latency_s": 1.7
+    },
+    "exa:research": {
+     "new_tier1": 30,
+     "unique_new_tier1": 6,
+     "new_all": 171,
+     "unique_new_all": 64,
+     "useful_new_tier1": 15,
+     "questions_with_new": 24,
+     "research_items": 520,
+     "research_checkable": 455,
+     "research_errors": 21,
+     "research_error_rate": 0.046,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.014,
+     "cost_per_new_high": 0.014,
+     "cost_per_new_tier1_low": 0.08,
+     "cost_per_new_tier1_high": 0.08,
+     "cost_per_new_tier1_list": 0.08,
+     "median_latency_s": 86.1
+    },
+    "tavily:search": {
+     "new_tier1": 16,
+     "unique_new_tier1": 3,
+     "new_all": 63,
+     "unique_new_all": 8,
+     "useful_new_tier1": 5,
+     "questions_with_new": 21,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.384,
+     "credits": 48,
+     "cost_usd_low": 0.24,
+     "cost_usd_high": 0.384,
+     "cost_per_new_low": 0.0038,
+     "cost_per_new_high": 0.0061,
+     "cost_per_new_tier1_low": 0.015,
+     "cost_per_new_tier1_high": 0.024,
+     "cost_per_new_tier1_list": 0.024,
+     "median_latency_s": 3.2
+    },
+    "tavily:research": {
+     "new_tier1": 12,
+     "unique_new_tier1": 3,
+     "new_all": 58,
+     "unique_new_all": 12,
+     "useful_new_tier1": 5,
+     "questions_with_new": 16,
+     "research_items": 158,
+     "research_checkable": 137,
+     "research_errors": 23,
+     "research_error_rate": 0.168,
+     "cost_usd_list": 7.0,
+     "credits": 875,
+     "cost_usd_low": 4.375,
+     "cost_usd_high": 7.0,
+     "cost_per_new_low": 0.0754,
+     "cost_per_new_high": 0.1207,
+     "cost_per_new_tier1_low": 0.3646,
+     "cost_per_new_tier1_high": 0.5833,
+     "cost_per_new_tier1_list": 0.5833,
+     "median_latency_s": 31.6
+    },
+    "parallel:search": {
+     "new_tier1": 15,
+     "unique_new_tier1": 4,
+     "new_all": 82,
+     "unique_new_all": 15,
+     "useful_new_tier1": 8,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.12,
+     "credits": 0,
+     "cost_usd_low": 0.12,
+     "cost_usd_high": 0.12,
+     "cost_per_new_low": 0.0015,
+     "cost_per_new_high": 0.0015,
+     "cost_per_new_tier1_low": 0.008,
+     "cost_per_new_tier1_high": 0.008,
+     "cost_per_new_tier1_list": 0.008,
+     "median_latency_s": 3.1
+    },
+    "parallel:research": {
+     "new_tier1": 19,
+     "unique_new_tier1": 1,
+     "new_all": 88,
+     "unique_new_all": 15,
+     "useful_new_tier1": 8,
+     "questions_with_new": 17,
+     "research_items": 353,
+     "research_checkable": 331,
+     "research_errors": 2,
+     "research_error_rate": 0.006,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0273,
+     "cost_per_new_high": 0.0273,
+     "cost_per_new_tier1_low": 0.1263,
+     "cost_per_new_tier1_high": 0.1263,
+     "cost_per_new_tier1_list": 0.1263,
+     "median_latency_s": 107.0
+    },
+    "firecrawl:search": {
+     "new_tier1": 12,
+     "unique_new_tier1": 0,
+     "new_all": 62,
+     "unique_new_all": 5,
+     "useful_new_tier1": 4,
+     "questions_with_new": 18,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.56,
+     "credits": 112,
+     "cost_usd_low": 0.084,
+     "cost_usd_high": 0.56,
+     "cost_per_new_low": 0.0014,
+     "cost_per_new_high": 0.009,
+     "cost_per_new_tier1_low": 0.007,
+     "cost_per_new_tier1_high": 0.0467,
+     "cost_per_new_tier1_list": 0.0467,
+     "median_latency_s": 1.3
+    },
+    "firecrawl:research": {
+     "new_tier1": 6,
+     "unique_new_tier1": 1,
+     "new_all": 90,
+     "unique_new_all": 31,
+     "useful_new_tier1": 3,
+     "questions_with_new": 18,
+     "research_items": 339,
+     "research_checkable": 298,
+     "research_errors": 8,
+     "research_error_rate": 0.027,
+     "cost_usd_list": 7.195,
+     "credits": 1439,
+     "cost_usd_low": 1.0793,
+     "cost_usd_high": 7.195,
+     "cost_per_new_low": 0.012,
+     "cost_per_new_high": 0.0799,
+     "cost_per_new_tier1_low": 0.1799,
+     "cost_per_new_tier1_high": 1.1992,
+     "cost_per_new_tier1_list": 1.1992,
+     "median_latency_s": 71.7
+    }
+   },
+   "providers": {
+    "exa": {
+     "new_tier1": 37,
+     "unique_new_tier1": 14,
+     "new_all": 222,
+     "unique_new_all": 92,
+     "cost_usd_low": 2.568,
+     "cost_usd_high": 2.568,
+     "cost_per_new_tier1_low": 0.0694,
+     "cost_per_new_tier1_high": 0.0694
+    },
+    "tavily": {
+     "new_tier1": 24,
+     "unique_new_tier1": 6,
+     "new_all": 99,
+     "unique_new_all": 21,
+     "cost_usd_low": 4.615,
+     "cost_usd_high": 7.384,
+     "cost_per_new_tier1_low": 0.1923,
+     "cost_per_new_tier1_high": 0.3077
+    },
+    "parallel": {
+     "new_tier1": 27,
+     "unique_new_tier1": 5,
+     "new_all": 140,
+     "unique_new_all": 32,
+     "cost_usd_low": 2.52,
+     "cost_usd_high": 2.52,
+     "cost_per_new_tier1_low": 0.0933,
+     "cost_per_new_tier1_high": 0.0933
+    },
+    "firecrawl": {
+     "new_tier1": 16,
+     "unique_new_tier1": 1,
+     "new_all": 136,
+     "unique_new_all": 36,
+     "cost_usd_low": 1.1633,
+     "cost_usd_high": 7.755,
+     "cost_per_new_tier1_low": 0.0727,
+     "cost_per_new_tier1_high": 0.4847
+    }
+   },
+   "totals": {
+    "claims_judged": 642,
+    "distinct": 642,
+    "bundles": 0,
+    "no_counted_run": 0,
+    "new": 334,
+    "new_tier1": 54,
+    "known": 299,
+    "false": 9,
+    "stage_b_flips": 0
+   },
+   "per_question_new_tier1": {
+    "exa:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 4,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 1,
+     "a3": 3,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 2,
+     "o3": 3,
+     "o4": 2,
+     "o5": 3,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 6,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "exa:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 4,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 1,
+     "a2": 1,
+     "a3": 2,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 1,
+     "o3": 4,
+     "o4": 4,
+     "o5": 4,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 7,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 2,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 2,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 2,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 1,
+     "o3": 1,
+     "o4": 0,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 5,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:search": {
+     "g1": 1,
+     "g2": 0,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 1,
+     "a3": 1,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 1,
+     "o4": 2,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 2,
+     "m4": 2,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 1,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 2,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 5,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 8,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 0,
+     "o3": 3,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 1,
+     "o3": 1,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    }
+   },
+   "questions": {
+    "g1": {
+     "new_tier1": 1,
+     "arms": [
+      "parallel:search"
+     ]
+    },
+    "g2": {
+     "new_tier1": 1,
+     "arms": [
+      "tavily:search"
+     ]
+    },
+    "g3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a1": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research"
+     ]
+    },
+    "a2": {
+     "new_tier1": 3,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "parallel:search"
+     ]
+    },
+    "a3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a4": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:search",
+      "firecrawl:research",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o1": {
+     "new_tier1": 3,
+     "arms": [
+      "exa:research",
+      "firecrawl:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o2": {
+     "new_tier1": 5,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o3": {
+     "new_tier1": 9,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o4": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "o5": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search"
+     ]
+    },
+    "o6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m1": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m2": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m3": {
+     "new_tier1": 10,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m4": {
+     "new_tier1": 2,
+     "arms": [
+      "firecrawl:search",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m6": {
+     "new_tier1": 0,
+     "arms": []
+    }
+   }
+  },
+  "primary": {
+   "label": "Corrected primary",
+   "switches": {
+    "novelty": true,
+    "stage_b": false,
+    "tier_o5": true,
+    "tier_g3m3": true,
+    "dedupe": true,
+    "tavily_prereg": true
+   },
+   "arms": {
+    "exa:search": {
+     "new_tier1": 11,
+     "unique_new_tier1": 2,
+     "new_all": 100,
+     "unique_new_all": 14,
+     "useful_new_tier1": 6,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.168,
+     "credits": 0,
+     "cost_usd_low": 0.168,
+     "cost_usd_high": 0.168,
+     "cost_per_new_low": 0.0017,
+     "cost_per_new_high": 0.0017,
+     "cost_per_new_tier1_low": 0.0153,
+     "cost_per_new_tier1_high": 0.0153,
+     "cost_per_new_tier1_list": 0.0153,
+     "median_latency_s": 1.7
+    },
+    "exa:research": {
+     "new_tier1": 11,
+     "unique_new_tier1": 2,
+     "new_all": 158,
+     "unique_new_all": 56,
+     "useful_new_tier1": 8,
+     "questions_with_new": 24,
+     "research_items": 520,
+     "research_checkable": 455,
+     "research_errors": 21,
+     "research_error_rate": 0.046,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0152,
+     "cost_per_new_high": 0.0152,
+     "cost_per_new_tier1_low": 0.2182,
+     "cost_per_new_tier1_high": 0.2182,
+     "cost_per_new_tier1_list": 0.2182,
+     "median_latency_s": 86.1
+    },
+    "tavily:search": {
+     "new_tier1": 11,
+     "unique_new_tier1": 3,
+     "new_all": 58,
+     "unique_new_all": 7,
+     "useful_new_tier1": 5,
+     "questions_with_new": 21,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.384,
+     "credits": 48,
+     "cost_usd_low": 0.24,
+     "cost_usd_high": 0.384,
+     "cost_per_new_low": 0.0041,
+     "cost_per_new_high": 0.0066,
+     "cost_per_new_tier1_low": 0.0218,
+     "cost_per_new_tier1_high": 0.0349,
+     "cost_per_new_tier1_list": 0.0349,
+     "median_latency_s": 3.2
+    },
+    "tavily:research": {
+     "new_tier1": 4,
+     "unique_new_tier1": 1,
+     "new_all": 36,
+     "unique_new_all": 4,
+     "useful_new_tier1": 1,
+     "questions_with_new": 13,
+     "research_items": 124,
+     "research_checkable": 105,
+     "research_errors": 19,
+     "research_error_rate": 0.181,
+     "cost_usd_list": 5.952,
+     "credits": 744,
+     "cost_usd_low": 3.72,
+     "cost_usd_high": 5.952,
+     "cost_per_new_low": 0.1033,
+     "cost_per_new_high": 0.1653,
+     "cost_per_new_tier1_low": 0.93,
+     "cost_per_new_tier1_high": 1.488,
+     "cost_per_new_tier1_list": 1.488,
+     "median_latency_s": 31.4
+    },
+    "parallel:search": {
+     "new_tier1": 8,
+     "unique_new_tier1": 3,
+     "new_all": 75,
+     "unique_new_all": 10,
+     "useful_new_tier1": 6,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.12,
+     "credits": 0,
+     "cost_usd_low": 0.12,
+     "cost_usd_high": 0.12,
+     "cost_per_new_low": 0.0016,
+     "cost_per_new_high": 0.0016,
+     "cost_per_new_tier1_low": 0.015,
+     "cost_per_new_tier1_high": 0.015,
+     "cost_per_new_tier1_list": 0.015,
+     "median_latency_s": 3.1
+    },
+    "parallel:research": {
+     "new_tier1": 10,
+     "unique_new_tier1": 1,
+     "new_all": 84,
+     "unique_new_all": 15,
+     "useful_new_tier1": 6,
+     "questions_with_new": 17,
+     "research_items": 353,
+     "research_checkable": 331,
+     "research_errors": 2,
+     "research_error_rate": 0.006,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0286,
+     "cost_per_new_high": 0.0286,
+     "cost_per_new_tier1_low": 0.24,
+     "cost_per_new_tier1_high": 0.24,
+     "cost_per_new_tier1_list": 0.24,
+     "median_latency_s": 107.0
+    },
+    "firecrawl:search": {
+     "new_tier1": 7,
+     "unique_new_tier1": 0,
+     "new_all": 57,
+     "unique_new_all": 4,
+     "useful_new_tier1": 3,
+     "questions_with_new": 18,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.56,
+     "credits": 112,
+     "cost_usd_low": 0.084,
+     "cost_usd_high": 0.56,
+     "cost_per_new_low": 0.0015,
+     "cost_per_new_high": 0.0098,
+     "cost_per_new_tier1_low": 0.012,
+     "cost_per_new_tier1_high": 0.08,
+     "cost_per_new_tier1_list": 0.08,
+     "median_latency_s": 1.3
+    },
+    "firecrawl:research": {
+     "new_tier1": 5,
+     "unique_new_tier1": 0,
+     "new_all": 85,
+     "unique_new_all": 29,
+     "useful_new_tier1": 3,
+     "questions_with_new": 18,
+     "research_items": 339,
+     "research_checkable": 298,
+     "research_errors": 8,
+     "research_error_rate": 0.027,
+     "cost_usd_list": 7.195,
+     "credits": 1439,
+     "cost_usd_low": 1.0793,
+     "cost_usd_high": 7.195,
+     "cost_per_new_low": 0.0127,
+     "cost_per_new_high": 0.0846,
+     "cost_per_new_tier1_low": 0.2159,
+     "cost_per_new_tier1_high": 1.439,
+     "cost_per_new_tier1_list": 1.439,
+     "median_latency_s": 71.7
+    }
+   },
+   "providers": {
+    "exa": {
+     "new_tier1": 16,
+     "unique_new_tier1": 6,
+     "new_all": 207,
+     "unique_new_all": 81,
+     "cost_usd_low": 2.568,
+     "cost_usd_high": 2.568,
+     "cost_per_new_tier1_low": 0.1605,
+     "cost_per_new_tier1_high": 0.1605
+    },
+    "tavily": {
+     "new_tier1": 13,
+     "unique_new_tier1": 4,
+     "new_all": 79,
+     "unique_new_all": 12,
+     "cost_usd_low": 3.96,
+     "cost_usd_high": 6.336,
+     "cost_per_new_tier1_low": 0.3046,
+     "cost_per_new_tier1_high": 0.4874
+    },
+    "parallel": {
+     "new_tier1": 14,
+     "unique_new_tier1": 4,
+     "new_all": 131,
+     "unique_new_all": 27,
+     "cost_usd_low": 2.52,
+     "cost_usd_high": 2.52,
+     "cost_per_new_tier1_low": 0.18,
+     "cost_per_new_tier1_high": 0.18
+    },
+    "firecrawl": {
+     "new_tier1": 9,
+     "unique_new_tier1": 0,
+     "new_all": 126,
+     "unique_new_all": 33,
+     "cost_usd_low": 1.1633,
+     "cost_usd_high": 7.755,
+     "cost_per_new_tier1_low": 0.1293,
+     "cost_per_new_tier1_high": 0.8617
+    }
+   },
+   "totals": {
+    "claims_judged": 642,
+    "distinct": 585,
+    "bundles": 7,
+    "no_counted_run": 8,
+    "new": 297,
+    "new_tier1": 27,
+    "known": 279,
+    "false": 9,
+    "stage_b_flips": 0
+   },
+   "per_question_new_tier1": {
+    "exa:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 1,
+     "a3": 3,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "exa:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 1,
+     "a2": 0,
+     "a3": 2,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 1,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 2,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 2,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 0,
+     "o3": 1,
+     "o4": 0,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:search": {
+     "g1": 1,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 1,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 2,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 2,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 5,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 3,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    }
+   },
+   "questions": {
+    "g1": {
+     "new_tier1": 1,
+     "arms": [
+      "parallel:search"
+     ]
+    },
+    "g2": {
+     "new_tier1": 1,
+     "arms": [
+      "tavily:search"
+     ]
+    },
+    "g3": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a1": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research"
+     ]
+    },
+    "a2": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:search"
+     ]
+    },
+    "a3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a4": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:search",
+      "firecrawl:research",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o1": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:research"
+     ]
+    },
+    "o2": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:search"
+     ]
+    },
+    "o3": {
+     "new_tier1": 9,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "o5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m1": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m2": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m3": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m4": {
+     "new_tier1": 2,
+     "arms": [
+      "firecrawl:search",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m6": {
+     "new_tier1": 0,
+     "arms": []
+    }
+   }
+  },
+  "stage_b_novelty": {
+   "label": "Sensitivity: Stage B's novelty rule (`_scratch/` isn't the KB)",
+   "switches": {
+    "novelty": true,
+    "stage_b": true,
+    "tier_o5": true,
+    "tier_g3m3": true,
+    "dedupe": true,
+    "tavily_prereg": true
+   },
+   "arms": {
+    "exa:search": {
+     "new_tier1": 30,
+     "unique_new_tier1": 3,
+     "new_all": 140,
+     "unique_new_all": 16,
+     "useful_new_tier1": 7,
+     "questions_with_new": 21,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.168,
+     "credits": 0,
+     "cost_usd_low": 0.168,
+     "cost_usd_high": 0.168,
+     "cost_per_new_low": 0.0012,
+     "cost_per_new_high": 0.0012,
+     "cost_per_new_tier1_low": 0.0056,
+     "cost_per_new_tier1_high": 0.0056,
+     "cost_per_new_tier1_list": 0.0056,
+     "median_latency_s": 1.7
+    },
+    "exa:research": {
+     "new_tier1": 29,
+     "unique_new_tier1": 3,
+     "new_all": 208,
+     "unique_new_all": 67,
+     "useful_new_tier1": 9,
+     "questions_with_new": 24,
+     "research_items": 520,
+     "research_checkable": 455,
+     "research_errors": 21,
+     "research_error_rate": 0.046,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0115,
+     "cost_per_new_high": 0.0115,
+     "cost_per_new_tier1_low": 0.0828,
+     "cost_per_new_tier1_high": 0.0828,
+     "cost_per_new_tier1_list": 0.0828,
+     "median_latency_s": 86.1
+    },
+    "tavily:search": {
+     "new_tier1": 26,
+     "unique_new_tier1": 3,
+     "new_all": 89,
+     "unique_new_all": 7,
+     "useful_new_tier1": 5,
+     "questions_with_new": 22,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.384,
+     "credits": 48,
+     "cost_usd_low": 0.24,
+     "cost_usd_high": 0.384,
+     "cost_per_new_low": 0.0027,
+     "cost_per_new_high": 0.0043,
+     "cost_per_new_tier1_low": 0.0092,
+     "cost_per_new_tier1_high": 0.0148,
+     "cost_per_new_tier1_list": 0.0148,
+     "median_latency_s": 3.2
+    },
+    "tavily:research": {
+     "new_tier1": 9,
+     "unique_new_tier1": 1,
+     "new_all": 52,
+     "unique_new_all": 5,
+     "useful_new_tier1": 1,
+     "questions_with_new": 15,
+     "research_items": 124,
+     "research_checkable": 105,
+     "research_errors": 19,
+     "research_error_rate": 0.181,
+     "cost_usd_list": 5.952,
+     "credits": 744,
+     "cost_usd_low": 3.72,
+     "cost_usd_high": 5.952,
+     "cost_per_new_low": 0.0715,
+     "cost_per_new_high": 0.1145,
+     "cost_per_new_tier1_low": 0.4133,
+     "cost_per_new_tier1_high": 0.6613,
+     "cost_per_new_tier1_list": 0.6613,
+     "median_latency_s": 31.4
+    },
+    "parallel:search": {
+     "new_tier1": 24,
+     "unique_new_tier1": 4,
+     "new_all": 112,
+     "unique_new_all": 11,
+     "useful_new_tier1": 7,
+     "questions_with_new": 21,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.12,
+     "credits": 0,
+     "cost_usd_low": 0.12,
+     "cost_usd_high": 0.12,
+     "cost_per_new_low": 0.0011,
+     "cost_per_new_high": 0.0011,
+     "cost_per_new_tier1_low": 0.005,
+     "cost_per_new_tier1_high": 0.005,
+     "cost_per_new_tier1_list": 0.005,
+     "median_latency_s": 3.1
+    },
+    "parallel:research": {
+     "new_tier1": 25,
+     "unique_new_tier1": 2,
+     "new_all": 120,
+     "unique_new_all": 16,
+     "useful_new_tier1": 6,
+     "questions_with_new": 19,
+     "research_items": 353,
+     "research_checkable": 331,
+     "research_errors": 2,
+     "research_error_rate": 0.006,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.02,
+     "cost_per_new_high": 0.02,
+     "cost_per_new_tier1_low": 0.096,
+     "cost_per_new_tier1_high": 0.096,
+     "cost_per_new_tier1_list": 0.096,
+     "median_latency_s": 107.0
+    },
+    "firecrawl:search": {
+     "new_tier1": 24,
+     "unique_new_tier1": 1,
+     "new_all": 91,
+     "unique_new_all": 5,
+     "useful_new_tier1": 3,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.56,
+     "credits": 112,
+     "cost_usd_low": 0.084,
+     "cost_usd_high": 0.56,
+     "cost_per_new_low": 0.0009,
+     "cost_per_new_high": 0.0062,
+     "cost_per_new_tier1_low": 0.0035,
+     "cost_per_new_tier1_high": 0.0233,
+     "cost_per_new_tier1_list": 0.0233,
+     "median_latency_s": 1.3
+    },
+    "firecrawl:research": {
+     "new_tier1": 15,
+     "unique_new_tier1": 0,
+     "new_all": 108,
+     "unique_new_all": 30,
+     "useful_new_tier1": 3,
+     "questions_with_new": 19,
+     "research_items": 339,
+     "research_checkable": 298,
+     "research_errors": 8,
+     "research_error_rate": 0.027,
+     "cost_usd_list": 7.195,
+     "credits": 1439,
+     "cost_usd_low": 1.0793,
+     "cost_usd_high": 7.195,
+     "cost_per_new_low": 0.01,
+     "cost_per_new_high": 0.0666,
+     "cost_per_new_tier1_low": 0.072,
+     "cost_per_new_tier1_high": 0.4797,
+     "cost_per_new_tier1_list": 0.4797,
+     "median_latency_s": 71.7
+    }
+   },
+   "providers": {
+    "exa": {
+     "new_tier1": 36,
+     "unique_new_tier1": 8,
+     "new_all": 265,
+     "unique_new_all": 96,
+     "cost_usd_low": 2.568,
+     "cost_usd_high": 2.568,
+     "cost_per_new_tier1_low": 0.0713,
+     "cost_per_new_tier1_high": 0.0713
+    },
+    "tavily": {
+     "new_tier1": 29,
+     "unique_new_tier1": 4,
+     "new_all": 116,
+     "unique_new_all": 13,
+     "cost_usd_low": 3.96,
+     "cost_usd_high": 6.336,
+     "cost_per_new_tier1_low": 0.1366,
+     "cost_per_new_tier1_high": 0.2185
+    },
+    "parallel": {
+     "new_tier1": 32,
+     "unique_new_tier1": 6,
+     "new_all": 175,
+     "unique_new_all": 29,
+     "cost_usd_low": 2.52,
+     "cost_usd_high": 2.52,
+     "cost_per_new_tier1_low": 0.0788,
+     "cost_per_new_tier1_high": 0.0788
+    },
+    "firecrawl": {
+     "new_tier1": 27,
+     "unique_new_tier1": 1,
+     "new_all": 165,
+     "unique_new_all": 35,
+     "cost_usd_low": 1.1633,
+     "cost_usd_high": 7.755,
+     "cost_per_new_tier1_low": 0.0431,
+     "cost_per_new_tier1_high": 0.2872
+    }
+   },
+   "totals": {
+    "claims_judged": 642,
+    "distinct": 585,
+    "bundles": 7,
+    "no_counted_run": 8,
+    "new": 365,
+    "new_tier1": 52,
+    "known": 211,
+    "false": 9,
+    "stage_b_flips": 94
+   },
+   "per_question_new_tier1": {
+    "exa:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 1,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 2,
+     "a3": 10,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 2,
+     "o2": 1,
+     "o3": 8,
+     "o4": 3,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "exa:research": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 1,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 1,
+     "a2": 1,
+     "a3": 8,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 3,
+     "o2": 1,
+     "o3": 8,
+     "o4": 4,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 1,
+     "a3": 10,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 2,
+     "o2": 2,
+     "o3": 5,
+     "o4": 2,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 5,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 0,
+     "o3": 1,
+     "o4": 0,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:search": {
+     "g1": 1,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 2,
+     "a3": 10,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 5,
+     "o4": 2,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 2,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 10,
+     "a4": 2,
+     "a5": 0,
+     "a6": 0,
+     "o1": 2,
+     "o2": 0,
+     "o3": 9,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 1,
+     "g4": 2,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 9,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 2,
+     "o2": 0,
+     "o3": 6,
+     "o4": 2,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:research": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 6,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 5,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    }
+   },
+   "questions": {
+    "g1": {
+     "new_tier1": 1,
+     "arms": [
+      "parallel:search"
+     ]
+    },
+    "g2": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "tavily:search"
+     ]
+    },
+    "g3": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search"
+     ]
+    },
+    "g4": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a1": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research"
+     ]
+    },
+    "a2": {
+     "new_tier1": 3,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a3": {
+     "new_tier1": 13,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "a4": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:search",
+      "firecrawl:research",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o1": {
+     "new_tier1": 5,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o2": {
+     "new_tier1": 3,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "tavily:search"
+     ]
+    },
+    "o3": {
+     "new_tier1": 13,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o4": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "o5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m1": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m2": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m3": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m4": {
+     "new_tier1": 2,
+     "arms": [
+      "firecrawl:search",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m6": {
+     "new_tier1": 0,
+     "arms": []
+    }
+   }
+  },
+  "g3m3_counted": {
+   "label": "Sensitivity: g3 and m3 counted as tier 1",
+   "switches": {
+    "novelty": true,
+    "stage_b": false,
+    "tier_o5": true,
+    "tier_g3m3": false,
+    "dedupe": true,
+    "tavily_prereg": true
+   },
+   "arms": {
+    "exa:search": {
+     "new_tier1": 21,
+     "unique_new_tier1": 2,
+     "new_all": 100,
+     "unique_new_all": 14,
+     "useful_new_tier1": 8,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.168,
+     "credits": 0,
+     "cost_usd_low": 0.168,
+     "cost_usd_high": 0.168,
+     "cost_per_new_low": 0.0017,
+     "cost_per_new_high": 0.0017,
+     "cost_per_new_tier1_low": 0.008,
+     "cost_per_new_tier1_high": 0.008,
+     "cost_per_new_tier1_list": 0.008,
+     "median_latency_s": 1.7
+    },
+    "exa:research": {
+     "new_tier1": 23,
+     "unique_new_tier1": 3,
+     "new_all": 158,
+     "unique_new_all": 56,
+     "useful_new_tier1": 11,
+     "questions_with_new": 24,
+     "research_items": 520,
+     "research_checkable": 455,
+     "research_errors": 21,
+     "research_error_rate": 0.046,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0152,
+     "cost_per_new_high": 0.0152,
+     "cost_per_new_tier1_low": 0.1043,
+     "cost_per_new_tier1_high": 0.1043,
+     "cost_per_new_tier1_list": 0.1043,
+     "median_latency_s": 86.1
+    },
+    "tavily:search": {
+     "new_tier1": 15,
+     "unique_new_tier1": 3,
+     "new_all": 58,
+     "unique_new_all": 7,
+     "useful_new_tier1": 5,
+     "questions_with_new": 21,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.384,
+     "credits": 48,
+     "cost_usd_low": 0.24,
+     "cost_usd_high": 0.384,
+     "cost_per_new_low": 0.0041,
+     "cost_per_new_high": 0.0066,
+     "cost_per_new_tier1_low": 0.016,
+     "cost_per_new_tier1_high": 0.0256,
+     "cost_per_new_tier1_list": 0.0256,
+     "median_latency_s": 3.2
+    },
+    "tavily:research": {
+     "new_tier1": 6,
+     "unique_new_tier1": 1,
+     "new_all": 36,
+     "unique_new_all": 4,
+     "useful_new_tier1": 2,
+     "questions_with_new": 13,
+     "research_items": 124,
+     "research_checkable": 105,
+     "research_errors": 19,
+     "research_error_rate": 0.181,
+     "cost_usd_list": 5.952,
+     "credits": 744,
+     "cost_usd_low": 3.72,
+     "cost_usd_high": 5.952,
+     "cost_per_new_low": 0.1033,
+     "cost_per_new_high": 0.1653,
+     "cost_per_new_tier1_low": 0.62,
+     "cost_per_new_tier1_high": 0.992,
+     "cost_per_new_tier1_list": 0.992,
+     "median_latency_s": 31.4
+    },
+    "parallel:search": {
+     "new_tier1": 13,
+     "unique_new_tier1": 3,
+     "new_all": 75,
+     "unique_new_all": 10,
+     "useful_new_tier1": 7,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.12,
+     "credits": 0,
+     "cost_usd_low": 0.12,
+     "cost_usd_high": 0.12,
+     "cost_per_new_low": 0.0016,
+     "cost_per_new_high": 0.0016,
+     "cost_per_new_tier1_low": 0.0092,
+     "cost_per_new_tier1_high": 0.0092,
+     "cost_per_new_tier1_list": 0.0092,
+     "median_latency_s": 3.1
+    },
+    "parallel:research": {
+     "new_tier1": 19,
+     "unique_new_tier1": 1,
+     "new_all": 84,
+     "unique_new_all": 15,
+     "useful_new_tier1": 8,
+     "questions_with_new": 17,
+     "research_items": 353,
+     "research_checkable": 331,
+     "research_errors": 2,
+     "research_error_rate": 0.006,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0286,
+     "cost_per_new_high": 0.0286,
+     "cost_per_new_tier1_low": 0.1263,
+     "cost_per_new_tier1_high": 0.1263,
+     "cost_per_new_tier1_list": 0.1263,
+     "median_latency_s": 107.0
+    },
+    "firecrawl:search": {
+     "new_tier1": 11,
+     "unique_new_tier1": 0,
+     "new_all": 57,
+     "unique_new_all": 4,
+     "useful_new_tier1": 4,
+     "questions_with_new": 18,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.56,
+     "credits": 112,
+     "cost_usd_low": 0.084,
+     "cost_usd_high": 0.56,
+     "cost_per_new_low": 0.0015,
+     "cost_per_new_high": 0.0098,
+     "cost_per_new_tier1_low": 0.0076,
+     "cost_per_new_tier1_high": 0.0509,
+     "cost_per_new_tier1_list": 0.0509,
+     "median_latency_s": 1.3
+    },
+    "firecrawl:research": {
+     "new_tier1": 6,
+     "unique_new_tier1": 0,
+     "new_all": 85,
+     "unique_new_all": 29,
+     "useful_new_tier1": 3,
+     "questions_with_new": 18,
+     "research_items": 339,
+     "research_checkable": 298,
+     "research_errors": 8,
+     "research_error_rate": 0.027,
+     "cost_usd_list": 7.195,
+     "credits": 1439,
+     "cost_usd_low": 1.0793,
+     "cost_usd_high": 7.195,
+     "cost_per_new_low": 0.0127,
+     "cost_per_new_high": 0.0846,
+     "cost_per_new_tier1_low": 0.1799,
+     "cost_per_new_tier1_high": 1.1992,
+     "cost_per_new_tier1_list": 1.1992,
+     "median_latency_s": 71.7
+    }
+   },
+   "providers": {
+    "exa": {
+     "new_tier1": 29,
+     "unique_new_tier1": 7,
+     "new_all": 207,
+     "unique_new_all": 81,
+     "cost_usd_low": 2.568,
+     "cost_usd_high": 2.568,
+     "cost_per_new_tier1_low": 0.0886,
+     "cost_per_new_tier1_high": 0.0886
+    },
+    "tavily": {
+     "new_tier1": 18,
+     "unique_new_tier1": 4,
+     "new_all": 79,
+     "unique_new_all": 12,
+     "cost_usd_low": 3.96,
+     "cost_usd_high": 6.336,
+     "cost_per_new_tier1_low": 0.22,
+     "cost_per_new_tier1_high": 0.352
+    },
+    "parallel": {
+     "new_tier1": 25,
+     "unique_new_tier1": 4,
+     "new_all": 131,
+     "unique_new_all": 27,
+     "cost_usd_low": 2.52,
+     "cost_usd_high": 2.52,
+     "cost_per_new_tier1_low": 0.1008,
+     "cost_per_new_tier1_high": 0.1008
+    },
+    "firecrawl": {
+     "new_tier1": 14,
+     "unique_new_tier1": 0,
+     "new_all": 126,
+     "unique_new_all": 33,
+     "cost_usd_low": 1.1633,
+     "cost_usd_high": 7.755,
+     "cost_per_new_tier1_low": 0.0831,
+     "cost_per_new_tier1_high": 0.5539
+    }
+   },
+   "totals": {
+    "claims_judged": 642,
+    "distinct": 585,
+    "bundles": 7,
+    "no_counted_run": 8,
+    "new": 297,
+    "new_tier1": 40,
+    "known": 279,
+    "false": 9,
+    "stage_b_flips": 0
+   },
+   "per_question_new_tier1": {
+    "exa:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 4,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 1,
+     "a3": 3,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 6,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "exa:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 4,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 1,
+     "a2": 0,
+     "a3": 2,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 1,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 8,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 2,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 2,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 2,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 0,
+     "o3": 1,
+     "o4": 0,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:search": {
+     "g1": 1,
+     "g2": 0,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 1,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 2,
+     "m4": 2,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 1,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 2,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 5,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 8,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 3,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    }
+   },
+   "questions": {
+    "g1": {
+     "new_tier1": 1,
+     "arms": [
+      "parallel:search"
+     ]
+    },
+    "g2": {
+     "new_tier1": 1,
+     "arms": [
+      "tavily:search"
+     ]
+    },
+    "g3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a1": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research"
+     ]
+    },
+    "a2": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:search"
+     ]
+    },
+    "a3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a4": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:search",
+      "firecrawl:research",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o1": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:research"
+     ]
+    },
+    "o2": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:search"
+     ]
+    },
+    "o3": {
+     "new_tier1": 9,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "o5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m1": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m2": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m3": {
+     "new_tier1": 9,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "m4": {
+     "new_tier1": 2,
+     "arms": [
+      "firecrawl:search",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m6": {
+     "new_tier1": 0,
+     "arms": []
+    }
+   }
+  },
+  "amendment10": {
+   "label": "Sensitivity: Amendment 10's scoring (Tavily's four re-runs count)",
+   "switches": {
+    "novelty": true,
+    "stage_b": false,
+    "tier_o5": true,
+    "tier_g3m3": true,
+    "dedupe": true,
+    "tavily_prereg": false
+   },
+   "arms": {
+    "exa:search": {
+     "new_tier1": 11,
+     "unique_new_tier1": 2,
+     "new_all": 100,
+     "unique_new_all": 14,
+     "useful_new_tier1": 6,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.168,
+     "credits": 0,
+     "cost_usd_low": 0.168,
+     "cost_usd_high": 0.168,
+     "cost_per_new_low": 0.0017,
+     "cost_per_new_high": 0.0017,
+     "cost_per_new_tier1_low": 0.0153,
+     "cost_per_new_tier1_high": 0.0153,
+     "cost_per_new_tier1_list": 0.0153,
+     "median_latency_s": 1.7
+    },
+    "exa:research": {
+     "new_tier1": 11,
+     "unique_new_tier1": 2,
+     "new_all": 158,
+     "unique_new_all": 55,
+     "useful_new_tier1": 8,
+     "questions_with_new": 24,
+     "research_items": 520,
+     "research_checkable": 455,
+     "research_errors": 21,
+     "research_error_rate": 0.046,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0152,
+     "cost_per_new_high": 0.0152,
+     "cost_per_new_tier1_low": 0.2182,
+     "cost_per_new_tier1_high": 0.2182,
+     "cost_per_new_tier1_list": 0.2182,
+     "median_latency_s": 86.1
+    },
+    "tavily:search": {
+     "new_tier1": 11,
+     "unique_new_tier1": 3,
+     "new_all": 58,
+     "unique_new_all": 7,
+     "useful_new_tier1": 5,
+     "questions_with_new": 21,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.384,
+     "credits": 48,
+     "cost_usd_low": 0.24,
+     "cost_usd_high": 0.384,
+     "cost_per_new_low": 0.0041,
+     "cost_per_new_high": 0.0066,
+     "cost_per_new_tier1_low": 0.0218,
+     "cost_per_new_tier1_high": 0.0349,
+     "cost_per_new_tier1_list": 0.0349,
+     "median_latency_s": 3.2
+    },
+    "tavily:research": {
+     "new_tier1": 4,
+     "unique_new_tier1": 1,
+     "new_all": 55,
+     "unique_new_all": 10,
+     "useful_new_tier1": 1,
+     "questions_with_new": 16,
+     "research_items": 158,
+     "research_checkable": 137,
+     "research_errors": 23,
+     "research_error_rate": 0.168,
+     "cost_usd_list": 7.0,
+     "credits": 875,
+     "cost_usd_low": 4.375,
+     "cost_usd_high": 7.0,
+     "cost_per_new_low": 0.0795,
+     "cost_per_new_high": 0.1273,
+     "cost_per_new_tier1_low": 1.0938,
+     "cost_per_new_tier1_high": 1.75,
+     "cost_per_new_tier1_list": 1.75,
+     "median_latency_s": 31.6
+    },
+    "parallel:search": {
+     "new_tier1": 8,
+     "unique_new_tier1": 3,
+     "new_all": 75,
+     "unique_new_all": 10,
+     "useful_new_tier1": 6,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.12,
+     "credits": 0,
+     "cost_usd_low": 0.12,
+     "cost_usd_high": 0.12,
+     "cost_per_new_low": 0.0016,
+     "cost_per_new_high": 0.0016,
+     "cost_per_new_tier1_low": 0.015,
+     "cost_per_new_tier1_high": 0.015,
+     "cost_per_new_tier1_list": 0.015,
+     "median_latency_s": 3.1
+    },
+    "parallel:research": {
+     "new_tier1": 10,
+     "unique_new_tier1": 1,
+     "new_all": 84,
+     "unique_new_all": 15,
+     "useful_new_tier1": 6,
+     "questions_with_new": 17,
+     "research_items": 353,
+     "research_checkable": 331,
+     "research_errors": 2,
+     "research_error_rate": 0.006,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0286,
+     "cost_per_new_high": 0.0286,
+     "cost_per_new_tier1_low": 0.24,
+     "cost_per_new_tier1_high": 0.24,
+     "cost_per_new_tier1_list": 0.24,
+     "median_latency_s": 107.0
+    },
+    "firecrawl:search": {
+     "new_tier1": 7,
+     "unique_new_tier1": 0,
+     "new_all": 57,
+     "unique_new_all": 4,
+     "useful_new_tier1": 3,
+     "questions_with_new": 18,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.56,
+     "credits": 112,
+     "cost_usd_low": 0.084,
+     "cost_usd_high": 0.56,
+     "cost_per_new_low": 0.0015,
+     "cost_per_new_high": 0.0098,
+     "cost_per_new_tier1_low": 0.012,
+     "cost_per_new_tier1_high": 0.08,
+     "cost_per_new_tier1_list": 0.08,
+     "median_latency_s": 1.3
+    },
+    "firecrawl:research": {
+     "new_tier1": 5,
+     "unique_new_tier1": 0,
+     "new_all": 85,
+     "unique_new_all": 29,
+     "useful_new_tier1": 3,
+     "questions_with_new": 18,
+     "research_items": 339,
+     "research_checkable": 298,
+     "research_errors": 8,
+     "research_error_rate": 0.027,
+     "cost_usd_list": 7.195,
+     "credits": 1439,
+     "cost_usd_low": 1.0793,
+     "cost_usd_high": 7.195,
+     "cost_per_new_low": 0.0127,
+     "cost_per_new_high": 0.0846,
+     "cost_per_new_tier1_low": 0.2159,
+     "cost_per_new_tier1_high": 1.439,
+     "cost_per_new_tier1_list": 1.439,
+     "median_latency_s": 71.7
+    }
+   },
+   "providers": {
+    "exa": {
+     "new_tier1": 16,
+     "unique_new_tier1": 6,
+     "new_all": 207,
+     "unique_new_all": 80,
+     "cost_usd_low": 2.568,
+     "cost_usd_high": 2.568,
+     "cost_per_new_tier1_low": 0.1605,
+     "cost_per_new_tier1_high": 0.1605
+    },
+    "tavily": {
+     "new_tier1": 13,
+     "unique_new_tier1": 4,
+     "new_all": 92,
+     "unique_new_all": 18,
+     "cost_usd_low": 4.615,
+     "cost_usd_high": 7.384,
+     "cost_per_new_tier1_low": 0.355,
+     "cost_per_new_tier1_high": 0.568
+    },
+    "parallel": {
+     "new_tier1": 14,
+     "unique_new_tier1": 4,
+     "new_all": 131,
+     "unique_new_all": 27,
+     "cost_usd_low": 2.52,
+     "cost_usd_high": 2.52,
+     "cost_per_new_tier1_low": 0.18,
+     "cost_per_new_tier1_high": 0.18
+    },
+    "firecrawl": {
+     "new_tier1": 9,
+     "unique_new_tier1": 0,
+     "new_all": 126,
+     "unique_new_all": 33,
+     "cost_usd_low": 1.1633,
+     "cost_usd_high": 7.755,
+     "cost_per_new_tier1_low": 0.1293,
+     "cost_per_new_tier1_high": 0.8617
+    }
+   },
+   "totals": {
+    "claims_judged": 642,
+    "distinct": 593,
+    "bundles": 7,
+    "no_counted_run": 0,
+    "new": 303,
+    "new_tier1": 27,
+    "known": 281,
+    "false": 9,
+    "stage_b_flips": 0
+   },
+   "per_question_new_tier1": {
+    "exa:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 1,
+     "a3": 3,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "exa:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 1,
+     "a2": 0,
+     "a3": 2,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 1,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 2,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 2,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 0,
+     "o3": 1,
+     "o4": 0,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:search": {
+     "g1": 1,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 1,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 2,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 2,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 5,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 3,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 0,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    }
+   },
+   "questions": {
+    "g1": {
+     "new_tier1": 1,
+     "arms": [
+      "parallel:search"
+     ]
+    },
+    "g2": {
+     "new_tier1": 1,
+     "arms": [
+      "tavily:search"
+     ]
+    },
+    "g3": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a1": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research"
+     ]
+    },
+    "a2": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:search"
+     ]
+    },
+    "a3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a4": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:search",
+      "firecrawl:research",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o1": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:research"
+     ]
+    },
+    "o2": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:search"
+     ]
+    },
+    "o3": {
+     "new_tier1": 9,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "o5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m1": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m2": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m3": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m4": {
+     "new_tier1": 2,
+     "arms": [
+      "firecrawl:search",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m6": {
+     "new_tier1": 0,
+     "arms": []
+    }
+   }
+  },
+  "g3m3_amendment10": {
+   "label": "Both: g3 and m3 counted, and Amendment 10's scoring",
+   "switches": {
+    "novelty": true,
+    "stage_b": false,
+    "tier_o5": true,
+    "tier_g3m3": false,
+    "dedupe": true,
+    "tavily_prereg": false
+   },
+   "arms": {
+    "exa:search": {
+     "new_tier1": 21,
+     "unique_new_tier1": 2,
+     "new_all": 100,
+     "unique_new_all": 14,
+     "useful_new_tier1": 8,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.168,
+     "credits": 0,
+     "cost_usd_low": 0.168,
+     "cost_usd_high": 0.168,
+     "cost_per_new_low": 0.0017,
+     "cost_per_new_high": 0.0017,
+     "cost_per_new_tier1_low": 0.008,
+     "cost_per_new_tier1_high": 0.008,
+     "cost_per_new_tier1_list": 0.008,
+     "median_latency_s": 1.7
+    },
+    "exa:research": {
+     "new_tier1": 23,
+     "unique_new_tier1": 2,
+     "new_all": 158,
+     "unique_new_all": 55,
+     "useful_new_tier1": 11,
+     "questions_with_new": 24,
+     "research_items": 520,
+     "research_checkable": 455,
+     "research_errors": 21,
+     "research_error_rate": 0.046,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0152,
+     "cost_per_new_high": 0.0152,
+     "cost_per_new_tier1_low": 0.1043,
+     "cost_per_new_tier1_high": 0.1043,
+     "cost_per_new_tier1_list": 0.1043,
+     "median_latency_s": 86.1
+    },
+    "tavily:search": {
+     "new_tier1": 15,
+     "unique_new_tier1": 3,
+     "new_all": 58,
+     "unique_new_all": 7,
+     "useful_new_tier1": 5,
+     "questions_with_new": 21,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.384,
+     "credits": 48,
+     "cost_usd_low": 0.24,
+     "cost_usd_high": 0.384,
+     "cost_per_new_low": 0.0041,
+     "cost_per_new_high": 0.0066,
+     "cost_per_new_tier1_low": 0.016,
+     "cost_per_new_tier1_high": 0.0256,
+     "cost_per_new_tier1_list": 0.0256,
+     "median_latency_s": 3.2
+    },
+    "tavily:research": {
+     "new_tier1": 11,
+     "unique_new_tier1": 2,
+     "new_all": 55,
+     "unique_new_all": 10,
+     "useful_new_tier1": 5,
+     "questions_with_new": 16,
+     "research_items": 158,
+     "research_checkable": 137,
+     "research_errors": 23,
+     "research_error_rate": 0.168,
+     "cost_usd_list": 7.0,
+     "credits": 875,
+     "cost_usd_low": 4.375,
+     "cost_usd_high": 7.0,
+     "cost_per_new_low": 0.0795,
+     "cost_per_new_high": 0.1273,
+     "cost_per_new_tier1_low": 0.3977,
+     "cost_per_new_tier1_high": 0.6364,
+     "cost_per_new_tier1_list": 0.6364,
+     "median_latency_s": 31.6
+    },
+    "parallel:search": {
+     "new_tier1": 13,
+     "unique_new_tier1": 3,
+     "new_all": 75,
+     "unique_new_all": 10,
+     "useful_new_tier1": 7,
+     "questions_with_new": 20,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.12,
+     "credits": 0,
+     "cost_usd_low": 0.12,
+     "cost_usd_high": 0.12,
+     "cost_per_new_low": 0.0016,
+     "cost_per_new_high": 0.0016,
+     "cost_per_new_tier1_low": 0.0092,
+     "cost_per_new_tier1_high": 0.0092,
+     "cost_per_new_tier1_list": 0.0092,
+     "median_latency_s": 3.1
+    },
+    "parallel:research": {
+     "new_tier1": 19,
+     "unique_new_tier1": 1,
+     "new_all": 84,
+     "unique_new_all": 15,
+     "useful_new_tier1": 8,
+     "questions_with_new": 17,
+     "research_items": 353,
+     "research_checkable": 331,
+     "research_errors": 2,
+     "research_error_rate": 0.006,
+     "cost_usd_list": 2.4,
+     "credits": 0,
+     "cost_usd_low": 2.4,
+     "cost_usd_high": 2.4,
+     "cost_per_new_low": 0.0286,
+     "cost_per_new_high": 0.0286,
+     "cost_per_new_tier1_low": 0.1263,
+     "cost_per_new_tier1_high": 0.1263,
+     "cost_per_new_tier1_list": 0.1263,
+     "median_latency_s": 107.0
+    },
+    "firecrawl:search": {
+     "new_tier1": 11,
+     "unique_new_tier1": 0,
+     "new_all": 57,
+     "unique_new_all": 4,
+     "useful_new_tier1": 4,
+     "questions_with_new": 18,
+     "research_items": 0,
+     "research_checkable": 0,
+     "research_errors": 0,
+     "research_error_rate": null,
+     "cost_usd_list": 0.56,
+     "credits": 112,
+     "cost_usd_low": 0.084,
+     "cost_usd_high": 0.56,
+     "cost_per_new_low": 0.0015,
+     "cost_per_new_high": 0.0098,
+     "cost_per_new_tier1_low": 0.0076,
+     "cost_per_new_tier1_high": 0.0509,
+     "cost_per_new_tier1_list": 0.0509,
+     "median_latency_s": 1.3
+    },
+    "firecrawl:research": {
+     "new_tier1": 6,
+     "unique_new_tier1": 0,
+     "new_all": 85,
+     "unique_new_all": 29,
+     "useful_new_tier1": 3,
+     "questions_with_new": 18,
+     "research_items": 339,
+     "research_checkable": 298,
+     "research_errors": 8,
+     "research_error_rate": 0.027,
+     "cost_usd_list": 7.195,
+     "credits": 1439,
+     "cost_usd_low": 1.0793,
+     "cost_usd_high": 7.195,
+     "cost_per_new_low": 0.0127,
+     "cost_per_new_high": 0.0846,
+     "cost_per_new_tier1_low": 0.1799,
+     "cost_per_new_tier1_high": 1.1992,
+     "cost_per_new_tier1_list": 1.1992,
+     "median_latency_s": 71.7
+    }
+   },
+   "providers": {
+    "exa": {
+     "new_tier1": 29,
+     "unique_new_tier1": 6,
+     "new_all": 207,
+     "unique_new_all": 80,
+     "cost_usd_low": 2.568,
+     "cost_usd_high": 2.568,
+     "cost_per_new_tier1_low": 0.0886,
+     "cost_per_new_tier1_high": 0.0886
+    },
+    "tavily": {
+     "new_tier1": 22,
+     "unique_new_tier1": 5,
+     "new_all": 92,
+     "unique_new_all": 18,
+     "cost_usd_low": 4.615,
+     "cost_usd_high": 7.384,
+     "cost_per_new_tier1_low": 0.2098,
+     "cost_per_new_tier1_high": 0.3356
+    },
+    "parallel": {
+     "new_tier1": 25,
+     "unique_new_tier1": 4,
+     "new_all": 131,
+     "unique_new_all": 27,
+     "cost_usd_low": 2.52,
+     "cost_usd_high": 2.52,
+     "cost_per_new_tier1_low": 0.1008,
+     "cost_per_new_tier1_high": 0.1008
+    },
+    "firecrawl": {
+     "new_tier1": 14,
+     "unique_new_tier1": 0,
+     "new_all": 126,
+     "unique_new_all": 33,
+     "cost_usd_low": 1.1633,
+     "cost_usd_high": 7.755,
+     "cost_per_new_tier1_low": 0.0831,
+     "cost_per_new_tier1_high": 0.5539
+    }
+   },
+   "totals": {
+    "claims_judged": 642,
+    "distinct": 593,
+    "bundles": 7,
+    "no_counted_run": 0,
+    "new": 303,
+    "new_tier1": 41,
+    "known": 281,
+    "false": 9,
+    "stage_b_flips": 0
+   },
+   "per_question_new_tier1": {
+    "exa:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 4,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 1,
+     "a3": 3,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 6,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "exa:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 4,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 1,
+     "a2": 0,
+     "a3": 2,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 1,
+     "o3": 4,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 8,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:search": {
+     "g1": 0,
+     "g2": 1,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 2,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 2,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "tavily:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 2,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 1,
+     "o2": 0,
+     "o3": 1,
+     "o4": 0,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 5,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:search": {
+     "g1": 1,
+     "g2": 0,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 1,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 2,
+     "m4": 2,
+     "m5": 0,
+     "m6": 0
+    },
+    "parallel:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 1,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 2,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 5,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 8,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:search": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 3,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 1,
+     "a4": 0,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 3,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 1,
+     "m5": 0,
+     "m6": 0
+    },
+    "firecrawl:research": {
+     "g1": 0,
+     "g2": 0,
+     "g3": 0,
+     "g4": 1,
+     "g5": 0,
+     "g6": 0,
+     "a1": 0,
+     "a2": 0,
+     "a3": 0,
+     "a4": 1,
+     "a5": 0,
+     "a6": 0,
+     "o1": 0,
+     "o2": 0,
+     "o3": 2,
+     "o4": 1,
+     "o5": 0,
+     "o6": 0,
+     "m1": 0,
+     "m2": 0,
+     "m3": 1,
+     "m4": 0,
+     "m5": 0,
+     "m6": 0
+    }
+   },
+   "questions": {
+    "g1": {
+     "new_tier1": 1,
+     "arms": [
+      "parallel:search"
+     ]
+    },
+    "g2": {
+     "new_tier1": 1,
+     "arms": [
+      "tavily:search"
+     ]
+    },
+    "g3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "g5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "g6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a1": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research"
+     ]
+    },
+    "a2": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:search"
+     ]
+    },
+    "a3": {
+     "new_tier1": 4,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a4": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:search",
+      "firecrawl:research",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "a5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "a6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o1": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:research"
+     ]
+    },
+    "o2": {
+     "new_tier1": 2,
+     "arms": [
+      "exa:research",
+      "tavily:search"
+     ]
+    },
+    "o3": {
+     "new_tier1": 9,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "o4": {
+     "new_tier1": 1,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:search"
+     ]
+    },
+    "o5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "o6": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m1": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m2": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m3": {
+     "new_tier1": 10,
+     "arms": [
+      "exa:research",
+      "exa:search",
+      "firecrawl:research",
+      "firecrawl:search",
+      "parallel:research",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m4": {
+     "new_tier1": 2,
+     "arms": [
+      "firecrawl:search",
+      "parallel:search",
+      "tavily:research",
+      "tavily:search"
+     ]
+    },
+    "m5": {
+     "new_tier1": 0,
+     "arms": []
+    },
+    "m6": {
+     "new_tier1": 0,
+     "arms": []
+    }
+   }
+  }
+ },
+ "tests": {
+  "primary": [
+   {
+    "arm": "search",
+    "leader": "exa",
+    "other": "tavily",
+    "leader_n": 11,
+    "other_n": 11,
+    "ahead": 3,
+    "behind": 3,
+    "p": 1.0,
+    "boot_lo": -7,
+    "boot_hi": 7,
+    "p_holm": 1.0
+   },
+   {
+    "arm": "search",
+    "leader": "exa",
+    "other": "parallel",
+    "leader_n": 11,
+    "other_n": 8,
+    "ahead": 3,
+    "behind": 2,
+    "p": 1.0,
+    "boot_lo": -5,
+    "boot_hi": 12,
+    "p_holm": 1.0
+   },
+   {
+    "arm": "search",
+    "leader": "exa",
+    "other": "firecrawl",
+    "leader_n": 11,
+    "other_n": 7,
+    "ahead": 4,
+    "behind": 1,
+    "p": 0.375,
+    "boot_lo": -1,
+    "boot_hi": 10,
+    "p_holm": 1.0
+   },
+   {
+    "arm": "research",
+    "leader": "exa",
+    "other": "parallel",
+    "leader_n": 11,
+    "other_n": 10,
+    "ahead": 4,
+    "behind": 2,
+    "p": 0.6875,
+    "boot_lo": -5,
+    "boot_hi": 6,
+    "p_holm": 1.0
+   },
+   {
+    "arm": "research",
+    "leader": "exa",
+    "other": "firecrawl",
+    "leader_n": 11,
+    "other_n": 5,
+    "ahead": 5,
+    "behind": 1,
+    "p": 0.2188,
+    "boot_lo": 0,
+    "boot_hi": 13,
+    "p_holm": 1.0
+   },
+   {
+    "arm": "research",
+    "leader": "exa",
+    "other": "tavily",
+    "leader_n": 11,
+    "other_n": 4,
+    "ahead": 5,
+    "behind": 1,
+    "p": 0.2188,
+    "boot_lo": 0,
+    "boot_hi": 15,
+    "p_holm": 1.0
+   }
+  ],
+  "as_judged": [
+   {
+    "arm": "search",
+    "leader": "exa",
+    "other": "tavily",
+    "leader_n": 26,
+    "other_n": 16,
+    "ahead": 7,
+    "behind": 3,
+    "p": 0.3438,
+    "boot_lo": 0,
+    "boot_hi": 23,
+    "p_holm": 0.6798
+   },
+   {
+    "arm": "search",
+    "leader": "exa",
+    "other": "parallel",
+    "leader_n": 26,
+    "other_n": 15,
+    "ahead": 6,
+    "behind": 2,
+    "p": 0.2891,
+    "boot_lo": 0,
+    "boot_hi": 24,
+    "p_holm": 0.6798
+   },
+   {
+    "arm": "search",
+    "leader": "exa",
+    "other": "firecrawl",
+    "leader_n": 26,
+    "other_n": 12,
+    "ahead": 8,
+    "behind": 2,
+    "p": 0.1094,
+    "boot_lo": 3,
+    "boot_hi": 27,
+    "p_holm": 0.4376
+   },
+   {
+    "arm": "research",
+    "leader": "exa",
+    "other": "parallel",
+    "leader_n": 30,
+    "other_n": 19,
+    "ahead": 8,
+    "behind": 3,
+    "p": 0.2266,
+    "boot_lo": -1,
+    "boot_hi": 24,
+    "p_holm": 0.6798
+   },
+   {
+    "arm": "research",
+    "leader": "exa",
+    "other": "tavily",
+    "leader_n": 30,
+    "other_n": 12,
+    "ahead": 8,
+    "behind": 1,
+    "p": 0.0391,
+    "boot_lo": 6,
+    "boot_hi": 32,
+    "p_holm": 0.1955
+   },
+   {
+    "arm": "research",
+    "leader": "exa",
+    "other": "firecrawl",
+    "leader_n": 30,
+    "other_n": 6,
+    "ahead": 9,
+    "behind": 1,
+    "p": 0.0215,
+    "boot_lo": 9,
+    "boot_hi": 41,
+    "p_holm": 0.129
+   }
+  ]
+ }
+}

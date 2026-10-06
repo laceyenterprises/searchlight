@@ -1,0 +1,684 @@
+{
+ "list": {
+  "id": "S5c",
+  "objective": "Find companies whose own public pages name Exa (Exa Labs, Exa AI, exa.ai) as a subprocessor or as the web search provider behind one of their product features.",
+  "criteria": [
+   {
+    "name": "names_exa_on_own_domain",
+    "description": "A page on the company's own domain (subprocessor list, trust center, docs, changelog, blog, or integration page) names Exa, Exa Labs, Exa AI, or exa.ai. The company is not Exa itself."
+   },
+   {
+    "name": "exa_role",
+    "description": "The page names Exa as a subprocessor, or as the web search or web data provider behind a feature of the company's own product. Exclude directories, marketplaces, and frameworks where Exa is only one optional integration that users configure with their own Exa API key."
+   }
+  ],
+  "fields": {
+   "name": "Company name",
+   "url": "Official homepage URL",
+   "exa_role": "How the page names Exa: 'subprocessor', or 'search provider for <feature>'",
+   "evidence_url": "URL of the page on the company's own domain that names Exa",
+   "page_date": "Date shown on that page (last updated or published), or null"
+  }
+ },
+ "entities": [
+  {
+   "eid": "S5c-e1",
+   "key": "elnora.ai",
+   "names": [
+    "Elnora AI"
+   ],
+   "urls": [
+    "https://elnora.ai"
+   ],
+   "evidence_urls": [
+    "https://elnora.ai/dpa"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e2",
+   "key": "useworkshop.com",
+   "names": [
+    "Workshop"
+   ],
+   "urls": [
+    "https://useworkshop.com"
+   ],
+   "evidence_urls": [
+    "https://docs.useworkshop.com/hc/en-us/articles/29695794867987-Workshop-sub-processors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e3",
+   "key": "dweet.com",
+   "names": [
+    "Dweet",
+    "Nova (DWEET LTD)"
+   ],
+   "urls": [
+    "https://dweet.com/",
+    "https://nova.dweet.com"
+   ],
+   "evidence_urls": [
+    "https://nova.dweet.com/docs/nova/legal/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e4",
+   "key": "name:foundable",
+   "names": [
+    "Foundable"
+   ],
+   "urls": [],
+   "evidence_urls": [
+    "https://foundable.com/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e5",
+   "key": "atlas-metis.com",
+   "names": [
+    "Atlas Analytics"
+   ],
+   "urls": [
+    "https://atlas-metis.com/"
+   ],
+   "evidence_urls": [
+    "https://atlas-metis.com/gdpr"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e6",
+   "key": "novita.ai",
+   "names": [
+    "Novita Inc."
+   ],
+   "urls": [
+    "https://novita.ai/"
+   ],
+   "evidence_urls": [
+    "https://docs.novita.ai/api-reference/model-apis-exa-search",
+    "https://www.crunchbase.com/organization/novita-ai"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "names_exa_on_own_domain"
+   ]
+  },
+  {
+   "eid": "S5c-e7",
+   "key": "name:openwhispr",
+   "names": [
+    "OpenWhispr"
+   ],
+   "urls": [],
+   "evidence_urls": [
+    "https://openwhispr.com/dpa"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e8",
+   "key": "trylibra.ai",
+   "names": [
+    "Libra AI"
+   ],
+   "urls": [
+    "https://trylibra.ai/"
+   ],
+   "evidence_urls": [
+    "https://trylibra.ai/dpa"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e9",
+   "key": "portkey.ai",
+   "names": [
+    "Portkey, Inc."
+   ],
+   "urls": [
+    "https://portkey.ai/"
+   ],
+   "evidence_urls": [
+    "https://docs.portkey.ai/docs/integrations/plugins/exa",
+    "https://portkey.ai/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "names_exa_on_own_domain"
+   ]
+  },
+  {
+   "eid": "S5c-e10",
+   "key": "mainder.ai",
+   "names": [
+    "Mainder"
+   ],
+   "urls": [
+    "https://mainder.ai/"
+   ],
+   "evidence_urls": [
+    "https://love.mainder.ai/en/legal/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e11",
+   "key": "heymarcus.ai",
+   "names": [
+    "Marcus (Zavo LTD)"
+   ],
+   "urls": [
+    "https://heymarcus.ai"
+   ],
+   "evidence_urls": [
+    "https://heymarcus.ai/en_gb/subprocessors/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e12",
+   "key": "name:jan",
+   "names": [
+    "Jan"
+   ],
+   "urls": [],
+   "evidence_urls": [
+    "https://www.jan.ai/docs/desktop/web-search"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e13",
+   "key": "getcoherence.io",
+   "names": [
+    "Coherence (Brightyard)"
+   ],
+   "urls": [
+    "https://getcoherence.io"
+   ],
+   "evidence_urls": [
+    "https://getcoherence.io/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e14",
+   "key": "kolo.ai",
+   "names": [
+    "Kolo"
+   ],
+   "urls": [
+    "https://kolo.ai/",
+    "https://www.kolo.ai"
+   ],
+   "evidence_urls": [
+    "https://www.kolo.ai/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e15",
+   "key": "opally.com",
+   "names": [
+    "Opally"
+   ],
+   "urls": [
+    "https://opally.com/"
+   ],
+   "evidence_urls": [
+    "https://opally.dk/dpa.pdf"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e16",
+   "key": "mozilla.org",
+   "names": [
+    "Mozilla Corporation"
+   ],
+   "urls": [
+    "https://www.mozilla.org/en-CA/about/leadership/mozilla-corporation"
+   ],
+   "evidence_urls": [
+    "https://blog.mozilla.org/en/firefox/firefox-exa-partnership",
+    "http://blog.mozilla.org/en/firefox/firefox-exa-partnership",
+    "https://www.mozilla.org/en-CA/about/leadership/mozilla-corporation"
+   ],
+   "matches_exclusion": "Mozilla (Firefox)",
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "names_exa_on_own_domain",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e17",
+   "key": "fireflies.ai",
+   "names": [
+    "Fireflies.ai Corp.",
+    "Fireflies.ai"
+   ],
+   "urls": [
+    "https://fireflies.ai/",
+    "https://fireflies.ai"
+   ],
+   "evidence_urls": [
+    "https://trust.fireflies.ai/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "names_exa_on_own_domain"
+   ]
+  },
+  {
+   "eid": "S5c-e18",
+   "key": "kapso.com",
+   "names": [
+    "Kapso"
+   ],
+   "urls": [
+    "https://kapso.com/",
+    "https://kapso.com"
+   ],
+   "evidence_urls": [
+    "https://kapso.com/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e19",
+   "key": "name:illixis",
+   "names": [
+    "ILLIXIS"
+   ],
+   "urls": [],
+   "evidence_urls": [
+    "https://www.illixis.io/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e20",
+   "key": "gamma.app",
+   "names": [
+    "Gamma"
+   ],
+   "urls": [
+    "https://gamma.app"
+   ],
+   "evidence_urls": [
+    "https://gamma.app/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e21",
+   "key": "orgorg.us",
+   "names": [
+    "OrgOrg"
+   ],
+   "urls": [
+    "https://orgorg.us/"
+   ],
+   "evidence_urls": [
+    "https://www.orgorg.us/trust/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e22",
+   "key": "levenza.com",
+   "names": [
+    "Levenza"
+   ],
+   "urls": [
+    "https://levenza.com"
+   ],
+   "evidence_urls": [
+    "https://levenza.com/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e23",
+   "key": "elixiary.com",
+   "names": [
+    "Elixiary AI"
+   ],
+   "urls": [
+    "https://elixiary.com"
+   ],
+   "evidence_urls": [
+    "https://elixiary.com/legal/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e24",
+   "key": "apollo.io",
+   "names": [
+    "Apollo.io"
+   ],
+   "urls": [
+    "https://www.apollo.io/"
+   ],
+   "evidence_urls": [
+    "https://www.apollo.io/ai-policy"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "names_exa_on_own_domain"
+   ]
+  },
+  {
+   "eid": "S5c-e25",
+   "key": "about.google",
+   "names": [
+    "Google LLC"
+   ],
+   "urls": [
+    "https://about.google/company-info"
+   ],
+   "evidence_urls": [
+    "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-exa",
+    "https://cloud.google.com/blog/products/ai-machine-learning/partner-built-agents-available-in-gemini-enterprise",
+    "https://policies.google.com/terms?hl=en-US"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "names_exa_on_own_domain",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e26",
+   "key": "name:coherence",
+   "names": [
+    "Coherence"
+   ],
+   "urls": [],
+   "evidence_urls": [
+    "https://getcoherence.io/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e27",
+   "key": "graphed.com",
+   "names": [
+    "Graphed"
+   ],
+   "urls": [
+    "https://www.graphed.com"
+   ],
+   "evidence_urls": [
+    "https://www.graphed.com/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e28",
+   "key": "mightybot.ai",
+   "names": [
+    "MightyBot"
+   ],
+   "urls": [
+    "https://mightybot.ai"
+   ],
+   "evidence_urls": [
+    "https://mightybot.ai/subprocessors/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e29",
+   "key": "name:watchdog",
+   "names": [
+    "Watchdog"
+   ],
+   "urls": [],
+   "evidence_urls": [
+    "https://watchdog.no/legal/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e30",
+   "key": "tracelight.ai",
+   "names": [
+    "Tracelight"
+   ],
+   "urls": [
+    "https://tracelight.ai/"
+   ],
+   "evidence_urls": [
+    "https://tracelight.ai/data-processing-agreement"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role"
+   ]
+  },
+  {
+   "eid": "S5c-e31",
+   "key": "revelica.com",
+   "names": [
+    "Revelica"
+   ],
+   "urls": [
+    "https://revelica.com"
+   ],
+   "evidence_urls": [
+    "https://revelica.com/sub-processors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e32",
+   "key": "scripe.io",
+   "names": [
+    "Scripe"
+   ],
+   "urls": [
+    "https://scripe.io/"
+   ],
+   "evidence_urls": [
+    "https://scripe.io/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e33",
+   "key": "ringcentral.com",
+   "names": [
+    "RingCentral"
+   ],
+   "urls": [
+    "https://www.ringcentral.com"
+   ],
+   "evidence_urls": [
+    "https://www.ringcentral.com/legal/dpa-subprocessor-list.html"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e34",
+   "key": "uphold.com",
+   "names": [
+    "Uphold Worldwide Ltd."
+   ],
+   "urls": [
+    "https://uphold.com/resources/contact-us"
+   ],
+   "evidence_urls": [
+    "https://uphold.com/en-eu/legal/uphold-subprocessor-list",
+    "https://uphold.com/resources/contact-us"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "names_exa_on_own_domain",
+    "page_date"
+   ]
+  },
+  {
+   "eid": "S5c-e35",
+   "key": "name:counselai",
+   "names": [
+    "CounselAI"
+   ],
+   "urls": [],
+   "evidence_urls": [
+    "https://www.counselai.com/company/legal/subprocessors"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "evidence_url",
+    "exa_role",
+    "page_date"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,253 @@
+{
+ "cost": {
+  "ledger_b": {
+   "exa": {
+    "usd": 4.093200000000002,
+    "credits": 0,
+    "runs": 33
+   },
+   "parallel": {
+    "usd": 12.16,
+    "credits": 0,
+    "runs": 23
+   },
+   "firecrawl": {
+    "usd": 0.0,
+    "credits": 393,
+    "runs": 7
+   }
+  },
+  "firecrawl_credits": {
+   "S5": 0,
+   "S6": 393
+  },
+  "firecrawl_paid_runs": {
+   "S5": 0,
+   "S6": 2
+  },
+  "stage_b_usd_max": 18.22,
+  "stage_a_usd_max": 5.07
+ },
+ "S5": {
+  "totals": {
+   "exa": {
+    "returned": 36,
+    "meets": 28,
+    "partial": 6,
+    "fails": 2,
+    "unverifiable": 0,
+    "verified_novel": 28,
+    "verified_novel_unique": 21,
+    "returned_excluded": 0,
+    "verified_novel_as_judged": 27,
+    "verified_novel_unique_as_judged": 20,
+    "verified_novel_entity_level": 27,
+    "verified_novel_unique_entity_level": 20,
+    "raw": 36,
+    "with_url": 29
+   },
+   "parallel": {
+    "returned": 21,
+    "meets": 13,
+    "partial": 4,
+    "fails": 4,
+    "unverifiable": 0,
+    "verified_novel": 7,
+    "verified_novel_unique": 5,
+    "returned_excluded": 9,
+    "verified_novel_as_judged": 5,
+    "verified_novel_unique_as_judged": 3,
+    "verified_novel_entity_level": 3,
+    "verified_novel_unique_entity_level": 1,
+    "raw": 26,
+    "with_url": 26
+   },
+   "firecrawl": {
+    "returned": 23,
+    "meets": 19,
+    "partial": 3,
+    "fails": 1,
+    "unverifiable": 0,
+    "verified_novel": 19,
+    "verified_novel_unique": 12,
+    "returned_excluded": 0,
+    "verified_novel_as_judged": 19,
+    "verified_novel_unique_as_judged": 12,
+    "verified_novel_entity_level": 18,
+    "verified_novel_unique_entity_level": 11,
+    "raw": 23,
+    "with_url": 23
+   }
+  },
+  "pooled": 70,
+  "verified_new_any": 45,
+  "spend": {
+   "exa": 2.0232,
+   "parallel": 10.16,
+   "firecrawl": 0
+  }
+ },
+ "S6_tests": {
+  "fisher": [
+   "Parallel vs Exa: completeness p = 0.11, false-claim rate p = 0.78, citation validity (not wrong) p = 0.50",
+   "Exa vs Firecrawl: completeness p = 0.05, false-claim rate p = 0.08, citation validity (not wrong) p = 0.25",
+   "Parallel vs Firecrawl: completeness p = 1.00, false-claim rate p = 0.04, citation validity (not wrong) p = 1.00"
+  ],
+  "paired": [
+   "Parallel vs Exa: by cell 21\u201313 (p = 0.23); by company 11\u20134 with 5 ties (p = 0.12)",
+   "Exa vs Firecrawl: by cell 25\u201314 (p = 0.11); by company 9\u20133 with 8 ties (p = 0.15)",
+   "Parallel vs Firecrawl: by cell 28\u20139 (p = 0.003); by company 18\u20132 with 0 ties (p < 0.001)"
+  ]
+ },
+ "S6": {
+  "exa": {
+   "non_null": 149,
+   "gt_correct": 93,
+   "judged_gt_correct": 93,
+   "gt_partly_correct": 14,
+   "judged_gt_partly_correct": 13,
+   "cite_yes": 86,
+   "cite_yes_not_wrong": 81,
+   "gt_correction": 12,
+   "judged_gt_correction": 13,
+   "novel": 35,
+   "novel_kb_new": 30,
+   "correction_substantive": 7,
+   "correction_contested": 2,
+   "correction_detail": 1,
+   "gt_wrong": 6,
+   "judged_gt_wrong": 6,
+   "wrong": 7,
+   "wrong_with_valid_citation": 5,
+   "nogt_verified": 23,
+   "judged_nogt_verified": 23,
+   "correction_vendor_claim_only": 1,
+   "cite_no": 2,
+   "nogt_wrong": 1,
+   "judged_nogt_wrong": 1,
+   "correction_vendor_pages_conflict": 1,
+   "novel_unique": 4,
+   "novel_kb_new_unique": 4,
+   "completeness": "149/160",
+   "gt_right_of_gt_cells": "105/133",
+   "gt_right_of_gt_cells_as_judged": "106/133",
+   "gt_right_incl_partly": "119/133",
+   "false_claim_rate": 0.047,
+   "false_claim_rate_excl_non_responsive": 0.047,
+   "citation_validity": "86/88",
+   "citation_validity_not_wrong": "81/81"
+  },
+  "parallel": {
+   "non_null": 156,
+   "gt_partly_correct": 12,
+   "judged_gt_partly_correct": 12,
+   "cite_yes": 86,
+   "cite_yes_not_wrong": 83,
+   "gt_correction": 12,
+   "judged_gt_correction": 12,
+   "novel": 36,
+   "novel_kb_new": 31,
+   "correction_detail": 4,
+   "gt_correct": 101,
+   "judged_gt_correct": 101,
+   "gt_wrong": 5,
+   "judged_gt_wrong": 5,
+   "wrong": 6,
+   "wrong_with_valid_citation": 3,
+   "correction_substantive": 6,
+   "nogt_verified": 24,
+   "judged_nogt_verified": 24,
+   "correction_vendor_claim_only": 1,
+   "cite_no": 5,
+   "correction_vendor_pages_conflict": 1,
+   "nogt_partly_verified": 1,
+   "judged_nogt_partly_verified": 1,
+   "cite_no_not_wrong": 2,
+   "nogt_wrong": 1,
+   "judged_nogt_wrong": 1,
+   "novel_unique": 3,
+   "novel_kb_new_unique": 3,
+   "completeness": "156/160",
+   "gt_right_of_gt_cells": "113/133",
+   "gt_right_of_gt_cells_as_judged": "113/133",
+   "gt_right_incl_partly": "125/133",
+   "false_claim_rate": 0.038,
+   "false_claim_rate_excl_non_responsive": 0.038,
+   "citation_validity": "86/91",
+   "citation_validity_not_wrong": "83/85"
+  },
+  "firecrawl": {
+   "non_null": 157,
+   "gt_partly_correct": 23,
+   "judged_gt_partly_correct": 23,
+   "cite_yes": 86,
+   "cite_yes_not_wrong": 82,
+   "gt_correction": 9,
+   "judged_gt_correction": 9,
+   "novel": 30,
+   "novel_kb_new": 25,
+   "correction_detail": 1,
+   "gt_correct": 85,
+   "judged_gt_correct": 85,
+   "gt_wrong": 14,
+   "judged_gt_wrong": 14,
+   "wrong": 16,
+   "cite_no": 15,
+   "correction_substantive": 6,
+   "cite_no_not_wrong": 3,
+   "wrong_with_valid_citation": 4,
+   "correction_vendor_claim_only": 1,
+   "nogt_verified": 21,
+   "judged_nogt_verified": 21,
+   "nogt_partly_verified": 3,
+   "judged_nogt_partly_verified": 3,
+   "wrong_non_responsive": 4,
+   "correction_contested": 1,
+   "nogt_wrong": 2,
+   "judged_nogt_wrong": 2,
+   "novel_unique": 3,
+   "novel_kb_new_unique": 3,
+   "completeness": "157/160",
+   "gt_right_of_gt_cells": "94/133",
+   "gt_right_of_gt_cells_as_judged": "94/133",
+   "gt_right_incl_partly": "117/133",
+   "false_claim_rate": 0.102,
+   "false_claim_rate_excl_non_responsive": 0.078,
+   "citation_validity": "86/101",
+   "citation_validity_not_wrong": "82/85"
+  },
+  "novel_cells_any_provider": 45,
+  "novel_cells_kb_new": 40,
+  "correction_cells": 19,
+  "correction_cells_by_type": {
+   "substantive": 8,
+   "detail": 4,
+   "vendor_claim_only": 2,
+   "vendor_pages_conflict": 2,
+   "contested": 3
+  },
+  "gt_cells": 133
+ },
+ "SP": {
+  "results": 100,
+  "domains": 69,
+  "classes": {
+   "clone_or_unrelated": 11,
+   "profile_or_directory": 39,
+   "relevant_vendor": 11
+  },
+  "relevant_vendors": [
+   "anysite.io",
+   "serpapi.org",
+   "serpentapi.com",
+   "seoserpapi.com",
+   "serpsearch.com",
+   "serpingapi.com",
+   "serpstack.com",
+   "scraperapi.com",
+   "serpermatrix.com",
+   "reserp.ai",
+   "serpbase.dev"
+  ]
+ }
+}

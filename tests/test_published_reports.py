@@ -102,6 +102,33 @@ def test_reproduction_suite_covers_wsb_matrix():
     assert suite['repetitions'] == 3
 
 
+def test_head_to_head_sets_match_their_manifest():
+    import hashlib
+    code = ROOT / 'reports' / '2026-09-26-search-api-head-to-head' / 'code'
+    lines = (code / 'sets' / 'SHA256SUMS').read_text().splitlines()
+    listed = {}
+    for line in lines:
+        digest, path = line.split('  ', 1)
+        listed[path] = digest
+        assert hashlib.sha256((code / path).read_bytes()).hexdigest() == digest, path
+    shipped = {f'sets/{p.name}' for p in (code / 'sets').glob('*.json')} | {'stage_c/sets/SV.json'}
+    assert set(listed) == shipped
+
+
+def test_head_to_head_monitors_record_rebuilds_from_published_raw(tmp_path):
+    import subprocess
+    import sys
+    source = ROOT / 'reports' / '2026-09-26-search-api-head-to-head'
+    copy = tmp_path / 'report'
+    shutil.copytree(source, copy)
+    subprocess.run([sys.executable, 'monitors_harvest.py', 'export'], cwd=copy / 'code', check=True,
+                   capture_output=True)
+    published = sorted((source / 'data/stage-b/runs/SM').glob('*.json'))
+    assert {p.name for p in published} >= {'summary.json', 'runs_m01.json', 'runs_m05.json'}
+    for path in published:
+        assert (copy / 'data/stage-b/runs/SM' / path.name).read_bytes() == path.read_bytes(), path.name
+
+
 def test_gap_reproduction_restricts_calibration_to_all_briefs():
     import re
     import yaml

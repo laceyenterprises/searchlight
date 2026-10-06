@@ -1,0 +1,370 @@
+{
+ "set": "S1",
+ "questions": [
+  {
+   "id": "q21",
+   "status": "partial",
+   "answer": "Parallel has reported a developer count, not revenue: 100,000+ developers at its April 2026 Series B, and 'tens of thousands' of supported developers in a July 2026 post. No company-reported revenue or ARR was found. The pool's one ARR figure ($100M, idlen) isn't in the TechCrunch article it cites.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "At its April 2026 Series B, Parallel said more than 100,000 developers use its products.",
+     "support_rids_full": [
+      "q21-r9",
+      "q21-r19",
+      "q21-r11",
+      "q21-r23",
+      "q21-r26",
+      "q21-r20",
+      "q21-r2",
+      "q21-r15"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.prnewswire.com/news-releases/parallel-raises-at-2-billion-valuation-to-scale-web-infrastructure-for-agents-302756350.html",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/parallel-search-api.md:60",
+     "usefulness": 1
+    },
+    {
+     "claim": "Parallel has not disclosed revenue or ARR.",
+     "support_rids_full": [
+      "q21-r11",
+      "q21-r26",
+      "q21-r13"
+     ],
+     "support_rids_partial": [
+      "q21-r20"
+     ],
+     "verified_url": "https://www.aichatdaily.com/ai-business/parallel-web-systems-2b-series-b",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/parallel-search-api.md:61",
+     "usefulness": 1
+    },
+    {
+     "claim": "In a July 2026 post, Parallel said it went from supporting hundreds of developers to tens of thousands in under a year.",
+     "support_rids_full": [
+      "q21-r8"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.linkedin.com/[redacted-4ec9aa7c9092]",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 1
+    }
+   ],
+   "notes": "idlen (r23) cites an estimated $100M ARR 'per off-the-record numbers cited by TechCrunch'. The TechCrunch article (r19) has no ARR figure, so the claim is unsupported and not counted. prospeo (r17, $3.3M) is a model estimate with stale funding data, not a company figure. r3 says only 'thousands of developers'. r7 is a different company (Parallel UK). CB Insights (r1) and Tracxn (r21) show no revenue. PitchBook (r4), Forge (r18), ZoomInfo (r12) and Reddit (r10) were blocked, but none was a revenue candidate."
+  },
+  {
+   "id": "q22",
+   "status": "resolved",
+   "answer": "No exact figure. Firecrawl's own 2026 job posts say it hit eight-figure ARR in year one and more than doubled it in year two, which read literally means over $20M ARR. Its careers page sets a goal of $100M ARR with fewer than 50 people.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Firecrawl self-reports eight-figure ARR in its first year, more than doubled in its second, with no exact figure or period. Its Ashby job board carries the line (Sales Engineer post, datePosted 2026-08-04).",
+     "support_rids_full": [
+      "q22-r19",
+      "q22-r14",
+      "q22-r2",
+      "q22-r7",
+      "q22-r21"
+     ],
+     "support_rids_partial": [
+      "q22-r27"
+     ],
+     "verified_url": "https://jobs.ashbyhq.com/firecrawl/d35c74ec-bd98-485f-81e7-663cfe2d5dc3",
+     "novelty": "contradicts_kb",
+     "kb_ref": "competitive/firecrawl.md:54",
+     "usefulness": 3
+    },
+    {
+     "claim": "Firecrawl's careers page states a goal of $100M ARR with fewer than 50 people. This is a target, not a reported figure.",
+     "support_rids_full": [
+      "q22-r4",
+      "q22-r20"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.firecrawl.dev/careers",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 1
+    }
+   ],
+   "notes": "The KB (firecrawl.md:54) says 'Revenue | Not disclosed' and tells readers not to use the eight-figure-ARR line because it was missing from the YC page. The YC page (r30) still lacks it, but Firecrawl's own live Ashby post carries it, so the line is usable as a Firecrawl claim. startup.jobs (r22) returned 403 (unverifiable). Third-party estimates conflict with the self-report and aren't company-reported: GetLatka r13 ($1.5M, 2024), Systemaic r3 (~$1.0M), adamgtm r25 ($1.5M). The Series B post (r32) and RuntimeWire's Series B story (r23) give usage figures, not revenue."
+  },
+  {
+   "id": "q23",
+   "status": "partial",
+   "answer": "Usage only. The Q2 2026 letter says Tavily grew to 2.5M+ developers, up from 1M in February. Nebius's Tavily page claims 2M+ developers and 300M+ requests a month. None of Nebius's Q4 2025, Q1 2026 or Q2 2026 shareholder letters gives a Tavily revenue figure.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Nebius's Q2 2026 shareholder letter (2026-08-12) says Tavily's developer community grew to more than 2.5 million developers, from 1 million in February, in its first full quarter inside Nebius.",
+     "support_rids_full": [
+      "q23-r1"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://assets.nebius.com/assets/4462517b-ce83-41f2-96ed-f2ac1bc06a05/SHLQ226%20%281%29.pdf?cache-buster=2026-08-12T11:57:07.944Z",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:58",
+     "usefulness": 1
+    },
+    {
+     "claim": "Nebius's 'Tavily by Nebius' page claims 2M+ developers and 300M+ requests processed every month.",
+     "support_rids_full": [
+      "q23-r19"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://nebius.com/solutions/agentic-search",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:58",
+     "usefulness": 1
+    },
+    {
+     "claim": "Nebius's Q4 2025, Q1 2026 and Q2 2026 shareholder letters give no Tavily revenue figure (checked by reading each letter).",
+     "support_rids_full": [
+      "q23-r1",
+      "q23-r26",
+      "q23-r25",
+      "q23-r31"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://assets.nebius.com/assets/4462517b-ce83-41f2-96ed-f2ac1bc06a05/SHLQ226%20%281%29.pdf?cache-buster=2026-08-12T11:57:07.944Z",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:57",
+     "usefulness": 1
+    }
+   ],
+   "notes": "The Q2 letter's other Tavily items (keyless pay-per-search and ISO 27001) are product news and already in the KB (tavily.md:63). The Q1 2026 and Q4 2025 letters mention Tavily only qualitatively. r25 and r31 are the same PDF. The announcement figures (3M+ monthly SDK downloads, 1M+ developers; r4, r10, r14, r18) date from 2026-02-10, before the deal closed, so they aren't counted as post-acquisition reporting. SiliconANGLE and CTech's 'significant revenue' (r6, r17) are pre-acquisition Tavily claims."
+  },
+  {
+   "id": "q24",
+   "status": "unresolved",
+   "answer": "None found in the pool. Pages show You.com added as an opt-in web-search provider (Haystack, merged 2026-08-18; AnythingLLM, merged 2026-07-28), not as a default. No pool page confirms the KB's gpt-oss or Databricks defaults.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Haystack's core-integrations repo merged a You.com web-search component (PR #3760, 2026-08-18) alongside existing providers. It falls back to You.com's keyless tier when no key is set, and it is not a framework-wide default.",
+     "support_rids_full": [
+      "q24-r13"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://github.com/deepset-ai/haystack-core-integrations/pull/3760",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 1
+    },
+    {
+     "claim": "AnythingLLM merged You.com as an agent web-search provider (PR #6058, 2026-07-28) alongside Brave, Exa, fastCRW and others. It is an option, not AnythingLLM's default.",
+     "support_rids_full": [
+      "q24-r36"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://github.com/Mintplex-Labs/anything-llm/pull/6058",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 1
+    }
+   ],
+   "notes": "Several projects kept another default. agentkit-starter PR #9 (r22) kept Exa as the default and was closed unmerged. luna-agent (r14) keeps DuckDuckGo, and agent-harness (r24) makes You.com optional. You.com's own doc (r35) tells Agno users to replace Agno's default DuckDuckGo search. The Databricks Marketplace listing (r27) doesn't state a default. Firecrawl's blog (r29) names Firecrawl, not You.com, as OpenClaw's default. You.com's own pages (r2, r3, r21, r28, r32, r33) claim no framework defaults."
+  },
+  {
+   "id": "q25",
+   "status": "partial",
+   "answer": "Exa, according to Browserbase's 2026-03-17 launch blog, changelog and LinkedIn post, all still live. Current docs, API reference, product and pricing pages name no provider, so today's provider is unconfirmed.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Browserbase launched its Search API on 2026-03-17 'powered by Exa'. The launch blog, the changelog entry dated 2026-03-17, Browserbase's LinkedIn post, and a LinkedIn post by Nitya Sridhar all say so.",
+     "support_rids_full": [
+      "q25-r3",
+      "q25-r6",
+      "q25-r15",
+      "q25-r24",
+      "q25-r9"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://browserbase.com/blog/search/",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/browser-infrastructure.md:48",
+     "usefulness": 1
+    },
+    {
+     "claim": "Browserbase's current Search docs, API reference, /search product page and pricing page ($7 per 1k after 1,000 free) describe the API without naming a provider.",
+     "support_rids_full": [
+      "q25-r14",
+      "q25-r10",
+      "q25-r12",
+      "q25-r19"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://docs.browserbase.com/platform/search/overview",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/browser-infrastructure.md:89",
+     "usefulness": 1
+    }
+   ],
+   "notes": "Every 'powered by Exa' statement dates from launch. Other current pages also name no provider: skills (r4, r16, r18), templates (r2, r17), the Stagehand search tool (r7) and the docs welcome pages (r5, r11). Two circumstantial signals, not counted: the API reference's result fields (id, url, title, author, publishedDate, image, favicon) match Exa's result schema, and the $7 per 1k overage equals Exa's list price. The Instagram reel (r8) was unreadable."
+  },
+  {
+   "id": "q26",
+   "status": "resolved",
+   "answer": "Tavily. A dated secondary page (2026-04-30) says Groq documented Tavily for its built-in web search, and Exa for GPT-OSS browser search. Groq's own web-search doc now redirects to its deprecations page.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Groq's built-in Web Search tool, the search Compound used, was documented as powered by Tavily (as of 2026-04-30).",
+     "support_rids_full": [
+      "q26-r16"
+     ],
+     "support_rids_partial": [
+      "q26-r12"
+     ],
+     "verified_url": "https://www.marketingscoop.com/ai/groq-browser-search-when-interactive-browsing-beats-one-shot-web-search-for-real-time-ai-answers",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/tavily.md:182",
+     "usefulness": 1
+    }
+   ],
+   "notes": "r1 (Groq's web-search doc) now redirects to /docs/deprecations, so its Tavily line can't be read live and it is unverifiable. The same applies to r2, r4, r18 and r23. The KB records the Tavily attribution as 'Historical, snippet-only'. r16 upgrades that to a verified, dated secondary source. An archived Groq page (console.groq.com/docs/web-search, Wayback 2025-11-12) links 'powered by' to tavily.com; it is not a pool page and isn't counted. r12 confirms Compound used 'the built-in web search tool' but names no provider. Deprecation was announced 2026-08-24, with decommissioning on 2026-09-21 (r23, r12, r22; already in KB). Anchor (r10) ran Compound's browser agents and E2B (r14, r20) its code execution; neither was the search provider."
+  },
+  {
+   "id": "q27",
+   "status": "unresolved",
+   "answer": "Unclear. whyhow.ai doesn't resolve and the GitHub org is gone. Stanford CodeX lists it as Active (reviewed June 2026), and Tracxn shows 4 employees as of 2026-07-31 with an active legal entity. PitchBook's 'Out of Business' couldn't be verified (403). No acquisition evidence.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Stanford CodeX TechIndex lists Whyhow.ai with status 'Active' (entry last reviewed June 2026). The website it links to no longer resolves.",
+     "support_rids_full": [
+      "q27-r2"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://techindex.law.stanford.edu/companies/whyhow-ai",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 0
+    },
+    {
+     "claim": "Tracxn's WhyHow.AI profile (updated 2026-09-05) shows 4 employees as of 2026-07-31 and the legal entity WHYHOW, INC. (incorporated 2024-01-29) as active. It records no acquisition or shutdown.",
+     "support_rids_full": [
+      "q27-r3"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://tracxn.com/d/companies/whyhowai/__uGizAth_Fb9u02fJWWFFoFePh_ZIOtGZfwHBn-q5K0U",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 1
+    }
+   ],
+   "notes": "PitchBook (r10), whose snippet says 'Out of Business', returned 403 to both curl and WebFetch: unverifiable, not counted. whyhow.ai (r7, r19) fails DNS and github.com/whyhow-ai (r5) returns 404, which matches the KB (customer-stories/whyhow-litigation-intelligence.md:21). The LinkedIn company page (r16) is behind a reCAPTCHA, and the post (r14) is about a year old. The GetLatka figures (r12: $990K, 9 staff) are estimates. The framer site (r21) is an old lorem-ipsum draft. Crunchbase, Dealroom, Medium, The Company Check and the Andorra ecosystem page returned 403. r1, r4 and r20 are about other companies."
+  },
+  {
+   "id": "q28",
+   "status": "resolved",
+   "answer": "Both. Legora's own sub-processor list (updated 2026-07-06) names Linkup for web search in the EU, US and Asia-Pacific sections, and Exa Labs for web search in the US section only.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Legora's Pre-approved Sub-processors page (last updated 2026-07-06) lists Exa Labs Inc. for 'Web Search' with US data residency. Exa is not listed in the EU or Asia-Pacific sections.",
+     "support_rids_full": [
+      "q28-r10"
+     ],
+     "support_rids_partial": [
+      "q28-r32"
+     ],
+     "verified_url": "https://legora.com/legal/eu-pre-approved-sub-processors",
+     "novelty": "contradicts_kb",
+     "kb_ref": "verticals/legal-tech.md:82; customer-stories/CUSTOMER-STORIES-INDEX.md:152",
+     "usefulness": 3
+    },
+    {
+     "claim": "Legora uses Linkup for web search across its regions. Its list names Linkup Technologies SAS for the EU and APAC and Linkup Labs Inc. for the US, and Linkup's case study describes per-jurisdiction endpoints.",
+     "support_rids_full": [
+      "q28-r10",
+      "q28-r24",
+      "q28-r26"
+     ],
+     "support_rids_partial": [
+      "q28-r5",
+      "q28-r17",
+      "q28-r1",
+      "q28-r31",
+      "q28-r6",
+      "q28-r12",
+      "q28-r29"
+     ],
+     "verified_url": "https://legora.com/legal/eu-pre-approved-sub-processors",
+     "novelty": "already_in_kb",
+     "kb_ref": "verticals/legal-tech.md:63",
+     "usefulness": 1
+    }
+   ],
+   "notes": "The KB (verticals/legal-tech.md:82) says Legora's own sub-processor page 'wasn't found (404)', and CUSTOMER-STORIES-INDEX.md:152 calls Exa 'logo only'. Legora's page is a customer-side confirmation of Exa for US web search. r32 is Exa's LinkedIn repost (about March 2026) saying 'Web search at Legora is powered by Exa'; it is vendor-side and gives no region. Linkup's case study (r24) says Linkup was 'the only provider' meeting both requirements; Legora's US listing of Exa qualifies that. The Exa homepage still shows the Legora logo (r11). The Legora engineering (r23), Elastic (r30) and Microsoft (r21) pages cover internal search and models, not web search."
+  },
+  {
+   "id": "q29",
+   "status": "resolved",
+   "answer": "Exa. A 2026-07-30 hands-on of Firefox Beta says every Quick Answers response names Exa as the answer provider. firefox-ios code from 2026-07-08 let Nimbus switch the backend between Exa and Liner.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "By 2026-07-30, during the July launch window, Firefox for iOS Quick Answers named Exa as its answer provider. MacObserver's hands-on (Firefox Beta via TestFlight) says every response footer identifies Exa, and a German news item the same day says Exa is the provider.",
+     "support_rids_full": [
+      "q29-r8",
+      "q29-r22"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.macobserver.com/news/we-tried-firefoxs-new-ai-quick-answers-on-iphone-heres-how-it-works/",
+     "novelty": "contradicts_kb",
+     "kb_ref": "customer-stories/firefox-cited-ai-answers-in-browser.md:165; customer-stories/firefox-cited-ai-answers-in-browser.md:66",
+     "usefulness": 3
+    },
+    {
+     "claim": "firefox-ios commits from 2026-07-08 and 2026-07-10 added a 'Powered by <Model>' footer and Nimbus model selection between 'exa' and 'liner' for Quick Answers, plus Exa-specific system-prompt instructions.",
+     "support_rids_full": [
+      "q29-r17",
+      "q29-r12"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://github.com/mozilla-mobile/firefox-ios/commit/5f0ae2f82b45a85ce74be58ca6168ae472ff6e71",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "The KB says the pre-2026-08-17 provider is unknown and that 'the first Exa date is 2026-08-17' (firefox-cited-ai-answers-in-browser.md:66, :165). Two caveats: MacObserver tested a Beta build, and the code allowed Liner as a Nimbus-selectable alternative, so the production config on launch day (2026-07-21) isn't independently confirmed. ad-hoc-news (r22) is a low-quality aggregator that misdates the launch as 2026-07-30. Mozilla's launch post (r11) names no provider. The Mozilla support pages (r1, r9, r23) returned a JS client challenge (unverifiable). Exa's blog (r19) and case study (r5) are in the KB. The Perplexity items (r2, r7, r14) concern desktop search, not Quick Answers."
+  },
+  {
+   "id": "q30",
+   "status": "resolved",
+   "answer": "73M search queries to date, per Exa's OpenRouter case study (page metadata date 2026-05-15). OpenRouter's own pages publish no web-search volume.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Exa's OpenRouter case study says 73M search queries to date 'across OpenRouter's web-connected model experience', up from 2.36M+ the year before.",
+     "support_rids_full": [
+      "q30-r2"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/customers/openrouter",
+     "novelty": "already_in_kb",
+     "kb_ref": "customer-stories/openrouter-model-agnostic-web-search.md:108",
+     "usefulness": 0
+    },
+    {
+     "claim": "The case study's metadata date is 2026-05-15.",
+     "support_rids_full": [
+      "q30-r2"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/customers/openrouter",
+     "novelty": "already_in_kb",
+     "kb_ref": "customer-stories/openrouter-model-agnostic-web-search.md:108",
+     "usefulness": 0
+    }
+   ],
+   "notes": "The only figure is Exa-published, and it comes from a URL the KB already cites. OpenRouter's docs, tool page, blogs (2026-05-07, 2026-08-12, 2026-08-17) and data page (r1, r4, r7, r9, r11, r13, r14, r16, r22) give no web-search volume. Scope stays ambiguous: the body credits the queries to Exa, while the results tile scopes them to OpenRouter's web-connected experience. Stats sites (r15, r18), Semrush (r10) and the token studies (r8, r12, r20) aren't web-search counts."
+  }
+ ]
+}

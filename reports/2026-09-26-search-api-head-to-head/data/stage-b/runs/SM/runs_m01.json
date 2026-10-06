@@ -1,0 +1,153 @@
+{
+ "set": "SM",
+ "id": "m01",
+ "provider": "exa",
+ "name": "provider-eval SM m01 Tavily",
+ "status_at_harvest": "active",
+ "search": {
+  "query": "Tavily API pricing, credits, plans, or changelog update",
+  "numResults": 10,
+  "includeDomains": [
+   "tavily.com",
+   "docs.tavily.com"
+  ]
+ },
+ "trigger": {
+  "type": "interval",
+  "period": "1d"
+ },
+ "output_schema": null,
+ "created": "2026-09-27T00:16:04.346Z",
+ "runs": [
+  {
+   "run": 1,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-27T06:52:09.546Z",
+   "startedAt": "2026-09-27T06:52:09.546Z",
+   "completedAt": "2026-09-27T06:52:10.662Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1289,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 2,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-28T06:57:40.131Z",
+   "startedAt": "2026-09-28T06:57:40.131Z",
+   "completedAt": "2026-09-28T06:57:41.132Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1163,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 3,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-29T06:38:32.131Z",
+   "startedAt": "2026-09-29T06:38:32.131Z",
+   "completedAt": "2026-09-29T06:38:33.508Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1557,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 4,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-30T06:59:24.082Z",
+   "startedAt": "2026-09-30T06:59:24.082Z",
+   "completedAt": "2026-09-30T06:59:25.195Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1256,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 5,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-01T07:04:30.808Z",
+   "startedAt": "2026-10-01T07:04:30.808Z",
+   "completedAt": "2026-10-01T07:04:32.648Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2028,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 6,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-02T06:56:30.326Z",
+   "startedAt": "2026-10-02T06:56:30.326Z",
+   "completedAt": "2026-10-02T06:56:35.301Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5156,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 7,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-03T07:02:20.924Z",
+   "startedAt": "2026-10-03T07:02:20.924Z",
+   "completedAt": "2026-10-03T07:02:22.418Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1680,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 8,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-04T07:03:37.180Z",
+   "startedAt": "2026-10-04T07:03:37.180Z",
+   "completedAt": "2026-10-04T07:03:38.981Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1948,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 9,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-05T07:02:25.643Z",
+   "startedAt": "2026-10-05T07:02:25.643Z",
+   "completedAt": "2026-10-05T07:02:27.295Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1885,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 10,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-06T06:48:44.397Z",
+   "startedAt": "2026-10-06T06:48:44.397Z",
+   "completedAt": "2026-10-06T06:48:46.371Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2137,
+   "note_chars": 43,
+   "results": []
+  }
+ ]
+}

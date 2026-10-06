@@ -1,0 +1,370 @@
+{
+ "set": "S5",
+ "list": "S5b",
+ "entities": [
+  {
+   "eid": "S5b-e1",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://x.ai/news/grok-business ; https://x.ai/grok ; https://docs.x.ai/developers/tools/web-search",
+   "note": "Grok Business and Enterprise (launched 30 Dec 2025) search Google Drive with permission awareness and support Collections. Grok's product page says it searches the web and X live. xAI's web search docs name no index, and the KB's xAI leaf also records it as undisclosed. Known because the KB covers xAI/SpaceXAI in competitive/xai-and-mistral-web-search.md, though not Grok Business itself."
+  },
+  {
+   "eid": "S5b-e2",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://support.sana.ai/en/articles/197220-search-in-sana-agents ; https://sanalabs.com/download/legal/subprocessors.pdf",
+   "note": "Sana Agents Search covers documents, emails, and web pages, with a toggle to turn web search off. No web search engine is named. The subprocessor list (updated 9 Sep 2026) lists Anthropic, Mistral, OpenAI, and Google Cloud as 'search infra' for Sana Agents. Jina's web search row applies only to Sana Learn. So 'not disclosed' holds. Same product as S5b-e6."
+  },
+  {
+   "eid": "S5b-e3",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.withrealm.com/web-search",
+   "note": "Realm lets users choose Enterprise Search (connected apps such as Salesforce, Gong, and Google Drive), Web Search, or both. Neither the web search page nor the security page names a provider."
+  },
+  {
+   "eid": "S5b-e4",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://uplandsoftware.com/bainsight/connectors/bing-web-search/ ; https://learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement",
+   "note": "SmartHub is enterprise search, and its Bing Web Search federated connector merges Bing web results with internal results. The page is live. But the connector relies on the Bing Search APIs, which Microsoft retired on 11 Aug 2025, and the page mentions no replacement, so the feature may no longer work."
+  },
+  {
+   "eid": "S5b-e5",
+   "criteria": {
+    "internal_data_product": "partial",
+    "public_web_answers": "meets"
+   },
+   "overall": "partial",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://github.blog/changelog/2026-02-25-improved-web-search-in-copilot-on-github-com/ ; https://github.blog/news-insights/product-news/github-copilot-enterprise-is-now-generally-available/",
+   "note": "The changelog (25 Feb 2026) says Copilot Chat on github.com uses model-native web search where enabled, and other models keep using Bing. Internal data is limited to org code, knowledge bases, and Spaces. It is a coding assistant, not an enterprise-search or workplace-AI product. Marked known only because matches_exclusion is set ('supermemory Company Brain'), which looks like a github.com domain collision. 'GitHub Copilot' has 0 hits in the KB."
+  },
+  {
+   "eid": "S5b-e6",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://support.sana.ai/en/articles/183170-web-search-in-sana ; https://sanalabs.com/download/legal/subprocessors.pdf",
+   "note": "The help article (22 Sep 2025) documents web search for questions that go beyond internal documents. No provider is named, and the subprocessor list names only LLM vendors as 'search infra' for Sana Agents. Duplicate of S5b-e2 under the sana.ai domain."
+  },
+  {
+   "eid": "S5b-e7",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.genspark.ai/business",
+   "note": "Genspark for Business, an AI workspace for teams, advertises research that draws on the live web and internal knowledge, plus 200+ connectors (Salesforce, Google Workspace, Microsoft 365, Slack). No search provider is named. Cloudflare blocks curl, so I read the page in a browser."
+  },
+  {
+   "eid": "S5b-e8",
+   "criteria": {
+    "internal_data_product": "partial",
+    "public_web_answers": "meets"
+   },
+   "overall": "partial",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://help.hcl-software.com/UnO/v2.1.4/UnO%20Agentic%20AI%20Builder/agentic_ai_builder_AIPoweredSearch_Agent.html ; https://help.hcl-software.com/UnO/v2.1.2/UnO%20Agentic%20AI%20Builder/agenticaibuilder_tools_googlesearch.html",
+   "note": "The AI-powered Search Agent template queries internal FAQs and policy files, then falls back to web search through the Google Search Tool. That tool uses Google's Custom Search API (an API key plus a CSE ID). But the product is an agent builder inside HCL Universal Orchestrator, a workload-automation product, and the search agent is only a template. It is not an enterprise-search or workplace-AI product. The KB mentions HCLTech/HCL only as SIs, not this product."
+  },
+  {
+   "eid": "S5b-e9",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://docs.kore.ai/ai-for-work/llm-configuration ; https://docs.kore.ai/ai-for-work/assistant-configurations",
+   "note": "AI for Work connects enterprise systems (SharePoint, Salesforce, ServiceNow) and includes a Search Agent. A prebuilt Web Search tool is available for supported models. The capability matrix maps web search to OpenAI web_search, Azure OpenAI web_search, and Gemini google_search, with none for Bedrock or Anthropic. That matches the claim."
+  },
+  {
+   "eid": "S5b-e10",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://www.perplexity.ai/help-center/en/articles/13901210-computer-for-enterprise ; https://www.perplexity.ai/hub/blog/introducing-the-perplexity-search-api",
+   "note": "Computer for Enterprise combines web research with the organization's work context through hundreds of app connectors. Perplexity says its Search API runs on the same infrastructure that powers its answer engine. So 'first-party, with the backend for Computer not specified' is accurate. matches_exclusion is set."
+  },
+  {
+   "eid": "S5b-e11",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://docs.generateapps.iterate.ai/chat-superagent/ ; https://docs.generateapps.iterate.ai/integrations/",
+   "note": "The cited help URL (help.generateapps.iterate.ai) now returns 404. The current docs confirm a web search toggle in Chat (only the typed query is sent), a knowledge base, and 60+ connectors. No search provider is named."
+  },
+  {
+   "eid": "S5b-e12",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-manage ; https://brave.com/blog/snowflake/",
+   "note": "Cortex Agents and Snowflake Intelligence combine structured and unstructured enterprise data with a web search tool. Snowflake's docs say Cortex Agents use the Brave Web Search API, with ZDR enabled. Known: the KB already records this in competitive/brave-search-api.md and features/data-platform-integrations.md."
+  },
+  {
+   "eid": "S5b-e13",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://help.getguru.com/docs/setting-up-and-managing-knowledge-agents",
+   "note": "Knowledge Agents can add web search, either the whole web or trusted domains, as a connected source, and answers blend web and internal sources. Web search runs as real-time federated queries. No provider is named, and I found no public subprocessor list."
+  },
+  {
+   "eid": "S5b-e14",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://docs.glean.com/administration/tools/setup-tools/web-search-tools-setup ; https://docs.glean.com/user-guide/assistant/deep-research",
+   "note": "Admins choose OpenAI, Brave, or Google Gemini for web search; the Gemini option offers Google consumer search or an enterprise variant. Deep Research uses Brave Web Search exclusively. One merged value also cites Google Search for Gemini Enterprise, which is Google's product, not Glean's. matches_exclusion is set."
+  },
+  {
+   "eid": "S5b-e15",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://ejento.ai/",
+   "note": "The homepage lists enterprise search across company knowledge (SharePoint, a knowledge corpus) and a real-time Web Search tool among the assistant's tools. No provider is named."
+  },
+  {
+   "eid": "S5b-e16",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "wrong"
+   },
+   "novelty": "known",
+   "checked_url": "https://trust.anthropic.com/subprocessors ; https://support.claude.com/en/articles/12489464-use-enterprise-search",
+   "note": "Team and Enterprise plans offer enterprise search over connected apps, and web search is documented. The claim that the provider is 'not disclosed' is wrong. Anthropic's Trust Center lists Brave Search (all products) with the purpose 'Web Search', and also lists turbopuffer under Web Search. The KB leaf had Brave only from secondary sources because it could not read the Trust Center. matches_exclusion is set."
+  },
+  {
+   "eid": "S5b-e17",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://customgpt.ai/try/",
+   "note": "The page advertises Enterprise Search across SharePoint, Confluence, Notion, and Slack, and Live Web Search that adds real-time web results to the knowledge base. No provider is named."
+  },
+  {
+   "eid": "S5b-e18",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://learn.microsoft.com/en-us/microsoft-365/copilot/manage-public-web-access",
+   "note": "Microsoft 365 Copilot grounds on work data. When web search is on, Copilot sends a generated query to the Bing search service. The merged entity also names consumer and Edge Copilot, which on their own would not meet the internal-data criterion. Known: matches_exclusion is 'Azure AI Search' (a domain-level match), and the KB also has competitive/microsoft-365-copilot.md."
+  },
+  {
+   "eid": "S5b-e19",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://docs.wissly.ai/en/search/internal-vs-web.md ; https://www.wissly.ai/en/product",
+   "note": "Local-AI search over documents, ERP, and groupware. The cited /en/service page now redirects to /en/product, which doesn't mention web search. Wissly's docs do: answers come from internal documents first, and web search is used for general knowledge, recent trends, or on request. No provider is named."
+  },
+  {
+   "eid": "S5b-e20",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://docs.aisera.com/aisera-platform/tenant-setup/aisera-platform-configuration/tenant-configuration-settings/public-search",
+   "note": "Public Search supplements the internal knowledge base when it can't answer. The Search Engine setting defaults to Google (Custom Search API key plus Engine ID), with Bing (api.bing.microsoft.com, the retired API) and Tavily as options. Marked known only because of a grep hit: Aisera appears in the KB just as a name in Quantium's partner list (_scratch/research/si-partners-channel.md). The KB does not cover it as a workplace-AI product."
+  },
+  {
+   "eid": "S5b-e21",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.moveworks.com/us/en/resources/blog/enterprise-ai-assistant-web-search ; https://docs.moveworks.com/ai-assistant/capabilities/world-knowledge-app",
+   "note": "Enterprise Search covers internal sources, and the World Knowledge App and Quick GPT add live web search (on by default). The 1 Jul 2025 blog says an OpenAI model powers Quick GPT's web search, which supports 'OpenAI'. The other merged value ('not disclosed in docs') is literally true of the docs but misses the blog."
+  },
+  {
+   "eid": "S5b-e22",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://omnifact.ai/dpa ; https://docs.omnifact.ai/en/introduction",
+   "note": "Spaces hold knowledge bases synced from Google Drive, OneDrive, and SharePoint, and the agent also searches the web. The DPA lists Brave Software, Inc. as the sub-processor for web search through the Brave Search API."
+  },
+  {
+   "eid": "S5b-e23",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://cloud.google.com/products/gemini-enterprise-agent-platform/agent-search ; https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-google-search",
+   "note": "Agent Search (formerly Vertex AI Search) builds intranet and site search and RAG over enterprise data, and Google says its results are grounded to enterprise data. Open-web answers come from Grounding with Google Search, a Gemini model tool on the same platform rather than an Agent Search feature. Google Search is the right provider for that tool. matches_exclusion is set."
+  },
+  {
+   "eid": "S5b-e24",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://docsbot.ai/internal-knowledge",
+   "note": "An internal chatbot for employees over docs, wikis, and tools. Deep Research combines the knowledge base with live web search. No provider is named on the pages I checked (the Deep Research doc page renders no body)."
+  },
+  {
+   "eid": "S5b-e25",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://soev.ai/en/solutions/web-search",
+   "note": "A Dutch sovereign-AI product that searches internal documents and the live web at the same time and merges both into one answer. It says queries aren't exposed to external search engines, but it names no provider."
+  },
+  {
+   "eid": "S5b-e26",
+   "criteria": {
+    "internal_data_product": "meets",
+    "public_web_answers": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "web_search_provider": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://help.openai.com/en/articles/10093903-chatgpt-search-for-enterprise-and-edu ; https://help.openai.com/en/articles/12628342-company-knowledge-in-chatgpt",
+   "note": "The Company Knowledge plugin answers from connected apps and MCP apps. OpenAI's Enterprise and Edu search article says ChatGPT may share disassociated queries with Bing to return web results, and may use third-party data providers for specialized results. Known: the KB's long-tail leaf lists ChatGPT Business and Enterprise. The KB's provider line is vaguer than this; Bing is named here."
+  }
+ ]
+}

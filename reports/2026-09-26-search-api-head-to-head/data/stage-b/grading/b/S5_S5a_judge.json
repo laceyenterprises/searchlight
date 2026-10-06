@@ -1,0 +1,182 @@
+{
+ "set": "S5",
+ "list": "S5a",
+ "entities": [
+  {
+   "eid": "S5a-e1",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "practice": "correct",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://chaosgears.com/blog/amazon-bedrock-agents-tavily-search-guide ; https://chaosgears.com/services/data-and-ai",
+   "note": "AWS Premier Tier services partner (homepage). Its Data & AI page lists an 'Agentic AI services' offering. The blog (4 Sep 2025, by a Chaos Gears AI engineer) is a hands-on guide to adding Tavily web search to Amazon Bedrock and AgentCore agents. The pages are JS-rendered, so I read them in a browser. Not in the KB baseline."
+  },
+  {
+   "eid": "S5a-e2",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "wrong",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.epcgroup.net/perplexity-ai-consulting ; https://www.epcgroup.net/services/copilot-studio-agent-development",
+   "note": "Microsoft Solutions Partner consultancy with agentic offerings (Copilot Studio Agent Development and Agentic AI Governance service pages). The Perplexity page is a service pitch. It offers Perplexity API integration with Microsoft 365 (Power Automate, Azure Functions, Teams extensions) but shows no published build, blueprint, or case study of an agent calling the API. 'Perplexity Practice' is a real name on the page, but it covers vendor rollout and AEO/GEO work. It is not the firm's agentic-AI practice, so the practice field is wrong."
+  },
+  {
+   "eid": "S5a-e3",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "partial",
+    "published_web_search_integration": "meets"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "wrong",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.cloudjournee.com/case-studies/from-days-of-research-to-a-finished-e-book-in-15-minutes/ ; https://www.cloudjournee.com/gen-ai/",
+   "note": "AWS cloud consulting and managed-services firm. The case study describes a LangGraph multi-agent build on Bedrock AgentCore, where the Tavily Search API handles web discovery and retrieval. There is no named agentic-AI practice. Agents appear only as an 'AI Agent Operations' block inside its GenAI services page, and the homepage never mentions agentic AI. The claimed practice name is the case study's page title (the client's platform), not a CloudJournee practice."
+  },
+  {
+   "eid": "S5a-e4",
+   "criteria": {
+    "services_firm": "partial",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "meets"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "correct",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://superteamai.com/blog/free-ai-agents/seo-research-and-content-ai-agent-with-perplexity/ ; https://superteamai.com/about/",
+   "note": "The blog publishes a downloadable n8n agent template that calls the Perplexity Pro API for research. Services status is mixed. SuperteamAI builds custom agent systems for enterprises, but it also sells productized 'AI workforces' at $299 a month and free pre-built agents. It is part agency, part product. The pool URL is a LinkedIn page, not the official homepage (superteamai.com)."
+  },
+  {
+   "eid": "S5a-e5",
+   "criteria": {
+    "services_firm": "partial",
+    "agentic_ai_practice": "fails",
+    "published_web_search_integration": "partial"
+   },
+   "overall": "fails",
+   "fields": {
+    "practice": "wrong",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.davydovconsulting.com/ai-perplexity ; https://www.davydovconsulting.com/",
+   "note": "A London web-design and development agency (Wix, Shopify, app builds, SEO and ads), not an SI or enterprise IT consultancy. Its AI menu covers ChatGPT, Gemini, Claude, and Perplexity integration plus generic AI implementation. I found no agentic-AI or AI-agent offering after checking the sitemap. The Perplexity page is a service pitch for connecting websites to Perplexity by API, with no published agent build. 'Perplexity Integration' is not an agentic-AI practice."
+  },
+  {
+   "eid": "S5a-e6",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "correct",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.coherentsolutions.com/artificial-intelligence/agentic-ai",
+   "note": "Custom software and IT services firm with an 'Agentic AI development company' services page. The three web search APIs appear only in a tech-stack list on that page. I found no solution, repo, or case study showing an agent calling them (a site search returned nothing)."
+  },
+  {
+   "eid": "S5a-e7",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "wrong",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.oaktreecloud.com/perplexity-integration-experts/ ; https://www.oaktreecloud.com/ai-agent-development-services/",
+   "note": "Bengaluru IT services and staff-augmentation firm with an 'AI Agent Development Company' page. The Perplexity page is a service pitch (Perplexity API integration into apps, plus 'AI Agents powered by Perplexity') with no published build or case study. The firm's agentic practice is AI Agent Development. 'Perplexity Integration Services' is a web-search integration service, not that practice."
+  },
+  {
+   "eid": "S5a-e8",
+   "criteria": {
+    "services_firm": "partial",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "meets"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "correct",
+    "web_search_providers": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://github.com/IBM/orchestrate-adk-agent ; https://www.ibm.com/consulting/ai-integration ; https://docs.tavily.com/documentation/partnerships/ibm",
+   "note": "IBM Consulting is a services arm, but IBM as a whole is a hybrid with a larger software business, so services_firm is partial. IBM Consulting's AI integration page names IBM Enterprise Advantage for agentic AI. The cited evidence is Tavily's own docs page (watsonx Orchestrate with the Tavily Research Agent and Search API). IBM's side is confirmed by its own GitHub repo (a watsonx Orchestrate ADK example with a Tavily MCP server) and an ibm.com post. That work is from IBM Software, not IBM Consulting. matches_exclusion is IBM Consulting."
+  },
+  {
+   "eid": "S5a-e9",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "correct",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://techsyspro.com/services/ai-agent-development",
+   "note": "Enterprise software and AI services firm; its homepage lists Agentic AI and AI Consulting. The AI Agent Development page names AI Agent Consulting & Strategy and Autonomous Research Agents. Tavily and SerpAPI appear only in a 'Tool Integration' stack list. Its case-study cards, including a research agent, name no search API. The page is JS-rendered, so I read it in a browser."
+  },
+  {
+   "eid": "S5a-e10",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "correct",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.bacancytechnology.com/hire-langchain-developer",
+   "note": "Large IT outsourcing firm. The page has an 'AI Agent Development with LangChain & LangGraph' section. Tavily and Exa appear only in an 'Agents & Tool Integrations' stack table. I found no blog, repo, or case study with an agent calling them. Cloudflare blocks curl, so I read the page in a browser."
+  },
+  {
+   "eid": "S5a-e11",
+   "criteria": {
+    "services_firm": "meets",
+    "agentic_ai_practice": "meets",
+    "published_web_search_integration": "partial"
+   },
+   "overall": "partial",
+   "fields": {
+    "practice": "wrong",
+    "web_search_providers": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://advetfly.com/experties",
+   "note": "AI consulting LLP. The expertise page has an 'Autonomous Agent AI (AgentOps)' category, which is the agentic practice. 'LangChain' is a framework tile, not the practice. A 'Perplexity API' tile says the firm embeds the API in enterprise systems and chatbot workflows, but that is service copy, not a published build."
+  }
+ ]
+}

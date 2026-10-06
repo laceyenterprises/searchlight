@@ -1,0 +1,81 @@
+[exa] S1/q01 status=200 1177ms cost={'usd': 0.007}
+[tavily] S1/q01 status=200 2943ms cost={'credits': 2}
+[exa] S1/q02 status=200 1809ms cost={'usd': 0.007}
+[parallel] S1/q01 status=200 3541ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S1/q03 status=200 1298ms cost={'usd': 0.007}
+[exa] S1/q04 status=200 1421ms cost={'usd': 0.007}
+[tavily] S1/q02 status=200 3137ms cost={'credits': 2}
+[parallel] S1/q02 status=200 2926ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S1/q05 status=200 1430ms cost={'usd': 0.007}
+[exa] S1/q06 status=200 1068ms cost={'usd': 0.007}
+[parallel] S1/q03 status=200 2168ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q03 status=200 2667ms cost={'credits': 2}
+[parallel] S1/q04 status=200 2678ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S1/q07 status=200 3350ms cost={'usd': 0.007}
+[tavily] S1/q04 status=200 3573ms cost={'credits': 2}
+[exa] S1/q08 status=200 1229ms cost={'usd': 0.007}
+[parallel] S1/q05 status=200 2620ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[firecrawl] S1/q01 status=200 1197ms cost={'credits': 4}
+[exa] S1/q09 status=200 1524ms cost={'usd': 0.007}
+[exa] S1/q10 status=200 1344ms cost={'usd': 0.007}
+[tavily] S1/q05 status=200 3827ms cost={'credits': 2}
+[parallel] S1/q06 status=200 2460ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S1/q11 status=200 1214ms cost={'usd': 0.007}
+[exa] S1/q12 status=200 1083ms cost={'usd': 0.007}
+[tavily] S1/q06 status=200 2549ms cost={'credits': 2}
+[exa] S1/q13 status=200 1023ms cost={'usd': 0.007}
+[exa] S1/q14 status=200 1831ms cost={'usd': 0.007}
+[parallel] S1/q07 status=200 5047ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q07 status=200 3442ms cost={'credits': 2}
+[exa] S1/q15 status=200 3892ms cost={'usd': 0.007}
+[parallel] S1/q08 status=200 3449ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S1/q16 status=200 1364ms cost={'usd': 0.007}
+[parallel] S1/q09 status=200 2133ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q08 status=200 5929ms cost={'credits': 2}
+[exa] S1/q17 status=200 2369ms cost={'usd': 0.007}
+[parallel] S1/q10 status=200 2632ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S1/q18 status=200 3130ms cost={'usd': 0.007}
+[parallel] S1/q11 status=200 2084ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q09 status=200 3860ms cost={'credits': 2}
+[exa] S1/q19 status=200 1123ms cost={'usd': 0.007}
+[parallel] S1/q12 status=200 1998ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S1/q20 status=200 1065ms cost={'usd': 0.007}
+[tavily] S1/q10 status=200 3659ms cost={'credits': 2}
+[parallel] S1/q13 status=200 2163ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[parallel] S1/q14 status=200 2343ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q11 status=200 3700ms cost={'credits': 2}
+[firecrawl] S1/q02 status=200 1015ms cost={'credits': 5}
+[parallel] S1/q15 status=200 2416ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q12 status=200 2409ms cost={'credits': 2}
+[parallel] S1/q16 status=200 2295ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q13 status=200 3996ms cost={'credits': 2}
+[parallel] S1/q17 status=200 3490ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[parallel] S1/q18 status=200 2095ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q14 status=200 3577ms cost={'credits': 2}
+[parallel] S1/q19 status=200 2127ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q15 status=200 3609ms cost={'credits': 2}
+[parallel] S1/q20 status=200 3572ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S1/q16 status=200 2831ms cost={'credits': 2}
+[tavily] S1/q17 status=200 3921ms cost={'credits': 2}
+[tavily] S1/q18 status=200 3189ms cost={'credits': 2}
+[tavily] S1/q19 status=200 2995ms cost={'credits': 2}
+[firecrawl] S1/q03 status=200 1519ms cost={'credits': 5}
+[tavily] S1/q20 status=200 3078ms cost={'credits': 2}
+[firecrawl] S1/q04 status=200 1098ms cost={'credits': 5}
+[firecrawl] S1/q05 status=200 1244ms cost={'credits': 5}
+[firecrawl] S1/q06 status=200 1100ms cost={'credits': 5}
+[firecrawl] S1/q07 status=200 1400ms cost={'credits': 4}
+[firecrawl] S1/q08 status=200 939ms cost={'credits': 4}
+[firecrawl] S1/q09 status=200 1269ms cost={'credits': 4}
+[firecrawl] S1/q10 status=200 971ms cost={'credits': 5}
+[firecrawl] S1/q11 status=200 1133ms cost={'credits': 4}
+[firecrawl] S1/q12 status=200 1200ms cost={'credits': 4}
+[firecrawl] S1/q13 status=200 1265ms cost={'credits': 5}
+[firecrawl] S1/q14 status=200 986ms cost={'credits': 4}
+[firecrawl] S1/q15 status=200 1149ms cost={'credits': 4}
+[firecrawl] S1/q16 status=200 1188ms cost={'credits': 4}
+[firecrawl] S1/q17 status=200 1569ms cost={'credits': 5}
+[firecrawl] S1/q18 status=200 1527ms cost={'credits': 5}
+[firecrawl] S1/q19 status=200 1189ms cost={'credits': 4}
+[firecrawl] S1/q20 status=200 1147ms cost={'credits': 4}
+LEDGER {"exa": {"usd": 0.14700000000000008, "credits": 0, "calls": 21}, "tavily": {"usd": 0.0, "credits": 42, "calls": 21}, "parallel": {"usd": 0.10500000000000002, "credits": 0, "calls": 22}, "firecrawl": {"usd": 0.0, "credits": 187, "calls": 80}}

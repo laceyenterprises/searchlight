@@ -1,0 +1,597 @@
+{
+ "list": {
+  "id": "S5b",
+  "objective": "Find enterprise-search, workplace-AI, and knowledge-management AI products that can also answer from the public web, and identify which web search provider powers that web answering.",
+  "criteria": [
+   {
+    "name": "internal_data_product",
+    "description": "The product searches or answers over an organization's internal data (documents, apps, wikis, tickets, or knowledge bases) for its employees. It is an enterprise-search, workplace-AI assistant, or knowledge-management AI product."
+   },
+   {
+    "name": "public_web_answers",
+    "description": "The product can also search the public web, or ground its answers in public web results, as a documented feature."
+   }
+  ],
+  "fields": {
+   "name": "Product name",
+   "company": "Company that sells it",
+   "url": "Official product or company URL",
+   "web_search_provider": "The search engine or API that powers the web feature, or 'not disclosed'",
+   "evidence_url": "URL documenting the web search feature",
+   "provider_evidence_url": "URL that names the web search provider, or null if not disclosed"
+  }
+ },
+ "entities": [
+  {
+   "eid": "S5b-e1",
+   "key": "x.ai",
+   "names": [
+    "Grok (SpaceXAI)"
+   ],
+   "urls": [
+    "https://x.ai/grok"
+   ],
+   "evidence_urls": [
+    "https://docs.x.ai/developers/tools/web-search",
+    "https://grok.com/",
+    "https://x.ai/news/grok-business",
+    "https://x.ai/grok"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e2",
+   "key": "sanalabs.com",
+   "names": [
+    "Sana Agents"
+   ],
+   "urls": [
+    "https://sanalabs.com/"
+   ],
+   "evidence_urls": [
+    "https://support.sana.ai/en/articles/197220-search-in-sana-agents"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e3",
+   "key": "withrealm.com",
+   "names": [
+    "Realm Assistant"
+   ],
+   "urls": [
+    "https://www.withrealm.com/"
+   ],
+   "evidence_urls": [
+    "https://www.withrealm.com/web-search"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e4",
+   "key": "uplandsoftware.com",
+   "names": [
+    "BA Insight SmartHub"
+   ],
+   "urls": [
+    "https://uplandsoftware.com/bainsight/"
+   ],
+   "evidence_urls": [
+    "https://uplandsoftware.com/bainsight/connectors/bing-web-search/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e5",
+   "key": "github.com",
+   "names": [
+    "GitHub Copilot"
+   ],
+   "urls": [
+    "https://github.com/features/copilot"
+   ],
+   "evidence_urls": [
+    "https://github.blog/changelog/2026-02-25-improved-web-search-in-copilot-on-github-com",
+    "http://github.com/about",
+    "http://github.com/features/copilot",
+    "http://github.blog/news-insights/product-news/github-copilot-enterprise-is-now-generally-available"
+   ],
+   "matches_exclusion": "supermemory Company Brain",
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e6",
+   "key": "sana.ai",
+   "names": [
+    "Sana Agents"
+   ],
+   "urls": [
+    "https://sana.ai/"
+   ],
+   "evidence_urls": [
+    "https://support.sana.ai/en/articles/183170-web-search-in-sana"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e7",
+   "key": "genspark.ai",
+   "names": [
+    "Genspark AI Workspace"
+   ],
+   "urls": [
+    "https://www.genspark.ai/business"
+   ],
+   "evidence_urls": [
+    "https://www.genspark.ai/business",
+    "https://www.genspark.ai/ja/business/company",
+    "https://www.genspark.ai/blog/genspark-intro"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e8",
+   "key": "hcl-software.com",
+   "names": [
+    "HCL UnO Agentic AI Builder"
+   ],
+   "urls": [
+    "https://hcl-software.com/"
+   ],
+   "evidence_urls": [
+    "https://help.hcl-software.com/UnO/v2.1.4/UnO%20Agentic%20AI%20Builder/agentic_ai_builder_AIPoweredSearch_Agent.html",
+    "https://help.hcl-software.com/UnO/v2.1.2/UnO%20Agentic%20AI%20Builder/agenticaibuilder_tools_googlesearch.html"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e9",
+   "key": "kore.ai",
+   "names": [
+    "Kore AI for Work"
+   ],
+   "urls": [
+    "https://www.kore.ai/"
+   ],
+   "evidence_urls": [
+    "https://docs.kore.ai/ai-for-work/assistant-configurations",
+    "https://docs.kore.ai/ai-for-work/llm-configuration"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e10",
+   "key": "perplexity.ai",
+   "names": [
+    "Perplexity Computer (Perplexity AI)"
+   ],
+   "urls": [
+    "https://www.perplexity.ai/products/computer"
+   ],
+   "evidence_urls": [
+    "http://perplexity.ai/hub/blog/introducing-perplexity-computer",
+    "https://www.perplexity.ai/hub/blog/introducing-the-perplexity-search-api",
+    "https://www.perplexity.ai/products/computer",
+    "https://www.perplexity.ai/enterprise/videos/how-to-use-connectors",
+    "https://www.perplexity.ai/help-center/en/articles/13901210-computer-for-enterprise.html",
+    "https://docs.perplexity.ai/api-reference/search-post"
+   ],
+   "matches_exclusion": "Perplexity Enterprise (Enterprise Pro, Enterprise Max; Perplexity Computer)",
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e11",
+   "key": "iterate.ai",
+   "names": [
+    "Generate Enterprise"
+   ],
+   "urls": [
+    "https://iterate.ai/"
+   ],
+   "evidence_urls": [
+    "https://help.generateapps.iterate.ai/features/chat/web-search"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e12",
+   "key": "snowflake.com",
+   "names": [
+    "Snowflake Cortex Agents",
+    "Snowflake Intelligence by Snowflake"
+   ],
+   "urls": [
+    "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents",
+    "https://www.snowflake.com/en/product/snowflake-intelligence/"
+   ],
+   "evidence_urls": [
+    "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents",
+    "https://brave.com/blog/snowflake",
+    "https://www.snowflake.com/en/product/features/cortex",
+    "http://snowflake.com/en/product/ai",
+    "https://api-dashboard.search.brave.com/documentation/services/answers",
+    "https://www.snowflake.com/en/blog/snowflake-intelligence-enterprise-ai"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e13",
+   "key": "getguru.com",
+   "names": [
+    "Guru",
+    "Guru Knowledge Agents"
+   ],
+   "urls": [
+    "https://www.getguru.com/features",
+    "https://www.getguru.com/features/knowledge-agents",
+    "https://www.getguru.com/"
+   ],
+   "evidence_urls": [
+    "https://help.getguru.com/docs/setting-up-and-managing-knowledge-agents",
+    "https://help.getguru.com/docs/searching-for-knowledge-in-guru",
+    "https://www.getguru.com/features/knowledge-agents"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e14",
+   "key": "glean.com",
+   "names": [
+    "Glean Assistant by Glean Technologies, Inc.",
+    "Gemini Enterprise by Google and Glean Deep Research",
+    "Glean Agents by Glean"
+   ],
+   "urls": [
+    "https://www.glean.com/ai-assistant",
+    "https://docs.glean.com/user-guide/assistant/deep-research",
+    "https://www.glean.com/ai-agents"
+   ],
+   "evidence_urls": [
+    "https://docs.glean.com/administration/tools/setup-tools/web-search-tools-setup",
+    "http://glean.com/",
+    "https://www.glean.com/ai-assistant",
+    "Gemini Enterprise: https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-google-search ; Glean Deep Research: https://docs.glean.com/user-guide/assistant/deep-research",
+    "https://docs.cloud.google.com/gemini/enterprise/docs",
+    "https://www.glean.com/"
+   ],
+   "matches_exclusion": "Glean",
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "internal_data_product",
+    "provider_evidence_url",
+    "public_web_answers",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e15",
+   "key": "ejento.ai",
+   "names": [
+    "Ejento AI"
+   ],
+   "urls": [
+    "https://ejento.ai/"
+   ],
+   "evidence_urls": [
+    "https://ejento.ai/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e16",
+   "key": "claude.com",
+   "names": [
+    "Claude Web Search (Anthropic)"
+   ],
+   "urls": [
+    "https://support.claude.com/en/articles/10684626-enable-and-use-web-search"
+   ],
+   "evidence_urls": [
+    "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
+    "http://anthropic.com/company",
+    "http://support.claude.com/en/articles/10684626-enable-and-use-web-search",
+    "https://support.claude.com/en/articles/12489464-use-enterprise-search",
+    "https://trust.anthropic.com/subprocessors"
+   ],
+   "matches_exclusion": "Claude Enterprise and Team (enterprise search, Research, Cowork)",
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e17",
+   "key": "customgpt.ai",
+   "names": [
+    "CustomGPT.ai"
+   ],
+   "urls": [
+    "https://customgpt.ai/try/"
+   ],
+   "evidence_urls": [
+    "https://customgpt.ai/try/"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e18",
+   "key": "microsoft.com",
+   "names": [
+    "Copilot in Microsoft Edge",
+    "Microsoft Copilot (Microsoft)",
+    "Microsoft Copilot Search"
+   ],
+   "urls": [
+    "https://explore.microsoft.com/en-us/edge/copilot",
+    "http://copilot.microsoft.com/",
+    "https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-search"
+   ],
+   "evidence_urls": [
+    "https://support.microsoft.com/en-us/microsoft-copilot/getting-started-with-copilot-in-microsoft-edge",
+    "https://learn.microsoft.com/en-us/microsoft-365/copilot/manage-public-web-access",
+    "https://learn.microsoft.com/en-us/copilot/edge",
+    "https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-overview",
+    "http://support.microsoft.com/en-us/microsoft-365-copilot/how-web-search-works-in-microsoft-365-copilot-chat-and-agents",
+    "http://microsoft.com/en-us/ai"
+   ],
+   "matches_exclusion": "Azure AI Search",
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "internal_data_product",
+    "provider_evidence_url",
+    "public_web_answers",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e19",
+   "key": "wissly.ai",
+   "names": [
+    "Wissly"
+   ],
+   "urls": [
+    "https://www.wissly.ai/en/service"
+   ],
+   "evidence_urls": [
+    "https://www.wissly.ai/en/service"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e20",
+   "key": "aisera.com",
+   "names": [
+    "Aisera Platform"
+   ],
+   "urls": [
+    "https://aisera.com/"
+   ],
+   "evidence_urls": [
+    "https://docs.aisera.com/aisera-platform/tenant-setup/aisera-platform-configuration/tenant-configuration-settings/public-search"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e21",
+   "key": "moveworks.com",
+   "names": [
+    "Moveworks AI Assistant"
+   ],
+   "urls": [
+    "https://www.moveworks.com/",
+    "https://www.moveworks.com/us/en/platform/ai-assistant"
+   ],
+   "evidence_urls": [
+    "https://www.moveworks.com/us/en/resources/blog/enterprise-ai-assistant-web-search",
+    "https://docs.moveworks.com/ai-assistant/capabilities/world-knowledge-app",
+    "https://www.moveworks.com/us/en/platform/ai-assistant",
+    "https://www.moveworks.com/us/en/company/about",
+    "http://servicenow.com/docs/r/employee-service-management/employee-experience-foundation/moveworks.html?contentId=1kVCqcY8MOFtCpPt52F65A",
+    "http://moveworks.com/us/en/company/about"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e22",
+   "key": "omnifact.ai",
+   "names": [
+    "Omnifact"
+   ],
+   "urls": [
+    "https://omnifact.ai/"
+   ],
+   "evidence_urls": [
+    "https://docs.omnifact.ai/en/introduction",
+    "https://omnifact.ai/dpa"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e23",
+   "key": "google.com",
+   "names": [
+    "Agent Search (formerly Vertex AI Search)"
+   ],
+   "urls": [
+    "https://cloud.google.com/products/gemini-enterprise-agent-platform/agent-search"
+   ],
+   "evidence_urls": [
+    "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-google-search",
+    "https://cloud.google.com/products/gemini-enterprise-agent-platform",
+    "https://docs.cloud.google.com/gemini-enterprise-agent-platform/agents"
+   ],
+   "matches_exclusion": "Vertex AI Search (Google Cloud)",
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e24",
+   "key": "docsbot.ai",
+   "names": [
+    "DocsBot Internal Knowledge Chatbot"
+   ],
+   "urls": [
+    "https://docsbot.ai/"
+   ],
+   "evidence_urls": [
+    "https://docsbot.ai/internal-knowledge"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e25",
+   "key": "soev.ai",
+   "names": [
+    "soev.ai"
+   ],
+   "urls": [
+    "https://soev.ai/en/solutions/web-search"
+   ],
+   "evidence_urls": [
+    "https://soev.ai/en/solutions/web-search"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "web_search_provider"
+   ]
+  },
+  {
+   "eid": "S5b-e26",
+   "key": "chatgpt.com",
+   "names": [
+    "ChatGPT Enterprise"
+   ],
+   "urls": [
+    "http://chatgpt.com/business/enterprise"
+   ],
+   "evidence_urls": [
+    "https://help.openai.com/en/articles/10093903-chatgpt-search-for-enterprise-and-edu",
+    "http://openai.com/enterprise",
+    "https://openai.com/chatgpt/enterprise"
+   ],
+   "matches_exclusion": null,
+   "claimed_fields": [
+    "company",
+    "evidence_url",
+    "provider_evidence_url",
+    "web_search_provider"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "caps": {
+  "exa": {
+   "usd": 1.0
+  },
+  "tavily": {
+   "credits": 100
+  },
+  "parallel": {
+   "usd": 0.5
+  },
+  "firecrawl": {
+   "credits": 300
+  }
+ },
+ "pace_seconds": {
+  "exa": 0.3,
+  "tavily": 0.8,
+  "parallel": 0.5,
+  "firecrawl": 6.5
+ },
+ "unit_prices": {
+  "parallel_search_advanced": 0.005,
+  "parallel_extract": 0.001
+ },
+ "firecrawl_scrape_top": 3,
+ "firecrawl_pdf_max_pages": 3,
+ "firecrawl_skip_domains": [
+  "x.com",
+  "twitter.com",
+  "linkedin.com",
+  "facebook.com",
+  "instagram.com",
+  "tiktok.com",
+  "threads.net",
+  "youtube.com",
+  "reddit.com"
+ ],
+ "stage": "C1 (search arm)"
+}

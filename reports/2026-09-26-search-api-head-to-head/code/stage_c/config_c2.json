@@ -1,0 +1,53 @@
+{
+ "stage": "C2 (research arm)",
+ "total_cap_usd": 28.0,
+ "caps": {
+  "exa": {
+   "usd": 3.0
+  },
+  "parallel": {
+   "usd": 3.0
+  },
+  "tavily": {
+   "credits": 1100
+  },
+  "firecrawl": {
+   "credits": 2400
+  }
+ },
+ "credit_usd": {
+  "tavily": 0.008,
+  "firecrawl": 0.005
+ },
+ "exa": {
+  "effort": "medium",
+  "price_usd": 0.1
+ },
+ "parallel": {
+  "processor": "pro",
+  "price_usd": 0.1
+ },
+ "tavily": {
+  "model": "mini",
+  "worst_credits": 110,
+  "output_length": "standard"
+ },
+ "firecrawl": {
+  "max_credits": 100,
+  "free_runs_per_day": 5
+ },
+ "concurrency": {
+  "exa": 6,
+  "parallel": 6,
+  "tavily": 4,
+  "firecrawl": 2
+ },
+ "poll_seconds": {
+  "exa": 12,
+  "parallel": 15,
+  "tavily": 12,
+  "firecrawl": 35
+ },
+ "timeout_minutes": 30,
+ "guard_wait_minutes": 20
+}

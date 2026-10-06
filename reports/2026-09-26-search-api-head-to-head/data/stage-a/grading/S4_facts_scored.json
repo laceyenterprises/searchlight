@@ -1,0 +1,52 @@
+{
+ "facts": {
+  "Parallel: OpenAI customer story (GPT-6 Astra, ~50% research-time cut)": [
+   "exa",
+   "tavily"
+  ],
+  "Parallel: Lovable ships a Parallel connector (2026-09-22)": [
+   "exa"
+  ],
+  "Perplexity Fast Search: 160ms median": [
+   "exa",
+   "tavily"
+  ],
+  "Perplexity Photon: p99 retrieval 800->65ms, 68% lower cost, 20% fewer machines": [
+   "tavily"
+  ],
+  "Perplexity: Shopify says it became Shopify's main search API": [
+   "exa"
+  ],
+  "Perplexity Fast Search added to Nous Research's Hermes Agent": [
+   "exa"
+  ],
+  "Firecrawl Brazil: 40 staff, iFood and Nubank, Sao Paulo office 2027": [
+   "exa"
+  ],
+  "Firecrawl Brazil: 40,000+ customers": [
+   "exa"
+  ],
+  "Firecrawl: $100M ARR target, 1.5M+ users, 5B+ requests": [
+   "exa"
+  ],
+  "You.com Knowledge: 7 categories, Tako partnership, accuracy gain": [
+   "tavily"
+  ],
+  "Gemini 3.8 Live Extended Thinking supports Search grounding": [
+   "exa",
+   "tavily"
+  ]
+ },
+ "per_provider": {
+  "exa": 9,
+  "tavily": 5,
+  "parallel": 0,
+  "firecrawl": 0
+ },
+ "unique": {
+  "exa": 6,
+  "tavily": 2,
+  "parallel": 0,
+  "firecrawl": 0
+ }
+}

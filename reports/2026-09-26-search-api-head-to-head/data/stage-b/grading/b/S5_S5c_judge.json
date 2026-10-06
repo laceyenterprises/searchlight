@@ -1,0 +1,531 @@
+{
+ "set": "S5",
+ "list": "S5c",
+ "entities": [
+  {
+   "eid": "S5c-e1",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://elnora.ai/dpa",
+   "note": "Elnora AI DPA subprocessor table lists Exa (Search API, semantic search and retrieval, US). Only date on page: Effective June 21, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e2",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://docs.useworkshop.com/hc/en-us/articles/29695794867987-Workshop-sub-processors",
+   "note": "Help-center article on Workshop's docs subdomain (curl blocked with 403; read via browser render and Zendesk's public article JSON) lists Exa for Web Search & Retrieval. page_date not claimed (null), but page shows 'Updated 3 months ago' (article edited 2026-06-10). Not in KB."
+  },
+  {
+   "eid": "S5c-e3",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://nova.dweet.com/docs/nova/legal/subprocessors",
+   "note": "DWEET LTD's Nova sub-processor page lists Exa Labs Inc. for web search for company and market research. Both exa_role values fit. page_date per value: 2026-09-23 correct (page last updated 2026-09-23); 2026-08-17 wrong (not on page; Nova legal changelog shows sub-processor changes only in Feb, Apr, and Sep 2026). Not in KB."
+  },
+  {
+   "eid": "S5c-e4",
+   "criteria": {
+    "names_exa_on_own_domain": "fails",
+    "exa_role": "fails"
+   },
+   "overall": "fails",
+   "fields": {
+    "exa_role": "wrong",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://foundable.com/subprocessors",
+   "note": "Foundable's current subprocessor registry (effective Sep 24, updated Sep 25, 2026; checked raw and browser-rendered) does not name Exa; Perplexity is the web-search provider for Ted. The current privacy policy (updated 2026-09-26) also names Perplexity for web search. A web-search index snippet of an earlier privacy version (July 25, 2026) described Exa receiving public-web research queries, so the claim looks stale (an apparent switch to Perplexity); no Wayback copy. page_date 2026-09-24 matches the Effective date shown. Not in KB."
+  },
+  {
+   "eid": "S5c-e5",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://atlas-metis.com/gdpr",
+   "note": "ATLAS METIS (legal entity Atlas Analytics Pte. Ltd.) GDPR page subprocessor table lists Exa Labs, Inc. for web research and search API (USA). Page last updated August 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e6",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://docs.novita.ai/api-reference/model-apis-exa-search",
+   "note": "Novita docs describe the endpoint as 'a passthrough to Exa's Search API' through the Novita gateway, authenticated with the user's Novita API key, not an Exa key. So Novita resells Exa rather than offering a BYO-key integration. It is listed under AI Search next to Tavily in Novita's model-API catalog: borderline marketplace, but the BYO-key exclusion does not apply. page_date not claimed (null), but page shows Last modified July 30, 2026. KB mentions Novita only as an LLM subprocessor of another company."
+  },
+  {
+   "eid": "S5c-e7",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://openwhispr.com/dpa",
+   "note": "OpenWhispr DPA subprocessor table lists Exa Labs, Inc. for web search for agent features (search query text, US). page_date not claimed (null), but page shows effective July 17, 2026, and version 1.2 updated August 21, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e8",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://trylibra.ai/dpa",
+   "note": "Libra AI DPA subprocessor table lists Exa (Exa AI, Inc., US) for semantic web search with embeddings. Page last updated March 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e9",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "fails"
+   },
+   "overall": "fails",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://portkey.ai/docs/integrations/plugins/exa",
+   "note": "Portkey docs (docs.portkey.ai redirects to portkey.ai/docs) describe an Exa Online Search guardrail plugin. Setup says 'Enter your Exa API key', and a Tavily plugin sits alongside, so this is a BYO-key optional integration, which the criteria exclude. The exa_role text describes the page accurately. page_date not claimed (null), but page shows Last modified September 22, 2026. KB mentions Portkey only as a Tavily integration."
+  },
+  {
+   "eid": "S5c-e10",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://love.mainder.ai/en/legal/subprocessors",
+   "note": "Mainder Subprocessor Register (love.mainder.ai subdomain) lists Exa (Exa Labs, Inc.) for semantic web search (USA, SCC plus UK Addendum). page_date not claimed (null), but page shows Last updated 2026-06-20. Not in KB."
+  },
+  {
+   "eid": "S5c-e11",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://heymarcus.ai/en_gb/subprocessors/",
+   "note": "Sub-processor page of Marcus (Zavo LTD trading as Marcus) lists Exa for web search. Page last updated 14 July 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e12",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.jan.ai/docs/desktop/web-search",
+   "note": "Jan desktop docs (Jan is built by Menlo Research): built-in Web Search is on by default, with Exa as the default provider on a free keyless endpoint; Tavily, SearXNG, and You.com are alternatives, and an Exa key is optional. Exa is the out-of-box default, not BYO-key-only, so it qualifies. No date on page, so null is correct. KB mentions 'Jan AI' only in a competitor's integration list."
+  },
+  {
+   "eid": "S5c-e13",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://getcoherence.io/subprocessors",
+   "note": "Coherence (Brightyard, Inc.) sub-processor page lists Exa AI, Inc. for web research for AI agents and lead discovery (US). Page last updated September 8, 2026. Same company and page as S5c-e26. Not in KB."
+  },
+  {
+   "eid": "S5c-e14",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.kolo.ai/subprocessors",
+   "note": "Client-side page, read via browser render. Kolo AI, Inc. lists Exa Labs, Inc. for web search and document retrieval API (US) under Search and Web Data, with Perplexity, Brave, and Firecrawl. Page last updated May 27, 2026. Both claimed values of each field agree. Not in KB."
+  },
+  {
+   "eid": "S5c-e15",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://opally.dk/dpa.pdf",
+   "note": "Opally ApS (Copenhagen; opally.dk is the Danish site of opally.com) public DPA PDF, Appendix B authorized sub-processors: Exa Labs, Inc. for AI-powered search and data processing API, also listed under SCC transfers. The PDF shows no document date, so null is correct. Not in KB."
+  },
+  {
+   "eid": "S5c-e16",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "known",
+   "checked_url": "https://blog.mozilla.org/en/firefox/firefox-exa-partnership/",
+   "note": "curl blocked (403); read via browser render. Mozilla blog post dated August 18, 2026 says Exa will help power Smart Window on desktop and Quick Answers on iOS. matches_exclusion is set (Mozilla (Firefox)), so known."
+  },
+  {
+   "eid": "S5c-e17",
+   "criteria": {
+    "names_exa_on_own_domain": "fails",
+    "exa_role": "fails"
+   },
+   "overall": "fails",
+   "fields": {
+    "exa_role": "wrong",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://trust.fireflies.ai/subprocessors",
+   "note": "Client-side trust center (Vanta), read via browser render. Its 17 current subprocessors do not include Exa, and Perplexity is the only LLM search service. A third-party review (getroutines.ai, checked Aug 2026) said Perplexity and Exa were both listed as LLM search services then, so the claim looks stale (Exa removed by 2026-09-26). No date on page, so null is correct. Not in KB."
+  },
+  {
+   "eid": "S5c-e18",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://kapso.com/subprocessors",
+   "note": "Needs an HTML Accept header (406 otherwise). Kapso subprocessor list names Exa Labs, Inc. for web search and research for AI and agent features. Page shows Last updated August 25, 2026 (also Effective Sep 1, Published Aug 27). Both claimed values of each field agree. Not in KB."
+  },
+  {
+   "eid": "S5c-e19",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.illixis.io/subprocessors",
+   "note": "ILLIXIS sub-processor list names Exa Labs, Inc. for authoritative source discovery for research workflows (US). Page last updated September 24, 2026; claimed 2026-08-24 is not on the page (no archive copy). Not in KB."
+  },
+  {
+   "eid": "S5c-e20",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://gamma.app/subprocessors",
+   "note": "curl blocked (403); read via browser render. Gamma Tech's list names Exa.ai for search functionality (US); Perplexity is also listed, as AI services. No date on page, so null is correct. KB mentions Gamma only as a Firecrawl customer logo."
+  },
+  {
+   "eid": "S5c-e21",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.orgorg.us/trust/subprocessors",
+   "note": "OrgOrg trust subprocessor list names Exa AI, Inc. for AI-powered search (USA). page_date not claimed (null), but page shows Last Modified July 21, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e22",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://levenza.com/subprocessors",
+   "note": "Levenza third-party subprocessor list, item 26: Exa Labs for web search. Page current as of July 8, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e23",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://elixiary.com/legal/subprocessors",
+   "note": "Elixiary AI list names Exa Labs, Inc. as a secondary web-search API that complements Tavily for its Marlow assistant. Page last updated September 10, 2026; claimed July 3, 2026 is not on the page (no archive copy). Not in KB."
+  },
+  {
+   "eid": "S5c-e24",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.apollo.io/ai-policy",
+   "note": "Apollo.io AI Policy lists Exa among its current third-party AI providers that process Customer Data. Exa provides web search, used for AI research and prospecting. page_date not claimed (null), but page shows Last Updated 08/10/2026. KB lists Apollo only as a Perplexity/Brave customer and says no B2B data vendor is a named Exa customer; this page contradicts that."
+  },
+  {
+   "eid": "S5c-e25",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "fails"
+   },
+   "overall": "fails",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "known",
+   "checked_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-exa",
+   "note": "Google Cloud doc on Grounding with Exa web search (a Separate Offering) requires 'an API key from Exa's web site', billed at Exa's prices. It is one of several grounding sources (Google Search, Google Maps, Parallel, Elasticsearch, custom): a BYO-key optional integration, which the criteria exclude. The Gemini Enterprise partner-agents blog is a marketplace listing, also excluded. The exa_role text describes the page accurately. Page shows Last updated 2026-09-25 UTC, not the claimed 2026-09-16 (latest Wayback copy is 2026-08-28). Known: KB covers Grounding with Exa (features/google-gemini-enterprise.md)."
+  },
+  {
+   "eid": "S5c-e26",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://getcoherence.io/subprocessors",
+   "note": "Pool duplicate of S5c-e13 (same company, Brightyard's Coherence, and same page). It lists Exa AI, Inc. as a sub-processor. Page last updated September 8, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e27",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.graphed.com/subprocessors",
+   "note": "Graphed subprocessor list names Exa Labs, Inc. (USA) for web search. Page last updated August 25, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e28",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://mightybot.ai/subprocessors/",
+   "note": "MightyBot subprocessor list names Exa Labs, Inc. for web search and research (US). Page last updated August 16, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e29",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://watchdog.no/legal/subprocessors",
+   "note": "Watchdog (watchdog.no) subprocessor list names Exa (Exa Labs Inc.) for web search during AI analysis, with search queries only, processed in the US. Page last updated September 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e30",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://tracelight.ai/data-processing-agreement",
+   "note": "Tracelight DPA Annex 2 subprocessor list names Exa Labs, Inc. for AI search engine processing. The page shows no date (the effective date is set per agreement), so null is correct. Not in KB."
+  },
+  {
+   "eid": "S5c-e31",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://revelica.com/sub-processors",
+   "note": "Revelica sub-processors, web search and retrieval section: Exa for web search and content retrieval used by the product agent in research playbooks. Page last updated May 29, 2026. Not in KB."
+  },
+  {
+   "eid": "S5c-e32",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://scripe.io/subprocessors",
+   "note": "Scripe GmbH sub-processor list names Exa Labs, Inc. (USA) for AI-supported web research (search queries). Page last updated September 2026; claimed 2026-08 is not on the page (no archive copy). Not in KB."
+  },
+  {
+   "eid": "S5c-e33",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.ringcentral.com/legal/dpa-subprocessor-list.html",
+   "note": "RingCentral subprocessor list, AI Representative (AIR Pro) tab: Exa Labs LLC, search engine API, US, at 430 Shotwell St, San Francisco (the address other lists give for Exa Labs Inc.). List updated 01-23-26. Not in KB."
+  },
+  {
+   "eid": "S5c-e34",
+   "criteria": {
+    "names_exa_on_own_domain": "fails",
+    "exa_role": "fails"
+   },
+   "overall": "fails",
+   "fields": {
+    "exa_role": "wrong",
+    "page_date": "wrong"
+   },
+   "novelty": "novel",
+   "checked_url": "https://uphold.com/en-eu/legal/uphold-subprocessor-list",
+   "note": "False positive. The listed Exa Labs SAS (Uruguay; KYC onboarding, card issuing, transactions) is the Uruguayan fintech behind Exactly Protocol and the Exa App card, an Uphold-backed partner per press, not Exa Labs Inc./exa.ai. Page last updated Jul 20, 2026; claimed 2026-09-27 is a future date. Not in KB."
+  },
+  {
+   "eid": "S5c-e35",
+   "criteria": {
+    "names_exa_on_own_domain": "meets",
+    "exa_role": "meets"
+   },
+   "overall": "meets",
+   "fields": {
+    "exa_role": "correct",
+    "page_date": "correct"
+   },
+   "novelty": "novel",
+   "checked_url": "https://www.counselai.com/company/legal/subprocessors",
+   "note": "CounselAI subprocessor list, Search Services section, names Exa (exa.ai) for semantic web search (USA); Brave Search is also listed. Page last updated February 16, 2026. Not in KB."
+  }
+ ]
+}

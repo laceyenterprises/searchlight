@@ -1,0 +1,305 @@
+{
+ "set": "S1",
+ "questions": [
+  {
+   "id": "q21",
+   "status": "partial",
+   "answer": "No company-reported revenue or ARR. The only reported scale figures are 100,000+ developers (TechCrunch, 2026-04-29) and named customers. idlen.io claims ~$100M ARR from 'off-the-record numbers cited by TechCrunch', but the TechCrunch article has no ARR figure. Prospeo and GetLatka numbers are modeled estimates.",
+   "support_rids": [
+    "q21-r13",
+    "q21-r22",
+    "q21-r2"
+   ],
+   "verification": "verified",
+   "verified_url": "https://techcrunch.com/2026/04/29/parallel-web-systems-hits-2b-valuation-five-months-after-its-last-big-raise/",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "notes": "r22's ARR claim is a misattribution; flag it as do-not-use. r2's snippet text ('No public revenue/ARR... GetLatka ~$1.3M') does not appear anywhere in the tear-sheet PDF; the PDF only says EV/Rev is not disclosed and repeats 100K+ developers. The KB row 'Revenue: Not disclosed' stands."
+  },
+  {
+   "id": "q22",
+   "status": "resolved",
+   "answer": "Only a band, self-reported. Firecrawl's live job postings (published Jul-Sep 2026) say it hit 8 figures of ARR in year one and more than doubled it in year two. Read literally that means more than $20M, with no exact figure or period. The careers page gives a goal of $100M ARR with fewer than 50 people. The YC page does not carry the ARR line.",
+   "support_rids": [
+    "q22-r2",
+    "q22-r30",
+    "q22-r8",
+    "q22-r33",
+    "q22-r1",
+    "q22-r3"
+   ],
+   "verification": "verified",
+   "verified_url": "https://jobs.ashbyhq.com/firecrawl/d35c74ec-bd98-485f-81e7-663cfe2d5dc3",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "notes": "The Ashby page renders client-side, so I confirmed the text through Ashby's public job-board API for the same job id (Sales Engineer, published 2026-08-04). The line appears in all 31 open postings. The KB says revenue is 'Not disclosed' and not to use the eight-figure line because it isn't on YC. That holds for YC (checked), but a first-party Firecrawl source exists. The Form D still declines a revenue range. GetLatka's $1.5M (2024) and Systemaic's ~$1M are stale or modeled."
+  },
+  {
+   "id": "q23",
+   "status": "partial",
+   "answer": "Usage only; Nebius breaks out no Tavily revenue. Nebius's Q2 2026 letter (2026-08-12) says Tavily's developer community grew to 2.5M+ (from 1M in February), and that Tavily launched keyless pay-per-search and achieved ISO 27001. The Q1 2026 letter gives no Tavily metrics.",
+   "support_rids": [
+    "q23-r20",
+    "q23-r24"
+   ],
+   "verification": "verified",
+   "verified_url": "https://assets.nebius.com/assets/4462517b-ce83-41f2-96ed-f2ac1bc06a05/SHLQ226%20%281%29.pdf?cache-buster=2026-08-12T11:57:07.944Z",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "notes": "This is the same letter the KB cites through the SEC 6-K exhibit, in Nebius's own hosted copy; nothing new beyond the URL. The Q4 2025 letter (r19/r21) predates the close. The 1M developers and 3M monthly SDK downloads are from the February deal announcement, before the acquisition."
+  },
+  {
+   "id": "q24",
+   "status": "unresolved",
+   "answer": "No new default found beyond the KB's gpt-oss and Databricks. The pool shows only opt-in integrations. AnythingLLM PR #6058 (merged 2026-07-28) adds You.com as a selectable agent web-search provider. Haystack PR #3760 (merged 2026-08-18) adds a youcom-haystack component. Both fall back to You.com's keyless free tier when no key is set, but neither makes You.com the platform default.",
+   "support_rids": [
+    "q24-r5",
+    "q24-r10",
+    "q24-r9",
+    "q24-r8"
+   ],
+   "verification": "verified",
+   "verified_url": "https://github.com/Mintplex-Labs/anything-llm/pull/6058",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The usefulness score is for the adjacent integration facts, not an answer to the default question. Both platforms are also Exa integration partners, so this is shared distribution. The agentkit-starter PR (r9) was closed unmerged and kept Exa as default. luna-agent (r8) defaults to DuckDuckGo. The KB has no AnythingLLM or Haystack You.com mention."
+  },
+  {
+   "id": "q25",
+   "status": "partial",
+   "answer": "Exa at launch: Browserbase's changelog entry, dated 2026-03-17 and still live, says Search is 'powered by Exa'. No result establishes the provider today; the current docs name none.",
+   "support_rids": [
+    "q25-r1",
+    "q25-r2",
+    "q25-r4"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.browserbase.com/changelog/search",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "notes": "This is the same launch-date fact as the KB's launch post, from a second Browserbase page. Browserbase's skills repo (search SKILL.md and REFERENCE.md) and Stagehand's browserbaseSearch.ts name no provider."
+  },
+  {
+   "id": "q26",
+   "status": "resolved",
+   "answer": "Tavily. Groq's Web Search doc, which covered groq/compound and groq/compound-mini, had a Provider Information section saying web search 'is powered by Tavily'. After the 2026-09-21 decommission the URL 307-redirects to /docs/deprecations. Groq's separate Browser Search tool is powered by Exa.",
+   "support_rids": [
+    "q26-r1",
+    "q26-r11"
+   ],
+   "verification": "verified",
+   "verified_url": "https://web.archive.org/web/20260806141125/https://console.groq.com/docs/tool-use/built-in-tools/web-search",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The live result URL now redirects, so I verified on the Wayback capture of that same URL from 2026-08-06, before the decommission. This confirms the KB's 'reported Tavily, unconfirmed'. The customer-stories index line saying Groq's pages don't name the Compound provider was only true after the redirect. It also answers the open question in staging-zone/r1-jtbd-groq-browser-search.md."
+  },
+  {
+   "id": "q27",
+   "status": "unresolved",
+   "answer": "Not established. PitchBook's profile reportedly lists the company as 'Out of Business', but the page sits behind a bot challenge, so that can't be verified. Stanford CodeX TechIndex lists it as Active, last reviewed June 2026, which predates the website going dark. whyhow.ai still does not resolve. No acquisition evidence found.",
+   "support_rids": [
+    "q27-r1",
+    "q27-r27"
+   ],
+   "verification": "unverifiable",
+   "verified_url": "",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "PitchBook returned 403 (Cloudflare challenge) to both WebFetch and curl; I did not try to get around it. Lead for a human: check PitchBook in a browser. If 'Out of Business' holds, mark the WhyHow story historical."
+  },
+  {
+   "id": "q28",
+   "status": "resolved",
+   "answer": "Both, confirmed on Legora's own page. Legora's EU pre-approved sub-processor list (updated 2026-07-06) names Exa Labs Inc. for Web Search with US data residency. It names Linkup for web search with EU residency (Linkup Technologies SAS) and US residency (Linkup Labs Inc.). Linkup also publishes a Legora case study.",
+   "support_rids": [
+    "q28-r3",
+    "q28-r2",
+    "q28-r1"
+   ],
+   "verification": "verified",
+   "verified_url": "https://legora.com/legal/eu-pre-approved-sub-processors",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "notes": "The KB labels Legora 'Linkup case-study customer; Exa logo only', and its research notes say Legora's sub-processor pages returned 404. This page is live and lists Exa, so Legora should be marked multi-vendor and customer-confirmed. Confirmed with both WebFetch and raw HTML. r1 (Exa's LinkedIn post) is vendor-side and wasn't needed."
+  },
+  {
+   "id": "q29",
+   "status": "resolved",
+   "answer": "Exa. MacObserver's hands-on, published 2026-07-30 (nine days after the 2026-07-21 rollout), reports that the answer footer names Exa as the provider. Firefox-ios commit 5f0ae2f (2026-07-08) added a 'Powered by <model>' footer and remotely selectable (Nimbus) backends 'exa' and 'liner', so Liner was a switchable alternative.",
+   "support_rids": [
+    "q29-r4",
+    "q29-r5",
+    "q29-r3"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.macobserver.com/news/we-tried-firefoxs-new-ai-quick-answers-on-iphone-heres-how-it-works/",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "notes": "The KB says not to claim Quick Answers has run on Exa since launch and gives 2026-08-17 as the first Exa date; this shows Exa in the app by 2026-07-30. ad-hoc-news (2026-07-30) also says Exa but cites no source. No page shows the provider on launch day itself, and the Nimbus switch could route some users to Liner. Liner as an alternate backend is a new competitor signal."
+  },
+  {
+   "id": "q30",
+   "status": "partial",
+   "answer": "73M search queries 'to date', up from 2.36M+ 'last year', on Exa's OpenRouter case study. The page shows no publication date; a 'first week of May' tile implies May 2026, and the KB has a metadata date of 2026-05-15. OpenRouter's own posts (web tools, 2026-05-07; search benchmarks, 2026-08-12) publish no search volume.",
+   "support_rids": [
+    "q30-r1"
+   ],
+   "verification": "verified",
+   "verified_url": "https://exa.ai/customers/openrouter",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "Scope is still ambiguous on the page: the body credits the queries to Exa, while the tile scopes them to OpenRouter's web-connected model experience. No new source or date."
+  },
+  {
+   "id": "q31",
+   "status": "unresolved",
+   "answer": "None named. Exa's launch posts say only that Snapshot is already used for backtesting and 'RL at labs'; no result names a lab or company.",
+   "support_rids": [
+    "q31-r11",
+    "q31-r1"
+   ],
+   "verification": "n/a",
+   "verified_url": "",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "The KB already carries the 'RL at labs' line and 'No named customers'. r7 is generic LinkedIn commentary about labs calling search APIs during RL. r8, r9, and r17 are an unrelated 2024 paper titled 'Snapshot Reinforcement Learning'."
+  },
+  {
+   "id": "q32",
+   "status": "unresolved",
+   "answer": "Not named publicly. Kagi's docs name Brave among its traditional indexes, and the KB already lists Kagi's direct licenses. Kagi's January 2026 post says it uses unnamed third-party providers for SERP-style results. The SerpApi attribution comes only from HN comments. On Kagi's feedback forum (2025-05-19), the Admin account called SerpAPI too slow or too costly for most uses.",
+   "support_rids": [
+    "q32-r3",
+    "q32-r24",
+    "q32-r12",
+    "q32-r5"
+   ],
+   "verification": "verified",
+   "verified_url": "https://kagifeedback.org/d/7153-include-results-from-serpapi-for-kagi-search-and-assistant",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "notes": "I read the forum thread through Flarum's public JSON API because the page shell didn't render. The Admin reply predates the January 2026 post, so it doesn't rule SerpApi out now, but it weakens the HN attribution. The KB's [inferred] label should stay."
+  },
+  {
+   "id": "q33",
+   "status": "partial",
+   "answer": "There is no official plan table: Crustdata's pricing page still shows no dollar figures. The KB already has the $95/mo lowest tier from Crustdata's blog and the per-endpoint credits from its docs. New: treg.to, an unaffiliated reseller, lists Crustdata search at $0.009/result, company enrich at $1.2, and person enrich at $2.1, and says that is the provider's own rate with no markup. That implies about $0.30 per credit (inferred).",
+   "support_rids": [
+    "q33-r8",
+    "q33-r3",
+    "q33-r2"
+   ],
+   "verification": "verified",
+   "verified_url": "https://treg.to/tools/crustdata",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The 'provider's own rate' claim is treg.to's, not Crustdata's, so label it third-party. The ~$0.30/credit figure comes from dividing treg.to's prices by the KB's credit costs (0.03 per search result, 4 per company enrich, 7 per person enrich). Confirmed with both WebFetch and raw HTML."
+  },
+  {
+   "id": "q34",
+   "status": "resolved",
+   "answer": "Two: Polymarket and Macrobond, both free. The current docs list 9 self-serve providers (the launch set of Fiber.ai, Similarweb, Baselayer, Affiliate.com, Particle, Financial Datasets, and Jinko, plus Polymarket and Macrobond) and 7 additional partners. The /connect logo strip also shows OpenAlex, Traject Data, DataBento, and Alpha Vantage, which aren't in the docs.",
+   "support_rids": [
+    "q34-r2",
+    "q34-r1",
+    "q34-r17"
+   ],
+   "verification": "verified",
+   "verified_url": "https://exa.ai/docs/reference/agent-api/connect/overview",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "notes": "Matches the KB's 16 providers. r2 is a different docs path from the one the KB cites. Affiliate.com's 2026-07-07 blog post is about being a launch partner, not an addition."
+  },
+  {
+   "id": "q35",
+   "status": "resolved",
+   "answer": "No. The Search API's search_type enum is web, fast, and people only, with no company or entity mode. Company financial data is available only through the Agent API's finance_search tool.",
+   "support_rids": [
+    "q35-r3",
+    "q35-r1",
+    "q35-r6"
+   ],
+   "verification": "verified",
+   "verified_url": "https://docs.perplexity.ai/api-reference/search-post",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "The KB already states the enum and 'no company category'. The verifying source is already cited in the KB."
+  },
+  {
+   "id": "q36",
+   "status": "partial",
+   "answer": "Brave publishes no API-only figure. Its own posts give combined numbers: over 2B monthly queries across the API and end-user search (2026-04-01). MediaPost (2026-04-06) reports that the API alone gets several billion queries a month, with Brave declining to share exact numbers.",
+   "support_rids": [
+    "q36-r3",
+    "q36-r1"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.mediapost.com/publications/article/414024/braves-new-world-less-data-more-agentic.html",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The MediaPost line is the reporter's paraphrase. It conflicts with Brave's own combined ~2B/month figure (end-user search alone was 1.6B+/month in Oct 2025), so quote it only with that caveat (inferred). The customers it names (Snowflake, Cohere, Mistral) are already on the KB's logo-wall list. Confirmed with both WebFetch and raw HTML."
+  },
+  {
+   "id": "q37",
+   "status": "partial",
+   "answer": "Exa's Websets billing page, as captured on 2026-05-09, lists three plans. Starter: $49/mo, 8,000 credits, 100 results per Webset, 2 seats, 10 enrichments, 2 concurrent searches. Pro: $449/mo, 100,000 credits, 1,000 results, 10 seats, 50 enrichments, 5 concurrent. Enterprise: custom, 5,000 results, 100 enrichments. Credit costs: 10 per fully matching result, 0 for non-matches, 5 per email or phone, 2 per row for other enrichments, 2 per resolved import, 2 per API preview, 5 per API recall estimate.",
+   "support_rids": [
+    "q37-r25",
+    "q37-r17",
+    "q37-r1",
+    "q37-r18"
+   ],
+   "verification": "verified",
+   "verified_url": "https://web.archive.org/web/20260509200752/https://websets.exa.ai/websets/billing",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The live page (exa.ai/websets/billing redirects to websets.exa.ai) returns 429 behind a Vercel security checkpoint, so 'current' can't be confirmed; the latest archive capture is 2026-05-09. The billing page calls the $49 plan 'Starter', while the docs FAQ and the KB table call it 'Core'. Both are Exa pages, so the KB should record the conflict. Seats, result caps, concurrency, and per-action credit rates are all new to the KB, which says rates aren't stated. Pool snippets and a 2026-09-07 third-party review (r5, snippet only) repeat the same figures."
+  },
+  {
+   "id": "q38",
+   "status": "unresolved",
+   "answer": "No. No result shows an Exa ISO 27001 announcement or timeline. Exa's pages claim SOC 2 Type II. The only ISO 27001 mention is the Head of Security job post (r38 is a Ladders repost), which the KB already has.",
+   "support_rids": [
+    "q38-r38",
+    "q38-r1",
+    "q38-r31"
+   ],
+   "verification": "n/a",
+   "verified_url": "",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "trust.exa.ai is a JavaScript shell with no content via curl. Most results are about other companies with 'Exa' in the name (EXA AG, Exaforce, Exabeam, Exasol) or are generic ISO guides. r4 is an Exa library entry indexing a third-party ISO book chapter, not an Exa statement."
+  },
+  {
+   "id": "q39",
+   "status": "unresolved",
+   "answer": "Still unpublished. The Batch API guide and reference (beta header batches-2026-06-06) cover mechanics only: requests to /search or /agent/runs, JSONL results, lifecycle statuses, a results retention window, and paginated listing. They give no price, discount, item cap, or turnaround time.",
+   "support_rids": [
+    "q39-r1",
+    "q39-r2",
+    "q39-r3"
+   ],
+   "verification": "verified",
+   "verified_url": "https://exa.ai/docs/reference/batches",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "The KB already records no pricing, discount, item cap, or turnaround, and Enterprise-only beta access. The rate-limit skill pages (r8, r9, r19) are generic third-party notes on other endpoints' 10 QPS limit, not the Batch API."
+  },
+  {
+   "id": "q40",
+   "status": "partial",
+   "answer": "Not confirmed as GA. Google's page (last updated 2026-09-25; the old Vertex URL redirects to it) carries no launch-stage label and no Pre-GA terms, and it doesn't say GA either. Earlier versions and mirrors show Private, Restricted, or plain Preview with allowlist access. No GA announcement appears in the pool.",
+   "support_rids": [
+    "q40-r1",
+    "q40-r2",
+    "q40-r4",
+    "q40-r9"
+   ],
+   "verification": "verified",
+   "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-exa",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "The KB already tracks the label history (Private Preview in April, Preview by June, no label by 2026-09-25). The 'Restricted Preview' allowlist wording (r4, r22) comes from proxies or mirrors of older revisions, not the live page."
+  }
+ ]
+}

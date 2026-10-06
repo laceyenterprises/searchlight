@@ -1,0 +1,420 @@
+{
+ "set": "S4",
+ "companies": [
+  {
+   "id": "f01",
+   "events": [
+    {
+     "event": "Exa launches Agent Ultra, the highest-effort deep-research mode of Exa Agent",
+     "date": "2026-09-25",
+     "facts": [
+      {
+       "fact": "Exa launched Agent Ultra, a deep-research and list-building mode of Exa Agent; launch post dated 2026-09-25 (changelog 2026-09-24).",
+       "support_rids_full": [
+        "f01-r1",
+        "f01-r2",
+        "f01-r4",
+        "f01-r6",
+        "f01-r13",
+        "f01-r19",
+        "f01-r23",
+        "f01-r24",
+        "f01-r27"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://exa.ai/blog/exa-agent-ultra",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Exa-run WANDR result: Agent Ultra 81.4% soft recall vs 72.3% for Opus 5.5 (9.1 points; Exa calls it +12.6%).",
+       "support_rids_full": [
+        "f01-r6",
+        "f01-r13",
+        "f01-r23",
+        "f01-r24",
+        "f01-r27"
+       ],
+       "support_rids_partial": [
+        "f01-r2"
+       ],
+       "verified_url": "https://exa.ai/blog/exa-agent-ultra",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Other Exa-run results: DeepSearchQA 93.9% F1, WideSearch 58.9% row-level F1, Find-All Company 2,451 passing entities per task vs 146 for Opus 5.5.",
+       "support_rids_full": [
+        "f01-r13",
+        "f01-r24",
+        "f01-r27"
+       ],
+       "support_rids_partial": [
+        "f01-r6",
+        "f01-r23"
+       ],
+       "verified_url": "https://exa.ai/blog/exa-agent-ultra",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Exa claims Ultra costs about half as much per task as Opus 5.5 on WANDR and 46% less per task than GPT-6 Astra on DeepSearchQA.",
+       "support_rids_full": [
+        "f01-r6",
+        "f01-r24"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://exa.ai/blog/exa-agent-ultra",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Ultra runs typically take about 30 minutes on complex tasks and up to 3 hours on very hard ones.",
+       "support_rids_full": [
+        "f01-r2",
+        "f01-r6",
+        "f01-r13",
+        "f01-r23",
+        "f01-r24",
+        "f01-r27"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://exa.ai/docs/agent/agent-ultra.md",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Runs are capped at $20 by default, adjustable $1-$100 (maxCostDollars), with an optional 300-10,800 s limit (maxDurationSeconds).",
+       "support_rids_full": [
+        "f01-r13",
+        "f01-r24",
+        "f01-r27"
+       ],
+       "support_rids_partial": [
+        "f01-r2",
+        "f01-r6",
+        "f01-r23"
+       ],
+       "verified_url": "https://exa.ai/docs/agent/agent-ultra.md",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Exa co-founder Jeff Wang says Ultra uses heavy agent parallelization, code execution and a database tool, orchestrated by frontier models (X, 2026-09-25).",
+       "support_rids_full": [
+        "f01-r19"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://x.com/[redacted-aebc72789698]",
+       "novelty": "new_detail",
+       "source_type": "primary",
+       "usefulness": 2
+      }
+     ]
+    },
+    {
+     "event": "Exa launches Exa Snapshot (research preview) for point-in-time web search",
+     "date": "2026-09-17",
+     "facts": [
+      {
+       "fact": "Exa Snapshot adds snapshotAsOf to /search and /contents, returning pages as they existed at a chosen date; launched 2026-09-17 as a research preview.",
+       "support_rids_full": [
+        "f01-r16"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://exa.ai/blog/exa-snapshot",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Exa says Snapshot draws on over 400 billion webpage snapshots spanning about two decades.",
+       "support_rids_full": [
+        "f01-r16"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://exa.ai/blog/exa-snapshot",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      }
+     ]
+    },
+    {
+     "event": "AIMultiple publishes DR-20 deep-research benchmark that includes Exa Agent",
+     "date": "2026-09-12",
+     "facts": [
+      {
+       "fact": "On AIMultiple's DR-20 Bench (20 business research briefs, blind-graded), Exa Agent scored 0.584, fourth of five, below Codex CLI 0.790, Claude Code 0.775 and Grok CLI 0.699; statistically tied with Gemini CLI 0.565.",
+       "support_rids_full": [
+        "f01-r25"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://aimultiple.com/ai-deep-research",
+       "novelty": "net_new",
+       "source_type": "secondary",
+       "usefulness": 2
+      },
+      {
+       "fact": "Exa Agent cost $1.00 per task ($20 total API spend) vs $13.38-$18.35 for the two leaders, and fully reproduced 89 of 434 required facts vs 202 for Claude Code.",
+       "support_rids_full": [
+        "f01-r25"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://aimultiple.com/ai-deep-research",
+       "novelty": "net_new",
+       "source_type": "secondary",
+       "usefulness": 2
+      }
+     ]
+    }
+   ],
+   "notes": "Agent Ultra and Snapshot are already covered (features/agent-ultra.md:19,47,65-69,79-86; features/exa-snapshot.md:19,44). Pool pages only add corroborating secondary sources, plus one new detail: co-founder Jeff Wang's X post, relayed by Digg. AIMultiple DR-20 (page and citation dated 2026-09-12, last data update 2026-09-26) is not in the KB; jtbd/provider-evaluation.md:70 cites only AIMultiple's agentic-search board. Not counted: ic.work's absolute costs ($18.53 median WANDR, $32.92 Opus, 52% DeepSearchQA saving). They appear nowhere in Exa's post, results table, chart, docs or benchmarks repo, and they conflict with Exa's 46% claim and chart averages. Also not counted: BigGo's Will Bryk podcast recap (r12; podcast undated; its figures are the May 2026 ones at metrics/kpi-framework.md:99-100); Distill's Dynamic Highlights (2026-08-28) and Firefox (2026-08-17) items, which are outside the window; the Quasa pricing overview (undated, no change); Tracxn 'Exa Laboratories', a different company; and the unrelated Quasa pages."
+  },
+  {
+   "id": "f02",
+   "events": [],
+   "notes": "No verifiable Tavily event in the window. OpenAI's 'Tavily AI plugin for ChatGPT' page (r1; skills for search, extract, crawl, map and research, in ChatGPT Work and Codex) is not in competitive/tavily.md, but it is undated: no date in the text, meta tags or JSON-LD, no Wayback capture, and no September entry in Tavily's changelog. Not counted. The homepage banner (r6: World of Tavily at SF Tech Week, Oct 9) is already at tavily.md:201, and the event falls after the window. r24 is a job-aggregator copy whose London title conflicts with its New York office text; not counted. The rest are tutorials, SEO or integration pages, or other companies (TinyFish, XTAL, Pervaziv, Sifthound, Perplexity). The Firecrawl blog (r11) repeats the 2026-02-10 Nebius deal."
+  },
+  {
+   "id": "f03",
+   "events": [
+    {
+     "event": "OpenAI customer story: Parallel halves research time and cost with GPT-6 Astra",
+     "date": "2026-09-22",
+     "facts": [
+      {
+       "fact": "OpenAI says GPT-6 Astra let Parallel's agents finish research tasks in half the time at roughly half the cost of prior models (test: six labor-market statistics, four states, six months).",
+       "support_rids_full": [
+        "f03-r15",
+        "f03-r23"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://openai.com/index/parallel-cuts-time-and-cost-with-astra",
+       "novelty": "net_new",
+       "source_type": "secondary",
+       "usefulness": 2
+      }
+     ]
+    },
+    {
+     "event": "Lovable adds a Parallel connector for cited web research inside Lovable apps",
+     "date": "2026-09-22",
+     "facts": [
+      {
+       "fact": "Lovable's changelog adds a Parallel connector: live web search, reading public pages and PDFs as clean text, cited answers and structured deep research for apps.",
+       "support_rids_full": [
+        "f03-r28"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://docs.lovable.dev/changelog",
+       "novelty": "net_new",
+       "source_type": "secondary",
+       "usefulness": 2
+      },
+      {
+       "fact": "The connector is Managed by Lovable: no Parallel account needed, and each request is charged to the workspace's Lovable credits.",
+       "support_rids_full": [
+        "f03-r28"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://docs.lovable.dev/changelog",
+       "novelty": "net_new",
+       "source_type": "secondary",
+       "usefulness": 2
+      }
+     ]
+    }
+   ],
+   "notes": "Both events are net new: competitive/parallel-search-api.md and parallel-findall.md mention neither Astra nor Lovable, and the KB links Lovable to Exa only via Exa's Vercel listing copy. OpenAI's case study and Lovable's changelog are counterparty first-party pages; they are labeled secondary because the brief defines primary as the company's own page. Parallel's own changelog does not mention Lovable. Parallel's /press, the PR Newswire list and the homepage show nothing in the window. The Parallel changelog has 2026-09-18, 09-23 and 09-24 entries, but no pool result carries them. Not counted: the BigGo recap of Agrawal on 20VC (r19; episode undated; its $1-per-1k pricing and publisher payments are already in the KB); the Search Fast banner (launched 2026-08-21); older Tracxn, Reddit and NRI Pulse items; and the unrelated 'Parallel' results (card game, railcars, surgical robotics, SpaceX, Bitcoin Core, CBC)."
+  },
+  {
+   "id": "f04",
+   "events": [
+    {
+     "event": "Perplexity launches Fast Search in its Search API, built on the Photon engine",
+     "date": "2026-09-24",
+     "facts": [
+      {
+       "fact": "Perplexity launched Fast Search in its Search API, running on Photon, a new Rust retrieval and ranking engine; 95% of results return in 230 ms or less.",
+       "support_rids_full": [
+        "f04-r5",
+        "f04-r8",
+        "f04-r13",
+        "f04-r28"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://community.perplexity.ai/t/6195",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Fast Search costs $1 per 1,000 requests vs $5 for standard web search.",
+       "support_rids_full": [
+        "f04-r5",
+        "f04-r8",
+        "f04-r13"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://docs.perplexity.ai/docs/search/fast-search.md",
+       "novelty": "already_in_kb",
+       "source_type": "primary",
+       "usefulness": 1
+      },
+      {
+       "fact": "Perplexity reports Fast Search single-call latency of 160 ms at p50 (230 ms at p95).",
+       "support_rids_full": [
+        "f04-r5",
+        "f04-r8",
+        "f04-r13"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://www.perplexity.ai/hub/blog/photon",
+       "novelty": "new_detail",
+       "source_type": "primary",
+       "usefulness": 2
+      },
+      {
+       "fact": "Perplexity says the fast preset cut estimated model-plus-search cost per task by 68% vs its default preset across six agentic benchmarks, at comparable quality.",
+       "support_rids_full": [
+        "f04-r5",
+        "f04-r8",
+        "f04-r13"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://www.perplexity.ai/hub/blog/photon",
+       "novelty": "new_detail",
+       "source_type": "primary",
+       "usefulness": 2
+      },
+      {
+       "fact": "Perplexity concedes lower quality for the fast preset: relevance (DCG) 2.21 vs 2.45 and answer availability 56.7% vs 59.6% for the default preset.",
+       "support_rids_full": [
+        "f04-r5",
+        "f04-r8",
+        "f04-r13"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://www.perplexity.ai/hub/blog/photon",
+       "novelty": "new_detail",
+       "source_type": "primary",
+       "usefulness": 2
+      },
+      {
+       "fact": "Photon claims: p99 retrieval-and-ranking latency down from about 800 ms to 65 ms, about 20% fewer serving machines, 2.5x more data per document.",
+       "support_rids_full": [
+        "f04-r5",
+        "f04-r8",
+        "f04-r13"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://www.perplexity.ai/hub/blog/photon",
+       "novelty": "new_detail",
+       "source_type": "primary",
+       "usefulness": 0
+      },
+      {
+       "fact": "Perplexity says Photon was built by a small engineering team working with hundreds of agents.",
+       "support_rids_full": [
+        "f04-r5",
+        "f04-r8",
+        "f04-r28"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://x.com/[redacted-14a0cbd7ad50]",
+       "novelty": "new_detail",
+       "source_type": "primary",
+       "usefulness": 0
+      },
+      {
+       "fact": "Shopify's Mikhail Parakhin says Shopify measures all search APIs and Perplexity has become its main one 'on merit' (X, 2026-09-24).",
+       "support_rids_full": [
+        "f04-r28"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://x.com/[redacted-931b6d2326dd]",
+       "novelty": "new_detail",
+       "source_type": "secondary",
+       "usefulness": 2
+      },
+      {
+       "fact": "Perplexity Fast Search is now built into Hermes Agent for Nous Portal users; Nous Research says it is free on all Portal tiers.",
+       "support_rids_full": [
+        "f04-r24"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://x.com/[redacted-4a6459e9eefa]",
+       "novelty": "new_detail",
+       "source_type": "primary",
+       "usefulness": 2
+      }
+     ]
+    },
+    {
+     "event": "OpenAI customer story on Perplexity's internal use of GPT-6 Astra",
+     "date": "2026-09-14",
+     "facts": [
+      {
+       "fact": "OpenAI says Perplexity uses GPT-6 Astra to write communications, change software and monitor production systems (cofounder Johnny Ho quoted).",
+       "support_rids_full": [
+        "f04-r23"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://openai.com/index/perplexity-improving-accuracy-with-astra/",
+       "novelty": "net_new",
+       "source_type": "secondary",
+       "usefulness": 0
+      }
+     ]
+    },
+    {
+     "event": "AMD partnership: Perplexity Portable Computer runs locally on AMD Ryzen AI Max PCs",
+     "date": "2026-09-24",
+     "facts": [
+      {
+       "fact": "Perplexity's Portable Computer now runs on Windows PCs with AMD Ryzen AI Max processors (incl. Ryzen AI Halo), letting subscribers run local tasks without using Computer credits.",
+       "support_rids_full": [
+        "f04-r33"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://newsroom.amd.com/news/amd-perplexity-agentic-pcs/",
+       "novelty": "net_new",
+       "source_type": "secondary",
+       "usefulness": 0
+      }
+     ]
+    },
+    {
+     "event": "Perplexity publishes 'Escaping SPACE: Part I' sandbox red-team report",
+     "date": "2026-09-23",
+     "facts": [
+      {
+       "fact": "Perplexity found no VM escape in 108 runs against SPACE, the sandbox behind Perplexity Computer; four models bypassed network confinement before fixes.",
+       "support_rids_full": [
+        "f04-r12"
+       ],
+       "support_rids_partial": [],
+       "verified_url": "https://www.perplexity.ai/hub/blog/escaping-space-part-i",
+       "novelty": "net_new",
+       "source_type": "primary",
+       "usefulness": 0
+      }
+     ]
+    }
+   ],
+   "notes": "The KB already has Fast Search's launch, Photon, the 95%-under-230 ms claim and the $1-per-1k price (competitive/perplexity-search-api.md:84,307). New in the pool: the Photon post's p50, cost and quality-trade-off figures, the Shopify statement, and Fast Search in Hermes. The KB lists a 2026-09-09 Hermes Agent integration (perplexity-search-api.md:99,305), so Hermes is new_detail. X posts (Perplexity, Perplexity Developers, Nous Research, Parakhin) were read via public oEmbed; the Photon and SPACE posts in a browser. The OpenAI story, AMD partnership and SPACE report are verified in-window news, but none concerns the API platform (usefulness 0). Not counted: the Sonar retirement (announced 2026-08-13, effective 2026-09-27, both outside the window; already at perplexity-agent-api.md:312,319); ABAB News r26 (headline-only template, no named source); the Press Gazette tracker (no Perplexity entry in the window); the r7 commentary blog; vnua.edu.vn spam pages; and undated docs."
+  },
+  {
+   "id": "f05",
+   "events": [],
+   "notes": "No verifiable Brave Search API event in the window. Gate News r2 (2026-09-18) relays an unlinked @[handle] tweet about a user-owned AI initiative with Venice, Brave and an unnamed government. Brave's role and the launch date are unstated, and NEAR's blog has no matching post, so it is unverifiable. Press Gazette's News Corp v Brave entry is dated 2026-07-22, outside the window. AI Times r24 is dated 2025-03-22. brave.com/whats-new is undated. Community threads (r9, r11, r21-r23) are user reports, not company events. The rest are guides, marketplace listings and SEO pages."
+  }
+ ]
+}

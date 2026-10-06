@@ -1,0 +1,2364 @@
+{
+ "judge": "J2",
+ "questions": [
+  {
+   "id": "m4",
+   "status": "answered",
+   "claims": [
+    {
+     "claim": "Microsoft's Grounding with Bing pricing page lists Grounding with Bing Search at $14 per 1,000 transactions (the page carries no effective date).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "r9",
+      "r24",
+      "r29",
+      "c27",
+      "c63",
+      "c68",
+      "c99"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same pricing page lists Grounding with Bing Custom Search at $14 per 1,000 transactions.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "c1",
+      "c6",
+      "c74",
+      "c91"
+     ],
+     "support_partial": [
+      "r9"
+     ]
+    },
+    {
+     "claim": "In 2025 Grounding with Bing Search cost $35 per 1,000 transactions (PPC Land, citing Microsoft's pricing page; a Microsoft Q&A moderator quoted the same rate on 2025-09-29).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://ppc.land/microsoft-ends-bing-search-apis-on-august-11-alternative-costs-40-483-more",
+     "date": "2025",
+     "source_type": "press report",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r5",
+      "r2",
+      "r7",
+      "c83"
+     ],
+     "support_partial": [
+      "r18"
+     ]
+    },
+    {
+     "claim": "PPC Land reported that the 2025 rate of $35 per 1,000 transactions applied to the Custom Search plan as well as the Search plan.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://ppc.land/microsoft-ends-bing-search-apis-on-august-11-alternative-costs-40-483-more",
+     "date": "2025",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r5",
+      "c22"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "A Microsoft Q&A post dated 2026-01-08 shows the Azure portal's pricing tier for Grounding with Bing Search (SKU G1) as $35 per 1,000 transactions, so the cut to $14 came after that date.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://learn.microsoft.com/de-de/answers/questions/5698702/das-erstellen-einer-grounding-with-bing-search-res",
+     "date": "2026-01-08",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r11"
+     ],
+     "support_partial": [
+      "r7"
+     ]
+    },
+    {
+     "claim": "PPC Land reports the retired Bing Search API v7 paid tiers at $25 (S1), $15 (S2) and $6 (S3) per 1,000 transactions after the 2023 price increase.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://ppc.land/microsoft-ends-bing-search-apis-on-august-11-alternative-costs-40-483-more",
+     "date": "2025",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r5",
+      "r18"
+     ],
+     "support_partial": [
+      "r1"
+     ]
+    },
+    {
+     "claim": "Microsoft has published no price for Web IQ: the product page, API reference and terms of use give no rate, and press coverage says pricing hasn't been announced.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c65",
+      "c69",
+      "c78"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's API reference tags each result with a content tier (standard; entitled, including bring-your-own-license content; premium) and says premium content is subject to billing, with no rate given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://webiq.microsoft.ai/documentation/api-reference/web/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c58"
+     ],
+     "support_partial": [
+      "c69"
+     ]
+    },
+    {
+     "claim": "Grounding with Bing Search is capped at 150 transactions per second.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "r5",
+      "r29",
+      "c14",
+      "c23",
+      "c72",
+      "c79"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Search is capped at 1 million transactions per day.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "r5",
+      "r29",
+      "c53",
+      "c57",
+      "c66",
+      "c88"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Custom Search is capped at 150 transactions per second.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "c2",
+      "c25",
+      "c54",
+      "c111"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Custom Search is capped at 1 million transactions per day.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "c61",
+      "c94",
+      "c95",
+      "c108"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Foundry Bing tools' count parameter returns 5 web results by default.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r8",
+      "c31"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Foundry Bing tools' count parameter accepts at most 50 results.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r8",
+      "c109"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's Web Search API returns 10 results by default (maxResults).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/documentation/api-reference/web/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c20",
+      "c84"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's maxResults is capped at 50.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/documentation/api-reference/web/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c4",
+      "c32"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's content or passage field defaults to 10,000 characters (maxLength).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/documentation/api-reference/web/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c45",
+      "c112"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's maxLength can be set to at most 500,000 characters.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/documentation/api-reference/web/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c5",
+      "c34"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ queries are limited to 1,000 characters.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/documentation/api-reference/web/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c41",
+      "c64"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's API reference lists HTTP 429 for exceeding a rate limit but publishes no numeric rate limit or quota.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/documentation/api-reference/web/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c67"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ is in limited access for select enterprise customers, with priority for organizations working with Microsoft account teams; others join a waitlist.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "c29",
+      "c82"
+     ],
+     "support_partial": [
+      "c7",
+      "c114"
+     ]
+    },
+    {
+     "claim": "Microsoft publishes Web IQ terms of use: access runs through an Enterprise Subscription under an existing Microsoft customer agreement, needs a registration describing the proposed use, and Microsoft may grant or deny it.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 3,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c85"
+     ],
+     "support_partial": [
+      "c114"
+     ]
+    },
+    {
+     "claim": "Web IQ's terms bar using its content to train, evaluate or improve any LLM, including the customer's own.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c33",
+      "c55"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's terms allow storing LLM summaries per end user in chat history for up to 30 days unless refreshed.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c101"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's terms cap displayed grounding content from any single source at the lesser of 200 characters or the site owner's own limit.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c11",
+      "c106"
+     ],
+     "support_partial": [
+      "c87"
+     ]
+    },
+    {
+     "claim": "When Web IQ content grounds an LLM, the customer must show source attribution with a link to each source near the displayed LLM content.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c33"
+     ],
+     "support_partial": [
+      "c55"
+     ]
+    },
+    {
+     "claim": "Web IQ customers must report per-session citations (which results were used and acted on) to Microsoft's callback API after each response, within 15 minutes.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c93"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "That Web IQ citation feedback must start no later than 60 days after the terms' effective date.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c113"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ's terms give 30 minutes of inactivity as an example of when a new session may begin.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c62"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ customers are responsible for any licensing fees owed to news publishers for displaying or using responses; Microsoft is not.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c26",
+      "c50"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ access requires an active Azure account and a Microsoft-issued subscription key.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c40"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ use beyond documented limits may be temporarily throttled.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c40",
+      "c78"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft may limit the rate of calls to single URLs through the Web IQ browse API, and customers may request only publicly available URLs.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c16"
+     ],
+     "support_partial": [
+      "c49",
+      "c40"
+     ]
+    },
+    {
+     "claim": "Microsoft may suspend Web IQ if the customer fails to cure a material breach within 10 days of written notice.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c3"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft gives at least 30 days' notice before suspending Web IQ for non-payment.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c39"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft may end Web IQ access if the reasons for a suspension aren't fixed within 60 days.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c73"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "For violations of Web IQ's LLM Use terms the fix window before termination is 7 days.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c97"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft may end Web IQ access if use is suspended more than twice in any 12 months.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/webiq/webiq-legal",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c59"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ is queried over REST, MCP (JSON-RPC 2.0) or an SDK and returns structured, citation-ready JSON.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "c19"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft claims Web IQ grounding runs at 164 ms p95 latency in its own tests.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "c8",
+      "c81",
+      "c90"
+     ],
+     "support_partial": [
+      "r10"
+     ]
+    },
+    {
+     "claim": "Microsoft claims Web IQ is nearly 2.5x faster than the next-best alternative.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-365-copilot.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "r10",
+      "c51",
+      "c110"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's latency test ran from five data centers with unique queries to avoid cache hits, at 10 results and 10K characters per result.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://blogs.bing.com/search/June-2026/Announcing-Microsoft-Web-IQ",
+     "date": "2026-06-02",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r10",
+      "c96"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft reports a grounding-satisfaction score of 79.05 for Web IQ on its own benchmark.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c98"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's grounding-satisfaction benchmark used 3K global blind queries sampled from production.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://webiq.microsoft.ai/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c24",
+      "r10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "That benchmark was configured at 10 results per query.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://webiq.microsoft.ai/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c86",
+      "r10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "That benchmark was configured at 10K characters per result.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://webiq.microsoft.ai/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c60",
+      "r10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says Web IQ covers 100+ languages and markets.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "r3",
+      "c46",
+      "c103"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says Web IQ covers six-plus verticals, including commerce.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "r3",
+      "c13",
+      "c107"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says Web IQ's content combines licensed sources, structured data sources and the open web, not SERP scraping.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-365-copilot.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "c105"
+     ],
+     "support_partial": [
+      "c21"
+     ]
+    },
+    {
+     "claim": "Microsoft doesn't name Web IQ's licensed content suppliers.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://webiq.microsoft.ai/",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c21"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's Web IQ page carries a Nasdaq testimonial about Nasdaq Boardvantage's use of Web IQ.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "c9",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft launched Web IQ on 2026-06-02, built on the Bing index.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://blogs.bing.com/search/June-2026/Announcing-Microsoft-Web-IQ",
+     "date": "2026-06-02",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r10",
+      "r26",
+      "c75"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web IQ is a suite of grounding APIs across web pages, news, images and video that returns ranked, citation-ready context for an LLM's context window.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "c44"
+     ],
+     "support_partial": [
+      "r10"
+     ]
+    },
+    {
+     "claim": "Microsoft says Web IQ returns results directly to developers, unlike Grounding with Bing's integrated augmentation inside Foundry.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r6",
+      "r3",
+      "c52"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says Grounding with Bing remains available to existing customers as an entry point.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/webiq",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r6",
+      "r3"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing is sold only as an add-on inside Microsoft products: a resource or tool in Foundry Agent Service, or the Web Knowledge Source in Azure AI Search and Foundry Knowledge.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "c12",
+      "c15",
+      "c35"
+     ],
+     "support_partial": [
+      "c104",
+      "r13"
+     ]
+    },
+    {
+     "claim": "Microsoft says Grounding with Bing output is not directly accessible for use in other applications or programs.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "r9",
+      "c12",
+      "c70"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says Grounding with Bing Search draws on billions of publicly available web pages.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "c15"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing's output is the model's answer grounded in Bing data, citing the publishers used.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "c35"
+     ],
+     "support_partial": [
+      "r13"
+     ]
+    },
+    {
+     "claim": "Microsoft bills per grounding transaction, incurred each time the model decides to call the Bing tool to return summarized results.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r15",
+      "r23",
+      "c30",
+      "c37"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing transactions are counted by the number of tool calls per agent run.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r4",
+      "r8",
+      "c18"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Grounding with Bing pricing page lists no free tier or minimum commitment.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c30"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Foundry bills model tokens separately from Grounding with Bing charges.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://azure.microsoft.com/en-us/pricing/details/foundry-agent-service",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c38",
+      "r29"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Only paid and pay-as-you-go Azure subscriptions can deploy Grounding with Bing Search; sponsored and free-credit subscriptions are excluded.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry-classic/agents/how-to/tools-classic/bing-grounding",
+     "date": "2026-03-06",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r4"
+     ],
+     "support_partial": [
+      "r7"
+     ]
+    },
+    {
+     "claim": "A pay-as-you-go subscription can still fail to deploy the Grounding with Bing Search G1 SKU (SkuNotEligible); a Microsoft external-staff moderator said the SKU needs explicit enablement by Microsoft.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://learn.microsoft.com/de-de/answers/questions/5698702/das-erstellen-einer-grounding-with-bing-search-res",
+     "date": "2026-01-08",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r11"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Both Bing tool workflows in Foundry need a paid Bing resource and a project connection.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r8",
+      "c89"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Custom Search returns results only from public, Bing-indexed domains and pages the customer configures.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r8",
+      "r21",
+      "c28",
+      "c43"
+     ],
+     "support_partial": [
+      "c77",
+      "c104"
+     ]
+    },
+    {
+     "claim": "Custom Search scope can be set by domain, by domain and path, or by single webpage.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r8",
+      "c28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's Data Protection Addendum doesn't apply to Grounding with Bing, and data flows outside the Azure compliance and geo boundary.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r8",
+      "r25",
+      "r30",
+      "c76"
+     ],
+     "support_partial": [
+      "c102",
+      "r4",
+      "r21",
+      "r17",
+      "r28"
+     ]
+    },
+    {
+     "claim": "Microsoft says the only data sent to Bing is the search query, tool parameters and the resource key, with no end-user-specific information.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r8"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Foundry's web grounding tools don't honor VPN or private endpoints; they act as public endpoints.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/web-overview",
+     "date": "2026-09-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r25",
+      "r21",
+      "r4"
+     ],
+     "support_partial": [
+      "r8"
+     ]
+    },
+    {
+     "claim": "Microsoft classes Grounding with Bing Search and Custom Search as First Party Consumption Services governed by the Grounding with Bing terms and the Microsoft Privacy Statement.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/web-overview",
+     "date": "2026-09-11",
+     "source_type": "company statement",
+     "kb_file": "_scratch/research/si-partners-channel.md",
+     "support_full": [
+      "r8",
+      "r25",
+      "r30",
+      "c92"
+     ],
+     "support_partial": [
+      "c42"
+     ]
+    },
+    {
+     "claim": "Foundry docs label Grounding with Bing Custom Search as a preview.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/web-overview",
+     "date": "2026-09-11",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r8",
+      "r25",
+      "r21",
+      "c92"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Grounding with Bing terms of use are marked last updated November 2025.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r28",
+      "c10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Grounding with Bing terms bar using output to train AI models.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal-enterprise",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r28",
+      "c17",
+      "c102"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The standard Grounding with Bing terms bar copying, storing, caching, archiving or building a database of output.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "c71"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Grounding with Bing terms bar getting around transaction limits or fees, including by opening multiple accounts.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r17",
+      "r28",
+      "c71"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's enterprise-integration terms for Grounding with Bing let customers copy, store, cache or archive output as part of their own work product, but not as a substitute such as a database of output, a link index, crawling or a separate search offering.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 3,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal-enterprise",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r28"
+     ],
+     "support_partial": [
+      "c17",
+      "c102"
+     ]
+    },
+    {
+     "claim": "The standard Grounding with Bing terms say they don't apply to use through an enterprise integration such as Azure Foundry, which falls under the separate enterprise-integration terms.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r17"
+     ],
+     "support_partial": [
+      "r28"
+     ]
+    },
+    {
+     "claim": "The Grounding with Bing terms let Microsoft limit call rates, account storage and content-segment length at its discretion, and say pricing is set at sign-up and excludes taxes.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r17",
+      "c36"
+     ],
+     "support_partial": [
+      "r28"
+     ]
+    },
+    {
+     "claim": "Grounding with Bing is provided as is, with no warranty or service level agreement.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r17",
+      "c47"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Customers must keep and display the returned citations and, for Grounding with Bing Search, the Bing results-page link, in the exact form Microsoft provides.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal-enterprise",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r28",
+      "r8",
+      "c56",
+      "c80"
+     ],
+     "support_partial": [
+      "r4",
+      "r15",
+      "r21"
+     ]
+    },
+    {
+     "claim": "Grounding with Bing output may not be redistributed or resold, or used to build a competing database or service.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal-enterprise",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r28",
+      "c102"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says it will use the data customers send to Grounding with Bing to improve its products and services.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://marketplace.microsoft.com/en-us/product/saas/microsoft.binggroundingcustomsearch?tab=overview",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r13",
+      "c42",
+      "c100"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "In the Azure OpenAI Responses API, web search (which runs on Grounding with Bing) is billed on the number of Bing search requests reported in the response, not on search actions.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/web-search",
+     "date": "2026-06-05",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r30"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Admins can disable Grounding with Bing Search and Custom Search at subscription or resource-group level, and separately disable the Web Search tool and Web Knowledge Source.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/manage-grounding-with-bing",
+     "date": "2026-05-13",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r14"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "supported",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "supported",
+    "c39": "supported",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "supported",
+    "c43": "supported",
+    "c44": "supported",
+    "c45": "supported",
+    "c46": "supported",
+    "c47": "supported",
+    "c48": "supported",
+    "c49": "supported",
+    "c50": "supported",
+    "c51": "supported",
+    "c52": "supported",
+    "c53": "supported",
+    "c54": "supported",
+    "c55": "supported",
+    "c56": "supported",
+    "c57": "supported",
+    "c58": "supported",
+    "c59": "supported",
+    "c60": "supported",
+    "c61": "supported",
+    "c62": "supported",
+    "c63": "supported",
+    "c64": "supported",
+    "c65": "supported",
+    "c66": "supported",
+    "c67": "supported",
+    "c68": "supported",
+    "c69": "supported",
+    "c70": "supported",
+    "c71": "supported",
+    "c72": "supported",
+    "c73": "supported",
+    "c74": "supported",
+    "c75": "supported",
+    "c76": "supported",
+    "c77": "supported",
+    "c78": "supported",
+    "c79": "supported",
+    "c80": "supported",
+    "c81": "supported",
+    "c82": "supported",
+    "c83": "supported",
+    "c84": "supported",
+    "c85": "supported",
+    "c86": "supported",
+    "c87": "supported",
+    "c88": "supported",
+    "c89": "supported",
+    "c90": "supported",
+    "c91": "supported",
+    "c92": "supported",
+    "c93": "supported",
+    "c94": "supported",
+    "c95": "supported",
+    "c96": "supported",
+    "c97": "supported",
+    "c98": "supported",
+    "c99": "supported",
+    "c100": "supported",
+    "c101": "supported",
+    "c102": "supported",
+    "c103": "supported",
+    "c104": "supported",
+    "c105": "supported",
+    "c106": "supported",
+    "c107": "supported",
+    "c108": "supported",
+    "c109": "supported",
+    "c110": "supported",
+    "c111": "supported",
+    "c112": "supported",
+    "c113": "supported",
+    "c114": "supported"
+   },
+   "notes": "Price facet pinned: Microsoft's undated live page lists $14 per 1K for both plans, with 150 TPS and 1M a day (all already in the KB). New on price: a Microsoft Q&A post shows the Azure portal still at $35 per 1K on 2026-01-08 (r11), so the cut to $14 came after that; c6/c63's 'August 2026' as_of isn't on Microsoft's page, though a dated blog (r29) says $14 'as of August 2026'. Web IQ has no public price. Two KB corrections: Microsoft now publishes Web IQ terms (webiq-legal), where the KB says none exist; and the enterprise-integration Bing terms, which the standard terms say cover Azure Foundry, allow storing output as part of the customer's own work product, where the KB says storing is barred. All 114 cids check out on their cited pages. Many duplicate each other, and the latency and benchmark ones are off the price facet but still describe the vendor. The webiq.microsoft.ai pages render client-side: the API reference was read from the page payload, and the benchmark chart in a browser. Not loadable: r16 (timed out) and r22 (Reddit blocked). Off-vendor or no relevant claim: r12, r19, r20, r27. Text on webiq.microsoft.ai addressed to AI agents was ignored."
+  },
+  {
+   "id": "m6",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "Aon grounds AonGPT, its enterprise AI assistant, with Grounding with Bing Search in Foundry Agent Service (Microsoft customer story; the same Aon quote appears on the Foundry Agent Service product page).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en/customers/story/25693-aon-plc-azure",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c7",
+      "r10"
+     ],
+     "support_partial": [
+      "c20"
+     ]
+    },
+    {
+     "claim": "Aon's head of engineering says AonGPT wouldn't have launched without Bing grounding: it had to be there on day one.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en/customers/story/25693-aon-plc-azure",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c7"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "More than 62,000 Aon users have access to AonGPT.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en/customers/story/25693-aon-plc-azure",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "About 31,000 of AonGPT's users are active monthly.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en/customers/story/25693-aon-plc-azure",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c1"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "AonGPT users have exchanged more than 6.4 million messages since launch.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en/customers/story/25693-aon-plc-azure",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c24"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "A LinkedIn comment quoting Wired says users are being moved to Grounding with Bing, but some large customers such as DuckDuckGo may keep private Bing access arrangements instead.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.linkedin.com/[redacted-72edd4c3b4f8]",
+     "date": "2025-09-02",
+     "source_type": "press report",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "r28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft lists Grounding with Bing Search at $14 per 1,000 transactions.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r7",
+      "r2",
+      "c10",
+      "c14"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Search is capped at 150 transactions per second.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r7",
+      "r2",
+      "c6",
+      "c19"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Search is capped at 1 million transactions per day.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r7",
+      "r2",
+      "c17",
+      "c18"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Search is offered only as a resource or tool in Foundry Agent Service or as the Web Knowledge Source.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r7",
+      "c4",
+      "c15"
+     ],
+     "support_partial": [
+      "r14"
+     ]
+    },
+    {
+     "claim": "Grounding with Bing transactions are counted by the number of tool calls per agent run.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r15",
+      "r18",
+      "c5",
+      "c8"
+     ],
+     "support_partial": [
+      "r7"
+     ]
+    },
+    {
+     "claim": "Microsoft classes Grounding with Bing as a First Party Consumption Service under the Grounding with Bing terms and the Privacy Statement, outside the Data Protection Addendum.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r15",
+      "r27",
+      "r8",
+      "c3"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "With Grounding with Bing, data flows outside the Azure compliance and geo boundary.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/web-overview",
+     "date": "2026-09-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r15",
+      "r27",
+      "r8",
+      "r18",
+      "c9"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Customers must show the returned citations and the Bing query link in the form Microsoft prescribes.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r17",
+      "r15",
+      "c22"
+     ],
+     "support_partial": [
+      "r18"
+     ]
+    },
+    {
+     "claim": "Grounding with Bing Search is charged separately from model-token consumption.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://azure.microsoft.com/en-us/pricing/details/foundry-agent-service",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c11",
+      "r25",
+      "r2"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft recommends the Web Search tool for getting started; Grounding with Bing Search is GA, needs a customer-created Bing resource, and takes extra parameters such as count, freshness, market and language.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/web-overview",
+     "date": "2026-09-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r27",
+      "c12"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft retired the Bing Search APIs in August 2025 and pointed customers to Grounding with Bing Search in Azure AI Agents.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement",
+     "date": "2025-05-16",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c13",
+      "r2"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's enterprise-integration terms grant a limited, revocable license to use the output in a customer solution, require attribution, and bar training AI models on the output.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-legal-enterprise",
+     "date": "2025-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c21"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Foundry's Deep Research tool (o3-deep-research) grounds its research with Grounding with Bing Search, which is billed separately.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/introducing-deep-research-in-azure-ai-foundry-agent-service/",
+     "date": "2025-07-07",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "r25"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "irrelevant",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "unsupported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "unsupported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "irrelevant",
+    "c24": "supported"
+   },
+   "notes": "One named production user is verified: Aon grounds AonGPT with Grounding with Bing Search in Foundry Agent Service (Microsoft story, 2025-11-18; Aon quote also on the product page, r10). Its scale figures (62K+ users with access, about 31K monthly active, 6.4M+ messages) describe the app, not Bing call volume. No other named company or transaction volume is verified. Commerzbank (r5) grounds its agent through Azure AI Search, not Bing, so it isn't support. c16 misreads the quoted Wired line: DuckDuckGo's 'private access arrangements' are set against being moved to Grounding with Bing, not a Grounding with Bing deal. c9's second half (only the query, tool parameters and key are sent to Bing) isn't on its cited overview page; it's on the bing-tools page. c2 (a Document Intelligence use case) and c23 (Aon's other Azure services) check out but have no bearing on Bing grounding. r4 and r10's 80,000-enterprise Foundry figure isn't specific to Bing grounding. Not loadable: r11 (Medium 403) and r20 (Reddit). r21 (YouTube) has no text."
+  },
+  {
+   "id": "a2",
+   "status": "unanswered",
+   "claims": [
+    {
+     "claim": "Anthropic discloses no revenue, search volume or share of API requests or revenue for its web search tool. Its launch post, docs and pricing page give only the price.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://claude.com/pricing",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "c14"
+     ],
+     "support_partial": [
+      "c19",
+      "c20",
+      "c1",
+      "c4"
+     ]
+    },
+    {
+     "claim": "Anthropic charges $10 per 1,000 web searches on the Claude API.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r21",
+      "r27",
+      "r6",
+      "r7",
+      "r8",
+      "r14",
+      "r18",
+      "c9",
+      "c17",
+      "c22",
+      "c29"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Web-search fees are charged on top of standard token costs for the search content.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r21",
+      "r27",
+      "r6",
+      "r8",
+      "r18",
+      "c11",
+      "c17",
+      "c22",
+      "c29"
+     ],
+     "support_partial": [
+      "r14"
+     ]
+    },
+    {
+     "claim": "Each web search counts as one billable use regardless of how many results it returns, and a search that errors isn't billed.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r21",
+      "c3",
+      "c11"
+     ],
+     "support_partial": [
+      "c20"
+     ]
+    },
+    {
+     "claim": "One request can trigger several searches, and developers cap them with max_uses.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r21",
+      "r27",
+      "c13",
+      "c26",
+      "c27"
+     ],
+     "support_partial": [
+      "r7",
+      "r32",
+      "r35"
+     ]
+    },
+    {
+     "claim": "Web search is offered on the Claude API, Claude Platform on AWS and Microsoft Foundry (Azure-hosted deployments get only the basic tool), in basic form only on Google Cloud, and not on Amazon Bedrock.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r21",
+      "c25"
+     ],
+     "support_partial": [
+      "r35"
+     ]
+    },
+    {
+     "claim": "Admins can set domain allow and block lists and turn web search on or off for the organization.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r27",
+      "r7",
+      "c6"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic launched web search on its API on 2025-05-07.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r27",
+      "r7",
+      "c10"
+     ],
+     "support_partial": [
+      "c22",
+      "r8"
+     ]
+    },
+    {
+     "claim": "Anthropic named Quora's Poe as a launch customer of the API web search tool.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r27",
+      "c19",
+      "c23",
+      "c28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic named Adaptive.ai as a launch customer of the API web search tool.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r27",
+      "c2",
+      "c16",
+      "c19"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's launch post and web search docs don't name the search supplier.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "c4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's Trust Center lists Brave Search as a web-search subprocessor for all products.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://trust.anthropic.com/subprocessors",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "c7"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's Trust Center lists TurboPuffer as a web-search subprocessor for all products except Claude for Government.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://trust.anthropic.com/subprocessors",
+     "date": "undated; read 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "c21"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic added Brave Search as a subprocessor on 2025-03-19 (Simon Willison).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://simonwillison.net/2025/Mar/21/anthropic-use-brave/",
+     "date": "2025-03-21",
+     "source_type": "other",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "c8"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Analysts estimate API revenue at about 70-75% of Anthropic's total (Sacra, RevenueMemo).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://sacra.com/c/anthropic/",
+     "date": "2026 (July data)",
+     "source_type": "analyst estimate",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r11",
+      "r9",
+      "r14",
+      "c18"
+     ],
+     "support_partial": [
+      "r3"
+     ]
+    },
+    {
+     "claim": "About 80% of Anthropic's revenue comes from business customers (secondary reports).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://sacra.com/c/anthropic/",
+     "date": "2026 (July data)",
+     "source_type": "analyst estimate",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "r11",
+      "r9",
+      "r12",
+      "r23",
+      "r34"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic is private and publishes no audited revenue; its published figures are run-rate snapshots.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.revenuememo.com/p/how-does-anthropic-make-money",
+     "date": "2026-07-12",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r14",
+      "c1"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's annualized revenue run-rate topped $65B by the end of July 2026, up from $47B in May (Bloomberg, Reuters).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.cnbctv18.com/business/anthropic-revenue-run-rate-tops-65-billion-says-report-19971524.htm",
+     "date": "2026-08-18",
+     "source_type": "press report",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r29",
+      "r31",
+      "r24",
+      "r11",
+      "r9",
+      "r23"
+     ],
+     "support_partial": [
+      "r1",
+      "r12",
+      "r19"
+     ]
+    },
+    {
+     "claim": "Anthropic reported preliminary Q2 2026 revenue above $11.5B, up from $787M a year earlier (Bloomberg, via CNBC).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.cnbc.com/2026/08/15/anthropic-revenue-jumps-to-over-11point5-billion-in-q2-report.html",
+     "date": "2026-08-15",
+     "source_type": "press report",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r1",
+      "r31"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's Q1 2026 revenue was $4.73B (Axios, via Quartz).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://qz.com/anthropic-revenue-run-rate-ipo-081826",
+     "date": "2026-08-18",
+     "source_type": "press report",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r31"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "RevenueMemo estimates Anthropic's actual calendar-2026 revenue at $20-26B, with the run-rate reaching $70-90B by year-end.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.revenuememo.com/p/how-does-anthropic-make-money",
+     "date": "2026-07-12",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r14"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic is projecting 2028 revenue of roughly $190-200B (Reuters).",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.cnbctv18.com/business/anthropic-revenue-run-rate-tops-65-billion-says-report-19971524.htm",
+     "date": "2026-08-18",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r29"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Sacra says Anthropic books revenue from cloud resellers (AWS, Google, Microsoft) gross, counting end-customer spend as revenue and partner payouts as expenses.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://sacra.com/c/anthropic/",
+     "date": "2026 (July data)",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r11",
+      "r9"
+     ],
+     "support_partial": [
+      "r12"
+     ]
+    },
+    {
+     "claim": "Sacra says more than 100,000 business customers ran Claude on Amazon Bedrock as of April 2026.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://sacra.com/c/anthropic/",
+     "date": "2026 (July data)",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r11",
+      "r9"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "An SEO firm's July 2026 article says Claude uses web search on about 36.6% of prompts; it gives no source or method.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://algoblueprints.com/what-search-engine-does-claude-use/",
+     "date": "2026-07",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "c5"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "An OppAlerts study (July 2026) ran 1,100 prompts through Claude Sonnet 5 on the API with web search on and logged 2,290 searches.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://oppalerts.com/blog/how-claude-turns-brave-search-results-into-citations",
+     "date": "2026-07-14",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "c12"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same OppAlerts study found an average of 2.1 searches per response.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://oppalerts.com/blog/how-claude-turns-brave-search-results-into-citations",
+     "date": "2026-07-14",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "c24"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "unsupported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported"
+   },
+   "notes": "Nothing verified pins web-search revenue or its share. Anthropic's post, docs and pricing page give only the $10 per 1K price. The one share-like figure, 36.6% of prompts (c5), comes from an SEO blog with no source or method, covers prompts in general rather than API requests, and isn't credible. OppAlerts' 2.1 searches per response comes from 1,100 prompts built to need search. Most denominator facts are already in the KB (run-rate $65B, Q2 $11.5B, Q1 $4.73B, API share 70-75%). New for the fee-share base: Sacra says cloud-reseller revenue is booked gross, and more than 100K customers run Claude on Bedrock, where web search isn't offered. RevenueMemo's $20-26B for 2026 revenue (r14) is below the $16.2B already reported for H1, so it's recorded with usefulness 0. c15 is unsupported: Willison says 'presumably still powered by Brave', not that it is. c14's reach to 'filings and press releases' goes beyond its pricing page, but it holds for the pages checked. The r19 excerpt's Axios gross-to-net figure (6-10%) is no longer on the page. Meridian48 (r5) gives a 2025 total of $1.9B and a 2026 projection of $6.5B, which conflict with the reported quarters, so they're not recorded. Not loadable: r2 and r30 (getpanto 'no healthy upstream'), and r4 and r25 (Reddit blocked). Quartz, eMarketer and Medium loaded in a browser."
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "caps": {
+  "exa": {
+   "usd": 3.0
+  },
+  "tavily": {
+   "credits": 400
+  },
+  "parallel": {
+   "usd": 2.0
+  },
+  "firecrawl": {
+   "credits": 600
+  }
+ },
+ "pace_seconds": {
+  "exa": 0.3,
+  "tavily": 0.8,
+  "parallel": 0.5,
+  "firecrawl": 6.5
+ },
+ "unit_prices": {
+  "parallel_search_advanced": 0.005,
+  "parallel_extract": 0.001
+ },
+ "fresh_start": "2026-09-12",
+ "fresh_start_mdy": [
+  "09",
+  "12",
+  "2026"
+ ],
+ "fresh_end_mdy": [
+  "09",
+  "26",
+  "2026"
+ ],
+ "firecrawl_scrape_top": 3,
+ "firecrawl_pdf_max_pages": 3,
+ "firecrawl_skip_domains": [
+  "x.com",
+  "twitter.com",
+  "linkedin.com",
+  "facebook.com",
+  "instagram.com",
+  "tiktok.com",
+  "threads.net",
+  "youtube.com",
+  "reddit.com"
+ ]
+}
