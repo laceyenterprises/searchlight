@@ -474,7 +474,7 @@ def test_judge_error_is_ungraded(task, rubric, answer, failed_index, failure):
     assert result["agreement"] == {"status": "not_measured", "reason": "judge_unscored"}
     assert "judge_scores" not in result
     with pytest.raises(ValueError):
-        grade(task, rubric, answer, judges=pair[:1])
+        grade(task, rubric, answer, judges=pair[1:])  # codex can never grade alone
 
 
 @pytest.mark.parametrize(
@@ -539,3 +539,38 @@ def test_judge_identity_model_and_usage_retained(task, rubric, answer):
     assert result["judge_scores"][1]["judge_id"] == "codex"
     assert result["judge_record"]["judges"][0]["token_usage"] == {"input": 100, "output": 10}
     assert result["judge_record"]["judges"][0]["model_id"] == "fixture-model"
+
+
+def test_single_primary_judge_decides_and_leaves_agreement_unmeasured(task, rubric, answer):
+    two = grade(task, rubric, answer, judges=judges({"fact_1": 0}, {"fact_0": 0}))
+    one = grade(task, rubric, answer, judges=judges({"fact_1": 0})[:1])
+    assert one["status"] == "scored" and one["passed"] == two["passed"]
+    assert one["key_fact_recall"] == two["key_fact_recall"]
+    assert one["agreement"] == {"status": "not_measured", "reason": "single_judge"}
+    assert [s["judge_id"] for s in one["judge_scores"]] == [two["judge_scores"][0]["judge_id"]]
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [(None, ("claude-code", "codex")), ("", ("claude-code", "codex")), ("claude-code", ("claude-code",)),
+     (" claude-code , codex ", ("claude-code", "codex"))],
+)
+def test_gap_judge_selection(value, expected):
+    from sew.gap.judges import brief_judge_harnesses
+
+    assert brief_judge_harnesses({} if value is None else {"SEW_GAP_JUDGES": value}) == expected
+
+
+@pytest.mark.parametrize("value", ["gemini", "codex", "codex,claude-code", "claude-code,claude-code", ","])
+def test_gap_judge_selection_rejects_unknown_or_repeated(value):
+    from sew.gap.judges import brief_judge_harnesses
+
+    with pytest.raises(ValueError):
+        brief_judge_harnesses({"SEW_GAP_JUDGES": value})
+
+
+def test_codex_cannot_grade_alone_or_first(task, rubric, answer):
+    pair = judges()
+    for wrong in ([pair[1]], [pair[1], pair[0]]):
+        with pytest.raises(ValueError):
+            grade(task, rubric, answer, judges=wrong)

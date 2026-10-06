@@ -41,8 +41,11 @@ Research briefs have `decision_correct: null` and no recommendation gate.
 
 Call `grade_brief(task, rubric, answer, judges=judges,
 capture_source=capture_source, arm=identity)` outside the arm workspace.
-Judges must be ordered `Judge("claude-code", transport)` then
-`Judge("codex", transport)`. Live callers can use the existing
+Judges may be `Judge("claude-code", transport)` alone, or ordered
+`Judge("claude-code", transport)` then `Judge("codex", transport)`. Calibration
+and battery callers default to both judges; set `SEW_GAP_JUDGES=claude-code`
+to use only the primary judge, for example while codex quota is unavailable.
+Codex cannot grade alone or precede the primary. Live callers can use the existing
 `HarnessJudgeTransport` for each harness; tests use fixture callables. No live
 judge or provider runs are needed to test this module.
 
@@ -128,8 +131,13 @@ exception message, including the decoder's encoding and rejection reason
 (and any capture-worker traceback that fits). These diagnostics remain outside
 the blinded judge payload. Older records and other exception types omit this field.
 
-The primary judge determines weighted recall and unsupported rate. Both judges'
-post-capture labels and scores are retained in `judge_scores`. `agreement`
+The primary judge determines weighted recall, unsupported rate and pass/fail;
+the secondary judge only measures agreement. Each participating judge's
+post-capture labels and scores are retained in `judge_scores`. With only the
+primary, `agreement` is `{"status": "not_measured", "reason": "single_judge"}`;
+the verdict still follows the same primary scores and GAP pass rule. Regrading
+with both judges adds agreement measurement, with pass/fail still determined
+only by the primary. With both judges, `agreement`
 reports binary Cohen's kappa (quadratic weighting on a two-category scale is
 identical to unweighted kappa), the number of label pairs, disagreement IDs and
 pass/fail dispute. Kappa is null when both judges use the same constant label;
