@@ -308,8 +308,14 @@ The audit pairs Claude tool results by tool-use ID and Codex `item.completed`
 shell results by item ID with the exact requested command. Codex result items
 may have status `completed` or `failed`; a nonzero integer `exit_code` or
 `failed` status supplies the failure signal, never denial evidence by itself.
-Both detection and attribution use the same quote-aware shell segmenter,
-recursing into `bash`/`sh`/`zsh -c`/`-lc` bodies. A wrapped command with local
+Both detection and attribution use the same quote-aware invocation parser,
+recursing into `bash`/`sh`/`zsh` command bodies (including `-i -c` and `-- -c`)
+and `eval`, and recognizing simple `nohup`, `time` and `xargs` wrappers.
+Pip global flags and versioned executables use the same parsing for detection
+and default PyPI denial targets. Literal arguments to `echo`, `printf` and `rg`
+are not executable requests. Active command substitutions are detected, but
+cannot receive denial attribution because the outer command can replace their
+output or exit status. A wrapped command with local
 setup or a local pipeline still has one network invocation; two network
 invocations or malformed quoting cannot be certified by one denial.
 Recognized sandbox violation blocks must cover the command's target host/port;
@@ -364,9 +370,11 @@ editables (`-e`), index and trusted-host options, `--config-settings`, any URL,
 combined short options, `=`-attached values, abbreviations and unknown flags.
 Such a detected attempt contaminates unless the sandbox recorded an attributable
 denial, which counts in `denied_network_attempts`. Pip download requests, and
-pip installs naming a URL, are detected from the command text as well as from
-parsed invocations, so wrappers the invocation parser does not recognize still
-count as attempts. Ordinary offline installs that the parser does not classify
+pip installs naming a URL, are detected through the shared invocation parser,
+including the wrappers described in GAPATTEMPT-01; quoted command text in
+ordinary literal arguments does not count as an attempt. Recognizing a wrapper
+for detection or denial attribution never makes it eligible for configuration
+neutralization. Ordinary offline installs that the parser does not classify
 as network attempts, such as `pip install -e .`, are unchanged. Codex reports
 commands through a `-lc` shell wrapper, so its pip downloads never qualify.
 

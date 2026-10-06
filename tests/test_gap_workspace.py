@@ -2203,22 +2203,50 @@ STRICT_PIP_ENV = {
 PIP_PIN = "stripe==15.6.1"
 
 
-def _pip_result(harness, command, output="Successfully downloaded stripe"):
+def _pip_result(harness, command, output="Successfully downloaded stripe", *, failed=False):
     if harness == "codex":
         return [
             {
                 "type": "command_execution",
                 "id": "pip",
                 "command": command,
-                "status": "completed",
-                "exit_code": 0,
+                "status": "failed" if failed else "completed",
+                "exit_code": 1 if failed else 0,
                 "aggregated_output": output,
             }
         ]
     return [
         {"type": "tool_use", "id": "pip", "name": "Bash", "input": {"command": command}},
-        {"type": "tool_result", "tool_use_id": "pip", "content": output, "is_error": False},
+        {"type": "tool_result", "tool_use_id": "pip", "content": output, "is_error": failed},
     ]
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        f"echo 'pip download {PIP_PIN}'",
+        f'echo "pip --isolated download {PIP_PIN}"',
+        f"printf '%s\\n' 'pip download {PIP_PIN}'",
+        f"rg 'pip download {PIP_PIN}' .",
+        "rg 'pip install https://example.org/stripe.whl' .",
+        f"echo '$(pip download {PIP_PIN})'",
+        f"printf '%s' '`pip download {PIP_PIN}`'",
+        f"bash -i -c \"echo 'pip download {PIP_PIN}'\"",
+        f"eval \"echo 'pip download {PIP_PIN}'\"",
+    ],
+)
+def test_quoted_pip_arguments_do_not_contaminate(harness, command):
+    neutralized, denied = set(), set()
+    assert not gap_workspace.shell_network_attempt(command)
+    assert audit_workspace_calls(
+        _pip_result(harness, command),
+        cell_env=STRICT_PIP_ENV,
+        neutralized_attempts=neutralized,
+        denied_attempts=denied,
+    ) == []
+    assert not neutralized
+    assert not denied
 
 
 @pytest.mark.parametrize("harness", ["codex", "claude-code"])
@@ -2341,24 +2369,31 @@ def test_non_allowlisted_pip_requests_are_contamination(harness, command):
     assert not gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV)
 
 
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
 @pytest.mark.parametrize(
     "command",
     [
         f"pip download {PIP_PIN} --index-url https://pypi.org/simple",
         f"pip download -r requirements.txt {PIP_PIN}",
         f"pip download {PIP_PIN}",
+        f"nohup pip --isolated download {PIP_PIN}",
+        f"time pip --isolated download {PIP_PIN}",
+        f"xargs pip --isolated download {PIP_PIN} < /dev/null",
+        f"eval 'pip --isolated download {PIP_PIN}'",
+        f"bash -i -c 'pip --isolated download {PIP_PIN}'",
+        f"bash -- -c 'pip --isolated download {PIP_PIN}'",
+        f"/bin/zsh -lc 'nohup pip --isolated download {PIP_PIN}'",
+        f"pip3.12 --isolated download {PIP_PIN}",
+        f"python -I -m pip --isolated download {PIP_PIN}",
     ],
 )
-def test_sandbox_denied_pip_request_counts_as_denied_attempt(command):
+def test_sandbox_denied_pip_request_counts_as_denied_attempt(harness, command):
     output = (
         "<sandbox_violations>\n"
         "deny network-outbound pypi.org:443 (host is on the deny list)\n"
         "</sandbox_violations>"
     )
-    transcript = [
-        {"type": "tool_use", "id": "pip", "name": "Bash", "input": {"command": command}},
-        {"type": "tool_result", "tool_use_id": "pip", "content": output, "is_error": True},
-    ]
+    transcript = _pip_result(harness, command, output, failed=True)
     neutralized, denied = set(), set()
     assert audit_workspace_calls(
         transcript,
@@ -2368,6 +2403,54 @@ def test_sandbox_denied_pip_request_counts_as_denied_attempt(command):
     ) == []
     assert denied == {("pip", command)}
     assert not neutralized
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize(
+    "command",
+    [
+        f"nohup pip --isolated download {PIP_PIN}",
+        f"bash -i -c 'pip --isolated download {PIP_PIN}'",
+        f"eval 'pip --isolated download {PIP_PIN}'",
+    ],
+)
+@pytest.mark.parametrize("defect", ["wrong-target", "multiple", "trailing-command", "trailing-output", "duplicate-block"])
+def test_wrapped_pip_denial_requires_structural_attribution(harness, command, defect):
+    output = (
+        "<sandbox_violations>\n"
+        "deny network-outbound pypi.org:443 (host is on the deny list)\n"
+        "</sandbox_violations>"
+    )
+    if defect == "wrong-target":
+        output = output.replace("pypi.org", "unrelated.example")
+    elif defect == "multiple":
+        command += f"; pip download {PIP_PIN}"
+    elif defect == "trailing-command":
+        command += "; true"
+    elif defect == "trailing-output":
+        output += "\nmore output"
+    elif defect == "duplicate-block":
+        output += "\n" + output
+    denied = set()
+    assert audit_workspace_calls(
+        _pip_result(harness, command, output, failed=True),
+        cell_env=STRICT_PIP_ENV,
+        denied_attempts=denied,
+    ) == ["workspace:shell-network"]
+    assert not denied
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("body", ["$(pip download stripe)", "`pip download stripe`", "$(echo $(pip download stripe))"])
+def test_pip_substitution_is_detected_but_outer_output_cannot_prove_denial(harness, body):
+    command = f'printf "%s" "{body}"'
+    assert gap_workspace.shell_network_attempt(command)
+    denied = set()
+    assert audit_workspace_calls(
+        _pip_result(harness, command, "network: Permission denied", failed=True),
+        denied_attempts=denied,
+    ) == ["workspace:shell-network"]
+    assert not denied
 
 
 @pytest.mark.parametrize(

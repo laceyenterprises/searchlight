@@ -397,8 +397,10 @@ def _shell_invocation(args):
                     break
                 else:
                     break
-        elif args[0] in {"command", "exec", "sudo"}:
+        elif Path(args[0]).name in {"command", "exec", "sudo", "nohup", "time", "xargs"}:
             args = args[1:]
+            if args[:1] == ["--"]:
+                args = args[1:]
         else:
             break
     if args and args[0] in {"export", "readonly", "typeset"}:
@@ -412,7 +414,7 @@ def _shell_invocation(args):
     return args, pip_override, offline_override
 
 
-def _pip_index_option(arg):
+def _pip_index_option(arg, *, include_isolated=True):
     # pip accepts unambiguous long-option abbreviations after shell quote removal.
     # Boolean short options can precede -i, with a separate or attached value.
     option = arg.partition("=")[0]
@@ -420,7 +422,11 @@ def _pip_index_option(arg):
         option.startswith("--")
         and len(option) > 2
         and any(
-            full.startswith(option) for full in ("--isolated", "--index-url", "--extra-index-url")
+            full.startswith(option)
+            for full in (
+                ("--isolated", "--index-url", "--extra-index-url")
+                if include_isolated else ("--index-url", "--extra-index-url")
+            )
         )
     ) or bool(re.match(r"^-[qvUI]*i", arg))
 
@@ -461,11 +467,80 @@ def _pip_dynamic_arguments(args):
 # parser: shell syntax is open-ended, so anything unrecognized is not exempt.
 PIP_EXEMPT_FLAGS = frozenset({"--no-deps", "--no-index", "-q", "--quiet"})
 PIP_EXEMPT_PIN = re.compile(r"[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?==([0-9][A-Za-z0-9.+_-]*)")
-# Shell syntax can hide a pip request from the invocation parser. Any call whose
-# text requests a download, or an install with a URL, is an attempt.
-PIP_REQUEST = re.compile(
-    r"(?<![\w.-])(?:pip[0-9.]*|-m\s+pip)\s+(?:-\S+\s+)*(?:download\b|install\b[^\n;&|]*://)"
-)
+
+
+def _shell_body(args):
+    """Return executable shell text, never an ordinary command's literal arguments."""
+    if not args:
+        return None
+    executable = Path(args[0]).name
+    if executable == "eval":
+        return " ".join(args[1:])
+    if executable in {"bash", "sh", "zsh"}:
+        for index, arg in enumerate(args[1:], start=1):
+            if arg == "--":
+                continue
+            if not arg.startswith("-"):
+                break
+            if not arg.startswith("--") and "c" in arg[1:]:
+                return args[index + 1] if index + 1 < len(args) else ""
+    return None
+
+
+def _shell_substitutions(command):
+    """Separate active command substitutions from literal quoted command text.
+
+    Leave a dynamic argument marker in the outer command, so pip source checks
+    still refuse to certify arguments produced by arbitrary shell execution.
+    """
+    def scan(index, end=None):
+        text, bodies = [], []
+        quote = None
+        depth = 0
+        while index < len(command):
+            char = command[index]
+            if quote is None and end == "`" and char == "`":
+                return "".join(text), bodies, index + 1
+            if char == "\\" and quote != "'":
+                text.append(command[index:index + 2])
+                index += 2
+                continue
+            if quote != "'" and (command.startswith("$(", index) or char == "`"):
+                closing = ")" if char == "$" else "`"
+                body, nested, index = scan(index + (2 if char == "$" else 1), closing)
+                if body is None:
+                    return None, [], index
+                bodies.extend([body, *nested])
+                text.append("$GAP_SUBSTITUTION")
+                continue
+            if quote is None and end == ")" and char == "(":
+                depth += 1
+            elif quote is None and char == end:
+                if depth == 0:
+                    return "".join(text), bodies, index + 1
+                depth -= 1
+            if char in {"'", '"'}:
+                if quote is None:
+                    quote = char
+                elif quote == char:
+                    quote = None
+            text.append(char)
+            index += 1
+        return (None if end else "".join(text)), bodies, index
+
+    text, bodies, _ = scan(0)
+    return text, bodies
+
+
+def _pip_arguments(args):
+    executable, tail = Path(args[0]).name.casefold(), args[1:]
+    if re.fullmatch(r"pip[0-9.]*", executable):
+        return tail
+    if executable.startswith("python") and "-m" in tail:
+        module_index = tail.index("-m")
+        if tail[module_index + 1:module_index + 2] == ["pip"]:
+            return tail[module_index + 2:]
+    return None
 
 
 def _is_version(value) -> bool:
@@ -537,12 +612,20 @@ def _shell_network_segments(
     command: str, *, inherited_offline_override=False
 ) -> list[list[str]] | None:
     """Share quote-aware invocation parsing between detection and attribution."""
+    command, substitutions = _shell_substitutions(command)
+    if command is None:
+        return None
     segments = _shell_segments(command)
     if segments is None:
         return None
     invocations = [_shell_invocation(args) for args in segments]
     offline_override = inherited_offline_override or any(override for _, _, override in invocations)
     network_segments = []
+    for body in substitutions:
+        nested = _shell_network_segments(body, inherited_offline_override=offline_override)
+        if nested is None:
+            return None
+        network_segments.extend(nested)
     for args, _, _ in invocations:
         if not args:
             continue
@@ -551,16 +634,14 @@ def _shell_network_segments(
         if executable in NETWORK_EXECUTABLES:
             network_segments.append(args)
             continue
-        if executable in {"bash", "sh", "zsh"} and len(tail) >= 2 and tail[0] in {"-c", "-lc"}:
-            nested = _shell_network_segments(tail[1], inherited_offline_override=offline_override)
+        if (body := _shell_body(args)) is not None:
+            nested = _shell_network_segments(body, inherited_offline_override=offline_override)
             if nested is None:
                 return None
             network_segments.extend(nested)
             continue
-        if executable.startswith("python") and "-m" in tail:
-            module_index = tail.index("-m")
-            if tail[module_index + 1 : module_index + 2] == ["pip"]:
-                executable, tail = "pip", tail[module_index + 2 :]
+        if (pip_args := _pip_arguments(args)) is not None:
+            executable, tail = "pip", pip_args
         if executable in {"pip", "pip3", "uv"}:
             if _pip_dynamic_arguments(tail):
                 network_segments.append(args)
@@ -587,7 +668,7 @@ def _shell_network_segments(
             if "install" in tail or "sync" in tail:
                 if (
                     any(
-                        arg.startswith(("http://", "https://"))
+                        "://" in arg
                         or _pip_index_option(arg)
                         or _pip_unverified_source_option(arg)
                         for arg in tail
@@ -647,6 +728,9 @@ def call_payloads(value, *, include_id=False):
 
 def _network_invocation_is_last(command, *, inherited_offline_override=False):
     """Reject trailing shell segments that could supply output or exit status."""
+    command, substitutions = _shell_substitutions(command)
+    if command is None or substitutions:
+        return False  # substitution output/status can be replaced by the outer command
     segments = _shell_segments(command)
     if segments is None:
         return False
@@ -658,8 +742,8 @@ def _network_invocation_is_last(command, *, inherited_offline_override=False):
     offline_override = inherited_offline_override or any(override for _, _, override in invocations)
     if not args:
         return False
-    if Path(args[0]).name in {"bash", "sh", "zsh"} and len(args) >= 3 and args[1] in {"-c", "-lc"}:
-        return _network_invocation_is_last(args[2], inherited_offline_override=offline_override)
+    if (body := _shell_body(args)) is not None:
+        return _network_invocation_is_last(body, inherited_offline_override=offline_override)
     return bool(
         _shell_network_segments(shlex.join(args), inherited_offline_override=offline_override)
     )
@@ -731,8 +815,10 @@ def denied_network_commands(transcript):
                 )
             except ValueError:
                 pass
-        if re.search(r"\bpip[3]?\s+download\s", command) and not re.search(
-            r"--(?:extra-)?index-url|(?:^|\s)-i|https?://", command
+        pip_args = _pip_arguments(segments[0])
+        if pip_args is not None and "download" in pip_args and not any(
+            _pip_index_option(arg, include_isolated=False) or "://" in arg
+            for arg in pip_args
         ):
             targets.add(("pypi.org", "443"))
         # The harness block must be unique, separate, and trailing. Embedded
@@ -889,7 +975,7 @@ def audit_workspace_calls(
         if (
             shell
             and isinstance(command, str)
-            and (shell_network_attempt(command) or PIP_REQUEST.search(command))
+            and shell_network_attempt(command)
         ):
             if (call_id, command) in neutralized:
                 if neutralized_attempts is not None:

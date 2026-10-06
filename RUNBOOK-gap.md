@@ -318,6 +318,9 @@ enforced offline cell configuration. Shell wrappers, pipes, chains, requirements
 constraints, URLs, combined short options and unknown flags never qualify.
 Qualifying calls count in `arm_audit.config_neutralized_network_attempts`; see
 `lib/python/sew/gap/WORKSPACE.md` (GAPPIP-01).
+Detection and denial attribution share invocation parsing: quoted pip text in
+ordinary command arguments is harmless, while recognized wrappers can receive
+attributable denials without qualifying for configuration neutralization.
 Cell setup strips all supplied `PIP_*` settings and supplies only the driver's
 `PIP_NO_INDEX`, `PIP_FIND_LINKS`, `PIP_CONFIG_FILE`,
 `PIP_DISABLE_PIP_VERSION_CHECK` and `PIP_REQUIRE_VIRTUALENV`. The exemption
