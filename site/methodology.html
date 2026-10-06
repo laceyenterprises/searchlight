@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="How Searchlight tests web search for AI coding agents."><link rel="icon" type="image/svg+xml" href="logo.svg">
+<title>Searchlight Methodology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--ink:#111111;--ink2:#4F5761;--muted:#6B7480;--paper:#FFFFFF;--soft:#F4F6F9;--rule:#E3E7EC;
+--accent:#007BFF;--accent-soft:#EAF3FF;--charcoal:#404040;--radius:22px;--wrap:1120px;
+--beam:var(--accent);--beam-soft:var(--accent-soft);--hatch:#C5CCD3;--ref:#8A949E;
+--sans:'Inter',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+color-scheme:light}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:24px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:500;letter-spacing:.2em;font-size:14px}
+.brand:hover{text-decoration:none}.brand svg{width:28px;height:28px}
+.top{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:5}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px;flex-wrap:wrap}
+.nav{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.nav a{color:var(--ink);font-size:15px;letter-spacing:.02em}.nav a.on{font-weight:600}
+.btn{display:inline-block;border-radius:999px;padding:11px 22px;font-size:15px;font-weight:500;border:1.5px solid var(--ink);
+color:var(--ink);background:transparent;line-height:1.2}
+.btn:hover{text-decoration:none;background:var(--soft)}
+.btn.solid{background:var(--ink);color:var(--paper)}.btn.solid:hover{background:#2A2A2A}
+.nav .btn{padding:8px 18px;font-size:14px}
+section{padding-block:72px}
+.soft{background:var(--soft)}
+.eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 14px}
+h1,h2,h3{font-weight:500;letter-spacing:-.02em;line-height:1.12;text-wrap:balance;margin:0}
+h1{font-size:clamp(38px,5.6vw,64px);max-width:21ch}
+h2{font-size:clamp(28px,3.4vw,40px);margin-bottom:12px}
+h3{font-size:20px;letter-spacing:-.01em}
+.lede{font-size:clamp(18px,1.6vw,21px);color:var(--ink2);max-width:60ch;margin:22px 0 0}
+.section-lede{color:var(--ink2);max-width:62ch;margin:0 0 36px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.facts{display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:48px;padding-top:28px;border-top:1px solid var(--rule)}
+.facts div{font-size:15px;color:var(--ink2)}.facts strong{display:block;font-size:30px;font-weight:500;color:var(--ink);letter-spacing:-.02em}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:28px}
+.finding .big{font-size:clamp(34px,3.6vw,46px);font-weight:500;letter-spacing:-.03em;color:var(--accent);line-height:1.05}
+.finding h3{margin:14px 0 8px}.finding p{margin:0;color:var(--ink2)}
+.step .n{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:600}
+.step h3{margin:18px 0 8px}.step p{margin:0;color:var(--ink2);font-size:15px}
+.example .kind{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.example h3{margin:10px 0 14px}
+.example blockquote{margin:0 0 16px;padding:16px 18px;border-radius:14px;background:var(--soft);font-size:15px;color:var(--ink)}
+.example dl{margin:0;display:grid;gap:10px}.example dt{font-size:13px;font-weight:600}.example dd{margin:0;color:var(--ink2);font-size:15px}
+.report{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:center}
+.report ul{padding-left:20px;color:var(--ink2)}.report li{margin:6px 0}
+.shot{display:block;border-radius:var(--radius);overflow:hidden;border:1px solid var(--rule);background:var(--soft);max-height:460px}
+.shot img{display:block;width:100%;height:auto}
+.foot{background:var(--charcoal);color:#E8EAED;padding-block:56px 32px}
+.foot a{color:#FFFFFF;text-decoration:underline;text-underline-offset:3px}
+.foot .brand{color:#FFFFFF;text-decoration:none}.foot .brand svg circle:nth-of-type(1){fill:#FFFFFF}.foot .brand svg circle:nth-of-type(2){fill:#404040}
+.foot-grid{display:grid;gap:32px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.foot h4{margin:0 0 10px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#B9BEC5;font-weight:600}
+.foot p{margin:0;font-size:15px;color:#E8EAED}
+.foot-base{margin-top:40px;padding-top:20px;border-top:1px solid #5A5A5A;font-size:14px;color:#B9BEC5}
+.page-head{padding-block:64px 24px}
+.doc section{padding-block:28px}
+.doc h2{font-size:30px;margin-top:8px}
+.doc h3{margin:28px 0 10px}
+.doc p,.doc li{max-width:78ch}
+.caveats{list-style:none;padding:0;display:grid;gap:12px}
+.caveats li{background:var(--soft);border-radius:14px;padding:16px 18px}.caveats strong{display:block;margin-bottom:4px}
+.infographic{border:1px solid var(--rule);border-radius:var(--radius);overflow-x:auto;background:#F5F7FA}
+.infographic svg{display:block;width:100%;height:auto;min-width:720px}
+figure{margin:0}figcaption{font-size:14px;color:var(--muted);margin-top:10px}
+.tablewrap{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;color:var(--ink2);font-size:13px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.ci{min-width:180px}
+.flag{font-size:13px;color:var(--muted)}
+.pill{display:inline-block;font-size:12px;border-radius:999px;padding:2px 10px;background:var(--soft);color:var(--ink2)}
+.pill.top{background:var(--accent-soft);color:#0057B3}
+.board{border:1px solid var(--rule);border-radius:var(--radius);padding:24px;margin:20px 0}
+.board h3{margin:0 0 8px}.scope{color:var(--ink2);font-size:15px}
+details.run{border:1px solid var(--rule);border-radius:14px;padding:12px 18px;margin:12px 0;background:var(--paper)}
+details.run summary{cursor:pointer;font-weight:600}
+code{font-family:var(--mono);font-size:.9em;background:var(--soft);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+pre{font-family:var(--mono);font-size:13px;background:var(--soft);border-radius:14px;padding:16px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0}
+.diagram{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius);padding:20px;margin:14px 0;background:var(--paper)}
+pre.mermaid{background:none;padding:0;margin:0;font-size:.85rem;text-align:center}
+.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.terms div{background:var(--soft);border-radius:14px;padding:14px 16px;font-size:15px}.terms b{display:block}
+@media (max-width:640px){section{padding-block:52px}.nav{gap:16px}.facts strong{font-size:24px}}
+</style>
+</head><body>
+<header class="top"><div class="wrap"><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="Searchlight"><circle cx="31" cy="67" r="22" fill="#111111"/><path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/><circle cx="34" cy="69.5" r="6.4" fill="#FFFFFF"/></svg><span>SEARCHLIGHT</span></a><nav class="nav" aria-label="Site"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="methodology.html" class="on">Methodology</a><a class="btn" href="https://github.com/laceyenterprises/searchlight">GitHub</a></nav></div></header>
+<main>
+<div class="wrap doc">
+<div class="page-head"><p class="eyebrow">Methodology</p><h1>How Searchlight tests search</h1>
+<p class="lede">A controlled experiment: the same agent, model and instructions in every test run, with only the search
+provider changing. This page describes the apparatus in full.</p></div>
+
+<section id="terms"><h2>Terms used in the reports</h2>
+<div class="terms">
+<div><b>Search setup (report term: arm)</b>One way of giving the agent search: one provider's MCP server, the agent's built-in
+search, or no search at all.</div>
+<div><b>Test run (report term: cell)</b>One task, one search setup, one repetition, graded once.</div>
+<div><b>Agent (report term: harness)</b>The AI coding agent program: Claude Code or Codex.</div>
+<div><b>Floor and ceiling</b>The same task with no search (floor) and with the answer excerpt handed over (ceiling).</div>
+<div><b>Gap closure</b>How much of the distance from floor to ceiling a search setup recovers.</div>
+<div><b>95% range</b>The Wilson interval around a pass rate. Overlapping ranges mean the data cannot separate two setups.</div>
+</div></section>
+
+<section id="pipeline"><h2>From task to report</h2>
+<p>The runner gives the agent a fresh scratch workspace, starts it with exactly the tools its search setup allows, records
+every tool call and the final answer, and grades the answer without telling the grader which setup produced it.</p>
+<div class="diagram"><pre class="mermaid">
+flowchart LR
+  subgraph catalog[Task catalogs]
+    T1[production tasks&lt;br/&gt;web search bakeoff]
+    T2[gap briefs&lt;br/&gt;post-cutoff events]
+  end
+  subgraph cell[One test run = task x search setup x repetition]
+    W[fresh scratch&lt;br/&gt;workspace]
+    H[agent&lt;br/&gt;Claude Code or Codex]
+    M[metering proxy]
+    V[(search provider MCP server&lt;br/&gt;pinned version)]
+  end
+  subgraph grade[Grading]
+    D[deterministic&lt;br/&gt;validators]
+    J[blinded judges&lt;br/&gt;vs captured sources]
+  end
+  T1 &amp; T2 --&gt; W --&gt; H
+  H &lt;--&gt;|tool calls| M &lt;--&gt; V
+  H --&gt; B[(evidence bundle&lt;br/&gt;transcript, final answer,&lt;br/&gt;setup audit, metrics)]
+  B --&gt; D &amp; J --&gt; R[reports/*/summary.json] --&gt; S[this site]
+</pre></div></section>
+
+<section id="isolation"><h2>What each setup can touch</h2>
+<p>Search setups differ only in what the agent can use to search. Claude Code is started with
+<code>--strict-mcp-config</code>, so the only MCP server it can reach is the provider's, and <code>--tools</code> limits its
+built-ins. Codex runs read-only with its shell, browser, app and plugin features disabled. After each run an audit compares
+every observed tool call with the setup's contract; a call outside it marks the run contaminated.</p>
+<div class="diagram"><pre class="mermaid">
+flowchart TB
+  A[search setup contract] --&gt; CC[Claude Code spawn&lt;br/&gt;--strict-mcp-config&lt;br/&gt;--tools: the setup's built-ins&lt;br/&gt;--allowedTools: the same set]
+  A --&gt; CX[codex spawn&lt;br/&gt;exec --sandbox read-only&lt;br/&gt;--disable shell_tool, browser_use,&lt;br/&gt;apps, plugins, ...]
+  CC --&gt; P1[search provider:&lt;br/&gt;one provider MCP server&lt;br/&gt;+ ToolSearch + Read]
+  CC --&gt; N1[built-in search:&lt;br/&gt;WebSearch + WebFetch + Read]
+  CC --&gt; F1[no-search / floor / ceiling:&lt;br/&gt;no tools]
+  CX --&gt; P2[search provider:&lt;br/&gt;one provider MCP server]
+  CX --&gt; N2[built-in search:&lt;br/&gt;codex --search]
+  CX --&gt; F2[no-search / floor / ceiling:&lt;br/&gt;no tools]
+  P1 &amp; N1 &amp; F1 &amp; P2 &amp; N2 &amp; F2 --&gt; AU[setup audit:&lt;br/&gt;every observed tool call&lt;br/&gt;checked against the contract]
+</pre></div>
+<h3>Claude Code invocation</h3><pre>claude --print --output-format stream-json --verbose --no-session-persistence \
+  --model claude-opus-5-5 --mcp-config &lt;run&gt;/claude-mcp.json --strict-mcp-config \
+  --tools ToolSearch,Read --allowedTools &#x27;mcp__&lt;provider&gt;__*&#x27;     # one search provider
+  --tools WebSearch,WebFetch,Read --allowedTools WebSearch,WebFetch   # built-in search (fixed)
+  --tools &#x27;&#x27; --allowedTools &#x27;&#x27;                                       # no search, floor, ceiling</pre>
+<h3>Codex invocation</h3><pre>codex [--search] exec --json --ephemeral --skip-git-repo-check --sandbox read-only \
+  --model gpt-6.1-sol --disable shell_tool --disable unified_exec \
+  --disable browser_use --disable browser_use_external --disable computer_use \
+  --disable in_app_browser --disable apps --disable plugins --disable remote_plugin ...
+# --search only for built-in search; a provider setup adds one MCP server via the run config</pre>
+<h3>Limits per test run</h3>
+<div class="tablewrap"><table><thead><tr><th>Limit</th><th>Search gap bench</th><th>Web search bakeoff</th></tr></thead><tbody><tr><td>Wall clock</td><td>1,200 s</td><td>300 to 1,200 s (set per task)</td></tr><tr><td>Total tokens</td><td>1,000,000</td><td>120,000 to 350,000 (set per task)</td></tr><tr><td>Search provider calls</td><td>60</td><td>15 to 50 (set per task)</td></tr><tr><td>Agent start-up timeout</td><td>120 s</td><td>120 s</td></tr><tr><td>Repetitions</td><td>3 (battery), 5 (calibration)</td><td>3</td></tr></tbody></table></div>
+</section>
+
+<section id="calibration"><h2>Which tasks count</h2>
+<p>A search gap task counts only if it is genuinely beyond the model: with no search the agent must fail, and with the answer
+excerpt handed over it must succeed. Calibration is repeated for each agent and model.</p>
+<div class="diagram"><pre class="mermaid">
+flowchart LR
+  T[candidate brief&lt;br/&gt;event after 2026-01-01] --&gt; FL[floor: no search&lt;br/&gt;5 runs]
+  T --&gt; CE[ceiling: answer excerpt&lt;br/&gt;in the prompt, 5 runs]
+  FL --&gt; Q{floor passes ≤ 1&lt;br/&gt;and ceiling passes ≥ 4?}
+  CE --&gt; Q
+  Q -- yes --&gt; AD[admitted for this&lt;br/&gt;agent and model]
+  Q -- no --&gt; RJ[rejected]
+  AD --&gt; BAT[battery: every search setup x 3]
+  BAT --&gt; GC[gap closure =&lt;br/&gt;setup - floor / ceiling - floor]
+</pre></div>
+<pre>gap closure  =  (setup pass rate − floor pass rate) / (ceiling pass rate − floor pass rate)
+
+   floor          search setup           ceiling
+   0% ●─────────────────●──────────────────● 95%
+       └──── closed ────┘└──── remaining ────┘</pre></section>
+
+<section id="grading"><h2>How answers are graded</h2><div class="diagram"><pre class="mermaid">
+sequenceDiagram
+  participant A as Agent answer
+  participant V as Schema validator
+  participant S as Source capture
+  participant J1 as Judge 1 (Claude Code)
+  participant J2 as Judge 2 (Codex, gap bench)
+  A-&gt;&gt;V: JSON deliverable (brief, claims, citations)
+  V--&gt;&gt;A: reject malformed answers
+  A-&gt;&gt;S: cited URLs
+  S-&gt;&gt;J1: readable source text + rubric (blinded to the search setup)
+  S-&gt;&gt;J2: same inputs
+  J1--&gt;&gt;A: key-fact recall, unsupported claims, decision
+  J2--&gt;&gt;A: independent labels, agreement recorded
+  Note over A,J2: pass = right decision AND recall &gt;= 0.7 AND unsupported &lt;= 0.25
+</pre></div>
+<p>Search gap briefs pass when the decision is right, at least 70% of key facts are covered and at most 25% of claims are
+unsupported. Code fixes pass when hidden tests pass in an isolated workspace. Bakeoff tasks use automatic checks where a task
+has one, and otherwise a single blinded grader scores the task rubric.</p></section>
+
+<section id="providers"><h2>Search provider configurations</h2>
+<p>Pinned in <a href="https://github.com/laceyenterprises/searchlight/blob/main/config/provider-arm-tools.yaml">config/provider-arm-tools.yaml</a>. Every tool a
+provider's server advertised was available to the agent; no provider tool was hidden.</p>
+<div class="tablewrap"><table><thead><tr><th>Search provider</th><th>Connection</th><th>Version / endpoint</th><th>Tools exposed to the agent</th></tr></thead><tbody><tr><td>Brave</td><td>stdio MCP server (npx)</td><td><code>@brave/brave-search-mcp-server@2.1.4</code></td><td>8: <code>brave_image_search</code>, <code>brave_llm_context</code>, <code>brave_local_search</code>, <code>brave_news_search</code>, <code>brave_place_search</code>, <code>brave_summarizer</code>, <code>brave_video_search</code>, <code>brave_web_search</code></td></tr><tr><td>Exa</td><td>stdio MCP server (npx)</td><td><code>exa-mcp-server@3.4.1</code></td><td>2: <code>web_fetch_exa</code>, <code>web_search_exa</code></td></tr><tr><td>Firecrawl</td><td>stdio MCP server (npx)</td><td><code>firecrawl-mcp@3.26.0</code></td><td>29: <code>firecrawl_agent</code>, <code>firecrawl_agent_status</code>, <code>firecrawl_check_crawl_status</code>, <code>firecrawl_crawl</code>, <code>firecrawl_credit_usage</code>, <code>firecrawl_developer_search</code>, <code>firecrawl_extract</code>, <code>firecrawl_feedback</code>, <code>firecrawl_find_tools</code>, <code>firecrawl_interact</code>, <code>firecrawl_interact_stop</code>, <code>firecrawl_map</code>, <code>firecrawl_monitor_check</code>, <code>firecrawl_monitor_checks</code>, <code>firecrawl_monitor_create</code>, <code>firecrawl_monitor_delete</code>, <code>firecrawl_monitor_get</code>, <code>firecrawl_monitor_list</code>, <code>firecrawl_monitor_run</code>, <code>firecrawl_monitor_update</code>, <code>firecrawl_parse</code>, <code>firecrawl_research_inspect_paper</code>, <code>firecrawl_research_read_paper</code>, <code>firecrawl_research_related_papers</code>, <code>firecrawl_research_search_github</code>, <code>firecrawl_research_search_papers</code>, <code>firecrawl_scrape</code>, <code>firecrawl_search</code>, <code>firecrawl_search_feedback</code></td></tr><tr><td>Parallel</td><td>hosted MCP via <code>mcp-remote</code></td><td><code>mcp-remote@0.14.3</code> → <code>https://search.parallel.ai/mcp-oauth</code></td><td>2: <code>web_fetch</code>, <code>web_search</code></td></tr><tr><td>Perplexity</td><td>stdio MCP server (npx)</td><td><code>@perplexity-ai/mcp-server@1.3.0</code></td><td>4: <code>perplexity_ask</code>, <code>perplexity_reason</code>, <code>perplexity_research</code>, <code>perplexity_search</code></td></tr><tr><td>Tavily</td><td>stdio MCP server (npx)</td><td><code>tavily-mcp@0.2.22</code></td><td>5: <code>tavily_crawl</code>, <code>tavily_extract</code>, <code>tavily_map</code>, <code>tavily_research</code>, <code>tavily_search</code></td></tr><tr><td>Built-in (Claude Code)</td><td>agent built-in</td><td>Claude Code 2.1.282</td><td><code>WebSearch</code>, <code>WebFetch</code> (refused before 2026-10-06), <code>Read</code></td></tr><tr><td>Built-in (Codex)</td><td>agent built-in</td><td>codex <code>--search</code></td><td>built-in web search and page views</td></tr></tbody></table></div></section>
+
+<section id="reproduce"><h2>Reproduce, correct, contribute</h2>
+<p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw transcripts and
+provider responses are not distributed, so exact replay of the published numbers is not possible; a new run measures the
+same method. If you run a tested service and a configuration here misrepresents it, open an issue with the configuration you
+recommend: corrections are rerun and published beside the original, never silently replaced.</p>
+<pre><code>pipx install 'git+https://github.com/laceyenterprises/searchlight'
+sew doctor
+python3 scripts/check_reports.py
+python3 scripts/build_site.py --check</code></pre></section>
+</div>
+</main>
+<footer class="foot"><div class="wrap"><div class="foot-grid"><div><a class="brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" role="img" aria-label="Searchlight"><circle cx="31" cy="67" r="22" fill="#111111"/><path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/><circle cx="34" cy="69.5" r="6.4" fill="#FFFFFF"/></svg><span>SEARCHLIGHT</span></a><p style="margin-top:14px">An open benchmark of what web search does for AI coding agents.</p></div><div><h4>License</h4><p>Code, tasks and published results are released under the <a href="https://github.com/laceyenterprises/searchlight/blob/main/LICENSE">Apache License 2.0</a>.</p></div><div><h4>Questions</h4><p><a href="https://github.com/laceyenterprises/searchlight/issues/new">Open an issue on GitHub</a>. If you run a search service we tested and our setup misrepresents it, tell us: corrections are rerun and published beside the original.</p></div><div><h4>Source</h4><p><a href="https://github.com/laceyenterprises/searchlight">github.com/laceyenterprises/searchlight</a></p><p style="margin-top:8px"><a href="https://github.com/laceyenterprises/searchlight/tree/main/reports">Raw report data</a></p></div></div><div class="foot-base">A <a href="https://www.laceyenterprises.com">Lacey Enterprises</a> project · © 2026 Lacey Enterprises LLC</div></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js" integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" crossorigin="anonymous"></script><script>mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral'});</script>
+</body></html>

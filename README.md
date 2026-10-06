@@ -1,4 +1,8 @@
+<img src="site/logo.svg" alt="" width="40" height="40">
+
 # Searchlight
+
+**Website: [searchlightai.dev](https://searchlightai.dev)**
 
 **An open benchmark of what web search does for coding agents.** Searchlight runs real
 agent harnesses (Claude Code and codex) against task catalogs. Each run gives the agent
@@ -8,8 +12,10 @@ records every tool call, so you can see *how* the agent used the tool it was giv
 
 ![Searchlight results to date: pass rates with 95% intervals per search arm, and how agents searched](site/infographic.svg)
 
-- **Leaderboard and full run reports:** [`site/index.html`](site/index.html), published to
-  GitHub Pages from `main` on every report change.
+- **Website:** [searchlightai.dev](https://searchlightai.dev): an overview, then
+  [results](https://searchlightai.dev/results.html) (leaderboards and full run reports) and
+  [methodology](https://searchlightai.dev/methodology.html). Generated into [`site/`](site/) and
+  published from `main` on every report change.
 - **Machine-readable leaderboard:** [`site/leaderboard.json`](site/leaderboard.json).
 - **Recorded reports:** [`reports/`](reports/README.md).
 
@@ -350,6 +356,10 @@ SEW_MODE=standalone python3 -m pytest -q
 
 ### How the leaderboard stays current
 
+The results page displays search setups, test runs and agents in place of internal
+benchmark terms. Source reports, machine-readable fields and link anchors retain
+their original names.
+
 The builder accepts integer or decimal percentage intervals with hyphens or en dashes.
 Zero-count groups display 0% with their counts; short table rows receive empty cells,
 and code blocks missing a closing fence retain their content. Relative links are bounded
@@ -360,7 +370,7 @@ update the hash alongside its CDN URL in `scripts/build_site.py` when changing v
 flowchart LR
   N["new battery"] --> R["reports/DATE-BENCH/ with summary.json, methodology, reproduce"]
   R --> C["check_reports.py: transcription, scrub, hashes, links"]
-  C --> B["build_site.py: leaderboard.json, infographic.svg, index.html"]
+  C --> B["build_site.py: overview, results and methodology pages, infographic, leaderboard.json"]
   B --> K["CI: build_site.py --check"]
   K --> P["GitHub Pages deploy from main"]
 ```
@@ -391,7 +401,7 @@ searchlight/
 │   └── gap/                 calibration, workspace sandbox, verifier, brief grading
 ├── reports/                 published reports (summary.json is the source of truth)
 ├── scripts/                 check_reports, build_site, analyze_search_behavior, gates
-├── site/                    generated leaderboard, infographic, leaderboard.json
+├── site/                    generated website: overview, results, methodology, infographic, logo
 ├── tests/                   offline test suite (recorded fixtures)
 ├── RUNBOOK-gap.md           GAP isolation contract and operations
 └── WORKBENCH.md             detailed engineering reference and design log
