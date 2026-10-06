@@ -105,7 +105,7 @@ correcting a report, run:
 
 ```sh
 python3 scripts/check_reports.py --write   # render REPORT.md and run the report gates
-python3 scripts/build_site.py              # regenerate site/: leaderboard, infographic, index
+python3 scripts/build_site.py              # regenerate site/: overview, results, methodology, infographic
 ```
 
 CI fails if `site/` is stale. Never edit `site/` by hand. Corrections are published as dated

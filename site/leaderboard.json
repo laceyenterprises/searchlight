@@ -117,7 +117,7 @@
         },
         {
           "arm": "native",
-          "label": "native",
+          "label": "Built-in",
           "pass_pct": 62.0,
           "ci": [
             41.0,
@@ -197,6 +197,22 @@
           "overlaps_top": true
         },
         {
+          "arm": "native",
+          "label": "Built-in",
+          "pass_pct": 78.0,
+          "ci": [
+            55.0,
+            91.0
+          ],
+          "passes": 14,
+          "cells": 18,
+          "gap_closure": "0.88 (0.47–1.20)",
+          "tokens_per_success": "117k",
+          "vs_floor": "p = 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
           "arm": "exa",
           "label": "Exa",
           "pass_pct": 78.0,
@@ -208,22 +224,6 @@
           "cells": 18,
           "gap_closure": "0.88 (0.47–1.29)",
           "tokens_per_success": "146k",
-          "vs_floor": "p = 0.0001",
-          "note": "",
-          "overlaps_top": true
-        },
-        {
-          "arm": "native",
-          "label": "native",
-          "pass_pct": 78.0,
-          "ci": [
-            55.0,
-            91.0
-          ],
-          "passes": 14,
-          "cells": 18,
-          "gap_closure": "0.88 (0.47–1.20)",
-          "tokens_per_success": "117k",
           "vs_floor": "p = 0.0001",
           "note": "",
           "overlaps_top": true
@@ -339,6 +339,22 @@
           "overlaps_top": true
         },
         {
+          "arm": "native",
+          "label": "Built-in",
+          "pass_pct": 79,
+          "ci": [
+            64,
+            88
+          ],
+          "passes": 33,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "36.3k",
+          "vs_floor": null,
+          "note": "WebFetch refused in 40 of 54 cells",
+          "overlaps_top": true
+        },
+        {
           "arm": "parallel-web",
           "label": "Parallel",
           "pass_pct": 79,
@@ -355,24 +371,8 @@
           "overlaps_top": true
         },
         {
-          "arm": "native",
-          "label": "native",
-          "pass_pct": 79,
-          "ci": [
-            64,
-            88
-          ],
-          "passes": 33,
-          "cells": 42,
-          "gap_closure": null,
-          "tokens_per_success": "36.3k",
-          "vs_floor": null,
-          "note": "WebFetch refused in 40 of 54 cells",
-          "overlaps_top": true
-        },
-        {
           "arm": "no-search",
-          "label": "no-search",
+          "label": "No search",
           "pass_pct": 76,
           "ci": [
             61,

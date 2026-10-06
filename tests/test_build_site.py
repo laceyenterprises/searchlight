@@ -115,7 +115,7 @@ def test_infographic_handles_empty_behavior_groups(empty_keys):
 def test_infographic_names_every_arm_and_no_private_paths():
     files = site.build()
     svg = files['infographic.svg']
-    for label in ('Brave', 'Tavily', 'Exa', 'Parallel', 'Firecrawl', 'Perplexity', 'native', 'no-search'):
+    for label in ('Brave', 'Tavily', 'Exa', 'Parallel', 'Firecrawl', 'Perplexity', 'Built-in', 'No search'):
         assert label in svg
     for content in files.values():
         assert '/Users/' not in content and 'op://' not in content
@@ -124,16 +124,42 @@ def test_infographic_names_every_arm_and_no_private_paths():
 
 
 def test_page_has_apparatus_diagrams_and_resolved_links():
-    html = site.build()['index.html']
-    assert html.count('<pre class="mermaid">') == 4
-    assert 'mermaid.min.js' in html
+    files = site.build()
+    methodology, results = files['methodology.html'], files['results.html']
+    assert methodology.count('<pre class="mermaid">') == 4
     assert (f'<script src="{site.MERMAID_URL}" '
             'integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" '
-            'crossorigin="anonymous"></script>') in html
-    assert 'href="#run-2026-10-05-agent-search-behavior"' in html
-    assert not re.search(r'href="[^"#h][^"]*\.md"', html), 'relative markdown links must resolve'
+            'crossorigin="anonymous"></script>') in methodology
+    assert 'mermaid.min.js' not in files['index.html'] + results
+    assert 'href="#run-2026-10-05-agent-search-behavior"' in results
+    for html in files.values():
+        assert not re.search(r'href="[^"#h][^"]*\.md"', html), 'relative markdown links must resolve'
     head, body = site.page(site.load_reports(), site.leaderboards(site.load_reports()), site.arm_configs(), 'preview')
     assert 'mermaid.min.js' not in head + body and '<html' not in head + body
+
+
+def test_site_pages_share_brand_and_navigation():
+    files = site.build()
+    assert files['logo.svg'].startswith('<svg') and 'Searchlight' in files['logo.svg']
+    for name in ('index.html', 'results.html', 'methodology.html'):
+        html = files[name]
+        assert '<link rel="icon" type="image/svg+xml" href="logo.svg">' in html
+        for href in ('index.html', 'results.html', 'methodology.html', site.REPO_URL):
+            assert f'href="{href}"' in html
+        assert f'{site.REPO_URL}/blob/main/LICENSE' in html and f'{site.REPO_URL}/issues/new' in html
+        assert 'Lacey Enterprises' in html
+
+
+def test_landing_page_is_plain_language_and_complete():
+    html = site.build()['index.html']
+    text = re.sub(r'<(style|script)[^>]*>.*?</\1>', ' ', html, flags=re.S)
+    text = re.sub(r'<[^>]+>', ' ', text)
+    for jargon in (r'\barms?\b', r'\bcells?\b', r'\bharness(es)?\b', r'\bWilson\b', r'\bMCP\b'):
+        assert not re.search(jargon, text, re.I), jargon
+    for section in ('id="findings"', 'id="how"', 'id="examples"', 'id="report"'):
+        assert section in html
+    assert html.count('class="card example"') == 4
+    assert 'href="results.html"' in html and 'href="methodology.html"' in html
 
 
 def test_markdown_renderer_handles_lists_quotes_and_anchors():
@@ -180,13 +206,13 @@ def test_boards_describe_interval_overlap_and_benchmark_token_coverage():
     boards = site.leaderboards(site.load_reports())
     for board in boards:
         rendered = site.board_html(board)
-        assert 'badges describe overlap of individual intervals only' in rendered
+        assert 'badges describe overlap of individual ranges only' in rendered
         assert 'not distinguishable from the top' not in rendered
         assert board['token_accounting'] in rendered
     wsb = next(b for b in boards if b['bench'] == 'WSB')
     assert 'divided by measured successes' in wsb['token_accounting']
     assert 'per-arm coverage counts were not retained' in wsb['token_accounting']
-    assert 'Tokens per success is complete' not in site.build()['index.html']
+    assert 'Tokens per success is complete' not in site.build()['results.html']
 
 
 def test_blockquote_preserves_paragraph_breaks():
