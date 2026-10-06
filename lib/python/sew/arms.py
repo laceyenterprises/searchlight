@@ -23,6 +23,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
 
+from . import harnesses
 from .schema import SchemaError
 
 ArmKind = Literal["provider", "native", "no-search", "floor", "ceiling"]
@@ -177,8 +178,10 @@ def prepare_arm_spawn(
     """Materialize a fail-closed, per-cell harness tool configuration."""
 
     contract = contract_for(config)
-    workspace = contract.workspace_profile
-    _reject_tool_overrides(config)
+    spec = harnesses.find(config.harness_id)
+    if spec is None or spec.arm_spawn is None:
+        raise SchemaError(f"unsupported live harness for arm isolation: {config.harness_id!r}")
+    _reject_tool_overrides(config, spec.forbidden_flags)
     server_config = dict(contract.mcp_server_config or {})
     header = server_config.pop("header_from_env", None)
     if header is not None:
@@ -203,108 +206,136 @@ def prepare_arm_spawn(
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
             handle.write(f"{header['name']}: {header['value']}\n")
         server_config["args"] = [*server_config.get("args", []), "--header-file", str(header_path)]
-    if config.harness_id == "claude-code":
-        path = scratch / "claude-mcp.json"
-        servers = {contract.mcp_server_name: server_config} if contract.kind == "provider" else {}
-        path.write_text(
-            json.dumps({"mcpServers": servers}, sort_keys=True) + "\n", encoding="utf-8"
-        )
-        # Every bakeoff task is web retrieval with a final-answer deliverable,
-        # and a general tool such as Bash could `curl` the web and bypass the
-        # arm entirely. `--allowedTools` only pre-approves tools: in headless
-        # `--print` mode Claude Code 2.1.x still ran WebFetch and Bash in
-        # provider and no-search arms (WSB trial, 2026-09-27). `--tools` is
-        # what restricts the built-in set, so each arm names exactly the
-        # built-ins it may use. MCP tools come only from --mcp-config.
-        #   native     WebSearch + WebFetch (the harness's own web tools) + Read
-        #   provider   ToolSearch, so a deferred MCP schema can still load, + Read
-        #   no-search  nothing
-        # Read is local, never a web tool. Claude Code saves a tool result over
-        # its output limit (MAX_MCP_OUTPUT_TOKENS, 25k by default) to a file and
-        # tells the model to Read it; without Read a large crawl or extract is
-        # unreadable (live probe, 2026-09-27: CONTENT_UNREADABLE without Read,
-        # the right answer with it), which would bias the arm comparison.
-        tools = (
-            "WebSearch,WebFetch,Read"
-            if contract.kind == "native"
-            else "ToolSearch,Read"
-            if contract.kind == "provider"
-            else ""
-        )
-        # Every built-in an arm may use must also be pre-approved: in headless
-        # `--print` mode an unapproved tool is refused with "Claude requested
-        # permissions to use WebFetch, but you haven't granted it yet". The
-        # native arm pre-approved only WebSearch until 2026-10-06, so its
-        # WebFetch calls were refused in every GAP battery cell and in 40 of 54
-        # bakeoff cells (published as a correction in both reports).
-        allowed = (
-            "WebSearch,WebFetch"
-            if contract.kind == "native"
-            else f"mcp__{contract.mcp_server_name}__*"
-            if contract.kind == "provider"
-            else ""
-        )
-        extra_args = ()
-        if workspace:
-            tools = "Read,Edit,Write,Bash" + (
-                ",WebSearch,WebFetch"
-                if contract.kind == "native"
-                else ",ToolSearch"
-                if contract.kind == "provider"
-                else ""
-            )
-            search_allowed = "WebSearch,WebFetch" if contract.kind == "native" else allowed
-            allowed = "Read,Edit,Write,Bash" + ("," + search_allowed if search_allowed else "")
-            settings = scratch / "claude-workspace-settings.json"
-            settings.write_text(
-                json.dumps(
-                    {
-                        "sandbox": {
-                            "enabled": True,
-                            "failIfUnavailable": True,
-                            "autoAllowBashIfSandboxed": True,
-                            "allowUnsandboxedCommands": False,
-                            "excludedCommands": [],
-                            "network": {
-                                "allowedDomains": [],
-                                "deniedDomains": ["*"],
-                                "strictAllowlist": True,
-                                "allowLocalBinding": False,
-                                "allowAllUnixSockets": False,
-                            },
-                        },
-                        "disableAllHooks": True,
-                    }
-                )
-                + "\n",
-                encoding="utf-8",
-            )
-            extra_args = (
-                "--settings",
-                str(settings),
-                "--setting-sources",
-                "",
-                "--permission-mode",
-                "acceptEdits",
-            )
-        return SpawnSurface(
-            contract,
-            (
-                "--mcp-config",
-                str(path),
-                "--strict-mcp-config",
-                "--tools",
-                tools,
-                "--allowedTools",
-                allowed,
-            )
-            + extra_args,
-            {},
-            path,
-        )
+    return spec.load("arm_spawn")(
+        config, contract, server_config, scratch, source_env, harness_auth=harness_auth
+    )
 
-    if config.harness_id != "codex":
-        raise SchemaError(f"unsupported live harness for arm isolation: {config.harness_id!r}")
+
+def claude_code_arm_spawn(
+    config: Any,
+    contract: ArmContract,
+    server_config: dict[str, Any],
+    scratch: Path,
+    source_env: Mapping[str, str],
+    *,
+    harness_auth: str = "account",
+) -> SpawnSurface:
+    """Claude Code's arm surface: a strict MCP config and the arm's built-in tools."""
+
+    workspace = contract.workspace_profile
+    path = scratch / "claude-mcp.json"
+    servers = {contract.mcp_server_name: server_config} if contract.kind == "provider" else {}
+    path.write_text(
+        json.dumps({"mcpServers": servers}, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    # Every bakeoff task is web retrieval with a final-answer deliverable,
+    # and a general tool such as Bash could `curl` the web and bypass the
+    # arm entirely. `--allowedTools` only pre-approves tools: in headless
+    # `--print` mode Claude Code 2.1.x still ran WebFetch and Bash in
+    # provider and no-search arms (WSB trial, 2026-09-27). `--tools` is
+    # what restricts the built-in set, so each arm names exactly the
+    # built-ins it may use. MCP tools come only from --mcp-config.
+    #   native     WebSearch + WebFetch (the harness's own web tools) + Read
+    #   provider   ToolSearch, so a deferred MCP schema can still load, + Read
+    #   no-search  nothing
+    # Read is local, never a web tool. Claude Code saves a tool result over
+    # its output limit (MAX_MCP_OUTPUT_TOKENS, 25k by default) to a file and
+    # tells the model to Read it; without Read a large crawl or extract is
+    # unreadable (live probe, 2026-09-27: CONTENT_UNREADABLE without Read,
+    # the right answer with it), which would bias the arm comparison.
+    tools = (
+        "WebSearch,WebFetch,Read"
+        if contract.kind == "native"
+        else "ToolSearch,Read"
+        if contract.kind == "provider"
+        else ""
+    )
+    # Every built-in an arm may use must also be pre-approved: in headless
+    # `--print` mode an unapproved tool is refused with "Claude requested
+    # permissions to use WebFetch, but you haven't granted it yet". The
+    # native arm pre-approved only WebSearch until 2026-10-06, so its
+    # WebFetch calls were refused in every GAP battery cell and in 40 of 54
+    # bakeoff cells (published as a correction in both reports).
+    allowed = (
+        "WebSearch,WebFetch"
+        if contract.kind == "native"
+        else f"mcp__{contract.mcp_server_name}__*"
+        if contract.kind == "provider"
+        else ""
+    )
+    extra_args = ()
+    if workspace:
+        tools = "Read,Edit,Write,Bash" + (
+            ",WebSearch,WebFetch"
+            if contract.kind == "native"
+            else ",ToolSearch"
+            if contract.kind == "provider"
+            else ""
+        )
+        search_allowed = "WebSearch,WebFetch" if contract.kind == "native" else allowed
+        allowed = "Read,Edit,Write,Bash" + ("," + search_allowed if search_allowed else "")
+        settings = scratch / "claude-workspace-settings.json"
+        settings.write_text(
+            json.dumps(
+                {
+                    "sandbox": {
+                        "enabled": True,
+                        "failIfUnavailable": True,
+                        "autoAllowBashIfSandboxed": True,
+                        "allowUnsandboxedCommands": False,
+                        "excludedCommands": [],
+                        "network": {
+                            "allowedDomains": [],
+                            "deniedDomains": ["*"],
+                            "strictAllowlist": True,
+                            "allowLocalBinding": False,
+                            "allowAllUnixSockets": False,
+                        },
+                    },
+                    "disableAllHooks": True,
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        extra_args = (
+            "--settings",
+            str(settings),
+            "--setting-sources",
+            "",
+            "--permission-mode",
+            "acceptEdits",
+        )
+    return SpawnSurface(
+        contract,
+        (
+            "--mcp-config",
+            str(path),
+            "--strict-mcp-config",
+            "--tools",
+            tools,
+            "--allowedTools",
+            allowed,
+        )
+        + extra_args,
+        {},
+        path,
+    )
+
+
+
+def codex_arm_spawn(
+    config: Any,
+    contract: ArmContract,
+    server_config: dict[str, Any],
+    scratch: Path,
+    source_env: Mapping[str, str],
+    *,
+    harness_auth: str = "account",
+) -> SpawnSurface:
+    """Codex's arm surface: an isolated CODEX_HOME and every off-arm feature disabled."""
+
+    workspace = contract.workspace_profile
     codex_home = scratch / "codex-home"
     codex_home.mkdir(mode=0o700)
     source_home = Path(source_env.get("CODEX_HOME", Path(source_env.get("HOME", "")) / ".codex"))
@@ -566,32 +597,10 @@ def _tool_call_entry(value: Mapping[str, Any]) -> list[tuple[str | None, str]]:
     return [(call_id if isinstance(call_id, str) and call_id else None, name)]
 
 
-def _reject_tool_overrides(config: Any) -> None:
-    forbidden = (
-        {
-            "--mcp-config",
-            "--strict-mcp-config",
-            "--allowedTools",
-            "--allowed-tools",
-            "--disallowedTools",
-            "--disallowed-tools",
-            "--tools",
-            "--model",
-            "--fallback-model",
-        }
-        if config.harness_id == "claude-code"
-        else {
-            "-c",
-            "--config",
-            "--enable",
-            "--search",
-            "--ignore-user-config",
-            "-m",
-            "--model",
-            "-p",
-            "--profile",
-        }
-    )
+def _reject_tool_overrides(config: Any, harness_forbidden: frozenset[str]) -> None:
+    # The harness's own arm-owned flags (its registry entry), plus every flag
+    # that could widen a GAP workspace's sandbox on any harness.
+    forbidden = set(harness_forbidden)
     if getattr(config, "workspace_profile", False):
         forbidden |= {
             "--settings",

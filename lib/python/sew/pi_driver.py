@@ -12,6 +12,7 @@ from typing import Any, Mapping
 
 import yaml
 
+from . import harnesses
 from .catalog import module_root
 from .schema import (
     PROVIDERS,
@@ -24,7 +25,8 @@ from .schema import (
 )
 
 LIVE_ENV = "SEW_PI_LIVE"
-PI_BIN_ENV = "SEW_PI_BIN"
+PI_BIN_ENV = harnesses.get("pi").bin_env
+PI_DEFAULT_BIN = harnesses.get("pi").default_bin
 LIVE_PROVIDER_ENV = {
     "exa": "EXA_API_KEY",
     "parallel-web": "PARALLEL_WEB_API_KEY",
@@ -76,7 +78,7 @@ class PiHarnessDriver:
         config_path = path or module_root() / "config" / "pi-model-profiles.yaml"
         data = _load_yaml(config_path)
         profiles = load_pi_profiles(data)
-        return cls(profiles, pi_bin=pi_bin or os.environ.get(PI_BIN_ENV, "pi"))
+        return cls(profiles, pi_bin=pi_bin or os.environ.get(PI_BIN_ENV, PI_DEFAULT_BIN))
 
     @property
     def profile_ids(self) -> list[str]:
