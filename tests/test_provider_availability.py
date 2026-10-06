@@ -22,7 +22,8 @@ SERVER = Path(__file__).parent / "fixtures/slow_mcp_server.py"
 # A harness that discovers tools, makes no calls, and delivers an answer even
 # when discovery times out. This is the incident's critical grading trigger.
 DISCOVERY_HARNESS = r"""
-import json, os, selectors, subprocess, sys, tomllib
+import json, os, selectors, sys, tomllib
+import subprocess
 argv = sys.argv[1:]
 sys.stdin.read()
 if "--mcp-config" in argv:
@@ -41,7 +42,13 @@ try:
     if rpc(1, "initialize"):
         rpc(2, "tools/list")
 finally:
-    p.terminate(); p.wait(timeout=5)
+    p.terminate()
+    try:
+        p.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        # A slow wrapper teardown must not crash the harness before it answers.
+        p.kill()
+        p.wait()
 answer = json.dumps({"answer": "Offline answer", "citation_urls": []})
 events = ([{"type":"system", "subtype":"init", "model":"fixture"},
            {"type":"result", "subtype":"success", "is_error":False, "result":answer,
@@ -90,8 +97,11 @@ def test_live_discovery_without_calls(tmp_path, harness, never, snapshot_failure
             model_id="fixture",
             native_search_available=False,
             # This exercises discovery status, not cold subprocess boot latency.
-            timeout_seconds=30,
-            boot_timeout_seconds=15,
+            # The fake harness answers only after discovery and the server
+            # teardown, each a cold Python start; on a loaded CI runner
+            # without bytecode caching that once took over 15 s (3.13, e02eaa1).
+            timeout_seconds=90,
+            boot_timeout_seconds=60,
             external_provider=ProviderExposure(
                 provider_id="brave",
                 tool_name="mcp__brave__*",
