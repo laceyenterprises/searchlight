@@ -313,8 +313,9 @@ def table_html(rows: list[list[str]], report: str) -> str:
     body = [row + [''] * max(0, len(head) - len(row)) for row in body]
     numeric = [all(re.match(r'^[\s\d.,%/+−–()kp<=×$—-]*$', r[i]) or not r[i] for r in body) if body else False
                for i in range(len(head))]
-    th = ''.join(f'<th{(' class="num"' if numeric[i] else '')}>{inline(c, report)}</th>' for i, c in enumerate(head))
-    trs = ''.join('<tr>' + ''.join(f'<td{(' class="num"' if numeric[i] else '')}>{inline(c, report)}</td>'
+    attributes = [' class="num"' if is_numeric else '' for is_numeric in numeric]
+    th = ''.join(f'<th{attributes[i]}>{inline(c, report)}</th>' for i, c in enumerate(head))
+    trs = ''.join('<tr>' + ''.join(f'<td{attributes[i]}>{inline(c, report)}</td>'
                                    for i, c in enumerate(r)) + '</tr>' for r in body)
     return f'<div class="tablewrap"><table><thead><tr>{th}</tr></thead><tbody>{trs}</tbody></table></div>'
 
