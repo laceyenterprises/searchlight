@@ -56,17 +56,23 @@ def render(source: Path, chrome: str, timeout: float = 120.0) -> bytes:
             while time.monotonic() < deadline:
                 if shot.is_file() and shot.read_bytes().endswith(IEND):
                     return shot.read_bytes()
-                if proc.poll() is not None and not shot.is_file():
-                    raise SystemExit(f'Chrome exited ({proc.returncode}) without a screenshot')
+                if proc.poll() is not None:
+                    raise SystemExit(f'Chrome exited ({proc.returncode}) without a complete screenshot')
                 time.sleep(0.25)
             raise SystemExit(f'no screenshot after {timeout:.0f} s')
         finally:
             if proc.poll() is None:
-                os.killpg(proc.pid, signal.SIGTERM)
+                try:
+                    os.killpg(proc.pid, signal.SIGTERM)
+                except OSError:
+                    pass
                 try:
                     proc.wait(timeout=10)
                 except subprocess.TimeoutExpired:
-                    os.killpg(proc.pid, signal.SIGKILL)
+                    try:
+                        os.killpg(proc.pid, signal.SIGKILL)
+                    except OSError:
+                        pass
 
 
 def main(argv=None) -> int:

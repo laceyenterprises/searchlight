@@ -377,7 +377,9 @@ The share image (`site/social-card.png`, used by link previews) is rendered from
 changes, run `python3 scripts/build_site.py` and then `python3 scripts/render_social_card.py`
 (needs Google Chrome or Chromium; set `CHROME` if it is not found). The image carries the
 SHA-256 of the card it was rendered from, so `build_site.py --check` flags a stale image
-without a browser.
+without a browser. Rendering fails immediately if Chrome exits without a complete PNG;
+a running browser has 120 seconds to finish. Process-group signal errors during cleanup
+do not mask the render result or its original failure.
 
 ```mermaid
 flowchart LR
