@@ -388,6 +388,14 @@ SEW_HARNESS_LIVE=1 modules/search-evaluation-workbench/bin/hq-sew run \
   --max-total-tokens 5000000 --max-wall-clock-seconds 14400
 ```
 
+- **Budget precedence.** The suite manifest's `budgets` are committed spend
+  ceilings; each `--max-*` spend cap applies only where it is lower. The run's
+  wall clock is `--max-wall-clock-seconds` as given; the suite's
+  `timeouts.run_seconds` is the wall clock only for a run without operator caps.
+  Per-cell limits come from each task's catalog `budgets`. The run result lists
+  the limits that applied as `budget_limits`. Elapsed time persists across
+  resumes: after `wall_clock_budget_exhausted`, resume with a larger cap.
+
 - **Preflight.** Before any state is written or any cell spawns, the run is
   refused if `SEW_HARNESS_LIVE=1` is unset, a harness binary is missing, a
   provider arm has no MCP server, a hosted harness names a `model_profile`
@@ -647,7 +655,8 @@ Operator-facing consequences:
 
 - **One cell is many round trips.** The submission POST plus every poll GET is
   counted in the call record's `response.async_poll_calls`; size
-  `max_provider_calls` and `run_seconds` against that, not against one request.
+  `max_provider_calls` and the task's `wall_clock_seconds` against that, not
+  against one request.
 - **The poll is bounded by wall clock, not just attempts.**
   `ASYNC_POLL_BUDGET_SECONDS` (default 300s) is the horizon for the whole
   submit-then-poll run; `timeout_seconds` continues to bound each individual

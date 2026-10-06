@@ -329,7 +329,8 @@ sew run --suite lighthouse --mode fixture
 # live web search bakeoff (budgeted)
 SEW_HARNESS_LIVE=1 sew run --suite wsb-trial --mode live \
   --provider-mcp-config /path/to/provider-mcp.yaml \
-  --max-provider-calls 400 --max-total-tokens 5000000 --max-wall-clock-seconds 14400
+  --max-provider-calls 400 --max-provider-result-chars 1000000 \
+  --max-total-tokens 3000000 --max-wall-clock-seconds 14400
 sew bakeoff report /path/to/suite-run
 
 # GAP: calibrate first, then run the battery, per harness and model

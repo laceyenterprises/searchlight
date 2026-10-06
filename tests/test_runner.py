@@ -238,6 +238,106 @@ def test_resume_restores_run_wall_clock_budget(
     assert resumed["stopped_reason"] == "wall_clock_budget_exhausted"
 
 
+def _operator(wall_clock_seconds: int, **spend: int) -> OperatorBudgets:
+    return OperatorBudgets(
+        max_provider_calls=spend.get("max_provider_calls", 10000),
+        max_provider_result_chars=spend.get("max_provider_result_chars", 50_000_000),
+        max_total_tokens=spend.get("max_total_tokens", 50_000_000),
+        max_wall_clock_seconds=wall_clock_seconds,
+    )
+
+
+def _suite(run_seconds: int) -> dict[str, Any]:
+    return {
+        "timeouts": {"run_seconds": run_seconds, "provider_call_seconds": 60},
+        "budgets": {
+            "max_provider_calls": 400,
+            "max_provider_result_chars": 1_000_000,
+            "max_total_tokens": 3_000_000,
+        },
+    }
+
+
+def test_operator_wall_clock_is_the_run_wall_clock_not_the_suite_timeout() -> None:
+    # The published WSB reproduction suite carries run_seconds 1200, and the
+    # reproduction passes --max-wall-clock-seconds 172800. The run used to stop
+    # for good at ~1260 s elapsed (min of the two, persisted across resumes).
+    tracker = BudgetTracker.from_suite(_suite(1200), _operator(172800))
+    tracker.restore_elapsed_seconds(1260)
+
+    assert tracker.limits.max_wall_clock_seconds == 172800
+    assert tracker.exhausted_reason() is None
+
+    tracker.restore_elapsed_seconds(172800)
+    assert tracker.exhausted_reason() == "wall_clock_budget_exhausted"
+
+
+def test_suite_spend_budgets_stay_ceilings_under_larger_operator_caps() -> None:
+    tracker = BudgetTracker.from_suite(_suite(1200), _operator(172800))
+
+    assert tracker.limits.max_provider_calls == 400
+    assert tracker.limits.max_provider_result_chars == 1_000_000
+    assert tracker.limits.max_total_tokens == 3_000_000
+
+    lower = BudgetTracker.from_suite(_suite(1200), _operator(60, max_total_tokens=5000))
+    assert lower.limits.max_total_tokens == 5000
+    assert lower.limits.max_wall_clock_seconds == 60
+
+
+def test_suite_timeout_is_the_wall_clock_only_without_operator_caps() -> None:
+    assert BudgetTracker.from_suite(_suite(1200), None).limits.max_wall_clock_seconds == 1200
+
+
+def test_resume_after_a_wall_clock_stop_continues_under_a_larger_operator_cap(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    now = {"value": 1000.0}
+    monkeypatch.setattr("sew.runner.time.monotonic", lambda: now["value"])
+
+    class AdvancingExecutor(RecordingExecutor):
+        def execute(self, cell: MatrixCell, output_root: Path, *, mode: str) -> CellExecution:
+            execution = super().execute(cell, output_root, mode=mode)
+            now["value"] += 1260
+            return execution
+
+    module_base = _tiny_module(
+        tmp_path,
+        tasks=["task-a-v1", "task-b-v1"],
+        suite_timeouts={"run_seconds": 1200},
+    )
+    state_root = tmp_path / "state"
+
+    first = SuiteRunner(
+        module_base=module_base, state_root=state_root, executor=AdvancingExecutor()
+    ).run("tiny", run_id="wall", resume=False, operator_budgets=_operator(1200))
+    assert first["completed_cells"] == 1
+    assert first["stopped_reason"] == "wall_clock_budget_exhausted"
+    assert first["budget_limits"]["max_wall_clock_seconds"] == 1200
+
+    same_cap = RecordingExecutor()
+    held = SuiteRunner(
+        module_base=module_base, state_root=state_root, executor=same_cap
+    ).run("tiny", run_id="wall", operator_budgets=_operator(1200))
+    assert same_cap.calls == []
+    assert held["stopped_reason"] == "wall_clock_budget_exhausted"
+
+    larger = AdvancingExecutor()
+    resumed = SuiteRunner(
+        module_base=module_base, state_root=state_root, executor=larger
+    ).run("tiny", run_id="wall", operator_budgets=_operator(172800))
+    assert len(larger.calls) == 1
+    assert resumed["completed_cells"] == 2
+    assert resumed["remaining_cells"] == 0
+    assert resumed["stopped_reason"] is None
+    assert resumed["budget_limits"] == {
+        "max_provider_calls": 12,
+        "max_provider_result_chars": 60000,
+        "max_total_tokens": 120000,
+        "max_wall_clock_seconds": 172800,
+    }
+    assert resumed["budget_elapsed_seconds"] >= 2520
+
+
 def test_retries_apply_only_when_manifest_declares_them(tmp_path: Path) -> None:
     no_retry_base = _tiny_module(tmp_path / "no-retry")
     retry_base = _tiny_module(tmp_path / "with-retry", suite_retries={"max_attempts": 1})

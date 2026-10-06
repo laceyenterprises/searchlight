@@ -753,6 +753,10 @@ class SuiteRunner:
             "suite_run_id": suite_run_id,
             "run_root": str(run_root),
             "output_root": str(output_root),
+            # The limits that applied, after suite ceilings: an operator cap
+            # above a committed suite budget is reported at the suite's value.
+            "budget_limits": asdict(budgets.limits),
+            "budget_elapsed_seconds": state["budget_elapsed_seconds"],
             **state["summary"],
         }
 
@@ -1008,6 +1012,15 @@ class BudgetTracker:
     def from_suite(
         cls, suite: dict[str, Any], operator_budgets: OperatorBudgets | None
     ) -> "BudgetTracker":
+        """Suite-wide limits for one run.
+
+        The suite's `budgets` are committed spend ceilings: an operator cap can
+        lower them, never raise them. Wall time is not spend, so an operator's
+        `max_wall_clock_seconds` (always present in live mode) is the run's wall
+        clock as given; the suite's `timeouts.run_seconds` is only the fallback
+        for a run without operator caps. Per-cell limits come from each task's
+        catalog budgets, not from either value.
+        """
         raw = suite["budgets"]
         suite_limits = OperatorBudgets(
             max_provider_calls=raw["max_provider_calls"],
@@ -1029,10 +1042,7 @@ class BudgetTracker:
                 max_total_tokens=min(
                     suite_limits.max_total_tokens, operator_budgets.max_total_tokens
                 ),
-                max_wall_clock_seconds=min(
-                    suite_limits.max_wall_clock_seconds,
-                    operator_budgets.max_wall_clock_seconds,
-                ),
+                max_wall_clock_seconds=operator_budgets.max_wall_clock_seconds,
             )
         )
 

@@ -30,6 +30,12 @@ runner uses the configured default model. The included suite covers all producti
 tasks, all eight arms and three repetitions (the small wsb-trial suite does not).
 The example run caps are explicit limits for a new run, not recovered historical
 battery-wide limits. Increase them only after reviewing the projected spend.
+The suite's `budgets` are spend ceilings: a `--max-*` spend cap can lower them, not
+raise them, and the included suite sets them to the caps below. The run's wall clock
+is `--max-wall-clock-seconds` as given. The run prints the limits that applied as
+`budget_limits`. Elapsed time carries across resumes, so after a
+`wall_clock_budget_exhausted` stop, rerun the same command with a larger
+`--max-wall-clock-seconds` to continue.
 
 ```sh
 export SEW_MODE=standalone SEW_HARNESS_LIVE=1
