@@ -10,9 +10,9 @@ timeouts:
   run_seconds: 1200
   provider_call_seconds: 60
 budgets:
-  max_provider_calls: 400
-  max_provider_result_chars: 1000000
-  max_total_tokens: 3000000
+  max_provider_calls: 10000
+  max_provider_result_chars: 50000000
+  max_total_tokens: 50000000
 providers:
 - no-search
 - native

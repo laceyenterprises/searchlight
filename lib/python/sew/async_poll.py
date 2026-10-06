@@ -321,8 +321,8 @@ class AsyncRunPollingMixin:
         `poll_budget_seconds` on the request wins when the caller sets one.
 
         Worst case for a FindAll cell is therefore ASYNC_POLL_BUDGET_SECONDS
-        (default 300s) plus one in-flight GET -- size `run_seconds` with that
-        in mind.
+        (default 300s) plus one in-flight GET -- size the task's
+        `wall_clock_seconds` with that in mind.
         """
         explicit = getattr(request, "poll_budget_seconds", None)
         if isinstance(explicit, (int, float)) and explicit > 0:
