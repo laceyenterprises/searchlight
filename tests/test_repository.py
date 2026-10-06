@@ -25,7 +25,8 @@ def test_ci_covers_all_supported_platforms_offline():
               "'[\"ubuntu-latest\",\"macos-latest\"]' || '[\"ubuntu-latest\"]') }}",
         'python': ['3.11', '3.12', '3.13']}
     assert job['env']['SEW_MODE'] == 'standalone'
-    assert any('scripts/test-offline.sh' in step.get('run', '') for step in job['steps'])
+    assert any('scripts/public-clone-proof.sh' in step.get('run', '') for step in job['steps'])
+    assert 'scripts/test-offline.sh' in (ROOT / 'scripts/public-clone-proof.sh').read_text()
     assert 'secrets.' not in (ROOT / '.github/workflows/standalone.yml').read_text()
 
 

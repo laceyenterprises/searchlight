@@ -26,7 +26,7 @@ jobs:
     env:
       SEW_MODE: standalone
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
-      SEW_PUBLICATION_BATTERY: ${{ runner.os == 'Linux' && matrix.python == '3.12' && '1' || '0' }}
+      SEW_PUBLICATION_BATTERY: ${{ matrix.os == 'ubuntu-latest' && matrix.python == '3.12' && '1' || '0' }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
