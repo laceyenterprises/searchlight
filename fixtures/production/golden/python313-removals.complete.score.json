@@ -1,0 +1,28 @@
+{
+  "expected_outcome": "competitive",
+  "field_detail": {
+    "evidence_urls": {
+      "correct": true,
+      "reasons": [],
+      "state": "correct"
+    },
+    "module_count": {
+      "correct": true,
+      "reasons": [],
+      "state": "correct"
+    },
+    "removed_modules": {
+      "correct": true,
+      "reasons": [],
+      "state": "correct"
+    }
+  },
+  "fields_correct": 3,
+  "fields_scored": 3,
+  "passed": true,
+  "schema_valid": true,
+  "scoring": "deterministic",
+  "task_class": "list_build",
+  "task_id": "list-build-python313-pep594-removals",
+  "validator_kind": "entity_set"
+}

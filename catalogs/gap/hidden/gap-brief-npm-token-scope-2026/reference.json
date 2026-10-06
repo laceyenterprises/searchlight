@@ -1,0 +1,23 @@
+{
+  "brief": "# Assessment\n\nSeparate interactive account-management operations from publishing automation. Plan migration of publishing credentials without claiming the future direct-publish restriction has already taken effect.\n\nnpm 2FA-bypass granular tokens can no longer perform sensitive account, organization and package management actions without an interactive 2FA challenge.\n\nThe restriction does not affect GitHub personal access tokens, GitHub App tokens or GITHUB_TOKEN in Actions.\n\nLoss of direct publish for 2FA-bypass tokens is a future change targeted for January 2027, not an already enforced publishing ban.",
+  "claims": [
+    {
+      "text": "npm 2FA-bypass granular tokens can no longer perform sensitive account, organization and package management actions without an interactive 2FA challenge.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-07-31-restricting-npm-bypass-2fa-granular-access-tokens/"
+      ]
+    },
+    {
+      "text": "The restriction does not affect GitHub personal access tokens, GitHub App tokens or GITHUB_TOKEN in Actions.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-07-31-restricting-npm-bypass-2fa-granular-access-tokens/"
+      ]
+    },
+    {
+      "text": "Loss of direct publish for 2FA-bypass tokens is a future change targeted for January 2027, not an already enforced publishing ban.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-07-31-restricting-npm-bypass-2fa-granular-access-tokens/"
+      ]
+    }
+  ]
+}

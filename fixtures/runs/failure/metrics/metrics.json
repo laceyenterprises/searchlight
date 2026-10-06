@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "run_id": "fixture-failure-20260916T181400Z",
+  "latency_ms": {
+    "end_to_end": 11020,
+    "provider": 310,
+    "harness": 10100,
+    "evaluator": 610
+  },
+  "token_usage": {
+    "accounting_source": "unknown",
+    "input": null,
+    "cached_input": null,
+    "output": null,
+    "reasoning": null
+  },
+  "provider_calls": {
+    "total": 1,
+    "ok": 1,
+    "failed": 0
+  },
+  "provider_result_chars": 362,
+  "source_counts": {
+    "normalized": 1,
+    "cited": 1
+  },
+  "cost": {
+    "currency": "USD",
+    "amount": null,
+    "source": "unknown"
+  }
+}

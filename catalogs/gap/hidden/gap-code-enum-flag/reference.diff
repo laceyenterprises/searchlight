@@ -1,0 +1,13 @@
+--- a/app.py
++++ b/app.py
+@@ -7,4 +7,4 @@
+
+
+ def option():
+-    return click.Option(["--fast", "mode"], flag_value=Mode.FAST, default=True)
++    return click.Option(["--fast", "mode"], flag_value=Mode.FAST, default=True, type=click.STRING)
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-click==8.3.3
++click==8.4.0

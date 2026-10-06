@@ -1,0 +1,24 @@
+{
+  "brief": "# Assessment\n\nChoose refresh-keyring before approving the image. Use the official replacement-key verification procedure; never bypass signature verification to keep updates working.\n\nThe current GitHub CLI Linux repository PGP key expires on September 5, 2026.\n\nThe first subsequent release signs APT/RPM metadata and new RPM packages with only the replacement key.\n\nA keyring containing both current and replacement keys was published in April 2026.",
+  "claims": [
+    {
+      "text": "The current GitHub CLI Linux repository PGP key expires on September 5, 2026.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/"
+      ]
+    },
+    {
+      "text": "The first subsequent release signs APT/RPM metadata and new RPM packages with only the replacement key.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/"
+      ]
+    },
+    {
+      "text": "A keyring containing both current and replacement keys was published in April 2026.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/"
+      ]
+    }
+  ],
+  "recommendation": "refresh-keyring"
+}

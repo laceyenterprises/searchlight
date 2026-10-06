@@ -1,0 +1,19 @@
+--- a/app.py
++++ b/app.py
+@@ -1,9 +1,10 @@
+ from urllib3.util.request import rewind_body
++from urllib3.exceptions import UnrewindableBodyError
+
+
+ def prepare(body, position):
+     try:
+         rewind_body(body, position)
+         return True
+-    except ValueError:
++    except (ValueError, UnrewindableBodyError):
+         return False
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-urllib3==2.7.0
++urllib3==2.8.0

@@ -1,0 +1,12 @@
+{
+  "brief": "# Assessment\n\nRetain the current keyring. The official GitHub CLI repository will keep signing future metadata with the existing trusted key, so the February image requires no trust-store update.",
+  "claims": [
+    {
+      "text": "Retain the current keyring. The official GitHub CLI repository will keep signing future metadata with the existing trusted key, so the February image requires no trust-store update.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/"
+      ]
+    }
+  ],
+  "recommendation": "retain-keyring"
+}

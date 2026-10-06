@@ -1,0 +1,24 @@
+{
+  "brief": "# Assessment\n\nChoose export-and-replace-inference: export before the access deadline and use a separate inference provider. Continued deployment alone does not preserve editing access or AI functionality.\n\nGitHub Spark stops new users and new app creation on August 4, 2026.\n\nExisting users can export their apps until August 31, 2026.\n\nDeployed apps survive Spark retirement, but calls to llm() no longer work after the GitHub Models retirement.",
+  "claims": [
+    {
+      "text": "GitHub Spark stops new users and new app creation on August 4, 2026.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-08-04-upcoming-deprecation-of-github-spark-on-github-com/"
+      ]
+    },
+    {
+      "text": "Existing users can export their apps until August 31, 2026.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-08-04-upcoming-deprecation-of-github-spark-on-github-com/"
+      ]
+    },
+    {
+      "text": "Deployed apps survive Spark retirement, but calls to llm() no longer work after the GitHub Models retirement.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-08-04-upcoming-deprecation-of-github-spark-on-github-com/"
+      ]
+    }
+  ],
+  "recommendation": "export-and-replace-inference"
+}

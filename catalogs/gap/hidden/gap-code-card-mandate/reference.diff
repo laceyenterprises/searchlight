@@ -1,0 +1,17 @@
+--- a/app.py
++++ b/app.py
+@@ -1,3 +1,4 @@
+ def value(record):
+-    raw = record["payment_method_details"]["card"]["mandate"]
+-    return raw
++    card = record["payment_method_details"]["card"]
++    raw = card["mandate"] if "mandate" in card else None
++    return raw if isinstance(raw, str) or raw is None else raw["id"]
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-stripe==15.6.1
++stripe==16.0.0
+ requests==2.33.0
+ urllib3==2.8.0
+ charset-normalizer==3.5.2

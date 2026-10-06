@@ -1,0 +1,23 @@
+{
+  "brief": "# Assessment\n\nFor artifact consumers, separate metadata URL integrity from the bytes of already published releases. The investigation supports limited claims about observed exploitation rather than a claim of absolute historical certainty.\n\nAn admin username with an arbitrary API key bypassed authentication in the python.org release management API.\n\nThe vulnerability could change download and verification URLs but could not modify existing release files in place.\n\nAudited logs and backups showed no evidence of exploitation; the proof of concept stopped working less than 48 hours after the report.",
+  "claims": [
+    {
+      "text": "An admin username with an arbitrary API key bypassed authentication in the python.org release management API.",
+      "citation_urls": [
+        "https://blog.python.org/2026/06/mitigated-api-bypass-for-download-metadata-python-dot-org/"
+      ]
+    },
+    {
+      "text": "The vulnerability could change download and verification URLs but could not modify existing release files in place.",
+      "citation_urls": [
+        "https://blog.python.org/2026/06/mitigated-api-bypass-for-download-metadata-python-dot-org/"
+      ]
+    },
+    {
+      "text": "Audited logs and backups showed no evidence of exploitation; the proof of concept stopped working less than 48 hours after the report.",
+      "citation_urls": [
+        "https://blog.python.org/2026/06/mitigated-api-bypass-for-download-metadata-python-dot-org/"
+      ]
+    }
+  ]
+}

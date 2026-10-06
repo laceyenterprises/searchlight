@@ -1,0 +1,40 @@
+{
+  "evidence_urls": [
+    "https://api.npmjs.org/downloads/point/last-week/semver",
+    "https://registry.npmjs.org/semver"
+  ],
+  "observed_at": "2026-09-21",
+  "ranked_dependents": [
+    {
+      "last_release_date": "2026-08-14",
+      "maintainer": "example-tooling",
+      "package": "example-bundler",
+      "weekly_downloads": "48200000"
+    },
+    {
+      "last_release_date": "2026-09-02",
+      "maintainer": "example-tooling",
+      "package": "example-transpiler",
+      "weekly_downloads": "41100000"
+    },
+    {
+      "last_release_date": "2026-07-29",
+      "maintainer": "example-lint-org",
+      "package": "example-linter",
+      "weekly_downloads": "33700000"
+    },
+    {
+      "last_release_date": "2026-09-10",
+      "maintainer": "example-testing",
+      "package": "example-test-runner",
+      "weekly_downloads": "21400000"
+    },
+    {
+      "last_release_date": "2026-06-22",
+      "maintainer": "example-cli-org",
+      "package": "example-cli",
+      "weekly_downloads": "18900000"
+    }
+  ],
+  "ranking_method": "Enumerated packages declaring semver as a direct runtime dependency from the registry metadata, then joined last-week download counts from the downloads API for each candidate and sorted descending."
+}

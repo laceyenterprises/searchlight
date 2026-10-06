@@ -1,0 +1,16 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,4 @@
+ def lookup(record):
+-    return record.get("description", "unlabelled")
++    return (record if isinstance(record, dict) else record.to_dict()).get(
++        "description", "unlabelled"
++    )
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-stripe==14.4.1
++stripe==15.0.0
+ requests==2.33.0
+ urllib3==2.8.0
+ charset-normalizer==3.5.2

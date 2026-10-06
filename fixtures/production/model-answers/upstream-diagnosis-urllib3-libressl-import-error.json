@@ -1,0 +1,15 @@
+{
+  "evidence_urls": [
+    "https://urllib3.readthedocs.io/en/stable/v2-migration-guide.html",
+    "https://github.com/urllib3/urllib3/blob/main/CHANGES.rst"
+  ],
+  "remediations": [
+    "pin urllib3<2 (the 1.26.x line keeps LibreSSL support)",
+    "rebuild or reinstall the interpreter against OpenSSL 1.1.1+"
+  ],
+  "root_cause": "urllib3 2.0 requires an ssl module compiled against OpenSSL 1.1.1 or newer; the interpreter in use links LibreSSL, which the new release no longer supports.",
+  "upstream_reference": [
+    "https://urllib3.readthedocs.io/en/stable/v2-migration-guide.html"
+  ],
+  "version_boundary": "urllib3 2.0"
+}

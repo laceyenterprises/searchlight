@@ -1,0 +1,40 @@
+--- a/app.py
++++ b/app.py
+@@ -1,23 +1,18 @@
+-import click
+ import typer
+
+
+-class Port(click.ParamType):
+-    def convert(self, value, param, ctx):
+-        try:
+-            port = int(value)
+-            if 0 < port < 65536:
+-                return port
+-        except (ValueError, TypeError):
+-            pass
+-        self.fail("invalid port", param, ctx)
++def port_number(value):
++    port = int(value)
++    if not 0 < port < 65536:
++        raise ValueError("invalid port")
++    return port
+
+
+ def app():
+     cli = typer.Typer()
+
+     @cli.command()
+-    def serve(port: int = typer.Option(8080, click_type=Port())):
++    def serve(port: int = typer.Option(8080, parser=port_number)):
+         typer.echo(port)
+
+     return cli
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-typer==0.25.1
++typer==0.26.0
+ click==8.3.3
+ rich==15.0.0
+ shellingham==1.5.4

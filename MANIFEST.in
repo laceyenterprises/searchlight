@@ -1,0 +1,11 @@
+graft catalogs
+graft fixtures
+graft config
+graft tasks
+graft tests
+graft bin
+include *.md
+global-exclude *.py[cod]
+prune **/__pycache__
+prune **/.pytest_cache
+include LICENSE NOTICE

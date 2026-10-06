@@ -1,0 +1,21 @@
+schema_version: 1
+bundle_id: fixture-failure-bundle
+run_id: fixture-failure-20260916T181400Z
+redaction:
+  raw_transcripts_included: false
+  credentials_included: false
+  cookies_included: false
+  unrestricted_page_archives_included: false
+artifacts:
+  - path: artifacts/final-answer.json
+    media_type: application/json
+    size_bytes: 224
+    redaction: sanitized
+records:
+  run: run.json
+  metrics: metrics/metrics.json
+  evaluation: evaluations/evaluation.json
+  provider_calls:
+    - provider-calls/search.json
+  normalized_sources:
+    - sources/src-no-answer-status.json

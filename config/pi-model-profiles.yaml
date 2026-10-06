@@ -1,0 +1,50 @@
+schema_version: 1
+profiles:
+  oss-small:
+    resolved_model: local/qwen2.5-coder-7b-instruct
+    tool_calling_mode: prompt_wrapped
+    context_window_tokens: 32768
+    provider_result_compression:
+      mode: truncate
+      max_chars: 24000
+      preserves_source_refs: true
+    token_accounting_source: estimated
+    provider_adapter_exposure:
+      exposed: true
+      provider_ids:
+        - exa
+        - parallel-web
+        - firecrawl
+      fixture_replay: true
+      native_search_available: false
+  oss-large:
+    resolved_model: local/qwen2.5-coder-32b-q5
+    tool_calling_mode: native
+    context_window_tokens: 131072
+    provider_result_compression:
+      mode: none
+      max_chars: null
+      preserves_source_refs: true
+    token_accounting_source: measured
+    provider_adapter_exposure:
+      exposed: true
+      provider_ids:
+        - exa
+        - parallel-web
+        - firecrawl
+      fixture_replay: true
+      native_search_available: false
+  oss-no-tools:
+    resolved_model: local/tinyllama-1.1b-chat
+    tool_calling_mode: unsupported
+    context_window_tokens: 4096
+    provider_result_compression:
+      mode: truncate
+      max_chars: 6000
+      preserves_source_refs: false
+    token_accounting_source: unknown
+    provider_adapter_exposure:
+      exposed: false
+      provider_ids: []
+      fixture_replay: true
+      native_search_available: false

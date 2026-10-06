@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "call_id": "fixture-failure-search-1",
+  "run_id": "fixture-failure-20260916T181400Z",
+  "provider_id": "fixture",
+  "operation": "search",
+  "status": "ok",
+  "started_at": "2026-09-16T18:14:01Z",
+  "ended_at": "2026-09-16T18:14:01Z",
+  "request": {
+    "query": "fixture product secret launch date",
+    "redacted": true
+  },
+  "response": {
+    "result_count": 1,
+    "redacted": true
+  },
+  "normalized_source_refs": [
+    "sources/src-no-answer-status.json"
+  ],
+  "retry_count": 0
+}

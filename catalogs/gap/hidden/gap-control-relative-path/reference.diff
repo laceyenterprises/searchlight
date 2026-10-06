@@ -1,0 +1,12 @@
+--- a/app.py
++++ b/app.py
+@@ -2,4 +2,8 @@
+
+
+ def resolve(base, relative):
+-    return Path(base) / relative
++    root = Path(base).resolve()
++    result = (root / relative).resolve()
++    if not result.is_relative_to(root):
++        raise ValueError("path escapes base")
++    return result

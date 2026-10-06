@@ -1,0 +1,32 @@
+schema_version: 1
+task_id: docs-qa-fixture-v1
+version: "1"
+title: "Technical docs QA with citation support"
+task_class: docs_qa
+created_at: "2026-09-16"
+live_web_required: false
+fixture_mode_allowed: true
+allowed_domains:
+  - docs.fixture.example
+disallowed_domains: []
+expected_output_schema:
+  type: object
+  required:
+    - answer
+    - citation_urls
+    - config_key
+deterministic_validator:
+  kind: field_match_with_citation
+  expected_fields:
+    config_key: search.timeout_seconds
+  required_source_ids:
+    - src-docs-timeout
+budgets:
+  max_provider_calls: 4
+  max_pages: 4
+  max_bytes: 30000
+  max_total_tokens: 12000
+  wall_clock_seconds: 180
+success_criteria:
+  - "Names the exact config key from the docs excerpt."
+  - "Cites the docs source that contains the key."

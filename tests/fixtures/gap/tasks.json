@@ -1,0 +1,443 @@
+[
+  {
+    "id": "golden-api-break",
+    "family": "api-break",
+    "kind": "gap",
+    "task_type": "code",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [
+      {
+        "name": "examplelib",
+        "version": "1.0",
+        "url": "https://example.org/examplelib-1.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "old"
+      },
+      {
+        "name": "examplelib",
+        "version": "2.0",
+        "url": "https://example.org/examplelib-2.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "new"
+      }
+    ],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "fixture": "fixture",
+    "third_party_packages": [
+      "examplelib"
+    ]
+  },
+  {
+    "id": "golden-silent-default",
+    "family": "silent-default",
+    "kind": "gap",
+    "task_type": "code",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [
+      {
+        "name": "examplelib",
+        "version": "1.0",
+        "url": "https://example.org/examplelib-1.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "old"
+      },
+      {
+        "name": "examplelib",
+        "version": "2.0",
+        "url": "https://example.org/examplelib-2.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "new"
+      }
+    ],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "fixture": "fixture",
+    "third_party_packages": [
+      "examplelib"
+    ]
+  },
+  {
+    "id": "golden-release-breakage",
+    "family": "release-breakage",
+    "kind": "gap",
+    "task_type": "code",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [
+      {
+        "name": "examplelib",
+        "version": "1.0",
+        "url": "https://example.org/examplelib-1.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "old"
+      },
+      {
+        "name": "examplelib",
+        "version": "2.0",
+        "url": "https://example.org/examplelib-2.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "new"
+      }
+    ],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "fixture": "fixture",
+    "third_party_packages": [
+      "examplelib"
+    ]
+  },
+  {
+    "id": "golden-vulnerable-dependency",
+    "family": "vulnerable-dependency",
+    "kind": "gap",
+    "task_type": "code",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [
+      {
+        "name": "examplelib",
+        "version": "1.0",
+        "url": "https://example.org/examplelib-1.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "old"
+      },
+      {
+        "name": "examplelib",
+        "version": "2.0",
+        "url": "https://example.org/examplelib-2.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "new"
+      }
+    ],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "fixture": "fixture",
+    "third_party_packages": [
+      "examplelib"
+    ]
+  },
+  {
+    "id": "golden-changed-third-party-api",
+    "family": "changed-third-party-api",
+    "kind": "gap",
+    "task_type": "code",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [
+      {
+        "name": "examplelib",
+        "version": "1.0",
+        "url": "https://example.org/examplelib-1.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "old"
+      },
+      {
+        "name": "examplelib",
+        "version": "2.0",
+        "url": "https://example.org/examplelib-2.0-py3-none-any.whl",
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "role": "new"
+      }
+    ],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "fixture": "fixture",
+    "third_party_packages": [
+      "examplelib"
+    ]
+  },
+  {
+    "id": "golden-decision-brief",
+    "family": "decision-brief",
+    "kind": "gap",
+    "task_type": "brief",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "deliverable_schema": {
+      "type": "object",
+      "required": [
+        "brief",
+        "claims"
+      ]
+    },
+    "rubric": "hidden/rubric.json"
+  },
+  {
+    "id": "golden-research-brief",
+    "family": "research-brief",
+    "kind": "gap",
+    "task_type": "brief",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "deliverable_schema": {
+      "type": "object",
+      "required": [
+        "brief",
+        "claims"
+      ]
+    },
+    "rubric": "hidden/rubric.json"
+  },
+  {
+    "id": "golden-control",
+    "family": "control",
+    "kind": "control",
+    "task_type": "code",
+    "prompt": "Complete the requested job and preserve existing behavior.",
+    "hidden": "hidden",
+    "packages": [],
+    "oracle": {
+      "excerpt": "Synthetic primary-source stand-in: legacy_call was replaced by modern_call in version 2.0.",
+      "source_url": "https://example.org/changelog",
+      "retrieved_at": "2026-09-30",
+      "sha256": "472bc9d9c38ca607bde305b995edbf08236d57f596ab632812a07e637cdb7e79"
+    },
+    "verifier": {
+      "visible_commands": [
+        "python -m pytest tests"
+      ],
+      "hidden_commands": [
+        "python -m pytest hidden"
+      ],
+      "timeout_seconds": 60
+    },
+    "provenance": {
+      "event_date": "2026-09-29",
+      "source_urls": [
+        "https://example.org/changelog"
+      ]
+    },
+    "cutoff_after": "2026-01-01",
+    "budgets": {
+      "max_total_tokens": 10000,
+      "max_wall_clock_seconds": 120,
+      "max_provider_calls": 5
+    },
+    "giveaway_terms": [
+      "legacy_call",
+      "modern_call",
+      "2.0"
+    ],
+    "fixture": "fixture",
+    "third_party_packages": []
+  }
+]

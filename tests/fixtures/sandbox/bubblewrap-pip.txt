@@ -1,0 +1,5 @@
+Looking in indexes: https://1.1.1.1/simple
+Could not fetch URL https://1.1.1.1/simple/pip/: connection error: HTTPSConnectionPool(host='1.1.1.1', port=443): Max retries exceeded with url: /simple/pip/ (Caused by NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0xe41e145b7b90>: Failed to establish a new connection: [Errno 101] Network is unreachable')) - skipping
+Could not fetch URL https://1.1.1.1/simple/pip/: connection error: HTTPSConnectionPool(host='1.1.1.1', port=443): Max retries exceeded with url: /simple/pip/ (Caused by NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0xe41e145f6390>: Failed to establish a new connection: [Errno 101] Network is unreachable')) - skipping
+ERROR: Could not find a version that satisfies the requirement pip (from versions: none)
+ERROR: No matching distribution found for pip

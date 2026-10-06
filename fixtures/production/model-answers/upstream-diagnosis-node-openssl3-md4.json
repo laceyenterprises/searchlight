@@ -1,0 +1,11 @@
+{
+  "escape_hatch": "run node with --openssl-legacy-provider",
+  "evidence_urls": [
+    "https://nodejs.org/en/blog/release/v17.0.0",
+    "https://github.com/webpack/webpack/issues/14532"
+  ],
+  "first_affected_node_major": "17",
+  "hash_algorithm": "MD4",
+  "root_cause": "Node 17 links OpenSSL 3, whose default provider does not offer MD4; webpack 4 asks for MD4 to hash module ids, so the digest call fails as unsupported.",
+  "sanctioned_fix": "upgrade to webpack 5, or set output.hashFunction to a supported digest"
+}

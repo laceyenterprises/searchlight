@@ -1,0 +1,14 @@
+--- a/app.py
++++ b/app.py
+@@ -4,5 +4,5 @@
+ def preview(text, color):
+     try:
+         return click.style(text, fg=color)
+-    except TypeError:
++    except (TypeError, ValueError):
+         return text
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-click==8.4.2
++click==8.5.0

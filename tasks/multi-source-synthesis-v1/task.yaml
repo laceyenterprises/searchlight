@@ -1,0 +1,33 @@
+schema_version: 1
+task_id: multi-source-synthesis-v1
+version: "1"
+title: "Synthesize compatible facts from multiple sources"
+task_class: multi_source_synthesis
+created_at: "2026-09-16"
+live_web_required: false
+fixture_mode_allowed: true
+allowed_domains:
+  - fixture.example
+disallowed_domains: []
+expected_output_schema:
+  type: object
+  required:
+    - summary
+    - agreements
+    - citation_urls
+blinded_judge:
+  rubric_ref: rubric.md
+  judge_prompt_blinded: true
+  minimum_score: 4
+  score_scale:
+    min: 1
+    max: 5
+budgets:
+  max_provider_calls: 5
+  max_pages: 5
+  max_bytes: 40000
+  max_total_tokens: 16000
+  wall_clock_seconds: 240
+success_criteria:
+  - "Combines at least two independent source excerpts."
+  - "Keeps source attribution attached to claims."

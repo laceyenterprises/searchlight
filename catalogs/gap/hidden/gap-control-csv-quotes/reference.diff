@@ -1,0 +1,10 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,6 @@
++import csv
++import io
++
++
+ def rows(text):
+-    return [line.split(",") for line in text.splitlines()]
++    return list(csv.reader(io.StringIO(text)))

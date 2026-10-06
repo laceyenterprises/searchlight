@@ -1,0 +1,24 @@
+{
+  "brief": "# Assessment\n\nChoose update-patch to Python 3.10.21 within the existing minor series. The filter alone on the older runtime does not justify retaining it for hostile archive ingestion.\n\nPython 3.10.21 was released on August 12, 2026.\n\nIts tarfile data filter validates link targets using the normalized value written to disk.\n\nThe release closes several path-traversal bypasses of the data extraction filter, including link members replacing the destination directory.",
+  "claims": [
+    {
+      "text": "Python 3.10.21 was released on August 12, 2026.",
+      "citation_urls": [
+        "https://www.python.org/downloads/release/python-31021/"
+      ]
+    },
+    {
+      "text": "Its tarfile data filter validates link targets using the normalized value written to disk.",
+      "citation_urls": [
+        "https://www.python.org/downloads/release/python-31021/"
+      ]
+    },
+    {
+      "text": "The release closes several path-traversal bypasses of the data extraction filter, including link members replacing the destination directory.",
+      "citation_urls": [
+        "https://www.python.org/downloads/release/python-31021/"
+      ]
+    }
+  ],
+  "recommendation": "update-patch"
+}

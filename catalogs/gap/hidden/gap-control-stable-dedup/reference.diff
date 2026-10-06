@@ -1,0 +1,6 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,2 @@
+ def unique(values):
+-    return sorted(set(values))
++    return list(dict.fromkeys(values))

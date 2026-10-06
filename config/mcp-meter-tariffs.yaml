@@ -1,0 +1,150 @@
+# How `sew.mcp_meter` prices one vendor MCP tool call when the vendor's own
+# response does not report its spend.
+#
+# A rule maps a tool to what `config/price-table.yaml` can price:
+#   pricing_tier: <tier>                  a request-metered list-price row
+#   credits: <n>                          a fixed credit count per call
+#   credits_per_block: {size, credits}    credits per started block of results
+#                                         (the response's result list is counted)
+#   extra_credits_if_arg_contains: {arg, values, credits}
+#   unpriced_if_args: [name, ...]         an argument that changes the price in
+#                                         a way this table cannot see
+# Any of the numbers may be `{arg, values, default}`, resolved against the
+# call's own arguments (for example Tavily's `search_depth`). Tavily search
+# remains unpriced when its MCP server's DEFAULT_PARAMETERS overrides that
+# selector after the meter observes the call, unless usage.credits is returned.
+#
+# A tool that is absent here is recorded as `unknown` and unpriced
+# (`no_tariff_for_tool`); its caller-supplied name cannot enter a published record.
+# Measured spend in a response (Exa `costDollars`, Perplexity `usage.cost`,
+# Tavily `usage.credits`, Firecrawl `creditsUsed` or `data.creditsCost`) always
+# wins over a rule.
+# Do not add a guessed rule: every rule below restates a published rate, and
+# its source is the price table's `source` for that vendor.
+version: 1
+
+providers:
+  brave:
+    brave_summarizer: {"unpriced_reason": "published_tool_rate_unavailable"}
+    # Brave Search plan: every search endpoint bills $5 per 1,000 requests
+    # (api-dashboard.search.brave.com/documentation/pricing, read 2026-09-27).
+    # The summarizer is not on that plan's price list, so it stays unpriced.
+    brave_web_search: {pricing_tier: "search:request"}
+    brave_news_search: {pricing_tier: "search:request"}
+    brave_image_search: {pricing_tier: "search:request"}
+    brave_video_search: {pricing_tier: "search:request"}
+    brave_local_search: {pricing_tier: "search:request"}
+    brave_place_search: {pricing_tier: "search:request"}
+    brave_llm_context: {pricing_tier: "search:request"}
+
+  perplexity:
+    perplexity_ask: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "usage.cost"}
+    perplexity_reason: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "usage.cost"}
+    perplexity_research: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "usage.cost"}
+    # Search API: $5 per 1,000 requests, or $1 per 1,000 with Fast Search
+    # (`search_type: fast`) (docs.perplexity.ai pricing, read 2026-09-27). An
+    # absent search_type is the standard tier; an unrecognized one is unpriced.
+    # ask/research/reason run Sonar models, billed by tokens; their spend is
+    # only known when the response reports it.
+    perplexity_search:
+      pricing_tier: {arg: search_type, values: {web: "search:web", fast: "search:fast"}, default: "search:web"}
+
+  tavily:
+    tavily_map: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "usage.credits"}
+    tavily_research: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "usage.credits"}
+    # docs.tavily.com/documentation/api-credits (read 2026-09-27): search is
+    # 1 credit (basic) or 2 (advanced); extract is 1 or 2 credits per 5
+    # successful URLs. Crawl, map and research vary per request: unpriced.
+    tavily_search: &tavily_search
+      credits: {arg: search_depth, values: {basic: 1, advanced: 2}, default: 1}
+    tavily-search: *tavily_search
+    tavily_extract: &tavily_extract
+      credits: 0
+      request_count_arg: urls
+      credits_per_block:
+        size: 5
+        credits: {arg: extract_depth, values: {basic: 1, advanced: 2}, default: 1}
+    tavily-extract: *tavily_extract
+    # Codex calls tavily_crawl with url/limit/max_depth/extract_depth. Crawl
+    # credits vary with pages actually traversed; only a receipt can price it.
+    tavily_crawl: &tavily_crawl {unpriced_reason: crawl_credits_not_reported}
+    tavily-crawl: *tavily_crawl
+
+  firecrawl:
+    firecrawl_agent: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_agent_status: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_check_crawl_status: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_crawl: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_credit_usage: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_developer_search: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_extract: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_feedback: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_find_tools: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_interact: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_interact_stop: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_check: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_checks: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_create: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_delete: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_get: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_list: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_run: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_monitor_update: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_parse: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_research_inspect_paper: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_research_read_paper: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_research_related_papers: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_research_search_github: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_research_search_papers: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    firecrawl_search_feedback: {"unpriced_reason": "variable_usage_not_reported", "measured_source": "creditsUsed"}
+    # docs.firecrawl.dev/billing (read 2026-09-27): scrape and map are 1
+    # credit per page; JSON/question/highlight formats add 4 credits per page;
+    # search is 2 credits per 10 results, rounded up, plus a scrape charge for
+    # each result it scrapes, which this table cannot count.
+    # A scrape that routes through a billed `alexandria` capability has a
+    # variable charge; it is priced only from its `creditsCost` receipt.
+    firecrawl_scrape:
+      credits: 1
+      extra_credits_if_arg_contains: {arg: formats, values: [json, question, highlight], credits: 4}
+      unpriced_if_args: [alexandria]
+    firecrawl_map: {credits: 1}
+    firecrawl_search:
+      credits: 0
+      credits_per_block: {size: 10, credits: 2}
+      unpriced_if_args: [scrapeOptions]
+
+  # exa-mcp-server@3.4.1 defaults to auto, 10 results, highlights only.
+  # Published package: https://registry.npmjs.org/exa-mcp-server/-/exa-mcp-server-3.4.1.tgz
+  # dist/stdio.cjs, registerWebSearchTool (src/tools/webSearch.ts): the basic
+  # tool schema accepts only query/numResults, and its handler destructures
+  # only those fields. API type is config.defaultSearchType || "auto", never
+  # a per-call type. The advanced tool has its own type selector and stays unpriced.
+  # Published search prices include up to 10 results; extra results cost $1/1K.
+  # Contents is $1/1K pages per content type. This tool requests text only.
+  exa:
+    web_search_exa:
+      pricing_tier: "search:auto"
+      included_results: 10
+      result_limit_arg: numResults
+      default_result_limit: 10
+    web_fetch_exa:
+      pricing_tier: "contents:page"
+      request_count_arg: urls
+    web_search_advanced_exa:
+      # Summaries/subpages/content options change billing beyond the basic search.
+      unpriced_reason: advanced_search_usage_not_reported
+    agent_run: {unpriced_reason: agent_usage_not_reported}
+
+  # Hosted Search MCP has no model-visible mode. A mode exposed by another
+  # MCP version is priced; absent/unknown modes remain explicit, never guessed.
+  # https://docs.parallel.ai/integrations/mcp/search-mcp (read 2026-10-05).
+  parallel-web:
+    web_search:
+      pricing_tier: {arg: mode, values: {turbo: "search:turbo", fast: "search:fast", basic: "search:basic", advanced: "search:advanced"}}
+      missing_tier_reason: search_mode_not_observed
+      included_results: 10
+      result_limit_arg: max_results
+      default_result_limit: 10
+    web_fetch:
+      pricing_tier: "extract:page"
+      request_count_arg: urls

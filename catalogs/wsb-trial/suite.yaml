@@ -1,0 +1,23 @@
+schema_version: 1
+suite_id: wsb-trial
+version: "1"
+description: "Small live WSB production trial."
+randomization_seed: 20260927
+fixture_mode: false
+repetitions: 1
+timeouts:
+  run_seconds: 1200
+  provider_call_seconds: 60
+budgets:
+  max_provider_calls: 400
+  max_provider_result_chars: 1000000
+  max_total_tokens: 3000000
+providers: [native, brave, tavily, no-search]
+harnesses:
+  codex:
+    model_profiles: [default]
+  claude-code:
+    model_profiles: [default]
+tasks:
+  - list-build-python313-pep594-removals
+  - competitive-table-cloud-egress-pricing

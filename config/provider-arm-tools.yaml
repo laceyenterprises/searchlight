@@ -1,0 +1,91 @@
+version: 1
+source: 2026-10-03 GAP battery MCP configuration and transcript system init tools;
+  refreshed 2026-10-05
+providers:
+  brave:
+    command: npx
+    args:
+    - -y
+    - '@brave/brave-search-mcp-server@2.1.4'
+    enabled_tools:
+    - brave_image_search
+    - brave_llm_context
+    - brave_local_search
+    - brave_news_search
+    - brave_place_search
+    - brave_summarizer
+    - brave_video_search
+    - brave_web_search
+  exa:
+    command: npx
+    args:
+    - -y
+    - exa-mcp-server@3.4.1
+    enabled_tools:
+    - web_fetch_exa
+    - web_search_exa
+  firecrawl:
+    command: npx
+    args:
+    - -y
+    - firecrawl-mcp@3.26.0
+    enabled_tools:
+    - firecrawl_agent
+    - firecrawl_agent_status
+    - firecrawl_check_crawl_status
+    - firecrawl_crawl
+    - firecrawl_credit_usage
+    - firecrawl_developer_search
+    - firecrawl_extract
+    - firecrawl_feedback
+    - firecrawl_find_tools
+    - firecrawl_interact
+    - firecrawl_interact_stop
+    - firecrawl_map
+    - firecrawl_monitor_check
+    - firecrawl_monitor_checks
+    - firecrawl_monitor_create
+    - firecrawl_monitor_delete
+    - firecrawl_monitor_get
+    - firecrawl_monitor_list
+    - firecrawl_monitor_run
+    - firecrawl_monitor_update
+    - firecrawl_parse
+    - firecrawl_research_inspect_paper
+    - firecrawl_research_read_paper
+    - firecrawl_research_related_papers
+    - firecrawl_research_search_github
+    - firecrawl_research_search_papers
+    - firecrawl_scrape
+    - firecrawl_search
+    - firecrawl_search_feedback
+  parallel-web:
+    command: npx
+    args:
+    - -y
+    - mcp-remote@0.14.3
+    - https://search.parallel.ai/mcp-oauth
+    enabled_tools:
+    - web_fetch
+    - web_search
+  perplexity:
+    command: npx
+    args:
+    - -y
+    - '@perplexity-ai/mcp-server@1.3.0'
+    enabled_tools:
+    - perplexity_ask
+    - perplexity_reason
+    - perplexity_research
+    - perplexity_search
+  tavily:
+    command: npx
+    args:
+    - -y
+    - tavily-mcp@0.2.22
+    enabled_tools:
+    - tavily_crawl
+    - tavily_extract
+    - tavily_map
+    - tavily_research
+    - tavily_search

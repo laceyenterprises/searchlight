@@ -1,0 +1,11 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,2 @@
+ def activation(option):
+-    return option.flag_value
++    return option.to_info_dict()["flag_value"]
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-click==8.4.2
++click==8.5.0

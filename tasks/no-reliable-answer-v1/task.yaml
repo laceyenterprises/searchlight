@@ -1,0 +1,31 @@
+schema_version: 1
+task_id: no-reliable-answer-v1
+version: "1"
+title: "Recognize when the fixture corpus cannot answer"
+task_class: no_reliable_answer
+created_at: "2026-09-16"
+live_web_required: false
+fixture_mode_allowed: true
+allowed_domains:
+  - fixture.example
+disallowed_domains: []
+expected_output_schema:
+  type: object
+  required:
+    - answerable
+    - explanation
+    - citation_urls
+deterministic_validator:
+  kind: no_answer_available
+  expected_answerable: false
+  forbidden_claims:
+    - "secret launch date"
+budgets:
+  max_provider_calls: 3
+  max_pages: 3
+  max_bytes: 20000
+  max_total_tokens: 8000
+  wall_clock_seconds: 120
+success_criteria:
+  - "States that the answer is not knowable from provided sources."
+  - "Avoids inventing a date or citing unsupported claims."

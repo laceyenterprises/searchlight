@@ -1,0 +1,14 @@
+--- a/app.py
++++ b/app.py
+@@ -4,5 +4,5 @@
+ def sign(subject, key):
+     try:
+         return jwt.encode({"sub": subject}, key, algorithm="HS256")
+-    except jwt.DecodeError:
++    except jwt.PyJWTError:
+         return None
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-pyjwt==2.13.0
++pyjwt==2.14.0

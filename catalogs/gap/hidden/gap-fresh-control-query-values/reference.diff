@@ -1,0 +1,8 @@
+--- a/app.py
++++ b/app.py
+@@ -2,4 +2,4 @@
+
+
+ def query(values):
+-    return urlencode(values)
++    return urlencode(values, doseq=True)

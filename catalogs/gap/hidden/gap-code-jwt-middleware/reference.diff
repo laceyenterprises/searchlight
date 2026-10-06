@@ -1,0 +1,14 @@
+--- a/app.py
++++ b/app.py
+@@ -4,5 +4,5 @@
+ def claims(token, key):
+     try:
+         return jwt.decode(token, key, algorithms=["HS256"])
+-    except jwt.DecodeError:
++    except jwt.InvalidTokenError:
+         return None
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-pyjwt==2.11.0
++pyjwt==2.12.0

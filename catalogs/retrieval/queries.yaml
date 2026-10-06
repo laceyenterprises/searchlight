@@ -1,0 +1,173 @@
+# Retrieval-lane query catalog.
+#
+# Every entry is a real live-web query with machine-checkable ground truth.
+# Two independent signals are scored per result set:
+#
+#   answer_patterns  regexes (case-insensitive) checked against the CONTENT the
+#                    provider returned. A hit means an agent could answer from
+#                    the search response alone, with no follow-up fetch. This is
+#                    the metric that maps to real agent cost.
+#   gold_domains     authoritative hosts for the fact. Scored as hit-rate and
+#                    reciprocal rank, which measures ranking quality
+#                    independently of how much text the provider ships.
+#
+# A query every provider fails is far more likely to be bad ground truth than a
+# three-way provider failure, so the scorer flags those `suspect_ground_truth`
+# rather than booking them as provider misses.
+schema_version: 1
+catalog_id: retrieval-v1
+version: "1"
+created_at: "2026-09-19"
+
+queries:
+  # ---------- fact_lookup: stable, unambiguous, single-token answers ----------
+  - id: pg-default-port
+    query_class: fact_lookup
+    query: "What port does PostgreSQL listen on by default?"
+    answer_patterns: ['\b5432\b']
+    gold_domains: [postgresql.org]
+
+  - id: redis-default-port
+    query_class: fact_lookup
+    query: "What is the default port for Redis?"
+    answer_patterns: ['\b6379\b']
+    gold_domains: [redis.io]
+
+  - id: http-418
+    query_class: fact_lookup
+    query: "What does HTTP status code 418 mean?"
+    answer_patterns: ['teapot']
+    gold_domains: [developer.mozilla.org, rfc-editor.org, ietf.org]
+
+  - id: rust-1-0-year
+    query_class: fact_lookup
+    query: "What year was Rust 1.0 released?"
+    answer_patterns: ['\b2015\b']
+    gold_domains: [rust-lang.org, blog.rust-lang.org]
+
+  - id: walrus-operator-version
+    query_class: fact_lookup
+    query: "Which Python version introduced the walrus operator :=?"
+    answer_patterns: ['3\.8']
+    gold_domains: [python.org, docs.python.org, peps.python.org]
+
+  # ---------- technical_docs: config keys and limits from primary docs ----------
+  - id: git-default-branch-key
+    query_class: technical_docs
+    query: "What git config key sets the default branch name for new repositories?"
+    answer_patterns: ['init\.defaultBranch']
+    gold_domains: [git-scm.com]
+
+  - id: pg-shared-buffers-default
+    query_class: technical_docs
+    query: "What is the default value of the PostgreSQL shared_buffers setting?"
+    answer_patterns: ['128\s?MB']
+    gold_domains: [postgresql.org]
+
+  - id: anthropic-cache-ttl
+    query_class: technical_docs
+    query: "What is the default TTL of an Anthropic prompt caching cache breakpoint?"
+    answer_patterns: ['5[\s-]?minute', '\b5m\b']
+    gold_domains: [platform.claude.com, docs.anthropic.com, anthropic.com]
+
+  - id: exa-max-results
+    query_class: technical_docs
+    query: "What is the maximum number of results the Exa search API can return in one request?"
+    answer_patterns: ['\b100\b']
+    gold_domains: [exa.ai, docs.exa.ai]
+
+  - id: firecrawl-api-version
+    query_class: technical_docs
+    query: "What is the current major version of the Firecrawl API endpoints?"
+    answer_patterns: ['\bv2\b']
+    gold_domains: [firecrawl.dev, docs.firecrawl.dev]
+
+  # ---------- code_research: package and SDK identifiers ----------
+  - id: exa-python-package
+    query_class: code_research
+    query: "What is the name of the official Exa Python SDK package?"
+    answer_patterns: ['exa[_-]py']
+    gold_domains: [exa.ai, docs.exa.ai, pypi.org, github.com]
+
+  - id: parallel-python-package
+    query_class: code_research
+    query: "What is the pip package name for the Parallel Web Systems Python SDK?"
+    answer_patterns: ['parallel-web']
+    gold_domains: [docs.parallel.ai, parallel.ai, pypi.org, github.com]
+
+  - id: firecrawl-js-package
+    query_class: code_research
+    query: "What is the npm package name for the Firecrawl JavaScript SDK?"
+    answer_patterns: ['@mendable/firecrawl-js', 'firecrawl-js']
+    gold_domains: [docs.firecrawl.dev, firecrawl.dev, npmjs.com, github.com]
+
+  - id: postgres-jsonb-operator
+    query_class: code_research
+    query: "Which PostgreSQL operator tests whether a jsonb value contains another jsonb value?"
+    answer_patterns: ['@>']
+    gold_domains: [postgresql.org]
+
+  # ---------- entity_research: company and people facts ----------
+  - id: parallel-founder
+    query_class: entity_research
+    query: "Who founded Parallel Web Systems?"
+    answer_patterns: ['Parag\s+Agrawal']
+    gold_domains: [parallel.ai, reuters.com, crunchbase.com, techcrunch.com]
+
+  - id: parallel-series-a
+    query_class: entity_research
+    query: "How much did Parallel Web Systems raise in its Series A round?"
+    answer_patterns: ['\$100\s?(million|M)\b', '100\s?million']
+    gold_domains: [reuters.com, parallel.ai, techcrunch.com, crunchbase.com]
+
+  - id: exa-founders
+    query_class: entity_research
+    query: "Who are the founders of Exa AI, the search engine for AI?"
+    answer_patterns: ['Will\s+Bryk', 'Jeff\s+Wang']
+    gold_domains: [exa.ai, crunchbase.com, techcrunch.com, ycombinator.com]
+
+  - id: firecrawl-company
+    query_class: entity_research
+    query: "Which company builds Firecrawl, the web scraping API for AI?"
+    answer_patterns: ['Mendable', 'Sideguide', 'Firecrawl']
+    gold_domains: [firecrawl.dev, ycombinator.com, crunchbase.com, github.com]
+
+  # ---------- adversarial: SEO-spam magnets, scored on primary-source rate ----------
+  # No answer_patterns: there is no single right answer. These measure whether a
+  # provider surfaces vendor primary sources or affiliate listicle farms.
+  - id: best-ai-search-api
+    query_class: adversarial_seo
+    query: "best AI web search API for agents"
+    answer_patterns: []
+    gold_domains: [exa.ai, parallel.ai, firecrawl.dev, tavily.com, brave.com]
+
+  - id: cheapest-scraping-api
+    query_class: adversarial_seo
+    query: "cheapest web scraping API pricing comparison"
+    answer_patterns: []
+    gold_domains: [firecrawl.dev, scrapingbee.com, brightdata.com, apify.com, zyte.com]
+
+  # ---------- freshness: scored on source recency, not a fixed string ----------
+  - id: latest-anthropic-model
+    query_class: freshness
+    query: "What is the most recently released Anthropic Claude model?"
+    answer_patterns: []
+    gold_domains: [anthropic.com, platform.claude.com, claude.com]
+    freshness_window_days: 120
+
+  - id: latest-openai-model
+    query_class: freshness
+    query: "What is the newest OpenAI model released this year?"
+    answer_patterns: []
+    gold_domains: [openai.com, platform.openai.com]
+    freshness_window_days: 120
+
+  # ---------- negative control: no reliable answer exists ----------
+  # A good provider returns weak/absent evidence here. A provider that returns
+  # confident-looking content is surfacing fabrication bait.
+  - id: unknowable-revenue
+    query_class: no_reliable_answer
+    query: "What was Parallel Web Systems' audited net revenue for fiscal year 2027?"
+    answer_patterns: []
+    gold_domains: []
+    expect_no_answer: true

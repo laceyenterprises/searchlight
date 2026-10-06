@@ -1,0 +1,9 @@
+[
+  {
+    "url": "https://github.blog/changelog/2026-07-31-restricting-npm-bypass-2fa-granular-access-tokens/",
+    "text": "npm granular access tokens (GATs) configured to bypass 2FA can no longer perform sensitive account, org, and package management actions. These now require an interactive 2FA challenge, closing one of the largest credential-based attack surfaces on the registry. This does not affect GitHub personal access tokens, GitHub App tokens, or GITHUB_TOKEN in Actions. 2FA-bypass tokens will also lose direct publish. We are targeting January 2027 for this update.",
+    "retrieved_at": "2026-10-01",
+    "published_at": "2026-07-31",
+    "sha256": "1184d99c30704827b28e7390188aea6e0502461119018ba4201e583bfacfddd1"
+  }
+]

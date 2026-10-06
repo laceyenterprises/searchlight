@@ -1,0 +1,11 @@
+{
+  "type": "item.completed",
+  "item": {
+    "id": "item_69",
+    "type": "command_execution",
+    "command": "/bin/zsh -lc \"curl -fsS 'http://127.0.0.1:18796/?space=finch' | rg -n 'finch.css|finch.js|data-space=\\\"finch\\\"|Finch'\"",
+    "aggregated_output": "",
+    "exit_code": 1,
+    "status": "failed"
+  }
+}

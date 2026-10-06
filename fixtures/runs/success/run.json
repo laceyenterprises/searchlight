@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "fixture-success-20260916T181200Z",
+  "suite_id": "lighthouse",
+  "task_id": "current-fact-lookup-v1",
+  "provider_id": "fixture",
+  "harness_id": "fixture",
+  "model_profile": "recorded-success",
+  "mode": "fixture",
+  "status": "succeeded",
+  "started_at": "2026-09-16T18:12:00Z",
+  "ended_at": "2026-09-16T18:12:08Z",
+  "metrics_ref": "metrics/metrics.json",
+  "evaluation_ref": "evaluations/evaluation.json",
+  "evidence_bundle_ref": "evidence/bundle.yaml",
+  "provider_call_refs": [
+    "provider-calls/search.json"
+  ]
+}

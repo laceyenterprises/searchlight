@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+.env
+WORKER_RESULT.json
+remediation-reply*.json
+
+/publication-hardcode-history.json

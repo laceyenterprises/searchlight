@@ -1,0 +1,174 @@
+# L2 agent-lane task catalog.
+#
+# Each task is a real multi-field research job of the kind you would actually
+# delegate to a research API, with per-field ground truth so accuracy is scored
+# field-by-field rather than as one opaque pass/fail.
+#
+# Scoring notes:
+#   fields[].patterns   regexes (case-insensitive) matched against the arm's
+#                       value for that field. A field is correct when any
+#                       pattern hits.
+#   fields[].optional   scored when present, never penalised when absent.
+#
+# Where all vendor arms agree on a value that contradicts the declared ground
+# truth, the scorer flags the FIELD as suspect rather than booking three
+# failures -- hand-written truth is likelier wrong than unanimous disagreement.
+schema_version: 1
+catalog_id: agent-v1
+version: "1"
+created_at: "2026-09-20"
+
+tasks:
+  - id: firecrawl-company
+    task_class: company_research
+    prompt: >-
+      Research the company Firecrawl (the web scraping and crawling API for AI).
+      Identify its founders and the year the company was founded.
+    output_schema:
+      type: object
+      properties:
+        founders: {type: array, items: {type: string}, description: "Full names of the founders"}
+        founded_year: {type: string, description: "Year the company was founded, YYYY"}
+      required: [founders, founded_year]
+    fields:
+      - name: founders
+        patterns: ['Caleb\s+Peffer']
+      - name: founded_year
+        patterns: ['\b2022\b']
+
+  - id: exa-company
+    task_class: company_research
+    prompt: >-
+      Research the company Exa (exa.ai, the neural/embeddings search engine
+      built for AI agents). Identify its founders and the year it was founded.
+    output_schema:
+      type: object
+      properties:
+        founders: {type: array, items: {type: string}, description: "Full names of the founders"}
+        founded_year: {type: string, description: "Year the company was founded, YYYY"}
+      required: [founders, founded_year]
+    fields:
+      - name: founders
+        # Full legal name: all three vendor arms return "William Bryk", which a
+        # 'Will Bryk' pattern misses. Caught by the suspect-ground-truth guard.
+        patterns: ['Will(iam)?\s+Bryk', 'Jeff(rey)?\s+Wang']
+      - name: founded_year
+        patterns: ['\b202[0-2]\b']
+
+  - id: parallel-funding
+    task_class: funding_research
+    prompt: >-
+      Research Parallel Web Systems (parallel.ai), the AI web-search company
+      founded by Parag Agrawal. Report the size of its Series A round, the
+      post-money valuation, and the names of the lead investors.
+    output_schema:
+      type: object
+      properties:
+        series_a_amount: {type: string, description: "Series A round size in USD"}
+        post_money_valuation: {type: string, description: "Post-money valuation in USD"}
+        lead_investors: {type: array, items: {type: string}, description: "Lead investor firm names"}
+      required: [series_a_amount, lead_investors]
+    fields:
+      - name: series_a_amount
+        patterns: ['\$?\s?100\s?(million|M)\b']
+      - name: post_money_valuation
+        optional: true
+        patterns: ['\$?\s?740\s?(million|M)\b']
+      - name: lead_investors
+        patterns: ['Kleiner|Index|Khosla|First\s+Round|Spark']
+
+  - id: postgres-release
+    task_class: technical_release
+    prompt: >-
+      Determine the current latest stable major version of PostgreSQL, the date
+      that major version was first released, and the default port PostgreSQL
+      listens on.
+    output_schema:
+      type: object
+      properties:
+        latest_major_version: {type: string, description: "Latest stable major version number"}
+        release_date: {type: string, description: "Initial release date of that major version"}
+        default_port: {type: string, description: "Default TCP port"}
+      required: [latest_major_version, default_port]
+    fields:
+      - name: default_port
+        patterns: ['\b5432\b']
+      - name: latest_major_version
+        patterns: ['\b1[5-9]\b|\b2[0-9]\b']
+
+  - id: anthropic-opus-pricing
+    task_class: technical_release
+    prompt: >-
+      Find the per-million-token API pricing for Anthropic's Claude Opus 4.5
+      model. Report the input price per million tokens, the output price per
+      million tokens, and the maximum context window.
+    output_schema:
+      type: object
+      properties:
+        input_price_per_mtok: {type: string, description: "Input price per million tokens, USD"}
+        output_price_per_mtok: {type: string, description: "Output price per million tokens, USD"}
+        context_window: {type: string, description: "Maximum context window in tokens"}
+      required: [input_price_per_mtok, output_price_per_mtok]
+    fields:
+      - name: input_price_per_mtok
+        patterns: ['\$?\s?5\b']
+      - name: output_price_per_mtok
+        patterns: ['\$?\s?25\b']
+      - name: context_window
+        optional: true
+        patterns: ['200[,_ ]?000|200k|1M|1[,_ ]?000[,_ ]?000']
+
+  - id: rust-release-cadence
+    task_class: technical_release
+    prompt: >-
+      Determine how often the Rust programming language ships a new stable
+      release (the release cadence in weeks), and the year Rust 1.0 shipped.
+    output_schema:
+      type: object
+      properties:
+        cadence_weeks: {type: string, description: "Number of weeks between stable releases"}
+        rust_1_0_year: {type: string, description: "Year Rust 1.0 was released, YYYY"}
+      required: [cadence_weeks, rust_1_0_year]
+    fields:
+      - name: cadence_weeks
+        patterns: ['\b6\b|six']
+      - name: rust_1_0_year
+        patterns: ['\b2015\b']
+
+  - id: exa-api-limits
+    task_class: api_documentation
+    prompt: >-
+      Using Exa's official API documentation, determine the maximum number of
+      results the Exa /search endpoint can return in a single request, and list
+      the available search `type` values.
+    output_schema:
+      type: object
+      properties:
+        max_results: {type: string, description: "Maximum results per request"}
+        search_types: {type: array, items: {type: string}, description: "Supported search type values"}
+      required: [max_results]
+    fields:
+      - name: max_results
+        patterns: ['\b100\b']
+      - name: search_types
+        optional: true
+        patterns: ['auto|fast|deep']
+
+  - id: firecrawl-api-surface
+    task_class: api_documentation
+    prompt: >-
+      Using Firecrawl's official API documentation, determine the current major
+      API version prefix for its endpoints, and how many credits a search
+      request costs per 10 results.
+    output_schema:
+      type: object
+      properties:
+        api_version: {type: string, description: "Current major API version prefix, e.g. v1 or v2"}
+        search_credits_per_10_results: {type: string, description: "Credit cost per 10 search results"}
+      required: [api_version]
+    fields:
+      - name: api_version
+        patterns: ['\bv2\b']
+      - name: search_credits_per_10_results
+        optional: true
+        patterns: ['\b2\b']

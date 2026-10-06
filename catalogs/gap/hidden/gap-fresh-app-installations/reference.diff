@@ -1,0 +1,16 @@
+--- a/app.py
++++ b/app.py
+@@ -1,4 +1,4 @@
+ def create(client, value):
+     if not value:
+         return None
+-    return client.v1.apps.secrets.list(params={"app": value})
++    return client.v1.apps.installs.list(params={"app": value})
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-stripe==15.6.1
++stripe==16.0.0
+ requests==2.33.0
+ urllib3==2.8.0
+ charset-normalizer==3.5.2

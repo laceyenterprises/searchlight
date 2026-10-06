@@ -1,0 +1,34 @@
+schema_version: 1
+task_id: freshness-stale-trap-v1
+version: "1"
+title: "Prefer the newer dated source over stale search results"
+task_class: freshness
+created_at: "2026-09-16"
+live_web_required: false
+fixture_mode_allowed: true
+freshness_window_days: 14
+allowed_domains:
+  - fixture.example
+disallowed_domains: []
+expected_output_schema:
+  type: object
+  required:
+    - answer
+    - citation_urls
+    - rejected_stale_source_ids
+deterministic_validator:
+  kind: freshness_preference
+  expected_answer: "policy-b"
+  stale_source_ids:
+    - src-stale-policy
+  required_source_ids:
+    - src-current-policy
+budgets:
+  max_provider_calls: 3
+  max_pages: 3
+  max_bytes: 24000
+  max_total_tokens: 9000
+  wall_clock_seconds: 120
+success_criteria:
+  - "Uses the newer policy source."
+  - "Does not cite the stale source as current."

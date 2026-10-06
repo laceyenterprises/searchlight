@@ -1,0 +1,246 @@
+# WSB-04 price table: the only place a published rate enters the cost model.
+#
+# Every entry must name where the rate came from (`source`) and when it was
+# read (`as_of`, an ISO date). `sew.cost_model.load_price_table` refuses an
+# entry without either, so a rate can never be quoted without its receipt.
+#
+# A provider or model that is absent here is priced as `unknown` and excluded
+# from cost tables. Do not add a guessed rate to make a table look complete:
+# an absent figure is honest, an invented one is not.
+#
+# Exa API responses may report `costDollars`; its MCP server formats text and
+# can omit that receipt. Measured spend wins, with published tariffs as fallback.
+# Live provider arms reach
+# vendors through their MCP servers; `sew.mcp_meter` records each call and
+# `config/mcp-meter-tariffs.yaml` names the row below that prices it.
+version: 1
+
+vendors:
+  exa:
+    meter: requests
+    rate_basis: published_list_price
+    source: https://exa.ai/pricing
+    as_of: "2026-10-05"
+    usd_per_request:
+      search:instant: 0.004
+      search:auto: 0.007
+      search:fast: 0.007
+      search:deep: 0.012
+      search:deep-reasoning: 0.015
+      contents:page: 0.001
+    usd_per_additional_result: 0.001
+  firecrawl:
+    # Firecrawl meters in credits; the dollar value of a credit depends on the
+    # account's plan, so this is an assumed rate, not an observed one. Standard
+    # plan: $83/month billed yearly for 100,000 credits/month.
+    meter: credits
+    usd_per_credit: 0.00083
+    rate_basis: plan_rate_assumption
+    plan: standard (billed yearly)
+    source: https://www.firecrawl.dev/pricing
+    as_of: "2026-09-25"
+  tavily:
+    meter: credits
+    usd_per_credit: 0.008
+    rate_basis: plan_rate_assumption
+    plan: pay-as-you-go
+    source: https://www.tavily.com/pricing
+    as_of: "2026-09-25"
+  parallel-web:
+    # Parallel returns no spend on the response. It publishes a per-request
+    # list price per search mode and per task processor; the tier a call ran
+    # at must be supplied by the caller (`pricing_tier`), never guessed.
+    meter: requests
+    rate_basis: published_list_price
+    source: https://parallel.ai/pricing
+    as_of: "2026-10-05"
+    usd_per_additional_result: 0.001
+    usd_per_request:
+      extract:page: 0.001
+      search:turbo: 0.001
+      search:fast: 0.001
+      search:basic: 0.005
+      search:advanced: 0.005
+      task:lite: 0.005
+      task:base: 0.010
+      task:core: 0.025
+      task:core2x: 0.050
+      task:pro: 0.100
+      task:ultra: 0.300
+
+  brave:
+    # Search plan: every search endpoint (web, news, images, videos, local,
+    # LLM context) bills per request. Answers is a separate plan, priced per
+    # query plus tokens, and is not listed here.
+    meter: requests
+    rate_basis: published_list_price
+    plan: search
+    source: https://api-dashboard.search.brave.com/documentation/pricing
+    as_of: "2026-09-27"
+    usd_per_request:
+      search:request: 0.005
+  perplexity:
+    # Search API bills per successful request (up to five queries is one
+    # request); invalid, rate-limited and upstream-failed requests are not
+    # billed. The Agent API's web_search tool bills per invocation. Sonar
+    # model calls bill by tokens and are measured from the response instead.
+    meter: requests
+    rate_basis: published_list_price
+    source: https://docs.perplexity.ai/docs/getting-started/pricing
+    as_of: "2026-09-27"
+    usd_per_request:
+      search:web: 0.005
+      search:fast: 0.001
+      agent:web_search: 0.0025
+      agent:web_search_fast: 0.001
+  claude-code-native:
+    # Claude WebSearch bills $10/1,000 successful searches. WebFetch adds
+    # no tool fee; both still incur model token charges.
+    meter: requests
+    rate_basis: published_list_price
+    source: https://docs.anthropic.com/en/docs/about-claude/pricing
+    as_of: "2026-09-27"
+    usd_per_request:
+      search:request: 0.01
+      fetch:request: 0.0
+  codex-native:
+    # OpenAI publishes no per-call price for the Codex CLI's built-in web search.
+    # Operator decision (2026-09-30): price it at the Brave Search plan's
+    # per-request rate, as a proxy for its backing vendor. Opening or searching
+    # within a fetched page adds no tool fee, as with Claude's WebFetch. The
+    # Claude native arm keeps Anthropic's published rate above.
+    meter: requests
+    rate_basis: operator_proxy_rate
+    proxy_for: brave
+    source: https://api-dashboard.search.brave.com/documentation/pricing
+    as_of: "2026-09-30"
+    usd_per_request:
+      search:request: 0.005
+      fetch:request: 0.0
+
+models:
+  # First-party API list prices, USD per million tokens. Cache reads vary by
+  # model. Reasoning (thinking) tokens bill as output and are
+  # already counted inside output_tokens, so they are never priced separately.
+  # A Codex spawn is priced only when --model or its source profile pins this
+  # exact ID. The CLI's implicit default is never inferred from this row.
+  gpt-6-sol:
+    # Long-context pricing begins above 272K prompt tokens. Aggregate cell
+    # usage cannot establish which turn crossed that threshold.
+    max_short_context_input_tokens: 272000
+    input_usd_per_mtok: 2.00
+    cached_input_usd_per_mtok: 0.20
+    cache_write_usd_per_mtok: 2.50
+    output_usd_per_mtok: 10.00
+    rate_basis: published_list_price
+    source: https://developers.openai.com/api/docs/models/gpt-6-sol
+    as_of: "2026-09-29"
+  gpt-6.1-sol:
+    # Same 272K long-context threshold as gpt-6-sol. Allowed for Codex spawns
+    # (SOL61-01) but never a default, so it is priced only when pinned.
+    max_short_context_input_tokens: 272000
+    input_usd_per_mtok: 2.00
+    cached_input_usd_per_mtok: 0.10
+    cache_write_usd_per_mtok: 2.50
+    output_usd_per_mtok: 10.00
+    rate_basis: published_list_price
+    source: https://developers.openai.com/api/docs/models/gpt-6.1-sol
+    as_of: "2026-09-29"
+  gpt-6-astra:
+    max_short_context_input_tokens: 272000
+    input_usd_per_mtok: 10.00
+    cached_input_usd_per_mtok: 1.00
+    cache_write_usd_per_mtok: 12.50
+    output_usd_per_mtok: 50.00
+    rate_basis: published_list_price
+    source: https://developers.openai.com/api/docs/models/gpt-6-astra
+    as_of: "2026-09-29"
+  gpt-6-luna:
+    max_short_context_input_tokens: 272000
+    input_usd_per_mtok: 0.10
+    cached_input_usd_per_mtok: 0.01
+    cache_write_usd_per_mtok: 0.125
+    output_usd_per_mtok: 0.50
+    rate_basis: published_list_price
+    source: https://developers.openai.com/api/docs/models/gpt-6-luna
+    as_of: "2026-09-29"
+  gpt-5.6-sol:
+    # The model page lists these rates as a promotion running at least
+    # through 2026-11-21; re-read the page after that date. It states no
+    # cache-write dollar figure, so none is recorded here.
+    max_short_context_input_tokens: 272000
+    input_usd_per_mtok: 4.00
+    cached_input_usd_per_mtok: 0.40
+    output_usd_per_mtok: 20.00
+    rate_basis: published_list_price
+    source: https://developers.openai.com/api/docs/models/gpt-5.6-sol
+    as_of: "2026-09-29"
+  gpt-5.6-terra:
+    max_short_context_input_tokens: 272000
+    input_usd_per_mtok: 2.00
+    cached_input_usd_per_mtok: 0.20
+    output_usd_per_mtok: 12.00
+    rate_basis: published_list_price
+    source: https://developers.openai.com/api/docs/models/gpt-5.6-terra
+    as_of: "2026-09-29"
+  gpt-5.6-luna:
+    max_short_context_input_tokens: 272000
+    input_usd_per_mtok: 0.20
+    cached_input_usd_per_mtok: 0.02
+    output_usd_per_mtok: 1.20
+    rate_basis: published_list_price
+    source: https://developers.openai.com/api/docs/models/gpt-5.6-luna
+    as_of: "2026-09-29"
+  claude-opus-5-5:
+    # Claude usage retains cache-write counts and any TTL breakdown alongside
+    # the disjoint input bucket; cached_input is cache hits/refreshes.
+    input_usd_per_mtok: 4.00
+    cache_write_5m_usd_per_mtok: 5.00
+    cache_write_1h_usd_per_mtok: 8.00
+    cached_input_usd_per_mtok: 0.20
+    output_usd_per_mtok: 20.00
+    rate_basis: published_list_price
+    source: https://docs.anthropic.com/en/docs/about-claude/pricing
+    as_of: "2026-09-29"
+  claude-fable-5:
+    input_usd_per_mtok: 10.00
+    cached_input_usd_per_mtok: 1.00
+    output_usd_per_mtok: 50.00
+    rate_basis: published_list_price
+    source: https://platform.claude.com/docs/en/about-claude/pricing
+    as_of: "2026-06-24"
+  claude-opus-5:
+    input_usd_per_mtok: 5.00
+    cached_input_usd_per_mtok: 0.50
+    output_usd_per_mtok: 25.00
+    rate_basis: published_list_price
+    source: https://platform.claude.com/docs/en/about-claude/pricing
+    as_of: "2026-06-24"
+  claude-opus-4-8:
+    input_usd_per_mtok: 5.00
+    cached_input_usd_per_mtok: 0.50
+    output_usd_per_mtok: 25.00
+    rate_basis: published_list_price
+    source: https://platform.claude.com/docs/en/about-claude/pricing
+    as_of: "2026-06-24"
+  claude-sonnet-5:
+    input_usd_per_mtok: 2.00
+    cached_input_usd_per_mtok: 0.20
+    output_usd_per_mtok: 10.00
+    rate_basis: published_list_price
+    source: https://platform.claude.com/docs/en/about-claude/pricing
+    as_of: "2026-09-29"
+  claude-sonnet-4-6:
+    input_usd_per_mtok: 3.00
+    cached_input_usd_per_mtok: 0.30
+    output_usd_per_mtok: 15.00
+    rate_basis: published_list_price
+    source: https://platform.claude.com/docs/en/about-claude/pricing
+    as_of: "2026-06-24"
+  claude-haiku-4-5:
+    input_usd_per_mtok: 1.00
+    cached_input_usd_per_mtok: 0.10
+    output_usd_per_mtok: 5.00
+    rate_basis: published_list_price
+    source: https://platform.claude.com/docs/en/about-claude/pricing
+    as_of: "2026-09-29"

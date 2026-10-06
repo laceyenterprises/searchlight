@@ -1,0 +1,47 @@
+schema_version: 1
+suite_id: wsb-report-reproduction
+version: '1'
+description: Full WSB matrix against the shipped production catalog; historical results
+  are not replayed.
+randomization_seed: 20260927
+fixture_mode: false
+repetitions: 3
+timeouts:
+  run_seconds: 1200
+  provider_call_seconds: 60
+budgets:
+  max_provider_calls: 400
+  max_provider_result_chars: 1000000
+  max_total_tokens: 3000000
+providers:
+- no-search
+- native
+- brave
+- tavily
+- exa
+- parallel-web
+- firecrawl
+- perplexity
+harnesses:
+  claude-code:
+    model_profiles:
+    - default
+tasks:
+- list-build-python313-pep594-removals
+- list-build-kubernetes-122-api-removals
+- list-build-sca-tool-shortlist
+- change-detection-openapi-30-to-31
+- change-detection-kubernetes-dockershim-removal
+- change-detection-unversioned-runtime-drift
+- upstream-diagnosis-urllib3-libressl-import-error
+- upstream-diagnosis-node-openssl3-md4
+- upstream-diagnosis-unindexed-ordering-regression
+- competitive-table-cloud-egress-pricing
+- competitive-table-copyleft-obligations
+- competitive-table-unpublished-enterprise-pricing
+- multi-hop-python-feature-peps
+- multi-hop-cve-to-fixed-release
+- multi-hop-npm-semver-dependents
+- unanswerable-python4-ga-date
+- unanswerable-nonexistent-postgres-guc
+- unanswerable-private-company-audited-arr

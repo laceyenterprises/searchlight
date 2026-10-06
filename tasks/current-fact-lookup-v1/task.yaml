@@ -1,0 +1,32 @@
+schema_version: 1
+task_id: current-fact-lookup-v1
+version: "1"
+title: "Current fact lookup from a fixture source"
+task_class: fact_lookup
+created_at: "2026-09-16"
+live_web_required: false
+fixture_mode_allowed: true
+freshness_window_days: 30
+allowed_domains:
+  - fixture.example
+disallowed_domains: []
+expected_output_schema:
+  type: object
+  required:
+    - answer
+    - citation_urls
+    - as_of_date
+deterministic_validator:
+  kind: exact_value_with_citation
+  expected_answer: "Release 3.2"
+  required_source_ids:
+    - src-success-release-note
+budgets:
+  max_provider_calls: 2
+  max_pages: 2
+  max_bytes: 20000
+  max_total_tokens: 8000
+  wall_clock_seconds: 120
+success_criteria:
+  - "Answer equals the fixture's current release label."
+  - "At least one citation points at the release note source."

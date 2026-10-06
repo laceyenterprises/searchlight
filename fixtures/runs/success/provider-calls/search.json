@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "call_id": "fixture-success-search-1",
+  "run_id": "fixture-success-20260916T181200Z",
+  "provider_id": "fixture",
+  "operation": "search",
+  "status": "ok",
+  "started_at": "2026-09-16T18:12:01Z",
+  "ended_at": "2026-09-16T18:12:01Z",
+  "request": {
+    "query": "fixture product current release",
+    "redacted": true
+  },
+  "response": {
+    "result_count": 1,
+    "redacted": true
+  },
+  "normalized_source_refs": [
+    "sources/src-success-release-note.json"
+  ],
+  "retry_count": 0
+}

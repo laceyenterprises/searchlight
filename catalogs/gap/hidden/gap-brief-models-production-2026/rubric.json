@@ -1,0 +1,45 @@
+{
+  "key_facts": [
+    {
+      "text": "GitHub Models retires fully on July 30, 2026, including inference API and BYOK endpoints.",
+      "weight": 5,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026/",
+        "text": "GitHub Models will be fully retired on July 30, 2026. After this date, the playground, model catalog, inference API, and BYOK endpoints will no longer be available, and the related UI will be removed. This affects all customers. Unlike the first step in June, this change applies to everyone, including existing customers with active usage. To help you prepare, we will run short, scheduled service interruptions (brownouts) on July 16 and July 23, 2026.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-07-01",
+        "sha256": "53fdba333e065929d9785b15b8d5a9027ee7b9c143e52a602eb86f7ef5702fd3"
+      }
+    },
+    {
+      "text": "Retirement includes existing customers with active usage.",
+      "weight": 3,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026/",
+        "text": "GitHub Models will be fully retired on July 30, 2026. After this date, the playground, model catalog, inference API, and BYOK endpoints will no longer be available, and the related UI will be removed. This affects all customers. Unlike the first step in June, this change applies to everyone, including existing customers with active usage. To help you prepare, we will run short, scheduled service interruptions (brownouts) on July 16 and July 23, 2026.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-07-01",
+        "sha256": "53fdba333e065929d9785b15b8d5a9027ee7b9c143e52a602eb86f7ef5702fd3"
+      }
+    },
+    {
+      "text": "Scheduled brownouts occur on July 16 and July 23, 2026.",
+      "weight": 2,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026/",
+        "text": "GitHub Models will be fully retired on July 30, 2026. After this date, the playground, model catalog, inference API, and BYOK endpoints will no longer be available, and the related UI will be removed. This affects all customers. Unlike the first step in June, this change applies to everyone, including existing customers with active usage. To help you prepare, we will run short, scheduled service interruptions (brownouts) on July 16 and July 23, 2026.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-07-01",
+        "sha256": "53fdba333e065929d9785b15b8d5a9027ee7b9c143e52a602eb86f7ef5702fd3"
+      }
+    }
+  ],
+  "pass_rule": {
+    "recommendation_correct": true,
+    "min_recall": 0.7,
+    "max_unsupported_claim_rate": 0.25
+  },
+  "acceptable_recommendations": [
+    "migrate-inference"
+  ]
+}

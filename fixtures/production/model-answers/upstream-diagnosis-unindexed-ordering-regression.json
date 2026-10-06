@@ -1,0 +1,11 @@
+{
+  "evidence_urls": [
+    "https://github.com/example-org/example-lib/commit/4f3c1a9e2b7d8c6f5a4b3c2d1e0f9a8b7c6d5e4f",
+    "https://github.com/example-org/example-lib/blob/4f3c1a9e2b7d8c6f5a4b3c2d1e0f9a8b7c6d5e4f/src/index.js"
+  ],
+  "first_release_containing": "3.4.0",
+  "introducing_commit_url": [
+    "https://github.com/example-org/example-lib/commit/4f3c1a9e2b7d8c6f5a4b3c2d1e0f9a8b7c6d5e4f"
+  ],
+  "reasoning": "The commit replaces a sorted map iteration with an insertion-ordered one in the result assembly path. Callers that relied on the previous sort now observe insertion order. The commit is reachable from the 3.4.0 tag and from no earlier tag, which matches the release at which the symptom first appeared."
+}

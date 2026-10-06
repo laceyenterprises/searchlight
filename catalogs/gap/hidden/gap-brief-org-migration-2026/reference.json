@@ -1,0 +1,24 @@
+{
+  "brief": "# Assessment\n\nUse transfer-repositories: it meets the requirement to keep the personal login. For GHES, use repository transfer documentation instead of assuming the GitHub.com workflow is available.\n\nDirect personal-account conversion to an organization was deprecated on January 12, 2026.\n\nMove work selectively migrates repositories while preserving the personal account.\n\nMove work is unavailable on GitHub Enterprise Server.",
+  "claims": [
+    {
+      "text": "Direct personal-account conversion to an organization was deprecated on January 12, 2026.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-01-12-deprecation-of-user-to-organization-account-transformation/"
+      ]
+    },
+    {
+      "text": "Move work selectively migrates repositories while preserving the personal account.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-01-12-deprecation-of-user-to-organization-account-transformation/"
+      ]
+    },
+    {
+      "text": "Move work is unavailable on GitHub Enterprise Server.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-01-12-deprecation-of-user-to-organization-account-transformation/"
+      ]
+    }
+  ],
+  "recommendation": "transfer-repositories"
+}

@@ -1,0 +1,26 @@
+{
+  "gap-fresh-control-inventory-total": {
+    "excerpt": "Dictionaries preserve insertion order. Note that updating a key does not affect the order. Keys added after deletion are inserted at the end.",
+    "source_url": "https://docs.python.org/3.11/library/stdtypes.html",
+    "retrieved_at": "2026-10-05",
+    "sha256": "2262e0950f8592c210a30ea84a8f68842cb5496390f10839284ee283d9c0a3ed"
+  },
+  "gap-fresh-control-jsonl-records": {
+    "excerpt": "Serialize obj to a JSON formatted str using this conversion table. The arguments have the same meaning as in dump().",
+    "source_url": "https://docs.python.org/3.11/library/json.html",
+    "retrieved_at": "2026-10-05",
+    "sha256": "bfcaefc22e53ec29556eff8819ff688221a8219422c4bbc0f31a6d900211513a"
+  },
+  "gap-fresh-control-query-values": {
+    "excerpt": "When a sequence of two-element tuples is used as the query argument, the first element of each tuple is a key and the second is a value. The value element in itself can be a sequence and in that case, if the optional parameter doseq evaluates to True, individual key=value pairs separated by '&' are generated for each element of the value sequence for the key. The order of parameters in the encoded string will match the order of parameter tuples in the sequence.",
+    "source_url": "https://docs.python.org/3.11/library/urllib.parse.html",
+    "retrieved_at": "2026-10-05",
+    "sha256": "3d2579c070af4a1878b130890ec26a3aff8abc4b8e122cd752f44963bfaf57aa"
+  },
+  "gap-fresh-control-window-batches": {
+    "excerpt": "The slice of s from i to j is defined as the sequence of items with index k such that i <= k < j. If i or j is greater than len(s), use len(s). If i is omitted or None, use 0. If j is omitted or None, use len(s). If i is greater than or equal to j, the slice is empty.",
+    "source_url": "https://docs.python.org/3.11/library/stdtypes.html",
+    "retrieved_at": "2026-10-05",
+    "sha256": "3f2e763a4ef60ee9315b26c9ebad142b8e344be48f88475c9934b199896c9c2c"
+  }
+}

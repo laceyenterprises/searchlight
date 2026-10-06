@@ -1,0 +1,8 @@
+--- a/app.py
++++ b/app.py
+@@ -1,4 +1,4 @@
+ def batches(values, size):
+     if size <= 0:
+         raise ValueError("positive size required")
+-    return [values[i : i + size] for i in range(0, len(values) - size + 1, size)]
++    return [values[i : i + size] for i in range(0, len(values), size)]

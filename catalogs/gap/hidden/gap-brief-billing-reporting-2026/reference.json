@@ -1,0 +1,23 @@
+{
+  "brief": "# Assessment\n\nUpdate the finance procedure to use billing settings and raw usage exports. Validate reconciliation against the exported data rather than assuming the former preview report has identical coverage.\n\nThe GitHub Copilot Billing Preview app has been retired and is unavailable.\n\nBilling settings provide user-level budgets, cost centers and usage pool allocation beyond the preview reports.\n\nRaw usage data is available from usage reports and the billing API.",
+  "claims": [
+    {
+      "text": "The GitHub Copilot Billing Preview app has been retired and is unavailable.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/"
+      ]
+    },
+    {
+      "text": "Billing settings provide user-level budgets, cost centers and usage pool allocation beyond the preview reports.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/"
+      ]
+    },
+    {
+      "text": "Raw usage data is available from usage reports and the billing API.",
+      "citation_urls": [
+        "https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/"
+      ]
+    }
+  ]
+}

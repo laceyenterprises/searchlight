@@ -1,0 +1,45 @@
+{
+  "key_facts": [
+    {
+      "text": "GitHub Classroom website, APIs and related services are decommissioned as of August 28, 2026.",
+      "weight": 5,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-08-27-github-classroom-deprecated/",
+        "text": "As of August 28, 2026, GitHub Classroom is now deprecated in favor of our selected partner solutions. The GitHub Classroom website, APIs, and related services have now been decommissioned. However, any GitHub user accounts, repositories, and organizations created to work with Classroom are not affected. Some GitHub Classroom data (e.g., classroom and assignment names, tests defined outside of repositories, and LTI integrated rosters) will be permanently deleted in accordance with GitHub’s data retention policies.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-27",
+        "sha256": "abfcd5e6a4efcf69756a3b243e15514392c5a36508f0e7e8469290b7f0c3392a"
+      }
+    },
+    {
+      "text": "Classroom-created accounts, repositories and organizations are unaffected.",
+      "weight": 3,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-08-27-github-classroom-deprecated/",
+        "text": "As of August 28, 2026, GitHub Classroom is now deprecated in favor of our selected partner solutions. The GitHub Classroom website, APIs, and related services have now been decommissioned. However, any GitHub user accounts, repositories, and organizations created to work with Classroom are not affected. Some GitHub Classroom data (e.g., classroom and assignment names, tests defined outside of repositories, and LTI integrated rosters) will be permanently deleted in accordance with GitHub’s data retention policies.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-27",
+        "sha256": "abfcd5e6a4efcf69756a3b243e15514392c5a36508f0e7e8469290b7f0c3392a"
+      }
+    },
+    {
+      "text": "Some Classroom data, including LTI rosters and tests outside repositories, will be permanently deleted.",
+      "weight": 2,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-08-27-github-classroom-deprecated/",
+        "text": "As of August 28, 2026, GitHub Classroom is now deprecated in favor of our selected partner solutions. The GitHub Classroom website, APIs, and related services have now been decommissioned. However, any GitHub user accounts, repositories, and organizations created to work with Classroom are not affected. Some GitHub Classroom data (e.g., classroom and assignment names, tests defined outside of repositories, and LTI integrated rosters) will be permanently deleted in accordance with GitHub’s data retention policies.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-27",
+        "sha256": "abfcd5e6a4efcf69756a3b243e15514392c5a36508f0e7e8469290b7f0c3392a"
+      }
+    }
+  ],
+  "pass_rule": {
+    "recommendation_correct": true,
+    "min_recall": 0.7,
+    "max_unsupported_claim_rate": 0.25
+  },
+  "acceptable_recommendations": [
+    "use-partner"
+  ]
+}

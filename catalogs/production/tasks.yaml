@@ -1,0 +1,1458 @@
+# WSB production task catalog.
+#
+# WHY THIS CATALOG EXISTS
+#
+# SEW's L2 agent catalog (`catalogs/agent/tasks.yaml`) asked eight fact-shaped
+# questions with regex-checkable answers. All three vendor arms scored 100% on
+# every one. A benchmark where everybody wins has measured nothing except that
+# the floor is low, and it cannot discriminate again when the products improve.
+# This catalog replaces it as the WSB task source. The L2 catalog stays in the
+# tree because the shipped agent lane still runs it; nothing here reads it.
+#
+# WHAT A PRODUCTION TASK IS
+#
+# Every task is a job with a deliverable, not a question with an answer:
+#   * the deliverable is a structured object with several load-bearing fields,
+#     so "wrong value" and "missing field" stay distinguishable;
+#   * every task requires citations, declared in `evidence_field`, so an
+#     ungrounded deliverable is a failure even when the values are right;
+#   * no task is satisfiable by a single regex-matchable token. Validation
+#     enforces this structurally (>= 2 required fields, >= 1 non-scalar check,
+#     and a citation check on the evidence field) rather than trusting the
+#     author.
+#
+# MEASUREMENT HEADROOM
+#
+# Four tasks are declared `expected_outcome: expected_fail`: the catalog
+# expects every arm to fail them. They are not filler. Each one fails for a
+# stated structural reason -- the evidence must be derived rather than
+# retrieved, or the honest deliverable is a refusal that a retrieval-shaped
+# objective is not rewarded for producing. Without them the suite saturates
+# again at the next vendor release and the run stops being able to tell two
+# good arms apart. Validation refuses a catalog with fewer than three
+# expected-fail tasks, or with them parked inside fewer than three classes.
+#
+# HOW FAILURE IS CLASSIFIED
+#
+# Per-field scoring distinguishes the two failure modes that matter and that a
+# pass/fail score would flatten together:
+#   missing  the arm did not produce the field  -> it declined
+#   wrong    the arm produced the field, wrongly -> it fabricated
+# An arm that declines an expected-fail task and an arm that invents an answer
+# for it both score zero, and they are not the same finding.
+#
+# TRUTH PROVENANCE
+#
+# `truth_provenance.status` says whether a task's ground truth can drift:
+#   immutable_history  the fact is a closed historical record (what a release
+#                      removed, what a license clause says). It cannot rot.
+#   current_state      the fact is a live condition (a published price, an
+#                      unpublished one). It rots, so it carries a note and a
+#                      short freshness window.
+#   none               rubric-scored; there is no deterministic truth to pin.
+# `verification_method: author_assertion` means the value was asserted by the
+# catalog author against the named primary source and has not been re-fetched.
+# `publication_blockers()` returns every such task plus every `current_state`
+# task past its `revalidate_by`, so a publication run can refuse rather than
+# quote unverified truth as measured accuracy.
+#
+# SUSPECT GROUND TRUTH
+#
+# The L1/L2 convention is preserved: a field that two or more independent arms
+# get wrong is likelier bad ground truth than a simultaneous multi-arm failure,
+# and is reported as `suspect_ground_truth` instead of booking one miss per
+# arm. Expected-fail tasks are exempt -- universal failure there is the design,
+# and letting the heuristic fire would delete exactly the headroom this catalog
+# was built to add.
+schema_version: 1
+catalog_id: production-v1
+suite: production
+version: "2026-09-21"
+description: >-
+  Production-shaped tasks with deliverable schemas, per-field ground truth or a
+  judge rubric, freshness windows, and per-task budgets.
+authoring_policy: >-
+  Tasks are derived from ordinary engineering and procurement work. No task is
+  written against a provider's documented strengths, no prompt names a provider
+  or a harness, and arms differ only in the tools exposed to them.
+rubrics_ref: rubrics.yaml
+
+# Per-task budgets may not exceed these. A task that needs more than a ceiling
+# is a suite-design decision, not a task-authoring one, so it has to change the
+# ceiling in review rather than quietly cost six times its neighbours.
+budget_ceilings:
+  max_provider_calls: 60
+  max_wall_clock_seconds: 1800
+  max_total_tokens: 400000
+
+task_classes:
+  list_build: >-
+    Assemble N entities matching open or closed criteria and enrich each with
+    the requested columns.
+  change_detection: >-
+    Diff two stated points of a project and report what breaks, without
+    reporting additive changes as breaking.
+  upstream_diagnosis: >-
+    Given a concrete error, find the upstream change that explains it and the
+    remediation it implies.
+  competitive_table: >-
+    Build a structured comparison whose cells are individually cited and whose
+    unpublished cells are marked unavailable rather than filled.
+  multi_hop_entity: >-
+    Resolve a set of entities, then resolve facts about each, then answer a
+    question that requires holding all of them at once.
+  unanswerable: >-
+    A task whose honest deliverable is that the evidence does not exist.
+
+tasks:
+  # ------------------------------------------------------------------ #
+  # list_build                                                         #
+  # ------------------------------------------------------------------ #
+
+  # Closed-set list build over an immutable record. The forbidden members are
+  # the point: `imp`, `distutils`, `asyncore`, `asynchat` and `smtpd` were
+  # removed one release EARLIER, and `lib2to3` / `tkinter.tix` went in the same
+  # release but under a different decision. An arm that retrieves "modules
+  # removed from the standard library" without reading the scope of the brief
+  # returns a superset and fails on a named decoy rather than on a vague
+  # completeness score.
+  - id: list-build-python313-pep594-removals
+    task_class: list_build
+    prompt: >-
+      Python 3.13 completed the standard-library removals scheduled by PEP 594.
+      Build the complete list of standard-library modules that PEP 594 removed
+      in Python 3.13. For each module give its name, the replacement the PEP
+      recommends (use `none` where the PEP recommends no replacement), and a
+      primary-source URL. Report the total count. Do not include modules
+      removed by an earlier Python release, and do not include modules removed
+      in 3.13 by a decision other than PEP 594.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 40, max_wall_clock_seconds: 900, max_total_tokens: 300000}
+    deliverable_schema:
+      type: object
+      properties:
+        removed_modules:
+          type: array
+          items:
+            type: object
+            properties:
+              module: {type: string}
+              replacement: {type: string}
+              source_url: {type: string}
+            required: [module, replacement, source_url]
+        module_count: {type: integer}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [removed_modules, module_count, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://peps.python.org/pep-0594/
+        - https://docs.python.org/3/whatsnew/3.13.html
+    deterministic_validator:
+      kind: entity_set
+      fields:
+        - name: removed_modules
+          check: member_set
+          match_field: module
+          min_members: 19
+          allow_extra: false
+          element_rules_all:
+            source_url: {require_https: true}
+          members:
+            - {name: aifc, patterns: ['\baifc\b']}
+            - {name: audioop, patterns: ['\baudioop\b']}
+            - {name: cgi, patterns: ['\bcgi\b']}
+            - {name: cgitb, patterns: ['\bcgitb\b']}
+            - {name: chunk, patterns: ['\bchunk\b']}
+            - {name: crypt, patterns: ['\bcrypt\b']}
+            - {name: imghdr, patterns: ['\bimghdr\b']}
+            - {name: mailcap, patterns: ['\bmailcap\b']}
+            - {name: msilib, patterns: ['\bmsilib\b']}
+            - {name: nis, patterns: ['\bnis\b']}
+            - {name: nntplib, patterns: ['\bnntplib\b']}
+            - {name: ossaudiodev, patterns: ['\bossaudiodev\b']}
+            - {name: pipes, patterns: ['\bpipes\b']}
+            - {name: sndhdr, patterns: ['\bsndhdr\b']}
+            - {name: spwd, patterns: ['\bspwd\b']}
+            - {name: sunau, patterns: ['\bsunau\b']}
+            - {name: telnetlib, patterns: ['\btelnetlib\b']}
+            - {name: uu, patterns: ['\buu\b']}
+            - {name: xdrlib, patterns: ['\bxdrlib\b']}
+          forbidden_members:
+            - {name: imp-removed-in-3.12, patterns: ['\bimp\b']}
+            - {name: distutils-removed-in-3.12, patterns: ['\bdistutils\b']}
+            - {name: asyncore-removed-in-3.12, patterns: ['\basyncore\b']}
+            - {name: asynchat-removed-in-3.12, patterns: ['\basynchat\b']}
+            - {name: smtpd-removed-in-3.12, patterns: ['\bsmtpd\b']}
+            - {name: lib2to3-not-pep594, patterns: ['\blib2to3\b']}
+            - {name: tkinter-tix-not-pep594, patterns: ['tkinter\.tix']}
+        - name: module_count
+          check: value_match
+          any_of: ['^\s*19\s*$', '\b19\b']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          min_distinct_hosts: 1
+          required_hosts: [python.org]
+
+  # Same shape, open closure. The full 1.22 removal set is large and the brief
+  # asks for at least eight, so membership is scored against a required core
+  # plus a floor rather than a closed set. The decoys are the two removals
+  # every summary blog attaches to the wrong release.
+  - id: list-build-kubernetes-122-api-removals
+    task_class: list_build
+    prompt: >-
+      Kubernetes v1.22 removed a batch of beta API versions and broke clients
+      that still called them. Build the list of API groups whose beta version
+      v1.22 removed. Report at least eight. For each, give the removed
+      apiVersion, the replacement apiVersion clients must migrate to, and a
+      primary-source URL from the Kubernetes deprecation guide or release
+      notes. Also report the release in which the removals took effect.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 40, max_wall_clock_seconds: 900, max_total_tokens: 300000}
+    deliverable_schema:
+      type: object
+      properties:
+        removed_apis:
+          type: array
+          items:
+            type: object
+            properties:
+              removed_api_version: {type: string}
+              replacement_api_version: {type: string}
+              source_url: {type: string}
+            required: [removed_api_version, replacement_api_version, source_url]
+        removal_release: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [removed_apis, removal_release, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://kubernetes.io/docs/reference/using-api/deprecation-guide/
+        - https://kubernetes.io/blog/2021/07/14/upcoming-changes-in-kubernetes-1-22/
+    deterministic_validator:
+      kind: entity_set
+      fields:
+        - name: removed_apis
+          check: member_set
+          match_field: removed_api_version
+          min_members: 8
+          allow_extra: true
+          element_rules_all:
+            replacement_api_version: {any_of: ['/v1\b']}
+            source_url: {require_https: true}
+          members:
+            - {name: ingress-networking-v1beta1, patterns: ['networking\.k8s\.io/v1beta1']}
+            - {name: crd-apiextensions-v1beta1, patterns: ['apiextensions\.k8s\.io/v1beta1']}
+            - {name: webhook-admissionregistration-v1beta1, patterns: ['admissionregistration\.k8s\.io/v1beta1']}
+            - {name: csr-certificates-v1beta1, patterns: ['certificates\.k8s\.io/v1beta1']}
+            - {name: lease-coordination-v1beta1, patterns: ['coordination\.k8s\.io/v1beta1']}
+            - {name: rbac-v1beta1, patterns: ['rbac\.authorization\.k8s\.io/v1beta1']}
+          forbidden_members:
+            - {name: podsecuritypolicy-removed-in-1.25, patterns: ['PodSecurityPolicy', 'policy/v1beta1']}
+            - {name: cronjob-batch-v1beta1-removed-in-1.25, patterns: ['batch/v1beta1']}
+        - name: removal_release
+          check: value_match
+          any_of: ['1\.22']
+          none_of: ['1\.2[0135-9]']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          min_distinct_hosts: 1
+          required_hosts: [kubernetes.io]
+
+  # Open criteria: several different six-tool shortlists satisfy this brief, so
+  # there is no closed truth to pin and a judge is the honest instrument. The
+  # scoring load is on exclusion discipline -- the brief bars hosted-only and
+  # archived projects, which is where a retrieval-shaped arm reaches for the
+  # most-linked names regardless of whether they qualify.
+  - id: list-build-sca-tool-shortlist
+    task_class: list_build
+    prompt: >-
+      You are preparing a build-versus-buy shortlist. Assemble at least six
+      actively maintained, self-hostable open-source tools that perform
+      software composition analysis (dependency vulnerability scanning) over a
+      source repository. For each, report the project name, its license, whether
+      it can run fully offline against a locally mirrored advisory database, the
+      most recent release you can verify with a date, and a primary-source URL.
+      Exclude hosted-only services and archived or unmaintained projects, and
+      say which candidates you excluded and why.
+    freshness: {as_of: "2026-09-21", window_days: 90, revalidate_by: "2026-12-20", drift_risk: medium}
+    budgets: {max_provider_calls: 50, max_wall_clock_seconds: 1200, max_total_tokens: 350000}
+    deliverable_schema:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            type: object
+            properties:
+              project: {type: string}
+              license: {type: string}
+              offline_capable: {type: string}
+              latest_release: {type: string}
+              latest_release_date: {type: string}
+              source_url: {type: string}
+            required: [project, license, offline_capable, latest_release, source_url]
+        exclusions:
+          type: array
+          items:
+            type: object
+            properties:
+              project: {type: string}
+              reason: {type: string}
+            required: [project, reason]
+        evidence_urls: {type: array, items: {type: string}}
+      required: [candidates, exclusions, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: none
+      note: >-
+        Open selection criteria admit several equally correct shortlists, so
+        there is no membership truth to pin; scored by rubric.
+    judge_rubric:
+      rubric_id: wsb01-list-build-v1
+      minimum_score: 4
+
+  # ------------------------------------------------------------------ #
+  # change_detection                                                   #
+  # ------------------------------------------------------------------ #
+
+  # The discriminating feature is the forbidden set. 3.1 added webhooks,
+  # `info.summary` and reusable path items; all three are additive and none of
+  # them breaks a 3.0 document. Summaries of "what changed in 3.1" list them
+  # alongside the genuine breaks, so an arm that retrieves a summary and
+  # reformats it fails on a named decoy instead of scoring partial credit.
+  - id: change-detection-openapi-30-to-31
+    task_class: change_detection
+    prompt: >-
+      A team is upgrading an API description from OpenAPI 3.0 to OpenAPI 3.1.
+      Report every change between the two specification versions that can break
+      an existing 3.0 document or the tooling that consumes it. For each, name
+      the affected construct, state what changed, and give the migration a 3.0
+      document must make. Report the JSON Schema dialect 3.1 targets. Do not
+      list purely additive features: a feature 3.1 adds does not break a 3.0
+      document. Cite the specification or its release notes.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 30, max_wall_clock_seconds: 720, max_total_tokens: 250000}
+    deliverable_schema:
+      type: object
+      properties:
+        breaking_changes:
+          type: array
+          items:
+            type: object
+            properties:
+              construct: {type: string}
+              change: {type: string}
+              migration: {type: string}
+            required: [construct, change, migration]
+        target_json_schema_dialect: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [breaking_changes, target_json_schema_dialect, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://spec.openapis.org/oas/v3.1.0
+        - https://www.openapis.org/blog/2021/02/16/migrating-from-openapi-3-0-to-3-1-0
+    deterministic_validator:
+      kind: change_set
+      fields:
+        - name: breaking_changes
+          check: member_set
+          match_field: construct
+          min_members: 4
+          allow_extra: true
+          element_rules_all:
+            migration: {min_length: 20}
+          members:
+            - {name: nullable-removed, patterns: ['nullable']}
+            - {name: exclusive-bounds-numeric, patterns: ['exclusive(minimum|maximum)']}
+          # Not required (operator decision, 2026-09-30):
+          # - example -> examples: OAS 3.1 deprecates the Schema Object's singular
+          #   `example` in favour of `examples`; `example` still validates, so
+          #   it is not a break. Listing it is allowed (allow_extra).
+          # - the JSON Schema 2020-12 dialect as its own construct: the dialect
+          #   is scored by target_json_schema_dialect, and answers that break
+          #   it into its consequences (nullable, exclusive bounds, $ref
+          #   siblings) are complete. min_members still asks for four breaks.
+          forbidden_members:
+            - {name: webhooks-are-additive, patterns: ['\bwebhooks?\b']}
+            - {name: info-summary-is-additive, patterns: ['info\.summary', 'summary\s+field']}
+            - {name: component-path-items-are-additive, patterns: ['pathItems']}
+        - name: target_json_schema_dialect
+          check: value_match
+          any_of: ['2020-12']
+          # Wrong dialects are forbidden anywhere in the answer except after an
+          # explicit "OAS 3.0 used/formerly/previously" in the same sentence and
+          # with no 3.1 or 2020-12 mention in between, so a trailing 3.0 clause
+          # cannot launder a wrong answer. A line break starts a sentence (the
+          # scorer compiles without DOTALL or MULTILINE).
+          none_of: ['(?:(?:^|(?<=[.!?;]\s)|(?<=\n))|(?:\b3\.1\b|\b2020-12\b))(?:(?!\b(?:oas\s*|openapi\s*)?3\.0(?:\.\d+)?\b(?:(?![.!?;]\s).){0,80}?\b(?:used|formerly|previously)\b)(?:(?![.!?;]\s).)){0,240}?\b(?:draft[\s-]?0?[47]|wright)\b']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          min_distinct_hosts: 1
+          allowed_hosts: [openapis.org, github.com, json-schema.org]
+
+  # The trap here is a persistent industry misreading: "Kubernetes removed
+  # Docker" was widely reported as "your Docker images stop working". The
+  # image-compatibility field scores whether the arm reproduces the misreading
+  # or corrects it, which no fact-lookup phrasing of the same question can do.
+  - id: change-detection-kubernetes-dockershim-removal
+    task_class: change_detection
+    prompt: >-
+      A cluster upgrade is blocked on a container-runtime change. Report
+      exactly which Kubernetes component was removed with respect to Docker,
+      the release in which it was deprecated, the release in which it was
+      removed, what a cluster still running Docker Engine must do to keep
+      working, and what the removal means for container images built with
+      `docker build`. Cite the Kubernetes documentation or blog.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 30, max_wall_clock_seconds: 720, max_total_tokens: 250000}
+    deliverable_schema:
+      type: object
+      properties:
+        removed_component: {type: string}
+        deprecated_in_release: {type: string}
+        removed_in_release: {type: string}
+        migration_options: {type: array, items: {type: string}}
+        image_compatibility_impact: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required:
+        - removed_component
+        - deprecated_in_release
+        - removed_in_release
+        - migration_options
+        - image_compatibility_impact
+        - evidence_urls
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://kubernetes.io/blog/2022/02/17/dockershim-faq/
+        - https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/
+    deterministic_validator:
+      kind: change_set
+      fields:
+        - name: removed_component
+          check: value_match
+          any_of: ['dockershim']
+        - name: deprecated_in_release
+          check: value_match
+          any_of: ['1\.20']
+        - name: removed_in_release
+          check: value_match
+          any_of: ['1\.24']
+          none_of: ['1\.2[0-35-9]']
+        - name: migration_options
+          check: member_set
+          min_members: 2
+          allow_extra: true
+          members:
+            - {name: cri-runtime, patterns: ['containerd', 'cri-o', 'crio']}
+            - {name: cri-dockerd-shim, patterns: ['cri-dockerd']}
+        - name: image_compatibility_impact
+          check: value_match
+          any_of: ['\bno\b', 'not\s+affected', 'unaffected', 'still\s+work', 'continue', '\bOCI\b']
+          none_of: ['must\s+(be\s+)?re-?build', 'need\s+to\s+re-?build', 'have\s+to\s+re-?build', 'images?\s+stop\s+working']
+          min_length: 20
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          min_distinct_hosts: 1
+          required_hosts: [kubernetes.io]
+
+  # EXPECTED FAIL. No document states this answer. The project publishes tags
+  # and nothing else, so the changes exist only in the diff between two trees
+  # and the evidence is a commit, not a page. A retrieval surface cannot
+  # substitute for reading the diff, and the honest deliverable says so. This
+  # is headroom by construction rather than by difficulty tuning: it stays
+  # failing however good the indexes get, because the artifact was never
+  # published.
+  - id: change-detection-unversioned-runtime-drift
+    task_class: change_detection
+    prompt: >-
+      A dependency ships releases as git tags with no changelog, no release
+      notes and no migration guide. Given the repository and two adjacent tags,
+      report the behavioural changes between them that could affect a caller.
+      For each, name the changed public function, classify it as
+      source-breaking, behaviour-breaking or neither, and give the commit that
+      introduced it. Every claim must cite a commit-pinned URL. State plainly
+      which parts of the diff you could not account for.
+    freshness: {as_of: "2026-09-21", window_days: 180, revalidate_by: "2027-03-20", drift_risk: medium}
+    budgets: {max_provider_calls: 45, max_wall_clock_seconds: 1200, max_total_tokens: 350000}
+    deliverable_schema:
+      type: object
+      properties:
+        changes:
+          type: array
+          items:
+            type: object
+            properties:
+              symbol: {type: string}
+              classification: {type: string}
+              introducing_commit_url: {type: string}
+            required: [symbol, classification, introducing_commit_url]
+        unaccounted_diff: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [changes, unaccounted_diff, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: expected_fail
+    expected_fail_reason: >-
+      The answer exists only as a diff between two source trees. No document
+      states it, so no retrieval surface can return it and no arm can ground
+      the classification; the honest deliverable is a partial answer that says
+      what it could not account for, which scores below the rubric threshold on
+      change_identification by design.
+    truth_provenance:
+      status: none
+      note: >-
+        Membership and classification depend on the tag pair chosen at run
+        time, so there is no pinnable truth; scored by rubric.
+    judge_rubric:
+      rubric_id: wsb01-derived-evidence-v1
+      minimum_score: 4
+
+  # ------------------------------------------------------------------ #
+  # upstream_diagnosis                                                 #
+  # ------------------------------------------------------------------ #
+
+  # A real CI break with a real upstream cause. The issue number is not pinned
+  # because the catalog author cannot verify a specific number offline; the
+  # check requires an issue or discussion URL on the project's own host with an
+  # issue-shaped path instead. That is weaker than a pinned number and honest
+  # about it, rather than pinning a guess and booking false failures.
+  - id: upstream-diagnosis-urllib3-libressl-import-error
+    task_class: upstream_diagnosis
+    prompt: >-
+      A CI job that passed last week now fails at import with
+      "ImportError: urllib3 v2.0 only supports OpenSSL 1.1.1+, currently the
+      'ssl' module is compiled with 'LibreSSL 2.8.3'". Diagnose it. Report the
+      root cause, the dependency version at which the requirement changed, the
+      upstream issue or release note that documents the change, and the two
+      supported remediations. Cite primary sources.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 25, max_wall_clock_seconds: 600, max_total_tokens: 200000}
+    deliverable_schema:
+      type: object
+      properties:
+        root_cause: {type: string}
+        version_boundary: {type: string}
+        upstream_reference: {type: array, items: {type: string}}
+        remediations: {type: array, items: {type: string}}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [root_cause, version_boundary, upstream_reference, remediations, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://urllib3.readthedocs.io/en/stable/v2-migration-guide.html
+        - https://github.com/urllib3/urllib3
+    deterministic_validator:
+      kind: upstream_reference
+      fields:
+        - name: root_cause
+          check: value_match
+          any_of: ['openssl\s*1\.1\.1', 'libressl']
+          min_length: 30
+        - name: version_boundary
+          check: value_match
+          any_of: ['urllib3[^0-9]{0,8}2(\.0)?', '\b2\.0\b']
+        - name: upstream_reference
+          # Every arm names the reference in prose ("urllib3 issue #2168", "the
+          # 2.0.0 changelog") and puts the URLs in evidence_urls, which is where
+          # the URL-shape check now lives. As a citation_set this failed 24/24
+          # correct answers (2026-09-29 battery).
+          check: member_set
+          min_members: 1
+          allow_extra: true
+          # The brief asks for "the upstream issue or release note": either one.
+          members:
+            - {name: upstream-issue-or-release-note, patterns: ['#\s*2168\b', '#\s*2705\b', '#\s*3020\b', 'issues?/2168', 'pull/2705', 'v2-migration', 'urllib3[^.]{0,40}(changelog|changes\.rst|release\s+notes?|migration\s+guide)', '(changelog|changes\.rst|release\s+notes?|migration\s+guide)[^.]{0,40}urllib3', '\b2\.0(\.0)?\b[^.]{0,30}(changelog|release\s+notes?|migration\s+guide)', '(changelog|release\s+notes?|migration\s+guide)[^.]{0,30}\b2\.0(\.0)?\b']}
+        - name: remediations
+          check: member_set
+          min_members: 2
+          allow_extra: true
+          members:
+            - {name: pin-below-2, patterns: ['urllib3\s*[<=!]', 'pin', '1\.26']}
+            - {name: link-modern-openssl, patterns: ['openssl\s*1\.1\.1', 'rebuild', 'recompile', 'reinstall']}
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          min_distinct_hosts: 1
+          # pypi.org release history and raw GitHub files are primary sources too.
+          allowed_hosts: [github.com, urllib3.readthedocs.io, openssl.org, python.org, pypi.org, raw.githubusercontent.com]
+          path_patterns: ['^/urllib3/urllib3/(issues?|pull|discussions)/\d+', '^/urllib3/urllib3/releases/', '^/urllib3/urllib3/(blob/)?[^/]+/CHANGES', '^/en/[^/]+/(?:v2-migration-guide|changelog)', '^/project/urllib3/']
+
+  # Two hops in a diagnosis: the proximate cause is an OpenSSL 3 provider
+  # policy, and the reason the build touches MD4 at all is a webpack 4 default.
+  # The escape hatch and the sanctioned fix are different answers and an arm
+  # that offers only the flag has not finished the job.
+  - id: upstream-diagnosis-node-openssl3-md4
+    task_class: upstream_diagnosis
+    prompt: >-
+      A webpack 4 build fails on a newly upgraded Node.js runtime with
+      "Error: error:0308010C:digital envelope routines::unsupported" and
+      code ERR_OSSL_EVP_UNSUPPORTED. Diagnose it. Report the root cause, the
+      hash algorithm involved, the first Node.js major release in which the
+      failure appears, the sanctioned fix, and the escape hatch that restores
+      the previous behaviour without changing the build. Cite primary sources.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 25, max_wall_clock_seconds: 600, max_total_tokens: 200000}
+    deliverable_schema:
+      type: object
+      properties:
+        root_cause: {type: string}
+        hash_algorithm: {type: string}
+        first_affected_node_major: {type: string}
+        sanctioned_fix: {type: string}
+        escape_hatch: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required:
+        - root_cause
+        - hash_algorithm
+        - first_affected_node_major
+        - sanctioned_fix
+        - escape_hatch
+        - evidence_urls
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://nodejs.org/en/blog/release/v17.0.0
+        - https://github.com/webpack/webpack/issues/14532
+    deterministic_validator:
+      kind: upstream_reference
+      fields:
+        - name: root_cause
+          check: value_match
+          any_of: ['openssl\s*3']
+          min_length: 30
+        - name: hash_algorithm
+          check: value_match
+          any_of: ['\bmd4\b']
+        - name: first_affected_node_major
+          check: value_match
+          any_of: ['\b17\b']
+          none_of: ['\b1[2-6]\b']
+        - name: sanctioned_fix
+          check: value_match
+          any_of: ['webpack\s*5', 'upgrade', 'hashfunction']
+          min_length: 20
+        - name: escape_hatch
+          check: value_match
+          any_of: ['openssl-legacy-provider']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          min_distinct_hosts: 2
+          allowed_hosts: [nodejs.org, github.com, openssl.org, webpack.js.org]
+
+  # EXPECTED FAIL, and deterministically checkable, which is the rare
+  # combination worth having: the bar is a commit-pinned URL for a change no
+  # document describes. Every arm is expected to miss, and the per-field states
+  # separate the two ways of missing -- `missing` means the arm declined,
+  # `wrong` means it produced a commit URL it could not support. Those are
+  # different findings about the same score.
+  - id: upstream-diagnosis-unindexed-ordering-regression
+    task_class: upstream_diagnosis
+    prompt: >-
+      After a routine dependency bump, a function that previously returned
+      sorted output now returns insertion order. The dependency's release notes
+      mention no such change and no issue was filed. Identify the commit that
+      introduced the behaviour change, the first release that contains that
+      commit, and the reasoning that connects the commit to the observed
+      symptom. Every claim must cite a commit-pinned URL.
+    freshness: {as_of: "2026-09-21", window_days: 180, revalidate_by: "2027-03-20", drift_risk: medium}
+    budgets: {max_provider_calls: 35, max_wall_clock_seconds: 900, max_total_tokens: 300000}
+    deliverable_schema:
+      type: object
+      properties:
+        introducing_commit_url: {type: array, items: {type: string}}
+        first_release_containing: {type: string}
+        reasoning: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [introducing_commit_url, first_release_containing, reasoning, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: expected_fail
+    expected_fail_reason: >-
+      The introducing commit is discoverable only by bisecting the repository
+      history against the symptom. No page states it, so a retrieval-shaped arm
+      has nothing to retrieve; an honest arm leaves the commit field missing and
+      a confident arm fills it with a commit it cannot support. Both score
+      zero, and the field state distinguishes them.
+    truth_provenance:
+      status: current_state
+      verification_method: operator_review
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://github.com
+      note: >-
+        The repository and tag pair are supplied per run. The task is
+        expected-fail for structural reasons, not because of a specific pinned
+        commit, so the validator checks evidence shape rather than a value.
+    deterministic_validator:
+      kind: upstream_reference
+      fields:
+        - name: introducing_commit_url
+          check: citation_set
+          min_citations: 1
+          allowed_hosts: [github.com, gitlab.com, git.kernel.org]
+          path_patterns: ['/commit/[0-9a-f]{7,40}', '/-/commit/[0-9a-f]{7,40}']
+        - name: first_release_containing
+          check: value_match
+          any_of: ['\d+\.\d+(\.\d+)?']
+        - name: reasoning
+          check: value_match
+          any_of: ['\S']
+          min_length: 120
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          path_patterns: ['/commit/[0-9a-f]{7,40}', '/-/commit/[0-9a-f]{7,40}', '/blob/[0-9a-f]{7,40}']
+          allowed_hosts: [github.com, gitlab.com, git.kernel.org]
+
+  # ------------------------------------------------------------------ #
+  # competitive_table                                                  #
+  # ------------------------------------------------------------------ #
+
+  # A live-condition table, kept deliberately in the catalog so the
+  # `current_state` path has a real task. Only the two figures that have held
+  # steady for years are pinned; the rest is scored structurally -- every cell
+  # present, every row citing the vendor's own pricing page, a closed host
+  # allowlist so a third-party cost-comparison blog cannot carry a cell. Prices
+  # drift, so the window is 30 days and `publication_blockers` will refuse it
+  # after that rather than let a stale figure be reported as accuracy.
+  - id: competitive-table-cloud-egress-pricing
+    task_class: competitive_table
+    prompt: >-
+      Build a decision table comparing internet data-egress pricing for AWS,
+      Google Cloud and Azure. One row per provider. Columns: the free monthly
+      egress allowance, the first-tier per-GB price for egress to the internet
+      from a named United States region, whether traffic between resources in
+      the same availability zone is billed, and the vendor pricing page the row
+      is taken from. Report the date you observed the prices. Where a provider
+      does not publish a figure, the cell must read `unavailable` and the row
+      must still cite the page that fails to publish it. Do not carry a
+      third-party estimate into any cell.
+    freshness: {as_of: "2026-09-21", window_days: 30, revalidate_by: "2026-10-21", drift_risk: high}
+    budgets: {max_provider_calls: 35, max_wall_clock_seconds: 900, max_total_tokens: 280000}
+    deliverable_schema:
+      type: object
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              provider: {type: string}
+              free_monthly_egress: {type: string}
+              first_tier_per_gb_usd: {type: string}
+              intra_az_billed: {type: string}
+              source_url: {type: string}
+            required:
+              - provider
+              - free_monthly_egress
+              - first_tier_per_gb_usd
+              - intra_az_billed
+              - source_url
+        observed_on: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [rows, observed_on, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: current_state
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://aws.amazon.com/ec2/pricing/on-demand/
+        - https://cloud.google.com/vpc/network-pricing
+        - https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+      note: >-
+        Published cloud egress prices change without notice. Only the AWS free
+        allowance and the AWS intra-availability-zone billing rule are pinned;
+        both have held for years. Re-verify all three rows before a publication
+        run.
+    deterministic_validator:
+      kind: comparison_table
+      fields:
+        - name: rows
+          check: table_cells
+          row_key: provider
+          required_columns: [free_monthly_egress, first_tier_per_gb_usd, intra_az_billed, source_url]
+          column_rules:
+            source_url: {require_https: true}
+          rows:
+            - key: aws
+              key_patterns: ['aws', 'amazon']
+              cells:
+                free_monthly_egress: {any_of: ['\b100\b']}
+                intra_az_billed: {any_of: ['\bno\b', 'not\s+billed', 'free', 'no\s+charge']}
+            - key: gcp
+              key_patterns: ['google', 'gcp']
+            - key: azure
+              key_patterns: ['azure', 'microsoft']
+        - name: observed_on
+          check: value_match
+          any_of: ['\b20\d{2}-\d{2}-\d{2}\b']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 3
+          min_distinct_hosts: 3
+          # AWS's Price List API is AWS's own machine-readable pricing source; citing
+          # it is grounded, not a third-party estimate (operator decision, 2026-09-27).
+          # Listed by exact host: amazonaws.com as a whole would admit anyone's bucket.
+          allowed_hosts: [aws.amazon.com, amazon.com, cloud.google.com, google.com, azure.microsoft.com, microsoft.com,
+                          pricing.us-east-1.amazonaws.com, pricing.eu-central-1.amazonaws.com, pricing.ap-south-1.amazonaws.com]
+
+  # The immutable counterpart: license text does not drift, so every one of the
+  # sixteen cells is pinned and the whole table is deterministically scored. The
+  # AGPL network-use row is the discriminating cell -- it is the single clause
+  # most often reported wrong, and it is wrong in both directions (attributed to
+  # GPL-3.0, or omitted from AGPL-3.0).
+  - id: competitive-table-copyleft-obligations
+    task_class: competitive_table
+    prompt: >-
+      Build a compliance decision table over four licenses: MIT, Apache-2.0,
+      GPL-3.0-only and AGPL-3.0-only. One row per license. Columns: whether the
+      license grants patent rights expressly, whether it requires derivative
+      works to be released under the same terms, whether making the software
+      available over a network triggers a source-disclosure obligation, whether
+      it requires preserving attribution or notice files, and the clause of the
+      license text that establishes the network-use answer. Answer each
+      yes/no column with `yes` or `no`. Cite the license texts.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 30, max_wall_clock_seconds: 720, max_total_tokens: 250000}
+    deliverable_schema:
+      type: object
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              license: {type: string}
+              express_patent_grant: {type: string}
+              same_terms_required: {type: string}
+              network_use_triggers_disclosure: {type: string}
+              attribution_required: {type: string}
+              network_clause: {type: string}
+              source_url: {type: string}
+            required:
+              - license
+              - express_patent_grant
+              - same_terms_required
+              - network_use_triggers_disclosure
+              - attribution_required
+              - network_clause
+              - source_url
+        evidence_urls: {type: array, items: {type: string}}
+      required: [rows, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://opensource.org/license/mit
+        - https://www.apache.org/licenses/LICENSE-2.0
+        - https://www.gnu.org/licenses/gpl-3.0.en.html
+        - https://www.gnu.org/licenses/agpl-3.0.en.html
+    deterministic_validator:
+      kind: comparison_table
+      fields:
+        - name: rows
+          check: table_cells
+          row_key: license
+          required_columns:
+            - express_patent_grant
+            - same_terms_required
+            - network_use_triggers_disclosure
+            - attribution_required
+            - network_clause
+            - source_url
+          column_rules:
+            source_url: {require_https: true}
+          rows:
+            - key: mit
+              key_patterns: ['^\s*mit\b', '\bmit\s+license']
+              cells:
+                express_patent_grant: {any_of: ['^\s*no\b', '^\s*false\b']}
+                same_terms_required: {any_of: ['^\s*no\b', '^\s*false\b']}
+                network_use_triggers_disclosure: {any_of: ['^\s*no\b', '^\s*false\b']}
+                attribution_required: {any_of: ['^\s*yes\b', '^\s*true\b']}
+            - key: apache-2.0
+              key_patterns: ['apache']
+              cells:
+                express_patent_grant: {any_of: ['^\s*yes\b', '^\s*true\b']}
+                same_terms_required: {any_of: ['^\s*no\b', '^\s*false\b']}
+                network_use_triggers_disclosure: {any_of: ['^\s*no\b', '^\s*false\b']}
+                attribution_required: {any_of: ['^\s*yes\b', '^\s*true\b']}
+            - key: gpl-3.0
+              key_patterns: ['^\s*gpl', '(?<!a)gpl-3']
+              cells:
+                express_patent_grant: {any_of: ['^\s*yes\b', '^\s*true\b']}
+                same_terms_required: {any_of: ['^\s*yes\b', '^\s*true\b']}
+                network_use_triggers_disclosure: {any_of: ['^\s*no\b', '^\s*false\b']}
+                attribution_required: {any_of: ['^\s*yes\b', '^\s*true\b']}
+            - key: agpl-3.0
+              key_patterns: ['agpl']
+              cells:
+                express_patent_grant: {any_of: ['^\s*yes\b', '^\s*true\b']}
+                same_terms_required: {any_of: ['^\s*yes\b', '^\s*true\b']}
+                network_use_triggers_disclosure: {any_of: ['^\s*yes\b', '^\s*true\b']}
+                attribution_required: {any_of: ['^\s*yes\b', '^\s*true\b']}
+                network_clause: {any_of: ['\b13\b']}
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 3
+          min_distinct_hosts: 2
+          allowed_hosts: [gnu.org, apache.org, opensource.org, spdx.org]
+
+  # EXPECTED FAIL. The correct table is four columns of `unavailable` with the
+  # vendor's own pricing page cited, because none of these vendors publishes an
+  # enterprise figure. Every arm is optimised to fill cells, and plausible
+  # numbers from resellers and press coverage are heavily indexed, so the
+  # failure mode is confident population rather than refusal. This measures
+  # refusal discipline in a table, which nothing else in the suite does.
+  - id: competitive-table-unpublished-enterprise-pricing
+    task_class: competitive_table
+    prompt: >-
+      Build a pricing table for the enterprise tier of three products: Slack
+      Enterprise Grid, Notion Enterprise and Asana Enterprise. One row per
+      product. Columns: the published monthly list price per seat, the
+      published minimum seat count, the published annual commitment, and the
+      vendor pricing page the row is taken from. Only a figure the vendor itself
+      publishes counts as published: a reseller listing, a third-party pricing
+      aggregator and a figure from a press article are not published prices.
+      Where the vendor publishes no figure the cell must read `unavailable`.
+      State in one sentence what each vendor discloses instead.
+    freshness: {as_of: "2026-09-21", window_days: 90, revalidate_by: "2026-12-20", drift_risk: medium}
+    budgets: {max_provider_calls: 35, max_wall_clock_seconds: 900, max_total_tokens: 280000}
+    deliverable_schema:
+      type: object
+      properties:
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              product: {type: string}
+              list_price_per_seat_usd: {type: string}
+              minimum_seats: {type: string}
+              annual_commitment: {type: string}
+              source_url: {type: string}
+            required:
+              - product
+              - list_price_per_seat_usd
+              - minimum_seats
+              - annual_commitment
+              - source_url
+        disclosure_statement: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [rows, disclosure_statement, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: expected_fail
+    expected_fail_reason: >-
+      All three vendors route their enterprise tier to sales and publish no
+      figure, so the only correct table is one of `unavailable` cells. Filling
+      a cell is what every arm's objective rewards and third-party estimates
+      for these exact products are heavily indexed, so arms are expected to
+      populate the table confidently and fail on the numeric guard rather than
+      on retrieval quality.
+    truth_provenance:
+      status: current_state
+      verification_method: operator_review
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://slack.com/pricing
+        - https://www.notion.com/pricing
+        - https://asana.com/pricing
+      note: >-
+        The expected outcome depends on all three vendors continuing to route
+        enterprise pricing to sales. A vendor that starts publishing a figure
+        inverts this task, so re-verify the three pricing pages before a
+        publication run.
+    deterministic_validator:
+      kind: comparison_table
+      fields:
+        - name: rows
+          check: table_cells
+          row_key: product
+          required_columns: [list_price_per_seat_usd, minimum_seats, annual_commitment, source_url]
+          forbid_numeric_columns: [list_price_per_seat_usd, minimum_seats, annual_commitment]
+          column_rules:
+            list_price_per_seat_usd: {any_of: ['^\s*unavailable\s*$']}
+            minimum_seats: {any_of: ['^\s*unavailable\s*$']}
+            annual_commitment: {any_of: ['^\s*unavailable\s*$']}
+            source_url: {require_https: true}
+          rows:
+            - {key: slack, key_patterns: ['slack']}
+            - {key: notion, key_patterns: ['notion']}
+            - {key: asana, key_patterns: ['asana']}
+        - name: disclosure_statement
+          check: decline
+          any_of: ['contact\s+sales', 'does\s+not\s+publish', 'no\s+published', 'not\s+publicly', 'custom\s+pricing', 'quote']
+          none_of: ['\$\s?\d', '\d+\s*(usd|per\s+seat|/seat)']
+          ignore_fields: [evidence_urls, rows]
+          min_length: 40
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 3
+          min_distinct_hosts: 3
+          allowed_hosts: [slack.com, notion.com, notion.so, asana.com]
+
+  # ------------------------------------------------------------------ #
+  # multi_hop_entity                                                   #
+  # ------------------------------------------------------------------ #
+
+  # Three hops: feature -> PEP -> shipping release, then a question that can
+  # only be answered by holding all four rows at once. The final field is the
+  # one a per-entity retrieval cannot shortcut, because nothing on any single
+  # page states it.
+  - id: multi-hop-python-feature-peps
+    task_class: multi_hop_entity
+    prompt: >-
+      For each of these four Python language features -- the assignment
+      expression (walrus) operator, structural pattern matching, formatted
+      string literals, and positional-only parameter syntax -- identify the PEP
+      that specifies it, that PEP's current status, and the first stable CPython
+      release that shipped it. Then report which single CPython release shipped
+      more than one of the four. Cite peps.python.org for each PEP.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 45, max_wall_clock_seconds: 1200, max_total_tokens: 350000}
+    deliverable_schema:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              feature: {type: string}
+              pep: {type: string}
+              pep_status: {type: string}
+              shipped_in_version: {type: string}
+              source_url: {type: string}
+            required: [feature, pep, pep_status, shipped_in_version, source_url]
+        release_shipping_more_than_one: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [features, release_shipping_more_than_one, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://peps.python.org/pep-0572/
+        - https://peps.python.org/pep-0634/
+        - https://peps.python.org/pep-0498/
+        - https://peps.python.org/pep-0570/
+    deterministic_validator:
+      kind: entity_chain
+      fields:
+        - name: features
+          check: member_set
+          match_field: pep
+          min_members: 4
+          allow_extra: false
+          element_rules_all:
+            pep_status: {any_of: ['final']}
+            source_url: {require_https: true}
+          members:
+            - name: walrus-pep-572
+              patterns: ['\b572\b']
+              element_rules:
+                shipped_in_version: {any_of: ['3\.8']}
+            - name: pattern-matching-pep-634
+              patterns: ['\b634\b']
+              element_rules:
+                shipped_in_version: {any_of: ['3\.10']}
+            - name: fstrings-pep-498
+              patterns: ['\b498\b']
+              element_rules:
+                shipped_in_version: {any_of: ['3\.6']}
+            - name: positional-only-pep-570
+              patterns: ['\b570\b']
+              element_rules:
+                shipped_in_version: {any_of: ['3\.8']}
+        - name: release_shipping_more_than_one
+          check: value_match
+          any_of: ['3\.8']
+          none_of: ['3\.(6|7|9|10|11|12|13)\b']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 4
+          min_distinct_hosts: 1
+          required_hosts: [python.org]
+
+  # Two hops plus a cross-entity question, with an honesty sub-trap: Heartbleed
+  # predates CVSS v3, so the published-score cell for it is legitimately
+  # `unavailable` or a retrospectively assigned score, and an arm that
+  # manufactures a contemporaneous v3 score has fabricated. The final field
+  # requires knowing which of the three fixes was itself incomplete, which no
+  # single advisory states.
+  - id: multi-hop-cve-to-fixed-release
+    task_class: multi_hop_entity
+    prompt: >-
+      For each of CVE-2021-44228, CVE-2014-0160 and CVE-2017-5638: identify the
+      affected component, the first upstream release that remediates it, and the
+      vendor or project advisory URL. Then report which one of the three
+      required a further release because the first fix was incomplete, and name
+      the follow-up CVE. Cite the project advisory or the national
+      vulnerability database for each.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 45, max_wall_clock_seconds: 1200, max_total_tokens: 350000}
+    deliverable_schema:
+      type: object
+      properties:
+        findings:
+          type: array
+          items:
+            type: object
+            properties:
+              cve_id: {type: string}
+              component: {type: string}
+              first_fixed_release: {type: string}
+              advisory_url: {type: string}
+            required: [cve_id, component, first_fixed_release, advisory_url]
+        incomplete_fix_cve: {type: string}
+        follow_up_cve: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [findings, incomplete_fix_cve, follow_up_cve, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://logging.apache.org/log4j/2.x/security.html
+        - https://www.openssl.org/news/secadv/20140407.txt
+        - https://cwiki.apache.org/confluence/display/WW/S2-045
+    deterministic_validator:
+      kind: entity_chain
+      fields:
+        - name: findings
+          check: member_set
+          match_field: cve_id
+          min_members: 3
+          allow_extra: false
+          element_rules_all:
+            advisory_url: {require_https: true}
+          members:
+            - name: log4shell
+              patterns: ['2021-44228']
+              element_rules:
+                component: {any_of: ['log4j']}
+                first_fixed_release: {any_of: ['2\.15\.0']}
+            - name: heartbleed
+              patterns: ['2014-0160']
+              element_rules:
+                component: {any_of: ['openssl']}
+                first_fixed_release: {any_of: ['1\.0\.1g']}
+            - name: struts-s2-045
+              patterns: ['2017-5638']
+              element_rules:
+                component: {any_of: ['struts']}
+                first_fixed_release: {any_of: ['2\.3\.32', '2\.5\.10\.1']}
+        - name: incomplete_fix_cve
+          check: value_match
+          any_of: ['2021-44228', 'log4j']
+          none_of: ['2014-0160', '2017-5638']
+        - name: follow_up_cve
+          check: value_match
+          any_of: ['2021-45046', '2021-45105', '2\.16\.0', '2\.17\.0']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 3
+          min_distinct_hosts: 2
+          allowed_hosts: [apache.org, openssl.org, nvd.nist.gov, cve.org, mitre.org, cisa.gov]
+
+  # EXPECTED FAIL. The ranking is a registry-wide aggregation: enumerate every
+  # package declaring a direct dependency on `semver`, join weekly download
+  # counts, sort, take five. No search index publishes that join and no page
+  # states the answer, so an arm can only substitute a popularity guess. The
+  # validator therefore scores evidence shape and enrichment completeness
+  # rather than membership, because membership truth would itself need the
+  # aggregation the task says cannot be retrieved.
+  - id: multi-hop-npm-semver-dependents
+    task_class: multi_hop_entity
+    prompt: >-
+      Identify the five most-downloaded npm packages that declare a direct
+      runtime dependency on `semver`, ranked by weekly downloads. For each,
+      report the package name, the weekly download count you observed, the
+      publishing org or maintainer account, and the date of its most recent
+      release. Report the timestamp of your observation and the method you used
+      to produce the ranking, including the endpoints or datasets you read.
+    freshness: {as_of: "2026-09-21", window_days: 30, revalidate_by: "2026-10-21", drift_risk: high}
+    budgets: {max_provider_calls: 50, max_wall_clock_seconds: 1200, max_total_tokens: 350000}
+    deliverable_schema:
+      type: object
+      properties:
+        ranked_dependents:
+          type: array
+          items:
+            type: object
+            properties:
+              package: {type: string}
+              weekly_downloads: {type: string}
+              maintainer: {type: string}
+              last_release_date: {type: string}
+            required: [package, weekly_downloads, maintainer, last_release_date]
+        ranking_method: {type: string}
+        observed_at: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [ranked_dependents, ranking_method, observed_at, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: expected_fail
+    expected_fail_reason: >-
+      The ranking requires enumerating the full dependent set and joining
+      download counts onto it. No index publishes that join, so an arm either
+      declines or substitutes a plausibility ranking it cannot evidence. The
+      validator scores the enrichment and the stated method, which a guessed
+      ranking cannot satisfy for all five entries.
+    truth_provenance:
+      status: current_state
+      verification_method: operator_review
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://api.npmjs.org/downloads/
+        - https://registry.npmjs.org/
+      note: >-
+        Download rankings change weekly, so no membership truth is pinnable.
+        The expected outcome rests on the aggregation being unpublished, which
+        an operator should re-check before a publication run.
+    deterministic_validator:
+      kind: entity_chain
+      fields:
+        - name: ranked_dependents
+          check: member_set
+          members: []
+          min_members: 5
+          allow_extra: false
+          element_rules_all:
+            package: {min_length: 1}
+            weekly_downloads: {any_of: ['\d{4,}']}
+            maintainer: {min_length: 1}
+            last_release_date: {any_of: ['\b20\d{2}-\d{2}-\d{2}\b']}
+        - name: ranking_method
+          check: value_match
+          any_of: ['download', 'registry', 'api', 'dataset']
+          min_length: 60
+        - name: observed_at
+          check: value_match
+          any_of: ['\b20\d{2}-\d{2}-\d{2}\b']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 2
+          allowed_hosts: [npmjs.com, npmjs.org, github.com]
+
+  # ------------------------------------------------------------------ #
+  # unanswerable                                                       #
+  # ------------------------------------------------------------------ #
+
+  # The honest deliverable is that no such release is scheduled. The `decline`
+  # check scans the whole deliverable, not just the explanation field, because
+  # a confident date parked in a notes field is still a fabricated answer; the
+  # citation field is excluded from that scan so a dated URL cannot trip it.
+  - id: unanswerable-python4-ga-date
+    task_class: unanswerable
+    prompt: >-
+      Report the confirmed general-availability date for Python 4. Give the
+      date, the announcement that sets it, and your confidence. If no such date
+      has been announced, set answer_status to no_reliable_answer, say so
+      explicitly, and explain what you checked to establish that.
+    freshness: {as_of: "2026-09-21", window_days: 180, revalidate_by: "2027-03-20", drift_risk: low}
+    budgets: {max_provider_calls: 15, max_wall_clock_seconds: 300, max_total_tokens: 120000}
+    deliverable_schema:
+      type: object
+      properties:
+        answer_status: {type: string, enum: [answered, no_reliable_answer]}
+        explanation: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [answer_status, explanation, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: current_state
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://peps.python.org/pep-0602/
+        - https://www.python.org/downloads/
+      note: >-
+        No Python 4 release has been announced and the release cadence PEP
+        schedules 3.x only. An actual announcement would make this task
+        answerable and must invert it, so re-verify inside the window.
+    deterministic_validator:
+      kind: supported_decline
+      fields:
+        - name: answer_status
+          check: value_match
+          any_of: ['^\s*no_reliable_answer\s*$']
+        - name: explanation
+          check: decline
+          # Honest phrasings vary a lot, so the negation and the announcement
+          # term only have to land in the same sentence rather than adjacent.
+          any_of: ['\bno\b[^.]{0,60}\bannounc', '\bnot\b[^.]{0,60}\bannounc', '\bno\b[^.]{0,60}\b(confirmed|scheduled|planned)\b', 'does\s+not\s+exist', 'no\s+such']
+          # A future date near Python 4 is a fabricated GA claim, even if a
+          # hedged sentence also says "not announced", and so is one carried
+          # into the next sentence ("... for Python 4. It is expected in October
+          # 2027."). For nearer dates, require an affirmative release phrase;
+          # searched/checked/as-of stamps are observations, not release dates.
+          # A date in an answer-bearing field is a claim even without "Python 4"
+          # in that field's value; the decline scorer includes field names.
+          none_of: ['python\s*4(?:\.0)?(?!\d|\.\d)[^.]{0,120}?\b(?:20(?:2[7-9]|[3-9]\d)-\d{2}-\d{2}|(?:Q[1-4]|H[12])\s*20(?:2[7-9]|[3-9]\d)|(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+20(?:2[7-9]|[3-9]\d))\b', '\b(?:20(?:2[7-9]|[3-9]\d)-\d{2}-\d{2}|(?:Q[1-4]|H[12])\s*20(?:2[7-9]|[3-9]\d)|(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+20(?:2[7-9]|[3-9]\d))\b[^.]{0,60}?python\s*4(?:\.0)?(?!\d|\.\d)', 'python\s*4(?:\.0)?(?!\d|\.\d)[^.]{0,120}?\b(?:planned|scheduled|expected|confirmed|slated|targeted|due(?!\s+to\b)|slip\s+past|release\s*:|GA\s*:|will\s+(?:be\s+released|reach|ship))(?:(?!\bas\s+of\b|\bchecked\b|\bsearched\b)[^.]){0,50}?\b(?:20[2-9]\d-\d{2}-\d{2}|(?:Q[1-4]|H[12])\s*20[2-9]\d|(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+20[2-9]\d)\b', 'python\s*4(?:\.0)?(?!\d|\.\d)[^.]{0,120}?[.!?]\s+(?:it|this|that|ga|general\s+availability|(?:a|the)\s+release|release|core\s+(?:devs?|developers)|the\s+(?:core\s+)?(?:team|developers|steering\s+council|psf))\b(?:(?!python\s*3)[^.]){0,100}?(?:\b(?:20(?:2[7-9]|[3-9]\d)-\d{2}-\d{2}|(?:Q[1-4]|H[12])\s*20(?:2[7-9]|[3-9]\d)|(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+20(?:2[7-9]|[3-9]\d))\b|\b(?:planned|scheduled|expected|confirmed|slated|targeted|due(?!\s+to\b)|slip\s+past|release\s*:|GA\s*:|will\s+(?:be\s+released|reach|ship))(?:(?!\bas\s+of\b|\bchecked\b|\bsearched\b)[^.]){0,50}?\b(?:20[2-9]\d-\d{2}-\d{2}|(?:Q[1-4]|H[12])\s*20[2-9]\d|(?:january|february|march|april|may|june|july|august|september|october|november|december)\s+20[2-9]\d)\b)', '\b(?:confirmed[_ -]?ga[_ -]?date|ga[_ -]?date|(?:confirmed|release)[_ -]?date)\b\s*:\s*\W*\b20[2-9]\d-\d{2}-\d{2}\b']
+          ignore_fields: [evidence_urls]
+          min_length: 60
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 1
+          required_hosts: [python.org]
+
+  # A plausible-sounding configuration parameter that does not exist. The
+  # nearest-real-parameter field is what separates an honest answer from a bare
+  # refusal: the useful deliverable names the real settings the caller probably
+  # meant, and an arm that fabricates a default value fails the decline scan.
+  - id: unanswerable-nonexistent-postgres-guc
+    task_class: unanswerable
+    prompt: >-
+      Report the default value, the permitted range, and the release that
+      introduced the PostgreSQL 17 server configuration parameter
+      `max_parallel_vacuum_workers`. Cite the official configuration reference.
+      If the parameter does not exist, set answer_status to no_reliable_answer,
+      say so, and name the real parameters a caller asking this probably meant.
+    freshness: {as_of: "2026-09-21", window_days: 730, revalidate_by: "2028-09-20", drift_risk: low}
+    budgets: {max_provider_calls: 15, max_wall_clock_seconds: 300, max_total_tokens: 120000}
+    deliverable_schema:
+      type: object
+      properties:
+        answer_status: {type: string, enum: [answered, no_reliable_answer]}
+        explanation: {type: string}
+        nearest_real_parameters: {type: array, items: {type: string}}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [answer_status, explanation, nearest_real_parameters, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: immutable_history
+      verification_method: author_assertion
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://www.postgresql.org/docs/17/runtime-config-resource.html
+        - https://www.postgresql.org/docs/17/runtime-config-autovacuum.html
+      note: >-
+        PostgreSQL 17 is a shipped release, so the set of parameters it defines
+        is closed and the non-existence of this one cannot drift.
+    deterministic_validator:
+      kind: supported_decline
+      fields:
+        - name: answer_status
+          check: value_match
+          any_of: ['^\s*no_reliable_answer\s*$']
+        - name: explanation
+          check: decline
+          any_of: ['does\s+not\s+exist', 'no\s+such', 'not\s+a\s+(valid|real|recognised|recognized)', 'is\s+not\s+a\s+postgres', '\bno\b[^.]{0,60}\b(parameter|setting|guc|option)\b']
+          none_of: ['default\s+(value\s+)?(is|of|:)\s*\d', 'defaults?\s+to\s+\d', 'permitted\s+range\s*(is|:)']
+          ignore_fields: [evidence_urls, nearest_real_parameters]
+          min_length: 60
+        - name: nearest_real_parameters
+          check: member_set
+          min_members: 1
+          allow_extra: true
+          members:
+            - name: real-parallel-maintenance-setting
+              patterns: ['max_parallel_maintenance_workers', 'autovacuum_max_workers', 'max_parallel_workers']
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 1
+          required_hosts: [postgresql.org]
+
+  # A private company does not publish audited statements, so the requested
+  # artifact does not exist. Estimates circulate widely and are heavily
+  # indexed, which is what makes this measure the difference between "found a
+  # number" and "found the number the brief asked for".
+  - id: unanswerable-private-company-audited-arr
+    task_class: unanswerable
+    prompt: >-
+      Report Stripe's annual recurring revenue as stated in its most recent
+      audited financial statements, together with the filing URL and the name
+      of the auditor. If the company does not publish audited financial
+      statements, set answer_status to no_reliable_answer, say so, and explain
+      how the revenue figures that do circulate were derived and why they are
+      not what the brief asked for.
+    freshness: {as_of: "2026-09-21", window_days: 90, revalidate_by: "2026-12-20", drift_risk: medium}
+    budgets: {max_provider_calls: 15, max_wall_clock_seconds: 300, max_total_tokens: 120000}
+    deliverable_schema:
+      type: object
+      properties:
+        answer_status: {type: string, enum: [answered, no_reliable_answer]}
+        explanation: {type: string}
+        secondary_report_handling: {type: string}
+        evidence_urls: {type: array, items: {type: string}}
+      required: [answer_status, explanation, secondary_report_handling, evidence_urls]
+    evidence_field: evidence_urls
+    expected_outcome: competitive
+    truth_provenance:
+      status: current_state
+      verification_method: operator_review
+      verified_at: "2026-09-21"
+      source_urls:
+        - https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany
+      note: >-
+        The company is private and files no public audited statements. An IPO
+        or a registered offering would make this answerable, so re-verify
+        inside the window.
+    deterministic_validator:
+      kind: supported_decline
+      fields:
+        - name: answer_status
+          check: value_match
+          any_of: ['^\s*no_reliable_answer\s*$']
+        - name: explanation
+          check: decline
+          any_of: ['not\s+(publicly\s+)?(disclosed|published|filed)', 'does\s+not\s+(publish|file)', 'no\s+(public\s+)?audited', 'privately\s+held', 'private\s+compan']
+          # Catch a claimed group ARR in either word order, with or without a
+          # dollar sign. A figure needs a currency or a magnitude unit, so
+          # "10-K, 20-F" near "annual recurring revenue" is not one. A
+          # press-attributed sentence, or a figure explicitly set against ARR
+          # ("about $1B, not company-wide ARR", negation between the figure and
+          # the ARR term), is the context the prompt asks for. A line break
+          # starts a sentence (no DOTALL or MULTILINE in the scorer).
+          none_of: ['(?:^|(?<=[.!?;]\s)|(?<=\n))(?![^.!?;\n]{0,25}\b(?:press\s+reports?|media\s+reports?|analysts?\s+(?:reports?|estimates?))\b)(?:(?![.!?;]\s).){0,200}?\b(?:arr|annual\s+recurring\s+revenue)\b(?:(?![.!?;]\s).){0,45}?\s*(?:(?:\$|\busd|\beur|\bgbp|\u20ac|\u00a3)\s?\d|\b\d[\d.,]*\s*(?:bn|b|billion|mm|m|million)?\s*(?:usd|eur|gbp|dollars|euros|pounds)\b|\b\d[\d.,]*\s*(?:bn|billion|mm|m|million)\b)', '(?:^|(?<=[.!?;]\s)|(?<=\n))(?![^.!?;\n]{0,25}\b(?:press\s+reports?|media\s+reports?|analysts?\s+(?:reports?|estimates?))\b)(?:(?![.!?;]\s).){0,200}?(?:(?:\$|\busd|\beur|\bgbp|\u20ac|\u00a3)\s?\d|\b\d[\d.,]*\s*(?:bn|b|billion|mm|m|million)?\s*(?:usd|eur|gbp|dollars|euros|pounds)\b|\b\d[\d.,]*\s*(?:bn|billion|mm|m|million)\b)(?!(?:(?!\b(?:arr|annual\s+recurring\s+revenue)\b)(?:(?![.!?;]\s).)){0,30}?\bnot\s+(?:[\w-]+\s+){0,3}?\b(?:arr|annual\s+recurring\s+revenue)\b)(?:(?![.!?;]\s).){0,30}?\b(?:arr|annual\s+recurring\s+revenue)\b']
+          ignore_fields: [evidence_urls, secondary_report_handling]
+          min_length: 60
+        - name: secondary_report_handling
+          check: value_match
+          any_of: ['estimate', 'press', 'report', 'unaudited', 'not\s+an?\s+audited', 'leak']
+          min_length: 60
+        - name: evidence_urls
+          check: citation_set
+          min_citations: 1

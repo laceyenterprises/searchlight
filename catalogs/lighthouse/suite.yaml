@@ -1,0 +1,40 @@
+schema_version: 1
+suite_id: lighthouse
+version: "1"
+description: "Small deterministic SEW smoke suite for schema, fixture, and evaluator development."
+randomization_seed: 20260916
+fixture_mode: true
+repetitions: 1
+timeouts:
+  run_seconds: 600
+  provider_call_seconds: 60
+budgets:
+  max_provider_calls: 12
+  max_provider_result_chars: 60000
+  max_total_tokens: 120000
+providers:
+  - native
+  - exa
+  - parallel-web
+  - firecrawl
+  - brave
+  - tavily
+  - perplexity
+harnesses:
+  codex:
+    model_profiles:
+      - default
+  claude-code:
+    model_profiles:
+      - default
+  pi:
+    model_profiles:
+      - oss-small
+      - oss-large
+tasks:
+  - current-fact-lookup-v1
+  - freshness-stale-trap-v1
+  - docs-qa-fixture-v1
+  - no-reliable-answer-v1
+  - multi-source-synthesis-v1
+  - conflicting-source-synthesis-v1

@@ -1,0 +1,46 @@
+{
+  "evidence_urls": [
+    "https://opensource.org/license/mit",
+    "https://www.apache.org/licenses/LICENSE-2.0",
+    "https://www.gnu.org/licenses/gpl-3.0.en.html",
+    "https://www.gnu.org/licenses/agpl-3.0.en.html"
+  ],
+  "rows": [
+    {
+      "attribution_required": "yes",
+      "express_patent_grant": "no",
+      "license": "MIT",
+      "network_clause": "none; the license has no network-use clause",
+      "network_use_triggers_disclosure": "no",
+      "same_terms_required": "no",
+      "source_url": "https://opensource.org/license/mit"
+    },
+    {
+      "attribution_required": "yes",
+      "express_patent_grant": "yes",
+      "license": "Apache-2.0",
+      "network_clause": "none; section 4 covers notices only",
+      "network_use_triggers_disclosure": "no",
+      "same_terms_required": "no",
+      "source_url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    {
+      "attribution_required": "yes",
+      "express_patent_grant": "yes",
+      "license": "GPL-3.0-only",
+      "network_clause": "none; conveying is required to trigger section 5 and 6",
+      "network_use_triggers_disclosure": "no",
+      "same_terms_required": "yes",
+      "source_url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+    },
+    {
+      "attribution_required": "yes",
+      "express_patent_grant": "yes",
+      "license": "AGPL-3.0-only",
+      "network_clause": "section 13, Remote Network Interaction",
+      "network_use_triggers_disclosure": "yes",
+      "same_terms_required": "yes",
+      "source_url": "https://www.gnu.org/licenses/agpl-3.0.en.html"
+    }
+  ]
+}

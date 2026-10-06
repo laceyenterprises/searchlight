@@ -1,0 +1,29 @@
+{
+  "breaking_changes": [
+    {
+      "change": "removed from the Schema Object",
+      "construct": "nullable keyword",
+      "migration": "replace nullable: true with a type array that includes null"
+    },
+    {
+      "change": "changed from boolean modifiers to numeric bounds",
+      "construct": "exclusiveMinimum and exclusiveMaximum",
+      "migration": "replace the boolean form with the numeric bound value itself"
+    },
+    {
+      "change": "the Schema Object is now JSON Schema 2020-12 rather than an extended subset",
+      "construct": "JSON Schema dialect",
+      "migration": "revalidate every schema against the 2020-12 dialect and retire validators pinned to draft-04"
+    },
+    {
+      "change": "superseded by the JSON Schema examples array",
+      "construct": "example keyword in the Schema Object",
+      "migration": "move singular example values into an examples array"
+    }
+  ],
+  "evidence_urls": [
+    "https://spec.openapis.org/oas/v3.1.0",
+    "https://www.openapis.org/blog/2021/02/16/migrating-from-openapi-3-0-to-3-1-0"
+  ],
+  "target_json_schema_dialect": "JSON Schema 2020-12"
+}

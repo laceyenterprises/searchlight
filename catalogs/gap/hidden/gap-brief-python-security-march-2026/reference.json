@@ -1,0 +1,23 @@
+{
+  "brief": "# Assessment\n\nMaintainers can assess these patches in their current minor series. Include HTTP, XML and SSL surfaces in regression verification rather than treating the batch as feature development.\n\nThe March 3, 2026 security batch includes Python 3.12.13, 3.11.15 and 3.10.20.\n\nwsgiref headers reject C0 control characters in fields, values and parameters.\n\nBundled libexpat is upgraded to 2.7.4 for CVE-2026-24515 and CVE-2026-25210, and ssl fixes a use-after-free when SSL_new() fails.",
+  "claims": [
+    {
+      "text": "The March 3, 2026 security batch includes Python 3.12.13, 3.11.15 and 3.10.20.",
+      "citation_urls": [
+        "https://blog.python.org/2026/03/python-31213-31115-31020/"
+      ]
+    },
+    {
+      "text": "wsgiref headers reject C0 control characters in fields, values and parameters.",
+      "citation_urls": [
+        "https://blog.python.org/2026/03/python-31213-31115-31020/"
+      ]
+    },
+    {
+      "text": "Bundled libexpat is upgraded to 2.7.4 for CVE-2026-24515 and CVE-2026-25210, and ssl fixes a use-after-free when SSL_new() fails.",
+      "citation_urls": [
+        "https://blog.python.org/2026/03/python-31213-31115-31020/"
+      ]
+    }
+  ]
+}

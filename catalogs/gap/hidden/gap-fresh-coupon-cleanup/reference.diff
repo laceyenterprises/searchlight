@@ -1,0 +1,16 @@
+--- a/app.py
++++ b/app.py
+@@ -4,4 +4,4 @@
+ def remove(identifier, account):
+     if not identifier:
+         return None
+-    return stripe.Coupon.delete(sid=identifier, stripe_account=account).deleted
++    return stripe.Coupon.delete(identifier, stripe_account=account).deleted
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-stripe==15.6.1
++stripe==16.0.0
+ requests==2.33.0
+ urllib3==2.8.0
+ charset-normalizer==3.5.2

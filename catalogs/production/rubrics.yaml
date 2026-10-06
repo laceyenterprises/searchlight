@@ -1,0 +1,72 @@
+# WSB production-suite judge rubrics.
+#
+# A rubric exists only where deterministic truth does not. Two kinds of task
+# qualify: one whose selection criteria are open (any of several correct
+# shortlists satisfies the brief) and one whose evidence must be derived rather
+# than retrieved (no document states the answer, so correctness is a property of
+# the reasoning and its citations). Everything else declares per-field ground
+# truth instead, because a judge is a measurement instrument with its own
+# variance and spending it on a checkable fact adds noise for nothing.
+#
+# Dimensions are scored separately and never rolled into one holistic verdict:
+# WSB-02 reports per-dimension scores and inter-judge agreement, and a rubric
+# that collapses to a single number hides which dimension an arm actually
+# failed -- the one thing `hq sew bakeoff explain` exists to show.
+#
+# `blinding_note` records what the judge must NOT be shown. WSB-02 owns the
+# stripping; the rubric owns the declaration, so a later change to the judge
+# cannot quietly widen what it sees.
+schema_version: 1
+registry_id: production-rubrics-v1
+version: "2026-09-21"
+
+rubrics:
+  - rubric_id: wsb01-list-build-v1
+    description: >-
+      Open-criteria list assembly. The brief fixes the criteria and the
+      enrichment columns, not the membership, so several different lists are
+      equally correct and only conformance, grounding and exclusion discipline
+      can be scored.
+    score_scale: {min: 1, max: 5}
+    minimum_score: 4
+    dimensions:
+      # Does every listed entity actually satisfy the stated criteria?
+      - criteria_conformance
+      # Is every enrichment column populated for every entity, or explicitly
+      # marked unavailable with a reason?
+      - enrichment_completeness
+      # Is each claim carried by a primary source rather than an aggregator?
+      - primary_source_grounding
+      # Were entities the brief excludes correctly left out?
+      - exclusion_discipline
+      # Is residual uncertainty stated rather than smoothed over?
+      - honest_uncertainty
+    blinding_note: >-
+      Judges see the brief, the rubric, and the deliverable only. Arm ids,
+      harness names, provider names, tool-call traces, and citation hostnames
+      are stripped before scoring, because hostname alone identifies the arm
+      that produced a deliverable.
+
+  - rubric_id: wsb01-derived-evidence-v1
+    description: >-
+      Evidence that must be derived from a primary artifact rather than
+      retrieved from a document. Scored on whether the derivation is sound and
+      pinned, and on whether the gaps are admitted.
+    score_scale: {min: 1, max: 5}
+    minimum_score: 4
+    dimensions:
+      # Are the reported changes real changes between the two stated points?
+      - change_identification
+      # Is each change classified correctly as source-breaking, behaviour-
+      # breaking, or neither?
+      - breaking_classification
+      # Does every claim cite an immutable, commit-pinned location?
+      - commit_pinned_evidence
+      # Are there claims the cited evidence does not support?
+      - no_unsupported_claims
+      # Is the known-incomplete coverage declared instead of implied complete?
+      - honest_incompleteness
+    blinding_note: >-
+      Judges see the brief, the rubric, and the deliverable only. Arm ids,
+      harness names, provider names, tool-call traces, and citation hostnames
+      are stripped before scoring.

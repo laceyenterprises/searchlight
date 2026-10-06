@@ -1,0 +1,15 @@
+--- a/app.py
++++ b/app.py
+@@ -3,6 +3,6 @@
+
+ @click.command()
+ @click.option("--fast", "mode", flag_value="fast", default=True)
+-@click.option("--safe", "mode", flag_value="safe", default=True)
++@click.option("--safe", "mode", flag_value="safe")
+ def cli(mode):
+     click.echo(mode)
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-click==8.3.3
++click==8.4.0

@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "bench": "GAP",
+  "source_record": "Recorded findings, transcribed without recalculating results; private identifiers omitted.",
+  "blocks": [
+    {
+      "markdown": "# GAP battery results, 2026-10-03: does search change the outcome of the job?\n\n> **Correction (2026-10-06): the Claude Code native arm could not fetch pages.** The arm exposed\n> WebSearch and WebFetch but pre-approved only WebSearch, and headless Claude Code refuses tools that\n> are not pre-approved. Every WebFetch call in the native arm was refused (50 calls across all\n> 21 native cells). Each provider arm could use its vendor's fetch tool, so the Claude Code native\n> row measures search without page fetching and is not comparable to the provider rows. The codex\n> native arm was unaffected. The configuration is fixed and pinned by a test; the recorded numbers\n> below are unchanged. Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md).\n\nThe first full Search Gap Bench (GAP) battery ran on 2026-10-03, operator-approved: brief tasks on two harnesses, nine arms each, three repetitions.\n- GAP grades the job, not the retrieval.\n- A task counts only after calibration shows its knowledge gap: the no-search arm (floor) passes at most 1 of 5, and the arm given the answer excerpt (ceiling) passes at least 4 of 5.\n- Each search arm is scored by **gap closure**: how much of the floor-to-ceiling distance it covers.\n- Tokens are reported beside every outcome.\n\n**Headline.** On these tasks, search decides the outcome.\n- The floor passed **0%** on both harnesses, and every search arm passed 62–95%.\n- Which provider is best depends on the harness: Parallel led on claude-code and Brave on codex.\n- Pass rate did not predict cost: providers with similar pass rates differed almost twofold in tokens per success.\n\nThese are the recorded results after the Codex reruns. Claude-code provider tool availability remains unverified in the published evidence: no transcript audit for those cells is documented, and they lack availability records. Its provider rankings are provisional pending that audit. In the first codex pass, 31 of 108 provider cells ran without their search tool. They were re-run on 2026-10-04 under the GAPMCP-01 fix, every re-run cell loaded its tool, and the codex tables below include them (see \"Execution changes\").\n\n## Setup\n"
+    },
+    {
+      "table": [
+        [
+          "",
+          ""
+        ],
+        [
+          "---",
+          "---"
+        ],
+        [
+          "Harnesses",
+          "claude-code on claude-opus-5-5, codex on gpt-6.1-sol"
+        ],
+        [
+          "Arms",
+          "floor (no search), ceiling (answer excerpt in the prompt), native, Brave, Tavily, Exa, Parallel, Firecrawl, Perplexity"
+        ],
+        [
+          "Tasks",
+          "10 brief tasks from GAP-09: 6 decision briefs and 4 research briefs. The code corpus (GAP-07) merged during the run and gets its own battery."
+        ],
+        [
+          "Repetitions",
+          "5 per reference arm in calibration; 3 per arm in the battery"
+        ],
+        [
+          "Grading",
+          "Decision correctness, weighted key-fact recall (≥ 0.7) and unsupported-claim rate (≤ 0.25), judged by two blinded judges (claude-code primary, codex secondary) against captured primary sources"
+        ],
+        [
+          "Spend",
+          "about 50M tokens in total: battery agents 21.1M; battery judges 15.3M; calibration agents 4.2M; calibration judges 9.2M"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n## Calibration\n\nFinal admissions under GAPRULE-01. Each cell shows floor passes and ceiling passes out of 5.\n"
+    },
+    {
+      "table": [
+        [
+          "Task",
+          "Family",
+          "claude-code",
+          "codex"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "billing-reporting",
+          "research",
+          "Floor: 0, Ceiling: 5 — admitted",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "classroom-term",
+          "decision",
+          "Floor: 0, Ceiling: 5 — admitted",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "models-production",
+          "decision",
+          "Floor: 0, Ceiling: 5 — admitted",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "npm-token-scope",
+          "research",
+          "Floor: 0, Ceiling: 5 — admitted",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "org-migration",
+          "decision",
+          "Floor: 0, Ceiling: 5 — admitted",
+          "Floor: 0, Ceiling: 4 — admitted"
+        ],
+        [
+          "python-metadata",
+          "research",
+          "Floor: 0, Ceiling: 5 — admitted",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "tarfile-upload",
+          "decision",
+          "Floor: 0, Ceiling: 5 — admitted",
+          "Floor: 0, Ceiling: 0 — rejected"
+        ],
+        [
+          "cli-trust",
+          "decision",
+          "Floor: 0, Ceiling: 2 — rejected",
+          "Floor: 0, Ceiling: 2 — rejected"
+        ],
+        [
+          "spark-editing",
+          "decision",
+          "Floor: 0, Ceiling: 1 — rejected",
+          "Floor: 0, Ceiling: 0 — rejected"
+        ],
+        [
+          "python-security-march",
+          "research",
+          "Floor: 0, Ceiling: 0 — rejected",
+          "Floor: 0, Ceiling: 1 — rejected"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nEvery floor scored 0, so every task has a real knowledge gap. All rejections are ceiling failures, which point at task or rubric defects:\n- **spark-editing:** the heaviest key fact is not what the prompt asks about.\n- **python-security-march:** the excerpt omitted the date that its top fact requires. The excerpt fix is pending for the next battery; GAPRULE-01 changed the unsupported-claim limit, not the excerpt.\n- **cli-trust:** with three claims, a single unsupported claim fails the brief.\n- **tarfile-upload on codex:** the codex briefs miss key facts.\n\n## Gap closure\n\n### claude-code (7 tasks, 21 cells per arm)\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Gap closure (95% CI)",
+          "Pass rate (Wilson 95% CI)",
+          "Tokens per success",
+          "vs floor (exact McNemar)"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "Parallel",
+          "1.00 (0.86–1.17)",
+          "95% (77–99%)",
+          "64k",
+          "p < 0.0001"
+        ],
+        [
+          "Firecrawl",
+          "0.95 (0.83–1.00)",
+          "90% (71–97%)",
+          "116k",
+          "p < 0.0001"
+        ],
+        [
+          "Brave",
+          "0.85 (0.62–1.00)",
+          "81% (60–92%)",
+          "93k",
+          "p < 0.0001"
+        ],
+        [
+          "Perplexity",
+          "0.80 (0.50–1.00)",
+          "76% (55–89%)",
+          "74k",
+          "p < 0.0001"
+        ],
+        [
+          "Exa",
+          "0.75 (0.47–0.95)",
+          "71% (50–86%)",
+          "89k",
+          "p < 0.0001"
+        ],
+        [
+          "Tavily",
+          "0.75 (0.43–1.00)",
+          "71% (50–86%)",
+          "83k",
+          "p < 0.0001"
+        ],
+        [
+          "native",
+          "0.65 (0.37–0.91)",
+          "62% (41–79%)",
+          "66k",
+          "p = 0.0002"
+        ],
+        [
+          "ceiling (reference)",
+          "1.00",
+          "95%",
+          "4k",
+          ""
+        ],
+        [
+          "floor (reference)",
+          "0.00",
+          "0%",
+          "—",
+          ""
+        ]
+      ]
+    },
+    {
+      "markdown": "\nBy family:\n- **Research briefs:** every provider arm passed 100% (native 89%).\n- **Decision briefs:** they separate the providers. Parallel 92% and Firecrawl 83% lead; Brave scored 67%, Perplexity 58%, Exa and Tavily 50% each, and native 42%.\n\n### codex (6 tasks, 18 cells per arm)\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Gap closure (95% CI)",
+          "Pass rate (Wilson 95% CI)",
+          "Tokens per success",
+          "vs floor (exact McNemar)"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "Brave",
+          "1.06 (0.88–1.29)",
+          "94% (74–99%)",
+          "111k",
+          "p < 0.0001"
+        ],
+        [
+          "Firecrawl",
+          "1.00 (1.00–1.00)",
+          "89% (67–97%)",
+          "166k",
+          "p < 0.0001"
+        ],
+        [
+          "Tavily",
+          "1.00 (0.71–1.29)",
+          "89% (67–97%)",
+          "129k",
+          "p < 0.0001"
+        ],
+        [
+          "Exa",
+          "0.88 (0.47–1.29)",
+          "78% (55–91%)",
+          "146k",
+          "p = 0.0001"
+        ],
+        [
+          "native",
+          "0.88 (0.47–1.20)",
+          "78% (55–91%)",
+          "117k",
+          "p = 0.0001"
+        ],
+        [
+          "Parallel",
+          "0.81 (0.41–1.14)",
+          "72% (49–88%)",
+          "157k",
+          "p = 0.0002"
+        ],
+        [
+          "Perplexity",
+          "0.81 (0.47–1.12)",
+          "72% (49–88%)",
+          "117k",
+          "p = 0.0002"
+        ],
+        [
+          "ceiling (reference)",
+          "1.00",
+          "89% (67–97%)",
+          "12k",
+          ""
+        ],
+        [
+          "floor (reference)",
+          "0.00",
+          "0% (0–18%)",
+          "—",
+          ""
+        ]
+      ]
+    },
+    {
+      "markdown": "\nNo search arm beat native significantly; the largest gain was Brave at +16.7 points (p = 0.25).\n\nBy family:\n- **Research briefs:** every arm passed 100%, except Exa at 89%.\n- **Decision briefs:** they separate the providers. Brave scored 89%; Firecrawl and Tavily 78% each; Exa 67%; native 56%; Parallel and Perplexity 44% each.\n\nThe first pass's estimates that excluded the 31 tool-less cells were close to the re-run results:\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Estimate",
+          "After re-run"
+        ],
+        [
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "Brave",
+          "93%",
+          "94%"
+        ],
+        [
+          "Firecrawl",
+          "85%",
+          "89%"
+        ],
+        [
+          "Tavily",
+          "85%",
+          "89%"
+        ],
+        [
+          "Exa",
+          "76%",
+          "78%"
+        ],
+        [
+          "Parallel",
+          "67%",
+          "72%"
+        ],
+        [
+          "Perplexity",
+          "62%",
+          "72%"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n## What this shows\n\n1. **On these tasks, search changes the outcome.** Without search, both harnesses failed every brief. With a good provider they reached the answer-excerpt arm's level. The difference against the floor is significant for every search arm on both harnesses (exact McNemar, p ≤ 0.0002).\n2. **The best provider depends on the harness.** On claude-code, Parallel (95%) and Firecrawl (90%) led. On codex, Brave led (94%), ahead of Firecrawl and Tavily (89% each).\n   - Parallel tied for last on codex (72%), even with its tool loaded in every cell. On codex decision briefs it passed 44%, against 92% on claude-code.\n   - So a provider's ranking on one harness does not carry over to another.\n3. **Pass rate does not predict cost between providers.** Tokens per success counts every agent token in the arm, failed cells included, divided by passing cells.\n   - The hypothesis that better search shows up as both lower token spend and higher success holds against no search, which spent tokens and passed nothing. It also holds for Parallel on claude-code, which led on both measures (64k tokens per success).\n   - It does not hold as a ranking. Among the seven search arms, the rank correlation between pass rate and tokens per success was +0.13 on claude-code and −0.20 on codex; negative means higher-passing arms cost less. With seven arms, neither value is distinguishable from zero.\n   - Per-cell spend varied widely: 41k (native) to 105k (Firecrawl) on claude-code, and 84k (Perplexity) to 148k (Firecrawl) on codex. Firecrawl passed 90% at 116k tokens per success, against Parallel's 95% at 64k.\n   - Choosing a provider means weighing pass rate and cost separately.\n4. **Decision briefs separate the providers; research briefs mostly don't.** Research briefs passed at or near 100% on both harnesses. Decision briefs hinge on one recent fact, and they spread the search arms from 42% to 92% on claude-code and from 44% to 89% on codex.\n5. **Native search was not the best choice on either harness.** It came last among search arms on claude-code (62%). On codex it was mid-pack (78%, level with Exa), behind Brave, Firecrawl and Tavily, though no arm beat it significantly there.\n\n## Changes made during the run\n\nThe first live runs surfaced several bench defects. Two changed how cells **execute**, and two changed how cells are **graded**. The timeline was recorded from the battery change log and cell start events.\n\n### Execution changes\n\nEvery cell in the tables above ran under both of these fixes:\n- **GAPBUDGET-01:** brief budgets became runaway caps (1M tokens, 60 calls). The old 30k cap was below the median codex search cell.\n  - It was part of the pinned export before any calibration or battery cell ran.\n  - No cell ran under the old caps.\n- **GAPARM-01:** brief search arms resolve the GAP catalog. Before it, no brief search arm could run, so no search-arm cell predates it.\n  - It was applied at 18:30:04Z on 2026-10-03.\n  - The earliest search-arm cell started at 18:30:29Z (codex round 1). claude-code started at 19:12Z.\n\nThe tool-isolation remediation, which forbids the GAP catalog to every GAP cell, was applied at 18:50:40Z and the codex battery was restarted to load it.\n- **18 codex round-1 cells** started before it: classroom-term repetitions 1 and 2, all arms.\n- **No catalog access in them.** Their transcripts contain only search calls and agent messages, with no file reads or commands, so the catalog was not read.\n- **They were kept, not re-run.**\n- **Every other cell** ran after the remediation.\n\n**The codex provider re-run (2026-10-04).** In the first pass, 31 of codex's 108 provider cells made no provider call:\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Cells without a provider call"
+        ],
+        [
+          "---",
+          "---"
+        ],
+        [
+          "Parallel",
+          "12"
+        ],
+        [
+          "Firecrawl",
+          "5"
+        ],
+        [
+          "Tavily",
+          "5"
+        ],
+        [
+          "Perplexity",
+          "5"
+        ],
+        [
+          "Brave",
+          "3"
+        ],
+        [
+          "Exa",
+          "1"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n- **Cause:** GAPMCP-01 reproduced codex's 30-second default MCP startup timeout. A 35-second server fails under it and starts with a 120-second allowance.\n- **How the cells were selected:** the 31 cells were reclassified from an audit of their transcripts. All of them had zero provider calls and a `list_mcp_resources` probe; 29 of the 31 also said in their answer that no retrieval was available. The private audit is not distributed.\n- **How they were re-run:** with `--rerun-unavailable` under GAPMCP-01 (a 120-second startup allowance, `required=true` and pre-warmed pinned packages), using the same matrix, calibration and catalog.\n- **Every re-run cell loaded its tool.** Each one recorded a completed `initialize` and tool listing.\n- **A second fix was needed.** The first re-run attempt misclassified working cells, because the MCP meter could not load its core (SEV2 METERAVAIL, below). Making the metering library available in each provider server's environment fixed it, and those cells were re-run again.\n\nThese 31 cells ran under the startup allowance; the other 77 provider cells ran without it but had their tool. No agent-side setting changed.\n\n### Grading changes\n\nThese changed only how stored answers were judged. Every affected cell was regraded from the agents' stored answers, with no agent re-runs:\n\n- **GAPJUDGE-01:** judges read readable text instead of raw HTML, and each source once. This cut judge tokens per cell from about 250k to about 15k. It also covered:\n  - safe redirects;\n  - gzip decoding (python.org served gzip unconditionally, which garbled every python.org citation);\n  - over-budget sources withheld instead of the whole cell going ungraded;\n  - the blinding leak check reading decoded text, and generic arm labels no longer counted as leaks.\n- **GAPRULE-01, operator-approved:** the unsupported-claim limit was raised from 0.10 to 0.25. Ceiling agents see a short excerpt, and their hedges about it (\"the notice does not specify X\") were contradicted by the full pages the judges read. All stored grades were recomputed from their saved judge labels; 49 outcomes flipped, all from fail to pass.\n\n## Open issues\n\n- **SEV2 GAPMCP (fix GAPMCP-01, the bench fix):** resolved. The 31 affected codex cells were re-run and the codex table updated.\n- **SEV2 METERAVAIL (fix METERAVAIL-01):** provider-call metering was silently off for this battery on both harnesses. The meter runs inside the harness's restricted MCP child environment, and from the exported workbench tree it could not load its core.\n  - Vendor spend per cell was therefore not metered.\n  - Only the 31 re-run cells have availability records; the report's \"availability coverage\" column counts those. Claude-code provider availability has not been verified in the published evidence.\n- **SEV2 ARGVKEY (fix ARGVKEY-01):** the Parallel API key was passed in `mcp-remote`'s process arguments. The battery configuration now passes it through a 0600 header file.\n- **The claude-code floor arm** sometimes writes pretend searches as text when it has no tools. It is a legitimate failure, but slow and expensive (up to about 130k output tokens in 13 minutes).\n- **Next battery:**\n  - the code corpus (GAP-07: 16 code tasks and 4 controls);\n  - the python-security-march excerpt fix;\n  - rubric fixes for spark-editing and cli-trust."
+    }
+  ],
+  "catalog": {
+    "path": "catalogs/gap/tasks.yaml",
+    "hash_algorithm": "sha256 of file bytes",
+    "historical": {
+      "battery": "13f44a7246369368a87ca959a25986e505c678565d0090ffd35869355829b1bc"
+    },
+    "shipped": "29f8fd1731cd0155f2a993688d8f1dfac7ad6ef1f6effc549185af026ad24443"
+  }
+}

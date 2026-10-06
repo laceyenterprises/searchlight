@@ -1,0 +1,15 @@
+{
+  "deprecated_in_release": "1.20",
+  "evidence_urls": [
+    "https://kubernetes.io/blog/2022/02/17/dockershim-faq/",
+    "https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/"
+  ],
+  "image_compatibility_impact": "No change to container images. Images built with docker build are OCI images and keep working on every CRI runtime; nothing needs rebuilding.",
+  "migration_options": [
+    "switch the node container runtime to containerd",
+    "switch the node container runtime to CRI-O",
+    "keep Docker Engine and install cri-dockerd as an external CRI adapter"
+  ],
+  "removed_component": "dockershim, the in-tree kubelet adapter for Docker Engine",
+  "removed_in_release": "1.24"
+}

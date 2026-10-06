@@ -1,0 +1,2788 @@
+schema_version: 1
+catalog_id: gap-v1
+authoring_policy: >-
+  Original code and brief seeds retain the 2026-01-01 authoring boundary. GAPFRESH-01
+  code seeds use 2026-07-01; see CODE-CORPUS-FRESH.md for cutoff evidence. Model-specific cutoff eligibility and calibration
+  are deferred to GAP-13. Natural job prompts do not hint at changes. Oracle excerpts
+  are verbatim primary-source passages, at most 400 words; hidden outcome tests,
+  reference solutions and rubric evidence remain verifier-only.
+tasks:
+- id: gap-brief-org-migration-2026
+  family: decision-brief
+  kind: gap
+  task_type: brief
+  prompt: On January 20, 2026, our GitHub.com founder account needs to hand selected repositories to a
+    company organization while keeping a personal login. Choose transfer-repositories or convert-account.
+    Explain the route and whether the same route applies to our separate GHES installation. Return JSON
+    with brief (markdown), claims (text and citation_urls), and recommendation.
+  hidden: hidden/gap-brief-org-migration-2026
+  packages: []
+  oracle:
+    excerpt: As of January 12, 2026, we’re deprecating the ability to convert a personal user account
+      directly into an organization. You can now use the Move work flow to selectively migrate repositories
+      to organizations while maintaining your personal account. The Move work feature is not available
+      on GHES.
+    source_url: https://github.blog/changelog/2026-01-12-deprecation-of-user-to-organization-account-transformation/
+    retrieved_at: '2026-10-01'
+    sha256: 43b1a8f4fcf371604ca3898716be12f52bf743bd8a2ec8db8ffc750830d27595
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-01-12'
+    source_urls:
+    - https://github.blog/changelog/2026-01-12-deprecation-of-user-to-organization-account-transformation/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - January 12, 2026
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    - recommendation
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-org-migration-2026/rubric.json
+- id: gap-brief-models-production-2026
+  family: decision-brief
+  kind: gap
+  task_type: brief
+  prompt: It is July 10, 2026. Our existing paid prototype uses GitHub Models inference and BYOK and must
+    run continuously through August. Choose retain-service or migrate-inference. Give a rollout plan with
+    operational dates and explain whether existing usage protects us. Return JSON with brief (markdown),
+    claims (text and citation_urls), and recommendation.
+  hidden: hidden/gap-brief-models-production-2026
+  packages: []
+  oracle:
+    excerpt: GitHub Models will be fully retired on July 30, 2026. After this date, the playground, model
+      catalog, inference API, and BYOK endpoints will no longer be available, and the related UI will
+      be removed. This affects all customers. Unlike the first step in June, this change applies to everyone,
+      including existing customers with active usage. To help you prepare, we will run short, scheduled
+      service interruptions (brownouts) on July 16 and July 23, 2026.
+    source_url: https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026/
+    retrieved_at: '2026-10-01'
+    sha256: 53fdba333e065929d9785b15b8d5a9027ee7b9c143e52a602eb86f7ef5702fd3
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-07-01'
+    source_urls:
+    - https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - July 30, 2026
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    - recommendation
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-models-production-2026/rubric.json
+- id: gap-brief-classroom-term-2026
+  family: decision-brief
+  kind: gap
+  task_type: brief
+  prompt: On September 1, 2026, a university needs assignment distribution and grading for the autumn
+    term. It already has GitHub Classroom repositories, external tests and LTI rosters. Choose reuse-classroom
+    or use-partner. Distinguish service availability from repository survival and identify data risks.
+    Return JSON with brief (markdown), claims (text and citation_urls), and recommendation.
+  hidden: hidden/gap-brief-classroom-term-2026
+  packages: []
+  oracle:
+    excerpt: As of August 28, 2026, GitHub Classroom is now deprecated in favor of our selected partner
+      solutions. The GitHub Classroom website, APIs, and related services have now been decommissioned.
+      However, any GitHub user accounts, repositories, and organizations created to work with Classroom
+      are not affected. Some GitHub Classroom data (e.g., classroom and assignment names, tests defined
+      outside of repositories, and LTI integrated rosters) will be permanently deleted in accordance with
+      GitHub’s data retention policies.
+    source_url: https://github.blog/changelog/2026-08-27-github-classroom-deprecated/
+    retrieved_at: '2026-10-01'
+    sha256: abfcd5e6a4efcf69756a3b243e15514392c5a36508f0e7e8469290b7f0c3392a
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-08-27'
+    source_urls:
+    - https://github.blog/changelog/2026-08-27-github-classroom-deprecated/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - August 28, 2026
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    - recommendation
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-classroom-term-2026/rubric.json
+- id: gap-brief-spark-editing-2026
+  family: decision-brief
+  kind: gap
+  task_type: brief
+  prompt: It is August 10, 2026. Our team has an existing deployed GitHub Spark app using llm() and needs
+    to edit and operate it in September. Choose keep-workbench or export-and-replace-inference. Explain
+    editing continuity, deployment continuity and AI functionality separately. Return JSON with brief
+    (markdown), claims (text and citation_urls), and recommendation.
+  hidden: hidden/gap-brief-spark-editing-2026
+  packages: []
+  oracle:
+    excerpt: Beginning August 4, 2026, GitHub Spark no longer accepts new users or allows the creation
+      of new apps. Existing users can continue to access GitHub Spark until August 31, 2026 to export
+      apps they’ve already created. Apps you’ve already deployed will continue to work after GitHub Spark
+      is retired. Separately, GitHub Models, the inference service used by Spark’s llm() function, retired
+      on July 30, 2026. As of that date, calls to llm() no longer work. Apps that don’t use llm() aren’t
+      affected by the GitHub Models retirement.
+    source_url: https://github.blog/changelog/2026-08-04-upcoming-deprecation-of-github-spark-on-github-com/
+    retrieved_at: '2026-10-01'
+    sha256: 759fbbb875f0642cebb22a3e209321b249efdefd410a2589a17047bf9f9f7694
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-08-04'
+    source_urls:
+    - https://github.blog/changelog/2026-08-04-upcoming-deprecation-of-github-spark-on-github-com/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - August 31, 2026
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    - recommendation
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-spark-editing-2026/rubric.json
+- id: gap-brief-cli-trust-2026
+  family: decision-brief
+  kind: gap
+  task_type: brief
+  prompt: On September 4, 2026, we are approving a Linux image that installs gh from official APT repositories.
+    Its setup was frozen in February and its trust store has never been refreshed. Choose retain-keyring
+    or refresh-keyring for reliable future updates. Explain the timing and signing scope. Return JSON
+    with brief (markdown), claims (text and citation_urls), and recommendation.
+  hidden: hidden/gap-brief-cli-trust-2026
+  packages: []
+  oracle:
+    excerpt: The current PGP key for the GitHub CLI Linux package repositories expires on Saturday, September
+      5, 2026. Beginning with the first release after that date, APT and RPM repository metadata and newly
+      published RPM packages will be signed with just the replacement key. In April, we published a keyring
+      containing both the current and replacement keys.
+    source_url: https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/
+    retrieved_at: '2026-10-01'
+    sha256: 764c01d508952ead43fa7ca9eca7d5356a74082f0b5e6d9b13b4dddece089047
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-09-03'
+    source_urls:
+    - https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - September 5, 2026
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    - recommendation
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-cli-trust-2026/rubric.json
+- id: gap-brief-tarfile-upload-2026
+  family: decision-brief
+  kind: gap
+  task_type: brief
+  prompt: 'Assess on August 20, 2026: a Python 3.10 archive-upload service uses tarfile’s data filter
+    and cannot move to a new minor version this quarter. Choose retain-runtime or update-patch. Explain
+    whether the extraction filter alone is enough and which patch release supports your choice. Return
+    JSON with brief (markdown), claims (text and citation_urls), and recommendation.'
+  hidden: hidden/gap-brief-tarfile-upload-2026
+  packages: []
+  oracle:
+    excerpt: 'Python 3.10.21
+
+      Release date: Aug. 12, 2026
+
+      tarfile.data_filter() now validates link targets using the same normalised value that is written
+      to disk, strips trailing separators from the member name when resolving a symlink’s directory, and
+      rejects link members that would replace the destination directory itself. This closes several path-traversal
+      bypasses of the data extraction filter.'
+    source_url: https://www.python.org/downloads/release/python-31021/
+    retrieved_at: '2026-10-01'
+    sha256: 843fa07d85b8b20445fa84348ad8ae77dca5ec23cc8dd87199200aa48a0ac0b4
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-08-12'
+    source_urls:
+    - https://www.python.org/downloads/release/python-31021/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - 3.10.21
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    - recommendation
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-tarfile-upload-2026/rubric.json
+- id: gap-brief-python-metadata-2026
+  family: research-brief
+  kind: gap
+  task_type: brief
+  prompt: Prepare a June 30, 2026 research brief for our Python software-supply-chain review. Assess authentication
+    and integrity of python.org release metadata, what an attacker could change, evidence about exploitation,
+    and remediation timing for any relevant incidents. Distinguish possible impact from confirmed compromise.
+    Return JSON with brief (markdown), claims (text and citation_urls).
+  hidden: hidden/gap-brief-python-metadata-2026
+  packages: []
+  oracle:
+    excerpt: By supplying an admin username with an arbitrary API key the request was processed with admin
+      privileges. While it would not enable existing release files to be modified in-place, it would enable
+      an attacker to modify the URLs that are provided on python.org for each release file, including
+      verification material URLs. There is no evidence this vulnerability was exploited after auditing
+      logs and database backups. Less than 48 hours after the initial report the PSRT and the reporter
+      confirmed that the proof-of-concept provided by the reporter no longer worked locally or on the
+      production deployment.
+    source_url: https://blog.python.org/2026/06/mitigated-api-bypass-for-download-metadata-python-dot-org/
+    retrieved_at: '2026-10-01'
+    sha256: fa01ec3fd3112093fe6ca916021aa09310c0028d6b4b5862ae978ae1ed22e24a
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-06-23'
+    source_urls:
+    - https://blog.python.org/2026/06/mitigated-api-bypass-for-download-metadata-python-dot-org/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - 48 hours
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-python-metadata-2026/rubric.json
+- id: gap-brief-python-security-march-2026
+  family: research-brief
+  kind: gap
+  task_type: brief
+  prompt: As of March 10, 2026, research security maintenance for Python 3.10 through 3.12. Cover patch-release
+    status, HTTP header validation, XML parsing and SSL memory safety. Produce a concise change-impact
+    brief for maintainers without assuming they can upgrade minor versions. Return JSON with brief (markdown),
+    claims (text and citation_urls).
+  hidden: hidden/gap-brief-python-security-march-2026
+  packages: []
+  oracle:
+    excerpt: 'Python 3.12.13, 3.11.15 and 3.10.20 are now available!
+
+      Thomas Wouters/March 3, 2026
+
+      wsgiref.headers.Headers now rejects C0 control characters in fields, values, and parameters. Upgraded
+      bundled libexpat to 2.7.4 to fix CVE-2026-24515 and CVE-2026-25210. Fixed a use-after-free in ssl
+      when SSL_new() fails.'
+    source_url: https://blog.python.org/2026/03/python-31213-31115-31020/
+    retrieved_at: '2026-10-01'
+    sha256: 93d3871f4d3ccb91b64a488e4c7edd1ce0fb431406d48a11c8de29cb2b3e4ce2
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-03-03'
+    source_urls:
+    - https://blog.python.org/2026/03/python-31213-31115-31020/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - 3.12.13
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-python-security-march-2026/rubric.json
+- id: gap-brief-npm-token-scope-2026
+  family: research-brief
+  kind: gap
+  task_type: brief
+  prompt: As of August 5, 2026, write a research brief on npm token security for maintainers whose automation
+    both publishes packages and manages package access. Explain which operations their credentials can
+    perform, any dated future commitments, and which GitHub credential types are in scope. Return JSON
+    with brief (markdown), claims (text and citation_urls).
+  hidden: hidden/gap-brief-npm-token-scope-2026
+  packages: []
+  oracle:
+    excerpt: npm granular access tokens (GATs) configured to bypass 2FA can no longer perform sensitive
+      account, org, and package management actions. These now require an interactive 2FA challenge, closing
+      one of the largest credential-based attack surfaces on the registry. This does not affect GitHub
+      personal access tokens, GitHub App tokens, or GITHUB_TOKEN in Actions. 2FA-bypass tokens will also
+      lose direct publish. We are targeting January 2027 for this update.
+    source_url: https://github.blog/changelog/2026-07-31-restricting-npm-bypass-2fa-granular-access-tokens/
+    retrieved_at: '2026-10-01'
+    sha256: 1184d99c30704827b28e7390188aea6e0502461119018ba4201e583bfacfddd1
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-07-31'
+    source_urls:
+    - https://github.blog/changelog/2026-07-31-restricting-npm-bypass-2fa-granular-access-tokens/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - January 2027
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-npm-token-scope-2026/rubric.json
+- id: gap-brief-billing-reporting-2026
+  family: research-brief
+  kind: gap
+  task_type: brief
+  prompt: On August 10, 2026, research how a finance team should review Copilot spend, cap individual
+    budgets and export raw usage for reconciliation. Its old procedure points staff to the Copilot Billing
+    Preview app. Describe available reporting surfaces and coverage limitations. Return JSON with brief
+    (markdown), claims (text and citation_urls).
+  hidden: hidden/gap-brief-billing-reporting-2026
+  packages: []
+  oracle:
+    excerpt: We’ve retired the GitHub Copilot Billing Preview app, and it’s no longer available. You can
+      review and manage your Copilot spend directly in your GitHub billing settings. Your billing settings
+      now give you a more complete view that the app’s underlying reports couldn’t show, including user-level
+      budgets, cost centers, and usage pool allocation. Pull raw usage data anytime from your usage reports
+      and the billing API.
+    source_url: https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/
+    retrieved_at: '2026-10-01'
+    sha256: 88065f1b0fc7eac5f6cd5f500158d5f09b1f2c6af3187dd13d35d807b5b1db67
+  verifier:
+    visible_commands:
+    - brief-deliverable-schema
+    hidden_commands:
+    - brief-grade-reference-and-stale
+    timeout_seconds: 120
+  provenance:
+    event_date: '2026-08-04'
+    source_urls:
+    - https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/
+  cutoff_after: '2026-01-01'
+  budgets:
+    max_total_tokens: 1000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+  giveaway_terms:
+  - retired
+  deliverable_schema:
+    type: object
+    required:
+    - brief
+    - claims
+    additionalProperties: false
+    properties:
+      brief:
+        type: string
+        minLength: 1
+      claims:
+        type: array
+        items:
+          type: object
+          required:
+          - text
+          - citation_urls
+          additionalProperties: false
+          properties:
+            text:
+              type: string
+              minLength: 1
+            citation_urls:
+              type: array
+              items:
+                type: string
+                minLength: 1
+                pattern: \S
+      recommendation:
+        type: string
+        minLength: 1
+  rubric: hidden/gap-brief-billing-reporting-2026/rubric.json
+- id: gap-code-transfer-refund
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair the transfer refund adapter so it builds SDK resource objects for our reconciliation
+    queue and preserves the refund identifier.
+  fixture: fixtures/gap-code-transfer-refund
+  hidden: hidden/gap-code-transfer-refund
+  packages:
+  - &id001
+    name: stripe
+    version: 15.6.1
+    role: old
+    url: https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl
+    sha256: b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf
+  - &id002
+    name: stripe
+    version: 16.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl
+    sha256: 6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26
+  - &id003
+    name: requests
+    version: 2.33.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - &id004
+    name: urllib3
+    version: 2.8.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  - &id005
+    name: charset-normalizer
+    version: 3.5.2
+    url: https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl
+    sha256: b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685
+    role: dependency
+  - &id006
+    name: idna
+    version: '3.20'
+    url: https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl
+    sha256: ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c
+    role: dependency
+  - &id007
+    name: certifi
+    version: 2026.7.22
+    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    role: dependency
+  - &id008
+    name: typing-extensions
+    version: 4.16.0
+    url: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+    sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+    role: dependency
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: "Rename `stripe.Reversal` to `stripe.TransferReversal`\n  - ⚠️ Rename the `stripe.Reversal`\
+      \ resource class to `stripe.TransferReversal`. Update references and type annotations to use `stripe.TransferReversal`."
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-02'
+    sha256: 9d616789fa45bdb538deae2e794a8fcc8b27015608bb4d651ed54bdfb016ac11
+  provenance: &id009
+    event_date: '2026-10-01'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - TransferReversal
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-transfer-refund/test_hidden.py hidden/gap-code-transfer-refund/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-customer-reader
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair customer lookup for our billing console. Fetch the requested customer through the supplied
+    SDK client and return its identifier; retain request options.
+  fixture: fixtures/gap-code-customer-reader
+  hidden: hidden/gap-code-customer-reader
+  packages:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: '  Path parameters must now be passed positionally to service methods. Passing them by keyword
+      is no longer supported. This prevents parameter names derived from the API specification from becoming
+      part of the public interface.'
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-02'
+    sha256: afd2315dde8b5060c98271a099ededa17c1f97dedc8491070204fe108a9af719
+  provenance: *id009
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - positionally
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-customer-reader/test_hidden.py hidden/gap-code-customer-reader/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-billing-labels
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair our billing label lookup. Return the description when present and unlabelled otherwise.
+  fixture: fixtures/gap-code-billing-labels
+  hidden: hidden/gap-code-billing-labels
+  packages:
+  - &id010
+    name: stripe
+    version: 14.4.1
+    role: old
+    url: https://files.pythonhosted.org/packages/35/0f/547eab75052384a72771b396a484556e5636629c031e5eafa8dc27af89ed/stripe-14.4.1-py3-none-any.whl
+    sha256: d6722b985dc3b4d6da01ff4fa95a975d3694a89bba96895bf17aa858073ff2b8
+  - &id011
+    name: stripe
+    version: 15.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/03/4a/4431c998c451cf07f8b4fed98f425b4aaf3d59cc4fb1e6f54d7713606688/stripe-15.0.0-py3-none-any.whl
+    sha256: 434ec5267a7402a30b76786d159c18d0e138f89195969d6c56bea2e08d353be0
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: "  - `StripeObject` no longer inherits from `dict`, so any `dict` methods will no longer\
+      \ exist, including `.get()`, `.update()`, and notably, `.items()`.\n  - or convenience, it's still\
+      \ possible to check presence with `'some_key' in some_obj` and check for equality between stripe\
+      \ objects. But most key/value iteration needs an extra step\n  - To access the underlying data as\
+      \ a `dict`, call `some_obj.to_dict()`, which recursively dumps all stripe-provided classes into\
+      \ native Python types. This is a read-only view; changes to the output of `to_dict()` won't affect\
+      \ the original object. \n  - Write operations can still be done with dot notation (`some_obj.val\
+      \ = 123`) or bracket notation (`some_obj[\"val\"] = 123`). Do that instead of trying to interact\
+      \ with the underlying data store, as the implementation is considered private and may change without\
+      \ warning in the future."
+    source_url: https://github.com/stripe/stripe-python/releases/tag/v15.0.0
+    retrieved_at: '2026-10-02'
+    sha256: f48f99f27dc17e7cf0d9c544c14dd95a6cbd13623ffa6a65ed449df205a505c6
+  provenance: &id012
+    event_date: '2026-03-26'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://github.com/stripe/stripe-python/releases/tag/v15.0.0
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - to_dict
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-billing-labels/test_hidden.py hidden/gap-code-billing-labels/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-billing-export
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair our billing export. Produce a native dictionary suitable for JSON serialization, without
+    mutating the SDK record.
+  fixture: fixtures/gap-code-billing-export
+  hidden: hidden/gap-code-billing-export
+  packages:
+  - *id010
+  - *id011
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: "  - `StripeObject` no longer inherits from `dict`, so any `dict` methods will no longer\
+      \ exist, including `.get()`, `.update()`, and notably, `.items()`.\n  - or convenience, it's still\
+      \ possible to check presence with `'some_key' in some_obj` and check for equality between stripe\
+      \ objects. But most key/value iteration needs an extra step\n  - To access the underlying data as\
+      \ a `dict`, call `some_obj.to_dict()`, which recursively dumps all stripe-provided classes into\
+      \ native Python types. This is a read-only view; changes to the output of `to_dict()` won't affect\
+      \ the original object. \n  - Write operations can still be done with dot notation (`some_obj.val\
+      \ = 123`) or bracket notation (`some_obj[\"val\"] = 123`). Do that instead of trying to interact\
+      \ with the underlying data store, as the implementation is considered private and may change without\
+      \ warning in the future."
+    source_url: https://github.com/stripe/stripe-python/releases/tag/v15.0.0
+    retrieved_at: '2026-10-02'
+    sha256: f48f99f27dc17e7cf0d9c544c14dd95a6cbd13623ffa6a65ed449df205a505c6
+  provenance: *id012
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - to_dict
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-billing-export/test_hidden.py hidden/gap-code-billing-export/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-card-mandate
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Repair the card-charge adapter. Return the mandate identifier when present and None otherwise,
+    for both ordinary and expanded SDK responses. A null or absent mandate field on the card returns None.
+  fixture: fixtures/gap-code-card-mandate
+  hidden: hidden/gap-code-card-mandate
+  packages:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: '  * ⚠️ Change type of `Charge.PaymentMethodDetail.Card.mandate` from `string` to `expandable($Mandate)`'
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-02'
+    sha256: be9adc01ef4263049e8f403e3e47efc5a50386f664d84c8b2dc0f77b5d961b97
+  provenance: *id009
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - expandable($Mandate)
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-card-mandate/test_hidden.py hidden/gap-code-card-mandate/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-reserve-release
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Repair reserve-release classification for the reconciliation report. Distinguish expired holds
+    from merchant-requested releases, and retain an unknown bucket for unrelated reasons.
+  fixture: fixtures/gap-code-reserve-release
+  hidden: hidden/gap-code-reserve-release
+  packages:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: '  * ⚠️ Add support for new value `hold_expired` on enum `Reserve.Release.reason`'
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-02'
+    sha256: a7d7a5997f343da07323dcb70acedad597ad4cc5ed791289acc1bce1fa8bbbf5
+  provenance: *id009
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - hold_expired
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-reserve-release/test_hidden.py hidden/gap-code-reserve-release/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-checkout-reuse
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Repair the checkout adapter that decides whether the selected bank payment method is intended
+    for later reuse. Return a boolean and keep the existing no-reuse behavior.
+  fixture: fixtures/gap-code-checkout-reuse
+  hidden: hidden/gap-code-checkout-reuse
+  packages:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: '  * ⚠️ Change type of `Checkout.Session.PaymentMethodOption.Bancontact.setup_future_usage`
+      and `PaymentIntent.PaymentMethodOption.Blik.setup_future_usage` from `literal(''none'')` to `enum(''none''|''off_session'')`'
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-02'
+    sha256: dbc9ad5d66bf03bdb14f1ec42790e10a704542cbf3e97b1a0fe5ed9efafc0271
+  provenance: *id009
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - off_session
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-checkout-reuse/test_hidden.py hidden/gap-code-checkout-reuse/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-bank-number-state
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Repair the bank-account readiness adapter. Allow transactions only when the supplied account
+    number is active and usable; withhold numbers that are waiting or no longer usable.
+  fixture: fixtures/gap-code-bank-number-state
+  hidden: hidden/gap-code-bank-number-state
+  packages:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: '  * Add support for new values `expired` and `pending` on enum `FinancialConnections.Account.AccountNumber.status`'
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-02'
+    sha256: ffd581dd56920842326e0b3e7ac0a92d8a84fcb093cfb9f1030ce02fa010d37f
+  provenance: *id009
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - pending
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-bank-number-state/test_hidden.py hidden/gap-code-bank-number-state/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-diagnostic-locals
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Restore the diagnostic CLI configuration. These commands process synthetic data and operators
+    need local variable values in exception reports when investigating failures.
+  fixture: fixtures/gap-code-diagnostic-locals
+  hidden: hidden/gap-code-diagnostic-locals
+  packages:
+  - name: typer
+    version: 0.22.0
+    role: old
+    url: https://files.pythonhosted.org/packages/4b/e7/61b0dd194be67021ff7c6c87b66511d7691b9b241b2a67a2a5e3842e531b/typer-0.22.0-py3-none-any.whl
+    sha256: 7005624db6209bc9228572d7faa3a3a4ebe6b7a3e157c63d34d4b8f17137888b
+  - name: typer
+    version: 0.23.0
+    role: new
+    url: https://files.pythonhosted.org/packages/7a/ed/d6fca788b51d0d4640c4bc82d0e85bad4b49809bca36bf4af01b4dcb66a7/typer-0.23.0-py3-none-any.whl
+    sha256: 79f4bc262b6c37872091072a3cb7cb6d7d79ee98c0c658b4364bdcde3c42c913
+  - &id016
+    name: click
+    version: 8.3.3
+    url: https://files.pythonhosted.org/packages/ae/44/c1221527f6a71a01ec6fbad7fa78f1d50dfa02217385cf0fa3eec7087d59/click-8.3.3-py3-none-any.whl
+    sha256: a2bf429bb3033c89fa4936ffb35d5cb471e3719e1f3c8a7c3fff0b8314305613
+    role: dependency
+  - &id017
+    name: rich
+    version: 15.0.0
+    url: https://files.pythonhosted.org/packages/82/3b/64d4899d73f91ba49a8c18a8ff3f0ea8f1c1d75481760df8c68ef5235bf5/rich-15.0.0-py3-none-any.whl
+    sha256: 33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb
+    role: dependency
+  - &id018
+    name: shellingham
+    version: 1.5.4
+    url: https://files.pythonhosted.org/packages/e0/f9/0595336914c5619e5f28a1fb793285925a8cd4b432c9da0a987836c7f822/shellingham-1.5.4-py2.py3-none-any.whl
+    sha256: 7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686
+    role: dependency
+  - &id019
+    name: annotated-doc
+    version: 0.0.5
+    url: https://files.pythonhosted.org/packages/3e/30/e900b21425a860e195f32e37657aa1f7c7f2b1bfb26f03ca209b90933c06/annotated_doc-0.0.5-py3-none-any.whl
+    sha256: 117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101
+    role: dependency
+  - *id008
+  - &id020
+    name: markdown-it-py
+    version: 4.2.0
+    url: https://files.pythonhosted.org/packages/b3/81/4da04ced5a082363ecfa159c010d200ecbd959ae410c10c0264a38cac0f5/markdown_it_py-4.2.0-py3-none-any.whl
+    sha256: 9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a
+    role: dependency
+  - &id021
+    name: pygments
+    version: 2.21.0
+    url: https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl
+    sha256: 2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9
+    role: dependency
+  - &id022
+    name: mdurl
+    version: 0.1.2
+    url: https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl
+    sha256: 84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8
+    role: dependency
+  third_party_packages:
+  - annotated-doc
+  - click
+  - markdown-it-py
+  - mdurl
+  - pygments
+  - rich
+  - shellingham
+  - typer
+  - typing-extensions
+  oracle:
+    excerpt: '* ♻️ When printing error tracebacks with Rich, default to not showing locals, which are
+      sometimes verbose. PR [#1072](https://github.com/fastapi/typer/pull/1072) by [@tiangolo](https://github.com/tiangolo).'
+    source_url: https://github.com/fastapi/typer/releases/tag/0.23.0
+    retrieved_at: '2026-10-02'
+    sha256: ac968c5565a0826007acf9b4f602ed06ecab00042c9df5d30391320d605ae42a
+  provenance:
+    event_date: '2026-02-11'
+    source_urls:
+    - https://pypi.org/pypi/typer/json
+    - https://github.com/fastapi/typer/releases/tag/0.23.0
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - not showing locals
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-diagnostic-locals/test_hidden.py hidden/gap-code-diagnostic-locals/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-pool-isolation
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Repair the HTTP pool factory. It must continue using the standard queue captured when this module
+    loads, even if unrelated plugins later replace the global queue factory. Preserve the requested pool
+    capacity.
+  fixture: fixtures/gap-code-pool-isolation
+  hidden: hidden/gap-code-pool-isolation
+  packages:
+  - name: urllib3
+    version: 2.7.0
+    role: old
+    url: https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl
+    sha256: 9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
+  - name: urllib3
+    version: 2.8.0
+    role: new
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  third_party_packages:
+  - urllib3
+  oracle:
+    excerpt: '- Changed behavior of the default `ConnectionPool.pool` initialization. `LifoQueue` is now
+      resolved from the `queue` module after the `ConnectionPool` is instantiated instead of using the
+      default cached `QueueCls` class property. This is done because sometimes the `queue.LifoQueue` is
+      monkey-patched late in the program, such as by gevent. (#3289)'
+    source_url: https://github.com/urllib3/urllib3/releases/tag/2.8.0
+    retrieved_at: '2026-10-02'
+    sha256: 8a8a9baedd374ab474bab0525224e9b8f5cb469069bfda97ad47831c065407d1
+  provenance:
+    event_date: '2026-09-15'
+    source_urls:
+    - https://pypi.org/pypi/urllib3/json
+    - https://github.com/urllib3/urllib3/releases/tag/2.8.0
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - QueueCls
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-pool-isolation/test_hidden.py hidden/gap-code-pool-isolation/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-mode-switch
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Repair the run-mode CLI. With no flags it must select fast mode, --safe must select safe mode,
+    and --fast must select fast mode. Maintain both existing flags.
+  fixture: fixtures/gap-code-mode-switch
+  hidden: hidden/gap-code-mode-switch
+  packages:
+  - &id013
+    name: click
+    version: 8.3.3
+    role: old
+    url: https://files.pythonhosted.org/packages/ae/44/c1221527f6a71a01ec6fbad7fa78f1d50dfa02217385cf0fa3eec7087d59/click-8.3.3-py3-none-any.whl
+    sha256: a2bf429bb3033c89fa4936ffb35d5cb471e3719e1f3c8a7c3fff0b8314305613
+  - &id014
+    name: click
+    version: 8.4.0
+    role: new
+    url: https://files.pythonhosted.org/packages/ee/ae/8e92f8058baf87f6c7d86ee7e457668690195cc77efedb8d3797a06e3940/click-8.4.0-py3-none-any.whl
+    sha256: 40c50b7c6c6adac2823d411041ec84f3f103f1b280d5e9ce0d7f998995832f81
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "-   Fix feature switch groups (several ``flag_value`` options sharing one\r\n    parameter\
+      \ name) silently dropping an explicit ``default`` when a sibling\r\n    option without an explicit\
+      \ default was declared first. Arbitration is now\r\n    source-aware: a more explicit :class:`ParameterSource`\
+      \ always wins, and\r\n    within ``ParameterSource.DEFAULT``, an option that received an explicit\r\
+      \n    ``default=`` keyword wins over a sibling whose default was auto-derived.\r\n    The 8.3.x\
+      \ first-wins fallback for remaining ties was reverted to the\r\n    pre-8.3.x last-wins fallback.\
+      \ #3403 #3404"
+    source_url: https://github.com/pallets/click/releases/tag/8.4.0
+    retrieved_at: '2026-10-02'
+    sha256: efb4cb61c754c4bb474e4c526cf8b11649552552bd87f4d23aadb1add69f63c3
+  provenance: &id015
+    event_date: '2026-05-17'
+    source_urls:
+    - https://pypi.org/pypi/click/json
+    - https://github.com/pallets/click/releases/tag/8.4.0
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - first-wins
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-mode-switch/test_hidden.py hidden/gap-code-mode-switch/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-enum-flag
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Repair the scheduler CLI option adapter. The downstream scheduler accepts the text name of the
+    chosen enum value, including the class prefix, rather than an enum object. Keep explicit and default
+    mode selection.
+  fixture: fixtures/gap-code-enum-flag
+  hidden: hidden/gap-code-enum-flag
+  packages:
+  - *id013
+  - *id014
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "-   Auto-detect ``type=UNPROCESSED`` for ``flag_value`` of non-basic types\r\n    (not ``str``,\
+      \ ``int``, ``float``, or ``bool``), so programmer-provided\r\n    Python objects like classes and\
+      \ enum members are passed through unchanged\r\n    instead of being stringified. Previously ``type=click.UNPROCESSED``\
+      \ had\r\n    to be set explicitly. #2012 #3363"
+    source_url: https://github.com/pallets/click/releases/tag/8.4.0
+    retrieved_at: '2026-10-02'
+    sha256: c0b8eedd8daaa43d340403f379a8489b9cab1d2af74e08da4386884b0677417c
+  provenance: *id015
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - UNPROCESSED
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-enum-flag/test_hidden.py hidden/gap-code-enum-flag/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-cli-capture
+  family: release-breakage
+  kind: gap
+  task_type: code
+  prompt: Repair the CLI test helper so native writers can access a real output descriptor during command
+    execution. Keep captured output and avoid corrupting the parent test runner.
+  fixture: fixtures/gap-code-cli-capture
+  hidden: hidden/gap-code-cli-capture
+  packages:
+  - *id013
+  - *id014
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "-   Revert the ``8.3.3`` change that exposed the original file descriptor\r\n    via ``fileno()``\
+      \ on the redirected ``CliRunner`` streams in the default\r\n    capture mode. ``os.dup2(w, sys.stdout.fileno())``\
+      \ calls inside a CLI no\r\n    longer mutate the host runner's stdout, which broke Pytest's ``fd``-level\r\
+      \n    capture teardown. C-level consumers that need a real ``fd`` should use\r\n    ``capture=\"\
+      fd\"``. #3384 #3391"
+    source_url: https://github.com/pallets/click/releases/tag/8.4.0
+    retrieved_at: '2026-10-02'
+    sha256: a5f064a858f70ea5479bc37691d40efceba00310b3b466030aba743ef834fd07
+  provenance: *id015
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - capture="fd"
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-cli-capture/test_hidden.py hidden/gap-code-cli-capture/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-cli-port-parser
+  family: release-breakage
+  kind: gap
+  task_type: code
+  prompt: Repair the port-selection CLI. It accepts a decimal port number through --port, prints the parsed
+    integer, and rejects invalid input as a command-line usage error. Keep the public command.
+  fixture: fixtures/gap-code-cli-port-parser
+  hidden: hidden/gap-code-cli-port-parser
+  packages:
+  - name: typer
+    version: 0.25.1
+    role: old
+    url: https://files.pythonhosted.org/packages/3f/f9/2b3ff4e56e5fa7debfaf9eb135d0da96f3e9a1d5b27222223c7296336e5f/typer-0.25.1-py3-none-any.whl
+    sha256: 75caa44ed46a03fb2dab8808753ffacdbfea88495e74c85a28c5eefcf5f39c89
+  - name: typer
+    version: 0.26.0
+    role: new
+    url: https://files.pythonhosted.org/packages/64/e1/01faefdf98e3a05ca5f3487caabab033fda84c5bd1bae7f73b8bb5dd553e/typer-0.26.0-py3-none-any.whl
+    sha256: 859d520a4dc91c075cb370195462b6f7024fceb5d6de5c204bb8b1d51a60ad66
+  - *id016
+  - *id017
+  - *id018
+  - *id019
+  - *id008
+  - *id020
+  - *id021
+  - *id022
+  third_party_packages:
+  - annotated-doc
+  - click
+  - markdown-it-py
+  - mdurl
+  - pygments
+  - rich
+  - shellingham
+  - typer
+  - typing-extensions
+  oracle:
+    excerpt: "    * This also means that Click-specific functionality is no longer supported, like extracting\
+      \ the Click app and adding Click-specific plug-ins, or customizing the field types with Click-specific\
+      \ types.\r\n    * You can read more about it in the docs for [Vendored Click](https://typer.tiangolo.com/tutorial/click/)."
+    source_url: https://github.com/fastapi/typer/releases/tag/0.26.0
+    retrieved_at: '2026-10-02'
+    sha256: f262ad9e8819e19e52e625fc8b27971214e61133cb6510f971a984bd7bdf0ace
+  provenance:
+    event_date: '2026-05-26'
+    source_urls:
+    - https://pypi.org/pypi/typer/json
+    - https://github.com/fastapi/typer/releases/tag/0.26.0
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - Click-specific types
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-cli-port-parser/test_hidden.py hidden/gap-code-cli-port-parser/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-jwt-middleware
+  family: vulnerable-dependency
+  kind: gap
+  task_type: code
+  prompt: 'Repair the session-token middleware: return claims for valid signed tokens and None for every
+    rejected token. Use a dependency release that addresses the applicable advisory without weakening
+    signature checks.'
+  fixture: fixtures/gap-code-jwt-middleware
+  hidden: hidden/gap-code-jwt-middleware
+  packages:
+  - name: pyjwt
+    version: 2.11.0
+    role: old
+    url: https://files.pythonhosted.org/packages/6f/01/c26ce75ba460d5cd503da9e13b21a33804d38c2165dec7b716d06b13010c/pyjwt-2.11.0-py3-none-any.whl
+    sha256: 94a6bde30eb5c8e04fee991062b534071fd1439ef58d2adc9ccb823e7bcd0469
+  - name: pyjwt
+    version: 2.12.0
+    role: new
+    url: https://files.pythonhosted.org/packages/15/70/70f895f404d363d291dcf62c12c85fdd47619ad9674ac0f53364d035925a/pyjwt-2.12.0-py3-none-any.whl
+    sha256: 9bb459d1bdd0387967d287f5656bf7ec2b9a26645d1961628cda1764e087fd6e
+  third_party_packages:
+  - pyjwt
+  oracle:
+    excerpt: '* Validate the crit (Critical) Header Parameter defined in RFC 7515 §4.1.11. by @dmbs335
+      in [GHSA-752w-5fwx-jx9f](https://github.com/jpadilla/pyjwt/security/advisories/GHSA-752w-5fwx-jx9f)'
+    source_url: https://github.com/jpadilla/pyjwt/releases/tag/2.12.0
+    retrieved_at: '2026-10-02'
+    sha256: d0d057a65671885c74dbd5778a2641a9c7aa0d17ed9c476edc1e9fb30d0ffd4e
+  provenance:
+    event_date: '2026-03-12'
+    source_urls:
+    - https://pypi.org/pypi/pyjwt/json
+    - https://github.com/jpadilla/pyjwt/releases/tag/2.12.0
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - GHSA-752w-5fwx-jx9f
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-jwt-middleware/test_hidden.py hidden/gap-code-jwt-middleware/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-code-bundle-cert-reader
+  family: vulnerable-dependency
+  kind: gap
+  task_type: code
+  prompt: Repair the bundled certificate reader. It must read the selected ZIP member through Requests,
+    return its bytes, and avoid assumptions about shared temporary filenames. Use a release that addresses
+    the applicable advisory.
+  fixture: fixtures/gap-code-bundle-cert-reader
+  hidden: hidden/gap-code-bundle-cert-reader
+  packages:
+  - name: requests
+    version: 2.32.5
+    role: old
+    url: https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl
+    sha256: 2462f94637a34fd532264295e186976db0f5d453d1cdd31473c85a6a161affb6
+  - name: requests
+    version: 2.33.0
+    role: new
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - urllib3
+  oracle:
+    excerpt: '- CVE-2026-25645 ``requests.utils.extract_zipped_paths`` now extracts contents to a non-deterministic
+      location to prevent malicious file replacement. This does not affect default usage of Requests,
+      only applications calling the utility function directly.'
+    source_url: https://github.com/psf/requests/releases/tag/v2.33.0
+    retrieved_at: '2026-10-02'
+    sha256: 22968ab8b3b35e427a83f28c973a0ec4d772936bca834b6325aff39712d82f5a
+  provenance:
+    event_date: '2026-03-25'
+    source_urls:
+    - https://pypi.org/pypi/requests/json
+    - https://github.com/psf/requests/releases/tag/v2.33.0
+  cutoff_after: '2026-01-01'
+  giveaway_terms:
+  - non-deterministic
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-code-bundle-cert-reader/test_hidden.py hidden/gap-code-bundle-cert-reader/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-control-csv-quotes
+  family: control
+  kind: control
+  task_type: code
+  prompt: Parse CSV rows for the import screen, including quoted commas, escaped quotes and empty cells.
+  fixture: fixtures/gap-control-csv-quotes
+  hidden: hidden/gap-control-csv-quotes
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: csv.reader(csvfile, dialect='excel', **fmtparams)
+    source_url: https://docs.python.org/3.11/library/csv.html
+    retrieved_at: '2026-10-02'
+    sha256: 3d3b4da0dd4c335353d391ada2705aa72b48652ca74e8bde585fdaa86274b9ff
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/csv.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-control-csv-quotes/test_hidden.py hidden/gap-control-csv-quotes/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60
+- id: gap-control-stable-dedup
+  family: control
+  kind: control
+  task_type: code
+  prompt: Deduplicate event identifiers while preserving the first occurrence order.
+  fixture: fixtures/gap-control-stable-dedup
+  hidden: hidden/gap-control-stable-dedup
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: Dictionaries preserve insertion order. Note that updating a key does not affect the order.
+      Keys added after deletion are inserted at the end.
+    source_url: https://docs.python.org/3.11/library/stdtypes.html
+    retrieved_at: '2026-10-02'
+    sha256: 2262e0950f8592c210a30ea84a8f68842cb5496390f10839284ee283d9c0a3ed
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/stdtypes.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-control-stable-dedup/test_hidden.py hidden/gap-control-stable-dedup/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60
+- id: gap-control-utc-date
+  family: control
+  kind: control
+  task_type: code
+  prompt: Normalize ISO timestamps to UTC calendar dates for daily billing buckets. Naive timestamps are
+    interpreted as UTC.
+  fixture: fixtures/gap-control-utc-date
+  hidden: hidden/gap-control-utc-date
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: Return a datetime object with new tzinfo attribute tz, adjusting the date and time data so
+      the result is the same UTC time as self, but in tz’s local time.
+    source_url: https://docs.python.org/3.11/library/datetime.html
+    retrieved_at: '2026-10-02'
+    sha256: 1f17d7dde9af518728041186b236d092deb3eb545ace86bddf8cb37c85e348d8
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/datetime.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-control-utc-date/test_hidden.py hidden/gap-control-utc-date/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60
+- id: gap-control-relative-path
+  family: control
+  kind: control
+  task_type: code
+  prompt: Resolve a requested file underneath a base directory. Reject traversal or absolute paths escaping
+    the base, including through symbolic links.
+  fixture: fixtures/gap-control-relative-path
+  hidden: hidden/gap-control-relative-path
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: 'Make the path absolute, resolving any symlinks. A new path object is returned:'
+    source_url: https://docs.python.org/3.11/library/pathlib.html
+    retrieved_at: '2026-10-02'
+    sha256: 4d80fc452cdfff3f796031d399cf272649340fbede675ac097a1b139792ed960
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/pathlib.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-control-relative-path/test_hidden.py hidden/gap-control-relative-path/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60
+- id: gap-fresh-custom-report
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair the custom billing-report adapter. Use the supplied SDK client to GET the report path
+    with the account scope and return the JSON data. An empty path returns None without making a request.
+  fixture: fixtures/gap-fresh-custom-report
+  hidden: hidden/gap-fresh-custom-report
+  packages:
+  - name: stripe
+    version: 15.6.1
+    role: old
+    url: https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl
+    sha256: b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf
+  - name: stripe
+    version: 16.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl
+    sha256: 6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26
+  - name: requests
+    version: 2.33.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - name: urllib3
+    version: 2.8.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  - name: charset-normalizer
+    version: 3.5.2
+    url: https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl
+    sha256: b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685
+    role: dependency
+  - name: idna
+    version: '3.20'
+    url: https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl
+    sha256: ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c
+    role: dependency
+  - name: certifi
+    version: 2026.7.22
+    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    role: dependency
+  - name: typing-extensions
+    version: 4.16.0
+    url: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+    sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+    role: dependency
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: The deprecated `StripeObject.request()` method has been removed. Use `StripeClient.raw_request()`
+      to make custom API requests.
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-05'
+    sha256: d0b860942c589cfcc2d3562572fd22be8ec7d30ce303e42bc47ce0b0641b1101
+  provenance:
+    event_date: '2026-10-01'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - raw_request
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-custom-report/test_hidden.py hidden/gap-fresh-custom-report/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-coupon-cleanup
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair the coupon cleanup helper. Delete a supplied coupon through the SDK resource and return
+    the deletion result, preserving account scope. A missing identifier is a no-op.
+  fixture: fixtures/gap-fresh-coupon-cleanup
+  hidden: hidden/gap-fresh-coupon-cleanup
+  packages:
+  - name: stripe
+    version: 15.6.1
+    role: old
+    url: https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl
+    sha256: b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf
+  - name: stripe
+    version: 16.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl
+    sha256: 6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26
+  - name: requests
+    version: 2.33.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - name: urllib3
+    version: 2.8.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  - name: charset-normalizer
+    version: 3.5.2
+    url: https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl
+    sha256: b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685
+    role: dependency
+  - name: idna
+    version: '3.20'
+    url: https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl
+    sha256: ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c
+    role: dependency
+  - name: certifi
+    version: 2026.7.22
+    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    role: dependency
+  - name: typing-extensions
+    version: 4.16.0
+    url: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+    sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+    role: dependency
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: Path parameters must now be passed positionally on resource methods that support both classmethod
+      and instance-method call styles (e.g. Coupon.delete). Passing them by keyword is no longer supported.
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-05'
+    sha256: dfc5316e8d02058e3adc5c8a69f509a87c03db73ac9283d41757342dfa007d58
+  provenance:
+    event_date: '2026-10-01'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - positionally
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-coupon-cleanup/test_hidden.py hidden/gap-fresh-coupon-cleanup/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-upload-retry
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair upload retry preparation. Rewind the body to the recorded position and return True; a
+    body that cannot rewind returns False without crashing the batch.
+  fixture: fixtures/gap-fresh-upload-retry
+  hidden: hidden/gap-fresh-upload-retry
+  packages:
+  - name: urllib3
+    version: 2.7.0
+    role: old
+    url: https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl
+    sha256: 9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
+  - name: urllib3
+    version: 2.8.0
+    role: new
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  third_party_packages:
+  - urllib3
+  oracle:
+    excerpt: "- Raised `UnrewindableBodyError` instead of `ValueError` when retrying a request whose body\
+      \ had `tell()` but not `seek()`. (#3779)\r"
+    source_url: https://github.com/urllib3/urllib3/releases/tag/2.8.0
+    retrieved_at: '2026-10-05'
+    sha256: b51aebaa95e1bf5f62f5352e6cbee16ceeb3e33691fec0b613f59ad31bd0c46f
+  provenance:
+    event_date: '2026-09-15'
+    source_urls:
+    - https://pypi.org/pypi/urllib3/json
+    - https://github.com/urllib3/urllib3/releases/tag/2.8.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - UnrewindableBodyError
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-upload-retry/test_hidden.py hidden/gap-fresh-upload-retry/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-palette-input
+  family: api-break
+  kind: gap
+  task_type: code
+  prompt: Repair the terminal palette preview. Return styled text for valid colors, and plain text for
+    an invalid operator-supplied color instead of aborting the preview.
+  fixture: fixtures/gap-fresh-palette-input
+  hidden: hidden/gap-fresh-palette-input
+  packages:
+  - name: click
+    version: 8.4.2
+    role: old
+    url: https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl
+    sha256: e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76
+  - name: click
+    version: 8.5.0
+    role: new
+    url: https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl
+    sha256: 255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "- `style()` and `secho()` no longer silently drop the 256-color index `0`\r\n  (black) passed\
+      \ as `fg` or `bg`, and now validate color arguments. Invalid\r\n  colors raise a `ValueError` instead\
+      \ of a `TypeError`. #3677"
+    source_url: https://github.com/pallets/click/releases/tag/8.5.0
+    retrieved_at: '2026-10-05'
+    sha256: eef9d97d32fc3d7d0f2e17d1ec1be38ee2056e5753913d12c63f2dd6b38401f3
+  provenance:
+    event_date: '2026-08-26'
+    source_urls:
+    - https://pypi.org/pypi/click/json
+    - https://github.com/pallets/click/releases/tag/8.5.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - ValueError
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-palette-input/test_hidden.py hidden/gap-fresh-palette-input/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-flag-default-export
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Repair the command configuration exporter. Return a JSON-serializable effective default for
+    a supplied flag, matching the value its callback receives. Preserve explicit False and explicit feature
+    values.
+  fixture: fixtures/gap-fresh-flag-default-export
+  hidden: hidden/gap-fresh-flag-default-export
+  packages:
+  - name: click
+    version: 8.4.2
+    role: old
+    url: https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl
+    sha256: e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76
+  - name: click
+    version: 8.5.0
+    role: new
+    url: https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl
+    sha256: 255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "- Streamline `Option` flag handling: the flag-kind, type, lazy-default and\r\n  validation\
+      \ steps in `Option.__init__` move into focused helpers, and\r\n  `flag_value` and `default` keep\
+      \ their unset sentinel at construction\r\n  (resolved lazily on read) so `is UNSET` reliably tells\
+      \ a user-supplied value\r\n  from an auto-derived one. Runtime behavior is unchanged, but\r\n  {meth}`Parameter.to_info_dict`\
+      \ now resolves `default=True` on a feature\r\n  switch to its `flag_value`, matching what the function\
+      \ receives at call\r\n  time. #3641"
+    source_url: https://github.com/pallets/click/releases/tag/8.5.0
+    retrieved_at: '2026-10-05'
+    sha256: 3945ee97c3ddb75d2fe63cd88c3c9fc09091b54503d4b6837c2c8f094eda7d95
+  provenance:
+    event_date: '2026-08-26'
+    source_urls:
+    - https://pypi.org/pypi/click/json
+    - https://github.com/pallets/click/releases/tag/8.5.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - UNSET
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-flag-default-export/test_hidden.py hidden/gap-fresh-flag-default-export/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-flag-activation-export
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Repair the command palette exporter. Return the effective value a flag sends to its callback
+    when activated, including boolean flags and feature switches.
+  fixture: fixtures/gap-fresh-flag-activation-export
+  hidden: hidden/gap-fresh-flag-activation-export
+  packages:
+  - name: click
+    version: 8.4.2
+    role: old
+    url: https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl
+    sha256: e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76
+  - name: click
+    version: 8.5.0
+    role: new
+    url: https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl
+    sha256: 255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "- Streamline `Option` flag handling: the flag-kind, type, lazy-default and\r\n  validation\
+      \ steps in `Option.__init__` move into focused helpers, and\r\n  `flag_value` and `default` keep\
+      \ their unset sentinel at construction\r\n  (resolved lazily on read) so `is UNSET` reliably tells\
+      \ a user-supplied value\r\n  from an auto-derived one. Runtime behavior is unchanged, but\r\n  {meth}`Parameter.to_info_dict`\
+      \ now resolves `default=True` on a feature\r\n  switch to its `flag_value`, matching what the function\
+      \ receives at call\r\n  time. #3641"
+    source_url: https://github.com/pallets/click/releases/tag/8.5.0
+    retrieved_at: '2026-10-05'
+    sha256: 3945ee97c3ddb75d2fe63cd88c3c9fc09091b54503d4b6837c2c8f094eda7d95
+  provenance:
+    event_date: '2026-08-26'
+    source_urls:
+    - https://pypi.org/pypi/click/json
+    - https://github.com/pallets/click/releases/tag/8.5.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - UNSET
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-flag-activation-export/test_hidden.py hidden/gap-fresh-flag-activation-export/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-command-schema
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Repair the operator form schema exporter. List application parameter names in declaration order,
+    excluding the framework help parameter; retain an application parameter named help.
+  fixture: fixtures/gap-fresh-command-schema
+  hidden: hidden/gap-fresh-command-schema
+  packages:
+  - name: click
+    version: 8.4.2
+    role: old
+    url: https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl
+    sha256: e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76
+  - name: click
+    version: 8.5.0
+    role: new
+    url: https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl
+    sha256: 255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "- The automatic help option stores its value under the reserved name\r\n  `_click_default_help`\
+      \ instead of `help`, so a parameter named `help` no\r\n  longer breaks parsing. The new name is\
+      \ visible in\r\n  {meth}`Command.to_info_dict` output. Parameters that overwrite each other's\r\n\
+      \  value trigger a warning: an argument sharing its name with another\r\n  parameter, or any parameter\
+      \ claiming the reserved name. Options may still\r\n  share a name to compete for the same value\
+      \ (feature switches).\r\n  #2819 #3678"
+    source_url: https://github.com/pallets/click/releases/tag/8.5.0
+    retrieved_at: '2026-10-05'
+    sha256: e69710a13ba09fddc753b98c699afa8f7d724faf3d3cea658b5c943baa17bf31
+  provenance:
+    event_date: '2026-08-26'
+    source_urls:
+    - https://pypi.org/pypi/click/json
+    - https://github.com/pallets/click/releases/tag/8.5.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - _click_default_help
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-command-schema/test_hidden.py hidden/gap-fresh-command-schema/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-queue-capacity
+  family: silent-default
+  kind: gap
+  task_type: code
+  prompt: Repair connection-pool capacity diagnostics. Report the actual queue implementation name and
+    capacity for an instantiated pool, including pools created after cooperative-runtime initialization.
+  fixture: fixtures/gap-fresh-queue-capacity
+  hidden: hidden/gap-fresh-queue-capacity
+  packages:
+  - name: urllib3
+    version: 2.7.0
+    role: old
+    url: https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl
+    sha256: 9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
+  - name: urllib3
+    version: 2.8.0
+    role: new
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  third_party_packages:
+  - urllib3
+  oracle:
+    excerpt: "- Changed behavior of the default `ConnectionPool.pool` initialization. `LifoQueue` is now\
+      \ resolved from the `queue` module after the `ConnectionPool` is instantiated instead of using the\
+      \ default cached `QueueCls` class property. This is done because sometimes the `queue.LifoQueue`\
+      \ is monkey-patched late in the program, such as by gevent. (#3289)\r"
+    source_url: https://github.com/urllib3/urllib3/releases/tag/2.8.0
+    retrieved_at: '2026-10-05'
+    sha256: 9c5e8df54e9b9d663bbbc897e34b4e874b6210021cd0181cac48d79ef7764f41
+  provenance:
+    event_date: '2026-09-15'
+    source_urls:
+    - https://pypi.org/pypi/urllib3/json
+    - https://github.com/urllib3/urllib3/releases/tag/2.8.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - QueueCls
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-queue-capacity/test_hidden.py hidden/gap-fresh-queue-capacity/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-log-output
+  family: release-breakage
+  kind: gap
+  task_type: code
+  prompt: Repair the CLI log sink for a warnings-as-errors deployment. Write one newline-terminated message
+    to the active text stdout stream without emitting warnings.
+  fixture: fixtures/gap-fresh-log-output
+  hidden: hidden/gap-fresh-log-output
+  packages:
+  - name: click
+    version: 8.4.2
+    role: old
+    url: https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl
+    sha256: e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76
+  - name: click
+    version: 8.5.0
+    role: new
+    url: https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl
+    sha256: 255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "- {func}`get_binary_stream` and {func}`get_text_stream` are deprecated and\r\n  will be\
+      \ removed in Click 9.0. #3481 #3695"
+    source_url: https://github.com/pallets/click/releases/tag/8.5.0
+    retrieved_at: '2026-10-05'
+    sha256: 272f7cb33afd540108492ca9318f5738118c8e1e6b0eb5669fd2a44f60de8ac7
+  provenance:
+    event_date: '2026-08-26'
+    source_urls:
+    - https://pypi.org/pypi/click/json
+    - https://github.com/pallets/click/releases/tag/8.5.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - get_text_stream
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-log-output/test_hidden.py hidden/gap-fresh-log-output/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-export-directory
+  family: release-breakage
+  kind: gap
+  task_type: code
+  prompt: Repair the CLI export test adapter for warnings-as-errors runs. Write a UTF-8 result in a temporary
+    directory, return its contents, and leave the process working directory unchanged.
+  fixture: fixtures/gap-fresh-export-directory
+  hidden: hidden/gap-fresh-export-directory
+  packages:
+  - name: click
+    version: 8.4.2
+    role: old
+    url: https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl
+    sha256: e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76
+  - name: click
+    version: 8.5.0
+    role: new
+    url: https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl
+    sha256: 255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360
+  third_party_packages:
+  - click
+  oracle:
+    excerpt: "- Deprecate {meth}`CliRunner.isolated_filesystem`. It relies on\r\n  {func}`os.chdir`, which\
+      \ mutates process-global state and is not\r\n  thread-safe. The helper predates Python 3 and modern\
+      \ pytest: use a\r\n  temporary directory ({class}`tempfile.TemporaryDirectory` or pytest's\r\n \
+      \ `tmp_path` fixture) with absolute paths instead. For running tests in\r\n  parallel, use process-based\
+      \ isolation (such as `pytest-xdist`) rather\r\n  than threads, since {meth}`CliRunner.invoke` also\
+      \ redirects the\r\n  process-global standard streams. #3501 #3700 #3704"
+    source_url: https://github.com/pallets/click/releases/tag/8.5.0
+    retrieved_at: '2026-10-05'
+    sha256: af759e97b0728d50f407265dbffabb154bba9b41e00594ab3bc32a029ef6d52d
+  provenance:
+    event_date: '2026-08-26'
+    source_urls:
+    - https://pypi.org/pypi/click/json
+    - https://github.com/pallets/click/releases/tag/8.5.0
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - isolated_filesystem
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-export-directory/test_hidden.py hidden/gap-fresh-export-directory/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-hmac-key-input
+  family: vulnerable-dependency
+  kind: gap
+  task_type: code
+  prompt: Harden the local token signer used by the test identity service. Return a signed token for a
+    valid shared secret, or None for rejected key material, so malformed configuration cannot crash startup.
+    Ship a secure dependency pin.
+  fixture: fixtures/gap-fresh-hmac-key-input
+  hidden: hidden/gap-fresh-hmac-key-input
+  packages:
+  - name: pyjwt
+    version: 2.13.0
+    role: old
+    url: https://files.pythonhosted.org/packages/a3/5e/ecf12fdb62546d64385c158514e9b2b671f7832108ef2ecd2020ce0af2d1/pyjwt-2.13.0-py3-none-any.whl
+    sha256: 66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728
+  - name: pyjwt
+    version: 2.14.0
+    role: new
+    url: https://files.pythonhosted.org/packages/9c/97/672cb32ce0dfea44b740cb7b4f97038463b9cf7c0ead1aacf595572851d6/pyjwt-2.14.0-py3-none-any.whl
+    sha256: ad0cef71c756a56e74863c2919cf0985f72decbcfcb550ee2f422e7c62b5eedc
+  third_party_packages:
+  - pyjwt
+  oracle:
+    excerpt: "- Harden HMAC key validation against public-key material supplied as JWK,\n  JWKS, array,\
+      \ encoded, BOM-prefixed, DER, or PEM input. See\n  `GHSA-r6x4-923q-g947 <https://github.com/jpadilla/pyjwt/security/advisories/GHSA-r6x4-923q-g947>`__,\n\
+      \  `GHSA-ffc3-869f-jxw9 <https://github.com/jpadilla/pyjwt/security/advisories/GHSA-ffc3-869f-jxw9>`__,\n\
+      \  `GHSA-p4g4-x82p-q773 <https://github.com/jpadilla/pyjwt/security/advisories/GHSA-p4g4-x82p-q773>`__,\n\
+      \  and `GHSA-w2cx-738m-mc7w <https://github.com/jpadilla/pyjwt/security/advisories/GHSA-w2cx-738m-mc7w>`__.\n"
+    source_url: https://raw.githubusercontent.com/jpadilla/pyjwt/2.14.0/CHANGELOG.rst
+    retrieved_at: '2026-10-05'
+    sha256: b27a2d8b33b2085ec29be86232b8fcd877f65cfc05433aa516ed68f0b7d58564
+  provenance:
+    event_date: '2026-09-11'
+    source_urls:
+    - https://pypi.org/pypi/pyjwt/json
+    - https://github.com/jpadilla/pyjwt/releases/tag/2.14.0
+    - https://raw.githubusercontent.com/jpadilla/pyjwt/2.14.0/CHANGELOG.rst
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - BOM-prefixed
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-hmac-key-input/test_hidden.py hidden/gap-fresh-hmac-key-input/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-jwk-key-input
+  family: vulnerable-dependency
+  kind: gap
+  task_type: code
+  prompt: Harden the local JWK token signer. Return a signed token for a valid symmetric JWK, or None
+    for an empty shared key, keeping configuration failures inside the adapter. Ship a secure dependency
+    pin.
+  fixture: fixtures/gap-fresh-jwk-key-input
+  hidden: hidden/gap-fresh-jwk-key-input
+  packages:
+  - name: pyjwt
+    version: 2.13.0
+    role: old
+    url: https://files.pythonhosted.org/packages/a3/5e/ecf12fdb62546d64385c158514e9b2b671f7832108ef2ecd2020ce0af2d1/pyjwt-2.13.0-py3-none-any.whl
+    sha256: 66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728
+  - name: pyjwt
+    version: 2.14.0
+    role: new
+    url: https://files.pythonhosted.org/packages/9c/97/672cb32ce0dfea44b740cb7b4f97038463b9cf7c0ead1aacf595572851d6/pyjwt-2.14.0-py3-none-any.whl
+    sha256: ad0cef71c756a56e74863c2919cf0985f72decbcfcb550ee2f422e7c62b5eedc
+  third_party_packages:
+  - pyjwt
+  oracle:
+    excerpt: "- Apply HMAC key validation consistently when keys are loaded through\n  ``PyJWK`` and ``PyJWKClient``.\
+      \ See\n  `GHSA-pxh4-856f-4h89 <https://github.com/jpadilla/pyjwt/security/advisories/GHSA-pxh4-856f-4h89>`__.\n\
+      - Reject empty HMAC keys when represented as JWKs.\n  See `GHSA-pxh4-856f-4h89 <https://github.com/jpadilla/pyjwt/security/advisories/GHSA-pxh4-856f-4h89>`__.\n"
+    source_url: https://raw.githubusercontent.com/jpadilla/pyjwt/2.14.0/CHANGELOG.rst
+    retrieved_at: '2026-10-05'
+    sha256: 894883663951469e32d0dcadb5332803249b3e44226f543c9cfa8e811f56e114
+  provenance:
+    event_date: '2026-09-11'
+    source_urls:
+    - https://pypi.org/pypi/pyjwt/json
+    - https://github.com/jpadilla/pyjwt/releases/tag/2.14.0
+    - https://raw.githubusercontent.com/jpadilla/pyjwt/2.14.0/CHANGELOG.rst
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - PyJWK
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-jwk-key-input/test_hidden.py hidden/gap-fresh-jwk-key-input/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-checkout-methods
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Repair checkout creation for the billing portal. Restrict the session to the caller-selected
+    payment methods and retain payment mode. Empty input returns None without a request.
+  fixture: fixtures/gap-fresh-checkout-methods
+  hidden: hidden/gap-fresh-checkout-methods
+  packages:
+  - name: stripe
+    version: 15.6.1
+    role: old
+    url: https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl
+    sha256: b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf
+  - name: stripe
+    version: 16.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl
+    sha256: 6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26
+  - name: requests
+    version: 2.33.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - name: urllib3
+    version: 2.8.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  - name: charset-normalizer
+    version: 3.5.2
+    url: https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl
+    sha256: b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685
+    role: dependency
+  - name: idna
+    version: '3.20'
+    url: https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl
+    sha256: ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c
+    role: dependency
+  - name: certifi
+    version: 2026.7.22
+    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    role: dependency
+  - name: typing-extensions
+    version: 4.16.0
+    url: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+    sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+    role: dependency
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: "  * Add support for `allowed_payment_method_types` on `Checkout.Session` and `checkout.SessionCreateParams`\n\
+      \  * ⚠️ Remove support for `payment_method_types` on `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`,\
+      \ `PaymentIntentModifyParams`, `SetupIntentCreateParams`, `SetupIntentModifyParams`, and `checkout.SessionCreateParams`"
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-05'
+    sha256: 8d785d08d3c8e17be772a90537bec349be6f730159e0564516fda05148f622c8
+  provenance:
+    event_date: '2026-10-01'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - allowed_payment_method_types
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-checkout-methods/test_hidden.py hidden/gap-fresh-checkout-methods/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-bank-country
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Repair the financial-connections session builder. Restrict the session to the caller-selected
+    country and request payment-method permissions. Empty input returns None without a request.
+  fixture: fixtures/gap-fresh-bank-country
+  hidden: hidden/gap-fresh-bank-country
+  packages:
+  - name: stripe
+    version: 15.6.1
+    role: old
+    url: https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl
+    sha256: b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf
+  - name: stripe
+    version: 16.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl
+    sha256: 6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26
+  - name: requests
+    version: 2.33.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - name: urllib3
+    version: 2.8.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  - name: charset-normalizer
+    version: 3.5.2
+    url: https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl
+    sha256: b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685
+    role: dependency
+  - name: idna
+    version: '3.20'
+    url: https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl
+    sha256: ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c
+    role: dependency
+  - name: certifi
+    version: 2026.7.22
+    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    role: dependency
+  - name: typing-extensions
+    version: 4.16.0
+    url: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+    sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+    role: dependency
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: "  * Add support for `country` on `financial_connections.SessionCreateParamsFilter`\n  *\
+      \ ⚠️ Remove support for `countries` on `FinancialConnections.Session.Filter` and `financial_connections.SessionCreateParamsFilter`"
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-05'
+    sha256: 23f88e5a22cd5aa73a91c71f3f1c79be2502ae0b856e854e3247e11364b55714
+  provenance:
+    event_date: '2026-10-01'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - countries
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-bank-country/test_hidden.py hidden/gap-fresh-bank-country/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-app-installations
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Complete the account administration adapter. List application installations for the supplied
+    application identifier. Empty input returns None without a request.
+  fixture: fixtures/gap-fresh-app-installations
+  hidden: hidden/gap-fresh-app-installations
+  packages:
+  - name: stripe
+    version: 15.6.1
+    role: old
+    url: https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl
+    sha256: b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf
+  - name: stripe
+    version: 16.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl
+    sha256: 6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26
+  - name: requests
+    version: 2.33.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - name: urllib3
+    version: 2.8.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  - name: charset-normalizer
+    version: 3.5.2
+    url: https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl
+    sha256: b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685
+    role: dependency
+  - name: idna
+    version: '3.20'
+    url: https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl
+    sha256: ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c
+    role: dependency
+  - name: certifi
+    version: 2026.7.22
+    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    role: dependency
+  - name: typing-extensions
+    version: 4.16.0
+    url: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+    sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+    role: dependency
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: "  * Add support for new resources `apps.Install`, `product_catalog.TrialOffer`, `tax.Location`,\
+      \ and `three_d_secure.Authentication`\n  * Add support for `create`, `list`, `modify`, `retrieve`,\
+      \ and `uninstall` methods on resource `apps.Install`"
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-05'
+    sha256: 734445ec89e3973f4f38f73c628839301e45455de930b8d47b2fee213236ee04
+  provenance:
+    event_date: '2026-10-01'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - apps.Install
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-app-installations/test_hidden.py hidden/gap-fresh-app-installations/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-tax-locations
+  family: changed-third-party-api
+  kind: gap
+  task_type: code
+  prompt: Complete the tax operations adapter. Retrieve the tax location identified by the caller so the
+    console can display its registered address. Empty input returns None without a request.
+  fixture: fixtures/gap-fresh-tax-locations
+  hidden: hidden/gap-fresh-tax-locations
+  packages:
+  - name: stripe
+    version: 15.6.1
+    role: old
+    url: https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl
+    sha256: b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf
+  - name: stripe
+    version: 16.0.0
+    role: new
+    url: https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl
+    sha256: 6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26
+  - name: requests
+    version: 2.33.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl
+    sha256: 3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b
+  - name: urllib3
+    version: 2.8.0
+    role: dependency
+    url: https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl
+    sha256: 0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3
+  - name: charset-normalizer
+    version: 3.5.2
+    url: https://files.pythonhosted.org/packages/fc/ad/d07d7862a62ffa6d79d68074d14823243dd235a77c45262acbf6adeb28bf/charset_normalizer-3.5.2-py3-none-any.whl
+    sha256: b6b751274acb69d77b3323d6b7dbaa3c7fdfc1eb829b7eb61d262f32e1af9685
+    role: dependency
+  - name: idna
+    version: '3.20'
+    url: https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl
+    sha256: ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c
+    role: dependency
+  - name: certifi
+    version: 2026.7.22
+    url: https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl
+    sha256: 62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775
+    role: dependency
+  - name: typing-extensions
+    version: 4.16.0
+    url: https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl
+    sha256: 481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8
+    role: dependency
+  third_party_packages:
+  - certifi
+  - charset-normalizer
+  - idna
+  - requests
+  - stripe
+  - typing-extensions
+  - urllib3
+  oracle:
+    excerpt: "  * Add support for new resources `apps.Install`, `product_catalog.TrialOffer`, `tax.Location`,\
+      \ and `three_d_secure.Authentication`\n  * Add support for `create`, `list`, `modify`, `retrieve`,\
+      \ and `uninstall` methods on resource `apps.Install`\n  * Add support for `create`, `list`, `modify`,\
+      \ and `retrieve` methods on resource `product_catalog.TrialOffer`\n  * Add support for `create`,\
+      \ `list`, and `retrieve` methods on resource `tax.Location`"
+    source_url: https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+    retrieved_at: '2026-10-05'
+    sha256: a65287bc809e1a841cd888e1546715530c520be87e2cd2f1d48a6108ea0fe331
+  provenance:
+    event_date: '2026-10-01'
+    source_urls:
+    - https://pypi.org/pypi/stripe/json
+    - https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md
+  cutoff_after: '2026-07-01'
+  giveaway_terms:
+  - tax.Location
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-tax-locations/test_hidden.py hidden/gap-fresh-tax-locations/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 1200
+    max_provider_calls: 60
+- id: gap-fresh-control-inventory-total
+  family: control
+  kind: control
+  task_type: code
+  prompt: Complete the inventory counter. Sum quantities by SKU, preserving the first-seen SKU order.
+  fixture: fixtures/gap-fresh-control-inventory-total
+  hidden: hidden/gap-fresh-control-inventory-total
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: Dictionaries preserve insertion order. Note that updating a key does not affect the order.
+      Keys added after deletion are inserted at the end.
+    source_url: https://docs.python.org/3.11/library/stdtypes.html
+    retrieved_at: '2026-10-05'
+    sha256: 2262e0950f8592c210a30ea84a8f68842cb5496390f10839284ee283d9c0a3ed
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/stdtypes.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-control-inventory-total/test_hidden.py hidden/gap-fresh-control-inventory-total/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60
+- id: gap-fresh-control-jsonl-records
+  family: control
+  kind: control
+  task_type: code
+  prompt: Complete the JSON Lines exporter. Emit one JSON value per line, preserving Unicode text and
+    embedded newlines within each value.
+  fixture: fixtures/gap-fresh-control-jsonl-records
+  hidden: hidden/gap-fresh-control-jsonl-records
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: Serialize obj to a JSON formatted str using this conversion table. The arguments have the
+      same meaning as in dump().
+    source_url: https://docs.python.org/3.11/library/json.html
+    retrieved_at: '2026-10-05'
+    sha256: bfcaefc22e53ec29556eff8819ff688221a8219422c4bbc0f31a6d900211513a
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/json.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-control-jsonl-records/test_hidden.py hidden/gap-fresh-control-jsonl-records/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60
+- id: gap-fresh-control-query-values
+  family: control
+  kind: control
+  task_type: code
+  prompt: Complete the URL query builder. Preserve repeated values and percent-encode spaces and reserved
+    characters using standard form-query encoding.
+  fixture: fixtures/gap-fresh-control-query-values
+  hidden: hidden/gap-fresh-control-query-values
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: When a sequence of two-element tuples is used as the query argument, the first element of
+      each tuple is a key and the second is a value. The value element in itself can be a sequence and
+      in that case, if the optional parameter doseq evaluates to True, individual key=value pairs separated
+      by '&' are generated for each element of the value sequence for the key. The order of parameters
+      in the encoded string will match the order of parameter tuples in the sequence.
+    source_url: https://docs.python.org/3.11/library/urllib.parse.html
+    retrieved_at: '2026-10-05'
+    sha256: 3d2579c070af4a1878b130890ec26a3aff8abc4b8e122cd752f44963bfaf57aa
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/urllib.parse.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-control-query-values/test_hidden.py hidden/gap-fresh-control-query-values/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60
+- id: gap-fresh-control-window-batches
+  family: control
+  kind: control
+  task_type: code
+  prompt: Complete the batch iterator. Return consecutive batches of the requested positive size, including
+    a final short batch; reject nonpositive sizes.
+  fixture: fixtures/gap-fresh-control-window-batches
+  hidden: hidden/gap-fresh-control-window-batches
+  packages: []
+  third_party_packages: []
+  oracle:
+    excerpt: The slice of s from i to j is defined as the sequence of items with index k such that i <=
+      k < j. If i or j is greater than len(s), use len(s). If i is omitted or None, use 0. If j is omitted
+      or None, use len(s). If i is greater than or equal to j, the slice is empty.
+    source_url: https://docs.python.org/3.11/library/stdtypes.html
+    retrieved_at: '2026-10-05'
+    sha256: 3f2e763a4ef60ee9315b26c9ebad142b8e344be48f88475c9934b199896c9c2c
+  provenance:
+    event_date: '2022-10-24'
+    source_urls:
+    - https://docs.python.org/3.11/library/stdtypes.html
+  cutoff_after: '2026-01-01'
+  giveaway_terms: []
+  verifier:
+    visible_commands:
+    - python -m pytest test_visible.py
+    hidden_commands:
+    - python -m pytest hidden/gap-fresh-control-window-batches/test_hidden.py hidden/gap-fresh-control-window-batches/test_smoke.py
+    timeout_seconds: 30
+  budgets:
+    max_total_tokens: 2000000
+    max_wall_clock_seconds: 900
+    max_provider_calls: 60

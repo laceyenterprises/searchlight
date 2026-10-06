@@ -1,0 +1,14 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,2 @@
+ def customer_id(client, identifier, options=None):
+-    return client.v1.customers.retrieve(customer=identifier, options=options).id
++    return client.v1.customers.retrieve(identifier, options=options).id
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-stripe==15.6.1
++stripe==16.0.0
+ requests==2.33.0
+ urllib3==2.8.0
+ charset-normalizer==3.5.2

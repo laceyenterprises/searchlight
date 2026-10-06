@@ -1,0 +1,31 @@
+{
+  "evidence_urls": [
+    "https://aws.amazon.com/ec2/pricing/on-demand/",
+    "https://cloud.google.com/vpc/network-pricing",
+    "https://azure.microsoft.com/en-us/pricing/details/bandwidth/"
+  ],
+  "observed_on": "2026-09-21",
+  "rows": [
+    {
+      "first_tier_per_gb_usd": "0.09",
+      "free_monthly_egress": "100 GB",
+      "intra_az_billed": "no, not billed within one AZ over private IPv4",
+      "provider": "AWS",
+      "source_url": "https://aws.amazon.com/ec2/pricing/on-demand/"
+    },
+    {
+      "first_tier_per_gb_usd": "0.12",
+      "free_monthly_egress": "200 GB",
+      "intra_az_billed": "no",
+      "provider": "Google Cloud",
+      "source_url": "https://cloud.google.com/vpc/network-pricing"
+    },
+    {
+      "first_tier_per_gb_usd": "0.087",
+      "free_monthly_egress": "100 GB",
+      "intra_az_billed": "no",
+      "provider": "Azure",
+      "source_url": "https://azure.microsoft.com/en-us/pricing/details/bandwidth/"
+    }
+  ]
+}

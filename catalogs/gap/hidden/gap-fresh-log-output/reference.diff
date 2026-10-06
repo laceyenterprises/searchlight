@@ -1,0 +1,15 @@
+--- a/app.py
++++ b/app.py
+@@ -1,5 +1,5 @@
+-import click
++import sys
+
+
+ def emit(message):
+-    click.get_text_stream("stdout").write(message + "\n")
++    sys.stdout.write(message + "\n")
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-click==8.4.2
++click==8.5.0

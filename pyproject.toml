@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "searchlight"
+version = "0.1.0"
+description = "Search evaluation workbench for retrieval and agent job outcomes"
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = ["License :: OSI Approved :: Apache Software License"]
+requires-python = ">=3.11"
+dependencies = [
+  "PyYAML>=6,<7",
+  "packaging>=23",
+]
+
+[project.scripts]
+searchlight = "sew.cli:main"
+sew = "sew.cli:main"
+
+[project.optional-dependencies]
+agent-os = ["agent-os-app-sdk"]
+test = [
+  "pytest>=8,<10",
+]
+
+[tool.setuptools]
+package-dir = {"" = "lib/python"}
+
+[tool.setuptools.packages.find]
+where = ["lib/python"]
+include = ["sew*"]

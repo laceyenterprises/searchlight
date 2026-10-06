@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Source-tree compatibility launcher; installed users should invoke sew.
+set -euo pipefail
+MODULE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [[ -n "${HQ_PYTHON3:-}" ]]; then
+  sew_python="$HQ_PYTHON3"
+else
+  sew_python=''
+  for candidate in ${HQ_PYTHON3_CANDIDATES_FOR_TEST:-python3}; do
+    if "$candidate" -P -c 'import sys, yaml; assert sys.version_info >= (3, 11)' >/dev/null 2>&1; then
+      sew_python="$candidate"
+      break
+    fi
+  done
+  if [[ -z "$sew_python" ]]; then
+    echo 'Searchlight requires Python >=3.11 with PyYAML installed' >&2
+    exit 1
+  fi
+fi
+PYTHONPATH="${MODULE_ROOT}/lib/python${PYTHONPATH:+:${PYTHONPATH}}" \
+  exec "$sew_python" -P -m sew.cli "$@"

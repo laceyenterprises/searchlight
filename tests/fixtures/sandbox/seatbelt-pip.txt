@@ -1,0 +1,4 @@
+Looking in indexes: https://1.1.1.1/simple
+Could not fetch URL https://1.1.1.1/simple/pip/: connection error: HTTPSConnectionPool(host='1.1.1.1', port=443): Max retries exceeded with url: /simple/pip/ (Caused by NewConnectionError("HTTPSConnection(host='1.1.1.1', port=443): Failed to establish a new connection: [Errno 1] Operation not permitted")) - skipping
+ERROR: Could not find a version that satisfies the requirement pip (from versions: none)
+ERROR: No matching distribution found for pip

@@ -1,0 +1,82 @@
+[
+  {
+    "provider": "exa",
+    "tool": "web_search_exa",
+    "arguments": {
+      "query": "fixture query",
+      "numResults": 8
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Title: Fixture result\\nURL: https://example.test"
+        }
+      ]
+    },
+    "expected_usd": 0.007,
+    "expected_basis": "inferred"
+  },
+  {
+    "provider": "exa",
+    "tool": "web_fetch_exa",
+    "arguments": {
+      "urls": [
+        "https://example.test/a",
+        "https://example.test/b"
+      ]
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Fixture page contents"
+        }
+      ]
+    },
+    "expected_usd": 0.002,
+    "expected_basis": "estimated"
+  },
+  {
+    "provider": "parallel-web",
+    "tool": "web_search",
+    "arguments": {
+      "objective": "fixture objective",
+      "search_queries": [
+        "fixture query"
+      ],
+      "mode": "fast"
+    },
+    "response": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Fixture search results"
+        }
+      ]
+    },
+    "expected_usd": 0.001,
+    "expected_basis": "inferred"
+  },
+  {
+    "provider": "parallel-web",
+    "tool": "web_fetch",
+    "arguments": {
+      "urls": [
+        "https://example.test/a",
+        "https://example.test/b"
+      ]
+    },
+    "response": {
+      "structuredContent": {
+        "results": [
+          {
+            "url": "https://example.test/a"
+          }
+        ]
+      }
+    },
+    "expected_usd": 0.001,
+    "expected_basis": "inferred"
+  }
+]

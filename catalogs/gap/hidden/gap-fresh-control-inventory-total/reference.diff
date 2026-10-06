@@ -1,0 +1,9 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,5 @@
+ def total(rows):
+-    return dict(rows)
++    result = {}
++    for sku, quantity in rows:
++        result[sku] = result.get(sku, 0) + quantity
++    return result

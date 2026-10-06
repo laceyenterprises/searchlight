@@ -1,0 +1,45 @@
+{
+  "key_facts": [
+    {
+      "text": "Python 3.10.21 was released on August 12, 2026.",
+      "weight": 5,
+      "source_snapshot": {
+        "url": "https://www.python.org/downloads/release/python-31021/",
+        "text": "Python 3.10.21\nRelease date: Aug. 12, 2026\ntarfile.data_filter() now validates link targets using the same normalised value that is written to disk, strips trailing separators from the member name when resolving a symlink’s directory, and rejects link members that would replace the destination directory itself. This closes several path-traversal bypasses of the data extraction filter.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-12",
+        "sha256": "843fa07d85b8b20445fa84348ad8ae77dca5ec23cc8dd87199200aa48a0ac0b4"
+      }
+    },
+    {
+      "text": "Its tarfile data filter validates link targets using the normalized value written to disk.",
+      "weight": 3,
+      "source_snapshot": {
+        "url": "https://www.python.org/downloads/release/python-31021/",
+        "text": "Python 3.10.21\nRelease date: Aug. 12, 2026\ntarfile.data_filter() now validates link targets using the same normalised value that is written to disk, strips trailing separators from the member name when resolving a symlink’s directory, and rejects link members that would replace the destination directory itself. This closes several path-traversal bypasses of the data extraction filter.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-12",
+        "sha256": "843fa07d85b8b20445fa84348ad8ae77dca5ec23cc8dd87199200aa48a0ac0b4"
+      }
+    },
+    {
+      "text": "The release closes several path-traversal bypasses of the data extraction filter, including link members replacing the destination directory.",
+      "weight": 2,
+      "source_snapshot": {
+        "url": "https://www.python.org/downloads/release/python-31021/",
+        "text": "Python 3.10.21\nRelease date: Aug. 12, 2026\ntarfile.data_filter() now validates link targets using the same normalised value that is written to disk, strips trailing separators from the member name when resolving a symlink’s directory, and rejects link members that would replace the destination directory itself. This closes several path-traversal bypasses of the data extraction filter.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-12",
+        "sha256": "843fa07d85b8b20445fa84348ad8ae77dca5ec23cc8dd87199200aa48a0ac0b4"
+      }
+    }
+  ],
+  "pass_rule": {
+    "recommendation_correct": true,
+    "min_recall": 0.7,
+    "max_unsupported_claim_rate": 0.25
+  },
+  "acceptable_recommendations": [
+    "update-patch"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "answer_status": "no_reliable_answer",
+  "evidence_urls": [
+    "https://www.postgresql.org/docs/17/runtime-config-resource.html",
+    "https://www.postgresql.org/docs/17/runtime-config-autovacuum.html"
+  ],
+  "explanation": "PostgreSQL 17 defines no server configuration parameter named max_parallel_vacuum_workers. The configuration reference for release 17 lists no such setting, so there is no default value or permitted range to report.",
+  "nearest_real_parameters": [
+    "max_parallel_maintenance_workers",
+    "autovacuum_max_workers",
+    "max_parallel_workers"
+  ]
+}

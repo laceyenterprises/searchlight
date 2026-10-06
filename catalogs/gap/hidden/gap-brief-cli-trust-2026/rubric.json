@@ -1,0 +1,45 @@
+{
+  "key_facts": [
+    {
+      "text": "The current GitHub CLI Linux repository PGP key expires on September 5, 2026.",
+      "weight": 5,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/",
+        "text": "The current PGP key for the GitHub CLI Linux package repositories expires on Saturday, September 5, 2026. Beginning with the first release after that date, APT and RPM repository metadata and newly published RPM packages will be signed with just the replacement key. In April, we published a keyring containing both the current and replacement keys.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-09-03",
+        "sha256": "764c01d508952ead43fa7ca9eca7d5356a74082f0b5e6d9b13b4dddece089047"
+      }
+    },
+    {
+      "text": "The first subsequent release signs APT/RPM metadata and new RPM packages with only the replacement key.",
+      "weight": 3,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/",
+        "text": "The current PGP key for the GitHub CLI Linux package repositories expires on Saturday, September 5, 2026. Beginning with the first release after that date, APT and RPM repository metadata and newly published RPM packages will be signed with just the replacement key. In April, we published a keyring containing both the current and replacement keys.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-09-03",
+        "sha256": "764c01d508952ead43fa7ca9eca7d5356a74082f0b5e6d9b13b4dddece089047"
+      }
+    },
+    {
+      "text": "A keyring containing both current and replacement keys was published in April 2026.",
+      "weight": 2,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-09-03-github-cli-linux-package-signing-key-expires-september-5/",
+        "text": "The current PGP key for the GitHub CLI Linux package repositories expires on Saturday, September 5, 2026. Beginning with the first release after that date, APT and RPM repository metadata and newly published RPM packages will be signed with just the replacement key. In April, we published a keyring containing both the current and replacement keys.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-09-03",
+        "sha256": "764c01d508952ead43fa7ca9eca7d5356a74082f0b5e6d9b13b4dddece089047"
+      }
+    }
+  ],
+  "pass_rule": {
+    "recommendation_correct": true,
+    "min_recall": 0.7,
+    "max_unsupported_claim_rate": 0.25
+  },
+  "acceptable_recommendations": [
+    "refresh-keyring"
+  ]
+}

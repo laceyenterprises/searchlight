@@ -1,0 +1,32 @@
+[
+  {
+    "message": {
+      "content": [
+        {
+          "caller": {
+            "type": "direct"
+          },
+          "id": "toolu_01RjxB6YBZWnyVrtm214Atwr",
+          "input": {
+            "command": "python3 -c '\nimport json, socket, subprocess, sys\nnonce = sys.argv[1]\nresults = {}\ndef probe(name, argv):\n    try:\n        p = subprocess.run(argv, capture_output=True, text=True, timeout=20)\n        results[name] = {'\"'\"'exit_code'\"'\"': p.returncode, '\"'\"'error'\"'\"': p.stdout + p.stderr}\n    except Exception as exc:\n        results[name] = {'\"'\"'exit_code'\"'\"': None, '\"'\"'error'\"'\"': str(exc)}\nprobe('\"'\"'curl'\"'\"', ['\"'\"'curl'\"'\"', '\"'\"'--disable'\"'\"', '\"'\"'--noproxy'\"'\"', '\"'\"'*'\"'\"', '\"'\"'-k'\"'\"', '\"'\"'--max-time'\"'\"', '\"'\"'8'\"'\"', '\"'\"'https://1.1.1.1/'\"'\"'])\nprobe('\"'\"'pip'\"'\"', [sys.executable, '\"'\"'-m'\"'\"', '\"'\"'pip'\"'\"', '\"'\"'--isolated'\"'\"', '\"'\"'download'\"'\"', '\"'\"'--no-cache-dir'\"'\"',\n              '\"'\"'--retries'\"'\"', '\"'\"'0'\"'\"', '\"'\"'--timeout'\"'\"', '\"'\"'8'\"'\"', '\"'\"'--index-url'\"'\"', '\"'\"'https://pypi.org/simple'\"'\"',\n              '\"'\"'--dest'\"'\"', '\"'\"'.'\"'\"', '\"'\"'pip'\"'\"'])\ntry:\n    socket.getaddrinfo(nonce + '\"'\"'.example.com'\"'\"', 443)\n    results['\"'\"'dns'\"'\"'] = {'\"'\"'exit_code'\"'\"': 0, '\"'\"'error'\"'\"': '\"'\"''\"'\"'}\nexcept Exception as exc:\n    results['\"'\"'dns'\"'\"'] = {'\"'\"'exit_code'\"'\"': 1, '\"'\"'error'\"'\"': str(exc)}\nprint('\"'\"'GAP_CANARY:'\"'\"' + json.dumps({'\"'\"'nonce'\"'\"': nonce, '\"'\"'probes'\"'\"': results}, sort_keys=True))\n' 8b8034f3c7c745839796120396b0c8c7",
+            "description": "Run network connectivity probe script"
+          },
+          "name": "Bash",
+          "type": "tool_use"
+        }
+      ]
+    }
+  },
+  {
+    "message": {
+      "content": [
+        {
+          "content": "GAP_CANARY:{\"nonce\": \"8b8034f3c7c745839796120396b0c8c7\", \"probes\": {\"curl\": {\"error\": \"  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\\n                                 Dload  Upload   Total   Spent    Left  Speed\\n\\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\\ncurl: (7) Failed to connect to 1.1.1.1 port 443 after 1 ms: Couldn't connect to server\\n\", \"exit_code\": 7}, \"dns\": {\"error\": \"[Errno 8] nodename nor servname provided, or not known\", \"exit_code\": 1}, \"pip\": {\"error\": \"ERROR: Could not find a version that satisfies the requirement pip (from versions: none)\\nERROR: No matching distribution found for pip\\n\", \"exit_code\": 1}}}\n<sandbox_violations>\ndeny network-outbound pypi.org:443 (host is on the deny list)\ndeny network-outbound pypi.org:443 (host is on the deny list)\n</sandbox_violations>",
+          "is_error": false,
+          "tool_use_id": "toolu_01RjxB6YBZWnyVrtm214Atwr",
+          "type": "tool_result"
+        }
+      ]
+    }
+  }
+]

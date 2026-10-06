@@ -1,0 +1,2650 @@
+{
+  "schema_version": 1,
+  "bench": "agent-search-behavior",
+  "source_record": "Computed by scripts/analyze_search_behavior.py from the stored transcripts of the two published batteries; private identifiers omitted.",
+  "blocks": [
+    {
+      "markdown": "# How agents used search: query style, fetch-from-memory and primary-source retrieval (2026-10-05)\n\nThis report analyses the stored transcripts of the two published batteries, the [web search\nbakeoff](../2026-09-29-web-search-bakeoff/REPORT.md) and the [search gap\nbench](../2026-10-03-search-gap-bench/REPORT.md). No agent was rerun. It asks how agents\nused the search tools they were given, rather than which provider scored best. Every number\nbelow comes from `scripts/analyze_search_behavior.py`, whose classification rules are listed\nin [methodology](methodology.md). The analysis covers 974 search queries from the GAP\nbattery (both harnesses) and 655 from the bakeoff (Claude Code).\n\n## Headline\n\n- **Agents write keyword queries whatever the engine asks for.** Of 974 GAP search queries,\n  7.3% read as natural language. In the bakeoff the figure is 6.0%. Exa's tool asks for a\n  description of the ideal page rather than keywords; its queries were natural language in\n  3% (Claude Code) and 2% (codex) of GAP calls. Because the automatic rule can miss\n  descriptive phrasing, all 111 Exa queries from both batteries were also read by hand\n  ([appendix](#appendix-every-exa-query)): none is phrased as a description of a page. The\n  closest are a headline-like phrase used three times (\"Python 4.0 release date announced by\n  Python Steering Council\") and a page title.\n- **The two harnesses express constraints differently.** On the six provider arms, codex put\n  `site:` into 31% to 67% of its queries, even where a structured domain filter existed.\n  Claude Code wrote `site:` only on Firecrawl (6%) and otherwise used structured domain\n  filters where a tool offered one (Perplexity `search_domain_filter`, Tavily\n  `include_domains`, WebSearch `allowed_domains`).\n- **Agents often fetch remembered URLs instead of searching.** In the bakeoff, Claude Code\n  fetched pages without any search in 36 of 55 Exa cells, 35 of 55 Firecrawl cells, 34 of 54\n  Tavily cells and 30 of 55 Parallel cells. Those provider arms therefore measured page\n  fetching as much as search. On post-cutoff GAP tasks the same habit failed: Claude Code's\n  Exa cells that only fetched passed 1/3, against 14/18 for its Exa cells that searched.\n- **Retrieving the primary source mattered most on Claude Code.** Pooled over provider and\n  native arms, Claude Code passed 94/111 cells (85%) when the task's primary source appeared\n  in search results and 20/33 (61%) when it did not. Codex surfaced the primary source in\n  most searched cells, so the comparison is thin there (95/116 against 8/10). Two arms\n  passed without the primary page: Parallel (6/7) and Firecrawl (9/9) on Claude Code, which\n  indicates their results carried the facts from other pages.\n\nThese are observations about agent behavior with each vendor's MCP server at its pinned\nversion and default settings. They are not measurements of the vendors' APIs.\n\n## What each search tool asks for\n\nDescriptions are quoted from the pinned MCP server packages and, for Parallel's hosted\nserver, from its published documentation."
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Search interface the agent saw",
+          "What the tool tells the agent about queries"
+        ],
+        [
+          "Exa",
+          "`web_search_exa(query, numResults)`",
+          "\"describe the ideal page, not keywords\"; `query` is a \"semantically rich description of the ideal page, not just keywords\""
+        ],
+        [
+          "Parallel",
+          "`web_search(objective, search_queries, …)`",
+          "a natural-language `objective` plus \"concise, related keyword queries of 3–6 words each\""
+        ],
+        [
+          "Perplexity",
+          "`perplexity_search(query, …)` plus `ask`, `research`, `reason`",
+          "\"Supports recency filters, domain restrictions, and a lower-latency fast search mode\""
+        ],
+        [
+          "Tavily",
+          "`tavily_search(query, search_depth, …)`",
+          "`query` is described only as \"Search query\""
+        ],
+        [
+          "Firecrawl",
+          "`firecrawl_search(query, …)`",
+          "\"Query operators, domain filters, `categories` … are described on their parameters\""
+        ],
+        [
+          "Brave",
+          "`brave_web_search(query, …)`",
+          "lists when to use the tool; no guidance on query phrasing"
+        ],
+        [
+          "native (Claude Code)",
+          "`WebSearch(query, allowed_domains, …)`",
+          "harness built-in"
+        ],
+        [
+          "native (codex)",
+          "built-in web search",
+          "harness built-in; no parameters exposed to the transcript"
+        ]
+      ]
+    },
+    {
+      "markdown": "## Query style (GAP battery)\n\nParallel's `search_queries` are keyword queries by design; its natural-language part is the\nseparate `objective` field, which is counted as a structured parameter and not as a query.\nPerplexity's user messages count as queries alongside its `query` inputs; system and assistant\nmessages are excluded. Codex native search reports its query lists in the transcript; page\nviews are counted as fetches."
+    },
+    {
+      "table": [
+        [
+          "Harness",
+          "Arm",
+          "Queries",
+          "Natural language",
+          "Contains a year",
+          "Quoted phrase",
+          "`site:`",
+          "Median words",
+          "Structured parameters passed (calls)"
+        ],
+        [
+          "claude-code",
+          "native",
+          "101",
+          "7%",
+          "43%",
+          "39%",
+          "0%",
+          "11",
+          "`allowed_domains` ×11"
+        ],
+        [
+          "claude-code",
+          "Brave",
+          "72",
+          "17%",
+          "44%",
+          "18%",
+          "0%",
+          "8",
+          "`count` ×23, `extra_snippets` ×21, `maximum_number_of_tokens` ×18, `freshness` ×1, `maximum_number_of_urls` ×1"
+        ],
+        [
+          "claude-code",
+          "Tavily",
+          "38",
+          "13%",
+          "45%",
+          "18%",
+          "0%",
+          "9",
+          "`max_results` ×38, `include_domains` ×19, `search_depth` ×17, `include_raw_content` ×1, `start_date` ×1"
+        ],
+        [
+          "claude-code",
+          "Exa",
+          "38",
+          "3%",
+          "58%",
+          "0%",
+          "0%",
+          "10",
+          "`numResults` ×38"
+        ],
+        [
+          "claude-code",
+          "Parallel",
+          "94",
+          "5%",
+          "24%",
+          "2%",
+          "0%",
+          "6",
+          "`model_name` ×27, `objective` ×27, `session_id` ×27"
+        ],
+        [
+          "claude-code",
+          "Firecrawl",
+          "34",
+          "0%",
+          "59%",
+          "9%",
+          "6%",
+          "7",
+          "`limit` ×34, `sources` ×34, `includeDomains` ×3"
+        ],
+        [
+          "claude-code",
+          "Perplexity",
+          "70",
+          "20%",
+          "36%",
+          "10%",
+          "0%",
+          "9",
+          "`max_results` ×60, `search_domain_filter` ×42, `max_tokens_per_page` ×5, `messages` ×5, `search_context_size` ×3, `search_recency_filter` ×2, `search_type` ×1"
+        ],
+        [
+          "codex",
+          "native",
+          "48",
+          "0%",
+          "50%",
+          "33%",
+          "10%",
+          "8",
+          "none"
+        ],
+        [
+          "codex",
+          "Brave",
+          "114",
+          "2%",
+          "52%",
+          "26%",
+          "46%",
+          "8",
+          "`maximum_number_of_tokens` ×30, `count` ×15, `maximum_number_of_urls` ×13, `extra_snippets` ×7, `url` ×3"
+        ],
+        [
+          "codex",
+          "Tavily",
+          "130",
+          "6%",
+          "50%",
+          "59%",
+          "67%",
+          "8",
+          "`max_results` ×123, `search_depth` ×26, `include_raw_content` ×25, `end_date` ×3, `include_domains` ×3"
+        ],
+        [
+          "codex",
+          "Exa",
+          "52",
+          "2%",
+          "60%",
+          "35%",
+          "58%",
+          "10",
+          "`numResults` ×10"
+        ],
+        [
+          "codex",
+          "Parallel",
+          "62",
+          "6%",
+          "39%",
+          "27%",
+          "48%",
+          "7",
+          "`objective` ×28, `session_id` ×10, `max_results` ×3, `max_chars_per_result` ×1"
+        ],
+        [
+          "codex",
+          "Firecrawl",
+          "42",
+          "2%",
+          "74%",
+          "26%",
+          "31%",
+          "8",
+          "`limit` ×33, `sources` ×10"
+        ],
+        [
+          "codex",
+          "Perplexity",
+          "79",
+          "14%",
+          "71%",
+          "33%",
+          "42%",
+          "10",
+          "`max_results` ×20, `messages` ×18, `max_tokens_per_page` ×16"
+        ]
+      ]
+    },
+    {
+      "markdown": "## Query style (web search bakeoff, Claude Code)"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Cells",
+          "Queries",
+          "Natural language",
+          "Contains a year",
+          "Quoted phrase",
+          "`site:`",
+          "Median words",
+          "Structured parameters passed (calls)"
+        ],
+        [
+          "native",
+          "54",
+          "137",
+          "2%",
+          "34%",
+          "9%",
+          "4%",
+          "7",
+          "`allowed_domains` ×36"
+        ],
+        [
+          "Brave",
+          "54",
+          "199",
+          "4%",
+          "7%",
+          "11%",
+          "6%",
+          "6",
+          "`count` ×85, `maximum_number_of_tokens` ×80, `freshness` ×17, `goggles` ×16, `extra_snippets` ×11, `maximum_number_of_urls` ×9, `maximum_number_of_tokens_per_url` ×3"
+        ],
+        [
+          "Tavily",
+          "54",
+          "25",
+          "0%",
+          "32%",
+          "12%",
+          "0%",
+          "10",
+          "`max_results` ×18, `include_domains` ×10, `search_depth` ×4, `time_range` ×2, `start_date` ×1"
+        ],
+        [
+          "Exa",
+          "55",
+          "21",
+          "0%",
+          "19%",
+          "5%",
+          "0%",
+          "10",
+          "`numResults` ×21"
+        ],
+        [
+          "Parallel",
+          "55",
+          "77",
+          "0%",
+          "20%",
+          "0%",
+          "1%",
+          "5",
+          "`model_name` ×22, `objective` ×22, `session_id` ×22"
+        ],
+        [
+          "Firecrawl",
+          "55",
+          "20",
+          "0%",
+          "25%",
+          "15%",
+          "5%",
+          "7",
+          "`limit` ×20, `sources` ×20"
+        ],
+        [
+          "Perplexity",
+          "55",
+          "176",
+          "16%",
+          "13%",
+          "10%",
+          "0%",
+          "8",
+          "`max_results` ×154, `search_domain_filter` ×115, `max_tokens_per_page` ×21, `search_type` ×21, `messages` ×13, `search_context_size` ×13, `search_recency_filter` ×5"
+        ]
+      ]
+    },
+    {
+      "markdown": "## Searching versus fetching from memory (web search bakeoff, Claude Code)\n\nA cell is \"fetched without searching\" when it made at least one fetch call and no search\ncall. Brave's and Perplexity's servers expose no page-fetch tool, so their agents had to\nsearch or answer from memory. Every arm has a handful of cells with no provider call:\nanswers given from memory and cells that ended before any tool call."
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Cells",
+          "Fetch tool in the arm",
+          "Fetched without searching",
+          "No provider call",
+          "Calls refused by the harness"
+        ],
+        [
+          "native",
+          "54",
+          "WebFetch (mostly refused; see below)",
+          "12",
+          "6",
+          "110"
+        ],
+        [
+          "Brave",
+          "54",
+          "no",
+          "0",
+          "7",
+          "0"
+        ],
+        [
+          "Tavily",
+          "54",
+          "yes (`tavily_extract`)",
+          "34",
+          "6",
+          "0"
+        ],
+        [
+          "Exa",
+          "55",
+          "yes (`web_fetch_exa`)",
+          "36",
+          "6",
+          "0"
+        ],
+        [
+          "Parallel",
+          "55",
+          "yes (`web_fetch`)",
+          "30",
+          "6",
+          "0"
+        ],
+        [
+          "Firecrawl",
+          "55",
+          "yes (`firecrawl_scrape`)",
+          "35",
+          "6",
+          "0"
+        ],
+        [
+          "Perplexity",
+          "55",
+          "no",
+          "0",
+          "7",
+          "0"
+        ]
+      ]
+    },
+    {
+      "markdown": "On the bakeoff's stable-knowledge tasks, fetching a remembered URL is efficient: those tasks\npassed in every arm, including no-search. It means the bakeoff's provider arms with a fetch\ntool mostly measured that fetch path. The GAP battery, whose answers post-date the models,\nshows the cost of the same habit on new information.\n\n## Harness refusals: the Claude Code native arm\n\nClaude Code's native arm exposed WebSearch and WebFetch through `--tools` but pre-approved\nonly WebSearch through `--allowedTools`. Headless Claude Code refuses a tool that is exposed\nbut not pre-approved (\"Claude requested permissions to use WebFetch, but you haven't granted\nit yet\"). In the GAP battery every native WebFetch call was refused\n(50 calls in 21 of 21 cells); in the bakeoff, 110 calls in 40 of 54 cells. No\nprovider arm and no codex arm had a refused call. The Claude Code native results in both\nbatteries therefore understate that harness's web tools. The arm configuration is fixed and\ncovered by a regression test. The fetch counts in this report include refused attempts.\n\n## Primary-source retrieval (GAP battery)\n\nEach GAP brief has one primary-source URL (the catalog oracle). A cell surfaced it when that\nURL appeared among the URLs of returned search results, excluding search inputs. Unknown\ncoverage is excluded from both pass-rate groups. Recomputing against returned evidence\nleaves the historical source counts unchanged; no searched cell has unknown coverage.\nFacts can also come from secondary pages, so surfacing is a proxy for retrieval, not a\nrequirement for passing."
+    },
+    {
+      "table": [
+        [
+          "Harness",
+          "Arm",
+          "Cells that searched",
+          "Unknown coverage",
+          "Primary source surfaced",
+          "Pass when surfaced",
+          "Pass when not surfaced"
+        ],
+        [
+          "claude-code",
+          "native",
+          "21",
+          "0",
+          "18/21",
+          "13/18",
+          "0/3"
+        ],
+        [
+          "claude-code",
+          "Brave",
+          "21",
+          "0",
+          "18/21",
+          "15/18",
+          "2/3"
+        ],
+        [
+          "claude-code",
+          "Tavily",
+          "21",
+          "0",
+          "16/21",
+          "13/16",
+          "2/5"
+        ],
+        [
+          "claude-code",
+          "Exa",
+          "18",
+          "0",
+          "14/18",
+          "13/14",
+          "1/4"
+        ],
+        [
+          "claude-code",
+          "Parallel",
+          "21",
+          "0",
+          "14/21",
+          "14/14",
+          "6/7"
+        ],
+        [
+          "claude-code",
+          "Firecrawl",
+          "21",
+          "0",
+          "12/21",
+          "10/12",
+          "9/9"
+        ],
+        [
+          "claude-code",
+          "Perplexity",
+          "21",
+          "0",
+          "19/21",
+          "16/19",
+          "0/2"
+        ],
+        [
+          "codex",
+          "native",
+          "18",
+          "0",
+          "17/18",
+          "13/17",
+          "1/1"
+        ],
+        [
+          "codex",
+          "Brave",
+          "18",
+          "0",
+          "16/18",
+          "15/16",
+          "2/2"
+        ],
+        [
+          "codex",
+          "Tavily",
+          "18",
+          "0",
+          "16/18",
+          "14/16",
+          "2/2"
+        ],
+        [
+          "codex",
+          "Exa",
+          "18",
+          "0",
+          "17/18",
+          "14/17",
+          "0/1"
+        ],
+        [
+          "codex",
+          "Parallel",
+          "18",
+          "0",
+          "17/18",
+          "12/17",
+          "1/1"
+        ],
+        [
+          "codex",
+          "Firecrawl",
+          "18",
+          "0",
+          "15/18",
+          "14/15",
+          "2/3"
+        ],
+        [
+          "codex",
+          "Perplexity",
+          "18",
+          "0",
+          "18/18",
+          "13/18",
+          "—"
+        ]
+      ]
+    },
+    {
+      "markdown": "## Limits\n\n- Cell counts per arm are small (18 to 21 in GAP, 54 to 55 in the bakeoff). Per-arm\n  percentages move by about five points per cell.\n- The natural-language rule is a heuristic, stated in [methodology](methodology.md); readers\n  can rerun the script with their own rule.\n- Each vendor was used through its MCP server at the pinned version and default settings.\n  Other interfaces of the same vendor (direct API, other tools, other modes) were not\n  tested.\n- The two harnesses ran different task subsets in GAP (7 tasks for Claude Code, 6 for\n  codex), so cross-harness differences mix agent behavior with task mix."
+    },
+    {
+      "markdown": "## Appendix: every Exa query\n\nEvery query sent to `web_search_exa` in both batteries, in transcript order, so readers can\njudge the phrasing directly. Other arms' queries are summarised above but not reproduced."
+    },
+    {
+      "table": [
+        [
+          "Battery",
+          "Harness",
+          "Query"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Copilot Billing Preview app deprecated usage report"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Copilot premium request budgets per user cap and usage report CSV export docs"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub docs AI usage page billing settings group filter export AI credits Copilot limitations"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Copilot Billing Preview app deprecated usage-based billing budgets"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub docs Copilot premium requests usage report export CSV billing 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub docs AI usage page billing settings group filter export AI credits usage report limitations"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Copilot Billing Preview app deprecated usage report"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub docs set budget for individual Copilot premium requests user-level budget"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub docs AI usage page billing settings group filter export AI credits Copilot usage report limitations"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "github.blog changelog 2026-08-04 Retiring the Copilot Billing Preview app"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Classroom deprecation sunset announcement 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Classroom 50 CS50 foundation GitHub Classroom alternative import autograding LTI"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Codio GitHub Classroom migration partner"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Classroom sunset deprecation announcement 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Classroom 50 CS50 open source GitHub Classroom replacement import migration"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Classroom deprecation sunset announcement 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Models deprecation retirement changelog 2026 BYOK inference"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Models deprecation retirement changelog 2026 BYOK paid usage"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Azure AI Inference beta SDK deprecated retirement August 26 2026 migrate to OpenAI v1 API"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Models deprecation retirement changelog 2026 BYOK"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub secret scanning npm token revocation credential types 2026 changelog"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub changelog npm granular access tokens publish and manage package access 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub secret scanning npm token revocation credential types in scope 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub changelog npm granular access tokens bypass 2FA publish manage package access 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub changelog npm granular access tokens bypass 2FA publish package access management 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub secret scanning npm token revocation credential types 2026 changelog"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub changelog npm staged publishing generally available npm stage publish 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Python 3.10 security release tarfile extraction filter bypass CVE-2025-4517"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "CPython tarfile data filter vulnerability 2026 CVE security-announce"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Python 3.10 security release tarfile extraction filter bypass fix"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "CVE-2026-4360 tarfile extract filter hardlinks Python fixed version"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub docs converting a user into an organization warning cannot sign in personal account"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "GitHub Enterprise Server docs promoting or demoting site administrator converting user to organization"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "python.org release metadata API authentication vulnerability security advisory 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "python.org release metadata vulnerability unauthenticated API modify release files 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "python.org release API authentication bypass DEVCORE Splitline CVE advisory exploitation"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "python.org release metadata vulnerability unauthenticated modify release files advisory 2026"
+        ],
+        [
+          "GAP",
+          "claude-code",
+          "Python Software Foundation security incident python.org downloads release API authentication"
+        ],
+        [
+          "GAP",
+          "codex",
+          "GitHub Classroom sunset July 2026 September 2026 partner repositories"
+        ],
+        [
+          "GAP",
+          "codex",
+          "GitHub Classroom retirement September 1 2026 repositories partner"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.com/orgs/community/discussions/205975 \"September 4\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "GitHub Classroom sunset September 2026 repositories partner retirement"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.com/orgs/community/discussions GitHub Classroom \"September 4\" \"2026\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "GitHub Models inference BYOK retirement July August 2026 paid existing usage"
+        ],
+        [
+          "GAP",
+          "codex",
+          "GitHub Models retiring July August 2026 paid inference BYOK July 10"
+        ],
+        [
+          "GAP",
+          "codex",
+          "GitHub Models retirement July August 2026 paid inference BYOK existing usage"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com converting user into organization January 2026 transfer repositories personal account enterprise server"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog 2026 January converting user organization disabled January 2026"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com converting a user into an organization January 2026 transfer repositories"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog 2026 January converting personal accounts organizations January 20"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com converting user into organization January 2026 transfer repositories personal account GHES"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog 2026 January 20 convert account organization transfer personal account"
+        ],
+        [
+          "GAP",
+          "codex",
+          "GitHub Copilot Billing Preview app retired individual budgets usage export billing reports"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com Copilot AI usage page reports limitations billing API user level budgets export usage credits"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"AI usage\" \"report\" \"does not\" billing usage reports"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"Setting up budgets\" \"user-level\" \"Budgets and alerts\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "\"Copilot Billing Preview\" budgets export usage"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com AI usage user-level budgets billing reports Copilot AI credits"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"AI usage\" \"does not\" reports billing"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"Viewing your usage\" \"AI\" \"report\" billing"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"Automating usage reporting\" \"AI\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com Copilot usage metrics billing data coverage IDE chat github CLI"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"Setting\" \"user-level budgets\" \"Budgets\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "Copilot Billing Preview app individual budgets export raw usage finance billing dashboard"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site.github.blog/changelog 2026-08-04 retiring copilot billing preview"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com AI usage page billing reports user-level budgets coverage limitations Copilot"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"AI usage\" \"does not\" reports billing"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"AI usage\" \"coverage\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com \"Viewing your usage of metered products\" \"AI usage\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog \"user-level budgets\" 2026"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:docs.github.com copilot usage metrics \"billing\" \"coverage\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog billing CSV usage reports API 2026"
+        ],
+        [
+          "GAP",
+          "codex",
+          "npm token security granular tokens package access management July 2026 August 2026 GitHub credentials"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog/2026 staged publishing npm May 22 trusted publishing tokens approve"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog/ \"2026-05-22\" \"npm\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "npm token security granular tokens package access github August 2026 publishing tokens"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog npm December 9 2025 classic tokens revoked staged publishing July 2026"
+        ],
+        [
+          "GAP",
+          "codex",
+          "npm token security August 2026 package access granular tokens GitHub credentials"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.blog/changelog npm staged publishing 2026 July 2FA"
+        ],
+        [
+          "GAP",
+          "codex",
+          "python.org release metadata vulnerability unsigned downloads API incident 2026 2025"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site.python.org Sigstore verify Python releases identity PEP 761"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site.blog.python.org/2026/06/mitigated-api-bypass \"Timeline\" \"30\" \"June\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "\"python/pythondotorg\" \"3014\" \"merged\" \"June\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "python.org release metadata vulnerability authentication 2026 2025 security incident"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:blog.python.org/2026/06/mitigated-api-bypass \"Remediations\" \"Timeline\""
+        ],
+        [
+          "GAP",
+          "codex",
+          "site:github.com/python/pythondotorg/issues/3010 OR site:github.com/python/pythondotorg/issues/3011"
+        ],
+        [
+          "GAP",
+          "codex",
+          "python.org release metadata security incident authentication bypass before June 30 2026 Trail of Bits"
+        ],
+        [
+          "GAP",
+          "codex",
+          "python.org release metadata vulnerability authentication 2026 2025 API incident"
+        ],
+        [
+          "GAP",
+          "codex",
+          "site.python.org security incident release metadata 2026 2025 downloads authentication"
+        ],
+        [
+          "GAP",
+          "codex",
+          "Python Windows code signing certificates revoked August 2025 update investigation June 2026"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Python 4.0 release date announced by Python Steering Council"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "webpack md4 OpenSSL 3 Node 17 hash wasm md4 fix output.hashFunction xxhash64 sokra comment"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "grype offline air-gapped vulnerability database import GRYPE_DB_AUTO_UPDATE false"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "cargo audit --no-fetch --db local advisory database path offline"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Dependency-Track air-gapped offline vulnerability mirror configuration NVD OSV feeds URL"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Python 4.0 release date announced by Python Steering Council"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Python 4.0 release date announced by Python Steering Council"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Node.js documentation --openssl-legacy-provider option \"Enable OpenSSL 3.0 legacy provider\""
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "aws.amazon.com data transfer out to internet US East (N. Virginia) first 10 TB per GB price same availability zone free"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "grype air-gapped offline database import GRYPE_DB_AUTO_UPDATE false documentation"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Dependency-Track air-gapped offline NVD mirror configuration documentation"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Safety CLI 3 requires account login API key vulnerability database commercial license"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "AWS EC2 on-demand pricing data transfer out to internet US East (N. Virginia) first 10 TB per month per GB; data transfer same availability zone free"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Stripe annual letter 2025 total payment volume private company revenue"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Stripe revenue estimate UK Companies House filing Stripe Payments Europe accounts net revenue"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Stripe annual letter 2025 total payment volume private company revenue"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Stripe revenue estimate net revenue report private company does not disclose financials"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Stripe Irish entity accounts filed Companies Registration Office revenue $5.1bn pre-tax profit 2024"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Stripe annual letter 2025 total payment volume private company revenue estimate"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Grype offline air-gapped vulnerability database GRYPE_DB_AUTO_UPDATE false grype db import"
+        ],
+        [
+          "bakeoff",
+          "claude-code",
+          "Dependency-Track air-gapped offline mirror NVD OSV internal mirror documentation"
+        ]
+      ]
+    }
+  ],
+  "catalog": {
+    "path": "catalogs/gap/tasks.yaml",
+    "hash_algorithm": "sha256 of file bytes",
+    "historical": {
+      "gap_battery": "13f44a7246369368a87ca959a25986e505c678565d0090ffd35869355829b1bc",
+      "bakeoff_initial": "144c4a41b959996f607dcd7b90c1aee091f4771efc6e1ebeb37c11d40f8f9d1c"
+    },
+    "shipped": "29f8fd1731cd0155f2a993688d8f1dfac7ad6ef1f6effc549185af026ad24443"
+  },
+  "analysis": {
+    "rules": {
+      "boolean_operator": "contains OR/AND (upper case), \"after:\" or \"before:\"",
+      "fetch_only": "the cell made at least one fetch call and no search call",
+      "natural_language": "ends with \"?\", starts with an interrogative or auxiliary verb, or contains at least two function words from a fixed list",
+      "primary_source_surfaced": "the task's catalog oracle source_url (normalised: scheme, query, fragment and trailing slash removed) appears among URLs in any search result; measured only over cells that searched with observable returned results; unknown if any search lacks results and no observed result contains the source",
+      "refused_call": "a tool call the harness refused before it ran (Claude Code permission refusal); refused calls still count as calls of their kind",
+      "search_call": "a call to a search tool; each entry of a multi-query call (Parallel search_queries, codex built-in search queries) and each user message in conversational inputs counts as one query; system and assistant messages are excluded; codex built-in page views (open_page, find_in_page, other) count as fetches",
+      "site_operator": "contains \"site:\"",
+      "year": "contains a token 2000-2099"
+    },
+    "gap_rows": [
+      {
+        "arm": "brave",
+        "boolean_operator_pct": 2.8,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 8.0,
+        "natural_language_pct": 16.7,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          2,
+          3
+        ],
+        "pass_when_searched": [
+          17,
+          21
+        ],
+        "pass_when_surfaced": [
+          15,
+          18
+        ],
+        "primary_source_surfaced": 18,
+        "queries": 72,
+        "quoted_pct": 18.1,
+        "refused_calls": 0,
+        "search_calls": 72,
+        "searched_cells": 21,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "count": 23,
+          "extra_snippets": 21,
+          "freshness": 1,
+          "maximum_number_of_tokens": 18,
+          "maximum_number_of_urls": 1
+        },
+        "year_pct": 44.4,
+        "primary_source_observed_cells": 21,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "ceiling",
+        "boolean_operator_pct": null,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": null,
+        "natural_language_pct": null,
+        "no_provider_call_cells": 21,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          0
+        ],
+        "pass_when_searched": [
+          0,
+          0
+        ],
+        "pass_when_surfaced": [
+          0,
+          0
+        ],
+        "primary_source_surfaced": 0,
+        "queries": 0,
+        "quoted_pct": null,
+        "refused_calls": 0,
+        "search_calls": 0,
+        "searched_cells": 0,
+        "site_operator_pct": null,
+        "structured_parameters": {},
+        "year_pct": null,
+        "primary_source_observed_cells": 0,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "exa",
+        "boolean_operator_pct": 0.0,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 40,
+        "fetch_only_cells": 3,
+        "harness": "claude-code",
+        "median_query_words": 10.0,
+        "natural_language_pct": 2.6,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          1,
+          3
+        ],
+        "pass_when_not_surfaced": [
+          1,
+          4
+        ],
+        "pass_when_searched": [
+          14,
+          18
+        ],
+        "pass_when_surfaced": [
+          13,
+          14
+        ],
+        "primary_source_surfaced": 14,
+        "queries": 38,
+        "quoted_pct": 0.0,
+        "refused_calls": 0,
+        "search_calls": 38,
+        "searched_cells": 18,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "numResults": 38
+        },
+        "year_pct": 57.9,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "firecrawl",
+        "boolean_operator_pct": 2.9,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 84,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 7.0,
+        "natural_language_pct": 0.0,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          9,
+          9
+        ],
+        "pass_when_searched": [
+          19,
+          21
+        ],
+        "pass_when_surfaced": [
+          10,
+          12
+        ],
+        "primary_source_surfaced": 12,
+        "queries": 34,
+        "quoted_pct": 8.8,
+        "refused_calls": 0,
+        "search_calls": 34,
+        "searched_cells": 21,
+        "site_operator_pct": 5.9,
+        "structured_parameters": {
+          "includeDomains": 3,
+          "limit": 34,
+          "sources": 34
+        },
+        "year_pct": 58.8,
+        "primary_source_observed_cells": 21,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "floor",
+        "boolean_operator_pct": null,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": null,
+        "natural_language_pct": null,
+        "no_provider_call_cells": 21,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          0
+        ],
+        "pass_when_searched": [
+          0,
+          0
+        ],
+        "pass_when_surfaced": [
+          0,
+          0
+        ],
+        "primary_source_surfaced": 0,
+        "queries": 0,
+        "quoted_pct": null,
+        "refused_calls": 0,
+        "search_calls": 0,
+        "searched_cells": 0,
+        "site_operator_pct": null,
+        "structured_parameters": {},
+        "year_pct": null,
+        "primary_source_observed_cells": 0,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "native",
+        "boolean_operator_pct": 0.0,
+        "cells": 21,
+        "cells_with_refused_calls": 21,
+        "fetch_calls": 50,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 11,
+        "natural_language_pct": 6.9,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          3
+        ],
+        "pass_when_searched": [
+          13,
+          21
+        ],
+        "pass_when_surfaced": [
+          13,
+          18
+        ],
+        "primary_source_surfaced": 18,
+        "queries": 101,
+        "quoted_pct": 38.6,
+        "refused_calls": 50,
+        "search_calls": 101,
+        "searched_cells": 21,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "allowed_domains": 11
+        },
+        "year_pct": 42.6,
+        "primary_source_observed_cells": 21,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "parallel-web",
+        "boolean_operator_pct": 0.0,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 23,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 6.0,
+        "natural_language_pct": 5.3,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          6,
+          7
+        ],
+        "pass_when_searched": [
+          20,
+          21
+        ],
+        "pass_when_surfaced": [
+          14,
+          14
+        ],
+        "primary_source_surfaced": 14,
+        "queries": 94,
+        "quoted_pct": 2.1,
+        "refused_calls": 0,
+        "search_calls": 27,
+        "searched_cells": 21,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "model_name": 27,
+          "objective": 27,
+          "session_id": 27
+        },
+        "year_pct": 24.5,
+        "primary_source_observed_cells": 21,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "perplexity",
+        "boolean_operator_pct": 1.4,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 9,
+        "natural_language_pct": 20.0,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          2
+        ],
+        "pass_when_searched": [
+          16,
+          21
+        ],
+        "pass_when_surfaced": [
+          16,
+          19
+        ],
+        "primary_source_surfaced": 19,
+        "queries": 70,
+        "quoted_pct": 10.0,
+        "refused_calls": 0,
+        "search_calls": 70,
+        "searched_cells": 21,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "max_results": 60,
+          "max_tokens_per_page": 5,
+          "messages": 5,
+          "search_context_size": 3,
+          "search_domain_filter": 42,
+          "search_recency_filter": 2,
+          "search_type": 1
+        },
+        "year_pct": 35.7,
+        "primary_source_observed_cells": 21,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "tavily",
+        "boolean_operator_pct": 0.0,
+        "cells": 21,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 33,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 9.0,
+        "natural_language_pct": 13.2,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          2,
+          5
+        ],
+        "pass_when_searched": [
+          15,
+          21
+        ],
+        "pass_when_surfaced": [
+          13,
+          16
+        ],
+        "primary_source_surfaced": 16,
+        "queries": 38,
+        "quoted_pct": 18.4,
+        "refused_calls": 0,
+        "search_calls": 38,
+        "searched_cells": 21,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "include_domains": 19,
+          "include_raw_content": 1,
+          "max_results": 38,
+          "search_depth": 17,
+          "start_date": 1
+        },
+        "year_pct": 44.7,
+        "primary_source_observed_cells": 21,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "brave",
+        "boolean_operator_pct": 0.0,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": 8.0,
+        "natural_language_pct": 1.8,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          2,
+          2
+        ],
+        "pass_when_searched": [
+          17,
+          18
+        ],
+        "pass_when_surfaced": [
+          15,
+          16
+        ],
+        "primary_source_surfaced": 16,
+        "queries": 114,
+        "quoted_pct": 26.3,
+        "refused_calls": 0,
+        "search_calls": 115,
+        "searched_cells": 18,
+        "site_operator_pct": 46.5,
+        "structured_parameters": {
+          "count": 15,
+          "extra_snippets": 7,
+          "maximum_number_of_tokens": 30,
+          "maximum_number_of_urls": 13,
+          "url": 3
+        },
+        "year_pct": 51.8,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "ceiling",
+        "boolean_operator_pct": null,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": null,
+        "natural_language_pct": null,
+        "no_provider_call_cells": 18,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          0
+        ],
+        "pass_when_searched": [
+          0,
+          0
+        ],
+        "pass_when_surfaced": [
+          0,
+          0
+        ],
+        "primary_source_surfaced": 0,
+        "queries": 0,
+        "quoted_pct": null,
+        "refused_calls": 0,
+        "search_calls": 0,
+        "searched_cells": 0,
+        "site_operator_pct": null,
+        "structured_parameters": {},
+        "year_pct": null,
+        "primary_source_observed_cells": 0,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "exa",
+        "boolean_operator_pct": 1.9,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 60,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": 10.0,
+        "natural_language_pct": 1.9,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          1
+        ],
+        "pass_when_searched": [
+          14,
+          18
+        ],
+        "pass_when_surfaced": [
+          14,
+          17
+        ],
+        "primary_source_surfaced": 17,
+        "queries": 52,
+        "quoted_pct": 34.6,
+        "refused_calls": 0,
+        "search_calls": 52,
+        "searched_cells": 18,
+        "site_operator_pct": 57.7,
+        "structured_parameters": {
+          "numResults": 10
+        },
+        "year_pct": 59.6,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "firecrawl",
+        "boolean_operator_pct": 0.0,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 99,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": 8.0,
+        "natural_language_pct": 2.4,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          2,
+          3
+        ],
+        "pass_when_searched": [
+          16,
+          18
+        ],
+        "pass_when_surfaced": [
+          14,
+          15
+        ],
+        "primary_source_surfaced": 15,
+        "queries": 42,
+        "quoted_pct": 26.2,
+        "refused_calls": 0,
+        "search_calls": 42,
+        "searched_cells": 18,
+        "site_operator_pct": 31.0,
+        "structured_parameters": {
+          "limit": 33,
+          "sources": 10
+        },
+        "year_pct": 73.8,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "floor",
+        "boolean_operator_pct": null,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": null,
+        "natural_language_pct": null,
+        "no_provider_call_cells": 18,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          0
+        ],
+        "pass_when_searched": [
+          0,
+          0
+        ],
+        "pass_when_surfaced": [
+          0,
+          0
+        ],
+        "primary_source_surfaced": 0,
+        "queries": 0,
+        "quoted_pct": null,
+        "refused_calls": 0,
+        "search_calls": 0,
+        "searched_cells": 0,
+        "site_operator_pct": null,
+        "structured_parameters": {},
+        "year_pct": null,
+        "primary_source_observed_cells": 0,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "native",
+        "boolean_operator_pct": 0.0,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 22,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": 8.0,
+        "natural_language_pct": 0.0,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          1,
+          1
+        ],
+        "pass_when_searched": [
+          14,
+          18
+        ],
+        "pass_when_surfaced": [
+          13,
+          17
+        ],
+        "primary_source_surfaced": 17,
+        "queries": 48,
+        "quoted_pct": 33.3,
+        "refused_calls": 0,
+        "search_calls": 25,
+        "searched_cells": 18,
+        "site_operator_pct": 10.4,
+        "structured_parameters": {},
+        "year_pct": 50.0,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "parallel-web",
+        "boolean_operator_pct": 0.0,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 30,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": 7.0,
+        "natural_language_pct": 6.5,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          1,
+          1
+        ],
+        "pass_when_searched": [
+          13,
+          18
+        ],
+        "pass_when_surfaced": [
+          12,
+          17
+        ],
+        "primary_source_surfaced": 17,
+        "queries": 62,
+        "quoted_pct": 27.4,
+        "refused_calls": 0,
+        "search_calls": 28,
+        "searched_cells": 18,
+        "site_operator_pct": 48.4,
+        "structured_parameters": {
+          "max_chars_per_result": 1,
+          "max_results": 3,
+          "objective": 28,
+          "session_id": 10
+        },
+        "year_pct": 38.7,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "perplexity",
+        "boolean_operator_pct": 0.0,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": 10,
+        "natural_language_pct": 13.9,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          0,
+          0
+        ],
+        "pass_when_searched": [
+          13,
+          18
+        ],
+        "pass_when_surfaced": [
+          13,
+          18
+        ],
+        "primary_source_surfaced": 18,
+        "queries": 79,
+        "quoted_pct": 32.9,
+        "refused_calls": 0,
+        "search_calls": 79,
+        "searched_cells": 18,
+        "site_operator_pct": 41.8,
+        "structured_parameters": {
+          "max_results": 20,
+          "max_tokens_per_page": 16,
+          "messages": 18
+        },
+        "year_pct": 70.9,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      },
+      {
+        "arm": "tavily",
+        "boolean_operator_pct": 0.0,
+        "cells": 18,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 21,
+        "fetch_only_cells": 0,
+        "harness": "codex",
+        "median_query_words": 8.0,
+        "natural_language_pct": 6.2,
+        "no_provider_call_cells": 0,
+        "pass_when_fetch_only": [
+          0,
+          0
+        ],
+        "pass_when_not_surfaced": [
+          2,
+          2
+        ],
+        "pass_when_searched": [
+          16,
+          18
+        ],
+        "pass_when_surfaced": [
+          14,
+          16
+        ],
+        "primary_source_surfaced": 16,
+        "queries": 130,
+        "quoted_pct": 59.2,
+        "refused_calls": 0,
+        "search_calls": 130,
+        "searched_cells": 18,
+        "site_operator_pct": 66.9,
+        "structured_parameters": {
+          "end_date": 3,
+          "include_domains": 3,
+          "include_raw_content": 25,
+          "max_results": 123,
+          "search_depth": 26
+        },
+        "year_pct": 50.0,
+        "primary_source_observed_cells": 18,
+        "primary_source_unknown_cells": 0
+      }
+    ],
+    "gap_totals": {
+      "cells": 351,
+      "natural_language_pct": 7.3,
+      "queries": 974,
+      "site_operator_pct": 26.0,
+      "year_pct": 48.5
+    },
+    "bakeoff_rows": [
+      {
+        "arm": "brave",
+        "boolean_operator_pct": 0.0,
+        "cells": 54,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 6,
+        "natural_language_pct": 4.0,
+        "no_provider_call_cells": 7,
+        "queries": 199,
+        "quoted_pct": 10.6,
+        "refused_calls": 0,
+        "search_calls": 199,
+        "site_operator_pct": 6.0,
+        "structured_parameters": {
+          "count": 85,
+          "extra_snippets": 11,
+          "freshness": 17,
+          "goggles": 16,
+          "maximum_number_of_tokens": 80,
+          "maximum_number_of_tokens_per_url": 3,
+          "maximum_number_of_urls": 9
+        },
+        "year_pct": 7.0
+      },
+      {
+        "arm": "exa",
+        "boolean_operator_pct": 0.0,
+        "cells": 55,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 115,
+        "fetch_only_cells": 36,
+        "harness": "claude-code",
+        "median_query_words": 10,
+        "natural_language_pct": 0.0,
+        "no_provider_call_cells": 6,
+        "queries": 21,
+        "quoted_pct": 4.8,
+        "refused_calls": 0,
+        "search_calls": 21,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "numResults": 21
+        },
+        "year_pct": 19.0
+      },
+      {
+        "arm": "firecrawl",
+        "boolean_operator_pct": 5.0,
+        "cells": 55,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 306,
+        "fetch_only_cells": 35,
+        "harness": "claude-code",
+        "median_query_words": 7.0,
+        "natural_language_pct": 0.0,
+        "no_provider_call_cells": 6,
+        "queries": 20,
+        "quoted_pct": 15.0,
+        "refused_calls": 0,
+        "search_calls": 20,
+        "site_operator_pct": 5.0,
+        "structured_parameters": {
+          "limit": 20,
+          "sources": 20
+        },
+        "year_pct": 25.0
+      },
+      {
+        "arm": "native",
+        "boolean_operator_pct": 2.9,
+        "cells": 54,
+        "cells_with_refused_calls": 40,
+        "fetch_calls": 147,
+        "fetch_only_cells": 12,
+        "harness": "claude-code",
+        "median_query_words": 7,
+        "natural_language_pct": 1.5,
+        "no_provider_call_cells": 6,
+        "queries": 137,
+        "quoted_pct": 8.8,
+        "refused_calls": 110,
+        "search_calls": 137,
+        "site_operator_pct": 4.4,
+        "structured_parameters": {
+          "allowed_domains": 36
+        },
+        "year_pct": 34.3
+      },
+      {
+        "arm": "no-search",
+        "boolean_operator_pct": null,
+        "cells": 54,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": null,
+        "natural_language_pct": null,
+        "no_provider_call_cells": 54,
+        "queries": 0,
+        "quoted_pct": null,
+        "refused_calls": 0,
+        "search_calls": 0,
+        "site_operator_pct": null,
+        "structured_parameters": {},
+        "year_pct": null
+      },
+      {
+        "arm": "parallel-web",
+        "boolean_operator_pct": 0.0,
+        "cells": 55,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 103,
+        "fetch_only_cells": 30,
+        "harness": "claude-code",
+        "median_query_words": 5,
+        "natural_language_pct": 0.0,
+        "no_provider_call_cells": 6,
+        "queries": 77,
+        "quoted_pct": 0.0,
+        "refused_calls": 0,
+        "search_calls": 22,
+        "site_operator_pct": 1.3,
+        "structured_parameters": {
+          "model_name": 22,
+          "objective": 22,
+          "session_id": 22
+        },
+        "year_pct": 19.5
+      },
+      {
+        "arm": "perplexity",
+        "boolean_operator_pct": 0.0,
+        "cells": 55,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 0,
+        "fetch_only_cells": 0,
+        "harness": "claude-code",
+        "median_query_words": 8,
+        "natural_language_pct": 16.5,
+        "no_provider_call_cells": 7,
+        "queries": 176,
+        "quoted_pct": 10.2,
+        "refused_calls": 0,
+        "search_calls": 176,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "max_results": 154,
+          "max_tokens_per_page": 21,
+          "messages": 13,
+          "search_context_size": 13,
+          "search_domain_filter": 115,
+          "search_recency_filter": 5,
+          "search_type": 21
+        },
+        "year_pct": 13.1
+      },
+      {
+        "arm": "tavily",
+        "boolean_operator_pct": 0.0,
+        "cells": 54,
+        "cells_with_refused_calls": 0,
+        "fetch_calls": 143,
+        "fetch_only_cells": 34,
+        "harness": "claude-code",
+        "median_query_words": 10,
+        "natural_language_pct": 0.0,
+        "no_provider_call_cells": 6,
+        "queries": 25,
+        "quoted_pct": 12.0,
+        "refused_calls": 0,
+        "search_calls": 25,
+        "site_operator_pct": 0.0,
+        "structured_parameters": {
+          "include_domains": 10,
+          "max_results": 18,
+          "search_depth": 4,
+          "start_date": 1,
+          "time_range": 2
+        },
+        "year_pct": 32.0
+      }
+    ],
+    "bakeoff_totals": {
+      "cells": 436,
+      "natural_language_pct": 6.0,
+      "queries": 655,
+      "site_operator_pct": 3.1,
+      "year_pct": 17.7
+    },
+    "exa_queries": [
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Copilot Billing Preview app deprecated usage report"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Copilot premium request budgets per user cap and usage report CSV export docs"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub docs AI usage page billing settings group filter export AI credits Copilot limitations"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Copilot Billing Preview app deprecated usage-based billing budgets"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub docs Copilot premium requests usage report export CSV billing 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub docs AI usage page billing settings group filter export AI credits usage report limitations"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Copilot Billing Preview app deprecated usage report"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub docs set budget for individual Copilot premium requests user-level budget"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub docs AI usage page billing settings group filter export AI credits Copilot usage report limitations"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "github.blog changelog 2026-08-04 Retiring the Copilot Billing Preview app"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Classroom deprecation sunset announcement 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Classroom 50 CS50 foundation GitHub Classroom alternative import autograding LTI"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Codio GitHub Classroom migration partner"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Classroom sunset deprecation announcement 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Classroom 50 CS50 open source GitHub Classroom replacement import migration"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Classroom deprecation sunset announcement 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Models deprecation retirement changelog 2026 BYOK inference"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Models deprecation retirement changelog 2026 BYOK paid usage"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Azure AI Inference beta SDK deprecated retirement August 26 2026 migrate to OpenAI v1 API"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Models deprecation retirement changelog 2026 BYOK"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub secret scanning npm token revocation credential types 2026 changelog"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub changelog npm granular access tokens publish and manage package access 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub secret scanning npm token revocation credential types in scope 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub changelog npm granular access tokens bypass 2FA publish manage package access 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub changelog npm granular access tokens bypass 2FA publish package access management 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub secret scanning npm token revocation credential types 2026 changelog"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub changelog npm staged publishing generally available npm stage publish 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Python 3.10 security release tarfile extraction filter bypass CVE-2025-4517"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "CPython tarfile data filter vulnerability 2026 CVE security-announce"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Python 3.10 security release tarfile extraction filter bypass fix"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "CVE-2026-4360 tarfile extract filter hardlinks Python fixed version"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub docs converting a user into an organization warning cannot sign in personal account"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "GitHub Enterprise Server docs promoting or demoting site administrator converting user to organization"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "python.org release metadata API authentication vulnerability security advisory 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "python.org release metadata vulnerability unauthenticated API modify release files 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "python.org release API authentication bypass DEVCORE Splitline CVE advisory exploitation"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "python.org release metadata vulnerability unauthenticated modify release files advisory 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "claude-code",
+        "query": "Python Software Foundation security incident python.org downloads release API authentication"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "GitHub Classroom sunset July 2026 September 2026 partner repositories"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "GitHub Classroom retirement September 1 2026 repositories partner"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.com/orgs/community/discussions/205975 \"September 4\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "GitHub Classroom sunset September 2026 repositories partner retirement"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.com/orgs/community/discussions GitHub Classroom \"September 4\" \"2026\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "GitHub Models inference BYOK retirement July August 2026 paid existing usage"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "GitHub Models retiring July August 2026 paid inference BYOK July 10"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "GitHub Models retirement July August 2026 paid inference BYOK existing usage"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com converting user into organization January 2026 transfer repositories personal account enterprise server"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog 2026 January converting user organization disabled January 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com converting a user into an organization January 2026 transfer repositories"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog 2026 January converting personal accounts organizations January 20"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com converting user into organization January 2026 transfer repositories personal account GHES"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog 2026 January 20 convert account organization transfer personal account"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "GitHub Copilot Billing Preview app retired individual budgets usage export billing reports"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com Copilot AI usage page reports limitations billing API user level budgets export usage credits"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"AI usage\" \"report\" \"does not\" billing usage reports"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"Setting up budgets\" \"user-level\" \"Budgets and alerts\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "\"Copilot Billing Preview\" budgets export usage"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com AI usage user-level budgets billing reports Copilot AI credits"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"AI usage\" \"does not\" reports billing"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"Viewing your usage\" \"AI\" \"report\" billing"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"Automating usage reporting\" \"AI\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com Copilot usage metrics billing data coverage IDE chat github CLI"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"Setting\" \"user-level budgets\" \"Budgets\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "Copilot Billing Preview app individual budgets export raw usage finance billing dashboard"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site.github.blog/changelog 2026-08-04 retiring copilot billing preview"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com AI usage page billing reports user-level budgets coverage limitations Copilot"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"AI usage\" \"does not\" reports billing"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"AI usage\" \"coverage\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com \"Viewing your usage of metered products\" \"AI usage\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog \"user-level budgets\" 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:docs.github.com copilot usage metrics \"billing\" \"coverage\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog billing CSV usage reports API 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "npm token security granular tokens package access management July 2026 August 2026 GitHub credentials"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog/2026 staged publishing npm May 22 trusted publishing tokens approve"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog/ \"2026-05-22\" \"npm\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "npm token security granular tokens package access github August 2026 publishing tokens"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog npm December 9 2025 classic tokens revoked staged publishing July 2026"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "npm token security August 2026 package access granular tokens GitHub credentials"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.blog/changelog npm staged publishing 2026 July 2FA"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "python.org release metadata vulnerability unsigned downloads API incident 2026 2025"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site.python.org Sigstore verify Python releases identity PEP 761"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site.blog.python.org/2026/06/mitigated-api-bypass \"Timeline\" \"30\" \"June\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "\"python/pythondotorg\" \"3014\" \"merged\" \"June\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "python.org release metadata vulnerability authentication 2026 2025 security incident"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:blog.python.org/2026/06/mitigated-api-bypass \"Remediations\" \"Timeline\""
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site:github.com/python/pythondotorg/issues/3010 OR site:github.com/python/pythondotorg/issues/3011"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "python.org release metadata security incident authentication bypass before June 30 2026 Trail of Bits"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "python.org release metadata vulnerability authentication 2026 2025 API incident"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "site.python.org security incident release metadata 2026 2025 downloads authentication"
+      },
+      {
+        "battery": "GAP",
+        "harness": "codex",
+        "query": "Python Windows code signing certificates revoked August 2025 update investigation June 2026"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Python 4.0 release date announced by Python Steering Council"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "webpack md4 OpenSSL 3 Node 17 hash wasm md4 fix output.hashFunction xxhash64 sokra comment"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "grype offline air-gapped vulnerability database import GRYPE_DB_AUTO_UPDATE false"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "cargo audit --no-fetch --db local advisory database path offline"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Dependency-Track air-gapped offline vulnerability mirror configuration NVD OSV feeds URL"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Python 4.0 release date announced by Python Steering Council"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Python 4.0 release date announced by Python Steering Council"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Node.js documentation --openssl-legacy-provider option \"Enable OpenSSL 3.0 legacy provider\""
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "aws.amazon.com data transfer out to internet US East (N. Virginia) first 10 TB per GB price same availability zone free"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "grype air-gapped offline database import GRYPE_DB_AUTO_UPDATE false documentation"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Dependency-Track air-gapped offline NVD mirror configuration documentation"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Safety CLI 3 requires account login API key vulnerability database commercial license"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "AWS EC2 on-demand pricing data transfer out to internet US East (N. Virginia) first 10 TB per month per GB; data transfer same availability zone free"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Stripe annual letter 2025 total payment volume private company revenue"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Stripe revenue estimate UK Companies House filing Stripe Payments Europe accounts net revenue"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Stripe annual letter 2025 total payment volume private company revenue"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Stripe revenue estimate net revenue report private company does not disclose financials"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Stripe Irish entity accounts filed Companies Registration Office revenue $5.1bn pre-tax profit 2024"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Stripe annual letter 2025 total payment volume private company revenue estimate"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Grype offline air-gapped vulnerability database GRYPE_DB_AUTO_UPDATE false grype db import"
+      },
+      {
+        "battery": "bakeoff",
+        "harness": "claude-code",
+        "query": "Dependency-Track air-gapped offline mirror NVD OSV internal mirror documentation"
+      }
+    ]
+  }
+}

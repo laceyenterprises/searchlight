@@ -1,0 +1,11 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,2 @@
+ def describe(pool):
+-    return {"queue": pool.QueueCls.__name__, "capacity": pool.pool.maxsize}
++    return {"queue": type(pool.pool).__name__, "capacity": pool.pool.maxsize}
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-urllib3==2.7.0
++urllib3==2.8.0

@@ -1,0 +1,9 @@
+[
+  {
+    "url": "https://blog.python.org/2026/03/python-31213-31115-31020/",
+    "text": "Python 3.12.13, 3.11.15 and 3.10.20 are now available!\nThomas Wouters/March 3, 2026\nwsgiref.headers.Headers now rejects C0 control characters in fields, values, and parameters. Upgraded bundled libexpat to 2.7.4 to fix CVE-2026-24515 and CVE-2026-25210. Fixed a use-after-free in ssl when SSL_new() fails.",
+    "retrieved_at": "2026-10-01",
+    "published_at": "2026-03-03",
+    "sha256": "93d3871f4d3ccb91b64a488e4c7edd1ce0fb431406d48a11c8de29cb2b3e4ce2"
+  }
+]

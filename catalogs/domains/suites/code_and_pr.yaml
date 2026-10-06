@@ -1,0 +1,271 @@
+schema_version: 1
+suite_id: code-and-pr-v1
+catalog_id: domain-strengths-v1
+domain: code_and_pr
+hypothesis_id: H1
+version: "2026-09-21"
+description: >-
+  Runnable instances for the six code_and_pr task types in the DSB-01 catalog. Each instance binds
+  one task type to a public repository and to ground truth that was resolved against the GitHub
+  REST API rather than asserted, so a reviewer who believes H1 is wrong can re-resolve every
+  reference from the manifest alone.
+ground_truth_resolver: https://api.github.com
+ground_truth_resolved_at: "2026-09-21"
+
+# Task selection is the single largest bias risk in this suite: an instance set drawn from
+# repositories a particular vendor indexes well would make H1 self-fulfilling, and the resulting
+# report would look exactly as honest as a fair one. The frame below was fixed before any ground
+# truth was resolved, and no vendor index was queried at any point during selection.
+selection_frame:
+  policy: >-
+    One instance per task type, one repository per instance, and no repository reused. Candidate
+    repositories are ordinary maintenance targets: widely depended-on open-source libraries whose
+    issue, pull request, release and documentation history is public. A candidate was accepted only
+    when every reference in its ground truth resolved live through api.github.com.
+  procedure:
+    - Fix the six task types from the DSB-01 catalog; the suite may not add, drop or reshape one.
+    - Draw each instance from a distinct GitHub organization and a distinct maintenance situation.
+    - Resolve every reference through api.github.com and record the observed state.
+    - Reject any candidate whose ground truth could not be resolved, or whose correct answer is
+      ambiguous between two references.
+  vendor_indexes_consulted: none
+  distinct_organizations: 6
+  # The expected-loss designation for this domain is code-api-implementation and is owned by the
+  # DSB-01 catalog (`expected_claimant_outcome: loss`), which this suite does not relitigate.
+  # The SPEC's poorly-documented-repository task is code-closed-issue-only and is present below;
+  # see its `notes`.
+  expected_loss_task_id: code-api-implementation
+
+instances:
+  - instance_id: httpx-query-bracket-escaping
+    task_id: code-fixing-pr
+    repository: encode/httpx
+    question: >-
+      In the Python HTTP client httpx, a request whose query string contains square brackets, such as
+      /?arr[]=1&arr[]=2, stopped being sent literally after the 0.23.3 release: the brackets were
+      percent-encoded to %5B%5D, which broke servers that read PHP-style array parameters. Identify
+      the merged pull request in the httpx repository that fixed this escaping behaviour and the
+      issue it closed.
+    provenance:
+      selected_because: >-
+        An ordinary regression report against a maintained client library, with exactly one merged
+        fix and exactly one closed issue, so a near-miss pull request cannot be scored as correct.
+      released_in: httpx 0.24.1
+    expected_references:
+      - answer_key: pull_request_url
+        role: pull_request
+        kind: pull
+        repository: encode/httpx
+        number: 2701
+        url: https://github.com/encode/httpx/pull/2701
+        state: merged
+        observed_at: "2026-09-21"
+      - answer_key: issue_url
+        role: issue
+        kind: issue
+        repository: encode/httpx
+        number: 2694
+        url: https://github.com/encode/httpx/issues/2694
+        state: closed
+        observed_at: "2026-09-21"
+
+  - instance_id: urllib3-negative-read-amt
+    task_id: code-error-to-issue
+    repository: urllib3/urllib3
+    question: >-
+      A service pinned to urllib3 2.0.4 calls
+      urllib3.PoolManager().request("GET", url, preload_content=False).read(-1) and raises
+      RuntimeError: buffer is empty, while read() and read(None) on the same response return the
+      whole body. Find the upstream urllib3 issue that diagnoses this, and report which versions are
+      affected and which urllib3 release fixed it.
+    provenance:
+      selected_because: >-
+        The reporter states the exact runtime error and the exact package version, and the project
+        changelog names the release that carries the fix, so affected and fixed versions are
+        checkable rather than a matter of judgement.
+      fixing_pull_request: https://github.com/urllib3/urllib3/pull/3356
+      changelog: https://github.com/urllib3/urllib3/blob/main/CHANGES.rst
+    expected_references:
+      - answer_key: issue_url
+        role: issue
+        kind: issue
+        repository: urllib3/urllib3
+        number: 3122
+        url: https://github.com/urllib3/urllib3/issues/3122
+        state: closed
+        observed_at: "2026-09-21"
+    expected_fields:
+      - answer_key: fixed_version
+        match: exact
+        value: "2.2.2"
+      - answer_key: affected_versions
+        match: includes
+        values:
+          - "2.0.4"
+        # 2.2.2 is the release that carries the fix, so naming it as affected is the specific wrong
+        # answer this task exists to catch.
+        forbidden:
+          - "2.2.2"
+
+  - instance_id: requests-requote-uri-call-sites
+    task_id: code-api-implementation
+    repository: psf/requests
+    question: >-
+      In psf/requests at release v2.32.3, locate the implementation of the public helper
+      requests.utils.requote_uri and two production call sites outside the module that defines it.
+      Cite commit-pinned source links with line anchors.
+    provenance:
+      selected_because: >-
+        A small public helper with exactly two calling modules in the released tree, so a correct
+        answer requires reading repository structure rather than retrieving a single page. This is
+        the task type the DSB-01 catalog designates as the claimant's expected loss for this domain.
+      release_tag: v2.32.3
+    expected_references:
+      - answer_key: implementation_url
+        role: implementation
+        kind: blob
+        repository: psf/requests
+        commit: 0e322af87745eff34caffe4df68456ebc20d9068
+        path: src/requests/utils.py
+        line_range: [660, 679]
+        url: https://github.com/psf/requests/blob/0e322af87745eff34caffe4df68456ebc20d9068/src/requests/utils.py#L660
+        observed_at: "2026-09-21"
+      - answer_key: call_site_urls
+        role: call_site
+        kind: blob
+        repository: psf/requests
+        commit: 0e322af87745eff34caffe4df68456ebc20d9068
+        path: src/requests/models.py
+        line_range: [480, 480]
+        url: https://github.com/psf/requests/blob/0e322af87745eff34caffe4df68456ebc20d9068/src/requests/models.py#L480
+        observed_at: "2026-09-21"
+      - answer_key: call_site_urls
+        role: call_site
+        kind: blob
+        repository: psf/requests
+        commit: 0e322af87745eff34caffe4df68456ebc20d9068
+        path: src/requests/sessions.py
+        line_range: [215, 217]
+        url: https://github.com/psf/requests/blob/0e322af87745eff34caffe4df68456ebc20d9068/src/requests/sessions.py#L215
+        observed_at: "2026-09-21"
+
+  - instance_id: markupsafe-soft-unicode-removal
+    task_id: code-breaking-release
+    repository: pallets/markupsafe
+    question: >-
+      MarkupSafe removed the previously deprecated name soft_unicode, which downstream code had to
+      replace with soft_str. Identify the first stable MarkupSafe release that no longer ships
+      soft_unicode and connect that release's changelog entry to the pull request that removed it.
+    provenance:
+      selected_because: >-
+        The removal is recorded in CHANGES.rst with an explicit pull-request reference, and the
+        release is tagged, so the release-to-change lineage is checkable end to end.
+      changelog_entry: >-
+        Remove ``soft_unicode``, which was previously deprecated. Use ``soft_str`` instead. :pr:`261`
+    expected_references:
+      - answer_key: release_url
+        role: release
+        kind: release
+        repository: pallets/markupsafe
+        tag: "2.1.0"
+        url: https://github.com/pallets/markupsafe/releases/tag/2.1.0
+        observed_at: "2026-09-21"
+      - answer_key: change_url
+        role: change
+        kind: pull
+        repository: pallets/markupsafe
+        number: 261
+        url: https://github.com/pallets/markupsafe/pull/261
+        state: merged
+        observed_at: "2026-09-21"
+    expected_fields:
+      - answer_key: release
+        match: exact
+        value: "2.1.0"
+
+  - instance_id: pillow-freetypefont-getsize
+    task_id: code-deprecation-migration
+    repository: python-pillow/Pillow
+    # The catalog's code_and_pr source policy is github.com and gitlab.com, which is right for the
+    # five reference-resolution instances. This one asks for a project's published migration guide,
+    # and Pillow publishes it to Read the Docs. Leaving the catalog policy unextended would search
+    # only code hosts for an answer that lives on a docs host, which is the
+    # specialist-versus-generic rigging DSB-02 exists to prevent, pointed at Parallel.
+    surface_context:
+      source_policy:
+        include_domains:
+          - github.com
+          - gitlab.com
+          - pillow.readthedocs.io
+    question: >-
+      Pillow deprecated FreeTypeFont.getsize() for measuring rendered text and later removed it.
+      Find the project's official migration guidance, name the replacement API, and summarise the
+      required before-and-after code change with citations to primary sources.
+    provenance:
+      selected_because: >-
+        The project publishes a dedicated deprecations page that names the replacement API in a
+        table, so the judge has an unambiguous reference answer rather than a reading of release
+        notes.
+      removed_in: Pillow 10.0.0
+      removing_pull_request: https://github.com/python-pillow/Pillow/pull/7080
+    reference_answer:
+      deprecated_api: PIL.ImageFont.FreeTypeFont.getsize
+      replacement_api:
+        - PIL.ImageFont.FreeTypeFont.getbbox
+        - PIL.ImageFont.FreeTypeFont.getlength
+      deprecated_in: "9.2.0"
+      removed_in: "10.0.0"
+      primary_sources:
+        - https://pillow.readthedocs.io/en/stable/deprecations.html
+        - https://github.com/python-pillow/Pillow/blob/10.0.0/docs/deprecations.rst
+    expected_references:
+      - answer_key: evidence_urls
+        role: migration_guide
+        kind: blob
+        repository: python-pillow/Pillow
+        ref: "10.0.0"
+        path: docs/deprecations.rst
+        url: https://github.com/python-pillow/Pillow/blob/10.0.0/docs/deprecations.rst
+        observed_at: "2026-09-21"
+
+  - instance_id: httpbin-redirect-to-404
+    task_id: code-closed-issue-only
+    repository: postmanlabs/httpbin
+    question: >-
+      The hosted httpbin.org /redirect-to endpoint returned HTTP 404 for an extended period.
+      According to the maintainers, why was that endpoint returning 404? Cite the closed issue and
+      the specific comment that states the reason.
+    provenance:
+      selected_because: >-
+        The repository's documentation is a 672-byte README that points at the hosted service; there
+        is no docs tree, no CONTRIBUTING file and no changelog, and the stated reason for the outage
+        appears nowhere in the repository. The only record is one maintainer comment inside a closed
+        issue thread.
+      documentation_evidence:
+        readme_bytes: 672
+        repository_has_docs_tree: false
+        repository_has_changelog: false
+        observed_at: "2026-09-21"
+    notes: >-
+      This is the SPEC's poorly-documented-repository task. The domain's expected-loss designation
+      belongs to code-api-implementation in the DSB-01 catalog and is not changed here: Firecrawl's
+      developer index covers issue threads, so declaring this instance a claimant loss would assert
+      an expectation this suite cannot justify, and DSB-07 reads expected_claimant_outcome when it
+      checks that a supported hypothesis is not an artifact of task selection.
+    expected_references:
+      - answer_key: issue_url
+        role: issue
+        kind: issue
+        repository: postmanlabs/httpbin
+        number: 617
+        url: https://github.com/postmanlabs/httpbin/issues/617
+        state: closed
+        observed_at: "2026-09-21"
+      - answer_key: decisive_comment_url
+        role: comment
+        kind: issue_comment
+        repository: postmanlabs/httpbin
+        number: 617
+        comment_id: 668596347
+        url: https://github.com/postmanlabs/httpbin/issues/617#issuecomment-668596347
+        observed_at: "2026-09-21"

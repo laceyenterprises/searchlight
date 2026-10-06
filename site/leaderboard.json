@@ -1,0 +1,410 @@
+{
+  "generated_from": [
+    "reports/2026-09-29-web-search-bakeoff/summary.json",
+    "reports/2026-10-03-search-gap-bench/summary.json",
+    "reports/2026-10-05-agent-search-behavior/summary.json"
+  ],
+  "note": "Pass rates and intervals as published; WSB intervals are Wilson 95% computed from published counts. Overlapping intervals are not rankings.",
+  "boards": [
+    {
+      "id": "gap-claude-code",
+      "bench": "GAP",
+      "harness": "claude-code",
+      "title": "Search gap bench: job outcomes on Claude Code (claude-opus-5-5)",
+      "scope": "7 admitted post-cutoff brief tasks × 3 repetitions = 21 cells per arm. Pass = right decision, weighted key-fact recall ≥ 0.7, unsupported claims ≤ 0.25.",
+      "interval": "Wilson 95% (published)",
+      "token_accounting": "GAP tokens per success counts all agent tokens in the arm, failed cells included, divided by passing cells.",
+      "reference": {
+        "floor (no search)": "0%",
+        "ceiling (answer excerpt)": "95%"
+      },
+      "rows": [
+        {
+          "arm": "parallel-web",
+          "label": "Parallel",
+          "pass_pct": 95.0,
+          "ci": [
+            77.0,
+            99.0
+          ],
+          "passes": 20,
+          "cells": 21,
+          "gap_closure": "1.00 (0.86–1.17)",
+          "tokens_per_success": "64k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "firecrawl",
+          "label": "Firecrawl",
+          "pass_pct": 90.0,
+          "ci": [
+            71.0,
+            97.0
+          ],
+          "passes": 19,
+          "cells": 21,
+          "gap_closure": "0.95 (0.83–1.00)",
+          "tokens_per_success": "116k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "brave",
+          "label": "Brave",
+          "pass_pct": 81.0,
+          "ci": [
+            60.0,
+            92.0
+          ],
+          "passes": 17,
+          "cells": 21,
+          "gap_closure": "0.85 (0.62–1.00)",
+          "tokens_per_success": "93k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "perplexity",
+          "label": "Perplexity",
+          "pass_pct": 76.0,
+          "ci": [
+            55.0,
+            89.0
+          ],
+          "passes": 16,
+          "cells": 21,
+          "gap_closure": "0.80 (0.50–1.00)",
+          "tokens_per_success": "74k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "exa",
+          "label": "Exa",
+          "pass_pct": 71.0,
+          "ci": [
+            50.0,
+            86.0
+          ],
+          "passes": 15,
+          "cells": 21,
+          "gap_closure": "0.75 (0.47–0.95)",
+          "tokens_per_success": "89k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "tavily",
+          "label": "Tavily",
+          "pass_pct": 71.0,
+          "ci": [
+            50.0,
+            86.0
+          ],
+          "passes": 15,
+          "cells": 21,
+          "gap_closure": "0.75 (0.43–1.00)",
+          "tokens_per_success": "83k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "native",
+          "label": "native",
+          "pass_pct": 62.0,
+          "ci": [
+            41.0,
+            79.0
+          ],
+          "passes": 13,
+          "cells": 21,
+          "gap_closure": "0.65 (0.37–0.91)",
+          "tokens_per_success": "66k",
+          "vs_floor": "p = 0.0002",
+          "note": "WebFetch refused by the harness (search only); not comparable",
+          "overlaps_top": true
+        }
+      ],
+      "source": "2026-10-03-search-gap-bench",
+      "top_lower_bound": 77.0
+    },
+    {
+      "id": "gap-codex",
+      "bench": "GAP",
+      "harness": "codex",
+      "title": "Search gap bench: job outcomes on codex (gpt-6.1-sol)",
+      "scope": "6 admitted post-cutoff brief tasks × 3 repetitions = 18 cells per arm. Pass = right decision, weighted key-fact recall ≥ 0.7, unsupported claims ≤ 0.25.",
+      "interval": "Wilson 95% (published)",
+      "token_accounting": "GAP tokens per success counts all agent tokens in the arm, failed cells included, divided by passing cells.",
+      "reference": {
+        "floor (no search)": "0% (0–18%)",
+        "ceiling (answer excerpt)": "89% (67–97%)"
+      },
+      "rows": [
+        {
+          "arm": "brave",
+          "label": "Brave",
+          "pass_pct": 94.0,
+          "ci": [
+            74.0,
+            99.0
+          ],
+          "passes": 17,
+          "cells": 18,
+          "gap_closure": "1.06 (0.88–1.29)",
+          "tokens_per_success": "111k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "firecrawl",
+          "label": "Firecrawl",
+          "pass_pct": 89.0,
+          "ci": [
+            67.0,
+            97.0
+          ],
+          "passes": 16,
+          "cells": 18,
+          "gap_closure": "1.00 (1.00–1.00)",
+          "tokens_per_success": "166k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "tavily",
+          "label": "Tavily",
+          "pass_pct": 89.0,
+          "ci": [
+            67.0,
+            97.0
+          ],
+          "passes": 16,
+          "cells": 18,
+          "gap_closure": "1.00 (0.71–1.29)",
+          "tokens_per_success": "129k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "exa",
+          "label": "Exa",
+          "pass_pct": 78.0,
+          "ci": [
+            55.0,
+            91.0
+          ],
+          "passes": 14,
+          "cells": 18,
+          "gap_closure": "0.88 (0.47–1.29)",
+          "tokens_per_success": "146k",
+          "vs_floor": "p = 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "native",
+          "label": "native",
+          "pass_pct": 78.0,
+          "ci": [
+            55.0,
+            91.0
+          ],
+          "passes": 14,
+          "cells": 18,
+          "gap_closure": "0.88 (0.47–1.20)",
+          "tokens_per_success": "117k",
+          "vs_floor": "p = 0.0001",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "parallel-web",
+          "label": "Parallel",
+          "pass_pct": 72.0,
+          "ci": [
+            49.0,
+            88.0
+          ],
+          "passes": 13,
+          "cells": 18,
+          "gap_closure": "0.81 (0.41–1.14)",
+          "tokens_per_success": "157k",
+          "vs_floor": "p = 0.0002",
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "perplexity",
+          "label": "Perplexity",
+          "pass_pct": 72.0,
+          "ci": [
+            49.0,
+            88.0
+          ],
+          "passes": 13,
+          "cells": 18,
+          "gap_closure": "0.81 (0.47–1.12)",
+          "tokens_per_success": "117k",
+          "vs_floor": "p = 0.0002",
+          "note": "",
+          "overlaps_top": true
+        }
+      ],
+      "source": "2026-10-03-search-gap-bench",
+      "top_lower_bound": 74.0
+    },
+    {
+      "id": "wsb-competitive",
+      "bench": "WSB",
+      "harness": "claude-code",
+      "title": "Web search bakeoff: competitive research tasks on Claude Code (claude-opus-5-5)",
+      "scope": "14 competitive tasks × 3 repetitions = 42 cells per arm, regraded 2026-09-30. Mostly stable, documented knowledge; search adds less here than on post-cutoff jobs.",
+      "interval": "Wilson 95% (computed from the published counts)",
+      "token_accounting": "WSB tokens per success uses measured tokens from graded cells divided by measured successes. Ungraded and unmeasured cells are excluded; per-arm coverage counts were not retained, so complete accounting cannot be established.",
+      "reference": {},
+      "rows": [
+        {
+          "arm": "firecrawl",
+          "label": "Firecrawl",
+          "pass_pct": 90,
+          "ci": [
+            78,
+            96
+          ],
+          "passes": 38,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "61.5k",
+          "vs_floor": null,
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "perplexity",
+          "label": "Perplexity",
+          "pass_pct": 88,
+          "ci": [
+            75,
+            95
+          ],
+          "passes": 37,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "47.7k",
+          "vs_floor": null,
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "tavily",
+          "label": "Tavily",
+          "pass_pct": 86,
+          "ci": [
+            72,
+            93
+          ],
+          "passes": 36,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "61.3k",
+          "vs_floor": null,
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "exa",
+          "label": "Exa",
+          "pass_pct": 83,
+          "ci": [
+            69,
+            92
+          ],
+          "passes": 35,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "65.0k",
+          "vs_floor": null,
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "parallel-web",
+          "label": "Parallel",
+          "pass_pct": 79,
+          "ci": [
+            64,
+            88
+          ],
+          "passes": 33,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "69.8k",
+          "vs_floor": null,
+          "note": "",
+          "overlaps_top": true
+        },
+        {
+          "arm": "native",
+          "label": "native",
+          "pass_pct": 79,
+          "ci": [
+            64,
+            88
+          ],
+          "passes": 33,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "36.3k",
+          "vs_floor": null,
+          "note": "WebFetch refused in 40 of 54 cells",
+          "overlaps_top": true
+        },
+        {
+          "arm": "no-search",
+          "label": "no-search",
+          "pass_pct": 76,
+          "ci": [
+            61,
+            87
+          ],
+          "passes": 32,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "20.9k",
+          "vs_floor": null,
+          "note": "reference arm",
+          "overlaps_top": true
+        },
+        {
+          "arm": "brave",
+          "label": "Brave",
+          "pass_pct": 74,
+          "ci": [
+            59,
+            85
+          ],
+          "passes": 31,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "89.2k",
+          "vs_floor": null,
+          "note": "",
+          "overlaps_top": true
+        }
+      ],
+      "source": "2026-09-29-web-search-bakeoff",
+      "top_lower_bound": 78
+    }
+  ]
+}

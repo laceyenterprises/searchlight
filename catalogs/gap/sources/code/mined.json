@@ -1,0 +1,336 @@
+{
+  "since": "2026-01-01",
+  "retrieved_at": "2026-10-02",
+  "candidates": [
+    {
+      "id": "gap-pypi-stripe-16.0.0",
+      "package": "stripe",
+      "old_version": "15.6.1",
+      "new_version": "16.0.0",
+      "release_kind": "major",
+      "score": 4,
+      "markers": [
+        "removed"
+      ],
+      "packages": [
+        {
+          "name": "stripe",
+          "version": "15.6.1",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl",
+          "sha256": "b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf"
+        },
+        {
+          "name": "stripe",
+          "version": "16.0.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl",
+          "sha256": "6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-10-01",
+        "source_urls": [
+          "https://pypi.org/pypi/stripe/json",
+          "https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md"
+        ]
+      },
+      "oracle": {
+        "excerpt": "agents.\n* [#1911](https://github.com/stripe/stripe-python/pull/1911) Fix account scoping for event notification handler callback clients\n  - Fix callback clients to use the event's Stripe context and preserve the original client's non-account configuration.\n  - Fix API errors when using an event notification handler with a client configured with a Stripe account.\n* \u26a0\ufe0f [#1914](https://github.com/stripe/stripe-python/pull/1914) Remove deprecated `StripeObject.request()` method\n\n  The deprecated `StripeObject.request()` method has been removed. Use `StripeClient.raw_request()` to make custom API requests.\n* \u26a0\ufe0f [#1915](https://github.com/stripe/stripe-python/pull/1915) Rename `stripe.Reversal` to `stripe.TransferReversal`\n  - \u26a0\ufe0f Rename the `stripe.Reversal` resource class to `stripe.TransferReversal`. Update references and type annotations to use `stripe.TransferReversal`.\n* \u26a0\ufe0f [#1920](https://github.com/stripe/stripe-python/pull/1920) Make path parameters positional-only in all service methods\n\n  Path parameters must now be passed positionally to service methods. Passing them by keyword is no longer supported. This prevents parameter names derived from the API specification from becoming part of the public interface.\n\n   Resource methods are unaffected by this change.\n* \u26a0\ufe0f [#1924](https://github.com/stripe/stripe-python/pull/1924) Make path parameters positional-only in all service methods\n\n  Path parameters must now be passed positionally on resource methods that support both classmethod and instance-method call styles (e.g. Coupon.delete). Passing them by keyword is no longer supported.\n* \u26a0\ufe0f [#1899](https://github.com/stripe/stripe-python/pull/1899) Update generated code\n  * Add support for new resources `apps.Install`, `product_catalog.TrialOffer`, `tax.Location`, and `three_d_secure.Authentication`\n  * Add support for `create`, `list`, `modify`, `retrieve`, and `uninstall` methods on resource `apps.Install`\n  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `product_catalog.TrialOffer`\n  * Add support for `create`, `list`, and `retrieve` methods on resource `tax.Location`\n  * Add support for `cancel`, `create`, `list`, `retrieve`, and `submit` methods on resource `three_d_secure.Authentication`\n  * Add support for `pause` method on resource `Subscription`\n  * \u26a0\ufe0f Add support for new values `invalid_address_cmra_address` and `invalid_address_registered_agent_address` on enums `Account.FutureRequirement.Error.code`, `Account.Requirement.Error.code`, `BankAccount.FutureRequirement.Error.code`, `BankAccount.Requirement.Error.code`, `Capability.FutureRequirement.Error.code`, `Capability.Requirement.Error.code`, `Person.FutureRequirement.Error.code`, and `Person.Requirement.Error.code`\n  * Add support for `performance_location` on `Tax.CalculationLineItem` and `tax.CalculationCreateParamsLineItem`\n  * Add support for new value `performance` on enums `Tax.Calculation.ShippingCost.TaxBreakdown.sourcing`, `Tax.CalculationLineItem.TaxBreakdown.sourcing`, and `Tax.Transaction.ShippingCost.TaxBreakdown.sourcing`\n  * Add support for new values `admissions_tax`, `attendance_tax`, `digital_excise_tax`, `entertainment_tax`, `gross_receipts_tax`, `hospitality_tax`, `luxury_tax`, `recycling_fee`, `resort_tax`, `tourism_tax`, and `utility_users_tax` on enums `Tax.Calculation.ShippingCost.TaxBreakdown.TaxRateDetail.tax_type`, `Tax.Calculation.TaxBreakdown.TaxRateDetail.tax_type`, `Tax.CalculationLineItem.TaxBreakdown.TaxRateDetail.tax_type`, and `Tax.Transaction.ShippingCost.TaxBreakdown.TaxRateDetail.tax_type`\n  * Add support for `destination` on `Reserve.Hold`, `Reserve.Plan`, and `Reserve.Release`\n  * Add support for `manual_release` on `Reserve.Plan`\n  * \u26a0\ufe0f Add support for new value `other` on enum `Reserve.Plan.status`\n  * \u26a0\ufe0f Add support for new values `manual_release` and `other` on enum `Reserve.Plan.type`\n  * \u26a0\ufe0f Add support for new value `hold_expired` on enum `Reserve.Release.reason`\n  * \u26a0\ufe0f Remove support for value `bulk_hold_expiry` from enum `Reserve.Release.reason`\n  * Add support for `specified_commercial_transactions_act_url` on `Account.BusinessProfile`, `AccountCreateParamsBusinessProfile`,",
+        "source_url": "https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md",
+        "retrieved_at": "2026-10-02",
+        "sha256": "e1c067143e780dad0d4dedabd5d82ccf79d181d9661e58cf39d2f18ea8328f8e"
+      }
+    },
+    {
+      "id": "gap-pypi-stripe-15.0.0",
+      "package": "stripe",
+      "old_version": "14.4.1",
+      "new_version": "15.0.0",
+      "release_kind": "major",
+      "score": 5,
+      "markers": [
+        "breaking"
+      ],
+      "packages": [
+        {
+          "name": "stripe",
+          "version": "14.4.1",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/35/0f/547eab75052384a72771b396a484556e5636629c031e5eafa8dc27af89ed/stripe-14.4.1-py3-none-any.whl",
+          "sha256": "d6722b985dc3b4d6da01ff4fa95a975d3694a89bba96895bf17aa858073ff2b8"
+        },
+        {
+          "name": "stripe",
+          "version": "15.0.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/03/4a/4431c998c451cf07f8b4fed98f425b4aaf3d59cc4fb1e6f54d7713606688/stripe-15.0.0-py3-none-any.whl",
+          "sha256": "434ec5267a7402a30b76786d159c18d0e138f89195969d6c56bea2e08d353be0"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-03-26",
+        "source_urls": [
+          "https://pypi.org/pypi/stripe/json",
+          "https://github.com/stripe/stripe-python/releases/tag/v15.0.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "This release changes the pinned API version to `2026-03-25.dahlia` and contains breaking changes (prefixed with \u26a0\ufe0f below). There's also a [detailed migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15) to simplify your upgrade process.\n\nPlease review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/dahlia) before upgrading.\n\n* \u26a0\ufe0f **Breaking change:** [#1769](https://github.com/stripe/stripe-python/pull/1769) Add decimal_string coercion for v1 and v2 API fields\n  - All `decimal_string` fields changed type from `str` to `decimal.Decimal` in both request params and response objects. Code that reads or writes these fields as `str` will need to use `Decimal` instead. Affected fields across v1 and v2 APIs:\n    - **checkout.Session**: `fx_rate`\n    - **climate.Order**: `metric_tons`; **climate.Product**: `metric_tons_available`\n    - **CreditNoteLineItem**: `unit_amount_decimal`\n    - **InvoiceItem**: `quantity_decimal`, `unit_amount_decimal`\n    - **InvoiceLineItem**: `quantity_decimal`, `unit_amount_decimal`\n    - **issuing.Authorization** / **issuing.Transaction** (and TestHelpers): `quantity_decimal`, `unit_cost_decimal`, `gross_amount_decimal`, `local_amount_decimal`, `national_amount_decimal`\n    - **Plan**: `amount_decimal`, `flat_amount_decimal`, `unit_amount_decimal`\n    - **Price**: `unit_amount_decimal`, `flat_amount_decimal` (including `currency_options` and `tiers`)\n    - **v2.core.Account** / **v2.core.AccountPerson**: `percent_ownership`\n    - Request params on **Invoice**, **Product**, **Quote**, **Subscription**, **SubscriptionItem**, **SubscriptionSchedule**, **PaymentLink**: `unit_amount_decimal`, `flat_amount_decimal`, `quantity_decimal` (where applicable)\n* [\u26a0\ufe0f **Breaking change:**#1767](https://github.com/stripe/stripe-python/pull/1767) Throw an error when using the wrong webhook parsing method\n* \u26a0\ufe0f **Breaking change:** [#1764](https://github.com/stripe/stripe-python/pull/1764) Drop support for Python 3.7 & 3.8\n* \u26a0\ufe0f **Breaking change:** [#1762](https://github.com/stripe/stripe-python/pull/1762) `StripeObject` no longer inherits from `dict`\n  \n  - `StripeObject` no longer inherits from `dict`, so any `dict` methods will no longer exist, including `.get()`, `.update()`, and notably, `.items()`.\n  - or convenience, it's still possible to check presence with `'some_key' in some_obj` and check for equality between stripe objects. But most key/value iteration needs an extra step\n  - To access the underlying data as a `dict`, call `some_obj.to_dict()`, which recursively dumps all stripe-provided classes into native Python types. This is a read-only view; changes to the output of `to_dict()` won't affect the original object. \n  - Write operations can still be done with dot notation (`some_obj.val = 123`) or bracket notation (`some_obj[\"val\"] = 123`). Do that instead of trying to interact with the underlying data store, as the implementation is considered private and may change without warning in the future.\n\nSee [the changelog for more details](https://github.com/stripe/stripe-python/blob/v15.0.0/CHANGELOG.md).",
+        "source_url": "https://github.com/stripe/stripe-python/releases/tag/v15.0.0",
+        "retrieved_at": "2026-10-02",
+        "sha256": "e0bd6dceb06055b20c0f25ef247bddf0ad7131a52a8f451d44a0a9dce3a1c7f1"
+      }
+    },
+    {
+      "id": "gap-pypi-typer-0.23.0",
+      "package": "typer",
+      "old_version": "0.22.0",
+      "new_version": "0.23.0",
+      "release_kind": "minor",
+      "score": 5,
+      "markers": [
+        "breaking"
+      ],
+      "packages": [
+        {
+          "name": "typer",
+          "version": "0.22.0",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/4b/e7/61b0dd194be67021ff7c6c87b66511d7691b9b241b2a67a2a5e3842e531b/typer-0.22.0-py3-none-any.whl",
+          "sha256": "7005624db6209bc9228572d7faa3a3a4ebe6b7a3e157c63d34d4b8f17137888b"
+        },
+        {
+          "name": "typer",
+          "version": "0.23.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/7a/ed/d6fca788b51d0d4640c4bc82d0e85bad4b49809bca36bf4af01b4dcb66a7/typer-0.23.0-py3-none-any.whl",
+          "sha256": "79f4bc262b6c37872091072a3cb7cb6d7d79ee98c0c658b4364bdcde3c42c913"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-02-11",
+        "source_urls": [
+          "https://pypi.org/pypi/typer/json",
+          "https://github.com/fastapi/typer/releases/tag/0.23.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "### Breaking Changes\r\n\r\n* \u267b\ufe0f When printing error tracebacks with Rich, default to not showing locals, which are sometimes verbose. PR [#1072](https://github.com/fastapi/typer/pull/1072) by [@tiangolo](https://github.com/tiangolo).\r\n\r\n### Docs\r\n\r\n* \ud83d\udcdd Add more explicit deprecation note in shell packages. PR [#1534](https://github.com/fastapi/typer/pull/1534) by [@tiangolo](https://github.com/tiangolo).\r\n\r\n### Internal\r\n\r\n* \u2b06 Bump cryptography from 46.0.4 to 46.0.5. PR [#1532](https://github.com/fastapi/typer/pull/1532) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* \ud83d\udd28 Tweak PDM hook script, remove unnecessary default. PR [#1536](https://github.com/fastapi/typer/pull/1536) by [@tiangolo](https://github.com/tiangolo).\r\n* \u267b\ufe0f Simplify build setup scripts and configs for deprecated wrapper packages. PR [#1535](https://github.com/fastapi/typer/pull/1535) by [@tiangolo](https://github.com/tiangolo).",
+        "source_url": "https://github.com/fastapi/typer/releases/tag/0.23.0",
+        "retrieved_at": "2026-10-02",
+        "sha256": "f443593680f142b6f57ed63f64dd75734984179fffbdbdd0dbe739b4df3e9f53"
+      }
+    },
+    {
+      "id": "gap-pypi-urllib3-2.8.0",
+      "package": "urllib3",
+      "old_version": "2.7.0",
+      "new_version": "2.8.0",
+      "release_kind": "minor",
+      "score": 8,
+      "markers": [
+        "default-change",
+        "security"
+      ],
+      "packages": [
+        {
+          "name": "urllib3",
+          "version": "2.7.0",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl",
+          "sha256": "9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.8.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+          "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-09-15",
+        "source_urls": [
+          "https://pypi.org/pypi/urllib3/json",
+          "https://github.com/urllib3/urllib3/releases/tag/2.8.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "raising ~$40,000 USD](https://sethmlarson.dev/urllib3-is-fundraising-for-http2-support) to release HTTP/2 support and ensure long-term sustainable maintenance of the project. If your company or organization uses Python and would benefit from HTTP/2 support in Requests, pip, cloud SDKs, and thousands of other projects [please consider contributing financially](https://opencollective.com/urllib3) to ensure HTTP/2 support is developed sustainably and maintained for the long-haul.\r\n\r\nThank you for your support.\r\n\r\n## Security\r\n\r\nFixed the following security issues:\r\n\r\n- The TLS configuration for HTTPS proxies could be ignored or overridden. (High severity, GHSA-8988-9cw3-xx77)\r\n- `HTTPResponse.stream()` and `read_chunked()` could buffer a chunk-size line of unbounded length in memory. (High severity, GHSA-vxq7-64xx-v4gw)\r\n- Chunked Deflate streaming could enter an infinite loop. (Medium severity, GHSA-gh4c-6fx4-qh6g)\r\n\r\n> [!IMPORTANT]\r\n> urllib3 2.8.0 fixes HTTPS proxy TLS configuration being ignored or overridden by destination settings. Configurations relying on that behavior may require changes.\r\n>\r\n> Configure proxy CA certificates and client certificates in `proxy_ssl_context`, and proxy identity checks with `proxy_assert_hostname` or `proxy_assert_fingerprint`. Destination client certificates and identity overrides no longer apply to HTTPS forwarding proxy connections.\r\n\r\n> [!NOTE]\r\n> CVE IDs had not yet been assigned to these advisories at the time of release due to a backlog at GitHub's CNA.\r\n\r\n## Deprecations & Removals\r\n\r\n- Deprecated using an empty collection as the `Retry` option `allowed_methods` to retry any verb. (#5044)\r\n\r\n## Features\r\n\r\n- Added `Url.auth_decoded` and `Url.auth_decoded_joined` convenience properties to the result of `parse_url()`. (#4945)\r\n- Added `basic_auth_encoding` and `proxy_basic_auth_encoding` parameters to `urllib3.util.make_headers()`. (#5092)\r\n\r\n## Bugfixes\r\n\r\n- Fixed response header handling to replace obsolete folded header lines (`obs-fold`) with spaces in accordance with RFC 9112, preventing raw CRLF sequences from appearing in header values such as `Set-Cookie`. (#1362)\r\n- Fixed usage of `proxy_ssl_context` with `ProxyManager` when `use_forwarding_for_https=True`. Passing `ssl_context` instead of `proxy_ssl_context` for HTTPS proxies in this configuration now emits a `FutureWarning` and will raise an error in v3.0. (#2577)\r\n- Changed behavior of the default `ConnectionPool.pool` initialization. `LifoQueue` is now resolved from the `queue` module after the `ConnectionPool` is instantiated instead of using the default cached `QueueCls` class property. This is done because sometimes the `queue.LifoQueue` is monkey-patched late in the program, such as by gevent. (#3289)\r\n- Raised `UnrewindableBodyError` instead of `ValueError` when retrying a request whose body had `tell()` but not `seek()`. (#3779)\r\n- Decoded percent-encoded SOCKS proxy credentials before authenticating with the proxy server. (#3785)\r\n- Fixed `HTTPResponse.drain_conn()` to discard unread response data in 64 KiB chunks (same as the default `amt` when",
+        "source_url": "https://github.com/urllib3/urllib3/releases/tag/2.8.0",
+        "retrieved_at": "2026-10-02",
+        "sha256": "cde8fa5ff77d1d72e006abe7b8de6d708374a23a48d1d31d15e60c3185f23b91"
+      }
+    },
+    {
+      "id": "gap-pypi-click-8.4.0",
+      "package": "click",
+      "old_version": "8.3.3",
+      "new_version": "8.4.0",
+      "release_kind": "minor",
+      "score": 5,
+      "markers": [
+        "breaking"
+      ],
+      "packages": [
+        {
+          "name": "click",
+          "version": "8.3.3",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/ae/44/c1221527f6a71a01ec6fbad7fa78f1d50dfa02217385cf0fa3eec7087d59/click-8.3.3-py3-none-any.whl",
+          "sha256": "a2bf429bb3033c89fa4936ffb35d5cb471e3719e1f3c8a7c3fff0b8314305613"
+        },
+        {
+          "name": "click",
+          "version": "8.4.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/ee/ae/8e92f8058baf87f6c7d86ee7e457668690195cc77efedb8d3797a06e3940/click-8.4.0-py3-none-any.whl",
+          "sha256": "40c50b7c6c6adac2823d411041ec84f3f103f1b280d5e9ce0d7f998995832f81"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-05-17",
+        "source_urls": [
+          "https://pypi.org/pypi/click/json",
+          "https://github.com/pallets/click/releases/tag/8.4.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "This is the Click 8.4.0 feature release. A feature release may include new features, remove previously deprecated code, add new deprecation, or introduce potentially breaking changes.\r\n\r\nWe encourage everyone to upgrade. You can read more about our [Version Support Policy][version] on our website.\r\n\r\n[version]: https://palletsprojects.com/versions\r\n\r\nPyPI: https://pypi.org/project/click/8.4.0/\r\nChanges:  https://click.palletsprojects.com/page/changes/#version-8-4-0\r\nMilestone https://github.com/pallets/click/milestone/30\r\n\r\n-   `ParamType` typing improvements. #3371\r\n\r\n    -   :class:`ParamType` is now a generic abstract base class,\r\n        parameterized by its converted value type.\r\n    -   :meth:`~ParamType.convert` return types are narrowed on all\r\n        concrete types (``str`` for :class:`STRING`, ``int`` for\r\n        :class:`INT`, etc.).\r\n    -   :meth:`~ParamType.to_info_dict` returns specific\r\n        :class:`~typing.TypedDict` subclasses instead of\r\n        ``dict[str, Any]``.\r\n    -   :class:`CompositeParamType` and the number-range base are now\r\n        generic with abstract methods.\r\n-   Refactor ``convert_type`` to extract type inference into a private\r\n    ``_guess_type`` helper, and add :func:`typing.overload` signatures.\r\n    #3372\r\n-   `Parameter` typing improvements. #2805\r\n\r\n    -   :class:`Parameter` is now an abstract base class, making explicit\r\n        that it cannot be instantiated directly.\r\n    -   :attr:`Parameter.name` is now ``str`` instead of ``str | None``.\r\n        When ``expose_value=False``, the name is set to ``\"\"`` instead\r\n        of ``None``.\r\n    -   The ``ctx`` parameter of :meth:`Parameter.get_error_hint` is now\r\n        typed as ``Context | None``, matching the runtime behavior.\r\n-   Split string values from ``default_map`` for parameters with ``nargs > 1``\r\n    or :class:`Tuple` type, matching environment variable behavior.\r\n    #2745 #3364\r\n-   Auto-detect ``type=UNPROCESSED`` for ``flag_value`` of non-basic types\r\n    (not ``str``, ``int``, ``float``, or ``bool``), so programmer-provided\r\n    Python objects like classes and enum members are passed through unchanged\r\n    instead of being stringified. Previously ``type=click.UNPROCESSED`` had\r\n    to be set explicitly. #2012 #3363\r\n-   The error hint now uses `Command.get_help_option_names` to pick\r\n    non-shadowed help option names, so ``Try '... -h'`` no longer points to a\r\n    subcommand option that shadows ``-h``. All surviving names are shown\r\n    (``-h/--help``). #2790  #3208\r\n-   Fix readline functionality on non-Windows platforms. Prompt text is now\r\n    passed directly to readline instead of being printed separately, allowing\r\n    proper backspace, line editing, and line wrapping behavior. #2968\r\n    #2969\r\n-   Use :func:`os.startfile` on Windows to open URLs in :func:`open_url`,\r\n    replacing the ``start`` built-in which cannot be invoked without\r\n    ``shell=True``. #3164 #3186\r\n-   Fix Fish shell completion errors when option help text contains newlines.\r\n    #3043 #3126\r\n-   Add :class:`NoSuchCommand` exception with suggestions for misspelled\r\n    commands. #3107 #3228\r\n-   Use :class:`ValueError` message when conversion in :class:`FuncParamType` would\r\n    fail. #3105 #3211\r\n-   Add ``click.get_pager_file`` for file-like access to an output\r\n    pager. #1572 #3405\r\n-   :class:`~click.formatting.TextWrapper` and\r\n    :func:`~click.formatting.wrap_text` now measure line width in visible\r\n    characters, ignoring ANSI escape sequences. #3420",
+        "source_url": "https://github.com/pallets/click/releases/tag/8.4.0",
+        "retrieved_at": "2026-10-02",
+        "sha256": "b9691336fc8304b1dc596f3a3118f869e04d9e752f880aa55db36ba10d5447f7"
+      }
+    },
+    {
+      "id": "gap-pypi-typer-0.26.0",
+      "package": "typer",
+      "old_version": "0.25.1",
+      "new_version": "0.26.0",
+      "release_kind": "minor",
+      "score": 10,
+      "markers": [
+        "breaking",
+        "security"
+      ],
+      "packages": [
+        {
+          "name": "typer",
+          "version": "0.25.1",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/3f/f9/2b3ff4e56e5fa7debfaf9eb135d0da96f3e9a1d5b27222223c7296336e5f/typer-0.25.1-py3-none-any.whl",
+          "sha256": "75caa44ed46a03fb2dab8808753ffacdbfea88495e74c85a28c5eefcf5f39c89"
+        },
+        {
+          "name": "typer",
+          "version": "0.26.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/64/e1/01faefdf98e3a05ca5f3487caabab033fda84c5bd1bae7f73b8bb5dd553e/typer-0.26.0-py3-none-any.whl",
+          "sha256": "859d520a4dc91c075cb370195462b6f7024fceb5d6de5c204bb8b1d51a60ad66"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-05-26",
+        "source_urls": [
+          "https://pypi.org/pypi/typer/json",
+          "https://github.com/fastapi/typer/releases/tag/0.26.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "### Breaking Changes\r\n\r\n* \u2796 Vendor Click and streamline Typer's functionality and code base. PR [#1774](https://github.com/fastapi/typer/pull/1774) by [@svlandeg](https://github.com/svlandeg).\r\n    * Typer no longer depends on Click as a third party dependency, it vendors (includes the source code of) Click.\r\n    * This simplifies the work done by both Click and Typer teams.\r\n    * It allows Typer to evolve independently, and enables several new planned features.\r\n    * It will solve several dependency conflict situations for projects that use some packages that depend on Click and some that depend on Typer.\r\n    * This also means that Click-specific functionality is no longer supported, like extracting the Click app and adding Click-specific plug-ins, or customizing the field types with Click-specific types.\r\n    * You can read more about it in the docs for [Vendored Click](https://typer.tiangolo.com/tutorial/click/).\r\n\r\n### Docs\r\n\r\n* \ud83d\udcdd Update and simplify docs about help and management. PR [#1778](https://github.com/fastapi/typer/pull/1778) by [@tiangolo](https://github.com/tiangolo).\r\n* \ud83d\udcdd Update contributing docs, reference central docs. PR [#1777](https://github.com/fastapi/typer/pull/1777) by [@tiangolo](https://github.com/tiangolo).\r\n* \ud83d\udcdd Update security policy. PR [#1775](https://github.com/fastapi/typer/pull/1775) by [@tiangolo](https://github.com/tiangolo).\r\n* \ud83d\udcdd Update link syntax to minimal Markdown. PR [#1623](https://github.com/fastapi/typer/pull/1623) by [@tiangolo](https://github.com/tiangolo).\r\n* \ud83d\udcdd Update and simplify usage of admonitions. PR [#1755](https://github.com/fastapi/typer/pull/1755) by [@tiangolo](https://github.com/tiangolo).\r\n\r\n### Internal\r\n\r\n* \ud83d\udccc Pin max version of Click to `>= 8.2.1, < 8.4` temporarily to prevent incompatibilities. PR [#1753](https://github.com/fastapi/typer/pull/1753) by [@tiangolo](https://github.com/tiangolo).\r\n    * Superseded by vendoring Click.\r\n* \ud83d\udc77 Configure Dependabot to group updates and update weekly. PR [#1768](https://github.com/fastapi/typer/pull/1768) by [@YuriiMotov](https://github.com/YuriiMotov).\r\n* \ud83d\udd25 Remove config files now in central GitHub repo. PR [#1780](https://github.com/fastapi/typer/pull/1780) by [@tiangolo](https://github.com/tiangolo).\r\n* \u2b06 Bump idna from 3.11 to 3.15. PR [#1771](https://github.com/fastapi/typer/pull/1771) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* \u2b06 Bump pymdown-extensions from 10.21.2 to 10.21.3. PR [#1772](https://github.com/fastapi/typer/pull/1772) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* \ud83d\udcdd Fix categorization of PR 1475 in release notes. PR [#1769](https://github.com/fastapi/typer/pull/1769) by [@svlandeg](https://github.com/svlandeg).\r\n* \u2705 Add Fish shell completion tests for colon options. PR [#1475](https://github.com/fastapi/typer/pull/1475) by [@Mohamed-Elwasila](https://github.com/Mohamed-Elwasila).\r\n* \u2705 Extend completion unit tests for zsh, powershell and pwsh. PR [#1767](https://github.com/fastapi/typer/pull/1767) by [@ADiTyaRaj8969](https://github.com/ADiTyaRaj8969).\r\n* \u2b06 Bump actions/github-script from 7.1.0 to 9.0.0. PR [#1746](https://github.com/fastapi/typer/pull/1746) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* \ud83d\udd27 Fix GitHub link in docs. PR [#1754](https://github.com/fastapi/typer/pull/1754) by [@tiangolo](https://github.com/tiangolo).\r\n* \u2b06\ufe0f Migrate to Zensical. PR [#1470](https://github.com/fastapi/typer/pull/1470) by [@tiangolo](https://github.com/tiangolo).\r\n* \u2b06 Bump urllib3 from 2.6.3 to 2.7.0. PR [#1741](https://github.com/fastapi/typer/pull/1741) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* \ud83d\udd27 Remove unnecessary Ruff rule. PR [#1752](https://github.com/fastapi/typer/pull/1752) by [@tiangolo](https://github.com/tiangolo).\r\n* \ud83d\udd12\ufe0f Add zizmor and fix audit findings. PR [#1705](https://github.com/fastapi/typer/pull/1705) by [@YuriiMotov](https://github.com/YuriiMotov).\r\n* \ud83d\udd12\ufe0f Only allow team members to modify dependencies. PR [#1744](https://github.com/fastapi/typer/pull/1744) by [@svlandeg](https://github.com/svlandeg).\r\n* \u2b06 Bump mypy from 2.0.0 to 2.1.0. PR [#1742](https://github.com/fastapi/typer/pull/1742)",
+        "source_url": "https://github.com/fastapi/typer/releases/tag/0.26.0",
+        "retrieved_at": "2026-10-02",
+        "sha256": "8ac1eedbb90597b41229e644205e8802e10041b34812ccd300d7f1bba986c5f5"
+      }
+    },
+    {
+      "id": "gap-pypi-pyjwt-2.12.0",
+      "package": "pyjwt",
+      "old_version": "2.11.0",
+      "new_version": "2.12.0",
+      "release_kind": "minor",
+      "score": 5,
+      "markers": [
+        "security"
+      ],
+      "packages": [
+        {
+          "name": "pyjwt",
+          "version": "2.11.0",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/6f/01/c26ce75ba460d5cd503da9e13b21a33804d38c2165dec7b716d06b13010c/pyjwt-2.11.0-py3-none-any.whl",
+          "sha256": "94a6bde30eb5c8e04fee991062b534071fd1439ef58d2adc9ccb823e7bcd0469"
+        },
+        {
+          "name": "pyjwt",
+          "version": "2.12.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/15/70/70f895f404d363d291dcf62c12c85fdd47619ad9674ac0f53364d035925a/pyjwt-2.12.0-py3-none-any.whl",
+          "sha256": "9bb459d1bdd0387967d287f5656bf7ec2b9a26645d1961628cda1764e087fd6e"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-03-12",
+        "source_urls": [
+          "https://pypi.org/pypi/pyjwt/json",
+          "https://github.com/jpadilla/pyjwt/releases/tag/2.12.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "## Security\r\n* Validate the crit (Critical) Header Parameter defined in RFC 7515 \u00a74.1.11. by @dmbs335 in [GHSA-752w-5fwx-jx9f](https://github.com/jpadilla/pyjwt/security/advisories/GHSA-752w-5fwx-jx9f)\r\n\r\n## What's Changed\r\n* [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in https://github.com/jpadilla/pyjwt/pull/1132\r\n* chore(docs): fix docs build by @tamird in https://github.com/jpadilla/pyjwt/pull/1137\r\n* Annotate PyJWKSet.keys for pyright by @tamird in https://github.com/jpadilla/pyjwt/pull/1134\r\n* fix: close HTTPError to prevent ResourceWarning on Python 3.14 by @veeceey in https://github.com/jpadilla/pyjwt/pull/1133\r\n* chore: remove superfluous constants by @tamird in https://github.com/jpadilla/pyjwt/pull/1136\r\n* [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in https://github.com/jpadilla/pyjwt/pull/1135\r\n* chore(tests): enable mypy by @tamird in https://github.com/jpadilla/pyjwt/pull/1138\r\n* Bump actions/download-artifact from 7 to 8 by @dependabot[bot] in https://github.com/jpadilla/pyjwt/pull/1142\r\n* [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in https://github.com/jpadilla/pyjwt/pull/1141\r\n* [pre-commit.ci] pre-commit autoupdate by @pre-commit-ci[bot] in https://github.com/jpadilla/pyjwt/pull/1145\r\n* fix: do not store reference to algorithms dict on PyJWK by @akx in https://github.com/jpadilla/pyjwt/pull/1143\r\n* Use PyJWK algorithm when encoding without explicit algorithm by @jpadilla in https://github.com/jpadilla/pyjwt/pull/1148\r\n\r\n## New Contributors\r\n* @tamird made their first contribution in https://github.com/jpadilla/pyjwt/pull/1137\r\n* @veeceey made their first contribution in https://github.com/jpadilla/pyjwt/pull/1133\r\n\r\n**Full Changelog**: https://github.com/jpadilla/pyjwt/compare/2.11.0...2.12.0",
+        "source_url": "https://github.com/jpadilla/pyjwt/releases/tag/2.12.0",
+        "retrieved_at": "2026-10-02",
+        "sha256": "12a5ff0d914603901a66e9ed06dffb10cd5d3829cf8566a7e91f311d37476f79"
+      }
+    },
+    {
+      "id": "gap-pypi-requests-2.33.0",
+      "package": "requests",
+      "old_version": "2.32.5",
+      "new_version": "2.33.0",
+      "release_kind": "minor",
+      "score": 5,
+      "markers": [
+        "security"
+      ],
+      "packages": [
+        {
+          "name": "requests",
+          "version": "2.32.5",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl",
+          "sha256": "2462f94637a34fd532264295e186976db0f5d453d1cdd31473c85a6a161affb6"
+        },
+        {
+          "name": "requests",
+          "version": "2.33.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl",
+          "sha256": "3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b"
+        }
+      ],
+      "cutoff_after": "2026-01-01",
+      "provenance": {
+        "event_date": "2026-03-25",
+        "source_urls": [
+          "https://pypi.org/pypi/requests/json",
+          "https://github.com/psf/requests/releases/tag/v2.33.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "2.33.0 (2026-03-25)\r\n--------------------\r\n\r\n**Announcements**\r\n- \ud83d\udce3 Requests is adding inline types. If you have a typed code base that uses Requests, please take a look at #7271. Give it a try, and report any gaps or feedback you may have in the issue. \ud83d\udce3\r\n\r\n**Security**\r\n- CVE-2026-25645 ``requests.utils.extract_zipped_paths`` now extracts contents to a non-deterministic location to prevent malicious file replacement. This does not affect default usage of Requests, only applications calling the utility function directly.\r\n\r\n**Improvements**\r\n- Migrated to a PEP 517 build system using setuptools. (#7012)\r\n\r\n**Bugfixes**\r\n- Fixed an issue where an empty netrc entry could cause malformed authentication to be applied to Requests on Python 3.11+. (#7205)\r\n\r\n**Deprecations**\r\n- Dropped support for Python 3.9 following its end of support. (#7196)\r\n\r\n**Documentation**\r\n- Various typo fixes and doc improvements.\r\n\r\n## New Contributors\r\n* @M0d3v1 made their first contribution in https://github.com/psf/requests/pull/6865\r\n* @aminvakil made their first contribution in https://github.com/psf/requests/pull/7220\r\n* @E8Price made their first contribution in https://github.com/psf/requests/pull/6960\r\n* @mitre88 made their first contribution in https://github.com/psf/requests/pull/7244\r\n* @magsen made their first contribution in https://github.com/psf/requests/pull/6553\r\n* @Rohan5commit made their first contribution in https://github.com/psf/requests/pull/7227\r\n\r\n**Full Changelog**: https://github.com/psf/requests/blob/main/HISTORY.md#2330-2026-03-25",
+        "source_url": "https://github.com/psf/requests/releases/tag/v2.33.0",
+        "retrieved_at": "2026-10-02",
+        "sha256": "fe96d7a8469453ef76842d68d275e3ef17978a8325645d9e72b57bb3919efb7c"
+      }
+    }
+  ]
+}

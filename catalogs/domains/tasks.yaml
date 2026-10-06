@@ -1,0 +1,402 @@
+schema_version: 1
+catalog_id: domain-strengths-v1
+version: "2026-09-20"
+description: Vendor-neutral domain tasks for falsifying the four DSB specialization hypotheses.
+authoring_policy: Tasks are derived from ordinary domain work, not vendor features; all vendors run every task.
+execution_contract: DSB-01 defines offline task types and declared evaluator contracts only; DSB-03 through DSB-07 supply per-run instance parameters, ground truth records, and executable validator or judge bindings before live publication.
+
+tasks:
+  - id: code-fixing-pr
+    surface_context:
+      source_policy:
+        include_domains:
+          - github.com
+          - gitlab.com
+    domain: code_and_pr
+    hypothesis_id: H1
+    prompt: Given a public repository and a reproducible bug description, identify the merged pull request that fixed the bug and cite the issue-to-PR evidence.
+    deliverable_schema:
+      type: object
+      properties: {repository: {type: string}, pull_request_url: {type: string}, issue_url: {type: string}, evidence_urls: {type: array, items: {type: string}}}
+      required: [repository, pull_request_url, evidence_urls]
+    deterministic_validator: {kind: github_reference, required_host: github.com, require_merged_pr: true, require_repository_match: true}
+
+  - id: code-error-to-issue
+    surface_context:
+      source_policy:
+        include_domains:
+          - github.com
+          - gitlab.com
+    domain: code_and_pr
+    hypothesis_id: H1
+    prompt: Given an exact runtime error and package version, find the upstream issue that diagnoses it and report the affected and fixed versions.
+    deliverable_schema:
+      type: object
+      properties: {issue_url: {type: string}, affected_versions: {type: array, items: {type: string}}, fixed_version: {type: string}, evidence_urls: {type: array, items: {type: string}}}
+      required: [issue_url, affected_versions, evidence_urls]
+    deterministic_validator: {kind: github_reference, required_host: github.com, require_issue: true, require_repository_match: true}
+
+  - id: code-api-implementation
+    surface_context:
+      source_policy:
+        include_domains:
+          - github.com
+          - gitlab.com
+    domain: code_and_pr
+    hypothesis_id: H1
+    prompt: Locate the implementation of a named public API in a public repository and identify two production call sites, citing immutable source links.
+    deliverable_schema:
+      type: object
+      properties: {implementation_url: {type: string}, call_site_urls: {type: array, items: {type: string}}, explanation: {type: string}}
+      required: [implementation_url, call_site_urls, explanation]
+    deterministic_validator: {kind: repository_source_locations, require_commit_pins: true, minimum_call_sites: 2}
+    expected_claimant_outcome: loss
+    expected_loss_reason: Precise symbol and call-graph lookup tests repository structure rather than GitHub page retrieval and should favor a code-aware index.
+
+  - id: code-breaking-release
+    surface_context:
+      source_policy:
+        include_domains:
+          - github.com
+          - gitlab.com
+    domain: code_and_pr
+    hypothesis_id: H1
+    prompt: Identify the first stable release containing a described breaking change and connect its changelog entry to the introducing commit or pull request.
+    deliverable_schema:
+      type: object
+      properties: {release: {type: string}, release_url: {type: string}, change_url: {type: string}, evidence_urls: {type: array, items: {type: string}}}
+      required: [release, release_url, change_url]
+    deterministic_validator: {kind: release_lineage, require_release_tag: true, require_change_reference: true}
+
+  - id: code-deprecation-migration
+    surface_context:
+      source_policy:
+        include_domains:
+          - github.com
+          - gitlab.com
+    domain: code_and_pr
+    hypothesis_id: H1
+    prompt: Find the official migration guidance for a named deprecated API and summarize the required before-and-after code change with citations.
+    deliverable_schema:
+      type: object
+      properties: {deprecated_api: {type: string}, replacement_api: {type: string}, migration_steps: {type: array, items: {type: string}}, evidence_urls: {type: array, items: {type: string}}}
+      required: [deprecated_api, replacement_api, migration_steps, evidence_urls]
+    judge_rubric: {rubric_id: wsb02-domain-evidence-v1, minimum_score: 4, score_scale: {min: 1, max: 5}, dimensions: [correct_replacement, actionable_migration, primary_source_citations, no_unsupported_claims]}
+
+  - id: code-closed-issue-only
+    surface_context:
+      source_policy:
+        include_domains:
+          - github.com
+          - gitlab.com
+    domain: code_and_pr
+    hypothesis_id: H1
+    prompt: For a poorly documented public repository, answer a maintenance question whose resolution appears only in a closed issue discussion and cite the decisive comment.
+    deliverable_schema:
+      type: object
+      properties: {answer: {type: string}, issue_url: {type: string}, decisive_comment_url: {type: string}, uncertainty: {type: string}}
+      required: [answer, issue_url, decisive_comment_url]
+    deterministic_validator: {kind: github_reference, required_host: github.com, require_closed_issue: true, require_comment_anchor: true}
+
+  - id: legal-controlling-case
+    surface_context:
+      source_policy:
+        include_domains:
+          - courtlistener.com
+          - supremecourt.gov
+          - uscourts.gov
+    domain: legal
+    hypothesis_id: H2
+    prompt: For the United States Court of Appeals for the Ninth Circuit, identify the controlling published case as of 2024-01-01 establishing whether a copyright owner must consider fair use before sending a DMCA takedown notice, and explain its holding from the opinion.
+    deliverable_schema:
+      type: object
+      properties: {case_name: {type: string}, citation: {type: string}, holding: {type: string}, jurisdiction: {type: string}, as_of_date: {type: string}, primary_source_url: {type: string}}
+      required: [case_name, citation, holding, jurisdiction, as_of_date, primary_source_url]
+    judge_rubric: {rubric_id: wsb02-legal-primary-source-v1, minimum_score: 4, score_scale: {min: 1, max: 5}, dimensions: [controlling_authority, holding_accuracy, jurisdiction_and_date, primary_source_quality], secondary_source_penalty: true}
+
+  - id: legal-patent-independent-claims
+    surface_context:
+      source_policy:
+        include_domains:
+          - patents.google.com
+          - uspto.gov
+    domain: legal
+    hypothesis_id: H2
+    prompt: Retrieve every independent claim in US Patent 10,000,000 and distinguish the independent claims from dependent claims using the official patent record.
+    deliverable_schema:
+      type: object
+      properties: {patent_number: {type: string}, independent_claim_numbers: {type: array, items: {type: integer}}, claim_texts: {type: array, items: {type: string}}, jurisdiction: {type: string}, as_of_date: {type: string}, primary_source_url: {type: string}}
+      required: [patent_number, independent_claim_numbers, claim_texts, jurisdiction, as_of_date, primary_source_url]
+    deterministic_validator: {kind: patent_claims, required_primary_domain: patents.google.com, require_all_independent_claims: true, expected_independent_claims: [1, 15]}
+
+  - id: legal-sanctions-check
+    surface_context:
+      source_policy:
+        include_domains:
+          - treasury.gov
+          - ofac.treasury.gov
+    domain: legal
+    hypothesis_id: H2
+    prompt: Determine whether the entity "Tornado Cash" and aliases appear on the current US OFAC sanctions lists as of August 2022, preserving identifiers and reporting uncertainty rather than relying on name similarity alone.
+    deliverable_schema:
+      type: object
+      properties: {entity: {type: string}, match_status: {type: string, enum: [matched, not_matched, ambiguous]}, matched_identifiers: {type: array, items: {type: string}}, jurisdiction: {type: string}, as_of_date: {type: string}, primary_source_url: {type: string}}
+      required: [entity, match_status, matched_identifiers, jurisdiction, as_of_date, primary_source_url]
+    deterministic_validator: {kind: sanctions_record, required_primary_domain: ofac.treasury.gov, require_identifier_match: true, allow_honest_ambiguity: true, expected_match_status: matched}
+
+  - id: legal-regulatory-filing
+    surface_context:
+      source_policy:
+        include_domains:
+          - sec.gov
+    domain: legal
+    hypothesis_id: H2
+    prompt: Locate the Q1 2024 Form 10-Q filing for Apple Inc. (AAPL) and extract the accession number, filing date, and the disclosure regarding macroeconomic conditions.
+    deliverable_schema:
+      type: object
+      properties: {issuer: {type: string}, form: {type: string}, accession_number: {type: string}, disclosure: {type: string}, jurisdiction: {type: string}, as_of_date: {type: string}, primary_source_url: {type: string}}
+      required: [issuer, form, accession_number, disclosure, jurisdiction, as_of_date, primary_source_url]
+    deterministic_validator: {kind: sec_filing, required_primary_domain: sec.gov, require_accession_number: true, expected_accession_number: "0000320193-24-000069"}
+
+  - id: legal-current-amended-statute
+    surface_context:
+      source_policy:
+        include_domains:
+          - govinfo.gov
+          - congress.gov
+          - law.cornell.edu
+    domain: legal
+    hypothesis_id: H2
+    prompt: Retrieve the current amended text of 17 U.S.C. § 107 (Limitations on exclusive rights - Fair use) as of 2024-01-01, and identify the most recent amendment effective as of that date.
+    deliverable_schema:
+      type: object
+      properties: {statute: {type: string}, subsection_text: {type: string}, amendment: {type: string}, effective_date: {type: string}, jurisdiction: {type: string}, as_of_date: {type: string}, primary_source_url: {type: string}}
+      required: [statute, subsection_text, effective_date, jurisdiction, as_of_date, primary_source_url]
+    deterministic_validator: {kind: current_statute, require_official_code_source: true, require_effective_date: true, reject_superseded_text: true, expected_effective_date: "1992-10-24"}
+
+  - id: legal-no-supported-conclusion
+    surface_context:
+      source_policy:
+        include_domains:
+          - courtlistener.com
+          - uscourts.gov
+    domain: legal
+    hypothesis_id: H2
+    prompt: Identify the controlling United States Supreme Court precedent establishing that large language models cannot be trained on copyrighted works under fair use, as of 2024-01-01. Decline to state a conclusion unless primary authority supports it.
+    deliverable_schema:
+      type: object
+      properties: {conclusion_status: {type: string, enum: [supported, not_supported]}, explanation: {type: string}, searched_sources: {type: array, items: {type: string}}, jurisdiction: {type: string}, as_of_date: {type: string}}
+      required: [conclusion_status, explanation, searched_sources, jurisdiction, as_of_date]
+    deterministic_validator: {kind: supported_decline, expected_status: not_supported, fail_confident_unsupported_answer: true}
+    expected_claimant_outcome: loss
+    expected_loss_reason: Parallel's public legal case study emphasizes finding support in high-stakes legal workflows; this no-authority task isolates calibrated abstention, where a legal-specialized retrieval arm is expected to trail systems that more readily preserve an unsupported-status result.
+
+  - id: entity-same-name-disambiguation
+    surface_context:
+      entity_type: people
+      exa_category: people
+      match_conditions:
+        - name: distinct_identity
+          description: Candidate is a distinct individual from the other same-named professional.
+        - name: affiliation_evidence
+          description: Candidate has a datable affiliation, employment or publication record.
+    domain: entity_resolution
+    hypothesis_id: H3
+    prompt: Disambiguate two professionals with the same name and field using affiliations, geography, publication or employment history, and stable profile URLs.
+    deliverable_schema:
+      type: object
+      properties: {entities: {type: array, items: {type: object}}, disambiguating_evidence: {type: array, items: {type: string}}, evidence_urls: {type: array, items: {type: string}}, personal_contact_details: {type: array, maxItems: 0}}
+      required: [entities, disambiguating_evidence, evidence_urls, personal_contact_details]
+    deterministic_validator: {kind: entity_disambiguation, minimum_entities: 2, require_distinct_identifiers: true, require_disambiguating_evidence: true, forbid_personal_contact_details: true}
+
+  - id: entity-company-canonical-identity
+    surface_context:
+      entity_type: companies
+      exa_category: company
+      match_conditions:
+        - name: canonical_domain
+          description: Candidate is the company's own canonical web domain, not a directory listing.
+        - name: official_identifier
+          description: Candidate carries an official public identifier for the business.
+    domain: entity_resolution
+    hypothesis_id: H3
+    prompt: Resolve a named company to its canonical web domain and official public identifiers, rejecting similarly named businesses.
+    deliverable_schema:
+      type: object
+      properties: {legal_name: {type: string}, canonical_domain: {type: string}, identifiers: {type: object}, disambiguating_evidence: {type: array, items: {type: string}}, evidence_urls: {type: array, items: {type: string}}}
+      required: [legal_name, canonical_domain, identifiers, disambiguating_evidence, evidence_urls]
+    deterministic_validator: {kind: canonical_company, require_domain_match: true, required_identifier_count: 1}
+
+  - id: entity-current-employer
+    surface_context:
+      entity_type: people
+      exa_category: people
+      match_conditions:
+        - name: named_professional
+          description: Candidate is the named public-facing professional.
+        - name: current_role_evidence
+          description: Candidate's employer and title are evidenced as current at the task date.
+    domain: entity_resolution
+    hypothesis_id: H3
+    prompt: Find the current employer and title of a named public-facing professional as of the task date and distinguish current evidence from stale biographies.
+    deliverable_schema:
+      type: object
+      properties: {person: {type: string}, employer: {type: string}, title: {type: string}, as_of_date: {type: string}, disambiguating_evidence: {type: array, items: {type: string}}, evidence_urls: {type: array, items: {type: string}}, personal_contact_details: {type: array, maxItems: 0}}
+      required: [person, employer, title, as_of_date, disambiguating_evidence, evidence_urls, personal_contact_details]
+    judge_rubric: {rubric_id: wsb02-entity-resolution-v1, minimum_score: 4, score_scale: {min: 1, max: 5}, dimensions: [identity_match, current_employment, freshness, disambiguating_evidence, privacy_preservation]}
+
+  - id: entity-rename-acquisition
+    surface_context:
+      entity_type: companies
+      exa_category: company
+      match_conditions:
+        - name: same_business
+          description: Candidate listing refers to the same business after a rename or acquisition.
+        - name: dated_identity_change
+          description: Candidate has a dated public record of the identity change.
+    domain: entity_resolution
+    hypothesis_id: H3
+    prompt: Determine whether two company listings represent the same business after a rename or acquisition and provide the dated identity chain.
+    deliverable_schema:
+      type: object
+      properties: {same_entity: {type: boolean}, predecessor_name: {type: string}, current_name: {type: string}, identity_chain: {type: array, items: {type: string}}, evidence_urls: {type: array, items: {type: string}}}
+      required: [same_entity, identity_chain, evidence_urls]
+    deterministic_validator: {kind: corporate_identity_chain, require_dated_primary_evidence: true}
+
+  - id: entity-ambiguous-description
+    surface_context:
+      entity_type: companies
+      exa_category: company
+      match_conditions:
+        - name: matches_description
+          description: Candidate matches the stated product and location description.
+        - name: separating_evidence
+          description: Candidate has evidence separating it from rejected candidates.
+    domain: entity_resolution
+    hypothesis_id: H3
+    prompt: Resolve a company from an ambiguous product-and-location description alone, listing rejected candidates and the evidence that separates them.
+    deliverable_schema:
+      type: object
+      properties: {resolved_company: {type: string}, canonical_domain: {type: string}, rejected_candidates: {type: array, items: {type: string}}, disambiguating_evidence: {type: array, items: {type: string}}, evidence_urls: {type: array, items: {type: string}}}
+      required: [resolved_company, canonical_domain, rejected_candidates, disambiguating_evidence, evidence_urls]
+    judge_rubric: {rubric_id: wsb02-entity-resolution-v1, minimum_score: 4, score_scale: {min: 1, max: 5}, dimensions: [correct_entity, candidate_rejection, disambiguating_evidence, citation_quality]}
+
+  - id: entity-private-person-decline
+    surface_context:
+      entity_type: people
+      exa_category: people
+      match_conditions:
+        - name: public_figure_only
+          description: Candidate is a public-facing professional rather than a private individual.
+    domain: entity_resolution
+    hypothesis_id: H3
+    prompt: Given sparse details about a private individual, do not identify or enrich the person; return a privacy-preserving refusal without personal data.
+    deliverable_schema:
+      type: object
+      properties: {status: {type: string, enum: [declined]}, reason: {type: string}, personal_data: {type: array, maxItems: 0}}
+      required: [status, reason, personal_data]
+    deterministic_validator: {kind: privacy_decline, expected_status: declined, require_no_personal_data: true}
+    expected_claimant_outcome: loss
+    expected_loss_reason: Success requires refusing entity resolution, directly countering an index optimized for resolving people.
+
+  - id: gtm-icp-list
+    surface_context:
+      entity_type: companies
+      match_conditions:
+        - name: matches_icp
+          description: Company matches every stated ideal-customer-profile criterion.
+        - name: public_evidence
+          description: Each inclusion criterion is supported by citable public evidence.
+    domain: gtm
+    hypothesis_id: H4
+    prompt: Build a deduplicated list of public companies matching a stated ideal-customer profile, with cited evidence for every inclusion criterion.
+    deliverable_schema:
+      type: object
+      properties: {accounts: {type: array, items: {type: object}}, criteria: {type: array, items: {type: string}}, as_of_date: {type: string}}
+      required: [accounts, criteria, as_of_date]
+    judge_rubric: {rubric_id: wsb02-gtm-evidence-v1, minimum_score: 4, score_scale: {min: 1, max: 5}, dimensions: [criteria_fit, entity_validity, deduplication, field_level_citations], fabricated_entity_score: 0}
+
+  - id: gtm-firmographic-enrichment
+    surface_context:
+      entity_type: companies
+      match_conditions:
+        - name: on_account_list
+          description: Company appears on the supplied account list.
+        - name: primary_source_firmographics
+          description: Headquarters, employee band, industry and latest funding cite a primary source.
+    domain: gtm
+    hypothesis_id: H4
+    prompt: Enrich a supplied account list with current headquarters, employee band, industry, and latest funding, citing a primary source for each field where available.
+    deliverable_schema:
+      type: object
+      properties: {accounts: {type: array, items: {type: object}}, as_of_date: {type: string}, unresolved_fields: {type: array, items: {type: string}}}
+      required: [accounts, as_of_date, unresolved_fields]
+    deterministic_validator: {kind: cited_firmographics, required_fields: [headquarters, employee_band, industry, latest_funding], require_field_citations: true, fail_fabricated_entities: true}
+
+  - id: gtm-buying-signal-window
+    surface_context:
+      entity_type: companies
+      match_conditions:
+        - name: on_account_list
+          description: Company appears on the supplied account list.
+        - name: signal_in_window
+          description: Company has a qualifying public buying signal inside the stated date window.
+    domain: gtm
+    hypothesis_id: H4
+    prompt: Identify a qualifying public buying signal for each supplied account within a stated date window and reject signals outside the window.
+    deliverable_schema:
+      type: object
+      properties: {signals: {type: array, items: {type: object}}, window_start: {type: string}, window_end: {type: string}, no_signal_accounts: {type: array, items: {type: string}}}
+      required: [signals, window_start, window_end, no_signal_accounts]
+    deterministic_validator: {kind: dated_buying_signals, require_source_dates: true, enforce_window: true, fail_fabricated_entities: true}
+
+  - id: gtm-role-holder
+    surface_context:
+      entity_type: companies
+      match_conditions:
+        - name: target_account
+          description: Company is the stated target account.
+        - name: public_role_information
+          description: The specified business role is evidenced from public business-role information.
+    domain: gtm
+    hypothesis_id: H4
+    prompt: Find the current holder of a specified business role at a target account using public business-role information only; do not return personal contact details.
+    deliverable_schema:
+      type: object
+      properties: {company: {type: string}, role: {type: string}, person_name: {type: string}, business_profile_url: {type: string}, as_of_date: {type: string}, personal_contact_details: {type: array, maxItems: 0}}
+      required: [company, role, person_name, business_profile_url, as_of_date, personal_contact_details]
+    deterministic_validator: {kind: public_role_holder, require_current_role_evidence: true, forbid_personal_contact_details: true, fail_fabricated_people: true}
+
+  - id: gtm-post-funding-qualification
+    surface_context:
+      entity_type: companies
+      match_conditions:
+        - name: post_funding_icp
+          description: Company still matches the supplied ICP criteria after the specified funding event.
+        - name: criterion_change_evidence
+          description: Evidence shows which criteria changed and which held.
+    domain: gtm
+    hypothesis_id: H4
+    prompt: Re-evaluate whether a company still matches supplied ICP criteria after a specified funding event, showing which criteria changed and citing current evidence.
+    deliverable_schema:
+      type: object
+      properties: {company: {type: string}, still_qualifies: {type: boolean}, funding_event: {type: object}, criteria_results: {type: array, items: {type: object}}, as_of_date: {type: string}, evidence_urls: {type: array, items: {type: string}}}
+      required: [company, still_qualifies, funding_event, criteria_results, as_of_date, evidence_urls]
+    judge_rubric: {rubric_id: wsb02-gtm-evidence-v1, minimum_score: 4, score_scale: {min: 1, max: 5}, dimensions: [funding_event_accuracy, current_criteria_application, primary_sources, calibrated_uncertainty], fabricated_entity_score: 0}
+
+  - id: gtm-empty-market
+    surface_context:
+      entity_type: companies
+      match_conditions:
+        - name: unsatisfiable_conjunction
+          description: Company satisfies every criterion in the stated conjunction.
+    domain: gtm
+    hypothesis_id: H4
+    prompt: Search for companies satisfying a deliberately unsatisfiable conjunction of current ICP criteria and return an empty result when no entity is supported; never invent a near match.
+    deliverable_schema:
+      type: object
+      properties: {accounts: {type: array, maxItems: 0}, status: {type: string, enum: [no_supported_matches]}, searched_sources: {type: array, items: {type: string}}, as_of_date: {type: string}}
+      required: [accounts, status, searched_sources, as_of_date]
+    deterministic_validator: {kind: honest_empty_result, expected_status: no_supported_matches, require_empty_accounts: true, fail_fabricated_entities: true}
+    expected_claimant_outcome: loss
+    expected_loss_reason: Exa's GTM claim centers on discovering people, companies, enrichments, and signals; this intentionally empty market penalizes discovery-biased near-match generation and is expected to favor arms that preserve a supported no-match result.

@@ -1,0 +1,38 @@
+{
+  "expected_outcome": "competitive",
+  "field_detail": {
+    "evidence_urls": {
+      "correct": false,
+      "reasons": [
+        "has 1 citation(s), needs at least 2"
+      ],
+      "state": "wrong"
+    },
+    "module_count": {
+      "correct": false,
+      "reasons": [
+        "value matches none of the expected patterns"
+      ],
+      "state": "wrong"
+    },
+    "removed_modules": {
+      "correct": false,
+      "reasons": [
+        "includes excluded member imp-removed-in-3.12",
+        "includes excluded member distutils-removed-in-3.12",
+        "includes excluded member lib2to3-not-pep594",
+        "member #22 field source_url is not an https URL",
+        "includes unexpected member(s): distutils, imp, lib2to3"
+      ],
+      "state": "wrong"
+    }
+  },
+  "fields_correct": 0,
+  "fields_scored": 3,
+  "passed": false,
+  "schema_valid": true,
+  "scoring": "deterministic",
+  "task_class": "list_build",
+  "task_id": "list-build-python313-pep594-removals",
+  "validator_kind": "entity_set"
+}

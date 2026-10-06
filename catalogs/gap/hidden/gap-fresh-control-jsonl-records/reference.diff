@@ -1,0 +1,8 @@
+--- a/app.py
++++ b/app.py
+@@ -2,4 +2,4 @@
+
+
+ def encode(values):
+-    return json.dumps(values, ensure_ascii=False) + "\n" if values else ""
++    return "".join(json.dumps(v, ensure_ascii=False) + "\n" for v in values)

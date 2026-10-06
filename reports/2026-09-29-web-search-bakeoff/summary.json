@@ -1,0 +1,708 @@
+{
+  "schema_version": 1,
+  "bench": "WSB",
+  "source_record": "Recorded findings, transcribed without recalculating results; private identifiers omitted.",
+  "blocks": [
+    {
+      "markdown": "# WSB live battery — initial results (2026-09-29)\n\n> **Correction (2026-10-06): the native arm's page fetches were mostly refused.** The arm exposed\n> WebSearch and WebFetch but pre-approved only WebSearch, and headless Claude Code refuses tools that\n> are not pre-approved. WebFetch was refused in 40 of 54 native cells (110 calls).\n> Provider arms were unaffected. The native rows therefore understate Claude Code's own web tools.\n> The configuration is fixed and pinned by a test; the recorded numbers below are unchanged.\n> Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md).\n\n**Pack:** `web-search-bakeoff` (WSB) on the Search Evaluation Workbench (SEW).\n**Harness / model:** claude-code, Claude Opus 5.5 (`claude-opus-5-5[1m]`), authenticated execution on the original host.\n**Status:** historical initial grading; headline and Results tables are superseded by the\n[2026-09-30 regrade](#update-2026-09-30-operator-decisions), where Firecrawl leads at 90%. The numbers below are graded with SEWBENCH-01 applied to\nthe stored deliverables. The same deliverables graded without those fixes are summarised in\n[Failure dive](#failure-dive) and were materially wrong.\n\n## Headline\n\nHistorical figures under the initial grader: rankings and cost lower bounds here apply only to that\ngrading, not the later operator-ruled catalog.\n\nOn the 14 `competitive` production tasks (42 cells per arm), every search arm except Brave scores\nabove answering without search:\n\n- **Firecrawl and Perplexity lead at 83%.** Exa is at 81%, Tavily 79%, native web search and\n  Parallel 76%, no-search 71% and Brave 69%.\n- **The 95% intervals overlap.** At n=42 per arm the ordering is directional, not conclusive: no\n  arm's difference from no-search or from native has an interval that excludes zero.\n- **Search matters most on tasks that need live data.** On the cloud egress pricing table only\n  Firecrawl and Perplexity went 3/3 (Brave 2/3, the rest 0/3). The AWS pricing pages need\n  JavaScript rendering, and most arms reported the intra-AZ cell as unavailable, honestly.\n- **Among fully priced arms, native search costs least per success** ($0.167), followed by\n  Tavily ($0.206). Perplexity (at least $0.148; 37/42 cells priced) and Firecrawl (at least\n  $0.159; 39/42 priced) are lower bounds, excluded from the cost ranking; Perplexity's `ask`\n  spend is unmetered. Brave and no-search are also partially priced (at least $0.28 each);\n  no-search had a few long runaway answers.\n- **Brave is last,** failing `unanswerable-nonexistent-postgres-guc` and\n  `upstream-diagnosis-node-openssl3-md4` in all three repetitions.\n\n## What ran\n"
+    },
+    {
+      "table": [
+        [
+          "Run",
+          "Arms",
+          "Cells",
+          "Window (UTC)"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "first arm group",
+          "no-search, native, brave, tavily",
+          "216",
+          "2026-09-29 03:29 – 13:26"
+        ],
+        [
+          "second arm group",
+          "exa, parallel-web, firecrawl, perplexity",
+          "216",
+          "2026-09-29 13:39 – 22:49"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n\n- **Tasks:** all 18 production tasks ([production task catalog](../../catalogs/production/tasks.yaml)), × 3 repetitions.\n  - 14 are `competitive`.\n  - 4 are `expected_fail` by design: no retrieval surface can answer them, and the honest\n    deliverable is a partial answer or a decline.\n- **Arms:**\n  - Provider arms expose one vendor MCP server each, and nothing else.\n  - The native arm uses the harness's own web search.\n  - The no-search arm has no network tools.\n- **Pinned MCP servers:**\n  - [@brave/brave-search-mcp-server](https://www.npmjs.com/package/@brave/brave-search-mcp-server) version 2.1.4\n  - `tavily-mcp@0.2.22`\n  - `exa-mcp-server@3.4.1`\n  - `firecrawl-mcp@3.26.0`\n  - [@perplexity-ai/mcp-server](https://www.npmjs.com/package/@perplexity-ai/mcp-server) version 1.3.0\n  - Parallel's hosted Search MCP (`https://search.parallel.ai/mcp-oauth`, authenticated) via\n    `mcp-remote@0.14.3`\n- **Grading:**\n  - Deterministic validators where a task has one.\n  - Otherwise a blinded claude-code judge scoring the task's rubric.\n  - `bakeoff grade --regrade` re-scores the stored deliverables. Nothing was re-run.\n- **Cost:** model tokens are priced at the published Opus 5.5 rates. Vendor spend is metered per\n  MCP call where a tariff exists. It is unknown for Exa, Parallel and Perplexity's `ask` tool,\n  which report no spend over MCP.\n  In the tables, `partial` is the priced cells' spend divided by all of the arm's successes.\n  Unpriced cells can only add spend, so each `partial` figure is a lower bound on the full-arm\n  $/success, and these arms are excluded from the cost ranking. `bakeoff report` divides by\n  the successes among priced cells instead, which gives $0.172 for Perplexity, $0.163 for\n  Firecrawl and $0.29 for Brave on the competitive set, and no figure for Exa or Parallel on\n  the expected-fail set, where every success is in an unpriced cell.\n\n## Results\n\nAll Results tables below use the historical initial grading. The `ungraded` column counts delivered answers that could not be graded. Cells that exhausted their budget before delivering are counted under `budget-exhausted` and as failures, rather than under `ungraded`.\n\n### Competitive tasks (14 tasks × 3 repetitions)\n"
+    },
+    {
+      "table": [
+        [
+          "arm",
+          "pass",
+          "95% CI",
+          "$/success",
+          "priced",
+          "tokens/cell",
+          "provider calls",
+          "budget-exhausted",
+          "ungraded"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "firecrawl",
+          "35/42 (83%)",
+          "69–92%",
+          "partial $0.159 (39/42 priced)",
+          "39/42",
+          "55k",
+          "219",
+          "2",
+          "0"
+        ],
+        [
+          "perplexity",
+          "35/42 (83%)",
+          "69–92%",
+          "partial $0.148 (37/42 priced)",
+          "37/42",
+          "42k",
+          "145",
+          "0",
+          "0"
+        ],
+        [
+          "exa",
+          "34/42 (81%)",
+          "67–90%",
+          "unpriced",
+          "0/42",
+          "54k",
+          "105",
+          "0",
+          "0"
+        ],
+        [
+          "tavily",
+          "33/42 (79%)",
+          "64–88%",
+          "$0.206",
+          "42/42",
+          "52k",
+          "119",
+          "0",
+          "0"
+        ],
+        [
+          "native",
+          "32/42 (76%)",
+          "61–87%",
+          "$0.167",
+          "42/42",
+          "28k",
+          "256",
+          "0",
+          "0"
+        ],
+        [
+          "parallel-web",
+          "32/42 (76%)",
+          "61–87%",
+          "unpriced",
+          "0/42",
+          "54k",
+          "90",
+          "1",
+          "0"
+        ],
+        [
+          "no-search",
+          "30/42 (71%)",
+          "56–83%",
+          "partial $0.285 (41/42 priced)",
+          "41/42",
+          "15k",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "brave",
+          "29/42 (69%)",
+          "54–81%",
+          "partial $0.280 (41/42 priced)",
+          "41/42",
+          "65k",
+          "154",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n### Competitive deltas against controls\n\nEach arm against each control over the same 14 tasks × 3 repetitions. Intervals are 95% Newcombe\n(hybrid Wilson score) intervals for a difference of two independent proportions. They ignore the\ntask pairing, so they are conservative. Token ratios compare mean tokens per cell. Provider arms\nand their controls come from two runs about ten hours apart (see [Caveats](#caveats)).\n"
+    },
+    {
+      "table": [
+        [
+          "arm",
+          "vs no-search: pass Δ (95% CI)",
+          "vs no-search: tokens",
+          "vs native: pass Δ (95% CI)",
+          "vs native: tokens"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "firecrawl",
+          "+12 pp (−6 to +29)",
+          "3.49×",
+          "+7 pp (−10 to +24)",
+          "1.95×"
+        ],
+        [
+          "perplexity",
+          "+12 pp (−6 to +29)",
+          "2.63×",
+          "+7 pp (−10 to +24)",
+          "1.47×"
+        ],
+        [
+          "exa",
+          "+10 pp (−9 to +27)",
+          "3.39×",
+          "+5 pp (−13 to +22)",
+          "1.90×"
+        ],
+        [
+          "tavily",
+          "+7 pp (−11 to +25)",
+          "3.29×",
+          "+2 pp (−15 to +20)",
+          "1.84×"
+        ],
+        [
+          "native",
+          "+5 pp (−14 to +23)",
+          "1.79×",
+          "—",
+          "—"
+        ],
+        [
+          "parallel-web",
+          "+5 pp (−14 to +23)",
+          "3.44×",
+          "+0 pp (−18 to +18)",
+          "1.92×"
+        ],
+        [
+          "no-search",
+          "—",
+          "—",
+          "−5 pp (−23 to +14)",
+          "0.56×"
+        ],
+        [
+          "brave",
+          "−2 pp (−21 to +17)",
+          "4.13×",
+          "−7 pp (−25 to +12)",
+          "2.31×"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n### Expected-fail tasks (4 tasks × 3 repetitions)\n\nPassing here means an honest partial answer or decline, which the validator can confirm.\n"
+    },
+    {
+      "table": [
+        [
+          "arm",
+          "pass",
+          "95% CI",
+          "$/success",
+          "priced",
+          "tokens/cell",
+          "provider calls",
+          "budget-exhausted",
+          "ungraded"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "exa",
+          "5/12 (42%)",
+          "19–68%",
+          "partial $0.046 (6/12 priced)",
+          "6/12",
+          "67k",
+          "30",
+          "0",
+          "0"
+        ],
+        [
+          "no-search",
+          "3/12 (25%)",
+          "9–53%",
+          "partial $2.827 (9/12 priced)",
+          "9/12",
+          "43k",
+          "0",
+          "0",
+          "0"
+        ],
+        [
+          "native",
+          "3/12 (25%)",
+          "9–53%",
+          "$0.273",
+          "12/12",
+          "16k",
+          "28",
+          "0",
+          "0"
+        ],
+        [
+          "brave",
+          "3/12 (25%)",
+          "9–53%",
+          "partial $0.763 (11/12 priced)",
+          "11/12",
+          "66k",
+          "45",
+          "1",
+          "0"
+        ],
+        [
+          "firecrawl",
+          "3/12 (25%)",
+          "9–53%",
+          "partial $0.672 (10/12 priced)",
+          "10/12",
+          "75k",
+          "104",
+          "2",
+          "0"
+        ],
+        [
+          "perplexity",
+          "3/12 (25%)",
+          "9–53%",
+          "partial $0.197 (9/12 priced)",
+          "9/12",
+          "36k",
+          "30",
+          "0",
+          "0"
+        ],
+        [
+          "parallel-web",
+          "2/12 (17%)",
+          "5–45%",
+          "partial $0.116 (6/12 priced)",
+          "6/12",
+          "60k",
+          "34",
+          "1",
+          "0"
+        ],
+        [
+          "tavily",
+          "1/12 (8%)",
+          "1–35%",
+          "partial $1.923 (11/12 priced)",
+          "11/12",
+          "64k",
+          "49",
+          "1",
+          "0"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n### Per task\n"
+    },
+    {
+      "table": [
+        [
+          "task",
+          "outcome",
+          "no-search",
+          "native",
+          "brave",
+          "tavily",
+          "exa",
+          "parallel-web",
+          "firecrawl",
+          "perplexity"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "`change-detection-kubernetes-dockershim-removal`",
+          "competitive",
+          "2/3",
+          "2/3",
+          "1/3",
+          "3/3",
+          "2/3",
+          "3/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`change-detection-openapi-30-to-31`",
+          "competitive",
+          "1/3",
+          "1/3",
+          "0/3",
+          "0/3",
+          "2/3",
+          "2/3",
+          "0/3",
+          "1/3"
+        ],
+        [
+          "`competitive-table-cloud-egress-pricing`",
+          "competitive",
+          "0/3",
+          "0/3",
+          "2/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`competitive-table-copyleft-obligations`",
+          "competitive",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`list-build-kubernetes-122-api-removals`",
+          "competitive",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "2/3",
+          "2/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`list-build-python313-pep594-removals`",
+          "competitive",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`list-build-sca-tool-shortlist`",
+          "competitive",
+          "0/3",
+          "2/3",
+          "2/3",
+          "1/3",
+          "3/3",
+          "3/3",
+          "1/3",
+          "3/3"
+        ],
+        [
+          "`multi-hop-cve-to-fixed-release`",
+          "competitive",
+          "3/3",
+          "1/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "2/3",
+          "2/3",
+          "1/3"
+        ],
+        [
+          "`multi-hop-python-feature-peps`",
+          "competitive",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`unanswerable-nonexistent-postgres-guc`",
+          "competitive",
+          "2/3",
+          "3/3",
+          "0/3",
+          "3/3",
+          "2/3",
+          "2/3",
+          "3/3",
+          "1/3"
+        ],
+        [
+          "`unanswerable-private-company-audited-arr`",
+          "competitive",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "1/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`unanswerable-python4-ga-date`",
+          "competitive",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`upstream-diagnosis-node-openssl3-md4`",
+          "competitive",
+          "1/3",
+          "2/3",
+          "0/3",
+          "2/3",
+          "2/3",
+          "2/3",
+          "2/3",
+          "2/3"
+        ],
+        [
+          "`upstream-diagnosis-urllib3-libressl-import-error`",
+          "competitive",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3",
+          "3/3"
+        ],
+        [
+          "`change-detection-unversioned-runtime-drift`",
+          "expected_fail",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3"
+        ],
+        [
+          "`competitive-table-unpublished-enterprise-pricing`",
+          "expected_fail",
+          "3/3",
+          "3/3",
+          "3/3",
+          "1/3",
+          "2/3",
+          "1/3",
+          "2/3",
+          "3/3"
+        ],
+        [
+          "`multi-hop-npm-semver-dependents`",
+          "expected_fail",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "3/3",
+          "1/3",
+          "1/3",
+          "0/3"
+        ],
+        [
+          "`upstream-diagnosis-unindexed-ordering-regression`",
+          "expected_fail",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3",
+          "0/3"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n## Findings\n\n1. **Search earns its cost on live or long-tail data, not on stable knowledge.**\n   - Tasks whose answers are stable and well known were 3/3 in every arm, including no-search:\n     copyleft obligations, PEP 594 removals, Python feature PEPs and the urllib3 diagnosis.\n   - The separation comes from the tasks that need current data:\n     - the egress pricing table;\n     - the SCA tool shortlist (no-search 0/3; Exa, Parallel and Perplexity 3/3);\n     - the dockershim change-detection task.\n2. **Rendering matters for vendor pricing pages.** Firecrawl (which renders JavaScript) and\n   Perplexity were the only arms to read AWS's intra-AZ transfer pricing. The others honestly\n   reported it unavailable, and the validator fails an unavailable cell.\n3. **Declining is not the default for search arms.** `unanswerable-nonexistent-postgres-guc`\n   separates the arms: Brave 0/3 and Perplexity 1/3 against 3/3 for native, Tavily and Firecrawl.\n4. **Exa handles impossible tasks best** (5/12 honest partials on the expected-fail set). It is the\n   only arm to go 3/3 on `multi-hop-npm-semver-dependents`, where the honest move is to state the\n   method and its limits rather than invent a ranking.\n5. **Provider arms use more reported tokens per cell.** The MCP provider arms report 42k–65k\n   tokens per cell against 15k for no-search. Native search reports 28k. These totals do not\n   separate input from output tokens, which have different prices, and some vendor spend is\n   unknown; the totals alone cannot establish what dominates cost per success.\n\n## Failure dive\n\nTwo tasks were initially at 0/24 across all arms; a third mostly failed, and the judged SCA\ntask was mostly ungraded. All four exposed bench bugs. Each was confirmed by reading the\ndeliverables, and each is fixed in the bench fix:\n"
+    },
+    {
+      "table": [
+        [
+          "Task",
+          "As first graded",
+          "Graded with SEWBENCH-01",
+          "Cause"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "`unanswerable-python4-ga-date`",
+          "0/24",
+          "24/24",
+          "The decline rejected **any** date, including \"as of 2026-09-28\" and other releases' dates."
+        ],
+        [
+          "`unanswerable-private-company-audited-arr`",
+          "3/23 graded",
+          "22/23 graded",
+          "The prompt asks for how circulating revenue figures were derived; any dollar figure failed. The 24th cell (Parallel) hit its budget before delivering, is not graded, and counts as a failure in the tables, so the per-task row reads 22/24."
+        ],
+        [
+          "`upstream-diagnosis-urllib3-libressl-import-error`",
+          "0/24",
+          "24/24",
+          "A URL-only check on a field every arm filled in prose; the URLs were in `evidence_urls`."
+        ],
+        [
+          "`list-build-sca-tool-shortlist` (judged)",
+          "mostly ungraded",
+          "graded",
+          "The judge sometimes fences its JSON; the `default` profile name also counted as an arm-identity leak."
+        ]
+      ]
+    },
+    {
+      "markdown": "\nWith the fixes, the competitive pass rate rose between 14 and 29 points per arm (no-search +14, Exa +29). It rose most for\nsearch arms, which had been penalised for citing and explaining evidence. **The first reading of\nthis battery, that no-search was about as good as any provider, was an artifact of these bugs.**\n\nGenuine failures that remain:\n\n- **Egress pricing:** unavailable AWS intra-AZ cells, as above.\n- **`change-detection-openapi-30-to-31`:** most misses omit `example→examples` from the breaking\n  changes. OAS 3.1 *deprecates* `example` rather than removing it. The tables above still require\n  it; the operator has since ruled it is not a break (see the update below).\n- **Budget exhaustion:** 8 cells. Six are Firecrawl or Parallel on long list-building and enumeration tasks; Brave and Tavily have one each.\n- **By design:** the two remaining `expected_fail` tasks (`unversioned-runtime-drift`,\n  `unindexed-ordering-regression`) are 0/3 everywhere.\n\n## Codex (partial)\n\nThe codex harness (gpt-6-sol) ran one competitive task on 2026-09-28 before its weekly quota ran\nout:\n\n- **Egress pricing:** native 2/3, no-search 1/3. Brave and Tavily went 0/3 on the token budget,\n  reading 393k–448k tokens per cell.\n- **Expected-fail tasks:** codex's search arms burned the full provider-call budget on\n  `multi-hop-npm-semver-dependents` instead of declining.\n\nA full codex battery waits for the quota reset (2026-10-04 12:52Z).\n\n## Caveats\n\n- **Sample size:** n=42 per arm on the competitive set. Adjacent arms are within each other's\n  intervals.\n- **Timing:** the two runs were about ten hours apart. Same harness, model, tasks and budgets.\n- **Pricing:** vendor spend is unpriced for Exa and Parallel, and for Perplexity's `ask` tool.\n  Their $/success counts model tokens plus metered calls only.\n- **Grading:** the judged tasks use a single claude judge, so agreement is not measured.\n\n## Update (2026-09-30): operator decisions\n\n- **OpenAPI:** `example→examples` is a deprecation, not a break, so the task no longer requires\n  it. The task also stops requiring a construct labelled as the JSON Schema dialect: the dialect\n  has its own field, and complete answers list its consequences instead. Both changes are in\n  the bench fix. On replay, the task goes\n  from 7/24 to 22/24. The two remaining misses cite hosts outside the allowlist.\n- **Codex native search** is priced at Brave's per-request rate as a proxy for its backing\n  vendor. Claude native search keeps Anthropic's published rate.\n- **Tokens and outcome rate are reported together.** Tokens per success come from\n  the bench fix.\n\nCompetitive pass rates regraded with the corrected catalog at the recorded grader revision:\n"
+    },
+    {
+      "table": [
+        [
+          "arm",
+          "pass",
+          "tokens/success"
+        ],
+        [
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "firecrawl",
+          "38/42 (90%)",
+          "61.5k"
+        ],
+        [
+          "perplexity",
+          "37/42 (88%)",
+          "47.7k"
+        ],
+        [
+          "tavily",
+          "36/42 (86%)",
+          "61.3k"
+        ],
+        [
+          "exa",
+          "35/42 (83%)",
+          "65.0k"
+        ],
+        [
+          "native",
+          "33/42 (79%)",
+          "36.3k"
+        ],
+        [
+          "parallel-web",
+          "33/42 (79%)",
+          "69.8k"
+        ],
+        [
+          "no-search",
+          "32/42 (76%)",
+          "20.9k"
+        ],
+        [
+          "brave",
+          "31/42 (74%)",
+          "89.2k"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nThe historical `tokens/cell` column averages measured total-billable tokens over attempted\ncells with measured usage; unknown or estimated usage is excluded, never treated as zero.\nThe update's `tokens/success` sums measured tokens over graded cells and divides by\nmeasured successes, as defined by the bench fix; it excludes ungraded and unmeasured cells and is\nnot a full-arm lower bound. The per-arm measured coverage counts were not retained here. Multiplying a measured-cell mean by all 42 attempts need not reproduce it.\nThe previously quoted fresh/cache/output means are withdrawn: their cell coverage and\nbucket accounting were not recorded here and they do not reconcile for Firecrawl, Parallel\nor no-search. They cannot support a token-mix comparison from this document.\n\nThe output-reduction claim is also withdrawn. The quoted no-search mean included long\nrunaway answers; without a median or an outlier-excluded comparison, this battery does not\nestablish a typical reduction or a causal effect of search on output length.\nAmong the six MCP providers, a higher pass rate goes with fewer tokens per success: Perplexity\nis best on tokens, and Brave is worst on both. Spearman ρ ≈ −0.83 (pass rate versus\ntokens/success, n=6) is suggestive, not established, and is not significant at α=0.05.\nNo arm's pass-rate difference from no-search has an interval that\nexcludes zero. Firecrawl comes closest at +14 points (−2 to +30)."
+    }
+  ],
+  "catalog": {
+    "path": "catalogs/production/tasks.yaml",
+    "hash_algorithm": "sha256 of file bytes",
+    "historical": {
+      "initial": "144c4a41b959996f607dcd7b90c1aee091f4771efc6e1ebeb37c11d40f8f9d1c",
+      "regrade": "f53e4a536efc2a1c66c532754d156e771c53da026f73eadfcb9d6650b3f63442"
+    },
+    "shipped": "39b42ae3428c37e0befce489b14cf03342c638c21e27c0341ba027f49d0be78b"
+  }
+}

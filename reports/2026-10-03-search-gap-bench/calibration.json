@@ -1,0 +1,159 @@
+{
+  "record_type": "published-calibration-summary",
+  "repetitions": 5,
+  "floor_max_passes": 1,
+  "ceiling_min_passes": 4,
+  "catalog_sha256": "13f44a7246369368a87ca959a25986e505c678565d0090ffd35869355829b1bc",
+  "harnesses": {
+    "claude-code": {
+      "model": "claude-opus-5-5",
+      "tasks": [
+        {
+          "task": "billing-reporting",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "classroom-term",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "models-production",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "npm-token-scope",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "org-migration",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "python-metadata",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "tarfile-upload",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "cli-trust",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 2,
+          "admitted": false
+        },
+        {
+          "task": "spark-editing",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 1,
+          "admitted": false
+        },
+        {
+          "task": "python-security-march",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 0,
+          "admitted": false
+        }
+      ]
+    },
+    "codex": {
+      "model": "gpt-6.1-sol",
+      "tasks": [
+        {
+          "task": "billing-reporting",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "classroom-term",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "models-production",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "npm-token-scope",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "org-migration",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 4,
+          "admitted": true
+        },
+        {
+          "task": "python-metadata",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "tarfile-upload",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 0,
+          "admitted": false
+        },
+        {
+          "task": "cli-trust",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 2,
+          "admitted": false
+        },
+        {
+          "task": "spark-editing",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 0,
+          "admitted": false
+        },
+        {
+          "task": "python-security-march",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 1,
+          "admitted": false
+        }
+      ]
+    }
+  }
+}

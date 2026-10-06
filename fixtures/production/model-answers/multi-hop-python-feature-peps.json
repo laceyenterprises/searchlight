@@ -1,0 +1,39 @@
+{
+  "evidence_urls": [
+    "https://peps.python.org/pep-0572/",
+    "https://peps.python.org/pep-0634/",
+    "https://peps.python.org/pep-0498/",
+    "https://peps.python.org/pep-0570/"
+  ],
+  "features": [
+    {
+      "feature": "assignment expression (walrus) operator",
+      "pep": "PEP 572",
+      "pep_status": "Final",
+      "shipped_in_version": "3.8",
+      "source_url": "https://peps.python.org/pep-0572/"
+    },
+    {
+      "feature": "structural pattern matching",
+      "pep": "PEP 634",
+      "pep_status": "Final",
+      "shipped_in_version": "3.10",
+      "source_url": "https://peps.python.org/pep-0634/"
+    },
+    {
+      "feature": "formatted string literals",
+      "pep": "PEP 498",
+      "pep_status": "Final",
+      "shipped_in_version": "3.6",
+      "source_url": "https://peps.python.org/pep-0498/"
+    },
+    {
+      "feature": "positional-only parameters",
+      "pep": "PEP 570",
+      "pep_status": "Final",
+      "shipped_in_version": "3.8",
+      "source_url": "https://peps.python.org/pep-0570/"
+    }
+  ],
+  "release_shipping_more_than_one": "3.8 shipped both PEP 572 and PEP 570"
+}

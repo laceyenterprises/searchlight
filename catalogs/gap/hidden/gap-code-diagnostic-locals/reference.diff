@@ -1,0 +1,16 @@
+--- a/app.py
++++ b/app.py
+@@ -2,4 +2,4 @@
+
+
+ def diagnostic_app():
+-    return typer.Typer()
++    return typer.Typer(pretty_exceptions_show_locals=True)
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-typer==0.22.0
++typer==0.23.0
+ click==8.3.3
+ rich==15.0.0
+ shellingham==1.5.4

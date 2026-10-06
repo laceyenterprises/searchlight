@@ -1,0 +1,22 @@
+--- a/app.py
++++ b/app.py
+@@ -1,10 +1,6 @@
+ from pathlib import Path
+-import tempfile
+ from requests.utils import extract_zipped_paths
+
+
+ def read_member(path):
+-    if Path(path).is_file():
+-        return Path(path).read_bytes()
+-    extract_zipped_paths(path)
+-    return (Path(tempfile.gettempdir()) / Path(path).name).read_bytes()
++    return Path(extract_zipped_paths(path)).read_bytes()
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,4 +1,4 @@
+-requests==2.32.5
++requests==2.33.0
+ urllib3==2.8.0
+ charset-normalizer==3.5.2
+ idna==3.20

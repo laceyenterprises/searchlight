@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+"""Prepare the public, hash-pinned author cache before offline Seatbelt validation."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+from pathlib import Path
+import sys
+import tempfile
+from urllib.parse import urlsplit
+from urllib.request import urlopen
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "lib/python"))
+from sew.gap.catalog import load_gap_tasks  # noqa: E402
+
+
+def prepare(pins, wheelhouse, *, download=False, fetch=None):
+    """Offline by default; only --download authorizes public wheel retrieval."""
+    wheelhouse = Path(wheelhouse)
+    wheelhouse.mkdir(parents=True, exist_ok=True)
+    seen = {}
+    for pin in pins:
+        name = Path(urlsplit(pin["url"]).path).name
+        if name in seen:
+            if seen[name] != pin["sha256"]:
+                raise ValueError(f"conflicting pin: {name}")
+            continue
+        seen[name] = pin["sha256"]
+        target = wheelhouse / name
+        if target.is_symlink():
+            raise ValueError(f"wheel symlink refused: {name}")
+        if target.exists():
+            data = target.read_bytes()
+        elif download:
+            if fetch is not None:
+                data = fetch(pin["url"])
+            else:
+                with urlopen(pin["url"], timeout=30) as response:
+                    data = response.read(30_000_001)
+            if len(data) > 30_000_000:
+                raise ValueError(f"wheel exceeds author cache limit: {name}")
+        else:
+            raise ValueError(f"missing cached wheel: {name}; prepare with --download first")
+        if hashlib.sha256(data).hexdigest() != pin["sha256"]:
+            raise ValueError(f"wheel hash mismatch: {name}")
+        if not target.exists():
+            with tempfile.NamedTemporaryFile(dir=wheelhouse, delete=False) as tmp:
+                tmp.write(data)
+                staging = Path(tmp.name)
+            try:
+                staging.replace(target)
+            finally:
+                staging.unlink(missing_ok=True)
+    return len(seen)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--wheelhouse", type=Path, required=True)
+    parser.add_argument("--download", action="store_true")
+    args = parser.parse_args()
+    tasks = [t for t in load_gap_tasks(ROOT).values() if t["task_type"] == "code"]
+    try:
+        count = prepare(
+            [p for t in tasks for p in t["packages"]], args.wheelhouse, download=args.download
+        )
+    except (OSError, ValueError) as exc:
+        parser.exit(1, f"{exc}\n")
+    print(f"{count} pinned wheels verified; offline corpus cache ready")
+
+
+if __name__ == "__main__":
+    main()

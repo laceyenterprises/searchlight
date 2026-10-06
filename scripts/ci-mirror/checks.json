@@ -1,0 +1,38 @@
+{
+  "always-on-workflow-coverage": {
+    "standalone.yml": {
+      "mirrored_by": [
+        "whitespace lint",
+        "standalone Python suite",
+        "OSS publication gates",
+        "public clone proof"
+      ]
+    }
+  },
+  "path-glob": {
+    "**": [
+      {
+        "name": "whitespace lint",
+        "command": "python3 scripts/lint.py && python3 scripts/check_reports.py && git diff --check origin/main...HEAD",
+        "tier": "fast"
+      },
+      {
+        "name": "OSS publication gates",
+        "command": "bash scripts/check-publication.sh",
+        "tier": "slow"
+      },
+      {
+        "name": "public clone proof",
+        "command": "bash scripts/public-clone-proof.sh",
+        "tier": "slow"
+      }
+    ],
+    "**/*.py": [
+      {
+        "name": "standalone Python suite",
+        "command": "SEW_MODE=standalone PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -m pytest -q",
+        "tier": "slow"
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "run_id": "fixture-success-20260916T181200Z",
+  "task_id": "current-fact-lookup-v1",
+  "outcome": "pass",
+  "dimensions": {
+    "completed": true,
+    "correct": true,
+    "grounded": true,
+    "fresh": true,
+    "schema_valid": true,
+    "safe": true
+  },
+  "failure_reasons": [],
+  "judge": {
+    "kind": "deterministic",
+    "validator": "exact_value_with_citation"
+  },
+  "evidence_refs": [
+    "sources/src-success-release-note.json"
+  ]
+}

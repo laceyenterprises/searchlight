@@ -1,0 +1,37 @@
+schema_version: 1
+registry_id: domain-strength-claims-v1
+version: "2026-09-20"
+claims:
+  - hypothesis_id: H1
+    claimant: firecrawl
+    domain: code_and_pr
+    claim: Firecrawl's documented GitHub workflow is specialized for finding and extracting repositories, issues, and documentation.
+    source_url: https://docs.firecrawl.dev/developer-guides/common-sites/github
+    retrieved_at: "2026-09-20"
+    claim_strength: vendor_ships_domain_surface
+    falsifiable_hypothesis: Firecrawl outperforms Exa and Parallel on domain-authored codebase and pull-request research tasks and exceeds its own cross-domain baseline.
+  - hypothesis_id: H2
+    claimant: parallel
+    domain: legal
+    claim: Parallel positions its cited research infrastructure for high-stakes legal work and documents production legal-research usage.
+    source_url: https://parallel.ai/blog/case-study-finch
+    retrieved_at: "2026-09-20"
+    claim_strength: vendor_ships_domain_surface
+    falsifiable_hypothesis: Parallel outperforms Exa and Firecrawl on primary-source legal research tasks and exceeds its own cross-domain baseline.
+  - hypothesis_id: H3
+    claimant: exa
+    domain: entity_resolution
+    claim: Exa publishes dedicated people and company search indexes and benchmarks for targeted lookup and entity discovery.
+    source_url: https://exa.ai/blog/people-search-benchmark
+    retrieved_at: "2026-09-20"
+    supporting_source_url: https://exa.ai/blog/company-search-benchmarks
+    claim_strength: vendor_ships_domain_surface
+    falsifiable_hypothesis: Exa outperforms Parallel and Firecrawl on people and company entity-resolution tasks and exceeds its own cross-domain baseline.
+  - hypothesis_id: H4
+    claimant: exa
+    domain: gtm
+    claim: Exa offers live people and company discovery, enrichment, and signal monitoring for go-to-market workflows.
+    source_url: https://exa.ai/use-cases/gtm
+    retrieved_at: "2026-09-20"
+    claim_strength: vendor_ships_domain_surface
+    falsifiable_hypothesis: Exa outperforms Parallel and Firecrawl on domain-authored GTM research tasks and exceeds its own cross-domain baseline.

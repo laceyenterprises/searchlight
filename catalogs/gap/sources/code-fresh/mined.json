@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "ecosystem": "pypi",
+  "since": "2026-07-01",
+  "retrieved_at": "2026-10-05",
+  "candidates": [
+    {
+      "id": "gap-pypi-urllib3-2.8.0",
+      "package": "urllib3",
+      "old_version": "2.7.0",
+      "new_version": "2.8.0",
+      "release_kind": "minor",
+      "score": 8,
+      "markers": [
+        "default-change",
+        "security"
+      ],
+      "packages": [
+        {
+          "name": "urllib3",
+          "version": "2.7.0",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl",
+          "sha256": "9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897"
+        },
+        {
+          "name": "urllib3",
+          "version": "2.8.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+          "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+        }
+      ],
+      "cutoff_after": "2026-07-01",
+      "provenance": {
+        "event_date": "2026-09-15",
+        "source_urls": [
+          "https://pypi.org/pypi/urllib3/json",
+          "https://github.com/urllib3/urllib3/releases/tag/2.8.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "raising ~$40,000 USD](https://sethmlarson.dev/urllib3-is-fundraising-for-http2-support) to release HTTP/2 support and ensure long-term sustainable maintenance of the project. If your company or organization uses Python and would benefit from HTTP/2 support in Requests, pip, cloud SDKs, and thousands of other projects [please consider contributing financially](https://opencollective.com/urllib3) to ensure HTTP/2 support is developed sustainably and maintained for the long-haul.\r\n\r\nThank you for your support.\r\n\r\n## Security\r\n\r\nFixed the following security issues:\r\n\r\n- The TLS configuration for HTTPS proxies could be ignored or overridden. (High severity, GHSA-8988-9cw3-xx77)\r\n- `HTTPResponse.stream()` and `read_chunked()` could buffer a chunk-size line of unbounded length in memory. (High severity, GHSA-vxq7-64xx-v4gw)\r\n- Chunked Deflate streaming could enter an infinite loop. (Medium severity, GHSA-gh4c-6fx4-qh6g)\r\n\r\n> [!IMPORTANT]\r\n> urllib3 2.8.0 fixes HTTPS proxy TLS configuration being ignored or overridden by destination settings. Configurations relying on that behavior may require changes.\r\n>\r\n> Configure proxy CA certificates and client certificates in `proxy_ssl_context`, and proxy identity checks with `proxy_assert_hostname` or `proxy_assert_fingerprint`. Destination client certificates and identity overrides no longer apply to HTTPS forwarding proxy connections.\r\n\r\n> [!NOTE]\r\n> CVE IDs had not yet been assigned to these advisories at the time of release due to a backlog at GitHub's CNA.\r\n\r\n## Deprecations & Removals\r\n\r\n- Deprecated using an empty collection as the `Retry` option `allowed_methods` to retry any verb. (#5044)\r\n\r\n## Features\r\n\r\n- Added `Url.auth_decoded` and `Url.auth_decoded_joined` convenience properties to the result of `parse_url()`. (#4945)\r\n- Added `basic_auth_encoding` and `proxy_basic_auth_encoding` parameters to `urllib3.util.make_headers()`. (#5092)\r\n\r\n## Bugfixes\r\n\r\n- Fixed response header handling to replace obsolete folded header lines (`obs-fold`) with spaces in accordance with RFC 9112, preventing raw CRLF sequences from appearing in header values such as `Set-Cookie`. (#1362)\r\n- Fixed usage of `proxy_ssl_context` with `ProxyManager` when `use_forwarding_for_https=True`. Passing `ssl_context` instead of `proxy_ssl_context` for HTTPS proxies in this configuration now emits a `FutureWarning` and will raise an error in v3.0. (#2577)\r\n- Changed behavior of the default `ConnectionPool.pool` initialization. `LifoQueue` is now resolved from the `queue` module after the `ConnectionPool` is instantiated instead of using the default cached `QueueCls` class property. This is done because sometimes the `queue.LifoQueue` is monkey-patched late in the program, such as by gevent. (#3289)\r\n- Raised `UnrewindableBodyError` instead of `ValueError` when retrying a request whose body had `tell()` but not `seek()`. (#3779)\r\n- Decoded percent-encoded SOCKS proxy credentials before authenticating with the proxy server. (#3785)\r\n- Fixed `HTTPResponse.drain_conn()` to discard unread response data in 64 KiB chunks (same as the default `amt` when",
+        "source_url": "https://github.com/urllib3/urllib3/releases/tag/2.8.0",
+        "retrieved_at": "2026-10-05",
+        "sha256": "cde8fa5ff77d1d72e006abe7b8de6d708374a23a48d1d31d15e60c3185f23b91"
+      }
+    },
+    {
+      "id": "gap-pypi-click-8.5.0",
+      "package": "click",
+      "old_version": "8.4.2",
+      "new_version": "8.5.0",
+      "release_kind": "minor",
+      "score": 5,
+      "markers": [
+        "breaking"
+      ],
+      "packages": [
+        {
+          "name": "click",
+          "version": "8.4.2",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl",
+          "sha256": "e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76"
+        },
+        {
+          "name": "click",
+          "version": "8.5.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl",
+          "sha256": "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
+        }
+      ],
+      "cutoff_after": "2026-07-01",
+      "provenance": {
+        "event_date": "2026-08-26",
+        "source_urls": [
+          "https://pypi.org/pypi/click/json",
+          "https://github.com/pallets/click/releases/tag/8.5.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "This is the Click 8.5.0 feature release. A feature release may include new features, remove previously deprecated code, add new deprecation, or introduce potentially breaking changes.\r\n\r\nWe encourage everyone to upgrade. You can read more about our [Version Support Policy][version] on our website.\r\n\r\n[version]: https://palletsprojects.com/versions\r\n\r\nPyPI: https://pypi.org/project/click/8.5.0/\r\nChanges:  https://click.palletsprojects.com/page/changes/#version-8-5-0\r\nMilestone https://github.com/pallets/click/milestone/33\r\n\r\n- Add built-in shell completion support for PowerShell (Windows PowerShell\r\n  5.1+ and pwsh 7+) alongside the existing `bash`, `zsh`, and `fish`\r\n  completers. Use `_FOO_BAR_COMPLETE=powershell_source foo-bar` to generate\r\n  the completion script. #2672 #3637\r\n- Supported versions of Windows enable ANSI terminal styles by default.\r\n  Colorama is no longer a dependency and is not used. #2986 #3505\r\n- {class}`Argument` accepts a `help` parameter, and help output includes\r\n  a `Positional arguments` section when argument help is available. #2983 #3473\r\n- `confirm()` and `prompt()` strip ANSI color and style codes from the\r\n  prompt when the output stream does not support them, matching `echo()`.\r\n  This stripping was lost in `8.4.0` when #2969 began writing the\r\n  prompt with `input()` directly. #3572 #3653\r\n- {class}`Path` with `allow_dash=True` no longer triggers a `BytesWarning`,\r\n  an error under `python -bb`, when checking a value against the `-`\r\n  convention. #2877 #3642\r\n- Add {func}`custom_version_option`, a `--version` option whose output is\r\n  produced by a callback, covering cases {func}`version_option` intentionally\r\n  does not. The feature set of {func}`version_option` is now frozen; see\r\n  [discussion #3527](https://github.com/pallets/click/discussions/3527). #3581\r\n- `style()` and `secho()` no longer silently drop the 256-color index `0`\r\n  (black) passed as `fg` or `bg`, and now validate color arguments. Invalid\r\n  colors raise a `ValueError` instead of a `TypeError`. #3677\r\n- The automatic help option stores its value under the reserved name\r\n  `_click_default_help` instead of `help`, so a parameter named `help` no\r\n  longer breaks parsing. The new name is visible in\r\n  {meth}`Command.to_info_dict` output. Parameters that overwrite each other's\r\n  value trigger a warning: an argument sharing its name with another\r\n  parameter, or any parameter claiming the reserved name. Options may still\r\n  share a name to compete for the same value (feature switches).\r\n  #2819 #3678\r\n- `unstyle` and the ANSI handling behind help-text wrapping now strip the full\r\n  CSI escape-sequence grammar. #3681\r\n- Streamline `Option` flag handling: the flag-kind, type, lazy-default and\r\n  validation steps in `Option.__init__` move into focused helpers, and\r\n  `flag_value` and `default` keep their unset sentinel at construction\r\n  (resolved lazily on read) so `is UNSET` reliably tells a user-supplied value\r\n  from an auto-derived one. Runtime behavior is unchanged, but\r\n  {meth}`Parameter.to_info_dict` now resolves `default=True` on a",
+        "source_url": "https://github.com/pallets/click/releases/tag/8.5.0",
+        "retrieved_at": "2026-10-05",
+        "sha256": "f25a5e31e5f46fe9a7c89c01194bd3626999ff27cb82eacb396a256f0c4b9bdf"
+      }
+    },
+    {
+      "id": "gap-pypi-pyjwt-2.14.0",
+      "package": "pyjwt",
+      "old_version": "2.13.0",
+      "new_version": "2.14.0",
+      "release_kind": "minor",
+      "score": 5,
+      "markers": [
+        "security"
+      ],
+      "packages": [
+        {
+          "name": "pyjwt",
+          "version": "2.13.0",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/a3/5e/ecf12fdb62546d64385c158514e9b2b671f7832108ef2ecd2020ce0af2d1/pyjwt-2.13.0-py3-none-any.whl",
+          "sha256": "66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728"
+        },
+        {
+          "name": "pyjwt",
+          "version": "2.14.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/9c/97/672cb32ce0dfea44b740cb7b4f97038463b9cf7c0ead1aacf595572851d6/pyjwt-2.14.0-py3-none-any.whl",
+          "sha256": "ad0cef71c756a56e74863c2919cf0985f72decbcfcb550ee2f422e7c62b5eedc"
+        }
+      ],
+      "cutoff_after": "2026-07-01",
+      "provenance": {
+        "event_date": "2026-09-11",
+        "source_urls": [
+          "https://pypi.org/pypi/pyjwt/json",
+          "https://github.com/jpadilla/pyjwt/releases/tag/2.14.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "See the [2.14.0 changelog](https://github.com/jpadilla/pyjwt/blob/2.14.0/CHANGELOG.rst) for the complete release details and related security advisories.",
+        "source_url": "https://github.com/jpadilla/pyjwt/releases/tag/2.14.0",
+        "retrieved_at": "2026-10-05",
+        "sha256": "d164f85a250862f6dcb1fc68d43277346d9101d9c467694c900189eb9256c122"
+      }
+    },
+    {
+      "id": "gap-pypi-typer-0.27.0",
+      "package": "typer",
+      "old_version": "0.26.8",
+      "new_version": "0.27.0",
+      "release_kind": "minor",
+      "score": 5,
+      "markers": [
+        "breaking"
+      ],
+      "packages": [
+        {
+          "name": "typer",
+          "version": "0.26.8",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/80/87/b9fd69c92c6102a066e1b86a35243f53e70bd4c709f2a26d9f4fee4f4dc0/typer-0.26.8-py3-none-any.whl",
+          "sha256": "3512ca79ac5c11113414b36e80281b872884477722440691c89d1112e321a49c"
+        },
+        {
+          "name": "typer",
+          "version": "0.27.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/40/03/26a383c9e58c213199d1aad1c3d353cfc22d4444ec6d2c0bf8ad02523843/typer-0.27.0-py3-none-any.whl",
+          "sha256": "6f4b27631e47f077871b7dc30e933ec0131c1390fbe0e387ea5574b5bac9ccf1"
+        }
+      ],
+      "cutoff_after": "2026-07-01",
+      "provenance": {
+        "event_date": "2026-07-15",
+        "source_urls": [
+          "https://pypi.org/pypi/typer/json",
+          "https://github.com/fastapi/typer/releases/tag/0.27.0"
+        ]
+      },
+      "oracle": {
+        "excerpt": "### Breaking Changes\r\n\r\n* 💥 Update metavar printing. PR [#1863](https://github.com/fastapi/typer/pull/1863) by [@svlandeg](https://github.com/svlandeg).\r\n\r\n### Internal\r\n\r\n* ⬆ Bump the python-packages group across 1 directory with 5 updates. PR [#1896](https://github.com/fastapi/typer/pull/1896) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* ⬆️ Bump ty to 0.0.53. PR [#1877](https://github.com/fastapi/typer/pull/1877) by [@YuriiMotov](https://github.com/YuriiMotov).\r\n* ⬆ Bump the github-actions group across 1 directory with 4 updates. PR [#1897](https://github.com/fastapi/typer/pull/1897) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* 🔧 Set Dependabot schedule interval to \"monthly\". PR [#1873](https://github.com/fastapi/typer/pull/1873) by [@YuriiMotov](https://github.com/YuriiMotov).\r\n* ⬆ Bump pre-commit hooks. PR [#1895](https://github.com/fastapi/typer/pull/1895) by [@tiangolo](https://github.com/tiangolo).\r\n* 👷 Add GH workflow to bump pre-commit hook versions. PR [#1872](https://github.com/fastapi/typer/pull/1872) by [@YuriiMotov](https://github.com/YuriiMotov).\r\n* 👷 Fix latest-changes checkout target. PR [#1883](https://github.com/fastapi/typer/pull/1883) by [@tiangolo](https://github.com/tiangolo).\r\n* ⬆️ Update issue-manager to 0.8.1. PR [#1880](https://github.com/fastapi/typer/pull/1880) by [@tiangolo](https://github.com/tiangolo).\r\n* ⬆ Bump the github-actions group across 1 directory with 8 updates. PR [#1874](https://github.com/fastapi/typer/pull/1874) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* ⬆ Bump the python-packages group across 1 directory with 5 updates. PR [#1876](https://github.com/fastapi/typer/pull/1876) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* ⬆️ Update latest-changes to 0.6.1. PR [#1879](https://github.com/fastapi/typer/pull/1879) by [@tiangolo](https://github.com/tiangolo).\r\n* ⬆ Bump https://github.com/crate-ci/typos from v1.46.0 to 1.47.2 in the pre-commit group across 1 directory. PR [#1834](https://github.com/fastapi/typer/pull/1834) by [@dependabot[bot]](https://github.com/apps/dependabot).\r\n* ⬆ Bump pydantic-settings from 2.14.1 to 2.14.2. PR [#1849](https://github.com/fastapi/typer/pull/1849) by [@dependabot[bot]](https://github.com/apps/dependabot).",
+        "source_url": "https://github.com/fastapi/typer/releases/tag/0.27.0",
+        "retrieved_at": "2026-10-05",
+        "sha256": "9a923b37921049f6b5b744ee9341028c2e1c9b0559aafd9cf800164b5b4dc2f5"
+      }
+    },
+    {
+      "id": "gap-pypi-stripe-16.0.0",
+      "package": "stripe",
+      "old_version": "15.6.1",
+      "new_version": "16.0.0",
+      "release_kind": "major",
+      "score": 4,
+      "markers": [
+        "removed"
+      ],
+      "packages": [
+        {
+          "name": "stripe",
+          "version": "15.6.1",
+          "role": "old",
+          "url": "https://files.pythonhosted.org/packages/a9/4b/cd2d7ad83a3f49300cb3cc69ae102de68de792035bf31b0383e1c6563ec3/stripe-15.6.1-py3-none-any.whl",
+          "sha256": "b33e1ea76462d7289e5fe755a1132b82099151bfb31e961021655471e6d216bf"
+        },
+        {
+          "name": "stripe",
+          "version": "16.0.0",
+          "role": "new",
+          "url": "https://files.pythonhosted.org/packages/b5/de/5141ae3990862cc3d61a1cdd4acff72bcb587afb7b4d31c52eaddbb6bc8f/stripe-16.0.0-py3-none-any.whl",
+          "sha256": "6a401baf2fc19c59ccb59005e674f8da8fa256e8db319ad8c50292f4cddf8c26"
+        }
+      ],
+      "cutoff_after": "2026-07-01",
+      "provenance": {
+        "event_date": "2026-10-01",
+        "source_urls": [
+          "https://pypi.org/pypi/stripe/json",
+          "https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md"
+        ]
+      },
+      "oracle": {
+        "excerpt": "agents.\n* [#1911](https://github.com/stripe/stripe-python/pull/1911) Fix account scoping for event notification handler callback clients\n  - Fix callback clients to use the event's Stripe context and preserve the original client's non-account configuration.\n  - Fix API errors when using an event notification handler with a client configured with a Stripe account.\n* ⚠️ [#1914](https://github.com/stripe/stripe-python/pull/1914) Remove deprecated `StripeObject.request()` method\n\n  The deprecated `StripeObject.request()` method has been removed. Use `StripeClient.raw_request()` to make custom API requests.\n* ⚠️ [#1915](https://github.com/stripe/stripe-python/pull/1915) Rename `stripe.Reversal` to `stripe.TransferReversal`\n  - ⚠️ Rename the `stripe.Reversal` resource class to `stripe.TransferReversal`. Update references and type annotations to use `stripe.TransferReversal`.\n* ⚠️ [#1920](https://github.com/stripe/stripe-python/pull/1920) Make path parameters positional-only in all service methods\n\n  Path parameters must now be passed positionally to service methods. Passing them by keyword is no longer supported. This prevents parameter names derived from the API specification from becoming part of the public interface.\n\n   Resource methods are unaffected by this change.\n* ⚠️ [#1924](https://github.com/stripe/stripe-python/pull/1924) Make path parameters positional-only in all service methods\n\n  Path parameters must now be passed positionally on resource methods that support both classmethod and instance-method call styles (e.g. Coupon.delete). Passing them by keyword is no longer supported.\n* ⚠️ [#1899](https://github.com/stripe/stripe-python/pull/1899) Update generated code\n  * Add support for new resources `apps.Install`, `product_catalog.TrialOffer`, `tax.Location`, and `three_d_secure.Authentication`\n  * Add support for `create`, `list`, `modify`, `retrieve`, and `uninstall` methods on resource `apps.Install`\n  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `product_catalog.TrialOffer`\n  * Add support for `create`, `list`, and `retrieve` methods on resource `tax.Location`\n  * Add support for `cancel`, `create`, `list`, `retrieve`, and `submit` methods on resource `three_d_secure.Authentication`\n  * Add support for `pause` method on resource `Subscription`\n  * ⚠️ Add support for new values `invalid_address_cmra_address` and `invalid_address_registered_agent_address` on enums `Account.FutureRequirement.Error.code`, `Account.Requirement.Error.code`, `BankAccount.FutureRequirement.Error.code`, `BankAccount.Requirement.Error.code`, `Capability.FutureRequirement.Error.code`, `Capability.Requirement.Error.code`, `Person.FutureRequirement.Error.code`, and `Person.Requirement.Error.code`\n  * Add support for `performance_location` on `Tax.CalculationLineItem` and `tax.CalculationCreateParamsLineItem`\n  * Add support for new value `performance` on enums `Tax.Calculation.ShippingCost.TaxBreakdown.sourcing`, `Tax.CalculationLineItem.TaxBreakdown.sourcing`, and `Tax.Transaction.ShippingCost.TaxBreakdown.sourcing`\n  * Add support for new values `admissions_tax`, `attendance_tax`, `digital_excise_tax`, `entertainment_tax`, `gross_receipts_tax`, `hospitality_tax`, `luxury_tax`, `recycling_fee`, `resort_tax`, `tourism_tax`, and `utility_users_tax` on enums `Tax.Calculation.ShippingCost.TaxBreakdown.TaxRateDetail.tax_type`, `Tax.Calculation.TaxBreakdown.TaxRateDetail.tax_type`, `Tax.CalculationLineItem.TaxBreakdown.TaxRateDetail.tax_type`, and `Tax.Transaction.ShippingCost.TaxBreakdown.TaxRateDetail.tax_type`\n  * Add support for `destination` on `Reserve.Hold`, `Reserve.Plan`, and `Reserve.Release`\n  * Add support for `manual_release` on `Reserve.Plan`\n  * ⚠️ Add support for new value `other` on enum `Reserve.Plan.status`\n  * ⚠️ Add support for new values `manual_release` and `other` on enum `Reserve.Plan.type`\n  * ⚠️ Add support for new value `hold_expired` on enum `Reserve.Release.reason`\n  * ⚠️ Remove support for value `bulk_hold_expiry` from enum `Reserve.Release.reason`\n  * Add support for `specified_commercial_transactions_act_url` on `Account.BusinessProfile`, `AccountCreateParamsBusinessProfile`,",
+        "source_url": "https://raw.githubusercontent.com/stripe/stripe-python/master/CHANGELOG.md",
+        "retrieved_at": "2026-10-05",
+        "sha256": "e1c067143e780dad0d4dedabd5d82ccf79d181d9661e58cf39d2f18ea8328f8e"
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "package": "stripe",
+      "version": "15.4.0",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "stripe",
+      "version": "15.5.0",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "stripe",
+      "version": "15.6.0",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "pyjwt",
+      "version": "2.15.0",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "django",
+      "version": "6.1",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "sqlalchemy",
+      "reason": "PyPI project not found"
+    },
+    {
+      "package": "packaging",
+      "version": "26.3",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "starlette",
+      "version": "1.4.0",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "starlette",
+      "version": "1.5.0",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "starlette",
+      "version": "1.6.0",
+      "reason": "no release-specific marked notes"
+    },
+    {
+      "package": "starlette",
+      "version": "1.7.0",
+      "reason": "no release-specific marked notes"
+    }
+  ]
+}

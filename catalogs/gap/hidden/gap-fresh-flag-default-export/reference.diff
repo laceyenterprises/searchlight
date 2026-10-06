@@ -1,0 +1,15 @@
+--- a/app.py
++++ b/app.py
+@@ -1,2 +1,6 @@
++import click
++
++
+ def export(option):
+-    return option.default
++    with click.Context(click.Command("export")) as context:
++        return option.get_default(context)
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1 +1 @@
+-click==8.4.2
++click==8.5.0

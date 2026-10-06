@@ -1,0 +1,118 @@
+{
+  "evidence_urls": [
+    "https://peps.python.org/pep-0594/"
+  ],
+  "module_count": 22,
+  "removed_modules": [
+    {
+      "module": "aifc",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "audioop",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "cgi",
+      "replacement": "third-party WSGI frameworks",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "cgitb",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "chunk",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "crypt",
+      "replacement": "passlib or bcrypt",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "imghdr",
+      "replacement": "filetype or puremagic",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "mailcap",
+      "replacement": "mimetypes",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "msilib",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "nis",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "nntplib",
+      "replacement": "pynntp",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "ossaudiodev",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "pipes",
+      "replacement": "subprocess",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "sndhdr",
+      "replacement": "filetype or puremagic",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "spwd",
+      "replacement": "python-pam",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "sunau",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "telnetlib",
+      "replacement": "telnetlib3 or Exscript",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "uu",
+      "replacement": "base64",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "xdrlib",
+      "replacement": "none",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "imp",
+      "replacement": "importlib",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "distutils",
+      "replacement": "setuptools",
+      "source_url": "https://peps.python.org/pep-0594/"
+    },
+    {
+      "module": "lib2to3",
+      "replacement": "none",
+      "source_url": "http://example.invalid/x"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "key_facts": [
+    {
+      "text": "The GitHub Copilot Billing Preview app has been retired and is unavailable.",
+      "weight": 5,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/",
+        "text": "We’ve retired the GitHub Copilot Billing Preview app, and it’s no longer available. You can review and manage your Copilot spend directly in your GitHub billing settings. Your billing settings now give you a more complete view that the app’s underlying reports couldn’t show, including user-level budgets, cost centers, and usage pool allocation. Pull raw usage data anytime from your usage reports and the billing API.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-04",
+        "sha256": "88065f1b0fc7eac5f6cd5f500158d5f09b1f2c6af3187dd13d35d807b5b1db67"
+      }
+    },
+    {
+      "text": "Billing settings provide user-level budgets, cost centers and usage pool allocation beyond the preview reports.",
+      "weight": 3,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/",
+        "text": "We’ve retired the GitHub Copilot Billing Preview app, and it’s no longer available. You can review and manage your Copilot spend directly in your GitHub billing settings. Your billing settings now give you a more complete view that the app’s underlying reports couldn’t show, including user-level budgets, cost centers, and usage pool allocation. Pull raw usage data anytime from your usage reports and the billing API.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-04",
+        "sha256": "88065f1b0fc7eac5f6cd5f500158d5f09b1f2c6af3187dd13d35d807b5b1db67"
+      }
+    },
+    {
+      "text": "Raw usage data is available from usage reports and the billing API.",
+      "weight": 2,
+      "source_snapshot": {
+        "url": "https://github.blog/changelog/2026-08-04-retiring-the-copilot-billing-preview-app/",
+        "text": "We’ve retired the GitHub Copilot Billing Preview app, and it’s no longer available. You can review and manage your Copilot spend directly in your GitHub billing settings. Your billing settings now give you a more complete view that the app’s underlying reports couldn’t show, including user-level budgets, cost centers, and usage pool allocation. Pull raw usage data anytime from your usage reports and the billing API.",
+        "retrieved_at": "2026-10-01",
+        "published_at": "2026-08-04",
+        "sha256": "88065f1b0fc7eac5f6cd5f500158d5f09b1f2c6af3187dd13d35d807b5b1db67"
+      }
+    }
+  ],
+  "pass_rule": {
+    "recommendation_correct": true,
+    "min_recall": 0.7,
+    "max_unsupported_claim_rate": 0.25
+  }
+}
