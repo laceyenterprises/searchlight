@@ -346,7 +346,8 @@ def esc(text) -> str:
 
 
 def forest(board: dict, x: float, y: float, width: float, row_h: float = 30, label_w: float = 112,
-           value_w: float = 104, colors=PALETTE, css: bool = False) -> tuple[str, float]:
+           value_w: float = 104, colors=PALETTE, css: bool = False,
+           ticks: tuple[int, ...] = (0, 25, 50, 75, 100)) -> tuple[str, float]:
     """Dot-and-whisker chart on a fixed 0–100% scale. Returns (svg, height)."""
     c = (lambda key, fallback: f'var(--{key})') if css else (lambda key, fallback: colors[fallback])
     plot_x, plot_w = x + label_w, width - label_w - value_w
@@ -354,7 +355,7 @@ def forest(board: dict, x: float, y: float, width: float, row_h: float = 30, lab
     rows = board['rows']
     height = row_h * len(rows) + 34
     parts = []
-    for tick in (0, 25, 50, 75, 100):
+    for tick in ticks:
         tx = sx(tick)
         parts.append(f'<line x1="{tx:.1f}" y1="{y:.1f}" x2="{tx:.1f}" y2="{y + row_h * len(rows):.1f}" '
                      f'stroke="{c("rule", "rule")}" stroke-width="1"/>')
@@ -377,9 +378,142 @@ def forest(board: dict, x: float, y: float, width: float, row_h: float = 30, lab
     return '\n'.join(parts), height
 
 
+def _wrap(text: str, chars: int) -> list[str]:
+    lines, line = [], ''
+    for word in text.split():
+        if line and len(line) + 1 + len(word) > chars:
+            lines.append(line)
+            line = word
+        else:
+            line = f'{line} {word}'.strip()
+    if line:
+        lines.append(line)
+    return lines
+
+
+def _text(x, y, text, size=14, fill=PALETTE['ink'], family=FONT, weight=None, anchor=None, spacing=None):
+    extra = (f' font-weight="{weight}"' if weight else '') + (f' text-anchor="{anchor}"' if anchor else '') + \
+        (f' letter-spacing="{spacing}"' if spacing else '')
+    return (f'<text x="{x:.1f}" y="{y:.1f}" font-family="{family}" font-size="{size}" '
+            f'fill="{fill}"{extra}>{esc(text)}</text>')
+
+
+def _para(x, y, text, chars, size=14, lead=20, **kw) -> tuple[list[str], float]:
+    lines = _wrap(text, chars)
+    return [_text(x, y + i * lead, line, size, **kw) for i, line in enumerate(lines)], lead * len(lines)
+
+
+def _gap_range(board: dict) -> tuple[float, float]:
+    pcts = [r['pass_pct'] for r in board['rows']]
+    return min(pcts), max(pcts)
+
+
+def _ceiling(board: dict) -> float:
+    match = re.match(r'(\d+)', board['reference'].get('ceiling (answer excerpt)', '') or '')
+    return float(match.group(1)) if match else 0.0
+
+
+def _dumbbell(boards, x, y, width, P) -> tuple[list[str], float]:
+    """No-search dot, search-arm range bar and answer-excerpt ceiling per harness.
+
+    Labels live in their own columns: names on the left, values on the right,
+    the legend above. Nothing is written on the track.
+    """
+    out = [_text(x, y, 'Pass rate on post-cutoff briefs (search gap bench)', 14, weight='600')]
+    lx = x
+    legend = [('dot', 'No search'), ('bar', 'Range across the 7 search arms'), ('tri', 'Answer excerpt handed over')]
+    for kind, label in legend:
+        if kind == 'dot':
+            out.append(f'<circle cx="{lx + 6:.1f}" cy="{y + 23:.1f}" r="6" fill="{P["ink"]}"/>')
+        elif kind == 'bar':
+            out.append(f'<rect x="{lx:.1f}" y="{y + 17:.1f}" width="22" height="12" rx="3" fill="{P["beam"]}"/>')
+        else:
+            out.append(f'<path d="M {lx:.1f} {y + 18:.1f} L {lx + 12:.1f} {y + 18:.1f} L {lx + 6:.1f} {y + 28:.1f} Z" fill="{P["ink"]}"/>')
+        width_icon = 30 if kind == 'bar' else 20
+        out.append(_text(lx + width_icon, y + 28, label, 12, P['ink2']))
+        lx += width_icon + 7 * len(label) + 24
+    label_w, value_w = 150, 128
+    px, pw = x + label_w, width - label_w - value_w
+    sx = lambda pct: px + pw * pct / 100  # noqa: E731
+    top = y + 52
+    row_h = 64
+    bottom = top + row_h * len(boards)
+    for tick in (0, 25, 50, 75, 100):
+        out.append(f'<line x1="{sx(tick):.1f}" y1="{top:.1f}" x2="{sx(tick):.1f}" y2="{bottom:.1f}" stroke="{P["rule"]}" stroke-width="1"/>')
+        out.append(_text(sx(tick), bottom + 16, f'{tick}%', 11, P['ink2'], MONO, anchor='middle'))
+    for i, board in enumerate(boards):
+        cy = top + row_h * i + row_h / 2
+        lo, hi = _gap_range(board)
+        ceil = _ceiling(board)
+        name = 'Claude Code' if board['harness'] == 'claude-code' else 'codex'
+        out.append(_text(x, cy - 2, name, 15, weight='600'))
+        out.append(_text(x, cy + 16, f'{board["rows"][0]["cells"]} runs per arm', 12, P['ink2'], MONO))
+        out.append(f'<line x1="{px:.1f}" y1="{cy:.1f}" x2="{px + pw:.1f}" y2="{cy:.1f}" stroke="{P["hatch"]}" stroke-width="2"/>')
+        out.append(f'<rect x="{sx(lo):.1f}" y="{cy - 8:.1f}" width="{max(3, sx(hi) - sx(lo)):.1f}" height="16" rx="4" fill="{P["beam"]}"/>')
+        out.append(f'<circle cx="{sx(0):.1f}" cy="{cy:.1f}" r="7" fill="{P["ink"]}"/>')
+        out.append(f'<path d="M {sx(ceil) - 6:.1f} {cy - 22:.1f} L {sx(ceil) + 6:.1f} {cy - 22:.1f} '
+                   f'L {sx(ceil):.1f} {cy - 12:.1f} Z" fill="{P["ink"]}"/>')
+        vx = x + width
+        out.append(_text(vx, cy - 8, 'no search 0%', 12, P['ink'], MONO, anchor='end'))
+        out.append(_text(vx, cy + 8, f'search {lo:.0f}–{hi:.0f}%', 12, P['beam'], MONO, weight='600', anchor='end'))
+        out.append(_text(vx, cy + 24, f'handed over {ceil:.0f}%', 12, P['ink2'], MONO, anchor='end'))
+    return out, bottom + 24 - y
+
+
+def _wsb_forest(board, x, y, width, P) -> tuple[list[str], float]:
+    out = [_text(x, y, 'Pass rate on documented-knowledge tasks (web search bakeoff, Claude Code)', 14, weight='600')]
+    nos = next(r for r in board['rows'] if r['arm'] == 'no-search')
+    label_w, value_w = 104, 104
+    px, pw = x + label_w, width - label_w - value_w
+    ref_x = px + pw * nos['pass_pct'] / 100
+    top = y + 40
+    out.append(_text(ref_x, top - 6, f'no-search {nos["pass_pct"]:.0f}%', 11, P['ink2'], MONO, anchor='middle'))
+    svg, h = forest(board, x, top, width, row_h=26, label_w=label_w, value_w=value_w)
+    rows_h = 26 * len(board['rows'])
+    out.append(svg)
+    out.append(f'<line x1="{ref_x:.1f}" y1="{top:.1f}" x2="{ref_x:.1f}" y2="{top + rows_h:.1f}" '
+               f'stroke="{P["ink"]}" stroke-width="1.5" stroke-dasharray="4 4"/>')
+    return out, (top - y) + h
+
+
+def _gap_forests(boards, x, y, width, P) -> tuple[list[str], float]:
+    out = []
+    gap = 24
+    each = (width - gap) / 2
+    height = 0.0
+    for i, board in enumerate(boards):
+        bx = x + i * (each + gap)
+        name, model = (('Claude Code', 'claude-opus-5-5') if board['harness'] == 'claude-code'
+                       else ('codex', 'gpt-6.1-sol'))
+        out.append(_text(bx, y, name, 14, weight='600'))
+        out.append(_text(bx + 9 * len(name) + 8, y, model, 12, P['ink2'], MONO))
+        svg, h = forest(board, bx, y + 18, each, row_h=26, label_w=80, value_w=100, ticks=(0, 50, 100))
+        out.append(svg)
+        height = max(height, 18 + h)
+    note, nh = _para(x, y + height + 10, '* Claude Code native arm: the harness refused its page fetches, so it searched '
+                     'without reading pages. Not comparable to the vendor rows; fixed for future runs.',
+                     110, 12, 16, fill=P['ink2'])
+    return out + note, height + 10 + nh
+
+
+def _tiles(tiles, x, y, width, P) -> tuple[list[str], float]:
+    out = []
+    gap = 16
+    tw = (width - gap * (len(tiles) - 1)) / len(tiles)
+    bodies = [_wrap(body, 27) for _, body in tiles]
+    th = 70 + 18 * max(len(b) for b in bodies)
+    for i, ((big, _), body) in enumerate(zip(tiles, bodies)):
+        tx = x + i * (tw + gap)
+        out.append(f'<rect x="{tx:.1f}" y="{y:.1f}" width="{tw:.1f}" height="{th:.1f}" rx="6" fill="{P["surface"]}" stroke="{P["rule"]}"/>')
+        out.append(_text(tx + 16, y + 44, big, 32, P['beam'], COND, weight='700'))
+        for j, line in enumerate(body):
+            out.append(_text(tx + 16, y + 70 + j * 18, line, 13, P['ink']))
+    return out, th
+
+
 def infographic(boards: list[dict], analysis: dict) -> str:
     P = PALETTE
-    W = 1200
+    W, M = 1200, 48
     gap_cc = next(b for b in boards if b['id'] == 'gap-claude-code')
     gap_cx = next(b for b in boards if b['id'] == 'gap-codex')
     wsb = next(b for b in boards if b['id'] == 'wsb-competitive')
@@ -397,116 +531,160 @@ def infographic(boards: list[dict], analysis: dict) -> str:
     hit, miss = pooled('claude-code', 'pass_when_surfaced'), pooled('claude-code', 'pass_when_not_surfaced')
     hit_pct = 100 * hit[0] / hit[1] if hit[1] else 0
     miss_pct = 100 * miss[0] / miss[1] if miss[1] else 0
-    search_lo = {b['id']: min(r['pass_pct'] for r in b['rows']) for b in (gap_cc, gap_cx)}
-    search_hi = {b['id']: max(r['pass_pct'] for r in b['rows']) for b in (gap_cc, gap_cx)}
-    out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} 1760" width="{W}" height="1760" '
-           f'role="img" aria-labelledby="ig-title ig-desc">',
-           '<title id="ig-title">Searchlight results to date</title>',
-           '<desc id="ig-desc">Pass rates with 95% intervals for search providers on two benchmarks and two '
-           'coding-agent harnesses, plus how the agents used their search tools.</desc>',
-           f'<rect width="{W}" height="1760" fill="{P["paper"]}"/>']
-    # header
-    out.append(f'<rect x="0" y="0" width="{W}" height="132" fill="{P["ink"]}"/>')
-    out.append(f'<path d="M {W} 0 L {W} 132 L {W - 420} 132 Z" fill="{P["beam"]}" opacity="0.22"/>')
-    out.append(f'<text x="40" y="62" font-family="{COND}" font-size="40" font-weight="700" letter-spacing="2" fill="{P["paper"]}">SEARCHLIGHT</text>')
-    out.append(f'<text x="40" y="96" font-family="{FONT}" font-size="18" fill="#C9D3DA">What changes when coding agents can search: results to date (2026-09-29 to 2026-10-05)</text>')
-    out.append(f'<text x="{W - 40}" y="96" text-anchor="end" font-family="{MONO}" font-size="13" fill="#C9D3DA">8 arms · 2 harnesses · 2 benchmarks</text>')
-
-    # panel 1: search decides post-cutoff jobs
-    y = 180
-    out.append(f'<text x="40" y="{y}" font-family="{COND}" font-size="24" font-weight="600" fill="{P["ink"]}">1 · On post-cutoff jobs, search decides the outcome</text>')
-    out.append(f'<text x="40" y="{y + 24}" font-family="{FONT}" font-size="14" fill="{P["ink2"]}">Search gap bench: briefs about events after both models\' training data. Pass rate per arm group.</text>')
-    for i, (board, ceiling) in enumerate(((gap_cc, gap_cc['reference']['ceiling (answer excerpt)']),
-                                          (gap_cx, gap_cx['reference']['ceiling (answer excerpt)']))):
-        by = y + 70 + i * 74
-        x0, w = 420, 700
-        sx = lambda pct: x0 + w * pct / 100  # noqa: E731
-        name = 'Claude Code' if board['harness'] == 'claude-code' else 'codex'
-        out.append(f'<text x="40" y="{by + 20}" font-family="{FONT}" font-size="16" font-weight="600" fill="{P["ink"]}">{name}</text>')
-        out.append(f'<text x="40" y="{by + 40}" font-family="{MONO}" font-size="12" fill="{P["ink2"]}">{board["rows"][0]["cells"]} cells per arm</text>')
-        out.append(f'<line x1="{x0}" y1="{by + 22}" x2="{x0 + w}" y2="{by + 22}" stroke="{P["rule"]}" stroke-width="2"/>')
-        lo, hi = search_lo[board['id']], search_hi[board['id']]
-        out.append(f'<rect x="{sx(lo):.1f}" y="{by + 12}" width="{sx(hi) - sx(lo):.1f}" height="20" rx="4" fill="{P["beam"]}"/>')
-        out.append(f'<text x="{sx(lo) - 10:.1f}" y="{by + 27}" text-anchor="end" font-family="{MONO}" font-size="13" font-weight="600" fill="{P["beam"]}">search arms {lo:.0f}–{hi:.0f}%</text>')
-        out.append(f'<circle cx="{sx(0):.1f}" cy="{by + 22}" r="9" fill="{P["ink"]}"/>')
-        out.append(f'<text x="{sx(0) + 16:.1f}" y="{by + 27}" font-family="{MONO}" font-size="13" fill="{P["ink"]}">no search 0%</text>')
-        ceil = float(re.match(r'(\d+)', ceiling).group(1))
-        out.append(f'<path d="M {sx(ceil) - 6:.1f} {by + 2} L {sx(ceil) + 6:.1f} {by + 2} L {sx(ceil):.1f} {by + 10} Z" fill="{P["ink"]}"/>')
-        out.append(f'<text x="{sx(ceil):.1f}" y="{by - 4}" text-anchor="end" font-family="{MONO}" font-size="12" fill="{P["ink"]}">answer handed over {ceil:.0f}%</text>')
-
-    # panel 2: GAP forest plots
-    y = 420
-    out.append(f'<text x="40" y="{y}" font-family="{COND}" font-size="24" font-weight="600" fill="{P["ink"]}">2 · Which arm closes the gap depends on the agent</text>')
-    out.append(f'<text x="40" y="{y + 24}" font-family="{FONT}" font-size="14" fill="{P["ink2"]}">Pass rate with Wilson 95% interval (bar). Overlapping intervals are not rankings.</text>')
-    for i, board in enumerate((gap_cc, gap_cx)):
-        bx = 40 + i * 580
-        name = 'Claude Code · claude-opus-5-5' if board['harness'] == 'claude-code' else 'codex · gpt-6.1-sol'
-        out.append(f'<text x="{bx}" y="{y + 62}" font-family="{FONT}" font-size="15" font-weight="600" fill="{P["ink"]}">{name}</text>')
-        svg, _ = forest(board, bx, y + 78, 540)
-        out.append(svg)
-    out.append(f'<text x="40" y="{y + 352}" font-family="{FONT}" font-size="12" fill="{P["ink2"]}">* Claude Code native arm: the harness refused its WebFetch calls, so it searched without fetching pages. Not comparable to the provider rows; fixed for future runs.</text>')
-
-    # panel 3: WSB
-    y = 820
-    out.append(f'<text x="40" y="{y}" font-family="{COND}" font-size="24" font-weight="600" fill="{P["ink"]}">3 · On documented knowledge, search adds less</text>')
-    out.append(f'<text x="40" y="{y + 24}" font-family="{FONT}" font-size="14" fill="{P["ink2"]}">Web search bakeoff, 14 competitive tasks × 3 on Claude Code, regraded. No arm differs from no-search at 95% confidence.</text>')
-    svg, h = forest(wsb, 40, y + 50, 760)
-    out.append(svg)
+    runs = sum(r['cells'] for b in boards for r in b['rows'])
+    cells = sorted({r['cells'] for b in boards for r in b['rows']})
+    cc_lo, cc_hi = _gap_range(gap_cc)
+    cx_lo, cx_hi = _gap_range(gap_cx)
+    cc_top, cx_top = gap_cc['rows'][0], gap_cx['rows'][0]
     nos = next(r for r in wsb['rows'] if r['arm'] == 'no-search')
-    for j, line in enumerate(['Answering from memory alone', f'passed {nos["passes"]} of {nos["cells"]} cells here.',
-                              'On the post-cutoff gap bench the', 'same condition passed 0%.']):
-        out.append(f'<text x="830" y="{y + 70 + 22 * j}" font-family="{FONT}" font-size="14" fill="{P["ink"]}">{esc(line)}</text>')
-    out.append(f'<text x="830" y="{y + 172}" font-family="{FONT}" font-size="13" fill="{P["ink2"]}">Tokens per success ranged from</text>')
+    best_wsb = max((r for r in wsb['rows'] if r['arm'] != 'no-search'), key=lambda r: r['pass_pct'])
     tps = sorted(wsb['rows'], key=lambda r: float(r['tokens_per_success'].rstrip('k')))
-    out.append(f'<text x="40" y="{y + 50 + h + 14}" font-family="{FONT}" font-size="12" fill="{P["ink2"]}">* native: the harness refused most WebFetch calls; no-search is the reference arm. Intervals computed from published counts.</text>')
-    out.append(f'<text x="830" y="{y + 192}" font-family="{MONO}" font-size="13" fill="{P["ink2"]}">{tps[0]["tokens_per_success"]} ({tps[0]["label"]}) to {tps[-1]["tokens_per_success"]} ({tps[-1]["label"]}).</text>')
+    queries = totals['queries'] + analysis['bakeoff_totals']['queries']
+    exa, fc, tv, pw = (brows[a] for a in ('exa', 'firecrawl', 'tavily', 'parallel-web'))
 
-    # panel 4: behavior
-    y = 1210
-    out.append(f'<text x="40" y="{y}" font-family="{COND}" font-size="24" font-weight="600" fill="{P["ink"]}">4 · How the agents actually searched</text>')
-    out.append(f'<text x="40" y="{y + 24}" font-family="{FONT}" font-size="14" fill="{P["ink2"]}">From {totals["queries"] + analysis["bakeoff_totals"]["queries"]} logged search queries in both benchmarks.</text>')
-    stats = [
-        (f'{totals["natural_language_pct"]:.0f}%', 'of gap-bench queries read as natural language',
-         'Agents wrote keyword strings even where a tool asked for a description of the page.'),
-        (f'{site_lo:.0f}–{site_hi:.0f}%', 'of codex provider queries used site:',
-         'Claude Code used structured domain filters instead, where a tool offered one.'),
-        (f'{brows["exa"]["fetch_only_cells"]}/{brows["exa"]["cells"]}', 'Exa bakeoff cells fetched without searching',
-         f'Similar for Firecrawl {brows["firecrawl"]["fetch_only_cells"]}/{brows["firecrawl"]["cells"]}, Tavily {brows["tavily"]["fetch_only_cells"]}/{brows["tavily"]["cells"]}, Parallel {brows["parallel-web"]["fetch_only_cells"]}/{brows["parallel-web"]["cells"]}: agents opened remembered URLs.'),
-        (f'{hit_pct:.0f}% vs {miss_pct:.0f}%', 'Claude Code pass rate with vs without the primary source in results',
-         f'{hit[0]}/{hit[1]} against {miss[0]}/{miss[1]} cells on the gap bench, pooled over arms.'),
+    body: list[str] = []
+    # ---- header
+    body.append(f'<rect x="0" y="0" width="{W}" height="150" fill="{P["ink"]}"/>')
+    body.append(f'<path d="M {W} 0 L {W} 150 L {W - 420} 150 Z" fill="{P["beam"]}" opacity="0.22"/>')
+    body.append(_text(M, 62, 'SEARCHLIGHT', 40, P['paper'], COND, '700', spacing=2))
+    body.append(_text(M, 100, 'Does web search help coding agents do real work?', 22, P['paper']))
+    body.append(_text(M, 128, f'Results to date, 2026-09-29 to 2026-10-05 · {runs} graded runs · 2 agents · '
+                      f'8 search arms · 2 benchmarks', 14, '#C9D3DA', MONO))
+
+    # ---- method strip
+    y = 206
+    body.append(_text(M, y, 'How the test works', 26, P['ink'], COND, '700'))
+    steps = [
+        ('A real job', 'Search gap bench (GAP): write a brief and make a decision about an event after the '
+                       "model's training cutoff. Web search bakeoff (WSB): answer a documented research question."),
+        ('Swap only the search', 'Same agent, model and prompt in every run. Each arm adds one vendor\'s '
+                                        'MCP server, pinned, at default settings. Controls: no search, and the '
+                                        "agent's built-in search."),
+        ('Isolated, repeated runs', f'A fresh sandbox per run, with every tool call logged. {cells[0]}–{cells[-1]} '
+                                    'runs per arm, across 3 repetitions of each task.'),
+        ('Blind grading', 'A format check, then judges that never see which arm ran. GAP pass: right decision, '
+                          'at least 70% of key facts, at most 25% unsupported claims.'),
     ]
-    for i, (big, label, detail) in enumerate(stats):
-        sx0 = 40 + (i % 2) * 570
-        sy = y + 56 + (i // 2) * 150
-        out.append(f'<rect x="{sx0}" y="{sy}" width="550" height="130" rx="6" fill="{P["surface"]}" stroke="{P["rule"]}"/>')
-        out.append(f'<rect x="{sx0}" y="{sy}" width="6" height="130" fill="{P["beam"]}"/>')
-        out.append(f'<text x="{sx0 + 26}" y="{sy + 52}" font-family="{COND}" font-size="40" font-weight="700" fill="{P["beam"]}">{esc(big)}</text>')
-        out.append(f'<text x="{sx0 + 26}" y="{sy + 80}" font-family="{FONT}" font-size="15" font-weight="600" fill="{P["ink"]}">{esc(label)}</text>')
-        words, line, lines = detail.split(), '', []
-        for word in words:
-            if len(line) + len(word) > 70:
-                lines.append(line); line = word
-            else:
-                line = f'{line} {word}'.strip()
-        lines.append(line)
-        for j, text in enumerate(lines[:2]):
-            out.append(f'<text x="{sx0 + 26}" y="{sy + 102 + j * 18}" font-family="{FONT}" font-size="13" fill="{P["ink2"]}">{esc(text)}</text>')
+    gap = 36
+    cw = (W - 2 * M - 3 * gap) / 4
+    wrapped = [_wrap(text, 31) for _, text in steps]
+    titles = [_wrap(title, 24) for title, _ in steps]
+    ch = 64 + 20 * max(len(t) for t in titles) + 18 * max(len(w) for w in wrapped)
+    cy0 = y + 24
+    for i, ((title, _), tlines, lines) in enumerate(zip(steps, titles, wrapped)):
+        cx = M + i * (cw + gap)
+        body.append(f'<rect x="{cx:.1f}" y="{cy0:.1f}" width="{cw:.1f}" height="{ch:.1f}" rx="8" fill="{P["surface"]}" stroke="{P["rule"]}"/>')
+        body.append(f'<circle cx="{cx + 30:.1f}" cy="{cy0 + 32:.1f}" r="15" fill="{P["beam"]}"/>')
+        body.append(_text(cx + 30, cy0 + 38, str(i + 1), 16, P['surface'], COND, '700', anchor='middle'))
+        for j, line in enumerate(tlines):
+            body.append(_text(cx + 54, cy0 + 38 + j * 20, line, 16, P['ink'], FONT, '600'))
+        ty = cy0 + 38 + 20 * len(tlines) + 14
+        for j, line in enumerate(lines):
+            body.append(_text(cx + 18, ty + j * 18, line, 13, P['ink2']))
+        if i < 3:
+            ax = cx + cw + gap / 2
+            body.append(f'<path d="M {ax - 7:.1f} {cy0 + ch / 2 - 10:.1f} L {ax + 5:.1f} {cy0 + ch / 2:.1f} '
+                        f'L {ax - 7:.1f} {cy0 + ch / 2 + 10:.1f}" fill="none" stroke="{P["beam"]}" stroke-width="3" '
+                        f'stroke-linecap="round" stroke-linejoin="round"/>')
+    y = cy0 + ch + 30
+    body.append(_text(M, y, 'Every result below is a pass rate with a 95% Wilson interval. Where two intervals '
+                      'overlap, the data cannot tell those arms apart.', 14, P['ink2']))
 
-    # footer
-
-    y = 1584
-    out.append(f'<line x1="40" y1="{y}" x2="{W - 40}" y2="{y}" stroke="{P["rule"]}" stroke-width="2"/>')
-    notes = [
-        'Read before comparing: 18–42 cells per arm; intervals overlap widely, so adjacent positions are not rankings.',
-        'Each vendor ran through its own MCP server at a pinned version and default settings. Direct APIs, other modes and other tools were not tested.',
-        'Grading: validators and blinded model judges (Claude; codex as second judge on the gap bench). Vendor spend only partly metered.',
-        'Rankings changed between harnesses, so a result on one agent does not transfer to another.',
+    # ---- findings
+    y += 62
+    body.append(_text(M, y, 'What we found', 26, P['ink'], COND, '700'))
+    y += 34
+    left_w, right_x = 380, M + 412
+    right_w = W - M - right_x
+    findings = [
+        ('Past the training cutoff, search decides the outcome',
+         f'Without search, both agents failed every post-cutoff brief (0%). With any of the seven search arms, '
+         f'Claude Code passed {cc_lo:.0f}–{cc_hi:.0f}% and codex {cx_lo:.0f}–{cx_hi:.0f}%, close to the '
+         f'{_ceiling(gap_cc):.0f}% and {_ceiling(gap_cx):.0f}% reached when handed the answer excerpt.',
+         'For work that depends on recent events, search is not a tuning knob. It is the difference between '
+         'failing and passing, and every vendor tested closes most of the gap.',
+         lambda yy: _dumbbell((gap_cc, gap_cx), right_x, yy, right_w, P)),
+        ('No vendor wins everywhere',
+         f'The top arm was {cc_top["label"]} on Claude Code ({cc_top["passes"]}/{cc_top["cells"]}) and '
+         f'{cx_top["label"]} on codex ({cx_top["passes"]}/{cx_top["cells"]}), and most intervals overlap. With '
+         f'{gap_cx["rows"][0]["cells"]}–{gap_cc["rows"][0]["cells"]} runs per arm, the bench cannot separate the '
+         'leading vendors.',
+         'Choose on cost, latency and integration, then measure on your own agent. Rankings did not carry over '
+         'from one agent to the other.',
+         lambda yy: _gap_forests((gap_cc, gap_cx), right_x, yy, right_w, P)),
+        ('On documented knowledge, memory does most of the work',
+         f'In the bakeoff, answering from memory passed {nos["passes"]}/{nos["cells"]} ({nos["pass_pct"]:.0f}%). '
+         f'The best arm reached {best_wsb["pass_pct"]:.0f}%, and no arm differed from no-search at 95% confidence, '
+         f'while tokens per success rose from {tps[0]["tokens_per_success"]} ({tps[0]["label"]}) to as much as '
+         f'{tps[-1]["tokens_per_success"]} ({tps[-1]["label"]}).',
+         'Search pays off where training data runs out. On stable, well-documented questions it mostly adds '
+         'tokens.',
+         lambda yy: _wsb_forest(wsb, right_x, yy, right_w, P)),
+        ('Agents still search like keyword users',
+         f'Only {totals["natural_language_pct"]:.0f}% of gap-bench queries read as natural language, and codex '
+         f'leaned on site: filters ({site_lo:.0f}–{site_hi:.0f}% of its vendor queries). Agents often skipped '
+         'search and opened URLs they remembered. Runs did better when the primary source surfaced.',
+         'The next gains are in how agents ask and what results surface: full-question queries, and primary '
+         'sources first. These are correlations across runs, not controlled effects.',
+         lambda yy: _tiles([
+             (f'{totals["natural_language_pct"]:.0f}%', 'of gap-bench search queries read as natural language; '
+                                                         'the rest were keyword strings.'),
+             (f'{exa["fetch_only_cells"]}/{exa["cells"]}', 'Exa bakeoff runs that fetched remembered URLs without '
+                                                           f'searching (Firecrawl {fc["fetch_only_cells"]}/{fc["cells"]}, '
+                                                           f'Tavily {tv["fetch_only_cells"]}/{tv["cells"]}, '
+                                                           f'Parallel {pw["fetch_only_cells"]}/{pw["cells"]}).'),
+             (f'{hit_pct:.0f}% vs {miss_pct:.0f}%', 'Claude Code pass rate with the primary source in its results '
+                                                    f'({hit[0]}/{hit[1]}) vs without it ({miss[0]}/{miss[1]}).'),
+         ], right_x, yy + 8, right_w, P)),
     ]
-    for i, note in enumerate(notes):
-        out.append(f'<text x="40" y="{y + 32 + i * 24}" font-family="{FONT}" font-size="14" fill="{P["ink"]}">{esc(note)}</text>')
-    out.append(f'<text x="40" y="{y + 150}" font-family="{MONO}" font-size="13" fill="{P["ink2"]}">{REPO_URL.replace("https://", "")} · data: reports/*/summary.json · method: reports/*/methodology.md</text>')
-    out.append('</svg>')
-    return '\n'.join(out)
+    for n, (headline, text, sowhat, chart) in enumerate(findings, start=1):
+        left: list[str] = [_text(M, y + 4, f'FINDING {n}', 12, P['beam'], MONO, '700', spacing=1)]
+        hl, hh = _para(M, y + 34, headline, 29, 24, 28, family=COND, weight='700')
+        left += hl
+        ly = y + 34 + hh + 4
+        bl, bh = _para(M, ly, text, 49, 14, 20, fill=P['ink2'])
+        left += bl
+        ly += bh + 10
+        sw = _wrap(sowhat, 45)
+        box_h = 40 + 20 * len(sw)
+        left.append(f'<rect x="{M}" y="{ly:.1f}" width="{left_w}" height="{box_h:.1f}" rx="6" fill="#F8EEDD"/>')
+        left.append(f'<rect x="{M}" y="{ly:.1f}" width="5" height="{box_h:.1f}" rx="2" fill="{P["beam"]}"/>')
+        left.append(_text(M + 20, ly + 22, 'SO WHAT', 11, P['beam'], MONO, '700', spacing=1))
+        for j, line in enumerate(sw):
+            left.append(_text(M + 20, ly + 44 + j * 20, line, 14, P['ink']))
+        left_bottom = ly + box_h
+        right, rh = chart(y + 4)
+        body += left + right
+        y = max(left_bottom, y + 4 + rh) + 32
+        if n < len(findings):
+            body.append(f'<line x1="{M}" y1="{y - 14:.1f}" x2="{W - M}" y2="{y - 14:.1f}" stroke="{P["rule"]}" stroke-width="1"/>')
+            y += 16
+
+    # ---- caveats
+    y += 8
+    body.append(f'<rect x="{M}" y="{y:.1f}" width="{W - 2 * M}" height="186" rx="8" fill="{P["surface"]}" stroke="{P["rule"]}"/>')
+    body.append(_text(M + 24, y + 34, 'Read before comparing', 18, P['ink'], COND, '700'))
+    caveats = [
+        f'{cells[0]}–{cells[-1]} runs per arm: intervals are wide, and adjacent positions are not rankings.',
+        'Each vendor ran through its own MCP server at a pinned version and default settings. Direct APIs, '
+        'other modes and other tools were not tested.',
+        'Grading used validators and blinded model judges (Claude; codex as a second judge on the gap bench). '
+        'Vendor spend was only partly metered.',
+        f'Search behavior comes from {queries} logged queries; its links to pass rates are correlations.',
+    ]
+    for i, line in enumerate(caveats):
+        body.append(_text(M + 24, y + 64 + i * 24, f'·  {line}', 14, P['ink']))
+    body.append(_text(M + 24, y + 166, f'{REPO_URL.replace("https://", "")} · data: reports/*/summary.json · '
+                      'method: reports/*/methodology.md', 13, P['ink2'], MONO))
+    H = int(y + 186 + M)
+    head = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
+            'role="img" aria-labelledby="ig-title ig-desc">',
+            '<title id="ig-title">Searchlight results to date</title>',
+            '<desc id="ig-desc">How the Searchlight test works, four findings with their evidence (pass rates '
+            'with 95% intervals for search vendors on two benchmarks and two coding agents, and how the agents '
+            'searched), and the caveats for reading them.</desc>',
+            f'<rect width="{W}" height="{H}" fill="{P["paper"]}"/>']
+    return '\n'.join(head + body + ['</svg>'])
 
 
 # ---------------------------------------------------------------- page
@@ -616,7 +794,7 @@ APPARATUS = {
   S->>J1: readable source text + rubric (blinded to arm)
   S->>J2: same inputs
   J1-->>A: key-fact recall, unsupported claims, decision
-  J2-->>A: independent labels; agreement recorded
+  J2-->>A: independent labels, agreement recorded
   Note over A,J2: pass = right decision AND recall >= 0.7 AND unsupported <= 0.25""",
 }
 

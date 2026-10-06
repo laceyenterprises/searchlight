@@ -1,215 +1,314 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1760" width="1200" height="1760" role="img" aria-labelledby="ig-title ig-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2198" width="1200" height="2198" role="img" aria-labelledby="ig-title ig-desc">
 <title id="ig-title">Searchlight results to date</title>
-<desc id="ig-desc">Pass rates with 95% intervals for search providers on two benchmarks and two coding-agent harnesses, plus how the agents used their search tools.</desc>
-<rect width="1200" height="1760" fill="#F3F5F2"/>
-<rect x="0" y="0" width="1200" height="132" fill="#15202A"/>
-<path d="M 1200 0 L 1200 132 L 780 132 Z" fill="#C2700F" opacity="0.22"/>
-<text x="40" y="62" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="700" letter-spacing="2" fill="#F3F5F2">SEARCHLIGHT</text>
-<text x="40" y="96" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" fill="#C9D3DA">What changes when coding agents can search: results to date (2026-09-29 to 2026-10-05)</text>
-<text x="1160" y="96" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#C9D3DA">8 arms · 2 harnesses · 2 benchmarks</text>
-<text x="40" y="180" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#15202A">1 · On post-cutoff jobs, search decides the outcome</text>
-<text x="40" y="204" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">Search gap bench: briefs about events after both models' training data. Pass rate per arm group.</text>
-<text x="40" y="270" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#15202A">Claude Code</text>
-<text x="40" y="290" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866">21 cells per arm</text>
-<line x1="420" y1="272" x2="1120" y2="272" stroke="#D3DAD5" stroke-width="2"/>
-<rect x="854.0" y="262" width="231.0" height="20" rx="4" fill="#C2700F"/>
-<text x="844.0" y="277" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#C2700F">search arms 62–95%</text>
-<circle cx="420.0" cy="272" r="9" fill="#15202A"/>
-<text x="436.0" y="277" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#15202A">no search 0%</text>
-<path d="M 1079.0 252 L 1091.0 252 L 1085.0 260 Z" fill="#15202A"/>
-<text x="1085.0" y="246" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">answer handed over 95%</text>
-<text x="40" y="344" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="600" fill="#15202A">codex</text>
-<text x="40" y="364" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866">18 cells per arm</text>
-<line x1="420" y1="346" x2="1120" y2="346" stroke="#D3DAD5" stroke-width="2"/>
-<rect x="924.0" y="336" width="154.0" height="20" rx="4" fill="#C2700F"/>
-<text x="914.0" y="351" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" font-weight="600" fill="#C2700F">search arms 72–94%</text>
-<circle cx="420.0" cy="346" r="9" fill="#15202A"/>
-<text x="436.0" y="351" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#15202A">no search 0%</text>
-<path d="M 1037.0 326 L 1049.0 326 L 1043.0 334 Z" fill="#15202A"/>
-<text x="1043.0" y="320" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">answer handed over 89%</text>
-<text x="40" y="420" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#15202A">2 · Which arm closes the gap depends on the agent</text>
-<text x="40" y="444" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">Pass rate with Wilson 95% interval (bar). Overlapping intervals are not rankings.</text>
-<text x="40" y="482" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#15202A">Claude Code · claude-opus-5-5</text>
-<line x1="152.0" y1="498.0" x2="152.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="152.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">0%</text>
-<line x1="233.0" y1="498.0" x2="233.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="233.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">25%</text>
-<line x1="314.0" y1="498.0" x2="314.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="314.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">50%</text>
-<line x1="395.0" y1="498.0" x2="395.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="395.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">75%</text>
-<line x1="476.0" y1="498.0" x2="476.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="476.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">100%</text>
-<text x="40.0" y="517.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Parallel</text>
-<rect x="401.5" y="508.0" width="71.3" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="401.5" y1="513.0" x2="472.8" y2="513.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="459.8" cy="513.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="580.0" y="517.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">20/21 · 95%</text>
-<text x="40.0" y="547.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Firecrawl</text>
-<rect x="382.0" y="538.0" width="84.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="382.0" y1="543.0" x2="466.3" y2="543.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="443.6" cy="543.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="580.0" y="547.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">19/21 · 90%</text>
-<text x="40.0" y="577.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Brave</text>
-<rect x="346.4" y="568.0" width="103.7" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="346.4" y1="573.0" x2="450.1" y2="573.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="414.4" cy="573.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="580.0" y="577.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">17/21 · 81%</text>
-<text x="40.0" y="607.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Perplexity</text>
-<rect x="330.2" y="598.0" width="110.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="330.2" y1="603.0" x2="440.4" y2="603.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="398.2" cy="603.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="580.0" y="607.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">16/21 · 76%</text>
-<text x="40.0" y="637.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Exa</text>
-<rect x="314.0" y="628.0" width="116.6" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="314.0" y1="633.0" x2="430.6" y2="633.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="382.0" cy="633.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="580.0" y="637.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">15/21 · 71%</text>
-<text x="40.0" y="667.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Tavily</text>
-<rect x="314.0" y="658.0" width="116.6" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="314.0" y1="663.0" x2="430.6" y2="663.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="382.0" cy="663.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="580.0" y="667.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">15/21 · 71%</text>
-<text x="40.0" y="697.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">native *</text>
-<rect x="284.8" y="688.0" width="123.1" height="10" rx="2" fill="#B9C2C9" opacity="0.9"/>
-<line x1="284.8" y1="693.0" x2="408.0" y2="693.0" stroke="#7A8893" stroke-width="2"/>
-<circle cx="352.9" cy="693.0" r="5.5" fill="#7A8893" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="580.0" y="697.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">13/21 · 62%</text>
-<text x="620" y="482" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#15202A">codex · gpt-6.1-sol</text>
-<line x1="732.0" y1="498.0" x2="732.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="732.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">0%</text>
-<line x1="813.0" y1="498.0" x2="813.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="813.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">25%</text>
-<line x1="894.0" y1="498.0" x2="894.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="894.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">50%</text>
-<line x1="975.0" y1="498.0" x2="975.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="975.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">75%</text>
-<line x1="1056.0" y1="498.0" x2="1056.0" y2="708.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="1056.0" y="726.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">100%</text>
-<text x="620.0" y="517.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Brave</text>
-<rect x="971.8" y="508.0" width="81.0" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="971.8" y1="513.0" x2="1052.8" y2="513.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="1036.6" cy="513.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1160.0" y="517.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">17/18 · 94%</text>
-<text x="620.0" y="547.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Firecrawl</text>
-<rect x="949.1" y="538.0" width="97.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="949.1" y1="543.0" x2="1046.3" y2="543.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="1020.4" cy="543.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1160.0" y="547.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">16/18 · 89%</text>
-<text x="620.0" y="577.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Tavily</text>
-<rect x="949.1" y="568.0" width="97.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="949.1" y1="573.0" x2="1046.3" y2="573.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="1020.4" cy="573.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1160.0" y="577.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">16/18 · 89%</text>
-<text x="620.0" y="607.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Exa</text>
-<rect x="910.2" y="598.0" width="116.6" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="910.2" y1="603.0" x2="1026.8" y2="603.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="984.7" cy="603.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1160.0" y="607.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">14/18 · 78%</text>
-<text x="620.0" y="637.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">native</text>
-<rect x="910.2" y="628.0" width="116.6" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="910.2" y1="633.0" x2="1026.8" y2="633.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="984.7" cy="633.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1160.0" y="637.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">14/18 · 78%</text>
-<text x="620.0" y="667.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Parallel</text>
-<rect x="890.8" y="658.0" width="126.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="890.8" y1="663.0" x2="1017.1" y2="663.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="965.3" cy="663.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1160.0" y="667.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">13/18 · 72%</text>
-<text x="620.0" y="697.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Perplexity</text>
-<rect x="890.8" y="688.0" width="126.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="890.8" y1="693.0" x2="1017.1" y2="693.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="965.3" cy="693.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1160.0" y="697.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">13/18 · 72%</text>
-<text x="40" y="772" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#4A5866">* Claude Code native arm: the harness refused its WebFetch calls, so it searched without fetching pages. Not comparable to the provider rows; fixed for future runs.</text>
-<text x="40" y="820" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#15202A">3 · On documented knowledge, search adds less</text>
-<text x="40" y="844" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">Web search bakeoff, 14 competitive tasks × 3 on Claude Code, regraded. No arm differs from no-search at 95% confidence.</text>
-<line x1="152.0" y1="870.0" x2="152.0" y2="1110.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="152.0" y="1128.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">0%</text>
-<line x1="288.0" y1="870.0" x2="288.0" y2="1110.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="288.0" y="1128.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">25%</text>
-<line x1="424.0" y1="870.0" x2="424.0" y2="1110.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="424.0" y="1128.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">50%</text>
-<line x1="560.0" y1="870.0" x2="560.0" y2="1110.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="560.0" y="1128.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">75%</text>
-<line x1="696.0" y1="870.0" x2="696.0" y2="1110.0" stroke="#D3DAD5" stroke-width="1"/>
-<text x="696.0" y="1128.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">100%</text>
-<text x="40.0" y="889.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Firecrawl</text>
-<rect x="576.3" y="880.0" width="97.9" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="576.3" y1="885.0" x2="674.2" y2="885.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="641.6" cy="885.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="889.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">38/42 · 90%</text>
-<text x="40.0" y="919.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Perplexity</text>
-<rect x="560.0" y="910.0" width="108.8" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="560.0" y1="915.0" x2="668.8" y2="915.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="630.7" cy="915.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="919.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">37/42 · 88%</text>
-<text x="40.0" y="949.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Tavily</text>
-<rect x="543.7" y="940.0" width="114.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="543.7" y1="945.0" x2="657.9" y2="945.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="619.8" cy="945.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="949.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">36/42 · 86%</text>
-<text x="40.0" y="979.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Exa</text>
-<rect x="527.4" y="970.0" width="125.1" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="527.4" y1="975.0" x2="652.5" y2="975.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="603.5" cy="975.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="979.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">35/42 · 83%</text>
-<text x="40.0" y="1009.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Parallel</text>
-<rect x="500.2" y="1000.0" width="130.6" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="500.2" y1="1005.0" x2="630.7" y2="1005.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="581.8" cy="1005.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="1009.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">33/42 · 79%</text>
-<text x="40.0" y="1039.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">native *</text>
-<rect x="500.2" y="1030.0" width="130.6" height="10" rx="2" fill="#B9C2C9" opacity="0.9"/>
-<line x1="500.2" y1="1035.0" x2="630.7" y2="1035.0" stroke="#7A8893" stroke-width="2"/>
-<circle cx="581.8" cy="1035.0" r="5.5" fill="#7A8893" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="1039.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">33/42 · 79%</text>
-<text x="40.0" y="1069.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">no-search</text>
-<rect x="483.8" y="1060.0" width="141.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="483.8" y1="1065.0" x2="625.3" y2="1065.0" stroke="#7A8893" stroke-width="2"/>
-<circle cx="565.4" cy="1065.0" r="5.5" fill="#7A8893" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="1069.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">32/42 · 76%</text>
-<text x="40.0" y="1099.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Brave</text>
-<rect x="473.0" y="1090.0" width="141.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
-<line x1="473.0" y1="1095.0" x2="614.4" y2="1095.0" stroke="#C2700F" stroke-width="2"/>
-<circle cx="554.6" cy="1095.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="800.0" y="1099.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">31/42 · 74%</text>
-<text x="830" y="890" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">Answering from memory alone</text>
-<text x="830" y="912" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">passed 32 of 42 cells here.</text>
-<text x="830" y="934" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">On the post-cutoff gap bench the</text>
-<text x="830" y="956" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">same condition passed 0%.</text>
-<text x="830" y="992" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">Tokens per success ranged from</text>
-<text x="40" y="1158" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#4A5866">* native: the harness refused most WebFetch calls; no-search is the reference arm. Intervals computed from published counts.</text>
-<text x="830" y="1012" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#4A5866">20.9k (no-search) to 89.2k (Brave).</text>
-<text x="40" y="1210" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600" fill="#15202A">4 · How the agents actually searched</text>
-<text x="40" y="1234" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">From 1629 logged search queries in both benchmarks.</text>
-<rect x="40" y="1266" width="550" height="130" rx="6" fill="#FFFFFF" stroke="#D3DAD5"/>
-<rect x="40" y="1266" width="6" height="130" fill="#C2700F"/>
-<text x="66" y="1318" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="700" fill="#C2700F">7%</text>
-<text x="66" y="1346" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#15202A">of gap-bench queries read as natural language</text>
-<text x="66" y="1368" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">Agents wrote keyword strings even where a tool asked for a description</text>
-<text x="66" y="1386" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">of the page.</text>
-<rect x="610" y="1266" width="550" height="130" rx="6" fill="#FFFFFF" stroke="#D3DAD5"/>
-<rect x="610" y="1266" width="6" height="130" fill="#C2700F"/>
-<text x="636" y="1318" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="700" fill="#C2700F">31–67%</text>
-<text x="636" y="1346" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#15202A">of codex provider queries used site:</text>
-<text x="636" y="1368" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">Claude Code used structured domain filters instead, where a tool</text>
-<text x="636" y="1386" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">offered one.</text>
-<rect x="40" y="1416" width="550" height="130" rx="6" fill="#FFFFFF" stroke="#D3DAD5"/>
-<rect x="40" y="1416" width="6" height="130" fill="#C2700F"/>
-<text x="66" y="1468" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="700" fill="#C2700F">36/55</text>
-<text x="66" y="1496" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#15202A">Exa bakeoff cells fetched without searching</text>
-<text x="66" y="1518" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">Similar for Firecrawl 35/55, Tavily 34/54, Parallel 30/55: agents</text>
-<text x="66" y="1536" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">opened remembered URLs.</text>
-<rect x="610" y="1416" width="550" height="130" rx="6" fill="#FFFFFF" stroke="#D3DAD5"/>
-<rect x="610" y="1416" width="6" height="130" fill="#C2700F"/>
-<text x="636" y="1468" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="40" font-weight="700" fill="#C2700F">85% vs 61%</text>
-<text x="636" y="1496" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#15202A">Claude Code pass rate with vs without the primary source in results</text>
-<text x="636" y="1518" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">94/111 against 20/33 cells on the gap bench, pooled over arms.</text>
-<line x1="40" y1="1584" x2="1160" y2="1584" stroke="#D3DAD5" stroke-width="2"/>
-<text x="40" y="1616" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">Read before comparing: 18–42 cells per arm; intervals overlap widely, so adjacent positions are not rankings.</text>
-<text x="40" y="1640" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">Each vendor ran through its own MCP server at a pinned version and default settings. Direct APIs, other modes and other tools were not tested.</text>
-<text x="40" y="1664" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">Grading: validators and blinded model judges (Claude; codex as second judge on the gap bench). Vendor spend only partly metered.</text>
-<text x="40" y="1688" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">Rankings changed between harnesses, so a result on one agent does not transfer to another.</text>
-<text x="40" y="1734" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#4A5866">github.com/laceyenterprises/searchlight · data: reports/*/summary.json · method: reports/*/methodology.md</text>
+<desc id="ig-desc">How the Searchlight test works, four findings with their evidence (pass rates with 95% intervals for search vendors on two benchmarks and two coding agents, and how the agents searched), and the caveats for reading them.</desc>
+<rect width="1200" height="2198" fill="#F3F5F2"/>
+<rect x="0" y="0" width="1200" height="150" fill="#15202A"/>
+<path d="M 1200 0 L 1200 150 L 780 150 Z" fill="#C2700F" opacity="0.22"/>
+<text x="48.0" y="62.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="40" fill="#F3F5F2" font-weight="700" letter-spacing="2">SEARCHLIGHT</text>
+<text x="48.0" y="100.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" fill="#F3F5F2">Does web search help coding agents do real work?</text>
+<text x="48.0" y="128.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" fill="#C9D3DA">Results to date, 2026-09-29 to 2026-10-05 · 609 graded runs · 2 agents · 8 search arms · 2 benchmarks</text>
+<text x="48.0" y="206.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="26" fill="#15202A" font-weight="700">How the test works</text>
+<rect x="48.0" y="230.0" width="249.0" height="192.0" rx="8" fill="#FFFFFF" stroke="#D3DAD5"/>
+<circle cx="78.0" cy="262.0" r="15" fill="#C2700F"/>
+<text x="78.0" y="268.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">1</text>
+<text x="102.0" y="268.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#15202A" font-weight="600">A real job</text>
+<text x="66.0" y="302.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">Search gap bench (GAP): write a</text>
+<text x="66.0" y="320.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">brief and make a decision about</text>
+<text x="66.0" y="338.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">an event after the model&#x27;s</text>
+<text x="66.0" y="356.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">training cutoff. Web search</text>
+<text x="66.0" y="374.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">bakeoff (WSB): answer a</text>
+<text x="66.0" y="392.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">documented research question.</text>
+<path d="M 308.0 316.0 L 320.0 326.0 L 308.0 336.0" fill="none" stroke="#C2700F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="333.0" y="230.0" width="249.0" height="192.0" rx="8" fill="#FFFFFF" stroke="#D3DAD5"/>
+<circle cx="363.0" cy="262.0" r="15" fill="#C2700F"/>
+<text x="363.0" y="268.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">2</text>
+<text x="387.0" y="268.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#15202A" font-weight="600">Swap only the search</text>
+<text x="351.0" y="302.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">Same agent, model and prompt in</text>
+<text x="351.0" y="320.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">every run. Each arm adds one</text>
+<text x="351.0" y="338.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">vendor&#x27;s MCP server, pinned, at</text>
+<text x="351.0" y="356.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">default settings. Controls: no</text>
+<text x="351.0" y="374.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">search, and the agent&#x27;s</text>
+<text x="351.0" y="392.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">built-in search.</text>
+<path d="M 593.0 316.0 L 605.0 326.0 L 593.0 336.0" fill="none" stroke="#C2700F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="618.0" y="230.0" width="249.0" height="192.0" rx="8" fill="#FFFFFF" stroke="#D3DAD5"/>
+<circle cx="648.0" cy="262.0" r="15" fill="#C2700F"/>
+<text x="648.0" y="268.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">3</text>
+<text x="672.0" y="268.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#15202A" font-weight="600">Isolated, repeated runs</text>
+<text x="636.0" y="302.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">A fresh sandbox per run, with</text>
+<text x="636.0" y="320.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">every tool call logged. 18–42</text>
+<text x="636.0" y="338.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">runs per arm, across 3</text>
+<text x="636.0" y="356.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">repetitions of each task.</text>
+<path d="M 878.0 316.0 L 890.0 326.0 L 878.0 336.0" fill="none" stroke="#C2700F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="903.0" y="230.0" width="249.0" height="192.0" rx="8" fill="#FFFFFF" stroke="#D3DAD5"/>
+<circle cx="933.0" cy="262.0" r="15" fill="#C2700F"/>
+<text x="933.0" y="268.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">4</text>
+<text x="957.0" y="268.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" fill="#15202A" font-weight="600">Blind grading</text>
+<text x="921.0" y="302.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">A format check, then judges</text>
+<text x="921.0" y="320.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">that never see which arm ran.</text>
+<text x="921.0" y="338.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">GAP pass: right decision, at</text>
+<text x="921.0" y="356.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">least 70% of key facts, at most</text>
+<text x="921.0" y="374.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#4A5866">25% unsupported claims.</text>
+<text x="48.0" y="452.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">Every result below is a pass rate with a 95% Wilson interval. Where two intervals overlap, the data cannot tell those arms apart.</text>
+<text x="48.0" y="514.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="26" fill="#15202A" font-weight="700">What we found</text>
+<text x="48.0" y="552.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#C2700F" font-weight="700" letter-spacing="1">FINDING 1</text>
+<text x="48.0" y="582.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#15202A" font-weight="700">Past the training cutoff,</text>
+<text x="48.0" y="610.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#15202A" font-weight="700">search decides the outcome</text>
+<text x="48.0" y="642.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">Without search, both agents failed every</text>
+<text x="48.0" y="662.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">post-cutoff brief (0%). With any of the seven</text>
+<text x="48.0" y="682.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">search arms, Claude Code passed 62–95% and codex</text>
+<text x="48.0" y="702.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">72–94%, close to the 95% and 89% reached when</text>
+<text x="48.0" y="722.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">handed the answer excerpt.</text>
+<rect x="48" y="752.0" width="380" height="120.0" rx="6" fill="#F8EEDD"/>
+<rect x="48" y="752.0" width="5" height="120.0" rx="2" fill="#C2700F"/>
+<text x="68.0" y="774.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#C2700F" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="796.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">For work that depends on recent events,</text>
+<text x="68.0" y="816.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">search is not a tuning knob. It is the</text>
+<text x="68.0" y="836.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">difference between failing and passing, and</text>
+<text x="68.0" y="856.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">every vendor tested closes most of the gap.</text>
+<text x="460.0" y="552.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A" font-weight="600">Pass rate on post-cutoff briefs (search gap bench)</text>
+<circle cx="466.0" cy="575.0" r="6" fill="#15202A"/>
+<text x="480.0" y="580.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#4A5866">No search</text>
+<rect x="567.0" y="569.0" width="22" height="12" rx="3" fill="#C2700F"/>
+<text x="597.0" y="580.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#4A5866">Range across the 7 search arms</text>
+<path d="M 831.0 570.0 L 843.0 570.0 L 837.0 580.0 Z" fill="#15202A"/>
+<text x="851.0" y="580.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#4A5866">Answer excerpt handed over</text>
+<line x1="610.0" y1="604.0" x2="610.0" y2="732.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="610.0" y="748.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866" text-anchor="middle">0%</text>
+<line x1="713.5" y1="604.0" x2="713.5" y2="732.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="713.5" y="748.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866" text-anchor="middle">25%</text>
+<line x1="817.0" y1="604.0" x2="817.0" y2="732.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="817.0" y="748.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866" text-anchor="middle">50%</text>
+<line x1="920.5" y1="604.0" x2="920.5" y2="732.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="920.5" y="748.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866" text-anchor="middle">75%</text>
+<line x1="1024.0" y1="604.0" x2="1024.0" y2="732.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="1024.0" y="748.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866" text-anchor="middle">100%</text>
+<text x="460.0" y="634.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#15202A" font-weight="600">Claude Code</text>
+<text x="460.0" y="652.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866">21 runs per arm</text>
+<line x1="610.0" y1="636.0" x2="1024.0" y2="636.0" stroke="#B9C2C9" stroke-width="2"/>
+<rect x="866.7" y="628.0" width="136.6" height="16" rx="4" fill="#C2700F"/>
+<circle cx="610.0" cy="636.0" r="7" fill="#15202A"/>
+<path d="M 997.3 614.0 L 1009.3 614.0 L 1003.3 624.0 Z" fill="#15202A"/>
+<text x="1152.0" y="628.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A" text-anchor="end">no search 0%</text>
+<text x="1152.0" y="644.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#C2700F" font-weight="600" text-anchor="end">search 62–95%</text>
+<text x="1152.0" y="660.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866" text-anchor="end">handed over 95%</text>
+<text x="460.0" y="698.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#15202A" font-weight="600">codex</text>
+<text x="460.0" y="716.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866">18 runs per arm</text>
+<line x1="610.0" y1="700.0" x2="1024.0" y2="700.0" stroke="#B9C2C9" stroke-width="2"/>
+<rect x="908.1" y="692.0" width="91.1" height="16" rx="4" fill="#C2700F"/>
+<circle cx="610.0" cy="700.0" r="7" fill="#15202A"/>
+<path d="M 972.5 678.0 L 984.5 678.0 L 978.5 688.0 Z" fill="#15202A"/>
+<text x="1152.0" y="692.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A" text-anchor="end">no search 0%</text>
+<text x="1152.0" y="708.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#C2700F" font-weight="600" text-anchor="end">search 72–94%</text>
+<text x="1152.0" y="724.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866" text-anchor="end">handed over 89%</text>
+<line x1="48" y1="890.0" x2="1152" y2="890.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="48.0" y="924.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#C2700F" font-weight="700" letter-spacing="1">FINDING 2</text>
+<text x="48.0" y="954.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#15202A" font-weight="700">No vendor wins everywhere</text>
+<text x="48.0" y="986.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">The top arm was Parallel on Claude Code (20/21)</text>
+<text x="48.0" y="1006.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">and Brave on codex (17/18), and most intervals</text>
+<text x="48.0" y="1026.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">overlap. With 18–21 runs per arm, the bench</text>
+<text x="48.0" y="1046.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">cannot separate the leading vendors.</text>
+<rect x="48" y="1076.0" width="380" height="100.0" rx="6" fill="#F8EEDD"/>
+<rect x="48" y="1076.0" width="5" height="100.0" rx="2" fill="#C2700F"/>
+<text x="68.0" y="1098.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#C2700F" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="1120.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">Choose on cost, latency and integration, then</text>
+<text x="68.0" y="1140.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">measure on your own agent. Rankings did not</text>
+<text x="68.0" y="1160.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">carry over from one agent to the other.</text>
+<text x="460.0" y="924.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A" font-weight="600">Claude Code</text>
+<text x="567.0" y="924.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866">claude-opus-5-5</text>
+<line x1="540.0" y1="942.0" x2="540.0" y2="1124.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="540.0" y="1142.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">0%</text>
+<line x1="617.0" y1="942.0" x2="617.0" y2="1124.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="617.0" y="1142.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">50%</text>
+<line x1="694.0" y1="942.0" x2="694.0" y2="1124.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="694.0" y="1142.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">100%</text>
+<text x="460.0" y="959.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Parallel</text>
+<rect x="658.6" y="950.0" width="33.9" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="658.6" y1="955.0" x2="692.5" y2="955.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="686.3" cy="955.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="959.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">20/21 · 95%</text>
+<text x="460.0" y="985.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Firecrawl</text>
+<rect x="649.3" y="976.0" width="40.0" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="649.3" y1="981.0" x2="689.4" y2="981.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="678.6" cy="981.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="985.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">19/21 · 90%</text>
+<text x="460.0" y="1011.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Brave</text>
+<rect x="632.4" y="1002.0" width="49.3" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="632.4" y1="1007.0" x2="681.7" y2="1007.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="664.7" cy="1007.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1011.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">17/21 · 81%</text>
+<text x="460.0" y="1037.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Perplexity</text>
+<rect x="624.7" y="1028.0" width="52.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="624.7" y1="1033.0" x2="677.1" y2="1033.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="657.0" cy="1033.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1037.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">16/21 · 76%</text>
+<text x="460.0" y="1063.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Exa</text>
+<rect x="617.0" y="1054.0" width="55.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="617.0" y1="1059.0" x2="672.4" y2="1059.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="649.3" cy="1059.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1063.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">15/21 · 71%</text>
+<text x="460.0" y="1089.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Tavily</text>
+<rect x="617.0" y="1080.0" width="55.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="617.0" y1="1085.0" x2="672.4" y2="1085.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="649.3" cy="1085.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1089.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">15/21 · 71%</text>
+<text x="460.0" y="1115.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">native *</text>
+<rect x="603.1" y="1106.0" width="58.5" height="10" rx="2" fill="#B9C2C9" opacity="0.9"/>
+<line x1="603.1" y1="1111.0" x2="661.7" y2="1111.0" stroke="#7A8893" stroke-width="2"/>
+<circle cx="635.5" cy="1111.0" r="5.5" fill="#7A8893" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1115.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">13/21 · 62%</text>
+<text x="818.0" y="924.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A" font-weight="600">codex</text>
+<text x="871.0" y="924.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#4A5866">gpt-6.1-sol</text>
+<line x1="898.0" y1="942.0" x2="898.0" y2="1124.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="898.0" y="1142.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">0%</text>
+<line x1="975.0" y1="942.0" x2="975.0" y2="1124.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="975.0" y="1142.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">50%</text>
+<line x1="1052.0" y1="942.0" x2="1052.0" y2="1124.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="1052.0" y="1142.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">100%</text>
+<text x="818.0" y="959.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Brave</text>
+<rect x="1012.0" y="950.0" width="38.5" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="1012.0" y1="955.0" x2="1050.5" y2="955.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="1042.8" cy="955.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="959.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">17/18 · 94%</text>
+<text x="818.0" y="985.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Firecrawl</text>
+<rect x="1001.2" y="976.0" width="46.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="1001.2" y1="981.0" x2="1047.4" y2="981.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="1035.1" cy="981.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="985.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">16/18 · 89%</text>
+<text x="818.0" y="1011.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Tavily</text>
+<rect x="1001.2" y="1002.0" width="46.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="1001.2" y1="1007.0" x2="1047.4" y2="1007.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="1035.1" cy="1007.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1011.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">16/18 · 89%</text>
+<text x="818.0" y="1037.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Exa</text>
+<rect x="982.7" y="1028.0" width="55.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="982.7" y1="1033.0" x2="1038.1" y2="1033.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="1018.1" cy="1033.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1037.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">14/18 · 78%</text>
+<text x="818.0" y="1063.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">native</text>
+<rect x="982.7" y="1054.0" width="55.4" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="982.7" y1="1059.0" x2="1038.1" y2="1059.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="1018.1" cy="1059.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1063.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">14/18 · 78%</text>
+<text x="818.0" y="1089.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Parallel</text>
+<rect x="973.5" y="1080.0" width="60.1" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="973.5" y1="1085.0" x2="1033.5" y2="1085.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="1008.9" cy="1085.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1089.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">13/18 · 72%</text>
+<text x="818.0" y="1115.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Perplexity</text>
+<rect x="973.5" y="1106.0" width="60.1" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="973.5" y1="1111.0" x2="1033.5" y2="1111.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="1008.9" cy="1111.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1115.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">13/18 · 72%</text>
+<text x="460.0" y="1168.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#4A5866">* Claude Code native arm: the harness refused its page fetches, so it searched without reading pages. Not</text>
+<text x="460.0" y="1184.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#4A5866">comparable to the vendor rows; fixed for future runs.</text>
+<line x1="48" y1="1218.0" x2="1152" y2="1218.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="48.0" y="1252.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#C2700F" font-weight="700" letter-spacing="1">FINDING 3</text>
+<text x="48.0" y="1282.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#15202A" font-weight="700">On documented knowledge,</text>
+<text x="48.0" y="1310.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#15202A" font-weight="700">memory does most of the work</text>
+<text x="48.0" y="1342.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">In the bakeoff, answering from memory passed</text>
+<text x="48.0" y="1362.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">32/42 (76%). The best arm reached 90%, and no arm</text>
+<text x="48.0" y="1382.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">differed from no-search at 95% confidence, while</text>
+<text x="48.0" y="1402.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">tokens per success rose from 20.9k (no-search) to</text>
+<text x="48.0" y="1422.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">as much as 89.2k (Brave).</text>
+<rect x="48" y="1452.0" width="380" height="100.0" rx="6" fill="#F8EEDD"/>
+<rect x="48" y="1452.0" width="5" height="100.0" rx="2" fill="#C2700F"/>
+<text x="68.0" y="1474.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#C2700F" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="1496.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">Search pays off where training data runs out.</text>
+<text x="68.0" y="1516.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">On stable, well-documented questions it</text>
+<text x="68.0" y="1536.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">mostly adds tokens.</text>
+<text x="460.0" y="1252.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A" font-weight="600">Pass rate on documented-knowledge tasks (web search bakeoff, Claude Code)</text>
+<text x="931.8" y="1286.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866" text-anchor="middle">no-search 76%</text>
+<line x1="564.0" y1="1292.0" x2="564.0" y2="1500.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="564.0" y="1518.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">0%</text>
+<line x1="685.0" y1="1292.0" x2="685.0" y2="1500.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="685.0" y="1518.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">25%</text>
+<line x1="806.0" y1="1292.0" x2="806.0" y2="1500.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="806.0" y="1518.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">50%</text>
+<line x1="927.0" y1="1292.0" x2="927.0" y2="1500.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="927.0" y="1518.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">75%</text>
+<line x1="1048.0" y1="1292.0" x2="1048.0" y2="1500.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="1048.0" y="1518.0" text-anchor="middle" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#4A5866">100%</text>
+<text x="460.0" y="1309.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Firecrawl</text>
+<rect x="941.5" y="1300.0" width="87.1" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="941.5" y1="1305.0" x2="1028.6" y2="1305.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="999.6" cy="1305.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1309.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">38/42 · 90%</text>
+<text x="460.0" y="1335.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Perplexity</text>
+<rect x="927.0" y="1326.0" width="96.8" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="927.0" y1="1331.0" x2="1023.8" y2="1331.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="989.9" cy="1331.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1335.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">37/42 · 88%</text>
+<text x="460.0" y="1361.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Tavily</text>
+<rect x="912.5" y="1352.0" width="101.6" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="912.5" y1="1357.0" x2="1014.1" y2="1357.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="980.2" cy="1357.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1361.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">36/42 · 86%</text>
+<text x="460.0" y="1387.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Exa</text>
+<rect x="898.0" y="1378.0" width="111.3" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="898.0" y1="1383.0" x2="1009.3" y2="1383.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="965.7" cy="1383.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1387.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">35/42 · 83%</text>
+<text x="460.0" y="1413.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Parallel</text>
+<rect x="873.8" y="1404.0" width="116.2" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="873.8" y1="1409.0" x2="989.9" y2="1409.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="946.4" cy="1409.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1413.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">33/42 · 79%</text>
+<text x="460.0" y="1439.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">native *</text>
+<rect x="873.8" y="1430.0" width="116.2" height="10" rx="2" fill="#B9C2C9" opacity="0.9"/>
+<line x1="873.8" y1="1435.0" x2="989.9" y2="1435.0" stroke="#7A8893" stroke-width="2"/>
+<circle cx="946.4" cy="1435.0" r="5.5" fill="#7A8893" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1439.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">33/42 · 79%</text>
+<text x="460.0" y="1465.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">no-search</text>
+<rect x="859.2" y="1456.0" width="125.8" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="859.2" y1="1461.0" x2="985.1" y2="1461.0" stroke="#7A8893" stroke-width="2"/>
+<circle cx="931.8" cy="1461.0" r="5.5" fill="#7A8893" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1465.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">32/42 · 76%</text>
+<text x="460.0" y="1491.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Brave</text>
+<rect x="849.6" y="1482.0" width="125.8" height="10" rx="2" fill="#F2E0C4" opacity="0.9"/>
+<line x1="849.6" y1="1487.0" x2="975.4" y2="1487.0" stroke="#C2700F" stroke-width="2"/>
+<circle cx="922.2" cy="1487.0" r="5.5" fill="#C2700F" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1491.0" text-anchor="end" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#15202A">31/42 · 74%</text>
+<line x1="931.8" y1="1292.0" x2="931.8" y2="1500.0" stroke="#15202A" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="48" y1="1570.0" x2="1152" y2="1570.0" stroke="#D3DAD5" stroke-width="1"/>
+<text x="48.0" y="1604.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#C2700F" font-weight="700" letter-spacing="1">FINDING 4</text>
+<text x="48.0" y="1634.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#15202A" font-weight="700">Agents still search like</text>
+<text x="48.0" y="1662.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="24" fill="#15202A" font-weight="700">keyword users</text>
+<text x="48.0" y="1694.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">Only 7% of gap-bench queries read as natural</text>
+<text x="48.0" y="1714.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">language, and codex leaned on site: filters</text>
+<text x="48.0" y="1734.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">(31–67% of its vendor queries). Agents often</text>
+<text x="48.0" y="1754.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">skipped search and opened URLs they remembered.</text>
+<text x="48.0" y="1774.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#4A5866">Runs did better when the primary source surfaced.</text>
+<rect x="48" y="1804.0" width="380" height="120.0" rx="6" fill="#F8EEDD"/>
+<rect x="48" y="1804.0" width="5" height="120.0" rx="2" fill="#C2700F"/>
+<text x="68.0" y="1826.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#C2700F" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="1848.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">The next gains are in how agents ask and what</text>
+<text x="68.0" y="1868.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">results surface: full-question queries, and</text>
+<text x="68.0" y="1888.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">primary sources first. These are correlations</text>
+<text x="68.0" y="1908.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">across runs, not controlled effects.</text>
+<rect x="460.0" y="1612.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#D3DAD5"/>
+<text x="476.0" y="1656.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="32" fill="#C2700F" font-weight="700">7%</text>
+<text x="476.0" y="1682.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">of gap-bench search queries</text>
+<text x="476.0" y="1700.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">read as natural language;</text>
+<text x="476.0" y="1718.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">the rest were keyword</text>
+<text x="476.0" y="1736.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">strings.</text>
+<rect x="696.0" y="1612.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#D3DAD5"/>
+<text x="712.0" y="1656.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="32" fill="#C2700F" font-weight="700">36/55</text>
+<text x="712.0" y="1682.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Exa bakeoff runs that</text>
+<text x="712.0" y="1700.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">fetched remembered URLs</text>
+<text x="712.0" y="1718.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">without searching</text>
+<text x="712.0" y="1736.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">(Firecrawl 35/55, Tavily</text>
+<text x="712.0" y="1754.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">34/54, Parallel 30/55).</text>
+<rect x="932.0" y="1612.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#D3DAD5"/>
+<text x="948.0" y="1656.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="32" fill="#C2700F" font-weight="700">85% vs 61%</text>
+<text x="948.0" y="1682.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">Claude Code pass rate with</text>
+<text x="948.0" y="1700.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">the primary source in its</text>
+<text x="948.0" y="1718.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">results (94/111) vs without</text>
+<text x="948.0" y="1736.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#15202A">it (20/33).</text>
+<rect x="48" y="1964.0" width="1104" height="186" rx="8" fill="#FFFFFF" stroke="#D3DAD5"/>
+<text x="72.0" y="1998.0" font-family="'IBM Plex Sans Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif" font-size="18" fill="#15202A" font-weight="700">Read before comparing</text>
+<text x="72.0" y="2028.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">·  18–42 runs per arm: intervals are wide, and adjacent positions are not rankings.</text>
+<text x="72.0" y="2052.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">·  Each vendor ran through its own MCP server at a pinned version and default settings. Direct APIs, other modes and other tools were not tested.</text>
+<text x="72.0" y="2076.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">·  Grading used validators and blinded model judges (Claude; codex as a second judge on the gap bench). Vendor spend was only partly metered.</text>
+<text x="72.0" y="2100.0" font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#15202A">·  Search behavior comes from 1629 logged queries; its links to pass rates are correlations.</text>
+<text x="72.0" y="2130.0" font-family="'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#4A5866">github.com/laceyenterprises/searchlight · data: reports/*/summary.json · method: reports/*/methodology.md</text>
 </svg>
