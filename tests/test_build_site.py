@@ -340,10 +340,15 @@ def test_every_page_carries_social_metadata():
                       ('methodology.html', 'https://www.searchlightai.dev/methodology.html')):
         html = files[name]
         assert '<meta property="og:image" content="https://www.searchlightai.dev/social-card.png">' in html
+        assert '<meta name="twitter:image" content="https://www.searchlightai.dev/social-card.png">' in html
         assert '<meta name="twitter:card" content="summary_large_image">' in html
         assert f'<meta property="og:url" content="{url}">' in html
         assert f'<link rel="canonical" href="{url}">' in html
         assert '<meta property="og:image:width" content="2400">' in html
+        committed = (ROOT / 'site' / name).read_text()
+        for tag in re.findall(r'<(?:meta|link)[^>]+>', html):
+            if 'https://www.searchlightai.dev/' in tag:
+                assert tag in committed
 
 
 def test_card_png_stamp_round_trips_and_detects_staleness(tmp_path):
