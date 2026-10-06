@@ -343,6 +343,13 @@ sew gap report /path/to/gap-battery
 python3 scripts/analyze_search_behavior.py /path/to/suite-run --catalog catalogs/gap/tasks.yaml --json out.json
 ```
 
+In live runs, `--max-wall-clock-seconds` sets the run wall-clock limit;
+`timeouts.run_seconds` is the fallback when no operator budgets are supplied.
+Suite spend budgets remain ceilings on the operator caps. Elapsed wall time
+persists across resumes, so raise the operator wall-clock cap to continue a run
+that stopped at its previous cap. The run summary reports `budget_limits` and
+`budget_elapsed_seconds`.
+
 The provider MCP configuration is a YAML file outside the repository, and it names keys by
 environment reference. See [configuration and metering](WORKBENCH.md) and
 [RUNBOOK-gap.md](RUNBOOK-gap.md) before any live execution.
