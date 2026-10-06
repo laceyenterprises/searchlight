@@ -3,10 +3,11 @@
 
 Replaces monitors_b.py's poll/delete: the monitors were found by name (their IDs weren't kept), harvested, and
 paused rather than deleted, so their history stays in the Exa account. The key comes from the environment only.
-Raw API responses stay in runs/SM_raw/ (gitignored); ../data/stage-b/runs/SM/ holds the sanitized record, built
-with export_data.py's redaction helpers.
+The raw API responses (minus each monitor's webhook secret) are in ../data/stage-b/runs/SM/raw/, published by the
+owner's decision of 2026-10-06; ../data/stage-b/runs/SM/ also holds the sanitized record, built from them with
+export_data.py's redaction helpers.
 
-Usage: python3 monitors_harvest.py harvest | export | pause | status   (export rebuilds the record from runs/SM_raw/)
+Usage: python3 monitors_harvest.py harvest | export | pause | status   (export rebuilds the record from raw/ offline)
 """
 import json, os, pathlib, sys, time, urllib.error, urllib.request
 
@@ -17,7 +18,8 @@ from export_data import deep_redact, domain  # noqa: E402  the experiment's reda
 API = "https://api.exa.ai"
 PREFIX = "provider-eval SM "
 SM = json.loads((HERE / "sets" / "SM.json").read_text())
-RAW, OUT = HERE / "runs" / "SM_raw", HERE.parent / "data" / "stage-b" / "runs" / "SM"
+OUT = HERE.parent / "data" / "stage-b" / "runs" / "SM"
+RAW = OUT / "raw"
 
 
 def call(method, path, body=None):

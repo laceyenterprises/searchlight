@@ -1,0 +1,222 @@
+{
+ "monitor": {
+  "id": "01m3g3gcvcda3tcdgz3bttezae",
+  "name": "provider-eval SM m05 Brave Search API",
+  "status": "active",
+  "search": {
+   "query": "Brave Search API pricing, plans, or changelog update",
+   "numResults": 10,
+   "includeDomains": [
+    "brave.com",
+    "api-dashboard.search.brave.com"
+   ]
+  },
+  "trigger": {
+   "type": "interval",
+   "period": "1d"
+  },
+  "outputSchema": null,
+  "metadata": {
+   "probe": "SM",
+   "stage": "B",
+   "experiment": "provider-eval",
+   "delete_after": "2026-10-10"
+  },
+  "webhook": {
+   "url": "https://exa.ai/provider-eval-webhook-placeholder",
+   "events": [
+    "monitor.deleted"
+   ]
+  },
+  "nextRunAt": "2026-10-07T05:37:16.500Z",
+  "createdAt": "2026-09-27T00:16:14.700Z",
+  "updatedAt": "2026-09-27T00:16:16.560Z"
+ },
+ "runs": [
+  {
+   "id": "01m47vzqnppp27y17v4fswnzkz",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-06T05:46:35.062Z",
+   "completedAt": "2026-10-06T05:46:36.248Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1334,
+   "createdAt": "2026-10-06T05:46:35.062Z",
+   "updatedAt": "2026-10-06T05:46:36.249Z"
+  },
+  {
+   "id": "01m458kr7eajvsyhsarbxwwhay",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-05T05:29:30.606Z",
+   "completedAt": "2026-10-05T05:29:31.992Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1555,
+   "createdAt": "2026-10-05T05:29:30.606Z",
+   "updatedAt": "2026-10-05T05:29:31.992Z"
+  },
+  {
+   "id": "01m42pp6w4e9cc9r8cw6yv7bxa",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-04T05:37:47.908Z",
+   "completedAt": "2026-10-04T05:37:49.227Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1500,
+   "createdAt": "2026-10-04T05:37:47.908Z",
+   "updatedAt": "2026-10-04T05:37:49.228Z"
+  },
+  {
+   "id": "01m4053vbk06wnm3qxrtsdvha7",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-03T05:52:11.635Z",
+   "completedAt": "2026-10-03T05:52:14.893Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3424,
+   "createdAt": "2026-10-03T05:52:11.635Z",
+   "updatedAt": "2026-10-03T05:52:14.894Z"
+  },
+  {
+   "id": "01m3xhcv5fdyyvy5fenb91xhjr",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-02T05:29:05.967Z",
+   "completedAt": "2026-10-02T05:29:07.631Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1841,
+   "createdAt": "2026-10-02T05:29:05.967Z",
+   "updatedAt": "2026-10-02T05:29:07.633Z"
+  },
+  {
+   "id": "01m3tzbhjjga9379v7t5ghxv8s",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://api-dashboard.search.brave.com/documentation/pricing:118b9b1c49d4bbb549b82632c2eab8ff14599283532bd1152e35efaa39df2f34",
+      "changeType": "page_changed",
+      "summary": "The Brave Search API pricing page has removed specific cost information, including the $5.00 per 1,000 requests rate.",
+      "title": "Brave Search API pricing details removed",
+      "url": "https://api-dashboard.search.brave.com/documentation/pricing"
+     },
+     {
+      "changeFingerprint": "page:https://api-dashboard.search.brave.com/app/plans?tab=normal:625d9f505c7eaa2cf814ce6fb4f9bf3015436687888c40ccc14f6a32f47b4992",
+      "changeType": "page_changed",
+      "summary": "The Brave Search API pricing and product details have been removed from the dashboard, leaving only minimal navigation links.",
+      "title": "Brave Search API pricing details removed",
+      "url": "https://api-dashboard.search.brave.com/app/plans?tab=normal"
+     }
+    ],
+    "content": "Brave Search API pricing details removed: Removed specific pricing information for the search API Removed details regarding the $5.00 per 1,000 requests rate\nBrave Search API pricing details removed: Removed specific pricing of $5.00 per 1,000 requests for the Search API. Removed core Search API description and feature list from the public pricing page."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-01T05:35:20.146Z",
+   "completedAt": "2026-10-01T05:35:24.645Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 4579,
+   "createdAt": "2026-10-01T05:35:20.146Z",
+   "updatedAt": "2026-10-01T05:35:24.645Z"
+  },
+  {
+   "id": "01m3rdj5rzy8fpxx62es4awb70",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-30T05:45:54.207Z",
+   "completedAt": "2026-09-30T05:45:57.510Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3370,
+   "createdAt": "2026-09-30T05:45:54.207Z",
+   "updatedAt": "2026-09-30T05:45:57.511Z"
+  },
+  {
+   "id": "01m3ntwyyp1spady6z42efwhd3",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-29T05:41:15.862Z",
+   "completedAt": "2026-09-29T05:41:18.121Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2421,
+   "createdAt": "2026-09-29T05:41:15.862Z",
+   "updatedAt": "2026-09-29T05:41:18.123Z"
+  },
+  {
+   "id": "01m3k8xcne5h2pxwxkdg5d0msa",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-28T05:48:26.670Z",
+   "completedAt": "2026-09-28T05:48:27.870Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1472,
+   "createdAt": "2026-09-28T05:48:26.670Z",
+   "updatedAt": "2026-09-28T05:48:27.871Z"
+  },
+  {
+   "id": "01m3gnjf3qjshchcdzhjzvn511",
+   "monitorId": "01m3g3gcvcda3tcdgz3bttezae",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-27T05:31:56.919Z",
+   "completedAt": "2026-09-27T05:31:57.829Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1072,
+   "createdAt": "2026-09-27T05:31:56.919Z",
+   "updatedAt": "2026-09-27T05:31:57.830Z"
+  }
+ ]
+}

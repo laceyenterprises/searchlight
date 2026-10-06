@@ -1,0 +1,253 @@
+{
+ "monitor": {
+  "id": "01m3g3g8q7vm36q78vdy3afkv0",
+  "name": "provider-eval SM m03 Firecrawl",
+  "status": "active",
+  "search": {
+   "query": "Firecrawl pricing, credits, plans, or changelog update",
+   "numResults": 10,
+   "includeDomains": [
+    "firecrawl.dev",
+    "docs.firecrawl.dev"
+   ]
+  },
+  "trigger": {
+   "type": "interval",
+   "period": "1d"
+  },
+  "outputSchema": null,
+  "metadata": {
+   "probe": "SM",
+   "stage": "B",
+   "experiment": "provider-eval",
+   "delete_after": "2026-10-10"
+  },
+  "webhook": {
+   "url": "https://exa.ai/provider-eval-webhook-placeholder",
+   "events": [
+    "monitor.deleted"
+   ]
+  },
+  "nextRunAt": "2026-10-07T03:33:40.644Z",
+  "createdAt": "2026-09-27T00:16:10.471Z",
+  "updatedAt": "2026-09-27T00:16:12.264Z"
+ },
+ "runs": [
+  {
+   "id": "01m47knevqpswwsqy3bz9ned3h",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://www.firecrawl.dev/pricing:e0cf29e71f6f62be48aebacfc9bdeec389209eb52be4c899d1587256c485475a",
+      "changeType": "page_changed",
+      "summary": "Firecrawl updated their pricing page by adding new features like SSO, dedicated support, and zero-data retention.",
+      "title": "Firecrawl Pricing Features Updated",
+      "url": "https://www.firecrawl.dev/pricing"
+     },
+     {
+      "changeFingerprint": "page:https://www.firecrawl.dev/changelog:f6785ea3be7da2d99a68bbff885d6193bda2d5f6092f0cf85cbcba0cd2484f44",
+      "changeType": "page_changed",
+      "summary": "Firecrawl has updated its changelog to announce the launch of fantasy sports data integration for AI agents in Alexandria.",
+      "title": "New Feature: Fantasy Sports Data in Alexandria",
+      "url": "https://www.firecrawl.dev/changelog"
+     }
+    ],
+    "content": "Firecrawl Pricing Features Updated: Added 'SSO & advanced security' to plans Added 'Dedicated support & SLA' and 'Zero-data retention' features Removed '50 concurrent requests' limitation mention\nNew Feature: Fantasy Sports Data in Alexandria: Fantasy sports data is now available in Firecrawl Alexandria for AI agents. Users can research player stats, rankings, betting odds, and news for fantasy lineup decisions. Includes features to compare projections and a fantasy football demo."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-06T03:21:09.751Z",
+   "completedAt": "2026-10-06T03:21:15.471Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5881,
+   "createdAt": "2026-10-06T03:21:09.751Z",
+   "updatedAt": "2026-10-06T03:21:15.472Z"
+  },
+  {
+   "id": "01m450bnd6dc8k3fcf443j1fwq",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-05T03:05:16.966Z",
+   "completedAt": "2026-10-05T03:05:20.195Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3390,
+   "createdAt": "2026-10-05T03:05:16.966Z",
+   "updatedAt": "2026-10-05T03:05:20.195Z"
+  },
+  {
+   "id": "01m42ekhtjmxm67vwnqw2n8zg3",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-04T03:16:32.210Z",
+   "completedAt": "2026-10-04T03:16:34.462Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2454,
+   "createdAt": "2026-10-04T03:16:32.210Z",
+   "updatedAt": "2026-10-04T03:16:34.463Z"
+  },
+  {
+   "id": "01m3zwq7exad3dy96p5z3qwgxr",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-03T03:25:29.437Z",
+   "completedAt": "2026-10-03T03:25:31.989Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2690,
+   "createdAt": "2026-10-03T03:25:29.437Z",
+   "updatedAt": "2026-10-03T03:25:31.990Z"
+  },
+  {
+   "id": "01m3xabxbyjahcvtj9gjxc6vh4",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://www.firecrawl.dev/pricing:314b8e383c045c803ab3918e5823c78a2c29f5fcd8817cad713a6d5209b40d84",
+      "changeType": "page_changed",
+      "summary": "Firecrawl has updated its pricing page to remove the '(Preview)' designation from the 'Agent' feature.",
+      "title": "Firecrawl Agent feature out of preview",
+      "url": "https://www.firecrawl.dev/pricing"
+     }
+    ],
+    "content": "Firecrawl Agent feature out of preview: The 'Agent' feature is no longer listed as being in 'Preview' mode."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-02T03:26:15.422Z",
+   "completedAt": "2026-10-02T03:26:20.780Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5518,
+   "createdAt": "2026-10-02T03:26:15.422Z",
+   "updatedAt": "2026-10-02T03:26:20.781Z"
+  },
+  {
+   "id": "01m3tqyws7mssesxz49x5q4e1w",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://www.firecrawl.dev/pricing:fd2f073b79f82d3b92d1916f90d0886baad407c2f22c7426c1791a1154d0cd8f",
+      "changeType": "page_changed",
+      "summary": "Firecrawl has removed the 'SSO & advanced security' feature from its pricing page.",
+      "title": "Removal of SSO & Advanced Security from pricing page",
+      "url": "https://www.firecrawl.dev/pricing"
+     },
+     {
+      "changeFingerprint": "page:https://www.firecrawl.dev/changelog:2b8519fcb6330cfc3919493a3d284707989ff9bebf2d837a2ba748eab80608af",
+      "changeType": "page_changed",
+      "summary": "Firecrawl released 'Alexandria', a new feature enabling agents to perform people and company enrichment via integrations with Apollo, FullEnrich, and Data Legion.",
+      "title": "New Product Feature: Alexandria People and Company Enrichment",
+      "url": "https://www.firecrawl.dev/changelog"
+     }
+    ],
+    "content": "Removal of SSO & Advanced Security from pricing page: SSO & advanced security feature listing was removed from the pricing page.\nNew Product Feature: Alexandria People and Company Enrichment: Firecrawl introduced 'Alexandria' for people and company enrichment, integrating Apollo, FullEnrich, and Data Legion. Agents can now find decision makers, work emails, and enrich company data using the same connection as Firecrawl scraping."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-01T03:26:05.607Z",
+   "completedAt": "2026-10-01T03:26:11.475Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5855,
+   "createdAt": "2026-10-01T03:26:05.607Z",
+   "updatedAt": "2026-10-01T03:26:11.477Z"
+  },
+  {
+   "id": "01m3r5a7030382d49dxn21zvq1",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://www.firecrawl.dev/pricing:2fdf4b88aea3816afcd1d2ce66e516de94f98e5eda446c66030e62a5b5de7bdc",
+      "changeType": "page_changed",
+      "summary": "Firecrawl has updated its pricing page to include 'SSO & advanced security' as a feature.",
+      "title": "New Feature Added to Pricing Plans",
+      "url": "https://www.firecrawl.dev/pricing"
+     }
+    ],
+    "content": "New Feature Added to Pricing Plans: SSO & advanced security added to plans"
+   },
+   "failReason": null,
+   "startedAt": "2026-09-30T03:21:44.707Z",
+   "completedAt": "2026-09-30T03:21:49.417Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 4834,
+   "createdAt": "2026-09-30T03:21:44.707Z",
+   "updatedAt": "2026-09-30T03:21:49.418Z"
+  },
+  {
+   "id": "01m3nk3j4xqa8an7rg1ngcr2w7",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-29T03:25:03.517Z",
+   "completedAt": "2026-09-29T03:25:05.952Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2606,
+   "createdAt": "2026-09-29T03:25:03.517Z",
+   "updatedAt": "2026-09-29T03:25:05.954Z"
+  },
+  {
+   "id": "01m3jzp22g9cem2b18kggkdjja",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-28T03:07:09.264Z",
+   "completedAt": "2026-09-28T03:07:11.140Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2030,
+   "createdAt": "2026-09-28T03:07:09.264Z",
+   "updatedAt": "2026-09-28T03:07:11.141Z"
+  },
+  {
+   "id": "01m3ge9v4x3rrmby54xj0dmdym",
+   "monitorId": "01m3g3g8q7vm36q78vdy3afkv0",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-27T03:24:54.301Z",
+   "completedAt": "2026-09-27T03:24:56.721Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2573,
+   "createdAt": "2026-09-27T03:24:54.301Z",
+   "updatedAt": "2026-09-27T03:24:56.722Z"
+  }
+ ]
+}

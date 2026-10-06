@@ -17,6 +17,8 @@ cd stage_c
 python3 score_c.py --data ../../data/stage-c      # Stage C, as judged and corrected
 python3 make_tables_c.py --data ../../data/stage-c ../../record/results-stage-c.md
 cd ..
+
+python3 monitors_harvest.py export                # the Monitors record, from the published raw responses
 git diff --stat ..
 ```
 
@@ -53,8 +55,9 @@ The full sequence, with each judging step, is in the record's [overview](record/
 ## The Monitors probe
 
 `monitors_b.py create` made the five monitors on 2026-09-26. On 2026-10-06 `monitors_harvest.py harvest` found them by
-name, saved every run's raw output to `runs/SM_raw/` (not published), wrote the sanitized record to
-`data/stage-b/runs/SM/`, and `monitors_harvest.py pause` paused them.
+name, saved every run's raw output to `data/stage-b/runs/SM/raw/` (published by the owner's decision of that day),
+wrote the sanitized record next to it, and `monitors_harvest.py pause` paused them. `monitors_harvest.py export`
+rebuilds the sanitized record from the raw files without a key.
 
 ```sh
 python3 monitors_harvest.py status    # needs EXA_API_KEY for the account that owns the monitors

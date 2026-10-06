@@ -1414,7 +1414,7 @@ once, so the study reports counts without intervals.</p>
 <section id="reproduce"><h2>Reproduce, correct, contribute</h2>
 <p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw transcripts and
 provider responses are not distributed, so exact replay of the published numbers is not possible; a new run measures the
-same method. If you run a tested service and a configuration here misrepresents it, open an issue with the configuration you
+same method. The one exception is the search API head-to-head's Monitors probe, whose raw responses are published. If you run a tested service and a configuration here misrepresents it, open an issue with the configuration you
 recommend: corrections are rerun and published beside the original, never silently replaced.</p>
 <pre><code>pipx install 'git+{REPO_URL}'
 sew doctor

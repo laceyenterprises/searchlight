@@ -83,7 +83,9 @@ result's rank, URL, domain, published date and text length, crawl status codes, 
 maps, judge verdicts and scores. It never exports page titles, snippets, page text, extracted content, vendor-written
 values or raw responses, and replaces the paths of social-media profile and post URLs with a stable hash. Judge notes
 may quote short fragments of pages. The Monitors export (`code/monitors_harvest.py`) follows the same rule: change
-types and fingerprints are kept, change summaries and titles only as lengths.
+types and fingerprints are kept, change summaries and titles only as lengths. The Monitors probe is the one
+exception to the no-vendor-text rule: by the owner's decision of 2026-10-06, its raw API responses, including Exa's
+change titles, summaries and run notes, are published verbatim in `data/stage-b/runs/SM/raw/`.
 
 See [the report](REPORT.md), [summary data](summary.json) and [reproduction](reproduce.md). Calibration does not
 apply: [calibration record](calibration.json).

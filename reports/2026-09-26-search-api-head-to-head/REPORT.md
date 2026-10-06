@@ -174,10 +174,14 @@ on Exa's price list.
   between the two setups.
 - **Vendor terms.** The experiment was first run as an internal evaluation. The record's overview summarises each
   vendor's terms on benchmarking as read on 2026-09-26 ([terms](record/overview.md#terms-of-use-and-owner-decisions)).
-- **What is not published.** Page text, titles, snippets, vendor-written values and raw responses are not published;
-  social-media URLs are hashed. Raw responses were deleted after grading (Amendment 7), so grading cannot be replayed
-  exactly. Every published table rebuilds from `data/` except Stage A's S3 rows, which need page text; their per-page
-  outcomes are in [the scripted summary](data/stage-a/grading/summary_stageA_scripted.json).
+- **What is and isn't published.** For Stages A to C, page text, titles, snippets, vendor-written values and raw
+  responses are not published, and social-media URLs are hashed. Those raw responses were deleted after grading
+  (Amendment 7), so their grading cannot be replayed exactly. Every published table rebuilds from `data/` except Stage
+  A's S3 rows, which need page text; their per-page outcomes are in
+  [the scripted summary](data/stage-a/grading/summary_stageA_scripted.json). The Monitors probe is the exception: by the
+  owner's decision of 2026-10-06, its raw API responses, including Exa's change titles, summaries and run notes, are
+  published verbatim in [data/stage-b/runs/SM/raw/](data/stage-b/runs/SM/raw/m01.json) (each monitor's webhook secret
+  was never stored), and its sanitized record rebuilds from them byte for byte.
 
 ## Record and data
 
@@ -192,6 +196,6 @@ on Exa's price list.
   [code/export_data.py](code/export_data.py) and the Monitors harvest [code/monitors_harvest.py](code/monitors_harvest.py).
 - Scores: [Stage A](data/stage-a/grading/v2/scored_v2.json), [Stage B](data/stage-b/grading/b/scored_b.json),
   [Stage C corrected](data/stage-c/scores_corrected.json) and [as judged](data/stage-c/scores.json); the Monitors
-  [harvest](data/stage-b/runs/SM/summary.json) and [grading](data/stage-b/runs/SM/grading.json).
+  [harvest](data/stage-b/runs/SM/summary.json), [raw responses](data/stage-b/runs/SM/raw/m01.json) and [grading](data/stage-b/runs/SM/grading.json).
 
 Read the [summary data](summary.json), [calibration record](calibration.json), [methodology](methodology.md) and [reproduction steps](reproduce.md).

@@ -350,7 +350,8 @@ environment reference. See [configuration and metering](WORKBENCH.md) and
 
 Each report directory contains `reproduce.md`, with exact historical and shipped catalog
 hashes. Raw transcripts and provider responses are not distributed, so the published
-aggregates cannot be replayed exactly. A new live run measures the same method on today's
+aggregates cannot be replayed exactly. The one exception is the search API head-to-head's
+Monitors probe, whose raw responses are published with its report. A new live run measures the same method on today's
 models, indexes and sources.
 
 ```sh

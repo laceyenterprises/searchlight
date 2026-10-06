@@ -1,0 +1,238 @@
+{
+ "monitor": {
+  "id": "01m3g3g6b3f7z8d90s5dx6yv0x",
+  "name": "provider-eval SM m02 Parallel",
+  "status": "active",
+  "search": {
+   "query": "Parallel Web Systems API pricing, processors, or changelog update",
+   "numResults": 10,
+   "includeDomains": [
+    "parallel.ai",
+    "docs.parallel.ai"
+   ]
+  },
+  "trigger": {
+   "type": "interval",
+   "period": "1d"
+  },
+  "outputSchema": null,
+  "metadata": {
+   "probe": "SM",
+   "stage": "B",
+   "experiment": "provider-eval",
+   "delete_after": "2026-10-10"
+  },
+  "webhook": {
+   "url": "https://exa.ai/provider-eval-webhook-placeholder",
+   "events": [
+    "monitor.deleted"
+   ]
+  },
+  "nextRunAt": "2026-10-07T16:13:54.778Z",
+  "createdAt": "2026-09-27T00:16:08.035Z",
+  "updatedAt": "2026-09-27T00:16:10.264Z"
+ },
+ "runs": [
+  {
+   "id": "01m48zwr9yn7qhgkfc2dghgfgd",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-06T16:14:06.142Z",
+   "completedAt": "2026-10-06T16:14:07.652Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1679,
+   "createdAt": "2026-10-06T16:14:06.142Z",
+   "updatedAt": "2026-10-06T16:14:07.652Z"
+  },
+  {
+   "id": "01m46e6h1rpd47909tdg12knkn",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-05T16:26:23.160Z",
+   "completedAt": "2026-10-05T16:26:24.978Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1986,
+   "createdAt": "2026-10-05T16:26:23.160Z",
+   "updatedAt": "2026-10-05T16:26:24.980Z"
+  },
+  {
+   "id": "01m43v4k5hxa8kmrjang86axwc",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-04T16:14:47.985Z",
+   "completedAt": "2026-10-04T16:14:49.717Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1905,
+   "createdAt": "2026-10-04T16:14:47.985Z",
+   "updatedAt": "2026-10-04T16:14:49.718Z"
+  },
+  {
+   "id": "01m418561yxwsyzjtaww9dh5mq",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://docs.parallel.ai/resources/changelog:4ea3d195ddecf1b5d19ded4a08f74988df92fe9951904a61314b73031bda39a3",
+      "changeType": "page_changed",
+      "summary": "The /v1/extract API request body has been updated; fields must now be nested under advanced_settings, and using legacy top-level fields will trigger a 422 error.",
+      "title": "Parallel API Breaking Change: /v1/extract Request Body Update",
+      "url": "https://docs.parallel.ai/resources/changelog"
+     },
+     {
+      "changeFingerprint": "page:https://docs.parallel.ai/getting-started/pricing:e44c26b272078c6cca1776572eb786cb0e19317832a14c8b36cfd6ce9f58ef8e",
+      "changeType": "page_changed",
+      "summary": "The pricing documentation was updated to include new Image Search API rates and detail breaking schema changes for the /v1/extract endpoint.",
+      "title": "New Image Search pricing and API request schema updates",
+      "url": "https://docs.parallel.ai/getting-started/pricing"
+     }
+    ],
+    "content": "Parallel API Breaking Change: /v1/extract Request Body Update: Request body changes for /v1/extract endpoint: fields now require nesting under advanced_settings. Sending legacy v1beta top-level fields to /v1/extract will return a 422 error.\nNew Image Search pricing and API request schema updates: New pricing introduced for Image Search API: $1\u2013$5 per 1,000 requests. Breaking change: /v1/extract request schema updated to require advanced_settings."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-03T16:04:35.518Z",
+   "completedAt": "2026-10-03T16:04:39.521Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 4130,
+   "createdAt": "2026-10-03T16:04:35.518Z",
+   "updatedAt": "2026-10-03T16:04:39.522Z"
+  },
+  {
+   "id": "01m3ypvnedezy5s4a9rst8a4fe",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-02T16:23:48.941Z",
+   "completedAt": "2026-10-02T16:23:50.536Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1745,
+   "createdAt": "2026-10-02T16:23:48.941Z",
+   "updatedAt": "2026-10-02T16:23:50.537Z"
+  },
+  {
+   "id": "01m3w485ryn9nmbq6v2wzhtwhq",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://docs.parallel.ai/getting-started/pricing:ede5b10475c7789231403f2f81c3e5d68fc359581c06785e4477133555d7475a",
+      "changeType": "page_changed",
+      "summary": "The documentation for Task API processor pricing and specifications has been removed from the pricing page.",
+      "title": "Task API Processor Pricing Information Removed",
+      "url": "https://docs.parallel.ai/getting-started/pricing"
+     }
+    ],
+    "content": "Task API Processor Pricing Information Removed: The table listing specific fast processor pricing and specifications has been removed. The explicit note stating fast processors have the same pricing as standard counterparts was removed."
+   },
+   "failReason": null,
+   "startedAt": "2026-10-01T16:20:07.070Z",
+   "completedAt": "2026-10-01T16:20:09.843Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2941,
+   "createdAt": "2026-10-01T16:20:07.070Z",
+   "updatedAt": "2026-10-01T16:20:09.844Z"
+  },
+  {
+   "id": "01m3sh3fa2tej1bm6488s304h2",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-30T16:07:01.186Z",
+   "completedAt": "2026-09-30T16:07:02.377Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1361,
+   "createdAt": "2026-09-30T16:07:01.186Z",
+   "updatedAt": "2026-09-30T16:07:02.378Z"
+  },
+  {
+   "id": "01m3pz3zfjcamfjaepxb2wtgcr",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [
+     {
+      "changeFingerprint": "page:https://docs.parallel.ai/resources/changelog:2439029d914e2ae9026f912912be63461d993232242d74ab2712cb98dbb8f34a",
+      "changeType": "page_changed",
+      "summary": "Parallel updated their API changelog to include support for Data Connectors, new Responses API functionalities, a Search Capability Leaderboard, and availability on the Google Cloud Marketplace.",
+      "title": "New Parallel API Capabilities and Marketplace Availability",
+      "url": "https://docs.parallel.ai/resources/changelog"
+     }
+    ],
+    "content": "New Parallel API Capabilities and Marketplace Availability: Added Data Connectors for third-party data sources with various access models. Launched the Search Capability Leaderboard to compare model performance and cost efficiency. Added availability for the full Parallel API suite on Google Cloud Marketplace."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-29T16:14:14.514Z",
+   "completedAt": "2026-09-29T16:14:17.646Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3282,
+   "createdAt": "2026-09-29T16:14:14.514Z",
+   "updatedAt": "2026-09-29T16:14:17.646Z"
+  },
+  {
+   "id": "01m3mcebh573vsp0nt4b3qcd6x",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-28T16:09:22.725Z",
+   "completedAt": "2026-09-28T16:09:23.972Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1450,
+   "createdAt": "2026-09-28T16:09:22.725Z",
+   "updatedAt": "2026-09-28T16:09:23.973Z"
+  },
+  {
+   "id": "01m3hsyhvry37gjzmabcc8820m",
+   "monitorId": "01m3g3g6b3f7z8d90s5dx6yv0x",
+   "status": "completed",
+   "output": {
+    "results": [],
+    "content": "No changes detected across 3 watched pages."
+   },
+   "failReason": null,
+   "startedAt": "2026-09-27T16:07:41.688Z",
+   "completedAt": "2026-09-27T16:07:42.691Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1170,
+   "createdAt": "2026-09-27T16:07:41.688Z",
+   "updatedAt": "2026-09-27T16:07:42.692Z"
+  }
+ ]
+}
