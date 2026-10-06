@@ -1,0 +1,77 @@
+[exa] S2/k02 status=200 1366ms cost={'usd': 0.007}
+[exa] S2/k03 status=200 931ms cost={'usd': 0.007}
+[parallel] S2/k02 status=200 2483ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k02 status=200 2883ms cost={'credits': 2}
+[exa] S2/k04 status=200 929ms cost={'usd': 0.007}
+[exa] S2/k05 status=200 810ms cost={'usd': 0.007}
+[parallel] S2/k03 status=200 2324ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S2/k06 status=200 1510ms cost={'usd': 0.007}
+[tavily] S2/k03 status=200 3408ms cost={'credits': 2}
+[exa] S2/k07 status=200 1349ms cost={'usd': 0.007}
+[parallel] S2/k04 status=200 2171ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S2/k08 status=200 1190ms cost={'usd': 0.007}
+[exa] S2/k09 status=200 1791ms cost={'usd': 0.007}
+[parallel] S2/k05 status=200 3464ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S2/k10 status=200 792ms cost={'usd': 0.007}
+[tavily] S2/k04 status=200 5073ms cost={'credits': 2}
+[exa] S2/k11 status=200 889ms cost={'usd': 0.007}
+[parallel] S2/k06 status=200 1832ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S2/k12 status=200 990ms cost={'usd': 0.007}
+[exa] S2/k13 status=200 1005ms cost={'usd': 0.007}
+[tavily] S2/k05 status=200 2821ms cost={'credits': 2}
+[exa] S2/k14 status=200 1354ms cost={'usd': 0.007}
+[exa] S2/k15 status=200 877ms cost={'usd': 0.007}
+[parallel] S2/k07 status=200 4419ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k06 status=200 3873ms cost={'credits': 2}
+[parallel] S2/k08 status=200 2984ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S2/k16 status=200 4509ms cost={'usd': 0.007}
+[firecrawl] S2/k02 status=200 994ms cost={'credits': 5}
+[exa] S2/k17 status=200 1610ms cost={'usd': 0.007}
+[tavily] S2/k07 status=200 4319ms cost={'credits': 2}
+[parallel] S2/k09 status=200 2742ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S2/k18 status=200 1056ms cost={'usd': 0.007}
+[exa] S2/k19 status=200 1366ms cost={'usd': 0.007}
+[parallel] S2/k10 status=200 2545ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[exa] S2/k20 status=200 1001ms cost={'usd': 0.007}
+[parallel] S2/k11 status=200 2101ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k08 status=200 5462ms cost={'credits': 2}
+[tavily] S2/k09 status=200 1972ms cost={'credits': 2}
+[parallel] S2/k12 status=200 3645ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k10 status=200 2182ms cost={'credits': 2}
+[parallel] S2/k13 status=200 3537ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k11 status=200 3769ms cost={'credits': 2}
+[parallel] S2/k14 status=200 2289ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[parallel] S2/k15 status=200 1787ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k12 status=200 2791ms cost={'credits': 2}
+[parallel] S2/k16 status=200 2200ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k13 status=200 3752ms cost={'credits': 2}
+[parallel] S2/k17 status=200 1923ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[parallel] S2/k18 status=200 2314ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[firecrawl] S2/k03 status=200 1380ms cost={'credits': 5}
+[tavily] S2/k14 status=200 3919ms cost={'credits': 2}
+[parallel] S2/k19 status=200 2382ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k15 status=200 1979ms cost={'credits': 2}
+[parallel] S2/k20 status=200 1972ms cost={'usd': 0.005, 'usage': [{'name': 'sku_search', 'count': 1}]}
+[tavily] S2/k16 status=200 2891ms cost={'credits': 2}
+[tavily] S2/k17 status=200 2649ms cost={'credits': 2}
+[tavily] S2/k18 status=200 4624ms cost={'credits': 2}
+[tavily] S2/k19 status=200 1872ms cost={'credits': 2}
+[tavily] S2/k20 status=200 2455ms cost={'credits': 2}
+[firecrawl] S2/k04 status=200 1231ms cost={'credits': 5}
+[firecrawl] S2/k05 status=200 971ms cost={'credits': 5}
+[firecrawl] S2/k06 status=200 1167ms cost={'credits': 4}
+[firecrawl] S2/k07 status=200 1164ms cost={'credits': 5}
+[firecrawl] S2/k08 status=200 1220ms cost={'credits': 4}
+[firecrawl] S2/k09 status=200 1036ms cost={'credits': 4}
+[firecrawl] S2/k10 status=200 972ms cost={'credits': 4}
+[firecrawl] S2/k11 status=200 1209ms cost={'credits': 4}
+[firecrawl] S2/k12 status=200 1199ms cost={'credits': 5}
+[firecrawl] S2/k13 status=200 1954ms cost={'credits': 7}
+[firecrawl] S2/k14 status=200 3807ms cost={'credits': 5}
+[firecrawl] S2/k15 status=200 1481ms cost={'credits': 4}
+[firecrawl] S2/k16 status=200 1067ms cost={'credits': 5}
+[firecrawl] S2/k17 status=200 1293ms cost={'credits': 5}
+[firecrawl] S2/k18 status=200 1177ms cost={'credits': 5}
+[firecrawl] S2/k19 status=200 1076ms cost={'credits': 4}
+[firecrawl] S2/k20 status=200 1290ms cost={'credits': 5}
+LEDGER {"exa": {"usd": 0.2800000000000002, "credits": 0, "calls": 40}, "tavily": {"usd": 0.0, "credits": 80, "calls": 40}, "parallel": {"usd": 0.2000000000000001, "credits": 0, "calls": 41}, "firecrawl": {"usd": 0.0, "credits": 277, "calls": 150}}

@@ -1,0 +1,418 @@
+{
+ "S2_recall_at_10": {
+  "exa": {
+   "hit": 18,
+   "n": 20,
+   "miss": [
+    "k09",
+    "k19"
+   ]
+  },
+  "tavily": {
+   "hit": 13,
+   "n": 20,
+   "miss": [
+    "k06",
+    "k07",
+    "k08",
+    "k09",
+    "k12",
+    "k18",
+    "k20"
+   ]
+  },
+  "parallel": {
+   "hit": 20,
+   "n": 20,
+   "miss": []
+  },
+  "firecrawl": {
+   "hit": 18,
+   "n": 20,
+   "miss": [
+    "k06",
+    "k12"
+   ]
+  }
+ },
+ "S3_recovery": {
+  "exa": {
+   "recovered": 6,
+   "n": 15,
+   "detail": {
+    "b01": {
+     "status": 200,
+     "chars": 1141,
+     "recovered": false
+    },
+    "b02": {
+     "status": 200,
+     "chars": 1141,
+     "recovered": false
+    },
+    "b03": {
+     "status": 200,
+     "chars": 108,
+     "recovered": false
+    },
+    "b04": {
+     "status": 200,
+     "chars": 8680,
+     "recovered": true
+    },
+    "b05": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    },
+    "b06": {
+     "status": 200,
+     "chars": 598,
+     "recovered": true
+    },
+    "b07": {
+     "status": 200,
+     "chars": 5748,
+     "recovered": false
+    },
+    "b08": {
+     "status": 200,
+     "chars": 2230,
+     "recovered": true
+    },
+    "b09": {
+     "status": 200,
+     "chars": 2391,
+     "recovered": true
+    },
+    "b10": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    },
+    "b11": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    },
+    "b12": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    },
+    "b13": {
+     "status": 200,
+     "chars": 9251,
+     "recovered": true
+    },
+    "b14": {
+     "status": 200,
+     "chars": 10314,
+     "recovered": true
+    },
+    "b15": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    }
+   }
+  },
+  "tavily": {
+   "recovered": 11,
+   "n": 15,
+   "detail": {
+    "b01": {
+     "status": 200,
+     "chars": 7464,
+     "recovered": true
+    },
+    "b02": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    },
+    "b03": {
+     "status": 200,
+     "chars": 4071,
+     "recovered": true
+    },
+    "b04": {
+     "status": 200,
+     "chars": 28598,
+     "recovered": true
+    },
+    "b05": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    },
+    "b06": {
+     "status": 200,
+     "chars": 16444,
+     "recovered": true
+    },
+    "b07": {
+     "status": 200,
+     "chars": 7143,
+     "recovered": false
+    },
+    "b08": {
+     "status": 200,
+     "chars": 9520,
+     "recovered": true
+    },
+    "b09": {
+     "status": 200,
+     "chars": 4682,
+     "recovered": true
+    },
+    "b10": {
+     "status": 200,
+     "chars": 0,
+     "recovered": false
+    },
+    "b11": {
+     "status": 200,
+     "chars": 7921,
+     "recovered": true
+    },
+    "b12": {
+     "status": 200,
+     "chars": 13917,
+     "recovered": true
+    },
+    "b13": {
+     "status": 200,
+     "chars": 8985,
+     "recovered": true
+    },
+    "b14": {
+     "status": 200,
+     "chars": 59299,
+     "recovered": true
+    },
+    "b15": {
+     "status": 200,
+     "chars": 25834,
+     "recovered": true
+    }
+   }
+  },
+  "parallel": {
+   "recovered": 13,
+   "n": 15,
+   "detail": {
+    "b01": {
+     "status": 200,
+     "chars": 7103,
+     "recovered": true
+    },
+    "b02": {
+     "status": 200,
+     "chars": 2977,
+     "recovered": true
+    },
+    "b03": {
+     "status": 200,
+     "chars": 3539,
+     "recovered": true
+    },
+    "b04": {
+     "status": 200,
+     "chars": 14103,
+     "recovered": true
+    },
+    "b05": {
+     "status": 200,
+     "chars": 21020,
+     "recovered": true
+    },
+    "b06": {
+     "status": 200,
+     "chars": 1453,
+     "recovered": true
+    },
+    "b07": {
+     "status": 200,
+     "chars": 9979,
+     "recovered": false
+    },
+    "b08": {
+     "status": 200,
+     "chars": 2632,
+     "recovered": true
+    },
+    "b09": {
+     "status": 200,
+     "chars": 3750,
+     "recovered": true
+    },
+    "b10": {
+     "status": 200,
+     "chars": 154302,
+     "recovered": true
+    },
+    "b11": {
+     "status": 200,
+     "chars": 340,
+     "recovered": false
+    },
+    "b12": {
+     "status": 200,
+     "chars": 14277,
+     "recovered": true
+    },
+    "b13": {
+     "status": 200,
+     "chars": 11361,
+     "recovered": true
+    },
+    "b14": {
+     "status": 200,
+     "chars": 9096,
+     "recovered": true
+    },
+    "b15": {
+     "status": 200,
+     "chars": 5884,
+     "recovered": true
+    }
+   }
+  },
+  "firecrawl": {
+   "recovered": 15,
+   "n": 15,
+   "detail": {
+    "b01": {
+     "status": 200,
+     "chars": 7540,
+     "recovered": true
+    },
+    "b02": {
+     "status": 200,
+     "chars": 3615,
+     "recovered": true
+    },
+    "b03": {
+     "status": 200,
+     "chars": 3539,
+     "recovered": true
+    },
+    "b04": {
+     "status": 200,
+     "chars": 17142,
+     "recovered": true
+    },
+    "b05": {
+     "status": 200,
+     "chars": 9577,
+     "recovered": true
+    },
+    "b06": {
+     "status": 200,
+     "chars": 2899,
+     "recovered": true
+    },
+    "b07": {
+     "status": 200,
+     "chars": 22647,
+     "recovered": true
+    },
+    "b08": {
+     "status": 200,
+     "chars": 4507,
+     "recovered": true
+    },
+    "b09": {
+     "status": 200,
+     "chars": 6491,
+     "recovered": true
+    },
+    "b10": {
+     "status": 200,
+     "chars": 248292,
+     "recovered": true
+    },
+    "b11": {
+     "status": 200,
+     "chars": 6474,
+     "recovered": true
+    },
+    "b12": {
+     "status": 200,
+     "chars": 12664,
+     "recovered": true
+    },
+    "b13": {
+     "status": 200,
+     "chars": 19568,
+     "recovered": true
+    },
+    "b14": {
+     "status": 200,
+     "chars": 15108,
+     "recovered": true
+    },
+    "b15": {
+     "status": 200,
+     "chars": 13912,
+     "recovered": true
+    }
+   }
+  }
+ },
+ "S1_novel_urls": {
+  "exa": 297,
+  "tavily": 293,
+  "parallel": 270,
+  "firecrawl": 272
+ },
+ "S1_novel_urls_unique_to_provider": {
+  "exa": 215,
+  "tavily": 174,
+  "parallel": 197,
+  "firecrawl": 157
+ },
+ "S1_pooled_unique_urls": 1168,
+ "S4_novel_urls": {
+  "exa": 95,
+  "tavily": 74,
+  "parallel": 45,
+  "firecrawl": 75
+ },
+ "S4_novel_urls_unique_to_provider": {
+  "exa": 85,
+  "tavily": 64,
+  "parallel": 38,
+  "firecrawl": 70
+ },
+ "S4_pooled_unique_urls": 315,
+ "ledger": {
+  "exa": {
+   "usd": 0.5000000000000003,
+   "credits": 0,
+   "calls": 85
+  },
+  "tavily": {
+   "usd": 0.0,
+   "credits": 146,
+   "calls": 85
+  },
+  "parallel": {
+   "usd": 0.3670000000000002,
+   "credits": 0,
+   "calls": 103
+  },
+  "firecrawl": {
+   "usd": 0.0,
+   "credits": 402,
+   "calls": 245
+  }
+ },
+ "median_latency_ms": {
+  "exa": 1230,
+  "tavily": 2995,
+  "parallel": 2343,
+  "firecrawl": 1171
+ }
+}

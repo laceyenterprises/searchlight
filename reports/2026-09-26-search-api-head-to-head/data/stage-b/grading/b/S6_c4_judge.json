@@ -1,0 +1,1133 @@
+{
+ "set": "S6",
+ "cells": [
+  {
+   "cell": "c16.web_search_source",
+   "values": [
+    {
+     "vid": "c16.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.glean.com/administration/assistant/features/web-search",
+     "note": "Cited URL redirects to the Web Search tools setup page, which names OpenAI, Brave, and Google Gemini (consumer or enterprise). Matches KB."
+    },
+    {
+     "vid": "c16.web_search_source.v2",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://www.glean.com/",
+     "note": "Gives Glean's own enterprise search as the source. Glean's web search runs on third-party OpenAI, Brave, or Gemini, and the homepage names no web-search provider."
+    },
+    {
+     "vid": "c16.web_search_source.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.glean.com/administration/tools/setup-tools/web-search-tools-setup",
+     "note": "Provider mix is right. The no-crawl statement covers only Gemini and OpenAI; the page says URLs the provider returns are dereferenced and virus-scanned, which covers Brave."
+    }
+   ]
+  },
+  {
+   "cell": "c16.soc2",
+   "values": [
+    {
+     "vid": "c16.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.glean.com/legal",
+     "note": "Legal page says Glean is SOC 2 Type II certified; no date. Matches KB."
+    },
+    {
+     "vid": "c16.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Type II, no date)."
+    },
+    {
+     "vid": "c16.soc2.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Type II)."
+    }
+   ]
+  },
+  {
+   "cell": "c16.zero_data_retention",
+   "values": [
+    {
+     "vid": "c16.zero_data_retention.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.glean.com/administration/protect/overview",
+     "note": "KB has only web-search ZDR and no Glean-wide offer. Protect overview lists zero LLM data retention (no LLM training on enterprise data) for every deployment; Core Suite pricing includes Protect in the seat fee. Omits the web-search ZDR."
+    },
+    {
+     "vid": "c16.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB: Google enterprise search plus ZDR on the OpenAI and Brave paths."
+    },
+    {
+     "vid": "c16.zero_data_retention.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.glean.com/administration/protect/overview",
+     "note": "Protect and Protect+ zero LLM retention is confirmed. It repeats the FAQ line that Google Enterprise is the only ZDR web provider, but the setup page says OpenAI and Brave also run with ZDR (the KB flags this conflict). That web-search claim isn't on the cited page."
+    }
+   ]
+  },
+  {
+   "cell": "c16.hipaa_baa",
+   "values": [
+    {
+     "vid": "c16.hipaa_baa.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://www.glean.com/legal",
+     "note": "The cited legal page lists a Business Associate Agreement (Covered Entity and Subcontractor) with DocuSign 'Sign BAA' links. The KB is silent on BAA; the value is contradicted by its own source."
+    },
+    {
+     "vid": "c16.hipaa_baa.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.glean.com/legal",
+     "note": "KB lists HIPAA but doesn't say whether Glean signs a BAA. Legal page lists BAAs with DocuSign signing forms; no plan stated. 'Signing process not specified' is inaccurate given those links."
+    },
+    {
+     "vid": "c16.hipaa_baa.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://glean.com/legal/baa",
+     "note": "URL redirects to a published Glean BAA PDF dated Apr 9 2026, and the legal page offers DocuSign signing; no plan restriction stated. The KB is silent on BAA."
+    }
+   ]
+  },
+  {
+   "cell": "c16.official_mcp_server",
+   "values": [
+    {
+     "vid": "c16.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.glean.com/administration/platform/mcp/about",
+     "note": "Doc covers the Glean MCP server, remote MCP servers, and managed installs. Matches KB."
+    },
+    {
+     "vid": "c16.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (remote Glean MCP server)."
+    },
+    {
+     "vid": "c16.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (remote, tenant-specific server)."
+    }
+   ]
+  },
+  {
+   "cell": "c16.free_tier",
+   "values": [
+    {
+     "vid": "c16.free_tier.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.glean.com/glean-core-suite-pricing",
+     "note": "Core Suite is licensed per user per month, with no free tier. No free tier or trial on glean.com, the demo page, or developers.glean.com; glean.com/pricing redirects to the homepage."
+    },
+    {
+     "vid": "c16.free_tier.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.glean.com/glean-enterprise-flex-pricing",
+     "note": "Flex is per-user seats plus FlexCredits. No API free tier or trial found on Glean's pages."
+    },
+    {
+     "vid": "c16.free_tier.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.glean.com/glean-enterprise-flex-pricing",
+     "note": "Flex and developer docs show usage metered in FlexCredits under seat licences; no free allocation or trial found."
+    }
+   ]
+  },
+  {
+   "cell": "c16.list_price",
+   "values": [
+    {
+     "vid": "c16.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.glean.com/glean-core-suite-pricing",
+     "note": "Page gives per-user, per-month licensing with no seat or per-request dollar price. Matches KB."
+    },
+    {
+     "vid": "c16.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Flex seats plus FlexCredits; no USD per 1k)."
+    },
+    {
+     "vid": "c16.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c16.last_funding",
+   "values": [
+    {
+     "vid": "c16.last_funding.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.glean.com/blog/glean-series-f-announcement",
+     "note": "$150M Series F at $7.2B, June 10, 2025 is confirmed. Omits the lead investor (Wellington), which the field asks for."
+    },
+    {
+     "vid": "c16.last_funding.v2",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://aryn.ai/post/aryn-transition",
+     "note": "Post confirms Glean acquired Aryn on March 11, 2026, but Glean is the buyer, not a funding or exit event for Glean. The KB already records Aryn as buy-side; the latest funding is the Series F."
+    },
+    {
+     "vid": "c16.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Series F, $150M, 2025-06-10, Wellington)."
+    }
+   ]
+  },
+  {
+   "cell": "c17.web_search_source",
+   "values": [
+    {
+     "vid": "c17.web_search_source.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://www.clay.com/faq/which-actions-cost-credits-or-are-free",
+     "note": "Non-responsive: lists capabilities without saying what powers them. The FAQ says enrichment, including AI web scraping, is paid to data providers, but names no search source."
+    },
+    {
+     "vid": "c17.web_search_source.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://university.clay.com/docs/clay-api-cli",
+     "note": "Page supports Clay's GTM dataset plus 200+ marketplace vendors as data sources. That's enrichment data, not the web search behind Claygent, whose provider Clay doesn't disclose (KB)."
+    }
+   ]
+  },
+  {
+   "cell": "c17.soc2",
+   "values": [
+    {
+     "vid": "c17.soc2.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.clay.com/",
+     "note": "Trust Center lists SOC 2 Type 2 and a SOC 2 Type 2 Report; no report date."
+    },
+    {
+     "vid": "c17.soc2.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.clay.com/",
+     "note": "Trust Center lists an undated SOC 2 Type 2 Report and a SOC 2 Bridge Letter dated September 2026."
+    },
+    {
+     "vid": "c17.soc2.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://university.clay.com/docs/cli-security-privacy",
+     "note": "Doc lists maintaining SOC 2 Type II certification among Clay's responsibilities."
+    }
+   ]
+  },
+  {
+   "cell": "c17.zero_data_retention",
+   "values": [
+    {
+     "vid": "c17.zero_data_retention.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://university.clay.com/docs/mcp-troubleshooting-and-faqs",
+     "note": "The page's ZDR text describes Anthropic's and OpenAI's own policies for MCP hosts ('set by Anthropic and OpenAI'); it isn't a Clay offering. Trust Center, privacy, and terms show no Clay ZDR."
+    },
+    {
+     "vid": "c17.zero_data_retention.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.clay.com/privacy",
+     "note": "Privacy page has only standard purpose-based retention; the Trust Center and its FAQ list no ZDR."
+    },
+    {
+     "vid": "c17.zero_data_retention.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.clay.com/terms-of-service",
+     "note": "Terms say Clay keeps user data while the account is active; no ZDR offer found."
+    }
+   ]
+  },
+  {
+   "cell": "c17.hipaa_baa",
+   "values": [
+    {
+     "vid": "c17.hipaa_baa.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.clay.com/",
+     "note": "Trust Center compliance lists SOC 2 Type 2, GDPR, CCPA, ISO 27001, and ISO 42001. Resources and FAQ have no HIPAA or BAA; web search found none."
+    },
+    {
+     "vid": "c17.hipaa_baa.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.clay.com/",
+     "note": "No HIPAA or BAA in the Trust Center overview, resources, or FAQ."
+    },
+    {
+     "vid": "c17.hipaa_baa.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.clay.com/",
+     "note": "Trust Center and its FAQ have no HIPAA or BAA."
+    }
+   ]
+  },
+  {
+   "cell": "c17.official_mcp_server",
+   "values": [
+    {
+     "vid": "c17.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://university.clay.com/docs/connect-to-clay-mcp",
+     "note": "Doc gives the Clay MCP endpoint https://api.clay.com/v3/mcp. Matches KB and adds the URL the KB lacks."
+    },
+    {
+     "vid": "c17.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Clay MCP)."
+    },
+    {
+     "vid": "c17.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Clay MCP in Claude, ChatGPT, Codex, Copilot, Glean)."
+    }
+   ]
+  },
+  {
+   "cell": "c17.free_tier",
+   "values": [
+    {
+     "vid": "c17.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://university.clay.com/docs/clay-api-cli",
+     "note": "Page confirms the Free plan's API search limits (50 per request, 100 a month). The 100 data credits and 500 actions are on the pricing page. Matches KB."
+    },
+    {
+     "vid": "c17.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (100 data credits a month). The 14-day, 1,000-credit trial also appears in Clay's plans-and-billing doc."
+    },
+    {
+     "vid": "c17.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (500 actions, 100 data credits a month)."
+    }
+   ]
+  },
+  {
+   "cell": "c17.list_price",
+   "values": [
+    {
+     "vid": "c17.list_price.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.clay.com/pricing",
+     "note": "No per-request price is right. Gives only Free and Launch ($167 is the annual-billing rate; $185 monthly), omits Growth and credit prices, and calls them seat plans though Clay offers unlimited seats."
+    },
+    {
+     "vid": "c17.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (data credits from $0.05, actions under $0.01; no per-request price)."
+    },
+    {
+     "vid": "c17.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Launch $167 and Growth $446 as displayed; Enterprise custom)."
+    }
+   ]
+  },
+  {
+   "cell": "c17.last_funding",
+   "values": [
+    {
+     "vid": "c17.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.clay.com/blog/series-d",
+     "note": "Post dated Sep 9, 2026: Wellington led the $115M Series D at a $7.1B valuation."
+    },
+    {
+     "vid": "c17.last_funding.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.clay.com/blog/series-d",
+     "note": "Amount, date, and valuation are right; omits the lead investor (Wellington)."
+    },
+    {
+     "vid": "c17.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c18.web_search_source",
+   "values": [
+    {
+     "vid": "c18.web_search_source.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://www.browserbase.com/pricing",
+     "note": "Non-responsive: describes the Search and Fetch APIs but names no provider. The KB and the launch post say Search is powered by Exa."
+    },
+    {
+     "vid": "c18.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Exa, per the 2026-03-17 launch post)."
+    }
+   ]
+  },
+  {
+   "cell": "c18.soc2",
+   "values": [
+    {
+     "vid": "c18.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.browserbase.com/account/enterprise/security",
+     "note": "Page lists SOC 2 Type II Certified; no date. Matches KB."
+    },
+    {
+     "vid": "c18.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c18.soc2.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c18.zero_data_retention",
+   "values": [
+    {
+     "vid": "c18.zero_data_retention.v1",
+     "verdict": "partly_verified",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.browserbase.com/account/enterprise/security",
+     "note": "Security page confirms ZDR by disabling logs and session replay, but names no plan. The ZDR doc says the feature is Enterprise-only (per-session opt-out works on every plan)."
+    },
+    {
+     "vid": "c18.zero_data_retention.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.browserbase.com/account/enterprise/zero-data-retention",
+     "note": "ZDR doc says ZDR is available only on Enterprise plans."
+    },
+    {
+     "vid": "c18.zero_data_retention.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.browserbase.com/account/enterprise/zero-data-retention",
+     "note": "Doc: under ZDR, session logs and replay aren't persisted; downloads, uploads, contexts, and extensions are separate (pair with BYOS). Enterprise only."
+    }
+   ]
+  },
+  {
+   "cell": "c18.hipaa_baa",
+   "values": [
+    {
+     "vid": "c18.hipaa_baa.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.browserbase.com/use-case/browser-automation-for-healthcare",
+     "note": "KB says no BAA is stated. The healthcare page FAQ says BAAs are available for Enterprise plan customers, and the plans doc now shows 'BAA Available' on Scale."
+    },
+    {
+     "vid": "c18.hipaa_baa.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.browserbase.com/account/enterprise/security",
+     "note": "Security page says HIPAA compliant with BAAs available; KB said no BAA was stated. No plan named (Enterprise/Scale per other Browserbase pages)."
+    },
+    {
+     "vid": "c18.hipaa_baa.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.browserbase.com/account/enterprise/security",
+     "note": "Enterprise security page says BAAs are available; the Enterprise plan matches the healthcare page. KB said no BAA was stated."
+    }
+   ]
+  },
+  {
+   "cell": "c18.official_mcp_server",
+   "values": [
+    {
+     "vid": "c18.official_mcp_server.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.browserbase.com/integrations/mcp/introduction",
+     "note": "Doc describes the Browserbase MCP server: hosted Streamable HTTP endpoint, or local STDIO."
+    },
+    {
+     "vid": "c18.official_mcp_server.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.browserbase.com/integrations/mcp/introduction",
+     "note": "Official Browserbase MCP server documented at the cited URL."
+    },
+    {
+     "vid": "c18.official_mcp_server.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.browserbase.com/blog/ai-web-agent-sdk",
+     "note": "Blog says Browserbase first released its MCP server in November 2024 and describes Stagehand MCP. Current docs call it the Browserbase MCP server."
+    }
+   ]
+  },
+  {
+   "cell": "c18.free_tier",
+   "values": [
+    {
+     "vid": "c18.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.browserbase.com/pricing",
+     "note": "Free Plan is $0/mo with 1,000 Search and 1,000 Fetch calls (plus 1 browser hour, 3 browsers). Matches KB."
+    },
+    {
+     "vid": "c18.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (1,000 Search calls on the $0 plan)."
+    },
+    {
+     "vid": "c18.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c18.list_price",
+   "values": [
+    {
+     "vid": "c18.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.browserbase.com/pricing",
+     "note": "Developer $20/mo and Startup $99/mo each include 1,000 Search calls, then $7 per 1k. Matches KB."
+    },
+    {
+     "vid": "c18.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Search $7 per 1k; Fetch and Extract rates match the plans table)."
+    },
+    {
+     "vid": "c18.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c18.last_funding",
+   "values": [
+    {
+     "vid": "c18.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.browserbase.com/blog/series-b-and-beyond",
+     "note": "Post dated June 18, 2025: $40M Series B led by Notable Capital, with CRV and Kleiner Perkins."
+    },
+    {
+     "vid": "c18.last_funding.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.browserbase.com/blog/series-b-and-beyond",
+     "note": "Round and investors are right; the date is given only as 2025 (June 18, 2025)."
+    },
+    {
+     "vid": "c18.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c19.web_search_source",
+   "values": [
+    {
+     "vid": "c19.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/docs/crawl/faq/robots-txt",
+     "note": "FAQ says the Diffbot user-agent does proactive crawling to build a general search engine for its KG and web search. Matches KB (own index)."
+    },
+    {
+     "vid": "c19.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (own index)."
+    },
+    {
+     "vid": "c19.web_search_source.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/products",
+     "note": "Lists Diffbot's own Extract, Crawl, KG, and Web Search products, which implies an own index but never says so. 'yes' isn't a valid fill."
+    }
+   ]
+  },
+  {
+   "cell": "c19.soc2",
+   "values": [
+    {
+     "vid": "c19.soc2.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/company/privacy",
+     "note": "No SOC 2 claim on Diffbot's privacy, GDPR, pricing, terms, or homepage; web search found none."
+    },
+    {
+     "vid": "c19.soc2.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/company/privacy",
+     "note": "Privacy and GDPR pages state no SOC 2; none found elsewhere."
+    },
+    {
+     "vid": "c19.soc2.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/",
+     "note": "Homepage has no SOC 2; none found on other Diffbot pages or by web search."
+    }
+   ]
+  },
+  {
+   "cell": "c19.zero_data_retention",
+   "values": [
+    {
+     "vid": "c19.zero_data_retention.v1",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/company/privacy",
+     "note": "Privacy page is silent on ZDR, as stated. But Diffbot's official diffbot-llm-inference repo says its serverless LLM API follows a Zero Data Retention policy, and that endpoint is live."
+    },
+    {
+     "vid": "c19.zero_data_retention.v2",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/",
+     "note": "Homepage is silent on ZDR, but Diffbot's official LLM repo states a ZDR policy for its serverless API."
+    },
+    {
+     "vid": "c19.zero_data_retention.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://github.com/diffbot/diffbot-llm-inference",
+     "note": "README says the serverless API 'follows a Zero Data Retention policy' (note added Feb 2025). Repo isn't archived; llm.diffbot.com responds."
+    }
+   ]
+  },
+  {
+   "cell": "c19.hipaa_baa",
+   "values": [
+    {
+     "vid": "c19.hipaa_baa.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/company/privacy",
+     "note": "No HIPAA or BAA on Diffbot's privacy, GDPR, pricing, terms, or homepage; web search found none."
+    },
+    {
+     "vid": "c19.hipaa_baa.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/company/privacy",
+     "note": "Privacy and GDPR/DPA pages don't mention a BAA; none found elsewhere."
+    },
+    {
+     "vid": "c19.hipaa_baa.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/",
+     "note": "No HIPAA or BAA found on Diffbot's pages."
+    }
+   ]
+  },
+  {
+   "cell": "c19.official_mcp_server",
+   "values": [
+    {
+     "vid": "c19.official_mcp_server.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://github.com/diffbot/diffbot-mcp",
+     "note": "Official diffbot org repo, active in Aug 2026; README gives Diffbot's hosted remote server at mcp.diffbot.com/mcp."
+    },
+    {
+     "vid": "c19.official_mcp_server.v2",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://blog.diffbot.com/vibe-coding-an-anthropic-mcp-server-using-anthropics-claude-sonnet-4/",
+     "note": "A June 2025 post about building an MCP server doesn't show there is none. Diffbot now publishes diffbot-mcp with a hosted endpoint."
+    },
+    {
+     "vid": "c19.official_mcp_server.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://github.com/diffbot/diffbot-mcp",
+     "note": "Repo and README confirm the Diffbot MCP Server and its hosted mcp.diffbot.com/mcp endpoint."
+    }
+   ]
+  },
+  {
+   "cell": "c19.free_tier",
+   "values": [
+    {
+     "vid": "c19.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/pricing",
+     "note": "Pricing page: Free plan with 10,000 credits a month, no credit card, 5 requests a minute. Matches KB."
+    },
+    {
+     "vid": "c19.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c19.free_tier.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/docs/web-search/",
+     "note": "KB has 10,000 credits at 1 credit per search. The Web Search API docs give a free token 100,000 queries a month at 60 QPM. Diffbot's pricing page still shows 10,000 credits, so its pages conflict."
+    }
+   ]
+  },
+  {
+   "cell": "c19.list_price",
+   "values": [
+    {
+     "vid": "c19.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/pricing",
+     "note": "Pricing page: Startup $299 for 250K credits ($0.001 overage), Plus $899 for 1M ($0.0009); 1 credit per page or search. Matches KB."
+    },
+    {
+     "vid": "c19.list_price.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.diffbot.com/docs/web-search/",
+     "note": "KB has only credit-plan pricing (about $1.20/$0.90 per 1k). Web Search docs offer contact-sales pricing 'down to $0.02/1K'. That's a sales volume floor, not self-serve PAYG; the pricing page still says 1 credit per search."
+    },
+    {
+     "vid": "c19.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (1 credit per search; plan overage rates)."
+    }
+   ]
+  },
+  {
+   "cell": "c19.last_funding",
+   "values": [
+    {
+     "vid": "c19.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/company/press/2016-02-11-series-a-funding-round",
+     "note": "Release dated Feb 11, 2016: $10M Series A led by Tencent and Felicis Ventures. No later round found."
+    },
+    {
+     "vid": "c19.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c19.last_funding.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.diffbot.com/company/press/2016-02-11-series-a-funding-round",
+     "note": "Amount and date are right; omits the lead investors (Tencent, Felicis Ventures)."
+    }
+   ]
+  },
+  {
+   "cell": "c20.web_search_source",
+   "values": [
+    {
+     "vid": "c20.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://apify.com/apify/google-search-scraper",
+     "note": "Actor page says it crawls Google result pages and extracts the data. Matches KB (Google via scraping)."
+    },
+    {
+     "vid": "c20.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (Google via the Google Search Results Scraper)."
+    },
+    {
+     "vid": "c20.web_search_source.v3",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://docs.apify.com/integrations/mcp",
+     "note": "Non-responsive: describes the Apify MCP server and API, not the upstream source (Google results via scraping, per KB)."
+    }
+   ]
+  },
+  {
+   "cell": "c20.soc2",
+   "values": [
+    {
+     "vid": "c20.soc2.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://blog.apify.com/apify-soc2/",
+     "note": "Post dated Jan 6, 2025 announces the completed SOC 2 Type II audit."
+    },
+    {
+     "vid": "c20.soc2.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.apify.com/security",
+     "note": "Docs say the platform is SOC 2 Type II compliant (security, availability, confidentiality); no date on this page."
+    },
+    {
+     "vid": "c20.soc2.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.apify.com/",
+     "note": "Trust Center lists SOC 2 Type II reports for 2025 and 2024, plus an attestation letter."
+    }
+   ]
+  },
+  {
+   "cell": "c20.zero_data_retention",
+   "values": [
+    {
+     "vid": "c20.zero_data_retention.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.apify.com/",
+     "note": "Trust Center overview, resources, and FAQ list no ZDR offer; web search found none."
+    },
+    {
+     "vid": "c20.zero_data_retention.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.apify.com/legal/privacy-policy",
+     "note": "Privacy policy has only standard retention; no ZDR offer found elsewhere."
+    }
+   ]
+  },
+  {
+   "cell": "c20.hipaa_baa",
+   "values": [
+    {
+     "vid": "c20.hipaa_baa.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.apify.com/",
+     "note": "Compliance lists only GDPR and SOC 2; no HIPAA or BAA in resources or FAQ; web search found none."
+    },
+    {
+     "vid": "c20.hipaa_baa.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.apify.com/",
+     "note": "No HIPAA or BAA in the Trust Center."
+    }
+   ]
+  },
+  {
+   "cell": "c20.official_mcp_server",
+   "values": [
+    {
+     "vid": "c20.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://agi.apify.com/llms.txt",
+     "note": "llms.txt points agents to the Apify MCP server at mcp.apify.com. Matches KB."
+    },
+    {
+     "vid": "c20.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c20.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c20.free_tier",
+   "values": [
+    {
+     "vid": "c20.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://apify.com/pricing",
+     "note": "Free is $0 with $5 of included usage a month; the FAQ says no credit card is required. Matches KB."
+    },
+    {
+     "vid": "c20.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB ($5 monthly usage on Free)."
+    },
+    {
+     "vid": "c20.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c20.list_price",
+   "values": [
+    {
+     "vid": "c20.list_price.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://apify.com/pricing",
+     "note": "$2.50 per 1,000 SERPs is the Free/Starter SERP proxy rate (in the KB note), not the Google Search Results Scraper price ($0.0045 a page on Free down to $0.0012)."
+    },
+    {
+     "vid": "c20.list_price.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://apify.com/apify/google-search-scraper/pricing",
+     "note": "Right Actor, and the page does show 'from $1.80 / 1,000', but that's the Business (Gold) tier. The same page lists Free at $4.50 and Starter at $2.50 per 1,000, and the Store API's lowest tier is $1.20."
+    },
+    {
+     "vid": "c20.list_price.v3",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://apify.com/pricing",
+     "note": "CU rates are right, but 'not priced per 1,000 requests' is wrong: the search Actor charges per results page, and the cited page prices SERPs per 1,000."
+    }
+   ]
+  },
+  {
+   "cell": "c20.last_funding",
+   "values": [
+    {
+     "vid": "c20.last_funding.v1",
+     "verdict": "correction",
+     "citation_valid": "no",
+     "novel": true,
+     "checked_url": "https://en.ain.ua/2024/04/15/apify-secures-2-8m-investment/",
+     "note": "KB names no lead and calls the round unconfirmed by Apify. The CEO's public LinkedIn post (2024-04-15) confirms about $3M from new investor J&T Ventures, with Reflex Capital participating. The cited www.ain.ua URL 404s; the article is at en.ain.ua."
+    },
+    {
+     "vid": "c20.last_funding.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.linkedin.com/[redacted-5264a24c6c52]",
+     "note": "The CEO's public post, dated 2024-04-15, confirms a round of about $3M from new investor J&T Ventures with Reflex Capital participating. The KB named no lead."
+    },
+    {
+     "vid": "c20.last_funding.v3",
+     "verdict": "correction",
+     "citation_valid": "no",
+     "novel": true,
+     "checked_url": "https://getlatka.com/companies/apify",
+     "note": "Content is confirmed by the CEO's LinkedIn post and press (J&T Ventures lead, April 15, 2024). Latka shows only a $3M 2024 seed, with no date or lead."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,250 @@
+{
+ "kind": "search",
+ "description": "S2 known knowns: does the provider surface the primary source the KB cites?",
+ "items": [
+  {
+   "id": "k01",
+   "question": "When did Exa raise its Series C, and who led it?",
+   "queries": [
+    "Exa Series C",
+    "Exa raises Series C a16z"
+   ],
+   "keyword_query": "Exa Series C funding",
+   "expected_urls": [
+    "exa.ai/blog/announcing-series-c"
+   ]
+  },
+  {
+   "id": "k02",
+   "question": "When did Mozilla announce that Firefox uses Exa?",
+   "queries": [
+    "Firefox Exa partnership",
+    "Mozilla Firefox Exa search"
+   ],
+   "keyword_query": "Firefox Exa partnership Mozilla",
+   "expected_urls": [
+    "blog.mozilla.org/en/firefox/firefox-exa-partnership"
+   ]
+  },
+  {
+   "id": "k03",
+   "question": "Does HubSpot list Exa Labs as a sub-processor?",
+   "queries": [
+    "HubSpot sub-processors Exa Labs",
+    "HubSpot subprocessor list"
+   ],
+   "keyword_query": "HubSpot sub-processors list Exa",
+   "expected_urls": [
+    "legal.hubspot.com/sub-processors-page"
+   ]
+  },
+  {
+   "id": "k04",
+   "question": "What is Exa's people search benchmark and dataset?",
+   "queries": [
+    "Exa people search benchmark",
+    "Exa people search dataset"
+   ],
+   "keyword_query": "Exa people search benchmark",
+   "expected_urls": [
+    "exa.ai/blog/people-search-benchmark",
+    "github.com/exa-labs/benchmarks"
+   ]
+  },
+  {
+   "id": "k05",
+   "question": "When did Nebius announce its agreement to acquire Tavily?",
+   "queries": [
+    "Nebius acquire Tavily",
+    "Nebius Tavily agreement"
+   ],
+   "keyword_query": "Nebius acquires Tavily",
+   "expected_urls": [
+    "nebius.com/newsroom/nebius-announces-agreement-to-acquire-tavily"
+   ]
+  },
+  {
+   "id": "k06",
+   "question": "What valuation did Parallel Web Systems reach in its 2026 funding round?",
+   "queries": [
+    "Parallel Web Systems valuation",
+    "Parallel Web Systems Series B"
+   ],
+   "keyword_query": "Parallel Web Systems $2B valuation",
+   "expected_urls": [
+    "techcrunch.com/2026/04/29/parallel-web-systems-hits-2b-valuation-five-months-after-its-last-big-raise"
+   ]
+  },
+  {
+   "id": "k07",
+   "question": "How much did Firecrawl raise in its Series B?",
+   "queries": [
+    "Firecrawl Series B",
+    "Firecrawl raises Alexandria"
+   ],
+   "keyword_query": "Firecrawl Series B",
+   "expected_urls": [
+    "firecrawl.dev/blog/introducing-alexandria-series-b"
+   ]
+  },
+  {
+   "id": "k08",
+   "question": "What valuation did Clay reach in its Series D?",
+   "queries": [
+    "Clay Series D valuation",
+    "Clay raises Series D"
+   ],
+   "keyword_query": "Clay Series D valuation",
+   "expected_urls": [
+    "clay.com/blog/series-d"
+   ]
+  },
+  {
+   "id": "k09",
+   "question": "When did AWS launch Web Search on Amazon Bedrock AgentCore?",
+   "queries": [
+    "AWS Bedrock AgentCore web search launch",
+    "AgentCore web search announcement"
+   ],
+   "keyword_query": "Bedrock AgentCore web search announcement",
+   "expected_urls": [
+    "aws.amazon.com/blogs/aws/announcing-web-search-on-amazon-bedrock-agentcore-ground-your-ai-agents-in-current-accurate-web-knowledge"
+   ]
+  },
+  {
+   "id": "k10",
+   "question": "When were Microsoft's Bing Search APIs retired?",
+   "queries": [
+    "Bing Search API retirement",
+    "Bing Search APIs retired August 2025"
+   ],
+   "keyword_query": "Bing Search API retirement",
+   "expected_urls": [
+    "learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement"
+   ]
+  },
+  {
+   "id": "k11",
+   "question": "When will Google's Custom Search JSON API be discontinued?",
+   "queries": [
+    "Custom Search JSON API discontinued",
+    "Google Programmable Search JSON API sunset"
+   ],
+   "keyword_query": "Google Custom Search JSON API discontinued",
+   "expected_urls": [
+    "developers.google.com/custom-search/v1/overview"
+   ]
+  },
+  {
+   "id": "k12",
+   "question": "How did Perplexity describe the architecture of its Search API?",
+   "queries": [
+    "Perplexity Search API architecture",
+    "Perplexity AI-first search API"
+   ],
+   "keyword_query": "Perplexity architecting AI-first search API",
+   "expected_urls": [
+    "research.perplexity.ai/articles/architecting-and-evaluating-an-ai-first-search-api"
+   ]
+  },
+  {
+   "id": "k13",
+   "question": "What is the WANDR benchmark for wide-and-deep research agents?",
+   "queries": [
+    "WANDR benchmark research agents",
+    "WANDR arXiv wide deep research"
+   ],
+   "keyword_query": "WANDR benchmark arXiv",
+   "expected_urls": [
+    "arxiv.org/abs/2608.14747",
+    "arxiv.org/html/2608.14747",
+    "arxiv.org/pdf/2608.14747"
+   ]
+  },
+  {
+   "id": "k14",
+   "question": "Which search APIs does Artificial Analysis rank on its search API leaderboard?",
+   "queries": [
+    "Artificial Analysis search API leaderboard",
+    "Artificial Analysis agents search API"
+   ],
+   "keyword_query": "Artificial Analysis search API leaderboard",
+   "expected_urls": [
+    "artificialanalysis.ai/agents/search-api"
+   ]
+  },
+  {
+   "id": "k15",
+   "question": "What is Exa Agent Ultra?",
+   "queries": [
+    "Exa Agent Ultra",
+    "Exa Agent Ultra launch"
+   ],
+   "keyword_query": "Exa Agent Ultra",
+   "expected_urls": [
+    "exa.ai/blog/exa-agent-ultra"
+   ]
+  },
+  {
+   "id": "k16",
+   "question": "When did Brave announce SOC 2 for its Search API and 100M monthly active users?",
+   "queries": [
+    "Brave Search API SOC 2",
+    "Brave 100 million monthly active users"
+   ],
+   "keyword_query": "Brave 100M MAU SOC 2 Search API",
+   "expected_urls": [
+    "brave.com/blog/100m-mau"
+   ]
+  },
+  {
+   "id": "k17",
+   "question": "Which web search providers does Harvey list as subprocessors?",
+   "queries": [
+    "Harvey subprocessors",
+    "Harvey AI subprocessor list"
+   ],
+   "keyword_query": "Harvey AI subprocessors",
+   "expected_urls": [
+    "harvey.ai/legal/subprocessors"
+   ]
+  },
+  {
+   "id": "k18",
+   "question": "Which search engine does OpenRouter's web search use by default?",
+   "queries": [
+    "OpenRouter web search default engine",
+    "OpenRouter web search Exa"
+   ],
+   "keyword_query": "OpenRouter web search default engine",
+   "expected_urls": [
+    "openrouter.ai/docs/guides/features/server-tools/web-search",
+    "openrouter.ai/docs/features/web-search"
+   ]
+  },
+  {
+   "id": "k19",
+   "question": "Does Exa offer zero data retention (ZDR)?",
+   "queries": [
+    "Exa zero data retention",
+    "Exa ZDR enterprise"
+   ],
+   "keyword_query": "Exa zero data retention",
+   "expected_urls": [
+    "exa.ai/docs/admin/security/zero-data-retention"
+   ]
+  },
+  {
+   "id": "k20",
+   "question": "How does Tavily price its API credits and plans?",
+   "queries": [
+    "Tavily pricing credits",
+    "Tavily API plans"
+   ],
+   "keyword_query": "Tavily pricing",
+   "expected_urls": [
+    "tavily.com/pricing"
+   ]
+  }
+ ]
+}

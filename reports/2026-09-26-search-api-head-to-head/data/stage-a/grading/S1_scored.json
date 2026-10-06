@@ -1,0 +1,371 @@
+{
+ "score": {
+  "exa": {
+   "partial": 14,
+   "weighted": 38,
+   "net_new_or_contra": 15,
+   "resolved": 11,
+   "resolved_new": 8,
+   "unique": 2
+  },
+  "tavily": {
+   "partial": 12,
+   "weighted": 28,
+   "net_new_or_contra": 11,
+   "resolved": 8,
+   "resolved_new": 6
+  },
+  "parallel": {
+   "partial": 14,
+   "weighted": 32,
+   "net_new_or_contra": 12,
+   "resolved": 9,
+   "resolved_new": 6
+  },
+  "firecrawl": {
+   "partial": 12,
+   "weighted": 25,
+   "net_new_or_contra": 10,
+   "resolved": 6,
+   "resolved_new": 4
+  }
+ },
+ "rows": [
+  {
+   "id": "q01",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel"
+   ]
+  },
+  {
+   "id": "q03",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q05",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "providers": [
+    "exa",
+    "parallel"
+   ]
+  },
+  {
+   "id": "q07",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q08",
+   "status": "resolved",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa"
+   ]
+  },
+  {
+   "id": "q10",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q11",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q13",
+   "status": "resolved",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q14",
+   "status": "resolved",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q15",
+   "status": "resolved",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q16",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "firecrawl"
+   ]
+  },
+  {
+   "id": "q17",
+   "status": "resolved",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q18",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "tavily"
+   ]
+  },
+  {
+   "id": "q19",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q20",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q21",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "providers": [
+    "exa",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q22",
+   "status": "resolved",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "providers": [
+    "exa",
+    "firecrawl"
+   ]
+  },
+  {
+   "id": "q23",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "providers": [
+    "parallel"
+   ]
+  },
+  {
+   "id": "q25",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q26",
+   "status": "resolved",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q28",
+   "status": "resolved",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "providers": [
+    "exa",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q29",
+   "status": "resolved",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q30",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q33",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q34",
+   "status": "resolved",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  },
+  {
+   "id": "q35",
+   "status": "resolved",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "exa",
+    "parallel"
+   ]
+  },
+  {
+   "id": "q36",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa"
+   ]
+  },
+  {
+   "id": "q37",
+   "status": "partial",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel"
+   ]
+  },
+  {
+   "id": "q40",
+   "status": "partial",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "providers": [
+    "exa",
+    "firecrawl",
+    "parallel",
+    "tavily"
+   ]
+  }
+ ],
+ "questions_with_new_answer": [
+  "q01",
+  "q03",
+  "q07",
+  "q08",
+  "q11",
+  "q13",
+  "q14",
+  "q17",
+  "q20",
+  "q22",
+  "q26",
+  "q28",
+  "q29",
+  "q33",
+  "q36",
+  "q37"
+ ]
+}

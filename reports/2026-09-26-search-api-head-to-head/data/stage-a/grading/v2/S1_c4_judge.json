@@ -1,0 +1,497 @@
+{
+ "set": "S1",
+ "questions": [
+  {
+   "id": "q31",
+   "status": "unresolved",
+   "answer": "No lab or company is named. Exa's 2026-09-17 launch post says only that Snapshot is already used for backtesting prediction models, RL at unnamed labs, and exploring the pre-AI web; coverage and reposts repeat this without names.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Exa's Snapshot launch post on X (2026-09-17) says Snapshot is already being used for backtesting prediction models, RL at labs, and exploring the pre-AI web, and names no lab or company.",
+     "support_rids_full": [
+      "q31-r4",
+      "q31-r20",
+      "q31-r15",
+      "q31-r21",
+      "q31-r10",
+      "q31-r19",
+      "q31-r29"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://x.com/[redacted-725c455284b2]",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/exa-snapshot.md:47",
+     "usefulness": 1
+    }
+   ],
+   "notes": "The KB cites this post via a search result and says the X page was not fetched; the X profile (r4, pinned post) now confirms the wording. r6, r8, r17, r3, r26 and r31 describe RL/eval leakage and backtesting use cases but name no users. r9 quotes Will Bryk that AI labs run RL on Exa in general, not Snapshot. r24 (Instagram) sits behind a login wall and could not be read. The other results are off-topic (RL-environment articles, an unrelated 'Snapshot RL' arXiv paper)."
+  },
+  {
+   "id": "q32",
+   "status": "unresolved",
+   "answer": "Kagi names no SERP API vendor. Its 2026-01-21 post says only that it uses unnamed third-party SERP API providers. In May 2025 a Kagi Feedback admin called SerpAPI too slow or too expensive for most uses, which cuts against the HN claim that Kagi pays SerpApi. Kagi's docs named Google, Yandex, Mojeek and Brave as sources until a 2024-05-02 edit.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Kagi's 2026-01-21 post says that, lacking compatible direct licences, it uses third-party API providers for SERP-style results (vendors whose sites list Nvidia, Adobe, Samsung, Stanford, DeepMind, Uber, the UN); it names none of them.",
+     "support_rids_full": [
+      "q32-r23",
+      "q32-r2",
+      "q32-r9",
+      "q32-r30",
+      "q32-r18"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://blog.kagi.com/waiting-dawn-search",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/kagi-api.md:50",
+     "usefulness": 0
+    },
+    {
+     "claim": "On Kagi Feedback (2025-05-19), admin account Vlad answered a request to add SerpAPI by saying SerpAPI is too slow, or too expensive when not slow, for most use cases.",
+     "support_rids_full": [
+      "q32-r3"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://kagifeedback.org/d/7153-include-results-from-serpapi-for-kagi-search-and-assistant",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Kagi's search-sources doc named Google, Yandex, Mojeek and Brave as anonymized API sources until a 2024-05-02 edit by Vladimir Prelovac replaced the names with a generic reference to all major search result providers.",
+     "support_rids_full": [
+      "q32-r20"
+     ],
+     "support_rids_partial": [
+      "q32-r16",
+      "q32-r5",
+      "q32-r24"
+     ],
+     "verified_url": "https://github.com/kagisearch/kagi-docs/commit/6baff1c066db9b3d804653ea19bc9d1c076a710b",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "No page names a SERP API vendor. r12 (HN, about 2026-09-12) asserts that Kagi officially pays SerpAPI; Kagi has not confirmed this, and the KB already logs the assertion (competitive/kagi-api.md:142). The r3 reply comes from forum user #1, 'Vlad', in the Admin group (presumably founder Vladimir Prelovac). It predates Bing's API retirement (August 2025), so it may be stale. The KB leaf's line 'SerpApi is a likely provider [inferred]' (kagi-api.md:50) should note this counter-signal. r16 (Wikipedia) says Kagi listed Google, Brave, Mojeek and Yandex as of April 2024. r5 is the October 2021 archived FAQ, which named Google and Bing. r14 names Brave as a queried index (already in the KB)."
+  },
+  {
+   "id": "q33",
+   "status": "partial",
+   "answer": "Crustdata prices in credits, and it still publishes no plan grid or dollar price per credit. Per-endpoint rates are 0.03 credits per search result, 1–7 per person enrich and 2–4 per company enrich. Its own cost post puts the lowest tier at $95 a month, with the credit's dollar value set by plan. Each plan grants recurring monthly credits, which are spent first. Purchased top-ups roll over and expire 12 months after purchase, and auto top-up is available. The reseller treg.to charges $0.009 per search result and $2.10 per person enrich at what it calls Crustdata's own rate, which implies about $0.30 per credit (inference).",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Crustdata's cost guide gives per-endpoint credits (search 0.03 per result, person enrich 1–7, company enrich 2–4), says the dollar value per credit is set by plan, and puts the lowest tier at $95/month.",
+     "support_rids_full": [
+      "q33-r9",
+      "q33-r4"
+     ],
+     "support_rids_partial": [
+      "q33-r7",
+      "q33-r17"
+     ],
+     "verified_url": "https://crustdata.com/blog/data-enrichment-cost",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/crustdata.md:106",
+     "usefulness": 0
+    },
+    {
+     "claim": "Crustdata's pricing page shows no plan prices and no per-credit dollar rate. It describes credit-based usage tiers with monthly or annual billing and sends enterprise pricing to sales.",
+     "support_rids_full": [
+      "q33-r10",
+      "q33-r5",
+      "q33-r4",
+      "q33-r17"
+     ],
+     "support_rids_partial": [
+      "q33-r15"
+     ],
+     "verified_url": "https://crustdata.com/pricing",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/crustdata.md:106",
+     "usefulness": 0
+    },
+    {
+     "claim": "Crustdata balances sit in two wallets. The recurring wallet holds the plan's per-cycle credit grant and is spent first. The top-up wallet holds purchased credits, which roll over month to month and expire 12 months after each purchase. Automatic top-ups are supported.",
+     "support_rids_full": [
+      "q33-r23"
+     ],
+     "support_rids_partial": [
+      "q33-r7"
+     ],
+     "verified_url": "https://docs.crustdata.com/general/credits",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "The reseller treg.to sells Crustdata people and company search at $0.009 per result and person enrich at $2.10 per result, and says it passes through the provider's own rate with no markup.",
+     "support_rids_full": [
+      "q33-r18"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://treg.to/tools/crustdata",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "r5 (crustdata.co/pricing) redirects to r10; the page HTML contains no prices. The $0.30 per credit figure is my inference from treg.to (0.03 × $0.30 = $0.009 and 7 × $0.30 = $2.10); treg.to says the rate is not Crustdata's subscription pricing. r17's free tier of 100 credits a month is only 'commonly cited' and may come from Salesmotion's own free tier (r15), so I did not count it. r9 and r4 say credits expire after 6 months, while the docs (r7, r23) say 12. The KB already flags this conflict. r19 says new accounts get free credits with no card. r21 and r12 give only estimates or quote-based labels."
+  },
+  {
+   "id": "q34",
+   "status": "resolved",
+   "answer": "Connect launched on 2026-06-24 with Similarweb, Fiber.ai, Baselayer, Financial Datasets, Affiliate.com, Particle, Jinko and on-request partners. Since then the docs have added Polymarket and Macrobond, both free and self-serve, for nine self-serve providers in total. The on-request list is Crunchbase, Definitive Healthcare, Faraday AI, Harmonic, Intellizence, Kernel and ZoomInfo. The /connect page's logo strip also shows OpenAlex, Traject Data, DataBento and Alpha Vantage, which no doc lists. Everything here is already in the KB.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Exa Connect launched on 2026-06-24 with Similarweb, Fiber.ai, Baselayer, Financial Datasets, Affiliate.com, Particle, Jinko, plus on-request Additional Partners.",
+     "support_rids_full": [
+      "q34-r24"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/docs/changelog",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/exa-connect.md:47",
+     "usefulness": 0
+    },
+    {
+     "claim": "The Connect docs now list nine self-serve providers, adding Polymarket and Macrobond (both free) to the launch set.",
+     "support_rids_full": [
+      "q34-r3",
+      "q34-r26"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/docs/agent/connect/overview",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/exa-connect.md:47",
+     "usefulness": 0
+    },
+    {
+     "claim": "The on-request partners are Crunchbase, Definitive Healthcare, Faraday AI, Harmonic, Intellizence, Kernel and ZoomInfo.",
+     "support_rids_full": [
+      "q34-r5",
+      "q34-r11",
+      "q34-r18"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/docs/agent/connect/additional-partners",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/exa-connect.md:73",
+     "usefulness": 0
+    },
+    {
+     "claim": "The exa.ai/connect logo strip also shows OpenAlex, Traject Data, DataBento and Alpha Vantage, which no Connect doc lists.",
+     "support_rids_full": [
+      "q34-r1"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/connect",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/exa-connect.md:88",
+     "usefulness": 0
+    }
+   ],
+   "notes": "The changelog has no entry for the Polymarket or Macrobond additions, so neither has a date in this pool. An Exa X post dated 2026-09-07, announcing live Polymarket data in Exa Agent, appears in q31's pool (q31-r4), not q34's, so I did not count it here. It would be net-new dating for the KB. r3 redirects to the current overview (r26). r5 and r11 redirect to r18. r6 and r15 show Affiliate.com was a launch partner, not a later addition. r4 (releasebot) covers only Connect's move into MCP."
+  },
+  {
+   "id": "q35",
+   "status": "resolved",
+   "answer": "No. There is no company or entity type: the Search API's search_type is web, fast or people. Perplexity's official Node SDK also exposes a search_mode of web, academic or sec on search.create, for scholarly sources and SEC filings. The public API reference omits search_mode, and the KB calls those modes Sonar-only. Structured financial data for public companies is only in the Agent API's finance_search tool.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Perplexity's Search API reference allows search_type web, fast or people only, with no company or entity type.",
+     "support_rids_full": [
+      "q35-r10"
+     ],
+     "support_rids_partial": [
+      "q35-r9"
+     ],
+     "verified_url": "https://docs.perplexity.ai/api-reference/search-post",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/perplexity-search-api.md:83",
+     "usefulness": 0
+    },
+    {
+     "claim": "Perplexity's official Node SDK types the Search API request with search_mode 'web', 'academic' or 'sec' (SEC mode targets filings, not company entities), and its README shows an academic search through client.search.create.",
+     "support_rids_full": [
+      "q35-r25"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://github.com/perplexityai/perplexity-node",
+     "novelty": "contradicts_kb",
+     "kb_ref": "competitive/perplexity-search-api.md:269",
+     "usefulness": 3
+    },
+    {
+     "claim": "Structured financial data for public companies and ETFs comes from the Agent API's finance_search tool, billed at $5 per 1,000 invocations.",
+     "support_rids_full": [
+      "q35-r20"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://docs.perplexity.ai/docs/agent-api/tools/finance-search",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/perplexity-agent-api.md:224",
+     "usefulness": 0
+    }
+   ],
+   "notes": "I checked C2 against Perplexity's own repo (perplexityai/perplexity-node). In src/generated/api.ts, synced 2026-09-25, ApiSearchRequestInput has search_mode set to web, academic or sec alongside search_type set to web, fast or people. The README's Academic Search example calls client.search.create. Perplexity's docs show search_mode only under Sonar, and the public Search API reference omits it. KB lines 93 and 269 say academic and SEC were Sonar-only and that the Search API has no paper category; line 269 tells readers not to repeat Exa's 'Academic/SEC modes' claim. Whether the server honours search_mode on /search was not tested. r24 (Perplexity blog) returned 403. r1 (Exa /versus) still says Perplexity has no people or company search; the KB already marks the people part false."
+  },
+  {
+   "id": "q36",
+   "status": "resolved",
+   "answer": "Brave publishes no exact API query count, only round and inconsistent figures. Its 2026-02-24 post claims billions of API calls a week. Its ads chief JP Schmetz told MediaPost (2026-04-06) that the API gets several billion queries a month, and he declined to give exact numbers. Its 2026-04-01 post says the index handles over 2 billion queries a month across the API and end-user search combined.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Brave's 2026-02-24 post says Search API usage has grown exponentially, with thousands of new sign-ups a day and billions of API calls a week.",
+     "support_rids_full": [
+      "q36-r7"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://brave.com/blog/search-api-growth/",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/brave-search-api.md:316",
+     "usefulness": 0
+    },
+    {
+     "claim": "JP Schmetz, Brave Search's chief of ads, told MediaPost (2026-04-06) that the API receives several billion queries a month but declined to share exact numbers.",
+     "support_rids_full": [
+      "q36-r5"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.mediapost.com/publications/article/414024/braves-new-world-less-data-more-agentic.html",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Brave's 2026-04-01 post says its 40-billion-page index handles over 2 billion monthly queries across the API and end-user search combined.",
+     "support_rids_full": [
+      "q36-r26"
+     ],
+     "support_rids_partial": [
+      "q36-r5"
+     ],
+     "verified_url": "https://brave.com/blog/openclaw/",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/brave-search-api.md:51",
+     "usefulness": 0
+    }
+   ],
+   "notes": "Billions of calls a week implies roughly 9B or more a month. That is at or above several billion a month, and well above the 2B+ a month Brave gives for the API and end-user search combined. The KB should present these as inconsistent vendor claims. Other volume figures in the pool describe Brave Search as a whole, not the API: 1.6B a month (r12), 16B a year (AWS listing, r4/r22), tens of millions a day (API help docs, r21), and 50M consumer searches a day (r6). MediaPost also quotes Schmetz naming Snowflake, Cohere and Mistral as major API customers. r14 (dev.to) cites 35,000 free and 2,700 paid API customers as of March 2025 (secondary; not counted)."
+  },
+  {
+   "id": "q37",
+   "status": "resolved",
+   "answer": "The live Websets billing page returns 429, so I read its Wayback capture of 2026-05-09; a review dated 2026-09-07 matches it. Plans: Starter is $49/mo for 8,000 credits, with 100 results per Webset, 2 seats, 10 enrichments and 2 concurrent searches. Pro is $449/mo for 100,000 credits, with 1,000 results, 10 seats, 50 enrichments and 5 concurrent searches. Enterprise is custom (5,000 results, 100 enrichments, volume discounts). Free gives 1,000 credits and a 25-result cap. Credit costs: 10 per full match, 0 per non-match, 5 per email or phone, 2 per row for other enrichments, 2 per import, 2 per API preview and 5 per API recall estimate.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "The $49/month Websets plan (8,000 credits a month) is named Starter and includes 100 results per Webset, 2 team seats and 10 enrichments per Webset.",
+     "support_rids_full": [
+      "q37-r12",
+      "q37-r25",
+      "q37-r24"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://web.archive.org/web/20260509200752/https://websets.exa.ai/websets/billing",
+     "novelty": "contradicts_kb",
+     "kb_ref": "features/websets.md:103",
+     "usefulness": 3
+    },
+    {
+     "claim": "Pro costs $449/month for 100,000 credits, with 1,000 results per Webset, 10 seats and 50 enrichments. Enterprise is custom, with 5,000 results and 100 enrichments per Webset and volume credit discounts.",
+     "support_rids_full": [
+      "q37-r12",
+      "q37-r25"
+     ],
+     "support_rids_partial": [
+      "q37-r24"
+     ],
+     "verified_url": "https://web.archive.org/web/20260509200752/https://websets.exa.ai/websets/billing",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Websets credit costs: 10 per result matching all criteria, 0 for non-matches, 5 per email or phone number, 2 per row for other enrichments, 2 per resolved import result, 2 per API preview request and 5 per API recall estimate.",
+     "support_rids_full": [
+      "q37-r12",
+      "q37-r25"
+     ],
+     "support_rids_partial": [
+      "q37-r24"
+     ],
+     "verified_url": "https://web.archive.org/web/20260509200752/https://websets.exa.ai/websets/billing",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "The Free plan gives 1,000 credits and caps a Webset at 25 verified results.",
+     "support_rids_full": [
+      "q37-r24"
+     ],
+     "support_rids_partial": [
+      "q37-r7"
+     ],
+     "verified_url": "https://exa.ai/docs/websets/quickstart",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/websets.md:102",
+     "usefulness": 1
+    }
+   ],
+   "notes": "Every live Websets URL (r6, r11, r12, r21, r25, r27) returns HTTP 429, a Vercel checkpoint that I did not try to bypass. I verified r12 through its Wayback capture of 2026-05-09. r25 (exa.ai/websets/billing) 307-redirects to the same URL, so the same capture covers it. r6, r11, r21 and r27 had no usable capture and are unverifiable. r24 (discoverai.tools, reviewed 2026-09-07) matches the capture. The KB table names the $49 plan 'Core', taken from the old docs FAQ, and itself flags plan names as uncertain (features/websets.md:107). That FAQ (r18) now redirects to the Websets quickstart and no longer lists plans. /pricing (r2) no longer shows Websets plans. The credit table also puts the 5-credit contact cost on an Exa page for the first time; the KB had it from Parallel only. r5 returned 522, and r23 did not render plan text."
+  },
+  {
+   "id": "q38",
+   "status": "resolved",
+   "answer": "No. Exa's security docs claim SOC 2 Type II only, and no ISO 27001 certification or timeline is published. The Head of Security posting (2026-09-01) lists ISO 27001, alongside SOC 2, among the compliance programs the role will lead, with no dates.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Exa's security docs claim SOC 2 Type II certification and offer ZDR and HIPAA on Enterprise; they claim no ISO 27001 certification.",
+     "support_rids_full": [
+      "q38-r2"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/docs/admin/security/overview",
+     "novelty": "already_in_kb",
+     "kb_ref": "compliance/soc2-coverage.md:89",
+     "usefulness": 0
+    },
+    {
+     "claim": "Exa's Head of Security posting (published 2026-09-01) says the role will lead compliance programs such as SOC 2 and ISO 27001, with no certification date or timeline.",
+     "support_rids_full": [
+      "q38-r5"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://jobs.ashbyhq.com/exa/37599c13-47f8-40d7-b37f-9fc9e5329134",
+     "novelty": "already_in_kb",
+     "kb_ref": "compliance/soc2-coverage.md:89",
+     "usefulness": 0
+    }
+   ],
+   "notes": "trust.exa.ai (r3) is a JavaScript-rendered Vanta page and could not be read. r15 (a Ladders mirror of the job) returned 403. I verified r5 through Ashby's public job-board API for the same posting ID. That API also shows an IT Engineer posting (2026-09-15) asking for familiarity with SOC 2 and ISO 27001; it is not a pool result and I did not count it. r2 redirects to exa.ai/docs/admin/security/overview. r28 (API Evangelist) lists SOC 2 Type II and HIPAA only. r17 (TrustKit) is outdated. Most other ISO results are about unrelated companies (EXA Consulting, Exabeam, Exasol, EXA AG, Exaforce, eXate)."
+  },
+  {
+   "id": "q39",
+   "status": "partial",
+   "answer": "Pricing is not published. The Batch API is an Enterprise-only beta (header batches-2026-06-06) that Exa enables through sales. No price, discount, item cap, SLA or retention period appears in the docs or pricing pages. Documented limits: POST items to /search or /agent/runs only, each with a batch-unique customId of 1–64 characters. Results come back as a JSONL file through a short-lived presigned URL. List pages default to 100 items, with no upper bound.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "The Batch API is a beta (Exa-Beta header batches-2026-06-06) available only to Enterprise teams after Exa enables it through sales.",
+     "support_rids_full": [
+      "q39-r15",
+      "q39-r6"
+     ],
+     "support_rids_partial": [
+      "q39-r1",
+      "q39-r7",
+      "q39-r23"
+     ],
+     "verified_url": "https://exa.ai/docs/batch/quickstart",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/batch-api.md:47",
+     "usefulness": 0
+    },
+    {
+     "claim": "Batch items must be POST requests to /search or /agent/runs with a batch-unique customId; results come back as a JSONL file through a short-lived presigned URL.",
+     "support_rids_full": [
+      "q39-r15",
+      "q39-r6",
+      "q39-r9"
+     ],
+     "support_rids_partial": [
+      "q39-r7",
+      "q39-r23"
+     ],
+     "verified_url": "https://exa.ai/docs/reference/batches/create-a-batch",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/batch-api.md:49",
+     "usefulness": 0
+    },
+    {
+     "claim": "Exa's pricing page and pricing docs list no Batch API price or discount.",
+     "support_rids_full": [
+      "q39-r14",
+      "q39-r24",
+      "q39-r17"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://exa.ai/docs/admin/pricing",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/batch-api.md:80",
+     "usefulness": 0
+    }
+   ],
+   "notes": "All the Batch docs pages (r1, r6, r7, r9, r15, r23) agree; r6 redirects to the quickstart. The customId length (1–64) comes from the create-a-batch spec (r9), and the list default of 100 with no upper bound from r23. No launch post, price, discount, item cap, completion SLA or retention period turned up, which matches the KB (features/batch-api.md:47-80). The third-party pricing pages (r5, r22) do not mention Batch."
+  },
+  {
+   "id": "q40",
+   "status": "unresolved",
+   "answer": "GA is not confirmed. Google's current Grounding with Exa page (last updated 2026-09-25) no longer carries the Preview/Pre-GA notice; a docs mirror shows it was dropped between the 2026-08-27 and 2026-09-23 revisions. No GA announcement appears in the Agent Platform release notes, and Exa's last statement (2026-04-28) said Private Preview.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Google's current Grounding with Exa page on Gemini Enterprise Agent Platform carries no Preview or Pre-GA notice and describes the feature as a Separate Offering under the Google Cloud Agreement.",
+     "support_rids_full": [
+      "q40-r22",
+      "q40-r26",
+      "q40-r11",
+      "q40-r5"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-exa",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/google-gemini-enterprise.md:59",
+     "usefulness": 0
+    },
+    {
+     "claim": "According to a docs mirror's commit history, the Preview/Pre-GA notice was dropped between the page's 2026-08-27 and 2026-09-23 revisions.",
+     "support_rids_full": [],
+     "support_rids_partial": [
+      "q40-r11"
+     ],
+     "verified_url": "https://github.com/apstndb/gemini-enterprise-agent-platform-docs-mirror/commit/bc3f3d76",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/google-gemini-enterprise.md:61",
+     "usefulness": 1
+    },
+    {
+     "claim": "Exa's 2026-04-28 post said Google had released Grounding with Exa Web Search in Private Preview earlier that month.",
+     "support_rids_full": [
+      "q40-r19",
+      "q40-r3",
+      "q40-r25"
+     ],
+     "support_rids_partial": [
+      "q40-r21"
+     ],
+     "verified_url": "https://exa.ai/blog/exa-google-cloud",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/google-gemini-enterprise.md:47",
+     "usefulness": 0
+    },
+    {
+     "claim": "The Gemini Enterprise Agent Platform release notes have no Exa entry, so they contain no GA announcement for the feature.",
+     "support_rids_full": [
+      "q40-r10"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/release-notes",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/google-gemini-enterprise.md:61",
+     "usefulness": 0
+    }
+   ],
+   "notes": "r5's old Vertex AI URL now redirects to the GEAP page, which has no label. The proxies r13 (expired TLS certificate) and r23 (DNS failure) are unverifiable; their snippets show an older Preview or Restricted Preview version. The mirror's history (C2) narrows the KB's removal window, which ran to 09-25. aihola (r21, 2026-04-30) reported a Restricted Preview with allowlist access. Google's grounding overview (r17, updated 2026-09-25) lists Parallel but not Exa in its options table, where Exa appears only in the navigation; this is in KB _scratch notes, not in the leaf. On Google Cloud docs a missing launch-stage label usually signals GA, but neither Google nor Exa has said so."
+  }
+ ]
+}

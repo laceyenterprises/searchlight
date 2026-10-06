@@ -1,0 +1,304 @@
+{
+ "set": "S1",
+ "questions": [
+  {
+   "id": "q01",
+   "status": "partial",
+   "answer": "Anthropic's own Trust Center lists two 'Web Search' subprocessors: Brave Search (all products) and TurboPuffer (all products except Claude for Government; update published 2026-05-06). Anthropic's Help Center (2026-04-09) says the Claude for Government Web Search MCP connector calls the Brave Search API, sending only the query string. Anthropic doesn't say which vendor does what inside the commercial web search tool.",
+   "support_rids": [
+    "q01-r1",
+    "q01-r21",
+    "q01-r25"
+   ],
+   "verification": "verified",
+   "verified_url": "https://support.claude.com/en/articles/14503775-mcp-web-search",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The Trust Center (trust.anthropic.com/subprocessors and /trust) is a JS app that returns empty to WebFetch and curl. I verified it by rendering the public page in a browser (no login). Both subprocessor entries link to the 'enabling and using web search' help article. This upgrades the KB's agency-sourced (Xponent21) Brave/turbopuffer claims to first-party. The Help Center fact (Brave named for the C4G connector) is new to the KB. SEO posts (r4-r11, r20, r22) only repeat the subprocessor facts."
+  },
+  {
+   "id": "q02",
+   "status": "unresolved",
+   "answer": "No result names the upstream provider behind hosted Firecrawl /search. DeepWiki (r1, r3) restates the open-source fallback chain (Fire Engine, then SearXNG, then DuckDuckGo), which the KB already has. Its 'Google (via Fire Engine)' label is an AI-generated inference.",
+   "support_rids": [
+    "q02-r1",
+    "q02-r3"
+   ],
+   "verification": "unverifiable",
+   "verified_url": "https://deepwiki.com/firecrawl/firecrawl/9.1-search-service",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "I checked the current repo code: apps/api/src/search/fireEngine.ts only POSTs to an internal FIRE_ENGINE_BETA_URL/search endpoint and names no upstream, so the Google attribution can't be confirmed. alexandria.ts is a tool-discovery catalog, not a web index."
+  },
+  {
+   "id": "q03",
+   "status": "partial",
+   "answer": "No public BAA offer found, and Tavily's own terms point the other way. The MSA's DPA §1.8 (Sensitive Data) has customers warrant they won't submit HIPAA PHI without Tavily's prior written consent. The Acceptable Use Policy (updated 2026-05-05, §3 Prohibited Input) also lists HIPAA PHI. The written-consent carve-out leaves room for a negotiated arrangement, but none is documented.",
+   "support_rids": [
+    "q03-r21",
+    "q03-r2"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.tavily.com/legal/tavily-msa-dpa-sla.pdf",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "WebFetch couldn't parse the MSA PDF; I downloaded it with curl and extracted the text locally. Nudge Security's profile (r31) shows an unsourced 'HIPAA Compliant' badge that conflicts with Tavily's terms; don't use it. The KB records only that no HIPAA/BAA mention was found and that there's no HIPAA framework in the trust center."
+  },
+  {
+   "id": "q04",
+   "status": "unresolved",
+   "answer": "Tavily publishes no numeric keyless cap. The docs say keyless is free and rate-limited, with limits separate from keyed limits. The SDKs call it a shared rate limit, and a limit error returns code, window, retry_after_seconds and next_actions fields. The CLI calls it a fair-use cap.",
+   "support_rids": [
+    "q04-r1",
+    "q04-r2",
+    "q04-r3",
+    "q04-r5",
+    "q04-r10"
+   ],
+   "verification": "n/a",
+   "verified_url": "https://docs.tavily.com/documentation/keyless",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "Checked keyless.md, rate-limits.md (keyless has 'a different error format and separate limits'), the Python SDK's errors.py, and the JS README; none gives a number. A third-party repo (r12) also says the limit is unpublished. The KB already says 'cap unpublished'."
+  },
+  {
+   "id": "q05",
+   "status": "partial",
+   "answer": "Only for Azure. Microsoft's Azure OpenAI Responses API docs say web_search uses Grounding with Bing Search and/or Bing Custom Search, billed per Bing request, and live internet access isn't supported (external_web_access is always false). OpenAI still doesn't name the index behind its own Responses API tool.",
+   "support_rids": [
+    "q05-r2"
+   ],
+   "verification": "verified",
+   "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/web-search",
+   "novelty": "already_in_kb",
+   "usefulness": 1,
+   "notes": "The KB already has Foundry web search on Bing, cited to the Agents tool page; this is the Responses-API-specific page (updated 2026-06-05). The Resoneo traffic research (r4, r5, r8: labrador/bright/oxylabs/serp result_source values) covers consumer ChatGPT, not the API. It wasn't verified (Search Engine Land returned 403)."
+  },
+  {
+   "id": "q06",
+   "status": "unresolved",
+   "answer": "xAI doesn't disclose the index. Third-party pages claim it's proprietary (r2 Storyzee, r4 PromptAlpha) but cite nothing that says so.",
+   "support_rids": [],
+   "verification": "unverifiable",
+   "verified_url": "https://docs.x.ai/developers/tools/web-search",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "Storyzee says xAI docs confirm a proprietary, non-Bing/Google/Brave backend. Its cited xAI URL redirects to the web-search doc, and that doc's Markdown mentions no index, provider, Bing, Google or Brave. fixaeo (r5) also says the backend is undisclosed."
+  },
+  {
+   "id": "q07",
+   "status": "partial",
+   "answer": "Provider: Mistral doesn't name it. Simon Willison (2025-05-27) assumed Brave because Brave was the only search vendor on Mistral's Trust Center subprocessor list. Retention: web_search runs only through the Agents and Conversations APIs. Mistral's Privacy Policy (effective 2026-09-03) keeps Agents API input and output until the account is terminated, versus 30 rolling days for standard APIs. Mistral's ZDR doc excludes stateful APIs, naming Agents and Conversations.",
+   "support_rids": [
+    "q07-r13",
+    "q07-r20",
+    "q07-r11"
+   ],
+   "verification": "verified",
+   "verified_url": "https://docs.mistral.ai/admin/monitor-comply/zero-data-retention",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "I checked r11's (meetily) retention claim on the primary source it cites, legal.mistral.ai/terms/privacy-policy. The Brave attribution is Willison's inference from a 2025 subprocessor list; I didn't re-check Mistral's Trust Center. The KB has only Brave's 2025 X post about Le Chat, and no Mistral retention terms."
+  },
+  {
+   "id": "q08",
+   "status": "resolved",
+   "answer": "Yes, under AWS's own rule. The HIPAA Eligible Services Reference (last updated 2026-09-03) lists Amazon Bedrock AgentCore with no exclusions and says all features of listed services are eligible unless specifically noted. No note excludes the Web Search tool.",
+   "support_rids": [
+    "q08-r2"
+   ],
+   "verification": "verified",
+   "verified_url": "https://aws.amazon.com/compliance/hipaa-eligible-services-reference/",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "This follows from the page's general 'all features unless noted' rule; the page never names Web Search. The KB cites only the AgentCore compliance page ('Web Search not singled out'). Customers still need the AWS BAA and HIPAA-compliant configuration."
+  },
+  {
+   "id": "q09",
+   "status": "unresolved",
+   "answer": "No result explains the 404s. On 2026-09-26 the Web Search Service pages (overview, using_rest, reference/rest, and the v1 TopLevel/search reference) still return 404. Articles dated 2026-09-11 to 09-16 describe the docs as live (updated 2026-09-09) and don't mention removal, a rename or a move.",
+   "support_rids": [],
+   "verification": "n/a",
+   "verified_url": "https://developers.google.com/web-search-service/overview",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "Checked r1 (Shahid Ali, 2026-09-13) and r3 (Always Evolving SEO, 2026-09-16); neither reports removal. The rename notes in r21 and r28 are about Vertex AI Search becoming Agent Search, not the Web Search Service. Deprecation, rename and gating all remain unconfirmed."
+  },
+  {
+   "id": "q10",
+   "status": "partial",
+   "answer": "Press reports $275M upfront, rising to $400M on milestones (via Calcalist and Bloomberg). No result gives a close date; the pool has only the announcement's 'expected to close in the next few weeks' (2026-02-10).",
+   "support_rids": [
+    "q10-r5",
+    "q10-r1",
+    "q10-r9"
+   ],
+   "verification": "verified",
+   "verified_url": "https://siliconangle.com/2026/02/10/ai-infrastructure-giant-nebius-buys-agentic-search-startup-tavily/",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "The KB already has the canonical SEC-filed terms ($189.7M fair value, $177.2M cash, up to $67.3M earnout) and the 2026-02-19 close, and it flags the press $275M/$400M figures as contradicted by the filing. Tracxn's 'acquired Feb 11, 2026' (r10) is the announcement date, not the close."
+  },
+  {
+   "id": "q11",
+   "status": "partial",
+   "answer": "Only a pre-seed/accelerator check is on record. a16z crypto's CSX Spring 2024 cohort post (2024-03-26) lists Valyu Network. Aggregators (PitchBook, Dealroom, VCBacked, Caplight, Crunchbase) record $500K from a16z crypto, the only investor, in March 2024. No priced round was found.",
+   "support_rids": [
+    "q11-r3",
+    "q11-r20",
+    "q11-r2"
+   ],
+   "verification": "verified",
+   "verified_url": "https://a16zcrypto.com/posts/article/crypto-startup-accelerator-csx-spring-2024-cohort/",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The a16z post confirms cohort membership but not the amount; the $500K comes from aggregators (checked on VCBacked). Tracxn's 'unfunded' profile (r9) is stale. The GBP 1.1M 'Valyu' item (r8) is an unrelated London company. That Valyu Network is valyu.ai's former name/domain is inferred from the valyu-network GitHub org and LinkedIn slug."
+  },
+  {
+   "id": "q12",
+   "status": "unresolved",
+   "answer": "No result ties an operating entity to serper.dev. Serper's own terms only set UK governing law, and the privacy policy names 'Serper' as controller with no address. companyview (r1) links a dissolved SERPER LIMITED (Hounslow, 2023-2024) but itself says the current entity isn't public.",
+   "support_rids": [
+    "q12-r5",
+    "q12-r1"
+   ],
+   "verification": "n/a",
+   "verified_url": "https://serper.dev/terms",
+   "novelty": "none",
+   "usefulness": 0,
+   "notes": "The KB already records the UK-law terms and the dissolved, unlinkable SERPER LIMITED. Tracxn's 'Serper, 2017, London, deadpooled, advertising' (r14) and adamgtm's 2017 founding (r4) appear to describe a different company. Serper S.L. (r8) is a Spanish printer."
+  },
+  {
+   "id": "q13",
+   "status": "resolved",
+   "answer": "All three. Investment: Databricks Ventures joined Nimble's $47M Series B, led by Norwest (Feb 2026). Marketplace: Nimble joined Databricks Marketplace as a data provider in Q2 2024 (Databricks-authored blog, 2024-08-21) and now also has an MCP listing. Integration: Nimble documents Unity Catalog SQL table functions, Genie and MCP installs, and its CEO has a Data + AI Summit breakout session.",
+   "support_rids": [
+    "q13-r14",
+    "q13-r2",
+    "q13-r4",
+    "q13-r24",
+    "q13-r30",
+    "q13-r18",
+    "q13-r8"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.databricks.com/blog/databricks-marketplace-welcomes-47-new-data-providers-q2-2024",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "New to the KB: the Databricks-authored 2024 Marketplace post, the first independent Databricks-side confirmation (the KB had only Nimble-written or co-bylined sources). Caveat: Nimble isn't on Databricks Ventures' portfolio logo wall (checked). The Summit page shows 2027 event branding, so the session date is unclear. r10 and r23 are Nimble Approach, a different UK consultancy."
+  },
+  {
+   "id": "q14",
+   "status": "resolved",
+   "answer": "Reddit filed it. ECF 144 (2026-09-25) is Reddit's Rule 12(b)(6) motion to dismiss SerpApi's counterclaims (Wollmuth Maher & Deutsch; Bartlit Beck). SerpApi's counterclaims (ECF 119, 2026-08-28) plead Sherman Act §2 monopolization and attempted monopolization plus four declaratory-judgment counts. The market alleged is programmatic access to large-scale human forum conversation data for search indexing and AI training/grounding. SerpApi alleges Reddit's 2024-07-01 robots.txt change shut out non-Google crawlers (Bing, DuckDuckGo, Mojeek, Qwant), while Google kept access under a ~$60M/yr deal. It seeks treble damages and an injunction.",
+   "support_rids": [
+    "q14-r20",
+    "q14-r2",
+    "q14-r6",
+    "q14-r11"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.courtlistener.com/docket/71720563/144/reddit-inc-v-serpapi-llc",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "I read ECF 144 with curl (WebFetch got a 403) and ECF 119 from the RECAP PDF (gov.uscourts.nysd.651592.119.0.pdf). This confirms the KB's '[inferred] likely Reddit' filer and adds the counterclaim substance the KB lacks. One declaratory count asks for a ruling that no DMCA violation is alleged before January 2025."
+  },
+  {
+   "id": "q15",
+   "status": "resolved",
+   "answer": "Pending on the amended complaint. The court dismissed part of the case on 2026-07-20, and Google amended on 2026-08-10. SerpApi moved to dismiss again on 2026-08-24. On 2026-09-15 the court denied SerpApi's motion to compel Google's licensing agreements, and Google filed its opposition (the latest entry, #58). SerpApi's reply is due 2026-09-29, and the hearing, reset on 2026-09-04, is set for 2026-10-13.",
+   "support_rids": [
+    "q15-r13",
+    "q15-r4",
+    "q15-r1"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.courtlistener.com/docket/72059948/google-llc-v-serpapi-llc",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "The KB already has this status from the docket. ppc.land's 'September 29 hearing' (r1) was the original setting in ECF 49 and is now stale. Not verified: r1 and r3 say the amended complaint drops the Shopping and Maps theories and rests on three licensing contracts, one of them with Reddit."
+  },
+  {
+   "id": "q16",
+   "status": "partial",
+   "answer": "No new verified customer statements. Browserbase ('Search API, powered by Exa', LinkedIn launch post) and whocoversit.com (Product Hunt maker comment) are already in the KB. K-Dense AI's official scientific-agent-skills repo ships an Exa-backed search skill (bring your own EXA_API_KEY). That's an integration, not a usage claim; pi-exa and MyClaw are similar skill listings.",
+   "support_rids": [
+    "q16-r35",
+    "q16-r36",
+    "q16-r31"
+   ],
+   "verification": "verified",
+   "verified_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/skills/exa-search/SKILL.md",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "Most results are exa.ai case studies, which the question excludes, or Exa's own customer claims (r1 runtimewire: Cursor, Cognition, HubSpot, OpenRouter, Monday.com). I didn't re-fetch Browserbase's LinkedIn post; the KB already has Browserbase's own launch post. A Reddit user (r13) says they moved from Exa to Brave on cost."
+  },
+  {
+   "id": "q17",
+   "status": "resolved",
+   "answer": "Ten companies not in the KB's list, each verified on its own subprocessor page: DigitalOcean (Public Preview, web search), Glean (web crawling and rendering), Intapp (Celeste web grounding), Legora (EU pre-approved web search, alongside Linkup), Zed, Day AI (alongside Parallel and Perplexity), Bezi, Surface Labs, Endless, and Minds (getminds.ai).",
+   "support_rids": [
+    "q17-r3",
+    "q17-r11",
+    "q17-r33",
+    "q17-r27",
+    "q17-r34",
+    "q17-r32",
+    "q17-r31",
+    "q17-r1",
+    "q17-r5",
+    "q17-r6"
+   ],
+   "verification": "verified",
+   "verified_url": "https://legora.com/legal/eu-pre-approved-sub-processors",
+   "novelty": "contradicts_kb",
+   "usefulness": 3,
+   "notes": "Legora's page (last updated 2026-07-06) names Exa Labs for Web Search, which contradicts the KB's 'Linkup case-study customer; Exa logo only' label. The other nine are net-new. Page dates: Glean 2026-07-28, Intapp effective 2026-08-11, Bezi 2026-08-22, Surface 2026-08-19, Endless 2026-07-15, Minds 2026-09-25, Zed 2026-03-02. Not confirmed: Foundable (r2; Exa is absent from the current page, updated 2026-09-25) and Crucible (r4; the domain doesn't resolve). DeployGraph's (r26) other names (Auctor, Fireflies.ai, Gamma, Sourcegraph, Vercel) weren't checked."
+  },
+  {
+   "id": "q18",
+   "status": "partial",
+   "answer": "Baselayer's post (2026-09-22) announced its data is available through Exa Connect, and Exa's additional-partners page is dated 2026-09-22. Both are already KB sources. The other September items are product launches (Snapshot 09-17, Agent Ultra 09-25) or third-party integration write-ups (Composio-based Claude Code access 09-08, a Jinba workflow guide 09-13), not Exa announcements.",
+   "support_rids": [
+    "q18-r11",
+    "q18-r14"
+   ],
+   "verification": "verified",
+   "verified_url": "https://baselayer.com/resources/baselayer-exa-partnership-agentic-search",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "EXA Infrastructure (subsea cable), EXA AG (SNP acquisition) and similar hits (r12, r13, r15, r16, r18) are unrelated companies. The Vercel partnership (r4, r7) is from August. I didn't fetch the Composio or Jinba items."
+  },
+  {
+   "id": "q19",
+   "status": "partial",
+   "answer": "Exa hasn't disclosed ARR; all figures are third-party. Sacra estimates ~$10M annualized revenue in Sep 2025, up ~11x YoY. ARR Club reports $12M (2026-01-12), but that traces to an anonymous 2025-12-05 reply tweet. Estimator sites give other numbers (Notice ~$15.1M 2025 revenue, Growjo $43.5M).",
+   "support_rids": [
+    "q19-r1",
+    "q19-r28",
+    "q19-r20"
+   ],
+   "verification": "verified",
+   "verified_url": "https://www.arr.club/exa/exa-arr-hit-12m",
+   "novelty": "already_in_kb",
+   "usefulness": 0,
+   "notes": "The KB already carries Sacra's ~$10M with a 'never cite as Exa's' caveat. I read the tweet ARR Club cites via api.fxtwitter.com: an anonymous account ('Melon') replying to Jeff Wang. Pages that call the $10M 'disclosed' (r2, r3) appear to misattribute Sacra's estimate [inferred]. mediacopilot (r17) also says Exa hasn't disclosed revenue."
+  },
+  {
+   "id": "q20",
+   "status": "partial",
+   "answer": "There's no first-party count; all figures are third-party. They range from about 100 (mediacopilot, 2026-05-21, unattributed; offices in SF, Zurich and Singapore) and 121 (Tracxn, 2026-01-31) to ~158-199 (LeadIQ, Jul-Aug 2026) and 202 (Crustdata, Sept 2026, from LinkedIn profiles).",
+   "support_rids": [
+    "q20-r16",
+    "q20-r4",
+    "q20-r1",
+    "q20-r7"
+   ],
+   "verification": "verified",
+   "verified_url": "https://research.crustdata.com/company/exa",
+   "novelty": "net_new",
+   "usefulness": 2,
+   "notes": "The KB's 'About 100 people' matches the May 2026 press figure but may be stale: mid/late-2026 profile-based estimates cluster near 200. These are estimates, so this isn't a verified correction. The Zurich office is a new, unattributed mention. LinkedIn's 51-200 band (r3) wasn't re-fetched. EXA Infrastructure (505 staff) and Exa Capital are different companies."
+  }
+ ]
+}

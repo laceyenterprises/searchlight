@@ -1,0 +1,2713 @@
+{
+ "S1": {
+  "strict": {
+   "exa": {
+    "weighted": 85,
+    "new_claims": 25,
+    "unique_new_claims": 11,
+    "questions_new": 17,
+    "questions_new_q01_q20": 11,
+    "corrections": 6,
+    "resolved_alone": 9,
+    "resolved_alone_q01_q20": 4
+   },
+   "tavily": {
+    "weighted": 44,
+    "new_claims": 11,
+    "corrections": 3,
+    "questions_new": 8,
+    "questions_new_q01_q20": 7,
+    "unique_new_claims": 2,
+    "resolved_alone": 4,
+    "resolved_alone_q01_q20": 1
+   },
+   "parallel": {
+    "weighted": 67,
+    "new_claims": 19,
+    "unique_new_claims": 4,
+    "questions_new": 11,
+    "questions_new_q01_q20": 7,
+    "corrections": 7,
+    "resolved_alone": 2,
+    "resolved_alone_q01_q20": 1
+   },
+   "firecrawl": {
+    "weighted": 43,
+    "new_claims": 10,
+    "corrections": 5,
+    "questions_new": 7,
+    "questions_new_q01_q20": 5,
+    "resolved_alone": 1
+   }
+  },
+  "broad": {
+   "exa": {
+    "weighted": 98,
+    "new_claims": 30,
+    "unique_new_claims": 11,
+    "questions_new": 18,
+    "questions_new_q01_q20": 12,
+    "corrections": 6,
+    "resolved_alone": 12,
+    "resolved_alone_q01_q20": 5
+   },
+   "tavily": {
+    "weighted": 64,
+    "new_claims": 18,
+    "questions_new": 11,
+    "questions_new_q01_q20": 9,
+    "corrections": 3,
+    "resolved_alone": 6,
+    "resolved_alone_q01_q20": 3
+   },
+   "parallel": {
+    "weighted": 78,
+    "new_claims": 22,
+    "questions_new": 13,
+    "questions_new_q01_q20": 9,
+    "corrections": 7,
+    "resolved_alone": 3,
+    "resolved_alone_q01_q20": 1,
+    "unique_new_claims": 2
+   },
+   "firecrawl": {
+    "weighted": 56,
+    "new_claims": 14,
+    "corrections": 5,
+    "questions_new": 9,
+    "questions_new_q01_q20": 6,
+    "resolved_alone": 4,
+    "resolved_alone_q01_q20": 1
+   }
+  },
+  "questions_with_new_answer": {
+   "strict": [
+    "q01",
+    "q03",
+    "q05",
+    "q07",
+    "q08",
+    "q11",
+    "q13",
+    "q14",
+    "q15",
+    "q17",
+    "q20",
+    "q22",
+    "q28",
+    "q29",
+    "q33",
+    "q35",
+    "q36",
+    "q37"
+   ],
+   "broad": [
+    "q01",
+    "q03",
+    "q04",
+    "q05",
+    "q07",
+    "q08",
+    "q11",
+    "q13",
+    "q14",
+    "q15",
+    "q17",
+    "q20",
+    "q22",
+    "q28",
+    "q29",
+    "q33",
+    "q35",
+    "q36",
+    "q37"
+   ]
+  },
+  "stop_rule_q01_q20": {
+   "strict": {
+    "max_resolved_alone": 4,
+    "max_questions_new": 11
+   },
+   "broad": {
+    "max_resolved_alone": 5,
+    "max_questions_new": 12
+   }
+  }
+ },
+ "S4": {
+  "strict": {
+   "exa": {
+    "weighted": 56,
+    "new_facts": 20,
+    "new_facts_new_detail": 14,
+    "unique_new_facts": 11,
+    "new_events": 8,
+    "unique_new_events": 3,
+    "new_facts_net_new": 6
+   },
+   "tavily": {
+    "weighted": 41,
+    "new_facts": 12,
+    "new_facts_net_new": 5,
+    "new_events": 7,
+    "new_facts_new_detail": 7,
+    "unique_new_facts": 4,
+    "unique_new_events": 2
+   },
+   "parallel": {
+    "weighted": 18,
+    "new_facts": 3,
+    "new_facts_new_detail": 2,
+    "new_events": 2,
+    "new_facts_net_new": 1
+   },
+   "firecrawl": {
+    "weighted": 5,
+    "new_facts": 2,
+    "new_facts_new_detail": 1,
+    "unique_new_facts": 1,
+    "new_events": 2,
+    "new_facts_net_new": 1
+   }
+  },
+  "broad": {
+   "exa": {
+    "weighted": 56,
+    "new_facts": 20,
+    "new_facts_new_detail": 14,
+    "unique_new_facts": 11,
+    "new_events": 8,
+    "unique_new_events": 3,
+    "new_facts_net_new": 6
+   },
+   "tavily": {
+    "weighted": 42,
+    "new_facts": 12,
+    "new_facts_net_new": 5,
+    "new_events": 7,
+    "new_facts_new_detail": 7,
+    "unique_new_facts": 3,
+    "unique_new_events": 1
+   },
+   "parallel": {
+    "weighted": 23,
+    "new_facts": 4,
+    "new_facts_new_detail": 3,
+    "new_events": 3,
+    "new_facts_net_new": 1
+   },
+   "firecrawl": {
+    "weighted": 14,
+    "new_facts": 4,
+    "new_facts_new_detail": 3,
+    "unique_new_facts": 1,
+    "new_events": 3,
+    "new_facts_net_new": 1
+   }
+  },
+  "new_fact_source_types": {
+   "primary": 13,
+   "secondary": 12
+  }
+ },
+ "overlap": {
+  "S1_new_claims": {
+   "by_number_of_providers": {
+    "0": 3,
+    "1": 17,
+    "2": 7,
+    "3": 6,
+    "4": 4
+   },
+   "pairs": {
+    "exa+firecrawl": 7,
+    "exa+parallel": 12,
+    "exa+tavily": 9,
+    "firecrawl+parallel": 8,
+    "firecrawl+tavily": 6,
+    "parallel+tavily": 7
+   }
+  },
+  "S4_new_facts": {
+   "by_number_of_providers": {
+    "1": 16,
+    "2": 7,
+    "3": 1,
+    "4": 1
+   },
+   "pairs": {
+    "exa+tavily": 8,
+    "exa+parallel": 3,
+    "parallel+tavily": 2,
+    "exa+firecrawl": 1,
+    "firecrawl+parallel": 1,
+    "firecrawl+tavily": 1
+   }
+  }
+ },
+ "cost_per_new_item": {
+  "exa": {
+   "new_items_strict": 45,
+   "spend_usd": 0.6440000000000005,
+   "usd_per_new_item": 0.014
+  },
+  "tavily": {
+   "new_items_strict": 23,
+   "spend_usd": 1.488,
+   "usd_per_new_item": 0.065
+  },
+  "parallel": {
+   "new_items_strict": 22,
+   "spend_usd": 0.4670000000000003,
+   "usd_per_new_item": 0.021
+  },
+  "firecrawl": {
+   "new_items_strict": 12,
+   "spend_usd": [
+    0.3705,
+    2.47
+   ],
+   "usd_per_new_item": [
+    0.031,
+    0.206
+   ]
+  }
+ },
+ "rows": {
+  "S1_claims": [
+   {
+    "q": "q01",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q01",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q01",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q01",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q03",
+    "claim": 0,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q03",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q03",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q04",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q04",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q04",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q05",
+    "claim": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q05",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q05",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q05",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q07",
+    "claim": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [],
+    "broad": [
+     "firecrawl",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q07",
+    "claim": 1,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q07",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q07",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q08",
+    "claim": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q08",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q10",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q10",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q10",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q10",
+    "claim": 3,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q11",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q11",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q11",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q12",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q12",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q12",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q13",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q13",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q13",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q13",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q14",
+    "claim": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q14",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q14",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q14",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q15",
+    "claim": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q15",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q15",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q15",
+    "claim": 3,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q16",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q16",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q16",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q17",
+    "claim": 0,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel"
+    ]
+   },
+   {
+    "q": "q17",
+    "claim": 1,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "firecrawl",
+     "parallel"
+    ],
+    "broad": [
+     "firecrawl",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q17",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q17",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 1,
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel"
+    ]
+   },
+   {
+    "q": "q18",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q18",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q18",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q19",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q19",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q19",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "firecrawl",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q19",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 1,
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q20",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q20",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q20",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q20",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q21",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q21",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q21",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q22",
+    "claim": 0,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q22",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q23",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel"
+    ]
+   },
+   {
+    "q": "q23",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q23",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel"
+    ]
+   },
+   {
+    "q": "q25",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q25",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q26",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q28",
+    "claim": 0,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q28",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q29",
+    "claim": 0,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q29",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q30",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q30",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q33",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q33",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q33",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q33",
+    "claim": 3,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q34",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q34",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q34",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "firecrawl",
+     "tavily"
+    ],
+    "broad": [
+     "firecrawl",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q34",
+    "claim": 3,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q35",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q35",
+    "claim": 1,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel"
+    ]
+   },
+   {
+    "q": "q35",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q36",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q36",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q36",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q37",
+    "claim": 0,
+    "novelty": "contradicts_kb",
+    "usefulness": 3,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q37",
+    "claim": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "firecrawl",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q37",
+    "claim": 2,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "strict": [
+     "firecrawl",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel"
+    ]
+   },
+   {
+    "q": "q37",
+    "claim": 3,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q38",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "q": "q38",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "q": "q39",
+    "claim": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q39",
+    "claim": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "q": "q39",
+    "claim": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 0,
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   }
+  ],
+  "S4_facts": [
+   {
+    "co": "f01",
+    "event": 0,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 0,
+    "fact": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 0,
+    "fact": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 0,
+    "fact": 3,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 0,
+    "fact": 4,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 0,
+    "fact": 5,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 0,
+    "fact": 6,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 1,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 1,
+    "fact": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 2,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f01",
+    "event": 2,
+    "fact": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f03",
+    "event": 0,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f03",
+    "event": 1,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f03",
+    "event": 1,
+    "fact": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 2,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 3,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 4,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 5,
+    "novelty": "new_detail",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 6,
+    "novelty": "new_detail",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 7,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 0,
+    "fact": 8,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 1,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 2,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f04",
+    "event": 3,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "secondary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 2,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 3,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 4,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 5,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 6,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 7,
+    "novelty": "new_detail",
+    "usefulness": 0,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 8,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 0,
+    "fact": 9,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 1,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 1,
+    "fact": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 1,
+    "fact": 2,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "firecrawl"
+    ],
+    "broad": [
+     "firecrawl"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 1,
+    "fact": 3,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 1,
+    "fact": 4,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f06",
+    "event": 1,
+    "fact": 5,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "secondary",
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "parallel"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 0,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 0,
+    "fact": 1,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 0,
+    "fact": 2,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 0,
+    "fact": 3,
+    "novelty": "new_detail",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 1,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 2,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 3,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f07",
+    "event": 4,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f08",
+    "event": 0,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "parallel"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel"
+    ]
+   },
+   {
+    "co": "f08",
+    "event": 0,
+    "fact": 1,
+    "novelty": "new_detail",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f08",
+    "event": 1,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "parallel"
+    ],
+    "broad": [
+     "parallel"
+    ]
+   },
+   {
+    "co": "f09",
+    "event": 0,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f09",
+    "event": 0,
+    "fact": 1,
+    "novelty": "net_new",
+    "usefulness": 2,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "firecrawl",
+     "parallel",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f09",
+    "event": 0,
+    "fact": 2,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f09",
+    "event": 1,
+    "fact": 0,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "firecrawl",
+     "parallel"
+    ],
+    "broad": [
+     "firecrawl",
+     "parallel"
+    ]
+   },
+   {
+    "co": "f10",
+    "event": 0,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f10",
+    "event": 0,
+    "fact": 1,
+    "novelty": "already_in_kb",
+    "usefulness": 1,
+    "source_type": "primary",
+    "strict": [
+     "tavily"
+    ],
+    "broad": [
+     "tavily"
+    ]
+   },
+   {
+    "co": "f10",
+    "event": 1,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f10",
+    "event": 1,
+    "fact": 1,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "primary",
+    "strict": [
+     "exa",
+     "tavily"
+    ],
+    "broad": [
+     "exa",
+     "tavily"
+    ]
+   },
+   {
+    "co": "f10",
+    "event": 2,
+    "fact": 0,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   },
+   {
+    "co": "f10",
+    "event": 2,
+    "fact": 1,
+    "novelty": "net_new",
+    "usefulness": 0,
+    "source_type": "secondary",
+    "strict": [
+     "exa"
+    ],
+    "broad": [
+     "exa"
+    ]
+   }
+  ]
+ }
+}

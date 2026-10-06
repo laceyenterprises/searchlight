@@ -1,0 +1,406 @@
+{
+ "kind": "search",
+ "description": "S1 known unknowns: publicly answerable open questions from the KB",
+ "items": [
+  {
+   "id": "q01",
+   "question": "Which search provider or index powers Anthropic's Claude web search tool in 2026: Brave Search, turbopuffer, or another vendor?",
+   "queries": [
+    "Anthropic Claude web search provider Brave",
+    "Anthropic subprocessor web search turbopuffer"
+   ],
+   "keyword_query": "Anthropic Claude web search Brave turbopuffer subprocessor",
+   "kb_context": "Secondhand only: Brave listed as a subprocessor (Willison, 2025-03); turbopuffer added 2026-05-06 per an agency; trust center unreadable."
+  },
+  {
+   "id": "q02",
+   "question": "Which upstream search provider does Firecrawl's /search endpoint use?",
+   "queries": [
+    "Firecrawl search endpoint upstream provider",
+    "Firecrawl search results source Google"
+   ],
+   "keyword_query": "Firecrawl search API upstream search provider",
+   "kb_context": "Unnamed; docs say end-to-end ZDR needs 'our upstream search provider'; Google-syntax filters."
+  },
+  {
+   "id": "q03",
+   "question": "Does Tavily sign a HIPAA Business Associate Agreement (BAA) with customers?",
+   "queries": [
+    "Tavily HIPAA BAA",
+    "Tavily business associate agreement healthcare"
+   ],
+   "keyword_query": "Tavily HIPAA BAA",
+   "kb_context": "No HIPAA or BAA mention found; Vanta trust center unreadable."
+  },
+  {
+   "id": "q04",
+   "question": "What rate limits apply to Tavily's keyless search access without an API key?",
+   "queries": [
+    "Tavily keyless search rate limit",
+    "Tavily search without API key limits"
+   ],
+   "keyword_query": "Tavily keyless search rate limit",
+   "kb_context": "Keyless is free but rate-limited; the cap wasn't found."
+  },
+  {
+   "id": "q05",
+   "question": "Which search index or provider powers OpenAI's web search tool in the Responses API?",
+   "queries": [
+    "OpenAI web search tool provider",
+    "OpenAI Responses API web search index Bing"
+   ],
+   "keyword_query": "OpenAI Responses API web search tool provider",
+   "kb_context": "Undisclosed."
+  },
+  {
+   "id": "q06",
+   "question": "Which search index powers xAI's Grok API web search tools?",
+   "queries": [
+    "xAI Grok API web search provider",
+    "Grok live search index"
+   ],
+   "keyword_query": "xAI Grok API web search provider",
+   "kb_context": "Undisclosed."
+  },
+  {
+   "id": "q07",
+   "question": "Which search provider powers Mistral's Agents API web_search tool, and what data retention applies to it?",
+   "queries": [
+    "Mistral Agents API web_search provider",
+    "Mistral web search data retention"
+   ],
+   "keyword_query": "Mistral Agents API web_search provider retention",
+   "kb_context": "Brave's X post says Le Chat used Brave (2025-02); API provider and retention unknown."
+  },
+  {
+   "id": "q08",
+   "question": "Is the Web Search tool in Amazon Bedrock AgentCore covered by AWS HIPAA eligibility?",
+   "queries": [
+    "Bedrock AgentCore web search HIPAA eligible",
+    "AgentCore Web Search compliance"
+   ],
+   "keyword_query": "Bedrock AgentCore Web Search HIPAA eligible",
+   "kb_context": "AgentCore is HIPAA eligible; the Web Search tool isn't singled out."
+  },
+  {
+   "id": "q09",
+   "question": "Why do Google Cloud's Web Search Service API documentation pages return 404: deprecated, renamed, or moved?",
+   "queries": [
+    "Google Cloud Web Search Service API",
+    "Vertex AI web search API deprecated"
+   ],
+   "keyword_query": "Google Cloud Web Search Service API deprecated",
+   "kb_context": "Pages 404; reason unknown."
+  },
+  {
+   "id": "q10",
+   "question": "How much did Nebius pay to acquire Tavily, and when did the deal close?",
+   "queries": [
+    "Nebius Tavily acquisition price",
+    "Nebius acquires Tavily deal value"
+   ],
+   "keyword_query": "Nebius Tavily acquisition price",
+   "kb_context": "Acquisition agreement announced by Nebius; price and close date to check."
+  },
+  {
+   "id": "q11",
+   "question": "How much funding has Valyu raised, and from which investors?",
+   "queries": [
+    "Valyu funding round investors",
+    "Valyu AI search raises"
+   ],
+   "keyword_query": "Valyu AI search funding",
+   "kb_context": "Not public."
+  },
+  {
+   "id": "q12",
+   "question": "Which company operates serper.dev, and where is it based?",
+   "queries": [
+    "serper.dev company",
+    "Serper Google search API company"
+   ],
+   "keyword_query": "serper.dev company operator",
+   "kb_context": "Unknown."
+  },
+  {
+   "id": "q13",
+   "question": "What is Nimble's relationship with Databricks: investment, partnership, or marketplace listing?",
+   "queries": [
+    "Nimble Databricks Ventures investment",
+    "Nimble Databricks partnership"
+   ],
+   "keyword_query": "Nimble Databricks Ventures investment",
+   "kb_context": "Databricks Ventures investment claimed; blog co-written by Nimble."
+  },
+  {
+   "id": "q14",
+   "question": "Who filed the motion to dismiss in Reddit v. SerpApi in September 2026, and what does SerpApi's counterclaim allege?",
+   "queries": [
+    "Reddit v SerpApi motion to dismiss",
+    "SerpApi counterclaim Reddit"
+   ],
+   "keyword_query": "Reddit v SerpApi motion to dismiss counterclaim",
+   "kb_context": "Open; docket entries unread."
+  },
+  {
+   "id": "q15",
+   "question": "What is the current status of Google's lawsuit against SerpApi?",
+   "queries": [
+    "Google v SerpApi lawsuit status",
+    "Google SerpApi hearing October 2026"
+   ],
+   "keyword_query": "Google v SerpApi lawsuit status",
+   "kb_context": "Filed 2025-12-19; hearing 2026-10-13."
+  },
+  {
+   "id": "q16",
+   "question": "Which companies have publicly said they use Exa's search API, beyond the case studies on exa.ai?",
+   "queries": [
+    "powered by Exa search API",
+    "built with Exa search API agents"
+   ],
+   "keyword_query": "\"powered by Exa\" search API",
+   "kb_context": "About 32 accounts known (15 stories plus 17 without a story)."
+  },
+  {
+   "id": "q17",
+   "question": "Which companies list Exa Labs as a subprocessor on their subprocessor pages?",
+   "queries": [
+    "\"Exa Labs\" subprocessor",
+    "Exa Labs sub-processor web search"
+   ],
+   "keyword_query": "\"Exa Labs\" subprocessor",
+   "kb_context": "Known: HubSpot, monday.com, Obvious, Anara, Cursor (historic)."
+  },
+  {
+   "id": "q18",
+   "question": "What partnerships or integrations did Exa announce in September 2026?",
+   "queries": [
+    "Exa AI partnership September 2026",
+    "Exa search integration announcement"
+   ],
+   "keyword_query": "Exa AI search partnership announcement",
+   "kb_context": "Agent Ultra 2026-09-25; Vercel 2026-08-19; others unknown."
+  },
+  {
+   "id": "q19",
+   "question": "What annual recurring revenue (ARR) has been reported for Exa (Exa Labs)?",
+   "queries": [
+    "Exa Labs ARR revenue",
+    "Exa AI search revenue run rate"
+   ],
+   "keyword_query": "Exa Labs ARR revenue",
+   "kb_context": "Not public."
+  },
+  {
+   "id": "q20",
+   "question": "How many employees does Exa (Exa Labs) have?",
+   "queries": [
+    "Exa Labs employees headcount",
+    "Exa AI team size"
+   ],
+   "keyword_query": "Exa Labs number of employees",
+   "kb_context": "'About 100 people' is unsourced."
+  },
+  {
+   "id": "q21",
+   "question": "What revenue, ARR, or customer count has been reported for Parallel Web Systems?",
+   "queries": [
+    "Parallel Web Systems ARR",
+    "Parallel Web Systems customers revenue"
+   ],
+   "keyword_query": "Parallel Web Systems ARR revenue",
+   "kb_context": "Series B at $2B; customers named; no ARR."
+  },
+  {
+   "id": "q22",
+   "question": "What ARR or revenue has Firecrawl reported in 2026?",
+   "queries": [
+    "Firecrawl ARR 2026",
+    "Firecrawl revenue growth"
+   ],
+   "keyword_query": "Firecrawl ARR revenue",
+   "kb_context": "Series B $75M (2026-09-22); ARR unknown."
+  },
+  {
+   "id": "q23",
+   "question": "What revenue or usage has Nebius reported for Tavily since the acquisition?",
+   "queries": [
+    "Nebius Tavily revenue",
+    "Nebius shareholder letter Tavily"
+   ],
+   "keyword_query": "Nebius results Tavily",
+   "kb_context": "Nebius Q2 letter: 2.5M+ developers."
+  },
+  {
+   "id": "q24",
+   "question": "Which agent frameworks or platforms use You.com as their default web search provider in 2026?",
+   "queries": [
+    "You.com default search provider",
+    "You.com API default web search integration"
+   ],
+   "keyword_query": "You.com default web search provider",
+   "kb_context": "gpt-oss default via PR #248; Databricks doc names You.com."
+  },
+  {
+   "id": "q25",
+   "question": "Which provider powers Browserbase's Search API today?",
+   "queries": [
+    "Browserbase search API provider",
+    "Browserbase search powered by"
+   ],
+   "keyword_query": "Browserbase Search API powered by",
+   "kb_context": "Launched on Exa 2026-03-17; current docs name no provider."
+  },
+  {
+   "id": "q26",
+   "question": "Which web search provider powered Groq Compound's built-in search before its September 2026 decommission?",
+   "queries": [
+    "Groq Compound web search Tavily",
+    "Groq compound-beta search provider"
+   ],
+   "keyword_query": "Groq Compound web search provider",
+   "kb_context": "Reported Tavily-powered; unconfirmed."
+  },
+  {
+   "id": "q27",
+   "question": "Is WhyHow.AI still operating, or was it acquired or shut down?",
+   "queries": [
+    "WhyHow.AI acquired",
+    "WhyHow AI company status"
+   ],
+   "keyword_query": "WhyHow.AI company status",
+   "kb_context": "Domain dead."
+  },
+  {
+   "id": "q28",
+   "question": "Which web search provider does Legora use: Linkup, Exa, or another?",
+   "queries": [
+    "Legora web search provider",
+    "Legora Linkup"
+   ],
+   "keyword_query": "Legora legal AI web search provider",
+   "kb_context": "Linkup case study; Exa logo only."
+  },
+  {
+   "id": "q29",
+   "question": "Which search provider powered Firefox Quick Answers on iOS when it launched in July 2026?",
+   "queries": [
+    "Firefox iOS Quick Answers launch",
+    "Firefox Quick Answers search provider"
+   ],
+   "keyword_query": "Firefox iOS Quick Answers search provider",
+   "kb_context": "Open."
+  },
+  {
+   "id": "q30",
+   "question": "How many web search requests has OpenRouter served, and when was that figure published?",
+   "queries": [
+    "OpenRouter web search requests",
+    "OpenRouter web search usage"
+   ],
+   "keyword_query": "OpenRouter web search usage statistics",
+   "kb_context": "73M queries; date and scope unknown."
+  },
+  {
+   "id": "q31",
+   "question": "Which AI labs or companies use Exa Snapshot for reinforcement learning or evaluation?",
+   "queries": [
+    "Exa Snapshot reinforcement learning",
+    "Exa historical search RL"
+   ],
+   "keyword_query": "Exa Snapshot RL training",
+   "kb_context": "None named."
+  },
+  {
+   "id": "q32",
+   "question": "Which third-party SERP API providers does Kagi use?",
+   "queries": [
+    "Kagi third-party search providers",
+    "Kagi SerpApi"
+   ],
+   "keyword_query": "Kagi third party search API providers",
+   "kb_context": "Unnamed; an HN claim says SerpApi."
+  },
+  {
+   "id": "q33",
+   "question": "What does Crustdata's API cost: credit prices and plans?",
+   "queries": [
+    "Crustdata API pricing credits",
+    "Crustdata pricing plans"
+   ],
+   "keyword_query": "Crustdata API pricing",
+   "kb_context": "Credit-based; plan figures unverified (JavaScript-rendered pricing page)."
+  },
+  {
+   "id": "q34",
+   "question": "Which data providers has Exa Connect added since its June 2026 launch?",
+   "queries": [
+    "Exa Connect data partners",
+    "Exa Connect new data provider"
+   ],
+   "keyword_query": "Exa Connect data provider partners",
+   "kb_context": "16 providers; Macrobond and Polymarket added."
+  },
+  {
+   "id": "q35",
+   "question": "Has Perplexity added company or entity search to its Search API?",
+   "queries": [
+    "Perplexity Search API company search",
+    "Perplexity API entity search"
+   ],
+   "keyword_query": "Perplexity Search API company search",
+   "kb_context": "People mode exists; no company category."
+  },
+  {
+   "id": "q36",
+   "question": "What query volume does the Brave Search API publicly report?",
+   "queries": [
+    "Brave Search API queries per month",
+    "Brave Search API usage volume"
+   ],
+   "keyword_query": "Brave Search API query volume",
+   "kb_context": "Unknown."
+  },
+  {
+   "id": "q37",
+   "question": "What are the current Exa Websets plans, prices, and credit allowances?",
+   "queries": [
+    "Exa Websets pricing plans",
+    "Websets credits price"
+   ],
+   "keyword_query": "Exa Websets pricing plans",
+   "kb_context": "An archived FAQ gives Free 1,000, Core $49/8,000, Pro $449/100,000; the live page returns 429."
+  },
+  {
+   "id": "q38",
+   "question": "Has Exa announced ISO 27001 certification or a timeline for it?",
+   "queries": [
+    "Exa ISO 27001",
+    "Exa Labs ISO certification"
+   ],
+   "keyword_query": "Exa Labs ISO 27001",
+   "kb_context": "None; a job post mentions an ISO 27001 program."
+  },
+  {
+   "id": "q39",
+   "question": "How is Exa's Batch API priced, and what are its limits?",
+   "queries": [
+    "Exa Batch API pricing",
+    "Exa batch search limits"
+   ],
+   "keyword_query": "Exa Batch API pricing",
+   "kb_context": "Unpublished."
+  },
+  {
+   "id": "q40",
+   "question": "Is Grounding with Exa on Google's Gemini Enterprise Agent Platform generally available?",
+   "queries": [
+    "Grounding with Exa Gemini availability",
+    "Gemini Enterprise Exa grounding GA"
+   ],
+   "keyword_query": "Grounding with Exa Gemini Enterprise",
+   "kb_context": "No stage label on Google's page (2026-09-25); Exa's April post said private preview."
+  }
+ ]
+}

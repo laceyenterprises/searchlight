@@ -1,0 +1,4341 @@
+[
+ {
+  "cell": "c01.web_search_source",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Mix: mostly Tavily's own index, with third-party index providers (Google named) used in limited situations when its own index can't retrieve the content.",
+   "kb_citation": "https://www.tavily.com/privacy",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/tavily.md:102",
+   "kind": "positive",
+   "note": "Trust center lists no search-index sub-processor, though the privacy policy names Google as a fallback (competitive/tavily.md:104). Older cells say 'Not stated in its docs' (features/search-api.md:118)."
+  },
+  "values": [
+   {
+    "vid": "c01.web_search_source.v1",
+    "source_url": "https://docs.tavily.com/documentation/search-crawler"
+   },
+   {
+    "vid": "c01.web_search_source.v2",
+    "source_url": "https://docs.tavily.com/documentation/search-crawler"
+   }
+  ]
+ },
+ {
+  "cell": "c01.soc2",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II (claimed on Tavily's site and listed in its Vanta trust center); no report date stated.",
+   "kb_citation": "https://www.tavily.com/solutions/financial-services",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/tavily.md:104",
+   "kind": "positive",
+   "note": "Trust-center listing also at compliance/soc2-coverage.md:123 (https://trust.tavily.com); ISO 27001:2022 alongside."
+  },
+  "values": [
+   {
+    "vid": "c01.soc2.v1",
+    "source_url": "https://trust.tavily.com/"
+   },
+   {
+    "vid": "c01.soc2.v2",
+    "source_url": "https://trust.tavily.com/"
+   },
+   {
+    "vid": "c01.soc2.v3",
+    "source_url": "https://www.tavily.com/solutions/financial-services"
+   }
+  ]
+ },
+ {
+  "cell": "c01.zero_data_retention",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes, ZDR is claimed; the plan is not stated.",
+   "kb_citation": "https://www.tavily.com/solutions/financial-services",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/tavily.md:104",
+   "kind": "positive",
+   "note": "Plan conflict: a Tavily X post says 'ZDR by default' (personas/sofia-the-security-reviewer.md:107), while features/enterprise-plan.md:138 lists ZDR among enterprise controls; features/zero-data-retention-and-hipaa.md:116 says scope 'Not specified'."
+  },
+  "values": [
+   {
+    "vid": "c01.zero_data_retention.v1",
+    "source_url": "https://docs.tavily.com/faq/faq"
+   },
+   {
+    "vid": "c01.zero_data_retention.v2",
+    "source_url": "https://www.tavily.com/solutions/financial-services"
+   },
+   {
+    "vid": "c01.zero_data_retention.v3",
+    "source_url": "https://aws.amazon.com/marketplace/pp/prodview-myijjwd7qoky4"
+   }
+  ]
+ },
+ {
+  "cell": "c01.hipaa_baa",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: no HIPAA or BAA mention on Tavily's public pages, docs llms.txt, or trust center as of 2026-09-26.",
+   "kb_citation": "https://www.tavily.com/solutions/financial-services",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/tavily.md:276",
+   "kind": "absence",
+   "note": "Also compliance/hipaa-coverage.md:124 (trust center: no HIPAA framework or BAA) and competitive/tavily.md:104. Stage A (experiments/search-provider-eval/results-stage-a.md:131, not yet merged into the leaf) found Tavily's MSA DPA and acceptable-use policy bar HIPAA PHI without written consent; no public BAA path."
+  },
+  "values": [
+   {
+    "vid": "c01.hipaa_baa.v1",
+    "source_url": "https://trust.tavily.com/"
+   },
+   {
+    "vid": "c01.hipaa_baa.v2",
+    "source_url": "https://trust.tavily.com/"
+   },
+   {
+    "vid": "c01.hipaa_baa.v3",
+    "source_url": "https://www.tavily.com/terms"
+   }
+  ]
+ },
+ {
+  "cell": "c01.official_mcp_server",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: Tavily MCP (github.com/tavily-ai/tavily-mcp), a remote MCP with OAuth hosted at mcp.tavily.com/mcp; keyless mode supported.",
+   "kb_citation": "https://github.com/tavily-ai/tavily-mcp/blob/main/src/index.ts",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/tavily.md:86",
+   "kind": "positive",
+   "note": "Hosted URL mcp.tavily.com/mcp per features/exa-mcp-server.md:139 (https://docs.tavily.com/llms.txt); keyless header per competitive/tavily.md:83."
+  },
+  "values": [
+   {
+    "vid": "c01.official_mcp_server.v1",
+    "source_url": "https://docs.tavily.com/documentation/mcp"
+   },
+   {
+    "vid": "c01.official_mcp_server.v2",
+    "source_url": "https://docs.tavily.com/documentation/mcp"
+   },
+   {
+    "vid": "c01.official_mcp_server.v3",
+    "source_url": "https://docs.tavily.com/documentation/mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c01.free_tier",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "1,000 free credits a month, no card (Researcher plan); keyless Search and Extract are also free but rate-limited.",
+   "kb_citation": "https://docs.tavily.com/documentation/api-credits",
+   "kb_date": "2026-09-26",
+   "kb_line": "channels/strategy.md:95",
+   "kind": "positive",
+   "note": "Leaf: competitive/tavily.md:254 (1,000 free credits with an account; keyless free Search and Extract) and :132 (no card for the free plan; students free)."
+  },
+  "values": [
+   {
+    "vid": "c01.free_tier.v1",
+    "source_url": "https://www.tavily.com/pricing"
+   },
+   {
+    "vid": "c01.free_tier.v2",
+    "source_url": "https://www.tavily.com/pricing"
+   },
+   {
+    "vid": "c01.free_tier.v3",
+    "source_url": "https://www.tavily.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c01.list_price",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "Pay-as-you-go $0.008 per credit: $8 per 1,000 basic searches (1 credit, the default depth), $16 per 1,000 advanced searches (2 credits).",
+   "kb_citation": "https://docs.tavily.com/documentation/api-reference/endpoint/search",
+   "kb_date": "2026-09-26",
+   "kb_line": "features/search-api.md:118",
+   "kind": "positive",
+   "note": "Same figures at pricing/packages.md:293. Basic is the default search_depth (competitive/tavily.md:78). The leaf plan table's per-1k columns are marked [inferred] (competitive/tavily.md:132)."
+  },
+  "values": [
+   {
+    "vid": "c01.list_price.v1",
+    "source_url": "https://docs.tavily.com/documentation/api-credits"
+   },
+   {
+    "vid": "c01.list_price.v2",
+    "source_url": "https://docs.tavily.com/documentation/api-credits"
+   },
+   {
+    "vid": "c01.list_price.v3",
+    "source_url": "https://docs.tavily.com/documentation/api-credits"
+   }
+  ]
+ },
+ {
+  "cell": "c01.last_funding",
+  "company": "Tavily",
+  "homepage": "https://www.tavily.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Acquired by Nebius Group: announced 2026-02-10, closed 2026-02-19; $189.7M fair-value consideration ($177.2M cash) plus up to $67.3M earnout.",
+   "kb_citation": "https://www.sec.gov/Archives/edgar/data/0001513845/000110465926064092/nbis-20260331xex99d2.htm",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/tavily.md:55",
+   "kind": "positive",
+   "note": "Conflict: press reported $275M (Bloomberg; CTech '$275M cash plus up to $125M'); the KB marks the SEC filing canonical (competitive/tavily.md:55-56). Dates at competitive/tavily.md:47. Last round before the sale: $20M Series A led by Insight Partners and Alpha Wave Global, 2025-08-06 (competitive/tavily.md:54)."
+  },
+  "values": [
+   {
+    "vid": "c01.last_funding.v1",
+    "source_url": "https://www.tavily.com/blog/big-news-from-tavily-announcing-25m-series-a-to-power-the-internet-of-agents"
+   },
+   {
+    "vid": "c01.last_funding.v2",
+    "source_url": "https://nebius.com/newsroom/nebius-announces-agreement-to-acquire-tavily-to-add-agentic-search-to-its-ai-cloud-platform"
+   },
+   {
+    "vid": "c01.last_funding.v3",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926094844/nbis-20260812xex99d2.htm"
+   }
+  ]
+ },
+ {
+  "cell": "c02.web_search_source",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own index: Parallel says it runs its own crawl (ShapBot crawler), index, and ranking over hundreds of billions of pages, including licensed paywalled content.",
+   "kb_citation": "https://parallel.ai/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/parallel-search-api.md:80",
+   "kind": "positive",
+   "note": "Contested by Exa's /versus/parallel, which says Parallel's Task tiers are built on other companies' APIs (features/search-api.md:119, features/exa-agent.md:157); the leaf calls that unverified (competitive/parallel-search-api.md:308)."
+  },
+  "values": [
+   {
+    "vid": "c02.web_search_source.v1",
+    "source_url": "https://parallel.ai/"
+   },
+   {
+    "vid": "c02.web_search_source.v2",
+    "source_url": "https://parallel.ai/products/search"
+   },
+   {
+    "vid": "c02.web_search_source.v3",
+    "source_url": "https://parallel.ai/blog/series-a"
+   }
+  ]
+ },
+ {
+  "cell": "c02.soc2",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II (plus SOC 3): gated trust-center reports dated 2.25.26; its FAQ says Type I and Type II 'as of April 2025'.",
+   "kb_citation": "https://trust.parallel.ai/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/parallel-search-api.md:113",
+   "kind": "positive",
+   "note": "FAQ wording at compliance/soc2-coverage.md:124 (https://docs.parallel.ai/resources/faqs.md)."
+  },
+  "values": [
+   {
+    "vid": "c02.soc2.v1",
+    "source_url": "https://docs.parallel.ai/resources/faqs"
+   },
+   {
+    "vid": "c02.soc2.v2",
+    "source_url": "https://parallel.ai/"
+   },
+   {
+    "vid": "c02.soc2.v3",
+    "source_url": "https://parallel.ai/solutions/finance"
+   }
+  ]
+ },
+ {
+  "cell": "c02.zero_data_retention",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes, on the Enterprise (custom) plan; a separate ZDR offering is also sold through Google Cloud Marketplace for Gemini grounding.",
+   "kb_citation": "https://parallel.ai/blog/gcp-marketplace-full-api-suite",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/parallel-search-api.md:159",
+   "kind": "positive",
+   "note": "Homepage says 'ZDR available' (competitive/parallel-search-api.md:113); Marketplace ZDR offering at :111. The trust-center FAQ says data is retained indefinitely by default (:113)."
+  },
+  "values": [
+   {
+    "vid": "c02.zero_data_retention.v1",
+    "source_url": "https://parallel.ai/pricing"
+   },
+   {
+    "vid": "c02.zero_data_retention.v2",
+    "source_url": "https://parallel.ai/solutions/finance"
+   },
+   {
+    "vid": "c02.zero_data_retention.v3",
+    "source_url": "https://parallel.ai/solutions/finance"
+   }
+  ]
+ },
+ {
+  "cell": "c02.hipaa_baa",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: no public BAA statement; the trust center lists HIPAA and a gated HIPAA report dated 2.25.26, and the homepage says 'HIPAA-ready offering'.",
+   "kb_citation": "https://trust.parallel.ai",
+   "kb_date": "2026-09-26",
+   "kb_line": "compliance/hipaa-coverage.md:122",
+   "kind": "absence",
+   "note": "Leaf: what the HIPAA offering covers is not public (competitive/parallel-search-api.md:113)."
+  },
+  "values": [
+   {
+    "vid": "c02.hipaa_baa.v1",
+    "source_url": "https://parallel.ai/solutions/finance"
+   },
+   {
+    "vid": "c02.hipaa_baa.v2",
+    "source_url": "https://parallel.ai/"
+   }
+  ]
+ },
+ {
+  "cell": "c02.official_mcp_server",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: Parallel Search MCP at https://search.parallel.ai/mcp (web_search, web_fetch; free, no key), an OAuth endpoint, and a separate Task MCP.",
+   "kb_citation": "https://parallel.ai/blog/free-web-search-mcp",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/parallel-search-api.md:107",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c02.official_mcp_server.v1",
+    "source_url": "https://docs.parallel.ai/integrations/mcp/search-mcp"
+   },
+   {
+    "vid": "c02.official_mcp_server.v2",
+    "source_url": "https://parallel.ai/blog/free-web-search-mcp"
+   },
+   {
+    "vid": "c02.official_mcp_server.v3",
+    "source_url": "https://docs.parallel.ai/integrations/mcp/quickstart"
+   }
+  ]
+ },
+ {
+  "cell": "c02.free_tier",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "Up to 5,000 free requests a month; up to $80 signup bonus; $5 monthly credit, card on file required since 2026-07-15; startups up to $250.",
+   "kb_citation": "https://parallel.ai/blog/free-tier-parallel",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/parallel-search-api.md:158",
+   "kind": "positive",
+   "note": "Conflicts: channels/strategy.md:95 drops 'card on file' because the pricing page doesn't state it; the Search product page says 'up to 80,000 free search requests' (jtbd/provider-evaluation.md:54; Parallel's pages disagree)."
+  },
+  "values": [
+   {
+    "vid": "c02.free_tier.v1",
+    "source_url": "https://parallel.ai/pricing"
+   },
+   {
+    "vid": "c02.free_tier.v2",
+    "source_url": "https://parallel.ai/pricing"
+   },
+   {
+    "vid": "c02.free_tier.v3",
+    "source_url": "https://parallel.ai/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c02.list_price",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$5 per 1,000 requests for Basic or Advanced (Advanced is the API default); $1 per 1,000 for Turbo or Fast; 10 results with excerpts, +$1 per 1,000 extra results.",
+   "kb_citation": "https://docs.parallel.ai/getting-started/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "pricing/packages.md:294",
+   "kind": "positive",
+   "note": "Default mode per competitive/parallel-search-api.md:95; $1 Turbo/Fast also at competitive/parallel-search-api.md:242."
+  },
+  "values": [
+   {
+    "vid": "c02.list_price.v1",
+    "source_url": "https://parallel.ai/pricing"
+   },
+   {
+    "vid": "c02.list_price.v2",
+    "source_url": "https://parallel.ai/pricing"
+   },
+   {
+    "vid": "c02.list_price.v3",
+    "source_url": "https://parallel.ai/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c02.last_funding",
+  "company": "Parallel Web Systems",
+  "homepage": "https://parallel.ai",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series B: $100M at a $2B valuation, announced 2026-04-29, led by Sequoia (total raised $230M).",
+   "kb_citation": "https://parallel.ai/blog/series-b",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/parallel-search-api.md:58",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c02.last_funding.v1",
+    "source_url": "https://parallel.ai/blog/series-b"
+   },
+   {
+    "vid": "c02.last_funding.v2",
+    "source_url": "https://parallel.ai/blog/series-b"
+   },
+   {
+    "vid": "c02.last_funding.v3",
+    "source_url": "https://parallel.ai/blog/series-b"
+   }
+  ]
+ },
+ {
+  "cell": "c03.web_search_source",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own index: Perplexity says its index tracks over 200 billion unique URLs (300B+ in a later FedRAMP listing), built by its own crawling and indexing fleets.",
+   "kb_citation": "http://web.archive.org/web/20260602082126/https://research.perplexity.ai/articles/architecting-and-evaluating-an-ai-first-search-api",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/perplexity-search-api.md:95",
+   "kind": "positive",
+   "note": "Contrary signals: Exa's /versus/perplexity says Sonar 'historically used Serper and Brave' (features/search-index-and-infrastructure.md:136); SerpApi's logo wall and a Reddit court filing allege Perplexity is a SerpApi client (competitive/perplexity-search-api.md:65, competitive/serpapi.md:55)."
+  },
+  "values": [
+   {
+    "vid": "c03.web_search_source.v1",
+    "source_url": "https://www.sistrix.com/ask-sistrix/ai-basics/perplexity-ai"
+   },
+   {
+    "vid": "c03.web_search_source.v2",
+    "source_url": "https://docs.perplexity.ai/docs/resources/faq"
+   },
+   {
+    "vid": "c03.web_search_source.v3",
+    "source_url": "https://docs.perplexity.ai/docs/search/quickstart"
+   }
+  ]
+ },
+ {
+  "cell": "c03.soc2",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II (its docs say the report covers all five trust criteria); no date stated.",
+   "kb_citation": "https://docs.perplexity.ai/docs/resources/privacy-security.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/perplexity-search-api.md:58",
+   "kind": "positive",
+   "note": "Also compliance/soc2-coverage.md:125 (https://trust.perplexity.ai)."
+  },
+  "values": [
+   {
+    "vid": "c03.soc2.v1",
+    "source_url": "https://docs.perplexity.ai/docs/resources/faq"
+   },
+   {
+    "vid": "c03.soc2.v2",
+    "source_url": "https://docs.perplexity.ai/docs/resources/privacy-security"
+   },
+   {
+    "vid": "c03.soc2.v3",
+    "source_url": "https://www.perplexity.ai/hub/blog/how-we-built-security-into-computer"
+   }
+  ]
+ },
+ {
+  "cell": "c03.zero_data_retention",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found for the Search API: Perplexity states ZDR, as a standing policy, only for its Chat Completions API.",
+   "kb_citation": "https://docs.perplexity.ai/docs/resources/privacy-security.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/perplexity-search-api.md:58",
+   "kind": "absence",
+   "note": "features/zero-data-retention-and-hipaa.md:118 ('Search and Agent APIs undocumented') and personas/sofia-the-security-reviewer.md:138 (not covered as of 2026-09-26)."
+  },
+  "values": [
+   {
+    "vid": "c03.zero_data_retention.v1",
+    "source_url": "https://docs.perplexity.ai/docs/resources/faq"
+   },
+   {
+    "vid": "c03.zero_data_retention.v2",
+    "source_url": "https://docs.perplexity.ai/docs/resources/faq"
+   },
+   {
+    "vid": "c03.zero_data_retention.v3",
+    "source_url": "https://docs.perplexity.ai/docs/resources/privacy-security"
+   }
+  ]
+ },
+ {
+  "cell": "c03.hipaa_baa",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: the trust center lists HIPAA, but its only HIPAA document is a 2025 HIPAA Gap Assessment; no BAA stated.",
+   "kb_citation": "https://trust.perplexity.ai",
+   "kb_date": "2026-09-26",
+   "kb_line": "compliance/hipaa-coverage.md:123",
+   "kind": "absence",
+   "note": "Leaf: competitive/perplexity-search-api.md:58."
+  },
+  "values": [
+   {
+    "vid": "c03.hipaa_baa.v1",
+    "source_url": "https://www.perplexity.ai/hub/legal/enterprise-terms-of-service"
+   },
+   {
+    "vid": "c03.hipaa_baa.v2",
+    "source_url": "https://www.perplexity.ai/hub/legal/perplexity-api-terms-of-service"
+   },
+   {
+    "vid": "c03.hipaa_baa.v3",
+    "source_url": "https://docs.perplexity.ai/docs/resources/privacy-security"
+   }
+  ]
+ },
+ {
+  "cell": "c03.official_mcp_server",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: official MCP server (github.com/perplexityai/modelcontextprotocol), remote at api.perplexity.ai/mcp since July 2026, with OAuth sign-in since September 2026.",
+   "kb_citation": "https://docs.perplexity.ai/docs/resources/changelog.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/perplexity-search-api.md:98",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c03.official_mcp_server.v1",
+    "source_url": "https://docs.perplexity.ai/docs/getting-started/integrations/mcp-server"
+   },
+   {
+    "vid": "c03.official_mcp_server.v2",
+    "source_url": "https://docs.perplexity.ai/docs/getting-started/integrations/mcp-server"
+   },
+   {
+    "vid": "c03.official_mcp_server.v3",
+    "source_url": "https://docs.perplexity.ai/docs/getting-started/integrations/mcp-server"
+   }
+  ]
+ },
+ {
+  "cell": "c03.free_tier",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "None found for the API; only the keyless Playground.",
+   "kb_citation": "https://docs.perplexity.ai/docs/getting-started/pricing.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/perplexity-search-api.md:120",
+   "kind": "absence",
+   "note": "The row's own tag is https://exa.ai/pricing (it supports the Exa column); the Perplexity pricing tag sits on the section intro, competitive/perplexity-search-api.md:110."
+  },
+  "values": [
+   {
+    "vid": "c03.free_tier.v1",
+    "source_url": "https://docs.perplexity.ai/docs/getting-started/pricing"
+   },
+   {
+    "vid": "c03.free_tier.v2",
+    "source_url": "https://www.perplexity.ai/help-center/en/articles/10354847-api-payment-and-billing"
+   }
+  ]
+ },
+ {
+  "cell": "c03.list_price",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$5 per 1,000 requests for standard search; $1 per 1,000 for Fast; no token charges.",
+   "kb_citation": "https://docs.perplexity.ai/docs/getting-started/pricing.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/perplexity-search-api.md:193",
+   "kind": "positive",
+   "note": "Also pricing/packages.md:296; 'no token charges' at competitive/perplexity-search-api.md:114."
+  },
+  "values": [
+   {
+    "vid": "c03.list_price.v1",
+    "source_url": "https://docs.perplexity.ai/docs/getting-started/pricing"
+   },
+   {
+    "vid": "c03.list_price.v2",
+    "source_url": "https://docs.perplexity.ai/docs/getting-started/pricing"
+   },
+   {
+    "vid": "c03.list_price.v3",
+    "source_url": "https://docs.perplexity.ai/docs/getting-started/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c03.last_funding",
+  "company": "Perplexity (Search API)",
+  "homepage": "https://www.perplexity.ai",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "$200M at a $20B valuation, reported 2025-09-10 by The Information; not confirmed by Perplexity; lead not disclosed.",
+   "kb_citation": "https://techcrunch.com/2025/09/10/perplexity-reportedly-raised-200m-at-20b-valuation/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/perplexity-search-api.md:52",
+   "kind": "positive",
+   "note": "In progress, not closed as of 2026-09-26: Nvidia reportedly in talks on a round above $30B (competitive/perplexity-search-api.md:53). A $23B January 2026 figure is aggregator-only and not used."
+  },
+  "values": [
+   {
+    "vid": "c03.last_funding.v1",
+    "source_url": "https://www.perplexity.ai/hub/blog/perplexity-x-cristiano-ronaldo"
+   },
+   {
+    "vid": "c03.last_funding.v2",
+    "source_url": "https://www.reuters.com/technology/perplexity-finalizes-20-billion-valuation-round-information-reports-2025-09-10/"
+   },
+   {
+    "vid": "c03.last_funding.v3",
+    "source_url": "https://tracxn.com/d/companies/perplexity/__V2BE-5ihMWJ1hNb2_u1W7Gry25JzPFCBg-iNWi94XI8/funding-and-investors"
+   }
+  ]
+ },
+ {
+  "cell": "c04.web_search_source",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own index: Brave runs its own crawler and index (plus the Web Discovery Project); the API page claims over 30 billion pages, and a 2026-02-24 post says 40B.",
+   "kb_citation": "https://brave.com/search/api/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/brave-search-api.md:77",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c04.web_search_source.v1",
+    "source_url": "https://brave.com/search/api/"
+   },
+   {
+    "vid": "c04.web_search_source.v2",
+    "source_url": "https://brave.com/search/api/"
+   },
+   {
+    "vid": "c04.web_search_source.v3",
+    "source_url": "https://brave.com/search/api"
+   }
+  ]
+ },
+ {
+  "cell": "c04.soc2",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II for the Search API, announced 2025-10-24; trust-center report windows May–August 2025 and 2025-09-01 to 2026-08-31.",
+   "kb_citation": "https://brave.com/blog/100m-mau/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/brave-search-api.md:56",
+   "kind": "positive",
+   "note": "Report windows from the trust center (observed, https://trust.brave.app/); also compliance/soc2-coverage.md:126."
+  },
+  "values": [
+   {
+    "vid": "c04.soc2.v1",
+    "source_url": "https://brave.com/blog/soc2/"
+   },
+   {
+    "vid": "c04.soc2.v2",
+    "source_url": "https://brave.com/blog/soc2"
+   },
+   {
+    "vid": "c04.soc2.v3",
+    "source_url": "https://brave.com/search/api/"
+   }
+  ]
+ },
+ {
+  "cell": "c04.zero_data_retention",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes: 'full-funnel' ZDR on custom Enterprise plans.",
+   "kb_citation": "https://api-dashboard.search.brave.com/documentation/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/brave-search-api.md:56",
+   "kind": "positive",
+   "note": "Standard plans keep query records up to 90 days (personas/sofia-the-security-reviewer.md:109)."
+  },
+  "values": [
+   {
+    "vid": "c04.zero_data_retention.v1",
+    "source_url": "https://brave.com/blog/search-api-zero-data-retention"
+   },
+   {
+    "vid": "c04.zero_data_retention.v2",
+    "source_url": "https://api-dashboard.search.brave.com/privacy-policy"
+   },
+   {
+    "vid": "c04.zero_data_retention.v3",
+    "source_url": "https://brave.com/search/api/"
+   }
+  ]
+ },
+ {
+  "cell": "c04.hipaa_baa",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: no HIPAA framework or BAA in its trust center, and no HIPAA statement on the API page or pricing docs, as of 2026-09-26.",
+   "kb_citation": "https://trust.brave.app",
+   "kb_date": "2026-09-26",
+   "kb_line": "compliance/hipaa-coverage.md:125",
+   "kind": "absence",
+   "note": "Leaf: competitive/brave-search-api.md:56."
+  },
+  "values": [
+   {
+    "vid": "c04.hipaa_baa.v1",
+    "source_url": "https://api-dashboard.search.brave.com/privacy-policy"
+   },
+   {
+    "vid": "c04.hipaa_baa.v2",
+    "source_url": "https://api-dashboard.search.brave.com/privacy-policy"
+   },
+   {
+    "vid": "c04.hipaa_baa.v3",
+    "source_url": "https://brave.com/search/api/"
+   }
+  ]
+ },
+ {
+  "cell": "c04.official_mcp_server",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: brave/brave-search-mcp-server (eight tools, STDIO or HTTP); it runs locally with a Brave API key, and no hosted endpoint is documented.",
+   "kb_citation": "https://github.com/brave/brave-search-mcp-server",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/brave-search-api.md:90",
+   "kind": "positive",
+   "note": "No hosted URL: features/exa-mcp-server.md:139."
+  },
+  "values": [
+   {
+    "vid": "c04.official_mcp_server.v1",
+    "source_url": "https://github.com/brave/brave-search-mcp-server"
+   },
+   {
+    "vid": "c04.official_mcp_server.v2",
+    "source_url": "https://github.com/brave/brave-search-mcp-server"
+   },
+   {
+    "vid": "c04.official_mcp_server.v3",
+    "source_url": "https://github.com/brave/brave-search-mcp-server"
+   }
+  ]
+ },
+ {
+  "cell": "c04.free_tier",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "No free plan since February 2026; every plan gets a $5 monthly credit (about 1,000 Search requests), and a card is required.",
+   "kb_citation": "https://api-dashboard.search.brave.com/documentation/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/brave-search-api.md:119",
+   "kind": "positive",
+   "note": "Free tier removed Feb 2026 (competitive/brave-search-api.md:52). features/dashboard-and-playground.md:162 still says the credit needs an attribution link; the leaf says the 2026-09-01 terms make attribution optional."
+  },
+  "values": [
+   {
+    "vid": "c04.free_tier.v1",
+    "source_url": "https://api-dashboard.search.brave.com/documentation/pricing"
+   },
+   {
+    "vid": "c04.free_tier.v2",
+    "source_url": "https://api-dashboard.search.brave.com/documentation/pricing"
+   },
+   {
+    "vid": "c04.free_tier.v3",
+    "source_url": "https://brave.com/search/api/guides/use-with-claude-desktop-with-mcp/"
+   }
+  ]
+ },
+ {
+  "cell": "c04.list_price",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$5 per 1,000 requests on the Search plan (LLM Context extraction at no extra cost); 50 requests per second.",
+   "kb_citation": "https://api-dashboard.search.brave.com/documentation/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/brave-search-api.md:221",
+   "kind": "positive",
+   "note": "50 rps and the Answers plan ($4 per 1,000 plus tokens) at pricing/packages.md:295."
+  },
+  "values": [
+   {
+    "vid": "c04.list_price.v1",
+    "source_url": "https://api-dashboard.search.brave.com/documentation/pricing"
+   },
+   {
+    "vid": "c04.list_price.v2",
+    "source_url": "https://api-dashboard.search.brave.com/documentation/pricing"
+   },
+   {
+    "vid": "c04.list_price.v3",
+    "source_url": "https://brave.com/search/api/"
+   }
+  ]
+ },
+ {
+  "cell": "c04.last_funding",
+  "company": "Brave (Brave Search API)",
+  "homepage": "https://brave.com/search/api/",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Weak evidence: $50M in February 2022 led by Page One Ventures, per aggregator Sacra only; latest press-reported round is a planned $30M+ Series A (CoinDesk, 2019-05-16).",
+   "kb_citation": "https://sacra.com/c/brave/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/brave-search-api.md:53",
+   "kind": "positive",
+   "note": "The KB says Brave publishes no funding figures, aggregator totals disagree ($252M vs $316.5M), and the ~$980M valuation should not be quoted."
+  },
+  "values": [
+   {
+    "vid": "c04.last_funding.v1",
+    "source_url": "https://sacra.com/c/brave/"
+   },
+   {
+    "vid": "c04.last_funding.v2",
+    "source_url": "https://forgeglobal.com/brave_ipo/"
+   },
+   {
+    "vid": "c04.last_funding.v3",
+    "source_url": "https://forgeglobal.com/brave_ipo"
+   }
+  ]
+ },
+ {
+  "cell": "c05.web_search_source",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Third party: /search runs on an unnamed upstream search provider (Google-syntax filters); Firecrawl also runs its own Research, Developer, and Government indexes.",
+   "kb_citation": "https://docs.firecrawl.dev/features/search",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/firecrawl.md:96",
+   "kind": "positive",
+   "note": "The provider isn't named on any page read; Brave's API page shows a Firecrawl logo (suggestive, not proof); a Serper claim had no primary source and was dropped."
+  },
+  "values": [
+   {
+    "vid": "c05.web_search_source.v1",
+    "source_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b"
+   },
+   {
+    "vid": "c05.web_search_source.v2",
+    "source_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b"
+   },
+   {
+    "vid": "c05.web_search_source.v3",
+    "source_url": "https://deepwiki.com/firecrawl/firecrawl/4.6-search-endpoints"
+   }
+  ]
+ },
+ {
+  "cell": "c05.soc2",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II, listed on every plan; no report date stated.",
+   "kb_citation": "https://www.firecrawl.dev/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/firecrawl.md:109",
+   "kind": "positive",
+   "note": "Trust center lists SOC 2 as its only framework (competitive/firecrawl.md:96; compliance/soc2-coverage.md:127)."
+  },
+  "values": [
+   {
+    "vid": "c05.soc2.v1",
+    "source_url": "https://www.firecrawl.dev/enterprise"
+   },
+   {
+    "vid": "c05.soc2.v2",
+    "source_url": "https://www.firecrawl.dev/enterprise"
+   },
+   {
+    "vid": "c05.soc2.v3",
+    "source_url": "https://trust.firecrawl.dev/resources"
+   }
+  ]
+ },
+ {
+  "cell": "c05.zero_data_retention",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes, Enterprise only, covering scrape, search, and parse; search ZDR is end-to-end or anonymized depending on the upstream provider.",
+   "kb_citation": "https://docs.firecrawl.dev/enterprise",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/firecrawl.md:109",
+   "kind": "positive",
+   "note": "Scope per features/zero-data-retention-and-hipaa.md:119; ZDR adds 1 credit per page (competitive/firecrawl.md:130)."
+  },
+  "values": [
+   {
+    "vid": "c05.zero_data_retention.v1",
+    "source_url": "https://www.firecrawl.dev/enterprise"
+   },
+   {
+    "vid": "c05.zero_data_retention.v2",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   },
+   {
+    "vid": "c05.zero_data_retention.v3",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c05.hipaa_baa",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: no HIPAA or BAA mention on its pricing and enterprise pages, enterprise docs, or trust center as of 2026-09-26.",
+   "kb_citation": "https://trust.firecrawl.dev",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/firecrawl.md:109",
+   "kind": "absence",
+   "note": "Also compliance/hipaa-coverage.md:126."
+  },
+  "values": [
+   {
+    "vid": "c05.hipaa_baa.v1",
+    "source_url": "https://www.firecrawl.dev/enterprise"
+   },
+   {
+    "vid": "c05.hipaa_baa.v2",
+    "source_url": "https://trust.firecrawl.dev/resources"
+   },
+   {
+    "vid": "c05.hipaa_baa.v3",
+    "source_url": "https://www.firecrawl.dev/enterprise"
+   }
+  ]
+ },
+ {
+  "cell": "c05.official_mcp_server",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: firecrawl/firecrawl-mcp-server (MIT), hosted at mcp.firecrawl.dev/v2/mcp-oauth.",
+   "kb_citation": "https://api.github.com/repos/firecrawl/firecrawl-mcp-server",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/firecrawl.md:57",
+   "kind": "positive",
+   "note": "Hosted URL per features/exa-mcp-server.md:139 (https://docs.firecrawl.dev/mcp-server.md)."
+  },
+  "values": [
+   {
+    "vid": "c05.official_mcp_server.v1",
+    "source_url": "https://docs.firecrawl.dev/mcp-server"
+   },
+   {
+    "vid": "c05.official_mcp_server.v2",
+    "source_url": "https://github.com/firecrawl/firecrawl-mcp-server"
+   },
+   {
+    "vid": "c05.official_mcp_server.v3",
+    "source_url": "https://docs.firecrawl.dev/mcp-server"
+   }
+  ]
+ },
+ {
+  "cell": "c05.free_tier",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "1,000 free credits a month, no card (about 500 searches or 1,000 pages), plus 5 free /agent runs a day.",
+   "kb_citation": "https://www.firecrawl.dev/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "channels/strategy.md:95",
+   "kind": "positive",
+   "note": "channels/strategy.md:95 notes it wasn't re-checked in round 1. 'No card; about 500 searches or 1,000 pages' comes from the leaf plan table (competitive/firecrawl.md:122; table-level tag at :118). Agent runs per competitive/firecrawl.md:129."
+  },
+  "values": [
+   {
+    "vid": "c05.free_tier.v1",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   },
+   {
+    "vid": "c05.free_tier.v2",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   },
+   {
+    "vid": "c05.free_tier.v3",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c05.list_price",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "About $5 per 1,000 searches (10 results) at pay-as-you-go list, per OpenBenchmarks (third-party); Firecrawl bills search at 2 credits per 10 results.",
+   "kb_citation": "https://openbenchmarks.com/web-search/exa-vs-firecrawl",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/firecrawl.md:145",
+   "kind": "positive",
+   "note": "Credit rule at competitive/firecrawl.md:129. Firecrawl's own USD rates are in the plan table (table-level tag, competitive/firecrawl.md:118): e.g. Hobby top-up 1,000 credits per $5, Standard 2,000 per $5; the KB's per-search USD math is [inferred] (:139)."
+  },
+  "values": [
+   {
+    "vid": "c05.list_price.v1",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   },
+   {
+    "vid": "c05.list_price.v2",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   },
+   {
+    "vid": "c05.list_price.v3",
+    "source_url": "https://www.firecrawl.dev/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c05.last_funding",
+  "company": "Firecrawl",
+  "homepage": "https://www.firecrawl.dev",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series B: $75M, announced 2026-09-22, led by Smash Capital; valuation not disclosed (Form D: $82.06M of equity sold).",
+   "kb_citation": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/firecrawl.md:52",
+   "kind": "positive",
+   "note": "SiliconANGLE's 'Smash Ventures' is resolved to Smash Capital in the leaf."
+  },
+  "values": [
+   {
+    "vid": "c05.last_funding.v1",
+    "source_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b"
+   },
+   {
+    "vid": "c05.last_funding.v2",
+    "source_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b"
+   },
+   {
+    "vid": "c05.last_funding.v3",
+    "source_url": "https://www.firecrawl.dev/blog/introducing-alexandria-series-b"
+   }
+  ]
+ },
+ {
+  "cell": "c06.web_search_source",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own index (vendor claim): 'operated by You.com, not resold from a third party'; its ZDR page says queries don't go to Google or Bing.",
+   "kb_citation": "https://you.com/docs/guides/search/web-search-api-for-ai-agents.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:61",
+   "kind": "positive",
+   "note": "No independent confirmation (competitive/you-com-api.md:61). Google/Bing statement at competitive/you-com-api.md:105. You.com appears on Brave's API logo wall, logo only (competitive/brave-search-api.md:67)."
+  },
+  "values": [
+   {
+    "vid": "c06.web_search_source.v1",
+    "source_url": "https://you.com/docs/capabilities/web-search-api-for-ai-agents"
+   },
+   {
+    "vid": "c06.web_search_source.v2",
+    "source_url": "https://you.com/docs/examples/simple-search"
+   },
+   {
+    "vid": "c06.web_search_source.v3",
+    "source_url": "https://you.com/docs/guides/search"
+   }
+  ]
+ },
+ {
+  "cell": "c06.soc2",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "'SOC 2 Certified'; Type I or Type II not stated; no date.",
+   "kb_citation": "https://you.com/business",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:105",
+   "kind": "positive",
+   "note": "compliance/soc2-coverage.md:128 lists SOC 2 from trust.you.com, while the leaf says trust.you.com rendered no content to its fetch."
+  },
+  "values": [
+   {
+    "vid": "c06.soc2.v1",
+    "source_url": "https://trust.you.com/resources"
+   },
+   {
+    "vid": "c06.soc2.v2",
+    "source_url": "https://you.com/pricing"
+   },
+   {
+    "vid": "c06.soc2.v3",
+    "source_url": "https://home.you.com/hubfs/Legal/You.com%20Standard%20Security%20Addendum%20(May%202025).pdf?hsLang=en"
+   }
+  ]
+ },
+ {
+  "cell": "c06.zero_data_retention",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes, only on enterprise agreements, enabled on request, and only for the Web Search and Answer APIs.",
+   "kb_citation": "https://you.com/docs/administration/zero-data-retention.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:105",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c06.zero_data_retention.v1",
+    "source_url": "https://you.com/docs/administration/zero-data-retention"
+   },
+   {
+    "vid": "c06.zero_data_retention.v2",
+    "source_url": "https://you.com/docs/administration/zero-data-retention"
+   },
+   {
+    "vid": "c06.zero_data_retention.v3",
+    "source_url": "https://you.com/docs/administration/zero-data-retention"
+   }
+  ]
+ },
+ {
+  "cell": "c06.hipaa_baa",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found on /business or the ZDR doc as of 2026-09-26; the trust center rendered no content.",
+   "kb_citation": "https://you.com/docs/administration/zero-data-retention.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:105",
+   "kind": "absence",
+   "note": "The absence sentence follows the line's last tag; compliance/soc2-coverage.md:128 also shows HIPAA 'None listed'."
+  },
+  "values": [
+   {
+    "vid": "c06.hipaa_baa.v1",
+    "source_url": "https://you.com/legal"
+   },
+   {
+    "vid": "c06.hipaa_baa.v2",
+    "source_url": "https://home.you.com/business/api-old2"
+   },
+   {
+    "vid": "c06.hipaa_baa.v3",
+    "source_url": "https://home.you.com/business/api-old2"
+   }
+  ]
+ },
+ {
+  "cell": "c06.official_mcp_server",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: the You.com MCP server (listed on Databricks Marketplace); free keyless MCP search.",
+   "kb_citation": "https://marketplace.databricks.com/details/32d5b7b6-0fab-4bba-9c57-5de23dd58996/Youcom_Youcom-MCP-The-1-AI-Web-Search-API",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:55",
+   "kind": "positive",
+   "note": "Free keyless MCP search at competitive/you-com-api.md:114 (https://you.com/pricing). Hosted at api.you.com/mcp with a keyless ?profile=free (competitive/you-com-api.md:88, an untagged bullet under the tagged lead-in :87)."
+  },
+  "values": [
+   {
+    "vid": "c06.official_mcp_server.v1",
+    "source_url": "https://you.com/docs/build-with-agents/mcp-server"
+   },
+   {
+    "vid": "c06.official_mcp_server.v2",
+    "source_url": "https://you.com/docs/build-with-agents/mcp-server"
+   },
+   {
+    "vid": "c06.official_mcp_server.v3",
+    "source_url": "https://you.com/docs/build-with-agents/mcp-server"
+   }
+  ]
+ },
+ {
+  "cell": "c06.free_tier",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "$100 one-time signup credit, no card; 100 queries a day free on the Web Search skill; free keyless search on MCP.",
+   "kb_citation": "https://you.com/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:123",
+   "kind": "positive",
+   "note": "No card and keyless MCP at competitive/you-com-api.md:114."
+  },
+  "values": [
+   {
+    "vid": "c06.free_tier.v1",
+    "source_url": "https://you.com/pricing"
+   },
+   {
+    "vid": "c06.free_tier.v2",
+    "source_url": "https://you.com/docs/administration/billing"
+   },
+   {
+    "vid": "c06.free_tier.v3",
+    "source_url": "https://you.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c06.list_price",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$5.00 per 1,000 Web Search calls, pay-as-you-go, up to 100 results; full_page content adds $1.00 per 1,000 live-fetched pages.",
+   "kb_citation": "https://you.com/docs/quickstart.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:118",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c06.list_price.v1",
+    "source_url": "https://you.com/docs/guides/search"
+   },
+   {
+    "vid": "c06.list_price.v2",
+    "source_url": "https://you.com/pricing"
+   },
+   {
+    "vid": "c06.list_price.v3",
+    "source_url": "https://you.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c06.last_funding",
+  "company": "You.com",
+  "homepage": "https://you.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series C: $100M at a $1.5B valuation, 2025-09-03, led by Cox Enterprises.",
+   "kb_citation": "https://you.com/resources/series-c",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/you-com-api.md:51",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c06.last_funding.v1",
+    "source_url": "https://you.com/resources/series-c"
+   },
+   {
+    "vid": "c06.last_funding.v2",
+    "source_url": "https://www.businesswire.com/news/home/20251021613743/en/You.com-Welcomes-Graft-to-Accelerate-Enterprise-AI-Search-Infrastructure"
+   },
+   {
+    "vid": "c06.last_funding.v3",
+    "source_url": "https://you.com/resources/series-c"
+   }
+  ]
+ },
+ {
+  "cell": "c07.web_search_source",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own index built with its own crawler, Mercator (on Apache StormCrawler).",
+   "kb_citation": "https://www.linkup.so/blog/how-we-crawl-the-web-for-ai-search",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/linkup.md:59",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c07.web_search_source.v1",
+    "source_url": "https://docs.linkup.so/pages/faq/faq"
+   },
+   {
+    "vid": "c07.web_search_source.v2",
+    "source_url": "https://www.linkup.so/blog/how-we-crawl-the-web-for-ai-search"
+   },
+   {
+    "vid": "c07.web_search_source.v3",
+    "source_url": "https://www.linkup.so/blog/google-vs-serp-apis-why-linkup-users-stay-safe"
+   }
+  ]
+ },
+ {
+  "cell": "c07.soc2",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II; no date stated.",
+   "kb_citation": "https://docs.linkup.so/pages/security-and-privacy/security-compliance.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/linkup.md:60",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c07.soc2.v1",
+    "source_url": "https://trust.linkup.so/"
+   },
+   {
+    "vid": "c07.soc2.v2",
+    "source_url": "https://docs.linkup.so/pages/security-and-privacy/overview"
+   },
+   {
+    "vid": "c07.soc2.v3",
+    "source_url": "https://docs.linkup.so/pages/security-and-privacy/security-compliance"
+   }
+  ]
+ },
+ {
+  "cell": "c07.zero_data_retention",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes, on the Enterprise plan (custom pricing).",
+   "kb_citation": "https://www.linkup.so/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/linkup.md:123",
+   "kind": "positive",
+   "note": "Security docs list ZDR (competitive/linkup.md:60); 'ZDR on request (not default)' at competitive/linkup.md:93 is untagged."
+  },
+  "values": [
+   {
+    "vid": "c07.zero_data_retention.v1",
+    "source_url": "https://docs.linkup.so/pages/security-and-privacy/data-privacy"
+   },
+   {
+    "vid": "c07.zero_data_retention.v2",
+    "source_url": "https://www.linkup.so/pricing"
+   },
+   {
+    "vid": "c07.zero_data_retention.v3",
+    "source_url": "https://docs.linkup.so/pages/security-and-privacy/overview"
+   }
+  ]
+ },
+ {
+  "cell": "c07.hipaa_baa",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "HIPAA compliance is claimed in its security docs; whether Linkup signs a BAA is not stated.",
+   "kb_citation": "https://docs.linkup.so/pages/security-and-privacy/security-compliance.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/linkup.md:60",
+   "kind": "positive",
+   "note": "The BAA question is explicitly open in the KB: competitive/linkup.md:92 (untagged) 'Whether Linkup signs a BAA: To be populated.'"
+  },
+  "values": [
+   {
+    "vid": "c07.hipaa_baa.v1",
+    "source_url": "https://docs.linkup.so/pages/security-and-privacy/security-compliance"
+   },
+   {
+    "vid": "c07.hipaa_baa.v2",
+    "source_url": "https://docs.linkup.so/pages/security-and-privacy/overview"
+   }
+  ]
+ },
+ {
+  "cell": "c07.official_mcp_server",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: an MCP server (repo linkup-mcp-server in the LinkupPlatform GitHub org).",
+   "kb_citation": "https://docs.linkup.so/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/linkup.md:89",
+   "kind": "positive",
+   "note": "Repo name and stars at competitive/linkup.md:185 (observed, https://github.com/LinkupPlatform)."
+  },
+  "values": [
+   {
+    "vid": "c07.official_mcp_server.v1",
+    "source_url": "https://docs.linkup.so/pages/integrations/mcp/mcp"
+   },
+   {
+    "vid": "c07.official_mcp_server.v2",
+    "source_url": "https://docs.linkup.so/pages/integrations/mcp/mcp"
+   },
+   {
+    "vid": "c07.official_mcp_server.v3",
+    "source_url": "https://docs.linkup.so/pages/integrations/mcp/mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c07.free_tier",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "$20 credit on signup with a professional email, topped back up to $20 monthly for eligible accounts (pricing page: '4,000 queries for free').",
+   "kb_citation": "https://docs.linkup.so/pages/changelog/usd-pricing.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/linkup.md:122",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c07.free_tier.v1",
+    "source_url": "https://docs.linkup.so/pages/documentation/platform/pricing"
+   },
+   {
+    "vid": "c07.free_tier.v2",
+    "source_url": "https://www.linkup.so/pricing"
+   },
+   {
+    "vid": "c07.free_tier.v3",
+    "source_url": "https://docs.linkup.so/pages/documentation/platform/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c07.list_price",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$5 per 1,000 Search calls at flash, fast, or standard depth; deep search $50 per 1,000.",
+   "kb_citation": "https://docs.linkup.so/pages/documentation/platform/pricing.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "features/search-api.md:123",
+   "kind": "positive",
+   "note": "Leaf: $5 per 1k for flash/fast (competitive/linkup.md:203); the leaf's pricing row (:110) is untagged."
+  },
+  "values": [
+   {
+    "vid": "c07.list_price.v1",
+    "source_url": "https://docs.linkup.so/pages/documentation/platform/pricing"
+   },
+   {
+    "vid": "c07.list_price.v2",
+    "source_url": "https://docs.linkup.so/pages/documentation/platform/pricing"
+   },
+   {
+    "vid": "c07.list_price.v3",
+    "source_url": "https://docs.linkup.so/pages/documentation/platform/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c07.last_funding",
+  "company": "Linkup",
+  "homepage": "https://www.linkup.so",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "$10M seed led by Gradient; press release dated 2026-02-03 (Linkup's blog post dated 2026-03-03); valuation not disclosed.",
+   "kb_citation": "https://finance.yahoo.com/news/linkup-raises-10m-seed-round-155000128.html",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/linkup.md:50",
+   "kind": "positive",
+   "note": "The KB says to use the press-release date."
+  },
+  "values": [
+   {
+    "vid": "c07.last_funding.v1",
+    "source_url": "https://finance.yahoo.com/news/linkup-raises-10m-seed-round-155000128.html"
+   },
+   {
+    "vid": "c07.last_funding.v2",
+    "source_url": "https://www.linkup.so/blog/linkup-raises-10m-seed-to-build-web-search-for-ai"
+   },
+   {
+    "vid": "c07.last_funding.v3",
+    "source_url": "https://www.linkup.so/blog/linkup-raises-10m-seed-to-build-web-search-for-ai"
+   }
+  ]
+ },
+ {
+  "cell": "c08.web_search_source",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own index built by its own crawler, HenkBot; index size not published.",
+   "kb_citation": "https://docs.valyu.ai/llms-full.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/valyu.md:58",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c08.web_search_source.v1",
+    "source_url": "https://docs.valyu.ai/crawler"
+   },
+   {
+    "vid": "c08.web_search_source.v2",
+    "source_url": "https://docs.valyu.ai/overview"
+   },
+   {
+    "vid": "c08.web_search_source.v3",
+    "source_url": "https://docs.valyu.ai/crawler"
+   }
+  ]
+ },
+ {
+  "cell": "c08.soc2",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "None found: no SOC 2 (or HIPAA or ISO) attestation on Valyu's site or docs as of 2026-09-26.",
+   "kb_citation": "https://www.valyu.ai/blogs/how-ai-is-reshaping-investment-research-evidence-from-42-million-api-queries",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/valyu.md:84",
+   "kind": "absence",
+   "note": "The line's only tag supports the adjacent ZDR sentence; the absence check covered Valyu's site and docs."
+  },
+  "values": [
+   {
+    "vid": "c08.soc2.v1",
+    "source_url": "https://www.valyu.ai/pricing"
+   },
+   {
+    "vid": "c08.soc2.v2",
+    "source_url": "https://www.valyu.ai/finance"
+   }
+  ]
+ },
+ {
+  "cell": "c08.zero_data_retention",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes: Valyu cites a 'strict Zero Data Retention policy' for enterprise traffic.",
+   "kb_citation": "https://www.valyu.ai/blogs/how-ai-is-reshaping-investment-research-evidence-from-42-million-api-queries",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/valyu.md:84",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c08.zero_data_retention.v1",
+    "source_url": "https://docs.valyu.ai/pricing"
+   },
+   {
+    "vid": "c08.zero_data_retention.v2",
+    "source_url": "https://www.valyu.ai/pricing"
+   },
+   {
+    "vid": "c08.zero_data_retention.v3",
+    "source_url": "https://docs.valyu.ai/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c08.hipaa_baa",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: no HIPAA attestation on Valyu's site or docs; a BAA is never mentioned.",
+   "kb_citation": "https://www.valyu.ai/blogs/how-ai-is-reshaping-investment-research-evidence-from-42-million-api-queries",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/valyu.md:84",
+   "kind": "absence",
+   "note": "Same line and caveat as soc2."
+  },
+  "values": [
+   {
+    "vid": "c08.hipaa_baa.v1",
+    "source_url": "https://docs.valyu.ai/use-cases/healthcare"
+   },
+   {
+    "vid": "c08.hipaa_baa.v2",
+    "source_url": "https://www.valyu.ai/"
+   }
+  ]
+ },
+ {
+  "cell": "c08.official_mcp_server",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: a hosted MCP server at mcp.valyu.ai/mcp with six tools.",
+   "kb_citation": "https://docs.valyu.ai/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/valyu.md:78",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c08.official_mcp_server.v1",
+    "source_url": "https://docs.valyu.ai/integrations/mcp-server"
+   },
+   {
+    "vid": "c08.official_mcp_server.v2",
+    "source_url": "https://docs.valyu.ai/llms.txt"
+   },
+   {
+    "vid": "c08.official_mcp_server.v3",
+    "source_url": "https://docs.valyu.ai/integrations/mcp-server"
+   }
+  ]
+ },
+ {
+  "cell": "c08.free_tier",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c08.free_tier.v1",
+    "source_url": "https://docs.valyu.ai/pricing"
+   },
+   {
+    "vid": "c08.free_tier.v2",
+    "source_url": "https://docs.valyu.ai/pricing"
+   },
+   {
+    "vid": "c08.free_tier.v3",
+    "source_url": "https://docs.valyu.ai/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c08.list_price",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$1.50 per 1,000 web retrievals, billed per retrieved result rather than per request: a 10-result web search is about $15 per 1,000.",
+   "kb_citation": "https://docs.valyu.ai/pricing.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/valyu.md:195",
+   "kind": "positive",
+   "note": "Per-retrieval rates at features/publication-search.md:98: open databases $0.50, web $1.50, proprietary $30–50 per 1,000."
+  },
+  "values": [
+   {
+    "vid": "c08.list_price.v1",
+    "source_url": "https://docs.valyu.ai/pricing"
+   },
+   {
+    "vid": "c08.list_price.v2",
+    "source_url": "https://docs.valyu.ai/pricing"
+   },
+   {
+    "vid": "c08.list_price.v3",
+    "source_url": "https://docs.valyu.ai/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c08.last_funding",
+  "company": "Valyu",
+  "homepage": "https://www.valyu.ai",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "None found: no announced round in press, on Valyu's blog or sitemap, or in UK share filings (2026-09-26); Tracxn lists it unfunded; a PitchBook snippet mentions about $500K.",
+   "kb_citation": "https://tracxn.com/d/companies/valyu/__zQ0Abvw7nDF148J982ZlWih7zXHcgGSeBfNHKpU7xsM",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/valyu.md:49",
+   "kind": "absence",
+   "note": "Stage A (experiments/search-provider-eval/data/stage-a/grading/S1_judge.json, q11; not yet merged into the leaf) found Valyu Network in a16z crypto's CSX Spring 2024 cohort, with aggregators recording $500K from a16z crypto in March 2024."
+  },
+  "values": [
+   {
+    "vid": "c08.last_funding.v1",
+    "source_url": "https://pitchbook.com/profiles/company/592911-01"
+   },
+   {
+    "vid": "c08.last_funding.v2",
+    "source_url": "https://pitchbook.com/profiles/company/592911-01"
+   },
+   {
+    "vid": "c08.last_funding.v3",
+    "source_url": "https://www.vcbacked.co/company/valyu"
+   }
+  ]
+ },
+ {
+  "cell": "c09.web_search_source",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Live retrieval: Search reads the live web at request time (JS rendering, proxies); no stored index and no upstream search engine named.",
+   "kb_citation": "https://docs.nimbleway.com/nimble-sdk/web-tools/search.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/nimble.md:72",
+   "kind": "positive",
+   "note": "Retrieval stack at competitive/nimble.md:171 (https://docs.nimbleway.com/llms.txt). A separate SERP product returns Google results (competitive/nimble.md:74); the KB doesn't say Search runs on it."
+  },
+  "values": [
+   {
+    "vid": "c09.web_search_source.v1",
+    "source_url": "https://www.nimbleway.com/pricing"
+   },
+   {
+    "vid": "c09.web_search_source.v2",
+    "source_url": "https://www.nimbleway.com/pricing"
+   },
+   {
+    "vid": "c09.web_search_source.v3",
+    "source_url": "https://www.nimbleway.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c09.soc2",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II (attestation letter under NDA); no date stated.",
+   "kb_citation": "https://docs.nimbleway.com/nimble-sdk/admin/compliance.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/nimble.md:87",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c09.soc2.v1",
+    "source_url": "https://docs.nimbleway.com/nimble-sdk/admin/compliance"
+   },
+   {
+    "vid": "c09.soc2.v2",
+    "source_url": "https://www.nimbleway.com/privacy-policy"
+   },
+   {
+    "vid": "c09.soc2.v3",
+    "source_url": "https://llms.nimbleway.com/nimbleway-diligence-index-soc2-dpa-subprocessors"
+   }
+  ]
+ },
+ {
+  "cell": "c09.zero_data_retention",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes: zero data retention is listed in Nimble's compliance docs; plan not stated.",
+   "kb_citation": "https://docs.nimbleway.com/nimble-sdk/admin/compliance.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/nimble.md:87",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c09.zero_data_retention.v1",
+    "source_url": "https://www.nimbleway.com/privacy-policy"
+   },
+   {
+    "vid": "c09.zero_data_retention.v2",
+    "source_url": "https://docs.nimbleway.com/nimble-sdk/admin/compliance"
+   },
+   {
+    "vid": "c09.zero_data_retention.v3",
+    "source_url": "https://www.nimbleway.com/privacy-policy"
+   }
+  ]
+ },
+ {
+  "cell": "c09.hipaa_baa",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: HIPAA, BAA, and ISO 27001 are not in Nimble's compliance docs as of 2026-09-26.",
+   "kb_citation": "https://docs.nimbleway.com/nimble-sdk/admin/compliance.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/nimble.md:87",
+   "kind": "absence"
+  },
+  "values": [
+   {
+    "vid": "c09.hipaa_baa.v1",
+    "source_url": "https://www.nimbleway.com/privacy-policy"
+   },
+   {
+    "vid": "c09.hipaa_baa.v2",
+    "source_url": "https://docs.nimbleway.com/nimble-sdk/admin/compliance"
+   },
+   {
+    "vid": "c09.hipaa_baa.v3",
+    "source_url": "https://www.nimbleway.com/trust"
+   }
+  ]
+ },
+ {
+  "cell": "c09.official_mcp_server",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: an MCP server (docs), also listed on Databricks Marketplace as 'Nimble MCP'.",
+   "kb_citation": "https://docs.nimbleway.com/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/nimble.md:85",
+   "kind": "positive",
+   "note": "Databricks Marketplace listing at competitive/nimble.md:59."
+  },
+  "values": [
+   {
+    "vid": "c09.official_mcp_server.v1",
+    "source_url": "https://docs.nimbleway.com/integrations/mcp-server/mcp-server"
+   },
+   {
+    "vid": "c09.official_mcp_server.v2",
+    "source_url": "https://www.nimbleway.com/blog/nimble-mcp-server-ai-agent-eyes"
+   },
+   {
+    "vid": "c09.official_mcp_server.v3",
+    "source_url": "https://docs.nimbleway.com/integrations/mcp-server/mcp-server"
+   }
+  ]
+ },
+ {
+  "cell": "c09.free_tier",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c09.free_tier.v1",
+    "source_url": "https://www.nimbleway.com/pricing"
+   },
+   {
+    "vid": "c09.free_tier.v2",
+    "source_url": "https://www.nimbleway.com/pricing"
+   },
+   {
+    "vid": "c09.free_tier.v3",
+    "source_url": "https://www.nimbleway.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c09.list_price",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "Search lite (snippet-only) $1.10 per 1,000 requests; the default standard tier's $5.00 per 1,000 inputs appears only in an untagged pricing row.",
+   "kb_citation": "https://docs.nimbleway.com/nimble-sdk/admin/pricing.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/nimble.md:175",
+   "kind": "positive",
+   "note": "The $5.00 standard row (competitive/nimble.md:101) cites a plain docs link, not a provenance tag; the pricing table's tagged lead-in is competitive/nimble.md:96."
+  },
+  "values": [
+   {
+    "vid": "c09.list_price.v1",
+    "source_url": "https://docs.nimbleway.com/nimble-sdk/admin/pricing"
+   },
+   {
+    "vid": "c09.list_price.v2",
+    "source_url": "https://www.nimbleway.com/pricing"
+   },
+   {
+    "vid": "c09.list_price.v3",
+    "source_url": "https://docs.nimbleway.com/nimble-sdk/admin/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c09.last_funding",
+  "company": "Nimble",
+  "homepage": "https://www.nimbleway.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series B: $47M on 2026-02-24, led by Norwest, with Databricks Ventures.",
+   "kb_citation": "https://www.globenewswire.com/news-release/2026/02/24/3243534/0/en/norwest-leads-47m-investment-to-accelerate-nimble-s-agentic-web-search-platform-turning-the-live-web-into-reliable-data-for-mission-critical-ai.html",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/nimble.md:49",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c09.last_funding.v1",
+    "source_url": "https://www.nimbleway.com/blog/announcing-47m-series-b-web-search-agent-platform"
+   },
+   {
+    "vid": "c09.last_funding.v2",
+    "source_url": "https://www.techtarget.com/data-technologies/news/366639416/Web-data-search-specialist-Nimble-raises-47M-to-fuel-growth"
+   },
+   {
+    "vid": "c09.last_funding.v3",
+    "source_url": "https://www.globenewswire.com/news-release/2026/02/24/3243534/0/en/Norwest-Leads-47M-Investment-to-Accelerate-Nimble-s-Agentic-Web-Search-Platform-Turning-the-Live-Web-into-Reliable-Data-for-Mission-Critical-AI.html"
+   }
+  ]
+ },
+ {
+  "cell": "c10.web_search_source",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own index per vendor claim (homepage: it 'indexes every web page on the internet'); sells live web search and fetch endpoints; no upstream provider named.",
+   "kb_citation": "https://crustdata.com/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/crustdata.md:50",
+   "kind": "positive",
+   "note": "Live web endpoints at competitive/crustdata.md:86. No index size or benchmark published (competitive/crustdata.md:93)."
+  },
+  "values": [
+   {
+    "vid": "c10.web_search_source.v1",
+    "source_url": "https://crustdata.com/blog/crustdata-closes-6m-seed-round"
+   },
+   {
+    "vid": "c10.web_search_source.v2",
+    "source_url": "https://crustdata.com/"
+   },
+   {
+    "vid": "c10.web_search_source.v3",
+    "source_url": "https://crustdata.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c10.soc2",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c10.soc2.v1",
+    "source_url": "https://www.crustdata.com/privacy"
+   },
+   {
+    "vid": "c10.soc2.v2",
+    "source_url": "https://www.crustdata.com/privacy"
+   },
+   {
+    "vid": "c10.soc2.v3",
+    "source_url": "https://crustdata.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c10.zero_data_retention",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c10.zero_data_retention.v1",
+    "source_url": "https://crustdata.com/pricing"
+   },
+   {
+    "vid": "c10.zero_data_retention.v2",
+    "source_url": "https://www.crustdata.com/privacy"
+   },
+   {
+    "vid": "c10.zero_data_retention.v3",
+    "source_url": "https://www.crustdata.com/privacy"
+   }
+  ]
+ },
+ {
+  "cell": "c10.hipaa_baa",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c10.hipaa_baa.v1",
+    "source_url": "https://www.crustdata.com/privacy"
+   },
+   {
+    "vid": "c10.hipaa_baa.v2",
+    "source_url": "https://crustdata.com/"
+   },
+   {
+    "vid": "c10.hipaa_baa.v3",
+    "source_url": "https://www.crustdata.com/privacy"
+   }
+  ]
+ },
+ {
+  "cell": "c10.official_mcp_server",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: remote MCP at install.crustdata.com/mcp (OAuth).",
+   "kb_citation": "https://docs.crustdata.com/for-agents/mcp.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/crustdata.md:89",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c10.official_mcp_server.v1",
+    "source_url": "https://crustdata.com/mcp-server"
+   },
+   {
+    "vid": "c10.official_mcp_server.v2",
+    "source_url": "https://crustdata.com/mcp-server"
+   },
+   {
+    "vid": "c10.official_mcp_server.v3",
+    "source_url": "https://crustdata.com/mcp-server"
+   }
+  ]
+ },
+ {
+  "cell": "c10.free_tier",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "A free sandbox key; no amount stated.",
+   "kb_citation": "https://docs.crustdata.com/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/crustdata.md:57",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c10.free_tier.v1",
+    "source_url": "https://crustdata.com/"
+   },
+   {
+    "vid": "c10.free_tier.v2",
+    "source_url": "https://crustdata.com/mcp-server"
+   },
+   {
+    "vid": "c10.free_tier.v3",
+    "source_url": "https://crustdata.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c10.list_price",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "No public USD price: priced in credits (indexed person, company, or job search 0.03 credits per result); plans start at $95 a month.",
+   "kb_citation": "https://crustdata.com/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/crustdata.md:106",
+   "kind": "positive",
+   "note": "Credit rate at competitive/crustdata.md:110. Stage A (experiments S1_judge_b.json, q33) found a third-party reseller listing Crustdata search at $0.009 per result."
+  },
+  "values": [
+   {
+    "vid": "c10.list_price.v1",
+    "source_url": "https://docs.crustdata.com/general/pricing"
+   },
+   {
+    "vid": "c10.list_price.v2",
+    "source_url": "https://docs.crustdata.com/general/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c10.last_funding",
+  "company": "Crustdata",
+  "homepage": "https://crustdata.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Seed: $6M, announced 2025-10-22, co-led by Y Combinator and A Capital.",
+   "kb_citation": "https://crustdata.com/blog/crustdata-closes-6m-seed-round",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/crustdata.md:47",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c10.last_funding.v1",
+    "source_url": "https://crustdata.com/blog/crustdata-closes-6m-seed-round"
+   },
+   {
+    "vid": "c10.last_funding.v2",
+    "source_url": "https://crustdata.com/blog/crustdata-closes-6m-seed-round"
+   },
+   {
+    "vid": "c10.last_funding.v3",
+    "source_url": "https://crustdata.com/blog/crustdata-closes-6m-seed-round"
+   }
+  ]
+ },
+ {
+  "cell": "c11.web_search_source",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Scraped Google results plus 100+ other engines and surfaces (Bing, DuckDuckGo, Baidu, Yahoo, Yandex, Naver and more); no own index.",
+   "kb_citation": "https://serpapi.com/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serpapi.md:95",
+   "kind": "positive",
+   "note": "Homepage headline 'Scrape Google and other search engines…' (competitive/serpapi.md:168); 'no own index or crawler' per an HN critic (competitive/serpapi.md:213, observed) and Exa's /versus/serpapi (features/search-index-and-infrastructure.md:113)."
+  },
+  "values": [
+   {
+    "vid": "c11.web_search_source.v1",
+    "source_url": "https://serpapi.com/search-api"
+   },
+   {
+    "vid": "c11.web_search_source.v2",
+    "source_url": "https://serpapi.com/"
+   },
+   {
+    "vid": "c11.web_search_source.v3",
+    "source_url": "https://serpapi.com/search-api"
+   }
+  ]
+ },
+ {
+  "cell": "c11.soc2",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c11.soc2.v1",
+    "source_url": "https://serpapi.com/security"
+   },
+   {
+    "vid": "c11.soc2.v2",
+    "source_url": "https://serpapi.com/security"
+   },
+   {
+    "vid": "c11.soc2.v3",
+    "source_url": "https://serpapi.com/blog/serpapi-achieves-soc-2-r-type-2-and-iso-iec-27001-2022-milestones/"
+   }
+  ]
+ },
+ {
+  "cell": "c11.zero_data_retention",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes, Enterprise only: the zero_trace parameter (no stored parameters or files).",
+   "kb_citation": "https://serpapi.com/search-api",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serpapi.md:96",
+   "kind": "positive",
+   "note": "The KB never calls it ZDR; it's a per-request no-storage option."
+  },
+  "values": [
+   {
+    "vid": "c11.zero_data_retention.v1",
+    "source_url": "https://serpapi.com/legal#privacy-policy-section-10"
+   },
+   {
+    "vid": "c11.zero_data_retention.v2",
+    "source_url": "https://serpapi.com/pricing"
+   },
+   {
+    "vid": "c11.zero_data_retention.v3",
+    "source_url": "https://serpapi.com/zero-trace-mode"
+   }
+  ]
+ },
+ {
+  "cell": "c11.hipaa_baa",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c11.hipaa_baa.v1",
+    "source_url": "https://serpapi.com/security"
+   },
+   {
+    "vid": "c11.hipaa_baa.v2",
+    "source_url": "https://serpapi.com/legal"
+   },
+   {
+    "vid": "c11.hipaa_baa.v3",
+    "source_url": "https://serpapi.com/security"
+   }
+  ]
+ },
+ {
+  "cell": "c11.official_mcp_server",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: hosted MCP at mcp.serpapi.com (github.com/serpapi/serpapi-mcp, MIT).",
+   "kb_citation": "https://github.com/serpapi/serpapi-mcp",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serpapi.md:99",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c11.official_mcp_server.v1",
+    "source_url": "https://github.com/serpapi/serpapi-mcp"
+   },
+   {
+    "vid": "c11.official_mcp_server.v2",
+    "source_url": "https://serpapi.com/integrations/mcp"
+   },
+   {
+    "vid": "c11.official_mcp_server.v3",
+    "source_url": "https://serpapi.com/integrations/mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c11.free_tier",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "250 free searches a month (raised from 100 since January 2025).",
+   "kb_citation": "http://web.archive.org/web/20250121022200/https://serpapi.com/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serpapi.md:135",
+   "kind": "positive",
+   "note": "The tag on :135 is the January 2025 snapshot; the current plan table (competitive/serpapi.md:124; table-level tag at :120, https://serpapi.com/pricing) shows Free: 250 searches a month, 50 an hour."
+  },
+  "values": [
+   {
+    "vid": "c11.free_tier.v1",
+    "source_url": "https://serpapi.com/pricing"
+   },
+   {
+    "vid": "c11.free_tier.v2",
+    "source_url": "https://serpapi.com/pricing"
+   },
+   {
+    "vid": "c11.free_tier.v3",
+    "source_url": "https://serpapi.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c11.list_price",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$25 per 1,000 searches on the smallest paid (Starter) plan, i.e. $0.025 per search; monthly subscriptions, not pay-as-you-go; only successful searches count.",
+   "kb_citation": "https://exa.ai/versus/serpapi",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serpapi.md:157",
+   "kind": "positive",
+   "note": "Subscription model at competitive/serpapi.md:120 (https://serpapi.com/pricing). Starter $25/month for 1,000 searches in the plan table (competitive/serpapi.md:125, table-level tag at :120); larger tiers are cheaper per search."
+  },
+  "values": [
+   {
+    "vid": "c11.list_price.v1",
+    "source_url": "https://serpapi.com/pricing"
+   },
+   {
+    "vid": "c11.list_price.v2",
+    "source_url": "https://serpapi.com/pricing"
+   },
+   {
+    "vid": "c11.list_price.v3",
+    "source_url": "https://serpapi.com/enterprise"
+   }
+  ]
+ },
+ {
+  "cell": "c11.last_funding",
+  "company": "SerpApi",
+  "homepage": "https://serpapi.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c11.last_funding.v1",
+    "source_url": "https://www.prnewswire.com/news-releases/serpapi-surpasses-1-5-million-activated-user-accounts-empowering-developers-everywhere-with-structured-access-to-the-worlds-search-data-302855745.html"
+   },
+   {
+    "vid": "c11.last_funding.v2",
+    "source_url": "https://serpapi.com/careers/chief-financial-officer"
+   },
+   {
+    "vid": "c11.last_funding.v3",
+    "source_url": "https://wellfound.com/company/serp-api/funding"
+   }
+  ]
+ },
+ {
+  "cell": "c12.web_search_source",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Google results via scraping: 'The World's Fastest and Cheapest Google Search API'; its terms describe web-scraped data and no affiliation with Google.",
+   "kb_citation": "https://serper.dev/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serper.md:117",
+   "kind": "positive",
+   "note": "Terms at competitive/serper.md:51 (https://serper.dev/terms); Google SERP JSON at :67."
+  },
+  "values": [
+   {
+    "vid": "c12.web_search_source.v1",
+    "source_url": "https://serper.dev/"
+   },
+   {
+    "vid": "c12.web_search_source.v2",
+    "source_url": "https://serper.dev/"
+   },
+   {
+    "vid": "c12.web_search_source.v3",
+    "source_url": "https://serper.dev/"
+   }
+  ]
+ },
+ {
+  "cell": "c12.soc2",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "None published: SOC 2, ZDR, DPA, and SLA not published (2026-09-26).",
+   "kb_citation": "https://serper.dev/privacy",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serper.md:76",
+   "kind": "absence"
+  },
+  "values": [
+   {
+    "vid": "c12.soc2.v1",
+    "source_url": "https://serper.dev/terms"
+   },
+   {
+    "vid": "c12.soc2.v2",
+    "source_url": "https://serper.dev/privacy"
+   },
+   {
+    "vid": "c12.soc2.v3",
+    "source_url": "https://serper.dev/privacy"
+   }
+  ]
+ },
+ {
+  "cell": "c12.zero_data_retention",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: no ZDR policy published (2026-09-26).",
+   "kb_citation": "https://serper.dev/privacy",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serper.md:76",
+   "kind": "absence",
+   "note": "'We do not cache anything' (competitive/serper.md:70) is about result freshness, not a retention policy."
+  },
+  "values": [
+   {
+    "vid": "c12.zero_data_retention.v1",
+    "source_url": "https://serper.dev/privacy"
+   },
+   {
+    "vid": "c12.zero_data_retention.v2",
+    "source_url": "https://serper.dev/privacy"
+   },
+   {
+    "vid": "c12.zero_data_retention.v3",
+    "source_url": "https://serper.dev/terms"
+   }
+  ]
+ },
+ {
+  "cell": "c12.hipaa_baa",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: Serper publishes no entity, address, team, or security documentation.",
+   "kb_citation": "https://serper.dev/privacy",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serper.md:177",
+   "kind": "absence",
+   "note": "Implicit absence: no HIPAA or BAA statement exists because no security documentation is published."
+  },
+  "values": [
+   {
+    "vid": "c12.hipaa_baa.v1",
+    "source_url": "https://serper.dev/privacy"
+   },
+   {
+    "vid": "c12.hipaa_baa.v2",
+    "source_url": "https://serper.dev/terms"
+   },
+   {
+    "vid": "c12.hipaa_baa.v3",
+    "source_url": "https://serper.dev/privacy"
+   }
+  ]
+ },
+ {
+  "cell": "c12.official_mcp_server",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c12.official_mcp_server.v1",
+    "source_url": "https://serper.dev/"
+   },
+   {
+    "vid": "c12.official_mcp_server.v2",
+    "source_url": "https://apis.io/servers/serper/serper-mcp/"
+   },
+   {
+    "vid": "c12.official_mcp_server.v3",
+    "source_url": "https://serper.dev/"
+   }
+  ]
+ },
+ {
+  "cell": "c12.free_tier",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "2,500 free queries as a trial.",
+   "kb_citation": "https://serper.dev/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serper.md:168",
+   "kind": "positive",
+   "note": "Plan table (competitive/serper.md:89; table-level tag at :85) says 2,500 queries, no card; an [inferred] table calls it one-time (:106)."
+  },
+  "values": [
+   {
+    "vid": "c12.free_tier.v1",
+    "source_url": "https://serper.dev/"
+   },
+   {
+    "vid": "c12.free_tier.v2",
+    "source_url": "https://apis.io/plans/serper/serper-plans-pricing/"
+   },
+   {
+    "vid": "c12.free_tier.v3",
+    "source_url": "https://serper.dev/"
+   }
+  ]
+ },
+ {
+  "cell": "c12.list_price",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$1.00 per 1,000 queries at the entry top-up, down to $0.30 at volume; prepaid credits, no subscription, expiring after 6 months; successful responses only.",
+   "kb_citation": "https://serper.dev/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/serper.md:163",
+   "kind": "positive",
+   "note": "Top-up model at competitive/serper.md:85; Starter $50 for 50,000 credits in the plan table (:90, table-level tag at :85). HN users report about $2 per 1,000 when requesting 100 results per query (:98, :143)."
+  },
+  "values": [
+   {
+    "vid": "c12.list_price.v1",
+    "source_url": "https://apis.io/plans/serper/serper-plans-pricing/"
+   },
+   {
+    "vid": "c12.list_price.v2",
+    "source_url": "https://serper.dev/"
+   }
+  ]
+ },
+ {
+  "cell": "c12.last_funding",
+  "company": "Serper",
+  "homepage": "https://serper.dev",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": null,
+  "values": []
+ },
+ {
+  "cell": "c13.web_search_source",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Mix: own Teclis (web) and TinyGem (news) indexes, licensed engines (Mojeek, Brave, Yandex, others), and unnamed third-party SERP API providers for Google-style results.",
+   "kb_citation": "https://help.kagi.com/kagi/search-details/search-sources.html",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/kagi-api.md:50",
+   "kind": "positive",
+   "note": "SerpApi is a likely but unconfirmed SERP provider per the KB [inferred]; licenses per https://blog.kagi.com/waiting-dawn-search (same line)."
+  },
+  "values": [
+   {
+    "vid": "c13.web_search_source.v1",
+    "source_url": "https://help.kagi.com/kagi/api/overview.html"
+   },
+   {
+    "vid": "c13.web_search_source.v2",
+    "source_url": "https://kagi.com/api/docs/openapi"
+   },
+   {
+    "vid": "c13.web_search_source.v3",
+    "source_url": "https://help.kagi.com/kagi/search-details/search-sources.html"
+   }
+  ]
+ },
+ {
+  "cell": "c13.soc2",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c13.soc2.v1",
+    "source_url": "https://help.kagi.com/kagi/privacy/security.html"
+   },
+   {
+    "vid": "c13.soc2.v2",
+    "source_url": "https://help.kagi.com/kagi/privacy/security.html"
+   },
+   {
+    "vid": "c13.soc2.v3",
+    "source_url": "https://help.kagi.com/kagi/company/"
+   }
+  ]
+ },
+ {
+  "cell": "c13.zero_data_retention",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c13.zero_data_retention.v1",
+    "source_url": "https://kagi.com/privacy"
+   },
+   {
+    "vid": "c13.zero_data_retention.v2",
+    "source_url": "https://kagi.com/privacy"
+   },
+   {
+    "vid": "c13.zero_data_retention.v3",
+    "source_url": "https://kagi.com/privacy/rights"
+   }
+  ]
+ },
+ {
+  "cell": "c13.hipaa_baa",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c13.hipaa_baa.v1",
+    "source_url": "https://kagi.com/privacy"
+   },
+   {
+    "vid": "c13.hipaa_baa.v2",
+    "source_url": "https://kagi.com/api/docs"
+   },
+   {
+    "vid": "c13.hipaa_baa.v3",
+    "source_url": "https://kagi.com/teams"
+   }
+  ]
+ },
+ {
+  "cell": "c13.official_mcp_server",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: hosted MCP server at mcp.kagi.com/mcp (github.com/kagisearch/kagimcp) with kagi_search_fetch and kagi_extract tools.",
+   "kb_citation": "https://github.com/kagisearch/kagimcp",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/kagi-api.md:75",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c13.official_mcp_server.v1",
+    "source_url": "https://kagi.com/api/docs"
+   },
+   {
+    "vid": "c13.official_mcp_server.v2",
+    "source_url": "https://kagi.com/api/docs/openapi"
+   },
+   {
+    "vid": "c13.official_mcp_server.v3",
+    "source_url": "https://help.kagi.com/kagi/api/overview.html"
+   }
+  ]
+ },
+ {
+  "cell": "c13.free_tier",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "No standing free tier: Kagi subscribers got a one-time $5 API credit at the public preview; otherwise paid-only.",
+   "kb_citation": "https://kagi.com/changelog",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/kagi-api.md:111",
+   "kind": "positive",
+   "note": "One-time, not monthly, per an HN user (competitive/kagi-api.md:146, observed); 'paid-only model' per another HN comment (:144, observed)."
+  },
+  "values": [
+   {
+    "vid": "c13.free_tier.v1",
+    "source_url": "https://help.kagi.com/kagi/api/overview.html"
+   },
+   {
+    "vid": "c13.free_tier.v2",
+    "source_url": "https://kagi.com/pricing"
+   },
+   {
+    "vid": "c13.free_tier.v3",
+    "source_url": "https://kagi.com/api/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c13.list_price",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "$12 per 1,000 requests (Search API v1), pay-as-you-go, invoiced every 30 days or at $100 of usage.",
+   "kb_citation": "https://kagi.com/api/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/kagi-api.md:112",
+   "kind": "positive",
+   "note": "The tag on :112 is https://exa.ai/pricing (it supports the Exa comparison); the Kagi price is sourced to https://kagi.com/api/pricing at :103 (plain link) and the billing model to the tag on :110."
+  },
+  "values": [
+   {
+    "vid": "c13.list_price.v1",
+    "source_url": "https://kagi.com/api/pricing"
+   },
+   {
+    "vid": "c13.list_price.v2",
+    "source_url": "https://kagi.com/api/pricing"
+   },
+   {
+    "vid": "c13.list_price.v3",
+    "source_url": "https://kagi.com/api/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c13.last_funding",
+  "company": "Kagi",
+  "homepage": "https://kagi.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "About $2.5M from roughly 93 angel investors, mostly users (2023–2024), after about $3M from the founder (2018–2023); no lead investor.",
+   "kb_citation": "https://help.kagi.com/kagi/company/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/kagi-api.md:47",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c13.last_funding.v1",
+    "source_url": "https://blog.kagi.com/"
+   },
+   {
+    "vid": "c13.last_funding.v2",
+    "source_url": "https://help.kagi.com/kagi/company/"
+   },
+   {
+    "vid": "c13.last_funding.v3",
+    "source_url": "https://help.kagi.com/kagi/company/"
+   }
+  ]
+ },
+ {
+  "cell": "c14.web_search_source",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Third-party SERP sources: its open-source Reader code has Google, Bing, and Serper SERP clients plus a scraper; the hosted s.jina.ai backend is unconfirmed.",
+   "kb_citation": "https://github.com/jina-ai/reader",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:82",
+   "kind": "positive",
+   "note": "The conclusion that s.jina.ai fronts third-party SERPs rather than a Jina index is [inferred] in the KB; the Reader page says it returns SERP (competitive/enterprise-search-and-workplace-ai.md:143)."
+  },
+  "values": [
+   {
+    "vid": "c14.web_search_source.v1",
+    "source_url": "https://jina.ai/"
+   }
+  ]
+ },
+ {
+  "cell": "c14.soc2",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Not found on the pages checked (2026-09-26).",
+   "kb_citation": "https://jina.ai/reader/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:88",
+   "kind": "absence"
+  },
+  "values": [
+   {
+    "vid": "c14.soc2.v1",
+    "source_url": "https://jina.ai/legal/"
+   },
+   {
+    "vid": "c14.soc2.v2",
+    "source_url": "https://jina.ai/legal/"
+   },
+   {
+    "vid": "c14.soc2.v3",
+    "source_url": "http://jina.ai/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c14.zero_data_retention",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found on the pages checked (2026-09-26).",
+   "kb_citation": "https://jina.ai/reader/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:88",
+   "kind": "absence",
+   "note": "Same line: inputs and outputs are not used for training."
+  },
+  "values": [
+   {
+    "vid": "c14.zero_data_retention.v1",
+    "source_url": "https://jina.ai/it/news/a-practical-guide-to-deploying-search-foundation-models-in-production/"
+   },
+   {
+    "vid": "c14.zero_data_retention.v2",
+    "source_url": "https://jina.ai/legal/"
+   },
+   {
+    "vid": "c14.zero_data_retention.v3",
+    "source_url": "https://jina.ai/legal"
+   }
+  ]
+ },
+ {
+  "cell": "c14.hipaa_baa",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found on the pages checked (2026-09-26).",
+   "kb_citation": "https://jina.ai/reader/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:88",
+   "kind": "absence"
+  },
+  "values": [
+   {
+    "vid": "c14.hipaa_baa.v1",
+    "source_url": "https://jina.ai/legal"
+   },
+   {
+    "vid": "c14.hipaa_baa.v2",
+    "source_url": "https://jina.ai/legal/"
+   },
+   {
+    "vid": "c14.hipaa_baa.v3",
+    "source_url": "https://jina.ai/legal/"
+   }
+  ]
+ },
+ {
+  "cell": "c14.official_mcp_server",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: Jina lists an MCP server among its products (name and URL not given in the KB).",
+   "kb_citation": "https://jina.ai/about-us/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:86",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c14.official_mcp_server.v1",
+    "source_url": "https://github.com/jina-ai/MCP"
+   },
+   {
+    "vid": "c14.official_mcp_server.v2",
+    "source_url": "https://jina.ai/"
+   },
+   {
+    "vid": "c14.official_mcp_server.v3",
+    "source_url": "https://mcp.jina.ai/"
+   }
+  ]
+ },
+ {
+  "cell": "c14.free_tier",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "Reader works without a key at 20 RPM; a free API key includes 10M tokens.",
+   "kb_citation": "https://jina.ai/api-dashboard/pricing/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:99",
+   "kind": "positive",
+   "note": "The 10M-token figure is tagged https://jina.ai/reader/ on the same line."
+  },
+  "values": [
+   {
+    "vid": "c14.free_tier.v1",
+    "source_url": "https://jina.ai/reader"
+   },
+   {
+    "vid": "c14.free_tier.v2",
+    "source_url": "https://api.jina.ai/redoc"
+   },
+   {
+    "vid": "c14.free_tier.v3",
+    "source_url": "https://jina.ai/contact-sales/"
+   }
+  ]
+ },
+ {
+  "cell": "c14.list_price",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "Token-metered, no USD rate captured: Search charges a fixed minimum of 10,000 tokens per request from prepaid tokens shared across Jina APIs.",
+   "kb_citation": "https://jina.ai/api-dashboard/pricing/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:98",
+   "kind": "positive",
+   "note": "USD per token not captured (competitive/jina-ai.md:100, untagged); prepaid top-up model at :97."
+  },
+  "values": [
+   {
+    "vid": "c14.list_price.v1",
+    "source_url": "https://jina.ai/contact-sales/"
+   },
+   {
+    "vid": "c14.list_price.v2",
+    "source_url": "https://jina.ai/reader"
+   }
+  ]
+ },
+ {
+  "cell": "c14.last_funding",
+  "company": "Jina AI",
+  "homepage": "https://jina.ai",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Acquired by Elastic N.V.: closed 2025-10-07, announced 2025-10-09; total purchase consideration $43.3M.",
+   "kb_citation": "https://www.sec.gov/Archives/edgar/data/1707753/000170775326000006/estc-20260131.htm",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/jina-ai.md:47",
+   "kind": "positive",
+   "note": "Amount at competitive/jina-ai.md:48 (same filing). staging-zone/new-channel-si-partner-landscape.md:93 uses the announcement date. Prior round: $30M Series A led by Canaan Partners, 2021-11-22 (:46)."
+  },
+  "values": [
+   {
+    "vid": "c14.last_funding.v1",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1707753/000170775326000006/R12.htm"
+   },
+   {
+    "vid": "c14.last_funding.v2",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1707753/000170775326000006/R12.htm"
+   },
+   {
+    "vid": "c14.last_funding.v3",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1707753/000170775326000006/R12.htm"
+   }
+  ]
+ },
+ {
+  "cell": "c15.web_search_source",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Scraped live SERPs from Google, Bing, DuckDuckGo, Yandex, and Baidu (SERP API); also its own 700M+ people and company index behind a Business Search API.",
+   "kb_citation": "https://brightdata.com/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/bright-data.md:197",
+   "kind": "positive",
+   "note": "Business Search API index at competitive/bright-data.md:63 (https://brightdata.com/products/business-search-api)."
+  },
+  "values": [
+   {
+    "vid": "c15.web_search_source.v1",
+    "source_url": "https://docs.brightdata.com/scraping-automation/introduction"
+   },
+   {
+    "vid": "c15.web_search_source.v2",
+    "source_url": "https://docs.brightdata.com/general/account/billing-and-pricing/free-tier"
+   },
+   {
+    "vid": "c15.web_search_source.v3",
+    "source_url": "https://brightdata.com/products/serp-api"
+   }
+  ]
+ },
+ {
+  "cell": "c15.soc2",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II (Deloitte-audited), plus SOC 3; no report date stated.",
+   "kb_citation": "https://brightdata.com/trustcenter",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/bright-data.md:57",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c15.soc2.v1",
+    "source_url": "https://brightdata.com/trustcenter/data-security-overview-protection-measures"
+   },
+   {
+    "vid": "c15.soc2.v2",
+    "source_url": "https://docs.brightdata.com/general/security/security-overview"
+   },
+   {
+    "vid": "c15.soc2.v3",
+    "source_url": "https://docs.brightdata.com/general/security/security-overview"
+   }
+  ]
+ },
+ {
+  "cell": "c15.zero_data_retention",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c15.zero_data_retention.v1",
+    "source_url": "https://brightdata.com/blog/ai/bright-data-vs-brave-search-api"
+   },
+   {
+    "vid": "c15.zero_data_retention.v2",
+    "source_url": "https://brightdata.com/ai/mcp-server/launch-week/day4"
+   },
+   {
+    "vid": "c15.zero_data_retention.v3",
+    "source_url": "https://brightdata.com/legal/privacy"
+   }
+  ]
+ },
+ {
+  "cell": "c15.hipaa_baa",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Not found: no HIPAA or BAA statement on the trust center, llms.txt, or pricing pages as of 2026-09-26.",
+   "kb_citation": "https://brightdata.com/trustcenter",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/bright-data.md:57",
+   "kind": "absence"
+  },
+  "values": [
+   {
+    "vid": "c15.hipaa_baa.v1",
+    "source_url": "https://brightdata.com/trustcenter"
+   },
+   {
+    "vid": "c15.hipaa_baa.v2",
+    "source_url": "https://brightdata.com/blog/ai/best-semantic-search-apis"
+   },
+   {
+    "vid": "c15.hipaa_baa.v3",
+    "source_url": "https://brightdata.com/blog/ai/best-semantic-search-apis"
+   }
+  ]
+ },
+ {
+  "cell": "c15.official_mcp_server",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: a Bright Data MCP server ('Web MCP'); docs at docs.brightdata.com/products/mcp-server/overview.md.",
+   "kb_citation": "https://brightdata.com/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/bright-data.md:61",
+   "kind": "positive",
+   "note": "'Web MCP' tutorials at competitive/bright-data.md:161; MCP docs URL tag at :58."
+  },
+  "values": [
+   {
+    "vid": "c15.official_mcp_server.v1",
+    "source_url": "https://docs.brightdata.com/ai/mcp-server/overview"
+   },
+   {
+    "vid": "c15.official_mcp_server.v2",
+    "source_url": "https://brightdata.com/ai/mcp-server"
+   },
+   {
+    "vid": "c15.official_mcp_server.v3",
+    "source_url": "https://github.com/brightdata/brightdata-mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c15.free_tier",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "5,000 free credits a month (about $7.50), one pool across Unlocker, SERP, Web Scraper API, and Scraper Studio; hard stop, no overage; since June 2026.",
+   "kb_citation": "https://docs.brightdata.com/release-notes.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/bright-data.md:127",
+   "kind": "positive",
+   "note": "New signups also get a deposit match up to $500 (competitive/bright-data.md:110)."
+  },
+  "values": [
+   {
+    "vid": "c15.free_tier.v1",
+    "source_url": "https://docs.brightdata.com/general/account/billing-and-pricing/free-tier"
+   },
+   {
+    "vid": "c15.free_tier.v2",
+    "source_url": "https://brightdata.com/pricing/serp"
+   },
+   {
+    "vid": "c15.free_tier.v3",
+    "source_url": "https://docs.brightdata.com/general/account/billing-and-pricing/free-tier"
+   }
+  ]
+ },
+ {
+  "cell": "c15.list_price",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "SERP API $1.50 per 1,000 requests pay-as-you-go (successful requests only); $1.30 per 1,000 on the $499-a-month tier.",
+   "kb_citation": "https://brightdata.com/pricing/serp",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/build-your-own.md:97",
+   "kind": "positive",
+   "note": "Successful-only billing at competitive/bright-data.md:110. The leaf's pricing row (:114) cites plain links and adds 'down to $1.00 per 1,000 at 2M a month'."
+  },
+  "values": [
+   {
+    "vid": "c15.list_price.v1",
+    "source_url": "https://brightdata.com/blog/ai/bright-data-vs-brave-search-api"
+   },
+   {
+    "vid": "c15.list_price.v2",
+    "source_url": "https://brightdata.com/pricing/serp"
+   },
+   {
+    "vid": "c15.list_price.v3",
+    "source_url": "https://brightdata.com/blog/comparison/bright-data-vs-exa"
+   }
+  ]
+ },
+ {
+  "cell": "c15.last_funding",
+  "company": "Bright Data",
+  "homepage": "https://brightdata.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Acquired by UK private-equity firm EMK Capital in 2017 (amount not stated); no later ownership change found.",
+   "kb_citation": "https://brightdata.com/about",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/bright-data.md:49",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c15.last_funding.v1",
+    "source_url": "https://brightdata.com/static/brd/bright-data-press-kit.pdf?md5=1971479-332d5bd1"
+   },
+   {
+    "vid": "c15.last_funding.v2",
+    "source_url": "https://mergr.com/transaction/emk-capital-acquires-bright-data"
+   },
+   {
+    "vid": "c15.last_funding.v3",
+    "source_url": "https://brightdata.com/blog/products-updates/bright-data-acquisition-boosts-analytics"
+   }
+  ]
+ },
+ {
+  "cell": "c16.web_search_source",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Third-party mix, no own web index: admins pick OpenAI, Brave, or Google Gemini; Brave and OpenAI are defaults; Deep Research uses Brave.",
+   "kb_citation": "https://docs.glean.com/administration/tools/setup-tools/web-search-tools-setup",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/glean.md:81",
+   "kind": "positive",
+   "note": "Defaults at competitive/glean.md:82; Deep Research on Brave at :84. The subprocessor list names Brave for 'Search' and Exa Labs for 'Web crawling and rendering' (:54)."
+  },
+  "values": [
+   {
+    "vid": "c16.web_search_source.v1",
+    "source_url": "https://docs.glean.com/administration/assistant/features/web-search"
+   },
+   {
+    "vid": "c16.web_search_source.v2",
+    "source_url": "https://www.glean.com/"
+   },
+   {
+    "vid": "c16.web_search_source.v3",
+    "source_url": "https://docs.glean.com/administration/tools/setup-tools/web-search-tools-setup"
+   }
+  ]
+ },
+ {
+  "cell": "c16.soc2",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II (listed on Glean's homepage); no report date stated.",
+   "kb_citation": "https://www.glean.com/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/glean.md:75",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c16.soc2.v1",
+    "source_url": "https://www.glean.com/legal"
+   },
+   {
+    "vid": "c16.soc2.v2",
+    "source_url": "https://trust.glean.com/"
+   },
+   {
+    "vid": "c16.soc2.v3",
+    "source_url": "https://www.glean.com/legal"
+   }
+  ]
+ },
+ {
+  "cell": "c16.zero_data_retention",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "Yes for web-search queries: the OpenAI and Brave paths run with zero retention, and Glean logs nothing sent to or received from the provider; no plan stated.",
+   "kb_citation": "https://docs.glean.com/administration/tools/setup-tools/web-search-tools-setup",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/glean.md:85",
+   "kind": "positive",
+   "note": "Conflict on the same page: Google consumer search keeps query and location for 30 days, and the FAQ calls Google enterprise search 'the only' zero-retention provider. No Glean-wide ZDR offer is in the KB."
+  },
+  "values": [
+   {
+    "vid": "c16.zero_data_retention.v1",
+    "source_url": "https://docs.glean.com/administration/protect/overview"
+   },
+   {
+    "vid": "c16.zero_data_retention.v2",
+    "source_url": "https://docs.glean.com/administration/assistant/features/web-search"
+   },
+   {
+    "vid": "c16.zero_data_retention.v3",
+    "source_url": "https://docs.glean.com/administration/protect/overview"
+   }
+  ]
+ },
+ {
+  "cell": "c16.hipaa_baa",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "HIPAA is listed among the certifications on Glean's homepage; the KB doesn't say whether Glean signs a BAA or on which plan.",
+   "kb_citation": "https://www.glean.com/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/glean.md:75",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c16.hipaa_baa.v1",
+    "source_url": "https://www.glean.com/legal"
+   },
+   {
+    "vid": "c16.hipaa_baa.v2",
+    "source_url": "https://www.glean.com/legal"
+   },
+   {
+    "vid": "c16.hipaa_baa.v3",
+    "source_url": "https://glean.com/legal/baa"
+   }
+  ]
+ },
+ {
+  "cell": "c16.official_mcp_server",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: a remote, tenant-specific Glean MCP server (docs.glean.com/administration/platform/mcp/about); an MCP Gateway launched 2026-06-03.",
+   "kb_citation": "https://docs.glean.com/administration/platform/mcp/about",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/glean.md:91",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c16.official_mcp_server.v1",
+    "source_url": "https://docs.glean.com/administration/platform/mcp/about"
+   },
+   {
+    "vid": "c16.official_mcp_server.v2",
+    "source_url": "https://docs.glean.com/administration/platform/mcp/about"
+   },
+   {
+    "vid": "c16.official_mcp_server.v3",
+    "source_url": "https://developers.glean.com/guides/mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c16.free_tier",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c16.free_tier.v1",
+    "source_url": "https://docs.glean.com/glean-core-suite-pricing"
+   },
+   {
+    "vid": "c16.free_tier.v2",
+    "source_url": "https://docs.glean.com/glean-enterprise-flex-pricing"
+   },
+   {
+    "vid": "c16.free_tier.v3",
+    "source_url": "https://docs.glean.com/glean-enterprise-flex-pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c16.list_price",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "Enterprise quote only: no public list price (glean.com/pricing redirects to the homepage); per-user, per-month seats plus FlexCredits.",
+   "kb_citation": "https://www.glean.com/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/glean.md:106",
+   "kind": "positive",
+   "note": "Pricing structure at competitive/glean.md:107 (Enterprise Flex and Core Suite docs)."
+  },
+  "values": [
+   {
+    "vid": "c16.list_price.v1",
+    "source_url": "https://docs.glean.com/glean-core-suite-pricing"
+   },
+   {
+    "vid": "c16.list_price.v2",
+    "source_url": "https://docs.glean.com/glean-enterprise-flex-pricing"
+   },
+   {
+    "vid": "c16.list_price.v3",
+    "source_url": "https://docs.glean.com/glean-enterprise-flex-pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c16.last_funding",
+  "company": "Glean",
+  "homepage": "https://www.glean.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series F: $150M at a $7.2B valuation, led by Wellington Management, 2025-06-10.",
+   "kb_citation": "https://www.glean.com/press/glean-raises-150m-series-f-at-7-2b-valuation-to-accelerate-enterprise-ai-agent-innovation-globally",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/glean.md:47",
+   "kind": "positive",
+   "note": "Same row: no 2026 round or IPO filing found (2026-09-26). Glean acquired Aryn (post dated 2026-03-11) as the buyer (competitive/glean.md:50)."
+  },
+  "values": [
+   {
+    "vid": "c16.last_funding.v1",
+    "source_url": "https://www.glean.com/blog/glean-series-f-announcement"
+   },
+   {
+    "vid": "c16.last_funding.v2",
+    "source_url": "https://aryn.ai/post/aryn-transition"
+   },
+   {
+    "vid": "c16.last_funding.v3",
+    "source_url": "https://www.glean.com/press/glean-raises-150m-series-f-at-7-2b-valuation-to-accelerate-enterprise-ai-agent-innovation-globally"
+   }
+  ]
+ },
+ {
+  "cell": "c17.web_search_source",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Not disclosed: Clay names no search API in its positioning; Parallel claims Claygent runs on Parallel (unconfirmed by Clay); Navigator uses OpenAI GPT-5 deep research.",
+   "kb_citation": "https://www.clay.com/claygent",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/clay.md:148",
+   "kind": "absence",
+   "note": "Parallel's claim and the Navigator/OpenAI detail at competitive/clay.md:63; Exa is only a bring-your-own-key action in Clay (competitive/clay.md:62)."
+  },
+  "values": [
+   {
+    "vid": "c17.web_search_source.v1",
+    "source_url": "https://www.clay.com/faq/which-actions-cost-credits-or-are-free"
+   },
+   {
+    "vid": "c17.web_search_source.v2",
+    "source_url": "https://university.clay.com/docs/clay-api-cli"
+   }
+  ]
+ },
+ {
+  "cell": "c17.soc2",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c17.soc2.v1",
+    "source_url": "https://trust.clay.com"
+   },
+   {
+    "vid": "c17.soc2.v2",
+    "source_url": "https://trust.clay.com/"
+   },
+   {
+    "vid": "c17.soc2.v3",
+    "source_url": "https://university.clay.com/docs/cli-security-privacy"
+   }
+  ]
+ },
+ {
+  "cell": "c17.zero_data_retention",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c17.zero_data_retention.v1",
+    "source_url": "https://university.clay.com/docs/mcp-troubleshooting-and-faqs"
+   },
+   {
+    "vid": "c17.zero_data_retention.v2",
+    "source_url": "https://www.clay.com/privacy"
+   },
+   {
+    "vid": "c17.zero_data_retention.v3",
+    "source_url": "https://www.clay.com/terms-of-service"
+   }
+  ]
+ },
+ {
+  "cell": "c17.hipaa_baa",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c17.hipaa_baa.v1",
+    "source_url": "https://trust.clay.com"
+   },
+   {
+    "vid": "c17.hipaa_baa.v2",
+    "source_url": "https://trust.clay.com/"
+   },
+   {
+    "vid": "c17.hipaa_baa.v3",
+    "source_url": "https://trust.clay.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c17.official_mcp_server",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: Clay MCP, GA 2026-07-14 in Claude, ChatGPT, Claude Code, Codex, Microsoft 365 Copilot, and Glean.",
+   "kb_citation": "https://www.clay.com/blog/mcp-for-reps",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/clay.md:61",
+   "kind": "positive",
+   "note": "No server URL given in the KB."
+  },
+  "values": [
+   {
+    "vid": "c17.official_mcp_server.v1",
+    "source_url": "https://university.clay.com/docs/connect-to-clay-mcp"
+   },
+   {
+    "vid": "c17.official_mcp_server.v2",
+    "source_url": "https://www.clay.com/mcp"
+   },
+   {
+    "vid": "c17.official_mcp_server.v3",
+    "source_url": "https://www.clay.com/mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c17.free_tier",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "Free plan: 100 data credits a month, 200 rows per table, no phone enrichment, HTTP API, or CRM integrations.",
+   "kb_citation": "https://www.clay.com/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/clay.md:103",
+   "kind": "positive",
+   "note": "100 data credits per features/websets.md:137; the plan table (competitive/clay.md:116, table-level tag at :112) adds 500 actions a month."
+  },
+  "values": [
+   {
+    "vid": "c17.free_tier.v1",
+    "source_url": "https://university.clay.com/docs/clay-api-cli"
+   },
+   {
+    "vid": "c17.free_tier.v2",
+    "source_url": "https://www.clay.com/pricing"
+   },
+   {
+    "vid": "c17.free_tier.v3",
+    "source_url": "https://www.clay.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c17.list_price",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "No per-request price: plans Launch $185/month ($167 annual), Growth $495 ($446 annual), Enterprise custom; data credits from $0.05, actions under $0.01.",
+   "kb_citation": "https://www.clay.com/pricing",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/clay.md:121",
+   "kind": "positive",
+   "note": "Credit and action meters at competitive/clay.md:122."
+  },
+  "values": [
+   {
+    "vid": "c17.list_price.v1",
+    "source_url": "https://www.clay.com/pricing"
+   },
+   {
+    "vid": "c17.list_price.v2",
+    "source_url": "https://www.clay.com/pricing"
+   },
+   {
+    "vid": "c17.list_price.v3",
+    "source_url": "https://www.clay.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c17.last_funding",
+  "company": "Clay",
+  "homepage": "https://www.clay.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series D: $115M at a $7.1B valuation, 2026-09-09, led by Wellington.",
+   "kb_citation": "https://www.clay.com/blog/series-d",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/clay.md:52",
+   "kind": "positive",
+   "note": "Some scratch notes date it 2026-09-10; the leaf's 2026-09-09 is the corrected date."
+  },
+  "values": [
+   {
+    "vid": "c17.last_funding.v1",
+    "source_url": "https://www.clay.com/blog/series-d"
+   },
+   {
+    "vid": "c17.last_funding.v2",
+    "source_url": "https://www.clay.com/blog/series-d"
+   },
+   {
+    "vid": "c17.last_funding.v3",
+    "source_url": "https://www.clay.com/blog/series-d"
+   }
+  ]
+ },
+ {
+  "cell": "c18.web_search_source",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Third party: Browserbase Search was 'powered by Exa' at launch (2026-03-17); current docs, product page, and llms.txt name no provider.",
+   "kb_citation": "https://www.browserbase.com/blog/search",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/browser-infrastructure.md:48",
+   "kind": "positive",
+   "note": "Whether Exa still powers it is unconfirmed (competitive/browser-infrastructure.md:48, :89)."
+  },
+  "values": [
+   {
+    "vid": "c18.web_search_source.v1",
+    "source_url": "https://www.browserbase.com/pricing"
+   },
+   {
+    "vid": "c18.web_search_source.v2",
+    "source_url": "https://browserbase.com/blog/search"
+   }
+  ]
+ },
+ {
+  "cell": "c18.soc2",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": {
+   "value": "Type II; no date stated.",
+   "kb_citation": "https://docs.browserbase.com/account/billing/plans.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/browser-infrastructure.md:88",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c18.soc2.v1",
+    "source_url": "https://docs.browserbase.com/account/enterprise/security"
+   },
+   {
+    "vid": "c18.soc2.v2",
+    "source_url": "https://docs.browserbase.com/account/enterprise/security"
+   },
+   {
+    "vid": "c18.soc2.v3",
+    "source_url": "https://docs.browserbase.com/account/enterprise/security"
+   }
+  ]
+ },
+ {
+  "cell": "c18.zero_data_retention",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c18.zero_data_retention.v1",
+    "source_url": "https://docs.browserbase.com/account/enterprise/security"
+   },
+   {
+    "vid": "c18.zero_data_retention.v2",
+    "source_url": "https://docs.browserbase.com/account/enterprise/zero-data-retention"
+   },
+   {
+    "vid": "c18.zero_data_retention.v3",
+    "source_url": "https://docs.browserbase.com/account/enterprise/zero-data-retention"
+   }
+  ]
+ },
+ {
+  "cell": "c18.hipaa_baa",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": {
+   "value": "HIPAA is included on the Scale plan (custom pricing); a BAA is not stated.",
+   "kb_citation": "https://docs.browserbase.com/account/billing/plans.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/browser-infrastructure.md:128",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c18.hipaa_baa.v1",
+    "source_url": "https://www.browserbase.com/use-case/browser-automation-for-healthcare"
+   },
+   {
+    "vid": "c18.hipaa_baa.v2",
+    "source_url": "https://docs.browserbase.com/account/enterprise/security"
+   },
+   {
+    "vid": "c18.hipaa_baa.v3",
+    "source_url": "https://docs.browserbase.com/account/enterprise/security"
+   }
+  ]
+ },
+ {
+  "cell": "c18.official_mcp_server",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c18.official_mcp_server.v1",
+    "source_url": "https://docs.browserbase.com/integrations/mcp/introduction"
+   },
+   {
+    "vid": "c18.official_mcp_server.v2",
+    "source_url": "https://docs.browserbase.com/integrations/mcp/introduction"
+   },
+   {
+    "vid": "c18.official_mcp_server.v3",
+    "source_url": "https://www.browserbase.com/blog/ai-web-agent-sdk"
+   }
+  ]
+ },
+ {
+  "cell": "c18.free_tier",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "Free plan: 3 concurrent browsers and 15-minute sessions; per the plan table, $0 a month with 1 browser hour and 1,000 Search and 1,000 Fetch calls.",
+   "kb_citation": "https://docs.browserbase.com/account/billing/plans.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/browser-infrastructure.md:88",
+   "kind": "positive",
+   "note": "The $0, browser-hour, and Search/Fetch allowances come from untagged plan-table rows (competitive/browser-infrastructure.md:119–126) whose source tag is :128."
+  },
+  "values": [
+   {
+    "vid": "c18.free_tier.v1",
+    "source_url": "https://www.browserbase.com/pricing"
+   },
+   {
+    "vid": "c18.free_tier.v2",
+    "source_url": "https://browserbase.com/pricing/"
+   },
+   {
+    "vid": "c18.free_tier.v3",
+    "source_url": "https://docs.browserbase.com/account/billing/plans"
+   }
+  ]
+ },
+ {
+  "cell": "c18.list_price",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "Search API $7 per 1,000 calls after 1,000 included calls, on the Developer ($20/month) and Startup ($99/month) plans; Scale is custom.",
+   "kb_citation": "https://docs.browserbase.com/account/billing/plans.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/browser-infrastructure.md:142",
+   "kind": "positive",
+   "note": "The tag on :142 is https://exa.ai/pricing (for Exa's side). Plan prices and the included 1,000 calls are in untagged table rows (:119, :123) whose source tag is :128."
+  },
+  "values": [
+   {
+    "vid": "c18.list_price.v1",
+    "source_url": "https://www.browserbase.com/pricing"
+   },
+   {
+    "vid": "c18.list_price.v2",
+    "source_url": "https://www.browserbase.com/pricing"
+   },
+   {
+    "vid": "c18.list_price.v3",
+    "source_url": "https://browserbase.com/pricing/"
+   }
+  ]
+ },
+ {
+  "cell": "c18.last_funding",
+  "company": "Browserbase",
+  "homepage": "https://www.browserbase.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series B: $40M led by Notable Capital with CRV and Kleiner Perkins, 2025-06-18; Upstarts Media reported a $300M valuation.",
+   "kb_citation": "https://www.browserbase.com/blog/series-b-and-beyond",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/browser-infrastructure.md:45",
+   "kind": "positive",
+   "note": "No later round found as of 2026-09-26 (same line)."
+  },
+  "values": [
+   {
+    "vid": "c18.last_funding.v1",
+    "source_url": "https://browserbase.com/blog/series-b-and-beyond"
+   },
+   {
+    "vid": "c18.last_funding.v2",
+    "source_url": "https://www.browserbase.com/blog/series-b-and-beyond"
+   },
+   {
+    "vid": "c18.last_funding.v3",
+    "source_url": "https://www.browserbase.com/blog/series-b-and-beyond/"
+   }
+  ]
+ },
+ {
+  "cell": "c19.web_search_source",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Own first-party index (with cross-encoder reranking), also sold as a self-hostable 4TB packaged index.",
+   "kb_citation": "https://www.diffbot.com/products/web-search",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:124",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c19.web_search_source.v1",
+    "source_url": "https://www.diffbot.com/docs/crawl/faq/robots-txt"
+   },
+   {
+    "vid": "c19.web_search_source.v2",
+    "source_url": "https://www.diffbot.com/docs/web-search/"
+   },
+   {
+    "vid": "c19.web_search_source.v3",
+    "source_url": "https://www.diffbot.com/products"
+   }
+  ]
+ },
+ {
+  "cell": "c19.soc2",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c19.soc2.v1",
+    "source_url": "https://www.diffbot.com/company/privacy"
+   },
+   {
+    "vid": "c19.soc2.v2",
+    "source_url": "https://www.diffbot.com/company/privacy"
+   },
+   {
+    "vid": "c19.soc2.v3",
+    "source_url": "https://www.diffbot.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c19.zero_data_retention",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c19.zero_data_retention.v1",
+    "source_url": "https://www.diffbot.com/company/privacy"
+   },
+   {
+    "vid": "c19.zero_data_retention.v2",
+    "source_url": "https://www.diffbot.com/"
+   },
+   {
+    "vid": "c19.zero_data_retention.v3",
+    "source_url": "https://github.com/diffbot/diffbot-llm-inference"
+   }
+  ]
+ },
+ {
+  "cell": "c19.hipaa_baa",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c19.hipaa_baa.v1",
+    "source_url": "https://www.diffbot.com/company/privacy"
+   },
+   {
+    "vid": "c19.hipaa_baa.v2",
+    "source_url": "https://www.diffbot.com/company/privacy"
+   },
+   {
+    "vid": "c19.hipaa_baa.v3",
+    "source_url": "https://www.diffbot.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c19.official_mcp_server",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c19.official_mcp_server.v1",
+    "source_url": "https://github.com/diffbot/diffbot-mcp"
+   },
+   {
+    "vid": "c19.official_mcp_server.v2",
+    "source_url": "https://blog.diffbot.com/vibe-coding-an-anthropic-mcp-server-using-anthropics-claude-sonnet-4/"
+   },
+   {
+    "vid": "c19.official_mcp_server.v3",
+    "source_url": "https://github.com/diffbot/diffbot-mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c19.free_tier",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "Free plan with 10,000 credits (the calculator defaults to 9,500); one credit per web search.",
+   "kb_citation": "https://www.diffbot.com/pricing/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:187",
+   "kind": "positive",
+   "note": "5 requests a minute per the plan table (competitive/scraping-platforms.md:182, untagged row); the leaf doesn't state the credit period."
+  },
+  "values": [
+   {
+    "vid": "c19.free_tier.v1",
+    "source_url": "https://www.diffbot.com/pricing"
+   },
+   {
+    "vid": "c19.free_tier.v2",
+    "source_url": "https://www.diffbot.com/pricing"
+   },
+   {
+    "vid": "c19.free_tier.v3",
+    "source_url": "https://www.diffbot.com/docs/web-search/"
+   }
+  ]
+ },
+ {
+  "cell": "c19.list_price",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "Credit-metered, no pay-as-you-go: one credit per web search; plan table shows Startup $299/month for 250,000 credits, Plus $899 for 1M.",
+   "kb_citation": "https://www.diffbot.com/pricing/",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:187",
+   "kind": "positive",
+   "note": "Plan prices are untagged table rows (competitive/scraping-platforms.md:182–185) sourced by the tag on :187; the KB's per-1k figures (about $1.20 Startup, $0.90 Plus) are [inferred]."
+  },
+  "values": [
+   {
+    "vid": "c19.list_price.v1",
+    "source_url": "https://www.diffbot.com/pricing"
+   },
+   {
+    "vid": "c19.list_price.v2",
+    "source_url": "https://www.diffbot.com/docs/web-search/"
+   },
+   {
+    "vid": "c19.list_price.v3",
+    "source_url": "https://www.diffbot.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c19.last_funding",
+  "company": "Diffbot",
+  "homepage": "https://www.diffbot.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Series A: $10M, 2016-02-11, led by Tencent and Felicis Ventures; later rounds not recorded.",
+   "kb_citation": "https://www.diffbot.com/company/news/20160211.html",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:64",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c19.last_funding.v1",
+    "source_url": "https://www.diffbot.com/company/press/2016-02-11-series-a-funding-round"
+   },
+   {
+    "vid": "c19.last_funding.v2",
+    "source_url": "https://www.diffbot.com/company/press/2016-02-11-series-a-funding-round"
+   },
+   {
+    "vid": "c19.last_funding.v3",
+    "source_url": "https://www.diffbot.com/company/press/2016-02-11-series-a-funding-round"
+   }
+  ]
+ },
+ {
+  "cell": "c20.web_search_source",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "web_search_source",
+  "definition": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+  "kb_ground_truth": {
+   "value": "Google results via scraping: its RAG Web Browser runs Google Search then browser-scrapes the top results; a Google Search Results Scraper Actor is also sold.",
+   "kb_citation": "https://apify.com/apify/rag-web-browser.md",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:98",
+   "kind": "positive",
+   "note": "Google Search Results Scraper at competitive/scraping-platforms.md:99."
+  },
+  "values": [
+   {
+    "vid": "c20.web_search_source.v1",
+    "source_url": "https://apify.com/apify/google-search-scraper"
+   },
+   {
+    "vid": "c20.web_search_source.v2",
+    "source_url": "https://docs.apify.com/academy/node-js/apify-free-google-serp-api"
+   },
+   {
+    "vid": "c20.web_search_source.v3",
+    "source_url": "https://docs.apify.com/integrations/mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c20.soc2",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "soc2",
+  "definition": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c20.soc2.v1",
+    "source_url": "https://blog.apify.com/apify-soc2/"
+   },
+   {
+    "vid": "c20.soc2.v2",
+    "source_url": "https://docs.apify.com/security"
+   },
+   {
+    "vid": "c20.soc2.v3",
+    "source_url": "https://trust.apify.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c20.zero_data_retention",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "zero_data_retention",
+  "definition": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c20.zero_data_retention.v1",
+    "source_url": "https://trust.apify.com/"
+   },
+   {
+    "vid": "c20.zero_data_retention.v2",
+    "source_url": "https://docs.apify.com/legal/privacy-policy"
+   }
+  ]
+ },
+ {
+  "cell": "c20.hipaa_baa",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "hipaa_baa",
+  "definition": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+  "kb_ground_truth": null,
+  "values": [
+   {
+    "vid": "c20.hipaa_baa.v1",
+    "source_url": "https://trust.apify.com/"
+   },
+   {
+    "vid": "c20.hipaa_baa.v2",
+    "source_url": "https://trust.apify.com/"
+   }
+  ]
+ },
+ {
+  "cell": "c20.official_mcp_server",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "official_mcp_server",
+  "definition": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+  "kb_ground_truth": {
+   "value": "Yes: hosted MCP at mcp.apify.com.",
+   "kb_citation": "https://apify.com/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:101",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c20.official_mcp_server.v1",
+    "source_url": "https://agi.apify.com/llms.txt"
+   },
+   {
+    "vid": "c20.official_mcp_server.v2",
+    "source_url": "https://mcp.apify.com/"
+   },
+   {
+    "vid": "c20.official_mcp_server.v3",
+    "source_url": "https://docs.apify.com/integrations/mcp"
+   }
+  ]
+ },
+ {
+  "cell": "c20.free_tier",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "free_tier",
+  "definition": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+  "kb_ground_truth": {
+   "value": "Free plan with a $5 usage credit; it pauses at its limit instead of billing.",
+   "kb_citation": "https://apify.com/llms.txt",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:163",
+   "kind": "positive",
+   "note": "The $5 usage credit is in the plan table (competitive/scraping-platforms.md:157, untagged row) whose source tag is on :163."
+  },
+  "values": [
+   {
+    "vid": "c20.free_tier.v1",
+    "source_url": "https://apify.com/pricing"
+   },
+   {
+    "vid": "c20.free_tier.v2",
+    "source_url": "https://apify.com/pricing"
+   },
+   {
+    "vid": "c20.free_tier.v3",
+    "source_url": "https://apify.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c20.list_price",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "list_price",
+  "definition": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+  "kb_ground_truth": {
+   "value": "Google Search Results Scraper Actor: $0.0045 per results page on Free ($4.50 per 1,000), down to $0.0012 ($1.20 per 1,000) on the top tier, plus add-ons.",
+   "kb_citation": "https://api.apify.com/v2/store?search=google%20search%20scraper",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:163",
+   "kind": "positive",
+   "note": "Platform Google SERP proxy is $2.50 per 1,000 SERPs on Free and Starter (plan table, competitive/scraping-platforms.md:157, untagged row)."
+  },
+  "values": [
+   {
+    "vid": "c20.list_price.v1",
+    "source_url": "https://apify.com/pricing"
+   },
+   {
+    "vid": "c20.list_price.v2",
+    "source_url": "https://apify.com/apify/google-search-scraper/pricing"
+   },
+   {
+    "vid": "c20.list_price.v3",
+    "source_url": "https://apify.com/pricing"
+   }
+  ]
+ },
+ {
+  "cell": "c20.last_funding",
+  "company": "Apify",
+  "homepage": "https://apify.com",
+  "field": "last_funding",
+  "definition": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer.",
+  "kb_ground_truth": {
+   "value": "Seed round of about $2.98M dated 2024-04-15 per Tracxn (not confirmed by Apify); Apify's about page links a 'raises €2.8M' headline; no lead named.",
+   "kb_citation": "https://tracxn.com/d/companies/apify/__0uReiQEhtg8GaRezDAqQ2WHZWV3CvfdVGIqUl9Lgi7c/funding-and-investors",
+   "kb_date": "2026-09-26",
+   "kb_line": "competitive/scraping-platforms.md:45",
+   "kind": "positive"
+  },
+  "values": [
+   {
+    "vid": "c20.last_funding.v1",
+    "source_url": "https://www.ain.ua/2024/04/15/apify-secures-2-8m-investment/"
+   },
+   {
+    "vid": "c20.last_funding.v2",
+    "source_url": "https://www.linkedin.com/[redacted-5264a24c6c52]"
+   },
+   {
+    "vid": "c20.last_funding.v3",
+    "source_url": "https://getlatka.com/companies/apify"
+   }
+  ]
+ }
+]

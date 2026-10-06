@@ -1,0 +1,612 @@
+{
+ "set": "S1",
+ "questions": [
+  {
+   "id": "q11",
+   "status": "resolved",
+   "answer": "Aggregators put Valyu's only round at about $500K (March 2024), from a16z crypto via its CSX Spring 2024 accelerator. a16z crypto's own cohort post lists Valyu Network; no page gives a primary figure for the amount. Tracxn and Latka still list Valyu as unfunded.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Valyu has raised about $500K in total, in a single early round (2024).",
+     "support_rids_full": [
+      "q11-r2",
+      "q11-r23",
+      "q11-r24"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.caplight.com/company/valyu",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/valyu.md:49",
+     "usefulness": 1
+    },
+    {
+     "claim": "Valyu's only named investor is Andreessen Horowitz (a16z crypto), from March 2024.",
+     "support_rids_full": [
+      "q11-r23",
+      "q11-r24"
+     ],
+     "support_rids_partial": [
+      "q11-r20"
+     ],
+     "verified_url": "https://www.vcbacked.co/company/valyu",
+     "novelty": "net_new",
+     "kb_ref": "competitive/valyu.md:49",
+     "usefulness": 2
+    },
+    {
+     "claim": "Valyu Network was in a16z crypto's CSX Spring 2024 accelerator cohort (announced 2024-03-26).",
+     "support_rids_full": [
+      "q11-r20"
+     ],
+     "support_rids_partial": [
+      "q11-r24"
+     ],
+     "verified_url": "https://a16zcrypto.com/posts/article/crypto-startup-accelerator-csx-spring-2024-cohort/",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    }
+   ],
+   "notes": "The verified_url for claim 3 is a16z crypto's cohort post: primary, but not a pool result. It confirms the CSX cohort but gives no dollar amount, and a16z's accelerator page doesn't state terms either. serp.fast (r20) says no funding amount is reliably public. Prospeo (r2) dates the pre-seed 2024-04-26; other pages say March. Conflicting: r7 Tracxn says unfunded; r15 Latka says no funding reported. Unverifiable: r4 PitchBook, r11/r17 Crunchbase, r27 Dealroom (403); r21 Fsome (522); r22 Messari (bot checkpoint); r1 Tracxn platform (login). r3 LinkedIn shows no funding. Not this Valyu: r10 (a different London 'Valyu', GBP 1.1M), r16 valU, r26 Valyuu, r25 (other Tracxn profile), r8. KB leaf lists funding as 'To be populated' and cites an unreadable PitchBook ~$500K snippet. _scratch/research/scout-competitors.md:226 says 'a16z-linked, pre-seed'."
+  },
+  {
+   "id": "q12",
+   "status": "partial",
+   "answer": "No page names the company operating serper.dev. Its own terms and privacy policy give no entity or address, and the terms use UK law. companyview.io says the operator isn't disclosed and the founder is UK-based. It links a dissolved Hounslow company, SERPER LIMITED, but offers no evidence.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "The company operating serper.dev is not publicly identified: its terms and privacy policy name no legal entity or address, and a third-party profile says the operator isn't disclosed.",
+     "support_rids_full": [
+      "q12-r21",
+      "q12-r22",
+      "q12-r23"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://serper.dev/terms",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/serper.md:47",
+     "usefulness": 1
+    },
+    {
+     "claim": "Serper appears to be UK-based: companyview.io says the founder identifies as UK-based and lists Hounslow, England; serper.dev's terms are governed by UK law.",
+     "support_rids_full": [
+      "q12-r21"
+     ],
+     "support_rids_partial": [
+      "q12-r23"
+     ],
+     "verified_url": "https://companyview.io/company/serper-dev",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/serper.md:146",
+     "usefulness": 1
+    },
+    {
+     "claim": "companyview.io calls SERPER LIMITED (UK company 14730440; incorporated 2023-03-14; registered office Hounslow; dissolved 2024-08-20) a related legal entity; nothing on serper.dev confirms the link.",
+     "support_rids_full": [
+      "q12-r21"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://find-and-update.company-information.service.gov.uk/company/14730440",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/serper.md:47",
+     "usefulness": 1
+    }
+   ],
+   "notes": "Companies House (company overview only) confirms SERPER LIMITED's dates, Hounslow office and SIC 74100 (design). The KB already has this entity as unlinkable, and serper.dev was live from Oct 2022, before the company was incorporated. Trustpilot's unclaimed profile (r5) lists United States, which contradicts the UK signals. adamgtm (r15) says 'founded 2017' and ~7 staff with no sources. That likely conflates serper.io, a London advertising firm founded 2017 and marked 'Deadpooled' by Tracxn (r24). Not the API company: r12 (Serper S.L., Spain), r3 (SERP/serp.co), r20 (Scale SERP). No entity or HQ data: r18 LinkedIn (2-10 employees, no HQ), r11 SourceForge, r2/r16/r27 API Evangelist, r4 Medium, r6/r13/r25 blogs. Unverifiable: r7 Tracxn platform (login), r19 Crunchbase (403). Irrelevant: r1, r8, r9, r10, r14, r17, r26."
+  },
+  {
+   "id": "q13",
+   "status": "resolved",
+   "answer": "All three. Databricks Ventures joined Nimble's $47M Series B (2026-02-24, led by Norwest). Nimble has Databricks Marketplace listings: a free MCP server and data pipelines, and Databricks' own blog spotlighted Nimble as a new data provider in Q2 2024. Nimble also presents Databricks as a product partner: a jointly built e-commerce agent (June 2025), native Unity Catalog and Genie integrations, and a Data + AI Summit session.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Databricks, through Databricks Ventures, invested in Nimble's $47M Series B, announced 2026-02-24 and led by Norwest.",
+     "support_rids_full": [
+      "q13-r2",
+      "q13-r5",
+      "q13-r8",
+      "q13-r13",
+      "q13-r14",
+      "q13-r15",
+      "q13-r19",
+      "q13-r24"
+     ],
+     "support_rids_partial": [
+      "q13-r23",
+      "q13-r27"
+     ],
+     "verified_url": "https://www.nimbleway.com/blog/announcing-47m-series-b-web-search-agent-platform",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/nimble.md:49",
+     "usefulness": 1
+    },
+    {
+     "claim": "Nimble lists a free MCP server ('Nimble MCP: Agentic Web Search Platform') on the Databricks Marketplace; it installs as a Unity Catalog connection.",
+     "support_rids_full": [
+      "q13-r1",
+      "q13-r21",
+      "q13-r28"
+     ],
+     "support_rids_partial": [
+      "q13-r3",
+      "q13-r10"
+     ],
+     "verified_url": "https://marketplace.databricks.com/details/1fe5e521-e9ef-49d8-97c4-b8c0a448ce15/Nimble_Nimble-MCP-Agentic-Web-Search-Platform",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/nimble.md:58",
+     "usefulness": 1
+    },
+    {
+     "claim": "A Databricks blog post (2024-08-21) named Nimble among the new Databricks Marketplace data providers of Q2 2024, for real-time retail pricing and inventory data.",
+     "support_rids_full": [
+      "q13-r20"
+     ],
+     "support_rids_partial": [
+      "q13-r1"
+     ],
+     "verified_url": "https://www.databricks.com/blog/databricks-marketplace-welcomes-47-new-data-providers-q2-2024",
+     "novelty": "net_new",
+     "kb_ref": "competitive/nimble.md:58",
+     "usefulness": 2
+    },
+    {
+     "claim": "Nimble describes Databricks as a product partner as well as an investor; in June 2025 it said it 'partnered with Databricks' to build an e-commerce/CPG agent.",
+     "support_rids_full": [
+      "q13-r22",
+      "q13-r14"
+     ],
+     "support_rids_partial": [
+      "q13-r6",
+      "q13-r8",
+      "q13-r13",
+      "q13-r7",
+      "q13-r17",
+      "q13-r23",
+      "q13-r10",
+      "q13-r3",
+      "q13-r16",
+      "q13-r28"
+     ],
+     "verified_url": "https://www.nimbleway.com/blog/ecommerce-cpg-agentic-ai-system-nimble-databricks",
+     "novelty": "net_new",
+     "kb_ref": "competitive/nimble.md:59",
+     "usefulness": 2
+    }
+   ],
+   "notes": "I rendered the Marketplace listing (r1) in a browser; it is free and was last updated Apr 13. It also shows four Nimble data-pipeline listings. The Data + AI Summit session page (r7) lists Nimble's CEO as speaker, with Lakebase and Unity AI Gateway. The site banner shows the 2027 event, but Databricks Events posted the recording (r17) on 2026-09-08. The Norwest post (r6) calls Databricks a close partner, not an investor. Databricks-side pages don't list Nimble: the Ventures portfolio (r11) and the partners page (r12). Unverifiable: r26 inforcapital (DNS failure). Not Nimble: r18 and r30 (Nimble Approach, a UK consultancy), r31 (Nimble Ventures). Generic, no Nimble facts: r4, r9, r25, r29."
+  },
+  {
+   "id": "q14",
+   "status": "resolved",
+   "answer": "Plaintiff Reddit, Inc. filed the 2026-09-25 motion (Dkt 144). It moves under Rule 12(b)(6) to dismiss SerpApi's counterclaims. SerpApi's counterclaim (Dkt 119, filed 2026-08-28) pleads Sherman Act s.2 monopolization and attempted monopolization, plus four declaratory counts. It alleges Reddit gave Google exclusive crawl access under a deal reportedly worth about $60M a year, and that a robots.txt from 2024-07-01 blocked other search engines. It seeks treble damages, an injunction against requester-specific robots.txt rules, and a declaration of no DMCA claims before January 2025.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Reddit, Inc. (plaintiff) filed the 2026-09-25 motion (Dkt 144), under Rule 12(b)(6), to dismiss SerpApi LLC's counterclaims.",
+     "support_rids_full": [
+      "q14-r2",
+      "q14-r22"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://storage.courtlistener.com/recap/gov.uscourts.nysd.651592/gov.uscourts.nysd.651592.144.0.pdf",
+     "novelty": "net_new",
+     "kb_ref": "competitive/serpapi.md:78",
+     "usefulness": 2
+    },
+    {
+     "claim": "SerpApi's counterclaim (Dkt 119, filed 2026-08-28) pleads monopolization and attempted monopolization under Sherman Act s.2, with Clayton Act ss.4/16 remedies, plus four declaratory-judgment counts.",
+     "support_rids_full": [
+      "q14-r14",
+      "q14-r20"
+     ],
+     "support_rids_partial": [
+      "q14-r13"
+     ],
+     "verified_url": "https://storage.courtlistener.com/recap/gov.uscourts.nysd.651592/gov.uscourts.nysd.651592.119.0.pdf",
+     "novelty": "net_new",
+     "kb_ref": "competitive/serpapi.md:78",
+     "usefulness": 2
+    },
+    {
+     "claim": "The theory is that Reddit gave Google exclusive crawl access, under a partnership reportedly worth about $60M a year. From 2024-07-01 it served other crawlers (Bing, DuckDuckGo, Mojeek, Qwant) a blocking robots.txt. The claimed market is large-scale human conversational data in topic-organized forums, used for search indexing and AI training.",
+     "support_rids_full": [
+      "q14-r14",
+      "q14-r13"
+     ],
+     "support_rids_partial": [
+      "q14-r20"
+     ],
+     "verified_url": "https://storage.courtlistener.com/recap/gov.uscourts.nysd.651592/gov.uscourts.nysd.651592.119.0.pdf",
+     "novelty": "net_new",
+     "kb_ref": "competitive/serpapi.md:78",
+     "usefulness": 2
+    },
+    {
+     "claim": "SerpApi seeks treble damages, an injunction against requester-specific robots.txt directives, and a declaration that Reddit has no cognizable DMCA claims before January 2025.",
+     "support_rids_full": [
+      "q14-r14"
+     ],
+     "support_rids_partial": [
+      "q14-r20",
+      "q14-r13"
+     ],
+     "verified_url": "https://storage.courtlistener.com/recap/gov.uscourts.nysd.651592/gov.uscourts.nysd.651592.119.0.pdf",
+     "novelty": "net_new",
+     "kb_ref": "competitive/serpapi.md:78",
+     "usefulness": 2
+    }
+   ],
+   "notes": "CourtListener's HTML pages (r1, r2) return 403 to automated requests. I read Dkt 144 and Dkt 119 as the PDFs CourtListener hosts; r2 is the Dkt 144 entry, and its snippet shows the same text. PacerMonitor (r22) lists Dkt 144 as Reddit's motion to dismiss the counterclaims, and Dkt 145 as its memorandum. The KB (serpapi.md:78) had inferred Reddit as the filer ('likely Reddit against the counterclaim [inferred]'). Unverifiable: r10 (Reddit blocks fetches). Pages on earlier motions or the July 31 ruling, which don't cover the September motion: r4-r9, r12, r15-r19, r23, r26, r27, r29. Press Gazette (r25) doesn't mention the counterclaim. Google-case pages: r11, r21, r24. Reddit threads r3 and r28 were not fetched."
+  },
+  {
+   "id": "q15",
+   "status": "resolved",
+   "answer": "The case is pending. On 2026-07-20 the court dismissed Google's DMCA claims: without leave to amend for results with no copyrighted content, with leave for results containing copyrighted material. Google filed an amended complaint on 2026-08-10, narrowed to licensed content (Reddit plus two unnamed licensors). SerpApi moved to dismiss it with prejudice on 2026-08-24 (Dkt 49). On 2026-09-15 the court denied SerpApi's bid to get Google's licensing agreements. The hearing date conflicts: ppc.land says 2026-09-29; the KB, from a later docket read, says 2026-10-13.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Google's amended complaint (2026-08-10) narrows the case to licensed content. It pleads licensing agreements with Reddit and two unnamed licensors, and drops the Google Shopping and Maps examples.",
+     "support_rids_full": [
+      "q15-r3",
+      "q15-r23"
+     ],
+     "support_rids_partial": [
+      "q15-r21",
+      "q15-r11",
+      "q15-r24"
+     ],
+     "verified_url": "https://ppc.land/googles-serpapi-case-forces-its-licensing-deals-into-the-open/",
+     "novelty": "net_new",
+     "kb_ref": "competitive/serpapi.md:77",
+     "usefulness": 2
+    },
+    {
+     "claim": "SerpApi moved on 2026-08-24 (Dkt 49) to dismiss the amended complaint with prejudice; the motion was pending as of September.",
+     "support_rids_full": [
+      "q15-r23"
+     ],
+     "support_rids_partial": [
+      "q15-r11"
+     ],
+     "verified_url": "https://ppc.land/serpapi-asks-judge-to-end-googles-scraping-case-over-three-unseen-contracts/",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/serpapi.md:77",
+     "usefulness": 1
+    },
+    {
+     "claim": "On 2026-09-15 Judge Gonzalez Rogers denied SerpApi's bid to compel production of Google's licensing agreements.",
+     "support_rids_full": [
+      "q15-r15"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://news.bgov.com/tech-and-telecom-law/google-beats-data-scrapers-bid-for-licensing-deals-in-ip-suit",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/serpapi.md:77",
+     "usefulness": 1
+    },
+    {
+     "claim": "The 2026-07-20 order dismissed Google's original DMCA claims: without leave to amend for results with no copyrighted content, with leave to amend for results with a copyrighted component.",
+     "support_rids_full": [
+      "q15-r1",
+      "q15-r3",
+      "q15-r6",
+      "q15-r7",
+      "q15-r10",
+      "q15-r11",
+      "q15-r12",
+      "q15-r14",
+      "q15-r18",
+      "q15-r19",
+      "q15-r21",
+      "q15-r23",
+      "q15-r27"
+     ],
+     "support_rids_partial": [
+      "q15-r9",
+      "q15-r16",
+      "q15-r29"
+     ],
+     "verified_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/07/Google-v-SerpApi-Order-GRanting-Motion-to-DIsmiss-7-20-26.pdf",
+     "novelty": "already_in_kb",
+     "kb_ref": "competitive/serpapi.md:77",
+     "usefulness": 1
+    }
+   ],
+   "notes": "The docket pages (r13 CourtListener, r25 Justia) returned 403 or a Cloudflare challenge, so the hearing date couldn't be re-checked. ppc.land (r23, 2026-08-25) quotes the notice of motion's 2026-09-29 date. The KB says the hearing is 2026-10-13 and the reply is due 2026-09-29, per a 2026-09-04 schedule, so r23 is likely stale. crawlraven (r11) dates the second motion 2026-08-25, not 2026-08-24. The Bloomberg Government piece (r15) is paywalled past the ruling. r14 and r18 are copies of the order itself. r20 is SerpApi's amicus brief in the D.C. Circuit U.S. v. Google appeal (2026-08-04), not this case. Filing-era or background pages: r2, r5, r8, r17, r26, r28. Unverifiable: r4 (Jenner, 403). r22 (Reddit) was not fetched."
+  },
+  {
+   "id": "q16",
+   "status": "partial",
+   "answer": "Few new names. Browserbase's own LinkedIn launch post says its Search API is 'powered by Exa'. Makers on Exa's Product Hunt page say they use Exa (Brief, Hyper, nenspace, whocoversit; Product Hunt's AI summary adds Slashy, Pancake, Lightfield). All of these are already in the KB baseline. Other hits are Exa-backed integrations or skills (K-Dense AI, pi-exa, a MyClaw skill), not company usage claims. The rest are exa.ai pages or case studies.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Browserbase publicly says its Search API is powered by Exa.",
+     "support_rids_full": [
+      "q16-r12"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.linkedin.com/[redacted-ff1ed7258039]",
+     "novelty": "already_in_kb",
+     "kb_ref": "customer-stories/CUSTOMER-STORIES-INDEX.md:144",
+     "usefulness": 1
+    },
+    {
+     "claim": "Makers on Exa's Product Hunt page say their products use Exa: Brief, Hyper (meeting-history agent), nenspace, and whocoversit.com; the page's AI summary also names Slashy, Pancake, and Lightfield.",
+     "support_rids_full": [
+      "q16-r17"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.producthunt.com/products/exa-ai",
+     "novelty": "already_in_kb",
+     "kb_ref": "_scratch/research/scout-personas-jtbd-verticals.md:94",
+     "usefulness": 0
+    },
+    {
+     "claim": "Several agent-tool packages wrap Exa's API or MCP but are integrations, not company usage claims: K-Dense AI's exa-search skill (bring your own EXA_API_KEY), the pi-exa extension for Pi (individual maintainer), and a MyClaw skill (individual developer).",
+     "support_rids_full": [
+      "q16-r14",
+      "q16-r2",
+      "q16-r29"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/skills/exa-search/SKILL.md",
+     "novelty": "net_new",
+     "kb_ref": "customer-stories/CUSTOMER-STORIES-INDEX.md:132",
+     "usefulness": 0
+    }
+   ],
+   "notes": "The Product Hunt URL (r17) is already cited in the KB. Its makers other than whocoversit (verticals/media-and-publishing.md:78) appear only in baseline _scratch notes, not in a leaf. The KB treats integration listings as not customer evidence (CUSTOMER-STORIES-INDEX.md:132, :134). Excluded as exa.ai case studies or pages: r1, r3, r6-r8, r10, r11, r13, r16, r19-r22, r24-r28, r30-r33, r36. r18 (runtimewire) repeats Exa's own customer list. r23 is an individual's Substack; its gpt-oss 'default' claim is dated (KB: You.com is the gpt-oss default since 2026-06-09, Exa opt-in). r35 is an anonymous Reddit user. r4 and r9 are competitor pages. r5 (Apify actor) is already in the KB. r15 is an a16z interview. Unverifiable: r34 (X returned 402)."
+  },
+  {
+   "id": "q17",
+   "status": "resolved",
+   "answer": "Verified on their own subprocessor pages: Legora (Exa Labs for web search in its US list; Linkup in the EU list), Zed, DigitalOcean (optional, public preview), Intapp (Celeste web grounding), Day AI (alongside Parallel and Perplexity), Minds (getminds.ai), Surface Labs, Endless and its MOD app, and Bezi. Glean was already known. Aggregators add Auctor, Fireflies.ai, Gamma, Sourcegraph, Vercel, Groq and Apollo.io, which I didn't verify at source except Vercel. Foundable's current page no longer lists Exa.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Legora's pre-approved sub-processor page (updated 2026-07-06) lists Exa Labs Inc. for web search in its United States list; its EU list uses Linkup for web search.",
+     "support_rids_full": [
+      "q17-r4"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://legora.com/legal/eu-pre-approved-sub-processors",
+     "novelty": "contradicts_kb",
+     "kb_ref": "customer-stories/CUSTOMER-STORIES-INDEX.md:152",
+     "usefulness": 3
+    },
+    {
+     "claim": "Zed's subprocessor list (updated 2026-03-02) names Exa Labs for AI-powered contextual search and retrieval behind Zed-hosted models.",
+     "support_rids_full": [
+      "q17-r1",
+      "q17-r31"
+     ],
+     "support_rids_partial": [
+      "q17-r21"
+     ],
+     "verified_url": "https://zed.dev/subprocessors",
+     "novelty": "contradicts_kb",
+     "kb_ref": "customer-stories/CUSTOMER-STORIES-INDEX.md:132",
+     "usefulness": 3
+    },
+    {
+     "claim": "Exa Labs is on the subprocessor pages of more companies the KB doesn't track: DigitalOcean (optional, public preview, web-based search), Intapp (Intapp Celeste, web grounding), Day AI (web search and enrichment, alongside Parallel and Perplexity), Minds/Art of X, Surface Labs, Endless Machine Corp. (Endless and MOD), and Bezi.",
+     "support_rids_full": [
+      "q17-r34",
+      "q17-r33",
+      "q17-r10",
+      "q17-r12",
+      "q17-r22",
+      "q17-r28",
+      "q17-r24",
+      "q17-r25"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.digitalocean.com/trust/subprocessors",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 2
+    },
+    {
+     "claim": "Aggregators list more Exa subprocessor relationships not in the KB: DeployGraph names Auctor, Fireflies.ai, Gamma, Sourcegraph, Vercel, and Groq; sub-processors.com names Apollo.io and Crucible.",
+     "support_rids_full": [
+      "q17-r31",
+      "q17-r13"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.deploygraph.com/vendor/exa",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 1
+    }
+   ],
+   "notes": "KB lines contradicted: CUSTOMER-STORIES-INDEX.md:152 labels Legora 'Linkup case-study customer; Exa logo only'. CUSTOMER-STORIES-INDEX.md:132 excludes Zed as an MCP client: 'Not customer evidence.' Claim 3 is a set claim; each listed rid confirms its own company on its own page. Foundable (r5): its current registry (updated 2026-09-25) lists Perplexity for web search and no Exa, although the snippet showed an Exa row. It may have switched; not counted. No Exa on the current page: r29 Atlaso, r9 Mixpanel, r15 Immersive, r18 Culture Amp, r23 Box, r32 Figma. Unverifiable: r6 Crucible (DNS failure; sub-processors.com lists it), r8 Hello Alice (429), r20 Demandbase (403). Already in KB: r11 Glean (web crawling and rendering). DeployGraph also lists Cursor, Glean, monday.com, Notion, and Zed, and sub-processors.com lists Glean and Anara; the KB already has these. Spot check: Vercel's trust-center data lists Exa.ai for AI search services (added 2025-08-08, for v0 web search). Sourcegraph, Gamma, Fireflies and Groq pages couldn't be read. r21's 'Exa Labs SAS' row for Uphold looks like a different entity. Not relevant: r2 and r14 (Exa's own vendors), r3, r16, r17, r19, r30 (Exa pages), r7 (clausebench vendor profile), r26 and r27 (different 'Exa' companies)."
+  },
+  {
+   "id": "q18",
+   "status": "partial",
+   "answer": "Exa's own blog and changelog show no September 2026 partnership or integration announcement. The month's Exa posts were product launches: Snapshot (2026-09-17) and Agent Ultra (2026-09-24/25). On the partner side, Baselayer posted on 2026-09-22 that it is 'partnering with Exa' via Exa Connect, but Baselayer has been a Connect partner since the June launch. Jinba published an Exa how-to on 2026-09-13. The Vercel and Firefox announcements are from August.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Baselayer announced on 2026-09-22 that it is partnering with Exa and is available through Exa Connect (business identity and risk data).",
+     "support_rids_full": [
+      "q18-r7"
+     ],
+     "support_rids_partial": [
+      "q18-r27"
+     ],
+     "verified_url": "https://baselayer.com/resources/baselayer-exa-partnership-agentic-search",
+     "novelty": "already_in_kb",
+     "kb_ref": "features/exa-connect.md:47",
+     "usefulness": 1
+    },
+    {
+     "claim": "Jinba published a guide (2026-09-13) on calling Exa's /search from a Jinba Flow workflow through its generic API node, not a native connector.",
+     "support_rids_full": [
+      "q18-r11"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://jinba.io/blog/exa-ai-integration-jinba",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 0
+    },
+    {
+     "claim": "Exa's own September 2026 posts were product launches, not partnership announcements: Snapshot (2026-09-17) and Agent Ultra (2026-09-24 changelog, 2026-09-25 blog).",
+     "support_rids_full": [
+      "q18-r21",
+      "q18-r23",
+      "q18-r27"
+     ],
+     "support_rids_partial": [
+      "q18-r10",
+      "q18-r20"
+     ],
+     "verified_url": "https://exa.ai/docs/changelog",
+     "novelty": "already_in_kb",
+     "kb_ref": "positioning/positioning-frameworks.md:94",
+     "usefulness": 1
+    }
+   ],
+   "notes": "The KB cites Baselayer's post (jtbd/premium-data-access.md:54) but not its date. It lists Baselayer as a Connect launch partner (2026-06-24), so the September post re-announces an existing integration. Outside September: r1, r13 (Firefox, 2026-08-17/18), r8, r16 (Vercel, August). FrontierNews (r29) reports a Claude Code-Exa integration via Composio, but the page shows no date or announcer, and the Composio integration is already in the KB (features/framework-integrations.md:75). The additional-partners doc (r9) was only modified on 2026-09-23; it isn't an announcement. UiPath's September notes (r2) don't mention Exa. Different companies: r3 (EXA AG), r6, r15, r19, r28 (EXA Infrastructure). The KB (channels/strategy.md:148) already notes September @[handle] integration posts (Nixpkgs, Baseten, DigitalOcean, Coinbase), which aren't in this pool. Not relevant: r4, r5, r12, r14, r17, r18, r22, r24-r26, r30, r31."
+  },
+  {
+   "id": "q19",
+   "status": "resolved",
+   "answer": "Exa hasn't disclosed its revenue. The main reported figure is Sacra's estimate of about $10M ARR in September 2025, up ~11x (about 1,010%) year over year from ~$0.9M. Sacra also puts ARR at ~$1.86M at the end of 2024. Weaker secondary sources say about $12M ARR: Tech Company News for mid-2025, ARR Club as of 2026-01-12, sourced to an X post. Other figures (Growjo $43.5M, Notice $15.1M, $40M in an Instagram snippet, worldmetrics $5M) are unverifiable or unreliable.",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Sacra estimates Exa reached about $10M ARR in September 2025, up ~11x (about 1,010%) year over year from ~$0.9M.",
+     "support_rids_full": [
+      "q19-r15",
+      "q19-r25",
+      "q19-r5"
+     ],
+     "support_rids_partial": [
+      "q19-r24",
+      "q19-r26",
+      "q19-r8",
+      "q19-r21"
+     ],
+     "verified_url": "https://sacra.com/c/exa/",
+     "novelty": "already_in_kb",
+     "kb_ref": "metrics/kpi-framework.md:111",
+     "usefulness": 1
+    },
+    {
+     "claim": "Secondary sources report about $12M ARR: Tech Company News for mid-2025 (with ~80 employees), and ARR Club as of 2026-01-12, sourced to an X post.",
+     "support_rids_full": [
+      "q19-r4",
+      "q19-r6",
+      "q19-r19"
+     ],
+     "support_rids_partial": [
+      "q19-r24"
+     ],
+     "verified_url": "https://www.arr.club/exa/exa-arr-hit-12m",
+     "novelty": "net_new",
+     "kb_ref": "metrics/kpi-framework.md:111",
+     "usefulness": 1
+    },
+    {
+     "claim": "Exa has not publicly disclosed revenue or ARR; its own funding posts give usage counts only.",
+     "support_rids_full": [
+      "q19-r3"
+     ],
+     "support_rids_partial": [
+      "q19-r1",
+      "q19-r28"
+     ],
+     "verified_url": "https://mediacopilot.ai/exa-2-2-billion-valuation-who-pays-content",
+     "novelty": "already_in_kb",
+     "kb_ref": "metrics/kpi-framework.md:111",
+     "usefulness": 1
+    },
+    {
+     "claim": "Sacra puts Exa's ARR at about $1.86M at the end of 2024.",
+     "support_rids_full": [
+      "q19-r15"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://sacra.com/research/exa-at-10m-growing-11x-yoy/",
+     "novelty": "net_new",
+     "kb_ref": "metrics/kpi-framework.md:111",
+     "usefulness": 1
+    }
+   ],
+   "notes": "Multiples (r8) calls the $10M 'disclosed' with the Series B, but it is Sacra's estimate. SVIC (r24) attributes $10M to the Exa blog, which is wrong, and cites Latka for $1.1M (June 2024) and $5.7M (Dec 2024). The $5.7M conflicts with Sacra's ~$1.86M for end-2024. geo.sig.ai (r26) gives the same numbers without naming Sacra. Latka (r21) gives only a 2025 estimate. Unverifiable: r20 (Sacra staging copy, 503), r11 Growjo and r27 Notice (403), r14 Crunchbase (403). The Instagram reel (r13) caption has no ARR figure. worldmetrics (r22) looks fabricated: it gives a wrong seed investor and an invented valuation and profitability, so it's not counted. The paywalled Sacra report (r2) shows no figure. No revenue figure: r7 SiliconANGLE, r12 Yahoo, r10 and r16 LinkedIn posts. Not relevant: r9 (ARR explainer), r17 (a different, defunct exaAI), r18 (Form D), r23, r29."
+  },
+  {
+   "id": "q20",
+   "status": "resolved",
+   "answer": "There is no official current count. At the Series C (May 2026), CEO Will Bryk said he works with '100 of the best builders', and MediaCopilot reported about 100 employees. By September 2026, LinkedIn shows 231 people listing Exa, in the 51-200 band. Data vendors estimate 121 (Tracxn, as of 2026-01-31) up to ~199 (LeadIQ, August 2026) and 202 (Crustdata). Older figures persist elsewhere (YC 75, Built In 86).",
+   "verification": "verified",
+   "claims": [
+    {
+     "claim": "Exa had about 100 people as of May 2026: CEO Will Bryk's Series C post says he works with 100 builders, and MediaCopilot and Latka also give about 100.",
+     "support_rids_full": [
+      "q20-r2",
+      "q20-r20",
+      "q20-r7",
+      "q20-r13"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://www.linkedin.com/[redacted-b60ecf9f9952]",
+     "novelty": "already_in_kb",
+     "kb_ref": "metrics/kpi-framework.md:109",
+     "usefulness": 1
+    },
+    {
+     "claim": "LinkedIn lists Exa in the 51-200 employee band, with 231 members listing Exa as their employer (September 2026).",
+     "support_rids_full": [
+      "q20-r19"
+     ],
+     "support_rids_partial": [
+      "q20-r22"
+     ],
+     "verified_url": "https://www.linkedin.com/[redacted-584e7fef81f1]",
+     "novelty": "net_new",
+     "kb_ref": "metrics/kpi-framework.md:109",
+     "usefulness": 2
+    },
+    {
+     "claim": "Data vendors estimate 121-202 employees in 2026: Tracxn 121 (as of 2026-01-31), Toolradar ~148, LeadIQ ~199 (August 2026), and Crustdata 202 (up from 24 in 2023).",
+     "support_rids_full": [
+      "q20-r9",
+      "q20-r21",
+      "q20-r5",
+      "q20-r26",
+      "q20-r11"
+     ],
+     "support_rids_partial": [],
+     "verified_url": "https://tracxn.com/d/companies/exa/__fZ_N6xE6vB5WnR3ARRU3JhgS7LyruPQ57Prjmyqg37w",
+     "novelty": "net_new",
+     "kb_ref": "metrics/kpi-framework.md:109",
+     "usefulness": 1
+    },
+    {
+     "claim": "Older or lower figures persist: YC team size 75, Built In 86 (with a wrong HQ), Prospeo 51-100 (66 profiled), Latka 82 for 2025, and Grokipedia 22 (2024).",
+     "support_rids_full": [
+      "q20-r16",
+      "q20-r15",
+      "q20-r8",
+      "q20-r23"
+     ],
+     "support_rids_partial": [
+      "q20-r13"
+     ],
+     "verified_url": "https://www.ycombinator.com/companies/exa",
+     "novelty": "net_new",
+     "kb_ref": "",
+     "usefulness": 0
+    }
+   ],
+   "notes": "The KB's ~100 comes from Exa job-post boilerplate (metrics/kpi-framework.md:109; brand/BRAND_VOICE.md:112); the CEO's post gives a named, dated source. LeadIQ's directory page (r5) now reads ~199 (Aug 2026), not the snippet's 158 (July). LinkedIn (r19) showed 200 members in its 2026-06-24 snippet and 231 now. MediaCopilot (r20) also mentions a Zurich office, which the KB doesn't list. Crustdata (r11) says engineering is 65 people. Unverifiable: r25 PitchBook, r17 Crunchbase, r10 ZoomInfo (403); r6 Tracxn platform (login); r24 Lightspeed jobs (no size band rendered). Different companies: r1 (Exa Laboratories), r4 (EXA Infrastructure), r18 (Exa Capital). No count: r3 Yahoo, r14 exa.ai/about, r12 (xAI directory page on exa.ai)."
+  }
+ ]
+}

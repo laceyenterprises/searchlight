@@ -1,0 +1,192 @@
+{
+ "set": "SM",
+ "id": "m02",
+ "provider": "exa",
+ "name": "provider-eval SM m02 Parallel",
+ "status_at_harvest": "active",
+ "search": {
+  "query": "Parallel Web Systems API pricing, processors, or changelog update",
+  "numResults": 10,
+  "includeDomains": [
+   "parallel.ai",
+   "docs.parallel.ai"
+  ]
+ },
+ "trigger": {
+  "type": "interval",
+  "period": "1d"
+ },
+ "output_schema": null,
+ "created": "2026-09-27T00:16:08.035Z",
+ "runs": [
+  {
+   "run": 1,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-27T16:07:41.688Z",
+   "startedAt": "2026-09-27T16:07:41.688Z",
+   "completedAt": "2026-09-27T16:07:42.691Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1170,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 2,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-28T16:09:22.725Z",
+   "startedAt": "2026-09-28T16:09:22.725Z",
+   "completedAt": "2026-09-28T16:09:23.972Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1450,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 3,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-29T16:14:14.514Z",
+   "startedAt": "2026-09-29T16:14:14.514Z",
+   "completedAt": "2026-09-29T16:14:17.646Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3282,
+   "note_chars": 311,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.parallel.ai/resources/changelog",
+     "domain": "docs.parallel.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.parallel.ai/resources/changelog:2439029d914e2ae9026f912912be63461d993232242d74ab2712cb98dbb8f34a",
+     "title_chars": 58,
+     "summary_chars": 194
+    }
+   ]
+  },
+  {
+   "run": 4,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-30T16:07:01.186Z",
+   "startedAt": "2026-09-30T16:07:01.186Z",
+   "completedAt": "2026-09-30T16:07:02.377Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1361,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 5,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-01T16:20:07.070Z",
+   "startedAt": "2026-10-01T16:20:07.070Z",
+   "completedAt": "2026-10-01T16:20:09.843Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2941,
+   "note_chars": 236,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.parallel.ai/getting-started/pricing",
+     "domain": "docs.parallel.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.parallel.ai/getting-started/pricing:ede5b10475c7789231403f2f81c3e5d68fc359581c06785e4477133555d7475a",
+     "title_chars": 46,
+     "summary_chars": 107
+    }
+   ]
+  },
+  {
+   "run": 6,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-02T16:23:48.941Z",
+   "startedAt": "2026-10-02T16:23:48.941Z",
+   "completedAt": "2026-10-02T16:23:50.536Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1745,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 7,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-03T16:04:35.518Z",
+   "startedAt": "2026-10-03T16:04:35.518Z",
+   "completedAt": "2026-10-03T16:04:39.521Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 4130,
+   "note_chars": 450,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://docs.parallel.ai/resources/changelog",
+     "domain": "docs.parallel.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.parallel.ai/resources/changelog:4ea3d195ddecf1b5d19ded4a08f74988df92fe9951904a61314b73031bda39a3",
+     "title_chars": 61,
+     "summary_chars": 161
+    },
+    {
+     "rank": 2,
+     "url": "https://docs.parallel.ai/getting-started/pricing",
+     "domain": "docs.parallel.ai",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://docs.parallel.ai/getting-started/pricing:e44c26b272078c6cca1776572eb786cb0e19317832a14c8b36cfd6ce9f58ef8e",
+     "title_chars": 55,
+     "summary_chars": 140
+    }
+   ]
+  },
+  {
+   "run": 8,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-04T16:14:47.985Z",
+   "startedAt": "2026-10-04T16:14:47.985Z",
+   "completedAt": "2026-10-04T16:14:49.717Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1905,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 9,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-05T16:26:23.160Z",
+   "startedAt": "2026-10-05T16:26:23.160Z",
+   "completedAt": "2026-10-05T16:26:24.978Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1986,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 10,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-06T16:14:06.142Z",
+   "startedAt": "2026-10-06T16:14:06.142Z",
+   "completedAt": "2026-10-06T16:14:07.652Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 1679,
+   "note_chars": 43,
+   "results": []
+  }
+ ]
+}

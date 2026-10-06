@@ -1,0 +1,1600 @@
+{
+ "judge": "J1",
+ "questions": [
+  {
+   "id": "m3",
+   "status": "answered",
+   "claims": [
+    {
+     "claim": "Microsoft said on its FY26 Q4 earnings call (July 29, 2026) that Foundry has 100,000 customers.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "c32",
+      "c83",
+      "c93",
+      "r27"
+     ],
+     "support_partial": [
+      "r7"
+     ]
+    },
+    {
+     "claim": "On the same FY26 Q4 call Microsoft said Foundry revenue more than doubled year over year, without giving a dollar amount or base.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "c21",
+      "c114",
+      "c117",
+      "r27"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY25 Q4 call (July 30, 2025) that Foundry Agent Service was being used by 14,000 customers to build agents.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q4",
+     "date": "2025-07-30",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c119"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft gave Foundry 80,000 customers, including 80% of the Fortune 500, on its FY26 Q1 call (Oct 29, 2025); its undated Foundry and Agent Service product pages (live Sept 2026) still carry the same 80,000 and 80% figures, below the 100,000 given in July 2026.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c3",
+      "c9",
+      "c12",
+      "r8",
+      "r14",
+      "r17",
+      "r19",
+      "r23",
+      "r24",
+      "r28"
+     ],
+     "support_partial": [
+      "c18",
+      "c45",
+      "c81",
+      "r5"
+     ]
+    },
+    {
+     "claim": "At Build (May 19, 2025) Microsoft said Azure AI Foundry supported more than 70,000 customers.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/azure-ai-foundry-your-ai-app-and-agent-factory/",
+     "date": "2025-05-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c69",
+      "c87",
+      "c118",
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "In the same May 19, 2025 post Microsoft said Azure AI Foundry processed 100 trillion tokens in the prior quarter (roughly Jan-Mar 2025).",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/azure-ai-foundry-your-ai-app-and-agent-factory/",
+     "date": "2025-05-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c24",
+      "c86",
+      "c98",
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY25 Q4 call that Foundry APIs processed over 500 trillion tokens in fiscal 2025, up more than 7X.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q4",
+     "date": "2025-07-30",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c74"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "In its May 2025 Agent Service GA announcement Microsoft said more than 10,000 organizations, including Heineken, Carvana and Fujitsu, had used Azure AI Foundry to automate business processes with their own data (the sentence credits Foundry, not the Agent Service alone).",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/azure-ai-foundry-your-ai-app-and-agent-factory/",
+     "date": "2025-05-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c22",
+      "c38",
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q2 call (Jan 28, 2026) that over 250 customers were on track to process more than one trillion tokens on Foundry that year.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+     "date": "2026-01-28",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c11",
+      "c56",
+      "r5"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "On the FY26 Q2 call Microsoft said the number of customers spending $1 million or more per quarter on Foundry grew nearly 80%, with no count given.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+     "date": "2026-01-28",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c105",
+      "c108",
+      "r5"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q3 call (Apr 29, 2026) that over 300 customers were on track to process more than one trillion tokens on Foundry that year, which it described as accelerating 30% quarter over quarter.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c5",
+      "c36",
+      "c43"
+     ],
+     "support_partial": [
+      "c110"
+     ]
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q4 call that the number of Foundry customers at a one-trillion-token annualized run rate rose 4X year over year (no base given).",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c14",
+      "c34",
+      "c113",
+      "r27"
+     ],
+     "support_partial": [
+      "c103"
+     ]
+    },
+    {
+     "claim": "Microsoft gives no standalone 2026 customer, agent or revenue figure for Foundry Agent Service in its FY26 Q4 call or its Foundry product and pricing pages.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c59"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's FY2026 10-K (fiscal year ended June 30, 2026) mentions Azure AI Foundry only descriptively and discloses no standalone Foundry revenue.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+     "date": "2026-06-30",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c111"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q2 call that over 1,500 customers had used both Anthropic and OpenAI models on Foundry.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+     "date": "2026-01-28",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c19",
+      "c39",
+      "r5"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q3 call that over 10,000 customers had used more than one model on Foundry.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c8",
+      "c101"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q3 call that 5,000 Foundry customers had used open-source models.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c54",
+      "c94"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q4 call that customers building with models from multiple providers had increased 5X since the start of the year.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c51"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q4 call that over 17,000 customers use both Foundry and Fabric, up 60% year over year.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c33",
+      "c67",
+      "c82",
+      "r27"
+     ],
+     "support_partial": [
+      "c20",
+      "c84",
+      "c96"
+     ]
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q3 call that over 15,000 customers used both Foundry and Fabric.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q4 call that tens of thousands of customers, including nearly 90% of the Fortune 500, ground agents in enterprise context with Foundry, Fabric and Work IQ.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c66",
+      "r27"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q4 call that Agent 365 had nearly 40 million registered agents across tens of thousands of companies two months after launch; this is an Agent 365 registry count, not Foundry agents.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c23",
+      "r27"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft said on its FY26 Q3 call that its whole AI business passed a $37 billion annual revenue run rate, up 123% year over year (all Microsoft AI, not Foundry).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c35"
+     ],
+     "support_partial": [
+      "c78"
+     ]
+    },
+    {
+     "claim": "A secondary blog (Apr 2026) says Azure's AI business reached $13 billion in annual AI revenue as of January 2025, up 175% year over year.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://agentmarketcap.ai/blog/2026/04/06/microsoft-azure-ai-foundry-agent-platform-enterprise-build-deploy",
+     "date": "2026-04-06",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r5"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "A LinkedIn post (about Aug 2026) says Bloomberg calculated that OpenAI generated $24.1 billion, about 70% of Microsoft's fiscal 2026 AI revenue.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.linkedin.com/[redacted-0874722f1997]",
+     "date": "2026-08",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r1"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's Foundry Agent Service product page carries a quote from Aon's Head of Engineering crediting Grounding with Bing in Agent Service with connecting Aon's agents to real-world information; the KB attributes this quote to KPMG's Sebastian Stöckle.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 3,
+     "verified_url": "https://azure.microsoft.com/en-us/products/ai-foundry/agent-service",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "_scratch/research/si-partners-channel.md",
+     "support_full": [
+      "r8",
+      "r17",
+      "r19"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's Ignite 2025 post says developers at KPMG, NTT DATA, Fujitsu, YoungWilliams and Aon are deploying agents on Foundry Agent Service, and names BMW and Commerzbank as users.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/foundry-agent-service-at-ignite-2025-simple-to-build-powerful-to-deploy-trusted-/4469788",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c62"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Foundry Agent Service became generally available at Microsoft Build in May 2025.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/azure-ai-foundry-your-ai-app-and-agent-factory/",
+     "date": "2025-05-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c55",
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Levi Strauss & Co. uses OpenAI and Anthropic models on Foundry as it brings more than 1,000 domain-specific agents into one enterprise AI platform (FY26 Q4 call).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c13",
+      "c100"
+     ],
+     "support_partial": [
+      "c44"
+     ]
+    },
+    {
+     "claim": "Telefónica adopted Foundry as the foundation of its corporate agentic platform, starting with network-operations agents (FY26 Q4 call).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+     "date": "2026-07-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c53"
+     ],
+     "support_partial": [
+      "c44",
+      "r25"
+     ]
+    },
+    {
+     "claim": "Bayer built an in-house agent platform on multiple Foundry models with more than 20,000 monthly active users (FY26 Q3 call).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c31"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Commerzbank's Ava agent, built on Foundry Agent Service, handles more than 30,000 customer conversations a month (Ignite 2025).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/foundry-agent-service-at-ignite-2025-simple-to-build-powerful-to-deploy-trusted-/4469788",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c7",
+      "c46"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Commerzbank's Ava resolves 75% of those conversations autonomously (Ignite 2025).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/foundry-agent-service-at-ignite-2025-simple-to-build-powerful-to-deploy-trusted-/4469788",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c16",
+      "c85"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "BMW uses Foundry Agent Service and Microsoft Agent Framework for a multi-agent system that speeds test-fleet data analysis 12-fold (Ignite 2025).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/foundry-agent-service-at-ignite-2025-simple-to-build-powerful-to-deploy-trusted-/4469788",
+     "date": "2025-11-18",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c49"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Nasdaq uses Foundry to build agents that help customers prepare for board meetings (FY25 Q4 call).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q4",
+     "date": "2025-07-30",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c1"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Ralph Lauren used Foundry to build a conversational shopping experience in its app (FY26 Q1 call).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "KPMG used Microsoft Agent Framework to modernize its audit process (FY26 Q1 call).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.fool.com/earnings/call-transcripts/2025/10/29/microsoft-msft-q1-2026-earnings-call-transcript/",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c120"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "ASOS built an AI virtual stylist on Azure AI Foundry (Microsoft blog, Oct 30, 2024).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/from-idea-to-impact-real-world-success-stories-of-building-intelligent-apps-with-azure/",
+     "date": "2024-10-30",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c6"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "H&R Block built a tax-filing assistant on Azure AI Foundry and Azure OpenAI (Microsoft blog, Oct 30, 2024).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/from-idea-to-impact-real-world-success-stories-of-building-intelligent-apps-with-azure/",
+     "date": "2024-10-30",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c58"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's July 9, 2026 GPT-5.6 post names Adobe, Telefónica and Tata Consultancy Services as running agents in production on Foundry.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/gpt-5-6-now-available-in-microsoft-foundry/",
+     "date": "2026-07-09",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c42"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Foundry Agent Service charges nothing extra to create or run prompt and workflow agents: customers pay for model tokens and, separately, for tools and knowledge connections including Grounding with Bing, while hosted agents are billed on container compute per hour.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://azure.microsoft.com/en-us/pricing/details/foundry-agent-service/",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c115",
+      "r4"
+     ],
+     "support_partial": [
+      "c17",
+      "c77",
+      "c97",
+      "c102",
+      "c112",
+      "r8",
+      "r17",
+      "r19"
+     ]
+    },
+    {
+     "claim": "Microsoft says Foundry powered 2 billion daily enterprise search queries (May 2025); these aren't identified as Grounding with Bing transactions.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://azure.microsoft.com/en-us/blog/azure-ai-foundry-your-ai-app-and-agent-factory/",
+     "date": "2025-05-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c2",
+      "c10",
+      "c109",
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's current Foundry product pages cite 3 billion daily enterprise search queries, again not identified as Grounding with Bing transactions.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://azure.microsoft.com/en-us/products/ai-foundry",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c29",
+      "r8",
+      "r14",
+      "r17",
+      "r19",
+      "r23",
+      "r24",
+      "r28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft says Foundry offers over 11,000 models.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://azure.microsoft.com/en-us/products/ai-foundry",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c75",
+      "c107",
+      "r8",
+      "r14",
+      "r17",
+      "r19",
+      "r23",
+      "r24",
+      "r28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing Search and Custom Search cost $14 per 1,000 transactions; the Foundry Agent Service pricing page lists its Web Search and Custom Search tools at the same $14.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-pricing",
+     "date": "2026-09-21 (snapshot)",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c47",
+      "c70",
+      "c71",
+      "c72",
+      "c79",
+      "c90",
+      "c95"
+     ],
+     "support_partial": [
+      "r4"
+     ]
+    },
+    {
+     "claim": "Each Grounding with Bing plan is capped at 150 transactions per second and 1 million transactions per day.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-pricing",
+     "date": "2026-09-21 (snapshot)",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c30"
+     ],
+     "support_partial": [
+      "c25",
+      "c27",
+      "c40",
+      "c41",
+      "c76",
+      "c106"
+     ]
+    },
+    {
+     "claim": "Grounding with Bing is available only as a tool in Foundry Agent Service or as a Web Knowledge Source in Azure AI Search and Foundry Knowledge, and Microsoft bills it per grounding transaction.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-pricing",
+     "date": "2026-09-21 (snapshot)",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c26"
+     ],
+     "support_partial": [
+      "c15",
+      "c73",
+      "c92"
+     ]
+    },
+    {
+     "claim": "Microsoft sells Grounding with Bing as an add-on for select Microsoft products whose outputs can't be used directly in other applications, and its citations must be shown to end users.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/bing/apis/grounding-pricing",
+     "date": "2026-09-21 (snapshot)",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c68"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Foundry Agent Service's Web Search tool runs on Grounding with Bing Search and Grounding with Bing Custom Search.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/web-search",
+     "date": "2026-09-03",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c65"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft's Data Protection Addendum doesn't apply to Grounding with Bing, and its data leaves the Azure compliance and geographic boundary.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c99"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Bing transactions are counted per tool call in a run, and the citations and Bing query link must be kept and displayed as Microsoft provides them.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c91"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Grounding with Bing tool returns 5 results by default and up to 50 per call.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/bing-tools",
+     "date": "2026-08-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c88",
+      "c104"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Microsoft retired the Bing Search APIs on Aug 11, 2025 and pointed customers to Grounding with Bing Search in Azure AI Agents.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/lifecycle/announcements/bing-search-api-retirement",
+     "date": "2025-05-16",
+     "source_type": "company statement",
+     "kb_file": "competitive/microsoft-grounding-with-bing.md",
+     "support_full": [
+      "c61"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Foundry's customers include 85% of the Fortune 500.",
+     "tier": 2,
+     "verdict": "false",
+     "usefulness": null,
+     "verified_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r5"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "supported",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "supported",
+    "c39": "supported",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "supported",
+    "c43": "supported",
+    "c44": "supported",
+    "c45": "supported",
+    "c46": "supported",
+    "c47": "supported",
+    "c48": "supported",
+    "c49": "supported",
+    "c50": "supported",
+    "c51": "supported",
+    "c52": "unsupported",
+    "c53": "supported",
+    "c54": "supported",
+    "c55": "supported",
+    "c56": "supported",
+    "c57": "unsupported",
+    "c58": "supported",
+    "c59": "supported",
+    "c60": "supported",
+    "c61": "supported",
+    "c62": "supported",
+    "c63": "supported",
+    "c64": "unsupported",
+    "c65": "supported",
+    "c66": "supported",
+    "c67": "supported",
+    "c68": "supported",
+    "c69": "supported",
+    "c70": "supported",
+    "c71": "supported",
+    "c72": "supported",
+    "c73": "supported",
+    "c74": "supported",
+    "c75": "supported",
+    "c76": "supported",
+    "c77": "supported",
+    "c78": "supported",
+    "c79": "supported",
+    "c80": "supported",
+    "c81": "supported",
+    "c82": "supported",
+    "c83": "supported",
+    "c84": "supported",
+    "c85": "supported",
+    "c86": "supported",
+    "c87": "supported",
+    "c88": "supported",
+    "c89": "supported",
+    "c90": "supported",
+    "c91": "supported",
+    "c92": "supported",
+    "c93": "supported",
+    "c94": "supported",
+    "c95": "supported",
+    "c96": "supported",
+    "c97": "supported",
+    "c98": "supported",
+    "c99": "supported",
+    "c100": "supported",
+    "c101": "supported",
+    "c102": "supported",
+    "c103": "supported",
+    "c104": "supported",
+    "c105": "supported",
+    "c106": "supported",
+    "c107": "supported",
+    "c108": "supported",
+    "c109": "supported",
+    "c110": "supported",
+    "c111": "supported",
+    "c112": "supported",
+    "c113": "supported",
+    "c114": "supported",
+    "c115": "supported",
+    "c116": "unsupported",
+    "c117": "supported",
+    "c118": "supported",
+    "c119": "supported",
+    "c120": "supported",
+    "c121": "supported"
+   },
+   "notes": "Status answered: Foundry's customer count is pinned (100,000 at FY26 Q4, already in the KB) and revenue growth is verified, but Microsoft gives no dollar revenue and no 2026 Agent Service customer, agent or developer count; the latest Agent Service count is 14,000 (FY25 Q4, new). New dated series for the denominator: 70,000 (May 2025), 80,000 (Oct 2025), 100,000 (Jul 2026); token volume 100T per quarter (early 2025) and 500T+ in FY25. Access: Microsoft investor pages, both Bing pricing pages and the SEC 10-K returned 403 live, so I read Wayback snapshots (earnings pages captured June to September 2026; bing/apis 2026-09-21; grounding-pricing 2026-05-13; 10-K 2026-09-25). The techcommunity Ignite page was read from its embedded page JSON. getpanto was 503 live and read via Wayback (2026-06-07). Gartner (r12) was 403 and isn't needed. ai.azure.com (r14, r28) is a script app that routes to /home, which states the figures credited. The Agent Service pricing page shows prices only in its price-data attributes (Web Search 14.0, Code Interpreter 0.033, File Search storage 0.11 in US East). Unsupported cids: c52 (the cited Agent Service page names only BMW, Aon, KPMG and Commerzbank; the other five names come from other posts); c57 (ppc.land says nothing about a separate billing meter from tokens); c64 (ppc.land's $35 is the 2025 price at the Bing API retirement, not a 2026 price; Microsoft lists $14 now); c116 (the FY25 Q4 call gives no 100,000 figure; that comes a year later). Metadata slips I didn't count against support: c24's as_of '2025 Q4' (the tokens were the quarter before May 19, 2025) and 'press report' labels on Microsoft pages (c24, c25, c40, c47, c69, c104, c109). c120 cites fool.com, whose transcript reads 'Beyond models and Foundry' where Microsoft's own transcript places the Agent Framework in Foundry. Stale or divergent secondary figures: r5 says 85% of the Fortune 500 (recorded as false); r30 says 'more than 60,000 customers' as of early 2026 and 1,800 models, both stale; c63's 60,000+ (getpanto) is a stale lower bound. The 2B and 3B daily enterprise search queries aren't Bing grounding volume. Correction: the Agent Service page attributes the Grounding with Bing quote to Aon's Head of Engineering, not KPMG as in _scratch/research/si-partners-channel.md (the page source list and use-case row 6). Support rule: a rid counts when its page states the claim; a cid counts for the claim it asserts. Supported cids left unmapped are product-capability or stale items (c37, c48, c50, c60, c63, c80, c89, c121)."
+  },
+  {
+   "id": "o6",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "OpenAI's May 21, 2025 Responses API update names Zencoder's coding agent, Revi's market-intelligence agent for private equity and investment banking, and MagicSchool AI's education assistant as apps that use its web search tool; it gives no per-company volumes.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://openai.com/index/new-tools-and-features-in-the-responses-api/",
+     "date": "2025-05-21",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c9",
+      "r28"
+     ],
+     "support_partial": [
+      "c16"
+     ]
+    },
+    {
+     "claim": "OpenAI said in the same post that hundreds of thousands of developers had used the Responses API since its March 2025 launch (whole API, not web search).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://openai.com/index/new-tools-and-features-in-the-responses-api/",
+     "date": "2025-05-21",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c10",
+      "r28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI said the Responses API had processed trillions of tokens across its models by May 2025 (whole API, not web search).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://openai.com/index/new-tools-and-features-in-the-responses-api/",
+     "date": "2025-05-21",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c8",
+      "r28"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "MagicSchool launched Web Search in its teacher AI on March 26, 2025, bringing live data, recent research and current events into select tools behind a toggle; the post doesn't name the search provider.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.magicschool.ai/blog-posts/web-search-teacher-ai",
+     "date": "2025-03-26",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c6"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "MagicSchool says it is trusted by millions of educators (company-wide, not a web-search usage figure).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.magicschool.ai/faq",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c7"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "MagicSchool says its Web Search respects school and district web filters and filters results for educational appropriateness.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.magicschool.ai/faq",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Zencoder says over 500 organizations use its platform (not stated to be web-search users).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://zencoder.ai/customers",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c15"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Revi describes itself as private-market intelligence for private-equity firms and acquisitive companies: M&A target profiling, market research, thesis validation and competitive intelligence.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.revi.ai/",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c3"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI lists web search at $10 per 1,000 calls plus search content tokens at model rates, for all models.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "live 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c14",
+      "r7",
+      "r21"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI lists web search preview on non-reasoning models at $25 per 1,000 calls, with search content tokens free.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "live 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c5"
+     ],
+     "support_partial": [
+      "r7"
+     ]
+    },
+    {
+     "claim": "OpenAI launched the Responses API with built-in web search, file search and computer use on March 11, 2025.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/new-tools-for-building-agents/",
+     "date": "2025-03-11",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c11"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI's web search tool returns answers with sourced citations; it runs in the Responses API and, for some models, Chat Completions, and tool use is billed at standard rates.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+     "date": "live 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c2",
+      "r27"
+     ],
+     "support_partial": [
+      "c1"
+     ]
+    },
+    {
+     "claim": "OpenRouter's web plugin uses native search for OpenAI models (and for Anthropic, Google, Perplexity and xAI models) and Exa for other models.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openrouter.ai/docs/guides/features/plugins/web-search",
+     "date": "live 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c13"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "On Azure, the OpenAI Responses API web_search tool runs on Grounding with Bing Search; Microsoft's doc names no customers.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/web-search",
+     "date": "2026-05-13",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c12",
+      "r4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "AWS made Web Search on Amazon Bedrock generally available on Aug 4, 2026 for OpenAI GPT models (GPT-5.4, 5.5 and 5.6), using an Amazon-operated index through a Responses-API-compatible tool.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://aws.amazon.com/about-aws/whats-new/2026/08/amazon-bedrock-web/",
+     "date": "2026-08-04",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r8"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported"
+   },
+   "notes": "Status partial: named production users are verified (Zencoder, Revi and MagicSchool AI, named by OpenAI in May 2025), but no pooled item gives a per-company web-search call count, spend or share. The only scale figures are company-wide (MagicSchool's millions of educators, Zencoder's 500+ organizations) or API-wide (Responses API developers and tokens). No new tier-1 figure. Access: openai.com pages returned 403 live and were read on Wayback snapshots from September 2026. Medium and Towards AI (r16, r29) and Perplexity (r31) returned 403; none is needed. Not credited: Booking.com (r1) and Nubank (r12) pages don't mention the web search tool; r10's Agents API launch customers (Ciridae, SafetyKit, Hypha) aren't tied to web search; r3, r30 and r31 cover other providers' customers; r6 (Wikipedia, Company) is off-topic. The March 11, 2025 launch post cited by c1 and c11 also names Hebbia and Box as web-search users, but no pooled item asserts that, so it isn't credited. MagicSchool's pages don't say which provider powers its Web Search; its FAQ says it routes across OpenAI, Anthropic and Google models. Revi's old domain (searchrevi.com) redirects to revi.ai. r8 matters for the OpenAI line: OpenAI models served on Bedrock can ground with Amazon's own search rather than OpenAI's. Support rule: a rid counts when its page states the claim; a cid counts for the claim it asserts."
+  },
+  {
+   "id": "g6",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "FairPrice Group, Singapore's largest retailer, runs an in-store barcode knowledge agent built on the Gemini API, RAG Engine and the Grounding with Google Search API that suggests complementary products from trusted recipes and pairings.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://cloud.google.com/customers/fairpricegroup",
+     "date": "2025 (case study undated; press release 2025-08-28)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c11"
+     ],
+     "support_partial": [
+      "c19"
+     ]
+    },
+    {
+     "claim": "FairPrice Group's health-and-nutrition knowledge agent also uses the Gemini API, RAG Engine and the Grounding with Google Search API (Google Cloud press release, Aug 28, 2025).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.googlecloudpresscorner.com/2025-08-27-FairPrice-Group,-Singapores-Largest-Retailer,-Deepens-AI-Collaboration-with-Google-Cloud,-Brings-New-Agentic-Applications-to-its-Store-of-Tomorrow-and-Workforce",
+     "date": "2025-08-28",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c9"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "FairPrice's Store of Tomorrow program, which carries these agents, launched in Q3 2025 with its first AI-powered supermarket.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://cloud.google.com/customers/fairpricegroup",
+     "date": "2025-Q3",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c19"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "FairPrice Group serves more than one million customers a day across Singapore (company scale, not grounded-query volume).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://cloud.google.com/customers/fairpricegroup",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c6"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "FairPrice Group has over 570 touchpoints.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://cloud.google.com/customers/fairpricegroup",
+     "date": "undated (live 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c5"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Quora offers Grounding with Google Search on its Poe platform for Gemini bots, and Google quoted Poe's product lead on positive user feedback (June 27, 2024); no usage figures are given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://cloud.google.com/blog/products/ai-machine-learning/rag-and-grounding-on-vertex-ai",
+     "date": "2024-06-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c12",
+      "c17",
+      "r4",
+      "r5"
+     ],
+     "support_partial": [
+      "c29"
+     ]
+    },
+    {
+     "claim": "Ipsos grounds a generative-AI tool for its market researchers (its Ipsos Facto conversational experience) in Google Search, per Google Cloud posts of June 27 and Sept 24, 2024; no usage or savings figures are given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://cloud.google.com/blog/products/ai-machine-learning/vertex-ai-offers-enterprise-ready-generative-ai",
+     "date": "2024-06-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r5",
+      "c25"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Motorola Mobility's Moto AI uses Gemini and Imagen with responses grounded in Google Search for conversation summaries, notification digests, image creation and natural-language search (Google Cloud blog, Dec 3, 2024); no user or query figures.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://cloud.google.com/blog/products/ai-machine-learning/how-vertex-ai-grounding-helps-build-more-reliable-models",
+     "date": "2024-12-03",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c4",
+      "r31"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google cites Palo Alto Networks as using Vertex AI Agent Builder grounding with Gemini for security-support agents (June 2024), without saying the grounding source is Google Search or giving figures.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://cloud.google.com/blog/products/ai-machine-learning/rag-and-grounding-on-vertex-ai",
+     "date": "2024-06-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c1",
+      "r4"
+     ],
+     "support_partial": [
+      "c29"
+     ]
+    },
+    {
+     "claim": "Google Cloud announced Grounding with Google Search as generally available in Vertex AI at I/O (posts of June 27, 2024).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://cloud.google.com/blog/products/ai-machine-learning/vertex-ai-offers-enterprise-ready-generative-ai",
+     "date": "2024-06-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r4",
+      "r5"
+     ],
+     "support_partial": [
+      "c29"
+     ]
+    },
+    {
+     "claim": "Glean lets admins configure web search through Google Gemini tools, including Google consumer search (Grounding with Google Search).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://docs.glean.com/administration/tools/setup-tools/web-search-tools-setup",
+     "date": "live 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Parallel is a partner grounding source (Grounding with Parallel Web Search) on Gemini Enterprise Agent Platform, sold through Google Cloud Marketplace (July 2026).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.googleblog.com/expanding-choice-in-gemini-enterprise-agent-platform-introducing-grounding-with-parallel-web-search",
+     "date": "2026-07-16",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c28",
+      "r17"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Elasticsearch is a native grounding engine for Gemini on Vertex AI, grounding on enterprise data rather than Google Search.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.elastic.co/search-labs/blog/elasticsearch-google-cloud-vertex-ai-native-grounding",
+     "date": "2025-04-09",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c27",
+      "r8"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Google Search on Gemini 3 costs $14 per 1,000 search queries after 5,000 free requests a month, billed per query the model runs.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://ai.google.dev/gemini-api/docs/pricing",
+     "date": "2026-09-24",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c14",
+      "c21",
+      "r2",
+      "r20"
+     ],
+     "support_partial": [
+      "r21",
+      "r22",
+      "r24",
+      "r33"
+     ]
+    },
+    {
+     "claim": "Google announced on Nov 25, 2025 that grounding pricing moves from a flat $35 per 1,000 prompts to $14 per 1,000 search queries.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.googleblog.com/en/new-gemini-api-updates-for-gemini-3/",
+     "date": "2025-11-25",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c18"
+     ],
+     "support_partial": [
+      "c22"
+     ]
+    },
+    {
+     "claim": "Gemini 2.5 grounding on the Gemini API gives 1,500 free requests a day, then costs $35 per 1,000 grounded prompts, billed per prompt.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://ai.google.dev/gemini-api/docs/pricing",
+     "date": "2026-09-24",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c16",
+      "c26",
+      "r2"
+     ],
+     "support_partial": [
+      "r13",
+      "r21",
+      "r22",
+      "r24",
+      "r33"
+     ]
+    },
+    {
+     "claim": "At its Oct 31, 2024 Gemini API launch, Grounding with Google Search cost $35 per 1,000 grounded queries on the paid tier.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.googleblog.com/en/gemini-api-and-ai-studio-now-offer-grounding-with-google-search/",
+     "date": "2024-10-31",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c3",
+      "r15"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Oct 31, 2024 launch used the google_search_retrieval tool on Gemini 1.5 models and returned grounding sources and Search Suggestions.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.googleblog.com/en/gemini-api-and-ai-studio-now-offer-grounding-with-google-search/",
+     "date": "2024-10-31",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c24",
+      "r15"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Google Search on Agent Platform has a default limit of one million queries a day; more needs Google Cloud support.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-google-search",
+     "date": "live 2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c15",
+      "r12",
+      "r19",
+      "r25"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "irrelevant",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "irrelevant",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "irrelevant",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "unsupported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported"
+   },
+   "notes": "Status partial: named production users are verified (FairPrice Group's two knowledge agents on the Grounding with Google Search API, Quora's Poe, Ipsos, Motorola's Moto AI), but no pooled item reports grounded-query volume, grounding spend, or an outcome measured from grounding. Palo Alto Networks' grounding isn't said to be Google Search. No new tier-1 figure; all pricing and limits are already in competitive/google-search-grounding.md (the Nov 25, 2025 announcement date is the only new detail there). Irrelevant cids: c7 and c13 are FairPrice's ad-creation gains from its creative agent (Imagen, Veo, Gemini), not grounding; c10 is Quora's Claude-on-Vertex performance. The Quora case study page doesn't mention grounding; Quora's use rests on Google's June 2024 posts. c22 unsupported: its cited Nov 25, 2025 post states the move from $35 per 1,000 prompts to $14 per 1,000 search queries but not that Gemini 2.5 stays per-prompt (that is on the Gemini API grounding docs). Pages under the old Vertex AI docs paths (r19, r25, r10) now redirect to the Agent Platform docs. The Web Grounding for Enterprise doc now says reliability logs are kept up to 3 days; r10's older excerpt says 30 days, a term change outside this question. Access: Reddit (r7), Medium (r14) and drpranayjha (r28) returned 403; none carries a named user. The Facebook posts (r1, r18, r30) carry no named users or figures. Support rule: a rid counts when its page states the claim; a cid counts for the claim it asserts."
+  }
+ ]
+}

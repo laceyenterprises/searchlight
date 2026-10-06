@@ -1,0 +1,19 @@
+{
+ "method": "Post hoc, Amendment 7, after the PR #25 Stage B review. One verdict is changed where the judge's own note contradicts it and the reviewer confirmed the page. Values the judge described as not answering the field are flagged non-responsive: they stay 'wrong' in the pre-registered false-claim rate, and a second rate leaves them out.",
+ "verdicts": {
+  "c19.list_price.v2": {
+   "from": "correction",
+   "to": "partly_correct",
+   "reason": "The judge's note calls Diffbot's $0.02/1K 'a sales volume floor, not self-serve PAYG'; the field asks for the pay-as-you-go list price. The reviewer confirmed it on the Web Search docs. As judged, it was a correction."
+  }
+ },
+ "non_responsive": {
+  "c14.web_search_source.v1": "the judge: the descriptions 'don't answer the field'",
+  "c17.web_search_source.v1": "the judge: 'Non-responsive'",
+  "c18.web_search_source.v1": "the judge: 'Non-responsive'",
+  "c20.web_search_source.v3": "the judge: 'Non-responsive'"
+ },
+ "declined": {
+  "c13.free_tier.v1": "The reviewer suggested partly_correct for Exa's Kagi free-tier value (true, but about the Small Web RSS feed, not the Search API). The judge scored Firecrawl's equally off-target value in the same cell (a consumer-plan trial) 'wrong' too. Changing only Exa's would be inconsistent, so both stay as judged."
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "harvested_at": "2026-10-06T19:19:20Z",
+ "paused_at_harvest": true,
+ "note": "Harvested and paused on the harvest date, four days before the planned 2026-10-10 end.",
+ "monitors": [
+  {
+   "id": "m01",
+   "name": "provider-eval SM m01 Tavily",
+   "runs": 10,
+   "runs_completed": 10,
+   "runs_with_changes": 0,
+   "change_results": 0,
+   "distinct_fingerprints": 0,
+   "first_run": "2026-09-27T06:52:09.546Z",
+   "last_run": "2026-10-06T06:48:44.397Z"
+  },
+  {
+   "id": "m02",
+   "name": "provider-eval SM m02 Parallel",
+   "runs": 10,
+   "runs_completed": 10,
+   "runs_with_changes": 3,
+   "change_results": 4,
+   "distinct_fingerprints": 4,
+   "first_run": "2026-09-27T16:07:41.688Z",
+   "last_run": "2026-10-06T16:14:06.142Z"
+  },
+  {
+   "id": "m03",
+   "name": "provider-eval SM m03 Firecrawl",
+   "runs": 10,
+   "runs_completed": 10,
+   "runs_with_changes": 4,
+   "change_results": 6,
+   "distinct_fingerprints": 6,
+   "first_run": "2026-09-27T03:24:54.301Z",
+   "last_run": "2026-10-06T03:21:09.751Z"
+  },
+  {
+   "id": "m04",
+   "name": "provider-eval SM m04 Perplexity API",
+   "runs": 9,
+   "runs_completed": 9,
+   "runs_with_changes": 6,
+   "change_results": 8,
+   "distinct_fingerprints": 8,
+   "first_run": "2026-09-27T21:09:27.798Z",
+   "last_run": "2026-10-05T21:07:27.799Z"
+  },
+  {
+   "id": "m05",
+   "name": "provider-eval SM m05 Brave Search API",
+   "runs": 10,
+   "runs_completed": 10,
+   "runs_with_changes": 1,
+   "change_results": 2,
+   "distinct_fingerprints": 2,
+   "first_run": "2026-09-27T05:31:56.919Z",
+   "last_run": "2026-10-06T05:46:35.062Z"
+  }
+ ]
+}

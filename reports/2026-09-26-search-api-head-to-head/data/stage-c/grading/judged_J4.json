@@ -1,0 +1,1159 @@
+{
+ "judge": "J4",
+ "questions": [
+  {
+   "id": "g5",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "Google Cloud Marketplace's 'Parallel Web Search for Grounding' listing (for grounding Gemini on Vertex AI) meters Parallel at $0.005 per tool call ($5 per 1,000), billed in Google Cloud units of $0.01 that each cover two tool calls (20,000 requests bill as 10,000 units). Google handles billing for this provider-hosted service; the listing was last updated 2026-06-16.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://console.cloud.google.com/marketplace/product/parallel-web-systems-public/parallel-web-systems",
+     "date": "2026-06-16",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c13",
+      "c30",
+      "c43",
+      "c50",
+      "c59",
+      "c60",
+      "c78",
+      "c81"
+     ],
+     "support_partial": [
+      "c41"
+     ]
+    },
+    {
+     "claim": "Google's Grounding with Parallel doc (updated 2026-09-25) offers two paths: a Google Cloud Marketplace subscription (recommended, billed through Google Cloud, with a separate ZDR subscription) or the customer's own Parallel API key (billed by Parallel). The default quota is 200 prompts per minute, and the charges are Gemini tokens, Google's Grounding with your data fee and Parallel's search API.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-parallel",
+     "date": "2026-09-25",
+     "source_type": "company statement",
+     "kb_file": "features/google-gemini-enterprise.md",
+     "support_full": [
+      "r4",
+      "r8",
+      "r9",
+      "r30",
+      "c5",
+      "c16",
+      "c22",
+      "c24",
+      "c28",
+      "c31",
+      "c39",
+      "c51",
+      "c61",
+      "c66",
+      "c77"
+     ],
+     "support_partial": [
+      "r16",
+      "r21",
+      "r25",
+      "c6",
+      "c15",
+      "c19",
+      "c21",
+      "c27",
+      "c32",
+      "c52",
+      "c65"
+     ]
+    },
+    {
+     "claim": "Google's Grounding with Exa doc (updated 2026-09-25) treats Exa as a Separate Offering that needs the customer's own Exa API key, with fast (default) or instant search, 5 results by default and a 200 prompts per minute default quota. It bills Gemini tokens, Google's Grounding with your data fee and Exa's API at Exa's own prices, and it carries no Preview label.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-exa",
+     "date": "2026-09-25",
+     "source_type": "company statement",
+     "kb_file": "features/google-gemini-enterprise.md",
+     "support_full": [
+      "r26",
+      "r27",
+      "c23",
+      "c25",
+      "c38",
+      "c57",
+      "c69",
+      "c70",
+      "c79",
+      "c80"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google's Developers Blog announced on 2026-07-16 that Parallel is a natively integrated web grounding provider on Agent Platform: callable in the Gemini API, selectable in Agent Studio, and sold through Google Cloud Marketplace, with usage metered on the Google Cloud invoice and counted toward eligible Marketplace benefits.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.googleblog.com/expanding-choice-in-gemini-enterprise-agent-platform-introducing-grounding-with-parallel-web-search/",
+     "date": "2026-07-16",
+     "source_type": "company statement",
+     "kb_file": "features/google-gemini-enterprise.md",
+     "support_full": [
+      "r16",
+      "c6",
+      "c15",
+      "c19",
+      "c21",
+      "c27",
+      "c32",
+      "c65"
+     ],
+     "support_partial": [
+      "r4",
+      "r25",
+      "r30"
+     ]
+    },
+    {
+     "claim": "Google and Parallel say Grounding with Parallel lets customers extract and store (cache) grounded web results and pass them to other LLMs. Parallel's announcement adds output ownership, derivative works, subsyndication and no display requirements.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://parallel.ai/blog/google-cloud-partnership",
+     "date": "2026-07-16",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c32"
+     ],
+     "support_partial": [
+      "r16",
+      "c6",
+      "c15",
+      "c19",
+      "c21",
+      "c27",
+      "c65"
+     ]
+    },
+    {
+     "claim": "Parallel's LinkedIn post of 2026-01-13 announced Grounding with Parallel web search as available in preview on Google Vertex AI. A post on the same page calls Parallel the first and only non-Google web search provider launched as a Vertex AI grounding option.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.linkedin.com/[redacted-4614ca8c7876]",
+     "date": "2026-01-13",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google's Agent Platform doc for Claude web search (updated 2026-09-25) says queries go to a third-party search service chosen by Anthropic and lists Brave Search as that service. It prices web search as an add-on to Messages API usage by web request volume, plus extra input tokens, and says CMEK and data-residency commitments don't cover the provider's processing (VPC-SC projects are rejected).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/web-search",
+     "date": "2026-09-25",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c33",
+      "c44"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google's Grounding with Elasticsearch (doc updated 2026-09-25) grounds Gemini on the customer's own existing Elasticsearch cluster and index; the customer supplies the endpoint, index name, API key and a search template. Google frames it as grounding on your own data, lists no separate provider fee, and allows up to 10 data sources per answer.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-elasticsearch",
+     "date": "2026-09-25",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r1",
+      "c12",
+      "c29",
+      "c58"
+     ],
+     "support_partial": [
+      "r5",
+      "r24",
+      "r28",
+      "r29",
+      "c1",
+      "c20",
+      "c45",
+      "c71",
+      "c72"
+     ]
+    },
+    {
+     "claim": "Elastic said on 2025-04-09 that Elasticsearch was the first third-party native grounding engine for Vertex AI, used to ground Gemini on customers' private data.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.elastic.co/search-labs/blog/elasticsearch-google-cloud-vertex-ai-native-grounding",
+     "date": "2025-04-09",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r24",
+      "c1",
+      "c72"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google said on 2024-06-27 that Vertex AI would add grounding with specialized third-party data from the next quarter, working with Moody's, MSCI, Thomson Reuters and ZoomInfo.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://cloud.google.com/blog/products/ai-machine-learning/rag-and-grounding-on-vertex-ai",
+     "date": "2024-06-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r23",
+      "c53"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Neither Google's Parallel announcement nor the Marketplace grounding listing names a customer or reports grounding usage or spend; both cite only sectors (financial services, legal and technology, and the listing adds real estate).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://developers.googleblog.com/expanding-choice-in-gemini-enterprise-agent-platform-introducing-grounding-with-parallel-web-search/",
+     "date": "2026-07-16",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r16",
+      "c6",
+      "c13",
+      "c15",
+      "c19",
+      "c21",
+      "c27",
+      "c30",
+      "c43",
+      "c50",
+      "c59",
+      "c60",
+      "c65",
+      "c78",
+      "c81"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Parallel's docs describe three Google Cloud Marketplace listings: Web Search for Grounding, a ZDR variant of it, and the full API suite ('Parallel Web Systems'). The full-suite listing excludes Gemini grounding and offers ZDR only with an enterprise agreement.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://docs.parallel.ai/integrations/google-cloud-marketplace",
+     "date": "undated (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r21",
+      "c52"
+     ],
+     "support_partial": [
+      "c41"
+     ]
+    },
+    {
+     "claim": "Agent Platform bills Grounding with Google Search and Web Grounding for Enterprise on Gemini 3 at $14 per 1,000 grounding queries after 5,000 free a month, with billing from 2026-01-05.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+     "date": "current page (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "r15",
+      "c11",
+      "c17",
+      "c36",
+      "c54",
+      "c55"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Agent Platform prices Grounding with your data at $2.50 per 1,000 prompts.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+     "date": "current page (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "r15",
+      "c11",
+      "c17",
+      "c36",
+      "c54",
+      "c55"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Exa lists its search API at $7 per 1,000 requests including up to 10 results, plus $1 per 1,000 additional results.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://exa.ai/pricing",
+     "date": "current page (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "features/google-gemini-enterprise.md",
+     "support_full": [
+      "c7",
+      "c9",
+      "c10",
+      "c14",
+      "c35",
+      "c37",
+      "c40",
+      "c47",
+      "c49",
+      "c56",
+      "c74",
+      "c75",
+      "c76"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Parallel lists its Search API at $1 per 1,000 requests (turbo, fast) or $5 per 1,000 (basic, advanced), 10 results included, plus $1 per 1,000 additional results.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://docs.parallel.ai/getting-started/pricing",
+     "date": "current page (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/parallel-search-api.md",
+     "support_full": [
+      "c2",
+      "c26",
+      "c48",
+      "c82"
+     ],
+     "support_partial": [
+      "c8",
+      "c46",
+      "c68"
+     ]
+    },
+    {
+     "claim": "Parallel's pricing page offers up to 5,000 free requests a month.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://parallel.ai/pricing",
+     "date": "current page (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/parallel-search-api.md",
+     "support_full": [
+      "c8",
+      "c46",
+      "c68"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Exa's 2026-04-28 post says Google released Grounding with Exa in Private Preview earlier that month and that Exa Agent launched as a partner on Gemini Enterprise's Agent Marketplace.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://exa.ai/blog/exa-google-cloud",
+     "date": "2026-04-28",
+     "source_type": "company statement",
+     "kb_file": "features/google-gemini-enterprise.md",
+     "support_full": [
+      "c4",
+      "c73"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google's 2026-04-22 partner-agents post lists Exa AI's Exa Agent for Gemini Enterprise, saying it searches billions of pages for developer tooling, recruiting and market mapping.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://cloud.google.com/blog/products/ai-machine-learning/partner-built-agents-available-in-gemini-enterprise",
+     "date": "2026-04-22",
+     "source_type": "company statement",
+     "kb_file": "features/google-gemini-enterprise.md",
+     "support_full": [
+      "c42",
+      "c62",
+      "c67"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google's Grounding with your search API lets Gemini query any customer-provided search endpoint (such as a database, internal search engine or vector search), and one request can use up to 10 grounding sources.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/grounding/grounding-with-your-search-api",
+     "date": "2026-09 (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/google-search-grounding.md",
+     "support_full": [
+      "c64"
+     ],
+     "support_partial": [
+      "r28",
+      "r29",
+      "c20",
+      "c45",
+      "c71"
+     ]
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "unsupported",
+    "c3": "irrelevant",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "irrelevant",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "irrelevant",
+    "c35": "irrelevant",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "supported",
+    "c39": "supported",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "irrelevant",
+    "c43": "supported",
+    "c44": "supported",
+    "c45": "supported",
+    "c46": "irrelevant",
+    "c47": "supported",
+    "c48": "supported",
+    "c49": "unsupported",
+    "c50": "supported",
+    "c51": "supported",
+    "c52": "supported",
+    "c53": "supported",
+    "c54": "supported",
+    "c55": "supported",
+    "c56": "supported",
+    "c57": "supported",
+    "c58": "supported",
+    "c59": "unsupported",
+    "c60": "supported",
+    "c61": "supported",
+    "c62": "supported",
+    "c63": "irrelevant",
+    "c64": "supported",
+    "c65": "supported",
+    "c66": "supported",
+    "c67": "irrelevant",
+    "c68": "supported",
+    "c69": "supported",
+    "c70": "supported",
+    "c71": "supported",
+    "c72": "supported",
+    "c73": "supported",
+    "c74": "irrelevant",
+    "c75": "irrelevant",
+    "c76": "supported",
+    "c77": "supported",
+    "c78": "supported",
+    "c79": "unsupported",
+    "c80": "supported",
+    "c81": "supported",
+    "c82": "supported"
+   },
+   "notes": "Suppliers and billing terms are pinned; reported usage is not. Exa: BYO Exa key at Exa's prices, plus Gemini tokens and Google's $2.50 per 1,000 Grounding with your data fee. Parallel: Marketplace (Google-billed, $0.005 per call in $0.01 units of two calls) or BYO key; Parallel was in Vertex preview from 2026-01-13, before the 2026-07-16 launch. Elastic is grounding on the customer's own index, not a web-search supplier. Brave serves Claude web search on Agent Platform. No page gives Exa or Parallel query volume, customers or spend; Gemini Enterprise seats, ADK downloads and Fortune 100 figures are app-level (c18, c34, c42, c67 irrelevant). The KB's V-GOOG pricing says partner grounding is 'billed by the partner'; that holds only for BYO keys. Unsupported: c2 (5,000 free requests is on parallel.ai/pricing, not the docs pricing page); c49 (docs give $10 at signup, about 1,400 searches, plus a $10 onboarding bonus); c59 (the enterprise-agreement ZDR text is on the full-suite listing, not the grounding listing); c79 (Google's Exa page has no Preview label). c16's 'both providers' reaches beyond its Parallel page, but the Exa page says the same. c41 reads like a monthly fee; the page means $0.01 per usage unit, billed monthly, and it is the full-suite listing. Also irrelevant: Exa's funding and developer count (c3, c63), the Task API range (c46), and Exa products Google grounding doesn't use (c35, c74, c75). Marketplace listings were read in a browser, logged out. Didn't load or rendered empty: r2, r10, r17, r18. Not checked: r7 (video) and r11 (sign-in redirect); both cover only Google's own grounding."
+  },
+  {
+   "id": "a1",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "Search Engine Land reported on 2026-06-12 that Claude used web search on 36.6% of prompts, against about 90% for ChatGPT, per Jonathan Clark's account of a Zero Click by Profound session. The article gives no sample size and doesn't say whether the Claude app or the API was tested.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://searchengineland.com/claude-visibility-brave-search-rankings-480053",
+     "date": "2026-06-12",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "c8",
+      "c11",
+      "c15",
+      "c30",
+      "c32"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same report says Claude searched on 81% of recency prompts ('best XYZ'), 67% of ranking prompts, 55% of location prompts and 51% of comparison prompts ('X vs. Y').",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://searchengineland.com/claude-visibility-brave-search-rankings-480053",
+     "date": "2026-06-12",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "c8",
+      "c11",
+      "c15",
+      "c30",
+      "c32"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's Economic Index report of 2025-09-15 says the share of sampled Claude.ai conversations tied to the task 'search electronic sources' grew from 0.03% to 0.49% (latest data August 2025), which Anthropic says likely reflects its March 2025 web search launch.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.anthropic.com/research/anthropic-economic-index-september-2025-report",
+     "date": "2025-09-15",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c1",
+      "c4",
+      "c5",
+      "c38"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same report says 'conduct internet-based and library research' grew from 0.003% to 0.27% of sampled Claude.ai conversations, in line with the Research mode launched in April 2025.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.anthropic.com/research/anthropic-economic-index-september-2025-report",
+     "date": "2025-09-15",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c1",
+      "c4",
+      "c5",
+      "c38"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The Quantum Dispatch reported on 2026-05-11 that Anthropic had disclosed Claude Platform API volume up 17x year on year.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://thequantumdispatch.com/articles/anthropic-spacex-colossus-1-data-center-300mw-claude-may-6-2026",
+     "date": "2026-05-11",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r5"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's web search docs say simple factual queries typically use 1–3 searches and comparative or multi-entity research can use 10 or more; max_uses caps searches per request.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "current docs (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "r28",
+      "r30",
+      "c3",
+      "c16",
+      "c22",
+      "c31",
+      "c34",
+      "c35",
+      "c36"
+     ],
+     "support_partial": [
+      "r24",
+      "r27",
+      "c7",
+      "c9",
+      "c12",
+      "c13",
+      "c20",
+      "c24",
+      "c25",
+      "c27",
+      "c37"
+     ]
+    },
+    {
+     "claim": "The Claude API charges $10 per 1,000 web searches plus standard token costs; each search counts as one use regardless of results, and errored searches aren't billed.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "current docs (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r6",
+      "r27",
+      "r28",
+      "r30",
+      "c3",
+      "c16",
+      "c22",
+      "c31",
+      "c34",
+      "c35",
+      "c36"
+     ],
+     "support_partial": [
+      "r4",
+      "r8",
+      "r9",
+      "r15",
+      "r24",
+      "c6",
+      "c7",
+      "c9",
+      "c12",
+      "c13",
+      "c20",
+      "c24",
+      "c25",
+      "c27",
+      "c37"
+     ]
+    },
+    {
+     "claim": "Anthropic's Trust Center lists Brave Search (all products) and TurboPuffer (all products except Claude for Government) as its web search subprocessors.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://trust.anthropic.com/subprocessors",
+     "date": "undated list (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "c18"
+     ],
+     "support_partial": [
+      "r11",
+      "r27",
+      "c2",
+      "c26"
+     ]
+    },
+    {
+     "claim": "In March 2025 Brave Search was added to Anthropic's subprocessor list (as of 2025-03-19), and Simon Willison found that Claude's citations matched Brave's results and that its search tool used a BraveSearchParams schema.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://simonwillison.net/2025/Mar/21/anthropic-use-brave/",
+     "date": "2025-03-21",
+     "source_type": "other",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r11",
+      "c2",
+      "c26"
+     ],
+     "support_partial": [
+      "r20",
+      "r27",
+      "c28"
+     ]
+    },
+    {
+     "claim": "Google's Agent Platform doc for Claude web search lists Brave Search as the third-party search service Anthropic's web search calls, and bills web search as an add-on by web request volume plus extra input tokens.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/web-search",
+     "date": "2026-09-25",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r13"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's help center says image search in Claude is powered by Bing.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
+     "date": "current page (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "r33",
+      "c10",
+      "c23"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic launched the web search tool on the Claude API on 2025-05-07 for Claude 3.7 Sonnet, the upgraded 3.5 Sonnet and 3.5 Haiku, and made it available in Claude Code.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r24",
+      "c7",
+      "c9",
+      "c12",
+      "c13",
+      "c20",
+      "c24",
+      "c25",
+      "c27",
+      "c37"
+     ],
+     "support_partial": [
+      "r8",
+      "r17",
+      "r27",
+      "c6"
+     ]
+    },
+    {
+     "claim": "Claude.ai web search launched on 2025-03-20 as a feature preview for paid US users and became available globally on all plans on 2025-05-27.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://claude.com/blog/web-search",
+     "date": "2025-03-20 (update 2025-05-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r11",
+      "r16",
+      "c14",
+      "c17",
+      "c21",
+      "c33"
+     ],
+     "support_partial": [
+      "r27"
+     ]
+    },
+    {
+     "claim": "Anthropic's API launch post names Quora's Poe and Adaptive.ai as web search customer spotlights but gives no usage or volume figures.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r24",
+      "c7",
+      "c9",
+      "c12",
+      "c13",
+      "c20",
+      "c24",
+      "c25",
+      "c27",
+      "c37"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's organization Usage Report API returns a per-organization server_tool_use.web_search_requests count; the value shown in the docs (10) is an example.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://platform.claude.com/docs/en/api/beta/organization/usage_report",
+     "date": "current docs (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c29"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's March 2026 Economic Index (February 2026 data; 1 million sampled Claude.ai and first-party API conversations) gives no web search count or share.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.anthropic.com/research/economic-index-march-2026-report",
+     "date": "2026-03",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c19"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "On Team and Enterprise plans an Owner must first enable web search for the workspace; for free users, web search and fetch count toward usage limits.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
+     "date": "current page (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r33",
+      "c10",
+      "c23"
+     ],
+     "support_partial": [
+      "r29"
+     ]
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "false",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "supported",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "supported"
+   },
+   "notes": "Nothing pins the volume. The only share-of-requests figure is a practitioner's test relayed by Search Engine Land (36.6% of prompts); the live page sits behind a human-verification challenge, so I read the Wayback capture of 2026-07-30 (web.archive.org/web/20260730114059/https://searchengineland.com/claude-visibility-brave-search-rankings-480053). Economic Index figures are Claude.ai task shares, not search counts, and Claude.ai search is outside the API-billed line. c1 and c5 date the baseline to V1; the page ties the change to features launched between V2 and V3. The 17x API-volume growth is a secondary report on an AI-news site; the primary isn't in the pool. c21 is false: on 2025-03-20 search was a paid US feature preview, and all plans got it globally on 2025-05-27. Anthropic's docs guidance (1–3 searches; 10 or more for comparative research) is new to the KB but isn't an observed average. Trust Center pages were read in a browser, logged out. Didn't load: r2 (429), r7 (403), r19 and r22 (503), r26 (403); r3 and r25 render no text."
+  },
+  {
+   "id": "a6",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "Anthropic's 2025-05-07 API launch post names Quora as a customer: Quora is bringing Anthropic's web search tool to Poe, and Poe's head of product, Spencer Chan, called it cost-effective and fast for users of Claude models on Poe. No usage figures are given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "r10",
+      "c1",
+      "c2",
+      "c4",
+      "c5",
+      "c9",
+      "c10",
+      "c11",
+      "c12",
+      "c19",
+      "c21",
+      "c22",
+      "c26",
+      "c27",
+      "c30",
+      "c32",
+      "c33",
+      "c35",
+      "c36",
+      "c41"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same post names Adaptive.ai, a consumer tool for building end-to-end apps, as a customer spotlight; co-founder Dennis Xu said Anthropic's web search beat the other tools they tested and will help its customers build web-enabled products. No usage figures are given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://claude.com/blog/web-search-api",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "r10",
+      "c1",
+      "c2",
+      "c4",
+      "c5",
+      "c9",
+      "c10",
+      "c11",
+      "c12",
+      "c19",
+      "c21",
+      "c22",
+      "c26",
+      "c27",
+      "c30",
+      "c32",
+      "c33",
+      "c35",
+      "c36",
+      "c41"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's 2026-02-17 dynamic filtering post quotes Quora's Gareth Jones saying Opus 4.6 with dynamic filtering achieved the highest accuracy on Quora's internal evals; it describes Poe as giving millions of users access to over 200 models.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://claude.com/blog/improved-web-search-with-dynamic-filtering",
+     "date": "2026-02-17",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r23"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Modal's Quora case study (2025-06-30) says Poe has millions of monthly active users; it gives no figure for web search use.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://modal.com/blog/quora-case-study",
+     "date": "2025-06-30",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c3",
+      "c24",
+      "c28"
+     ],
+     "support_partial": [
+      "r23"
+     ]
+    },
+    {
+     "claim": "Turso's case study says Adaptive.ai had paying users in over 50 countries three weeks after launch and has created more than 2 million databases; it gives no web search figure.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://turso.tech/blog/turso-cloud-powers-adaptive-ai",
+     "date": "undated (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c18",
+      "c23"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "In a LibreChat GitHub discussion (2026-03-18, answered 2026-04-04), a user reports enabling Claude's native web_search tool through a 'web_search: true' preset in librechat.yaml, without a separate search API.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://github.com/danny-avila/LibreChat/discussions/12291",
+     "date": "2026-04-04",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r14"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google's Agent Platform doc for Claude web search (updated 2026-09-25) lists Brave Search as the third-party search service Anthropic's web search can call.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/web-search",
+     "date": "2026-09-25",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r7",
+      "c14",
+      "c38"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's Trust Center lists Brave Search (all products) and TurboPuffer (all products except Claude for Government) as web search subprocessors.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://trust.anthropic.com/subprocessors",
+     "date": "undated list (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "c29"
+     ],
+     "support_partial": [
+      "c15",
+      "c39",
+      "c40"
+     ]
+    },
+    {
+     "claim": "In March 2025 Brave Search appeared on Anthropic's subprocessor list, and Simon Willison found Claude's citations matched Brave's results and a BraveSearchParams schema in its search tool; Anthropic had not confirmed it to TechCrunch.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://techcrunch.com/2025/03/21/anthropic-appears-to-be-using-brave-to-power-web-searches-for-its-claude-chatbot/",
+     "date": "2025-03-21",
+     "source_type": "press report",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "c39"
+     ],
+     "support_partial": [
+      "c15"
+     ]
+    },
+    {
+     "claim": "Anthropic's docs say web search runs on the Claude API, Claude Platform on AWS and Microsoft Foundry, with only the basic tool on Google Cloud and Azure-hosted Foundry, and not on Amazon Bedrock.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "current docs (read 2026-09-27)",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r9",
+      "r24",
+      "c13",
+      "c16",
+      "c17",
+      "c25",
+      "c31",
+      "c37",
+      "c42"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "supported",
+    "c3": "irrelevant",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "irrelevant",
+    "c7": "irrelevant",
+    "c8": "irrelevant",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "false",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "irrelevant",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "irrelevant",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "unsupported",
+    "c34": "irrelevant",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "supported",
+    "c39": "supported",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "supported",
+    "c43": "irrelevant"
+   },
+   "notes": "Named adopters: Quora's Poe and Adaptive.ai (launch spotlights, 2025-05-07); Poe again in the 2026-02-17 dynamic-filtering post (internal evals); LibreChat supports the native tool through a config preset. No page gives a production scale for web search. Poe's millions of monthly users and Adaptive's 2M+ databases are platform figures. c33 is unsupported: the post quotes Adaptive's test results and plans, not production use. c14 is false: Google's page lists Brave Search. The Rogo, You.com, Notion, L'Oréal, Perplexity, Athena and Lex customer pages don't mention Anthropic's web search tool; Sendbird returns 404 and Agentic Brew 500; r3 and r15 return 403; r5 and r34 render no text. Irrelevant: Brave's own index, user and API metrics (c6, c7, c8, c20, c34, c43) and Quora's funding and visitor count (c3, c28)."
+  }
+ ]
+}

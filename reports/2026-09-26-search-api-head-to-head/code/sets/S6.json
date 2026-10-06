@@ -1,0 +1,37 @@
+{
+  "set": "S6",
+  "description": "Schema fill: mold public data into our own competitor schema. 20 companies x 8 fields. Ground truth for grading lives in S6_truth.json and is never sent to a provider.",
+  "instructions": "Fill every field from current public sources, preferring the company's own pages (pricing, docs, trust center, security, legal, blog, press releases). Use null for any field you can't verify. Give a source URL for every non-null field. Don't guess: the cited page must support the value. For an absence answer (for example 'none found'), say which pages were checked.",
+  "fields": {
+    "web_search_source": "What powers the company's web search or web-data retrieval: 'own index' (it crawls and indexes the web itself), a named third-party provider (for example Google via SERP scraping, Bing, Brave, Exa), or a mix. Name any upstream provider.",
+    "soc2": "SOC 2 status: 'Type II', 'Type I', 'in progress', or 'none found', with the report or attestation date if stated.",
+    "zero_data_retention": "Whether zero data retention is offered: 'yes' (and on which plan), 'no', or 'not found'.",
+    "hipaa_baa": "Whether the company will sign a HIPAA Business Associate Agreement: 'yes' (which plan), 'no', or 'not found'.",
+    "official_mcp_server": "Whether the company publishes an official MCP server: 'yes' (with its name or URL) or 'no'.",
+    "free_tier": "The free tier or trial for its API (for example '1,000 credits/month', '$10 free credits', 'none').",
+    "list_price": "Pay-as-you-go list price of its primary search or retrieval API, in USD per 1,000 requests; name the unit and tier. For seat-priced or quote-only products, say so.",
+    "last_funding": "Most recent funding round or acquisition: type, amount in USD, date, and lead investor or acquirer."
+  },
+  "companies": [
+    {"id": "c01", "name": "Tavily", "homepage": "https://www.tavily.com"},
+    {"id": "c02", "name": "Parallel Web Systems", "homepage": "https://parallel.ai"},
+    {"id": "c03", "name": "Perplexity (Search API)", "homepage": "https://www.perplexity.ai"},
+    {"id": "c04", "name": "Brave (Brave Search API)", "homepage": "https://brave.com/search/api/"},
+    {"id": "c05", "name": "Firecrawl", "homepage": "https://www.firecrawl.dev"},
+    {"id": "c06", "name": "You.com", "homepage": "https://you.com"},
+    {"id": "c07", "name": "Linkup", "homepage": "https://www.linkup.so"},
+    {"id": "c08", "name": "Valyu", "homepage": "https://www.valyu.ai"},
+    {"id": "c09", "name": "Nimble", "homepage": "https://www.nimbleway.com"},
+    {"id": "c10", "name": "Crustdata", "homepage": "https://crustdata.com"},
+    {"id": "c11", "name": "SerpApi", "homepage": "https://serpapi.com"},
+    {"id": "c12", "name": "Serper", "homepage": "https://serper.dev"},
+    {"id": "c13", "name": "Kagi", "homepage": "https://kagi.com"},
+    {"id": "c14", "name": "Jina AI", "homepage": "https://jina.ai"},
+    {"id": "c15", "name": "Bright Data", "homepage": "https://brightdata.com"},
+    {"id": "c16", "name": "Glean", "homepage": "https://www.glean.com"},
+    {"id": "c17", "name": "Clay", "homepage": "https://www.clay.com"},
+    {"id": "c18", "name": "Browserbase", "homepage": "https://www.browserbase.com"},
+    {"id": "c19", "name": "Diffbot", "homepage": "https://www.diffbot.com"},
+    {"id": "c20", "name": "Apify", "homepage": "https://apify.com"}
+  ]
+}

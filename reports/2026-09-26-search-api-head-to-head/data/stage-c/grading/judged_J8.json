@@ -1,0 +1,2456 @@
+{
+ "judge": "J8",
+ "questions": [
+  {
+   "id": "a5",
+   "status": "partial",
+   "claims": [
+    {
+     "claim": "Anthropic's Trust Center currently lists Brave Search as a 'Web Search' subprocessor for all products (read in a browser, 2026-09-27).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://trust.anthropic.com/subprocessors",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r4",
+      "r8",
+      "r10",
+      "r29",
+      "r31",
+      "c21",
+      "c30"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic added Brave Search to its subprocessor list on 2025-03-19, per the changelog Simon Willison quoted on 2025-03-21.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://simonwillison.net/2025/Mar/21/anthropic-use-brave/",
+     "date": "2025-03-21",
+     "source_type": "other",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r1",
+      "r4",
+      "r6",
+      "r7",
+      "r10",
+      "r12",
+      "r31",
+      "c6",
+      "c13",
+      "c20",
+      "c26",
+      "c33"
+     ],
+     "support_partial": [
+      "r3",
+      "r13",
+      "r15",
+      "r29",
+      "c4",
+      "c7",
+      "c9",
+      "c27",
+      "c49",
+      "c54",
+      "c60"
+     ]
+    },
+    {
+     "claim": "In March 2025 testers found Claude's cited results matched a Brave search for the same query, and Claude's web_search tool schema was titled BraveSearchParams.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://simonwillison.net/2025/Mar/21/anthropic-use-brave/",
+     "date": "2025-03-21",
+     "source_type": "other",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r1",
+      "r3",
+      "r4",
+      "r6",
+      "r7",
+      "r10",
+      "r12",
+      "r13",
+      "r29",
+      "r31",
+      "c4",
+      "c6",
+      "c7",
+      "c9",
+      "c13",
+      "c20",
+      "c26",
+      "c27",
+      "c33",
+      "c49",
+      "c54",
+      "c60"
+     ],
+     "support_partial": [
+      "r15",
+      "r21",
+      "c22"
+     ]
+    },
+    {
+     "claim": "Anthropic's web search tool docs and its two launch posts (2025-03-20 consumer, 2025-05-07 API) name no search supplier and no exclusive arrangement.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r1",
+      "r6",
+      "r12",
+      "r16",
+      "r29",
+      "r31",
+      "c20",
+      "c36",
+      "c43",
+      "c44",
+      "c45"
+     ],
+     "support_partial": [
+      "c22"
+     ]
+    },
+    {
+     "claim": "TechCrunch (2025-03-21) reported only that Anthropic 'appears' to use Brave, from the subprocessor entry and test evidence, with no Anthropic confirmation or contract terms.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://techcrunch.com/2025/03/21/anthropic-appears-to-be-using-brave-to-power-web-searches-for-its-claude-chatbot/",
+     "date": "2025-03-21",
+     "source_type": "press report",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "r3",
+      "r13",
+      "c4",
+      "c7",
+      "c9",
+      "c27",
+      "c49",
+      "c54",
+      "c60"
+     ],
+     "support_partial": [
+      "c13",
+      "c22"
+     ]
+    },
+    {
+     "claim": "Anthropic's Trust Center also lists turbopuffer as a 'Web Search' subprocessor for all products except Claude for Government, without saying how work splits between it and Brave.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://trust.anthropic.com/subprocessors",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r4",
+      "r29",
+      "c21",
+      "c30"
+     ],
+     "support_partial": [
+      "r8",
+      "r10"
+     ]
+    },
+    {
+     "claim": "Anthropic charges $10 per 1,000 web searches plus standard token costs (price set at the API launch on 2025-05-07 and unchanged in current docs).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+     "date": "2025-05-07",
+     "source_type": "company statement",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r1",
+      "r16",
+      "r27",
+      "r32",
+      "c20",
+      "c22",
+      "c36",
+      "c44",
+      "c45"
+     ],
+     "support_partial": [
+      "r30",
+      "c50"
+     ]
+    },
+    {
+     "claim": "Brave's Search API list price is $5 per 1,000 requests on the Search plan, with $5 of free credit a month.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://api-dashboard.search.brave.com/documentation/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "r2",
+      "r19",
+      "r20",
+      "r24",
+      "c11",
+      "c18",
+      "c22",
+      "c25",
+      "c35",
+      "c37",
+      "c59"
+     ],
+     "support_partial": [
+      "c31",
+      "c38",
+      "c40"
+     ]
+    },
+    {
+     "claim": "Brave's Answers (AI Grounding) plan costs $4 per 1,000 queries plus $5 per million input and output tokens.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://api-dashboard.search.brave.com/documentation/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "r24",
+      "c11",
+      "c12",
+      "c18",
+      "c25",
+      "c35",
+      "c37",
+      "c52",
+      "c57",
+      "c59"
+     ],
+     "support_partial": [
+      "r20"
+     ]
+    },
+    {
+     "claim": "Brave's chief of Search ads told MediaPost (2026-04-06) that the API gets several billion queries a month, declined to give exact numbers, and named Snowflake, Cohere and Mistral as major customers.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.mediapost.com/publications/article/414024/braves-new-world-less-data-more-agentic.html",
+     "date": "2026-04-06",
+     "source_type": "press report",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "c2",
+      "c16",
+      "c19",
+      "c34",
+      "c42"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave said on 2026-02-24 that its Search API serves billions of API calls a week, with thousands of new users signing up each day.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://brave.com/blog/search-api-growth/",
+     "date": "2026-02-24",
+     "source_type": "company statement",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "c8",
+      "c14",
+      "c15",
+      "c29",
+      "c32",
+      "c41",
+      "c47",
+      "c55",
+      "c56",
+      "c58"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave says its Search API supplies most of the top-10 LLMs with real-time search and is the only index for some of them, without naming any (Anthropic included).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://brave.com/blog/search-api-growth/",
+     "date": "2026-02-24",
+     "source_type": "company statement",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "r18",
+      "r31",
+      "c8",
+      "c12",
+      "c14",
+      "c15",
+      "c29",
+      "c32",
+      "c41",
+      "c47",
+      "c48",
+      "c52",
+      "c55",
+      "c56",
+      "c57",
+      "c58"
+     ],
+     "support_partial": [
+      "c31",
+      "c38",
+      "c40"
+     ]
+    },
+    {
+     "claim": "Brave put its independent index at 40 billion pages in 2026.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://brave.com/blog/search-api-growth/",
+     "date": "2026-02-24",
+     "source_type": "company statement",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "c2",
+      "c8",
+      "c14",
+      "c15",
+      "c16",
+      "c19",
+      "c29",
+      "c32",
+      "c34",
+      "c41",
+      "c42",
+      "c47",
+      "c55",
+      "c56",
+      "c58"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Ask Brave, which runs on Brave's LLM Context API, serves about 22 million answers a day (Brave, 2026-02-24).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://brave.com/blog/search-api-growth/",
+     "date": "2026-02-24",
+     "source_type": "company statement",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "c8",
+      "c14",
+      "c15",
+      "c29",
+      "c32",
+      "c41",
+      "c47",
+      "c55",
+      "c56",
+      "c58"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Per MediaPost (2026-04-06), Brave's search-ads revenue rose 5x in 2025, ad clicks more than 5x, and overall search queries 55%.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.mediapost.com/publications/article/414024/braves-new-world-less-data-more-agentic.html",
+     "date": "2026-04-06",
+     "source_type": "press report",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md; _scratch/review/market-sizing-red-team/code/rt1/verify-V3-volumes-gtm.md",
+     "support_full": [
+      "c2",
+      "c16",
+      "c19",
+      "c34",
+      "c42"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "MediaPost (2026-04-06) put Brave's annualized revenue at 'nearly' nine figures. (Checked: the article says Brave has nine-figure annualized revenue and profitability; 'nearly' isn't there.)",
+     "tier": 1,
+     "verdict": "false",
+     "usefulness": null,
+     "verified_url": "https://www.mediapost.com/publications/article/414024/braves-new-world-less-data-more-agentic.html",
+     "date": "2026-04-06",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave's 2023-11-02 Leo announcement says Anthropic used Brave's Search API to train Claude 2. That makes Anthropic a Brave API customer in Brave's own words since 2023, though no terms are given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://brave.com/blog/leo-launch/",
+     "date": "2023-11-02",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c61"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave's head of Search business said (podcast, 2024-11-20) that Brave Search itself is the biggest consumer of Brave's API, and that API customers include traditional search engines, foundation-model trainers and AI/LLM partners.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://brave.com/podcast/e47/",
+     "date": "2024-11-20",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c23",
+      "c51"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave's About page names Cohere, Mistral, Perplexity and You.com as Search API users. Anthropic isn't named, and Perplexity isn't in the KB's Brave customer list.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://brave.com/about",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c24"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave's standard API terms grant a non-exclusive, revocable licence, with fees set on the website or in an Order Form. This says nothing about Anthropic's own contract.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://api-dashboard.search.brave.com/terms-of-service",
+     "date": "2026-09-01",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c17"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave's API page offers bespoke Enterprise plans with custom terms, capacity, endpoints, agreements and NDAs; it names no Anthropic terms.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://brave.com/search/api/",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "r24",
+      "c11",
+      "c18",
+      "c25",
+      "c35"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic's web search help article says Claude's image results are powered by Bing (reported by Noetio and Falia).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://falia.co/en/insights/ai-visibility/claude-search-engine-brave/",
+     "date": "2026-09-09",
+     "source_type": "other",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "r1",
+      "r31",
+      "c20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "MERJ and Profound (2026-07-09) report that Google Cloud's documentation for Anthropic's partner models names Brave Search as the only third-party search service Claude's web search calls. (Secondary; the Google doc wasn't opened.)",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://merj.com/blog/how-brave-search-discovers-new-pages",
+     "date": "2026-07-09",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r6"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Profound's June 2026 retest (about 400 queries) found 79.2% of Claude's cited URLs in Brave's top 10, down from 86.7% in its 15-result test at launch.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://xponent21.com/insights/claude-web-search-brave-turbopuffer/",
+     "date": "2026-07-02",
+     "source_type": "other",
+     "kb_file": "_scratch/research/market-sizing-ai-consumer-llm.md",
+     "support_full": [
+      "r4"
+     ],
+     "support_partial": [
+      "r6",
+      "r21"
+     ]
+    },
+    {
+     "claim": "Brave's 2025-02-26 post: organic Brave Search queries grew 80% during 2024, from 656 million in January to 1.19 billion in December.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/blog/2025-search-ads-update/",
+     "date": "2025-02-26",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c3",
+      "c5",
+      "c28",
+      "c46",
+      "c53"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same post (2025-02-26) says Brave Search had 1.29 billion queries 'in January' with no year given; its date and 2024 series make that January 2025.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/blog/2025-search-ads-update/",
+     "date": "2025-02-26",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c3",
+      "c5",
+      "c28",
+      "c46",
+      "c53"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave Search had 1.29 billion queries in January 2024. (Checked: the post puts January 2024 at 656 million organic queries.)",
+     "tier": 2,
+     "verdict": "false",
+     "usefulness": null,
+     "verified_url": "https://brave.com/blog/2025-search-ads-update/",
+     "date": "2025-02-26",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [],
+     "support_partial": []
+    },
+    {
+     "claim": "At the API launch (2023-05-30), Brave said Brave Search had grown to more than 8 billion annualized queries.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/blog/search-api-launch/",
+     "date": "2023-05-30",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c1",
+      "c39"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave's API launch post (2023-05-30) put paid plans at a starting price of $5 per 1,000. (Checked: the post says $3 per 1,000 queries.)",
+     "tier": 1,
+     "verdict": "false",
+     "usefulness": null,
+     "verified_url": "https://brave.com/blog/search-api-launch/",
+     "date": "2023-05-30",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave Search handled about 30 million queries a day in November 2024 (Brave podcast).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/podcast/e47/",
+     "date": "2024-11-20",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c23",
+      "c51"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave said on 2025-08-05 that Brave Search handles more than 1.5 billion queries a month.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/blog/ai-grounding/",
+     "date": "2025-08-05",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c12",
+      "c52",
+      "c57"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave said on 2025-08-05 that more than 4,000 developers sign up for its Search API each week.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/blog/ai-grounding/",
+     "date": "2025-08-05",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c12",
+      "c52",
+      "c57"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave said on 2025-10-01 that Brave Search serves more than 1.6 billion queries a month (nearly 20 billion a year, over 50 million a day).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://brave.com/blog/100m-mau/",
+     "date": "2025-10-01",
+     "source_type": "company statement",
+     "kb_file": "competitive/brave-search-api.md; _scratch/research/market-sizing-ai-consumer-llm.md",
+     "support_full": [
+      "c31",
+      "c38",
+      "c40"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave said on 2026-02-24 that Brave Search receives tens of millions of unique user queries a day.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/blog/search-api-growth/",
+     "date": "2026-02-24",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c8",
+      "c14",
+      "c15",
+      "c29",
+      "c32",
+      "c41",
+      "c47",
+      "c55",
+      "c56",
+      "c58"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave said on 2026-02-12 that more than 200,000 developers had recently signed up for its API through OpenClaw.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://brave.com/blog/most-powerful-search-api-for-ai",
+     "date": "2026-02-12",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Simon Willison (2025-05-07) put Brave Search API prices at $3, $5 or $9 per 1,000 depending on use, below Anthropic's $10.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://simonwillison.net/2025/May/7/anthropic-api-search/",
+     "date": "2025-05-07",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r30"
+     ],
+     "support_partial": [
+      "r27"
+     ]
+    },
+    {
+     "claim": "In 2025 Brave sold a 'Data w/ storage rights' tier at $45 CPM, against $5 CPM without storage rights (HN comment).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://news.ycombinator.com/item?id=43920188",
+     "date": "2025-05-07",
+     "source_type": "other",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "r27"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "A blog (dawid.ai, 2026-08-08) calls the Anthropic-Brave link a plain API customer deal with no sign of exclusivity or equity. That's the author's inference, with no source given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://dawid.ai/how-claude-grounds-its-answers-and-what-that-means-for-getting-cited/",
+     "date": "2026-08-08",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r12"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Xponent21 (2026-07-02) reports that turbopuffer publicly lists Anthropic as a customer but says nothing about the use case.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://xponent21.com/insights/claude-web-search-brave-turbopuffer/",
+     "date": "2026-07-02",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Anthropic documents that Claude for Government's Web Search connector calls the Brave Search API and sends only the query (relayed in a LinkedIn post).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.linkedin.com/[redacted-6f2fd6d25f50]",
+     "date": "2026-09",
+     "source_type": "other",
+     "kb_file": "competitive/anthropic-web-search.md",
+     "support_full": [
+      "r25"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Brave and Mistral announced in February 2025 that Le Chat uses Brave's Search API for live web results (per TechCrunch).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://techcrunch.com/2025/03/21/anthropic-appears-to-be-using-brave-to-power-web-searches-for-its-claude-chatbot/",
+     "date": "2025-03-21",
+     "source_type": "press report",
+     "kb_file": "competitive/brave-search-api.md",
+     "support_full": [
+      "r3",
+      "r13",
+      "c4",
+      "c7",
+      "c9",
+      "c27",
+      "c49",
+      "c54",
+      "c60"
+     ],
+     "support_partial": [
+      "r12"
+     ]
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "supported",
+    "c2": "false",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "false",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "unsupported",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "supported",
+    "c39": "false",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "supported",
+    "c43": "supported",
+    "c44": "supported",
+    "c45": "supported",
+    "c46": "supported",
+    "c47": "supported",
+    "c48": "supported",
+    "c49": "unsupported",
+    "c50": "supported",
+    "c51": "supported",
+    "c52": "supported",
+    "c53": "irrelevant",
+    "c54": "supported",
+    "c55": "supported",
+    "c56": "supported",
+    "c57": "supported",
+    "c58": "supported",
+    "c59": "supported",
+    "c60": "supported",
+    "c61": "supported"
+   },
+   "notes": "Status partial: the supply side is pinned only at the subprocessor level. Brave and turbopuffer are listed as Web Search subprocessors (known, re-read live on the Trust Center). No pooled item discloses the contract's volume, price, exclusivity or Anthropic's share of Brave's API volume or revenue. No new tier-1 figure: every volume and price in the pool is already in the KB. Best new tier-2 leads: (1) Brave's 2023 Leo post says Anthropic used Brave's Search API to train Claude 2, so Brave has named Anthropic as an API user; (2) MERJ reports that Google Cloud's docs for Claude partner models name Brave as the only third-party search service (the Google doc wasn't opened, so confirm it before the leaf changes 'never Claude runs on Brave'); (3) Brave said in 2024 that Brave Search is its own biggest API consumer, which matters when reading Brave's 'billions of API calls'. Errors: c2 adds 'nearly' to MediaPost's nine-figure revenue (false). c28 dates the 1.29B January figure to 2024; the post implies 2025 and puts January 2024 at 656M (false). c39 says the launch post's starting price was $5; it says $3 (false). c34 adds Chegg, which isn't in the MediaPost piece. c49 says the listing 'confirms' Brave; the TechCrunch copy hedges ('appears'). c53 (browser MAU) is irrelevant. Absence claims (c18, c27, c60) were marked supported because their cited pages indeed disclose no Anthropic terms. c43's launch post gives availability, not a price. c22's as_of (2025-03-21) doesn't match the cloro page (June 2026), but the $5 figure is there. Trust Center rendered only in a browser. Not loadable: the Reddit threads (r11, r23, r28), both Brave DPA PDFs (r5, r33: S3 access denied), r26 (timeout) and r22 (403). The four OpenAI and Alphabet pages blocked to curl were read in a browser, logged out. The KB red-team files under _scratch/review count as KB for novelty."
+  },
+  {
+   "id": "o2",
+   "status": "unanswered",
+   "claims": [
+    {
+     "claim": "OpenAI's web_search tool costs $10 per 1,000 calls plus search content tokens billed at the model's rates.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "r22",
+      "r23",
+      "c8",
+      "c15",
+      "c16",
+      "c17",
+      "c21",
+      "c22",
+      "c24",
+      "c28",
+      "c31",
+      "c35",
+      "c38",
+      "c39",
+      "c40",
+      "c41",
+      "c50",
+      "c51",
+      "c55",
+      "c56"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Image web search, and web_search_preview on reasoning models (gpt-5, o-series), are also $10 per 1,000 calls plus content tokens.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c8",
+      "c15",
+      "c16",
+      "c17",
+      "c21",
+      "c22",
+      "c24",
+      "c28",
+      "c31",
+      "c35",
+      "c38",
+      "c40",
+      "c41",
+      "c51",
+      "c55",
+      "c56"
+     ],
+     "support_partial": [
+      "r22",
+      "c50"
+     ]
+    },
+    {
+     "claim": "The legacy web_search_preview tool on non-reasoning models costs $25 per 1,000 calls, with search content tokens free.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "r22",
+      "c8",
+      "c15",
+      "c16",
+      "c17",
+      "c21",
+      "c22",
+      "c24",
+      "c28",
+      "c31",
+      "c35",
+      "c38",
+      "c40",
+      "c41",
+      "c50",
+      "c51",
+      "c55",
+      "c56"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "For gpt-4o-mini and gpt-4.1-mini with the non-preview tool, search content is billed as a fixed 8,000 input tokens per call.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://developers.openai.com/api/docs/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c8",
+      "c15",
+      "c16",
+      "c17",
+      "c21",
+      "c22",
+      "c24",
+      "c28",
+      "c31",
+      "c35",
+      "c38",
+      "c40",
+      "c41",
+      "c51",
+      "c55",
+      "c56"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI's web search guide says search actions carry the per-call tool fee (open_page and find_in_page are separate actions), and that with tool_choice 'auto' the model decides whether to search at all.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://developers.openai.com/api/docs/guides/tools-web-search",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "c2",
+      "c3",
+      "c7",
+      "c12",
+      "c36",
+      "c37",
+      "c52"
+     ],
+     "support_partial": [
+      "r28"
+     ]
+    },
+    {
+     "claim": "At launch (March 2025), OpenAI's web search was priced $30/$35/$50 per 1,000 calls for gpt-4o (low/medium/high context) and $25/$27.50/$30 for gpt-4o-mini.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://community.openai.com/t/open-ai-charging-too-much-for-web-searches/1141592",
+     "date": "2025-03-12",
+     "source_type": "other",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt1/verify-V5-prices.md",
+     "support_full": [
+      "r8"
+     ],
+     "support_partial": [
+      "r25",
+      "r27"
+     ]
+    },
+    {
+     "claim": "According to OpenAI support, as quoted in a forum post (2025-04-21), one web search invocation can run several internal sub-searches, and each is billed.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://community.openai.com/t/heads-up-web-search-tool-billing-can-be-higher-than-you-expect-here-s-why/1236954",
+     "date": "2025-04-21",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r25"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI's annualized revenue run rate hit $40 billion in July 2026 (CNBC-confirmed; Sacra gives the same).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.cnbc.com/2026/08/14/openai-cfo-friar-tells-investors-that-enterprise-bigger-than-consumer.html",
+     "date": "2026-08-14",
+     "source_type": "press report",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r34",
+      "c10",
+      "c18",
+      "c26"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI's CFO put ARR at $20B+ in 2025, up from $6B in 2024 and $2B in 2023 (2026-01-18).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/a-business-that-scales-with-the-value-of-intelligence/",
+     "date": "2026-01-18",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "c13",
+      "c33",
+      "c46",
+      "c47"
+     ],
+     "support_partial": [
+      "r7",
+      "r12",
+      "r34",
+      "c6",
+      "c10",
+      "c32"
+     ]
+    },
+    {
+     "claim": "Reuters Breakingviews (2025-10-29) put OpenAI's annualized revenue at $13B, the Q3-2025 company run-rate the sizing's 2025 line currently lacks.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://www.reuters.com/commentary/breakingviews/openais-hype-machine-faces-corporate-challenge-2025-10-28/",
+     "date": "2025-10-29",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r19",
+      "c6",
+      "c32"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Breakingviews (2025-10-29): about 70% of OpenAI's revenue came from consumer subscriptions and 30% from enterprise offerings, of which the API is only a part.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://www.reuters.com/commentary/breakingviews/openais-hype-machine-faces-corporate-challenge-2025-10-28/",
+     "date": "2025-10-29",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "c6",
+      "c32"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "CFO Friar told investors (2026-08-14, per CNBC) that OpenAI entered 2026 at a 60-40 consumer-to-enterprise revenue mix and that enterprise is now the majority.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.cnbc.com/2026/08/14/openai-cfo-friar-tells-investors-that-enterprise-bigger-than-consumer.html",
+     "date": "2026-08-14",
+     "source_type": "press report",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "c18",
+      "c26"
+     ],
+     "support_partial": [
+      "r34",
+      "c10"
+     ]
+    },
+    {
+     "claim": "Third-party estimates (Sacra, echoed by Observer and Luminix) put OpenAI's API business at about 15-20% of total revenue; OpenAI discloses no split.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://sacra.com/c/openai/",
+     "date": "2026-09-27",
+     "source_type": "analyst estimate",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r7",
+      "r12",
+      "r34",
+      "c10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "FutureSearch estimated OpenAI's API at $510M ARR in June 2024 (about 15% of total ARR), with June 2024 API revenue of $41.2M.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://futuresearch.ai/openai-revenue-forecast/",
+     "date": "2025-05",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "c42",
+      "c43",
+      "c44",
+      "c48"
+     ],
+     "support_partial": [
+      "r16",
+      "r29"
+     ]
+    },
+    {
+     "claim": "Meridian48 (2026-05-09) puts OpenAI's API (developer and business) revenue at $1.6B in 2025, projecting $3.5B in 2026.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://meridian48.com/business/how-openai-makes-money-2026-revenue-breakdown",
+     "date": "2026-05-09",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Searchlab (updated 2026-03-18) estimates API access at about 25% ($3.2B) of OpenAI's Q1 2026 revenue.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://searchlab.nl/en/statistics/openai-statistics-2026",
+     "date": "2026-03-18",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r20",
+      "c20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI said on 2026-03-31 that its APIs process more than 15 billion tokens a minute.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/accelerating-the-next-phase-ai/",
+     "date": "2026-03-31",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r24",
+      "r32",
+      "c9",
+      "c30"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI said on 2026-03-31 that ChatGPT search usage nearly tripled in a year, with no absolute figure and nothing on API search.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/accelerating-the-next-phase-ai/",
+     "date": "2026-03-31",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "c9",
+      "c30"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI's State of Enterprise AI report (2025-12-17) says the API is mostly used for customer-facing apps such as in-product assistants, search and automation, and that customer service plus content generation are about 20% of API activity. It gives no web-search share.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://openai.com/business/guides-and-resources/the-state-of-enterprise-ai-2025-report/",
+     "date": "2025-12-17",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c4",
+      "c11",
+      "c25",
+      "c27",
+      "c29",
+      "c34",
+      "c49"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same report: more than 9,000 organizations have processed over 10 billion tokens through the API, and nearly 200 have passed 1 trillion.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://openai.com/business/guides-and-resources/the-state-of-enterprise-ai-2025-report/",
+     "date": "2025-12-17",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r12",
+      "c4",
+      "c11",
+      "c25",
+      "c27",
+      "c29",
+      "c34",
+      "c49"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "The same report: average reasoning-token use per organization rose about 320x in 12 months, and non-technology firms' API use grew 5x a year.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://openai.com/business/guides-and-resources/the-state-of-enterprise-ai-2025-report/",
+     "date": "2025-12-17",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c4",
+      "c11",
+      "c25",
+      "c27",
+      "c29",
+      "c34",
+      "c49"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI (2025-05-21) said hundreds of thousands of developers had used the Responses API to process trillions of tokens. It named Zencoder, Revi and MagicSchool AI as apps that use web search.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://openai.com/index/new-tools-and-features-in-the-responses-api/",
+     "date": "2025-05-21",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r2"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "At the tool's launch (2025-03-11), OpenAI named Hebbia and Box as builders using API web search, and said API web search runs on the model behind ChatGPT search.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://openai.com/index/new-tools-for-building-agents/",
+     "date": "2025-03-11",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r27"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "On Azure, OpenAI-model web search runs on Grounding with Bing Search or Bing Custom Search, which Microsoft charges for separately, so that revenue isn't OpenAI's.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/web-search",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c5",
+      "c14",
+      "c45",
+      "c53"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Azure bills this web search per Bing request, counted in tool_usage.web_search.num_requests rather than by search actions, and always treats external_web_access as false.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://learn.microsoft.com/en-us/azure/foundry/openai/how-to/web-search",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "c5",
+      "c14",
+      "c45",
+      "c53"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI discloses neither its API revenue mix nor any web-search revenue or call volume; revenue splits in circulation are third-party estimates.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://aitechmodel.com/bull-case-vs-bear-case-for-openai-api-revenue-mix/",
+     "date": "2026-08-23",
+     "source_type": "other",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "r12",
+      "r32"
+     ],
+     "support_partial": [
+      "r6",
+      "c2",
+      "c3",
+      "c7",
+      "c12",
+      "c36",
+      "c37",
+      "c52"
+     ]
+    },
+    {
+     "claim": "OpenAI says consumer ChatGPT search draws on third-party search providers plus content from partners (2024-10-31).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/introducing-chatgpt-search/",
+     "date": "2024-10-31",
+     "source_type": "company statement",
+     "kb_file": "competitive/openai-web-search.md",
+     "support_full": [
+      "c19",
+      "c23",
+      "c54"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Searchlab cites a SimilarWeb estimate of 25 million+ ChatGPT Search queries a day.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://searchlab.nl/en/statistics/openai-statistics-2026",
+     "date": "2026-03-18",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r20",
+      "c20"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Wikipedia (citing reports) says OpenAI's annualized revenue was $12 billion in July 2025.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://en.wikipedia.org/wiki/OpenAI",
+     "date": "2025-07",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r11"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Recognized revenue: $13.07B in FY2025 (leaked financials, per Fortune/FT) and $5.7B in Q1 2026, per Luminix's fact sheet.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.useluminix.com/reports/company-overviews/openai-financial-fact-sheet-june-2026",
+     "date": "2026-07-05",
+     "source_type": "press report",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r12"
+     ],
+     "support_partial": [
+      "r34",
+      "c10"
+     ]
+    },
+    {
+     "claim": "Sacra puts OpenAI's Q2 2026 revenue at $6.7B, up from $5.7B in Q1.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://sacra.com/c/openai/",
+     "date": "2026-09-27",
+     "source_type": "analyst estimate",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r34",
+      "c10"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Feedough reports OpenAI API calls rising from 1.3B a day (2024) to 2.2B+ a day (2025); no primary source is given.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.feedough.com/openai-statistics/",
+     "date": "2025-11-25",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r24"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI said on 2026-03-31 that it is generating $2B of revenue a month.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/accelerating-the-next-phase-ai/",
+     "date": "2026-03-31",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r12",
+      "r31",
+      "c9",
+      "c30"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "OpenAI said on 2026-03-31 that enterprise is more than 40% of its revenue and on track for parity with consumer by end-2026.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://openai.com/index/accelerating-the-next-phase-ai/",
+     "date": "2026-03-31",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r12",
+      "r32",
+      "c9",
+      "c30"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "irrelevant",
+    "c2": "supported",
+    "c3": "unsupported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "supported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "supported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "irrelevant",
+    "c24": "supported",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "supported",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "supported",
+    "c39": "unsupported",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "supported",
+    "c43": "supported",
+    "c44": "supported",
+    "c45": "supported",
+    "c46": "supported",
+    "c47": "supported",
+    "c48": "supported",
+    "c49": "supported",
+    "c50": "supported",
+    "c51": "supported",
+    "c52": "supported",
+    "c53": "supported",
+    "c54": "supported",
+    "c55": "supported",
+    "c56": "supported"
+   },
+   "notes": "Status unanswered: no pooled item gives OpenAI's web-search tool revenue, call volume, or the share of API revenue or requests that use web search. OpenAI's own pages (pricing, guide, enterprise report, CFO post, fundraise post) give prices, company revenue and API token throughput, but no search split. Most tier-1 items are known: prices ($10, $25, 8,000-token block, the 2025 launch schedule), the $40B run-rate, $20B+ ARR, $13.07B FY2025, $2B a month, and Sacra's 15-20% API share. New tier-1 figures are denominator inputs, not the search share. Only one is useful: Breakingviews' $13B run-rate in October 2025, a Q3-2025 anchor the 2025 line lacks (Wikipedia's $12B in July 2025 corroborates it). The rest are weak: FutureSearch's June-2024 API ARR ($510M, 15%) is dated, and the Meridian48 ($1.6B API, 2025) and Searchlab (25%) estimates sit on totals that conflict with OpenAI's own figures. Both are rated 0. Excluded as contradicted by better sources: Thrad's $12B annualized for Q1 2026 (OpenAI said $2B a month) and a LinkedIn post's '30% API' (Breakingviews says 30% enterprise). Errors: c3's token-billing half isn't on the guide page it cites (it's on the pricing page). c39's '$25-50 typical' isn't on Parallel's page, which says $10 plus tokens. c1 and c23 are off-question (ChatGPT search launch and news partners). openai.com pages and Reuters were read in a browser, logged out, because curl and WebFetch got 403/401. Not loadable: r3 (Reddit), r18 (Facebook), r26 (getpanto, 503). r15 (Medium) wasn't retried. Known items cite KB red-team files where the facts sit."
+  },
+  {
+   "id": "g3",
+   "status": "answered",
+   "claims": [
+    {
+     "claim": "Alphabet said on its Q2 2026 call (2026-07-22) that Google's model APIs process about 22 billion tokens a minute.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx",
+     "date": "2026-07-22",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r1",
+      "r4",
+      "r12",
+      "r14",
+      "r15",
+      "r19",
+      "r34",
+      "c3",
+      "c6",
+      "c8",
+      "c9",
+      "c10",
+      "c11",
+      "c15",
+      "c16",
+      "c18",
+      "c24",
+      "c25",
+      "c27",
+      "c29",
+      "c30",
+      "c34",
+      "c40",
+      "c41",
+      "c43",
+      "c48"
+     ],
+     "support_partial": [
+      "r16"
+     ]
+    },
+    {
+     "claim": "In Q1 2026 Google's first-party models processed more than 16 billion tokens a minute via direct API use.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q1-Earnings-Call-2026-nW8kCrBAKS/",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r1",
+      "r3",
+      "r8",
+      "r12",
+      "r15",
+      "r19",
+      "r22",
+      "r23",
+      "r28",
+      "r29",
+      "r34",
+      "c3",
+      "c6",
+      "c8",
+      "c9",
+      "c10",
+      "c15",
+      "c16",
+      "c17",
+      "c18",
+      "c19",
+      "c22",
+      "c24",
+      "c25",
+      "c27",
+      "c29",
+      "c30",
+      "c31",
+      "c33",
+      "c34",
+      "c43",
+      "c44",
+      "c45",
+      "c48",
+      "c55"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "At I/O 2026 (May), Google said its model APIs process roughly 19 billion tokens a minute.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://blog.google/innovation-and-ai/sundar-pichai-io-2026",
+     "date": "2026-05-19",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r5",
+      "r15",
+      "r20",
+      "r27",
+      "r30",
+      "r31",
+      "r34",
+      "c5",
+      "c28",
+      "c37",
+      "c39"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "At I/O 2026, Google said more than 8.5 million developers build with its models each month.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://blog.google/innovation-and-ai/sundar-pichai-io-2026",
+     "date": "2026-05-19",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r5",
+      "r15",
+      "r20",
+      "r26",
+      "r27",
+      "r30",
+      "r31",
+      "r34",
+      "c5",
+      "c28",
+      "c37",
+      "c39"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "In Q4 2025 Google's first-party models processed more than 10 billion tokens a minute via direct API use (Q4 2025 release, 2026-02-04).",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000012/googexhibit991q42025.htm",
+     "date": "2026-02-04",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r9",
+      "r22",
+      "r23",
+      "r30",
+      "c12",
+      "c17",
+      "c19",
+      "c22",
+      "c23",
+      "c45",
+      "c52",
+      "c53",
+      "c55"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "In Q3 2025 Google's first-party models processed 7 billion tokens a minute via direct API use.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q3-Earnings-Call-2025-4OI4Bac_Q9/default.aspx",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r14",
+      "c7",
+      "c21",
+      "c47",
+      "c51",
+      "c52"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Across all its surfaces (not API-only), Google processed over 3.2 quadrillion tokens a month by May 2026, 7x the roughly 480 trillion of May 2025.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://blog.google/innovation-and-ai/sundar-pichai-io-2026",
+     "date": "2026-05-19",
+     "source_type": "company statement",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r5",
+      "r20",
+      "r26",
+      "r30",
+      "r31",
+      "r33",
+      "r34",
+      "c5",
+      "c28",
+      "c37",
+      "c39",
+      "c50"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google processed over 1.3 quadrillion tokens a month across its surfaces in Q3 2025.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q3-Earnings-Call-2025-4OI4Bac_Q9/default.aspx",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "c7",
+      "c21",
+      "c47",
+      "c51"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google processed over 980 trillion tokens a month across its surfaces in July 2025.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q2-Earnings-Call/default.aspx",
+     "date": "2025-07-23",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "c7",
+      "c14",
+      "c21",
+      "c36",
+      "c42",
+      "c47",
+      "c51"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Alphabet said on its Q2 2026 call that more than 9 million developers a month build with Google's models across its APIs and key developer products. That's the latest official count, up from 8.5M+ at I/O.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 2,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx",
+     "date": "2026-07-22",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r1",
+      "r14",
+      "r19",
+      "r34",
+      "c3",
+      "c6",
+      "c8",
+      "c9",
+      "c10",
+      "c15",
+      "c16",
+      "c18",
+      "c24",
+      "c25",
+      "c27",
+      "c29",
+      "c30",
+      "c34",
+      "c43",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Alphabet said on its Q3 2025 call that more than 13 million developers had built with its generative models (a cumulative count).",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q3-Earnings-Call-2025-4OI4Bac_Q9/default.aspx",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r15",
+      "r23",
+      "r28",
+      "c7",
+      "c21",
+      "c47",
+      "c51"
+     ],
+     "support_partial": [
+      "r8",
+      "r29",
+      "c31",
+      "c33",
+      "c44"
+     ]
+    },
+    {
+     "claim": "Third-party stats pages report 85 billion Gemini API requests in January 2026, most adding growth of 142% since March 2025. They credit Quantumrun or FatJoe; no Google source is in the pool.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://click-vision.com/google-gemini-statistics",
+     "date": "2026",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r3",
+      "r8",
+      "r9",
+      "r18",
+      "r23",
+      "r28",
+      "r29",
+      "c13",
+      "c31",
+      "c32",
+      "c33",
+      "c44",
+      "c46"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Third-party stats pages report about 2.4 million active Gemini API developers in early 2026 (one page gives 1.1 million in March 2025). No Google source is in the pool.",
+     "tier": 1,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://click-vision.com/google-gemini-statistics",
+     "date": "2026",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r3",
+      "r9",
+      "r18",
+      "r28",
+      "c13",
+      "c32",
+      "c46"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Q2 2026: nearly 500 Google Cloud customers had each processed more than 1 trillion tokens in the past year.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx",
+     "date": "2026-07-22",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r1",
+      "r14",
+      "r19",
+      "r34",
+      "c3",
+      "c6",
+      "c8",
+      "c9",
+      "c10",
+      "c15",
+      "c16",
+      "c18",
+      "c24",
+      "c25",
+      "c27",
+      "c29",
+      "c30",
+      "c34",
+      "c43",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Q2 2026: more than 2,000 enterprises consumed over 100 billion tokens each in the past 12 months.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx",
+     "date": "2026-07-22",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r1",
+      "r14",
+      "r19",
+      "c3",
+      "c6",
+      "c8",
+      "c9",
+      "c10",
+      "c15",
+      "c16",
+      "c18",
+      "c24",
+      "c25",
+      "c27",
+      "c29",
+      "c30",
+      "c34",
+      "c43",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "At I/O 2026, over 375 Google Cloud customers had each processed more than 1 trillion tokens in the prior 12 months.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://blog.google/innovation-and-ai/sundar-pichai-io-2026",
+     "date": "2026-05-19",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r15",
+      "r20",
+      "r30",
+      "r31",
+      "r34",
+      "c5",
+      "c28",
+      "c37",
+      "c39"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Q1 2026: 330 Google Cloud customers had each processed over 1 trillion tokens in 12 months, and 35 had passed 10 trillion.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q1-Earnings-Call-2026-nW8kCrBAKS/",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r14",
+      "r22",
+      "c19",
+      "c45",
+      "c55"
+     ],
+     "support_partial": [
+      "r23",
+      "c17",
+      "c22"
+     ]
+    },
+    {
+     "claim": "Q2 2025: more than 85,000 enterprises, including LVMH, Salesforce and DBS, were building with Gemini, and Gemini usage was up 35x a year.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q2-Earnings-Call/default.aspx",
+     "date": "2025-07-23",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c14",
+      "c42"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google says nearly 75% of Google Cloud customers use its AI products (Cloud Next, 2026-04-22; the same share was given in Q4 2025).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/next-2026",
+     "date": "2026-04-22",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r28",
+      "c17",
+      "c22",
+      "c52"
+     ],
+     "support_partial": [
+      "r3",
+      "r8",
+      "c31",
+      "c33",
+      "c44"
+     ]
+    },
+    {
+     "claim": "Alphabet's Q2 2026 release says nearly 90% of the Fortune 100 use Gemini Enterprise (a seat product, not the API).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q2/2026q2-alphabet-earnings-release.pdf",
+     "date": "2026-07-22",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r1",
+      "r4",
+      "r15",
+      "r19",
+      "c3",
+      "c6",
+      "c8",
+      "c9",
+      "c10",
+      "c11",
+      "c15",
+      "c16",
+      "c18",
+      "c24",
+      "c25",
+      "c27",
+      "c29",
+      "c30",
+      "c34",
+      "c40",
+      "c41",
+      "c43",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "On the Q2 2026 call Google named PepsiCo, Intel, HSBC, Bell Canada, Macy's and SIGNAL IDUNA as customers for its AI solutions.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/",
+     "date": "2026-07-22",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r1",
+      "r19",
+      "c3",
+      "c6",
+      "c8",
+      "c9",
+      "c10",
+      "c15",
+      "c16",
+      "c18",
+      "c24",
+      "c25",
+      "c27",
+      "c29",
+      "c30",
+      "c34",
+      "c43",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google Cloud revenue rose 82% to $24.8B in Q2 2026. This is the whole segment, not Gemini API or Vertex revenue.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q2/2026q2-alphabet-earnings-release.pdf",
+     "date": "2026-07-22",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r1",
+      "r4",
+      "r12",
+      "r14",
+      "r15",
+      "c3",
+      "c6",
+      "c9",
+      "c10",
+      "c11",
+      "c15",
+      "c18",
+      "c20",
+      "c24",
+      "c27",
+      "c30",
+      "c34",
+      "c40",
+      "c41",
+      "c48"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google Cloud revenue rose 63% to about $20B in Q1 2026, topping $20B for the first time.",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q1-Earnings-Call-2026-nW8kCrBAKS/",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r3",
+      "r8",
+      "r14",
+      "r22",
+      "r23",
+      "r28",
+      "r29",
+      "c19",
+      "c31",
+      "c33",
+      "c44",
+      "c45",
+      "c55"
+     ],
+     "support_partial": [
+      "r4",
+      "r12"
+     ]
+    },
+    {
+     "claim": "Google Cloud revenue rose 48% to $17.7B in Q4 2025 (Q4 2025 release).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000012/googexhibit991q42025.htm",
+     "date": "2026-02-04",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "r14",
+      "c12",
+      "c23",
+      "c53"
+     ],
+     "support_partial": [
+      "c52"
+     ]
+    },
+    {
+     "claim": "Revenue from products built on Google's generative-AI models grew nearly 800% year on year in Q1 2026 (no dollar base given).",
+     "tier": 2,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q1-Earnings-Call-2026-nW8kCrBAKS/",
+     "date": "2026-04-29",
+     "source_type": "filing or earnings call",
+     "kb_file": "_scratch/review/market-sizing-red-team/code/rt3/research-A-ai-spend.md",
+     "support_full": [
+      "r3",
+      "r8",
+      "r14",
+      "r22",
+      "c19",
+      "c31",
+      "c33",
+      "c44",
+      "c45",
+      "c55"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Alphabet reports no separate Gemini API or Vertex AI revenue. Google Cloud's services revenue is mainly consumption fees and subscriptions (GCP, Workspace, other enterprise services); its product revenue is mainly TPU system sales.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q2/2026q2-alphabet-earnings-release.pdf",
+     "date": "2026-07-22",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c11",
+      "c40",
+      "c41"
+     ],
+     "support_partial": [
+      "c12",
+      "c23",
+      "c53"
+     ]
+    },
+    {
+     "claim": "Google lists its Gemini 3.x Flash models at an introductory $0.75 input / $3.75 output per 1M tokens through 2026-12-31, doubling to $1.50/$7.50 from 2027-01-01.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 1,
+     "verified_url": "https://ai.google.dev/gemini-api/docs/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": null,
+     "support_full": [
+      "r6",
+      "r10",
+      "r13",
+      "r17",
+      "c2",
+      "c26",
+      "c35"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Gemini API token prices run from $0.10/$0.40 per 1M tokens (Gemini 2.5 Flash-Lite) to $2/$12 (Gemini 3.1 Pro, prompts up to 200K tokens).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://benchlm.ai/google/api-pricing",
+     "date": "2026-09-23",
+     "source_type": "other",
+     "kb_file": null,
+     "support_full": [
+      "r13",
+      "r17",
+      "c26"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Grounding with Google Search on Gemini 3.x models: 5,000 free requests a month, then $14 per 1,000.",
+     "tier": 1,
+     "verdict": "known",
+     "usefulness": null,
+     "verified_url": "https://ai.google.dev/gemini-api/docs/pricing",
+     "date": "2026-09-27",
+     "source_type": "company statement",
+     "kb_file": "_scratch/research/market-sizing-supply-side.md",
+     "support_full": [
+      "r10",
+      "c2",
+      "c35"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Third-party estimates put Gemini consumer subscription revenue at about $1.2B in 2025 ($0.3B in 2024). That's app subscriptions, not API revenue.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.businessofapps.com/data/google-gemini-statistics/",
+     "date": "2026",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "r3",
+      "r8",
+      "r18",
+      "r28",
+      "r29",
+      "c13",
+      "c31",
+      "c32",
+      "c33",
+      "c44",
+      "c46",
+      "c49"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "6sense's technographic count has over 6,314 companies using Vertex AI in 2026.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.6sense.com/tech/data-science-and-machine-learning/vertex-ai-market-share",
+     "date": "2026",
+     "source_type": "analyst estimate",
+     "kb_file": null,
+     "support_full": [
+      "c4"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "Google had sold more than 8 million paid Gemini Enterprise seats by its Q4 2025 call; aggregators add 2,800+ companies.",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://www.crn.com/news/ai/2026/alphabet-ceo-ai-is-driving-growth-across-the-board",
+     "date": "2026-02-04",
+     "source_type": "press report",
+     "kb_file": null,
+     "support_full": [
+      "r3",
+      "r8",
+      "r14",
+      "r15",
+      "r23",
+      "r28",
+      "r29",
+      "c31",
+      "c33",
+      "c44",
+      "c52"
+     ],
+     "support_partial": []
+    },
+    {
+     "claim": "On the Q3 2025 call Google cited WPP, Swarovski and Revolut as Gemini customers (Revolut uses Vertex AI and Gemini for its customer-service chatbot).",
+     "tier": 2,
+     "verdict": "new",
+     "usefulness": 0,
+     "verified_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q3-Earnings-Call-2025-4OI4Bac_Q9/default.aspx",
+     "date": "2025-10-29",
+     "source_type": "filing or earnings call",
+     "kb_file": null,
+     "support_full": [
+      "c7",
+      "c21",
+      "c47",
+      "c51"
+     ],
+     "support_partial": []
+    }
+   ],
+   "cid_verdicts": {
+    "c1": "unsupported",
+    "c2": "supported",
+    "c3": "supported",
+    "c4": "supported",
+    "c5": "supported",
+    "c6": "supported",
+    "c7": "supported",
+    "c8": "supported",
+    "c9": "supported",
+    "c10": "supported",
+    "c11": "supported",
+    "c12": "unsupported",
+    "c13": "supported",
+    "c14": "supported",
+    "c15": "supported",
+    "c16": "supported",
+    "c17": "supported",
+    "c18": "supported",
+    "c19": "supported",
+    "c20": "unsupported",
+    "c21": "supported",
+    "c22": "supported",
+    "c23": "supported",
+    "c24": "irrelevant",
+    "c25": "supported",
+    "c26": "supported",
+    "c27": "supported",
+    "c28": "supported",
+    "c29": "supported",
+    "c30": "supported",
+    "c31": "supported",
+    "c32": "supported",
+    "c33": "supported",
+    "c34": "supported",
+    "c35": "supported",
+    "c36": "supported",
+    "c37": "supported",
+    "c38": "unverifiable",
+    "c39": "supported",
+    "c40": "supported",
+    "c41": "supported",
+    "c42": "supported",
+    "c43": "supported",
+    "c44": "supported",
+    "c45": "supported",
+    "c46": "supported",
+    "c47": "supported",
+    "c48": "supported",
+    "c49": "supported",
+    "c50": "supported",
+    "c51": "unsupported",
+    "c52": "unsupported",
+    "c53": "supported",
+    "c54": "irrelevant",
+    "c55": "supported"
+   },
+   "notes": "Status answered on volume and developers, not on revenue. Alphabet's own transcripts, release and blog pin API throughput at about 22B tokens a minute (Q2 2026), with the series 7B, 10B, 16B, 19B, 22B, and developers at 9M+ a month. No pooled item discloses Gemini API or Vertex AI revenue: Alphabet reports only Cloud segment revenue and gen-AI growth rates. The token series, all-surface monthly tokens and Cloud revenue are already in the KB (red-team research-A table), despite the kb_context hint. New tier-1: 9M+ monthly developers (Q2 2026, official), 13M+ cumulative (Q3 2025, official), and two third-party figures with no Google primary in the pool, 85B API requests in January 2026 and 2.4M active API developers (treat both as unverified). Useful tier-2: the trillion-token customer cohorts (330, 375+, nearly 500) and 2,000+ enterprises over 100B tokens. 2.4M 'weekly active users' on several pages is Antigravity, not the API, and wasn't counted. Errors: c1 cites an abc.xyz Q4-2025 URL that returns Page Not Found, and its 'nearly 350 customers over 100B tokens in December' claim appears on no pooled page. c12's 'nearly 400%' isn't in the SEC exhibit it cites. c20's customer list isn't in the YouTube description (the video wasn't reviewed). c51 lists ten names; the Q3 2025 transcript has only WPP, Swarovski and Revolut. c52's 48% isn't on CRN, which gives $17.66B vs $11.96B (the SEC exhibit states 48%). c40 drops 'nearly' from 'nearly 90%' but was accepted. c38's page (getpanto) was down (unverifiable). c24 (TPUs and GPUs) and c54 (Gemini Enterprise partner agents) are off-question. abc.xyz transcripts were read in a browser, logged out (curl got 403). The SEC exhibit was read via Wayback. Not loadable: r2 (Reddit), r11 (getpanto), r32 (Yahoo, 404). r25 (Tracxn) profiles an unrelated 'Gemini API' company."
+  }
+ ]
+}

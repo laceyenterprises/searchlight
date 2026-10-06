@@ -1,0 +1,211 @@
+{
+ "set": "SM",
+ "id": "m03",
+ "provider": "exa",
+ "name": "provider-eval SM m03 Firecrawl",
+ "status_at_harvest": "active",
+ "search": {
+  "query": "Firecrawl pricing, credits, plans, or changelog update",
+  "numResults": 10,
+  "includeDomains": [
+   "firecrawl.dev",
+   "docs.firecrawl.dev"
+  ]
+ },
+ "trigger": {
+  "type": "interval",
+  "period": "1d"
+ },
+ "output_schema": null,
+ "created": "2026-09-27T00:16:10.471Z",
+ "runs": [
+  {
+   "run": 1,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-27T03:24:54.301Z",
+   "startedAt": "2026-09-27T03:24:54.301Z",
+   "completedAt": "2026-09-27T03:24:56.721Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2573,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 2,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-28T03:07:09.264Z",
+   "startedAt": "2026-09-28T03:07:09.264Z",
+   "completedAt": "2026-09-28T03:07:11.140Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2030,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 3,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-29T03:25:03.517Z",
+   "startedAt": "2026-09-29T03:25:03.517Z",
+   "completedAt": "2026-09-29T03:25:05.952Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2606,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 4,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-09-30T03:21:44.707Z",
+   "startedAt": "2026-09-30T03:21:44.707Z",
+   "completedAt": "2026-09-30T03:21:49.417Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 4834,
+   "note_chars": 74,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://www.firecrawl.dev/pricing",
+     "domain": "firecrawl.dev",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://www.firecrawl.dev/pricing:2fdf4b88aea3816afcd1d2ce66e516de94f98e5eda446c66030e62a5b5de7bdc",
+     "title_chars": 34,
+     "summary_chars": 89
+    }
+   ]
+  },
+  {
+   "run": 5,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-01T03:26:05.607Z",
+   "startedAt": "2026-10-01T03:26:05.607Z",
+   "completedAt": "2026-10-01T03:26:11.475Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5855,
+   "note_chars": 432,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://www.firecrawl.dev/pricing",
+     "domain": "firecrawl.dev",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://www.firecrawl.dev/pricing:fd2f073b79f82d3b92d1916f90d0886baad407c2f22c7426c1791a1154d0cd8f",
+     "title_chars": 52,
+     "summary_chars": 82
+    },
+    {
+     "rank": 2,
+     "url": "https://www.firecrawl.dev/changelog",
+     "domain": "firecrawl.dev",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://www.firecrawl.dev/changelog:2b8519fcb6330cfc3919493a3d284707989ff9bebf2d837a2ba748eab80608af",
+     "title_chars": 61,
+     "summary_chars": 162
+    }
+   ]
+  },
+  {
+   "run": 6,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-02T03:26:15.422Z",
+   "startedAt": "2026-10-02T03:26:15.422Z",
+   "completedAt": "2026-10-02T03:26:20.780Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5518,
+   "note_chars": 107,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://www.firecrawl.dev/pricing",
+     "domain": "firecrawl.dev",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://www.firecrawl.dev/pricing:314b8e383c045c803ab3918e5823c78a2c29f5fcd8817cad713a6d5209b40d84",
+     "title_chars": 38,
+     "summary_chars": 102
+    }
+   ]
+  },
+  {
+   "run": 7,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-03T03:25:29.437Z",
+   "startedAt": "2026-10-03T03:25:29.437Z",
+   "completedAt": "2026-10-03T03:25:31.989Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2690,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 8,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-04T03:16:32.210Z",
+   "startedAt": "2026-10-04T03:16:32.210Z",
+   "completedAt": "2026-10-04T03:16:34.462Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 2454,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 9,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-05T03:05:16.966Z",
+   "startedAt": "2026-10-05T03:05:16.966Z",
+   "completedAt": "2026-10-05T03:05:20.195Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 3390,
+   "note_chars": 43,
+   "results": []
+  },
+  {
+   "run": 10,
+   "status": "completed",
+   "fail_reason": null,
+   "createdAt": "2026-10-06T03:21:09.751Z",
+   "startedAt": "2026-10-06T03:21:09.751Z",
+   "completedAt": "2026-10-06T03:21:15.471Z",
+   "failedAt": null,
+   "cancelledAt": null,
+   "durationMs": 5881,
+   "note_chars": 485,
+   "results": [
+    {
+     "rank": 1,
+     "url": "https://www.firecrawl.dev/pricing",
+     "domain": "firecrawl.dev",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://www.firecrawl.dev/pricing:e0cf29e71f6f62be48aebacfc9bdeec389209eb52be4c899d1587256c485475a",
+     "title_chars": 34,
+     "summary_chars": 113
+    },
+    {
+     "rank": 2,
+     "url": "https://www.firecrawl.dev/changelog",
+     "domain": "firecrawl.dev",
+     "change_type": "page_changed",
+     "change_fingerprint": "page:https://www.firecrawl.dev/changelog:f6785ea3be7da2d99a68bbff885d6193bda2d5f6092f0cf85cbcba0cd2484f44",
+     "title_chars": 46,
+     "summary_chars": 122
+    }
+   ]
+  }
+ ]
+}

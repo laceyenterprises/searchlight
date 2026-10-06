@@ -1,0 +1,1133 @@
+{
+ "set": "S6",
+ "cells": [
+  {
+   "cell": "c06.web_search_source",
+   "values": [
+    {
+     "vid": "c06.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/docs/guides/search/web-search-api-for-ai-agents",
+     "note": "Matches KB (vendor claim). The cited URL redirects to the agent guide, which says the index is 'operated by You.com, not resold from a third party'. The aside that the MCP docs mention a crawler isn't on the current MCP page."
+    },
+    {
+     "vid": "c06.web_search_source.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/docs/examples/simple-search",
+     "note": "The page supports You.com's own index powering Search and Research. But the docs do settle independence: the agent guide says the index isn't resold, and the ZDR doc says queries don't go to Google or Bing. The hedge makes it imprecise."
+    },
+    {
+     "vid": "c06.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB: own index, no upstream named."
+    }
+   ]
+  },
+  {
+   "cell": "c06.soc2",
+   "values": [
+    {
+     "vid": "c06.soc2.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://trust.you.com/resources",
+     "note": "The KB has the type unstated (from /business) and says the trust center didn't render. Rendered in a browser, it lists 'SuSea, Inc. - 2025 SOC 2 Type 2 Report' (access on request; SuSea is You.com's entity). The Security Addendum also states a completed Type 2 audit. No attestation date is public."
+    },
+    {
+     "vid": "c06.soc2.v2",
+     "verdict": "correction",
+     "citation_valid": "no",
+     "novel": true,
+     "checked_url": "https://you.com/pricing",
+     "note": "Type II is right: the trust center lists a 2025 SOC 2 Type 2 report. But the cited pricing page says only 'SOC 2 certified', with no type."
+    },
+    {
+     "vid": "c06.soc2.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://home.you.com/hubfs/Legal/You.com%20Standard%20Security%20Addendum%20(May%202025).pdf?hsLang=en",
+     "note": "The addendum is linked from /legal, and the trust center marks it as the current one. It says You.com 'has completed a SOC2 Type 2 audit and can provide the report upon request'. No date. The trust center confirms the 2025 Type 2 report."
+    }
+   ]
+  },
+  {
+   "cell": "c06.zero_data_retention",
+   "values": [
+    {
+     "vid": "c06.zero_data_retention.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/docs/administration/zero-data-retention",
+     "note": "Right: ZDR is an account-level setting that the account team adds to your agreement. It misses that ZDR is only on enterprise agreements and covers only the Web Search and Answer APIs."
+    },
+    {
+     "vid": "c06.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c06.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c06.hipaa_baa",
+   "values": [
+    {
+     "vid": "c06.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/legal",
+     "note": "Matches the KB absence. /legal lists the DPA, MSA, order form, security overview, and security addendum, but no BAA. The trust center has a HIPAA incident-response addendum, and its Compliance section shows only SOC 2 and GDPR. Both fit the value."
+    },
+    {
+     "vid": "c06.hipaa_baa.v2",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://home.you.com/business/api-old2",
+     "note": "Contradicts the KB absence and isn't verified on any current page. The cited page does claim 'HIPAA (BAA)', but it's an orphaned legacy page: its footer says 2025, and home.you.com/business/api now 301-redirects to you.com/apis. The current trust center lists only SOC 2 and GDPR and offers no BAA. /business, /pricing, and the ZDR doc don't mention HIPAA."
+    },
+    {
+     "vid": "c06.hipaa_baa.v3",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://home.you.com/business/api-old2",
+     "note": "Same stale legacy page as v2. No current You.com page, the trust center included, says You.com will sign a BAA."
+    }
+   ]
+  },
+  {
+   "cell": "c06.official_mcp_server",
+   "values": [
+    {
+     "vid": "c06.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/docs/build-with-agents/mcp-server",
+     "note": "Matches KB. The page documents the hosted server at api.you.com/mcp."
+    },
+    {
+     "vid": "c06.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c06.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c06.free_tier",
+   "values": [
+    {
+     "vid": "c06.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/pricing",
+     "note": "The pricing page shows 'Free 100 queries/day' of Web Search with no API key, plus a $100 free credit."
+    },
+    {
+     "vid": "c06.free_tier.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/docs/administration/billing",
+     "note": "The billing doc supports $100 in free credits with no card. It omits the free, keyless 100 queries a day that the KB and pricing page list."
+    },
+    {
+     "vid": "c06.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c06.list_price",
+   "values": [
+    {
+     "vid": "c06.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/docs/guides/search",
+     "note": "The page states $5.00 per 1,000 calls, with up to 100 results per call."
+    },
+    {
+     "vid": "c06.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c06.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c06.last_funding",
+   "values": [
+    {
+     "vid": "c06.last_funding.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://you.com/resources/series-c",
+     "note": "Round, amount, valuation, lead, and participants are right. But it omits the date and says the page lacks one; the page is dated September 3, 2025."
+    },
+    {
+     "vid": "c06.last_funding.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://finance.yahoo.com/news/com-welcomes-graft-accelerate-enterprise-153000820.html",
+     "note": "The Graft deal is real: You.com bought Graft's team and technology, announced 2025-10-21, with no price given. But You.com was the acquirer, so this isn't a funding round for You.com or an acquisition of it. The Series C details it adds match the KB. BusinessWire returned 403, so I read the same release (item 20251021613743) on Yahoo Finance; it doesn't mention the Series C."
+    },
+    {
+     "vid": "c06.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c07.web_search_source",
+   "values": [
+    {
+     "vid": "c07.web_search_source.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.linkup.so/pages/faq/faq",
+     "note": "The FAQ supports Linkup's own index and a proprietary retrieval model, plus third-party LLMs for query interpretation and synthesis. But LLMs aren't an upstream search provider, so calling it a 'Mix' misclassifies it. The KB and Linkup's crawler post say own index (the Mercator crawler)."
+    },
+    {
+     "vid": "c07.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c07.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c07.soc2",
+   "values": [
+    {
+     "vid": "c07.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://trust.linkup.so/",
+     "note": "The trust center shows a 'SOC2 type 2 report' badge; no date."
+    },
+    {
+     "vid": "c07.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c07.soc2.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c07.zero_data_retention",
+   "values": [
+    {
+     "vid": "c07.zero_data_retention.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.linkup.so/pages/security-and-privacy/data-processing-privacy",
+     "note": "The cited URL redirects to the data-processing page: ZDR is on request, not on by default, and no plan is named. It misses the plan: linkup.so/pricing says ZDR is 'available with the Enterprise plan'."
+    },
+    {
+     "vid": "c07.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c07.zero_data_retention.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.linkup.so/pages/security-and-privacy/overview",
+     "note": "The overview lists ZDR as 'available on request', among its on-request or enterprise options. No plan is named; the KB and the pricing page say Enterprise."
+    }
+   ]
+  },
+  {
+   "cell": "c07.hipaa_baa",
+   "values": [
+    {
+     "vid": "c07.hipaa_baa.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.linkup.so/pages/security-and-privacy/security-compliance",
+     "note": "Right that no BAA commitment is stated; the page says only 'HIPAA compliant'. But the side claim is wrong: on trust.linkup.so the '(In progress)' tag sits on ISO 27001:2022, and HIPAA has no qualifier."
+    },
+    {
+     "vid": "c07.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c07.official_mcp_server",
+   "values": [
+    {
+     "vid": "c07.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.linkup.so/pages/integrations/mcp/mcp",
+     "note": "The page documents the hosted server and the LinkupPlatform/linkup-mcp-server repo."
+    },
+    {
+     "vid": "c07.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (yes)."
+    },
+    {
+     "vid": "c07.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (yes)."
+    }
+   ]
+  },
+  {
+   "cell": "c07.free_tier",
+   "values": [
+    {
+     "vid": "c07.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.linkup.so/pages/documentation/platform/pricing",
+     "note": "Docs: $20 on signup with a professional email, topped back up to $20 each month for eligible accounts."
+    },
+    {
+     "vid": "c07.free_tier.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.linkup.so/pricing",
+     "note": "The pricing page supports 'Run 4,000 queries for free' and $5,000 in startup credits. It omits the mechanism (a $20 credit for professional emails, topped up monthly) and doesn't say the allowance is monthly."
+    },
+    {
+     "vid": "c07.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c07.list_price",
+   "values": [
+    {
+     "vid": "c07.list_price.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.linkup.so/pages/documentation/platform/pricing",
+     "note": "The figures are right for sourcedAnswer or structured output ($0.006), deep with those outputs ($0.055), and the x402 $0.01 minimum. But it omits the base searchResults price, $0.005 per call ($5 per 1k), which is the KB's list price."
+    },
+    {
+     "vid": "c07.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c07.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c07.last_funding",
+   "values": [
+    {
+     "vid": "c07.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://finance.yahoo.com/news/linkup-raises-10m-seed-round-155000128.html",
+     "note": "The press release is dated February 3, 2026: a $10M seed led by Gradient."
+    },
+    {
+     "vid": "c07.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB, including the press-release date."
+    },
+    {
+     "vid": "c07.last_funding.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.linkup.so/blog/linkup-raises-10m-seed-to-build-web-search-for-ai",
+     "note": "Type, amount, and lead are right. The date is the blog post's (Mar 3, 2026); the round was announced by press release on 2026-02-03, which is the date the KB says to use."
+    }
+   ]
+  },
+  {
+   "cell": "c08.web_search_source",
+   "values": [
+    {
+     "vid": "c08.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.valyu.ai/crawler",
+     "note": "The crawler page says HenkBot 'powers Valyu's web indexing', crawling and indexing content for its APIs."
+    },
+    {
+     "vid": "c08.web_search_source.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://docs.valyu.ai/overview",
+     "note": "A hedged 'own/indexed' with no crawler named. The cited overview only mentions 'real-time web search' and doesn't establish an own index; the crawler page does."
+    },
+    {
+     "vid": "c08.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c08.soc2",
+   "values": [
+    {
+     "vid": "c08.soc2.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.valyu.ai/pricing",
+     "note": "The KB says no SOC 2 was found. The pricing page's Enterprise block shows 'SOC 2 TYPE 2' (linked to the AICPA): 'Independently audited controls for security, availability and confidentiality'. The same badge is in the site-wide footer. No date is given and I found no trust center, so this is a vendor claim."
+    },
+    {
+     "vid": "c08.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB absence under the brief's rule for 'none found'. But the KB and this value are now both stale: as v1 shows, valyu.ai carries a SOC 2 Type 2 badge site-wide."
+    }
+   ]
+  },
+  {
+   "cell": "c08.zero_data_retention",
+   "values": [
+    {
+     "vid": "c08.zero_data_retention.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.valyu.ai/pricing",
+     "note": "Docs pricing lists ZDR in the Enterprise card."
+    },
+    {
+     "vid": "c08.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c08.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c08.hipaa_baa",
+   "values": [
+    {
+     "vid": "c08.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.valyu.ai/use-cases/healthcare",
+     "note": "Matches the KB absence; the healthcare docs don't mention HIPAA or a BAA."
+    },
+    {
+     "vid": "c08.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c08.official_mcp_server",
+   "values": [
+    {
+     "vid": "c08.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.valyu.ai/integrations/mcp-server",
+     "note": "The page documents the hosted server at mcp.valyu.ai/mcp."
+    },
+    {
+     "vid": "c08.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c08.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c08.free_tier",
+   "values": [
+    {
+     "vid": "c08.free_tier.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.valyu.ai/pricing",
+     "note": "Docs pricing: $10 in free credits, or $20 with a work email. The no-card detail isn't on this page but is on the docs overview and valyu.ai/pricing. The KB already has this in an untagged row (competitive/valyu.md:105)."
+    },
+    {
+     "vid": "c08.free_tier.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.valyu.ai/pricing",
+     "note": "Supported by docs pricing. The KB has it only in an untagged row (competitive/valyu.md:105)."
+    },
+    {
+     "vid": "c08.free_tier.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://docs.valyu.ai/pricing",
+     "note": "Supported by docs pricing. The KB has it only in an untagged row (competitive/valyu.md:105)."
+    }
+   ]
+  },
+  {
+   "cell": "c08.list_price",
+   "values": [
+    {
+     "vid": "c08.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.valyu.ai/pricing",
+     "note": "Docs: web search costs $1.50 per 1k retrievals (CPM). Billing is per retrieved result, so a 10-result call works out to about $15 per 1k."
+    },
+    {
+     "vid": "c08.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c08.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c08.last_funding",
+   "values": [
+    {
+     "vid": "c08.last_funding.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://pitchbook.com/profiles/company/592911-01",
+     "note": "The KB says none found. PitchBook's public profile (rendered in a browser, no login) shows one Accelerator/Incubator deal: $500K on 26-Mar-2024, investor Andreessen Horowitz. a16z crypto's own posts confirm it: Valyu Network is in the CSX Spring 2024 cohort (post dated 03.26.24), whose standard terms are '$500,000 for 7% equity'. PitchBook labels it an accelerator round, not pre-seed. No later round found."
+    },
+    {
+     "vid": "c08.last_funding.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://pitchbook.com/profiles/company/592911-01",
+     "note": "Matches PitchBook's deal row exactly. a16z crypto's CSX cohort post (2024-03-26) and its CSX terms confirm the $500K accelerator investment."
+    },
+    {
+     "vid": "c08.last_funding.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.vcbacked.co/company/valyu",
+     "note": "vcbacked (an aggregator) shows a $500K pre-seed in Mar 2024, backed by a16z crypto. a16z's own CSX posts confirm the $500K accelerator investment. The value's hedges on amount and lead are cautious but not wrong."
+    }
+   ]
+  },
+  {
+   "cell": "c09.web_search_source",
+   "values": [
+    {
+     "vid": "c09.web_search_source.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.nimbleway.com/pricing",
+     "note": "The KB says there's no stored index. Nimble's pricing page (and site-wide header) claims 'a Proprietary Index and Memory that gets smarter with every query', alongside live-web search. This is a vendor claim; the Search docs describe only live reads. No upstream provider is named. 'Mix' here means own index plus live retrieval, not a third party."
+    },
+    {
+     "vid": "c09.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB: live-web retrieval, no upstream named."
+    },
+    {
+     "vid": "c09.web_search_source.v3",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.nimbleway.com/",
+     "note": "The homepage carries the same proprietary index-and-memory claim, plus live-web crawling agents. That contradicts the KB's 'no stored index' (vendor claim). No upstream is named."
+    }
+   ]
+  },
+  {
+   "cell": "c09.soc2",
+   "values": [
+    {
+     "vid": "c09.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.nimbleway.com/nimble-sdk/admin/compliance",
+     "note": "The compliance doc says SOC 2 Type II, with the attestation letter under NDA; no date."
+    },
+    {
+     "vid": "c09.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c09.soc2.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c09.zero_data_retention",
+   "values": [
+    {
+     "vid": "c09.zero_data_retention.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://www.nimbleway.com/privacy-policy",
+     "note": "Contradicts the KB: Nimble's compliance doc (docs.nimbleway.com/nimble-sdk/admin/compliance) lists 'Zero Data Retention (ZDR)'. The privacy policy and /trust say nothing about ZDR, and that silence doesn't show it's absent."
+    },
+    {
+     "vid": "c09.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c09.zero_data_retention.v3",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://www.nimbleway.com/privacy-policy",
+     "note": "Same as v1: the compliance doc lists ZDR. The privacy and pricing pages being silent doesn't establish absence."
+    }
+   ]
+  },
+  {
+   "cell": "c09.hipaa_baa",
+   "values": [
+    {
+     "vid": "c09.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.nimbleway.com/privacy-policy",
+     "note": "Matches the KB absence; the privacy policy doesn't mention HIPAA or a BAA."
+    },
+    {
+     "vid": "c09.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c09.hipaa_baa.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c09.official_mcp_server",
+   "values": [
+    {
+     "vid": "c09.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.nimbleway.com/integrations/mcp-server/mcp-server",
+     "note": "The docs give the server URL https://mcp.nimbleway.com/mcp."
+    },
+    {
+     "vid": "c09.official_mcp_server.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.nimbleway.com/blog/nimble-mcp-server-ai-agent-eyes",
+     "note": "'Yes' is right, but the /sse endpoint comes from a 2025-06-09 blog post and now returns HTTP 410 Gone. The current docs use /mcp."
+    },
+    {
+     "vid": "c09.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c09.free_tier",
+   "values": [
+    {
+     "vid": "c09.free_tier.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.nimbleway.com/pricing",
+     "note": "The pricing page lists 5,000 free requests a month, access to all APIs, and no credit card. The docs say 5,000 free web pages instead. The KB has this in an untagged row (competitive/nimble.md:109)."
+    },
+    {
+     "vid": "c09.free_tier.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.nimbleway.com/pricing",
+     "note": "The pricing page states 5,000 free requests per month. The KB has this in an untagged row (competitive/nimble.md:109)."
+    },
+    {
+     "vid": "c09.free_tier.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.nimbleway.com/pricing",
+     "note": "Supported by the pricing page. The KB has this in an untagged row (competitive/nimble.md:109)."
+    }
+   ]
+  },
+  {
+   "cell": "c09.list_price",
+   "values": [
+    {
+     "vid": "c09.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.nimbleway.com/nimble-sdk/admin/pricing",
+     "note": "Docs: lite $1.10 and standard $5.00 per 1K inputs; only successful requests are charged."
+    },
+    {
+     "vid": "c09.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c09.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c09.last_funding",
+   "values": [
+    {
+     "vid": "c09.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.nimbleway.com/blog/announcing-47m-series-b-web-search-agent-platform",
+     "note": "The blog post is dated February 24, 2026: a $47M Series B led by Norwest, with Databricks joining as an investor."
+    },
+    {
+     "vid": "c09.last_funding.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.techtarget.com/data-technologies/news/366639416/Web-data-search-specialist-Nimble-raises-47M-to-fuel-growth",
+     "note": "Type, amount, lead, and the $75M total are right, but it gives only the year. The article, dated 24 Feb 2026, has the full date."
+    },
+    {
+     "vid": "c09.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c10.web_search_source",
+   "values": [
+    {
+     "vid": "c10.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://crustdata.com/blog/crustdata-closes-6m-seed-round",
+     "note": "The seed post says Crustdata builds 'real-time crawlers that index the web for AI Agents'."
+    },
+    {
+     "vid": "c10.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c10.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c10.soc2",
+   "values": [
+    {
+     "vid": "c10.soc2.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.crustdata.com/privacy",
+     "note": "No SOC 2 claim appears in the privacy policy, homepage, rendered pricing page, MCP page, terms, docs pricing, llms.txt, or llms-full.txt. /security, /trust, /legal, and /soc2 return 404, and there's no trust subdomain. The KB notes the same absence, untagged (competitive/crustdata.md:97)."
+    },
+    {
+     "vid": "c10.soc2.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.crustdata.com/privacy",
+     "note": "Absence confirmed across the site and docs (see v1). The KB notes it, untagged (competitive/crustdata.md:97)."
+    },
+    {
+     "vid": "c10.soc2.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://crustdata.com/",
+     "note": "The homepage has no SOC 2 claim, and the absence holds site-wide (see v1). The KB notes it, untagged (competitive/crustdata.md:97)."
+    }
+   ]
+  },
+  {
+   "cell": "c10.zero_data_retention",
+   "values": [
+    {
+     "vid": "c10.zero_data_retention.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://crustdata.com/pricing",
+     "note": "The pricing page, rendered in a browser, and every other Crustdata page and doc have no ZDR claim; the privacy policy covers only personal-data retention. The KB notes no ZDR claim, untagged (competitive/crustdata.md:97)."
+    },
+    {
+     "vid": "c10.zero_data_retention.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.crustdata.com/privacy",
+     "note": "Confirmed: the privacy policy's retention clause covers personal data only, and there's no ZDR claim anywhere. The KB notes it, untagged (competitive/crustdata.md:97)."
+    },
+    {
+     "vid": "c10.zero_data_retention.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.crustdata.com/privacy",
+     "note": "Confirmed: the privacy policy's retention clause covers personal data only, and there's no ZDR claim anywhere. The KB notes it, untagged (competitive/crustdata.md:97)."
+    }
+   ]
+  },
+  {
+   "cell": "c10.hipaa_baa",
+   "values": [
+    {
+     "vid": "c10.hipaa_baa.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.crustdata.com/privacy",
+     "note": "There's no HIPAA or BAA mention on Crustdata's site or in its docs; the privacy policy covers only GDPR and CCPA rights. The KB says, untagged, that it found no comparable claims (competitive/crustdata.md:205)."
+    },
+    {
+     "vid": "c10.hipaa_baa.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://crustdata.com/",
+     "note": "Absence confirmed site-wide. The KB notes it, untagged (competitive/crustdata.md:205)."
+    },
+    {
+     "vid": "c10.hipaa_baa.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.crustdata.com/privacy",
+     "note": "Absence confirmed. The KB notes it, untagged (competitive/crustdata.md:205)."
+    }
+   ]
+  },
+  {
+   "cell": "c10.official_mcp_server",
+   "values": [
+    {
+     "vid": "c10.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://crustdata.com/mcp-server",
+     "note": "The MCP page gives the hosted endpoint mcp.crustdata.com/mcp (OAuth). The KB's install.crustdata.com/mcp, from the docs, is also current: both answer HTTP 405 to a GET, so both are live."
+    },
+    {
+     "vid": "c10.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "https://docs.crustdata.com/for-agents/mcp",
+     "note": "'Yes' matches the KB. The endpoint differs from the KB's install.crustdata.com/mcp, but both are official and live."
+    },
+    {
+     "vid": "c10.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "https://docs.crustdata.com/for-agents/mcp",
+     "note": "'Yes' matches the KB. The endpoint differs from the KB's install.crustdata.com/mcp, but both are official and live."
+    }
+   ]
+  },
+  {
+   "cell": "c10.free_tier",
+   "values": [
+    {
+     "vid": "c10.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://crustdata.com/",
+     "note": "The homepage offers a 'Free sandbox key, full API, MCP server', with no amount stated."
+    },
+    {
+     "vid": "c10.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB in substance: a free tier with no stated amount."
+    },
+    {
+     "vid": "c10.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c10.list_price",
+   "values": [
+    {
+     "vid": "c10.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.crustdata.com/general/pricing",
+     "note": "Docs: /web/search/live costs 1 credit per query, with no USD rate; credits are bought in the dashboard. The rendered pricing page shows no dollar prices. The value quotes the web-search rate rather than the KB's indexed-search rate and omits the $95/mo floor."
+    },
+    {
+     "vid": "c10.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB: no public USD price; priced in credits."
+    }
+   ]
+  },
+  {
+   "cell": "c10.last_funding",
+   "values": [
+    {
+     "vid": "c10.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://crustdata.com/blog/crustdata-closes-6m-seed-round",
+     "note": "The seed post, dated Oct 22, 2025, announces $6M led by Y Combinator and A Capital."
+    },
+    {
+     "vid": "c10.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c10.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,463 @@
+{
+ "graded_at": "2026-10-06T19:49:46Z",
+ "grader": "Claude agent (one grader, not blinded: the probe is Exa-only)",
+ "criteria": "Each of the 20 change results was graded against the vendor's live page (fetched 2026-10-06 around 19:20-19:50 UTC) and the Internet Archive captures nearest before and after the run, found through the CDX API. Where the vendor published a changelog RSS feed, its per-entry timestamps were also used. real = confirmed when the before and after evidence shows the described change; false_positive when captures or the live page show the page did not change as described; not_confirmed when neither could be shown. kind = pricing, product (feature, API, model or changelog), or other (docs wording, naming, cosmetic). dated_in_window = true when the change is dated within the 30 days before the run by the run window, an RSS timestamp or the page's own date. It is false for false positives, and for docs text describing behaviour that dates from outside the window. in_kb = whether the change or its new state was already in the KB at origin/main (commit 29731be, 2026-09-27): yes, partial (old state or only part recorded), or no. A monitor scores surfaced_real_dated_change = yes when at least one result is confirmed, pricing or product, and dated in window. It scores new_to_kb = yes when at least one such result has in_kb no or partial.",
+ "results": [
+  {
+   "monitor": "m02",
+   "run": 3,
+   "run_created": "2026-09-29T16:14:14.514Z",
+   "url": "https://docs.parallel.ai/resources/changelog",
+   "change_fingerprint": "page:https://docs.parallel.ai/resources/changelog:2439029d914e2ae9026f912912be63461d993232242d74ab2712cb98dbb8f34a",
+   "real": "confirmed",
+   "kind": "product",
+   "dated_in_window": true,
+   "in_kb": "yes",
+   "kb_paths": [
+    "competitive/parallel-search-api.md",
+    "competitive/parallel-findall.md"
+   ],
+   "evidence": [
+    "https://docs.parallel.ai/resources/changelog",
+    "https://docs.parallel.ai/resources/changelog/rss.xml",
+    "https://web.archive.org/web/20260921205934/https://docs.parallel.ai/resources/changelog"
+   ],
+   "note": "Parallel added two backdated entries to its changelog (the 2026-09-15 Search Capability Leaderboard and the 2026-08-25 Google Cloud Marketplace listing); the changelog RSS stamps both 2026-09-28 23:59 UTC, between runs 2 and 3, and the 2026-09-21 capture lacks them. The Data Connectors and Responses API entries the monitor also mentions were stamped 2026-09-24, before monitoring began. The KB (last_updated 2026-09-27) already has the leaderboard, the Marketplace listing, Data Connectors and the Responses API's MCP tools and domain filters. One underlying event (Marketplace, 2026-08-25) is outside the 30-day window; the leaderboard launch is inside it."
+  },
+  {
+   "monitor": "m02",
+   "run": 5,
+   "run_created": "2026-10-01T16:20:07.070Z",
+   "url": "https://docs.parallel.ai/getting-started/pricing",
+   "change_fingerprint": "page:https://docs.parallel.ai/getting-started/pricing:ede5b10475c7789231403f2f81c3e5d68fc359581c06785e4477133555d7475a",
+   "real": "confirmed",
+   "kind": "pricing",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/parallel-search-api.md"
+   ],
+   "evidence": [
+    "https://docs.parallel.ai/getting-started/pricing",
+    "https://web.archive.org/web/20260920215441/https://docs.parallel.ai/getting-started/pricing"
+   ],
+   "note": "The 2026-09-20 capture shows a second Task API table for the nine '-fast' processors and a sentence saying they cost the same as standard; both are gone from the live page. The monitor dates the removal to between 2026-09-30 16:07 and 2026-10-01 16:20 UTC. The KB (last_updated 2026-09-27) still says '-fast' variants exist and cost the same, so it records the old state."
+  },
+  {
+   "monitor": "m02",
+   "run": 7,
+   "run_created": "2026-10-03T16:04:35.518Z",
+   "url": "https://docs.parallel.ai/resources/changelog",
+   "change_fingerprint": "page:https://docs.parallel.ai/resources/changelog:4ea3d195ddecf1b5d19ded4a08f74988df92fe9951904a61314b73031bda39a3",
+   "real": "confirmed",
+   "kind": "other",
+   "dated_in_window": false,
+   "in_kb": "partial",
+   "kb_paths": [
+    "competitive/parallel-search-api.md"
+   ],
+   "evidence": [
+    "https://docs.parallel.ai/resources/changelog",
+    "https://web.archive.org/web/20260921205934/https://docs.parallel.ai/resources/changelog",
+    "https://docs.parallel.ai/extract/extract-migration-guide.md"
+   ],
+   "note": "No changelog entry was added. What changed is the site-wide 'For AI agents' note at the top of every docs page, which now spells out that /v1/extract nests fetch_policy, excerpt_settings and full_content under advanced_settings and rejects the old top-level fields with a 422. The sentence is absent from the 2026-09-21 capture. The behaviour itself comes from the v1 Extract GA, which the KB dates to 2026-04-21, and Parallel's beta-to-GA migration guide describes it. So this is a docs clarification, not a new API change. The KB lists the endpoint and those parameters but not the nesting rule."
+  },
+  {
+   "monitor": "m02",
+   "run": 7,
+   "run_created": "2026-10-03T16:04:35.518Z",
+   "url": "https://docs.parallel.ai/getting-started/pricing",
+   "change_fingerprint": "page:https://docs.parallel.ai/getting-started/pricing:e44c26b272078c6cca1776572eb786cb0e19317832a14c8b36cfd6ce9f58ef8e",
+   "real": "confirmed",
+   "kind": "pricing",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/parallel-search-api.md"
+   ],
+   "evidence": [
+    "https://docs.parallel.ai/getting-started/pricing",
+    "https://web.archive.org/web/20260920215441/https://docs.parallel.ai/getting-started/pricing",
+    "https://docs.parallel.ai/image-search/image-search-quickstart.md"
+   ],
+   "note": "The pricing page now has an Image Search API row (a new /v1/images/search endpoint) at $1 per 1,000 fast requests and $5 per 1,000 advanced requests. Neither the row nor the nav item is in the 2026-09-20 capture, and the monitor dates the addition to between 2026-10-02 16:23 and 2026-10-03 16:04 UTC. The same diff also includes the extract-nesting note covered in the previous row. The KB has no Image Search API and says Parallel Search returns no images."
+  },
+  {
+   "monitor": "m03",
+   "run": 4,
+   "run_created": "2026-09-30T03:21:44.707Z",
+   "url": "https://www.firecrawl.dev/pricing",
+   "change_fingerprint": "page:https://www.firecrawl.dev/pricing:2fdf4b88aea3816afcd1d2ce66e516de94f98e5eda446c66030e62a5b5de7bdc",
+   "real": "false_positive",
+   "kind": "pricing",
+   "dated_in_window": false,
+   "in_kb": "yes",
+   "kb_paths": [
+    "competitive/firecrawl.md"
+   ],
+   "evidence": [
+    "https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20260926211207/https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20260928175222/https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20260930183640/https://www.firecrawl.dev/pricing"
+   ],
+   "note": "The Enterprise card already listed SSO & advanced security in the 2026-09-26 and 2026-09-28 captures, before this run, and still does in the 2026-09-30 18:36 capture and on the live page. Nothing was added. The KB's plan table (last_updated 2026-09-27) already lists SSO/SCIM on Enterprise. This is the first of three flapping SSO reports."
+  },
+  {
+   "monitor": "m03",
+   "run": 5,
+   "run_created": "2026-10-01T03:26:05.607Z",
+   "url": "https://www.firecrawl.dev/pricing",
+   "change_fingerprint": "page:https://www.firecrawl.dev/pricing:fd2f073b79f82d3b92d1916f90d0886baad407c2f22c7426c1791a1154d0cd8f",
+   "real": "false_positive",
+   "kind": "pricing",
+   "dated_in_window": false,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/firecrawl.md"
+   ],
+   "evidence": [
+    "https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20260930183640/https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20261005215034/https://www.firecrawl.dev/pricing"
+   ],
+   "note": "SSO & advanced security is on the Enterprise card in the 2026-09-30 18:36 capture (about nine hours before this run), in the 2026-10-05 21:50 capture and live. Runs 6 to 9 reported nothing on this card. The archive has no capture between 2026-10-01 and 2026-10-05, so a short-lived removal can't be ruled out completely. Every capture shows the feature, though, and the paired 'added' reports flap, so this reads as capture noise. The KB lists SSO on Enterprise, which matches the live page."
+  },
+  {
+   "monitor": "m03",
+   "run": 5,
+   "run_created": "2026-10-01T03:26:05.607Z",
+   "url": "https://www.firecrawl.dev/changelog",
+   "change_fingerprint": "page:https://www.firecrawl.dev/changelog:2b8519fcb6330cfc3919493a3d284707989ff9bebf2d837a2ba748eab80608af",
+   "real": "confirmed",
+   "kind": "product",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/firecrawl.md"
+   ],
+   "evidence": [
+    "https://www.firecrawl.dev/changelog",
+    "https://web.archive.org/web/20260922211724/https://www.firecrawl.dev/changelog",
+    "https://web.archive.org/web/20261002102432/https://www.firecrawl.dev/changelog"
+   ],
+   "note": "Firecrawl's changelog has an entry dated Oct 1, 2026 adding people and company enrichment to Alexandria through Apollo, FullEnrich and Data Legion. It is absent from the 2026-09-22 capture and present in the 2026-10-02 capture and live. The KB (last_updated 2026-09-27) covers the Alexandria launch but names none of these providers and has no enrichment pack."
+  },
+  {
+   "monitor": "m03",
+   "run": 6,
+   "run_created": "2026-10-02T03:26:15.422Z",
+   "url": "https://www.firecrawl.dev/pricing",
+   "change_fingerprint": "page:https://www.firecrawl.dev/pricing:314b8e383c045c803ab3918e5823c78a2c29f5fcd8817cad713a6d5209b40d84",
+   "real": "confirmed",
+   "kind": "product",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/firecrawl.md"
+   ],
+   "evidence": [
+    "https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20260930183640/https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20261005215034/https://www.firecrawl.dev/pricing",
+    "https://docs.firecrawl.dev/features/agent.md"
+   ],
+   "note": "The credits table showed 'Agent (Preview)' in the 2026-09-30 18:36 capture and shows plain 'Agent' in the 2026-10-05 capture and live. The Agent docs page has also dropped its preview wording. However, the pricing page's own FAQ still calls Agent 'in preview', and no GA entry appeared in the changelog. Real and dated, but the status change is soft. The KB still describes /agent as a research preview."
+  },
+  {
+   "monitor": "m03",
+   "run": 10,
+   "run_created": "2026-10-06T03:21:09.751Z",
+   "url": "https://www.firecrawl.dev/pricing",
+   "change_fingerprint": "page:https://www.firecrawl.dev/pricing:e0cf29e71f6f62be48aebacfc9bdeec389209eb52be4c899d1587256c485475a",
+   "real": "false_positive",
+   "kind": "pricing",
+   "dated_in_window": false,
+   "in_kb": "yes",
+   "kb_paths": [
+    "competitive/firecrawl.md"
+   ],
+   "evidence": [
+    "https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20260926211207/https://www.firecrawl.dev/pricing",
+    "https://web.archive.org/web/20261005215034/https://www.firecrawl.dev/pricing"
+   ],
+   "note": "All three Enterprise bullets the monitor calls new (SSO, dedicated support & SLA, zero-data retention) appear in every capture from 2026-09-26 through 2026-10-05 21:50 and live. The Growth card's '50 concurrent requests', reported as removed, is still on the live page. This is the third report in the add/remove/add flap and matches no real page change. The KB's Enterprise row already lists ZDR, SSO/SCIM and SLA."
+  },
+  {
+   "monitor": "m03",
+   "run": 10,
+   "run_created": "2026-10-06T03:21:09.751Z",
+   "url": "https://www.firecrawl.dev/changelog",
+   "change_fingerprint": "page:https://www.firecrawl.dev/changelog:f6785ea3be7da2d99a68bbff885d6193bda2d5f6092f0cf85cbcba0cd2484f44",
+   "real": "confirmed",
+   "kind": "product",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/firecrawl.md"
+   ],
+   "evidence": [
+    "https://www.firecrawl.dev/changelog",
+    "https://web.archive.org/web/20261002102432/https://www.firecrawl.dev/changelog"
+   ],
+   "note": "Firecrawl's changelog has an entry dated Oct 6, 2026 adding fantasy-sports data (rankings, projections, stats, odds) to Alexandria, with a demo. It is absent from the 2026-10-02 capture and present live. This is a minor catalog addition. The KB has no mention of it."
+  },
+  {
+   "monitor": "m04",
+   "run": 2,
+   "run_created": "2026-09-28T20:41:43.730Z",
+   "url": "https://docs.perplexity.ai/docs/resources/changelog",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/resources/changelog:20b27f0fb5cd1f7740903c5dd767f088a1b884c8c616c77636ec2c067b951474",
+   "real": "confirmed",
+   "kind": "product",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/resources/changelog",
+    "https://docs.perplexity.ai/docs/resources/changelog/rss.xml",
+    "https://web.archive.org/web/20260924000451/https://docs.perplexity.ai/docs/resources/changelog",
+    "https://web.archive.org/web/20260929213254/https://docs.perplexity.ai/docs/resources/changelog"
+   ],
+   "note": "The changelog RSS stamps the entry moving the Agent API xhigh preset from openai/gpt-5.6-sol to anthropic/claude-opus-5-5 at 2026-09-28 19:16 UTC, between runs 1 and 2. It is absent from the 2026-09-24 capture and present on 2026-09-29. The KB's preset table (frozen config, 2026-09-26) still shows xhigh on gpt-5.6-sol."
+  },
+  {
+   "monitor": "m04",
+   "run": 2,
+   "run_created": "2026-09-28T20:41:43.730Z",
+   "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:494d4c902ea5d7dcb4c08e70e82f3dbb31815352d1b562dbbb0d0a10977310d7",
+   "real": "confirmed",
+   "kind": "pricing",
+   "dated_in_window": true,
+   "in_kb": "partial",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20260913155539/https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20261004025504/https://docs.perplexity.ai/docs/getting-started/pricing"
+   ],
+   "note": "The Sonar API pricing section (token, request-fee and Pro Search tables) appears in the 2026-09-13 capture and is gone by 2026-10-04. The monitor dates the removal to 2026-09-27 21:09 through 2026-09-28 20:41 UTC, right after the announced 2026-09-27 Sonar retirement. The 'search context size vs context window' glossary the monitor calls new was already there on 2026-09-13; only a pricing remark was trimmed from it. The KB (last_updated 2026-09-26) records Sonar pricing as valid 'until 2026-09-27' and the retirement date. It also says the cut-over behaviour wasn't yet confirmed, and it doesn't record the pricing being withdrawn."
+  },
+  {
+   "monitor": "m04",
+   "run": 3,
+   "run_created": "2026-09-29T21:05:26.922Z",
+   "url": "https://docs.perplexity.ai/docs/resources/changelog",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/resources/changelog:74595ed35d2b03911ff31b31f04df36509fde3f71f83e2aad6814ea0ddc6077f",
+   "real": "confirmed",
+   "kind": "product",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/resources/changelog",
+    "https://docs.perplexity.ai/docs/resources/changelog/rss.xml",
+    "https://web.archive.org/web/20260924000451/https://docs.perplexity.ai/docs/resources/changelog",
+    "https://web.archive.org/web/20260929213254/https://docs.perplexity.ai/docs/resources/changelog"
+   ],
+   "note": "Two new Agent API models were added: anthropic/claude-sonnet-5-5 (RSS 2026-09-29 15:17 UTC) and openai/gpt-6.1-sol (RSS 2026-09-29 19:18 UTC), both between runs 2 and 3. Both are absent from the 2026-09-24 capture and present in the 2026-09-29 21:32 capture. The xhigh line in this result repeats item m04 run 2. Neither model ID appears anywhere in the KB."
+  },
+  {
+   "monitor": "m04",
+   "run": 4,
+   "run_created": "2026-09-30T20:58:48.455Z",
+   "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:6191a44379c1e18c50bc1c5247fcf13928fb5e833502cff9936139001611f0e5",
+   "real": "confirmed",
+   "kind": "pricing",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md",
+    "competitive/perplexity-search-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20260913155539/https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20261004025504/https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://benchlm.ai/models/pplx-decider-v1-27b"
+   ],
+   "note": "A Decisions API pricing section (input-only billing at $0.04 per 1M tokens, free output, no request fee) is absent on 2026-09-13 and present on 2026-10-04. The monitor dates it to 2026-09-29 21:05 through 2026-09-30 20:58 UTC. Third-party coverage dates the model release to 2026-10-01, and the changelog entry came later (RSS 2026-10-05 21:42). After the last harvested run, the live page cut the price to $0.02 and added a v1.1 model. The KB has no Decisions API."
+  },
+  {
+   "monitor": "m04",
+   "run": 5,
+   "run_created": "2026-10-01T20:51:03.853Z",
+   "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:3f3d3d5b397c76c6fbd8aab70bcdd67d18f9cf712af5c3150b39a4230f7b296f",
+   "real": "not_confirmed",
+   "kind": "other",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20261004025504/https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://benchlm.ai/models/pplx-decider-v1-27b"
+   ],
+   "note": "The 2026-10-04 capture and the live page use the name pplx-decider-v1-27b, which matches the claimed end state. No archive capture between 2026-09-30 and 2026-10-01 shows the earlier name 'decider-27b', so the rename itself can't be verified. The section was a day old and the model's public release was 2026-10-01, so this looks like a pre-launch naming fix, not a product change. The price did not change. The KB has no Decisions API."
+  },
+  {
+   "monitor": "m04",
+   "run": 6,
+   "run_created": "2026-10-02T20:43:43.113Z",
+   "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:a35fa200580a089ea34a02453d8187665b3ac9107218f7bde5c8d2a97360f14d",
+   "real": "confirmed",
+   "kind": "pricing",
+   "dated_in_window": true,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20260913155539/https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20261004025504/https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://docs.perplexity.ai/docs/resources/changelog/rss.xml"
+   ],
+   "note": "The Agent API tool-pricing table gained an image_search row ($0.0025 per successful call). It is absent on 2026-09-13 and present in the 2026-10-04 02:55 capture. The monitor dates it to 2026-10-01 20:51 through 2026-10-02 20:43 UTC, and the matching changelog entry followed on 2026-10-05. The KB's tool list and tool pricing have no image_search."
+  },
+  {
+   "monitor": "m04",
+   "run": 9,
+   "run_created": "2026-10-05T21:07:27.799Z",
+   "url": "https://docs.perplexity.ai/docs/resources/changelog",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/resources/changelog:eba532058d37492d87e6753a6b0e2eb882262f439a6dc5373618161f44ad8249",
+   "real": "confirmed",
+   "kind": "pricing",
+   "dated_in_window": true,
+   "in_kb": "partial",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md",
+    "competitive/perplexity-search-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/resources/changelog",
+    "https://docs.perplexity.ai/docs/resources/changelog/rss.xml",
+    "https://web.archive.org/web/20260929213254/https://docs.perplexity.ai/docs/resources/changelog"
+   ],
+   "note": "The changelog RSS stamps the entry moving the low, medium and high presets to Fast Search at 2026-10-05 17:15 UTC, between runs 8 and 9. That cuts their web_search cost from $2.50 to $1.00 per 1,000 calls; xhigh is unchanged. The entry is absent from the 2026-09-29 capture. The gpt-6.1-sol line in this result repeats the 2026-09-29 item. The KB has Fast Search at $0.001 per call and the fast preset using it, but still shows low/medium/high on standard search."
+  },
+  {
+   "monitor": "m04",
+   "run": 9,
+   "run_created": "2026-10-05T21:07:27.799Z",
+   "url": "https://docs.perplexity.ai/docs/getting-started/pricing",
+   "change_fingerprint": "page:https://docs.perplexity.ai/docs/getting-started/pricing:170475bab2ad74d46bbaa8b210b2d8b71c6368b490df853bf31537ef2ccda386",
+   "real": "confirmed",
+   "kind": "pricing",
+   "dated_in_window": true,
+   "in_kb": "partial",
+   "kb_paths": [
+    "competitive/perplexity-agent-api.md"
+   ],
+   "evidence": [
+    "https://docs.perplexity.ai/docs/getting-started/pricing",
+    "https://web.archive.org/web/20261005004829/https://docs.perplexity.ai/docs/getting-started/pricing"
+   ],
+   "note": "In the 2026-10-05 00:48 capture, the research-preset cost example bills web_search at $0.0025 for a $0.007 total. Live, it bills Fast Search at $0.001 for a $0.0055 total, which follows from the preset change in the row above. The Fast Search row the monitor calls new is in this example; the tool table already had a Fast Search row by 2026-10-04. The KB has the Fast Search price but not the preset switch."
+  },
+  {
+   "monitor": "m05",
+   "run": 5,
+   "run_created": "2026-10-01T05:35:20.146Z",
+   "url": "https://api-dashboard.search.brave.com/documentation/pricing",
+   "change_fingerprint": "page:https://api-dashboard.search.brave.com/documentation/pricing:118b9b1c49d4bbb549b82632c2eab8ff14599283532bd1152e35efaa39df2f34",
+   "real": "false_positive",
+   "kind": "pricing",
+   "dated_in_window": false,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/brave-search-api.md"
+   ],
+   "evidence": [
+    "https://api-dashboard.search.brave.com/documentation/pricing",
+    "https://api-dashboard.search.brave.com/documentation/pricing/index.html.md",
+    "https://brave.com/search/api/",
+    "https://web.archive.org/cdx/search/cdx?url=api-dashboard.search.brave.com/documentation/pricing&from=20260801&to=20261006&output=json"
+   ],
+   "note": "The live HTML page still shows $5 per 1,000 Search requests, $4 per 1,000 Answers queries plus token fees, and $5 in monthly credits, and no later run reported prices coming back. The same URL now also serves a markdown version, sent when a client asks for text/markdown. That version is 112 bytes with headings only and no prices, which matches the monitor's 'pricing removed' description. So this is most likely a change in the page's machine-readable version, not in pricing. The archive has no captures of this URL since 2026-08-01, so the date of the switch is unknown. The KB's Brave prices match the live page."
+  },
+  {
+   "monitor": "m05",
+   "run": 5,
+   "run_created": "2026-10-01T05:35:20.146Z",
+   "url": "https://api-dashboard.search.brave.com/app/plans?tab=normal",
+   "change_fingerprint": "page:https://api-dashboard.search.brave.com/app/plans?tab=normal:625d9f505c7eaa2cf814ce6fb4f9bf3015436687888c40ccc14f6a32f47b4992",
+   "real": "false_positive",
+   "kind": "pricing",
+   "dated_in_window": false,
+   "in_kb": "no",
+   "kb_paths": [
+    "competitive/brave-search-api.md"
+   ],
+   "evidence": [
+    "https://api-dashboard.search.brave.com/app/plans?tab=normal",
+    "https://brave.com/search/api/"
+   ],
+   "note": "For logged-out visitors, the dashboard plans URL serves the same pricing page as the docs URL. Its HTML still lists the full plans and prices, and with a markdown Accept header it returns the same 112-byte headings-only text. This is the same representation effect as the row above, not a pricing or product removal. The KB's Brave prices match the live page."
+  }
+ ],
+ "monitors": [
+  {
+   "monitor": "m01",
+   "runs": 10,
+   "change_results": 0,
+   "surfaced_real_dated_change": "no",
+   "new_to_kb": "no",
+   "note": "Tavily: 10 completed runs, all 'no changes'. Tavily's own changelog has nothing newer than an August 2026 entry, so no miss is evident. Nothing to grade."
+  },
+  {
+   "monitor": "m02",
+   "runs": 10,
+   "change_results": 4,
+   "surfaced_real_dated_change": "yes",
+   "new_to_kb": "yes",
+   "note": "Parallel: 3 of 4 results qualify. The changelog backfill (leaderboard and Marketplace) was already in the KB. The removed '-fast' processor pricing table and the new Image Search API pricing are both missing from the KB. The /v1/extract 'breaking change' is a docs clarification of April 2026 behaviour."
+  },
+  {
+   "monitor": "m03",
+   "runs": 10,
+   "change_results": 6,
+   "surfaced_real_dated_change": "yes",
+   "new_to_kb": "yes",
+   "note": "Firecrawl: 3 of 6 results qualify, all new to the KB: Alexandria people and company enrichment (Oct 1), Agent losing its preview label on the pricing table (Oct 1-2, a soft signal), and fantasy-sports data (Oct 6). The three SSO results (added, removed, added) are monitor noise: the Enterprise card is identical in every archive capture from 2026-09-26 to 2026-10-05 and on the live page. A Sep 29 changelog entry (Alexandria in ChatGPT and Codex) was never reported and may be a miss."
+  },
+  {
+   "monitor": "m04",
+   "runs": 9,
+   "change_results": 8,
+   "surfaced_real_dated_change": "yes",
+   "new_to_kb": "yes",
+   "note": "Perplexity: 7 of 8 results qualify, all new or partly new to the KB: xhigh moved to Opus 5.5, two new models, Sonar pricing withdrawn, Decisions API pricing, image_search tool pricing, and the Fast Search preset price cut. The changelog RSS timestamps line up with the run windows. The decider rename could not be verified. A further Decisions price cut ($0.04 to $0.02) appeared after the last harvested run."
+  },
+  {
+   "monitor": "m05",
+   "runs": 10,
+   "change_results": 2,
+   "surfaced_real_dated_change": "no",
+   "new_to_kb": "no",
+   "note": "Brave: both results are false positives. Prices are unchanged on the live HTML page. The pages now also serve a headings-only markdown version, which most likely explains the 'pricing removed' reading. There are no archive captures to date it."
+  }
+ ],
+ "totals": {
+  "change_results": 20,
+  "confirmed": 14,
+  "not_confirmed": 1,
+  "false_positive": 5,
+  "qualifying": 13,
+  "qualifying_new_to_kb": 12
+ }
+}

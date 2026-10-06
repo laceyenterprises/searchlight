@@ -1,0 +1,136 @@
+{
+ "kind": "fetch",
+ "description": "S3 blocked sources: pages native tools couldn't read",
+ "items": [
+  {
+   "id": "b01",
+   "url": "https://trust.tavily.com/",
+   "target_desc": "Tavily trust center: compliance frameworks, documents, subprocessors",
+   "target_phrases": [
+    "ISO 27001",
+    "SOC 2"
+   ]
+  },
+  {
+   "id": "b02",
+   "url": "https://trust.exa.ai",
+   "target_desc": "Exa trust center: frameworks, documents, subprocessors",
+   "target_phrases": [
+    "SOC 2",
+    "HIPAA"
+   ]
+  },
+  {
+   "id": "b03",
+   "url": "https://trust.coderabbit.ai/subprocessors",
+   "target_desc": "CodeRabbit subprocessor list",
+   "target_phrases": [
+    "subprocessor",
+    "Amazon",
+    "OpenAI",
+    "Google"
+   ]
+  },
+  {
+   "id": "b04",
+   "url": "https://www.coderabbit.ai/trust-center",
+   "target_desc": "CodeRabbit trust center",
+   "target_phrases": [
+    "SOC 2",
+    "security"
+   ]
+  },
+  {
+   "id": "b05",
+   "url": "https://www.g2.com/products/exa/reviews",
+   "target_desc": "Exa reviews on G2",
+   "target_phrases": [
+    "review"
+   ]
+  },
+  {
+   "id": "b06",
+   "url": "https://www.producthunt.com/products/tavily/reviews",
+   "target_desc": "Tavily reviews on Product Hunt",
+   "target_phrases": [
+    "review"
+   ]
+  },
+  {
+   "id": "b07",
+   "url": "https://www.apollo.io/pricing",
+   "target_desc": "Apollo.io pricing plans",
+   "target_phrases": [
+    "Basic",
+    "Professional",
+    "Organization"
+   ]
+  },
+  {
+   "id": "b08",
+   "url": "https://crustdata.com/pricing",
+   "target_desc": "Crustdata pricing and credits",
+   "target_phrases": [
+    "credit"
+   ]
+  },
+  {
+   "id": "b09",
+   "url": "https://www.olostep.com/pricing",
+   "target_desc": "Olostep pricing",
+   "target_phrases": [
+    "credit",
+    "$"
+   ]
+  },
+  {
+   "id": "b10",
+   "url": "https://websets.exa.ai/",
+   "target_desc": "Exa Websets app landing page and plans",
+   "target_phrases": [
+    "Websets"
+   ]
+  },
+  {
+   "id": "b11",
+   "url": "https://ir.zoominfo.com/news-releases/news-release-details/zoominfo-launches-gtmai-headless-gtm-context-layer-ground-every/",
+   "target_desc": "ZoomInfo GTM.AI launch press release",
+   "target_phrases": [
+    "500 million",
+    "GTM.AI"
+   ]
+  },
+  {
+   "id": "b12",
+   "url": "https://support.monday.com/hc/en-us/articles/31594331572370-AI-Lead-Agent-in-monday-CRM",
+   "target_desc": "monday CRM AI Lead Agent help article",
+   "target_phrases": [
+    "Lead Agent"
+   ]
+  },
+  {
+   "id": "b13",
+   "url": "https://venturebeat.com/ai/perplexity-launches-massive-search-api-to-take-on-googles-dominance",
+   "target_desc": "VentureBeat on the Perplexity Search API launch",
+   "target_phrases": [
+    "Search API"
+   ]
+  },
+  {
+   "id": "b14",
+   "url": "https://developers.openai.com/api/docs/pricing",
+   "target_desc": "OpenAI API pricing, including the web search tool",
+   "target_phrases": [
+    "web search"
+   ]
+  },
+  {
+   "id": "b15",
+   "url": "https://www.make.com/en/integrations/exa-ai",
+   "target_desc": "Make.com Exa integration page",
+   "target_phrases": [
+    "Exa"
+   ]
+  }
+ ]
+}

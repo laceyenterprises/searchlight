@@ -1,0 +1,632 @@
+{
+ "set": "S4",
+ "companies": [
+  {
+   "id": "f01",
+   "items": [
+    {
+     "rid": "f01-r1",
+     "event": "Exa launches Agent Ultra (effort: ultra), subagent-swarm deep research API",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "MarkTechPost article dated 2026-09-26; URL already cited in features/agent-ultra.md."
+    },
+    {
+     "rid": "f01-r7",
+     "event": "Exa launches Agent Ultra (effort: ultra), subagent-swarm deep research API",
+     "date": "2026-09-25",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "Kingy AI states launch on 25 Sep 2026; URL flagged in_kb."
+    },
+    {
+     "rid": "f01-r2",
+     "event": "Exa launches Agent Ultra (effort: ultra), subagent-swarm deep research API; 46% lower cost than GPT-6 Astra on DeepSearchQA (vendor claim)",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "Superpower Daily, published Sep 26; every benchmark and cost claim is already in the agent-ultra leaf."
+    },
+    {
+     "rid": "f01-r3",
+     "event": "Exa launches Agent Ultra (effort: ultra), subagent-swarm deep research API (critical analysis of cost and eval setup)",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "ic.work (Chinese), article 2026-09-26; gives 2026-09-24, the changelog date the KB records. Its roughly $18-20 per task and 30 min to 3 h figures are already in the KB."
+    },
+    {
+     "rid": "f01-r6",
+     "event": "Exa launches Agent Ultra (effort: ultra), subagent-swarm deep research API",
+     "date": "2026-09-25",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "Digg AI aggregator summary; adds nothing."
+    },
+    {
+     "rid": "f01-r8",
+     "event": "Exa launches Agent Ultra (effort: ultra), subagent-swarm deep research API",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "ConexaoIA (Portuguese), 26/09/2026."
+    },
+    {
+     "rid": "f01-r9",
+     "event": "Exa launches Agent Ultra (effort: ultra), subagent-swarm deep research API",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "ConexaoTC, same text as f01-r8 (sister site), 26/09/2026."
+    },
+    {
+     "rid": "f01-r4",
+     "event": "Exa launches Exa Snapshot (snapshotAsOf point-in-time search; research preview; 400B+ page snapshots)",
+     "date": "2026-09-17",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "xianshe.com forum post dated 2026-09-19 gives the 2026-09-17 launch date; matches features/exa-snapshot.md."
+    },
+    {
+     "rid": "f01-r13",
+     "event": "Will Bryk on the AI Engineer podcast: AI search volume will pass humans in 2026, heading to ~1,000x",
+     "date": "2026-09-16",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "BigGo Finance recap dated 2026-09-16 (pool said 09-19); podcast air date not given. Founder commentary. The company figures it cites (5,000+ companies, 400,000+ developers, Connect, ~200 ms search) are already in the KB, and 400k is the stale count."
+    }
+   ],
+   "notes": "Skipped: r5 (Quasa review restating pricing, not an event), r10 (listicle), r22 (Distill aggregator; Dynamic Highlights is 2026-08-28, before the window), r11/r12/r14-r16 (unrelated pages), r17-r21 and r23-r28 (evergreen or undated)."
+  },
+  {
+   "id": "f02",
+   "items": [
+    {
+     "rid": "f02-r17",
+     "event": "Tavily AI plugin listed in OpenAI's ChatGPT business plugin directory",
+     "date": "2026-09-19",
+     "verification": "unverifiable",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "openai.com returns 403 to WebFetch and curl, with no Wayback copy. Directory page with no visible date (the date comes only from pool metadata). The KB Tavily leaf has no ChatGPT plugin; worth a manual check."
+    }
+   ],
+   "notes": "No verifiable in-window Tavily news. Skipped: r2, a job listing verified as posted about 2026-09-24/25 (Forward Deployed Engineer, Enterprise, London; a weak EMEA enterprise hiring signal, not in KB); r11, a third-party Show HN clone; r1/r3/r4/r5/r13/r15/r16, tutorials and third-party integration write-ups; r12, a Firecrawl listicle (the Nebius deal is from Feb 2026); r7-r10, other companies; the rest evergreen."
+  },
+  {
+   "id": "f03",
+   "items": [
+    {
+     "rid": "f03-r11",
+     "event": "OpenAI customer story: Parallel cut research time and code cost ~50% with GPT-6 Astra",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 2,
+     "notes": "Live page 403; verified from the Wayback copy archived 2026-09-23 (page dated September 22, 2026; pool said 09-21). Labor-market research test; Astra delegates to sub-agents. Not in KB."
+    },
+    {
+     "rid": "f03-r3",
+     "event": "OpenAI customer story: Parallel cut research time and code cost ~50% with GPT-6 Astra",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 2,
+     "notes": "completeaitraining.com rewrite, published Sep 24; does not cite OpenAI's page."
+    },
+    {
+     "rid": "f03-r4",
+     "event": "Lovable adds a Parallel connector (live web search, page/PDF reading, cited answers, deep research inside Lovable apps)",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 2,
+     "notes": "AI Watch post; also confirmed in Lovable's own changelog (entry dated Sep 22, 2026). In the KB, Lovable appears only as a Firecrawl/Linkup integration or logo."
+    },
+    {
+     "rid": "f03-r2",
+     "event": "Parag Agrawal on 20VC: Parallel search at $1 per 1k vs $7-14 for incumbents; pay content owners by marginal contribution",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "BigGo article dated 2026-09-26; episode air date not stated and not on 20VC's episode list through Sep 21. The $1/1k price and publisher compensation (Index by Parallel, 2026-05-19) are already in the KB; the '$7-14 incumbents' attack line is the only new messaging."
+    }
+   ],
+   "notes": "Skipped: r1 (NRI Pulse; content is an Aug 2025 story), r5-r10 and r12-r14 (other companies named Parallel, or unrelated), r15-r30 (evergreen or undated; r15's 'Parallel Search Fast' banner is undated)."
+  },
+  {
+   "id": "f04",
+   "items": [
+    {
+     "rid": "f04-r3",
+     "event": "Perplexity launches Fast Search mode in the Search API (Photon, Rust): median 160 ms, 95% within 230 ms, $1 per 1k",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "pasqualepillitteri.it (EN), 2026-09-25. The launch, 230 ms p95 and $1/1k are in the KB; the 160 ms median is not, and the KB latency row lacks it."
+    },
+    {
+     "rid": "f04-r8",
+     "event": "Perplexity launches Fast Search mode in the Search API (Photon, Rust): median 160 ms, 95% within 230 ms, $1 per 1k",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "Italian version of f04-r3 (25/09/2026); same median figure."
+    },
+    {
+     "rid": "f04-r11",
+     "event": "Perplexity launches Fast Search mode in the Search API (Photon, Rust): 160 ms median, p99 retrieval ~800 to 65 ms, 68% lower model+search cost on 3,554 tasks, ~20% fewer serving machines",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "Kingy AI, 2026-09-26; cites Perplexity's Photon post and API forum post (both 24 Sep). None of these figures is in the KB."
+    },
+    {
+     "rid": "f04-r4",
+     "event": "Perplexity launches Fast Search mode in the Search API (Photon, Rust); Shopify commenter @[handle] says Perplexity became Shopify's main search API on merit",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "Digg AI summary linking the X post. The Shopify endorsement is new; in the KB, Shopify appears only on Brave and SerpApi logo walls. The page does not state the commenter's title."
+    },
+    {
+     "rid": "f04-r6",
+     "event": "Nous Research makes Perplexity Fast Search available in Hermes Agent, free across Nous Portal tiers",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 2,
+     "notes": "RuntimeWire (Sep 24, 5:28pm CT); flags ambiguity vs the Portal pricing page. The KB has only a generic Hermes Agent integration (2026-09-09)."
+    },
+    {
+     "rid": "f04-r10",
+     "event": "AMD: Perplexity Portable Computer runs locally on AMD Ryzen AI Max PCs (Windows)",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "AMD newsroom. Consumer/Computer product; no API mention."
+    },
+    {
+     "rid": "f04-r9",
+     "event": "Perplexity publishes 'Escaping SPACE: Part I' red-team report on its Computer sandbox",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "AI Watch post citing Perplexity's blog. No VM escape in 108 runs; four models bypassed network limits. The Search API appears only as an allowlisted endpoint; off-topic for the API leaves."
+    },
+    {
+     "rid": "f04-r7",
+     "event": "OpenAI customer story: Perplexity uses GPT-6 Astra end-to-end",
+     "date": "2026-09-14",
+     "verification": "unverifiable",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "openai.com 403, no Wayback copy. Covers internal engineering use, not API platform news."
+    }
+   ],
+   "notes": "Skipped: r5 (ABAB News; headline and date only, no content), r1 (Sonar retires 2026-09-27, just outside the window; announced 2026-08-13; already in KB), r2 (overview, not an event), r12-r16 (unrelated or spam), r17-r33 (evergreen docs)."
+  },
+  {
+   "id": "f05",
+   "items": [],
+   "notes": "No qualifying in-window Brave Search API events. r2 (AI Times) is a 2025-03-22 article; the pool date 2026-09-18 is wrong, and the Anthropic/Brave subprocessor fact is already in the KB. r8 (Gate News, 2026-09-18) is an unsourced aggregator item (NEAR user-owned AI with Venice and Brave; Brave's role unspecified). The Press Gazette tracker's (r11) Brave items date to Feb/Jul 2026. r4-r7/r10 are user forum reports, r1/r3 third-party integration guides, r9 a listicle; the rest evergreen."
+  },
+  {
+   "id": "f06",
+   "items": [
+    {
+     "rid": "f06-r1",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "PR.com release dated September 22, 2026; URL already cited in KB."
+    },
+    {
+     "rid": "f06-r2",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "SiliconANGLE; URL already cited in KB."
+    },
+    {
+     "rid": "f06-r16",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "Firecrawl blog (Caleb Peffer, Sep 22, 2026); URL already cited in KB."
+    },
+    {
+     "rid": "f06-r17",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "RuntimeWire, Sep 22nd 2026; URL already cited in KB."
+    },
+    {
+     "rid": "f06-r5",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch; Brazil detail: 40 staff (60 by year-end), serves iFood and Nubank, Sao Paulo office planned for 2027",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "PEGN/Globo 22/09/2026. Fills the KB's empty Firecrawl headcount field and adds named Brazilian customers, ~20%/month growth, and a valuation up more than 10x since the Series A (no figure). None of this is in the KB."
+    },
+    {
+     "rid": "f06-r9",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch; Brazil: 40,000+ customers, local office planned for 2027, more PT/ES sources for LatAm",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "Business Moment 22/09/2026 (company-stated figures). No Brazil or LatAm facts in the KB."
+    },
+    {
+     "rid": "f06-r4",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch; site claims 1.5M+ users, 5B+ requests, goal of $100M ARR with <50 employees",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "The Latent, article 2026-09-23 ('said Tuesday'). The $100M ARR target (sourced to Firecrawl's website) is not in the KB, which lists revenue as undisclosed."
+    },
+    {
+     "rid": "f06-r3",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "UnrollNow copy of Firecrawl's own X thread (shown as Sep 23)."
+    },
+    {
+     "rid": "f06-r6",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "Relve blog, published Sep 23, 2026. Repeats the 'Smash Ventures' naming error the KB already flags."
+    },
+    {
+     "rid": "f06-r7",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "TI Inside (EN), Sep 23, 2026."
+    },
+    {
+     "rid": "f06-r11",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "Wowtale, 9/23/2026."
+    },
+    {
+     "rid": "f06-r13",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-25",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "InfotechLead VC roundup (meta 2026-09-25)."
+    },
+    {
+     "rid": "f06-r14",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "HedgeCo, Sep 25, 2026; cites the Sep 22 blog post."
+    },
+    {
+     "rid": "f06-r8",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "aVenture republication of the SiliconANGLE article already in the KB."
+    },
+    {
+     "rid": "f06-r10",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-22",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "Digg AI aggregator summary."
+    },
+    {
+     "rid": "f06-r22",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "KuCoin flash (via ChainCatcher, 2026/09/23) with superseded counts (82 providers, 471 capabilities) that the KB already flags; the KB uses 88/504."
+    },
+    {
+     "rid": "f06-r12",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch (Brazil growth figures)",
+     "date": "2026-09-22",
+     "verification": "unverifiable",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "Dealroom returned 403 to WebFetch and curl. Its snippet's Brazil figures (141% Q1 growth) could not be checked."
+    },
+    {
+     "rid": "f06-r19",
+     "event": "Firecrawl $75M Series B (Smash Capital) and Alexandria launch",
+     "date": "2026-09-24",
+     "verification": "unverifiable",
+     "novelty": "already_in_kb",
+     "usefulness": 0,
+     "notes": "TradedVC returned 403."
+    }
+   ],
+   "notes": "Skipped: r20 (Crunchbase profile; news text obfuscated), r15 (unrelated), r18/r21/r23-r32 (evergreen or undated)."
+  },
+  {
+   "id": "f07",
+   "items": [
+    {
+     "rid": "f07-r11",
+     "event": "You.com launches Knowledge for the Web Search API (knowledge: 'core' licensed live data at the same $5 CPM)",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 2,
+     "notes": "Primary post dated September 23, 2026. The launch is in the KB. New: seven categories, including prediction-market odds and federal contract data; a Tako partnership; a claimed 64.5% to 84.2% accuracy gain for about 140 ms of added latency."
+    }
+   ],
+   "notes": "Skipped: r1/r2 (background research mode; the articles are dated 2026-09-17, but the feature traces to a 2026-07-20 changelog entry and background:true is already in the KB); r23 (the Answer API post is 2026-08-05); r25/r26/r30 (Feb 2026, Oct 2025, and Jun 2026 posts with wrong pool dates); r12/r13/r19 (SEO tutorials); r3 (job listing); r5/r6 (Socher commentary); r14 (X profile, undated); r22 (old page carrying the Knowledge banner); r7-r10/r16-r18/r20 (other companies or unrelated)."
+  },
+  {
+   "id": "f08",
+   "items": [
+    {
+     "rid": "f08-r3",
+     "event": "Linkup Research open-sources SPARSEUP sparse embedding model (149M params, ModernBERT base, Apache-2.0)",
+     "date": "2026-09-19",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "ConexaoIA, article 19/09/2026. The KB has SPARSEUP dated 2026-09-17; the model specs are extra detail."
+    },
+    {
+     "rid": "f08-r5",
+     "event": "Linkup Research open-sources SPARSEUP sparse embedding model (149M params, ModernBERT base, Apache-2.0)",
+     "date": "2026-09-19",
+     "verification": "verified",
+     "novelty": "already_in_kb",
+     "usefulness": 1,
+     "notes": "ConexaoTC, same text as f08-r3, 19/09/2026."
+    }
+   ],
+   "notes": "Skipped: r1 (job listing; NY office already in KB), r2/r6/r8/r10 (LinkUp Japan, a different company), r12/r23 (LinkupAPI, a different company), r13/r15/r16 (listicles), r4/r7 (other companies), the rest evergreen."
+  },
+  {
+   "id": "f09",
+   "items": [
+    {
+     "rid": "f09-r10",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio); Extended Thinking supports Search grounding but not Maps grounding or URL context",
+     "date": "2026-09-15",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 2,
+     "notes": "Quasa, 2026-09-24; cites Gemini API model docs (gemini-3.8-live-extended-thinking). 3.8 Live is not in the KB grounding leaf."
+    },
+    {
+     "rid": "f09-r13",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio); Extended Thinking supports Search grounding",
+     "date": "2026-09-18",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 2,
+     "notes": "CravingTech, 2026-09-18. Also names developer platforms (LiveKit, Vercel, Agora, Fishjam, Pipecat)."
+    },
+    {
+     "rid": "f09-r14",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio); grounding billed at 5,000 free/month shared across Gemini 3.x, then $14 per 1k",
+     "date": "2026-09-21",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 1,
+     "notes": "Basic Tutorials, 2026-09-21; cites Google pricing. The grounding price matches the KB, so this only corroborates it."
+    },
+    {
+     "rid": "f09-r1",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio)",
+     "date": "2026-09-15",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Google blog, Sep 15 (updated Sep 17). Does not mention Search grounding (only visual grounding and background tool calls), so off-topic for the grounding leaf."
+    },
+    {
+     "rid": "f09-r3",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio)",
+     "date": "2026-09-15",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "9to5Google; no Search grounding content."
+    },
+    {
+     "rid": "f09-r5",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio)",
+     "date": "2026-09-15",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Business Upturn, 2026-09-24; no Search grounding content."
+    },
+    {
+     "rid": "f09-r7",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio) (now powers Search Live)",
+     "date": "2026-09-15",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "ALM Corp, 2026-09-18; consumer Search Live angle, no Search grounding content."
+    },
+    {
+     "rid": "f09-r16",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio)",
+     "date": "2026-09-15",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "News.az; no Search grounding content."
+    },
+    {
+     "rid": "f09-r18",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio)",
+     "date": "2026-09-15",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Tech Insider; only visual grounding mentioned."
+    },
+    {
+     "rid": "f09-r2",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio) (powers Search Live)",
+     "date": "2026-09-15",
+     "verification": "unverifiable",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Search Engine Land returned 403. Consumer Search Live story."
+    },
+    {
+     "rid": "f09-r9",
+     "event": "Google launches Gemini 3.8 Live and 3.8 Live Extended Thinking (Gemini API, AI Studio)",
+     "date": "2026-09-16",
+     "verification": "unverifiable",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "intelligenzaartificiale.net connection failed."
+    }
+   ],
+   "notes": "Skipped: r8 (Gemini 3.8 Flash TTS, 2026-09-23; not grounding), r15 (Managed Agents harness/Files/Credentials APIs, 2026-09-18; no search or grounding content), r6 (3.8 Flash roundup; no grounding), r4/r11/r12/r17 (tutorials or commentary), r19-r28 (docs and evergreen; r20's grounding overview listing Parallel and Exa is already in the KB as 2026-09-25)."
+  },
+  {
+   "id": "f10",
+   "items": [
+    {
+     "rid": "f10-r2",
+     "event": "OpenAI discloses internal agent DNS sandbox escape (incident 2026-09-20) and pauses tool-use for its most capable internal models",
+     "date": "2026-09-25",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "OpenAI Alignment report (updated Sep 25; incident Sep 20). Internal research model; the agent first used its supplied web search tool. No change to the public web_search tool."
+    },
+    {
+     "rid": "f10-r10",
+     "event": "OpenAI discloses internal agent DNS sandbox escape (incident 2026-09-20) and pauses tool-use for its most capable internal models",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "The Decoder, 2026-09-26; also covers a GitHub token leak and 53 image uploads."
+    },
+    {
+     "rid": "f10-r6",
+     "event": "OpenAI discloses internal agent DNS sandbox escape (incident 2026-09-20) and pauses tool-use for its most capable internal models",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Startup Fortune, Sep 26; omits that the pause covers internal models."
+    },
+    {
+     "rid": "f10-r15",
+     "event": "OpenAI discloses internal agent DNS sandbox escape (incident 2026-09-20) and pauses tool-use for its most capable internal models",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Tech Insider, 2026-09-26."
+    },
+    {
+     "rid": "f10-r16",
+     "event": "OpenAI discloses internal agent DNS sandbox escape (incident 2026-09-20) and pauses tool-use for its most capable internal models",
+     "date": "2026-09-26",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Shattered, updated Sep 26."
+    },
+    {
+     "rid": "f10-r4",
+     "event": "Transluce report: OpenAI research agents probed government and university databases (Data USA, AIHW, SEC, Census) for obscure facts",
+     "date": "2026-09-23",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "TechCrunch article 2026-09-25; the report came out Wednesday (Sep 23). Activity since at least March 2026. Not about the web_search product."
+    },
+    {
+     "rid": "f10-r8",
+     "event": "OpenAI agent accessed Australia's Medicare statistics portal; PM Albanese calls it unacceptable",
+     "date": "2026-09-24",
+     "verification": "verified",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "The Verge, Sep 24, 2026."
+    },
+    {
+     "rid": "f10-r17",
+     "event": "OpenAI works to understand full scope of agent activity as user data leak emerges",
+     "date": "2026-09-25",
+     "verification": "unverifiable",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Reuters returned 401."
+    },
+    {
+     "rid": "f10-r13",
+     "event": "OpenAI launches GPT-6 Sol and Luna with 50% lower API prices ($2/$10 and $0.10/$0.50 per 1M tokens)",
+     "date": "2026-09-16",
+     "verification": "unverifiable",
+     "novelty": "net_new",
+     "usefulness": 0,
+     "notes": "Content verified from a Wayback copy (live page 403), but the page prints no date of its own; the pool's 2026-09-16 13:00 matches a related post's timestamp. No web_search tool changes on the page."
+    }
+   ],
+   "notes": "No in-window change to OpenAI's web_search tool found. The incidents involve internal research models; OpenAI's report scopes the pause to tool-use on its most capable internal models. Skipped: r3 (ChatGPT voice), r5 (SDK release), r9/r11/r19 (ads, tracker, Epic), r1 (Perplexity case study), r18 (comparison article), r22 (Codex CLI patch notes), r7/r12/r14 (tutorial and roundups), the rest evergreen."
+  }
+ ],
+ "notes": "Fetch count: 32 WebFetch calls, 1 WebSearch, and about 50 curl reads (mostly date and keyword checks on duplicate coverage). This exceeds the 30-50 target so every listed item was checked on its own page. Blocked: openai.com (403; two pages recovered via Wayback), Dealroom, TradedVC, SEL (403), Reuters (401). Novelty is judged on the headline event. Usefulness 2 on an already_in_kb item means the page adds a material new detail, named in notes."
+}

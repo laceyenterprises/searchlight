@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2236" width="1200" height="2236" role="img" aria-labelledby="ig-title ig-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2668" width="1200" height="2668" role="img" aria-labelledby="ig-title ig-desc">
 <title id="ig-title">Searchlight results to date</title>
-<desc id="ig-desc">How the Searchlight test works, four findings with their evidence (pass rates with 95% ranges for search providers on two benchmarks and two coding agents, and how the agents searched), and the caveats for reading them.</desc>
-<rect width="1200" height="2236" fill="#F5F7FA"/>
+<desc id="ig-desc">How the Searchlight test works, five findings with their evidence (pass rates with 95% ranges for search providers on two benchmarks and two coding agents, how the agents searched, and counts from a study that called four search APIs directly), and the caveats for reading them.</desc>
+<rect width="1200" height="2668" fill="#F5F7FA"/>
 <rect x="0" y="0" width="1200" height="150" fill="#111111"/>
 <path d="M 1200 0 L 1200 150 L 780 150 Z" fill="#007BFF" opacity="0.22"/>
 <g transform="translate(48 28) scale(0.42)"><circle cx="31" cy="67" r="22" fill="#FFFFFF"/><path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/><circle cx="34" cy="69.5" r="6.4" fill="#111111"/></g>
 <text x="100.0" y="62.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#F5F7FA" font-weight="500" letter-spacing="5">SEARCHLIGHT</text>
 <text x="48.0" y="100.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="22" fill="#F5F7FA">Does web search help coding agents do real work?</text>
-<text x="48.0" y="128.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" fill="#C9D3DA">Results to date, 2026-09-29 to 2026-10-05 · 609 graded test runs · 2 AI coding agents · 6 search providers · 2 benchmarks</text>
+<text x="48.0" y="128.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" fill="#C9D3DA">Results to date, 2026-09-26 to 2026-10-06 · 609 graded agent runs · 2 coding agents · 6 providers · 1 API study</text>
 <text x="48.0" y="206.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" fill="#111111" font-weight="700">How the test works</text>
 <rect x="48.0" y="230.0" width="249.0" height="210.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
 <circle cx="78.0" cy="262.0" r="15" fill="#007BFF"/>
@@ -51,7 +51,7 @@
 <text x="921.0" y="356.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">was used. Briefs need the right</text>
 <text x="921.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">decision and at least 70% of</text>
 <text x="921.0" y="392.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">the key facts.</text>
-<text x="48.0" y="470.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Every result below is a pass rate with its 95% range. Where two ranges overlap, the data cannot tell them apart.</text>
+<text x="48.0" y="470.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Pass rates are shown with their 95% range. Where two ranges overlap, the data cannot tell them apart. Finding 5 counts verified items instead.</text>
 <text x="48.0" y="532.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" fill="#111111" font-weight="700">What we found</text>
 <text x="48.0" y="570.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 1</text>
 <text x="48.0" y="600.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Past the training cutoff,</text>
@@ -308,11 +308,99 @@
 <text x="948.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">the primary source in its</text>
 <text x="948.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">results (94/111) vs without</text>
 <text x="948.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">it (20/33).</text>
-<rect x="48" y="2002.0" width="1104" height="186" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
-<text x="72.0" y="2036.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18" fill="#111111" font-weight="700">Read before comparing</text>
-<text x="72.0" y="2066.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  18–42 test runs per provider: ranges are wide, and neighbouring positions are not rankings.</text>
-<text x="72.0" y="2090.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Each provider ran through its own MCP server at a pinned version and default settings. Direct APIs, other search modes and other tools were not tested.</text>
-<text x="72.0" y="2114.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Grading used automatic checks and blinded model graders. Provider dollar spend was only partly metered.</text>
-<text x="72.0" y="2138.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Search behavior comes from 1629 logged queries; its links to pass rates are correlations.</text>
-<text x="72.0" y="2168.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#555D67">searchlightai.dev · github.com/laceyenterprises/searchlight · a Lacey Enterprises project</text>
+<line x1="48" y1="1980.0" x2="1152" y2="1980.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="48.0" y="2014.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 5</text>
+<text x="48.0" y="2044.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Called directly, each search</text>
+<text x="48.0" y="2072.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">API led a different job</text>
+<text x="48.0" y="2104.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">A separate study called four search APIs directly</text>
+<text x="48.0" y="2124.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">on a research workload. Exa added the most</text>
+<text x="48.0" y="2144.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">verified new claims (25 on 40 open questions) and</text>
+<text x="48.0" y="2164.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">the most new dated news facts (20). Firecrawl</text>
+<text x="48.0" y="2184.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">read the most pages other tools could not (14 of</text>
+<text x="48.0" y="2204.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">15), and Parallel filled a fixed schema most</text>
+<text x="48.0" y="2224.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">accurately (113 of 133 values).</text>
+<rect x="48" y="2254.0" width="380" height="140.0" rx="6" fill="#EAF3FF"/>
+<rect x="48" y="2254.0" width="5" height="140.0" rx="2" fill="#007BFF"/>
+<text x="68.0" y="2276.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="2298.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Choose by job: discovery, rendering and</text>
+<text x="68.0" y="2318.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">structured extraction rewarded different</text>
+<text x="68.0" y="2338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">providers. The study was run for a knowledge</text>
+<text x="68.0" y="2358.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">base about Exa, one of the four, so read its</text>
+<text x="68.0" y="2378.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">context note.</text>
+<text x="460.0" y="2034.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New or correcting claims, 40 open questions</text>
+<text x="460.0" y="2063.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="534.0" y="2053.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2053.0" width="192.0" height="12" rx="2" fill="#007BFF"/>
+<text x="792.0" y="2063.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">25</text>
+<text x="460.0" y="2085.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="534.0" y="2075.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2075.0" width="84.5" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2085.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">11</text>
+<text x="460.0" y="2107.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="534.0" y="2097.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2097.0" width="145.9" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2107.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">19</text>
+<text x="460.0" y="2129.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="534.0" y="2119.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2119.0" width="76.8" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2129.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">10</text>
+<text x="820.0" y="2034.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New dated facts, two weeks of company news</text>
+<text x="820.0" y="2063.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="894.0" y="2053.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2053.0" width="192.0" height="12" rx="2" fill="#007BFF"/>
+<text x="1152.0" y="2063.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">20</text>
+<text x="820.0" y="2085.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="894.0" y="2075.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2075.0" width="115.2" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2085.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">12</text>
+<text x="820.0" y="2107.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="894.0" y="2097.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2097.0" width="28.8" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2107.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">3</text>
+<text x="820.0" y="2129.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="894.0" y="2119.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2119.0" width="19.2" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2129.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">2</text>
+<text x="460.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Pages other tools could not read, recovered (of 15)</text>
+<text x="460.0" y="2201.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="534.0" y="2191.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2191.0" width="64.0" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2201.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">5</text>
+<text x="460.0" y="2223.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="534.0" y="2213.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2213.0" width="128.0" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2223.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">10</text>
+<text x="460.0" y="2245.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="534.0" y="2235.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2235.0" width="153.6" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2245.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">12</text>
+<text x="460.0" y="2267.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="534.0" y="2257.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2257.0" width="179.2" height="12" rx="2" fill="#007BFF"/>
+<text x="792.0" y="2267.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">14</text>
+<text x="820.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Schema values right on ground truth (of 133)</text>
+<text x="820.0" y="2201.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="894.0" y="2191.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2191.0" width="151.6" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2201.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">105</text>
+<text x="820.0" y="2223.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="894.0" y="2213.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<text x="900.0" y="2223.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">not run</text>
+<text x="820.0" y="2245.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="894.0" y="2235.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2235.0" width="163.1" height="12" rx="2" fill="#007BFF"/>
+<text x="1152.0" y="2245.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">113</text>
+<text x="820.0" y="2267.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="894.0" y="2257.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2257.0" width="135.7" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2267.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">94</text>
+<text x="460.0" y="2296.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Counts of verified items, one run per question; no 95% ranges were published, so differences of a few</text>
+<text x="460.0" y="2312.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">items are within noise. Tavily sells no structured extraction, so it was not run on the schema.</text>
+<rect x="48" y="2434.0" width="1104" height="186" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
+<text x="72.0" y="2468.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18" fill="#111111" font-weight="700">Read before comparing</text>
+<text x="72.0" y="2498.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  18–42 test runs per provider: ranges are wide, and neighbouring positions are not rankings.</text>
+<text x="72.0" y="2522.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  In the agent benchmarks each provider ran through its own MCP server at default settings; the API study called tuned APIs directly.</text>
+<text x="72.0" y="2546.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Grading used automatic checks and blinded model graders. Provider dollar spend was only partly metered.</text>
+<text x="72.0" y="2570.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Search behavior comes from 1629 logged queries; its links to pass rates are correlations.</text>
+<text x="72.0" y="2600.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#555D67">searchlightai.dev · github.com/laceyenterprises/searchlight · a Lacey Enterprises project</text>
 </svg>

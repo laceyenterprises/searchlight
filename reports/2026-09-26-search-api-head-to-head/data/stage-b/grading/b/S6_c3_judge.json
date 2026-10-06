@@ -1,0 +1,1108 @@
+{
+ "set": "S6",
+ "cells": [
+  {
+   "cell": "c11.web_search_source",
+   "values": [
+    {
+     "vid": "c11.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serpapi.com/search-api",
+     "note": "Page says the Google Search API lets you 'scrape results from the Google search page'; the nav lists Bing, YouTube and 100+ other APIs. Matches KB. KB is stale, though: serpapi.com/search-index-api describes 'SerpApi's own, LLM-first web index' (preview; public alpha since Feb 2026), so the source is now a mix."
+    },
+    {
+     "vid": "c11.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "https://serpapi.com/search-index-api",
+     "note": "Matches KB. But its 'rather than its own web index' clause, like the KB's 'no own index', is outdated: SerpApi's Search Index API (preview) is its own web index."
+    },
+    {
+     "vid": "c11.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "https://serpapi.com/search-index-api",
+     "note": "Matches KB. But '(not an own web index)', like the KB, is outdated: SerpApi now runs its own Search Index API (preview)."
+    }
+   ]
+  },
+  {
+   "cell": "c11.soc2",
+   "values": [
+    {
+     "vid": "c11.soc2.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serpapi.com/security",
+     "note": "Security page lists SOC 2 (Type II) as 'Acquired' with no report date. The blog post of 2026-05-29 announces the completed SOC 2 Type 2 examination."
+    },
+    {
+     "vid": "c11.soc2.v2",
+     "verdict": "partly_verified",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serpapi.com/security",
+     "note": "Type II is confirmed ('Acquired'). 'Report available on request' is not on the page, which only gives a security contact. 'Certified' is also loose wording for an attestation."
+    },
+    {
+     "vid": "c11.soc2.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serpapi.com/blog/serpapi-achieves-soc-2-r-type-2-and-iso-iec-27001-2022-milestones/",
+     "note": "Post dated May 29, 2026 announces the completed SOC 2 Type 2 examination and ISO/IEC 27001:2022."
+    }
+   ]
+  },
+  {
+   "cell": "c11.zero_data_retention",
+   "values": [
+    {
+     "vid": "c11.zero_data_retention.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serpapi.com/legal#privacy-policy-section-10",
+     "note": "Privacy policy section 10 says search data is kept 31 days and ZeroTrace prevents storage entirely. Right, but it names no plan (Enterprise / Cloud 1M+), which the field asks for."
+    },
+    {
+     "vid": "c11.zero_data_retention.v2",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serpapi.com/pricing#all-plans",
+     "note": "Verified: the rendered plan table (and its plan data) ticks ZeroTrace Mode on the self-serve Cloud 1M to Cloud 54M plans ($3,750/month and up), not on Infrastructure or below. The KB's 'Enterprise only' is incomplete. SerpApi's own ZeroTrace page still says Enterprise-only, so its pages conflict."
+    },
+    {
+     "vid": "c11.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "https://serpapi.com/zero-trace-mode",
+     "note": "Matches KB (ZeroTrace page: 'only included in Enterprise plans'). The pricing table also includes it on Cloud 1M+ (see v2)."
+    }
+   ]
+  },
+  {
+   "cell": "c11.hipaa_baa",
+   "values": [
+    {
+     "vid": "c11.hipaa_baa.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serpapi.com/security",
+     "note": "No HIPAA or BAA on the security, legal, FAQ, pricing or enterprise pages, and web search finds none. Minor slip: CCPA appears only on the ZeroTrace page, not the pages v1 lists."
+    },
+    {
+     "vid": "c11.hipaa_baa.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serpapi.com/legal",
+     "note": "Legal page has no HIPAA or BAA; none found elsewhere on SerpApi's site or by web search."
+    },
+    {
+     "vid": "c11.hipaa_baa.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serpapi.com/security",
+     "note": "Accurate: the only HIPAA mention is on the ZeroTrace page, saying the mode can ease compliance. No BAA offer is found."
+    }
+   ]
+  },
+  {
+   "cell": "c11.official_mcp_server",
+   "values": [
+    {
+     "vid": "c11.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://github.com/serpapi/serpapi-mcp",
+     "note": "Official serpapi/serpapi-mcp repo (MIT) describes the hosted server at mcp.serpapi.com."
+    },
+    {
+     "vid": "c11.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c11.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c11.free_tier",
+   "values": [
+    {
+     "vid": "c11.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serpapi.com/pricing",
+     "note": "Free plan: $0, 250 searches a month, 50 an hour."
+    },
+    {
+     "vid": "c11.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c11.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c11.list_price",
+   "values": [
+    {
+     "vid": "c11.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serpapi.com/pricing",
+     "note": "Starter is $25/month for 1,000 searches, month-to-month; only successful searches count. No pay-as-you-go rate on this page."
+    },
+    {
+     "vid": "c11.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c11.list_price.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serpapi.com/enterprise",
+     "note": "The Enterprise page does list $7.50 per 1,000 on-demand searches and $2.75 per 1,000 reserved. But both sit on a $3,750/month base plan (100k searches included), so this is neither a pay-as-you-go list price nor the entry tier. The KB's Enterprise row ('Custom (contact)') is stale: this pricing is published."
+    }
+   ]
+  },
+  {
+   "cell": "c11.last_funding",
+   "values": [
+    {
+     "vid": "c11.last_funding.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://www.prnewswire.com/news-releases/serpapi-surpasses-1-5-million-activated-user-accounts-empowering-developers-everywhere-with-structured-access-to-the-worlds-search-data-302855745.html",
+     "note": "The Aug 19, 2026 release covers 1.5M activated accounts and mentions no financing. SerpApi's CFO job post says it has 'no outside investors'."
+    },
+    {
+     "vid": "c11.last_funding.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serpapi.com/careers/chief-financial-officer",
+     "note": "CFO posting describes a profitable, founder-led company with 'no outside investors'."
+    },
+    {
+     "vid": "c11.last_funding.v3",
+     "verdict": "partly_verified",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://sacra.com/c/serpapi/",
+     "note": "Citation could not be confirmed: the Wellfound page returns HTTP 403 to curl and WebFetch, and the Wayback Machine was offline (unreadable, not contradicted). Search snippets suggest it lists the $100K Dec-2017 round. Sacra does call SerpApi bootstrapped. SerpApi's own CFO post settles the question (no outside investors), but the value leaves it 'unconfirmed'."
+    }
+   ]
+  },
+  {
+   "cell": "c12.web_search_source",
+   "values": [
+    {
+     "vid": "c12.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serper.dev/",
+     "note": "Homepage sells a 'Google Search API' with Search, Images, News, Maps, Places, Scholar and other verticals. The 'web-scraped' wording is in the terms, not the homepage."
+    },
+    {
+     "vid": "c12.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c12.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c12.soc2",
+   "values": [
+    {
+     "vid": "c12.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serper.dev/terms",
+     "note": "Terms (updated 2024-05-29) contain no SOC 2 or other attestation; nothing on the homepage or privacy page either."
+    },
+    {
+     "vid": "c12.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    },
+    {
+     "vid": "c12.soc2.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    }
+   ]
+  },
+  {
+   "cell": "c12.zero_data_retention",
+   "values": [
+    {
+     "vid": "c12.zero_data_retention.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serper.dev/privacy",
+     "note": "Privacy policy covers personal-data retention while an account exists; no zero-retention offer."
+    },
+    {
+     "vid": "c12.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    },
+    {
+     "vid": "c12.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    }
+   ]
+  },
+  {
+   "cell": "c12.hipaa_baa",
+   "values": [
+    {
+     "vid": "c12.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serper.dev/privacy",
+     "note": "No HIPAA or BAA mention on privacy, terms or homepage."
+    },
+    {
+     "vid": "c12.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    },
+    {
+     "vid": "c12.hipaa_baa.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    }
+   ]
+  },
+  {
+   "cell": "c12.official_mcp_server",
+   "values": [
+    {
+     "vid": "c12.official_mcp_server.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serper.dev/",
+     "note": "No MCP mention on serper.dev (/mcp is 404). GitHub search finds only user-owned wrappers (e.g., [user]/mcp-server-serper), and there is no serper-dev org."
+    },
+    {
+     "vid": "c12.official_mcp_server.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://apis.io/servers/serper/serper-mcp/",
+     "note": "The apis.io listing (a third party) says Serper ships no MCP server of its own. Confirmed by serper.dev and a GitHub search."
+    },
+    {
+     "vid": "c12.official_mcp_server.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://serper.dev/",
+     "note": "Confirmed: no official server; the Serper MCP servers on GitHub are third-party."
+    }
+   ]
+  },
+  {
+   "cell": "c12.free_tier",
+   "values": [
+    {
+     "vid": "c12.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://serper.dev/",
+     "note": "Homepage: 'Get 2,500 free queries', 'No credit card required'."
+    },
+    {
+     "vid": "c12.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c12.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c12.list_price",
+   "values": [
+    {
+     "vid": "c12.list_price.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://apis.io/plans/serper/serper-plans-pricing/",
+     "note": "$0.30/1K is the Ultimate top-up ($3,750 for 12.5M credits), the cheapest volume rate. The entry list price is $1.00/1K (Starter, $50 for 50K). The page supports the $0.30 figure and prepaid credits."
+    },
+    {
+     "vid": "c12.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c12.last_funding",
+   "values": []
+  },
+  {
+   "cell": "c13.web_search_source",
+   "values": [
+    {
+     "vid": "c13.web_search_source.v1",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://help.kagi.com/kagi/api/overview.html",
+     "note": "Page supports Enrichment API = own Teclis/TinyGem indexes and Search API = 'premium search results'. But the value names no third-party source; the KB lists licensed Mojeek, Brave and Yandex plus unnamed SERP providers."
+    },
+    {
+     "vid": "c13.web_search_source.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://kagi.com/api/docs/openapi",
+     "note": "Rendered docs say results come from many sources 'including our in-house indexes'. Right but vague: no upstream provider named, as the field asks."
+    },
+    {
+     "vid": "c13.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches the KB's mix. Names Marginalia but not the licensed engines (Mojeek, Brave, Yandex)."
+    }
+   ]
+  },
+  {
+   "cell": "c13.soc2",
+   "values": [
+    {
+     "vid": "c13.soc2.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://help.kagi.com/kagi/privacy/security.html",
+     "note": "Security page cites an independent Illumant audit only. No SOC 2 on Kagi's pages or in web search."
+    },
+    {
+     "vid": "c13.soc2.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://help.kagi.com/kagi/privacy/security.html",
+     "note": "Same: Illumant audit, no SOC 2 report or attestation."
+    },
+    {
+     "vid": "c13.soc2.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://help.kagi.com/kagi/company/",
+     "note": "Company page has no SOC 2; consistent with the security page."
+    }
+   ]
+  },
+  {
+   "cell": "c13.zero_data_retention",
+   "values": [
+    {
+     "vid": "c13.zero_data_retention.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://kagi.com/privacy",
+     "note": "Policy (updated 2026-09-22) has an API section: queries may be logged temporarily, unlinked from the account; load-balancer and VM logs 7 days, sampled Sentry 90 days. No ZDR option."
+    },
+    {
+     "vid": "c13.zero_data_retention.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://kagi.com/privacy",
+     "note": "Same 7-day and 90-day debug retention; no ZDR offer."
+    },
+    {
+     "vid": "c13.zero_data_retention.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://kagi.com/privacy/rights",
+     "note": "Rights page lists temporary debugging logs (7–90 days); no ZDR offer."
+    }
+   ]
+  },
+  {
+   "cell": "c13.hipaa_baa",
+   "values": [
+    {
+     "vid": "c13.hipaa_baa.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://kagi.com/privacy",
+     "note": "No HIPAA or BAA on the privacy, security, teams or API pages; the API section asks users not to send sensitive personal data."
+    },
+    {
+     "vid": "c13.hipaa_baa.v2",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://kagi.com/api/docs",
+     "note": "API docs (and the security page) have no HIPAA mention."
+    },
+    {
+     "vid": "c13.hipaa_baa.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://kagi.com/teams",
+     "note": "Teams page has no HIPAA or BAA."
+    }
+   ]
+  },
+  {
+   "cell": "c13.official_mcp_server",
+   "values": [
+    {
+     "vid": "c13.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://kagi.com/api/docs",
+     "note": "Docs (redirects to /api/docs/openapi) say there is a hosted MCP server at mcp.kagi.com/mcp."
+    },
+    {
+     "vid": "c13.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c13.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c13.free_tier",
+   "values": [
+    {
+     "vid": "c13.free_tier.v1",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://help.kagi.com/kagi/api/overview.html",
+     "note": "The page does list the Small Web RSS Feed under 'Free', but that is a separate feed, not a free tier or trial of Kagi's Search/Extract API, which has none (API pricing lists no free tier). Misreads the field; the KB stands."
+    },
+    {
+     "vid": "c13.free_tier.v2",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://kagi.com/pricing",
+     "note": "The 100-search trial on this page is for the consumer Kagi Search plan, not the API; the RSS feed isn't on this page. Not an API free tier or trial."
+    },
+    {
+     "vid": "c13.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB: no standing free API tier."
+    }
+   ]
+  },
+  {
+   "cell": "c13.list_price",
+   "values": [
+    {
+     "vid": "c13.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://kagi.com/api/pricing",
+     "note": "Search is $12 per 1K requests, pay for what you use; invoiced every 30 days or at $100."
+    },
+    {
+     "vid": "c13.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c13.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c13.last_funding",
+   "values": [
+    {
+     "vid": "c13.last_funding.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://blog.kagi.com/",
+     "note": "The blog's 'Kagi raises $670K' SAFE post is dated Jun 28, 2023 (its first external raise), not Sep 30, 2025, which is the Kagi News launch post. That round is part of the ~$2.5M 2023–2024 raise the KB records, so it isn't the most recent."
+    },
+    {
+     "vid": "c13.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c13.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c14.web_search_source",
+   "values": [
+    {
+     "vid": "c14.web_search_source.v1",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://jina.ai/",
+     "note": "The homepage supports the product descriptions, but they don't answer the field. It says s.jina.ai returns 'SERP' and names no index or provider. The KB found Google, Bing and Serper SERP clients in the open-source Reader. The value implies a Jina-owned source."
+    }
+   ]
+  },
+  {
+   "cell": "c14.soc2",
+   "values": [
+    {
+     "vid": "c14.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://jina.ai/legal/",
+     "note": "Legal page (modified 2026-05-04) has no SOC 2 statement, so this matches KB. But the KB's 'not found' is incomplete: Jina's Jan 31, 2025 blog claims 'SOC2 certification', and a SOC 2 Type 1 attestation letter was once hosted on jina.ai (now 404)."
+    },
+    {
+     "vid": "c14.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "https://jina.ai/news/a-practical-guide-to-deploying-search-foundation-models-in-production/",
+     "note": "Matches KB. Caveat: Jina's 2025 blog claims 'SOC2 certification' (type unstated)."
+    },
+    {
+     "vid": "c14.soc2.v3",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "http://jina.ai/pricing",
+     "note": "Cited page is now 404. No current Jina page shows Type II: the evidence is a 2024 SOC 2 Type 1 letter (removed) and a 2025 blog's untyped 'SOC2 certification'. The value itself admits no Type II report was found."
+    }
+   ]
+  },
+  {
+   "cell": "c14.zero_data_retention",
+   "values": [
+    {
+     "vid": "c14.zero_data_retention.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://jina.ai/news/a-practical-guide-to-deploying-search-foundation-models-in-production/",
+     "note": "Jina's live blog (Jan 31, 2025; the cited /it/ page is a translation) lists for its API a 'Zero data retention policy - we don't store or log your requests'. The current Reader page also offers a per-request 'Do Not Cache or Track' option. The KB's 'not found' misses both. Caveats: the claim predates the Elastic acquisition, the legal page says old policies may not reflect current practice, and Reader caches URL content by default."
+    },
+    {
+     "vid": "c14.zero_data_retention.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence, but see v1: Jina's blog states a ZDR policy."
+    },
+    {
+     "vid": "c14.zero_data_retention.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence, but see v1: Jina's blog states a ZDR policy."
+    }
+   ]
+  },
+  {
+   "cell": "c14.hipaa_baa",
+   "values": [
+    {
+     "vid": "c14.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://jina.ai/legal",
+     "note": "No HIPAA or BAA on the legal, Reader, contact-sales or blog pages."
+    },
+    {
+     "vid": "c14.hipaa_baa.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    },
+    {
+     "vid": "c14.hipaa_baa.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB absence."
+    }
+   ]
+  },
+  {
+   "cell": "c14.official_mcp_server",
+   "values": [
+    {
+     "vid": "c14.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://github.com/jina-ai/MCP",
+     "note": "Repo title: 'Official Jina AI Remote MCP Server'; endpoint mcp.jina.ai/v1."
+    },
+    {
+     "vid": "c14.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c14.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c14.free_tier",
+   "values": [
+    {
+     "vid": "c14.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://jina.ai/reader",
+     "note": "Reader page: 'Every new API key comes with 10M free tokens!' Omits keyless Reader use at 20 RPM."
+    },
+    {
+     "vid": "c14.free_tier.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c14.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB. The rendered contact-sales page labels it 'Toy Experiment': 10M free tokens, non-commercial use only."
+    }
+   ]
+  },
+  {
+   "cell": "c14.list_price",
+   "values": [
+    {
+     "vid": "c14.list_price.v1",
+     "verdict": "correction",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://jina.ai/contact-sales/",
+     "note": "The rendered page (fed by Jina's public product API) shows 1B tokens for $50 (0.050 per 1M) and 11B for $500 (0.045 per 1M). The KB leaves the USD rate uncaptured. At Search's 10,000-token minimum per request this is about $0.50 per 1,000 searches."
+    },
+    {
+     "vid": "c14.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (token-billed), but USD token packs are published (see v1)."
+    }
+   ]
+  },
+  {
+   "cell": "c14.last_funding",
+   "values": [
+    {
+     "vid": "c14.last_funding.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://www.sec.gov/Archives/edgar/data/1707753/000170775326000006/R12.htm",
+     "note": "Filing: acquisition closed 2025-10-07; total consideration $43.3M including a $6.9M holdback. Read via WebFetch; curl got HTTP 403."
+    },
+    {
+     "vid": "c14.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c14.last_funding.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c15.web_search_source",
+   "values": [
+    {
+     "vid": "c15.web_search_source.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.brightdata.com/scraping-automation/introduction",
+     "note": "Docs: the SERP API returns real-time results from Google, Bing, DuckDuckGo, Yandex and more. Omits the Business Search API's own people/company index that the KB mentions; Bright Data's vs-Brave post says it keeps no search index of its own."
+    },
+    {
+     "vid": "c15.web_search_source.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB's SERP-scraping core."
+    },
+    {
+     "vid": "c15.web_search_source.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB; lists all 7 engines."
+    }
+   ]
+  },
+  {
+   "cell": "c15.soc2",
+   "values": [
+    {
+     "vid": "c15.soc2.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brightdata.com/trustcenter/data-security-overview-protection-measures",
+     "note": "Page lists SOC 2 Type II with no date. The KB's 'no report date stated' is stale: the docs security page gives the period Jun 1, 2024 – May 31, 2025 (Deloitte)."
+    },
+    {
+     "vid": "c15.soc2.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c15.soc2.v3",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.brightdata.com/general/security/security-overview",
+     "note": "Type II, available under NDA, is confirmed. But the page does state the period (Jun 1, 2024 – May 31, 2025), so 'report period not stated' is wrong."
+    }
+   ]
+  },
+  {
+   "cell": "c15.zero_data_retention",
+   "values": [
+    {
+     "vid": "c15.zero_data_retention.v1",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://brightdata.com/blog/ai/bright-data-vs-brave-search-api",
+     "note": "Bright Data's own comparison (updated 2026-08-31) marks zero data retention 'Not available' for Bright Data."
+    },
+    {
+     "vid": "c15.zero_data_retention.v2",
+     "verdict": "partly_verified",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brightdata.com/ai/mcp-server/launch-week/day4",
+     "note": "The page does say Bright Data doesn't store scraped content. But it is older 2025 launch-week copy, and Bright Data's newer comparison says ZDR is not available; no ZDR plan or option exists."
+    },
+    {
+     "vid": "c15.zero_data_retention.v3",
+     "verdict": "verified",
+     "citation_valid": "yes",
+     "novel": true,
+     "checked_url": "https://brightdata.com/legal/privacy",
+     "note": "Privacy policy (redirects to /privacy) and trust center offer no ZDR; consistent with Bright Data's own 'Not available'."
+    }
+   ]
+  },
+  {
+   "cell": "c15.hipaa_baa",
+   "values": [
+    {
+     "vid": "c15.hipaa_baa.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brightdata.com/trustcenter",
+     "note": "Trust center lists SOC 2/SOC 3, ISO, CSA STAR and GDPR; no HIPAA or BAA."
+    },
+    {
+     "vid": "c15.hipaa_baa.v2",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://brightdata.com/blog/ai/best-semantic-search-apis",
+     "note": "The 'HIPAA BAA available through paid support plans' line is in the post's Typesense entry, not Bright Data's. Bright Data's entry lists GDPR, CCPA, ISO 27001, SOC 2 Type II and CSA STAR only."
+    },
+    {
+     "vid": "c15.hipaa_baa.v3",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://brightdata.com/blog/ai/best-semantic-search-apis",
+     "note": "Same misattribution: the BAA line describes Typesense, not Bright Data."
+    }
+   ]
+  },
+  {
+   "cell": "c15.official_mcp_server",
+   "values": [
+    {
+     "vid": "c15.official_mcp_server.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.brightdata.com/ai/mcp-server/overview",
+     "note": "Docs (now at /products/mcp-server/overview) link the source code to github.com/brightdata/brightdata-mcp."
+    },
+    {
+     "vid": "c15.official_mcp_server.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c15.official_mcp_server.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c15.free_tier",
+   "values": [
+    {
+     "vid": "c15.free_tier.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://docs.brightdata.com/general/account/billing-and-pricing/free-tier",
+     "note": "5,000 free credits a month, no card, shared across Unlocker, SERP, Web Scraper API, Scraper Studio and Browser API (the KB omits Browser API)."
+    },
+    {
+     "vid": "c15.free_tier.v2",
+     "verdict": "partly_correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brightdata.com/pricing/serp",
+     "note": "The SERP pricing page does show a free tier of 5K requests a month, no card. Right but imprecise: it is one 5,000-credit pool shared across products, not a SERP-only allowance."
+    },
+    {
+     "vid": "c15.free_tier.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB. Adds Browser API, which the free-tier docs confirm and the KB omits."
+    }
+   ]
+  },
+  {
+   "cell": "c15.list_price",
+   "values": [
+    {
+     "vid": "c15.list_price.v1",
+     "verdict": "correct",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brightdata.com/blog/ai/bright-data-vs-brave-search-api",
+     "note": "Post: SERP pricing starts at $1.50/1K pay-as-you-go and drops to $1.00/1K at 2M a month."
+    },
+    {
+     "vid": "c15.list_price.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    },
+    {
+     "vid": "c15.list_price.v3",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB."
+    }
+   ]
+  },
+  {
+   "cell": "c15.last_funding",
+   "values": [
+    {
+     "vid": "c15.last_funding.v1",
+     "verdict": "wrong",
+     "citation_valid": "no",
+     "novel": false,
+     "checked_url": "https://brightdata.com/static/brd/bright-data-press-kit.pdf?md5=1971479-332d5bd1",
+     "note": "The press kit's 'without external funding' line is about buying three companies in 2021. The same kit says Bright Data split from Hola and was acquired by EMK Capital, which is the KB's answer. 'No external funding disclosed' misses that."
+    },
+    {
+     "vid": "c15.last_funding.v2",
+     "verdict": "correct",
+     "citation_valid": "not_checked",
+     "novel": false,
+     "checked_url": "",
+     "note": "Matches KB (EMK Capital, 2017). The $200M amount and Aug 10 date are extras and weren't checked."
+    },
+    {
+     "vid": "c15.last_funding.v3",
+     "verdict": "wrong",
+     "citation_valid": "yes",
+     "novel": false,
+     "checked_url": "https://brightdata.com/blog/products-updates/bright-data-acquisition-boosts-analytics",
+     "note": "The 2022-09-14 post confirms Bright Data bought Market Beyond. But that is an acquisition by Bright Data, not of it. The field asks for the company's own funding or ownership event (EMK Capital, 2017)."
+    }
+   ]
+  }
+ ]
+}

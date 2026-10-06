@@ -211,6 +211,26 @@ has one, and otherwise a single blinded grader scores the task rubric.</p></sect
 provider's server advertised was available to the agent; no provider tool was hidden.</p>
 <div class="tablewrap"><table><thead><tr><th>Search provider</th><th>Connection</th><th>Version / endpoint</th><th>Tools exposed to the agent</th></tr></thead><tbody><tr><td>Brave</td><td>stdio MCP server (npx)</td><td><code>@brave/brave-search-mcp-server@2.1.4</code></td><td>8: <code>brave_image_search</code>, <code>brave_llm_context</code>, <code>brave_local_search</code>, <code>brave_news_search</code>, <code>brave_place_search</code>, <code>brave_summarizer</code>, <code>brave_video_search</code>, <code>brave_web_search</code></td></tr><tr><td>Exa</td><td>stdio MCP server (npx)</td><td><code>exa-mcp-server@3.4.1</code></td><td>2: <code>web_fetch_exa</code>, <code>web_search_exa</code></td></tr><tr><td>Firecrawl</td><td>stdio MCP server (npx)</td><td><code>firecrawl-mcp@3.26.0</code></td><td>29: <code>firecrawl_agent</code>, <code>firecrawl_agent_status</code>, <code>firecrawl_check_crawl_status</code>, <code>firecrawl_crawl</code>, <code>firecrawl_credit_usage</code>, <code>firecrawl_developer_search</code>, <code>firecrawl_extract</code>, <code>firecrawl_feedback</code>, <code>firecrawl_find_tools</code>, <code>firecrawl_interact</code>, <code>firecrawl_interact_stop</code>, <code>firecrawl_map</code>, <code>firecrawl_monitor_check</code>, <code>firecrawl_monitor_checks</code>, <code>firecrawl_monitor_create</code>, <code>firecrawl_monitor_delete</code>, <code>firecrawl_monitor_get</code>, <code>firecrawl_monitor_list</code>, <code>firecrawl_monitor_run</code>, <code>firecrawl_monitor_update</code>, <code>firecrawl_parse</code>, <code>firecrawl_research_inspect_paper</code>, <code>firecrawl_research_read_paper</code>, <code>firecrawl_research_related_papers</code>, <code>firecrawl_research_search_github</code>, <code>firecrawl_research_search_papers</code>, <code>firecrawl_scrape</code>, <code>firecrawl_search</code>, <code>firecrawl_search_feedback</code></td></tr><tr><td>Parallel</td><td>hosted MCP via <code>mcp-remote</code></td><td><code>mcp-remote@0.14.3</code> → <code>https://search.parallel.ai/mcp-oauth</code></td><td>2: <code>web_fetch</code>, <code>web_search</code></td></tr><tr><td>Perplexity</td><td>stdio MCP server (npx)</td><td><code>@perplexity-ai/mcp-server@1.3.0</code></td><td>4: <code>perplexity_ask</code>, <code>perplexity_reason</code>, <code>perplexity_research</code>, <code>perplexity_search</code></td></tr><tr><td>Tavily</td><td>stdio MCP server (npx)</td><td><code>tavily-mcp@0.2.22</code></td><td>5: <code>tavily_crawl</code>, <code>tavily_extract</code>, <code>tavily_map</code>, <code>tavily_research</code>, <code>tavily_search</code></td></tr><tr><td>Built-in (Claude Code)</td><td>agent built-in</td><td>Claude Code 2.1.282</td><td><code>WebSearch</code>, <code>WebFetch</code> (refused before 2026-10-06), <code>Read</code></td></tr><tr><td>Built-in (Codex)</td><td>agent built-in</td><td>codex <code>--search</code></td><td>built-in web search and page views</td></tr></tbody></table></div></section>
 
+<section id="direct-api"><h2>The search API head-to-head</h2>
+<p>One study tests the search APIs themselves rather than an agent using them. It sends the same pre-registered research
+questions to Exa, Tavily, Parallel and Firecrawl, each with the parameters its own documentation recommends, on the same
+day and with the same number of results. The results are pooled and shuffled, and blind model judges verify every counted
+claim on its source page. A provider is credited only when its own result page states the claim, and a claim counts as new
+only if the knowledge base the questions came from did not already have it. Unlike the benchmarks above, each question ran
+once, so the study reports counts without intervals.</p>
+<div class="diagram"><pre class="mermaid">
+flowchart LR
+  Q[pre-registered question sets&lt;br/&gt;from one knowledge base] --&gt; E[Exa] &amp; T[Tavily] &amp; P[Parallel] &amp; F[Firecrawl]
+  E &amp; T &amp; P &amp; F --&gt; PO[(results pooled,&lt;br/&gt;deduplicated, shuffled)]
+  PO --&gt; J[blind model judges&lt;br/&gt;verify each claim on its page]
+  J --&gt; K{already in the&lt;br/&gt;knowledge base?}
+  K --&gt; A[attribution rejoined:&lt;br/&gt;credit only where the provider's&lt;br/&gt;own page states the claim]
+  A --&gt; R[reports/*/summary.json]
+</pre></div>
+<p>Its sets, endpoints, amendments and costs are in the study's
+<a href="results.html#method-2026-09-26-search-api-head-to-head">methodology</a>, and its full pre-registered record is in
+<a href="https://github.com/laceyenterprises/searchlight/tree/main/reports/2026-09-26-search-api-head-to-head">reports/2026-09-26-search-api-head-to-head/</a>.</p></section>
+
 <section id="reproduce"><h2>Reproduce, correct, contribute</h2>
 <p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw transcripts and
 provider responses are not distributed, so exact replay of the published numbers is not possible; a new run measures the

@@ -102,6 +102,19 @@ def test_reproduction_suite_covers_wsb_matrix():
     assert suite['repetitions'] == 3
 
 
+def test_head_to_head_sets_match_their_manifest():
+    import hashlib
+    code = ROOT / 'reports' / '2026-09-26-search-api-head-to-head' / 'code'
+    lines = (code / 'sets' / 'SHA256SUMS').read_text().splitlines()
+    listed = {}
+    for line in lines:
+        digest, path = line.split('  ', 1)
+        listed[path] = digest
+        assert hashlib.sha256((code / path).read_bytes()).hexdigest() == digest, path
+    shipped = {f'sets/{p.name}' for p in (code / 'sets').glob('*.json')} | {'stage_c/sets/SV.json'}
+    assert set(listed) == shipped
+
+
 def test_gap_reproduction_restricts_calibration_to_all_briefs():
     import re
     import yaml

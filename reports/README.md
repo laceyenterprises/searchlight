@@ -3,6 +3,7 @@
 - [Web search bakeoff](2026-09-29-web-search-bakeoff/REPORT.md): the retrieval battery and its later regrade. Read the regrade before quoting the rankings.
 - [Search gap bench](2026-10-03-search-gap-bench/REPORT.md): calibrated job outcomes on Claude Code and Codex, including the Codex provider reruns and the Claude Code availability caveat.
 - [How agents used search](2026-10-05-agent-search-behavior/REPORT.md): query style, fetching from memory and primary-source retrieval, computed from the stored transcripts of the two batteries by `scripts/analyze_search_behavior.py`.
+- [Search API head-to-head](2026-09-26-search-api-head-to-head/REPORT.md): Exa, Tavily, Parallel and Firecrawl called directly, with no agent, on a pre-registered research workload, graded blind and verified on the page. Unlike the other reports, its directory also publishes the experiment's own record (`record/`), code (`code/`) and sanitized data (`data/`). Read its context note before quoting it.
 
 The [leaderboard, infographic and rendered reports](../README.md#how-the-leaderboard-stays-current) are generated from these
 directories by `scripts/build_site.py` and published to GitHub Pages.

@@ -1,0 +1,432 @@
+{
+ "set": "SP",
+ "domains": [
+  {
+   "domain": "tavily.org",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Static ripped copy of tavily.com (relative canonical, .html filenames, CTAs to app.tavily.com). Clone of the seed, not a new vendor."
+  },
+  {
+   "domain": "mintlify.app",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Seed docs on Mintlify subdomains: tavilyai.mintlify.app is canonical to docs.tavily.com; the Firecrawl one is an unclaimed auto-generated mirror. Mintlify is a docs platform."
+  },
+  {
+   "domain": "selljam.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI tools directory entry for Tavily."
+  },
+  {
+   "domain": "cbinsights.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "CB Insights company profiles of Tavily, Parallel and You.com."
+  },
+  {
+   "domain": "everydev.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "EveryDev.ai AI-tools directory entry for Tavily."
+  },
+  {
+   "domain": "fuubo.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI agency's app-directory review of Tavily."
+  },
+  {
+   "domain": "billiondollarpitchdecks.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Startup index entries for Tavily and Parallel."
+  },
+  {
+   "domain": "parallelai.pro",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Copy of Parallel's homepage on a lookalike domain; signup CTA points to platform.parallel.ai. Clone of the seed."
+  },
+  {
+   "domain": "choppingblock.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI-company salary/jobs profiles for Parallel and You.com."
+  },
+  {
+   "domain": "getro.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Index Ventures portfolio job-board company page for Parallel Web Systems."
+  },
+  {
+   "domain": "neuronfeed.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Startup database profiles of Parallel and Nimble."
+  },
+  {
+   "domain": "mainstream.dev",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Tools directory entry for Firecrawl."
+  },
+  {
+   "domain": "flowtools.co",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Tools directory entry for Firecrawl."
+  },
+  {
+   "domain": "rst.im",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "GitHub proxy mirror (GSPxy static-resource proxy); the firecrawl path redirected to the proxy homepage."
+  },
+  {
+   "domain": "warmindex.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Web-app directory entry for Firecrawl."
+  },
+  {
+   "domain": "eliteai.tools",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI tools/skills directory listing a third-party Brave Search agent skill."
+  },
+  {
+   "domain": "skillsmp.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Agent-skills marketplace listing Brave Search skills (official brave repo and third-party)."
+  },
+  {
+   "domain": "anysite.io",
+   "class": "relevant_vendor",
+   "sells": "Web-data API/MCP for agents: 3,500+ endpoints across 650+ sources, incl. B2B leads",
+   "in_kb": false,
+   "note": "Example URL (its Brave search endpoint docs) redirected to app docs; homepage confirms paid MCP/API plans. No 'anysite' match in KB."
+  },
+  {
+   "domain": "rapidapi.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "RapidAPI marketplace listing of a third-party ('rainapi') Brave web search wrapper; a marketplace listing, not a search vendor."
+  },
+  {
+   "domain": "runyouai.com",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Unreachable: resolves to 127.0.0.1, connection refused (curl and WebFetch); no web footprint found. Nothing classifiable as a vendor."
+  },
+  {
+   "domain": "leadiq.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "B2B contact-data company profile of You.com."
+  },
+  {
+   "domain": "pitchbook.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "PitchBook company profile URLs; both returned 403, so classified by site type."
+  },
+  {
+   "domain": "ventureradar.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "VentureRadar organisation profile of You.com (body mostly a generic shell)."
+  },
+  {
+   "domain": "pitch.vc",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Company directory entry for You.com."
+  },
+  {
+   "domain": "toolstory.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI tools directory entry for Linkup (linkup.so)."
+  },
+  {
+   "domain": "startuphub.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Startup profile of Linkup."
+  },
+  {
+   "domain": "motherbase.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Startup-database entity page for Linkup (login-gated platform, public stub)."
+  },
+  {
+   "domain": "adamgtm.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "GTM Index brand pages for Linkup and Nimble."
+  },
+  {
+   "domain": "techquick.net",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Tech jobs board company page for Linkup."
+  },
+  {
+   "domain": "parsers.vc",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Funding/investor database entry for Linkup."
+  },
+  {
+   "domain": "aiproductleaderboard.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Host shows 'Account Suspended'; classified from site type and /linkup path, content unverifiable."
+  },
+  {
+   "domain": "taranker.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI agents directory entry for Linkup."
+  },
+  {
+   "domain": "thegtmdirectory.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "GTM tools directory entry for Linkup."
+  },
+  {
+   "domain": "serpapi.org",
+   "class": "relevant_vendor",
+   "sells": "SerpScraper.dev: Google SERP APIs (web, AI Overview, news, maps, scholar) plus utility APIs",
+   "in_kb": false,
+   "note": "SerpApi lookalike domain; both URLs redirect to serpscraper.dev, a separate SERP vendor. No KB match for serpscraper or serpapi.org."
+  },
+  {
+   "domain": "serpalternative.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "SERP API directory with listings for SerpApi and Serper.dev."
+  },
+  {
+   "domain": "serpentapi.com",
+   "class": "relevant_vendor",
+   "sells": "Beta SERP API across eight engines incl. Google, Bing, Baidu, Yandex, Naver",
+   "in_kb": false,
+   "note": "KB's only 'Serpent API' mention is apiserpent.com, cited once in competitive/serper.md. That is a different operator; serpentapi.com disclaims lookalikes."
+  },
+  {
+   "domain": "seoserpapi.com",
+   "class": "relevant_vendor",
+   "sells": "SEO-oriented SERP API (top-100 results), backlink API and search-volume data",
+   "in_kb": false,
+   "note": "Small SEO tool (links to Czech SEO sites). KB 'SEO SERP API' grep hits are only 'DataForSEO SERP API'."
+  },
+  {
+   "domain": "serpsearch.com",
+   "class": "relevant_vendor",
+   "sells": "Google search, maps, reviews, images and news scraping API; top-up credits",
+   "in_kb": false,
+   "note": "No KB match for serpsearch or 'SERP Search'."
+  },
+  {
+   "domain": "serpingapi.com",
+   "class": "relevant_vendor",
+   "sells": "Serper-compatible real-time Google SERP JSON API; 1,000 free searches",
+   "in_kb": false,
+   "note": "No KB match for serping."
+  },
+  {
+   "domain": "serpstack.com",
+   "class": "relevant_vendor",
+   "sells": "APILayer's real-time Google SERP JSON API with proxy and CAPTCHA handling",
+   "in_kb": false,
+   "note": "No KB match for serpstack or APILayer."
+  },
+  {
+   "domain": "scraperapi.com",
+   "class": "relevant_vendor",
+   "sells": "Web scraping API (proxies, JS rendering) plus structured Google SERP endpoints",
+   "in_kb": false,
+   "note": "Example URL blocked (403 curl, 522 WebFetch); product confirmed via scraperapi.com search results. KB 'scraper API' hits are generic or Oxylabs/Bright Data."
+  },
+  {
+   "domain": "bestwebsearchapis.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Review site (says it is not affiliated with listed firms); the page is a Serper review."
+  },
+  {
+   "domain": "serpq.com",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Serves 'cGateway', a self-hosted Web3 crypto-payments product; unrelated to search."
+  },
+  {
+   "domain": "serpermatrix.com",
+   "class": "relevant_vendor",
+   "sells": "Google search and page-scrape API for AI agents (web, images, scholar, places)",
+   "in_kb": false,
+   "note": "Low credibility: homepage reuses Firecrawl's template and section labels, 'Backed by BinoMatrix', unverified logo wall. Has its own docs subdomain. No KB match."
+  },
+  {
+   "domain": "reserp.ai",
+   "class": "relevant_vendor",
+   "sells": "Google Search API (web, images, shopping, news, videos, places) from $0.20/1K",
+   "in_kb": false,
+   "note": "No KB match for reserp."
+  },
+  {
+   "domain": "serpbase.dev",
+   "class": "relevant_vendor",
+   "sells": "Credit-based Google search JSON API (web, maps places, images, news)",
+   "in_kb": false,
+   "note": "No KB match for serpbase."
+  },
+  {
+   "domain": "companyview.io",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Company profile of Serper.dev."
+  },
+  {
+   "domain": "o-mega.ai",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI agent platform's tool-index entry for Serper.dev."
+  },
+  {
+   "domain": "getlatka.com",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Namesake: Latka profile keyed to valyu.ai but it describes a Delhi earned-wage-access fintech (founded 2020), not the seed."
+  },
+  {
+   "domain": "internshala.com",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Namesake: internship-board profile of an Indian fintech 'Valyu AI', not the search-API seed."
+  },
+  {
+   "domain": "inc42.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Inc42 Datalabs profile of the seed Valyu (Search API for AI, founded 2023)."
+  },
+  {
+   "domain": "addressadda.com",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Namesake: Indian company-registry entry for Valyu Ai Private Limited (Delhi, incorporated 2020)."
+  },
+  {
+   "domain": "adgully.com",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Namesake: Indian ad-industry tag page about fintech Valyu.ai (accrued-salary product)."
+  },
+  {
+   "domain": "salezshark.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "B2B CRM/data site company-profile URL. JS-only, Valyu content not visible, so whether it covers the seed or the Indian namesake is unverified."
+  },
+  {
+   "domain": "bouncewatch.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Funding/signals profile of Nimble (web-data platform, New York, founded 2021)."
+  },
+  {
+   "domain": "findings24.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI tool directory entry for Nimble (nimbleway.com)."
+  },
+  {
+   "domain": "ai-startups.pro",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "AI startups directory entry for Nimble (nimbleway.com)."
+  },
+  {
+   "domain": "shoptherite.com",
+   "class": "clone_or_unrelated",
+   "sells": null,
+   "in_kb": null,
+   "note": "Domain does not resolve (curl and WebFetch); obfuscated redirect-style URL, nothing to classify."
+  },
+  {
+   "domain": "reely.io",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Directory/profile page for Nimble (curl got 429; read via WebFetch)."
+  },
+  {
+   "domain": "pincrs.com",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Redirects to an agentery.com pricing-intelligence profile of Nimble's Web Search Agents."
+  },
+  {
+   "domain": "softatlas.io",
+   "class": "profile_or_directory",
+   "sells": null,
+   "in_kb": null,
+   "note": "Software directory page for Nimble (nimbleway.com)."
+  }
+ ]
+}
