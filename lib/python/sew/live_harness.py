@@ -77,11 +77,12 @@ from .metrics import normalize_run_metrics
 from .schema import SchemaError, load_task_manifest, validate_fixture_run, validate_provider_call
 from .task_resolution import resolve_task
 from .arms import ArmContract, audit_transcript, prepare_arm_spawn, provider_tool_calls
-from . import broker_auth
+from . import broker_auth, harnesses
 
 LIVE_ENV = "SEW_HARNESS_LIVE"
-BIN_ENV = {"claude-code": "SEW_CLAUDE_CODE_BIN", "codex": "SEW_CODEX_BIN"}
-DEFAULT_BIN = {"claude-code": "claude", "codex": "codex"}
+# Live views over the registry's live harnesses (sew.harnesses).
+BIN_ENV = harnesses.field_map("bin_env", live=True)
+DEFAULT_BIN = harnesses.field_map("default_bin", live=True)
 
 DEFAULT_TIMEOUT_SECONDS = 600.0
 DEFAULT_BOOT_TIMEOUT_SECONDS = 120.0
@@ -407,10 +408,8 @@ class CodexProtocol(HarnessProtocol):
         )
 
 
-PROTOCOLS: dict[str, HarnessProtocol] = {
-    "claude-code": ClaudeCodeProtocol(),
-    "codex": CodexProtocol(),
-}
+# {harness_id: protocol}, resolved from each live harness's registry entry.
+PROTOCOLS: Mapping[str, HarnessProtocol] = harnesses.protocols()
 
 
 def _text(value: object) -> str | None:

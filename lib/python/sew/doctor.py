@@ -6,6 +6,7 @@ import tempfile
 from pathlib import Path
 import shutil
 from collections.abc import Mapping
+from . import harnesses as harness_registry
 from .host import config_path, credential_environment, resolve_host
 
 
@@ -26,7 +27,9 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
         ):
             present.append(provider)
     harnesses = []
-    for harness, command in (("claude-code", "claude"), ("codex", "codex")):
+    for harness, command in (
+        (spec.id, spec.default_bin) for spec in harness_registry.specs(live=True)
+    ):
         available = shutil.which(command, path=env.get("PATH", "")) is not None
         status = "CLI available; account login unverified" if available else "CLI unavailable"
         if (

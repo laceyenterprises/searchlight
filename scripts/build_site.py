@@ -22,7 +22,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
+sys.path.insert(0, str(ROOT / 'lib' / 'python'))
 from check_reports import REPORTS  # noqa: E402
+from sew import harnesses  # noqa: E402
 
 REPO_URL = 'https://github.com/laceyenterprises/searchlight'
 MERMAID_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js'
@@ -96,6 +98,14 @@ def parse_pct_ci(cell: str) -> tuple[float, float, float]:
     return tuple(float(x) for x in match.groups())
 
 
+def heading_harness(heading: str) -> str:
+    """The registered harness id a GAP table heading names, as a whole token."""
+    named = [h for h in harnesses.ids() if re.search(rf'(?<![\w-]){re.escape(h)}(?![\w-])', heading)]
+    if len(named) != 1:
+        raise SystemExit(f'GAP heading must name exactly one registered harness: {heading!r}')
+    return named[0]
+
+
 def leaderboards(reports: dict) -> list[dict]:
     boards = []
     native_wsb = next(r for r in behavior(reports)['bakeoff_rows'] if r['arm'] == 'native')
@@ -104,7 +114,7 @@ def leaderboards(reports: dict) -> list[dict]:
         if table[0][:3] != ['Arm', 'Gap closure (95% CI)', 'Pass rate (Wilson 95% CI)']:
             continue
         heading = [line for line in intro.splitlines() if line.startswith('### ')][-1]
-        harness = 'claude-code' if 'claude-code' in heading else 'codex'
+        harness = heading_harness(heading)
         cells = int(re.search(r'(\d+) cells per arm', heading).group(1))
         rows = []
         for row in data_rows(table):
