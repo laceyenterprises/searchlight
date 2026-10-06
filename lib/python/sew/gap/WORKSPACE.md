@@ -354,6 +354,8 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
    `shlex.join` of its words, so it has no wrapper (`bash`/`sh`/`zsh -c` with
    any options, `env`, `xargs`, `eval`, `nohup`, `time`), subshell, expansion,
    command substitution, redirection, comment, pipe or `;`/`&&`/`||` chain.
+   Equivalent shell spellings with extra whitespace or different quoting are
+   not canonical and therefore do not qualify for the exemption.
 2. **Executable.** `pip`, `pip3`, `python -m pip` or `python3 -m pip`, by bare
    name with nothing before the subcommand.
 3. **Subcommand.** `download` or `install`.
