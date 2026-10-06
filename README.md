@@ -145,7 +145,7 @@ agent must not download the fixed package version, or read it from the verifier'
 │  │   network: deny all  ·  canary probes must be refused before the cell   │ │
 │  │  ┌───────────────────────────────────────────────────────────────────┐  │ │
 │  │  │ agent workspace: repo + old/dependency wheels only (no fixed one) │  │ │
-│  │  │   pip forced offline; package commands audited                     │  │ │
+│  │  │   pip forced offline; package commands audited                    │  │ │
 │  │  └───────────────────────────────────────────────────────────────────┘  │ │
 │  │   verifier cache (old + new wheels): read-denied to the agent           │ │
 │  └─────────────────────────────────────────────────────────────────────────┘ │
