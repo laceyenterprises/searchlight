@@ -338,37 +338,37 @@ pipelines that can replace output or exit status. Malformed tool inputs do not
 crash attribution. These structural checks do not authenticate arbitrary stdout.
 ## GAPPIP-01: configuration-neutralized pip attempts
 
-The audit can exempt a detected pip network attempt when the enforced cell
-configuration has `PIP_NO_INDEX=1` and `PIP_CONFIG_FILE=/dev/null` and a paired
-result reports no matching distribution (`from versions: none`) or a successful
-pip download/install. All detected network invocations in that shell call must
-be pip; a compound pip install/download command may qualify as one attributed
-call only when every pip invocation passes the source checks. Ordinary offline
-installs using package names and the cell wheelhouse, including missing
-wheelhouse packages, are not network attempts and count zero.
+The audit can exempt a detected pip network attempt only through a strict
+allowlist (STRICTPIP-01). It does not parse shell syntax: shell syntax is
+open-ended, and earlier command-text parsing was bypassed by requirements files
+carrying a remote `--find-links`, combined short options and `bash -i -c` /
+`bash -- -c` wrappers. A shell call is exempt only when all of these hold:
 
-Checks use shell words after quote removal and recurse into shell wrappers.
-Explicit HTTP(S) URLs, pip environment assignments/unsets, environment clearing,
-index/isolation options (including pip long-option abbreviations and combined
-short options such as `-qvi /local/index` or `-qvi/local/index`), and disabling
-`--no-index` invalidate the exemption. Repeated `env -u`/`--unset` options and
-`--unset=NAME` are recognized; reading `PIP_NO_INDEX` with `printenv` is not an
-override. Requirements (`-r`/`--requirement`), constraints (`-c`/`--constraint`,
-`--build-constraint`) and explicit find-links (`-f`/`--find-links`) inputs also
-invalidate certification, including attached short values and long-option
-abbreviations. These inputs can recursively add remote sources or link to remote
-wheels from local HTML; the audit has no immutable copy of their execution-time
-contents. Installs using these inputs are conservatively detected as network
-attempts too. They remain contaminating without attributable denial evidence,
-even if the retained output is only a pip success line. The trusted wheelhouse
-set by the driver through `PIP_FIND_LINKS` retains the exemption.
-Pip commands with variable expansion, command substitution or backticks cannot
-qualify for neutralization: their expanded source arguments are unverified.
-They retain a shell-network attempt even when the retained output says success.
-The existing bench-owned `$TMPDIR` download destination remains allowed; it
-does not select a package source.
-Unsupported/dynamic shell constructs outside recognized pip invocations remain outside this attempt
-detector's guarantees; the harness sandbox and fresh canary remain mandatory.
+1. **Direct invocation.** The command text is exactly the canonical
+   `shlex.join` of its words, so it has no wrapper (`bash`/`sh`/`zsh -c` with
+   any options, `env`, `xargs`, `eval`, `nohup`, `time`), subshell, expansion,
+   command substitution, redirection, comment, pipe or `;`/`&&`/`||` chain.
+2. **Executable.** `pip`, `pip3`, `python -m pip` or `python3 -m pip`, by bare
+   name with nothing before the subcommand.
+3. **Subcommand.** `download` or `install`.
+4. **Packages.** One or more `<name>==<version>` pins with a valid version.
+5. **Flags.** Only `--no-deps`, `--no-index`, `-q`/`--quiet` (uncombined),
+   `-d DIR`/`--dest DIR` (download only, separate value, no URL) and
+   `--find-links` followed by exactly the cell's `PIP_FIND_LINKS` wheelhouse.
+6. **Environment.** The enforced cell configuration has `PIP_NO_INDEX=1`,
+   `PIP_CONFIG_FILE=/dev/null`, only allowlisted `PIP_*` settings and a local
+   `PIP_FIND_LINKS`.
+
+Anything else is not exempt, including requirements (`-r`), constraints (`-c`),
+editables (`-e`), index and trusted-host options, `--config-settings`, any URL,
+combined short options, `=`-attached values, abbreviations and unknown flags.
+Such a detected attempt contaminates unless the sandbox recorded an attributable
+denial, which counts in `denied_network_attempts`. Pip download requests, and
+pip installs naming a URL, are detected from the command text as well as from
+parsed invocations, so wrappers the invocation parser does not recognize still
+count as attempts. Ordinary offline installs that the parser does not classify
+as network attempts, such as `pip install -e .`, are unchanged. Codex reports
+commands through a `-lc` shell wrapper, so its pip downloads never qualify.
 
 Claude background evidence requires a `task_notification` tying its
 `tool_use_id` to an `output_file`, plus a paired tool result for the exact

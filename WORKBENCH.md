@@ -1313,7 +1313,8 @@ those roles; the out-of-band verifier explicitly prepares `old`, `new` and
 network denial and verifier qualification requirements remain in force.
 Code-cell setup removes caller-supplied pip settings and applies only the
 driver's explicit offline allowlist; extra effective `PIP_*` settings refuse
-the configuration-neutralized exemption. On macOS the copied wheelhouse is
+the configuration-neutralized exemption, which otherwise covers only a strict
+allowlist of direct, pinned pip commands (no shell wrappers, pipes or chains). On macOS the copied wheelhouse is
 immutable across the harness tree, including non-shell writes and ancestor
 renames. Admission qualifies creation, modification, chmod, hard-link and
 directory-rename denials while retaining readable local wheels; evidence is
