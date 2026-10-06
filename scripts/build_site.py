@@ -898,11 +898,13 @@ def board_html(board: dict) -> str:
             pill = '<span class="pill">reference</span>'
         note = f'<div class="flag">{esc(row["note"])}</div>' if row['note'] and row['arm'] != 'no-search' else ''
         body.append(
-            f'<tr><td>{esc(row["label"])}</td><td class="num">{row["passes"]}/{row["cells"]} · {row["pass_pct"]:.0f}%'
+            f'<tr><td class="setup">{esc(row["label"])}</td>'
+            f'<td class="num passed">{row["passes"]}/{row["cells"]} · {row["pass_pct"]:.0f}%'
             f'<div class="flag">{row["ci"][0]:.0f}–{row["ci"][1]:.0f}%</div></td>'
             f'<td class="ci">{ci_svg(row, top_lo)}</td>'
-            + (f'<td class="num">{esc(row["gap_closure"])}</td>' if has_gap else '')
-            + f'<td class="num">{esc(row["tokens_per_success"])}</td><td>{pill}{note}</td></tr>')
+            + (f'<td class="num gap" data-label="Gap closure">{esc(row["gap_closure"])}</td>' if has_gap else '')
+            + f'<td class="num tps" data-label="Tokens per success">{esc(row["tokens_per_success"])}</td>'
+            f'<td class="notes">{pill}{note}</td></tr>')
     ref = ''
     if board['reference']:
         ref = '<p class="flag">' + ' · '.join(f'{esc(k)}: {esc(v)}' for k, v in board['reference'].items()) + '</p>'
@@ -1012,7 +1014,8 @@ th{font-weight:600;color:var(--ink2);font-size:13px}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 td.ci{min-width:180px}
 .flag{font-size:13px;color:var(--muted)}
-.pill{display:inline-block;font-size:12px;border-radius:999px;padding:2px 10px;background:var(--soft);color:var(--ink2)}
+.pill{display:inline-block;font-size:12px;border-radius:999px;padding:2px 10px;background:var(--soft);color:var(--ink2);
+white-space:nowrap}
 .pill.top{background:var(--accent-soft);color:#0057B3}
 .board{border:1px solid var(--rule);border-radius:var(--radius);padding:24px;margin:20px 0}
 .board h3{margin:0 0 8px}.scope{color:var(--ink2);font-size:15px}
@@ -1027,13 +1030,23 @@ pre.mermaid{background:none;padding:0;margin:0;font-size:.85rem;text-align:cente
 .terms div{background:var(--soft);border-radius:14px;padding:14px 16px;font-size:15px}.terms b{display:block}
 @media (max-width:640px){
 section{padding-block:48px}
-.top{position:static}
-.top .wrap{display:grid;grid-template-columns:1fr auto;grid-template-areas:"brand gh" "nav nav";gap:8px 12px;
-min-height:0;padding-block:12px 8px}
-.top .brand{grid-area:brand;margin:0}
-.top .gh{grid-area:gh;padding:7px 16px}
-.nav{grid-area:nav;gap:24px;overflow-x:auto;scrollbar-width:none}
+.top .wrap{gap:16px;min-height:56px}
+.top .brand span,.top .gh{display:none}
+.nav{gap:20px;min-width:0;overflow-x:auto;scrollbar-width:none}
+details.run a{overflow-wrap:anywhere}
 .nav a{white-space:nowrap;padding-block:6px}
+.board .tablewrap{overflow:visible}
+.board table,.board tbody{display:block}
+.board thead{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.board tr{display:grid;grid-template-columns:1fr auto;gap:8px 16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.board td{display:block;padding:0;border:0;min-width:0}
+.board td.setup{font-weight:600;font-size:16px;align-self:center}
+.board td.passed{text-align:right}
+.board td.ci,.board td.notes{grid-column:1/-1}
+.board td.ci svg{display:block;width:100%;height:22px}
+.board td.gap,.board td.tps{text-align:left}
+.board td.gap::before,.board td.tps::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted)}
+.board td.notes .flag{margin-top:4px}
 .eyebrow{font-size:12px;letter-spacing:.12em}
 .actions .btn{flex:1 1 auto;text-align:center}
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
@@ -1045,6 +1058,7 @@ min-height:0;padding-block:12px 8px}
 .diagram{padding:14px}
 .diagram svg{min-width:600px;max-width:none!important}
 }
+@media (max-width:360px){.nav{gap:14px}.nav a{font-size:14px}}
 """
 
 EXAMPLES = [
