@@ -3,7 +3,14 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 proof_root="$(mktemp -d)"
-trap 'rm -rf "$proof_root"' EXIT
+# Keep the proof's own exit status: an EXIT trap's last command would otherwise replace it.
+# The offline suite runs as root, so fall back to sudo for anything root-owned.
+cleanup() {
+  local status=$?
+  rm -rf "$proof_root" 2>/dev/null || sudo -n rm -rf "$proof_root" 2>/dev/null || true
+  exit "$status"
+}
+trap cleanup EXIT
 # Clone committed HEAD without hooks, persisted checkout credentials or local objects.
 git -c core.hooksPath=/dev/null clone --no-local --no-hardlinks . "$proof_root/source"
 cd "$proof_root/source"
