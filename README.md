@@ -197,7 +197,7 @@ sequenceDiagram
   S->>J1: readable source text and rubric, arm withheld
   S->>J2: same inputs
   J1-->>A: decision, key-fact recall, unsupported claims
-  J2-->>A: independent labels; agreement recorded
+  J2-->>A: independent labels, agreement recorded
   Note over A,J2: GAP pass = right decision, recall at least 0.7, unsupported claims at most 0.25
 ```
 
