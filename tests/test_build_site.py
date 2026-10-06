@@ -49,11 +49,12 @@ def test_leaderboards_transcribe_published_tables(leaderboard_reports):
     assert len(claude) == 2 and all(row['cells'] == 21 for row in claude)
     assert claude[0]['label'] == 'Parallel' and claude[0]['ci'] == [77.0, 99.0]
     native = next(row for row in claude if row['arm'] == 'native')
-    assert 'WebFetch refused' in native['note']
+    assert native['note'] == site.RERUN_NOTE and native['flagged'] is False
     assert all(row['cells'] == 18 for row in boards['gap-codex']['rows'])
     wsb = boards['wsb-competitive']['rows']
     assert wsb[0]['arm'] == 'firecrawl' and wsb[0]['passes'] == 38 and wsb[0]['cells'] == 42
-    assert next(row for row in wsb if row['arm'] == 'native')['note'] == 'WebFetch refused in 2 of 42 cells'
+    assert next(row for row in wsb if row['arm'] == 'native')['note'] == site.RERUN_NOTE
+    assert not any(row['flagged'] for board in boards.values() for row in board['rows'])
 
 
 def test_wilson_interval_matches_reference_values():

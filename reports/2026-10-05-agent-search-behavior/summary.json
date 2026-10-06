@@ -394,7 +394,7 @@
       ]
     },
     {
-      "markdown": "On the bakeoff's stable-knowledge tasks, fetching a remembered URL is efficient: those tasks\npassed in every arm, including no-search. It means the bakeoff's provider arms with a fetch\ntool mostly measured that fetch path. The GAP battery, whose answers post-date the models,\nshows the cost of the same habit on new information.\n\n## Harness refusals: the Claude Code native arm\n\nClaude Code's native arm exposed WebSearch and WebFetch through `--tools` but pre-approved\nonly WebSearch through `--allowedTools`. Headless Claude Code refuses a tool that is exposed\nbut not pre-approved (\"Claude requested permissions to use WebFetch, but you haven't granted\nit yet\"). In the GAP battery every native WebFetch call was refused\n(50 calls in 21 of 21 cells); in the bakeoff, 110 calls in 40 of 54 cells. No\nprovider arm and no codex arm had a refused call. The Claude Code native results in both\nbatteries therefore understate that harness's web tools. The arm configuration is fixed and\ncovered by a regression test. The fetch counts in this report include refused attempts.\n\n## Primary-source retrieval (GAP battery)\n\nEach GAP brief has one primary-source URL (the catalog oracle). A cell surfaced it when that\nURL appeared among the URLs of returned search results, excluding search inputs. Unknown\ncoverage is excluded from both pass-rate groups. Recomputing against returned evidence\nleaves the historical source counts unchanged; no searched cell has unknown coverage.\nFacts can also come from secondary pages, so surfacing is a proxy for retrieval, not a\nrequirement for passing."
+      "markdown": "On the bakeoff's stable-knowledge tasks, fetching a remembered URL is efficient: those tasks\npassed in every arm, including no-search. It means the bakeoff's provider arms with a fetch\ntool mostly measured that fetch path. The GAP battery, whose answers post-date the models,\nshows the cost of the same habit on new information.\n\n## Harness refusals: the Claude Code native arm\n\nClaude Code's native arm exposed WebSearch and WebFetch through `--tools` but pre-approved\nonly WebSearch through `--allowedTools`. Headless Claude Code refuses a tool that is exposed\nbut not pre-approved (\"Claude requested permissions to use WebFetch, but you haven't granted\nit yet\"). In the GAP battery every native WebFetch call was refused\n(50 calls in 21 of 21 cells); in the bakeoff, 110 calls in 40 of 54 cells. No\nprovider arm and no codex arm had a refused call. The Claude Code native results in both\nbatteries therefore understate that harness's web tools. The arm configuration is fixed and\ncovered by a regression test. The fetch counts in this report include refused attempts. The arm was rerun with fetching\nworking; see [Native rerun (2026-10-06)](#native-rerun-2026-10-06).\n\n## Primary-source retrieval (GAP battery)\n\nEach GAP brief has one primary-source URL (the catalog oracle). A cell surfaced it when that\nURL appeared among the URLs of returned search results, excluding search inputs. Unknown\ncoverage is excluded from both pass-rate groups. Recomputing against returned evidence\nleaves the historical source counts unchanged; no searched cell has unknown coverage.\nFacts can also come from secondary pages, so surfacing is a proxy for retrieval, not a\nrequirement for passing."
     },
     {
       "table": [
@@ -534,6 +534,60 @@
           "—"
         ]
       ]
+    },
+    {
+      "markdown": "\n## Native rerun (2026-10-06)\n\nThe Claude Code native arm was rerun on both batteries with WebFetch pre-approved: the 21 GAP cells\nand all 54 bakeoff cells, on the same tasks, repetitions and model. No call was refused. The tables\nabove keep the original cells, because they document the refusal; the GAP and bakeoff reports use\nthe rerun for their native rows.\n\nWith page fetching available, the agent searched far less and read pages instead. On GAP it\nissued 45 queries instead of 101, and it fetched 126 pages. On the bakeoff it issued 19 queries\ninstead of 137, and 36 of its 54 cells fetched remembered pages without searching at all.\n"
+    },
+    {
+      "table": [
+        [
+          "Battery",
+          "Cells",
+          "Queries (original)",
+          "Fetch calls",
+          "Refused calls (original)",
+          "Fetched without searching",
+          "Primary source surfaced",
+          "Pass when surfaced",
+          "Pass when not surfaced"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "GAP",
+          "21",
+          "45 (101)",
+          "126",
+          "0 (50)",
+          "0",
+          "17/21",
+          "15/17",
+          "1/4"
+        ],
+        [
+          "Bakeoff",
+          "54",
+          "19 (137)",
+          "426",
+          "0 (110)",
+          "36",
+          "—",
+          "—",
+          "—"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nThe rerun's GAP queries read as natural language in 2.2% of cases (original 7%), with a\nmedian of 8 words (original 11). The rerun's run bundles are private, like the originals.\n"
     },
     {
       "markdown": "## Limits\n\n- Cell counts per arm are small (18 to 21 in GAP, 54 to 55 in the bakeoff). Per-arm\n  percentages move by about five points per cell.\n- The natural-language rule is a heuristic, stated in [methodology](methodology.md); readers\n  can rerun the script with their own rule.\n- Each vendor was used through its MCP server at the pinned version and default settings.\n  Other interfaces of the same vendor (direct API, other tools, other modes) were not\n  tested.\n- The two harnesses ran different task subsets in GAP (7 tasks for Claude Code, 6 for\n  codex), so cross-harness differences mix agent behavior with task mix."

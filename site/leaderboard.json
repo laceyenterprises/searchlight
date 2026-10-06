@@ -34,6 +34,7 @@
           "tokens_per_success": "64k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -50,6 +51,7 @@
           "tokens_per_success": "116k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -66,6 +68,24 @@
           "tokens_per_success": "93k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "native",
+          "label": "Built-in",
+          "pass_pct": 76.0,
+          "ci": [
+            55.0,
+            89.0
+          ],
+          "passes": 16,
+          "cells": 21,
+          "gap_closure": "0.80 (0.53–1.00)",
+          "tokens_per_success": "61k",
+          "vs_floor": "p < 0.0001",
+          "note": "Rerun 2026-10-06 with page opening fixed",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -82,6 +102,7 @@
           "tokens_per_success": "74k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -98,6 +119,7 @@
           "tokens_per_success": "89k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -114,22 +136,7 @@
           "tokens_per_success": "83k",
           "vs_floor": "p < 0.0001",
           "note": "",
-          "overlaps_top": true
-        },
-        {
-          "arm": "native",
-          "label": "Built-in",
-          "pass_pct": 62.0,
-          "ci": [
-            41.0,
-            79.0
-          ],
-          "passes": 13,
-          "cells": 21,
-          "gap_closure": "0.65 (0.37–0.91)",
-          "tokens_per_success": "66k",
-          "vs_floor": "p = 0.0002",
-          "note": "WebFetch refused by the harness (search only); not comparable",
+          "flagged": false,
           "overlaps_top": true
         }
       ],
@@ -163,6 +170,7 @@
           "tokens_per_success": "111k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -179,6 +187,7 @@
           "tokens_per_success": "166k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -195,6 +204,7 @@
           "tokens_per_success": "129k",
           "vs_floor": "p < 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -211,6 +221,7 @@
           "tokens_per_success": "117k",
           "vs_floor": "p = 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -227,6 +238,7 @@
           "tokens_per_success": "146k",
           "vs_floor": "p = 0.0001",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -243,6 +255,7 @@
           "tokens_per_success": "157k",
           "vs_floor": "p = 0.0002",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -259,6 +272,7 @@
           "tokens_per_success": "117k",
           "vs_floor": "p = 0.0002",
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         }
       ],
@@ -289,6 +303,7 @@
           "tokens_per_success": "61.5k",
           "vs_floor": null,
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -305,6 +320,7 @@
           "tokens_per_success": "47.7k",
           "vs_floor": null,
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -321,6 +337,24 @@
           "tokens_per_success": "61.3k",
           "vs_floor": null,
           "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "native",
+          "label": "Built-in",
+          "pass_pct": 83,
+          "ci": [
+            69,
+            92
+          ],
+          "passes": 35,
+          "cells": 42,
+          "gap_closure": null,
+          "tokens_per_success": "39.7k",
+          "vs_floor": null,
+          "note": "Rerun 2026-10-06 with page opening fixed",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -337,22 +371,7 @@
           "tokens_per_success": "65.0k",
           "vs_floor": null,
           "note": "",
-          "overlaps_top": true
-        },
-        {
-          "arm": "native",
-          "label": "Built-in",
-          "pass_pct": 79,
-          "ci": [
-            64,
-            88
-          ],
-          "passes": 33,
-          "cells": 42,
-          "gap_closure": null,
-          "tokens_per_success": "36.3k",
-          "vs_floor": null,
-          "note": "WebFetch refused in 40 of 54 cells",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -369,6 +388,7 @@
           "tokens_per_success": "69.8k",
           "vs_floor": null,
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -385,6 +405,7 @@
           "tokens_per_success": "20.9k",
           "vs_floor": null,
           "note": "reference arm",
+          "flagged": false,
           "overlaps_top": true
         },
         {
@@ -401,6 +422,7 @@
           "tokens_per_success": "89.2k",
           "vs_floor": null,
           "note": "",
+          "flagged": false,
           "overlaps_top": true
         }
       ],

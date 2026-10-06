@@ -1,11 +1,16 @@
 # WSB live battery — initial results (2026-09-29)
 
-> **Correction (2026-10-06): the native arm's page fetches were mostly refused.** The arm exposed
-> WebSearch and WebFetch but pre-approved only WebSearch, and headless Claude Code refuses tools that
-> are not pre-approved. WebFetch was refused in 40 of 54 native cells (110 calls).
-> Provider arms were unaffected. The native rows therefore understate Claude Code's own web tools.
-> The configuration is fixed and pinned by a test; the recorded numbers below are unchanged.
-> Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md).
+> **Update (2026-10-06): the native arm was rerun with page fetching working.** In the original
+> battery the arm exposed WebSearch and WebFetch but pre-approved only WebSearch, and headless
+> Claude Code refused WebFetch in 40 of 54 native cells (110 calls). The configuration is fixed and
+> pinned by a test. All 54 native cells (18 tasks × 3) were rerun on 2026-10-06 with the same seed,
+> per-task budgets and model, and graded against the historical regrade catalog by a blinded
+> Claude judge; no call was refused. In the [regrade table](#update-2026-09-30-operator-decisions)
+> the native row now comes from the rerun: 35/42 competitive cells (83%) at 39.7k tokens per
+> success, against 33/42 (79%) and 36.3k recorded originally. The rerun's 12 expected-fail cells
+> passed 0/12. The initial-grading tables below are the original record and still carry the
+> original native cells. Provider arms were unaffected.
+> Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md#native-rerun-2026-10-06).
 
 **Pack:** `web-search-bakeoff` (WSB) on the Search Evaluation Workbench (SEW).
 **Harness / model:** claude-code, Claude Opus 5.5 (`claude-opus-5-5[1m]`), authenticated execution on the original host.
@@ -230,7 +235,8 @@ A full codex battery waits for the quota reset (2026-10-04 12:52Z).
 - **Tokens and outcome rate are reported together.** Tokens per success come from
   the bench fix.
 
-Competitive pass rates regraded with the corrected catalog at the recorded grader revision:
+Competitive pass rates regraded with the corrected catalog at the recorded grader revision (native: the
+2026-10-06 rerun; see the update at the top):
 
 | arm | pass | tokens/success |
 | --- | --- | --- |
@@ -238,7 +244,7 @@ Competitive pass rates regraded with the corrected catalog at the recorded grade
 | perplexity | 37/42 (88%) | 47.7k |
 | tavily | 36/42 (86%) | 61.3k |
 | exa | 35/42 (83%) | 65.0k |
-| native | 33/42 (79%) | 36.3k |
+| native | 35/42 (83%) | 39.7k |
 | parallel-web | 33/42 (79%) | 69.8k |
 | no-search | 32/42 (76%) | 20.9k |
 | brave | 31/42 (74%) | 89.2k |
