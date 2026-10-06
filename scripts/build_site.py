@@ -13,6 +13,9 @@ intervals, and they are labelled as computed.
 from __future__ import annotations
 
 import argparse
+import hashlib
+import struct
+import zlib
 import html
 import json
 import math
@@ -1115,13 +1118,36 @@ def _footer() -> str:
             '© 2026 Lacey Enterprises LLC</div></div></footer>')
 
 
-def _document(title: str, description: str, active: str, main: str, script: str = '') -> str:
+CARD_SIZE = (1200, 630)
+CARD_SCALE = 2
+CARD_KEY = 'searchlight-card-source-sha256'
+
+
+def _social_meta(title: str, description: str, active: str, alt: str) -> str:
+    url = f'{SITE_URL}/' if active == 'index.html' else f'{SITE_URL}/{active}'
+    image = f'{SITE_URL}/social-card.png'
+    width, height = (n * CARD_SCALE for n in CARD_SIZE)
+    tags = [('property', 'og:type', 'website'), ('property', 'og:site_name', 'Searchlight'),
+            ('property', 'og:title', title), ('property', 'og:description', description),
+            ('property', 'og:url', url), ('property', 'og:image', image),
+            ('property', 'og:image:type', 'image/png'), ('property', 'og:image:width', str(width)),
+            ('property', 'og:image:height', str(height)), ('property', 'og:image:alt', alt),
+            ('name', 'twitter:card', 'summary_large_image'), ('name', 'twitter:title', title),
+            ('name', 'twitter:description', description), ('name', 'twitter:image', image),
+            ('name', 'twitter:image:alt', alt)]
+    return (f'<link rel="canonical" href="{esc(url)}">'
+            + ''.join(f'<meta {kind}="{key}" content="{esc(value)}">' for kind, key, value in tags))
+
+
+def _document(title: str, description: str, active: str, main: str, script: str = '',
+              social_title: str = '', card_alt: str = '') -> str:
     fonts = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" '
              'href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" '
              'href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">')
     return ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
             f'<meta name="description" content="{esc(description)}">'
+            f'{_social_meta(social_title or title, description, active, card_alt or CARD_ALT_DEFAULT)}'
             '<link rel="icon" type="image/svg+xml" href="logo.svg">'
             f'\n<title>{esc(title)}</title>\n{fonts}\n<style>{CSS}</style>\n</head><body>\n'
             f'{_nav(active)}\n<main>\n{main}\n</main>\n{_footer()}\n{script}</body></html>\n')
@@ -1215,8 +1241,133 @@ pre-registered record.</li></ul>
 <a class="btn" href="methodology.html">Methodology</a></div></div>
 <a class="shot" href="results.html#infographic"><img src="infographic.svg" alt="Searchlight results infographic" loading="lazy"></a>
 </div></section>"""
-    return _document('Searchlight', 'Searchlight: an open benchmark of what web search does for AI coding agents.',
-                     'index.html', main)
+    card = card_facts(boards, analysis)
+    return _document('Searchlight', card['description'], 'index.html', main,
+                     social_title=card['title'], card_alt=card['alt'])
+
+
+CARD_ALT_DEFAULT = 'Searchlight: an open benchmark of what web search does for AI coding agents.'
+
+
+def card_facts(boards: list[dict], analysis: dict) -> dict:
+    """Title, description and three statistics for the social card, from the published boards."""
+    h = headline(boards, analysis)
+    gap = [b for b in boards if b['bench'] == 'GAP']
+    floor = max(float(re.match(r'(\d+)', b['reference'].get('floor (no search)', '') or '0').group(1)) for b in gap)
+    best = max(hi for _, hi in (h['cc'], h['cx']))
+    cc = next(b for b in boards if b['id'] == 'gap-claude-code')
+    cx = next(b for b in boards if b['id'] == 'gap-codex')
+    top = next(r for r in cc['rows'] if r['arm'] != 'native')
+    other = next(r for r in cx['rows'] if r['arm'] == top['arm'])
+    stats = [
+        (f'{floor:.0f}% → {best:.0f}%', 'no search → best search provider'),
+        (f'{top["pass_pct"]:.0f}% vs {other["pass_pct"]:.0f}%', 'same provider, two different agents'),
+        (f'{h["runs"]}', 'runs, graded blind'),
+    ]
+    title = 'Does web search make AI coding agents better?'
+    description = (f'Claude Code and Codex did real jobs with only the search provider changed. {h["runs"]} runs, '
+                   'graded blind. Open tasks, code and data.')
+    alt = (f'Searchlight. {title} ' + ' '.join(f'{big}: {text}.' for big, text in stats))
+    return {'title': title, 'description': description, 'stats': stats, 'alt': alt, 'runs': h['runs']}
+
+
+CARD_CSS = """
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{background:#0A0C10;color:#FFFFFF;font-family:Inter,"Helvetica Neue",Arial,sans-serif;position:relative;
+-webkit-font-smoothing:antialiased}
+.glow{position:absolute;inset:0;background:radial-gradient(760px 520px at 88% 30%,rgba(0,123,255,.22),rgba(0,123,255,0) 65%)}
+.mark{position:absolute;right:72px;top:96px;width:300px;height:300px}
+.frame{position:absolute;inset:0;padding:60px 64px 56px;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:18px}
+.word{font-weight:600;letter-spacing:.34em}
+.url{font-weight:500;color:#9AA5B1;letter-spacing:.02em}
+h1{margin-top:74px;max-width:740px;font-size:64px;line-height:1.04;font-weight:700;letter-spacing:-.03em}
+.stats{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.16)}
+.stat{padding:26px 24px 0 0}
+.stat+.stat{padding-left:32px;border-left:1px solid rgba(255,255,255,.12)}
+.big{font-size:50px;line-height:1;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat:first-child .big{color:#3D9BFF}
+.label{margin-top:12px;font-size:19px;color:#9AA5B1;white-space:nowrap}
+"""
+
+CARD_MARK = ('<svg class="mark" viewBox="0 0 100 100" aria-hidden="true">'
+             '<circle cx="31" cy="67" r="22" fill="#FFFFFF"/>'
+             '<path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/>'
+             '<circle cx="34" cy="69.5" r="6.4" fill="#0A0C10"/></svg>')
+
+
+def social_card(boards: list[dict], analysis: dict) -> str:
+    """The 1200x630 share image's source; scripts/render_social_card.py renders it to site/social-card.png."""
+    card = card_facts(boards, analysis)
+    stats = ''.join(f'<div class="stat"><div class="big">{esc(big)}</div><div class="label">{esc(text)}</div></div>'
+                    for big, text in card['stats'])
+    fonts = ('<link rel="stylesheet" '
+             'href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=block">')
+    return ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex">'
+            f'<title>Searchlight social card</title>{fonts}<style>{CARD_CSS}</style></head><body>'
+            f'<div class="glow"></div>{CARD_MARK}<div class="frame">'
+            '<div class="top"><span class="word">SEARCHLIGHT</span><span class="url">searchlightai.dev</span></div>'
+            f'<h1>{esc(card["title"])}</h1><div class="stats">{stats}</div></div></body></html>\n')
+
+
+def card_source_hash(source: str) -> str:
+    return hashlib.sha256(source.encode('utf-8')).hexdigest()
+
+
+def png_text_chunks(data: bytes) -> dict[str, str]:
+    """tEXt chunks of a PNG, keyword -> text."""
+    if data[:8] != b'\x89PNG\r\n\x1a\n':
+        raise ValueError('not a PNG')
+    out, i = {}, 8
+    while i + 8 <= len(data):
+        length, kind = struct.unpack('>I4s', data[i:i + 8])
+        body = data[i + 8:i + 8 + length]
+        if kind == b'tEXt' and b'\0' in body:
+            key, value = body.split(b'\0', 1)
+            out[key.decode('latin-1')] = value.decode('latin-1')
+        if kind == b'IEND':
+            break
+        i += 12 + length
+    return out
+
+
+def stamp_png(data: bytes, key: str, value: str) -> bytes:
+    """Insert a tEXt chunk after IHDR (replacing an existing one with the same keyword)."""
+    if data[:8] != b'\x89PNG\r\n\x1a\n':
+        raise ValueError('not a PNG')
+    chunks, i = [], 8
+    while i + 8 <= len(data):
+        length, kind = struct.unpack('>I4s', data[i:i + 8])
+        raw = data[i:i + 12 + length]
+        body = data[i + 8:i + 8 + length]
+        if not (kind == b'tEXt' and body.split(b'\0', 1)[0] == key.encode('latin-1')):
+            chunks.append(raw)
+        i += 12 + length
+        if kind == b'IEND':
+            break
+    payload = key.encode('latin-1') + b'\0' + value.encode('latin-1')
+    text = struct.pack('>I', len(payload)) + b'tEXt' + payload + struct.pack('>I', zlib.crc32(b'tEXt' + payload) & 0xFFFFFFFF)
+    return data[:8] + chunks[0] + text + b''.join(chunks[1:])
+
+
+def png_size(data: bytes) -> tuple[int, int]:
+    """Width and height from a PNG's IHDR."""
+    return struct.unpack('>II', data[16:24])
+
+
+def card_problem(site: Path, source: str) -> str:
+    """Why site/social-card.png does not match the card source, or '' when it does."""
+    png = site / 'social-card.png'
+    if not png.is_file():
+        return 'social-card.png is missing'
+    try:
+        stamp = png_text_chunks(png.read_bytes()).get(CARD_KEY)
+    except ValueError:
+        return 'social-card.png is not a PNG'
+    if stamp != card_source_hash(source):
+        return 'social-card.png was rendered from a different card source'
+    return ''
 
 
 def results_language(markup: str) -> str:
@@ -1459,6 +1610,7 @@ def build(root: Path = ROOT) -> dict[str, str]:
         'logo.svg': LOGO + '\n',
         'infographic.svg': infographic(boards, analysis, h2h) + '\n',
         'leaderboard.json': json.dumps(data, indent=2, ensure_ascii=False) + '\n',
+        'social-card.html': social_card(boards, analysis),
     }
 
 
@@ -1483,6 +1635,10 @@ def main(argv=None) -> int:
                  if not (site / name).is_file() or (site / name).read_text(encoding='utf-8') != content]
         if stale:
             print('site/ is stale; run python3 scripts/build_site.py: ' + ', '.join(stale), file=sys.stderr)
+            return 1
+        problem = card_problem(site, files['social-card.html'])
+        if problem:
+            print(f'site/ is stale: {problem}; run python3 scripts/render_social_card.py', file=sys.stderr)
             return 1
         print('Site is current: ' + ', '.join(sorted(files)))
         return 0

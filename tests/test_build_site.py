@@ -301,3 +301,60 @@ def test_head_to_head_appears_on_every_surface():
 def test_blockquote_preserves_paragraph_breaks():
     rendered = site.markdown('> First line\n> continued\n> \n> Second paragraph', 'r')
     assert rendered == '<blockquote class="note"><p>First line continued</p><p>Second paragraph</p></blockquote>'
+
+
+def _tiny_png() -> bytes:
+    import struct
+    import zlib
+
+    def chunk(kind: bytes, body: bytes) -> bytes:
+        return struct.pack('>I', len(body)) + kind + body + struct.pack('>I', zlib.crc32(kind + body) & 0xFFFFFFFF)
+
+    ihdr = struct.pack('>IIBBBBB', 1, 1, 8, 2, 0, 0, 0)
+    return (b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', ihdr) + chunk(b'IDAT', zlib.compress(b'\x00\x00\x00\x00'))
+            + chunk(b'IEND', b''))
+
+
+def test_social_card_is_short_plain_and_sourced():
+    reports = site.load_reports()
+    facts = site.card_facts(site.leaderboards(reports), site.behavior(reports))
+    card = site.build()['social-card.html']
+    text = re.sub(r'<style[^>]*>.*?</style>', ' ', card, flags=re.S)
+    text = re.sub(r'<title>.*?</title>', ' ', text)
+    text = ' '.join(re.sub(r'<[^>]+>', ' ', text).split())
+    assert len(facts['stats']) == 3
+    for big, label in facts['stats']:
+        assert site.esc(big) in card and site.esc(label) in card
+        assert len(label.split()) <= 6
+    assert site.esc(facts['title']) in card and 'searchlightai.dev' in text
+    assert len(text.split()) <= 40, text
+    for jargon in (r'\barms?\b', r'\bcells?\b', r'\bharness(es)?\b', r'\bWilson\b', r'\bMCP\b'):
+        assert not re.search(jargon, text, re.I), jargon
+
+
+def test_every_page_carries_social_metadata():
+    files = site.build()
+    for name, url in (('index.html', 'https://searchlightai.dev/'),
+                      ('results.html', 'https://searchlightai.dev/results.html'),
+                      ('methodology.html', 'https://searchlightai.dev/methodology.html')):
+        html = files[name]
+        assert '<meta property="og:image" content="https://searchlightai.dev/social-card.png">' in html
+        assert '<meta name="twitter:card" content="summary_large_image">' in html
+        assert f'<meta property="og:url" content="{url}">' in html
+        assert f'<link rel="canonical" href="{url}">' in html
+        assert '<meta property="og:image:width" content="2400">' in html
+
+
+def test_card_png_stamp_round_trips_and_detects_staleness(tmp_path):
+    png = _tiny_png()
+    stamped = site.stamp_png(png, site.CARD_KEY, 'a' * 64)
+    assert site.png_text_chunks(stamped)[site.CARD_KEY] == 'a' * 64
+    restamped = site.stamp_png(stamped, site.CARD_KEY, 'b' * 64)
+    assert site.png_text_chunks(restamped) == {site.CARD_KEY: 'b' * 64}
+    assert site.png_size(restamped) == (1, 1)
+    assert 'missing' in site.card_problem(tmp_path, 'source')
+    (tmp_path / 'social-card.png').write_bytes(site.stamp_png(png, site.CARD_KEY, site.card_source_hash('source')))
+    assert site.card_problem(tmp_path, 'source') == ''
+    assert 'different card source' in site.card_problem(tmp_path, 'changed source')
+    (tmp_path / 'social-card.png').write_bytes(b'not a png')
+    assert 'not a PNG' in site.card_problem(tmp_path, 'source')

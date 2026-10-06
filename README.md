@@ -356,7 +356,7 @@ models, indexes and sources.
 
 ```sh
 python3 scripts/check_reports.py        # transcription, scrub, catalog hashes, links
-python3 scripts/build_site.py --check   # leaderboard and infographic match the reports
+python3 scripts/build_site.py --check   # pages, infographic and share image match the reports
 SEW_MODE=standalone python3 -m pytest -q
 ```
 
@@ -372,12 +372,20 @@ and code blocks missing a closing fence retain their content. Relative links are
 at the repository root. The published page pins Mermaid with a SHA-384 integrity hash;
 update the hash alongside its CDN URL in `scripts/build_site.py` when changing versions.
 
+The share image (`site/social-card.png`, used by link previews) is rendered from
+`site/social-card.html`, whose figures come from the same reports. After a report
+changes, run `python3 scripts/build_site.py` and then `python3 scripts/render_social_card.py`
+(needs Google Chrome or Chromium; set `CHROME` if it is not found). The image carries the
+SHA-256 of the card it was rendered from, so `build_site.py --check` flags a stale image
+without a browser.
+
 ```mermaid
 flowchart LR
   N["new battery"] --> R["reports/DATE-BENCH/ with summary.json, methodology, reproduce"]
   R --> C["check_reports.py: transcription, scrub, hashes, links"]
   C --> B["build_site.py: overview, results and methodology pages, infographic, leaderboard.json"]
-  B --> K["CI: build_site.py --check"]
+  B --> S["render_social_card.py: share image"]
+  S --> K["CI: build_site.py --check"]
   K --> P["GitHub Pages deploy from main"]
 ```
 
