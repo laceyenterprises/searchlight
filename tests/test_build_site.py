@@ -398,3 +398,13 @@ def test_header_and_phone_layout():
     diagram = re.search(r'\.diagram\{([^{}]*)\}', site.CSS).group(1)
     assert 'overflow-x:auto' in diagram
     assert 'Open the infographic full size' in files['results.html']
+
+
+def test_only_the_header_uses_the_top_class():
+    # `.top` is the sticky header; any other element with that class becomes sticky too
+    # (the leaderboard pills once did and slid over the header on phones).
+    for name, html in site.build().items():
+        if not name.endswith('.html') or name == 'social-card.html':
+            continue
+        uses = [tag for tag, cls in re.findall(r'<(\w+)[^>]*\bclass="([^"]*)"', html) if 'top' in cls.split()]
+        assert uses == ['header'], (name, uses)

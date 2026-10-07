@@ -902,7 +902,7 @@ def board_html(board: dict) -> str:
             + '<th class="num">Tokens per success</th><th>Notes</th></tr>')
     body = []
     for row in board['rows']:
-        pill = ('<span class="pill top">overlaps top interval</span>' if row['overlaps_top']
+        pill = ('<span class="pill lead">overlaps top interval</span>' if row['overlaps_top']
                 else '<span class="pill">below top interval</span>')
         if row['arm'] == 'no-search':
             pill = '<span class="pill">reference</span>'
@@ -1026,7 +1026,7 @@ td.ci{min-width:180px}
 .flag{font-size:13px;color:var(--muted)}
 .pill{display:inline-block;font-size:12px;border-radius:999px;padding:2px 10px;background:var(--soft);color:var(--ink2);
 white-space:nowrap}
-.pill.top{background:var(--accent-soft);color:#0057B3}
+.pill.lead{background:var(--accent-soft);color:#0057B3}
 .board{border:1px solid var(--rule);border-radius:var(--radius);padding:24px;margin:20px 0}
 .board h3{margin:0 0 8px}.scope{color:var(--ink2);font-size:15px}
 details.run{border:1px solid var(--rule);border-radius:14px;padding:12px 18px;margin:12px 0;background:var(--paper)}
