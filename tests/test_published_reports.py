@@ -35,6 +35,16 @@ def test_numeric_drift_rejected(publication):
     assert any('differs from summary' in error for error in reports.check(publication))
 
 
+def test_replication_numeric_drift_rejected(publication):
+    name = '2026-10-06-search-gap-replication'
+    path = publication / 'reports' / name / 'REPORT.md'
+    text = path.read_text()
+    assert '83%' in text
+    path.write_text(text.replace('83%', '99%'))
+    assert any(name + ': REPORT.md differs from summary' in error
+               for error in reports.check(publication))
+
+
 def test_render_check_rejects_line_ending_drift(publication):
     path = publication / 'reports' / reports.REPORTS[1] / 'REPORT.md'
     path.write_bytes(path.read_bytes().replace(b'\n', b'\r\n'))
