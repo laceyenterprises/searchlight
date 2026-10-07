@@ -1,0 +1,32 @@
+# Example only: install and configure LiteLLM separately. No credentials are stored here.
+model_list:
+- model_name: glm-5.2
+  litellm_params:
+    model: zai/glm-5.2
+    api_key: os.environ/ZAI_API_KEY
+- model_name: kimi-k3
+  litellm_params:
+    model: moonshot/kimi-k3
+    api_key: os.environ/MOONSHOT_API_KEY
+- model_name: fireworks/kimi-k3
+  litellm_params:
+    model: fireworks_ai/accounts/fireworks/models/kimi-k3
+    api_key: os.environ/FIREWORKS_API_KEY
+- model_name: together/deepseek-v4.1-flash
+  litellm_params:
+    model: together_ai/deepseek-ai/DeepSeek-V4.1-Flash
+    api_key: os.environ/TOGETHER_API_KEY
+- model_name: baseten/glm-5.3-flash
+  litellm_params:
+    model: openai/zai-org/GLM-5.3-Flash
+    api_key: os.environ/BASETEN_API_KEY
+    api_base: https://inference.baseten.co/v1
+- model_name: fireworks/qwen3.8-max
+  litellm_params:
+    model: fireworks_ai/accounts/fireworks/models/qwen3p8-max
+    api_key: os.environ/FIREWORKS_API_KEY
+- model_name: local/qwen3-coder-next-80b-a3b-6bit
+  litellm_params:
+    model: openai/qwen3-coder-next-80b-a3b-6bit
+    api_key: os.environ/LOCAL_API_KEY
+    api_base: os.environ/LOCAL_MODEL_BASE_URL

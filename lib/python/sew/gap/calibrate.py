@@ -60,9 +60,11 @@ def _outside_tree(path):
 def calibration_path(state_root, harness, model):
     if harness not in {"codex", "claude-code"}:
         raise CalibrationError("unsupported harness")
-    if not isinstance(model, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,199}", model):
+    from ..oss import valid_model_id
+
+    if not valid_model_id(model):
         raise CalibrationError("model must be an explicit, safe model identifier")
-    return _outside_tree(state_root) / "gap/calibration" / f"{harness}@{model}.json"
+    return _outside_tree(state_root) / "gap/calibration" / f"{harness}@{model.replace('/', '%2F')}.json"
 
 
 def load_calibration(state_root, harness, model):

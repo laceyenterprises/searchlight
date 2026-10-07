@@ -539,7 +539,18 @@ def child_environment(config: HarnessRunConfig, environ: Mapping[str, str]) -> d
         for key, value in environ.items()
         if key in ENV_ALLOWLIST or key.startswith(ENV_ALLOWLIST_PREFIXES)
     }
+    proxy_auth = (config.model_id and config.model_id.startswith("litellm/")) or config.harness_auth == "litellm"
+    if proxy_auth:
+        for key in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "OPENAI_API_KEY",
+                    "ANTHROPIC_BASE_URL", "OPENAI_BASE_URL", "CLAUDE_CONFIG_DIR", "CODEX_HOME"):
+            env.pop(key, None)
     env.update(config.env)
+    if proxy_auth:
+        # Caller-supplied account keys are no safer than inherited ones. Harness
+        # adapters translate the dedicated proxy key only after this boundary.
+        for key in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "OPENAI_API_KEY"):
+            if not config.env.get("SEW_LITELLM_API_KEY") or env.get(key) != config.env["SEW_LITELLM_API_KEY"]:
+                env.pop(key, None)
     return env
 
 
@@ -618,6 +629,13 @@ def run_live_harness(
     if config.mode != "live":
         raise SchemaError("run_live_harness requires mode='live'")
     source_env = dict(os.environ if environ is None else environ)
+    from .oss import require_enabled
+    from .host import HostUnavailable
+
+    try:
+        require_enabled(config.harness_id, config.model_id, source_env)
+    except HostUnavailable as exc:
+        raise LiveHarnessRefused(str(exc)) from None
     if not live_enabled(source_env):
         raise LiveHarnessRefused(
             f"live harness spawn is operator-gated; set {LIVE_ENV}=1 to run a real "
@@ -705,7 +723,7 @@ def run_live_harness(
     config = _metered(config, run_id=run_id, call_dir=run_dir / "provider-calls")
 
     binary = resolve_binary(config, source_env)
-    auth_source = broker_auth.auth_source(config.harness_auth, source_env)
+    auth_source = broker_auth.auth_source(config.harness_auth, source_env, model_id=config.model_id)
     auth_metadata: dict[str, str] = {"source": auth_source}
     broker_tokens: list[str] = []
     exposure = config.external_provider
@@ -764,6 +782,13 @@ def run_live_harness(
             )
             argv = protocol.argv(binary, spawn_config, last_message_path)
             try:
+                if auth_source == "litellm":
+                    from .oss import litellm_cell_env
+
+                    auth_env = litellm_cell_env(config.harness_id, source_env)
+                    broker_tokens.append(auth_env["SEW_LITELLM_API_KEY"])
+                    spawn_config = replace(spawn_config, env={**spawn_config.env, **auth_env}, harness_auth="litellm")
+                    auth_metadata = {"source": "litellm"}
                 if auth_source == "broker":
                     if config.harness_id == "claude-code":
                         auth_env = broker_auth.claude_code_env(broker_log_dir, environ=source_env)
@@ -895,7 +920,7 @@ def run_live_harness(
                     contract=contract,
                     provisional_meters_path=run_dir / PROVISIONAL_METERS_REF,
                 )
-            except broker_auth.BrokerAuthError:
+            except (broker_auth.BrokerAuthError, HostUnavailable):
                 outcome = ProcessOutcome(ended_at=datetime.now(UTC))
                 terminal = TerminalStatus(STATUS_HARNESS_BOOT_FAILED, CATEGORY_AUTH_FAILED)
                 diagnostic = broker_log_dir / f"{config.harness_id}-broker-auth-stderr.log"

@@ -306,6 +306,11 @@ def claude_code_arm_spawn(
             "--permission-mode",
             "acceptEdits",
         )
+    isolated_env = {}
+    if harness_auth == "litellm":
+        config_dir = scratch / "claude-config"
+        config_dir.mkdir(mode=0o700)
+        isolated_env["CLAUDE_CONFIG_DIR"] = str(config_dir)
     return SpawnSurface(
         contract,
         (
@@ -318,7 +323,7 @@ def claude_code_arm_spawn(
             allowed,
         )
         + extra_args,
-        {},
+        isolated_env,
         path,
     )
 

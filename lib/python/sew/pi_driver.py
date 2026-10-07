@@ -75,7 +75,7 @@ class PiHarnessDriver:
     def from_config(
         cls, path: Path | None = None, *, pi_bin: str | None = None
     ) -> "PiHarnessDriver":
-        config_path = path or module_root() / "config" / "pi-model-profiles.yaml"
+        config_path = path or module_root() / "fixtures" / "pi-model-profiles.yaml"
         data = _load_yaml(config_path)
         profiles = load_pi_profiles(data)
         return cls(profiles, pi_bin=pi_bin or os.environ.get(PI_BIN_ENV, PI_DEFAULT_BIN))

@@ -370,11 +370,17 @@ def source_sdk(tmp_path, monkeypatch):
         "    return SimpleNamespace(detect=lambda: SimpleNamespace(\n"
         "        available=True, reason='source fixture available'))\n"
     )
-    for name in ("agent_os_app_sdk", "agent_os_app_sdk.host"):
+    names = ("agent_os_app_sdk", "agent_os_app_sdk.host")
+    saved = {name: sys.modules[name] for name in names if name in sys.modules}
+    for name in names:
         monkeypatch.delitem(sys.modules, name, raising=False)
     yield tmp_path
-    for name in ("agent_os_app_sdk", "agent_os_app_sdk.host"):
+    # Undo the test's cache seeds before cleanup, so its later monkeypatch
+    # teardown cannot resurrect the temporary SDK for the following test.
+    monkeypatch.undo()
+    for name in names:
         sys.modules.pop(name, None)
+    sys.modules.update(saved)
 
 
 @pytest.mark.parametrize("mode", ["auto", "agent-os"])

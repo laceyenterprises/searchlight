@@ -122,11 +122,13 @@ def _auth_failure(name: str, log_dir: Path, exc: BaseException) -> BrokerAuthErr
     return BrokerAuthError(f"{name} broker auth failed{reason}; diagnostic: {path}")
 
 
-def auth_source(requested: str | None = None, environ: Mapping[str, str] | None = None) -> str:
+def auth_source(requested: str | None = None, environ: Mapping[str, str] | None = None, *, model_id: str | None = None) -> str:
     from .host import get_host
 
-    if requested not in {None, "broker", "account"}:
-        raise ValueError("harness auth must be broker or account")
+    if requested not in {None, "broker", "account", "litellm"}:
+        raise ValueError("harness auth must be broker, account or litellm")
+    if (model_id and model_id.startswith("litellm/")) or requested == "litellm":
+        return "litellm"
     if requested == "account":
         return "account"
     host = get_host(environ)
