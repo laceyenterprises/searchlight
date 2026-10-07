@@ -410,8 +410,11 @@ snapshots, so nothing is recaptured. The command refuses a cell unless the
 rebuilt payload's sha256 equals the one the primary judged and the stored labels
 reproduce the stored verdict; `--catalog-root` must therefore be the checkout
 whose `catalogs/gap` graded the run. Only then is the codex judge called. The
-primary's verdict never changes. The command skips measured cells and exits 1
-if any codex call failed, so rerunning it retries only those. `gap report` then
+primary's verdict never changes. For measured cells, the command repairs a
+missing or different `calibration-outcome.json` from `gap-outcome.json` without
+calling codex again. This recovers an interrupted write between the two outcome
+files. It exits 1 if any codex call failed, so rerunning it retries only those
+judges. `gap report` then
 adds a judge-agreement table: disputed verdicts in each direction, label
 agreement and kappa per arm.
 

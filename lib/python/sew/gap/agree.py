@@ -5,7 +5,8 @@ agreement. ``add_agreement`` passes each succeeded brief cell's stored grade to
 ``add_agreement_judge``, which scores codex on the payload the primary judged,
 and writes the result back in place. Verdicts never change. A cell whose codex
 judge fails is left unmeasured and counted, and the next pass retries it; a
-cell that is already measured is skipped.
+cell that is already measured repairs its companion outcome if needed, without
+calling the judge again.
 
 ``catalog_root`` must be the module root the run was graded from: the payload
 check refuses a rubric that differs from the one the primary saw.
@@ -41,6 +42,11 @@ def add_agreement(run_root, *, catalog_root, judge, limit=None, progress=None) -
             continue  # code tasks have no judges
         agreement = record.get("agreement") or {}
         if agreement.get("status") == "measured":
+            # The GAP outcome is written first. Recover an interrupted second
+            # write from that saved measurement without rerunning the judge.
+            companion = run_dir / "evaluations" / OUTCOMES[1]
+            if not companion.exists() or load_document(companion) != record:
+                atomic_write_json(companion, record)
             counts["already_measured"] += 1
             continue
         if record.get("status") != "scored" or agreement.get("reason") != "single_judge":

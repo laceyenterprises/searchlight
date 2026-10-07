@@ -112,3 +112,55 @@ def test_failed_judge_is_counted_and_retried_on_the_next_pass(run_root):
     assert outcome(run_root, 1) == before
     retry = add_agreement(run_root, catalog_root=run_root, judge=scorer("codex"))
     assert retry["measured"] == 2
+
+
+@pytest.mark.parametrize("failure", [OSError, KeyboardInterrupt])
+def test_interrupted_companion_write_is_repaired_without_rejudging(run_root, monkeypatch, failure):
+    calls = []
+    before = outcome(run_root, 1)
+    write = agree_module.atomic_write_json
+
+    def interrupted_write(path, value):
+        if path.name == "calibration-outcome.json":
+            raise failure("interrupted companion write")
+        write(path, value)
+
+    monkeypatch.setattr(agree_module, "atomic_write_json", interrupted_write)
+    with pytest.raises(failure):
+        add_agreement(run_root, catalog_root=run_root, judge=scorer("codex", calls=calls))
+    measured = outcome(run_root, 1)
+    assert measured["agreement"]["status"] == "measured"
+    assert outcome(run_root, 1, "calibration-outcome.json") == before
+    assert calls == ["codex"]
+
+    writes = []
+
+    def recording_write(path, value):
+        writes.append(path)
+        write(path, value)
+
+    monkeypatch.setattr(agree_module, "atomic_write_json", recording_write)
+    # Repair does not consume judge quota, even when no new calls are allowed.
+    retry = add_agreement(run_root, catalog_root=run_root, judge=scorer("codex", calls=calls), limit=0)
+    assert (retry["measured"], retry["already_measured"]) == (0, 1)
+    assert outcome(run_root, 1) == outcome(run_root, 1, "calibration-outcome.json") == measured
+    assert writes == [run_root / "bundles/cell-1/evaluations/calibration-outcome.json"]
+    assert calls == ["codex"]
+
+    writes.clear()
+    add_agreement(run_root, catalog_root=run_root, judge=scorer("codex", calls=calls), limit=0)
+    assert writes == []
+    assert calls == ["codex"]
+
+
+def test_measured_cell_restores_missing_companion_without_rejudging(run_root):
+    calls = []
+    add_agreement(run_root, catalog_root=run_root, judge=scorer("codex", calls=calls), limit=1)
+    measured = outcome(run_root, 1)
+    companion = run_root / "bundles/cell-1/evaluations/calibration-outcome.json"
+    companion.unlink()
+
+    retry = add_agreement(run_root, catalog_root=run_root, judge=scorer("codex", calls=calls), limit=0)
+    assert (retry["measured"], retry["already_measured"]) == (0, 1)
+    assert outcome(run_root, 1, "calibration-outcome.json") == measured
+    assert calls == ["codex"]
