@@ -42,6 +42,7 @@ REPORT_TITLES = {
     '2026-09-29-web-search-bakeoff': 'Web search bakeoff',
     '2026-10-03-search-gap-bench': 'Search gap bench',
     '2026-10-05-agent-search-behavior': 'How agents used search',
+    '2026-10-06-search-gap-replication': 'Search gap bench replication',
     '2026-09-26-search-api-head-to-head': 'Search API head-to-head',
 }
 H2H = '2026-09-26-search-api-head-to-head'
@@ -1274,10 +1275,12 @@ Codex.</p>
 
 <section id="report"><div class="wrap report">
 <div><h2>The report</h2>
-<p class="section-lede" style="margin-bottom:16px">Four studies, published with their data, methodology and corrections.</p>
+<p class="section-lede" style="margin-bottom:16px">Five studies, published with their data, methodology and corrections.</p>
 <ul><li><strong>Search gap bench:</strong> research briefs and code fixes about events after the models' training data.</li>
 <li><strong>Web search bakeoff:</strong> research questions with well-documented answers.</li>
 <li><strong>How agents used search:</strong> what the agents actually typed and opened, across both benchmarks.</li>
+<li><strong>Search gap bench replication:</strong> the Claude Code battery run again on the current tasks. Search still
+decided the outcome; the provider ranking did not repeat.</li>
 <li><strong>Search API head-to-head:</strong> four search APIs called directly on a research workload, with the full
 pre-registered record.</li></ul>
 <div class="actions"><a class="btn solid" href="results.html">Read the full results</a>
@@ -1475,8 +1478,8 @@ and its questions come from that knowledge base. Full report: <a href="#run-{H2H
     main = f"""<div class="wrap doc">
 <div class="page-head"><p class="eyebrow">Results</p><h1>What the benchmark measured</h1>
 <p class="lede">Two agent benchmarks, two AI coding agents, {h['providers']} search providers and {h['runs']} graded test runs,
-plus a study that called four search APIs directly. Every number on this page is generated from the published report
-data.</p></div>
+plus a replication of the search gap bench on Claude Code and a study that called four search APIs directly. Every
+number on this page is generated from the published report data.</p></div>
 
 <section id="before"><h2>Read this before comparing providers</h2>
 <ul class="caveats">

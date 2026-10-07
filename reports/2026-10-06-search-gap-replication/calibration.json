@@ -1,0 +1,84 @@
+{
+  "record_type": "published-calibration-summary",
+  "repetitions": 5,
+  "floor_max_passes": 1,
+  "ceiling_min_passes": 4,
+  "catalog_sha256": "29f8fd1731cd0155f2a993688d8f1dfac7ad6ef1f6effc549185af026ad24443",
+  "harnesses": {
+    "claude-code": {
+      "model": "claude-opus-5-5",
+      "tasks": [
+        {
+          "task": "billing-reporting",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "classroom-term",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "models-production",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "npm-token-scope",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "org-migration",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 4,
+          "admitted": true
+        },
+        {
+          "task": "python-metadata",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 4,
+          "admitted": true
+        },
+        {
+          "task": "python-security-march",
+          "family": "research",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "tarfile-upload",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 5,
+          "admitted": true
+        },
+        {
+          "task": "cli-trust",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 3,
+          "admitted": false
+        },
+        {
+          "task": "spark-editing",
+          "family": "decision",
+          "floor_passes": 0,
+          "ceiling_passes": 1,
+          "admitted": false
+        }
+      ]
+    }
+  }
+}
