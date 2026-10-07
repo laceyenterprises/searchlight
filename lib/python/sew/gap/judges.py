@@ -3,8 +3,8 @@
 Briefs are graded by Claude Code (primary, decides the verdict) and codex (second
 judge, measures agreement). ``SEW_GAP_JUDGES=claude-code`` grades with the primary
 only, for example while codex quota is exhausted; the primary still decides the
-verdict, so a later regrade with both judges adds the agreement measurement
-without changing pass/fail.
+verdict, so ``sew gap agree`` later adds the codex agreement measurement to the
+stored grades without changing pass/fail.
 """
 from __future__ import annotations
 

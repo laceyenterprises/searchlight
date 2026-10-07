@@ -574,3 +574,121 @@ def test_codex_cannot_grade_alone_or_first(task, rubric, answer):
     for wrong in ([pair[1]], [pair[1], pair[0]]):
         with pytest.raises(ValueError):
             grade(task, rubric, answer, judges=wrong)
+
+
+def codex(overrides=None, calls=None):
+    def judge(payload):
+        if calls is not None:
+            calls.append(payload)
+        return {
+            "dimensions": {
+                key: {"score": (overrides or {}).get(key, 1), "reason": "fixture evidence"}
+                for key in payload["rubric"]["dimensions"]
+            }
+        }
+
+    return Judge("codex", judge)
+
+
+def test_agreement_added_to_primary_grade_matches_a_two_judge_grade(task, rubric, answer):
+    from sew.gap.brief_grade import add_agreement_judge
+
+    def capture(url):
+        if url.endswith("missing"):
+            raise OSError()
+        return "New costs 7. Old costs 10."
+
+    answer["claims"][0]["citation_urls"].append("https://primary.org/missing")
+    two = grade(task, rubric, answer, judges=judges({"fact_1": 0}, {"fact_0": 0, "claim_3": 0}), capture_source=capture)
+    one = grade(task, rubric, answer, judges=judges({"fact_1": 0})[:1], capture_source=capture)
+    before = copy.deepcopy(one)
+    added = add_agreement_judge(one, task, rubric, answer, judge=codex({"fact_0": 0, "claim_3": 0}))
+    assert one == before
+    assert added["judge_scores"] == two["judge_scores"]
+    assert {k: v for k, v in added["agreement"].items() if k not in ("method", "measured_at")} == two["agreement"]
+    assert added["agreement"]["method"] == "stored_payload"
+    assert added["agreement"]["verdict_disputed"] is True
+    assert added["judge_record"]["agreement"] == two["judge_record"]["agreement"]
+    assert [j["judge_id"] for j in added["judge_record"]["judges"]] == ["claude-code", "codex"]
+    for key in ("passed", "outcome", "key_fact_recall", "unsupported_claim_rate", "source_snapshots", "forced_unsupported_claims"):
+        assert added[key] == one[key]
+
+
+def test_agreement_refuses_changed_evidence_before_calling_codex(task, rubric, answer):
+    from sew.gap.brief_grade import add_agreement_judge
+
+    one = grade(task, rubric, answer, judges=judges()[:1])
+    calls = []
+    changed = copy.deepcopy(one)
+    changed["source_snapshots"][0]["text"] = "New costs 8. Old costs 10."
+    with pytest.raises(ValueError, match="payload"):
+        add_agreement_judge(changed, task, rubric, answer, judge=codex(calls=calls))
+    partial = grade(task, rubric, answer, judges=judges({"fact_1": 0})[:1])
+    reweighted = copy.deepcopy(rubric)
+    reweighted["key_facts"][1]["weight"] = 4
+    with pytest.raises(ValueError, match="verdict"):
+        add_agreement_judge(partial, task, reweighted, answer, judge=codex(calls=calls))
+    answer["claims"][0]["citation_urls"] = []
+    with pytest.raises(ValueError, match="verdict"):
+        add_agreement_judge(one, task, rubric, answer, judge=codex(calls=calls))
+    assert calls == []
+
+
+def test_agreement_needs_a_primary_only_grade_and_the_codex_judge(task, rubric, answer):
+    from sew.gap.brief_grade import add_agreement_judge
+
+    one = grade(task, rubric, answer, judges=judges()[:1])
+    two = grade(task, rubric, answer)
+    with pytest.raises(ValueError):
+        add_agreement_judge(two, task, rubric, answer, judge=codex())
+    with pytest.raises(ValueError):
+        add_agreement_judge(one, task, rubric, answer, judge=judges()[0])
+    with pytest.raises(ValueError):
+        add_agreement_judge(one, {**task, "id": "other"}, rubric, answer, judge=codex())
+
+
+def test_failed_codex_judge_leaves_the_grade_unmeasured(task, rubric, answer):
+    from sew.gap.brief_grade import AgreementUnavailable, add_agreement_judge
+
+    one = grade(task, rubric, answer, judges=judges()[:1])
+    before = copy.deepcopy(one)
+
+    def down(payload):
+        raise TimeoutError()
+
+    with pytest.raises(AgreementUnavailable):
+        add_agreement_judge(one, task, rubric, answer, judge=Judge("codex", down))
+    with pytest.raises(AgreementUnavailable):
+        add_agreement_judge(one, task, rubric, answer, judge=Judge("codex", lambda payload: {}))
+    assert one == before
+
+
+def test_pooled_agreement_counts_every_grade_and_skips_forced_claims(task, rubric, answer):
+    from sew.gap.brief_grade import add_agreement_judge, summarize_brief_agreement
+
+    def capture(url):
+        if url.endswith("missing"):
+            raise OSError()
+        return "New costs 7. Old costs 10."
+
+    answer["claims"][0]["citation_urls"].append("https://primary.org/missing")
+    agree = add_agreement_judge(
+        grade(task, rubric, answer, judges=judges()[:1], capture_source=capture),
+        task, rubric, answer, judge=codex(),
+    )
+    dispute = add_agreement_judge(
+        grade(task, rubric, answer, judges=judges()[:1], capture_source=capture),
+        task, rubric, answer, judge=codex({"fact_0": 0}),
+    )
+    pending = grade(task, rubric, answer, judges=judges()[:1], capture_source=capture)
+    invalid = grade(task, rubric, {"brief": "x"}, judges=judges()[:1])
+    summary = summarize_brief_agreement([agree, dispute, pending, invalid, {"outcome": "pass"}])
+    assert summary["grades_scored"] == 3 and summary["grades_measured"] == 2
+    assert summary["verdicts_disputed"] == 1
+    assert (summary["disputed_primary_pass"], summary["disputed_primary_fail"]) == (1, 0)
+    # 2 facts + 9 judged claims per grade; claim_0 cites an uncapturable source.
+    assert summary["label_pairs"] == 22
+    assert summary["label_agreement"] == 21 / 22
+    empty = summarize_brief_agreement([pending])
+    assert empty["grades_measured"] == 0
+    assert empty["label_agreement"] is None and empty["cohens_kappa"] is None

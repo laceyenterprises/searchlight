@@ -735,6 +735,22 @@ def _gap_explain(args):
     return 0
 
 
+def _gap_agree(args):
+    from .gap.agree import add_agreement
+    from .judge import Judge
+    from .judge_transport import HarnessJudgeTransport
+
+    result = add_agreement(
+        Path(args.run_root),
+        catalog_root=Path(args.catalog_root),
+        judge=Judge("codex", HarnessJudgeTransport("codex", harness_auth=args.harness_auth)),
+        limit=args.limit,
+        progress=lambda line: print(line, file=sys.stderr, flush=True),
+    )
+    print(json.dumps(result, indent=2))
+    return 1 if result["judge_failed"] else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="sew")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -1005,6 +1021,18 @@ def build_parser() -> argparse.ArgumentParser:
     gap_report.add_argument("--price-table", type=Path)
     gap_report.add_argument("--seed", type=int, default=0)
     gap_report.set_defaults(func=_gap_report)
+    gap_agree = gap_sub.add_parser(
+        "agree", help="add codex judge agreement to briefs graded by the primary alone"
+    )
+    gap_agree.add_argument("run_root")
+    gap_agree.add_argument(
+        "--catalog-root",
+        required=True,
+        help="SEW module root whose catalogs/gap graded the run",
+    )
+    gap_agree.add_argument("--harness-auth", choices=("broker", "account"))
+    gap_agree.add_argument("--limit", type=int, help="measure at most this many cells")
+    gap_agree.set_defaults(func=_gap_agree)
     gap_explain = gap_sub.add_parser("explain", help="explain GAP cell outcomes and usage")
     gap_explain.add_argument("run_root")
     gap_explain.add_argument("--calibration", type=Path)

@@ -36,6 +36,7 @@ from ..report import (
     _table,
 )
 from ..schema import load_document
+from .brief_grade import summarize_brief_agreement
 
 
 def _denied_attempts(spawn, metric="denied_network_attempts"):
@@ -380,6 +381,14 @@ def build_gap_report(run_root, *, module_base=None, calibration=None, price_tabl
         for family in sorted({c["family"] for c in cells})
     }
     comparisons = [_comparison(cells, a, b) for a in arms for b in ("native", "floor") if a != b]
+    briefs = [c for c in cells if c["evaluation"].get("record_version") == "gap-brief-grade-v1"]
+    judge_agreement = {
+        "all": summarize_brief_agreement([c["evaluation"] for c in briefs]),
+        "by_arm": {
+            a: summarize_brief_agreement([c["evaluation"] for c in briefs if c["arm"] == a])
+            for a in arms
+        },
+    }
     return {
         "schema_version": "gap-report-v1",
         "harness": calibration["harness"],
@@ -397,6 +406,7 @@ def build_gap_report(run_root, *, module_base=None, calibration=None, price_tabl
             for family in families
         },
         "comparisons": comparisons,
+        "judge_agreement": judge_agreement,
         "calibration": calibration,
         "excluded_task_cells": dict(excluded_tasks),
         "excluded_cells": excluded_cells,
@@ -408,6 +418,7 @@ def build_gap_report(run_root, *, module_base=None, calibration=None, price_tabl
             "availability": "completed matching provider transcript calls prove availability; otherwise observed initialize and tools/list decide availability; an engaged unlaunched wrapper is unavailable only after harness success or a first-output marker; other missing discovery stays unknown and graded; run.json.provider_availability preserves the live verdict before transcript overflow; legacy bundles apply the same terminal filter; snapshot-write failures without completed calls stay unknown; availability.json is a child-observed discovery snapshot",
             "cost": "known spend over all gap cells / successes; partial pricing is a lower bound",
             "tokens": "SEWTOK-01 measured tokens; output mix includes reasoning; unknown usage is never zero",
+            "judge_agreement": "codex scores the payload the primary judged; the primary decides every verdict; label agreement and kappa pool judged fact and claim labels, excluding claims forced unsupported",
         },
         "cells": [
             {k: v for k, v in c.items() if k != "run"}
@@ -564,6 +575,29 @@ def render_gap_markdown(report):
                             len(r["excluded_pairs"]),
                         ]
                         for r in report["comparisons_by_family"][family]
+                    ],
+                ),
+            ]
+        )
+    agreement = report.get("judge_agreement")
+    if agreement and agreement["all"]["grades_scored"]:
+        lines.extend(
+            [
+                "",
+                "## Judge agreement (codex against the primary)",
+                _table(
+                    ["arm", "measured", "disputed", "primary pass → codex fail", "primary fail → codex pass", "label agreement", "kappa"],
+                    [
+                        [
+                            name,
+                            f"{a['grades_measured']}/{a['grades_scored']}",
+                            a["verdicts_disputed"],
+                            a["disputed_primary_pass"],
+                            a["disputed_primary_fail"],
+                            _rate(a["label_agreement"]),
+                            _fmt(a["cohens_kappa"]),
+                        ]
+                        for name, a in [*agreement["by_arm"].items(), ("all", agreement["all"])]
                     ],
                 ),
             ]

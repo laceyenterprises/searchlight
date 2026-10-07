@@ -3,8 +3,10 @@
 The caller supplies a source capturer (URL -> extracted source text), not search
 results. One grade captures each distinct cited URL once, including failures.
 Persist the returned record in the run bundle: it contains the exact snapshots
-used, their capture time, and both judges' evidence. Regrading captures anew.
-Rubrics are verifier-owned mappings loaded from the task's rubric reference.
+used, their capture time, and both judges' evidence. Regrading captures anew;
+add_agreement_judge instead adds the codex judge to a primary-only grade from
+its stored snapshots. Rubrics are verifier-owned mappings loaded from the
+task's rubric reference.
 """
 
 from __future__ import annotations
@@ -15,7 +17,15 @@ import math
 from pathlib import Path
 from typing import Any
 
-from ..judge import ArmIdentity, Judge, judge_deliverable, quadratic_weighted_kappa
+from ..judge import (
+    ArmIdentity,
+    Judge,
+    _record_agreement,
+    build_judge_payload,
+    judge_deliverable,
+    payload_digest,
+    quadratic_weighted_kappa,
+)
 from ..schema import SchemaError, load_document
 
 BRIEF_SCHEMA = {
@@ -192,6 +202,58 @@ def grade_brief(
                     # Keep that diagnostic bounded and outside judge evidence.
                     entry["error_detail"] = str(exc)[-2000:]
             snapshots[url] = entry
+    judge_task, judge_rubric, evidence, forced = _judge_inputs(task["id"], rubric, answer, snapshots)
+    record.update(
+        decision_correct=correct,
+        source_snapshots=list(snapshots.values()),
+        forced_unsupported_claims=forced,
+    )
+    judged = judge_deliverable(judge_task, judge_rubric, evidence, judges=judges, arm=arm)
+    record["judge_record"] = judged
+    scored = judged["judges"]
+    for entry, judge in zip(scored, judges, strict=False):
+        entry["model_id"] = getattr(judge.transport, "model_id", None)
+        entry["token_usage"] = getattr(judge.transport, "usage", None)
+    if judged["status"] != "scored" or any(j["status"] != "scored" for j in scored):
+        return {
+            **record,
+            "status": "judge_unavailable",
+            "outcome": "not_applicable",
+            "agreement": {
+                "status": "not_measured",
+                "reason": judged.get("agreement", {}).get("reason", judged["status"]),
+            },
+        }
+    graded = [_scores(j, rubric, answer, forced, rule, decision, correct) for j in scored]
+    first = graded[0]
+    if len(graded) == 1:
+        # One judge (SEW_GAP_JUDGES): the primary still decides the verdict;
+        # add_agreement_judge measures agreement later on the same payload.
+        agreement = {"status": "not_measured", "reason": "single_judge"}
+    else:
+        agreement = _agreement(first, graded[1], judge_rubric["dimensions"])
+    return {
+        **record,
+        "status": "scored",
+        "passed": first["passed"],
+        "outcome": "pass" if first["passed"] else "fail",
+        "key_fact_recall": first["key_fact_recall"],
+        "unsupported_claim_rate": first["unsupported_claim_rate"],
+        "judge_scores": graded,
+        "agreement": agreement,
+    }
+
+
+# Fields _judge_inputs writes onto each snapshot; a rebuild recomputes them.
+_JUDGE_MARKS = ("judged_chars", "excerpted", "withheld")
+
+
+def _judge_inputs(task_id, rubric, answer, snapshots):
+    """Return the judge task, rubric, evidence and forced-unsupported claim indexes.
+
+    Depends only on its arguments, so a grade's stored snapshots rebuild the exact
+    payload its judges saw. Marks each captured snapshot as judged or withheld.
+    """
     facts = rubric["key_facts"]
     # Judges read each source whole and once: an excerpt could drop a governing
     # heading or qualification. A source that does not fit the judge budget, by
@@ -222,11 +284,6 @@ def grade_brief(
         for i, c in enumerate(answer["claims"])
         if not c["citation_urls"] or any(url not in source_ids for url in c["citation_urls"])
     ]
-    record.update(
-        decision_correct=correct,
-        source_snapshots=list(snapshots.values()),
-        forced_unsupported_claims=forced,
-    )
     evidence = {
         "brief": answer["brief"],
         "facts": [
@@ -260,84 +317,168 @@ def grade_brief(
         ),
     }
     judge_task = {
-        "id": task["id"],
+        "id": task_id,
         "task_class": "brief",
         "prompt": "Evaluate the brief against the supplied evidence.",
         "deliverable_schema": {"properties": {key: {} for key in evidence}},
     }
-    judged = judge_deliverable(judge_task, judge_rubric, evidence, judges=judges, arm=arm)
-    record["judge_record"] = judged
-    scored = judged["judges"]
-    for entry, judge in zip(scored, judges, strict=False):
-        entry["model_id"] = getattr(judge.transport, "model_id", None)
-        entry["token_usage"] = getattr(judge.transport, "usage", None)
-    if judged["status"] != "scored" or any(j["status"] != "scored" for j in scored):
-        return {
-            **record,
-            "status": "judge_unavailable",
-            "outcome": "not_applicable",
-            "agreement": {
-                "status": "not_measured",
-                "reason": judged.get("agreement", {}).get("reason", judged["status"]),
-            },
-        }
+    return judge_task, judge_rubric, evidence, forced
 
-    def scores(j):
-        values = {key: entry["score"] for key, entry in j["dimensions"].items()}
-        for i in forced:
-            values[f"claim_{i}"] = 0
-        recall = sum(f["weight"] * values[f"fact_{i}"] for i, f in enumerate(facts)) / sum(
-            f["weight"] for f in facts
-        )
-        rate = (
-            (
-                sum(1 - values[f"claim_{i}"] for i in range(len(answer["claims"])))
-                / len(answer["claims"])
-            )
-            if answer["claims"]
-            else 1.0
-        )
-        passed = (
-            (not decision or not rule["recommendation_correct"] or correct)
-            and recall >= rule["min_recall"]
-            and rate <= rule["max_unsupported_claim_rate"]
-        )
-        return {
-            "judge_id": j["judge_id"],
-            "labels": values,
-            "key_fact_recall": recall,
-            "unsupported_claim_rate": rate,
-            "passed": bool(passed),
-        }
 
-    graded = [scores(j) for j in scored]
-    first = graded[0]
-    if len(graded) == 1:
-        # One judge (SEW_GAP_JUDGES): the primary still decides the verdict;
-        # agreement is measured later by regrading with a second judge.
-        agreement = {"status": "not_measured", "reason": "single_judge"}
-    else:
-        second = graded[1]
-        disagreement = [key for key in dimensions if first["labels"][key] != second["labels"][key]]
-        agreement = {
-            "status": "measured",
-            "cohens_kappa": quadratic_weighted_kappa(
-                [first["labels"][key] for key in dimensions],
-                [second["labels"][key] for key in dimensions],
-                minimum=0,
-                maximum=1,
-            ),
-            "label_pairs": len(dimensions),
-            "disagreements": disagreement,
-            "verdict_disputed": first["passed"] != second["passed"],
-        }
+def _scores(j, rubric, answer, forced, rule, decision, correct):
+    facts = rubric["key_facts"]
+    values = {key: entry["score"] for key, entry in j["dimensions"].items()}
+    for i in forced:
+        values[f"claim_{i}"] = 0
+    recall = sum(f["weight"] * values[f"fact_{i}"] for i, f in enumerate(facts)) / sum(
+        f["weight"] for f in facts
+    )
+    rate = (
+        (
+            sum(1 - values[f"claim_{i}"] for i in range(len(answer["claims"])))
+            / len(answer["claims"])
+        )
+        if answer["claims"]
+        else 1.0
+    )
+    passed = (
+        (not decision or not rule["recommendation_correct"] or correct)
+        and recall >= rule["min_recall"]
+        and rate <= rule["max_unsupported_claim_rate"]
+    )
+    return {
+        "judge_id": j["judge_id"],
+        "labels": values,
+        "key_fact_recall": recall,
+        "unsupported_claim_rate": rate,
+        "passed": bool(passed),
+    }
+
+
+def _agreement(first, second, dimensions):
+    return {
+        "status": "measured",
+        "cohens_kappa": quadratic_weighted_kappa(
+            [first["labels"][key] for key in dimensions],
+            [second["labels"][key] for key in dimensions],
+            minimum=0,
+            maximum=1,
+        ),
+        "label_pairs": len(dimensions),
+        "disagreements": [key for key in dimensions if first["labels"][key] != second["labels"][key]],
+        "verdict_disputed": first["passed"] != second["passed"],
+    }
+
+
+class AgreementUnavailable(RuntimeError):
+    """The second judge returned no usable score; the grade is left as it was."""
+
+
+def add_agreement_judge(
+    record: Mapping[str, Any],
+    task: Mapping[str, Any],
+    rubric: Mapping[str, Any],
+    answer: Any,
+    *,
+    judge: Judge,
+    arm: ArmIdentity | None = None,
+) -> dict[str, Any]:
+    """Add the codex agreement measurement to a primary-only grade.
+
+    A grade made with ``SEW_GAP_JUDGES=claude-code`` has a verdict but no agreement.
+    Regrading would recapture sources that may have changed since and rerun the
+    primary, so this does neither. It rebuilds the payload from the stored
+    snapshots and refuses unless its sha256 equals the one the primary judged, and
+    unless the stored labels reproduce the stored verdict under this rubric. Only
+    then does it score the codex judge, and it returns the record with that judge
+    and the agreement added. The verdict, labels and snapshots are unchanged.
+    """
+    if judge.judge_id != "codex":
+        raise ValueError("agreement is measured by the codex judge")
+    if (
+        record.get("record_version") != "gap-brief-grade-v1"
+        or record.get("status") != "scored"
+        or [s["judge_id"] for s in record.get("judge_scores", [])] != ["claude-code"]
+    ):
+        raise ValueError("agreement needs a scored grade from the primary judge alone")
+    if record["task_id"] != task["id"]:
+        raise ValueError("grade belongs to another task")
+    decision = task["family"] == "decision-brief"
+    validate_rubric(rubric, decision=decision)
+    if not _valid_answer(answer, decision):
+        raise ValueError("answer is not the one this grade scored")
+    snapshots = {
+        stored["url"]: {key: value for key, value in stored.items() if key not in _JUDGE_MARKS}
+        for stored in record["source_snapshots"]
+    }
+    judge_task, judge_rubric, evidence, forced = _judge_inputs(task["id"], rubric, answer, snapshots)
+    rule, correct = record["pass_rule"], record["decision_correct"]
+    primary = record["judge_record"]["judges"][0]
+    if forced != record["forced_unsupported_claims"] or _scores(
+        primary, rubric, answer, forced, rule, decision, correct
+    ) != record["judge_scores"][0]:
+        raise ValueError("stored labels do not reproduce the stored verdict")
+    payload, _ = build_judge_payload(judge_task, judge_rubric, evidence)
+    if payload_digest(payload) != record["judge_record"]["payload_sha256"]:
+        raise ValueError("rebuilt payload differs from the one the primary judged")
+    judged = judge_deliverable(judge_task, judge_rubric, evidence, judges=[judge], arm=arm)
+    second = judged["judges"][0] if judged["judges"] else {"status": judged["status"]}
+    if second.get("status") != "scored":
+        raise AgreementUnavailable(", ".join(second.get("errors") or [second["status"]]))
+    second["model_id"] = getattr(judge.transport, "model_id", None)
+    second["token_usage"] = getattr(judge.transport, "usage", None)
+    first = record["judge_scores"][0]
+    graded = _scores(second, rubric, answer, forced, rule, decision, correct)
+    judges = [*record["judge_record"]["judges"], second]
     return {
         **record,
-        "status": "scored",
-        "passed": first["passed"],
-        "outcome": "pass" if first["passed"] else "fail",
-        "key_fact_recall": first["key_fact_recall"],
-        "unsupported_claim_rate": first["unsupported_claim_rate"],
-        "judge_scores": graded,
-        "agreement": agreement,
+        "judge_record": {
+            **record["judge_record"],
+            "judges": judges,
+            "agreement": _record_agreement(judges, judge_rubric["dimensions"]),
+        },
+        "judge_scores": [first, graded],
+        "agreement": {
+            **_agreement(first, graded, judge_rubric["dimensions"]),
+            "method": "stored_payload",
+            "measured_at": datetime.now(timezone.utc).isoformat(),
+        },
+    }
+
+
+def summarize_brief_agreement(records: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Pool primary-versus-codex agreement over brief grades.
+
+    Every scored grade is counted, measured or not, so a partial pass cannot read
+    as complete. Label agreement and kappa pool the fact and claim labels both
+    judges scored; claims forced unsupported are left out, as no judge scored them.
+    """
+    scored = [
+        r
+        for r in records
+        if r.get("record_version") == "gap-brief-grade-v1" and r.get("status") == "scored"
+    ]
+    measured = [r for r in scored if (r.get("agreement") or {}).get("status") == "measured"]
+    first: list[int] = []
+    second: list[int] = []
+    for r in measured:
+        forced = {f"claim_{i}" for i in r.get("forced_unsupported_claims", [])}
+        a, b = (s["labels"] for s in r["judge_scores"][:2])
+        for key in sorted(a.keys() - forced):
+            first.append(a[key])
+            second.append(b[key])
+    disputed = [r for r in measured if r["agreement"]["verdict_disputed"]]
+    return {
+        "grades_scored": len(scored),
+        "grades_measured": len(measured),
+        "verdicts_disputed": len(disputed),
+        "disputed_primary_pass": sum(bool(r["passed"]) for r in disputed),
+        "disputed_primary_fail": sum(not r["passed"] for r in disputed),
+        "label_pairs": len(first),
+        "label_agreement": (
+            sum(a == b for a, b in zip(first, second, strict=True)) / len(first) if first else None
+        ),
+        "cohens_kappa": (
+            quadratic_weighted_kappa(first, second, minimum=0, maximum=1) if first else None
+        ),
     }
