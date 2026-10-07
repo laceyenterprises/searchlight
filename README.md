@@ -56,6 +56,16 @@ records every tool call, so you can see *how* the agent used the tool it was giv
 
 ## How a run works
 
+Harness metadata lives in [`sew.harnesses`](lib/python/sew/harnesses/registry.py).
+Each `HarnessSpec` defines the harness's binary, protocol, arm spawn writer and
+capabilities. To add a harness, define its spec in a harness module and register
+it in [`sew.harnesses.__init__`](lib/python/sew/harnesses/__init__.py). Schema
+validation, live CLI choices, binary checks and spawn dispatch read live registry
+views, so registrations made after import are visible to those consumers.
+Protocol, spawn writer and usage parser references can use `module:attribute`
+strings, resolved lazily to avoid import cycles. Judges remain explicitly pinned
+to the hosted harnesses they support.
+
 ```mermaid
 flowchart LR
   subgraph Catalogs
