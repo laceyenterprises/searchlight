@@ -4,7 +4,7 @@
   "source_record": "Recorded findings, transcribed without recalculating results; private identifiers omitted.",
   "blocks": [
     {
-      "markdown": "# GAP battery results, 2026-10-03: does search change the outcome of the job?\n\n> **Update (2026-10-06): the Claude Code native arm was rerun with page fetching working.** In the\n> original battery the arm exposed WebSearch and WebFetch but pre-approved only WebSearch, and\n> headless Claude Code refused all 50 WebFetch calls across its 21 cells, so that row measured\n> search without page fetching. The configuration is fixed and pinned by a test. The arm's 21 cells\n> were rerun on 2026-10-06 on the same 7 tasks, repetitions, model and calibration; no call was\n> refused. The Claude Code native row and every figure derived from it below use the rerun:\n> 16/21 passed (76%), gap closure 0.80 (0.53–1.00), 61k tokens per success. The original row\n> recorded 13/21 (62%), gap closure 0.65 (0.37–0.91) and 66k. The other arms are unchanged.\n> The rerun's verdicts come from the claude-code primary judge, which decides every verdict in this\n> battery; codex agreement for those 21 cells is pending until codex quota returns (2026-10-09).\n> The rerun's agents used about 1.0M tokens. The codex native arm was unaffected.\n> Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md#native-rerun-2026-10-06).\n\nThe first full Search Gap Bench (GAP) battery ran on 2026-10-03, operator-approved: brief tasks on two harnesses, nine arms each, three repetitions.\n- GAP grades the job, not the retrieval.\n- A task counts only after calibration shows its knowledge gap: the no-search arm (floor) passes at most 1 of 5, and the arm given the answer excerpt (ceiling) passes at least 4 of 5.\n- Each search arm is scored by **gap closure**: how much of the floor-to-ceiling distance it covers.\n- Tokens are reported beside every outcome.\n\n**Headline.** On these tasks, search decides the outcome.\n- The floor passed **0%** on both harnesses, and every search arm passed 71–95%.\n- Which provider is best depends on the harness: Parallel led on claude-code and Brave on codex.\n- Pass rate did not predict cost: providers with similar pass rates differed almost twofold in tokens per success.\n\nThese are the recorded results after the Codex reruns. Claude-code provider tool availability remains unverified in the published evidence: no transcript audit for those cells is documented, and they lack availability records. Its provider rankings are provisional pending that audit. In the first codex pass, 31 of 108 provider cells ran without their search tool. They were re-run on 2026-10-04 under the GAPMCP-01 fix, every re-run cell loaded its tool, and the codex tables below include them (see \"Execution changes\").\n\n## Setup\n"
+      "markdown": "# GAP battery results, 2026-10-03: does search change the outcome of the job?\n\n> **Update (2026-10-06): the Claude Code native arm was rerun with page fetching working.** In the\n> original battery the arm exposed WebSearch and WebFetch but pre-approved only WebSearch, and\n> headless Claude Code refused all 50 WebFetch calls across its 21 cells, so that row measured\n> search without page fetching. The configuration is fixed and pinned by a test. The arm's 21 cells\n> were rerun on 2026-10-06 on the same 7 tasks, repetitions, model and calibration; no call was\n> refused. The Claude Code native row and every figure derived from it below use the rerun:\n> 16/21 passed (76%), gap closure 0.80 (0.53–1.00), 61k tokens per success. The original row\n> recorded 13/21 (62%), gap closure 0.65 (0.37–0.91) and 66k. The other arms are unchanged.\n> The rerun's verdicts come from the claude-code primary judge, which decides every verdict in this\n> battery. On 2026-10-07 the codex judge scored the same 21 stored payloads: it agreed on every\n> verdict and on 94% of labels (kappa 0.70); see [judge agreement](#judge-agreement).\n> The rerun's agents used about 1.0M tokens. The codex native arm was unaffected.\n> Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md#native-rerun-2026-10-06).\n\nThe first full Search Gap Bench (GAP) battery ran on 2026-10-03, operator-approved: brief tasks on two harnesses, nine arms each, three repetitions.\n- GAP grades the job, not the retrieval.\n- A task counts only after calibration shows its knowledge gap: the no-search arm (floor) passes at most 1 of 5, and the arm given the answer excerpt (ceiling) passes at least 4 of 5.\n- Each search arm is scored by **gap closure**: how much of the floor-to-ceiling distance it covers.\n- Tokens are reported beside every outcome.\n\n**Headline.** On these tasks, search decides the outcome.\n- The floor passed **0%** on both harnesses, and every search arm passed 71–95%.\n- Which provider is best depends on the harness: Parallel led on claude-code and Brave on codex.\n- Pass rate did not predict cost: providers with similar pass rates differed almost twofold in tokens per success.\n\nThese are the recorded results after the Codex reruns. Claude-code provider tool availability remains unverified in the published evidence: no transcript audit for those cells is documented, and they lack availability records. Its provider rankings are provisional pending that audit. In the first codex pass, 31 of 108 provider cells ran without their search tool. They were re-run on 2026-10-04 under the GAPMCP-01 fix, every re-run cell loaded its tool, and the codex tables below include them (see \"Execution changes\").\n\n## Setup\n"
     },
     {
       "table": [
@@ -337,7 +337,130 @@
       ]
     },
     {
-      "markdown": "\n## What this shows\n\n1. **On these tasks, search changes the outcome.** Without search, both harnesses failed every brief. With a good provider they reached the answer-excerpt arm's level. The difference against the floor is significant for every search arm on both harnesses (exact McNemar, p ≤ 0.0002).\n2. **The best provider depends on the harness.** On claude-code, Parallel (95%) and Firecrawl (90%) led. On codex, Brave led (94%), ahead of Firecrawl and Tavily (89% each).\n   - Parallel tied for last on codex (72%), even with its tool loaded in every cell. On codex decision briefs it passed 44%, against 92% on claude-code.\n   - So a provider's ranking on one harness does not carry over to another.\n3. **Pass rate does not predict cost between providers.** Tokens per success counts every agent token in the arm, failed cells included, divided by passing cells.\n   - The hypothesis that better search shows up as both lower token spend and higher success holds against no search, which spent tokens and passed nothing. On claude-code, Parallel paired the top pass rate (95%) with 64k tokens per success; only native search, at 76%, spent less per success (61k).\n   - It does not hold as a ranking. Among the seven search arms, the rank correlation between pass rate and tokens per success was +0.05 on claude-code and −0.20 on codex; negative means higher-passing arms cost less. With seven arms, neither value is distinguishable from zero.\n   - Per-cell spend varied widely: 46k (native) to 105k (Firecrawl) on claude-code, and 84k (Perplexity) to 148k (Firecrawl) on codex. Firecrawl passed 90% at 116k tokens per success, against Parallel's 95% at 64k.\n   - Choosing a provider means weighing pass rate and cost separately.\n4. **Decision briefs separate the providers; research briefs mostly don't.** Research briefs passed at or near 100% on both harnesses. Decision briefs hinge on one recent fact, and they spread the search arms from 50% to 92% on claude-code and from 44% to 89% on codex.\n5. **Native search was mid-pack on both harnesses.** On claude-code it passed 76%, level with Perplexity and behind Parallel, Firecrawl and Brave. On codex it passed 78%, level with Exa and behind Brave, Firecrawl and Tavily. No search arm beat it significantly on either harness; on claude-code the largest gain was Parallel's, +19.0 points (p = 0.22).\n\n## Changes made during the run\n\nThe first live runs surfaced several bench defects. Two changed how cells **execute**, and two changed how cells are **graded**. The timeline was recorded from the battery change log and cell start events.\n\n### Execution changes\n\nEvery cell in the tables above ran under both of these fixes:\n- **GAPBUDGET-01:** brief budgets became runaway caps (1M tokens, 60 calls). The old 30k cap was below the median codex search cell.\n  - It was part of the pinned export before any calibration or battery cell ran.\n  - No cell ran under the old caps.\n- **GAPARM-01:** brief search arms resolve the GAP catalog. Before it, no brief search arm could run, so no search-arm cell predates it.\n  - It was applied at 18:30:04Z on 2026-10-03.\n  - The earliest search-arm cell started at 18:30:29Z (codex round 1). claude-code started at 19:12Z.\n\nThe tool-isolation remediation, which forbids the GAP catalog to every GAP cell, was applied at 18:50:40Z and the codex battery was restarted to load it.\n- **18 codex round-1 cells** started before it: classroom-term repetitions 1 and 2, all arms.\n- **No catalog access in them.** Their transcripts contain only search calls and agent messages, with no file reads or commands, so the catalog was not read.\n- **They were kept, not re-run.**\n- **Every other cell** ran after the remediation.\n\n**The codex provider re-run (2026-10-04).** In the first pass, 31 of codex's 108 provider cells made no provider call:\n"
+      "markdown": "\n## What this shows\n\n1. **On these tasks, search changes the outcome.** Without search, both harnesses failed every brief. With a good provider they reached the answer-excerpt arm's level. The difference against the floor is significant for every search arm on both harnesses (exact McNemar, p ≤ 0.0002).\n2. **The best provider depends on the harness.** On claude-code, Parallel (95%) and Firecrawl (90%) led. On codex, Brave led (94%), ahead of Firecrawl and Tavily (89% each).\n   - Parallel tied for last on codex (72%), even with its tool loaded in every cell. On codex decision briefs it passed 44%, against 92% on claude-code.\n   - So a provider's ranking on one harness does not carry over to another.\n3. **Pass rate does not predict cost between providers.** Tokens per success counts every agent token in the arm, failed cells included, divided by passing cells.\n   - The hypothesis that better search shows up as both lower token spend and higher success holds against no search, which spent tokens and passed nothing. On claude-code, Parallel paired the top pass rate (95%) with 64k tokens per success; only native search, at 76%, spent less per success (61k).\n   - It does not hold as a ranking. Among the seven search arms, the rank correlation between pass rate and tokens per success was +0.05 on claude-code and −0.20 on codex; negative means higher-passing arms cost less. With seven arms, neither value is distinguishable from zero.\n   - Per-cell spend varied widely: 46k (native) to 105k (Firecrawl) on claude-code, and 84k (Perplexity) to 148k (Firecrawl) on codex. Firecrawl passed 90% at 116k tokens per success, against Parallel's 95% at 64k.\n   - Choosing a provider means weighing pass rate and cost separately.\n4. **Decision briefs separate the providers; research briefs mostly don't.** Research briefs passed at or near 100% on both harnesses. Decision briefs hinge on one recent fact, and they spread the search arms from 50% to 92% on claude-code and from 44% to 89% on codex.\n5. **Native search was mid-pack on both harnesses.** On claude-code it passed 76%, level with Perplexity and behind Parallel, Firecrawl and Brave. On codex it passed 78%, level with Exa and behind Brave, Firecrawl and Tavily; under the codex judge it would pass 94% (see [judge agreement](#judge-agreement)). No search arm beat it significantly on either harness; on claude-code the largest gain was Parallel's, +19.0 points (p = 0.22).\n\n## Judge agreement\n\nTwo blinded judges scored every brief on the same evidence: the claude-code judge (the Claude judge below) decides\nthe verdict and the codex judge measures agreement. Both judged at grading time, except for the 21 rerun native cells on claude-code, which\ncodex scored on 2026-10-07 from the payloads the primary had judged.\n"
+    },
+    {
+      "table": [
+        [
+          "Agent",
+          "Briefs judged",
+          "Claude-only passes",
+          "Codex-only passes",
+          "Label agreement",
+          "Kappa"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "claude-code",
+          "187",
+          "4",
+          "1",
+          "96%",
+          "0.79"
+        ],
+        [
+          "codex",
+          "161",
+          "0",
+          "7",
+          "96%",
+          "0.78"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nA Claude-only pass is a disputed verdict the Claude judge passed and codex failed; a codex-only pass is the reverse.\nLabel agreement pools the fact and claim labels both judges scored, and kappa is Cohen's kappa on them. Claims\nwhose cited source could not be captured are left out, as no judge scored them. Briefs that failed schema\nvalidation were never judged (2 claude-code and 1 codex floor cells).\n\nThe disputes lean towards each judge's own model family, most clearly on codex's briefs: codex passed all 7 disputed\nones. On claude-code's briefs the Claude judge passed 4 of the 5 here, but only 2 of the 4 in the\n[replication](../2026-10-06-search-gap-replication/REPORT.md#judge-agreement), 6 of 9 together. The direction differs\nby agent (two-sided Fisher exact on dispute direction, both batteries' claude-code disputes pooled: p = 0.011). That\nis consistent with a judge favouring its own family's writing; with two judges the bench cannot say which judge\ncarries the preference, or whether both do. Verdicts stay with the primary judge, as the design fixes in advance.\nHad codex decided, the pass counts would be:\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "claude-code, Claude judge",
+          "claude-code, codex judge",
+          "codex, Claude judge",
+          "codex, codex judge"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "Parallel",
+          "20/21",
+          "20/21",
+          "13/18",
+          "13/18"
+        ],
+        [
+          "Firecrawl",
+          "19/21",
+          "19/21",
+          "16/18",
+          "17/18"
+        ],
+        [
+          "Brave",
+          "17/21",
+          "15/21",
+          "17/18",
+          "17/18"
+        ],
+        [
+          "Perplexity",
+          "16/21",
+          "16/21",
+          "13/18",
+          "15/18"
+        ],
+        [
+          "native",
+          "16/21",
+          "16/21",
+          "14/18",
+          "17/18"
+        ],
+        [
+          "Exa",
+          "15/21",
+          "14/21",
+          "14/18",
+          "14/18"
+        ],
+        [
+          "Tavily",
+          "15/21",
+          "15/21",
+          "16/18",
+          "16/18"
+        ],
+        [
+          "ceiling (reference)",
+          "20/21",
+          "20/21",
+          "16/18",
+          "17/18"
+        ],
+        [
+          "floor (reference)",
+          "0/21",
+          "0/21",
+          "0/18",
+          "0/18"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nOnly one count moves by more than two runs: codex's native arm, from 14/18 (78%) to 17/18 (94%), which would put it\nlevel with Brave and Firecrawl at the top of the codex table. Search against no search is unaffected: no floor brief\npasses under either judge.\n\n## Changes made during the run\n\nThe first live runs surfaced several bench defects. Two changed how cells **execute**, and two changed how cells are **graded**. The timeline was recorded from the battery change log and cell start events.\n\n### Execution changes\n\nEvery cell in the tables above ran under both of these fixes:\n- **GAPBUDGET-01:** brief budgets became runaway caps (1M tokens, 60 calls). The old 30k cap was below the median codex search cell.\n  - It was part of the pinned export before any calibration or battery cell ran.\n  - No cell ran under the old caps.\n- **GAPARM-01:** brief search arms resolve the GAP catalog. Before it, no brief search arm could run, so no search-arm cell predates it.\n  - It was applied at 18:30:04Z on 2026-10-03.\n  - The earliest search-arm cell started at 18:30:29Z (codex round 1). claude-code started at 19:12Z.\n\nThe tool-isolation remediation, which forbids the GAP catalog to every GAP cell, was applied at 18:50:40Z and the codex battery was restarted to load it.\n- **18 codex round-1 cells** started before it: classroom-term repetitions 1 and 2, all arms.\n- **No catalog access in them.** Their transcripts contain only search calls and agent messages, with no file reads or commands, so the catalog was not read.\n- **They were kept, not re-run.**\n- **Every other cell** ran after the remediation.\n\n**The codex provider re-run (2026-10-04).** In the first pass, 31 of codex's 108 provider cells made no provider call:\n"
     },
     {
       "table": [

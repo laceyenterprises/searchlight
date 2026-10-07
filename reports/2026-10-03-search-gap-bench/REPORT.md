@@ -9,7 +9,8 @@
 > 16/21 passed (76%), gap closure 0.80 (0.53–1.00), 61k tokens per success. The original row
 > recorded 13/21 (62%), gap closure 0.65 (0.37–0.91) and 66k. The other arms are unchanged.
 > The rerun's verdicts come from the claude-code primary judge, which decides every verdict in this
-> battery; codex agreement for those 21 cells is pending until codex quota returns (2026-10-09).
+> battery. On 2026-10-07 the codex judge scored the same 21 stored payloads: it agreed on every
+> verdict and on 94% of labels (kappa 0.70); see [judge agreement](#judge-agreement).
 > The rerun's agents used about 1.0M tokens. The codex native arm was unaffected.
 > Details: [agent search behavior](../2026-10-05-agent-search-behavior/REPORT.md#native-rerun-2026-10-06).
 
@@ -123,7 +124,47 @@ The first pass's estimates that excluded the 31 tool-less cells were close to th
    - Per-cell spend varied widely: 46k (native) to 105k (Firecrawl) on claude-code, and 84k (Perplexity) to 148k (Firecrawl) on codex. Firecrawl passed 90% at 116k tokens per success, against Parallel's 95% at 64k.
    - Choosing a provider means weighing pass rate and cost separately.
 4. **Decision briefs separate the providers; research briefs mostly don't.** Research briefs passed at or near 100% on both harnesses. Decision briefs hinge on one recent fact, and they spread the search arms from 50% to 92% on claude-code and from 44% to 89% on codex.
-5. **Native search was mid-pack on both harnesses.** On claude-code it passed 76%, level with Perplexity and behind Parallel, Firecrawl and Brave. On codex it passed 78%, level with Exa and behind Brave, Firecrawl and Tavily. No search arm beat it significantly on either harness; on claude-code the largest gain was Parallel's, +19.0 points (p = 0.22).
+5. **Native search was mid-pack on both harnesses.** On claude-code it passed 76%, level with Perplexity and behind Parallel, Firecrawl and Brave. On codex it passed 78%, level with Exa and behind Brave, Firecrawl and Tavily; under the codex judge it would pass 94% (see [judge agreement](#judge-agreement)). No search arm beat it significantly on either harness; on claude-code the largest gain was Parallel's, +19.0 points (p = 0.22).
+
+## Judge agreement
+
+Two blinded judges scored every brief on the same evidence: the claude-code judge (the Claude judge below) decides
+the verdict and the codex judge measures agreement. Both judged at grading time, except for the 21 rerun native cells on claude-code, which
+codex scored on 2026-10-07 from the payloads the primary had judged.
+
+| Agent | Briefs judged | Claude-only passes | Codex-only passes | Label agreement | Kappa |
+| --- | --- | --- | --- | --- | --- |
+| claude-code | 187 | 4 | 1 | 96% | 0.79 |
+| codex | 161 | 0 | 7 | 96% | 0.78 |
+
+A Claude-only pass is a disputed verdict the Claude judge passed and codex failed; a codex-only pass is the reverse.
+Label agreement pools the fact and claim labels both judges scored, and kappa is Cohen's kappa on them. Claims
+whose cited source could not be captured are left out, as no judge scored them. Briefs that failed schema
+validation were never judged (2 claude-code and 1 codex floor cells).
+
+The disputes lean towards each judge's own model family, most clearly on codex's briefs: codex passed all 7 disputed
+ones. On claude-code's briefs the Claude judge passed 4 of the 5 here, but only 2 of the 4 in the
+[replication](../2026-10-06-search-gap-replication/REPORT.md#judge-agreement), 6 of 9 together. The direction differs
+by agent (two-sided Fisher exact on dispute direction, both batteries' claude-code disputes pooled: p = 0.011). That
+is consistent with a judge favouring its own family's writing; with two judges the bench cannot say which judge
+carries the preference, or whether both do. Verdicts stay with the primary judge, as the design fixes in advance.
+Had codex decided, the pass counts would be:
+
+| Arm | claude-code, Claude judge | claude-code, codex judge | codex, Claude judge | codex, codex judge |
+| --- | --- | --- | --- | --- |
+| Parallel | 20/21 | 20/21 | 13/18 | 13/18 |
+| Firecrawl | 19/21 | 19/21 | 16/18 | 17/18 |
+| Brave | 17/21 | 15/21 | 17/18 | 17/18 |
+| Perplexity | 16/21 | 16/21 | 13/18 | 15/18 |
+| native | 16/21 | 16/21 | 14/18 | 17/18 |
+| Exa | 15/21 | 14/21 | 14/18 | 14/18 |
+| Tavily | 15/21 | 15/21 | 16/18 | 16/18 |
+| ceiling (reference) | 20/21 | 20/21 | 16/18 | 17/18 |
+| floor (reference) | 0/21 | 0/21 | 0/18 | 0/18 |
+
+Only one count moves by more than two runs: codex's native arm, from 14/18 (78%) to 17/18 (94%), which would put it
+level with Brave and Firecrawl at the top of the codex table. Search against no search is unaffected: no floor brief
+passes under either judge.
 
 ## Changes made during the run
 
