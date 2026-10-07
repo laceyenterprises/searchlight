@@ -51,3 +51,9 @@ A default run grades with both judges at once and needs no second step.
 A fresh run measures the same method on today's models, indexes and sources; it is not an exact replay of these
 numbers. Raw run bundles are not distributed. Report rendering is exact and offline:
 `python3 scripts/check_reports.py --write`. See [methodology](methodology.md).
+
+Validate the published reports and their site rendering without live harness calls:
+
+```sh
+python3 -m pytest tests/test_published_reports.py tests/test_build_site.py
+```
