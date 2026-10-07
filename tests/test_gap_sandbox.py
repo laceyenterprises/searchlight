@@ -145,31 +145,18 @@ def test_qualification_refuses_failed_process(tmp_path, monkeypatch):
 
 
 @pytest.mark.parametrize("name", ["seatbelt", "bubblewrap"])
-def test_real_backend_canary(tmp_path, name):
+def test_real_backend_canary(tmp_path, name, require_containment):
     expected = "darwin" if name == "seatbelt" else "linux"
     if sys.platform != expected:
         pytest.skip("backend requires " + expected)
-    try:
-        backend = sandbox.select_backend()
-    except EgressCanaryRefused:
-        if os.environ.get("SEW_REQUIRE_BUBBLEWRAP") == "1" and name == "bubblewrap":
-            raise
-        pytest.skip("backend executable not installed")
-    try:
-        record = sandbox.qualify_backend(
-            backend,
-            tmp_path,
-            os.environ,
-            profile="(version 1)(allow default)(deny network-outbound)",
-        )
-    except EgressCanaryRefused as exc:
-        if (
-            name == "seatbelt"
-            and "sandbox_apply" in str(exc)
-            and os.environ.get("SEW_REQUIRE_SEATBELT") != "1"
-        ):
-            pytest.skip("nested Seatbelt refused sandbox_apply")
-        raise
+    require_containment(name)
+    backend = sandbox.select_backend()
+    record = sandbox.qualify_backend(
+        backend,
+        tmp_path,
+        os.environ,
+        profile="(version 1)(allow default)(deny network-outbound)",
+    )
     assert record["admissible"] and record["probes"]["dns"]["denied"]
     if name == "bubblewrap":
         wheels = tmp_path / "wheelhouse"
@@ -239,18 +226,13 @@ def _check_bridge(directory, tmp_path):
 
 
 @pytest.mark.skipif(sys.platform != "linux", reason="requires a real Linux namespace")
-def test_real_namespace_endpoint_bridge(tmp_path):
+def test_real_namespace_endpoint_bridge(tmp_path, require_containment):
     import threading
     from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
     from sew.gap.workspace import bench_network_boundary
     from sew.gap.verify import _execute
 
-    try:
-        sandbox.select_backend()
-    except EgressCanaryRefused:
-        if os.environ.get("SEW_REQUIRE_BUBBLEWRAP") == "1":
-            raise
-        pytest.skip("bubblewrap not installed")
+    require_containment("bubblewrap")
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -316,17 +298,14 @@ def test_verifier_routes_linux_to_backend(tmp_path, monkeypatch):
 
 
 @pytest.mark.skipif(sys.platform != "linux", reason="requires real bubblewrap verification")
-def test_real_linux_verifier_applies_and_grades_patch(tmp_path, monkeypatch):
+def test_real_linux_verifier_applies_and_grades_patch(
+    tmp_path, monkeypatch, require_containment
+):
     from sew.gap.verify import verify
     from sew.gap.workspace import capture_diff
     import shutil
 
-    try:
-        sandbox.select_backend()
-    except EgressCanaryRefused:
-        if os.environ.get("SEW_REQUIRE_BUBBLEWRAP") == "1":
-            raise
-        pytest.skip("bubblewrap not installed")
+    require_containment("bubblewrap")
     ambient_config = tmp_path / "ambient.yaml"
     ambient_config.write_text("sandbox: seatbelt\n")
     source_config = tmp_path / "source.yaml"
@@ -562,16 +541,11 @@ def test_doctor_reports_scratch_failure(tmp_path, monkeypatch):
 
 @pytest.mark.skipif(sys.platform != "linux", reason="requires real bubblewrap")
 @pytest.mark.parametrize("harness", ["claude-code", "codex"])
-def test_real_namespace_writable_auth_copy(tmp_path, harness):
+def test_real_namespace_writable_auth_copy(tmp_path, harness, require_containment):
     from sew.gap.workspace import bench_network_boundary
     from sew.gap.verify import _execute
 
-    try:
-        sandbox.select_backend()
-    except EgressCanaryRefused:
-        if os.environ.get("SEW_REQUIRE_BUBBLEWRAP") == "1":
-            raise
-        pytest.skip("bubblewrap not installed")
+    require_containment("bubblewrap")
     account = tmp_path / "account"
     account.mkdir()
     config = account / "config"
@@ -650,17 +624,13 @@ def test_verifier_cache_mask_follows_runtime_binds(tmp_path):
 
 
 @pytest.mark.parametrize("name", ["seatbelt", "bubblewrap"])
-def test_real_verifier_cache_read_boundary(tmp_path, name):
+def test_real_verifier_cache_read_boundary(tmp_path, name, require_containment):
     from sew.gap import workspace
 
     if sys.platform != ("darwin" if name == "seatbelt" else "linux"):
         pytest.skip("requires " + name)
-    try:
-        backend = sandbox.select_backend()
-    except EgressCanaryRefused:
-        if os.environ.get("SEW_REQUIRE_" + name.upper()) == "1":
-            raise
-        pytest.skip("backend executable not installed")
+    require_containment(name)
+    backend = sandbox.select_backend()
     cache = tmp_path / "runtime/verifier-cache"
     cache.mkdir(parents=True)
     wheel = cache / "stripe-16.0.0.whl"
@@ -683,16 +653,9 @@ def test_real_verifier_cache_read_boundary(tmp_path, name):
 
     with zipfile.ZipFile(wheel, "w") as archive:
         archive.writestr("stripe/api.py", "print('verifier-only source')")
-    try:
-        evidence = workspace.qualify_cache_reads(
-            wrap, cache, cwd=cwd, env=os.environ, backend=backend
-        )
-    except EgressCanaryRefused as exc:
-        if name == "seatbelt" and os.environ.get("SEW_REQUIRE_SEATBELT") != "1":
-            cause = exc.__cause__
-            if isinstance(cause, ValueError) and "sandbox_apply" in str(cause):
-                pytest.skip("nested Seatbelt refused sandbox_apply")
-        raise
+    evidence = workspace.qualify_cache_reads(
+        wrap, cache, cwd=cwd, env=os.environ, backend=backend
+    )
     assert evidence["direct_denied"] and evidence["discovery_denied"]
     if name == "seatbelt":
         write_evidence = workspace.qualify_wheelhouse_writes(

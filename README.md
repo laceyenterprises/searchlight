@@ -378,6 +378,10 @@ python3 scripts/build_site.py --check   # pages, infographic and share image mat
 SEW_MODE=standalone python3 -m pytest -q
 ```
 
+When running the suite inside a sandbox, tests that need unavailable containment
+capabilities skip with a reason. Set `SEW_REQUIRE_CONTAINMENT_TESTS=1` to make
+those capabilities mandatory on supported platforms (as in Linux CI).
+
 ### How the leaderboard stays current
 
 The results page displays search setups, test runs and agents in place of internal
