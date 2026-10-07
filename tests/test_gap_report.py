@@ -708,3 +708,46 @@ def test_auth_failure_with_ready_marker_counts_as_unknown(suite, saved):
     counts = headline(report(suite), "brave")["availability"]
     assert counts["available_n"] == counts["unavailable_n"] == 0
     assert counts["unknown_n"] == counts["cells_n"] == 4
+
+
+def test_judge_agreement_pools_measured_brief_grades_by_arm(suite):
+    def brief(primary, second=None, forced=()):
+        labels = {"fact_0": 1, "claim_0": 1, "claim_1": 0}
+        record = {
+            "record_version": "gap-brief-grade-v1",
+            "status": "scored",
+            "outcome": "pass" if primary else "fail",
+            "passed": primary,
+            "forced_unsupported_claims": list(forced),
+            "judge_scores": [{"judge_id": "claude-code", "labels": labels, "passed": primary}],
+            "agreement": {"status": "not_measured", "reason": "single_judge"},
+        }
+        if second is not None:
+            record["judge_scores"].append(
+                {"judge_id": "codex", "labels": {**labels, "fact_0": int(second)}, "passed": second}
+            )
+            record["agreement"] = {"status": "measured", "verdict_disputed": primary != second}
+        return record
+
+    grades = {"native": (brief(True, True, forced=[1]), brief(False)), "brave": (brief(True, False), brief(False, False))}
+    for arm, pair in grades.items():
+        for rep, record in zip((1, 2), pair):
+            _write(suite / f"bundles/gap-b-{arm}-{rep}/evaluations/gap-outcome.json", record)
+    r = report(suite)
+    native, brave = r["judge_agreement"]["by_arm"]["native"], r["judge_agreement"]["by_arm"]["brave"]
+    assert (native["grades_scored"], native["grades_measured"], native["label_pairs"]) == (2, 1, 2)
+    assert (brave["verdicts_disputed"], brave["disputed_primary_pass"]) == (1, 1)
+    # Codex scored fact_0 as 0 in both brave grades.
+    assert brave["label_agreement"] == 4 / 6
+    assert r["judge_agreement"]["all"]["grades_measured"] == 3
+    assert r["judge_agreement"]["by_arm"]["floor"]["grades_scored"] == 0
+    markdown = render_gap_markdown(r)
+    section = markdown.split("## Judge agreement (codex against the primary)", 1)[1]
+    assert "| brave | 2/2 | 1 | 1 | 0 | 67% |" in section
+    assert "{" not in markdown and "}" not in markdown
+
+
+def test_report_without_brief_grades_has_no_agreement_section(suite):
+    r = report(suite)
+    assert r["judge_agreement"]["all"]["grades_scored"] == 0
+    assert "Judge agreement" not in render_gap_markdown(r)

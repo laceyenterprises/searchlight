@@ -398,6 +398,23 @@ retain the retired tasks and reasons in the calibration appendix. A model-change
 record cannot be applied to a battery run on the previous model.
 No routing or worker-class changes follow automatically from bench results.
 
+A battery graded with `SEW_GAP_JUDGES=claude-code` has verdicts but no judge
+agreement. Once codex quota is available, add it without regrading:
+
+```bash
+bin/hq-sew gap agree /tmp/gap-battery --catalog-root /path/to/the/grading/checkout --harness-auth broker
+```
+
+Each succeeded brief cell's stored payload is rebuilt from its saved source
+snapshots, so nothing is recaptured. The command refuses a cell unless the
+rebuilt payload's sha256 equals the one the primary judged and the stored labels
+reproduce the stored verdict; `--catalog-root` must therefore be the checkout
+whose `catalogs/gap` graded the run. Only then is the codex judge called. The
+primary's verdict never changes. The command skips measured cells and exits 1
+if any codex call failed, so rerunning it retries only those. `gap report` then
+adds a judge-agreement table: disputed verdicts in each direction, label
+agreement and kappa per arm.
+
 Provider pre-warming retries transient npm network failures up to three attempts
 with bounded backoff; persistent package errors fail immediately. Terminal errors
 retain full npm stderr. GAP persists provider availability reclassification in

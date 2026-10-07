@@ -45,6 +45,10 @@ Judges may be `Judge("claude-code", transport)` alone, or ordered
 `Judge("claude-code", transport)` then `Judge("codex", transport)`. Calibration
 and battery callers default to both judges; set `SEW_GAP_JUDGES=claude-code`
 to use only the primary judge, for example while codex quota is unavailable.
+`add_agreement_judge` later adds codex to such a grade without regrading it: it
+rebuilds the payload from the stored snapshots, refuses unless its sha256 equals
+the primary's and the stored labels reproduce the verdict, and only then calls
+codex. The verdict is unchanged; `sew gap agree` runs it over a battery.
 Codex cannot grade alone or precede the primary. Live callers can use the existing
 `HarnessJudgeTransport` for each harness; tests use fixture callables. No live
 judge or provider runs are needed to test this module.
