@@ -72,6 +72,7 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
             f"sandbox      {sandbox}",
             f"srt          {srt_status}",
             f"config       {path or 'none (defaults)'}",
+            *oss_lines(env, host),
         ]
     )
 
@@ -103,3 +104,50 @@ def command(args) -> int:
                 print(diagnostic.read_text())
             return 1
     return 0
+
+
+def oss_lines(env, host) -> list[str]:
+    """Only enabled OSS performs HTTP diagnostics; errors never echo credentials."""
+    import json
+    from urllib.request import Request, build_opener, HTTPRedirectHandler
+    from .oss import configuration, load_catalog
+
+    settings = configuration(env)
+    if not settings.enabled:
+        return ['oss models   disabled (sew.yaml oss.enabled: false); OSS harnesses and litellm/* models are refused']
+    catalog = load_catalog()
+    selected = set(settings.models)
+    lines = [f'oss models   enabled ({settings.enabled_source})']
+    try:
+        receipt = host.litellm_credentials('claude-code')
+        key = receipt['api_key']
+        if not isinstance(key, str) or not key:
+            raise ValueError
+    except Exception:
+        key = None
+    key_status = (f'{settings.api_key_env} set (value not shown)' if host.mode == 'standalone' else 'resolved through the host credential service') if key else 'not provisioned'
+    lines.append(f'litellm key  {"ok" if key else "unavailable"} {key_status}')
+    class NoRedirect(HTTPRedirectHandler):
+        def redirect_request(self, *args, **kwargs):
+            return None
+
+    opener = build_opener(NoRedirect())
+    headers = {'Authorization': f'Bearer {key}'} if key else {}
+    for path in ('/health/readiness', '/v1/models'):
+        try:
+            request = Request(settings.base_url + path, headers=headers)
+            with opener.open(request, timeout=3) as response:
+                status = response.status
+                data = response.read(1_000_001)
+                if len(data) > 1_000_000:
+                    raise ValueError
+            if path == '/health/readiness':
+                lines.append(f'litellm      ok {settings.base_url} {path} {status}')
+            else:
+                ids = {row['id'] for row in json.loads(data)['data']}
+                lines.append(f'oss routes reachable {len(selected & ids)}/{len(selected)} listed by /v1/models')
+        except Exception:
+            lines.append(f'litellm      unavailable {settings.base_url} {path}' if path == '/health/readiness' else 'oss routes reachable unavailable (/v1/models)')
+    self_hosted = sum(catalog[route]['rate_basis'] == 'self-hosted' for route in selected)
+    lines.append(f'oss catalog  {len(selected)} routes; {len(selected)} priced ({self_hosted} self-hosted at $0)')
+    return lines

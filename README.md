@@ -353,6 +353,30 @@ sew gap report /path/to/gap-battery
 python3 scripts/analyze_search_behavior.py /path/to/suite-run --catalog catalogs/gap/tasks.yaml --json out.json
 ```
 
+OSS support is off by default. LiteLLM is a separate runtime dependency; install
+and configure it outside Searchlight using [the example route list](config/litellm-example.yaml).
+The [OSS catalog](config/oss-models.yaml) contains the seven `litellm/<route>`
+model ids, token limits and dated rates. Configure `sew.yaml` as follows:
+
+```yaml
+oss:
+  enabled: false
+  litellm:
+    base_url: http://127.0.0.1:4000
+    api_key_env: SEW_LITELLM_API_KEY
+  harnesses: [hermes, pi, opencode]
+  # models defaults to every route in config/oss-models.yaml
+```
+
+`SEW_OSS_ENABLED=1` enables support; `SEW_LITELLM_BASE_URL` overrides the
+endpoint. Set `SEW_LITELLM_API_KEY` in your environment.
+Credentials are injected into each cell, and judges keep their own credentials.
+`sew doctor` probes LiteLLM only when OSS is enabled. Preview a cell without
+reading a key or starting a harness with
+`SEW_OSS_ENABLED=1 sew run-live-harness --harness codex --model litellm/glm-5.2 --arm exa --dry-run`.
+Harness launch adapters are delivered separately; legacy Pi profiles now live
+under `fixtures/` solely for offline replay.
+
 In live runs, `--max-wall-clock-seconds` sets the run wall-clock limit;
 `timeouts.run_seconds` is the fallback when no operator budgets are supplied.
 Suite spend budgets remain ceilings on the operator caps. Elapsed wall time

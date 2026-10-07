@@ -102,7 +102,7 @@ class HarnessJudgeTransport:
         self.model_id_origin = "explicit" if model_id else None
         self.timeout_seconds = timeout_seconds
         self.max_total_tokens = max_total_tokens
-        self.harness_auth = harness_auth
+        self.harness_auth = None if harness_auth == "litellm" else harness_auth
         self.usage: dict[str, int] | None = None
         self.attempts = 0
         self.last_error: str | None = None
@@ -213,7 +213,7 @@ class HarnessJudgeTransport:
                 "with a dimensions object mapping every named dimension to {score, reason}. "
                 "Do not use tools.\n" + json.dumps(payload, sort_keys=True)
             )
-            child_env = child_environment(config, os.environ)
+            child_env = judge_environment(config, os.environ)
             if auth_source == "broker":
                 child_env.pop("ANTHROPIC_API_KEY", None)
                 child_env.pop("OPENAI_API_KEY", None)
@@ -263,3 +263,24 @@ class HarnessJudgeTransport:
         safe_reason = _redact_tokens(reason, tokens)
         self.last_error = safe_reason
         raise JudgeTransportError(safe_reason)
+
+
+def judge_environment(config, environ):
+    """Keep process-level LiteLLM settings away from the pinned judges."""
+    from .oss import configuration
+
+    settings = configuration(environ)
+    clean = dict(environ)
+    proxy_keys = {environ[key] for key in ("SEW_LITELLM_API_KEY", settings.api_key_env) if environ.get(key)}
+    for key in ("ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_API_KEY", "OPENAI_API_KEY"):
+        if clean.get(key) in proxy_keys:
+            clean.pop(key, None)
+    for key in ("SEW_LITELLM_API_KEY", "SEW_LITELLM_BASE_URL", settings.api_key_env):
+        clean.pop(key, None)
+    for key in ("ANTHROPIC_BASE_URL", "OPENAI_BASE_URL"):
+        if clean.get(key, "").rstrip("/") in {settings.base_url, settings.base_url + "/v1"}:
+            clean.pop(key, None)
+    result = child_environment(config, clean)
+    for key in ("SEW_LITELLM_API_KEY", "SEW_LITELLM_BASE_URL", settings.api_key_env):
+        result.pop(key, None)
+    return result

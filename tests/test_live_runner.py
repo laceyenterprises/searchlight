@@ -981,10 +981,12 @@ def test_pi_cells_are_not_applicable_in_live_mode(tmp_path: Path, fake_harness: 
     config = tmp_path / "mcp.yaml"
     config.write_text("exa:\n  command: /usr/bin/true\n", encoding="utf-8")
     exposures = load_provider_exposures(config, {})
+    executor = _executor(module_base, fake_harness, tmp_path, provider_exposures=exposures)
+    executor._environ["SEW_OSS_ENABLED"] = "1"
     runner = SuiteRunner(
         module_base=module_base,
         state_root=tmp_path / "state",
-        live_executor=_executor(module_base, fake_harness, tmp_path, provider_exposures=exposures),
+        live_executor=executor,
     )
 
     summary = runner.run("tiny", mode="live", run_id="pi", operator_budgets=BUDGETS)
@@ -1056,6 +1058,7 @@ def test_provider_mcp_config_resolves_env_references_and_fails_closed(
 
 def test_cli_live_run_is_refused_without_the_operator_gate(tmp_path: Path) -> None:
     env = {
+        "SEW_OSS_ENABLED": "1",
         "PYTHONPATH": str(LIB_PYTHON),
         "PATH": os.environ["PATH"],
         "HOME": str(Path.home()),

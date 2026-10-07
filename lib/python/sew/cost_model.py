@@ -40,7 +40,7 @@ PRICE_TABLE_RELATIVE_PATH = Path("config") / "price-table.yaml"
 BASES = ("measured", "inferred", "estimated", "unknown")
 # operator_proxy_rate: no published per-call price exists, so the operator chose
 # another vendor's published rate as a stand-in; the entry names it (proxy_for).
-RATE_BASES = frozenset({"published_list_price", "plan_rate_assumption", "operator_proxy_rate"})
+RATE_BASES = frozenset({"published_list_price", "plan_rate_assumption", "operator_proxy_rate", "list", "self-hosted"})
 TOKENS_PER_MTOK = 1_000_000
 # A call in these states never reached the vendor's meter.
 UNBILLED_CALL_STATUSES = frozenset({"not_applicable"})
@@ -323,7 +323,12 @@ def model_cost(
     output_tokens = usage.get("output")
     if not isinstance(input_tokens, int) or not isinstance(output_tokens, int):
         return _unknown("model", subject, "token_usage_incomplete")
-    entry = table.models.get(STANDARD_RATE_VARIANTS.get(model_id, model_id))
+    if model_id.startswith("litellm/"):
+        from .oss import load_catalog
+
+        entry = load_catalog().get(model_id[len("litellm/"):])
+    else:
+        entry = table.models.get(STANDARD_RATE_VARIANTS.get(model_id, model_id))
     if entry is None:
         return _unknown("model", subject, "no_published_rate")
     cached_tokens = usage.get("cached_input") or 0
@@ -661,6 +666,10 @@ def _require_receipt(entry: Mapping[str, Any], where: str) -> None:
         raise PriceTableError(f"{where}.as_of must be an ISO date") from exc
     if entry.get("rate_basis") not in RATE_BASES:
         raise PriceTableError(f"{where}.rate_basis must be one of {sorted(RATE_BASES)}")
+    if entry["rate_basis"] == "self-hosted" and any(
+        value != 0 for key, value in entry.items() if "usd_per_" in key and value is not None
+    ):
+        raise PriceTableError(f"{where} self-hosted rates must be $0")
     proxy_for = entry.get("proxy_for")
     if entry["rate_basis"] == "operator_proxy_rate" and (
         not isinstance(proxy_for, str) or not proxy_for.strip()

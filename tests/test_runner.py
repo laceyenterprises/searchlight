@@ -977,8 +977,9 @@ def _tiny_module(
     base = root / "module"
     (base / "catalogs" / "tiny").mkdir(parents=True)
     (base / "config").mkdir(parents=True)
-    (base / "config" / "pi-model-profiles.yaml").write_text(
-        (MODULE_ROOT / "config" / "pi-model-profiles.yaml").read_text(encoding="utf-8"),
+    (base / "fixtures").mkdir(parents=True)
+    (base / "fixtures" / "pi-model-profiles.yaml").write_text(
+        (MODULE_ROOT / "fixtures" / "pi-model-profiles.yaml").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
     task_ids = tasks or ["current-fact-lookup-v1"]

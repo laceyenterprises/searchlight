@@ -23,6 +23,7 @@ class HostServices(Protocol):
     def state_root(self, app_id: str = "sew") -> Path: ...
     def resolve_credential(self, ref: str, *, worker_class: str, purpose: str) -> str: ...
     def harness_auth(self, harness: str) -> dict[str, Any]: ...
+    def litellm_credentials(self, harness: str) -> dict[str, Any]: ...
     def meter_provider_call(self, **call: Any) -> bool: ...
 
 
@@ -107,6 +108,15 @@ class StandaloneHost:
     def harness_auth(self, harness: str) -> dict[str, Any]:
         return {"source": "account"}
 
+    def litellm_credentials(self, harness: str) -> dict[str, Any]:
+        from .oss import configuration
+
+        settings = configuration(self.env)
+        key = self.env.get("SEW_LITELLM_API_KEY") or self.env.get(settings.api_key_env)
+        if not key:
+            raise HostUnavailable("LiteLLM key not provisioned")
+        return {"api_key": key}
+
     def meter_provider_call(self, **call: Any) -> bool:
         # The local CallMeter owns sanitized records and pricing in both modes.
         return True
@@ -132,6 +142,15 @@ class AgentOsHost:
 
     def harness_auth(self, harness: str) -> dict[str, Any]:
         return self.plugin.harness_auth(harness)
+
+    def litellm_credentials(self, harness: str) -> dict[str, Any]:
+        resolve = getattr(self.plugin, "litellm_credentials", None)
+        if resolve is None:
+            raise HostUnavailable("LiteLLM credential service unavailable")
+        try:
+            return resolve(harness)
+        except Exception:
+            raise HostUnavailable("LiteLLM key not provisioned") from None
 
     def meter_provider_call(self, **call: Any) -> bool:
         return self.plugin.meter_provider_call(**call)

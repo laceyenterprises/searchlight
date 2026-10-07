@@ -5,7 +5,7 @@ from __future__ import annotations
 from .registry import HarnessSpec
 
 # Not live: a live suite records Pi cells not applicable, and its native arm is
-# decided by the model profile (config/pi-model-profiles.yaml), none of which
+# decided by the model profile (fixtures/pi-model-profiles.yaml), none of which
 # has native search.
 SPEC = HarnessSpec(
     id="pi",

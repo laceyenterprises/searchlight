@@ -228,7 +228,7 @@ def test_live_smoke_skips_when_runtime_probe_cannot_start(
 
 
 def test_unknown_pi_profile_is_rejected() -> None:
-    driver = PiHarnessDriver.from_config(MODULE_ROOT / "config" / "pi-model-profiles.yaml")
+    driver = PiHarnessDriver.from_config(MODULE_ROOT / "fixtures" / "pi-model-profiles.yaml")
 
     with pytest.raises(SchemaError, match="unknown Pi model profile"):
         driver.profile("missing")

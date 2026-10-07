@@ -65,8 +65,12 @@ def test_cli_harness_choices_are_the_live_harnesses() -> None:
         "sew gap run",
         "sew run-live-harness",
     ]
-    for action in options.values():
-        assert list(action.choices) == ["claude-code", "codex"]
+    for command, action in options.items():
+        expected = ["claude-code", "codex"]
+        if command == "sew run-live-harness":
+            # Pending OSS adapters can be planned without becoming launchable.
+            expected += ["hermes", "pi", "opencode"]
+        assert list(action.choices) == expected
 
 
 def test_registry_rejects_duplicates_and_malformed_specs() -> None:
