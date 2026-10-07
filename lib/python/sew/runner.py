@@ -46,6 +46,7 @@ from .live_harness import (
     run_live_harness,
 )
 from .pi_driver import PiHarnessDriver
+from . import harnesses
 from .mcp_meter import provider_available
 from .providers import make_provider
 from .schema import (
@@ -61,7 +62,8 @@ from .task_resolution import resolve_task
 EXTERNAL_PROVIDERS = frozenset(
     {"exa", "parallel-web", "firecrawl", "brave", "tavily", "perplexity"}
 )
-HOSTED_HARNESSES = frozenset({"codex", "claude-code"})
+# The harnesses sew.live_harness spawns for real, read live from the registry.
+HOSTED_HARNESSES = harnesses.ids(live=True)
 # Boot failures were retried as "failed" before WSB-05 split them out; keep that.
 # provider_unavailable and budget_exhausted are not retried: an immediate retry
 # into a quota wall or a spent budget only burns more of the budget.
@@ -1202,6 +1204,9 @@ def cell_applicability(
         provider_id, frozenset()
     ):
         return False, f"provider_lacks_{operation}"
+    spec = harnesses.find(harness_id)
+    if spec is not None and spec.live and provider_id == "native" and not spec.native_search:
+        return False, "native_search_unavailable"
     if harness_id == "pi":
         profile = pi_driver.profile(model_profile)
         if provider_id == "native" and not profile.provider_adapter_exposure.get(
