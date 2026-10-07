@@ -1,7 +1,7 @@
-"""Code seeds require real, offline Seatbelt validation, separately by kind.
+"""Code seeds require real, offline containment validation, separately by kind.
 
-Prepare SEW_GAP_CODE_WHEELHOUSE before running this module. A missing cache or
-unavailable containment is a failure, never fabricated acceptance or a skip.
+Prepare SEW_GAP_CODE_WHEELHOUSE before running this module; a missing cache
+remains a failure. Unavailable containment skips unless tests are mandatory.
 """
 
 import ast
@@ -104,6 +104,11 @@ def urlsplit_host(url):
 
 
 @pytest.fixture
+def native_containment(require_containment):
+    require_containment()
+
+
+@pytest.fixture
 def offline_wheelhouse(monkeypatch):
     path = os.environ.get("SEW_GAP_CODE_WHEELHOUSE")
     assert path, "Set SEW_GAP_CODE_WHEELHOUSE to the prepared public wheel cache"
@@ -116,6 +121,7 @@ def offline_wheelhouse(monkeypatch):
 
 
 @pytest.mark.parametrize("task", GAPS, ids=lambda t: t["id"])
+@pytest.mark.usefixtures("native_containment")
 def test_every_gap_ordinary_grading_offline(task, offline_wheelhouse, tmp_path):
     empty = tmp_path / "empty.diff"
     empty.write_text("")
@@ -138,6 +144,7 @@ def test_every_gap_ordinary_grading_offline(task, offline_wheelhouse, tmp_path):
 @pytest.mark.parametrize(
     "task", [t for t in GAPS if t["family"] == "vulnerable-dependency"], ids=lambda t: t["id"]
 )
+@pytest.mark.usefixtures("native_containment")
 def test_security_code_only_repair_fails_ordinary_grading(task, offline_wheelhouse, tmp_path):
     reference = BASE / task["hidden"] / "reference.diff"
     patch = tmp_path / "code-only.diff"
@@ -156,6 +163,7 @@ def test_security_code_only_repair_fails_ordinary_grading(task, offline_wheelhou
 
 
 @pytest.mark.parametrize("task", GAPS, ids=lambda t: t["id"])
+@pytest.mark.usefixtures("native_containment")
 def test_every_gap_validity_triple_offline(task, offline_wheelhouse):
     record = validate_task(task, root=ROOT, wheelhouse=offline_wheelhouse)
     assert record["accepted"], record["reason"]
@@ -174,6 +182,7 @@ def test_every_gap_validity_triple_offline(task, offline_wheelhouse):
 
 
 @pytest.mark.parametrize("task", CONTROLS, ids=lambda t: t["id"])
+@pytest.mark.usefixtures("native_containment")
 def test_every_no_change_control_offline(task, monkeypatch):
     monkeypatch.setattr("urllib.request.urlopen", lambda *a, **k: pytest.fail("network forbidden"))
     record = validate_task(task, root=ROOT)

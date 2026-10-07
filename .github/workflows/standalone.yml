@@ -24,6 +24,7 @@ jobs:
         python: ['3.11', '3.12', '3.13']
     runs-on: ${{ matrix.os }}
     env:
+      SEW_REQUIRE_CONTAINMENT_TESTS: ${{ matrix.os == 'ubuntu-latest' && '1' || '0' }}
       SEW_MODE: standalone
       PYTEST_DISABLE_PLUGIN_AUTOLOAD: '1'
       SEW_PUBLICATION_BATTERY: ${{ matrix.os == 'ubuntu-latest' && matrix.python == '3.12' && '1' || '0' }}

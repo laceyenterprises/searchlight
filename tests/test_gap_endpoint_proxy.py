@@ -115,9 +115,8 @@ def test_boundary_preserves_endpoint_port(monkeypatch, tmp_path, url):
 @pytest.mark.parametrize(
     "url", ["http://host:bad", "ftp://host/", "http:///v1", "http://host:99999", "http://host:0"]
 )
-def test_boundary_rejects_invalid_endpoint(tmp_path, url):
-    if not Path("/usr/bin/sandbox-exec").is_file():
-        pytest.skip("Seatbelt unavailable")
+def test_boundary_rejects_invalid_endpoint(tmp_path, url, require_containment):
+    require_containment("seatbelt")
     with pytest.raises(EgressCanaryRefused, match="invalid or unresolved"):
         with bench_network_boundary(
             ["codex"], {"OPENAI_BASE_URL": url}, cwd=tmp_path, harness_id="codex"

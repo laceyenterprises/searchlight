@@ -18,7 +18,10 @@ git checkout --detach "$(git -C "$OLDPWD" rev-parse HEAD)"
 python3 -m venv "$proof_root/venv"
 # Isolated HOME/state and a minimal environment make host services unavailable.
 mkdir "$proof_root/home"
+# Variables in the command body expand in the isolated child shell.
+# shellcheck disable=SC2016
 env -i PATH="$proof_root/venv/bin:/usr/bin:/bin" HOME="$proof_root/home" \
+  SEW_REQUIRE_CONTAINMENT_TESTS="${SEW_REQUIRE_CONTAINMENT_TESTS:-0}" \
   SEW_GAP_CODE_WHEELHOUSE="$proof_root/wheels" SEW_MODE=standalone SEW_STATE_ROOT="$proof_root/state" PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 SEW_TEST_INSTALLED=1 SEW_PUBLICATION_BATTERY="${SEW_PUBLICATION_BATTERY:-1}" \
   bash -euo pipefail -c '
     python3 -m pip install ".[test]"

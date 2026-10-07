@@ -77,3 +77,22 @@ def agent_os_host(tmp_path, monkeypatch):
     fixture = FixtureHost()
     monkeypatch.setattr(host, "get_host", lambda env=None: fixture)
     return fixture
+
+
+@pytest.fixture(scope="session")
+def containment_capabilities():
+    from containment import probe_containment
+
+    return probe_containment()
+
+
+@pytest.fixture
+def require_containment(containment_capabilities):
+    from containment import require_capability
+
+    def require(name=None):
+        if name is None:
+            name = "seatbelt" if sys.platform == "darwin" else "bubblewrap"
+        require_capability(containment_capabilities, name)
+
+    return require

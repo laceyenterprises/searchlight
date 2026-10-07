@@ -18,9 +18,8 @@ from sew.gap.workspace import capture_diff
 
 
 @pytest.fixture
-def job(tmp_path):
-    if sys.platform != "darwin" or not Path("/usr/bin/sandbox-exec").is_file():
-        pytest.skip("execution acceptance requires macOS Seatbelt")
+def job(tmp_path, require_containment):
+    require_containment("seatbelt")
     root = tmp_path / "module"
     catalog = root / "catalogs/gap"
     fixture = catalog / "fixture"
@@ -375,7 +374,8 @@ def test_execution_schema_refuses_bad_projection(tmp_path, key, value):
 
 
 @pytest.mark.parametrize("mode", ["clean", "failure", "timeout"])
-def test_execute_reaps_background_child(tmp_path, mode):
+def test_execute_reaps_background_child(tmp_path, mode, require_containment):
+    require_containment("ps")
     from sew.gap.verify import _execute
 
     pidfile = tmp_path / "child.pid"
