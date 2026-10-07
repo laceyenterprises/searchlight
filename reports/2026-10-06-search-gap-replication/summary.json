@@ -4,7 +4,7 @@
   "source_record": "Recorded findings from the battery report, transcribed with recorded display precision; private identifiers omitted.",
   "blocks": [
     {
-      "markdown": "# GAP replication on Claude Code, 2026-10-06: the search gap bench, run again\n\n> **Grading note.** These verdicts come from the claude-code primary judge, which decides every\n> verdict in GAP. The codex judge, which only measures agreement, was out of quota for this run;\n> its agreement pass will be added here after 2026-10-09.\n\nA second, independent Search Gap Bench battery on Claude Code (`claude-opus-5-5`), run on 2026-10-06\nand 2026-10-07 with the apparatus as fixed after the [2026-10-03 battery](../2026-10-03-search-gap-bench/REPORT.md):\nthe built-in search arm can open pages, and every provider arm loaded its tool in every run. It repeats\nthat battery's method on the current task catalog: calibrate each brief, keep the tasks with a real\nknowledge gap, and run every admitted task on nine arms, three times each.\n\n**Headline.**\n- **Search still decides the outcome.** Without search the agent passed 0 of 24 runs; every search arm\n  passed 62–83%, and each differs from no search significantly (exact McNemar, p < 0.0001).\n- **The leader changed.** Firecrawl led at 83%. Parallel, which led the 2026-10-03\n  battery at 95%, passed 75%. No search arm differs significantly from the agent's\n  built-in search (largest gap: Firecrawl, +8.3 points, p = 0.50).\n- **Built-in search was competitive and cheapest.** It passed 75%, level with Parallel and\n  Perplexity, at 55k tokens per success, the lowest of any search arm.\n- **Pass rate again did not predict cost.** The rank correlation between pass rate and tokens per success across\n  the seven search arms was −0.04. Firecrawl's top pass rate came at 141k tokens per success.\n\n## Setup\n"
+      "markdown": "# GAP replication on Claude Code, 2026-10-06: the search gap bench, run again\n\n> **Grading note.** These verdicts come from the claude-code primary judge, which decides every\n> verdict in GAP. The codex judge, which only measures agreement, was out of quota during the battery\n> and scored the same stored payloads on 2026-10-07. It disputed 4 of the 211 judged verdicts and\n> agreed on 96% of labels (kappa 0.82); no verdict changed. See [judge agreement](#judge-agreement).\n\nA second, independent Search Gap Bench battery on Claude Code (`claude-opus-5-5`), run on 2026-10-06\nand 2026-10-07 with the apparatus as fixed after the [2026-10-03 battery](../2026-10-03-search-gap-bench/REPORT.md):\nthe built-in search arm can open pages, and every provider arm loaded its tool in every run. It repeats\nthat battery's method on the current task catalog: calibrate each brief, keep the tasks with a real\nknowledge gap, and run every admitted task on nine arms, three times each.\n\n**Headline.**\n- **Search still decides the outcome.** Without search the agent passed 0 of 24 runs; every search arm\n  passed 62–83%, and each differs from no search significantly (exact McNemar, p < 0.0001).\n- **The leader changed.** Firecrawl led at 83%. Parallel, which led the 2026-10-03\n  battery at 95%, passed 75%. No search arm differs significantly from the agent's\n  built-in search (largest gap: Firecrawl, +8.3 points, p = 0.50).\n- **Built-in search was competitive and cheapest.** It passed 75%, level with Parallel and\n  Perplexity, at 55k tokens per success, the lowest of any search arm.\n- **Pass rate again did not predict cost.** The rank correlation between pass rate and tokens per success across\n  the seven search arms was −0.04. Firecrawl's top pass rate came at 141k tokens per success.\n\n## Setup\n"
     },
     {
       "table": [
@@ -34,7 +34,7 @@
         ],
         [
           "Grading",
-          "decision correctness, weighted key-fact recall (≥ 0.7) and unsupported-claim rate (≤ 0.25), judged blind by the claude-code primary judge against captured primary sources"
+          "decision correctness, weighted key-fact recall (≥ 0.7) and unsupported-claim rate (≤ 0.25), judged blind by the claude-code primary judge against captured primary sources; the codex judge measured agreement afterwards on the same payloads"
         ],
         [
           "Spend",
@@ -271,7 +271,134 @@
       ]
     },
     {
-      "markdown": "\nOn the shared briefs no arm's change between batteries is statistically distinguishable (two-sided Fisher exact,\nsmallest p = 0.18); Parallel's drop from 20/21 to 16/21 is the largest. With 21 runs per arm,\nneighbouring providers cannot be ranked against each other, and a single battery's ordering should not be quoted\nas a ranking. On the new brief, python-security-march, the arms passed: Exa, Parallel, Firecrawl and Perplexity\n2/3 each; Brave and built-in 1/3 each; Tavily 0/3 (ceiling 3/3).\n\n## What this shows\n\n1. **Search changes the outcome, again.** Without search the agent failed every brief; with any provider it\n   passed most of them. This finding replicated exactly.\n2. **Provider rankings did not replicate.** The top arm changed and the spread between search arms is within\n   sampling noise at this size. Choose a provider on the agent you use, on cost and on integration, and measure.\n3. **Built-in search is a serious baseline once it can read pages.** Level with the middle of the field at the\n   lowest token cost per success.\n4. **Pass rate and cost remain separate questions.** The cheapest arm per success and the highest-passing arm\n   were different arms in both batteries.\n\n## Limits\n\n- One agent and model; the codex half of the 2026-10-03 design was not repeated.\n- Primary-judge verdicts only until the codex agreement pass is recorded.\n- 24 runs per arm: 95% intervals span roughly 30 points.\n- Provider indexes, sources and models drift between batteries; a replication tests the method, not a fixed truth.\n"
+      "markdown": "\nOn the shared briefs no arm's change between batteries is statistically distinguishable (two-sided Fisher exact,\nsmallest p = 0.18); Parallel's drop from 20/21 to 16/21 is the largest. With 21 runs per arm,\nneighbouring providers cannot be ranked against each other, and a single battery's ordering should not be quoted\nas a ranking. On the new brief, python-security-march, the arms passed: Exa, Parallel, Firecrawl and Perplexity\n2/3 each; Brave and built-in 1/3 each; Tavily 0/3 (ceiling 3/3).\n\n## Judge agreement\n\nOn 2026-10-07 the codex judge scored every judged brief from the payload the primary judge had scored. Each payload\nwas rebuilt from the cell's stored source snapshots, so nothing was captured again, and codex was called only after\nthe rebuilt payload's SHA-256 matched the primary's and the stored labels reproduced the stored verdict. The primary\nwas not rerun. 5 briefs failed schema validation and were never judged; they fail under either judge.\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Briefs judged",
+          "Claude-only passes",
+          "Codex-only passes",
+          "Label agreement",
+          "Kappa",
+          "Pass, Claude judge",
+          "Pass, codex judge"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "Firecrawl",
+          "24",
+          "0",
+          "1",
+          "98%",
+          "0.82",
+          "20/24",
+          "21/24"
+        ],
+        [
+          "Exa",
+          "24",
+          "0",
+          "1",
+          "95%",
+          "0.72",
+          "19/24",
+          "20/24"
+        ],
+        [
+          "Built-in (native)",
+          "24",
+          "0",
+          "0",
+          "97%",
+          "0.85",
+          "18/24",
+          "18/24"
+        ],
+        [
+          "Parallel",
+          "23",
+          "1",
+          "0",
+          "95%",
+          "0.70",
+          "18/24",
+          "17/24"
+        ],
+        [
+          "Perplexity",
+          "24",
+          "0",
+          "0",
+          "97%",
+          "0.81",
+          "18/24",
+          "18/24"
+        ],
+        [
+          "Brave",
+          "24",
+          "0",
+          "0",
+          "97%",
+          "0.74",
+          "17/24",
+          "17/24"
+        ],
+        [
+          "Tavily",
+          "24",
+          "0",
+          "0",
+          "94%",
+          "0.71",
+          "15/24",
+          "15/24"
+        ],
+        [
+          "ceiling (reference)",
+          "24",
+          "1",
+          "0",
+          "98%",
+          "0.59",
+          "22/24",
+          "21/24"
+        ],
+        [
+          "floor (reference)",
+          "20",
+          "0",
+          "0",
+          "93%",
+          "0.86",
+          "0/24",
+          "0/24"
+        ],
+        [
+          "All arms",
+          "211",
+          "2",
+          "2",
+          "96%",
+          "0.82",
+          "147/216",
+          "147/216"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nA Claude-only pass is a disputed verdict the Claude judge passed and codex failed; a codex-only pass is the reverse.\nLabel agreement pools the fact and claim labels both judges scored, and kappa is Cohen's kappa on them; claims whose\ncited source could not be captured are left out, as no judge scored them.\n\nThe four disputed verdicts split evenly: the Claude judge alone passed one ceiling and one Parallel brief, and codex\nalone passed one Exa and one Firecrawl brief. Had codex decided, the battery's pass count would be the same, 147 of\n216, and no arm would move by more than one run. Every headline above holds under either judge: the floor passes\nnothing, every search arm differs from it (exact McNemar, p ≤ 0.0001), Firecrawl still leads at 21/24, and no search\narm differs significantly from built-in search (largest gap: Firecrawl, p = 0.25). Agreement is in line with the\n[2026-10-03 battery](../2026-10-03-search-gap-bench/REPORT.md#judge-agreement) on Claude Code's briefs (96% of\nlabels, kappa 0.79). There, 4 of the 5 disputes on Claude Code's briefs went the Claude judge's way; here that lean\ndid not repeat.\n\n## What this shows\n\n1. **Search changes the outcome, again.** Without search the agent failed every brief; with any provider it\n   passed most of them. This finding replicated exactly.\n2. **Provider rankings did not replicate.** The top arm changed and the spread between search arms is within\n   sampling noise at this size. Choose a provider on the agent you use, on cost and on integration, and measure.\n3. **Built-in search is a serious baseline once it can read pages.** Level with the middle of the field at the\n   lowest token cost per success.\n4. **Pass rate and cost remain separate questions.** The cheapest arm per success and the highest-passing arm\n   were different arms in both batteries.\n\n## Limits\n\n- One agent and model; the codex half of the 2026-10-03 design was not repeated.\n- One judge decides the verdicts. The second judge scored the stored payloads after the battery rather\n  than alongside it; the evidence it saw is identical, checked by payload hash.\n- 24 runs per arm: 95% intervals span roughly 30 points.\n- Provider indexes, sources and models drift between batteries; a replication tests the method, not a fixed truth.\n"
     }
   ],
   "catalog": {

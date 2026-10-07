@@ -39,6 +39,21 @@ sew gap run --harness claude-code --model claude-opus-5-5 --reps 3 \
 sew gap report "$HOME/searchlight-gap-claude"
 ```
 
+This battery was graded with `SEW_GAP_JUDGES=claude-code` while codex quota was out, and the codex judge was added
+afterwards from the stored payloads, run from the checkout that graded it:
+
+```sh
+sew gap agree "$HOME/searchlight-gap-claude" --catalog-root . --harness-auth account
+```
+
+A default run grades with both judges at once and needs no second step.
+
 A fresh run measures the same method on today's models, indexes and sources; it is not an exact replay of these
 numbers. Raw run bundles are not distributed. Report rendering is exact and offline:
 `python3 scripts/check_reports.py --write`. See [methodology](methodology.md).
+
+Validate the published reports and their site rendering without live harness calls:
+
+```sh
+python3 -m pytest tests/test_published_reports.py tests/test_build_site.py
+```

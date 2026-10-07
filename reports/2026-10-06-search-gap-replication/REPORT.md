@@ -1,8 +1,9 @@
 # GAP replication on Claude Code, 2026-10-06: the search gap bench, run again
 
 > **Grading note.** These verdicts come from the claude-code primary judge, which decides every
-> verdict in GAP. The codex judge, which only measures agreement, was out of quota for this run;
-> its agreement pass will be added here after 2026-10-09.
+> verdict in GAP. The codex judge, which only measures agreement, was out of quota during the battery
+> and scored the same stored payloads on 2026-10-07. It disputed 4 of the 211 judged verdicts and
+> agreed on 96% of labels (kappa 0.82); no verdict changed. See [judge agreement](#judge-agreement).
 
 A second, independent Search Gap Bench battery on Claude Code (`claude-opus-5-5`), run on 2026-10-06
 and 2026-10-07 with the apparatus as fixed after the [2026-10-03 battery](../2026-10-03-search-gap-bench/REPORT.md):
@@ -29,7 +30,7 @@ knowledge gap, and run every admitted task on nine arms, three times each.
 | Arms | floor (no search), ceiling (answer excerpt in the prompt), native (built-in WebSearch and WebFetch), Brave, Tavily, Exa, Parallel, Firecrawl, Perplexity |
 | Tasks | the 10 brief tasks of the current GAP catalog; 8 admitted by calibration |
 | Repetitions | 5 per reference arm in calibration; 3 per arm in the battery |
-| Grading | decision correctness, weighted key-fact recall (≥ 0.7) and unsupported-claim rate (≤ 0.25), judged blind by the claude-code primary judge against captured primary sources |
+| Grading | decision correctness, weighted key-fact recall (≥ 0.7) and unsupported-claim rate (≤ 0.25), judged blind by the claude-code primary judge against captured primary sources; the codex judge measured agreement afterwards on the same payloads |
 | Spend | about 13.5M agent tokens in the battery; calibration and judge usage are not totalled here |
 
 ## Calibration
@@ -94,6 +95,39 @@ neighbouring providers cannot be ranked against each other, and a single battery
 as a ranking. On the new brief, python-security-march, the arms passed: Exa, Parallel, Firecrawl and Perplexity
 2/3 each; Brave and built-in 1/3 each; Tavily 0/3 (ceiling 3/3).
 
+## Judge agreement
+
+On 2026-10-07 the codex judge scored every judged brief from the payload the primary judge had scored. Each payload
+was rebuilt from the cell's stored source snapshots, so nothing was captured again, and codex was called only after
+the rebuilt payload's SHA-256 matched the primary's and the stored labels reproduced the stored verdict. The primary
+was not rerun. 5 briefs failed schema validation and were never judged; they fail under either judge.
+
+| Arm | Briefs judged | Claude-only passes | Codex-only passes | Label agreement | Kappa | Pass, Claude judge | Pass, codex judge |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Firecrawl | 24 | 0 | 1 | 98% | 0.82 | 20/24 | 21/24 |
+| Exa | 24 | 0 | 1 | 95% | 0.72 | 19/24 | 20/24 |
+| Built-in (native) | 24 | 0 | 0 | 97% | 0.85 | 18/24 | 18/24 |
+| Parallel | 23 | 1 | 0 | 95% | 0.70 | 18/24 | 17/24 |
+| Perplexity | 24 | 0 | 0 | 97% | 0.81 | 18/24 | 18/24 |
+| Brave | 24 | 0 | 0 | 97% | 0.74 | 17/24 | 17/24 |
+| Tavily | 24 | 0 | 0 | 94% | 0.71 | 15/24 | 15/24 |
+| ceiling (reference) | 24 | 1 | 0 | 98% | 0.59 | 22/24 | 21/24 |
+| floor (reference) | 20 | 0 | 0 | 93% | 0.86 | 0/24 | 0/24 |
+| All arms | 211 | 2 | 2 | 96% | 0.82 | 147/216 | 147/216 |
+
+A Claude-only pass is a disputed verdict the Claude judge passed and codex failed; a codex-only pass is the reverse.
+Label agreement pools the fact and claim labels both judges scored, and kappa is Cohen's kappa on them; claims whose
+cited source could not be captured are left out, as no judge scored them.
+
+The four disputed verdicts split evenly: the Claude judge alone passed one ceiling and one Parallel brief, and codex
+alone passed one Exa and one Firecrawl brief. Had codex decided, the battery's pass count would be the same, 147 of
+216, and no arm would move by more than one run. Every headline above holds under either judge: the floor passes
+nothing, every search arm differs from it (exact McNemar, p ≤ 0.0001), Firecrawl still leads at 21/24, and no search
+arm differs significantly from built-in search (largest gap: Firecrawl, p = 0.25). Agreement is in line with the
+[2026-10-03 battery](../2026-10-03-search-gap-bench/REPORT.md#judge-agreement) on Claude Code's briefs (96% of
+labels, kappa 0.79). There, 4 of the 5 disputes on Claude Code's briefs went the Claude judge's way; here that lean
+did not repeat.
+
 ## What this shows
 
 1. **Search changes the outcome, again.** Without search the agent failed every brief; with any provider it
@@ -108,7 +142,8 @@ as a ranking. On the new brief, python-security-march, the arms passed: Exa, Par
 ## Limits
 
 - One agent and model; the codex half of the 2026-10-03 design was not repeated.
-- Primary-judge verdicts only until the codex agreement pass is recorded.
+- One judge decides the verdicts. The second judge scored the stored payloads after the battery rather
+  than alongside it; the evidence it saw is identical, checked by payload hash.
 - 24 runs per arm: 95% intervals span roughly 30 points.
 - Provider indexes, sources and models drift between batteries; a replication tests the method, not a fixed truth.
 

@@ -13,7 +13,9 @@ Differences from the 2026-10-03 battery:
 - **Provider tools.** Every provider arm made provider calls in every run; Parallel's credential is passed as a
   header file the workbench writes per run.
 - **Judging.** The claude-code primary judge decides every verdict, as before. The codex judge, which measures
-  agreement, was not run; agreement is not yet measured.
+  agreement, was out of quota during the battery. It scored the same stored payloads on 2026-10-07 with
+  `sew gap agree`, which rebuilds each payload from the stored source snapshots and calls codex only when the
+  payload's SHA-256 matches the primary's and the stored labels reproduce the verdict.
 
 Statistics are unchanged: Wilson 95% intervals on pass rates, a seeded paired task bootstrap (10,000 resamples)
 for gap closure, exact McNemar tests against the floor and the built-in arm, and tokens per success counted over

@@ -10,7 +10,11 @@ runtime calibration file with captured oracle sources.
 
 Each admitted task ran three times on nine arms. Brief grading requires decision
 correctness, weighted key-fact recall at least 0.7 and unsupported-claim rate at
-most 0.25. Two blinded judges used Claude Code as primary and Codex as secondary.
+most 0.25. Two blinded judges used Claude Code as primary and Codex as secondary;
+the primary decides every verdict and the secondary measures agreement. The 21
+Claude Code native cells rerun on 2026-10-06 were graded by the primary alone, and
+Codex scored their stored payloads on 2026-10-07 (`sew gap agree`), which rebuilds
+each payload from the stored source snapshots and checks its SHA-256 first.
 Gap closure is (arm pass rate − floor pass rate) / (ceiling pass rate − floor pass
 rate); it can exceed one. Wilson 95% intervals accompany pass rates. Gap-closure
 intervals use a seeded paired task bootstrap with 10,000 resamples. Exact McNemar
