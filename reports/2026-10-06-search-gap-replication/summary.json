@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "bench": "GAP",
+  "source_record": "Recorded findings from the battery report, transcribed with recorded display precision; private identifiers omitted.",
+  "blocks": [
+    {
+      "markdown": "# GAP replication on Claude Code, 2026-10-06: the search gap bench, run again\n\n> **Grading note.** These verdicts come from the claude-code primary judge, which decides every\n> verdict in GAP. The codex judge, which only measures agreement, was out of quota for this run;\n> its agreement pass will be added here after 2026-10-09.\n\nA second, independent Search Gap Bench battery on Claude Code (`claude-opus-5-5`), run on 2026-10-06\nand 2026-10-07 with the apparatus as fixed after the [2026-10-03 battery](../2026-10-03-search-gap-bench/REPORT.md):\nthe built-in search arm can open pages, and every provider arm loaded its tool in every run. It repeats\nthat battery's method on the current task catalog: calibrate each brief, keep the tasks with a real\nknowledge gap, and run every admitted task on nine arms, three times each.\n\n**Headline.**\n- **Search still decides the outcome.** Without search the agent passed 0 of 24 runs; every search arm\n  passed 62–83%, and each differs from no search significantly (exact McNemar, p < 0.0001).\n- **The leader changed.** Firecrawl led at 83%. Parallel, which led the 2026-10-03\n  battery at 95%, passed 75%. No search arm differs significantly from the agent's\n  built-in search (largest gap: Firecrawl, +8.3 points, p = 0.50).\n- **Built-in search was competitive and cheapest.** It passed 75%, level with Parallel and\n  Perplexity, at 55k tokens per success, the lowest of any search arm.\n- **Pass rate again did not predict cost.** The rank correlation between pass rate and tokens per success across\n  the seven search arms was −0.04. Firecrawl's top pass rate came at 141k tokens per success.\n\n## Setup\n"
+    },
+    {
+      "table": [
+        [
+          "",
+          ""
+        ],
+        [
+          "---",
+          "---"
+        ],
+        [
+          "Harness",
+          "claude-code on claude-opus-5-5"
+        ],
+        [
+          "Arms",
+          "floor (no search), ceiling (answer excerpt in the prompt), native (built-in WebSearch and WebFetch), Brave, Tavily, Exa, Parallel, Firecrawl, Perplexity"
+        ],
+        [
+          "Tasks",
+          "the 10 brief tasks of the current GAP catalog; 8 admitted by calibration"
+        ],
+        [
+          "Repetitions",
+          "5 per reference arm in calibration; 3 per arm in the battery"
+        ],
+        [
+          "Grading",
+          "decision correctness, weighted key-fact recall (≥ 0.7) and unsupported-claim rate (≤ 0.25), judged blind by the claude-code primary judge against captured primary sources"
+        ],
+        [
+          "Spend",
+          "about 13.5M agent tokens in the battery; calibration and judge usage are not totalled here"
+        ]
+      ]
+    },
+    {
+      "markdown": "\n## Calibration\n"
+    },
+    {
+      "table": [
+        [
+          "Task",
+          "Family",
+          "claude-code"
+        ],
+        [
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "billing-reporting",
+          "research",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "classroom-term",
+          "decision",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "models-production",
+          "decision",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "npm-token-scope",
+          "research",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "org-migration",
+          "decision",
+          "Floor: 0, Ceiling: 4 — admitted"
+        ],
+        [
+          "python-metadata",
+          "research",
+          "Floor: 0, Ceiling: 4 — admitted"
+        ],
+        [
+          "python-security-march",
+          "research",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "tarfile-upload",
+          "decision",
+          "Floor: 0, Ceiling: 5 — admitted"
+        ],
+        [
+          "cli-trust",
+          "decision",
+          "Floor: 0, Ceiling: 3 — rejected"
+        ],
+        [
+          "spark-editing",
+          "decision",
+          "Floor: 0, Ceiling: 1 — rejected"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nEvery floor scored 0. Two briefs were rejected for failing the ceiling, as in the 2026-10-03 calibration:\ncli-trust (ceiling 3/5) and spark-editing (ceiling 1/5).\npython-security-march is admitted this time (ceiling 5/5); in the 2026-10-03 calibration its answer excerpt\nomitted the date its top fact requires, and the catalog has since fixed the excerpt.\n\n## Gap closure\n\n### claude-code (8 tasks, 24 runs per arm)\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "Gap closure (95% CI)",
+          "Pass rate (Wilson 95% CI)",
+          "Tokens per success",
+          "vs floor (exact McNemar)"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "Firecrawl",
+          "0.91 (0.80–1.00)",
+          "83% (64–93%)",
+          "141k",
+          "p < 0.0001"
+        ],
+        [
+          "Exa",
+          "0.86 (0.58–1.11)",
+          "79% (60–91%)",
+          "89k",
+          "p < 0.0001"
+        ],
+        [
+          "Built-in (native)",
+          "0.82 (0.60–0.96)",
+          "75% (55–88%)",
+          "55k",
+          "p < 0.0001"
+        ],
+        [
+          "Parallel",
+          "0.82 (0.54–1.17)",
+          "75% (55–88%)",
+          "90k",
+          "p < 0.0001"
+        ],
+        [
+          "Perplexity",
+          "0.82 (0.64–0.96)",
+          "75% (55–88%)",
+          "72k",
+          "p < 0.0001"
+        ],
+        [
+          "Brave",
+          "0.77 (0.50–1.06)",
+          "71% (51–85%)",
+          "105k",
+          "p < 0.0001"
+        ],
+        [
+          "Tavily",
+          "0.68 (0.33–0.96)",
+          "62% (43–79%)",
+          "126k",
+          "p < 0.0001"
+        ],
+        [
+          "ceiling (reference)",
+          "1.00",
+          "92% (74–98%)",
+          "5k",
+          ""
+        ],
+        [
+          "floor (reference)",
+          "0.00",
+          "0% (0–14%)",
+          "—",
+          ""
+        ]
+      ]
+    },
+    {
+      "markdown": "\nBy family:\n- **Research briefs:** Firecrawl, Perplexity and Exa 92%; Parallel and Built-in 83%; Brave and Tavily 75%.\n- **Decision briefs:** Firecrawl 75%; Parallel, Brave, Exa and Built-in 67%; Perplexity 58%; Tavily 50%.\n\n## Against the 2026-10-03 battery\n\nThe task set differs by one brief (python-security-march), so the fair comparison is on the seven briefs both\nbatteries admitted. The 2026-10-03 built-in row is its 2026-10-06 rerun with page fetching working.\n"
+    },
+    {
+      "table": [
+        [
+          "Arm",
+          "2026-10-03 battery (7 tasks)",
+          "Replication, same 7 tasks",
+          "Fisher exact",
+          "Replication, all 8 tasks"
+        ],
+        [
+          "---",
+          "---",
+          "---",
+          "---",
+          "---"
+        ],
+        [
+          "Parallel",
+          "20/21 (95%)",
+          "16/21 (76%)",
+          "p = 0.18",
+          "18/24 (75%)"
+        ],
+        [
+          "Firecrawl",
+          "19/21 (90%)",
+          "18/21 (86%)",
+          "p = 1.00",
+          "20/24 (83%)"
+        ],
+        [
+          "Brave",
+          "17/21 (81%)",
+          "16/21 (76%)",
+          "p = 1.00",
+          "17/24 (71%)"
+        ],
+        [
+          "Built-in (native)",
+          "16/21 (76%)",
+          "17/21 (81%)",
+          "p = 1.00",
+          "18/24 (75%)"
+        ],
+        [
+          "Perplexity",
+          "16/21 (76%)",
+          "16/21 (76%)",
+          "p = 1.00",
+          "18/24 (75%)"
+        ],
+        [
+          "Exa",
+          "15/21 (71%)",
+          "17/21 (81%)",
+          "p = 0.72",
+          "19/24 (79%)"
+        ],
+        [
+          "Tavily",
+          "15/21 (71%)",
+          "15/21 (71%)",
+          "p = 1.00",
+          "15/24 (62%)"
+        ],
+        [
+          "ceiling (reference)",
+          "20/21 (95%)",
+          "19/21 (90%)",
+          "p = 1.00",
+          "22/24 (92%)"
+        ]
+      ]
+    },
+    {
+      "markdown": "\nOn the shared briefs no arm's change between batteries is statistically distinguishable (two-sided Fisher exact,\nsmallest p = 0.18); Parallel's drop from 20/21 to 16/21 is the largest. With 21 runs per arm,\nneighbouring providers cannot be ranked against each other, and a single battery's ordering should not be quoted\nas a ranking. On the new brief, python-security-march, the arms passed: Exa, Parallel, Firecrawl and Perplexity\n2/3 each; Brave and built-in 1/3 each; Tavily 0/3 (ceiling 3/3).\n\n## What this shows\n\n1. **Search changes the outcome, again.** Without search the agent failed every brief; with any provider it\n   passed most of them. This finding replicated exactly.\n2. **Provider rankings did not replicate.** The top arm changed and the spread between search arms is within\n   sampling noise at this size. Choose a provider on the agent you use, on cost and on integration, and measure.\n3. **Built-in search is a serious baseline once it can read pages.** Level with the middle of the field at the\n   lowest token cost per success.\n4. **Pass rate and cost remain separate questions.** The cheapest arm per success and the highest-passing arm\n   were different arms in both batteries.\n\n## Limits\n\n- One agent and model; the codex half of the 2026-10-03 design was not repeated.\n- Primary-judge verdicts only until the codex agreement pass is recorded.\n- 24 runs per arm: 95% intervals span roughly 30 points.\n- Provider indexes, sources and models drift between batteries; a replication tests the method, not a fixed truth.\n"
+    }
+  ],
+  "catalog": {
+    "path": "catalogs/gap/tasks.yaml",
+    "hash_algorithm": "sha256 of file bytes",
+    "historical": {
+      "battery": "29f8fd1731cd0155f2a993688d8f1dfac7ad6ef1f6effc549185af026ad24443"
+    },
+    "shipped": "29f8fd1731cd0155f2a993688d8f1dfac7ad6ef1f6effc549185af026ad24443"
+  }
+}
