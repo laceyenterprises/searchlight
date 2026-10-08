@@ -158,7 +158,9 @@ port and saved DNS answers remain enforced by the parent proxy. Both `NO_PROXY`
 and `no_proxy` retain `localhost,127.0.0.1,::1`, so local development servers
 inside the namespace bypass the egress proxy. Direct HTTP requests are translated
 to proxy requests; HTTP headers exceeding 64 KiB close the relay connection
-without forwarding any part of the request. Direct TLS first establishes an
+without forwarding any part of the request. Request-line or URL parsing errors
+return HTTP 400 and close the relay without forwarding the request or its
+pipelined tail. Direct TLS first establishes an
 allowlisted CONNECT tunnel, preserving the original hostname for certificate
 verification. The bridge requires an HTTP/1.1 200 response and ignores its
 reason phrase; other status codes close the connection. IPv6 loopback

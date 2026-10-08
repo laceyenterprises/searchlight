@@ -252,15 +252,20 @@ def forward_http(client, upstream):
             return
         head += chunk
     line, rest = head.split(b'\r\n', 1)
-    method, target, version = line.decode('latin-1').split(' ', 2)
-    parsed = urlsplit('//' + target if method == 'CONNECT' else target)
-    if parsed.hostname is None or (parsed.hostname == original.hostname and parsed.port == server.getsockname()[1]):
-        target = original_authority if method == 'CONNECT' else urlunsplit(
-            (original.scheme, original_authority, parsed.path, parsed.query, parsed.fragment)
-        )
-        # The upstream receives its original authority, including port.
-        rest = re.sub(br'(?im)^Host:[^\r\n]*',
-                      b'Host: ' + original_authority.encode('ascii'), rest)
+    try:
+        method, target, version = line.decode('latin-1').split(' ', 2)
+        parsed = urlsplit('//' + target if method == 'CONNECT' else target)
+        if parsed.hostname is None or (parsed.hostname == original.hostname and parsed.port == server.getsockname()[1]):
+            target = original_authority if method == 'CONNECT' else urlunsplit(
+                (original.scheme, original_authority, parsed.path, parsed.query, parsed.fragment)
+            )
+            # The upstream receives its original authority, including port.
+            rest = re.sub(br'(?im)^Host:[^\r\n]*',
+                          b'Host: ' + original_authority.encode('ascii'), rest)
+    except ValueError as exc:
+        client.sendall(b'HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 0\r\n\r\n')
+        # Stop the relay too, so no malformed request or pipelined tail escapes.
+        raise OSError('proxy bridge malformed HTTP request') from exc
     upstream.sendall((method + ' ' + target + ' ' + version + '\r\n').encode('latin-1') + rest)
 original = None
 base = os.environ.pop('SEW_GAP_LITELLM_BASE_URL', '')

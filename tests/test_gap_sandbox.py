@@ -287,6 +287,57 @@ def test_bridge_relays_response_after_repeated_idle_intervals(loopback):
         assert request.startswith(b"GET " + target + b" HTTP/1.1\r\n")
 
 
+@pytest.mark.parametrize("request_line", [
+    b"GET",
+    b"GET /v1",
+    b"GET http://[broken/v1 HTTP/1.1",
+    b"GET http://localhost:invalid/v1 HTTP/1.1",
+    b"GET http://localhost:65536/v1 HTTP/1.1",
+    b"CONNECT [broken HTTP/1.1",
+])
+def test_bridge_rejects_malformed_http_without_forwarding(request_line):
+    import ast
+    import re
+    import socket
+    from types import SimpleNamespace
+    from urllib.parse import urlsplit, urlunsplit
+
+    tree = ast.parse(sandbox.PROXY_BRIDGE)
+    tree.body = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
+    client, harness = socket.socketpair()
+    upstream, endpoint = socket.socketpair()
+
+    class ConnectedSocket(socket.socket):
+        def connect(self, path):
+            pass
+
+    upstream = ConnectedSocket(fileno=upstream.detach())
+    namespace = {
+        "socket": SimpleNamespace(socket=lambda family: upstream, AF_UNIX=socket.AF_UNIX,
+                                  MSG_PEEK=socket.MSG_PEEK),
+        "path": "unused.sock",
+        "original": urlsplit("http://localhost:4000"),
+        "original_authority": "localhost:4000",
+        "server": SimpleNamespace(getsockname=lambda: ("127.0.0.1", 12345)),
+        "urlsplit": urlsplit,
+        "urlunsplit": urlunsplit,
+        "re": re,
+    }
+    with client, harness, upstream, endpoint:
+        harness.settimeout(1)
+        endpoint.settimeout(1)
+        exec(compile(tree, "<PROXY_BRIDGE>", "exec"), namespace)
+        # A valid pipelined tail must also be discarded after the bad request.
+        harness.sendall(request_line + b"\r\nHost: localhost\r\n\r\n"
+                        b"GET /tail HTTP/1.1\r\nHost: localhost\r\n\r\n")
+        harness.shutdown(socket.SHUT_WR)
+        namespace["relay"](client)
+        assert harness.recv(65536) == (
+            b"HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 0\r\n\r\n"
+        )
+        assert endpoint.recv(65536) == b""
+
+
 @pytest.mark.parametrize("host", ["localhost", "127.0.0.1", "[::1]"])
 @pytest.mark.parametrize("userinfo", ["", "user:p%40ss@"])
 @pytest.mark.parametrize("has_config", [False, True])
