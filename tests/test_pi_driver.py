@@ -116,115 +116,14 @@ def test_native_fixture_respects_profile_native_search_flag(tmp_path: Path) -> N
     }
 
 
-def test_live_smoke_skips_without_explicit_flag(tmp_path: Path) -> None:
-    driver = PiHarnessDriver.from_config()
-
-    result = driver.run_live_smoke(
-        tmp_path,
-        profile_id="oss-small",
-        provider_id="exa",
-        env={},
+def test_legacy_smoke_does_not_write_a_fake_live_result(tmp_path: Path) -> None:
+    result = PiHarnessDriver.from_config().run_live_smoke(
+        tmp_path, profile_id="oss-small", provider_id="exa", env={}
     )
-
     assert result.status == "skipped"
-    assert LIVE_ENV in result.reason
-
-
-def test_live_smoke_skips_without_provider_credentials(tmp_path: Path) -> None:
-    driver = PiHarnessDriver.from_config()
-
-    result = driver.run_live_smoke(
-        tmp_path,
-        profile_id="oss-small",
-        provider_id="exa",
-        env={LIVE_ENV: "1"},
-    )
-
-    assert result.status == "skipped"
-    assert "EXA_API_KEY" in result.reason
-
-
-def test_live_smoke_writes_live_mode_when_runtime_and_credentials_exist(tmp_path: Path) -> None:
-    fake_pi = tmp_path / "pi"
-    fake_pi.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
-    os.chmod(fake_pi, 0o755)
-    driver = PiHarnessDriver.from_config()
-
-    result = driver.run_live_smoke(
-        tmp_path / "runs",
-        profile_id="oss-small",
-        provider_id="exa",
-        env={
-            LIVE_ENV: "1",
-            "EXA_API_KEY": "test-key",
-            "SEW_PI_BIN": str(fake_pi),
-        },
-    )
-
-    assert result.status == "passed"
-    assert result.run_dir is not None
-    run = json.loads((result.run_dir / "run.json").read_text(encoding="utf-8"))
-    harness = load_record(result.run_dir, run["harness_ref"])
-    assert run["mode"] == "live"
-    assert harness["fixture_mode"] is False
-
-
-def test_live_smoke_skips_when_runtime_probe_times_out(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    fake_pi = tmp_path / "pi"
-    fake_pi.write_text("#!/bin/sh\nsleep 30\n", encoding="utf-8")
-    os.chmod(fake_pi, 0o755)
-    driver = PiHarnessDriver.from_config()
-
-    def timeout_probe(*args: object, **kwargs: object) -> subprocess.CompletedProcess[str]:
-        raise subprocess.TimeoutExpired(cmd=[str(fake_pi), "--help"], timeout=15)
-
-    monkeypatch.setattr(subprocess, "run", timeout_probe)
-
-    result = driver.run_live_smoke(
-        tmp_path / "runs",
-        profile_id="oss-small",
-        provider_id="exa",
-        env={
-            LIVE_ENV: "1",
-            "EXA_API_KEY": "test-key",
-            "SEW_PI_BIN": str(fake_pi),
-        },
-    )
-
-    assert result.status == "skipped"
-    assert result.reason == "Pi runtime probe timed out"
+    assert "run-live-harness" in result.reason
     assert result.run_dir is None
-
-
-def test_live_smoke_skips_when_runtime_probe_cannot_start(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    fake_pi = tmp_path / "pi"
-    fake_pi.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
-    os.chmod(fake_pi, 0o755)
-    driver = PiHarnessDriver.from_config()
-
-    def failed_probe(*args: object, **kwargs: object) -> subprocess.CompletedProcess[str]:
-        raise OSError("resource temporarily unavailable")
-
-    monkeypatch.setattr(subprocess, "run", failed_probe)
-
-    result = driver.run_live_smoke(
-        tmp_path / "runs",
-        profile_id="oss-small",
-        provider_id="exa",
-        env={
-            LIVE_ENV: "1",
-            "EXA_API_KEY": "test-key",
-            "SEW_PI_BIN": str(fake_pi),
-        },
-    )
-
-    assert result.status == "skipped"
-    assert result.reason == "Pi runtime failed to start: resource temporarily unavailable"
-    assert result.run_dir is None
+    assert not list(tmp_path.iterdir())
 
 
 def test_unknown_pi_profile_is_rejected() -> None:

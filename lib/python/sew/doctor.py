@@ -62,6 +62,12 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
                 status = f"version {'.'.join(map(str, version))}; minimum {minimum}" if version >= spec.min_version else f"unsupported version; requires >= {minimum}"
             except (OSError, subprocess.TimeoutExpired):
                 status = "version check failed"
+        if spec.id == "pi" and binary:
+            from .pi_live import version_status
+            try:
+                status = version_status(command, env)
+            except (OSError, subprocess.SubprocessError) as exc:
+                status = f"version probe failed ({type(exc).__name__})"
         harnesses.append(f"{spec.id}: {status}")
     from .gap.sandbox import qualify_backend, select_backend
     from .gap.workspace import EgressCanaryRefused

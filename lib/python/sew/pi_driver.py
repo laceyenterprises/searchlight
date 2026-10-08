@@ -4,8 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
-import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
@@ -152,63 +150,12 @@ class PiHarnessDriver:
         task_id: str = "current-fact-lookup-v1",
         env: Mapping[str, str] | None = None,
     ) -> LiveSmokeResult:
-        source = os.environ if env is None else env
-        if source.get(LIVE_ENV) != "1":
-            return LiveSmokeResult("skipped", f"{LIVE_ENV}=1 is required for live Pi smoke")
-        _ensure_provider(provider_id)
-        if provider_id not in LIVE_PROVIDER_ENV:
-            return LiveSmokeResult("skipped", f"{provider_id} has no live credential contract")
-        credential_env = LIVE_PROVIDER_ENV[provider_id]
-        if not source.get(credential_env):
-            return LiveSmokeResult("skipped", f"{credential_env} is not configured")
-        pi_bin = source.get(PI_BIN_ENV, self._pi_bin)
-        if shutil.which(pi_bin) is None:
-            return LiveSmokeResult("skipped", f"Pi runtime not found on PATH: {pi_bin}")
-
-        profile = self.profile(profile_id)
-        if not profile.supports_external_tools:
-            result = self.run_fixture_task(
-                output_root,
-                profile=profile,
-                provider_id=provider_id,
-                task_id=task_id,
-            )
-            return LiveSmokeResult(
-                "skipped", "profile does not support provider tools", result.run_dir
-            )
-
-        try:
-            probe = subprocess.run(
-                [pi_bin, "--help"],
-                text=True,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                timeout=15,
-                check=False,
-            )
-        except subprocess.TimeoutExpired:
-            return LiveSmokeResult("skipped", "Pi runtime probe timed out")
-        except OSError as exc:
-            return LiveSmokeResult("skipped", f"Pi runtime failed to start: {exc}")
-        if probe.returncode not in {0, 2}:
-            return LiveSmokeResult(
-                "skipped", f"Pi runtime probe failed with exit {probe.returncode}"
-            )
-
-        run_id = f"pi-{profile.profile_id}-{provider_id}-{task_id}-live-smoke"
-        run_dir = output_root / run_id
-        _write_fixture_bundle(
-            run_dir,
-            run_id=run_id,
-            suite_id="lighthouse",
-            task_id=task_id,
-            provider_id=provider_id,
-            profile=profile,
-            status="succeeded",
-            fixture_mode=False,
+        # Compatibility entry point: a help probe is not a live model run.
+        # Search cells now use the registry-backed run-live-harness command.
+        return LiveSmokeResult(
+            "skipped", "use sew run-live-harness --harness pi --model litellm/<route> "
+            "with an explicit provider MCP config"
         )
-        validate_fixture_run(run_dir)
-        return LiveSmokeResult("passed", "Pi runtime and provider credential are present", run_dir)
 
 
 def load_pi_profiles(data: Any) -> dict[str, PiModelProfile]:

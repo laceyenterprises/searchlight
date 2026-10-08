@@ -654,6 +654,9 @@ def run_live_harness(
             config = replace(config, model_id=selected, model_id_origin=origin)
     elif config.model_id and not config.model_id_origin:
         config = replace(config, model_id_origin="explicit")
+    spec = harnesses.get(config.harness_id)
+    if not spec.native_search:
+        config = replace(config, native_search_available=False)
     protocol = PROTOCOLS[config.harness_id]
     # Resolve known tasks even with a prompt override: production budgets and
     # provenance must not depend on which caller supplied the prompt. Unknown
@@ -834,6 +837,22 @@ def run_live_harness(
                             if isinstance(value := tokens.get(key), str) and value
                         )
                 child_env = child_environment(spawn_config, source_env)
+                # Isolated adapters may carry server credentials as a JSON env
+                # value to keep them off disk. Scrub both the envelope and its
+                # credential-named string values if the child echoes either.
+                for key, value in child_env.items():
+                    if value and TRANSCRIPT_SECRET_KEY_RE.search(key):
+                        broker_tokens.append(value)
+                        try:
+                            secret_map = json.loads(value)
+                        except ValueError:
+                            continue
+                        if isinstance(secret_map, dict):
+                            broker_tokens.extend(
+                                v for k, v in secret_map.items()
+                                if TRANSCRIPT_SECRET_KEY_RE.search(k) and isinstance(v, str) and v
+                            )
+
                 if auth_source == "broker":
                     child_env.pop("ANTHROPIC_API_KEY", None)
                     child_env.pop("OPENAI_API_KEY", None)
