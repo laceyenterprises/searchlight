@@ -266,6 +266,10 @@ class HarnessProtocol:
     def argv(self, binary: str, config: HarnessRunConfig, last_message_path: Path) -> list[str]:
         raise NotImplementedError
 
+    def prompt_argv(self, binary, config, last_message_path, prompt):
+        """Launch arguments for harnesses that transport prompts in argv."""
+        return self.argv(binary, config, last_message_path)
+
     def is_ready(self, event: Mapping[str, Any]) -> bool:
         raise NotImplementedError
 
@@ -760,7 +764,10 @@ def run_live_harness(
                 forbidden_paths += (Path(config.wheelhouse).resolve(),)
             forbidden_paths += (gap_root / "catalogs" / "gap" / gap_task["hidden"],)
         oss_model = bool(config.model_id and config.model_id.startswith("litellm/"))
-        if config.provider_id == "native" and (oss_model or not config.native_search_available):
+        if config.provider_id == "native" and (
+            oss_model or not config.native_search_available
+            or not harnesses.get(config.harness_id).native_search
+        ):
             # This harness has no native search, so the native arm cannot run.
             # Nothing spawns: the cell is recorded as unsupported instead of
             # letting the arm contract raise and take down the whole batch.
@@ -768,7 +775,7 @@ def run_live_harness(
             # so supported and unsupported cells aggregate identically.
             contract = ArmContract("native", config.harness_id)
             spawn_config = config
-            argv = protocol.argv(binary, config, last_message_path)
+            argv = protocol.prompt_argv(binary, config, last_message_path, prompt)
             outcome = ProcessOutcome(ended_at=datetime.now(UTC))
             terminal = (
                 TerminalStatus("not_applicable", "native-search-unavailable-on-oss-model")
@@ -784,7 +791,7 @@ def run_live_harness(
                 harness_args=tuple(config.harness_args) + surface.harness_args,
                 env={**config.env, **surface.env},
             )
-            argv = protocol.argv(binary, spawn_config, last_message_path)
+            argv = protocol.prompt_argv(binary, spawn_config, last_message_path, prompt)
             try:
                 if auth_source == "litellm":
                     from .oss import litellm_cell_env
@@ -1135,6 +1142,8 @@ def spawn_and_capture(
     usage_seen: dict[str, int] = {}
     calls_seen: set[str] = set()
     stdout_done = False
+    session_seen: set = set()
+    session_bytes = 0
     try:
         while True:
             try:
@@ -1158,7 +1167,23 @@ def spawn_and_capture(
                 ):
                     outcome.provider_budget_killed = True
                     break
-            if capture_overflow.is_set():
+            poll = getattr(protocol, "poll_events", None)
+            if poll is not None:
+                for event in poll(env, session_seen):
+                    raw = json.dumps(event).encode()
+                    session_bytes += len(raw)
+                    if session_bytes > CAPTURE_BUDGET_BYTES:
+                        outcome.capture_overflow = True
+                        break
+                    _absorb_line(outcome, protocol, raw, datetime.now(UTC),
+                                 usage_seen, contract, calls_seen)
+                if limits.max_total_tokens is not None and outcome.running_tokens > limits.max_total_tokens:
+                    outcome.budget_killed = True
+                    break
+                if limits.max_provider_calls is not None and outcome.provider_calls > limits.max_provider_calls:
+                    outcome.provider_budget_killed = True
+                    break
+            if outcome.capture_overflow or capture_overflow.is_set():
                 outcome.capture_overflow = True
                 break
             # Deadlines are checked on every pass, not only when stdout is
