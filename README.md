@@ -371,7 +371,11 @@ oss:
 `SEW_OSS_ENABLED=1` enables support; `SEW_LITELLM_BASE_URL` overrides the
 endpoint. Set `SEW_LITELLM_API_KEY` in your environment.
 Credentials are injected into each cell, and judges keep their own credentials.
-`sew doctor` probes LiteLLM only when OSS is enabled. Preview a cell without
+`sew doctor` probes LiteLLM only when OSS is enabled: it checks
+`/health/readiness` and lists selected routes advertised by `/v1/models`.
+These diagnostics use the proxy key when provisioned and report availability
+without displaying the key. They do not make a model call or establish that
+a listed route can complete inference. Preview a cell without
 reading a key or starting a harness with
 `SEW_OSS_ENABLED=1 sew run-live-harness --harness codex --model litellm/glm-5.2 --arm exa --dry-run`.
 Harness launch adapters are delivered separately; legacy Pi profiles now live
