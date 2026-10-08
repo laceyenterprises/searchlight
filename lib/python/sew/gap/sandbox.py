@@ -220,7 +220,7 @@ def relay(client):
                         if not chunk or len(response) >= 65536:
                             return
                         response += chunk
-                    if response.split(b'\r\n', 1)[0] != b'HTTP/1.1 200 Connection Established':
+                    if not response.split(b'\r\n', 1)[0].startswith(b'HTTP/1.1 200 '):
                         return
                 else:
                     forward_http(client, upstream)

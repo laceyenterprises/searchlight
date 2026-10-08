@@ -155,7 +155,8 @@ inside the namespace bypass the egress proxy. Direct HTTP requests are translate
 to proxy requests; HTTP headers exceeding 64 KiB close the relay connection
 without forwarding any part of the request. Direct TLS first establishes an
 allowlisted CONNECT tunnel, preserving the original hostname for certificate
-verification. IPv6 loopback
+verification. The bridge requires an HTTP/1.1 200 response and ignores its
+reason phrase; other status codes close the connection. IPv6 loopback
 endpoints use an IPv6 listener. Each qualification or cell launch
 refreshes the provider URL for its own listener. `/tmp` is mounted before
 read and scratch binds so the socket and any explicitly admitted runtime below

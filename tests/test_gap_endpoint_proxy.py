@@ -775,3 +775,79 @@ exec({PROXY_BRIDGE!r})
             assert stdout.strip() == "contained"
         finally:
             os.killpg(process.pid, signal.SIGTERM)
+
+
+@pytest.mark.parametrize("status,accepted", [
+    ("200 Connection Established", True),
+    ("200 OK", True),
+    ("200 ", True),
+    ("403 Connection Established", False),
+    ("2000 OK", False),
+])
+def test_litellm_tls_bridge_connect_status(tmp_path, status, accepted):
+    from sew.gap.sandbox import PROXY_BRIDGE
+    from sew.gap.verify import _execute
+
+    payload = b"\x16fake TLS handshake"
+    requests = []
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_CONNECT(self):
+            requests.append(self.path)
+            self.connection.settimeout(3)
+            self.wfile.write(f"HTTP/1.1 {status}\r\n\r\n".encode())
+            self.wfile.flush()
+            if accepted:
+                data = self.rfile.read(len(payload))
+                if data:
+                    self.wfile.write(data)
+
+        def log_message(self, *args):
+            pass
+
+    # As in the loopback routing test, use TCP for the private Unix transport
+    # so the actual bridge can run on hosts where Unix sockets are unavailable.
+    with ThreadingHTTPServer(("127.0.0.1", 0), Handler) as server:
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        bootstrap = f"""
+import socket
+original_socket = socket.socket
+class FakeUnixSocket(original_socket):
+    def __init__(self, family=socket.AF_INET, *args, **kwargs):
+        self.is_unix = family == socket.AF_UNIX
+        super().__init__(socket.AF_INET if self.is_unix else family, *args, **kwargs)
+    def connect(self, address):
+        return super().connect(('127.0.0.1', {server.server_port}) if self.is_unix else address)
+socket.socket = FakeUnixSocket
+exec({PROXY_BRIDGE!r})
+"""
+        code = f"""
+import os, socket
+from urllib.parse import urlsplit
+target = urlsplit(os.environ['SEW_LITELLM_BASE_URL'])
+with socket.create_connection((target.hostname, target.port), timeout=3) as client:
+    client.sendall({payload!r})
+    client.shutdown(socket.SHUT_WR)
+    received = b''
+    try:
+        while chunk := client.recv(4096):
+            received += chunk
+    except ConnectionResetError:
+        assert {not accepted!r}
+assert received == {payload if accepted else b''!r}, received
+"""
+        base = "https://127.0.0.1:4000"
+        try:
+            result = _execute(
+                [sys.executable, "-I", "-c", bootstrap, "fake-unix-transport",
+                 sys.executable, "-I", "-c", code],
+                tmp_path,
+                {"SEW_GAP_LITELLM_BASE_URL": base, "SEW_LITELLM_BASE_URL": base},
+                5,
+            )
+            assert result["exit_code"] == 0, result
+            assert requests == ["127.0.0.1:4000"]
+        finally:
+            server.shutdown()
+            thread.join()
