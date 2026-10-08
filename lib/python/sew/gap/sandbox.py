@@ -242,8 +242,11 @@ def forward_http(client, upstream):
     # this listener. The parent still enforces its frozen allowlist.
     head = b''
     while b'\r\n\r\n' not in head:
+        if len(head) >= 65536:
+            # Abort relay as well: the remaining bytes are not a new request.
+            raise OSError('proxy bridge request headers too large')
         chunk = client.recv(1)
-        if not chunk or len(head) >= 65536:
+        if not chunk:
             return
         head += chunk
     line, rest = head.split(b'\r\n', 1)

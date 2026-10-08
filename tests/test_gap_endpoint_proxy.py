@@ -736,6 +736,17 @@ for url in ('http://provider.invalid/', os.environ['OTHER_PORT']):
     connection.request('GET', url)
     assert connection.getresponse().status == 403
     connection.close()
+with socket.create_connection((proxy.hostname, proxy.port), timeout=3) as connection:
+    # A discarded oversized header must not let its tail become a fresh
+    # request at the parent proxy. The extra byte exposed the old relay bug.
+    oversized = b'GET / HTTP/1.1\r\nX-Padding: '.ljust(65536, b'a') + b'a'
+    tail = ('GET ' + os.environ['ORIGINAL_BASE'] + '/header-tail HTTP/1.1\r\nHost: ignored\r\n\r\n').encode()
+    connection.sendall(oversized + tail)
+    try:
+        response = connection.recv(65536)
+    except ConnectionResetError:
+        response = b''
+    assert response == b'', response
 print('contained', flush=True)
 '''
     with endpoint_proxy({(urlsplit(base).hostname, upstream): records}) as proxy:
