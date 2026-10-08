@@ -209,11 +209,37 @@ def _run_fixture_harnesses(args: argparse.Namespace) -> int:
 
 
 def _run_live_harness(args: argparse.Namespace) -> int:
+    from .oss import cell_plan, require_enabled, valid_model_id
+    from .host import HostUnavailable
+
+    if args.model_id and not valid_model_id(args.model_id):
+        raise HostUnavailable("model must be an explicit, safe model identifier")
+    require_enabled(args.harness, args.model_id)
+    if args.dry_run:
+        print(cell_plan(args.harness, args.model_id, args.arm, requested_auth=args.harness_auth))
+        return 0
+    if args.harness not in harness_registry.ids(live=True):
+        raise HostUnavailable(f"{args.harness} live adapter is not installed")
+    exposure = None
+    if args.arm not in {"native", "no-search"}:
+        if not args.provider_mcp_config:
+            raise HostUnavailable("provider arm requires --provider-mcp-config")
+        from .arms import PROVIDER_SERVER_NAMES
+        from .harness import ProviderExposure
+
+        exposure = ProviderExposure(
+            provider_id=args.arm,
+            tool_name="web_search",
+            mcp_server_name=PROVIDER_SERVER_NAMES[args.arm],
+            mcp_server_config=json.loads(Path(args.provider_mcp_config).read_text()),
+        )
     output_root = Path(args.output_root) if args.output_root else default_state_root() / "live"
     result = run_harness(
         HarnessRunConfig(
             harness_id=args.harness,
-            provider_id="native",
+            provider_id=args.arm,
+            external_provider=exposure,
+            native_search_available=args.arm == "native",
             task_id=args.task_id,
             mode="live",
             prompt_text=args.prompt_text,
@@ -818,15 +844,18 @@ def build_parser() -> argparse.ArgumentParser:
         "run-live-harness",
         help=f"spawn one real Codex/Claude Code cell (operator-gated: {LIVE_ENV}=1)",
     )
-    live_harness.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
+    live_harness.add_argument("--harness", required=True, choices=tuple(dict.fromkeys((*harness_registry.ids(live=True), "hermes", "pi", "opencode"))))
     live_harness.add_argument("--output-root", help="override output root for the run bundle")
     live_harness.add_argument("--task-id", default="current-fact-lookup-v1")
     live_harness.add_argument("--prompt-text", help="send this prompt instead of the task's")
-    live_harness.add_argument("--model-id", help="pass --model to the harness")
+    live_harness.add_argument("--model-id", "--model", dest="model_id", help="pass --model to the harness")
     live_harness.add_argument("--timeout-seconds", type=float)
     live_harness.add_argument("--boot-timeout-seconds", type=float)
     live_harness.add_argument("--max-total-tokens", type=int)
-    live_harness.add_argument("--harness-auth", choices=("broker", "account"))
+    live_harness.add_argument("--harness-auth", choices=("broker", "account", "litellm"))
+    live_harness.add_argument("--dry-run", action="store_true", help="print cell plan without spawns or key reads")
+    live_harness.add_argument("--arm", default="native", choices=("native", "no-search", "exa", "parallel-web", "firecrawl", "brave", "tavily", "perplexity"))
+    live_harness.add_argument("--provider-mcp-config", help="path to the arm's MCP server JSON")
     live_harness.set_defaults(func=_run_live_harness)
     evaluate = sub.add_parser(
         "evaluate-fixture",
@@ -874,7 +903,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--provider-mcp-config",
         help="live mode: YAML/JSON map of provider id to the MCP server its arm exposes",
     )
-    run.add_argument("--harness-auth", choices=("broker", "account"))
+    run.add_argument("--harness-auth", choices=("broker", "account", "litellm"))
     run.set_defaults(func=_run_suite)
     retrieval = sub.add_parser(
         "retrieval", help="run the live provider-vs-provider retrieval comparison"
@@ -953,7 +982,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     gap_run.add_argument("--wheelhouse", type=Path)
     gap_run.add_argument("--provider-mcp-config", type=Path)
-    gap_run.add_argument("--harness-auth", choices=("broker", "account"))
+    gap_run.add_argument("--harness-auth", choices=("broker", "account", "litellm"))
     gap_run.add_argument("--price-table", type=Path)
     gap_run.set_defaults(func=_gap_run)
     calibration = gap_sub.add_parser("calibrate", help="run floor and ceiling admission references")

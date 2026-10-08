@@ -1,0 +1,81 @@
+# Rates are USD per million tokens, captured 2026-10-06.
+# Limits are conservative route caps; a proxy may impose lower limits.
+version: 1
+models:
+  glm-5.2:
+    upstream: glm-5.2
+    provider: zai
+    context_window_tokens: 1048576
+    max_output_tokens: 131072
+    input_usd_per_mtok: 1.4
+    output_usd_per_mtok: 4.4
+    cached_input_usd_per_mtok: 0.26
+    rate_basis: list
+    source: https://docs.z.ai/guides/llm/glm-5.2
+    as_of: '2026-10-06'
+  kimi-k3:
+    upstream: kimi-k3
+    provider: moonshot
+    context_window_tokens: 1048576
+    max_output_tokens: 131072
+    input_usd_per_mtok: 3
+    output_usd_per_mtok: 15
+    cached_input_usd_per_mtok: 0.3
+    rate_basis: list
+    source: https://platform.kimi.ai/docs/pricing/chat-k3
+    as_of: '2026-10-06'
+  fireworks/kimi-k3:
+    upstream: accounts/fireworks/models/kimi-k3
+    provider: fireworks
+    context_window_tokens: 1048576
+    max_output_tokens: 131072
+    input_usd_per_mtok: 3
+    output_usd_per_mtok: 15
+    cached_input_usd_per_mtok: 0.3
+    rate_basis: list
+    source: https://fireworks.ai/models/fireworks/kimi-k3
+    as_of: '2026-10-06'
+  together/deepseek-v4.1-flash:
+    upstream: deepseek-ai/DeepSeek-V4.1-Flash
+    provider: together
+    context_window_tokens: 1048576
+    max_output_tokens: 131072
+    input_usd_per_mtok: 0.3
+    output_usd_per_mtok: 1.2
+    cached_input_usd_per_mtok: null
+    rate_basis: list
+    source: https://www.together.ai/models/deepseek-v4-1-flash
+    as_of: '2026-10-06'
+  baseten/glm-5.3-flash:
+    upstream: GLM-5.3-Flash
+    provider: baseten
+    context_window_tokens: 1048576
+    max_output_tokens: 131072
+    input_usd_per_mtok: 0.15
+    output_usd_per_mtok: 0.5
+    cached_input_usd_per_mtok: 0.03
+    rate_basis: list
+    source: https://www.baseten.co/library/glm-5-3-flash/
+    as_of: '2026-10-06'
+  fireworks/qwen3.8-max:
+    upstream: accounts/fireworks/models/qwen3p8-max
+    provider: fireworks
+    context_window_tokens: 262144
+    max_output_tokens: 32768
+    input_usd_per_mtok: 2
+    output_usd_per_mtok: 6
+    cached_input_usd_per_mtok: 0.25
+    rate_basis: list
+    source: https://fireworks.ai/models/fireworks/qwen3p8-max
+    as_of: '2026-10-06'
+  local/qwen3-coder-next-80b-a3b-6bit:
+    upstream: mlx-community/Qwen3-Coder-Next-6bit
+    provider: mlx
+    context_window_tokens: 262144
+    max_output_tokens: 32768
+    input_usd_per_mtok: 0
+    output_usd_per_mtok: 0
+    cached_input_usd_per_mtok: 0
+    rate_basis: self-hosted
+    source: https://huggingface.co/mlx-community/Qwen3-Coder-Next-6bit
+    as_of: '2026-10-06'

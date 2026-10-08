@@ -169,7 +169,7 @@ class FixtureCellExecutor:
             )
         if cell.harness_id == "pi":
             driver = self._pi_driver or PiHarnessDriver.from_config(
-                self._module_base / "config" / "pi-model-profiles.yaml"
+                self._module_base / "fixtures" / "pi-model-profiles.yaml"
             )
             self._pi_driver = driver
             result = driver.run_fixture_task(
@@ -246,6 +246,15 @@ class LiveCellExecutor:
         """
 
         environ = self._source_environ()
+        from .oss import require_enabled
+        from .host import HostUnavailable
+
+        for cell in cells:
+            if cell.applicable:
+                try:
+                    require_enabled(cell.harness_id, cell.model_profile if cell.model_profile.startswith("litellm/") else None, environ)
+                except HostUnavailable as exc:
+                    raise RunnerError(str(exc)) from None
         if not live_enabled(environ):
             raise RunnerError(
                 f"live suite execution is operator-gated; set {LIVE_ENV}=1 to spawn real "
@@ -273,7 +282,7 @@ class LiveCellExecutor:
                 "(pass --provider-mcp-config)"
             )
         profiles = sorted(
-            {f"{c.harness_id}:{c.model_profile}" for c in hosted if c.model_profile != "default"}
+            {f"{c.harness_id}:{c.model_profile}" for c in hosted if c.model_profile != "default" and not c.model_profile.startswith("litellm/")}
         )
         if profiles:
             problems.append(
@@ -282,6 +291,13 @@ class LiveCellExecutor:
             )
         if problems:
             raise RunnerError("live run refused before any cell ran: " + "; ".join(problems))
+        from .oss import litellm_cell_env
+
+        for harness_id in sorted({c.harness_id for c in hosted if c.model_profile.startswith("litellm/")}):
+            try:
+                litellm_cell_env(harness_id, environ)
+            except HostUnavailable as exc:
+                raise RunnerError(f"live run refused: {harness_id}: {exc}") from None
         arms = {(cell.harness_id, cell.provider_id): cell for cell in hosted}
         for cell in arms.values():
             with tempfile.TemporaryDirectory(prefix="sew-preflight-") as scratch:
@@ -290,7 +306,7 @@ class LiveCellExecutor:
                         self._harness_config(cell),
                         Path(scratch),
                         environ,
-                        harness_auth=broker_auth.auth_source(self._harness_auth, environ),
+                        harness_auth=broker_auth.auth_source(self._harness_auth, environ, model_id=cell.model_profile if cell.model_profile.startswith("litellm/") else None),
                     )
                 except SchemaError as exc:
                     raise RunnerError(
@@ -300,6 +316,13 @@ class LiveCellExecutor:
     def execute(self, cell: MatrixCell, output_root: Path, *, mode: str) -> CellExecution:
         if mode != "live":
             raise RunnerError("the live cell executor only runs mode='live'")
+        from .oss import require_enabled
+        from .host import HostUnavailable
+
+        try:
+            require_enabled(cell.harness_id, cell.model_profile if cell.model_profile.startswith("litellm/") else None, self._source_environ())
+        except HostUnavailable as exc:
+            raise RunnerError(str(exc)) from None
         if cell.harness_id not in HOSTED_HARNESSES:
             # Emit the terminal contract status directly rather than relying on
             # normalize_runner_status to map "unsupported" at record time.
@@ -345,6 +368,7 @@ class LiveCellExecutor:
             provider_id=cell.provider_id,
             task_id=cell.task_id,
             model_profile=cell.model_profile,
+            model_id=cell.model_profile if cell.model_profile.startswith("litellm/") else None,
             suite_id=cell.suite_id,
             mode="live",
             native_search_available=cell.provider_id == "native",
@@ -775,7 +799,7 @@ class SuiteRunner:
         random_seed = seed if seed is not None else suite["randomization_seed"]
         provider_capabilities = self._provider_capabilities(suite)
         pi_driver = PiHarnessDriver.from_config(
-            self.module_base / "config" / "pi-model-profiles.yaml"
+            self.module_base / "fixtures" / "pi-model-profiles.yaml"
         )
         by_class: dict[str, list[MatrixCell]] = {}
         for task_id in suite["tasks"]:
@@ -1207,7 +1231,7 @@ def cell_applicability(
     spec = harnesses.find(harness_id)
     if spec is not None and spec.live and provider_id == "native" and not spec.native_search:
         return False, "native_search_unavailable"
-    if harness_id == "pi":
+    if harness_id == "pi" and not (mode == "live" and model_profile.startswith("litellm/")):
         profile = pi_driver.profile(model_profile)
         if provider_id == "native" and not profile.provider_adapter_exposure.get(
             "native_search_available", False
