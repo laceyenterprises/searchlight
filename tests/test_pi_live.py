@@ -180,6 +180,82 @@ def test_fake_cell_writes_real_bundle(fake_pi, tmp_path, monkeypatch):
     assert 'offline-placeholder' not in ''.join(p.read_text() for p in result.bundle_dir.rglob('*') if p.is_file())
 
 
+@pytest.mark.parametrize('key_env', ['SEW_LITELLM_API_KEY', 'LITELLM_KEY'])
+def test_live_cell_normalizes_key_for_provider_extension(fake_pi, tmp_path, monkeypatch, key_env):
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Pi provider extension test requires Node.js')
+    settings = tmp_path / 'sew.yaml'
+    settings.write_text(f'oss:\n  litellm:\n    api_key_env: {key_env}\n')
+    env = environment(fake_pi)
+    env.pop('SEW_LITELLM_API_KEY')
+    env.update({key_env: 'offline-placeholder', 'SEW_CONFIG': str(settings)})
+    events = (ROOT / 'tests/fixtures/pi-session.jsonl').read_text()
+    fake_pi.write_text(f'#!{node}\n' + '''import assert from 'node:assert/strict';
+import {dirname, join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+if (process.argv.includes('--version')) {
+ console.log('0.79.8');
+} else {
+ const extension = await import(pathToFileURL(join(dirname(process.env.SEW_PI_CELL_CONFIG),
+  'extensions/litellm.mjs')).href);
+ extension.default({registerProvider:(id, provider)=>{
+  assert.equal(id, 'searchlight-litellm');
+  assert.equal(provider.apiKey, 'offline-placeholder');
+ }});
+ process.stdin.resume();
+ process.stdout.write(EVENTS);
+}
+'''.replace('EVENTS', json.dumps(events)))
+    monkeypatch.setattr(live_harness, 'live_enabled', lambda env: True)
+    result = live_harness.run_live_harness(config(), tmp_path / 'runs', environ=env)
+    assert result.status == 'succeeded'
+    bundle_text = ''.join(p.read_text() for p in result.bundle_dir.rglob('*') if p.is_file())
+    assert 'offline-placeholder' not in bundle_text
+
+
+def test_mcp_initialization_stderr_reaches_scrubbed_bundle(fake_pi, tmp_path, monkeypatch):
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Pi bridge test requires Node.js')
+    stub = tmp_path / 'failed-mcp.mjs'
+    stub.write_text("console.error('stub MCP initialization failed', process.env.EXA_API_KEY);\n"
+                    "process.exit(1);\n")
+    fake_pi.write_text(f'#!{node}\n' + '''import {dirname, join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+if (process.argv.includes('--version')) {
+ console.log('0.79.8');
+} else {
+ const bridge = await import(pathToFileURL(join(dirname(process.env.SEW_PI_CELL_CONFIG),
+  'extensions/mcp-bridge.mjs')).href);
+ const handlers = {};
+ bridge.default({on:(name, fn)=>handlers[name]=fn,
+  registerTool:()=>{}, setActiveTools:()=>{}});
+ try {
+  await handlers.session_start();
+  throw new Error('expected MCP initialization failure');
+ } catch (error) {
+  console.error(error.message);
+  process.exitCode = 1;
+ }
+ handlers.session_shutdown();
+}
+''')
+    c = config()
+    exposure = replace(c.external_provider, mcp_server_config={
+        'command': node, 'args': [str(stub)], 'env': {'EXA_API_KEY': 'provider-placeholder'}})
+    monkeypatch.setattr(live_harness, 'live_enabled', lambda env: True)
+    result = live_harness.run_live_harness(replace(c, external_provider=exposure), tmp_path / 'runs',
+                                         environ=environment(fake_pi))
+    assert result.status != 'succeeded'
+    stderr = (result.bundle_dir / 'artifacts/harness-stderr.txt').read_text()
+    assert 'MCP bridge initialization failed' in stderr
+    assert 'stub MCP initialization failed <redacted:broker-token>' in stderr
+    bundle_text = ''.join(p.read_text() for p in result.bundle_dir.rglob('*') if p.is_file())
+    assert 'provider-placeholder' not in bundle_text
+    assert 'offline-placeholder' not in bundle_text
+
+
 @pytest.mark.parametrize('credential', ['credential-placeholder', 'tiny'])
 def test_mcp_env_scrubs_credentials_without_changing_benign_text(fake_pi, tmp_path, monkeypatch, credential):
     server_env = {'DEBUG': 'true', 'PORT': '8080', 'NODE_ENV': 'production',

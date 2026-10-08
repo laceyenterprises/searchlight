@@ -529,8 +529,12 @@ Setup can be repeated in the same scratch directory after a partial failure;
 the shipped extensions and cell configuration are rewritten on each attempt.
 
 Each cell uses a fresh `PI_CODING_AGENT_DIR`, Searchlight's LiteLLM provider
-extension and a stdio MCP bridge for the selected arm only. Built-in tools,
-extension discovery, skills and project context are disabled. JSON events
+extension and a stdio MCP bridge for the selected arm only. The live runner
+resolves the LiteLLM key through the host credential service (in standalone
+mode, from `SEW_LITELLM_API_KEY` or the configured `oss.litellm.api_key_env`)
+and injects it into Pi as `SEW_LITELLM_API_KEY`. The extension reads this
+normalized child variable; credentials are not written to the cell config.
+Built-in tools, extension discovery, skills and project context are disabled. JSON events
 supply the answer, usage and arm audit; model pricing uses the OSS catalog.
 Pi has no native web tools, so its native arm is not applicable. The offline
 Pi profiles and fixture driver remain available. The legacy `pi-live-smoke`
@@ -539,5 +543,7 @@ separate follow-up; this adapter supports search cells only.
 
 MCP tool failures remain errors and include the server's diagnostic text in
 the exception delivered to Pi; non-text content blocks are serialized as JSON.
+The MCP server inherits Pi's stderr, so initialization and runtime diagnostics
+are captured in the cell's `artifacts/harness-stderr.txt`.
 Cell evidence scrubs the JSON server-env envelope and values under credential
 keys, while preserving benign settings such as `DEBUG`, `PORT` and `NODE_ENV`.
