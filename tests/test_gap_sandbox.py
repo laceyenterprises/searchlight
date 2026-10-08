@@ -226,7 +226,8 @@ def _check_bridge(directory, tmp_path):
 
 
 @pytest.mark.skipif(sys.platform != "linux", reason="requires a real Linux namespace")
-def test_real_namespace_endpoint_bridge(tmp_path, require_containment):
+@pytest.mark.parametrize("oss_model", [False, True])
+def test_real_namespace_endpoint_bridge(tmp_path, require_containment, oss_model):
     import threading
     from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
     from sew.gap.workspace import bench_network_boundary
@@ -256,11 +257,25 @@ def test_real_namespace_endpoint_bridge(tmp_path, require_containment):
                 "import urllib.request, socket; "
                 f"assert urllib.request.urlopen('http://127.0.0.1:{server.server_port}', timeout=3).read() == b'model transport works'"
             )
-            # A configured localhost model endpoint is proxied, not bypassed.
-            # NO_PROXY is overridden below so this test specifically exercises the bridge.
-            code = "import os; os.environ['NO_PROXY'] = os.environ['no_proxy'] = ''; " + code
+            if oss_model:
+                env["SEW_LITELLM_BASE_URL"] = env["OPENAI_BASE_URL"]
+                code = (
+                    "import os, urllib.request, urllib.error, socket; "
+                    "assert os.environ['NO_PROXY'] == ''; "
+                    "assert urllib.request.urlopen(os.environ['SEW_LITELLM_BASE_URL'], timeout=3).read() == b'model transport works'; "
+                    "\ntry: urllib.request.urlopen('http://provider.invalid/', timeout=3)"
+                    "\nexcept urllib.error.HTTPError as exc: assert exc.code == 403"
+                    "\nelse: raise AssertionError('provider reachable')"
+                    f"\ntry: socket.create_connection(('127.0.0.1', {server.server_port}), timeout=1)"
+                    "\nexcept OSError: pass"
+                    "\nelse: raise AssertionError('host loopback reachable')"
+                )
+            else:
+                # Preserve the frontier behavior while exercising its bridge.
+                code = "import os; os.environ['NO_PROXY'] = os.environ['no_proxy'] = ''; " + code
             with bench_network_boundary(
-                [sys.executable, "-c", code], env, cwd=workspace, harness_id="codex"
+                [sys.executable, "-c", code], env, cwd=workspace, harness_id="codex",
+                harness_auth="litellm" if oss_model else "account"
             ) as (argv, evidence):
                 assert evidence["admissible"]
                 result = _execute(argv, workspace, env, 10)
@@ -964,3 +979,24 @@ def test_verifier_qualification_refusal_is_not_patch_failure(tmp_path, monkeypat
     result = verifier.verify({"verifier": {"timeout_seconds": 1}}, tmp_path / "patch")
     assert result["outcome"] == "not_applicable"
     assert result["errors"][0]["stage"] == "sandbox_unavailable"
+
+
+def test_linux_claude_admits_litellm_without_account_state(tmp_path, monkeypatch):
+    from sew.gap import workspace
+    import socket
+
+    backend = sandbox.SandboxBackend("bubblewrap", "/bin/bwrap")
+    monkeypatch.setattr(sandbox, "select_backend", lambda env=None: backend)
+    monkeypatch.setattr(sandbox, "qualify_backend", lambda *a, **kw: {"backend": "bubblewrap", "admissible": True})
+    monkeypatch.setattr(workspace.shutil, "which", lambda *a, **kw: sys.executable)
+    monkeypatch.setattr(socket, "getaddrinfo", lambda host, port, **kw: [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("127.0.0.1", port))])
+    cwd = tmp_path / "cell" / "workspace"
+    cwd.mkdir(parents=True)
+    env = {"SEW_LITELLM_BASE_URL": "http://localhost:4000", "ANTHROPIC_AUTH_TOKEN": "fake-litellm-key", "PATH": os.defpath}
+    with workspace._bubblewrap_boundary([sys.executable], env, cwd=cwd, harness_id="claude-code", harness_auth="litellm") as (argv, evidence):
+        assert "--unshare-net" in argv and "--cap-drop" in argv
+        assert sandbox.PROXY_BRIDGE in argv
+        assert env["SEW_GAP_LITELLM_BASE_URL"] == "http://localhost:4000"
+        assert evidence["endpoint_authorities"] == [{"host": "localhost", "port": 4000}]
+        assert Path(env["CLAUDE_CONFIG_DIR"]).is_relative_to(cwd.parent)
+        assert not list(Path(env["CLAUDE_CONFIG_DIR"]).iterdir())

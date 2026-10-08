@@ -22,6 +22,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
+from urllib.parse import urlsplit
 
 from . import harnesses
 from .schema import SchemaError
@@ -274,6 +275,11 @@ def claude_code_arm_spawn(
         )
         search_allowed = "WebSearch,WebFetch" if contract.kind == "native" else allowed
         allowed = "Read,Edit,Write,Bash" + ("," + search_allowed if search_allowed else "")
+        litellm_host = None
+        if harness_auth == "litellm":
+            from .oss import configuration
+
+            litellm_host = urlsplit(configuration(source_env).base_url).hostname
         settings = scratch / "claude-workspace-settings.json"
         settings.write_text(
             json.dumps(
@@ -285,8 +291,11 @@ def claude_code_arm_spawn(
                         "allowUnsandboxedCommands": False,
                         "excludedCommands": [],
                         "network": {
-                            "allowedDomains": [],
-                            "deniedDomains": ["*"],
+                            "allowedDomains": (
+                                [litellm_host]
+                                if harness_auth == "litellm" else []
+                            ),
+                            "deniedDomains": [] if harness_auth == "litellm" else ["*"],
                             "strictAllowlist": True,
                             "allowLocalBinding": False,
                             "allowAllUnixSockets": False,
