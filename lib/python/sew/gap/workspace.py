@@ -31,6 +31,7 @@ from urllib.parse import unquote, urlsplit
 
 from packaging.version import InvalidVersion, Version
 
+from .. import harnesses
 from ..backoff import bounded_exponential_delay
 from ..catalog import module_root
 from ..schema import SchemaError
@@ -1370,8 +1371,11 @@ def sandbox_probe_runner(argv, env, *, cwd, harness_id, scratch):
                 or network.get("allowAllUnixSockets") is not False
                 or sandbox.get("allowUnsandboxedCommands") is not False
                 or sandbox.get("excludedCommands") != []
-                or network.get("allowedDomains") != []
-                or network.get("deniedDomains") != ["*"]
+                or network.get("allowedDomains") != (
+                    [urlsplit(env["SEW_LITELLM_BASE_URL"]).hostname]
+                    if env.get("SEW_LITELLM_BASE_URL") else []
+                )
+                or network.get("deniedDomains") != ([] if env.get("SEW_LITELLM_BASE_URL") else ["*"])
             ):
                 raise ValueError("cell lacks global network deny")
         except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
@@ -1460,12 +1464,15 @@ def qualify_claude_code(
             )
 
     try:
-        if (direct_evidence or {}).get("backend") == "bubblewrap":
+        linux = (direct_evidence or {}).get("backend") == "bubblewrap"
+        if linux and not env.get("SEW_LITELLM_BASE_URL"):
             raise EgressCanaryRefused(
                 "GAP refused: Linux Claude code cells are unsupported: out-of-model "
                 "qualification of the bubblewrap cell sandbox is unavailable; use Codex"
             )
-        with tempfile.TemporaryDirectory(prefix="sew-claude-qualification-") as directory:
+        with tempfile.TemporaryDirectory(
+            prefix="sew-claude-qualification-", dir=Path(cwd).parent if linux else None
+        ) as directory:
             runner, evidence = sandbox_probe_runner(
                 argv, env, cwd=cwd, harness_id="claude-code", scratch=Path(directory)
             )
@@ -1543,7 +1550,7 @@ def qualify_claude_code(
     return captured
 
 
-def _harness_endpoints(env, harness_id):
+def _harness_endpoints(env, harness_id, *, harness_auth="account"):
     if harness_id == "claude-code":
         hosts = {"api.anthropic.com"}
         keys = ("ANTHROPIC_BASE_URL",)
@@ -1553,6 +1560,10 @@ def _harness_endpoints(env, harness_id):
     else:
         raise EgressCanaryRefused("GAP refused: unsupported bench harness")
     authorities = {(host, 443) for host in hosts}
+    if harness_auth == "litellm":
+        if not env.get("SEW_LITELLM_BASE_URL"):
+            raise EgressCanaryRefused("GAP refused: missing LiteLLM endpoint")
+        keys = ("SEW_LITELLM_BASE_URL",)
     try:
         for key in keys:
             if env.get(key):
@@ -1857,7 +1868,7 @@ def _bench_network_boundary(
         ) as boundary:
             yield boundary
         return
-    endpoints, addresses, authorities = _harness_endpoints(env, harness_id)
+    endpoints, addresses, authorities = _harness_endpoints(env, harness_id, harness_auth=harness_auth)
     # File-only Seatbelt policy applies to the harness and all descendants,
     # including non-shell read tools. Shell sandbox compatibility is mandatory.
     # Even code controls without package pins must not read another run's verifier.
@@ -1886,7 +1897,9 @@ def _bench_network_boundary(
         )
         for key in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY"):
             env[key] = env[key.lower()] = proxy
-        env["NO_PROXY"] = env["no_proxy"] = "localhost,127.0.0.1,::1"
+        env["NO_PROXY"] = env["no_proxy"] = (
+            "" if harness_auth == "litellm" else "localhost,127.0.0.1,::1"
+        )
         try:
             completed = _run_probe_process([*prefix, *probe_argv], cwd=cwd, env=env)
             if completed.returncode != 0:
@@ -1934,10 +1947,10 @@ def _bubblewrap_boundary(
     # An account refresh inside disposable scratch can invalidate the host's
     # refresh token. Broker tokens contain no refresh token; never copy a login.
     if harness_id == "claude-code" and (
-        harness_auth != "broker" or not env.get("ANTHROPIC_AUTH_TOKEN")
+        harness_auth not in {"broker", "litellm"} or not env.get("ANTHROPIC_AUTH_TOKEN")
     ):
-        raise EgressCanaryRefused("GAP refused: Linux Claude code cells require broker OAuth auth")
-    endpoints, addresses, authorities = _harness_endpoints(env, harness_id)
+        raise EgressCanaryRefused("GAP refused: Linux Claude code cells require broker OAuth auth or LiteLLM auth")
+    endpoints, addresses, authorities = _harness_endpoints(env, harness_id, harness_auth=harness_auth)
     scratch = Path(cwd).resolve().parent
     # Installed harness binaries may live outside /usr (e.g. ~/.local).
     binary = shutil.which(argv[0], path=env.get("PATH", os.defpath))
@@ -1956,6 +1969,12 @@ def _bubblewrap_boundary(
         reads = [runtime]
     else:
         reads = [binary_path]
+    if harness_auth == "litellm" and harnesses.get(harness_id).code_cell_sandbox == "srt":
+        runtime = shutil.which("srt", path=env.get("PATH", os.defpath))
+        if not runtime:
+            raise EgressCanaryRefused("GAP refused: sandbox runtime runner (srt) unavailable")
+        runtime = Path(runtime).resolve()
+        reads.append(next((p for p in runtime.parents if p.name == "node_modules"), runtime))
     node = shutil.which("node", path=env.get("PATH", os.defpath))
     if node:
         node = Path(node).resolve()
@@ -1978,6 +1997,10 @@ def _bubblewrap_boundary(
                     shutil.copyfile(source / name, home / name)
                     (home / name).chmod(0o600)
             env["CODEX_HOME"] = str(home)
+    if harness_auth == "litellm":
+        env["SEW_GAP_LITELLM_BASE_URL"] = env["SEW_LITELLM_BASE_URL"]
+    else:
+        env.pop("SEW_GAP_LITELLM_BASE_URL", None)
     evidence = qualify_backend(backend, scratch, env)
     with tempfile.TemporaryDirectory(prefix="sew-gap-proxy-", dir="/tmp") as name:
         socket_path = Path(name) / "endpoint.sock"

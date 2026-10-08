@@ -200,12 +200,34 @@ def qualify_backend(backend, scratch, env, *, profile=None, read_roots=()):
 # The namespace has no host TCP/UDP connectivity. Each invocation starts its
 # own loopback listener; exec keeps the harness as the tracked process leader.
 PROXY_BRIDGE = r"""
-import os, select, socket, sys, threading
+import ipaddress, json, os, re, select, socket, sys, threading
+from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 path, *argv = sys.argv[1:]
 def relay(client):
     try:
         with client, socket.socket(socket.AF_UNIX) as upstream:
             upstream.connect(path)
+            if original is not None:
+                # Translate only this invocation's rewritten authority. The parent
+                # still enforces its frozen host/port and DNS answers.
+                head = b''
+                while b'\r\n\r\n' not in head:
+                    chunk = client.recv(1)
+                    if not chunk or len(head) >= 65536:
+                        return
+                    head += chunk
+                line, rest = head.split(b'\r\n', 1)
+                method, target, version = line.decode('latin-1').split(' ', 2)
+                parsed = urlsplit('//' + target if method == 'CONNECT' else target)
+                if parsed.hostname == original.hostname and parsed.port == server.getsockname()[1]:
+                    target = original.netloc if method == 'CONNECT' else urlunsplit(
+                        (original.scheme, original.netloc, parsed.path, parsed.query, parsed.fragment)
+                    )
+                    # The upstream receives its original authority, including port.
+                    rest = re.sub(br'(?im)^Host:[^\r\n]*',
+                                  b'Host: ' + original.netloc.encode('ascii'), rest)
+                upstream.sendall((method + ' ' + target + ' ' + version + '\r\n').encode('latin-1') + rest)
             readers = [client, upstream]
             while readers:
                 ready, _, _ = select.select(readers, [], [], 10)
@@ -222,6 +244,33 @@ def relay(client):
 server = socket.socket()
 server.bind(('127.0.0.1', 0)); server.listen()
 url = 'http://127.0.0.1:' + str(server.getsockname()[1])
+original = None
+base = os.environ.pop('SEW_GAP_LITELLM_BASE_URL', '')
+if base:
+    target = urlsplit(base)
+    try:
+        loopback = target.hostname == 'localhost' or ipaddress.ip_address(target.hostname).is_loopback
+    except ValueError:
+        loopback = False
+    if loopback:
+        original = target
+        host = '[' + target.hostname + ']' if ':' in target.hostname else target.hostname
+        authority = host + ':' + str(server.getsockname()[1])
+        rewritten = urlunsplit((target.scheme, authority, target.path, target.query, target.fragment))
+        for key in ('SEW_LITELLM_BASE_URL', 'ANTHROPIC_BASE_URL', 'OPENAI_BASE_URL'):
+            if os.environ.get(key) == base:
+                os.environ[key] = rewritten
+        if os.environ.get('CODEX_HOME'):
+            config = Path(os.environ['CODEX_HOME']) / 'config.toml'
+            lines = config.read_text().splitlines(keepends=True)
+            provider = False
+            for index, line in enumerate(lines):
+                if line.startswith('['):
+                    provider = line.strip() == '[model_providers.searchlight_litellm]'
+                if provider and line.startswith('base_url = '):
+                    # Canary and cell launches each get a new bridge listener.
+                    lines[index] = 'base_url = ' + json.dumps(rewritten + '/v1') + '\n'
+            config.write_text(''.join(lines))
 def serve():
     while True:
         client, _ = server.accept()
@@ -229,12 +278,15 @@ def serve():
 # A forked relay survives exec but remains in the harness process group.
 pid = os.fork()
 if pid == 0:
-    os.dup2(os.open(os.devnull, os.O_WRONLY), 2)
+    sink = os.open(os.devnull, os.O_WRONLY)
+    os.dup2(sink, 1)
+    os.dup2(sink, 2)
+    os.close(sink)
     # Threads do not survive fork; serve in this child instead.
     serve()
 else:
     for key in ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY'):
         os.environ[key] = os.environ[key.lower()] = url
-    os.environ['NO_PROXY'] = os.environ['no_proxy'] = 'localhost,127.0.0.1,::1'
+    os.environ['NO_PROXY'] = os.environ['no_proxy'] = '' if base else 'localhost,127.0.0.1,::1'
     os.execvpe(argv[0], argv, os.environ)
 """

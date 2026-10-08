@@ -677,3 +677,89 @@ def test_runner_discovery_does_not_retry_terminal_errors(monkeypatch, tmp_path, 
         )
     assert calls == [["codex", "sandbox", "--help"]]
     assert delays == []
+
+
+@pytest.mark.parametrize("harness,expected", [
+    ("claude-code", {("api.anthropic.com", 443)}),
+    ("codex", {("api.openai.com", 443), ("chatgpt.com", 443)}),
+])
+def test_frontier_and_litellm_authorities(monkeypatch, harness, expected):
+    monkeypatch.setattr(socket, "getaddrinfo", lambda host, port, **kw: [
+        (socket.AF_INET, socket.SOCK_STREAM, 6, "", ("192.0.2.10", port))
+    ])
+    env = {"SEW_LITELLM_BASE_URL": "http://proxy.invalid:4000", "OPENAI_BASE_URL": "https://provider.invalid", "ANTHROPIC_BASE_URL": "https://provider.invalid"}
+    assert workspace._harness_endpoints({}, harness)[2] == expected
+    assert workspace._harness_endpoints(env, harness, harness_auth="litellm")[2] == {("proxy.invalid", 4000)}
+    with pytest.raises(EgressCanaryRefused, match="missing LiteLLM"):
+        workspace._harness_endpoints({}, harness, harness_auth="litellm")
+
+
+@pytest.mark.parametrize("host", ["127.0.0.1", "localhost", "[::1]"])
+def test_litellm_bridge_rewrites_only_selected_loopback(tmp_path, upstream, host):
+    """Exercise the actual bridge with a fake endpoint; no model or harness call."""
+    import os
+    import signal
+    from sew.gap.sandbox import PROXY_BRIDGE
+
+    base = f"http://{host}:{upstream}/proxy"
+    home = tmp_path / "codex-home"
+    home.mkdir()
+    config = home / "config.toml"
+    config.write_text('[model_providers.searchlight_litellm]\nbase_url = \"http://localhost:1/stale-bridge/v1\"\n[other]\nbase_url = \"http://other.invalid\"\n')
+    records = socket.getaddrinfo("127.0.0.1", upstream, type=socket.SOCK_STREAM)
+    code = r'''
+import http.client, json, os, urllib.request, urllib.error, socket
+from urllib.parse import urlsplit
+from pathlib import Path
+base = os.environ['SEW_LITELLM_BASE_URL']
+assert base == os.environ['ANTHROPIC_BASE_URL']
+assert base != os.environ['ORIGINAL_BASE']
+assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == ''
+text = (Path(os.environ['CODEX_HOME']) / 'config.toml').read_text()
+assert base + '/v1' in text
+assert 'http://other.invalid' in text
+assert 'stale-bridge' not in text
+assert urllib.request.urlopen(base + '/v1/messages', timeout=3).read() == b'/proxy/v1/messages'
+request = urllib.request.Request(base + '/v1/messages', data=b'fake payload')
+assert urllib.request.urlopen(request, timeout=3).read() == b'fake payload'
+proxy = urlsplit(os.environ['HTTP_PROXY'])
+endpoint = urlsplit(base)
+connection = http.client.HTTPConnection(proxy.hostname, proxy.port, timeout=3)
+connection.set_tunnel(endpoint.hostname, endpoint.port)
+connection.request('GET', '/proxy/v1/responses')
+assert connection.getresponse().read() == b'/proxy/v1/responses'
+connection.close()
+for url in ('http://provider.invalid/', os.environ['OTHER_PORT']):
+    try:
+        urllib.request.urlopen(url, timeout=3)
+        raise AssertionError('unlisted endpoint admitted')
+    except urllib.error.HTTPError as exc:
+        assert exc.code == 403
+print('contained', flush=True)
+'''
+    with endpoint_proxy({(urlsplit(base).hostname, upstream): records}) as proxy:
+        # A TCP stand-in for the Unix transport makes the bridge logic portable
+        # under callers that deny Unix sockets. The real namespace test uses Unix.
+        proxy_port = urlsplit(proxy).port
+        bootstrap = f"""
+import socket
+original_socket = socket.socket
+class FakeUnixSocket(original_socket):
+    def __init__(self, family=socket.AF_INET, *args, **kwargs):
+        self.is_unix = family == socket.AF_UNIX
+        super().__init__(socket.AF_INET if self.is_unix else family, *args, **kwargs)
+    def connect(self, address):
+        return super().connect(('127.0.0.1', {proxy_port}) if self.is_unix else address)
+socket.socket = FakeUnixSocket
+exec({PROXY_BRIDGE!r})
+"""
+        env = {**os.environ, "SEW_GAP_LITELLM_BASE_URL": base, "SEW_LITELLM_BASE_URL": base,
+               "ANTHROPIC_BASE_URL": base, "CODEX_HOME": str(home), "ORIGINAL_BASE": base,
+               "OTHER_PORT": f"http://{host}:{upstream + 1}/", "NO_PROXY": "*"}
+        process = subprocess.Popen([sys.executable, "-I", "-c", bootstrap, "fake-unix-transport", sys.executable, "-c", code], env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, start_new_session=True)
+        try:
+            stdout, stderr = process.communicate(timeout=10)
+            assert process.returncode == 0, stderr
+            assert stdout.strip() == "contained"
+        finally:
+            os.killpg(process.pid, signal.SIGTERM)
