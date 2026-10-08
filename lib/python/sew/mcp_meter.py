@@ -726,7 +726,7 @@ def transcript_provider_completed(
     *,
     transcript: list[dict[str, Any]] | None = None,
 ) -> bool:
-    """Require a completed matching Codex call or a paired Claude tool result."""
+    """Require a completed matching call or a paired Claude/Pi tool result."""
     from .arms import PROVIDER_SERVER_NAMES, _mcp_parts, _tool_call_entries
 
     if transcript is None:
@@ -753,6 +753,11 @@ def transcript_provider_completed(
                 if call_id:
                     calls.add(call_id)
         message = payload.get("message", {})
+        if (isinstance(message, Mapping) and message.get("role") == "toolResult"
+                and message.get("isError") is not True):
+            call_id = message.get("toolCallId")
+            if isinstance(call_id, str):
+                results.add(call_id)
         if isinstance(message, Mapping) and isinstance(message.get("content"), list):
             for block in message["content"]:
                 if (

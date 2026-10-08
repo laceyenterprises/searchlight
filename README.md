@@ -509,3 +509,23 @@ after the cell.
 See the upstream [MCP configuration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp/)
 and [toolsets reference](https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference).
 This adds support only; no model runs are required to validate the adapter.
+
+### Pi search cells (support only)
+
+Pi requires version 0.79.8 or newer, Node.js, an enabled `oss` configuration,
+a catalog `litellm/<route>` model and a scoped LiteLLM key. `sew doctor` checks
+its version; `SEW_PI_BIN` selects an alternate binary. Preview a cell without
+calling a model:
+
+```sh
+sew run-live-harness --harness pi --model litellm/glm-5.2 --arm exa --dry-run
+```
+
+Each cell uses a fresh `PI_CODING_AGENT_DIR`, Searchlight's LiteLLM provider
+extension and a stdio MCP bridge for the selected arm only. Built-in tools,
+extension discovery, skills and project context are disabled. JSON events
+supply the answer, usage and arm audit; model pricing uses the OSS catalog.
+Pi has no native web tools, so its native arm is not applicable. The offline
+Pi profiles and fixture driver remain available. The legacy `pi-live-smoke`
+help probe no longer creates a live-success bundle. Code-cell support is a
+separate follow-up; this adapter supports search cells only.

@@ -144,7 +144,7 @@ class FixtureCellExecutor:
     def execute(self, cell: MatrixCell, output_root: Path, *, mode: str) -> CellExecution:
         if mode != "fixture":
             raise RunnerError("live suite execution is not implemented by fixture executor")
-        if cell.harness_id in HOSTED_HARNESSES:
+        if cell.harness_id in HOSTED_HARNESSES and cell.harness_id != "pi":
             external = (
                 None
                 if cell.provider_id == "native"
@@ -216,8 +216,6 @@ class LiveCellExecutor:
     of tokens or provider calls ends it as ``budget_exhausted``. Neither is
     ``failed``, which is reserved for a harness that ran and did not deliver.
 
-    Pi has no live cell path (WSB benchmarks Claude Code and Codex only), so a
-    Pi cell is recorded not applicable instead of spawned.
     """
 
     def __init__(

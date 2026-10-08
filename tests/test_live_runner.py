@@ -971,33 +971,18 @@ def test_a_fixture_run_cannot_be_resumed_in_live_mode(tmp_path: Path, fake_harne
     assert live["suite_run_id"] != fixture["suite_run_id"]
 
 
-def test_pi_cells_are_not_applicable_in_live_mode(tmp_path: Path, fake_harness: Path) -> None:
-    # pi+native is already not applicable at expansion, so use a provider arm.
-    module_base = _module(
-        tmp_path,
-        providers=["exa"],
-        harnesses={"pi": ["oss-small"], "claude-code": ["default"]},
-    )
+def test_pi_live_requires_catalog_model_before_spawn(tmp_path: Path, fake_harness: Path) -> None:
+    module_base = _module(tmp_path, providers=["exa"], harnesses={"pi": ["oss-small"]})
     config = tmp_path / "mcp.yaml"
-    config.write_text("exa:\n  command: /usr/bin/true\n", encoding="utf-8")
-    exposures = load_provider_exposures(config, {})
-    executor = _executor(module_base, fake_harness, tmp_path, provider_exposures=exposures)
+    config.write_text("exa:\n  command: /usr/bin/true\n")
+    executor = _executor(module_base, fake_harness, tmp_path,
+                         provider_exposures=load_provider_exposures(config, {}))
     executor._environ["SEW_OSS_ENABLED"] = "1"
-    runner = SuiteRunner(
-        module_base=module_base,
-        state_root=tmp_path / "state",
-        live_executor=executor,
-    )
-
-    summary = runner.run("tiny", mode="live", run_id="pi", operator_budgets=BUDGETS)
-    index = _read_index(Path(summary["run_root"]))
-
-    pi = next(entry for entry in index if entry["harness_id"] == "pi")
-    assert (pi["status"], pi["failure_category"]) == (
-        "not_applicable",
-        "live_harness_unsupported",
-    )
-    assert [spawn["harness"] for spawn in _spawns(tmp_path)] == ["claude-code"]
+    runner = SuiteRunner(module_base=module_base, state_root=tmp_path / "state",
+                         live_executor=executor)
+    with pytest.raises(RunnerError, match="only model_profile"):
+        runner.run("tiny", mode="live", run_id="pi", operator_budgets=BUDGETS)
+    assert not _spawns(tmp_path)
 
 
 @pytest.mark.parametrize("harness_id", ["claude-code", "codex"])

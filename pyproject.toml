@@ -31,3 +31,6 @@ package-dir = {"" = "lib/python"}
 [tool.setuptools.packages.find]
 where = ["lib/python"]
 include = ["sew*"]
+
+[tool.setuptools.package-data]
+"sew.harnesses" = ["pi_extensions/*.mjs"]

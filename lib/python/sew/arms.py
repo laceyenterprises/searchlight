@@ -551,6 +551,7 @@ def _is_web_tool(name: str) -> bool:
 _TOOL_CALL_EVENT_TYPES = frozenset(
     {
         "tool_use",
+        "toolcall",
         "tool_call",
         "function_call",
         "mcp_tool_call",

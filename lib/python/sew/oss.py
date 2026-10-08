@@ -182,6 +182,7 @@ def cell_plan(harness: str, model: str | None, arm: str, *, requested_auth=None,
         'codex': '$SEW_CELL/codex-home/config.toml (isolated CODEX_HOME)',
         'hermes': '$SEW_CELL/hermes-home/config.yaml (isolated HERMES_HOME)',
         'opencode': '$SEW_CELL/opencode/opencode.json (isolated XDG_* and OPENCODE_CONFIG)',
+        'pi': '$SEW_CELL/pi-agent/cell.json (isolated PI_CODING_AGENT_DIR; provider + MCP bridge)',
     }.get(harness, 'provided by harness adapter (pending)')
     auth_text = f'litellm key from {settings.api_key_env} (OAuth/account credentials not forwarded)' if source == 'litellm' else source
     native = 'unavailable on OSS models' if oss_model and arm == 'native' and not (spec and spec.oss and spec.native_search) else 'harness web tools enabled' if arm == 'native' else 'harness web tools disabled'
