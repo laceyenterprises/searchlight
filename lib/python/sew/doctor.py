@@ -31,7 +31,7 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
             present.append(provider)
     harnesses = []
     for spec in harness_registry.specs(live=True):
-        command = (env.get(spec.bin_env) if spec.bin_env else None) or spec.default_bin
+        command = env.get(spec.bin_env, spec.default_bin) if spec.bin_env else spec.default_bin
         binary = shutil.which(command, path=env.get("PATH", ""))
         status = "CLI available; account login unverified" if binary else "CLI unavailable"
         if (

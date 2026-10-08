@@ -21,8 +21,8 @@ from sew.bakeoff_report import _priceable_usage
 from sew.doctor import doctor
 from sew.harness import HarnessRunConfig, ProviderExposure
 from sew.harnesses.opencode import MIN_VERSION, PROVIDER
-from sew.harnesses.opencode_protocol import OpencodeProtocol
-from sew.live_harness import LiveHarnessRefused, LiveLimits, child_environment, run_live_harness, spawn_and_capture
+from sew.harnesses.opencode_protocol import OpencodeProtocol, usage_row
+from sew.live_harness import LiveHarnessRefused, LiveLimits, child_environment, classify_live_outcome, run_live_harness, spawn_and_capture
 from sew.host import HostUnavailable
 from sew.schema import SchemaError
 
@@ -198,6 +198,24 @@ def test_errors_and_missing_usage():
     assert '401' in summary.error_messages[0]
 
 
+def test_error_only_process_establishes_readiness(tmp_path):
+    event = {'type': 'error', 'error': {'data': {'message': 'initialization failed'}}}
+    binary = tmp_path / 'failed-opencode'
+    binary.write_text(f'#!{sys.executable}\nimport sys\nsys.stdin.read()\nprint({json.dumps(event)!r}, flush=True)\nsys.exit(1)\n')
+    binary.chmod(0o755)
+    protocol = OpencodeProtocol()
+    outcome = spawn_and_capture([str(binary)], prompt='Find the release', cwd=tmp_path,
+        env={}, limits=LiveLimits(5, 2, None), protocol=protocol)
+    assert outcome.exit_code == 1 and outcome.ready
+    assert not outcome.boot_timed_out and not outcome.timed_out
+    assert outcome.first_output_at is None
+    summary = protocol.summarize([entry['event'] for entry in outcome.events], None)
+    assert summary.reported_error and summary.final_text is None
+    assert 'initialization failed' in summary.error_messages[0]
+    terminal = classify_live_outcome(outcome, summary)
+    assert terminal.status == 'failed' and terminal.category == 'harness_reported_error'
+
+
 def test_disabled_and_non_oss_refused_before_spawn(tmp_path, monkeypatch):
     monkeypatch.setattr('sew.live_harness.spawn_and_capture', lambda *a, **k: pytest.fail('spawned'))
     env = {**environment(tmp_path), 'SEW_OSS_ENABLED': '0'}
@@ -254,6 +272,13 @@ def test_doctor_uses_resolved_binary(tmp_path, fake_opencode, monkeypatch):
     assert [str(fake_opencode), '--version'] in calls
 
 
+def test_doctor_empty_binary_override_disables_discovery(tmp_path, fake_opencode):
+    (tmp_path / 'opencode').symlink_to(fake_opencode)
+    env = {**environment(tmp_path), 'SEW_OSS_ENABLED': '0', 'PATH': str(tmp_path)}
+    assert 'opencode: ok 1.17.3' in doctor(env)
+    assert 'opencode: CLI unavailable' in doctor({**env, 'SEW_OPENCODE_BIN': ''})
+
+
 def test_final_answer_uses_last_message_and_usage_sums_steps():
     replay = events()
     earlier = {'type': 'text', 'part': {'id': 'early', 'messageID': 'msg_early', 'text': 'Searching'}}
@@ -284,9 +309,66 @@ def test_audit_provider_names_and_forbidden_native(provider, server):
 
 
 def test_incomplete_usage_remains_unknown():
-    from sew.harnesses.opencode_protocol import usage_row
     assert usage_row({'output': 10}) is None
     assert usage_row({'input': 1, 'output': '10', 'reasoning': 0, 'cache': {'read': 0, 'write': 0}}) is None
+
+
+@pytest.mark.parametrize('optional,reasoning,cache_read,cache_write', [
+    ({}, 0, 0, 0),
+    ({'reasoning': 7}, 7, 0, 0),
+    ({'cache': {}}, 0, 0, 0),
+    ({'cache': {'read': 3}}, 0, 3, 0),
+    ({'cache': {'write': 2}}, 0, 0, 2),
+    ({'cache': {'read': 3, 'write': 2}}, 0, 3, 2),
+    ({'reasoning': 7, 'cache': {}}, 7, 0, 0),
+])
+def test_optional_usage_counts_default_to_zero(optional, reasoning, cache_read, cache_write):
+    tokens = {'input': 100, 'output': 10, **optional}
+    expected = {'input': 100 + cache_write, 'output': 10, 'reasoning': reasoning,
+                'cached_input': cache_read, 'cache_write': cache_write,
+                'total_billable': 110 + reasoning + cache_read + cache_write}
+    assert usage_row(tokens) == expected
+    finish = {'type': 'step_finish', 'part': {'id': 'step', 'tokens': tokens}}
+    protocol = OpencodeProtocol()
+    assert protocol.summarize([finish, finish], None).usage == expected
+    seen = {}
+    for event in [finish, finish]:
+        protocol.running_usage(event, seen)
+    assert sum(seen.values()) == expected['total_billable']
+    priced, reason = _priceable_usage(expected)
+    assert reason is None
+    assert model_cost('litellm/glm-5.2', priced, load_price_table())['amount_usd'] == pytest.approx(
+        ((100 + cache_write) * 1.4 + cache_read * .26 + (10 + reasoning) * 4.4) / 1e6)
+
+
+def test_missing_optional_usage_enforces_token_budget(tmp_path):
+    finish = {'type': 'step_finish', 'part': {'id': 'step', 'tokens': {'input': 100, 'output': 10}}}
+    binary = tmp_path / 'budget-opencode'
+    binary.write_text(f'#!{sys.executable}\nimport sys\nsys.stdin.read()\nprint({json.dumps(finish)!r}, flush=True)\n')
+    binary.chmod(0o755)
+    outcome = spawn_and_capture([str(binary)], prompt='Find the release', cwd=tmp_path,
+        env={}, limits=LiveLimits(5, 2, 109), protocol=OpencodeProtocol())
+    assert outcome.running_tokens == 110 and outcome.budget_killed
+    assert not outcome.boot_timed_out and not outcome.timed_out
+
+
+@pytest.mark.parametrize('tokens', [None, {}, {'input': 1}, {'output': 10},
+    {'input': None, 'output': 10}, {'input': True, 'output': 10},
+    {'input': 1, 'output': -1}, {'input': 1, 'output': 1.5},
+    {'input': 1, 'output': 10, 'cache': None},
+    {'input': 1, 'output': 10, 'cache': []},
+    *[{'input': 1, 'output': 10, 'reasoning': value} for value in (None, True, -1, '7')],
+    *[{'input': 1, 'output': 10, 'cache': {key: value}}
+      for key in ('read', 'write') for value in (None, True, -1, '7')],
+])
+def test_malformed_usage_remains_unknown(tokens):
+    assert usage_row(tokens) is None
+    finish = {'type': 'step_finish', 'part': {'id': 'bad', 'tokens': tokens}}
+    protocol = OpencodeProtocol()
+    assert protocol.summarize([events()[-1], finish], None).usage is None
+    seen = {}
+    protocol.running_usage(finish, seen)
+    assert seen == {}
 
 
 def test_partial_usage_is_not_reported_as_measured():

@@ -9,6 +9,8 @@ off by default. Configure `oss.enabled` and LiteLLM as described in the
 
 Doctor invokes the executable resolved from the supplied PATH and parses the
 last non-empty stdout line as its version, allowing preceding CLI warnings.
+An explicitly empty `SEW_OPENCODE_BIN` disables binary discovery in doctor;
+only an unset override falls back to `opencode`.
 
 Inspect a plan without resolving credentials or starting a model:
 
@@ -29,6 +31,10 @@ setup can be retried in the same temporary directory after a partial failure.
 
 Provider arms expose only their local MCP server. Built-in web, shell,
 filesystem and delegation tools are denied. No-search exposes no tools.
+Opencode's [local MCP configuration](https://opencode.ai/docs/mcp-servers/#local)
+uses a single `command` array containing the executable followed by its arguments.
+The adapter converts Searchlight's separate `command` and `args` fields to that
+array; Opencode splits it before creating the stdio transport.
 The native arm uses Opencode's client-side `websearch` and `webfetch`, with
 `OPENCODE_ENABLE_EXA=true` to make native search available for a compatible
 provider; shell remains denied. Native search uses Opencode's own search
@@ -39,7 +45,11 @@ searchlight-litellm/<route>`, with the prompt on stdin. JSON `step_start`,
 `text`, `tool_use`, `step_finish` and `error` events drive readiness, the final
 answer, tool auditing, token budgets and catalog pricing. Repeated step IDs
 are counted once; cache reads and reasoning remain separate token buckets.
-Unknown token usage stays unknown. Code cells require the separate sandbox
+Missing reasoning, cache, or cache read/write fields default to zero. Input and
+output counts remain required; malformed, null, negative, or non-integer counts
+leave usage unknown. An error-only transcript establishes readiness and reports
+the harness error without requiring an earlier success event.
+Code cells require the separate sandbox
 integration and are refused by this adapter.
 
 The CLI flags were checked with `opencode --help` and `opencode run --help`

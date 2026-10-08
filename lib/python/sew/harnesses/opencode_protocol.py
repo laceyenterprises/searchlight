@@ -8,21 +8,22 @@ from .opencode import PROVIDER
 def usage_row(tokens):
     if not isinstance(tokens, Mapping):
         return None
-    cache = tokens.get("cache")
+    cache = tokens.get("cache", {})
     if not isinstance(cache, Mapping):
         return None
-    counts = [tokens.get(key) for key in ("input", "output", "reasoning")]
-    counts += [cache.get(key) for key in ("read", "write")]
+    counts = [tokens.get("input"), tokens.get("output"), tokens.get("reasoning", 0)]
+    counts += [cache.get(key, 0) for key in ("read", "write")]
     if any(type(value) is not int or value < 0 for value in counts):
         return None
+    input_tokens, output_tokens, reasoning, cache_read, cache_write = counts
     row = {
-        "input": tokens["input"] + cache["write"],
-        "cached_input": cache["read"],
-        "output": tokens["output"],
-        "reasoning": tokens["reasoning"],
+        "input": input_tokens + cache_write,
+        "cached_input": cache_read,
+        "output": output_tokens,
+        "reasoning": reasoning,
     }
     row["total_billable"] = sum(row.values())
-    row["cache_write"] = cache["write"]
+    row["cache_write"] = cache_write
     return row
 
 
@@ -37,7 +38,7 @@ class OpencodeProtocol(HarnessProtocol):
                 f"{PROVIDER}/{model[len('litellm/'):]}", *config.harness_args]
 
     def is_ready(self, event):
-        return event.get("type") in {"step_start", "step_finish", "text", "tool_use", "reasoning"}
+        return event.get("type") in {"step_start", "step_finish", "text", "tool_use", "reasoning", "error"}
 
     def is_output(self, event):
         return event.get("type") in {"text", "reasoning"}

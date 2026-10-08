@@ -355,7 +355,7 @@ def test_doctor_optional_bin_env(tmp_path, monkeypatch, env_source, bin_env, ove
         output = doctor()
     else:
         output = doctor(env)
-    status = "CLI available; account login unverified" if executable else "CLI unavailable"
+    status = "CLI available; account login unverified" if executable and override != "" else "CLI unavailable"
     assert f"harnesses    acme: {status}" in output
 
 
