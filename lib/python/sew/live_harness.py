@@ -292,7 +292,7 @@ class ClaudeCodeProtocol(HarnessProtocol):
             "--no-session-persistence",
         ]
         if config.model_id:
-            argv += ["--model", config.model_id]
+            argv += ["--model", config.model_id.removeprefix("litellm/")]
         return argv + list(config.harness_args)
 
     def is_ready(self, event: Mapping[str, Any]) -> bool:
@@ -354,7 +354,7 @@ class CodexProtocol(HarnessProtocol):
             str(last_message_path),
         ]
         if config.model_id:
-            argv += ["--model", config.model_id]
+            argv += ["--model", config.model_id.removeprefix("litellm/")]
         return argv + list(config.harness_args) + ["-"]
 
     def is_ready(self, event: Mapping[str, Any]) -> bool:
@@ -759,7 +759,8 @@ def run_live_harness(
             if config.wheelhouse is not None:
                 forbidden_paths += (Path(config.wheelhouse).resolve(),)
             forbidden_paths += (gap_root / "catalogs" / "gap" / gap_task["hidden"],)
-        if config.provider_id == "native" and not config.native_search_available:
+        oss_model = bool(config.model_id and config.model_id.startswith("litellm/"))
+        if config.provider_id == "native" and (oss_model or not config.native_search_available):
             # This harness has no native search, so the native arm cannot run.
             # Nothing spawns: the cell is recorded as unsupported instead of
             # letting the arm contract raise and take down the whole batch.
@@ -769,7 +770,10 @@ def run_live_harness(
             spawn_config = config
             argv = protocol.argv(binary, config, last_message_path)
             outcome = ProcessOutcome(ended_at=datetime.now(UTC))
-            terminal = TerminalStatus("unsupported", TERMINAL_UNSUPPORTED_NATIVE_SEARCH)
+            terminal = (
+                TerminalStatus("not_applicable", "native-search-unavailable-on-oss-model")
+                if oss_model else TerminalStatus("unsupported", TERMINAL_UNSUPPORTED_NATIVE_SEARCH)
+            )
             auth_metadata = {"source": "none"}
             last_message = None
         else:
@@ -786,6 +790,11 @@ def run_live_harness(
                     from .oss import litellm_cell_env
 
                     auth_env = litellm_cell_env(config.harness_id, source_env)
+                    if isinstance(protocol, ClaudeCodeProtocol):
+                        auth_env.update(
+                            ANTHROPIC_BASE_URL=auth_env["SEW_LITELLM_BASE_URL"],
+                            ANTHROPIC_AUTH_TOKEN=auth_env["SEW_LITELLM_API_KEY"],
+                        )
                     broker_tokens.append(auth_env["SEW_LITELLM_API_KEY"])
                     spawn_config = replace(spawn_config, env={**spawn_config.env, **auth_env}, harness_auth="litellm")
                     auth_metadata = {"source": "litellm"}
@@ -1452,6 +1461,14 @@ def _write_live_bundle(
         harness_usage_rows=[summary.usage] if summary.usage is not None else [],
         transcript=transcript,
     )
+    if config.model_id and config.model_id.startswith("litellm/"):
+        from .cost_model import load_price_table, model_cost
+
+        metrics["token_usage"]["usage_basis"] = "harness" if summary.usage is not None else "unavailable"
+        _write_json(
+            run_dir / "artifacts" / "model-cost.json",
+            model_cost(config.model_id, metrics["token_usage"], load_price_table()),
+        )
     _write_json(run_dir / "metrics" / "metrics.json", metrics)
 
     artifacts = []
@@ -1473,6 +1490,7 @@ def _write_live_bundle(
     for rel, media_type in (
         (AVAILABILITY_REF, "application/json"),
         (OBSERVATION_FAILURE_REF, "text/plain"),
+        ("artifacts/model-cost.json", "application/json"),
         ("artifacts/workspace.diff", "text/x-diff"),
         ("artifacts/egress-canary.json", "application/json"),
     ):

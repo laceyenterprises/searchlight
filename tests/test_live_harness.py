@@ -1361,3 +1361,94 @@ def test_kqueue_observes_real_exit_without_reaping(monkeypatch):
         assert proc.returncode == 0
     finally:
         live_harness._terminate(proc)
+
+
+@pytest.mark.parametrize("harness", ["claude-code", "codex"])
+@pytest.mark.parametrize("arm", ["exa", "parallel-web", "firecrawl", "brave", "tavily", "perplexity"])
+@pytest.mark.parametrize("route", ["glm-5.2", "local/qwen3-coder-next-80b-a3b-6bit"])
+def test_oss_provider_spawn(fake_harness, tmp_path, monkeypatch, harness, arm, route):
+    import tomllib
+    from sew.oss import load_catalog
+
+    monkeypatch.setattr(live_harness, "live_enabled", lambda env: True)
+    monkeypatch.setattr(live_harness, "provider_available", lambda *args, **kwargs: True)
+    original = live_harness.spawn_and_capture
+    captured = {}
+
+    def capture(argv, **kwargs):
+        captured.update(argv=argv, env=kwargs["env"])
+        if harness == "codex":
+            home = Path(kwargs["env"]["CODEX_HOME"])
+            captured["settings"] = tomllib.loads((home / "config.toml").read_text())
+            assert not (home / "auth.json").exists()
+        return original(argv, **kwargs)
+
+    monkeypatch.setattr(live_harness, "spawn_and_capture", capture)
+    monkeypatch.setattr(live_harness, "codex_profile_model", lambda *args: pytest.fail("frontier fallback"))
+    monkeypatch.setattr(live_harness.broker_auth, "claude_code_env",
+                        lambda *a, **k: pytest.fail("credential lookup"))
+    monkeypatch.setattr(live_harness.broker_auth, "codex_home_auth",
+                        lambda *a, **k: pytest.fail("credential lookup"))
+    config = _config(fake_harness, "success", harness_id=harness,
+                     provider_id=arm, native_search_available=False, model_id="litellm/" + route,
+                     external_provider=fixture_provider_exposure(arm))
+    source = {"PATH": os.environ["PATH"], "HOME": str(tmp_path),
+              "SEW_OSS_ENABLED": "1", "SEW_LITELLM_API_KEY": "fake-proxy-key",
+              "SEW_LITELLM_BASE_URL": "http://localhost:4444",
+              "ANTHROPIC_API_KEY": "fake-account", "ANTHROPIC_AUTH_TOKEN": "fake-oauth",
+              "OPENAI_API_KEY": "fake-account", "BROKER_TOKEN": "fake-oauth"}
+    result = run_live_harness(config, tmp_path / "runs", environ=source)
+    assert result.status == "succeeded"
+    argv, env = captured["argv"], captured["env"]
+    assert argv[argv.index("--model") + 1] == route
+    assert "ANTHROPIC_API_KEY" not in env and "OPENAI_API_KEY" not in env
+    assert "BROKER_TOKEN" not in env
+    assert env["SEW_LITELLM_API_KEY"] == "fake-proxy-key"
+    if harness == "claude-code":
+        assert env["ANTHROPIC_AUTH_TOKEN"] == "fake-proxy-key"
+        assert env["ANTHROPIC_BASE_URL"] == "http://localhost:4444"
+        entry = load_catalog()[route]
+        if entry["rate_basis"] == "self-hosted":
+            assert env["CLAUDE_CODE_MAX_CONTEXT_TOKENS"] == str(entry["context_window_tokens"])
+            assert env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] == str(entry["max_output_tokens"])
+        else:
+            assert "CLAUDE_CODE_MAX_CONTEXT_TOKENS" not in env
+            assert "CLAUDE_CODE_MAX_OUTPUT_TOKENS" not in env
+        assert "WebSearch" not in argv[argv.index("--tools") + 1]
+    else:
+        assert "ANTHROPIC_AUTH_TOKEN" not in env
+        settings = captured["settings"]
+        assert settings["model_provider"] == "searchlight_litellm"
+        assert settings["web_search"] == "disabled"
+        assert len(settings["mcp_servers"]) == 1
+        assert settings["model_providers"]["searchlight_litellm"] == {
+            "name": "Searchlight LiteLLM", "base_url": "http://localhost:4444/v1",
+            "env_key": "SEW_LITELLM_API_KEY", "wire_api": "responses"}
+    metrics = _read(result.bundle_dir, "metrics/metrics.json")
+    assert metrics["token_usage"]["usage_basis"] == "harness"
+    cost = _read(result.bundle_dir, "artifacts/model-cost.json")
+    if route.startswith("local/"):
+        assert cost["amount_usd"] == 0
+        assert cost["assumed_rate"]["rate_basis"] == "self-hosted"
+    else:
+        assert cost["amount_usd"] > 0
+        assert cost["assumed_rate"]["rate_basis"] == "list"
+    assert "fake-proxy-key" not in _bundle_text(result.bundle_dir)
+    assert source["ANTHROPIC_AUTH_TOKEN"] == "fake-oauth"
+    from sew.judge_transport import judge_environment
+
+    judge = judge_environment(_config(fake_harness, "success", harness_id=harness), source)
+    assert judge["ANTHROPIC_AUTH_TOKEN"] == "fake-oauth"
+    assert "SEW_LITELLM_API_KEY" not in judge
+    assert "SEW_LITELLM_BASE_URL" not in judge
+    assert "ANTHROPIC_BASE_URL" not in judge
+
+
+@pytest.mark.parametrize("harness", ["claude-code", "codex"])
+def test_oss_native_not_applicable(fake_harness, tmp_path, monkeypatch, harness):
+    monkeypatch.setattr(live_harness, "live_enabled", lambda env: True)
+    monkeypatch.setattr(live_harness, "spawn_and_capture", lambda *a, **k: pytest.fail("spawned"))
+    config = _config(fake_harness, "success", harness_id=harness, model_id="litellm/glm-5.2")
+    result = run_live_harness(config, tmp_path / "runs", environ={"SEW_OSS_ENABLED": "1"})
+    assert result.status == "not_applicable"
+    assert _read(result.bundle_dir, "run.json")["failure_category"] == "native-search-unavailable-on-oss-model"
