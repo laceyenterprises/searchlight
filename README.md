@@ -498,9 +498,12 @@ The adapter uses `hermes -z PROMPT -m ROUTE --provider custom:searchlight
 --ignore-rules` (plus `-t SERVER` for provider arms), verified with 0.16.0
 `hermes --help`. One-shot stdout contains only final text; the driver polls
 `HERMES_HOME/state.db` for machine-readable messages, tool calls and session
-usage. Session readiness and usage updates feed the existing boot and budget
-checks; usage is known only to the extent Hermes has persisted it. Raw session
-databases and configuration homes are temporary and are removed after the cell.
+usage. A separate thread reads stdout; the driver waits at most 50 ms for queued
+stdout before polling the ledger, so silent or partial-line output cannot block
+live budget checks. Session readiness and usage updates feed the existing boot
+and budget checks; usage is known only to the extent Hermes has persisted it.
+Raw session databases and configuration homes are temporary and are removed
+after the cell.
 See the upstream [MCP configuration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp/)
 and [toolsets reference](https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference).
 This adds support only; no model runs are required to validate the adapter.

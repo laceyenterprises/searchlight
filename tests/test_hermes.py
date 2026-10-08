@@ -102,6 +102,56 @@ def test_usage_catalog_cost():
     assert cost['amount_usd'] == pytest.approx(0.0002306)
 
 
+@pytest.mark.parametrize('budget', ['tokens', 'provider_calls'])
+@pytest.mark.parametrize('stdout', ['silent', 'partial_line'])
+def test_ledger_budgets_stop_child_before_final_stdout(tmp_path, budget, stdout):
+    """Ledger polling must progress while the stdout reader waits for a line."""
+    import os
+    import time
+
+    surface = prepare_arm_spawn(config('exa'), tmp_path, {'SEW_OSS_ENABLED': '1'})
+    binary = tmp_path / 'hermes'
+    binary.write_text('''#!/usr/bin/env python3
+import json, os, sqlite3, sys, time
+from pathlib import Path
+home = Path(os.environ['HERMES_HOME'])
+with sqlite3.connect(home / 'state.db') as db:
+ db.execute('CREATE TABLE sessions(id TEXT, input_tokens INTEGER, output_tokens INTEGER, cache_read_tokens INTEGER, reasoning_tokens INTEGER)')
+ db.execute("INSERT INTO sessions VALUES ('session',0,0,0,0)")
+ db.execute('CREATE TABLE messages(id INTEGER, role TEXT, content TEXT, tool_calls TEXT, tool_call_id TEXT)')
+if sys.argv[1] == 'partial_line':
+ sys.stdout.write('unfinished stdout')
+ sys.stdout.flush()
+time.sleep(0.2)
+with sqlite3.connect(home / 'state.db') as db:
+ db.execute('UPDATE sessions SET input_tokens = 100, output_tokens = 20')
+ for number in (1, 2):
+  calls = [{'id': str(number), 'function': {'name': 'mcp_exa_web_search_exa', 'arguments': '{}'}}]
+  db.execute('INSERT INTO messages VALUES (?,?,?,?,NULL)', (number, 'assistant', None, json.dumps(calls)))
+time.sleep(5)
+(home / 'finished').touch()
+print('final answer')
+''')
+    binary.chmod(0o755)
+    started = time.monotonic()
+    outcome = spawn_and_capture(
+        [str(binary), stdout], prompt='single prompt', cwd=tmp_path,
+        env={**os.environ, **surface.env},
+        limits=LiveLimits(4, 2, 50 if budget == 'tokens' else None,
+                          1 if budget == 'provider_calls' else None),
+        protocol=HermesProtocol(), contract=surface.contract)
+
+    assert outcome.ready
+    assert outcome.running_tokens == 120
+    assert outcome.provider_calls == 2
+    assert outcome.budget_killed == (budget == 'tokens')
+    assert outcome.provider_budget_killed == (budget == 'provider_calls')
+    assert not outcome.timed_out and not outcome.boot_timed_out
+    assert time.monotonic() - started < 3
+    assert not (tmp_path / 'hermes-home' / 'finished').exists()
+    assert not any(e['event'].get('text') == 'final answer' for e in outcome.events)
+
+
 def test_doctor_minimum_version(tmp_path):
     from sew.doctor import doctor
     binary = tmp_path / 'hermes'
