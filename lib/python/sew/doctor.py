@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import re
+from packaging.version import Version, InvalidVersion
 from collections.abc import Mapping
 from . import harnesses as harness_registry
 from .host import config_path, credential_environment, resolve_host
@@ -30,18 +31,30 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
             present.append(provider)
     harnesses = []
     for spec in harness_registry.specs(live=True):
-        harness = spec.id
-        command = env.get(spec.bin_env, spec.default_bin)
-        available = shutil.which(command, path=env.get("PATH", "")) is not None
-        status = "CLI available; account login unverified" if available else "CLI unavailable"
+        command = env.get(spec.bin_env, spec.default_bin) if spec.bin_env else spec.default_bin
+        binary = shutil.which(command, path=env.get("PATH", ""))
+        status = "CLI available; account login unverified" if binary else "CLI unavailable"
         if (
             host.mode == "agent-os"
             and getattr(host, "harness_auth_source", lambda: "broker")() == "broker"
         ):
             status = "OAuth broker configured; authentication unverified"
-        if available and spec.min_version:
+        if binary and spec.minimum_version:
             try:
-                result = subprocess.run([command, "--version"],
+                result = subprocess.run([binary, "--version"], capture_output=True,
+                                        text=True, timeout=5, env=dict(env))
+                if result.returncode != 0:
+                    status = "version check failed"
+                else:
+                    lines = result.stdout.strip().splitlines()
+                    version = Version(lines[-1].strip() if lines else "")
+                    status = (f"ok {version}" if version >= Version(spec.minimum_version)
+                              else f"unsupported version; requires >= {spec.minimum_version}")
+            except (OSError, subprocess.TimeoutExpired, InvalidVersion):
+                status = f"version unverified; requires >= {spec.minimum_version}"
+        if binary and spec.min_version:
+            try:
+                result = subprocess.run([binary, "--version"],
                                         capture_output=True, text=True, timeout=5, env=dict(env))
                 match = re.search(r"v?(\d+)\.(\d+)\.(\d+)", result.stdout)
                 version = tuple(map(int, match.groups())) if match else ()
@@ -49,7 +62,7 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
                 status = f"version {'.'.join(map(str, version))}; minimum {minimum}" if version >= spec.min_version else f"unsupported version; requires >= {minimum}"
             except (OSError, subprocess.TimeoutExpired):
                 status = "version check failed"
-        harnesses.append(f"{harness}: {status}")
+        harnesses.append(f"{spec.id}: {status}")
     from .gap.sandbox import qualify_backend, select_backend
     from .gap.workspace import EgressCanaryRefused
 

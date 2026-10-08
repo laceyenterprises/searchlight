@@ -385,6 +385,8 @@ cells are recorded as not applicable without launching a harness. Model cost
 evidence uses the catalog rates, and token usage may record `usage_basis` as
 `harness`, `litellm_response`, or `unavailable`. Legacy Pi profiles live under
 `fixtures/` solely for offline replay.
+The [Opencode adapter](docs/opencode.md) supports isolated search cells on
+Opencode >=1.17.3 with OSS models, including its client-side native web tools.
 
 In live runs, `--max-wall-clock-seconds` sets the run wall-clock limit;
 `timeouts.run_seconds` is the fallback when no operator budgets are supplied.
