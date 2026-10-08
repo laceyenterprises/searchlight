@@ -296,6 +296,7 @@ def test_live_executor_selects_pi(monkeypatch, tmp_path):
     assert executor.execute(cell, tmp_path, mode='live').status == 'succeeded'
 
 
+@pytest.mark.parametrize('stdout_noise', ['', '\n \t\r\n', '\n \t\r\nstartup log provider-placeholder\n'])
 @pytest.mark.parametrize('error_content', [
     [{'type': 'text', 'text': 'search query too long'}],
     [{'type': 'text', 'text': 'missing required parameter'},
@@ -303,7 +304,7 @@ def test_live_executor_selects_pi(monkeypatch, tmp_path):
     [{'type': 'resource_link', 'name': 'help', 'uri': 'https://example.invalid/help'}],
     [],
 ])
-def test_extensions_register_provider_and_bridge_round_trip(tmp_path, error_content):
+def test_extensions_register_provider_and_bridge_round_trip(tmp_path, error_content, stdout_noise):
     node = shutil.which('node')
     if not node:
         pytest.skip('Pi extension round trip requires Node.js')
@@ -316,8 +317,9 @@ createInterface({input:process.stdin}).on('line', line => {
  req.method === 'tools/list' ? {tools:[{name:req.params.cursor ? 'fetch' : 'search',description:'stub search',inputSchema:{type:'object',properties:{q:{type:'string'}}}}],...(req.params.cursor ? {} : {nextCursor:'page2'})} :
  req.params.arguments.q === 'tool-error' ? {isError:true,content:ERROR_CONTENT} :
  {content:[{type:'text',text:req.params.arguments.q}]};
+ process.stdout.write(STDOUT_NOISE);
  process.stdout.write(JSON.stringify({jsonrpc:'2.0',id:req.id,result})+'\\n');
-});'''.replace('ERROR_CONTENT', json.dumps(error_content)))
+});'''.replace('ERROR_CONTENT', json.dumps(error_content)).replace('STDOUT_NOISE', json.dumps(stdout_noise)))
     cell = tmp_path / 'cell.json'
     cell.write_text(json.dumps({'baseUrl': 'http://unused.invalid/v1', 'route': 'glm-5.2',
                                'contextWindow': 10000, 'maxTokens': 1000, 'serverName': 'exa',
@@ -350,6 +352,9 @@ handlers.session_shutdown();
     result = subprocess.run([node, str(script), (EXTENSIONS / 'litellm.mjs').as_uri(),
                              (EXTENSIONS / 'mcp-bridge.mjs').as_uri()], env=env, capture_output=True, text=True, timeout=10)
     assert result.returncode == 0, result.stderr
+    # Five responses cover initialization, both discovery pages and both tool calls.
+    warning = 'MCP bridge ignored invalid JSON on server stdout\n'
+    assert result.stderr == (warning * 5 if 'startup log' in stdout_noise else '')
 
 
 def test_disabled_and_native_cells(fake_pi, tmp_path, monkeypatch):

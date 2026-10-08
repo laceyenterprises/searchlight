@@ -545,5 +545,8 @@ MCP tool failures remain errors and include the server's diagnostic text in
 the exception delivered to Pi; non-text content blocks are serialized as JSON.
 The MCP server inherits Pi's stderr, so initialization and runtime diagnostics
 are captured in the cell's `artifacts/harness-stderr.txt`.
+The bridge ignores blank stdout lines and skips malformed JSON with a fixed
+stderr warning that omits the line contents. Pending requests remain active
+and retain their thirty-second timeout.
 Cell evidence scrubs the JSON server-env envelope and values under credential
 keys, while preserving benign settings such as `DEBUG`, `PORT` and `NODE_ENV`.
