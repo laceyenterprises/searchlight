@@ -226,6 +226,8 @@ def relay(client):
                     forward_http(client, upstream)
             readers = [client, upstream]
             while readers:
+                # This is a polling interval, not an idle deadline: an empty
+                # ready list keeps both sockets open for slow model inference.
                 ready, _, _ = select.select(readers, [], [], 10)
                 for source in ready:
                     target = upstream if source is client else client

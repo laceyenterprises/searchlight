@@ -225,6 +225,68 @@ def _check_bridge(directory, tmp_path):
         assert "403 Permission denied: endpoint not allowlisted" in result["output"]
 
 
+@pytest.mark.parametrize("loopback", [False, True])
+def test_bridge_relays_response_after_repeated_idle_intervals(loopback):
+    import ast
+    import re
+    import select
+    import socket
+    from types import SimpleNamespace
+    from urllib.parse import urlsplit, urlunsplit
+
+    # Execute the embedded relay functions without starting its fork/exec shell.
+    tree = ast.parse(sandbox.PROXY_BRIDGE)
+    tree.body = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
+    client, harness = socket.socketpair()
+    upstream, endpoint = socket.socketpair()
+
+    class ConnectedSocket(socket.socket):
+        def connect(self, path):
+            pass  # socketpair already connected the replacement Unix upstream.
+
+    upstream = ConnectedSocket(fileno=upstream.detach())
+    response = b"HTTP/1.1 200 OK\r\nContent-Length: 5\r\n\r\ntoken"
+    intervals = []
+
+    def ready_after_idle(readers, writes, errors, timeout):
+        intervals.append(timeout)
+        assert len(intervals) < 10, "relay failed to finish after socket EOF"
+        if len(intervals) <= 3:
+            # Simulate three expired polling intervals without a wall-clock wait.
+            assert client.fileno() >= 0 and upstream.fileno() >= 0
+            return [], [], []
+        if len(intervals) == 4:
+            endpoint.sendall(response)
+            endpoint.shutdown(socket.SHUT_WR)
+        return select.select(readers, writes, errors, 1)
+
+    namespace = {
+        "socket": SimpleNamespace(
+            socket=lambda family: upstream,
+            AF_UNIX=socket.AF_UNIX,
+            MSG_PEEK=socket.MSG_PEEK,
+            SHUT_WR=socket.SHUT_WR,
+        ),
+        "select": SimpleNamespace(select=ready_after_idle),
+        "path": "unused.sock",
+        "original": urlsplit("http://localhost:4000") if loopback else None,
+        "original_authority": "localhost:4000",
+        "urlsplit": urlsplit,
+        "urlunsplit": urlunsplit,
+        "re": re,
+    }
+    with client, harness, upstream, endpoint:
+        exec(compile(tree, "<PROXY_BRIDGE>", "exec"), namespace)
+        harness.sendall(b"GET /v1 HTTP/1.1\r\nHost: localhost\r\n\r\n")
+        harness.shutdown(socket.SHUT_WR)
+        namespace["relay"](client)
+        assert harness.recv(65536) == response
+        assert intervals[:3] == [10, 10, 10]
+        request = endpoint.recv(65536)
+        target = b"http://localhost:4000/v1" if loopback else b"/v1"
+        assert request.startswith(b"GET " + target + b" HTTP/1.1\r\n")
+
+
 @pytest.mark.parametrize("host", ["localhost", "127.0.0.1", "[::1]"])
 @pytest.mark.parametrize("userinfo", ["", "user:p%40ss@"])
 @pytest.mark.parametrize("has_config", [False, True])

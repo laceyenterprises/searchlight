@@ -157,7 +157,10 @@ without forwarding any part of the request. Direct TLS first establishes an
 allowlisted CONNECT tunnel, preserving the original hostname for certificate
 verification. The bridge requires an HTTP/1.1 200 response and ignores its
 reason phrase; other status codes close the connection. IPv6 loopback
-endpoints use an IPv6 listener. Each qualification or cell launch
+endpoints use an IPv6 listener. The bridge's ten-second select interval is
+polling only: an idle interval leaves both sockets open and repeats the wait,
+so delayed LiteLLM first tokens do not hit a bridge idle deadline. Cell run
+budgets still bound the harness lifetime. Each qualification or cell launch
 refreshes the provider URL for its own listener. `/tmp` is mounted before
 read and scratch binds so the socket and any explicitly admitted runtime below
 `/tmp` remain visible. A host-root read bind is refused. Backend qualification
