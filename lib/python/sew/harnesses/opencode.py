@@ -32,7 +32,7 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
     env = {}
     for key, directory in (("HOME", "home"), ("XDG_CONFIG_HOME", "config"),
                            ("XDG_DATA_HOME", "data"), ("XDG_STATE_HOME", "state"),
-                           ("XDG_CACHE_HOME", "cache")):
+                           ("XDG_CACHE_HOME", "cache"), ("XDG_RUNTIME_DIR", "run")):
         path = root / directory
         path.mkdir(mode=0o700, exist_ok=True)
         env[key] = str(path)

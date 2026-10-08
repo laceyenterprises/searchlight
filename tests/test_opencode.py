@@ -37,7 +37,7 @@ import json, os, sys
 from pathlib import Path
 if '--version' in sys.argv:
     print(os.environ.get('FAKE_VERSION', '{MIN_VERSION}'))
-    raise SystemExit(0)
+    raise SystemExit(int(os.environ.get('FAKE_VERSION_EXIT', '0')))
 record = {{'argv': sys.argv[1:], 'prompt': sys.stdin.read(),
           'env': dict(os.environ),
           'config': json.loads(Path(os.environ['OPENCODE_CONFIG']).read_text())}}
@@ -71,6 +71,9 @@ def config(arm='exa', **kwargs):
 @pytest.mark.parametrize('arm', [*PROVIDER_SERVER_NAMES, 'no-search', 'native'])
 def test_config_argv_env_per_arm(tmp_path, fake_opencode, arm):
     source = environment(tmp_path)
+    directory_keys = ['HOME', 'XDG_CONFIG_HOME', 'XDG_DATA_HOME', 'XDG_STATE_HOME',
+                      'XDG_CACHE_HOME', 'XDG_RUNTIME_DIR']
+    source.update({key: str(tmp_path / 'host' / key) for key in directory_keys if key != 'HOME'})
     cfg = config(arm)
     surface = prepare_arm_spawn(cfg, tmp_path, source, harness_auth='litellm')
     document = json.loads(surface.mcp_config_path.read_text())
@@ -93,8 +96,14 @@ def test_config_argv_env_per_arm(tmp_path, fake_opencode, arm):
     assert document['tools']['websearch'] is (arm == 'native')
     assert document['permission'].get('websearch') == ('allow' if arm == 'native' else None)
     assert surface.env['OPENCODE_CONFIG'] == str(surface.mcp_config_path)
-    for key in ['HOME', 'XDG_CONFIG_HOME', 'XDG_DATA_HOME', 'XDG_STATE_HOME', 'XDG_CACHE_HOME']:
-        assert Path(surface.env[key]).is_relative_to(tmp_path / 'opencode')
+    for key in directory_keys:
+        directory = Path(surface.env[key])
+        assert directory.is_relative_to(tmp_path / 'opencode')
+        assert directory.is_dir()
+        assert directory.stat().st_mode & 0o777 == 0o700
+        assert directory.stat().st_uid == (tmp_path / 'opencode').stat().st_uid
+        assert surface.env[key] != source[key]
+    assert surface.env['XDG_RUNTIME_DIR'] == str(tmp_path / 'opencode' / 'run')
     assert surface.env['OPENCODE_DISABLE_PROJECT_CONFIG'] == 'true'
     assert surface.env['OPENCODE_ENABLE_EXA'] == ('true' if arm == 'native' else 'false')
     assert surface.mcp_config_path.stat().st_mode & 0o777 == 0o600
@@ -112,6 +121,8 @@ def test_config_argv_env_per_arm(tmp_path, fake_opencode, arm):
     record = json.loads((tmp_path / 'record').read_text())
     assert record['prompt'] == 'Find the release'
     assert record['argv'] == argv[1:] and record['config'] == document
+    for key in directory_keys:
+        assert child[key] == record['env'][key] == surface.env[key]
     assert 'fake-proxy-key' not in surface.mcp_config_path.read_text()
     captured = [entry['event'] for entry in outcome.events]
     summary = protocol.summarize(captured, None)
@@ -203,9 +214,10 @@ def test_arm_overrides_refused(tmp_path, flag):
         prepare_arm_spawn(config(harness_args=(flag,)), tmp_path, environment(tmp_path))
 
 
-def test_config_environment_override_refused(tmp_path):
+@pytest.mark.parametrize('key', ['OPENCODE_CONFIG_CONTENT', 'XDG_RUNTIME_DIR'])
+def test_config_environment_override_refused(tmp_path, key):
     with pytest.raises(SchemaError, match='arm-controlled'):
-        prepare_arm_spawn(config(env={'OPENCODE_CONFIG_CONTENT': '{}'}), tmp_path, environment(tmp_path))
+        prepare_arm_spawn(config(env={key: 'override'}), tmp_path, environment(tmp_path))
 
 
 @pytest.mark.parametrize('version,status', [
@@ -218,6 +230,13 @@ def test_doctor_minimum_version(tmp_path, fake_opencode, version, status):
     output = doctor(env)
     assert 'opencode: ' + status in output
     assert 'oss models   disabled' in output
+
+
+@pytest.mark.parametrize('version', ['1.17.3', 'bad', ''])
+def test_doctor_failed_version_check(tmp_path, fake_opencode, version):
+    env = {**environment(tmp_path), 'SEW_OSS_ENABLED': '0', 'PATH': str(tmp_path),
+           'SEW_OPENCODE_BIN': str(fake_opencode), 'FAKE_VERSION': version, 'FAKE_VERSION_EXIT': '1'}
+    assert 'opencode: version check failed' in doctor(env)
 
 
 def test_doctor_uses_resolved_binary(tmp_path, fake_opencode, monkeypatch):

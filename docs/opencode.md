@@ -2,7 +2,8 @@
 
 Searchlight supports Opencode **1.17.3 or newer**, with an explicit
 `litellm/<route>` model from the OSS catalog. `sew doctor` checks the binary
-version; `SEW_OPENCODE_BIN` can select a different executable. OSS support is
+version and reports `version check failed` if the command exits unsuccessfully;
+`SEW_OPENCODE_BIN` can select a different executable. OSS support is
 off by default. Configure `oss.enabled` and LiteLLM as described in the
 [OSS configuration guide](../README.md).
 
@@ -19,7 +20,9 @@ Each cell writes `opencode/opencode.json` in its temporary cell directory.
 The LiteLLM provider uses `@ai-sdk/openai-compatible` and reads its key from
 the child environment. MCP environment values also use environment references,
 so credentials are not embedded in this config. HOME and all XDG directories
-are isolated, project configs are disabled, and `--pure` disables external
+are isolated in private (0700) cell directories, including `XDG_RUNTIME_DIR`
+at `opencode/run`, which replaces the inherited host runtime directory.
+Project configs are disabled, and `--pure` disables external
 plugins. The only model provider is Searchlight LiteLLM.
 Directory setup reuses existing cell directories and rewrites the config, so
 setup can be retried in the same temporary directory after a partial failure.
