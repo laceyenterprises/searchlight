@@ -536,3 +536,8 @@ Pi has no native web tools, so its native arm is not applicable. The offline
 Pi profiles and fixture driver remain available. The legacy `pi-live-smoke`
 help probe no longer creates a live-success bundle. Code-cell support is a
 separate follow-up; this adapter supports search cells only.
+
+MCP tool failures remain errors and include the server's diagnostic text in
+the exception delivered to Pi; non-text content blocks are serialized as JSON.
+Cell evidence scrubs the JSON server-env envelope and values under credential
+keys, while preserving benign settings such as `DEBUG`, `PORT` and `NODE_ENV`.

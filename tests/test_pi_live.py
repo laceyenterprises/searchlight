@@ -180,6 +180,34 @@ def test_fake_cell_writes_real_bundle(fake_pi, tmp_path, monkeypatch):
     assert 'offline-placeholder' not in ''.join(p.read_text() for p in result.bundle_dir.rglob('*') if p.is_file())
 
 
+@pytest.mark.parametrize('credential', ['credential-placeholder', 'tiny'])
+def test_mcp_env_scrubs_credentials_without_changing_benign_text(fake_pi, tmp_path, monkeypatch, credential):
+    server_env = {'DEBUG': 'true', 'PORT': '8080', 'NODE_ENV': 'production',
+                  'EXA_API_KEY': credential, 'EMPTY_SECRET': ''}
+    benign = 'DEBUG true, PORT 8080, NODE_ENV production.'
+    echoed = f'{benign} Credential {credential}. Envelope {json.dumps(server_env)}'
+    events = [json.loads(line) for line in (ROOT / 'tests/fixtures/pi-session.jsonl').read_text().splitlines()]
+    events[3]['message']['content'][0]['text'] = echoed
+    events[4]['message']['content'][0]['text'] = echoed
+    fake_pi.write_text('#!/bin/sh\nif [ "$1" = "--version" ]; then echo 0.79.8; exit 0; fi\n'
+                       'cat >/dev/null\ncat <<\'JSON\'\n' +
+                       '\n'.join(json.dumps(event) for event in events) +
+                       '\nJSON\ncat >&2 <<\'TEXT\'\n' + echoed + '\nTEXT\n')
+    c = config()
+    exposure = replace(c.external_provider, mcp_server_config={'command': 'stub-mcp', 'env': server_env})
+    monkeypatch.setattr(live_harness, 'live_enabled', lambda env: True)
+    result = live_harness.run_live_harness(replace(c, external_provider=exposure), tmp_path / 'runs',
+                                         environ=environment(fake_pi))
+    assert result.status == 'succeeded'
+    for name in ('transcript.json', 'final-answer.json', 'harness-stderr.txt'):
+        text = (result.bundle_dir / 'artifacts' / name).read_text()
+        assert benign in text
+        assert '<redacted:broker-token>' in text
+    bundle_text = ''.join(p.read_text() for p in result.bundle_dir.rglob('*') if p.is_file())
+    assert credential not in bundle_text
+    assert 'offline-placeholder' not in bundle_text
+
+
 def test_live_executor_selects_pi(monkeypatch, tmp_path):
     from sew import runner
     from types import SimpleNamespace
@@ -192,7 +220,14 @@ def test_live_executor_selects_pi(monkeypatch, tmp_path):
     assert executor.execute(cell, tmp_path, mode='live').status == 'succeeded'
 
 
-def test_extensions_register_provider_and_bridge_round_trip(tmp_path):
+@pytest.mark.parametrize('error_content', [
+    [{'type': 'text', 'text': 'search query too long'}],
+    [{'type': 'text', 'text': 'missing required parameter'},
+     {'type': 'text', 'text': 'provide a query'}],
+    [{'type': 'resource_link', 'name': 'help', 'uri': 'https://example.invalid/help'}],
+    [],
+])
+def test_extensions_register_provider_and_bridge_round_trip(tmp_path, error_content):
     node = shutil.which('node')
     if not node:
         pytest.skip('Pi extension round trip requires Node.js')
@@ -203,9 +238,10 @@ createInterface({input:process.stdin}).on('line', line => {
  const req = JSON.parse(line); if (!req.id) return;
  const result = req.method === 'initialize' ? {protocolVersion:'2024-11-05',capabilities:{}} :
  req.method === 'tools/list' ? {tools:[{name:req.params.cursor ? 'fetch' : 'search',description:'stub search',inputSchema:{type:'object',properties:{q:{type:'string'}}}}],...(req.params.cursor ? {} : {nextCursor:'page2'})} :
+ req.params.arguments.q === 'tool-error' ? {isError:true,content:ERROR_CONTENT} :
  {content:[{type:'text',text:req.params.arguments.q}]};
  process.stdout.write(JSON.stringify({jsonrpc:'2.0',id:req.id,result})+'\\n');
-});''')
+});'''.replace('ERROR_CONTENT', json.dumps(error_content)))
     cell = tmp_path / 'cell.json'
     cell.write_text(json.dumps({'baseUrl': 'http://unused.invalid/v1', 'route': 'glm-5.2',
                                'contextWindow': 10000, 'maxTokens': 1000, 'serverName': 'exa',
@@ -224,10 +260,15 @@ assert.equal(providers[0].apiKey,'offline-placeholder');
 await handlers.session_start();
 assert.deepEqual(pi.active,['mcp__exa__search','mcp__exa__fetch']);
 assert.equal(tools.length,2);
+await assert.rejects(tools[0].execute('error-call',{q:'tool-error'}),
+ {message:ERROR_MESSAGE});
 const result = await tools[0].execute('call',{q:'round trip'});
 assert.equal(result.content[0].text,'round trip');
 handlers.session_shutdown();
-''')
+'''.replace('ERROR_MESSAGE', json.dumps('MCP tool returned an error' +
+           (': ' + '\n'.join(block['text'] if block['type'] == 'text' else
+                             json.dumps(block, separators=(',', ':')) for block in error_content)
+            if error_content else ''))))
     env = {'PATH': os.environ['PATH'], 'SEW_PI_CELL_CONFIG': str(cell), 'SEW_LITELLM_API_KEY': 'offline-placeholder',
            'SEW_PI_MCP_ENV_SECRET': json.dumps({'PROVIDER_KEY': 'provider-placeholder'})}
     result = subprocess.run([node, str(script), (EXTENSIONS / 'litellm.mjs').as_uri(),
@@ -242,8 +283,8 @@ def test_disabled_and_native_cells(fake_pi, tmp_path, monkeypatch):
     native = replace(config(), provider_id='native', external_provider=None,
                      native_search_available=True)
     result = live_harness.run_live_harness(native, tmp_path, environ=environment(fake_pi))
-    assert result.status == 'unsupported'
-    assert result.failure_category == 'native_search_unsupported'
+    assert result.status == 'not_applicable'
+    assert result.failure_category == 'native-search-unavailable-on-oss-model'
 
 
 def test_error_and_unknown_usage():

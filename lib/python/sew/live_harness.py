@@ -839,7 +839,7 @@ def run_live_harness(
                 child_env = child_environment(spawn_config, source_env)
                 # Isolated adapters may carry server credentials as a JSON env
                 # value to keep them off disk. Scrub both the envelope and its
-                # individual string values if the child echoes either.
+                # credential-named string values if the child echoes either.
                 for key, value in child_env.items():
                     if value and TRANSCRIPT_SECRET_KEY_RE.search(key):
                         broker_tokens.append(value)
@@ -848,8 +848,10 @@ def run_live_harness(
                         except ValueError:
                             continue
                         if isinstance(secret_map, dict):
-                            broker_tokens.extend(v for v in secret_map.values()
-                                                 if isinstance(v, str) and v)
+                            broker_tokens.extend(
+                                v for k, v in secret_map.items()
+                                if TRANSCRIPT_SECRET_KEY_RE.search(k) and isinstance(v, str) and v
+                            )
 
                 if auth_source == "broker":
                     child_env.pop("ANTHROPIC_API_KEY", None)
