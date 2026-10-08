@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import os
 from collections import Counter
 from pathlib import Path
 
@@ -320,6 +321,42 @@ def test_doctor_checks_every_live_harness_binary(acme, tmp_path: Path, monkeypat
     assert "claude-code: CLI unavailable" in line
     assert "codex: CLI unavailable" in line
     assert "acme: CLI unavailable" in line
+
+
+@pytest.mark.parametrize("env_source", ["process", "mapping"])
+@pytest.mark.parametrize(
+    "bin_env, override, executable",
+    [
+        (None, None, "acme"),
+        (None, None, None),
+        ("SEW_ACME_BIN", None, "acme"),
+        ("SEW_ACME_BIN", "", "acme"),
+        ("SEW_ACME_BIN", "custom-acme", "custom-acme"),
+    ],
+)
+def test_doctor_optional_bin_env(tmp_path, monkeypatch, env_source, bin_env, override, executable):
+    # Exercise doctor independently of the registry's current live-spec validation.
+    spec = harnesses.HarnessSpec(id="acme", label="Acme", bin_env=bin_env, default_bin="acme")
+    monkeypatch.setattr(harnesses, "specs", lambda **where: (spec,))
+    monkeypatch.setattr("sew.gap.sandbox.qualify_backend", lambda *a, **kw: {})
+    monkeypatch.chdir(tmp_path)
+    if executable:
+        binary = tmp_path / executable
+        binary.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
+        binary.chmod(0o755)
+    env = {"SEW_MODE": "standalone", "SEW_OSS_ENABLED": "0", "HOME": str(tmp_path), "PATH": str(tmp_path)}
+    if override is not None:
+        env[bin_env] = override
+    if env_source == "process":
+        for key in list(os.environ):
+            monkeypatch.delenv(key)
+        for key, value in env.items():
+            monkeypatch.setenv(key, value)
+        output = doctor()
+    else:
+        output = doctor(env)
+    status = "CLI available; account login unverified" if executable else "CLI unavailable"
+    assert f"harnesses    acme: {status}" in output
 
 
 def test_unregistered_harness_is_refused_everywhere(tmp_path: Path) -> None:
