@@ -14,16 +14,14 @@ from .harnesses.pi import MIN_VERSION
 
 
 def version_status(binary, env):
-    try:
-        result = subprocess.run([binary, '--version'], env=dict(env), capture_output=True,
-                                text=True, timeout=10, check=False)
-        match = re.search(r'\b(\d+)\.(\d+)\.(\d+)\b', result.stdout)
-        if result.returncode == 0 and match:
-            version = tuple(map(int, match.groups()))
-            if version >= tuple(map(int, MIN_VERSION.split('.'))):
-                return 'ok (Pi ' + '.'.join(match.groups()) + ')'
-    except (OSError, subprocess.TimeoutExpired):
-        pass
+    # A failed probe is an operational error, not an unsupported configuration.
+    result = subprocess.run([binary, '--version'], env=dict(env), capture_output=True,
+                            text=True, timeout=10, check=True)
+    match = re.search(r'\b(\d+)\.(\d+)\.(\d+)\b', result.stdout)
+    if match:
+        version = tuple(map(int, match.groups()))
+        if version >= tuple(map(int, MIN_VERSION.split('.'))):
+            return 'ok (Pi ' + '.'.join(match.groups()) + ')'
     return 'requires Pi >= ' + MIN_VERSION
 
 
@@ -52,9 +50,9 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
         raise SchemaError('Pi requires version >= ' + MIN_VERSION)
     settings = configuration(source_env)
     home = scratch / 'pi-agent'
-    home.mkdir(mode=0o700)
+    home.mkdir(mode=0o700, exist_ok=True)
     extensions = home / 'extensions'
-    shutil.copytree(Path(__file__).parent / 'harnesses/pi_extensions', extensions)
+    shutil.copytree(Path(__file__).parent / 'harnesses/pi_extensions', extensions, dirs_exist_ok=True)
     entry = catalog[route]
     path = home / 'cell.json'
     path.write_text(json.dumps({

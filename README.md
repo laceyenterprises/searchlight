@@ -521,6 +521,13 @@ calling a model:
 sew run-live-harness --harness pi --model litellm/glm-5.2 --arm exa --dry-run
 ```
 
+The version probe has a ten-second timeout. Launch errors, timeouts and nonzero
+probe exits propagate from cell setup as operational exceptions, allowing the
+caller to retry; they are not converted to version configuration refusals.
+`sew doctor` reports these as `version probe failed` and continues its checks.
+Setup can be repeated in the same scratch directory after a partial failure;
+the shipped extensions and cell configuration are rewritten on each attempt.
+
 Each cell uses a fresh `PI_CODING_AGENT_DIR`, Searchlight's LiteLLM provider
 extension and a stdio MCP bridge for the selected arm only. Built-in tools,
 extension discovery, skills and project context are disabled. JSON events

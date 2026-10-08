@@ -1,4 +1,5 @@
 """Offline Pi protocol, fake runtime and real stdio bridge round trips."""
+import errno
 import json
 import os
 from pathlib import Path
@@ -12,6 +13,7 @@ from sew.arms import prepare_arm_spawn, audit_transcript, contract_for
 from sew.harness import HarnessRunConfig, ProviderExposure
 from sew.pi_live import PiProtocol, version_status
 from sew import live_harness
+from sew.mcp_meter import transcript_provider_completed
 from sew.cost_model import model_cost, load_price_table
 from sew.runner import LiveCellExecutor
 from sew.schema import SchemaError
@@ -69,6 +71,83 @@ def test_version_and_model_refused(fake_pi, tmp_path):
         prepare_arm_spawn(config(), tmp_path, environment(fake_pi), harness_auth='litellm')
     with pytest.raises(SchemaError, match='explicit'):
         prepare_arm_spawn(replace(config(), model_id=None), tmp_path, {}, harness_auth='account')
+
+
+@pytest.mark.parametrize('error', [
+    subprocess.TimeoutExpired('pi --version', 10),
+    OSError(errno.EAGAIN, 'temporarily unavailable'),
+    OSError(errno.EIO, 'I/O error'),
+])
+def test_version_probe_errors_propagate(fake_pi, tmp_path, monkeypatch, error):
+    def fail_probe(*args, **kwargs):
+        raise error
+
+    monkeypatch.setattr('sew.pi_live.subprocess.run', fail_probe)
+    with pytest.raises(type(error)) as caught:
+        prepare_arm_spawn(config(), tmp_path, environment(fake_pi), harness_auth='litellm')
+    assert caught.value is error
+    assert not (tmp_path / 'pi-agent').exists()
+
+
+def test_unsuccessful_version_probe_is_not_a_version_refusal(fake_pi, tmp_path):
+    fake_pi.write_text('#!/bin/sh\necho 0.79.7\nexit 1\n')
+    with pytest.raises(subprocess.CalledProcessError):
+        prepare_arm_spawn(config(), tmp_path, environment(fake_pi), harness_auth='litellm')
+
+
+def test_doctor_reports_version_probe_failure(fake_pi, tmp_path, monkeypatch):
+    from sew.doctor import doctor
+
+    def fail_probe(*args):
+        raise subprocess.TimeoutExpired('pi --version', 10)
+
+    def unavailable_backend(env):
+        raise OSError('unavailable')
+
+    monkeypatch.setattr('sew.pi_live.version_status', fail_probe)
+    monkeypatch.setattr('sew.gap.sandbox.select_backend', unavailable_backend)
+    output = doctor({**environment(fake_pi), 'SEW_OSS_ENABLED': '0', 'HOME': str(tmp_path)})
+    assert 'pi: version probe failed (TimeoutExpired)' in output
+
+
+def test_setup_can_retry_after_partial_extension_copy(fake_pi, tmp_path, monkeypatch):
+    copytree = shutil.copytree
+
+    def partial_copy(source, destination, **kwargs):
+        destination.mkdir()
+        (destination / 'litellm.mjs').write_text('incomplete')
+        raise OSError(errno.EIO, 'copy interrupted')
+
+    monkeypatch.setattr('sew.pi_live.shutil.copytree', partial_copy)
+    with pytest.raises(OSError, match='copy interrupted'):
+        prepare_arm_spawn(config(), tmp_path, environment(fake_pi), harness_auth='litellm')
+    monkeypatch.setattr('sew.pi_live.shutil.copytree', copytree)
+    surface = prepare_arm_spawn(config(), tmp_path, environment(fake_pi), harness_auth='litellm')
+    extensions = tmp_path / 'pi-agent/extensions'
+    for name in ('litellm.mjs', 'mcp-bridge.mjs'):
+        assert (extensions / name).read_bytes() == (EXTENSIONS / name).read_bytes()
+    repeated = prepare_arm_spawn(config(), tmp_path, environment(fake_pi), harness_auth='litellm')
+    assert repeated == surface
+    assert surface.mcp_config_path.stat().st_mode & 0o777 == 0o600
+    assert (tmp_path / 'pi-agent').stat().st_mode & 0o777 == 0o700
+
+
+@pytest.mark.parametrize('wrapped', [False, True])
+def test_pi_audit_recognizes_calls_without_results(tmp_path, wrapped):
+    events = [json.loads(line) for line in (ROOT / 'tests/fixtures/pi-session.jsonl').read_text().splitlines()]
+    call = events[2]
+    result = events[3]
+    def transcript(items):
+        return [{'harness_event': item} for item in items] if wrapped else items
+
+    audit = audit_transcript(contract_for(config()), transcript([call]))
+    assert audit.observed_tool_calls == ('mcp__exa__search',)
+    assert not audit.contaminated
+    assert not transcript_provider_completed(tmp_path, 'exa', transcript=transcript([call]))
+    assert not transcript_provider_completed(tmp_path, 'exa', transcript=transcript([result]))
+    assert transcript_provider_completed(tmp_path, 'exa', transcript=transcript([call, result]))
+    mismatched = {**result, 'message': {**result['message'], 'toolCallId': 'other'}}
+    assert not transcript_provider_completed(tmp_path, 'exa', transcript=transcript([call, mismatched]))
 
 
 def test_recorded_session_usage_cost_and_audit():
