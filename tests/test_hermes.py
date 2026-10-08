@@ -161,16 +161,17 @@ def test_doctor_minimum_version(tmp_path):
     assert 'hermes: unsupported version; requires >= 0.16.0' in text
 
 
-def test_native_arm_is_unavailable(tmp_path, monkeypatch):
+@pytest.mark.parametrize('model, status', [(None, 'unsupported'), ('litellm/glm-5.2', 'not_applicable')])
+def test_native_arm_is_unavailable(tmp_path, monkeypatch, model, status):
     from sew import harnesses
     assert harnesses.get('hermes').native_search is False
     from sew import live_harness
     monkeypatch.setattr(live_harness, 'live_enabled', lambda env: True)
     monkeypatch.setattr(live_harness, 'spawn_and_capture', lambda *a, **kw: pytest.fail('native must not spawn'))
     result = live_harness.run_live_harness(
-        replace(config('no-search'), provider_id='native', native_search_available=True, mode='live'),
+        replace(config('no-search'), provider_id='native', native_search_available=True, mode='live', model_id=model),
         tmp_path / 'native', environ={'SEW_OSS_ENABLED': '1'})
-    assert result.status == 'unsupported'
+    assert result.status == status
 
 
 def test_session_usage_snapshots_replace_prior_counts():
