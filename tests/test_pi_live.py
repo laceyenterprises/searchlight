@@ -296,7 +296,8 @@ def test_live_executor_selects_pi(monkeypatch, tmp_path):
     assert executor.execute(cell, tmp_path, mode='live').status == 'succeeded'
 
 
-@pytest.mark.parametrize('stdout_noise', ['', '\n \t\r\n', '\n \t\r\nstartup log provider-placeholder\n'])
+@pytest.mark.parametrize('stdout_noise', ['', '\n \t\r\n', '\n \t\r\nstartup log provider-placeholder\n',
+                                               'startup log one\r\nstartup log two\n\t\n'])
 @pytest.mark.parametrize('error_content', [
     [{'type': 'text', 'text': 'search query too long'}],
     [{'type': 'text', 'text': 'missing required parameter'},
@@ -354,7 +355,7 @@ handlers.session_shutdown();
     assert result.returncode == 0, result.stderr
     # Five responses cover initialization, both discovery pages and both tool calls.
     warning = 'MCP bridge ignored invalid JSON on server stdout\n'
-    assert result.stderr == (warning * 5 if 'startup log' in stdout_noise else '')
+    assert result.stderr == warning * 5 * stdout_noise.count('startup log')
 
 
 def test_disabled_and_native_cells(fake_pi, tmp_path, monkeypatch):
