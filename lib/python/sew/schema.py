@@ -204,6 +204,7 @@ _TOKEN_USAGE_KEYS = frozenset(
     {
         "accounting_source",
         "source_kind",
+        "usage_basis",
         "input",
         "cached_input",
         "cache_write",
@@ -672,7 +673,13 @@ def validate_metrics_record(data: Any, *, expected_run_id: str | None = None) ->
     )
     if "source_kind" in usage:
         _required_str(usage, "source_kind", "metrics record.token_usage")
-    for key in _TOKEN_USAGE_KEYS - {"accounting_source", "source_kind"}:
+    if "usage_basis" in usage:
+        _closed(
+            _required_str(usage, "usage_basis", "metrics record.token_usage"),
+            {"harness", "litellm_response", "unavailable"},
+            "metrics record.token_usage.usage_basis",
+        )
+    for key in _TOKEN_USAGE_KEYS - {"accounting_source", "source_kind", "usage_basis"}:
         if key in usage:
             _optional_non_negative_int_or_null(usage, key, "metrics record.token_usage")
     provider_calls = _mapping(doc.get("provider_calls"), "metrics record.provider_calls")

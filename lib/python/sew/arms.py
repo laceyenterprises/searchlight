@@ -311,6 +311,13 @@ def claude_code_arm_spawn(
         config_dir = scratch / "claude-config"
         config_dir.mkdir(mode=0o700)
         isolated_env["CLAUDE_CONFIG_DIR"] = str(config_dir)
+        if config.model_id and config.model_id.startswith("litellm/"):
+            from .oss import load_catalog
+
+            entry = load_catalog()[config.model_id.removeprefix("litellm/")]
+            if entry["rate_basis"] == "self-hosted":
+                isolated_env["CLAUDE_CODE_MAX_CONTEXT_TOKENS"] = str(entry["context_window_tokens"])
+                isolated_env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = str(entry["max_output_tokens"])
     return SpawnSurface(
         contract,
         (
@@ -359,6 +366,19 @@ def codex_arm_spawn(
     lines: list[str] = [
         'web_search = "live"' if contract.kind == "native" else 'web_search = "disabled"'
     ]
+    if harness_auth == "litellm":
+        from .oss import configuration
+
+        base_url = configuration(source_env).base_url
+        lines.append('model_provider = "searchlight_litellm"')
+        provider_lines = [
+            '[model_providers.searchlight_litellm]',
+            'name = "Searchlight LiteLLM"',
+            f'base_url = {json.dumps(base_url + "/v1")}',
+            'env_key = "SEW_LITELLM_API_KEY"',
+            'wire_api = "responses"',
+            '',
+        ]
     if workspace:
         lines.extend(
             ['approval_policy = "never"', "[sandbox_workspace_write]", "network_access = false"]
@@ -369,6 +389,8 @@ def codex_arm_spawn(
             for key, value in config.env.items()
             if key.startswith("PIP_") or key in {"PATH", "VIRTUAL_ENV"}
         )
+    if harness_auth == "litellm":
+        lines.extend(provider_lines)
     if contract.kind == "provider":
         lines.extend(_toml_mcp_server(contract.mcp_server_name or "", server_config))
     path.write_text("\n".join(lines), encoding="utf-8")
