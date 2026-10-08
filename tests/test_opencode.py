@@ -7,6 +7,7 @@ produce the fixture. Source: https://github.com/anomalyco/opencode/tree/v1.17.3
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from dataclasses import replace
 from pathlib import Path
@@ -120,6 +121,33 @@ def test_config_argv_env_per_arm(tmp_path, fake_opencode, arm):
         assert not audit_transcript(surface.contract, captured).contaminated
 
 
+@pytest.mark.parametrize('failure', ['home', 'state', 'opencode.json'])
+def test_arm_setup_recovers_from_partial_failure(tmp_path, monkeypatch, failure):
+    cfg = config()
+    source = environment(tmp_path)
+    failed_path = tmp_path / 'opencode' / failure
+    method = 'write_text' if failure == 'opencode.json' else 'mkdir'
+    original = getattr(Path, method)
+
+    def fail_at_path(path, *args, **kwargs):
+        if path == failed_path:
+            raise OSError('transient setup failure')
+        return original(path, *args, **kwargs)
+
+    with monkeypatch.context() as patch:
+        patch.setattr(Path, method, fail_at_path)
+        with pytest.raises(OSError, match='transient setup failure'):
+            prepare_arm_spawn(cfg, tmp_path, source, harness_auth='litellm')
+    surface = prepare_arm_spawn(cfg, tmp_path, source, harness_auth='litellm')
+    document = surface.mcp_config_path.read_text()
+    repeated = prepare_arm_spawn(cfg, tmp_path, source, harness_auth='litellm')
+    assert repeated == surface
+    assert repeated.mcp_config_path.read_text() == document
+    assert surface.mcp_config_path.stat().st_mode & 0o777 == 0o600
+    for directory in ['', 'home', 'config', 'data', 'state', 'cache']:
+        assert (tmp_path / 'opencode' / directory).stat().st_mode & 0o777 == 0o700
+
+
 def events():
     return [json.loads(line) for line in FIXTURE.read_text().splitlines()]
 
@@ -180,12 +208,31 @@ def test_config_environment_override_refused(tmp_path):
         prepare_arm_spawn(config(env={'OPENCODE_CONFIG_CONTENT': '{}'}), tmp_path, environment(tmp_path))
 
 
-@pytest.mark.parametrize('version,status', [('1.17.3', 'ok 1.17.3'), ('1.17.2', 'unsupported version'), ('bad', 'version unverified')])
+@pytest.mark.parametrize('version,status', [
+    ('1.17.3', 'ok 1.17.3'), ('1.17.2', 'unsupported version'), ('bad', 'version unverified'),
+    ('update warning\n1.17.3\n \n', 'ok 1.17.3'),
+    ('update warning\n1.17.2', 'unsupported version'), ('\n \n', 'version unverified'),
+])
 def test_doctor_minimum_version(tmp_path, fake_opencode, version, status):
     env = {**environment(tmp_path), 'SEW_OSS_ENABLED': '0', 'PATH': str(tmp_path), 'SEW_OPENCODE_BIN': str(fake_opencode), 'FAKE_VERSION': version}
     output = doctor(env)
     assert 'opencode: ' + status in output
     assert 'oss models   disabled' in output
+
+
+def test_doctor_uses_resolved_binary(tmp_path, fake_opencode, monkeypatch):
+    calls = []
+    original = subprocess.run
+
+    def record_run(argv, *args, **kwargs):
+        calls.append(argv)
+        return original(argv, *args, **kwargs)
+
+    monkeypatch.setattr('sew.doctor.subprocess.run', record_run)
+    env = {**environment(tmp_path), 'SEW_OSS_ENABLED': '0', 'PATH': str(tmp_path),
+           'SEW_OPENCODE_BIN': fake_opencode.name}
+    assert 'opencode: ok 1.17.3' in doctor(env)
+    assert [str(fake_opencode), '--version'] in calls
 
 
 def test_final_answer_uses_last_message_and_usage_sums_steps():

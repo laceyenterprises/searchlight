@@ -33,20 +33,20 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
     for harness, command in (
         (spec.id, spec.default_bin) for spec in harness_registry.specs(live=True)
     ):
-        available = shutil.which(env.get(harness_registry.get(harness).bin_env) or command, path=env.get("PATH", "")) is not None
-        status = "CLI available; account login unverified" if available else "CLI unavailable"
+        binary = shutil.which(env.get(harness_registry.get(harness).bin_env) or command, path=env.get("PATH", ""))
+        status = "CLI available; account login unverified" if binary else "CLI unavailable"
         if (
             host.mode == "agent-os"
             and getattr(host, "harness_auth_source", lambda: "broker")() == "broker"
         ):
             status = "OAuth broker configured; authentication unverified"
         spec = harness_registry.get(harness)
-        if available and spec.minimum_version:
-            binary = env.get(spec.bin_env) or command
+        if binary and spec.minimum_version:
             try:
                 result = subprocess.run([binary, "--version"], capture_output=True,
                                         text=True, timeout=5, env=dict(env))
-                version = Version(result.stdout.strip())
+                lines = result.stdout.strip().splitlines()
+                version = Version(lines[-1].strip() if lines else "")
                 status = (f"ok {version}" if result.returncode == 0 and version >= Version(spec.minimum_version)
                           else f"unsupported version; requires >= {spec.minimum_version}")
             except (OSError, subprocess.TimeoutExpired, InvalidVersion):

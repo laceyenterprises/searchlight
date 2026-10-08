@@ -28,13 +28,13 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
     if any(key.startswith(("OPENCODE_", "XDG_")) for key in config.env):
         raise SchemaError("opencode configuration environment is arm-controlled")
     root = scratch / "opencode"
-    root.mkdir(mode=0o700)
+    root.mkdir(mode=0o700, exist_ok=True)
     env = {}
     for key, directory in (("HOME", "home"), ("XDG_CONFIG_HOME", "config"),
                            ("XDG_DATA_HOME", "data"), ("XDG_STATE_HOME", "state"),
                            ("XDG_CACHE_HOME", "cache")):
         path = root / directory
-        path.mkdir(mode=0o700)
+        path.mkdir(mode=0o700, exist_ok=True)
         env[key] = str(path)
     mcp = {}
     permissions = {"*": "deny"}

@@ -6,6 +6,9 @@ version; `SEW_OPENCODE_BIN` can select a different executable. OSS support is
 off by default. Configure `oss.enabled` and LiteLLM as described in the
 [OSS configuration guide](../README.md).
 
+Doctor invokes the executable resolved from the supplied PATH and parses the
+last non-empty stdout line as its version, allowing preceding CLI warnings.
+
 Inspect a plan without resolving credentials or starting a model:
 
 ```sh
@@ -18,6 +21,8 @@ the child environment. MCP environment values also use environment references,
 so credentials are not embedded in this config. HOME and all XDG directories
 are isolated, project configs are disabled, and `--pure` disables external
 plugins. The only model provider is Searchlight LiteLLM.
+Directory setup reuses existing cell directories and rewrites the config, so
+setup can be retried in the same temporary directory after a partial failure.
 
 Provider arms expose only their local MCP server. Built-in web, shell,
 filesystem and delegation tools are denied. No-search exposes no tools.
