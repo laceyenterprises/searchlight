@@ -112,6 +112,60 @@ def test_boundary_preserves_endpoint_port(monkeypatch, tmp_path, url):
         assert env["NO_PROXY"] == env["no_proxy"] == "localhost,127.0.0.1,::1"
 
 
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("host", ["localhost", "127.0.0.1"])
+def test_seatbelt_litellm_boundary_preserves_local_servers(
+    monkeypatch, tmp_path, upstream, harness, host
+):
+    # Runner confinement has separate platform tests; exercise the real child
+    # proxy environment here without invoking a model or sandbox binary.
+    monkeypatch.setattr(
+        workspace, "_run_probe_process",
+        lambda argv, **kw: subprocess.CompletedProcess(
+            argv, 0, '{"connected":false,"errno":1}', ""
+        ),
+    )
+    env = {"SEW_LITELLM_BASE_URL": f"http://{host}:{upstream}", "NO_PROXY": "*"}
+    code = r'''
+import os, threading, urllib.request, urllib.error
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == 'localhost,127.0.0.1,::1'
+assert urllib.request.urlopen(os.environ['SEW_LITELLM_BASE_URL'] + '/model', timeout=3).read() == b'/model'
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'local dev server')
+    def log_message(self, *args):
+        pass
+with ThreadingHTTPServer(('127.0.0.1', 0), Handler) as server:
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        for host in ('localhost', '127.0.0.1'):
+            url = f'http://{host}:{server.server_port}/'
+            assert urllib.request.urlopen(url, timeout=3).read() == b'local dev server'
+        try:
+            urllib.request.urlopen('http://provider.invalid/', timeout=3)
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 403
+        else:
+            raise AssertionError('provider reachable')
+    finally:
+        server.shutdown()
+        thread.join()
+'''
+    with bench_network_boundary(
+        [sys.executable, "-c", code], env, cwd=tmp_path, harness_id=harness,
+        harness_auth="litellm",
+    ) as (_, evidence):
+        assert evidence["endpoint_authorities"] == [{"host": host, "port": upstream}]
+        result = subprocess.run(
+            [sys.executable, "-c", code], env=env, capture_output=True, text=True, timeout=10
+        )
+        assert result.returncode == 0, result.stderr
+
+
 @pytest.mark.parametrize(
     "url", ["http://host:bad", "ftp://host/", "http:///v1", "http://host:99999", "http://host:0"]
 )

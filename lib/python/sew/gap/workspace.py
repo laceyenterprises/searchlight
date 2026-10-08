@@ -1897,9 +1897,7 @@ def _bench_network_boundary(
         )
         for key in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY"):
             env[key] = env[key.lower()] = proxy
-        env["NO_PROXY"] = env["no_proxy"] = (
-            "" if harness_auth == "litellm" else "localhost,127.0.0.1,::1"
-        )
+        env["NO_PROXY"] = env["no_proxy"] = "localhost,127.0.0.1,::1"
         try:
             completed = _run_probe_process([*prefix, *probe_argv], cwd=cwd, env=env)
             if completed.returncode != 0:

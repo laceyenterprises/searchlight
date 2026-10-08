@@ -128,7 +128,12 @@ runner path/version, requested runner policy (`policy_scope`), and
 `harness-runner-permission:codex-sandbox` or `harness-runner-permission:srt`.
 Policy metadata describes inputs, not independently observed applied policy;
 the permission-denied socket outcome is the measured result.
-Loopback transports remain trusted exceptions.
+Loopback transports remain trusted exceptions. On macOS, both `NO_PROXY` and
+`no_proxy` retain `localhost,127.0.0.1,::1` for frontier and OSS cells, so
+proxy-aware clients can reach local development servers. A loopback LiteLLM
+URL connects directly to the host listener; a non-loopback LiteLLM URL uses
+the parent proxy restricted to that endpoint's host and port. This retains
+the advisory proxy and limited runner qualification guarantees described above.
 Successful egress on any probe, incomplete evidence or ordinary network errors
 on the first three probes refuse the job. A sandbox block with no recognized
 denials reports `unrecognized sandbox_violations format`; inspect CLI wording.
