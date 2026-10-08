@@ -27,16 +27,17 @@ SEW = REPO / "lib" / "python" / "sew"
 
 
 def test_registry_derives_every_harness_table() -> None:
-    assert list(HARNESSES) == ["claude-code", "codex", "pi", "fixture"]
-    assert set(HOSTED_HARNESSES) == {"claude-code", "codex"}
-    assert dict(BIN_ENV) == {"claude-code": "SEW_CLAUDE_CODE_BIN", "codex": "SEW_CODEX_BIN"}
-    assert dict(DEFAULT_BIN) == {"claude-code": "claude", "codex": "codex"}
+    assert list(HARNESSES) == ["claude-code", "codex", "pi", "fixture", "hermes"]
+    assert set(HOSTED_HARNESSES) == {"claude-code", "codex", "hermes"}
+    assert dict(BIN_ENV) == {"claude-code": "SEW_CLAUDE_CODE_BIN", "codex": "SEW_CODEX_BIN", "hermes": "SEW_HERMES_BIN"}
+    assert dict(DEFAULT_BIN) == {"claude-code": "claude", "codex": "codex", "hermes": "hermes"}
     assert {h: type(p).__name__ for h, p in PROTOCOLS.items()} == {
         "claude-code": "ClaudeCodeProtocol",
         "codex": "CodexProtocol",
+        "hermes": "HermesProtocol",
     }
     assert PROTOCOLS["codex"] is PROTOCOLS["codex"]
-    assert HARNESSES - {"fixture"} == {"claude-code", "codex", "pi"}
+    assert HARNESSES - {"fixture"} == {"claude-code", "codex", "pi", "hermes"}
 
 
 def test_every_registry_reference_resolves() -> None:
@@ -66,10 +67,10 @@ def test_cli_harness_choices_are_the_live_harnesses() -> None:
         "sew run-live-harness",
     ]
     for command, action in options.items():
-        expected = ["claude-code", "codex"]
+        expected = ["claude-code", "codex", "hermes"]
         if command == "sew run-live-harness":
             # Pending OSS adapters can be planned without becoming launchable.
-            expected += ["hermes", "pi", "opencode"]
+            expected += ["pi", "opencode"]
         assert list(action.choices) == expected
 
 

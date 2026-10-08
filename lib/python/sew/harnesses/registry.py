@@ -58,6 +58,8 @@ class HarnessSpec:
     usage_parser: Ref | None = None
     # Which price source rates the harness's model tokens.
     pricing_key: str | None = None
+    # Minimum supported CLI version, checked by doctor without a model call.
+    min_version: tuple[int, ...] | None = None
     # An open-source harness (Hermes, Pi, Opencode), switched by the OSS flag.
     oss: bool = False
 

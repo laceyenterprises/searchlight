@@ -5,6 +5,8 @@ import os
 import tempfile
 from pathlib import Path
 import shutil
+import subprocess
+import re
 from collections.abc import Mapping
 from . import harnesses as harness_registry
 from .host import config_path, credential_environment, resolve_host
@@ -27,9 +29,9 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
         ):
             present.append(provider)
     harnesses = []
-    for harness, command in (
-        (spec.id, spec.default_bin) for spec in harness_registry.specs(live=True)
-    ):
+    for spec in harness_registry.specs(live=True):
+        harness = spec.id
+        command = env.get(spec.bin_env, spec.default_bin)
         available = shutil.which(command, path=env.get("PATH", "")) is not None
         status = "CLI available; account login unverified" if available else "CLI unavailable"
         if (
@@ -37,6 +39,16 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
             and getattr(host, "harness_auth_source", lambda: "broker")() == "broker"
         ):
             status = "OAuth broker configured; authentication unverified"
+        if available and spec.min_version:
+            try:
+                result = subprocess.run([command, "--version"],
+                                        capture_output=True, text=True, timeout=5, env=dict(env))
+                match = re.search(r"v?(\d+)\.(\d+)\.(\d+)", result.stdout)
+                version = tuple(map(int, match.groups())) if match else ()
+                minimum = ".".join(map(str, spec.min_version))
+                status = f"version {'.'.join(map(str, version))}; minimum {minimum}" if version >= spec.min_version else f"unsupported version; requires >= {minimum}"
+            except (OSError, subprocess.TimeoutExpired):
+                status = "version check failed"
         harnesses.append(f"{harness}: {status}")
     from .gap.sandbox import qualify_backend, select_backend
     from .gap.workspace import EgressCanaryRefused

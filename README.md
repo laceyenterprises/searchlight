@@ -485,3 +485,25 @@ searchlight/
 - Licensed under [Apache-2.0](LICENSE).
 - Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 - Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Hermes Agent search cells require Hermes >= 0.16.0 and the opt-in OSS
+configuration described above. Set `SEW_HERMES_BIN` to override its binary.
+Select an explicit `litellm/<route>` model. Each cell creates a fresh
+`HERMES_HOME/config.yaml`, uses a custom OpenAI-compatible provider with the
+proxy key read from the child environment, and exposes only the selected MCP
+server. Built-in web, shell and other toolsets are disabled. Hermes's native
+arm is unavailable in this adapter. GAP code cells are not supported yet.
+
+The adapter uses `hermes -z PROMPT -m ROUTE --provider custom:searchlight
+--ignore-rules` (plus `-t SERVER` for provider arms), verified with 0.16.0
+`hermes --help`. One-shot stdout contains only final text; the driver polls
+`HERMES_HOME/state.db` for machine-readable messages, tool calls and session
+usage. A separate thread reads stdout; the driver waits at most 50 ms for queued
+stdout before polling the ledger, so silent or partial-line output cannot block
+live budget checks. Session readiness and usage updates feed the existing boot
+and budget checks; usage is known only to the extent Hermes has persisted it.
+Raw session databases and configuration homes are temporary and are removed
+after the cell.
+See the upstream [MCP configuration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp/)
+and [toolsets reference](https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference).
+This adds support only; no model runs are required to validate the adapter.
