@@ -142,7 +142,20 @@ offline tests cannot certify the host's sandbox.
 Linux selects bubblewrap from the run's source environment (`SEW_CONFIG` and
 `sandbox: auto|bubblewrap`), before child-environment filtering. The namespace
 has no host TCP/UDP connectivity; the harness uses a loopback relay to the
-parent's endpoint proxy through a private Unix socket. `/tmp` is mounted before
+parent's endpoint proxy through a private Unix socket.
+For OSS cells, a loopback LiteLLM base URL keeps its hostname but uses the
+relay's port in matching harness environment variables
+and the isolated Codex LiteLLM provider config, if that config exists. Missing
+`config.toml` is left absent. URL credentials are preserved for the harness's
+authentication, while the forwarded authority excludes credentials. Only the
+relay's exact hostname and port translate to the original endpoint, whose host,
+port and saved DNS answers remain enforced by the parent proxy. Both `NO_PROXY`
+and `no_proxy` retain `localhost,127.0.0.1,::1`, so local development servers
+inside the namespace bypass the egress proxy. Direct HTTP requests are translated
+to proxy requests; direct TLS first establishes an allowlisted CONNECT tunnel,
+preserving the original hostname for certificate verification. IPv6 loopback
+endpoints use an IPv6 listener. Each qualification or cell launch
+refreshes the provider URL for its own listener. `/tmp` is mounted before
 read and scratch binds so the socket and any explicitly admitted runtime below
 `/tmp` remain visible. A host-root read bind is refused. Backend qualification
 runs curl, isolated pip with `-vv`, direct TCP and a DNS datagram: tool failures

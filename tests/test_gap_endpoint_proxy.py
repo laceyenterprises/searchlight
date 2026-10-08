@@ -714,7 +714,7 @@ from pathlib import Path
 base = os.environ['SEW_LITELLM_BASE_URL']
 assert base == os.environ['ANTHROPIC_BASE_URL']
 assert base != os.environ['ORIGINAL_BASE']
-assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == ''
+assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == 'localhost,127.0.0.1,::1'
 text = (Path(os.environ['CODEX_HOME']) / 'config.toml').read_text()
 assert base + '/v1' in text
 assert 'http://other.invalid' in text
@@ -730,11 +730,12 @@ connection.request('GET', '/proxy/v1/responses')
 assert connection.getresponse().read() == b'/proxy/v1/responses'
 connection.close()
 for url in ('http://provider.invalid/', os.environ['OTHER_PORT']):
-    try:
-        urllib.request.urlopen(url, timeout=3)
-        raise AssertionError('unlisted endpoint admitted')
-    except urllib.error.HTTPError as exc:
-        assert exc.code == 403
+    # Explicit proxy requests exercise the parent allowlist even when the
+    # target is loopback and normal clients would bypass it via NO_PROXY.
+    connection = http.client.HTTPConnection(proxy.hostname, proxy.port, timeout=3)
+    connection.request('GET', url)
+    assert connection.getresponse().status == 403
+    connection.close()
 print('contained', flush=True)
 '''
     with endpoint_proxy({(urlsplit(base).hostname, upstream): records}) as proxy:

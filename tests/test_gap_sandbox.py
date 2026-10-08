@@ -225,6 +225,150 @@ def _check_bridge(directory, tmp_path):
         assert "403 Permission denied: endpoint not allowlisted" in result["output"]
 
 
+@pytest.mark.parametrize("host", ["localhost", "127.0.0.1", "[::1]"])
+@pytest.mark.parametrize("userinfo", ["", "user:p%40ss@"])
+@pytest.mark.parametrize("has_config", [False, True])
+@pytest.mark.parametrize("scheme", ["http", "https"])
+def test_litellm_bridge_preserves_local_http_and_config(tmp_path, host, userinfo, has_config, scheme):
+    import base64
+    import socket
+    import ssl
+    import threading
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+    from sew.gap.endpoint_proxy import endpoint_proxy
+    from sew.gap.verify import _execute
+
+    cert = tmp_path / "cert.pem"
+    if scheme == "https":
+        import shutil
+
+        openssl = shutil.which("openssl")
+        if not openssl:
+            pytest.skip("TLS stub requires openssl")
+        subprocess.run(
+            [openssl, "req", "-x509", "-newkey", "ec", "-pkeyopt", "ec_paramgen_curve:P-256",
+             "-nodes", "-days", "1", "-subj", "/CN=localhost",
+             "-addext", "subjectAltName=DNS:localhost,IP:127.0.0.1,IP:::1",
+             "-keyout", str(tmp_path / "key.pem"), "-out", str(cert)],
+            check=True, capture_output=True, timeout=5,
+        )
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            assert self.path == "/api/v1?probe=1"
+            if scheme == "http":
+                assert self.headers["Host"] == f"{host}:{self.server.server_port}"
+            else:
+                # TLS application bytes remain encrypted through both relays.
+                from urllib.parse import urlsplit
+
+                assert urlsplit("//" + self.headers["Host"]).hostname == host.strip("[]")
+            expected = "Basic " + base64.b64encode(b"user:p@ss").decode() if userinfo else None
+            assert self.headers.get("Authorization") == expected
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"model transport works")
+
+        def log_message(self, *args):
+            pass
+
+    config = tmp_path / "config.toml"
+    if has_config:
+        config.write_text(
+            '[model_providers.searchlight_litellm]\nbase_url = "http://stale.invalid/v1"\n'
+            '[model_providers.other]\nbase_url = "http://other.invalid/v1"\n'
+        )
+    code = r"""
+import os, socket, subprocess, threading, tomllib, urllib.error, urllib.request
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
+assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == 'localhost,127.0.0.1,::1'
+base = os.environ['SEW_LITELLM_BASE_URL']
+assert os.environ['ANTHROPIC_BASE_URL'] == os.environ['OPENAI_BASE_URL'] == base
+assert 'SEW_GAP_LITELLM_BASE_URL' not in os.environ
+target = urlsplit(base)
+assert target.hostname in ('localhost', '127.0.0.1', '::1')
+config = Path(os.environ['CODEX_HOME']) / 'config.toml'
+if config.exists():
+    providers = tomllib.loads(config.read_text())['model_providers']
+    assert providers['searchlight_litellm']['base_url'] == base + '/v1'
+    assert providers['other']['base_url'] == 'http://other.invalid/v1'
+curl = ['curl', '--disable', '--fail', '--silent', '--show-error', '--max-time', '3']
+if target.scheme == 'https':
+    rejected = subprocess.run(curl + [base + '/v1?probe=1'], capture_output=True)
+    assert rejected.returncode == 60, rejected.stderr
+    curl += ['--cacert', os.environ['TEST_TLS_CERT']]
+result = subprocess.run(curl + [base + '/v1?probe=1'], capture_output=True)
+assert result.returncode == 0, result.stderr
+assert result.stdout == b'model transport works'
+for denied in ('http://provider.invalid/',
+               urlunsplit(('http', 'provider.invalid:1', '/', '', ''))):
+    try:
+        urllib.request.urlopen(denied, timeout=3)
+    except urllib.error.HTTPError as exc:
+        assert exc.code == 403
+    else:
+        raise AssertionError('non-allowlisted endpoint reachable')
+# CONNECT uses the same exact host/port translation, without URL credentials.
+proxy = urlsplit(os.environ['HTTPS_PROXY'])
+with socket.create_connection((proxy.hostname, proxy.port), timeout=3) as connection:
+    authority = target.netloc.rsplit('@', 1)[-1]
+    connection.sendall(f'CONNECT {authority} HTTP/1.1\r\nHost: {authority}\r\n\r\n'.encode())
+    assert connection.recv(4096).startswith(b'HTTP/1.1 200 Connection Established')
+class LocalHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'local development works')
+    def log_message(self, *args):
+        pass
+with ThreadingHTTPServer(('127.0.0.1', 0), LocalHandler) as server:
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        for host in ('localhost', '127.0.0.1'):
+            assert urllib.request.urlopen(f'http://{host}:{server.server_port}', timeout=3).read() == b'local development works'
+    finally:
+        server.shutdown()
+        thread.join()
+"""
+    with ThreadingHTTPServer(("127.0.0.1", 0), Handler) as server:
+        if scheme == "https":
+            context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            context.load_cert_chain(cert, tmp_path / "key.pem")
+            server.socket = context.wrap_socket(server.socket, server_side=True)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            # Freeze the test endpoint to this local stub, including IPv6 aliases.
+            endpoints = {(host.strip("[]"), server.server_port): socket.getaddrinfo(
+                "127.0.0.1", server.server_port, type=socket.SOCK_STREAM
+            )}
+            base = f"{scheme}://{userinfo}{host}:{server.server_port}/api"
+            env = {key: base for key in (
+                "SEW_GAP_LITELLM_BASE_URL", "SEW_LITELLM_BASE_URL", "ANTHROPIC_BASE_URL", "OPENAI_BASE_URL"
+            )}
+            env.update(PATH=os.defpath, CODEX_HOME=str(tmp_path))
+            if scheme == "https":
+                env["TEST_TLS_CERT"] = str(cert)
+            # Keep Unix socket paths short on both macOS and Linux.
+            with tempfile.TemporaryDirectory(prefix="swx-", dir="/tmp") as directory:
+                path = Path(directory) / "proxy.sock"
+                with endpoint_proxy(endpoints, socket_path=path):
+                    # Qualification and cell launches must each refresh stale config.
+                    for _ in range(2 if has_config else 1):
+                        result = _execute(
+                            [sys.executable, "-c", sandbox.PROXY_BRIDGE, str(path), sys.executable, "-c", code],
+                            tmp_path, env, 10,
+                        )
+                        assert result["exit_code"] == 0, result
+            assert config.exists() == has_config
+        finally:
+            server.shutdown()
+            thread.join()
+
+
 @pytest.mark.skipif(sys.platform != "linux", reason="requires a real Linux namespace")
 @pytest.mark.parametrize("oss_model", [False, True])
 def test_real_namespace_endpoint_bridge(tmp_path, require_containment, oss_model):
@@ -261,7 +405,7 @@ def test_real_namespace_endpoint_bridge(tmp_path, require_containment, oss_model
                 env["SEW_LITELLM_BASE_URL"] = env["OPENAI_BASE_URL"]
                 code = (
                     "import os, urllib.request, urllib.error, socket; "
-                    "assert os.environ['NO_PROXY'] == ''; "
+                    "assert os.environ['NO_PROXY'] == 'localhost,127.0.0.1,::1'; "
                     "assert urllib.request.urlopen(os.environ['SEW_LITELLM_BASE_URL'], timeout=3).read() == b'model transport works'; "
                     "\ntry: urllib.request.urlopen('http://provider.invalid/', timeout=3)"
                     "\nexcept urllib.error.HTTPError as exc: assert exc.code == 403"

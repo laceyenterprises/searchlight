@@ -209,25 +209,21 @@ def relay(client):
         with client, socket.socket(socket.AF_UNIX) as upstream:
             upstream.connect(path)
             if original is not None:
-                # Translate only this invocation's rewritten authority. The parent
-                # still enforces its frozen host/port and DNS answers.
-                head = b''
-                while b'\r\n\r\n' not in head:
-                    chunk = client.recv(1)
-                    if not chunk or len(head) >= 65536:
+                # Direct HTTPS keeps the original TLS hostname. Establish the
+                # parent's allowlisted tunnel before relaying the handshake.
+                tls = client.recv(1, socket.MSG_PEEK) == b'\x16'
+                if tls:
+                    upstream.sendall(('CONNECT ' + original_authority + ' HTTP/1.1\r\nHost: ' + original_authority + '\r\n\r\n').encode('ascii'))
+                    response = b''
+                    while b'\r\n\r\n' not in response:
+                        chunk = upstream.recv(1)
+                        if not chunk or len(response) >= 65536:
+                            return
+                        response += chunk
+                    if response.split(b'\r\n', 1)[0] != b'HTTP/1.1 200 Connection Established':
                         return
-                    head += chunk
-                line, rest = head.split(b'\r\n', 1)
-                method, target, version = line.decode('latin-1').split(' ', 2)
-                parsed = urlsplit('//' + target if method == 'CONNECT' else target)
-                if parsed.hostname == original.hostname and parsed.port == server.getsockname()[1]:
-                    target = original.netloc if method == 'CONNECT' else urlunsplit(
-                        (original.scheme, original.netloc, parsed.path, parsed.query, parsed.fragment)
-                    )
-                    # The upstream receives its original authority, including port.
-                    rest = re.sub(br'(?im)^Host:[^\r\n]*',
-                                  b'Host: ' + original.netloc.encode('ascii'), rest)
-                upstream.sendall((method + ' ' + target + ' ' + version + '\r\n').encode('latin-1') + rest)
+                else:
+                    forward_http(client, upstream)
             readers = [client, upstream]
             while readers:
                 ready, _, _ = select.select(readers, [], [], 10)
@@ -241,9 +237,26 @@ def relay(client):
                         target.shutdown(socket.SHUT_WR)
     except OSError:
         return
-server = socket.socket()
-server.bind(('127.0.0.1', 0)); server.listen()
-url = 'http://127.0.0.1:' + str(server.getsockname()[1])
+def forward_http(client, upstream):
+    # Accept direct origin-form HTTP as well as proxy requests for
+    # this listener. The parent still enforces its frozen allowlist.
+    head = b''
+    while b'\r\n\r\n' not in head:
+        chunk = client.recv(1)
+        if not chunk or len(head) >= 65536:
+            return
+        head += chunk
+    line, rest = head.split(b'\r\n', 1)
+    method, target, version = line.decode('latin-1').split(' ', 2)
+    parsed = urlsplit('//' + target if method == 'CONNECT' else target)
+    if parsed.hostname is None or (parsed.hostname == original.hostname and parsed.port == server.getsockname()[1]):
+        target = original_authority if method == 'CONNECT' else urlunsplit(
+            (original.scheme, original_authority, parsed.path, parsed.query, parsed.fragment)
+        )
+        # The upstream receives its original authority, including port.
+        rest = re.sub(br'(?im)^Host:[^\r\n]*',
+                      b'Host: ' + original_authority.encode('ascii'), rest)
+    upstream.sendall((method + ' ' + target + ' ' + version + '\r\n').encode('latin-1') + rest)
 original = None
 base = os.environ.pop('SEW_GAP_LITELLM_BASE_URL', '')
 if base:
@@ -254,14 +267,23 @@ if base:
         loopback = False
     if loopback:
         original = target
-        host = '[' + target.hostname + ']' if ':' in target.hostname else target.hostname
-        authority = host + ':' + str(server.getsockname()[1])
-        rewritten = urlunsplit((target.scheme, authority, target.path, target.query, target.fragment))
-        for key in ('SEW_LITELLM_BASE_URL', 'ANTHROPIC_BASE_URL', 'OPENAI_BASE_URL'):
-            if os.environ.get(key) == base:
-                os.environ[key] = rewritten
-        if os.environ.get('CODEX_HOME'):
-            config = Path(os.environ['CODEX_HOME']) / 'config.toml'
+listener_host = '::1' if original and ':' in original.hostname else '127.0.0.1'
+server = socket.socket(socket.AF_INET6 if listener_host == '::1' else socket.AF_INET)
+server.bind((listener_host, 0)); server.listen()
+url = 'http://' + ('[::1]' if listener_host == '::1' else listener_host) + ':' + str(server.getsockname()[1])
+if original is not None:
+    # Direct loopback connections reach this listener without changing the
+    # TLS hostname or redirecting unrelated local development servers.
+    userinfo, separator, original_authority = target.netloc.rpartition('@')
+    host = '[' + target.hostname + ']' if ':' in target.hostname else target.hostname
+    authority = (userinfo + separator if separator else '') + host + ':' + str(server.getsockname()[1])
+    rewritten = urlunsplit((target.scheme, authority, target.path, target.query, target.fragment))
+    for key in ('SEW_LITELLM_BASE_URL', 'ANTHROPIC_BASE_URL', 'OPENAI_BASE_URL'):
+        if os.environ.get(key) == base:
+            os.environ[key] = rewritten
+    if os.environ.get('CODEX_HOME'):
+        config = Path(os.environ['CODEX_HOME']) / 'config.toml'
+        if config.exists():
             lines = config.read_text().splitlines(keepends=True)
             provider = False
             for index, line in enumerate(lines):
@@ -287,6 +309,6 @@ if pid == 0:
 else:
     for key in ('HTTP_PROXY', 'HTTPS_PROXY', 'ALL_PROXY'):
         os.environ[key] = os.environ[key.lower()] = url
-    os.environ['NO_PROXY'] = os.environ['no_proxy'] = '' if base else 'localhost,127.0.0.1,::1'
+    os.environ['NO_PROXY'] = os.environ['no_proxy'] = 'localhost,127.0.0.1,::1'
     os.execvpe(argv[0], argv, os.environ)
 """
