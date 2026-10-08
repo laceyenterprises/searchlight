@@ -364,7 +364,7 @@ oss:
   litellm:
     base_url: http://127.0.0.1:4000
     api_key_env: SEW_LITELLM_API_KEY
-  harnesses: [hermes, pi, opencode]
+  harnesses: [hermes, pi, opencode, claude-code, codex]
   # models defaults to every route in config/oss-models.yaml
 ```
 
@@ -378,8 +378,13 @@ without displaying the key. They do not make a model call or establish that
 a listed route can complete inference. Preview a cell without
 reading a key or starting a harness with
 `SEW_OSS_ENABLED=1 sew run-live-harness --harness codex --model litellm/glm-5.2 --arm exa --dry-run`.
-Harness launch adapters are delivered separately; legacy Pi profiles now live
-under `fixtures/` solely for offline replay.
+Claude Code and Codex route catalogued OSS models through LiteLLM for provider
+search arms. Claude Code receives the proxy endpoint and token per cell; Codex
+uses an isolated LiteLLM Responses provider in its cell config. Native search
+cells are recorded as not applicable without launching a harness. Model cost
+evidence uses the catalog rates, and token usage may record `usage_basis` as
+`harness`, `litellm_response`, or `unavailable`. Legacy Pi profiles live under
+`fixtures/` solely for offline replay.
 
 In live runs, `--max-wall-clock-seconds` sets the run wall-clock limit;
 `timeouts.run_seconds` is the fallback when no operator budgets are supplied.
