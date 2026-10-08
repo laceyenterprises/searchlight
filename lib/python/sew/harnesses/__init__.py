@@ -5,7 +5,7 @@ Registration order is the order of CLI choices and doctor lines.
 
 from __future__ import annotations
 
-from . import claude_code, codex, fixture, hermes, pi
+from . import claude_code, codex, fixture, hermes, pi, opencode
 from .registry import (
     HarnessSpec,
     field_map,
@@ -18,7 +18,7 @@ from .registry import (
     unregister,
 )
 
-for _module in (claude_code, codex, pi, fixture, hermes):
+for _module in (claude_code, codex, pi, fixture, hermes, opencode):
     register(_module.SPEC)
 del _module
 

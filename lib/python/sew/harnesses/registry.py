@@ -62,6 +62,10 @@ class HarnessSpec:
     min_version: tuple[int, ...] | None = None
     # An open-source harness (Hermes, Pi, Opencode), switched by the OSS flag.
     oss: bool = False
+    # Doctor checks this minimum via --version; no model request.
+    minimum_version: str | None = None
+    # A live OSS adapter has no hosted-provider fallback.
+    oss_model_only: bool = False
 
     def __post_init__(self) -> None:
         if not HARNESS_ID_RE.fullmatch(self.id):

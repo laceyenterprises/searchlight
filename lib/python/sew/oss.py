@@ -135,6 +135,8 @@ def require_enabled(harness: str, model: str | None, env=None) -> OssConfig:
             f'{subject}, but OSS models are disabled.\n'
             'Set oss.enabled: true in sew.yaml (or SEW_OSS_ENABLED=1) and configure LiteLLM; see `sew doctor`.'
         )
+    if spec and spec.oss_model_only and not is_model:
+        raise HostUnavailable(f"{harness} requires an explicit litellm/<route> OSS model")
     if is_harness and harness not in settings.harnesses:
         raise HostUnavailable(f'{harness} is not selected in oss.harnesses')
     if is_model and model[len('litellm/'):] not in settings.models:
@@ -179,9 +181,10 @@ def cell_plan(harness: str, model: str | None, arm: str, *, requested_auth=None,
         'claude-code': '$SEW_CELL/claude-mcp.json',
         'codex': '$SEW_CELL/codex-home/config.toml (isolated CODEX_HOME)',
         'hermes': '$SEW_CELL/hermes-home/config.yaml (isolated HERMES_HOME)',
+        'opencode': '$SEW_CELL/opencode/opencode.json (isolated XDG_* and OPENCODE_CONFIG)',
     }.get(harness, 'provided by harness adapter (pending)')
     auth_text = f'litellm key from {settings.api_key_env} (OAuth/account credentials not forwarded)' if source == 'litellm' else source
-    native = 'unavailable on OSS models' if oss_model and arm == 'native' else 'harness web tools enabled' if arm == 'native' else 'harness web tools disabled'
+    native = 'unavailable on OSS models' if oss_model and arm == 'native' and not (spec and spec.oss and spec.native_search) else 'harness web tools enabled' if arm == 'native' else 'harness web tools disabled'
     return '\n'.join([
         'cell plan (no model call):',
         f'  harness   {harness}{label}    model   {model or "configured default"}{endpoint}',

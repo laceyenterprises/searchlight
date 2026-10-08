@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import re
+from packaging.version import Version, InvalidVersion
 from collections.abc import Mapping
 from . import harnesses as harness_registry
 from .host import config_path, credential_environment, resolve_host
@@ -29,19 +30,31 @@ def doctor(env: Mapping[str, str] | None = None) -> str:
         ):
             present.append(provider)
     harnesses = []
-    for spec in harness_registry.specs(live=True):
-        harness = spec.id
-        command = env.get(spec.bin_env, spec.default_bin)
-        available = shutil.which(command, path=env.get("PATH", "")) is not None
+    for harness, command in (
+        (spec.id, spec.default_bin) for spec in harness_registry.specs(live=True)
+    ):
+        available = shutil.which(env.get(harness_registry.get(harness).bin_env) or command, path=env.get("PATH", "")) is not None
         status = "CLI available; account login unverified" if available else "CLI unavailable"
         if (
             host.mode == "agent-os"
             and getattr(host, "harness_auth_source", lambda: "broker")() == "broker"
         ):
             status = "OAuth broker configured; authentication unverified"
-        if available and spec.min_version:
+        spec = harness_registry.get(harness)
+        if available and spec.minimum_version:
+            binary = env.get(spec.bin_env) or command
             try:
-                result = subprocess.run([command, "--version"],
+                result = subprocess.run([binary, "--version"], capture_output=True,
+                                        text=True, timeout=5, env=dict(env))
+                version = Version(result.stdout.strip())
+                status = (f"ok {version}" if result.returncode == 0 and version >= Version(spec.minimum_version)
+                          else f"unsupported version; requires >= {spec.minimum_version}")
+            except (OSError, subprocess.TimeoutExpired, InvalidVersion):
+                status = f"version unverified; requires >= {spec.minimum_version}"
+        if available and spec.min_version:
+            binary = env.get(spec.bin_env) or command
+            try:
+                result = subprocess.run([binary, "--version"],
                                         capture_output=True, text=True, timeout=5, env=dict(env))
                 match = re.search(r"v?(\d+)\.(\d+)\.(\d+)", result.stdout)
                 version = tuple(map(int, match.groups())) if match else ()

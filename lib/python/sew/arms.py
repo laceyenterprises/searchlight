@@ -524,14 +524,15 @@ def _mcp_parts(name: str) -> tuple[str, str] | None:
 def _provider_server_of(name: str) -> str | None:
     """The provider server a non-MCP tool name belongs to, if any.
 
-    Covers codex-style ``<server>.<tool>`` names and the fixture exposure's
+    Covers codex-style ``<server>.<tool>``, Opencode ``<server>_<tool>``,
+    and the fixture exposure's
     ``sew_<provider>_<tool>`` names, so a provider's tool counts only in that
     provider's arm and never as a harness-native web tool.
     """
 
     for provider_id, provider_server in PROVIDER_SERVER_NAMES.items():
         fixture_prefix = f"sew_{provider_id.replace('-', '_')}_"
-        if name.startswith(f"{provider_server}.") or name.startswith(fixture_prefix):
+        if name.startswith((f"{provider_server}.", f"{provider_server}_")) or name.startswith(fixture_prefix):
             return provider_server
     return None
 
@@ -594,6 +595,12 @@ def _protocol_tool_calls(event: Mapping[str, Any]) -> list[tuple[str | None, str
             for block in content:
                 if isinstance(block, Mapping):
                     found.extend(_tool_call_entry(block))
+
+    part = event.get("part")
+    if event.get("type") == "tool_use" and isinstance(part, Mapping):
+        name = part.get("tool")
+        if isinstance(name, str) and name:
+            found.append((part.get("callID") or part.get("id"), name))
 
     item = event.get("item")
     if isinstance(item, Mapping):
