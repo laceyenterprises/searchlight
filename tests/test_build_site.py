@@ -3,6 +3,7 @@ import importlib.util
 import json
 import re
 from pathlib import Path
+import xml.etree.ElementTree as ET
 
 import pytest
 
@@ -88,6 +89,63 @@ def test_leaderboards_carry_any_number_of_harnesses_and_their_models(three_harne
         assert f'>{name}</text>' in svg
     assert '· 3 AI coding agents ·' in svg
     assert site.headline(boards, site.behavior(three_harness_reports))['agents'] == 3
+
+
+@pytest.mark.parametrize('harness_count', [4, 5])
+def test_infographic_wraps_harness_charts_with_forward_axes_and_visible_intervals(
+        three_harness_reports, harness_count, monkeypatch):
+    reports = three_harness_reports
+    blocks = reports['2026-10-03-search-gap-bench']['summary']['blocks']
+    setup = next(b['table'] for b in blocks if 'table' in b and any(r[0] == 'Harnesses' for r in b['table']))
+    harness_row = next(r for r in setup if r[0] == 'Harnesses')
+    codex = next(i for i, b in enumerate(blocks) if '### codex' in b.get('markdown', ''))
+    for harness in ['hermes', 'pi'][:harness_count - 3]:
+        harness_row[1] += f', {harness} on litellm/glm-5.2'
+        blocks.extend([{'markdown': f'### {harness} (6 tasks, 18 cells per arm)'}, copy.deepcopy(blocks[codex + 1])])
+    boards = site.leaderboards(reports)
+    gap_boards = [b for b in boards if b['bench'] == 'GAP']
+    assert len(gap_boards) == harness_count
+    # Unequal board lengths must not let the next row overlap the longest chart.
+    gap_boards[0]['rows'] = gap_boards[0]['rows'][:2]
+    captured = {}
+    original = site._gap_forests
+
+    def capture(boards, x, y, width, palette):
+        parts, height = original(boards, x, y, width, palette)
+        captured.update(chart=ET.fromstring('<svg>' + ''.join(parts) + '</svg>'), y=y, height=height)
+        return parts, height
+
+    monkeypatch.setattr(site, '_gap_forests', capture)
+    svg = site.infographic(boards, site.behavior(reports))
+    chart = captured['chart']
+    ticks = [node for node in chart.findall('text') if node.text in ('0%', '50%', '100%')]
+    assert len(ticks) == 3 * harness_count
+    for start in range(0, len(ticks), 3):
+        axis = ticks[start:start + 3]
+        positions = [float(node.attrib['x']) for node in axis]
+        assert positions[0] < positions[1] < positions[2]
+        assert positions[2] - positions[0] >= 120
+    intervals = chart.findall('rect')
+    assert len(intervals) == sum(len(board['rows']) for board in gap_boards)
+    assert all(float(node.attrib['width']) > 1.5 for node in intervals)
+    headings = [node for node in chart.findall('text') if node.attrib.get('font-weight') == '600']
+    assert len(headings) == harness_count
+    for start in range(0, harness_count, 2):
+        row_headings = headings[start:start + 2]
+        assert len({node.attrib['y'] for node in row_headings}) == 1
+        if start:
+            previous_bottom = max(float(node.attrib['y']) for node in ticks[(start - 2) * 3:start * 3])
+            assert float(headings[start].attrib['y']) > previous_bottom
+    assert max(float(node.attrib['y']) for node in chart.findall('text')) <= captured['y'] + captured['height']
+    full = ET.fromstring(svg)
+    next_finding = next(node for node in full.iter('{http://www.w3.org/2000/svg}text') if node.text == 'FINDING 3')
+    assert float(next_finding.attrib['y']) > captured['y'] + captured['height']
+
+
+def test_forest_rejects_nonpositive_plotting_width(leaderboard_reports):
+    board = site.leaderboards(leaderboard_reports)[0]
+    with pytest.raises(ValueError, match='positive plotting space'):
+        site.forest(board, 0, 0, 180, label_w=80, value_w=100)
 
 
 def test_a_report_without_model_names_titles_boards_by_harness(leaderboard_reports):

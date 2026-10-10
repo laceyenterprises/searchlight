@@ -100,6 +100,45 @@ def test_calibration_drift_rejected(publication):
     assert any('calibration does not match' in error for error in reports.check(publication))
 
 
+@pytest.mark.parametrize('name', ['2026-10-03-search-gap-bench', '2026-10-06-search-gap-replication'])
+@pytest.mark.parametrize('calibration', [
+    {}, None, [], {'record_type': 'not-applicable'},
+    {'harnesses': {}}, {'harnesses': None}, {'harnesses': []},
+])
+def test_gap_requires_calibration_independently_of_calibration_keys(publication, name, calibration):
+    path = publication / 'reports' / name / 'calibration.json'
+    path.write_text(json.dumps(calibration))
+    assert reports.check(publication) == [f'{name}: calibration requires non-empty harness records']
+
+
+@pytest.mark.parametrize('name', ['2026-10-03-search-gap-bench', '2026-10-06-search-gap-replication'])
+@pytest.mark.parametrize('damage', ['missing-harness', 'empty-record', 'missing-tasks', 'empty-tasks', 'short-tasks'])
+def test_gap_rejects_incomplete_calibration_records(publication, name, damage):
+    path = publication / 'reports' / name / 'calibration.json'
+    calibration = json.loads(path.read_text())
+    harness = next(iter(calibration['harnesses']))
+    if damage == 'missing-harness':
+        del calibration['harnesses'][harness]
+        expected = 'calibration harnesses do not match summary columns' if calibration['harnesses'] else \
+            'calibration requires non-empty harness records'
+    elif damage == 'empty-record':
+        calibration['harnesses'][harness] = {}
+        expected = 'calibration requires non-empty task records'
+    else:
+        record = calibration['harnesses'][harness]
+        if damage == 'missing-tasks':
+            del record['tasks']
+        elif damage == 'empty-tasks':
+            record['tasks'] = []
+        else:
+            record['tasks'].pop()
+        expected = 'calibration task count does not match summary' if damage == 'short-tasks' else \
+            'calibration requires non-empty task records'
+    path.write_text(json.dumps(calibration))
+    errors = reports.check(publication)
+    assert len(errors) == 1 and errors[0].startswith(f'{name}: ') and expected in errors[0]
+
+
 def _add_oss_harness(directory, *, summary_column=True):
     """A synthetic third calibrated harness on an OSS model, rendered as a publisher would."""
     calibration_path, summary_path = directory / 'calibration.json', directory / 'summary.json'

@@ -497,6 +497,8 @@ model columns and labels every OSS dollar figure with its basis, for example
 model's rate and source. Reports without OSS models render exactly as before. The
 site's GAP leaderboards and infographic draw one board per harness the report
 contains, titled with the model its setup table names.
+The infographic wraps these boards into rows with at least 120 pixels of plotting
+space per panel, and expands the finding's height to fit every row.
 
 ### Hermes Agent search cells
 

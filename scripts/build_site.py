@@ -437,6 +437,8 @@ def forest(board: dict, x: float, y: float, width: float, row_h: float = 30, lab
     """Dot-and-whisker chart on a fixed 0–100% scale. Returns (svg, height)."""
     c = (lambda key, fallback: f'var(--{key})') if css else (lambda key, fallback: colors[fallback])
     plot_x, plot_w = x + label_w, width - label_w - value_w
+    if plot_w <= 0:
+        raise ValueError('forest chart width must leave positive plotting space')
     sx = lambda pct: plot_x + plot_w * pct / 100  # noqa: E731
     rows = board['rows']
     height = row_h * len(rows) + 34
@@ -565,16 +567,23 @@ def _wsb_forest(board, x, y, width, P) -> tuple[list[str], float]:
 def _gap_forests(boards, x, y, width, P) -> tuple[list[str], float]:
     out = []
     gap = 24
-    each = (width - gap * (len(boards) - 1)) / len(boards)
+    label_w, value_w, min_plot_w = 80, 100, 120
+    columns = max(1, min(len(boards), int((width + gap) // (label_w + value_w + min_plot_w + gap))))
+    each = (width - gap * (columns - 1)) / columns
     height = 0.0
-    for i, board in enumerate(boards):
-        bx = x + i * (each + gap)
-        name, model = harness_name(board)
-        out.append(_text(bx, y, name, 14, weight='600'))
-        out.append(_text(bx + 9 * len(name) + 8, y, model, 12, P['ink2'], MONO))
-        svg, h = forest(board, bx, y + 18, each, row_h=26, label_w=80, value_w=100, ticks=(0, 50, 100))
-        out.append(svg)
-        height = max(height, 18 + h)
+    for start in range(0, len(boards), columns):
+        if start:
+            height += gap
+        row_height = 0.0
+        for col, board in enumerate(boards[start:start + columns]):
+            bx, by = x + col * (each + gap), y + height
+            name, model = harness_name(board)
+            out.append(_text(bx, by, name, 14, weight='600'))
+            out.append(_text(bx + 9 * len(name) + 8, by, model, 12, P['ink2'], MONO))
+            svg, h = forest(board, bx, by + 18, each, row_h=26, label_w=label_w, value_w=value_w, ticks=(0, 50, 100))
+            out.append(svg)
+            row_height = max(row_height, 18 + h)
+        height += row_height
     note, nh = _para(x, y + height + 10, 'Claude Code built-in search: rerun on 2026-10-06 after a fix let the agent '
                      'open pages. In the original runs it could only search.',
                      110, 12, 16, fill=P['ink2'])
