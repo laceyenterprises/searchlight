@@ -134,12 +134,27 @@ provider changing. This page describes the apparatus in full.</p></div>
 <section id="terms"><h2>Terms used in the reports</h2>
 <div class="terms">
 <div><b>Search setup (report term: arm)</b>One way of giving the agent search: one provider's MCP server, the agent's built-in
-search, or no search at all.</div>
+search (native), or no search at all.</div>
 <div><b>Test run (report term: cell)</b>One task, one search setup, one repetition, graded once.</div>
 <div><b>Agent (report term: harness)</b>The AI coding agent program: Claude Code or Codex.</div>
-<div><b>Floor and ceiling</b>The same task with no search (floor) and with the answer excerpt handed over (ceiling).</div>
-<div><b>Gap closure</b>How much of the distance from floor to ceiling a search setup recovers.</div>
-<div><b>95% range</b>The Wilson interval around a pass rate. Overlapping ranges mean the data cannot separate two setups.</div>
+<div><b>GAP, WSB, SEW</b>Short names for the search gap bench, the web search bakeoff and the Search Evaluation Workbench
+that runs them.</div>
+<div><b>MCP server</b>The standard connector that plugs a search provider into an agent.</div>
+<div><b>Brief</b>A short research report that ends in a decision and cites its sources. It passes with the right decision,
+key-fact recall of at least 0.7 (70% of the key facts, important ones weighted more) and unsupported claims of at most 0.25
+(a quarter of its claims not backed by the source it cites).</div>
+<div><b>Floor and ceiling</b>The same task with no search (floor) and with an excerpt containing the answer handed over
+(ceiling). A task is admitted only if the agent fails at the floor and passes at the ceiling.</div>
+<div><b>Gap closure</b>How far a search setup got from the floor toward the ceiling: 1.00 means all the way.</div>
+<div><b>Judge</b>An AI model that grades answers without knowing which setup produced them. In the search gap bench a
+Claude Code judge decides and a Codex judge checks; kappa measures their agreement (1 is perfect, 0 is chance).</div>
+<div><b>Tokens per success</b>Tokens used per passing run; the search gap bench counts failed runs' tokens too. Tokens are
+the units AI models bill by.</div>
+<div><b>95% range (CI)</b>The range the true value likely falls in; for pass rates, a Wilson interval. Overlapping ranges
+mean the data cannot separate two setups.</div>
+<div><b>p-value (McNemar, Fisher, sign test)</b>How likely a difference this large would be if the setups were really
+equal. Below 0.05 is the usual bar for a real difference.</div>
+<div><b>Pre-registered</b>Questions and scoring rules fixed before any results were seen.</div>
 </div></section>
 
 <section id="pipeline"><h2>From task to report</h2>

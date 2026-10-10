@@ -12,7 +12,7 @@
       "id": "gap-claude-code",
       "bench": "GAP",
       "harness": "claude-code",
-      "title": "Search gap bench: job outcomes on Claude Code (claude-opus-5-5)",
+      "title": "Search gap bench: Claude Code (claude-opus-5-5)",
       "scope": "7 admitted post-cutoff brief tasks × 3 repetitions = 21 cells per arm. Pass = right decision, weighted key-fact recall ≥ 0.7, unsupported claims ≤ 0.25.",
       "interval": "Wilson 95% (published)",
       "token_accounting": "GAP tokens per success counts all agent tokens in the arm, failed cells included, divided by passing cells.",
@@ -148,7 +148,7 @@
       "id": "gap-codex",
       "bench": "GAP",
       "harness": "codex",
-      "title": "Search gap bench: job outcomes on codex (gpt-6.1-sol)",
+      "title": "Search gap bench: Codex (gpt-6.1-sol)",
       "scope": "6 admitted post-cutoff brief tasks × 3 repetitions = 18 cells per arm. Pass = right decision, weighted key-fact recall ≥ 0.7, unsupported claims ≤ 0.25.",
       "interval": "Wilson 95% (published)",
       "token_accounting": "GAP tokens per success counts all agent tokens in the arm, failed cells included, divided by passing cells.",
@@ -284,7 +284,7 @@
       "id": "wsb-competitive",
       "bench": "WSB",
       "harness": "claude-code",
-      "title": "Web search bakeoff: competitive research tasks on Claude Code (claude-opus-5-5)",
+      "title": "Web search bakeoff: Claude Code (claude-opus-5-5)",
       "scope": "14 competitive tasks × 3 repetitions = 42 cells per arm, regraded 2026-09-30. Mostly stable, documented knowledge; search adds less here than on post-cutoff jobs.",
       "interval": "Wilson 95% (computed from the published counts)",
       "token_accounting": "WSB tokens per success uses measured tokens from graded cells divided by measured successes. Ungraded and unmeasured cells are excluded; per-arm coverage counts were not retained, so complete accounting cannot be established.",
@@ -443,7 +443,7 @@
     "measures": [
       {
         "id": "s1",
-        "label": "New or correcting claims, 40 open questions",
+        "label": "New or corrected facts, 40 open questions",
         "of": null,
         "values": {
           "Exa": 25,
@@ -467,7 +467,7 @@
       },
       {
         "id": "s3",
-        "label": "Pages other tools could not read, recovered",
+        "label": "Pages it read that built-in tools could not",
         "of": 15,
         "values": {
           "Exa": 5,
@@ -479,7 +479,7 @@
       },
       {
         "id": "s6",
-        "label": "Schema values right on ground truth",
+        "label": "Correct values filling a fixed template",
         "of": 133,
         "values": {
           "Exa": 105,
@@ -490,7 +490,7 @@
       },
       {
         "id": "s5",
-        "label": "Entities new to the knowledge base, three lists",
+        "label": "New entries found for three lists",
         "of": null,
         "values": {
           "Exa": 28,
@@ -501,7 +501,7 @@
       },
       {
         "id": "sv",
-        "label": "New tier-1 claims on four big vendors (no lead significant)",
+        "label": "New key figures (prices, volumes, revenue) on four big vendors; no clear leader",
         "of": null,
         "values": {
           "Exa": 16,
@@ -520,6 +520,6 @@
       "confirmed": 14,
       "monitors_passing": 3
     },
-    "note": "Counts of verified items from one run per question, transcribed from the report. No intervals were published; differences of a few items are within noise."
+    "note": "Counts of checked items from one run per question, copied from the report. No ranges were published, so a difference of a few items may be chance."
   }
 }

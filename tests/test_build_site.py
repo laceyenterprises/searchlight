@@ -239,13 +239,35 @@ def test_boards_describe_interval_overlap_and_benchmark_token_coverage():
     boards = site.leaderboards(site.load_reports())
     for board in boards:
         rendered = site.board_html(board)
-        assert 'badges describe overlap of individual ranges only' in rendered
         assert 'not distinguishable from the top' not in rendered
-        assert board['token_accounting'] in rendered
+        assert '95% Wilson intervals' in rendered
+        # Only the best observed rate is called the leader; the rest say how their range sits against it.
+        assert rendered.count('>leader<') == sum(r['pass_pct'] == board['rows'][0]['pass_pct'] for r in board['rows'])
     wsb = next(b for b in boards if b['bench'] == 'WSB')
+    # leaderboard.json keeps the report's accounting; the page says the same in plain words.
     assert 'divided by measured successes' in wsb['token_accounting']
     assert 'per-arm coverage counts were not retained' in wsb['token_accounting']
-    assert 'Tokens per success is complete' not in site.build()['results.html']
+    assert 'how many runs each setup was missing was not recorded' in site.board_html(wsb)
+    results = site.build()['results.html']
+    assert 'Tokens per success is complete' not in results
+    assert 'the difference may be chance' in results
+
+
+def test_boards_explain_the_pass_rule_in_plain_words():
+    boards = site.leaderboards(site.load_reports())
+    for board in (b for b in boards if b['bench'] == 'GAP'):
+        # The machine-readable scope keeps the report's thresholds; the caption spells them out.
+        assert f'recall ≥ {site.RECALL_MIN}' in board['scope']
+        assert f'unsupported claims ≤ {site.UNSUPPORTED_MAX}' in board['scope']
+        rendered = site.board_html(board)
+        assert 'at least 70% of the key facts' in rendered and 'no more than 25% of its claims' in rendered
+        assert '≥' not in rendered and '≤' not in rendered and 'recall' not in rendered
+        floor, ceiling = (site._point_pct(board['reference'][k])
+                          for k in ('floor (no search)', 'ceiling (answer excerpt)'))
+        assert f'from {floor} toward {ceiling}' in rendered
+    assert site._gap_pct('1.06 (0.88–1.29)') == '106% (88–129%)'
+    assert site._gap_pct('n/a') == 'n/a'
+    assert site._point_pct('89% (67–97%)') == "89%"
 
 
 @pytest.mark.parametrize('cell, expected', [
@@ -282,7 +304,7 @@ def test_head_to_head_report_keeps_its_own_terms():
     section = re.search(rf'<section id="run-{site.H2H}">.*?</section>', results, re.S).group()
     assert 'ground-truth cells' in section and 'a research arm' in section
     assert '>code/harness.py</a>' in section and 'code/agent.py' not in results
-    assert 'Schema values right on ground truth' in results and 'Schema runs' not in results
+    assert 'Correct values filling a fixed template' in results and 'Schema runs' not in results
 
 
 def test_head_to_head_appears_on_every_surface():
@@ -392,7 +414,7 @@ def test_header_and_phone_layout():
         assert rule in phone, rule
     assert 'white-space:nowrap' in re.search(r'\.pill\{([^{}]*)\}', site.CSS).group(1)
     results = files['results.html']
-    assert 'data-label="Gap closure"' in results and 'data-label="Tokens per success"' in results
+    assert 'data-label="Gap closed"' in results and 'data-label="Tokens per pass"' in results
     assert '<td class="setup">' in results and '<td class="notes">' in results
     # The phone SVG minimum width relies on the base frame being scrollable.
     diagram = re.search(r'\.diagram\{([^{}]*)\}', site.CSS).group(1)
