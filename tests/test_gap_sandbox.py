@@ -225,8 +225,266 @@ def _check_bridge(directory, tmp_path):
         assert "403 Permission denied: endpoint not allowlisted" in result["output"]
 
 
+@pytest.mark.parametrize("loopback", [False, True])
+def test_bridge_relays_response_after_repeated_idle_intervals(loopback):
+    import ast
+    import re
+    import select
+    import socket
+    from types import SimpleNamespace
+    from urllib.parse import urlsplit, urlunsplit
+
+    # Execute the embedded relay functions without starting its fork/exec shell.
+    tree = ast.parse(sandbox.PROXY_BRIDGE)
+    tree.body = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
+    client, harness = socket.socketpair()
+    upstream, endpoint = socket.socketpair()
+
+    class ConnectedSocket(socket.socket):
+        def connect(self, path):
+            pass  # socketpair already connected the replacement Unix upstream.
+
+    upstream = ConnectedSocket(fileno=upstream.detach())
+    response = b"HTTP/1.1 200 OK\r\nContent-Length: 5\r\n\r\ntoken"
+    intervals = []
+
+    def ready_after_idle(readers, writes, errors, timeout):
+        intervals.append(timeout)
+        assert len(intervals) < 10, "relay failed to finish after socket EOF"
+        if len(intervals) <= 3:
+            # Simulate three expired polling intervals without a wall-clock wait.
+            assert client.fileno() >= 0 and upstream.fileno() >= 0
+            return [], [], []
+        if len(intervals) == 4:
+            endpoint.sendall(response)
+            endpoint.shutdown(socket.SHUT_WR)
+        return select.select(readers, writes, errors, 1)
+
+    namespace = {
+        "socket": SimpleNamespace(
+            socket=lambda family: upstream,
+            AF_UNIX=socket.AF_UNIX,
+            MSG_PEEK=socket.MSG_PEEK,
+            SHUT_WR=socket.SHUT_WR,
+        ),
+        "select": SimpleNamespace(select=ready_after_idle),
+        "path": "unused.sock",
+        "original": urlsplit("http://localhost:4000") if loopback else None,
+        "original_authority": "localhost:4000",
+        "urlsplit": urlsplit,
+        "urlunsplit": urlunsplit,
+        "re": re,
+    }
+    with client, harness, upstream, endpoint:
+        exec(compile(tree, "<PROXY_BRIDGE>", "exec"), namespace)
+        harness.sendall(b"GET /v1 HTTP/1.1\r\nHost: localhost\r\n\r\n")
+        harness.shutdown(socket.SHUT_WR)
+        namespace["relay"](client)
+        assert harness.recv(65536) == response
+        assert intervals[:3] == [10, 10, 10]
+        request = endpoint.recv(65536)
+        target = b"http://localhost:4000/v1" if loopback else b"/v1"
+        assert request.startswith(b"GET " + target + b" HTTP/1.1\r\n")
+
+
+@pytest.mark.parametrize("request_line", [
+    b"GET",
+    b"GET /v1",
+    b"GET http://[broken/v1 HTTP/1.1",
+    b"GET http://localhost:invalid/v1 HTTP/1.1",
+    b"GET http://localhost:65536/v1 HTTP/1.1",
+    b"CONNECT [broken HTTP/1.1",
+])
+def test_bridge_rejects_malformed_http_without_forwarding(request_line):
+    import ast
+    import re
+    import socket
+    from types import SimpleNamespace
+    from urllib.parse import urlsplit, urlunsplit
+
+    tree = ast.parse(sandbox.PROXY_BRIDGE)
+    tree.body = [node for node in tree.body if isinstance(node, ast.FunctionDef)]
+    client, harness = socket.socketpair()
+    upstream, endpoint = socket.socketpair()
+
+    class ConnectedSocket(socket.socket):
+        def connect(self, path):
+            pass
+
+    upstream = ConnectedSocket(fileno=upstream.detach())
+    namespace = {
+        "socket": SimpleNamespace(socket=lambda family: upstream, AF_UNIX=socket.AF_UNIX,
+                                  MSG_PEEK=socket.MSG_PEEK),
+        "path": "unused.sock",
+        "original": urlsplit("http://localhost:4000"),
+        "original_authority": "localhost:4000",
+        "server": SimpleNamespace(getsockname=lambda: ("127.0.0.1", 12345)),
+        "urlsplit": urlsplit,
+        "urlunsplit": urlunsplit,
+        "re": re,
+    }
+    with client, harness, upstream, endpoint:
+        harness.settimeout(1)
+        endpoint.settimeout(1)
+        exec(compile(tree, "<PROXY_BRIDGE>", "exec"), namespace)
+        # A valid pipelined tail must also be discarded after the bad request.
+        harness.sendall(request_line + b"\r\nHost: localhost\r\n\r\n"
+                        b"GET /tail HTTP/1.1\r\nHost: localhost\r\n\r\n")
+        harness.shutdown(socket.SHUT_WR)
+        namespace["relay"](client)
+        assert harness.recv(65536) == (
+            b"HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 0\r\n\r\n"
+        )
+        assert endpoint.recv(65536) == b""
+
+
+@pytest.mark.parametrize("host", ["localhost", "127.0.0.1", "[::1]"])
+@pytest.mark.parametrize("userinfo", ["", "user:p%40ss@"])
+@pytest.mark.parametrize("has_config", [False, True])
+@pytest.mark.parametrize("scheme", ["http", "https"])
+def test_litellm_bridge_preserves_local_http_and_config(tmp_path, host, userinfo, has_config, scheme):
+    import base64
+    import socket
+    import ssl
+    import threading
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+    from sew.gap.endpoint_proxy import endpoint_proxy
+    from sew.gap.verify import _execute
+
+    cert = tmp_path / "cert.pem"
+    if scheme == "https":
+        import shutil
+
+        openssl = shutil.which("openssl")
+        if not openssl:
+            pytest.skip("TLS stub requires openssl")
+        subprocess.run(
+            [openssl, "req", "-x509", "-newkey", "ec", "-pkeyopt", "ec_paramgen_curve:P-256",
+             "-nodes", "-days", "1", "-subj", "/CN=localhost",
+             "-addext", "subjectAltName=DNS:localhost,IP:127.0.0.1,IP:::1",
+             "-keyout", str(tmp_path / "key.pem"), "-out", str(cert)],
+            check=True, capture_output=True, timeout=5,
+        )
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            assert self.path == "/api/v1?probe=1"
+            if scheme == "http":
+                assert self.headers["Host"] == f"{host}:{self.server.server_port}"
+            else:
+                # TLS application bytes remain encrypted through both relays.
+                from urllib.parse import urlsplit
+
+                assert urlsplit("//" + self.headers["Host"]).hostname == host.strip("[]")
+            expected = "Basic " + base64.b64encode(b"user:p@ss").decode() if userinfo else None
+            assert self.headers.get("Authorization") == expected
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"model transport works")
+
+        def log_message(self, *args):
+            pass
+
+    config = tmp_path / "config.toml"
+    if has_config:
+        config.write_text(
+            '[model_providers.searchlight_litellm]\nbase_url = "http://stale.invalid/v1"\n'
+            '[model_providers.other]\nbase_url = "http://other.invalid/v1"\n'
+        )
+    code = r"""
+import os, socket, subprocess, threading, tomllib, urllib.error, urllib.request
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
+assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == 'localhost,127.0.0.1,::1'
+base = os.environ['SEW_LITELLM_BASE_URL']
+assert os.environ['ANTHROPIC_BASE_URL'] == os.environ['OPENAI_BASE_URL'] == base
+assert 'SEW_GAP_LITELLM_BASE_URL' not in os.environ
+target = urlsplit(base)
+assert target.hostname in ('localhost', '127.0.0.1', '::1')
+config = Path(os.environ['CODEX_HOME']) / 'config.toml'
+if config.exists():
+    providers = tomllib.loads(config.read_text())['model_providers']
+    assert providers['searchlight_litellm']['base_url'] == base + '/v1'
+    assert providers['other']['base_url'] == 'http://other.invalid/v1'
+curl = ['curl', '--disable', '--fail', '--silent', '--show-error', '--max-time', '3']
+if target.scheme == 'https':
+    rejected = subprocess.run(curl + [base + '/v1?probe=1'], capture_output=True)
+    assert rejected.returncode == 60, rejected.stderr
+    curl += ['--cacert', os.environ['TEST_TLS_CERT']]
+result = subprocess.run(curl + [base + '/v1?probe=1'], capture_output=True)
+assert result.returncode == 0, result.stderr
+assert result.stdout == b'model transport works'
+for denied in ('http://provider.invalid/',
+               urlunsplit(('http', 'provider.invalid:1', '/', '', ''))):
+    try:
+        urllib.request.urlopen(denied, timeout=3)
+    except urllib.error.HTTPError as exc:
+        assert exc.code == 403
+    else:
+        raise AssertionError('non-allowlisted endpoint reachable')
+# CONNECT uses the same exact host/port translation, without URL credentials.
+proxy = urlsplit(os.environ['HTTPS_PROXY'])
+with socket.create_connection((proxy.hostname, proxy.port), timeout=3) as connection:
+    authority = target.netloc.rsplit('@', 1)[-1]
+    connection.sendall(f'CONNECT {authority} HTTP/1.1\r\nHost: {authority}\r\n\r\n'.encode())
+    assert connection.recv(4096).startswith(b'HTTP/1.1 200 Connection Established')
+class LocalHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'local development works')
+    def log_message(self, *args):
+        pass
+with ThreadingHTTPServer(('127.0.0.1', 0), LocalHandler) as server:
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        for host in ('localhost', '127.0.0.1'):
+            assert urllib.request.urlopen(f'http://{host}:{server.server_port}', timeout=3).read() == b'local development works'
+    finally:
+        server.shutdown()
+        thread.join()
+"""
+    with ThreadingHTTPServer(("127.0.0.1", 0), Handler) as server:
+        if scheme == "https":
+            context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            context.load_cert_chain(cert, tmp_path / "key.pem")
+            server.socket = context.wrap_socket(server.socket, server_side=True)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            # Freeze the test endpoint to this local stub, including IPv6 aliases.
+            endpoints = {(host.strip("[]"), server.server_port): socket.getaddrinfo(
+                "127.0.0.1", server.server_port, type=socket.SOCK_STREAM
+            )}
+            base = f"{scheme}://{userinfo}{host}:{server.server_port}/api"
+            env = {key: base for key in (
+                "SEW_GAP_LITELLM_BASE_URL", "SEW_LITELLM_BASE_URL", "ANTHROPIC_BASE_URL", "OPENAI_BASE_URL"
+            )}
+            env.update(PATH=os.defpath, CODEX_HOME=str(tmp_path))
+            if scheme == "https":
+                env["TEST_TLS_CERT"] = str(cert)
+            # Keep Unix socket paths short on both macOS and Linux.
+            with tempfile.TemporaryDirectory(prefix="swx-", dir="/tmp") as directory:
+                path = Path(directory) / "proxy.sock"
+                with endpoint_proxy(endpoints, socket_path=path):
+                    # Qualification and cell launches must each refresh stale config.
+                    for _ in range(2 if has_config else 1):
+                        result = _execute(
+                            [sys.executable, "-c", sandbox.PROXY_BRIDGE, str(path), sys.executable, "-c", code],
+                            tmp_path, env, 10,
+                        )
+                        assert result["exit_code"] == 0, result
+            assert config.exists() == has_config
+        finally:
+            server.shutdown()
+            thread.join()
+
+
 @pytest.mark.skipif(sys.platform != "linux", reason="requires a real Linux namespace")
-def test_real_namespace_endpoint_bridge(tmp_path, require_containment):
+@pytest.mark.parametrize("oss_model", [False, True])
+def test_real_namespace_endpoint_bridge(tmp_path, require_containment, oss_model):
     import threading
     from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
     from sew.gap.workspace import bench_network_boundary
@@ -256,11 +514,25 @@ def test_real_namespace_endpoint_bridge(tmp_path, require_containment):
                 "import urllib.request, socket; "
                 f"assert urllib.request.urlopen('http://127.0.0.1:{server.server_port}', timeout=3).read() == b'model transport works'"
             )
-            # A configured localhost model endpoint is proxied, not bypassed.
-            # NO_PROXY is overridden below so this test specifically exercises the bridge.
-            code = "import os; os.environ['NO_PROXY'] = os.environ['no_proxy'] = ''; " + code
+            if oss_model:
+                env["SEW_LITELLM_BASE_URL"] = env["OPENAI_BASE_URL"]
+                code = (
+                    "import os, urllib.request, urllib.error, socket; "
+                    "assert os.environ['NO_PROXY'] == 'localhost,127.0.0.1,::1'; "
+                    "assert urllib.request.urlopen(os.environ['SEW_LITELLM_BASE_URL'], timeout=3).read() == b'model transport works'; "
+                    "\ntry: urllib.request.urlopen('http://provider.invalid/', timeout=3)"
+                    "\nexcept urllib.error.HTTPError as exc: assert exc.code == 403"
+                    "\nelse: raise AssertionError('provider reachable')"
+                    f"\ntry: socket.create_connection(('127.0.0.1', {server.server_port}), timeout=1)"
+                    "\nexcept OSError: pass"
+                    "\nelse: raise AssertionError('host loopback reachable')"
+                )
+            else:
+                # Preserve the frontier behavior while exercising its bridge.
+                code = "import os; os.environ['NO_PROXY'] = os.environ['no_proxy'] = ''; " + code
             with bench_network_boundary(
-                [sys.executable, "-c", code], env, cwd=workspace, harness_id="codex"
+                [sys.executable, "-c", code], env, cwd=workspace, harness_id="codex",
+                harness_auth="litellm" if oss_model else "account"
             ) as (argv, evidence):
                 assert evidence["admissible"]
                 result = _execute(argv, workspace, env, 10)
@@ -964,3 +1236,24 @@ def test_verifier_qualification_refusal_is_not_patch_failure(tmp_path, monkeypat
     result = verifier.verify({"verifier": {"timeout_seconds": 1}}, tmp_path / "patch")
     assert result["outcome"] == "not_applicable"
     assert result["errors"][0]["stage"] == "sandbox_unavailable"
+
+
+def test_linux_claude_admits_litellm_without_account_state(tmp_path, monkeypatch):
+    from sew.gap import workspace
+    import socket
+
+    backend = sandbox.SandboxBackend("bubblewrap", "/bin/bwrap")
+    monkeypatch.setattr(sandbox, "select_backend", lambda env=None: backend)
+    monkeypatch.setattr(sandbox, "qualify_backend", lambda *a, **kw: {"backend": "bubblewrap", "admissible": True})
+    monkeypatch.setattr(workspace.shutil, "which", lambda *a, **kw: sys.executable)
+    monkeypatch.setattr(socket, "getaddrinfo", lambda host, port, **kw: [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("127.0.0.1", port))])
+    cwd = tmp_path / "cell" / "workspace"
+    cwd.mkdir(parents=True)
+    env = {"SEW_LITELLM_BASE_URL": "http://localhost:4000", "ANTHROPIC_AUTH_TOKEN": "fake-litellm-key", "PATH": os.defpath}
+    with workspace._bubblewrap_boundary([sys.executable], env, cwd=cwd, harness_id="claude-code", harness_auth="litellm") as (argv, evidence):
+        assert "--unshare-net" in argv and "--cap-drop" in argv
+        assert sandbox.PROXY_BRIDGE in argv
+        assert env["SEW_GAP_LITELLM_BASE_URL"] == "http://localhost:4000"
+        assert evidence["endpoint_authorities"] == [{"host": "localhost", "port": 4000}]
+        assert Path(env["CLAUDE_CONFIG_DIR"]).is_relative_to(cwd.parent)
+        assert not list(Path(env["CLAUDE_CONFIG_DIR"]).iterdir())

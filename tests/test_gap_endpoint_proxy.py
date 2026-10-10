@@ -112,6 +112,60 @@ def test_boundary_preserves_endpoint_port(monkeypatch, tmp_path, url):
         assert env["NO_PROXY"] == env["no_proxy"] == "localhost,127.0.0.1,::1"
 
 
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("host", ["localhost", "127.0.0.1"])
+def test_seatbelt_litellm_boundary_preserves_local_servers(
+    monkeypatch, tmp_path, upstream, harness, host
+):
+    # Runner confinement has separate platform tests; exercise the real child
+    # proxy environment here without invoking a model or sandbox binary.
+    monkeypatch.setattr(
+        workspace, "_run_probe_process",
+        lambda argv, **kw: subprocess.CompletedProcess(
+            argv, 0, '{"connected":false,"errno":1}', ""
+        ),
+    )
+    env = {"SEW_LITELLM_BASE_URL": f"http://{host}:{upstream}", "NO_PROXY": "*"}
+    code = r'''
+import os, threading, urllib.request, urllib.error
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == 'localhost,127.0.0.1,::1'
+assert urllib.request.urlopen(os.environ['SEW_LITELLM_BASE_URL'] + '/model', timeout=3).read() == b'/model'
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'local dev server')
+    def log_message(self, *args):
+        pass
+with ThreadingHTTPServer(('127.0.0.1', 0), Handler) as server:
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        for host in ('localhost', '127.0.0.1'):
+            url = f'http://{host}:{server.server_port}/'
+            assert urllib.request.urlopen(url, timeout=3).read() == b'local dev server'
+        try:
+            urllib.request.urlopen('http://provider.invalid/', timeout=3)
+        except urllib.error.HTTPError as exc:
+            assert exc.code == 403
+        else:
+            raise AssertionError('provider reachable')
+    finally:
+        server.shutdown()
+        thread.join()
+'''
+    with bench_network_boundary(
+        [sys.executable, "-c", code], env, cwd=tmp_path, harness_id=harness,
+        harness_auth="litellm",
+    ) as (_, evidence):
+        assert evidence["endpoint_authorities"] == [{"host": host, "port": upstream}]
+        result = subprocess.run(
+            [sys.executable, "-c", code], env=env, capture_output=True, text=True, timeout=10
+        )
+        assert result.returncode == 0, result.stderr
+
+
 @pytest.mark.parametrize(
     "url", ["http://host:bad", "ftp://host/", "http:///v1", "http://host:99999", "http://host:0"]
 )
@@ -677,3 +731,177 @@ def test_runner_discovery_does_not_retry_terminal_errors(monkeypatch, tmp_path, 
         )
     assert calls == [["codex", "sandbox", "--help"]]
     assert delays == []
+
+
+@pytest.mark.parametrize("harness,expected", [
+    ("claude-code", {("api.anthropic.com", 443)}),
+    ("codex", {("api.openai.com", 443), ("chatgpt.com", 443)}),
+])
+def test_frontier_and_litellm_authorities(monkeypatch, harness, expected):
+    monkeypatch.setattr(socket, "getaddrinfo", lambda host, port, **kw: [
+        (socket.AF_INET, socket.SOCK_STREAM, 6, "", ("192.0.2.10", port))
+    ])
+    env = {"SEW_LITELLM_BASE_URL": "http://proxy.invalid:4000", "OPENAI_BASE_URL": "https://provider.invalid", "ANTHROPIC_BASE_URL": "https://provider.invalid"}
+    assert workspace._harness_endpoints({}, harness)[2] == expected
+    assert workspace._harness_endpoints(env, harness, harness_auth="litellm")[2] == {("proxy.invalid", 4000)}
+    with pytest.raises(EgressCanaryRefused, match="missing LiteLLM"):
+        workspace._harness_endpoints({}, harness, harness_auth="litellm")
+
+
+@pytest.mark.parametrize("host", ["127.0.0.1", "localhost", "[::1]"])
+def test_litellm_bridge_rewrites_only_selected_loopback(tmp_path, upstream, host):
+    """Exercise the actual bridge with a fake endpoint; no model or harness call."""
+    import os
+    import signal
+    from sew.gap.sandbox import PROXY_BRIDGE
+
+    base = f"http://{host}:{upstream}/proxy"
+    home = tmp_path / "codex-home"
+    home.mkdir()
+    config = home / "config.toml"
+    config.write_text('[model_providers.searchlight_litellm]\nbase_url = \"http://localhost:1/stale-bridge/v1\"\n[other]\nbase_url = \"http://other.invalid\"\n')
+    records = socket.getaddrinfo("127.0.0.1", upstream, type=socket.SOCK_STREAM)
+    code = r'''
+import http.client, json, os, urllib.request, urllib.error, socket
+from urllib.parse import urlsplit
+from pathlib import Path
+base = os.environ['SEW_LITELLM_BASE_URL']
+assert base == os.environ['ANTHROPIC_BASE_URL']
+assert base != os.environ['ORIGINAL_BASE']
+assert os.environ['NO_PROXY'] == os.environ['no_proxy'] == 'localhost,127.0.0.1,::1'
+text = (Path(os.environ['CODEX_HOME']) / 'config.toml').read_text()
+assert base + '/v1' in text
+assert 'http://other.invalid' in text
+assert 'stale-bridge' not in text
+assert urllib.request.urlopen(base + '/v1/messages', timeout=3).read() == b'/proxy/v1/messages'
+request = urllib.request.Request(base + '/v1/messages', data=b'fake payload')
+assert urllib.request.urlopen(request, timeout=3).read() == b'fake payload'
+proxy = urlsplit(os.environ['HTTP_PROXY'])
+endpoint = urlsplit(base)
+connection = http.client.HTTPConnection(proxy.hostname, proxy.port, timeout=3)
+connection.set_tunnel(endpoint.hostname, endpoint.port)
+connection.request('GET', '/proxy/v1/responses')
+assert connection.getresponse().read() == b'/proxy/v1/responses'
+connection.close()
+for url in ('http://provider.invalid/', os.environ['OTHER_PORT']):
+    # Explicit proxy requests exercise the parent allowlist even when the
+    # target is loopback and normal clients would bypass it via NO_PROXY.
+    connection = http.client.HTTPConnection(proxy.hostname, proxy.port, timeout=3)
+    connection.request('GET', url)
+    assert connection.getresponse().status == 403
+    connection.close()
+with socket.create_connection((proxy.hostname, proxy.port), timeout=3) as connection:
+    # A discarded oversized header must not let its tail become a fresh
+    # request at the parent proxy. The extra byte exposed the old relay bug.
+    oversized = b'GET / HTTP/1.1\r\nX-Padding: '.ljust(65536, b'a') + b'a'
+    tail = ('GET ' + os.environ['ORIGINAL_BASE'] + '/header-tail HTTP/1.1\r\nHost: ignored\r\n\r\n').encode()
+    connection.sendall(oversized + tail)
+    try:
+        response = connection.recv(65536)
+    except ConnectionResetError:
+        response = b''
+    assert response == b'', response
+print('contained', flush=True)
+'''
+    with endpoint_proxy({(urlsplit(base).hostname, upstream): records}) as proxy:
+        # A TCP stand-in for the Unix transport makes the bridge logic portable
+        # under callers that deny Unix sockets. The real namespace test uses Unix.
+        proxy_port = urlsplit(proxy).port
+        bootstrap = f"""
+import socket
+original_socket = socket.socket
+class FakeUnixSocket(original_socket):
+    def __init__(self, family=socket.AF_INET, *args, **kwargs):
+        self.is_unix = family == socket.AF_UNIX
+        super().__init__(socket.AF_INET if self.is_unix else family, *args, **kwargs)
+    def connect(self, address):
+        return super().connect(('127.0.0.1', {proxy_port}) if self.is_unix else address)
+socket.socket = FakeUnixSocket
+exec({PROXY_BRIDGE!r})
+"""
+        env = {**os.environ, "SEW_GAP_LITELLM_BASE_URL": base, "SEW_LITELLM_BASE_URL": base,
+               "ANTHROPIC_BASE_URL": base, "CODEX_HOME": str(home), "ORIGINAL_BASE": base,
+               "OTHER_PORT": f"http://{host}:{upstream + 1}/", "NO_PROXY": "*"}
+        process = subprocess.Popen([sys.executable, "-I", "-c", bootstrap, "fake-unix-transport", sys.executable, "-c", code], env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, start_new_session=True)
+        try:
+            stdout, stderr = process.communicate(timeout=10)
+            assert process.returncode == 0, stderr
+            assert stdout.strip() == "contained"
+        finally:
+            os.killpg(process.pid, signal.SIGTERM)
+
+
+@pytest.mark.parametrize("status,accepted", [
+    ("200 Connection Established", True),
+    ("200 OK", True),
+    ("200 ", True),
+    ("403 Connection Established", False),
+    ("2000 OK", False),
+])
+def test_litellm_tls_bridge_connect_status(tmp_path, status, accepted):
+    from sew.gap.sandbox import PROXY_BRIDGE
+    from sew.gap.verify import _execute
+
+    payload = b"\x16fake TLS handshake"
+    requests = []
+
+    class Handler(BaseHTTPRequestHandler):
+        def do_CONNECT(self):
+            requests.append(self.path)
+            self.connection.settimeout(3)
+            self.wfile.write(f"HTTP/1.1 {status}\r\n\r\n".encode())
+            self.wfile.flush()
+            if accepted:
+                data = self.rfile.read(len(payload))
+                if data:
+                    self.wfile.write(data)
+
+        def log_message(self, *args):
+            pass
+
+    # As in the loopback routing test, use TCP for the private Unix transport
+    # so the actual bridge can run on hosts where Unix sockets are unavailable.
+    with ThreadingHTTPServer(("127.0.0.1", 0), Handler) as server:
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        bootstrap = f"""
+import socket
+original_socket = socket.socket
+class FakeUnixSocket(original_socket):
+    def __init__(self, family=socket.AF_INET, *args, **kwargs):
+        self.is_unix = family == socket.AF_UNIX
+        super().__init__(socket.AF_INET if self.is_unix else family, *args, **kwargs)
+    def connect(self, address):
+        return super().connect(('127.0.0.1', {server.server_port}) if self.is_unix else address)
+socket.socket = FakeUnixSocket
+exec({PROXY_BRIDGE!r})
+"""
+        code = f"""
+import os, socket
+from urllib.parse import urlsplit
+target = urlsplit(os.environ['SEW_LITELLM_BASE_URL'])
+with socket.create_connection((target.hostname, target.port), timeout=3) as client:
+    client.sendall({payload!r})
+    client.shutdown(socket.SHUT_WR)
+    received = b''
+    try:
+        while chunk := client.recv(4096):
+            received += chunk
+    except ConnectionResetError:
+        assert {not accepted!r}
+assert received == {payload if accepted else b''!r}, received
+"""
+        base = "https://127.0.0.1:4000"
+        try:
+            result = _execute(
+                [sys.executable, "-I", "-c", bootstrap, "fake-unix-transport",
+                 sys.executable, "-I", "-c", code],
+                tmp_path,
+                {"SEW_GAP_LITELLM_BASE_URL": base, "SEW_LITELLM_BASE_URL": base},
+                5,
+            )
+            assert result["exit_code"] == 0, result
+            assert requests == ["127.0.0.1:4000"]
+        finally:
+            server.shutdown()
+            thread.join()

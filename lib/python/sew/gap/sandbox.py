@@ -200,14 +200,34 @@ def qualify_backend(backend, scratch, env, *, profile=None, read_roots=()):
 # The namespace has no host TCP/UDP connectivity. Each invocation starts its
 # own loopback listener; exec keeps the harness as the tracked process leader.
 PROXY_BRIDGE = r"""
-import os, select, socket, sys, threading
+import ipaddress, json, os, re, select, socket, sys, threading
+from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 path, *argv = sys.argv[1:]
 def relay(client):
     try:
         with client, socket.socket(socket.AF_UNIX) as upstream:
             upstream.connect(path)
+            if original is not None:
+                # Direct HTTPS keeps the original TLS hostname. Establish the
+                # parent's allowlisted tunnel before relaying the handshake.
+                tls = client.recv(1, socket.MSG_PEEK) == b'\x16'
+                if tls:
+                    upstream.sendall(('CONNECT ' + original_authority + ' HTTP/1.1\r\nHost: ' + original_authority + '\r\n\r\n').encode('ascii'))
+                    response = b''
+                    while b'\r\n\r\n' not in response:
+                        chunk = upstream.recv(1)
+                        if not chunk or len(response) >= 65536:
+                            return
+                        response += chunk
+                    if not response.split(b'\r\n', 1)[0].startswith(b'HTTP/1.1 200 '):
+                        return
+                else:
+                    forward_http(client, upstream)
             readers = [client, upstream]
             while readers:
+                # This is a polling interval, not an idle deadline: an empty
+                # ready list keeps both sockets open for slow model inference.
                 ready, _, _ = select.select(readers, [], [], 10)
                 for source in ready:
                     target = upstream if source is client else client
@@ -219,9 +239,70 @@ def relay(client):
                         target.shutdown(socket.SHUT_WR)
     except OSError:
         return
-server = socket.socket()
-server.bind(('127.0.0.1', 0)); server.listen()
-url = 'http://127.0.0.1:' + str(server.getsockname()[1])
+def forward_http(client, upstream):
+    # Accept direct origin-form HTTP as well as proxy requests for
+    # this listener. The parent still enforces its frozen allowlist.
+    head = b''
+    while b'\r\n\r\n' not in head:
+        if len(head) >= 65536:
+            # Abort relay as well: the remaining bytes are not a new request.
+            raise OSError('proxy bridge request headers too large')
+        chunk = client.recv(1)
+        if not chunk:
+            return
+        head += chunk
+    line, rest = head.split(b'\r\n', 1)
+    try:
+        method, target, version = line.decode('latin-1').split(' ', 2)
+        parsed = urlsplit('//' + target if method == 'CONNECT' else target)
+        if parsed.hostname is None or (parsed.hostname == original.hostname and parsed.port == server.getsockname()[1]):
+            target = original_authority if method == 'CONNECT' else urlunsplit(
+                (original.scheme, original_authority, parsed.path, parsed.query, parsed.fragment)
+            )
+            # The upstream receives its original authority, including port.
+            rest = re.sub(br'(?im)^Host:[^\r\n]*',
+                          b'Host: ' + original_authority.encode('ascii'), rest)
+    except ValueError as exc:
+        client.sendall(b'HTTP/1.1 400 Bad Request\r\nConnection: close\r\nContent-Length: 0\r\n\r\n')
+        # Stop the relay too, so no malformed request or pipelined tail escapes.
+        raise OSError('proxy bridge malformed HTTP request') from exc
+    upstream.sendall((method + ' ' + target + ' ' + version + '\r\n').encode('latin-1') + rest)
+original = None
+base = os.environ.pop('SEW_GAP_LITELLM_BASE_URL', '')
+if base:
+    target = urlsplit(base)
+    try:
+        loopback = target.hostname == 'localhost' or ipaddress.ip_address(target.hostname).is_loopback
+    except ValueError:
+        loopback = False
+    if loopback:
+        original = target
+listener_host = '::1' if original and ':' in original.hostname else '127.0.0.1'
+server = socket.socket(socket.AF_INET6 if listener_host == '::1' else socket.AF_INET)
+server.bind((listener_host, 0)); server.listen()
+url = 'http://' + ('[::1]' if listener_host == '::1' else listener_host) + ':' + str(server.getsockname()[1])
+if original is not None:
+    # Direct loopback connections reach this listener without changing the
+    # TLS hostname or redirecting unrelated local development servers.
+    userinfo, separator, original_authority = target.netloc.rpartition('@')
+    host = '[' + target.hostname + ']' if ':' in target.hostname else target.hostname
+    authority = (userinfo + separator if separator else '') + host + ':' + str(server.getsockname()[1])
+    rewritten = urlunsplit((target.scheme, authority, target.path, target.query, target.fragment))
+    for key in ('SEW_LITELLM_BASE_URL', 'ANTHROPIC_BASE_URL', 'OPENAI_BASE_URL'):
+        if os.environ.get(key) == base:
+            os.environ[key] = rewritten
+    if os.environ.get('CODEX_HOME'):
+        config = Path(os.environ['CODEX_HOME']) / 'config.toml'
+        if config.exists():
+            lines = config.read_text().splitlines(keepends=True)
+            provider = False
+            for index, line in enumerate(lines):
+                if line.startswith('['):
+                    provider = line.strip() == '[model_providers.searchlight_litellm]'
+                if provider and line.startswith('base_url = '):
+                    # Canary and cell launches each get a new bridge listener.
+                    lines[index] = 'base_url = ' + json.dumps(rewritten + '/v1') + '\n'
+            config.write_text(''.join(lines))
 def serve():
     while True:
         client, _ = server.accept()
@@ -229,7 +310,10 @@ def serve():
 # A forked relay survives exec but remains in the harness process group.
 pid = os.fork()
 if pid == 0:
-    os.dup2(os.open(os.devnull, os.O_WRONLY), 2)
+    sink = os.open(os.devnull, os.O_WRONLY)
+    os.dup2(sink, 1)
+    os.dup2(sink, 2)
+    os.close(sink)
     # Threads do not survive fork; serve in this child instead.
     serve()
 else:

@@ -1495,7 +1495,7 @@ def test_live_cache_isolation_refusal_precedes_model_turn(
             return argv
 
     monkeypatch.setattr(sandbox, "select_backend", lambda env=None: UnconfinedBackend())
-    monkeypatch.setattr(gap_workspace, "_harness_endpoints", lambda *args: ({}, set(), set()))
+    monkeypatch.setattr(gap_workspace, "_harness_endpoints", lambda *args, **kwargs: ({}, set(), set()))
     monkeypatch.setattr(gap_workspace, "bench_network_boundary", REAL_BENCH_BOUNDARY)
     monkeypatch.setattr(gap_workspace, "prepare_python_environment", lambda scratch, env, source: env)
     if failure == "wheelhouse":
@@ -2709,3 +2709,72 @@ def test_new_package_attempt_is_behavior_evidence(gap_config, tmp_path, command,
     assert audit.new_package_attempts == expected
     if command.startswith("pip install --no-index"):
         assert audit.contaminated  # Explicit find-links inputs are unverified.
+
+
+@pytest.mark.parametrize("harness", ["claude-code", "codex"])
+@pytest.mark.parametrize("oss_model", [False, True])
+def test_oss_code_cell_keeps_pinned_runner(gap_config, tmp_path, monkeypatch, harness, oss_model):
+    config = replace(gap_config, harness_id=harness, model_id="litellm/glm-5.2" if oss_model else "fake",
+                     env={})
+    scratch = tmp_path / "cell"
+    scratch.mkdir()
+    source = {"SEW_OSS_ENABLED": "1", "SEW_LITELLM_BASE_URL": "http://localhost:4000"}
+    surface = prepare_arm_spawn(config, scratch, source, harness_auth="litellm" if oss_model else "account")
+    env = {**config.env, **surface.env, "PATH": os.defpath}
+    if oss_model:
+        env["SEW_LITELLM_BASE_URL"] = source["SEW_LITELLM_BASE_URL"]
+    argv = [harness, *surface.harness_args]
+    if harness == "codex":
+        argv += ["--sandbox", "workspace-write"]
+    monkeypatch.setattr(gap_workspace.shutil, "which", lambda *a, **kw: "srt")
+
+    def recorded(argv, **kwargs):
+        output = "0.0.78" if argv[0] == "srt" else "2.1.282 (Claude Code)" if harness == "claude-code" else "codex test"
+        if argv[-1] == "--help":
+            output = "Usage: codex sandbox [OPTIONS] [COMMAND]"
+        return subprocess.CompletedProcess(argv, 0, output, "")
+
+    monkeypatch.setattr(gap_workspace, "_run_probe_process", recorded)
+    command, evidence = gap_workspace.sandbox_probe_runner(argv, env, cwd=scratch, harness_id=harness, scratch=scratch)
+    assert evidence["runner_id"] == ("srt" if harness == "claude-code" else "codex-sandbox")
+    if harness == "claude-code":
+        network = evidence["policy"]["network"]
+        assert network["allowedDomains"] == (["localhost"] if oss_model else [])
+        assert network["deniedDomains"] == ([] if oss_model else ["*"])
+        assert network["strictAllowlist"] and not network["allowAllUnixSockets"]
+        assert evidence["attestation"]["srt_pin"] == "0.0.78"
+    else:
+        assert evidence["policy"]["sandbox_workspace_write"]["network_access"] is False
+        assert command[:2] == ["codex", "sandbox"]
+
+
+def test_oss_linux_claude_qualifies_srt_inside_namespace(tmp_path, monkeypatch):
+    scratch = tmp_path / "cell"
+    cwd = scratch / "workspace"
+    cwd.mkdir(parents=True)
+    nonce, command = canary_command("claude-code")
+    monkeypatch.setattr(gap_workspace, "canary_command", lambda harness: (nonce, command))
+    env = {"SEW_LITELLM_BASE_URL": "http://localhost:4000"}
+
+    def runner(argv, env, **kwargs):
+        assert kwargs["scratch"].is_relative_to(scratch)
+        return ["srt", "--settings", "isolated", "--", "probe"], {"runner_id": "srt"}
+
+    monkeypatch.setattr(gap_workspace, "sandbox_probe_runner", runner)
+    probes = {name: {"exit_code": 1, "error": "Operation not permitted"} for name in ("curl", "pip", "https")}
+    stdout = "GAP_CANARY:" + json.dumps({"nonce": nonce, "probes": probes})
+    stderr = "\n".join(f"[SandboxDebug] Connection blocked to {host}:443" for host in (nonce + ".example.com", "pypi.org", nonce + ".example.org"))
+
+    def recorded(argv, **kwargs):
+        assert argv[:2] == ["namespace-prefix", "srt"]
+        assert "--debug" in argv
+        return subprocess.CompletedProcess(argv, 0, stdout, stderr)
+
+    monkeypatch.setattr(gap_workspace, "_run_probe_process", recorded)
+    evidence = REAL_CLAUDE_QUALIFICATION(["claude"], env, cwd=cwd, direct_evidence={"backend": "bubblewrap"}, command_prefix=["namespace-prefix"])
+    assert evidence["admissible"] and evidence["attestation"]["runner_id"] == "srt"
+    # An OSS cell still cannot qualify if one of the non-LiteLLM probes succeeds.
+    probes["https"] = {"exit_code": 0, "error": ""}
+    stdout = "GAP_CANARY:" + json.dumps({"nonce": nonce, "probes": probes})
+    with pytest.raises(EgressCanaryRefused):
+        REAL_CLAUDE_QUALIFICATION(["claude"], env, cwd=cwd, direct_evidence={"backend": "bubblewrap"}, command_prefix=["namespace-prefix"])

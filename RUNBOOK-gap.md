@@ -128,7 +128,12 @@ runner path/version, requested runner policy (`policy_scope`), and
 `harness-runner-permission:codex-sandbox` or `harness-runner-permission:srt`.
 Policy metadata describes inputs, not independently observed applied policy;
 the permission-denied socket outcome is the measured result.
-Loopback transports remain trusted exceptions.
+Loopback transports remain trusted exceptions. On macOS, both `NO_PROXY` and
+`no_proxy` retain `localhost,127.0.0.1,::1` for frontier and OSS cells, so
+proxy-aware clients can reach local development servers. A loopback LiteLLM
+URL connects directly to the host listener; a non-loopback LiteLLM URL uses
+the parent proxy restricted to that endpoint's host and port. This retains
+the advisory proxy and limited runner qualification guarantees described above.
 Successful egress on any probe, incomplete evidence or ordinary network errors
 on the first three probes refuse the job. A sandbox block with no recognized
 denials reports `unrecognized sandbox_violations format`; inspect CLI wording.
@@ -142,7 +147,28 @@ offline tests cannot certify the host's sandbox.
 Linux selects bubblewrap from the run's source environment (`SEW_CONFIG` and
 `sandbox: auto|bubblewrap`), before child-environment filtering. The namespace
 has no host TCP/UDP connectivity; the harness uses a loopback relay to the
-parent's endpoint proxy through a private Unix socket. `/tmp` is mounted before
+parent's endpoint proxy through a private Unix socket.
+For OSS cells, a loopback LiteLLM base URL keeps its hostname but uses the
+relay's port in matching harness environment variables
+and the isolated Codex LiteLLM provider config, if that config exists. Missing
+`config.toml` is left absent. URL credentials are preserved for the harness's
+authentication, while the forwarded authority excludes credentials. Only the
+relay's exact hostname and port translate to the original endpoint, whose host,
+port and saved DNS answers remain enforced by the parent proxy. Both `NO_PROXY`
+and `no_proxy` retain `localhost,127.0.0.1,::1`, so local development servers
+inside the namespace bypass the egress proxy. Direct HTTP requests are translated
+to proxy requests; HTTP headers exceeding 64 KiB close the relay connection
+without forwarding any part of the request. Request-line or URL parsing errors
+return HTTP 400 and close the relay without forwarding the request or its
+pipelined tail. Direct TLS first establishes an
+allowlisted CONNECT tunnel, preserving the original hostname for certificate
+verification. The bridge requires an HTTP/1.1 200 response and ignores its
+reason phrase; other status codes close the connection. IPv6 loopback
+endpoints use an IPv6 listener. The bridge's ten-second select interval is
+polling only: an idle interval leaves both sockets open and repeats the wait,
+so delayed LiteLLM first tokens do not hit a bridge idle deadline. Cell run
+budgets still bound the harness lifetime. Each qualification or cell launch
+refreshes the provider URL for its own listener. `/tmp` is mounted before
 read and scratch binds so the socket and any explicitly admitted runtime below
 `/tmp` remain visible. A host-root read bind is refused. Backend qualification
 runs curl, isolated pip with `-vv`, direct TCP and a DNS datagram: tool failures
