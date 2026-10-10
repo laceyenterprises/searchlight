@@ -1050,6 +1050,8 @@ def audit_workspace_calls(
     denied = denied_network_commands(transcript)
     neutralized = config_neutralized_pip_commands(transcript, cell_env or {}) - denied
     for name, payload, call_id in call_payloads(transcript, include_id=True):
+        # OSS events may omit arguments or carry JSON null/scalars. Guard both
+        # shell and file inspection so a malformed call cannot abort the audit.
         if not isinstance(payload, Mapping):
             continue
         command = payload.get("command", payload.get("cmd", ""))

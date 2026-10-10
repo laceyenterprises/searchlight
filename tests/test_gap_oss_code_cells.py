@@ -351,6 +351,41 @@ def test_oss_file_tools_cannot_read_hidden_assets(tmp_path, event):
     ]
 
 
+@pytest.mark.parametrize("harness", OSS)
+@pytest.mark.parametrize("tool", ["shell", "file"])
+@pytest.mark.parametrize("defect", ["missing", "null", "number", "list", "string", "empty"])
+def test_oss_audit_tolerates_malformed_payloads(tmp_path, harness, tool, defect):
+    payload = {"null": None, "number": 42, "list": ["bad"], "string": "bad", "empty": {}}.get(defect)
+    if harness == "opencode":
+        state = {"status": "completed", "output": ""}
+        if defect != "missing":
+            state["input"] = payload
+        event = {"type": "tool_use", "part": {
+            "type": "tool", "callID": "bad", "tool": "bash" if tool == "shell" else "read",
+            "state": state,
+        }}
+    else:
+        call = {
+            "type": "tool_call" if harness == "hermes" else "toolCall",
+            "id": "bad",
+            "name": ("terminal" if harness == "hermes" else "bash") if tool == "shell"
+            else ("read_file" if harness == "hermes" else "read"),
+        }
+        if defect != "missing":
+            call["arguments"] = json.dumps(payload) if harness == "hermes" else payload
+        event = call if harness == "hermes" else {
+            "type": "message_end", "message": {"role": "assistant", "content": [call]}
+        }
+    assert audit_workspace_calls([event]) == []
+    # Malformed calls must not prevent later calls from being audited.
+    hidden = tmp_path / "hidden"
+    forbidden_read = {"type": "tool_call", "id": "read", "name": "read_file",
+                      "arguments": {"path": str(hidden / "test_task.py")}}
+    assert audit_workspace_calls([event, forbidden_read], forbidden_paths=[hidden]) == [
+        "workspace:forbidden-read"
+    ]
+
+
 @pytest.mark.parametrize("tool", ["search_files", "grep", "glob", "list"])
 @pytest.mark.parametrize("destination", ["catalog", "hidden", "cache", "verifier", "symlink", "allowed"])
 @pytest.mark.parametrize("relative", [False, True])
