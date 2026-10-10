@@ -15,4 +15,5 @@ SPEC = HarnessSpec(
     protocol='sew.pi_live:PiProtocol', arm_spawn='sew.pi_live:arm_spawn',
     forbidden_flags=FORBIDDEN_FLAGS, native_search=False, oss=True,
     usage_parser='sew.pi_live:usage_row', pricing_key='oss-catalog',
+    code_cell_sandbox='portable',
 )

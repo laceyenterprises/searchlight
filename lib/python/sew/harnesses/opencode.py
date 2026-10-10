@@ -11,6 +11,8 @@ from .registry import HarnessSpec
 
 PROVIDER = "searchlight-litellm"
 MIN_VERSION = "1.17.3"
+# Built-in tools a GAP code cell may use. Search cells keep every one off.
+WORKSPACE_TOOLS = ("bash", "read", "write", "edit", "glob", "grep", "list")
 
 
 def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_auth="account"):
@@ -21,8 +23,6 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
     settings = require_enabled(config.harness_id, config.model_id, source_env)
     if not config.model_id or not config.model_id.startswith("litellm/"):
         raise SchemaError("opencode requires an explicit litellm/<route> OSS model")
-    if contract.workspace_profile:
-        raise SchemaError("opencode code cells require a sandbox runner")
     route = config.model_id[len("litellm/"):]
     model = load_catalog()[route]
     if any(key.startswith(("OPENCODE_", "XDG_")) for key in config.env):
@@ -53,6 +53,13 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
         permissions[f"{contract.mcp_server_name}_*"] = "allow"
     elif contract.kind == "native":
         permissions.update(webfetch="allow", websearch="allow")
+    base_url = settings.base_url
+    if contract.workspace_profile:
+        # A GAP code cell gets the shell and file tools; the bench's portable
+        # sandbox confines the whole tree. The endpoint is read from the env so
+        # the Linux egress bridge can rewrite a loopback endpoint per launch.
+        permissions.update({tool: "allow" for tool in WORKSPACE_TOOLS})
+        base_url = "{env:SEW_LITELLM_BASE_URL}"
     document = {
         "$schema": "https://opencode.ai/config.json", "autoupdate": False,
         "share": "disabled", "snapshot": False, "plugin": [],
@@ -60,7 +67,7 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
         "permission": permissions,
         "tools": {"*": False, "bash": False, "shell": False, "webfetch": False, "websearch": False, **{key: True for key, value in permissions.items() if value == "allow"}},
         "provider": {PROVIDER: {"npm": "@ai-sdk/openai-compatible", "name": "Searchlight LiteLLM",
-            "options": {"baseURL": settings.base_url + "/v1", "apiKey": "{env:SEW_LITELLM_API_KEY}"},
+            "options": {"baseURL": base_url + "/v1", "apiKey": "{env:SEW_LITELLM_API_KEY}"},
             "models": {route: {"name": route, "limit": {
                 "context": model["context_window_tokens"], "output": model["max_output_tokens"]}}}}},
     }
@@ -77,7 +84,7 @@ SPEC = HarnessSpec(
     id="opencode", label="Opencode", live=True, bin_env="SEW_OPENCODE_BIN", default_bin="opencode",
     protocol="sew.harnesses.opencode_protocol:OpencodeProtocol", arm_spawn="sew.harnesses.opencode:arm_spawn",
     usage_parser="sew.harnesses.opencode_protocol:usage_row", pricing_key="oss-catalog", oss=True,
-    native_search=True, minimum_version=MIN_VERSION, oss_model_only=True,
+    native_search=True, minimum_version=MIN_VERSION, oss_model_only=True, code_cell_sandbox="portable",
     forbidden_flags=frozenset({"--model", "-m", "--format", "--agent", "--command", "--attach",
         "--session", "-s", "--continue", "-c", "--fork", "--dir", "--file", "-f", "--share",
         "--dangerously-skip-permissions", "--interactive", "-i", "--demo", "--pure", "--no-pure"}),

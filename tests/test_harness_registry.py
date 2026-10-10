@@ -110,7 +110,6 @@ GUARD_ALLOWLIST = Counter(
         ("lib/python/sew/live_harness.py", 'config.harness_id == "claude-code"'): 2,
         # GAP code-cell sandboxing and the egress canary, harness-specific by
         # construction until the code-cell work gives OSS harnesses a runner.
-        ("lib/python/sew/gap/workspace.py", 'harness_id not in {"codex", "claude-code"}'): 2,
         ("lib/python/sew/gap/workspace.py", 'harness == "claude-code"'): 3,
         ("lib/python/sew/gap/workspace.py", 'harness_id == "codex"'): 2,
         ("lib/python/sew/gap/workspace.py", 'harness_id == "claude-code"'): 5,

@@ -62,6 +62,11 @@ class HermesProtocol(HarnessProtocol):
             events.append({"type": "hermes.error", "message": "Invalid Hermes session ledger"})
         return events
 
+    def reset_session(self, env):
+        """Drop a finished launch's ledger so the next launch reads only its own."""
+        for name in ("state.db", "state.db-wal", "state.db-shm", "state.db-journal"):
+            (Path(env["HERMES_HOME"]) / name).unlink(missing_ok=True)
+
     def is_ready(self, event):
         return event.get('type') == 'hermes.ready'
 

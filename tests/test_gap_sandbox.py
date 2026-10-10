@@ -450,6 +450,9 @@ with ThreadingHTTPServer(('127.0.0.1', 0), LocalHandler) as server:
         if scheme == "https":
             context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
             context.load_cert_chain(cert, tmp_path / "key.pem")
+            # A LibreSSL 3.3 curl cannot complete a TLS 1.3 handshake with an
+            # OpenSSL 3.5 server; 1.2 still keeps the relayed bytes encrypted.
+            context.maximum_version = ssl.TLSVersion.TLSv1_2
             server.socket = context.wrap_socket(server.socket, server_side=True)
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
