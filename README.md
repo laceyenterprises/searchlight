@@ -255,10 +255,13 @@ Hermes Agent tool calls and Pi tool results. Harnesses prefix a vendor's tool wi
 name in different ways (`mcp__exa__web_search_exa`, `mcp_exa_web_search_exa`,
 `exa_web_search_exa`); the analyzer drops the prefix, so every harness's call counts as
 the vendor's `web_search_exa`. Opencode's native `websearch` and `webfetch` count as search and fetch.
+Failed Pi calls and calls interrupted before their results arrive still count as calls
+and contribute their queries. They provide no returned evidence: source coverage stays
+unknown unless another observed result contains the oracle URL.
 
 ```mermaid
 flowchart LR
-  B[("run bundles")] --> E["extract every completed tool call"]
+  B[("run bundles")] --> E["extract tool calls, including interrupted calls"]
   E --> C{"search or fetch?"}
   C -->|search| Q["queries: natural language, year, quotes, site:, parameters"]
   C -->|fetch| F["fetch-only cells: fetched without searching"]
@@ -577,6 +580,12 @@ hashes. Raw transcripts and provider responses are not distributed, so the publi
 aggregates cannot be replayed exactly. The one exception is the search API head-to-head's
 Monitors probe, whose raw responses are published with its report. A new live run measures the same method on today's
 models, indexes and sources.
+
+New WSB bundles created by `sew bakeoff bundle` include the OSS catalog at
+`manifests/config/oss-models.yaml` alongside the price table and task manifests.
+Report regeneration, verification and task explanation use that snapshot for
+both OSS token prices and rate labels, so installed catalog changes do not alter
+the bundled report.
 
 ```sh
 python3 scripts/check_reports.py        # transcription, scrub, catalog hashes, links

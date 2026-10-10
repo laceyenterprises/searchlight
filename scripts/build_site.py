@@ -21,6 +21,7 @@ import json
 import math
 import re
 import sys
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -579,10 +580,18 @@ def _gap_forests(boards, x, y, width, P) -> tuple[list[str], float]:
             bx, by = x + col * (each + gap), y + height
             name, model = harness_name(board)
             out.append(_text(bx, by, name, 14, weight='600'))
-            out.append(_text(bx + 9 * len(name) + 8, by, model, 12, P['ink2'], MONO))
-            svg, h = forest(board, bx, by + 18, each, row_h=26, label_w=label_w, value_w=value_w, ticks=(0, 50, 100))
+            model_offset = 9 * len(name) + 8
+            heading_h = 18
+            if model_offset + 7.2 * len(model) <= each:
+                out.append(_text(bx + model_offset, by, model, 12, P['ink2'], MONO))
+            else:
+                lines = textwrap.wrap(model, width=max(1, int(each / 7.2)))
+                for i, line in enumerate(lines):
+                    out.append(_text(bx, by + 18 + i * 16, line, 12, P['ink2'], MONO))
+                heading_h += 16 * len(lines)
+            svg, h = forest(board, bx, by + heading_h, each, row_h=26, label_w=label_w, value_w=value_w, ticks=(0, 50, 100))
             out.append(svg)
-            row_height = max(row_height, 18 + h)
+            row_height = max(row_height, heading_h + h)
         height += row_height
     note, nh = _para(x, y + height + 10, 'Claude Code built-in search: rerun on 2026-10-06 after a fix let the agent '
                      'open pages. In the original runs it could only search.',

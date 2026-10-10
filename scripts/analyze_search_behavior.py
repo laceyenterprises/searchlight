@@ -131,7 +131,7 @@ def _text(content):
 
 
 def tool_events(transcript):
-    """Yield (tool, arguments, result_text); None means results are not exposed."""
+    """Yield (tool, arguments, result_text); unavailable results are None."""
     pending = {}
     for entry in transcript:
         if not isinstance(entry, dict):
@@ -181,7 +181,7 @@ def tool_events(transcript):
             # message_start/update repeat it while it streams).
             if event.get('type') == 'message_end':
                 name, arguments = pending.pop(message.get('toolCallId'))
-                yield name, arguments, _text(message.get('content'))
+                yield name, arguments, None if message.get('isError') else _text(message.get('content'))
             continue
         for part in message.get('content') or []:
             if not isinstance(part, dict):
@@ -194,6 +194,8 @@ def tool_events(transcript):
                 name, arguments = pending.pop(part.get('tool_use_id'))
                 content = part.get('content')
                 yield name, arguments, content if isinstance(content, str) else json.dumps(content)
+    for name, arguments in pending.values():
+        yield name, arguments, None
 
 
 def queries_of(arguments) -> list[str]:

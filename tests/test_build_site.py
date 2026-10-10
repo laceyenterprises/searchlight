@@ -148,6 +148,41 @@ def test_forest_rejects_nonpositive_plotting_width(leaderboard_reports):
         site.forest(board, 0, 0, 180, label_w=80, value_w=100)
 
 
+@pytest.mark.parametrize('harness', ['opencode', 'hermes'])
+@pytest.mark.parametrize('width', [624, 680])
+def test_longest_catalog_model_heading_fits_its_panel(three_harness_reports, harness, width):
+    from sew.oss import load_catalog
+
+    longest = max(('litellm/' + route for route in load_catalog()), key=len)
+    boards = [copy.deepcopy(board) for board in site.leaderboards(three_harness_reports)
+              if board['bench'] == 'GAP']
+    boards[1].update(harness=harness, model=longest)
+    x, y = 48, 40
+    _, short_height = site._gap_forests(
+        [{**board, 'model': 'short'} for board in boards], x, y, width, site.PALETTE,
+    )
+    parts, height = site._gap_forests(boards, x, y, width, site.PALETTE)
+    chart = ET.fromstring('<svg>' + ''.join(parts) + '</svg>')
+    panel_width = (width - 24) / 2
+    panel_x = x + panel_width + 24
+    model_lines = [node for node in chart.findall('text')
+                   if float(node.attrib['x']) == panel_x
+                   and node.attrib.get('font-family') == site.MONO
+                   and node.attrib['font-size'] == '12']
+    assert len(model_lines) == (2 if width == 624 else 1)
+    assert ''.join(node.text for node in model_lines) == longest
+    for node in model_lines:
+        assert float(node.attrib['x']) + len(node.text) * 7.2 <= panel_x + panel_width
+    headings = [node for node in chart.findall('text') if node.attrib.get('font-weight') == '600']
+    last_model_y = max(float(node.attrib['y']) for node in model_lines)
+    right_bars = [node for node in chart.findall('rect') if float(node.attrib['x']) > panel_x]
+    assert min(float(node.attrib['y']) for node in right_bars) > last_model_y
+    ticks = [node for node in chart.findall('text') if node.text in ('0%', '50%', '100%')]
+    assert float(headings[2].attrib['y']) > max(float(node.attrib['y']) for node in ticks[:6])
+    assert height > short_height
+    assert max(float(node.attrib['y']) for node in chart.findall('text')) <= y + height
+
+
 def test_a_report_without_model_names_titles_boards_by_harness(leaderboard_reports):
     boards = {b['id']: b for b in site.leaderboards(leaderboard_reports)}
     assert boards['gap-codex']['title'] == 'Search gap bench: Codex'

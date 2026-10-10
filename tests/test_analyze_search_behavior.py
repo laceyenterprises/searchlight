@@ -260,3 +260,61 @@ def test_hermes_unparseable_arguments_still_count_the_call(tmp_path):
     cell = write_cell(tmp_path, 'a', 'hermes', 'tavily', 't1', transcript)
     result = behavior.analyse_cell(Path(cell['run_dir']), None)
     assert result['searches'] == 1 and result['queries'] == []
+
+
+@pytest.mark.parametrize('error', ['rate limited', 'failed to search https://example.org/source'])
+def test_failed_pi_search_has_no_returned_evidence(tmp_path, error):
+    transcript = pi_call('1', 'mcp__exa__web_search_exa', {'query': 'release notes'}, error)
+    for entry in transcript[3:]:
+        entry['harness_event']['message']['isError'] = True
+    cell = write_cell(tmp_path, 'a', 'pi', 'exa', 't1', transcript, passed=True)
+    assert list(behavior.tool_events(transcript)) == [('web_search_exa', {'query': 'release notes'}, None)]
+    result = behavior.analyse_cell(Path(cell['run_dir']), 'example.org/source')
+    assert result['searches'] == 1 and len(result['queries']) == 1
+    assert result['surfaced'] is None
+    row = behavior.aggregate([result], True)
+    assert row['primary_source_observed_cells'] == 0
+    assert row['primary_source_unknown_cells'] == 1
+    assert row['pass_when_surfaced'] == row['pass_when_not_surfaced'] == [0, 0]
+
+
+@pytest.mark.parametrize('harness,call,prefix', [
+    ('hermes', hermes_call, 'mcp_exa_'),
+    ('pi', pi_call, 'mcp__exa__'),
+    ('claude-code', claude_call, 'mcp__exa__'),
+])
+@pytest.mark.parametrize('returned_url,surfaced', [
+    ('https://other.example/', None), ('https://example.org/source', True),
+])
+def test_interrupted_calls_are_counted_once_without_evidence(tmp_path, harness, call, prefix,
+                                                          returned_url, surfaced):
+    search = call('pending-search', prefix + 'web_search_exa', {'query': 'release notes'}, 'ignored')
+    fetch = call('pending-fetch', prefix + 'web_fetch_exa', {'url': 'https://example.org/source'}, 'ignored')
+    # Include Pi's start/update/end streaming events, but no result message.
+    call_events = 3 if harness == 'pi' else 1
+    transcript = search[:call_events] + fetch[:call_events]
+    transcript += call('completed', prefix + 'web_search_exa', {'query': 'second query'}, returned_url)
+    events = list(behavior.tool_events(transcript))
+    assert len(events) == 3
+    assert sum(text is None for _, _, text in events) == 2
+    cell = write_cell(tmp_path, 'a', harness, 'exa', 't1', transcript)
+    result = behavior.analyse_cell(Path(cell['run_dir']), 'example.org/source')
+    assert (result['searches'], result['fetches'], len(result['queries'])) == (2, 1, 2)
+    assert result['surfaced'] is surfaced
+    row = behavior.aggregate([result], True)
+    assert row['no_provider_call_cells'] == 0
+    assert row['primary_source_unknown_cells'] == int(surfaced is None)
+
+
+@pytest.mark.parametrize('harness,call,prefix', [
+    ('hermes', hermes_call, 'mcp_exa_'),
+    ('pi', pi_call, 'mcp__exa__'),
+    ('claude-code', claude_call, 'mcp__exa__'),
+])
+def test_only_interrupted_search_still_counts(tmp_path, harness, call, prefix):
+    transcript = call('1', prefix + 'web_search_exa', {'query': 'release notes'}, 'ignored')
+    transcript = transcript[:3 if harness == 'pi' else 1]
+    cell = write_cell(tmp_path, 'a', harness, 'exa', 't1', transcript)
+    result = behavior.analyse_cell(Path(cell['run_dir']), 'example.org/source')
+    assert result['searches'] == 1 and len(result['queries']) == 1
+    assert result['surfaced'] is None

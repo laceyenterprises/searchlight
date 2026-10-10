@@ -70,6 +70,56 @@ ENVIRON = {"SEW_EXA_API_KEY": EXA_KEY, "PATH": "/usr/bin"}
 TOOL = "mcp__exa__web_search_exa"
 
 
+@pytest.mark.parametrize('installed_catalog_present', [True, False])
+def test_oss_bundle_uses_catalog_snapshot_for_prices_and_labels(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, installed_catalog_present: bool,
+) -> None:
+    from sew import oss
+
+    root = _run_root(tmp_path)
+    entries = _arm(
+        root, "opencode", "no-search", ["pass"] * 3,
+        usage=_usage(1_000_000, 0, 100_000, 0), model_profile="litellm/glm-5.2",
+    )
+    _state(root, entries)
+    prices = tmp_path / "prices.yaml"
+    prices.write_text(yaml.safe_dump(PRICE_TABLE), encoding="utf-8")
+    artifacts = _assemble(root, tmp_path / "pub", prices)
+    published = json.loads(artifacts.report_json.read_text())
+    expected_cost = published["runs"][0]["cost_usd"]
+    assert expected_cost is not None and expected_cost > 0
+    expected_rate = published["headline"][0]["model_rate"]
+    snapshot = artifacts.bundle_dir / "manifests/config/oss-models.yaml"
+    assert snapshot.read_bytes() == (MODULE_ROOT / "config/oss-models.yaml").read_bytes()
+
+    # Unpack on a host with a different catalog (or no installed catalog).
+    moved = tmp_path / "elsewhere" / artifacts.bundle_dir.name
+    shutil.move(str(artifacts.bundle_dir), moved)
+    installed = tmp_path / "installed"
+    if installed_catalog_present:
+        catalog = yaml.safe_load(
+            (moved / "manifests/config/oss-models.yaml").read_text()
+        )
+        route = catalog['models']['glm-5.2']
+        route.update(input_usd_per_mtok=99, output_usd_per_mtok=99,
+                     source="https://example.test/new-pricing", as_of="2026-10-10")
+        (installed / "config").mkdir(parents=True)
+        (installed / "config/oss-models.yaml").write_text(yaml.safe_dump(catalog))
+    monkeypatch.setattr(oss, "module_root", lambda: installed)
+    result = verify_bundle(moved, environ=ENVIRON)
+    assert result['ok'], result
+    resolved = resolve_run(str(moved))
+    derived = build_bakeoff_report(
+        resolved.run_root, module_base=resolved.module_base,
+        price_table=load_price_table(resolved.price_table_path),
+    )
+    assert aggregate_view(derived) == aggregate_view(published)
+    assert derived['headline'][0]['model_rate'] == expected_rate
+    assert derived['runs'][0]['cost_usd'] == expected_cost
+    explained = explain_task(resolved, FACT)
+    assert explained['arms'][0]['successes'] == explained['arms'][0]['attempted'] == 3
+
+
 def test_bundle_round_trips_through_the_report_generator_to_identical_aggregates(
     tmp_path: Path,
 ) -> None:
