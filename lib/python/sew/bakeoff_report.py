@@ -32,6 +32,12 @@ is a ratio of measured tokens per attempted task, and both sides' run counts
 are printed beside it. A delta against an absent, empty, or under-sampled cell
 is marked and left blank rather than dropped.
 
+**An OSS model names its rate.** A ``litellm/<route>`` model is priced from the
+versioned OSS catalog (``config/oss-models.yaml``). Its cells carry the route
+and the catalog's rate basis, a dated list rate or a self-hosted zero, so a
+cheap cell is never mistaken for a measured bill. Reports without OSS models
+render exactly as before.
+
 **Nothing is a verdict.** The report is broken down by harness, arm, and task
 class. The per-arm headline is an explicitly labelled roll-up of the arm's own
 publishable task-class cells, and no row ranks one arm above another.
@@ -51,6 +57,7 @@ from typing import Any, Iterable, Mapping, Sequence
 import yaml
 
 from .mcp_meter import meter_observed
+from .oss import load_catalog
 
 from . import report as sew_report
 from .arms import PROVIDER_SERVER_NAMES, _tool_call_entries
@@ -205,6 +212,8 @@ class BakeoffRun:
 # Disjoint usage buckets (live_harness): input + cached_input + output + reasoning
 # = total_billable. Cache writes stay inside input.
 TOKEN_PARTS = ("input", "cached_input", "output", "reasoning")
+# An OSS model is named by its LiteLLM route (sew.oss).
+OSS_MODEL_PREFIX = "litellm/"
 
 
 def generate_bakeoff_report(
@@ -417,6 +426,9 @@ def _bakeoff_run(row: RunRow, table: PriceTable, link_base: Path) -> BakeoffRun:
         token_status = "estimated" if source == "estimated" else "unknown"
         tokens = None
     model_id, model_id_source = _model_id(row.run_dir, spawn)
+    if model_id is None and row.model_profile.startswith(OSS_MODEL_PREFIX):
+        # An OSS cell's profile is the model it ran (runner model_id).
+        model_id, model_id_source = row.model_profile, "model_profile"
     search_calls = _meter(_mapping((spawn or {}).get("process")).get("provider_calls"))
     cost, exclusions = _run_cost(
         row,
@@ -798,7 +810,24 @@ def _aggregate(
     }
     if task_classes is not None:
         aggregate["task_classes"] = list(task_classes)
+    rate = _model_rate(model_profile)
+    if rate is not None:
+        aggregate["model_rate"] = rate
     return aggregate
+
+
+def _model_rate(model_profile: str) -> dict[str, Any] | None:
+    """The OSS catalog rate an arm's model is priced at; None for frontier models."""
+
+    if not model_profile.startswith(OSS_MODEL_PREFIX):
+        return None
+    entry = load_catalog().get(model_profile[len(OSS_MODEL_PREFIX):]) or {}
+    return {
+        "model_id": model_profile,
+        "rate_basis": entry.get("rate_basis"),
+        "price_source": entry.get("source"),
+        "price_as_of": entry.get("as_of"),
+    }
 
 
 def _marked_runs(
@@ -1431,6 +1460,8 @@ def _delta_table(rows: Sequence[Mapping[str, Any]]) -> str:
 
 
 def _cost_table(rows: Sequence[Mapping[str, Any]]) -> str:
+    if any("model_rate" in row for row in rows):
+        return _oss_cost_table(rows)
     return _table(
         ["arm", "costed / attempted", "successes (costed)", "$/task", "$/success", "basis"],
         [
@@ -1446,6 +1477,61 @@ def _cost_table(rows: Sequence[Mapping[str, Any]]) -> str:
             if row["cost"]["in_cost_table"]
         ],
     )
+
+
+def _oss_cost_table(rows: Sequence[Mapping[str, Any]]) -> str:
+    """The cost table once OSS models are present: harness and model are columns,
+    and an OSS model's dollars name the rate basis they were priced at."""
+
+    def usd(row: Mapping[str, Any], text: str) -> str:
+        rate = row.get("model_rate")
+        return f"{text} ({_rate_basis_text(rate)})" if rate and text.startswith("$") else text
+
+    return _table(
+        ["harness", "model", "arm", "costed / attempted", "successes (costed)", "$/task", "$/success", "basis"],
+        [
+            [
+                row["harness_id"],
+                row["model_rate"]["model_id"] if "model_rate" in row else _profile_text(row["model_profile"]),
+                row["provider_id"],
+                f"{row['cost']['costed_n']}/{row['cost']['attempted_n']}",
+                row["cost"]["successes_costed"],
+                usd(row, _cost_usd(row["cost"]["usd_per_task"], row["cost"]["basis"])),
+                usd(row, _per_success_text(row["cost"])),
+                row["cost"]["basis"],
+            ]
+            for row in rows
+            if row["cost"]["in_cost_table"]
+        ],
+    )
+
+
+def _rate_basis_text(rate: Mapping[str, Any]) -> str:
+    if rate["rate_basis"] == "self-hosted":
+        return "self-hosted"
+    if rate["rate_basis"] == "list":
+        return f"catalog {rate['price_as_of']}"
+    return "no catalog rate"
+
+
+def _profile_text(model_profile: str) -> str:
+    return "harness default" if model_profile in ("", "default") else model_profile
+
+
+def _oss_rate_notes(rows: Sequence[Mapping[str, Any]]) -> list[str]:
+    rates = {row["model_rate"]["model_id"]: row["model_rate"] for row in rows if "model_rate" in row}
+    if not rates:
+        return []
+    lines = []
+    for model_id, rate in sorted(rates.items()):
+        if rate["rate_basis"] == "self-hosted":
+            text = "self-hosted, priced at $0 per token; hardware and power are not counted"
+        elif rate["rate_basis"] == "list":
+            text = f"catalog list rate as of {rate['price_as_of']} ({rate['price_source']})"
+        else:
+            text = "not in the OSS catalog, so its cost is unknown"
+        lines.append(f"- {model_id}: {text}")
+    return ["", "OSS model rates (config/oss-models.yaml):", *lines]
 
 
 def _cost_notes(report: Mapping[str, Any]) -> list[str]:
@@ -1473,6 +1559,7 @@ def _cost_notes(report: Mapping[str, Any]) -> list[str]:
     )
     if proxy_notes:
         notes += ["", "Operator proxy rates:", *(f"- {note}" for note in proxy_notes)]
+    notes += _oss_rate_notes(report.get("headline", []))
     return notes or ["- every attempted run has a known cost"]
 
 

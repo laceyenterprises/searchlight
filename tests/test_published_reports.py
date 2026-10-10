@@ -100,6 +100,57 @@ def test_calibration_drift_rejected(publication):
     assert any('calibration does not match' in error for error in reports.check(publication))
 
 
+def _add_oss_harness(directory, *, summary_column=True):
+    """A synthetic third calibrated harness on an OSS model, rendered as a publisher would."""
+    calibration_path, summary_path = directory / 'calibration.json', directory / 'summary.json'
+    calibration = json.loads(calibration_path.read_text())
+    harness = json.loads(json.dumps(calibration['harnesses']['codex']))
+    harness['model'] = 'litellm/glm-5.2'
+    calibration['harnesses']['opencode'] = harness
+    calibration_path.write_text(json.dumps(calibration))
+    summary = json.loads(summary_path.read_text())
+    if summary_column:
+        table = next(b['table'] for b in summary['blocks'] if 'table' in b and b['table'][0][0] == 'Task')
+        for row in table:
+            row.append(row[-1] if row[0] != 'Task' else 'opencode')
+    summary_path.write_text(json.dumps(summary))
+    (directory / 'REPORT.md').write_text(reports.render(summary))
+
+
+def test_three_harness_calibration_with_an_oss_model_passes(publication):
+    _add_oss_harness(publication / 'reports' / reports.REPORTS[1])
+    assert reports.check(publication) == []
+
+
+def test_three_harness_calibration_checks_every_column(publication):
+    directory = publication / 'reports' / reports.REPORTS[1]
+    _add_oss_harness(directory)
+    path = directory / 'calibration.json'
+    data = json.loads(path.read_text())
+    data['harnesses']['opencode']['tasks'][0]['ceiling_passes'] = 3
+    path.write_text(json.dumps(data))
+    errors = reports.check(publication)
+    assert any('opencode/' in error and 'violates calibration thresholds' in error for error in errors)
+    assert any('calibration does not match' in error for error in errors)
+
+
+def test_calibrated_harness_without_a_summary_column_is_rejected(publication):
+    _add_oss_harness(publication / 'reports' / reports.REPORTS[1], summary_column=False)
+    errors = reports.check(publication)
+    assert errors == [f'{reports.REPORTS[1]}: calibration harnesses do not match summary columns']
+
+
+def test_every_calibrated_report_is_checked(publication):
+    for name in reports.REPORTS:
+        path = publication / 'reports' / name / 'calibration.json'
+        data = json.loads(path.read_text())
+        if 'harnesses' not in data:
+            continue
+        data['harnesses'][next(iter(data['harnesses']))]['tasks'][0]['floor_passes'] += 1
+        path.write_text(json.dumps(data))
+        assert any(error.startswith(f'{name}: ') for error in reports.check(publication, reports=(name,)))
+
+
 def test_reproduction_suite_covers_wsb_matrix():
     import yaml
     from sew.schema import load_suite_manifest

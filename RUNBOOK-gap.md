@@ -197,6 +197,43 @@ Codex uses the existing placeholder refresh token in its scratch auth file.
 Every preflight exception retains `reason` beside `admissible: false` in the
 refusal artifact before propagating; no model invocation follows a refusal.
 
+## Harnesses and OSS models
+
+GAP calibration and batteries run on `claude-code` and `codex`. The OSS harnesses
+(Hermes Agent `hermes`, Opencode `opencode` and Pi `pi`) run WSB search cells only:
+GAP calibration refuses them and they refuse code cells. Use the same explicit
+harness and model for calibration and the battery, as for frontier models.
+
+Claude Code and Codex can run an OSS model through a LiteLLM proxy that you run.
+OSS support is off by default:
+
+- **LiteLLM** is a separate runtime dependency. Install and run it outside
+  Searchlight; `config/litellm-example.yaml` is an example route list for every
+  `litellm/<route>` in `config/oss-models.yaml`, with no credentials in it.
+- **`sew.yaml oss`**: set `enabled: true`, `litellm.base_url` (default
+  `http://127.0.0.1:4000`) and `litellm.api_key_env` (default
+  `SEW_LITELLM_API_KEY`); include the harness in `oss.harnesses` and the route in
+  `oss.models`.
+- **Environment**: `SEW_OSS_ENABLED=1` overrides `oss.enabled`,
+  `SEW_LITELLM_BASE_URL` overrides the endpoint, and `SEW_LITELLM_API_KEY` holds
+  the proxy key. Never print it or write it into configuration.
+
+Pass the route as the model, for example `--model litellm/glm-5.2`. A
+`litellm/` model selects LiteLLM harness auth by itself (`--harness-auth litellm`
+on `gap run` is the explicit form); native cells are recorded as not applicable.
+The cell's egress allowlist admits only the LiteLLM endpoint for model traffic,
+as described above. Calibration is per model, so an OSS model needs its own
+calibration record (`gap/calibration/<harness>@litellm%2F<route>.json`).
+Battery cost uses the catalog rate: a dated list rate, or $0 per token for a
+self-hosted route, whose hardware is not counted.
+
+When publishing a report that adds a harness or model, name each one in the
+setup table's `Harnesses` row (`<harness> on <model>`, comma-separated) and add one
+calibration column per harness to the Task table, in the order of
+`calibration.json`'s `harnesses`. `scripts/check_reports.py` checks every column,
+and `scripts/build_site.py` draws one leaderboard per harness heading, titled with
+the model that row names.
+
 ## Validate and calibrate
 
 Author validity precedes calibration. The wheelhouse is an outside-tree cache of

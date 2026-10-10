@@ -1,3 +1,4 @@
+import copy
 import importlib.util
 import json
 import re
@@ -55,6 +56,49 @@ def test_leaderboards_transcribe_published_tables(leaderboard_reports):
     assert wsb[0]['arm'] == 'firecrawl' and wsb[0]['passes'] == 38 and wsb[0]['cells'] == 42
     assert next(row for row in wsb if row['arm'] == 'native')['note'] == site.RERUN_NOTE
     assert not any(row['flagged'] for board in boards.values() for row in board['rows'])
+
+
+@pytest.fixture
+def three_harness_reports():
+    """The published reports plus a synthetic third GAP harness on an OSS model."""
+    reports = site.load_reports()
+    blocks = reports['2026-10-03-search-gap-bench']['summary']['blocks']
+    setup = next(b['table'] for b in blocks if 'table' in b and any(r[0] == 'Harnesses' for r in b['table']))
+    row = next(r for r in setup if r[0] == 'Harnesses')
+    row[1] += ', opencode on litellm/glm-5.2'
+    codex = next(i for i, b in enumerate(blocks) if '### codex' in b.get('markdown', ''))
+    table = copy.deepcopy(blocks[codex + 1])
+    blocks[codex + 2:codex + 2] = [{'markdown': '### opencode (6 tasks, 18 cells per arm)'}, table]
+    return reports
+
+
+def test_leaderboards_carry_any_number_of_harnesses_and_their_models(three_harness_reports):
+    boards = site.leaderboards(three_harness_reports)
+    gap = [b for b in boards if b['bench'] == 'GAP']
+    assert [b['harness'] for b in gap] == ['claude-code', 'codex', 'opencode']
+    titles = {b['harness']: b['title'] for b in gap}
+    assert titles['claude-code'] == 'Search gap bench: Claude Code (claude-opus-5-5)'
+    assert titles['codex'] == 'Search gap bench: Codex (gpt-6.1-sol)'
+    assert titles['opencode'] == 'Search gap bench: Opencode (litellm/glm-5.2)'
+    assert site.harness_name(gap[2]) == ('Opencode', 'litellm/glm-5.2')
+
+    svg = site.infographic(boards, site.behavior(three_harness_reports))
+    assert svg.endswith('</svg>')
+    for name in ('Claude Code', 'Codex', 'Opencode', 'litellm/glm-5.2'):
+        assert f'>{name}</text>' in svg
+    assert '· 3 AI coding agents ·' in svg
+    assert site.headline(boards, site.behavior(three_harness_reports))['agents'] == 3
+
+
+def test_a_report_without_model_names_titles_boards_by_harness(leaderboard_reports):
+    boards = {b['id']: b for b in site.leaderboards(leaderboard_reports)}
+    assert boards['gap-codex']['title'] == 'Search gap bench: Codex'
+    assert site.harness_name(boards['gap-codex']) == ('Codex', '')
+
+
+def test_published_leaderboard_data_has_no_model_key():
+    data = json.loads(site.build()['leaderboard.json'])
+    assert all('model' not in board for board in data['boards'])
 
 
 def test_wilson_interval_matches_reference_values():

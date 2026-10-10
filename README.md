@@ -5,7 +5,9 @@
 **Website: [searchlightai.dev](https://searchlightai.dev)**
 
 **An open benchmark of what web search does for coding agents.** Searchlight runs real
-agent harnesses (Claude Code and codex) against task catalogs. Each run gives the agent
+agent harnesses against task catalogs: Claude Code and codex, and, with
+[OSS models](#oss-models) behind a LiteLLM proxy, Hermes Agent, Opencode and Pi. The
+published results so far cover Claude Code and codex. Each run gives the agent
 exactly one retrieval arm: one vendor's search server, the harness's own built-in search,
 or no search at all. Searchlight then grades the finished job, not the search results. It also
 records every tool call, so you can see *how* the agent used the tool it was given.
@@ -44,6 +46,7 @@ records every tool call, so you can see *how* the agent used the tool it was giv
                        ┌──────────────────────────────────────────────────────────┐
                        │             the same agent, the same prompt              │
                        │      Claude Code (claude-opus-5-5)  or  codex (gpt-6.1)  │
+                       │  or Hermes Agent, Opencode, Pi on an OSS model (LiteLLM) │
                        └───────────────────────────┬──────────────────────────────┘
                                                    │ exactly one retrieval arm
    ┌──────────┬──────────┬──────────┬──────────┬───┴──────┬──────────┬──────────┬──────────┐
@@ -74,8 +77,9 @@ flowchart LR
   end
   subgraph Cell["One cell = task x arm x repetition"]
     W["fresh scratch workspace"]
-    H["harness: Claude Code or codex"]
+    H["harness: Claude Code, codex, Hermes Agent, Opencode or Pi"]
     P["metering proxy"]
+    L["LiteLLM proxy (OSS models, opt-in)"]
     V[("vendor MCP server, pinned version")]
   end
   subgraph Grading
@@ -86,6 +90,7 @@ flowchart LR
   T2 --> W
   W --> H
   H <-->|"tool calls"| P
+  H <-.->|"model calls"| L
   P <--> V
   H --> B[("evidence bundle: transcript, answer, arm audit, metrics")]
   B --> D
@@ -101,7 +106,7 @@ flowchart LR
 sequenceDiagram
   autonumber
   participant R as Runner
-  participant H as Harness (Claude Code or codex)
+  participant H as Harness (Claude Code, codex, Hermes Agent, Opencode or Pi)
   participant M as Metering proxy
   participant V as Vendor MCP server
   participant A as Arm audit
@@ -146,6 +151,17 @@ workspace) is identical.
  └──────────────┴──────────────────────────────┘    └──────────────┴───────────────────────────┘
  Read is local: Claude Code saves oversized tool results to a file the model must Read.
 ```
+
+The OSS harnesses get the same contract, built from their own configuration in a fresh
+per-cell home. Each runs only an explicit `litellm/<route>` model; see [OSS models](#oss-models).
+
+| Harness | Provider arm | Native arm | no-search, floor, ceiling |
+|---|---|---|---|
+| Hermes Agent | one `mcp-<server>` toolset; built-in web, shell and other toolsets disabled | not applicable (no isolated native search) | nothing |
+| Opencode | one local MCP server; built-in web, shell, filesystem and delegation tools denied | client-side `websearch` and `webfetch`; shell denied | nothing |
+| Pi | one MCP server through Searchlight's stdio bridge; built-in tools, extensions and skills off | not applicable (Pi has no web tools) | nothing |
+
+A not-applicable cell is recorded as such without launching the harness.
 
 After every cell an **arm audit** compares each observed tool call with the arm contract.
 A call outside the contract (for example, a provider arm reaching native search) marks the
@@ -234,6 +250,11 @@ sequenceDiagram
 ## Measuring how agents search
 
 `scripts/analyze_search_behavior.py` reads stored transcripts. It makes no network or model calls.
+It reads each harness's own event stream: Claude Code and codex, Opencode `tool_use` events,
+Hermes Agent tool calls and Pi tool results. Harnesses prefix a vendor's tool with its server
+name in different ways (`mcp__exa__web_search_exa`, `mcp_exa_web_search_exa`,
+`exa_web_search_exa`); the analyzer drops the prefix, so every harness's call counts as
+the vendor's `web_search_exa`. Opencode's native `websearch` and `webfetch` count as search and fetch.
 
 ```mermaid
 flowchart LR
@@ -305,6 +326,7 @@ Engineers from every tested service will read this, so the limitations come firs
 | Firecrawl | stdio MCP server | `firecrawl-mcp@3.26.0` | 29 (search, scrape, crawl, map, extract, agent, research, monitor, …) |
 | Perplexity | stdio MCP server | `@perplexity-ai/mcp-server@1.3.0` | 4 (search, ask, research, reason) |
 | native | harness built-in | Claude Code 2.1.282 / codex `--search` | WebSearch + WebFetch (Claude Code); built-in search and page views (codex) |
+| native (OSS) | harness built-in | Opencode >= 1.17.3 | `websearch` + `webfetch` (Opencode); not applicable on Hermes Agent and Pi |
 
 ## Quickstart
 
@@ -319,6 +341,7 @@ sew doctor          # mode, state root, key presence, harness logins, sandbox qu
  ┌──────────────── standalone (default) ────────────────┐   ┌─────── agent-os (optional) ──────┐
  │ provider keys:  SEW_<VENDOR>_API_KEY or a local .env │   │ keys via a host secrets service  │
  │ harness auth:   your own `claude` / `codex` login    │   │ harness auth via a token broker  │
+ │ OSS models:     a LiteLLM proxy you run              │   │ LiteLLM key via host secrets     │
  │ state:          ~/.local/share/sew                   │   │ installs with the [agent-os]     │
  │ selected by:    SEW_MODE=standalone or auto          │   │ extra; never required            │
  └──────────────────────────────────────────────────────┘   └──────────────────────────────────┘
@@ -353,40 +376,8 @@ sew gap report /path/to/gap-battery
 python3 scripts/analyze_search_behavior.py /path/to/suite-run --catalog catalogs/gap/tasks.yaml --json out.json
 ```
 
-OSS support is off by default. LiteLLM is a separate runtime dependency; install
-and configure it outside Searchlight using [the example route list](config/litellm-example.yaml).
-The [OSS catalog](config/oss-models.yaml) contains the seven `litellm/<route>`
-model ids, token limits and dated rates. Configure `sew.yaml` as follows:
-
-```yaml
-oss:
-  enabled: false
-  litellm:
-    base_url: http://127.0.0.1:4000
-    api_key_env: SEW_LITELLM_API_KEY
-  harnesses: [hermes, pi, opencode, claude-code, codex]
-  # models defaults to every route in config/oss-models.yaml
-```
-
-`SEW_OSS_ENABLED=1` enables support; `SEW_LITELLM_BASE_URL` overrides the
-endpoint. Set `SEW_LITELLM_API_KEY` in your environment.
-Credentials are injected into each cell, and judges keep their own credentials.
-`sew doctor` probes LiteLLM only when OSS is enabled: it checks
-`/health/readiness` and lists selected routes advertised by `/v1/models`.
-These diagnostics use the proxy key when provisioned and report availability
-without displaying the key. They do not make a model call or establish that
-a listed route can complete inference. Preview a cell without
-reading a key or starting a harness with
-`SEW_OSS_ENABLED=1 sew run-live-harness --harness codex --model litellm/glm-5.2 --arm exa --dry-run`.
-Claude Code and Codex route catalogued OSS models through LiteLLM for provider
-search arms. Claude Code receives the proxy endpoint and token per cell; Codex
-uses an isolated LiteLLM Responses provider in its cell config. Native search
-cells are recorded as not applicable without launching a harness. Model cost
-evidence uses the catalog rates, and token usage may record `usage_basis` as
-`harness`, `litellm_response`, or `unavailable`. Legacy Pi profiles live under
-`fixtures/` solely for offline replay.
-The [Opencode adapter](docs/opencode.md) supports isolated search cells on
-Opencode >=1.17.3 with OSS models, including its client-side native web tools.
+Hermes Agent, Opencode and Pi, and OSS models on any harness, need the opt-in LiteLLM
+setup in [OSS models](#oss-models).
 
 In live runs, `--max-wall-clock-seconds` sets the run wall-clock limit;
 `timeouts.run_seconds` is the fallback when no operator budgets are supplied.
@@ -398,6 +389,184 @@ that stopped at its previous cap. The run summary reports `budget_limits` and
 The provider MCP configuration is a YAML file outside the repository, and it names keys by
 environment reference. See [configuration and metering](WORKBENCH.md) and
 [RUNBOOK-gap.md](RUNBOOK-gap.md) before any live execution.
+
+## OSS models
+
+Searchlight can run open-weight and other non-frontier models through a
+[LiteLLM](https://docs.litellm.ai/) proxy that you run. OSS support is off by
+default, and nothing in this section is needed for the published results or for
+`sew doctor` in standalone mode.
+
+```mermaid
+flowchart LR
+  C["config/oss-models.yaml: model ids, limits, dated rates"] --> R["runner: one cell per harness x model x arm"]
+  Y["sew.yaml oss: enabled, LiteLLM endpoint, key variable"] --> R
+  R --> H["harness: Hermes Agent, Opencode, Pi, Claude Code or codex"]
+  H <-->|"model calls, scoped proxy key"| L["LiteLLM proxy (yours)"]
+  L <--> M[("hosted OSS APIs or a self-hosted model")]
+  H <-->|"tool calls"| V[("the arm's MCP server")]
+  R --> B["bakeoff report: $ per cell labelled with its rate basis"]
+```
+
+### Harnesses
+
+| Harness | id | Minimum version | Binary override | Models | Native arm | GAP |
+|---|---|---|---|---|---|---|
+| Claude Code | `claude-code` | | `SEW_CLAUDE_CODE_BIN` | its own, or a `litellm/<route>` | WebSearch + WebFetch; not applicable on an OSS model | yes |
+| codex | `codex` | | `SEW_CODEX_BIN` | its own, or a `litellm/<route>` | `--search`; not applicable on an OSS model | yes |
+| Hermes Agent | `hermes` | 0.16.0 | `SEW_HERMES_BIN` | a `litellm/<route>` only | not applicable | not yet |
+| Opencode | `opencode` | 1.17.3 | `SEW_OPENCODE_BIN` | a `litellm/<route>` only | `websearch` + `webfetch` | not yet |
+| Pi | `pi` | 0.79.8 (and Node.js) | `SEW_PI_BIN` | a `litellm/<route>` only | not applicable | not yet |
+
+`sew doctor` checks each OSS harness's version with `--version`, without a model call.
+GAP calibration and batteries accept `claude-code` and `codex`; code cells on the OSS
+harnesses are refused.
+
+### Setup
+
+1. **Install LiteLLM.** It is a separate runtime dependency, not a Searchlight package
+   requirement. Install and run it outside Searchlight; the
+   [example route list](config/litellm-example.yaml) maps every catalog route to an
+   upstream model and reads each upstream key from LiteLLM's own environment. It holds
+   no credentials.
+2. **Pick models.** The [OSS catalog](config/oss-models.yaml) contains the seven
+   `litellm/<route>` model ids, their context and output limits, and dated rates. A
+   route's LiteLLM `model_name` must match the catalog route.
+3. **Configure `sew.yaml`:**
+
+   ```yaml
+   oss:
+     enabled: false
+     litellm:
+       base_url: http://127.0.0.1:4000
+       api_key_env: SEW_LITELLM_API_KEY
+     harnesses: [hermes, pi, opencode, claude-code, codex]
+     # models defaults to every route in config/oss-models.yaml
+   ```
+
+4. **Set the environment:**
+
+   | Variable | Effect | Default |
+   |---|---|---|
+   | `SEW_OSS_ENABLED` | `1`/`true` or `0`/`false`; overrides `oss.enabled` | `oss.enabled`, else off |
+   | `SEW_LITELLM_BASE_URL` | the proxy endpoint, HTTP(S) without credentials; overrides `oss.litellm.base_url` | `http://127.0.0.1:4000` |
+   | `SEW_LITELLM_API_KEY` | the proxy key handed to each cell; `oss.litellm.api_key_env` names a different variable | none |
+
+5. **Check and preview.** `sew doctor` probes LiteLLM only when OSS is enabled, then
+   preview a cell without reading a key or starting a harness:
+
+   ```sh
+   SEW_OSS_ENABLED=1 sew run-live-harness --harness opencode --model litellm/glm-5.2 --arm exa --dry-run
+   ```
+
+A suite selects OSS models per harness by naming the route as a model profile:
+
+```yaml
+harnesses:
+  opencode:
+    model_profiles: [litellm/glm-5.2]
+  claude-code:
+    model_profiles: [default, litellm/local/qwen3-coder-next-80b-a3b-6bit]
+```
+
+### How OSS cells run
+
+Credentials are injected into each cell, and judges keep their own credentials.
+`sew doctor` checks `/health/readiness` and lists selected routes advertised by
+`/v1/models`. These diagnostics use the proxy key when provisioned and report
+availability without displaying the key. They do not make a model call or establish
+that a listed route can complete inference.
+Claude Code and Codex route catalogued OSS models through LiteLLM for provider
+search arms. Claude Code receives the proxy endpoint and token per cell; Codex
+uses an isolated LiteLLM Responses provider in its cell config. Native search
+cells are recorded as not applicable without launching a harness. Token usage may
+record `usage_basis` as `harness`, `litellm_response`, or `unavailable`. Legacy Pi
+profiles live under `fixtures/` solely for offline replay.
+
+### Cost and reports
+
+Model cost evidence uses the catalog rates. Each catalog entry has a `rate_basis`:
+
+- `list`: the provider's published rate on the entry's `as_of` date, from its `source`.
+- `self-hosted`: $0 per token. Hardware and power are not counted, so a self-hosted
+  dollar figure is not a cost of ownership.
+
+Once a run includes an OSS model, the bakeoff report's cost table adds harness and
+model columns and labels every OSS dollar figure with its basis, for example
+`$1.8400 (catalog 2026-10-06)` or `$0.0000 (self-hosted)`, followed by a list of each
+model's rate and source. Reports without OSS models render exactly as before. The
+site's GAP leaderboards and infographic draw one board per harness the report
+contains, titled with the model its setup table names.
+
+### Hermes Agent search cells
+
+Hermes Agent search cells require Hermes >= 0.16.0 and the opt-in OSS
+configuration described above. Set `SEW_HERMES_BIN` to override its binary.
+Select an explicit `litellm/<route>` model. Each cell creates a fresh
+`HERMES_HOME/config.yaml`, uses a custom OpenAI-compatible provider with the
+proxy key read from the child environment, and exposes only the selected MCP
+server. Built-in web, shell and other toolsets are disabled. Hermes's native
+arm is unavailable in this adapter. GAP cells are not supported yet.
+
+The adapter uses `hermes -z PROMPT -m ROUTE --provider custom:searchlight
+--ignore-rules` (plus `-t SERVER` for provider arms), verified with 0.16.0
+`hermes --help`. One-shot stdout contains only final text; the driver polls
+`HERMES_HOME/state.db` for machine-readable messages, tool calls and session
+usage. A separate thread reads stdout; the driver waits at most 50 ms for queued
+stdout before polling the ledger, so silent or partial-line output cannot block
+live budget checks. Session readiness and usage updates feed the existing boot
+and budget checks; usage is known only to the extent Hermes has persisted it.
+Raw session databases and configuration homes are temporary and are removed
+after the cell.
+See the upstream [MCP configuration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp/)
+and [toolsets reference](https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference).
+This adds support only; no model runs are required to validate the adapter.
+
+### Opencode search cells
+
+The [Opencode adapter](docs/opencode.md) supports isolated search cells on
+Opencode >= 1.17.3 with OSS models, including its client-side native web tools.
+
+### Pi search cells (support only)
+
+Pi requires version 0.79.8 or newer, Node.js, an enabled `oss` configuration,
+a catalog `litellm/<route>` model and a scoped LiteLLM key. `sew doctor` checks
+its version; `SEW_PI_BIN` selects an alternate binary. Preview a cell without
+calling a model:
+
+```sh
+sew run-live-harness --harness pi --model litellm/glm-5.2 --arm exa --dry-run
+```
+
+The version probe has a ten-second timeout. Launch errors, timeouts and nonzero
+probe exits propagate from cell setup as operational exceptions, allowing the
+caller to retry; they are not converted to version configuration refusals.
+`sew doctor` reports these as `version probe failed` and continues its checks.
+Setup can be repeated in the same scratch directory after a partial failure;
+the shipped extensions and cell configuration are rewritten on each attempt.
+
+Each cell uses a fresh `PI_CODING_AGENT_DIR`, Searchlight's LiteLLM provider
+extension and a stdio MCP bridge for the selected arm only. The live runner
+resolves the LiteLLM key through the host credential service (in standalone
+mode, from `SEW_LITELLM_API_KEY` or the configured `oss.litellm.api_key_env`)
+and injects it into Pi as `SEW_LITELLM_API_KEY`. The extension reads this
+normalized child variable; credentials are not written to the cell config.
+Built-in tools, extension discovery, skills and project context are disabled. JSON events
+supply the answer, usage and arm audit; model pricing uses the OSS catalog.
+Pi has no native web tools, so its native arm is not applicable. The offline
+Pi profiles and fixture driver remain available. The legacy `pi-live-smoke`
+help probe no longer creates a live-success bundle. Code-cell support is a
+separate follow-up; this adapter supports search cells only.
+
+MCP tool failures remain errors and include the server's diagnostic text in
+the exception delivered to Pi; non-text content blocks are serialized as JSON.
+The MCP server inherits Pi's stderr, so initialization and runtime diagnostics
+are captured in the cell's `artifacts/harness-stderr.txt`.
+The bridge ignores blank stdout lines and skips malformed JSON with a fixed
+stderr warning that omits the line contents. Pending requests remain active
+and retain their thirty-second timeout.
+Cell evidence scrubs the JSON server-env envelope and values under credential
+keys, while preserving benign settings such as `DEBUG`, `PORT` and `NODE_ENV`.
 
 ## Reproducing the published results
 
@@ -469,7 +638,8 @@ pointing to the correction.
 searchlight/
 ├── bin/                     hq-sew wrapper, wheel-cache preparation
 ├── catalogs/                task catalogs: production (WSB), gap, domains, fixtures
-├── config/                  pinned provider arm tools, price table, MCP meter tariffs
+├── config/                  pinned provider arm tools, price table, MCP meter tariffs,
+│                            OSS model catalog, example LiteLLM routes
 ├── lib/python/sew/          runner, arms, harness adapters, meter, grading, reports
 │   └── gap/                 calibration, workspace sandbox, verifier, brief grading
 ├── reports/                 published reports (summary.json is the source of truth)
@@ -487,66 +657,3 @@ searchlight/
 - Licensed under [Apache-2.0](LICENSE).
 - Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 - Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Hermes Agent search cells require Hermes >= 0.16.0 and the opt-in OSS
-configuration described above. Set `SEW_HERMES_BIN` to override its binary.
-Select an explicit `litellm/<route>` model. Each cell creates a fresh
-`HERMES_HOME/config.yaml`, uses a custom OpenAI-compatible provider with the
-proxy key read from the child environment, and exposes only the selected MCP
-server. Built-in web, shell and other toolsets are disabled. Hermes's native
-arm is unavailable in this adapter. GAP code cells are not supported yet.
-
-The adapter uses `hermes -z PROMPT -m ROUTE --provider custom:searchlight
---ignore-rules` (plus `-t SERVER` for provider arms), verified with 0.16.0
-`hermes --help`. One-shot stdout contains only final text; the driver polls
-`HERMES_HOME/state.db` for machine-readable messages, tool calls and session
-usage. A separate thread reads stdout; the driver waits at most 50 ms for queued
-stdout before polling the ledger, so silent or partial-line output cannot block
-live budget checks. Session readiness and usage updates feed the existing boot
-and budget checks; usage is known only to the extent Hermes has persisted it.
-Raw session databases and configuration homes are temporary and are removed
-after the cell.
-See the upstream [MCP configuration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp/)
-and [toolsets reference](https://hermes-agent.nousresearch.com/docs/reference/toolsets-reference).
-This adds support only; no model runs are required to validate the adapter.
-
-### Pi search cells (support only)
-
-Pi requires version 0.79.8 or newer, Node.js, an enabled `oss` configuration,
-a catalog `litellm/<route>` model and a scoped LiteLLM key. `sew doctor` checks
-its version; `SEW_PI_BIN` selects an alternate binary. Preview a cell without
-calling a model:
-
-```sh
-sew run-live-harness --harness pi --model litellm/glm-5.2 --arm exa --dry-run
-```
-
-The version probe has a ten-second timeout. Launch errors, timeouts and nonzero
-probe exits propagate from cell setup as operational exceptions, allowing the
-caller to retry; they are not converted to version configuration refusals.
-`sew doctor` reports these as `version probe failed` and continues its checks.
-Setup can be repeated in the same scratch directory after a partial failure;
-the shipped extensions and cell configuration are rewritten on each attempt.
-
-Each cell uses a fresh `PI_CODING_AGENT_DIR`, Searchlight's LiteLLM provider
-extension and a stdio MCP bridge for the selected arm only. The live runner
-resolves the LiteLLM key through the host credential service (in standalone
-mode, from `SEW_LITELLM_API_KEY` or the configured `oss.litellm.api_key_env`)
-and injects it into Pi as `SEW_LITELLM_API_KEY`. The extension reads this
-normalized child variable; credentials are not written to the cell config.
-Built-in tools, extension discovery, skills and project context are disabled. JSON events
-supply the answer, usage and arm audit; model pricing uses the OSS catalog.
-Pi has no native web tools, so its native arm is not applicable. The offline
-Pi profiles and fixture driver remain available. The legacy `pi-live-smoke`
-help probe no longer creates a live-success bundle. Code-cell support is a
-separate follow-up; this adapter supports search cells only.
-
-MCP tool failures remain errors and include the server's diagnostic text in
-the exception delivered to Pi; non-text content blocks are serialized as JSON.
-The MCP server inherits Pi's stderr, so initialization and runtime diagnostics
-are captured in the cell's `artifacts/harness-stderr.txt`.
-The bridge ignores blank stdout lines and skips malformed JSON with a fixed
-stderr warning that omits the line contents. Pending requests remain active
-and retain their thirty-second timeout.
-Cell evidence scrubs the JSON server-env envelope and values under credential
-keys, while preserving benign settings such as `DEBUG`, `PORT` and `NODE_ENV`.

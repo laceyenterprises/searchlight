@@ -690,6 +690,69 @@ def test_newcombe_interval_matches_the_published_reference() -> None:
 # --------------------------------------------------------------------------
 
 
+def test_oss_models_are_priced_and_labelled_from_the_catalog(tmp_path: Path) -> None:
+    root = _run_root(tmp_path)
+    entries = _arm(
+        root,
+        "opencode",
+        "exa",
+        ["pass", "pass", "fail"],
+        usage=_usage(1_000_000, 0, 100_000, 0),
+        model_profile="litellm/glm-5.2",
+    )
+    entries += _arm(
+        root,
+        "claude-code",
+        "brave",
+        ["pass"] * 3,
+        usage=_usage(500_000, 0, 50_000, 0),
+        model_profile="litellm/local/qwen3-coder-next-80b-a3b-6bit",
+    )
+    entries += _arm(root, "codex", "no-search", ["pass"] * 3, usage=_usage(1000, 0, 500, 0), model_id="gpt-6-sol")
+    _state(root, entries)
+    report = build_bakeoff_report(root, module_base=MODULE_ROOT, generated_at=GENERATED_AT)
+    markdown = render_bakeoff_markdown(report)
+
+    glm = _headline(report, "opencode+exa [litellm/glm-5.2]")
+    assert glm["model_rate"] == {
+        "model_id": "litellm/glm-5.2",
+        "rate_basis": "list",
+        "price_source": "https://docs.z.ai/guides/llm/glm-5.2",
+        "price_as_of": "2026-10-06",
+    }
+    local = _headline(report, "claude-code+brave [litellm/local/qwen3-coder-next-80b-a3b-6bit]")
+    assert local["model_rate"]["rate_basis"] == "self-hosted"
+    assert "model_rate" not in _headline(report, "codex+no-search")
+    runs = {run["run_id"]: run for run in report["runs"]}
+    # 1M input at $1.4/Mtok + 100k output at $4.4/Mtok.
+    assert runs["opencode-exa-current-fact-lookup-v1-1"]["cost_usd"] == pytest.approx(1.84)
+    assert runs["opencode-exa-current-fact-lookup-v1-1"]["model_id_source"] == "model_profile"
+    assert runs["claude-code-brave-current-fact-lookup-v1-1"]["cost_usd"] == 0
+
+    cost = _section(markdown, "## Cost per successful task")
+    assert "| harness | model | arm | costed / attempted |" in cost
+    assert (
+        "| opencode | litellm/glm-5.2 | exa | 3/3 | 2 | $1.8400 (catalog 2026-10-06) "
+        "| $2.7600 (catalog 2026-10-06) | inferred |"
+    ) in cost
+    # A self-hosted zero is shown, but never without its basis.
+    assert "| brave | 3/3 | 3 | $0.0000 (self-hosted) | $0.0000 (self-hosted) |" in cost
+    assert "| codex | harness default | no-search | 3/3 | 3 | $0.0070 | $0.0070 | inferred |" in cost
+    assert "OSS model rates (config/oss-models.yaml):" in cost
+    assert "- litellm/glm-5.2: catalog list rate as of 2026-10-06 (https://docs.z.ai/guides/llm/glm-5.2)" in cost
+    assert "- litellm/local/qwen3-coder-next-80b-a3b-6bit: self-hosted, priced at $0 per token" in cost
+
+
+def test_frontier_only_cost_table_is_unchanged_by_oss_labelling(tmp_path: Path) -> None:
+    root = _run_root(tmp_path)
+    _state(root, _arm(root, "codex", "no-search", ["pass"] * 3, usage=_usage(1000, 0, 500, 0), model_id="gpt-6-sol"))
+    report = build_bakeoff_report(root, module_base=MODULE_ROOT, generated_at=GENERATED_AT)
+    assert all("model_rate" not in row for row in report["headline"])
+    cost = _section(render_bakeoff_markdown(report), "## Cost per successful task")
+    assert "| arm | costed / attempted | successes (costed) |" in cost
+    assert "OSS model rates" not in cost
+
+
 def _run_root(tmp_path: Path) -> Path:
     root = tmp_path / ".sew" / "runs" / "wsb-fixture"
     (root / "bundles").mkdir(parents=True)
@@ -733,6 +796,7 @@ def _arm(
     usage: dict[str, Any] | None = None,
     task_id: str = FACT,
     first_rep: int = 1,
+    model_profile: str = "default",
     **bundle: Any,
 ) -> list[dict[str, Any]]:
     """One bundle per outcome: pass, fail, ungraded, or a terminal run status."""
@@ -742,15 +806,18 @@ def _arm(
         repetition = first_rep + offset
         run_id = f"{harness}-{provider}-{task_id}-{repetition}"
         status = "succeeded" if outcome in {"pass", "fail", "ungraded"} else outcome
-        _bundle(root, run_id, harness, provider, task_id, status, outcome, usage, **bundle)
+        _bundle(
+            root, run_id, harness, provider, task_id, status, outcome, usage,
+            model_profile=model_profile, **bundle,
+        )
         entries.append(
             {
-                "cell_key": f"{task_id}|{provider}|{harness}|default|{repetition}",
+                "cell_key": f"{task_id}|{provider}|{harness}|{model_profile}|{repetition}",
                 "run_id": run_id,
                 "task_id": task_id,
                 "provider_id": provider,
                 "harness_id": harness,
-                "model_profile": "default",
+                "model_profile": model_profile,
                 "repetition": repetition,
                 "status": status,
                 "terminal": True,
@@ -789,6 +856,7 @@ def _bundle(
     outcome: str,
     usage: dict[str, Any] | None,
     *,
+    model_profile: str = "default",
     model_id: str | None = None,
     transcript_model: str | None = None,
     search_calls: int = 0,
@@ -827,7 +895,7 @@ def _bundle(
             "task_id": task_id,
             "provider_id": provider,
             "harness_id": harness,
-            "model_profile": "default",
+            "model_profile": model_profile,
             "mode": "live",
             "status": status,
             "started_at": "2026-09-26T00:00:00Z",

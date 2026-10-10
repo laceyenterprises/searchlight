@@ -118,9 +118,7 @@ GUARD_ALLOWLIST = Counter(
         # Published bake-off and site copy about the two hosted harnesses.
         ("lib/python/sew/bakeoff_report.py", 'row.harness_id == "codex"'): 4,
         ("lib/python/sew/bakeoff_report.py", 'row.harness_id == "claude-code"'): 1,
-        ("scripts/build_site.py", "board['harness'] == 'claude-code'"): 2,
         ("scripts/build_site.py", "harness == 'claude-code'"): 1,
-        ("scripts/build_site.py", 'harness == "claude-code"'): 1,
     }
 )
 
