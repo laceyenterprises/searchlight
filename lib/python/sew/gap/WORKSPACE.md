@@ -535,11 +535,21 @@ task transcript never replays the canary.
 
 The canary and transcript audit read each harness's event shape: Hermes
 `tool_call` rows and JSON `terminal` results, Opencode `tool_use` parts and
-Pi `toolCall` blocks with `toolResult` messages (start/end repeats count once,
+Pi `toolCall` blocks with `toolResult` messages. Canary validation uses completed
+Pi assistant calls from `message_end` and `turn_end`, deduplicated by call ID;
+older releases' cumulative assistant `message_start`/`message_update` snapshots
+carry incomplete arguments and do not qualify a call. Additional completed
+calls or completed calls outside the exact probe still refuse admission.
+Tool-result start/end repeats count once,
 and Pi's appended `Command exited with code N` status is removed so the
-command's own last line is read, as for Codex). `terminal` joins the shell-tool
-list; Opencode and Pi call theirs `bash`. Hermes `read_file`, `write_file` and
-`patch` and Opencode's `filePath` argument join the forbidden-read audit.
+command's own last line is read, as for Codex. `terminal` joins the shell-tool
+list; Opencode and Pi call theirs `bash`. Hermes `read_file`, `write_file`,
+`patch` and `search_files`, and Opencode `read`, `write`, `edit`, `grep`, `glob`
+and `list` join the forbidden-read audit. The audit checks their path arguments
+(including Opencode `filePath` and paths in `glob` patterns), resolving relative
+paths against the cell workspace. Searching or listing forbidden catalog,
+hidden asset, wheel-cache or verifier paths contaminates the cell just as a read
+does, even when the OS allows the request.
 Denial attribution and the strict pip allowlist are unchanged; tests assert
 that each OSS shape audits exactly as the same Codex command does.
 

@@ -175,6 +175,50 @@ def test_canary_accepts_each_oss_event_shape(harness, denial, wrapped):
     assert {probe["attribution"] for probe in record["probes"].values()} == {"denial-text"}
 
 
+def pi_streaming_canary(nonce, command):
+    fixture = (GOLDEN / "pi-streaming-canary.json").read_text()
+    return json.loads(
+        fixture.replace('"CANARY_COMMAND"', json.dumps(command))
+        .replace('"CANARY_OUTPUT"', json.dumps(canary_output(nonce)))
+    )
+
+
+@pytest.mark.parametrize("wrapped", [False, True])
+@pytest.mark.parametrize("late_snapshot", [False, True])
+def test_pi_canary_accepts_cumulative_streaming_snapshots(wrapped, late_snapshot):
+    nonce, command = canary_command("pi")
+    events = pi_streaming_canary(nonce, command)
+    if late_snapshot:
+        events += events[1:3]
+    if wrapped:
+        events = [{"harness_event": event} for event in events]
+    record = require_canary(captured(events), nonce, command, harness_id="pi")
+    assert record["nonce"] == nonce
+
+
+@pytest.mark.parametrize("defect", ["extra-call", "other-tool", "wrong-command", "unfinished"])
+def test_pi_streaming_canary_still_requires_one_exact_completed_call(defect):
+    nonce, command = canary_command("pi")
+    events = pi_streaming_canary(nonce, command)
+    if defect == "extra-call":
+        events += shell_events("pi", "extra", command, canary_output(nonce))
+    elif defect == "other-tool":
+        events.append({"type": "message_end", "message": {"role": "assistant", "content": [
+            {"type": "toolCall", "id": "extra", "name": "read", "arguments": {"path": "."}}
+        ]}})
+    elif defect == "wrong-command":
+        for event in events:
+            if event["type"] in {"message_end", "turn_end"} and event["message"]["role"] == "assistant":
+                event["message"]["content"][0]["arguments"]["command"] = "echo forged"
+    else:
+        # A final streaming snapshot plus a result is not a completed request.
+        events = [event for event in events if not (
+            event["type"] in {"message_end", "turn_end"} and event["message"]["role"] == "assistant"
+        )]
+    with pytest.raises(EgressCanaryRefused):
+        require_canary(captured(events), nonce, command, harness_id="pi")
+
+
 @pytest.mark.parametrize("harness", OSS)
 @pytest.mark.parametrize(
     "failure",
@@ -305,6 +349,42 @@ def test_oss_file_tools_cannot_read_hidden_assets(tmp_path, event):
     assert audit_workspace_calls([event], forbidden_paths=[hidden.parent]) == [
         "workspace:forbidden-read"
     ]
+
+
+@pytest.mark.parametrize("tool", ["search_files", "grep", "glob", "list"])
+@pytest.mark.parametrize("destination", ["catalog", "hidden", "cache", "verifier", "symlink", "allowed"])
+@pytest.mark.parametrize("relative", [False, True])
+def test_oss_file_search_tools_audit_forbidden_paths(tmp_path, tool, destination, relative):
+    root = tmp_path / "module"
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    paths = {
+        "catalog": root / "catalogs" / "gap",
+        "hidden": root / "catalogs" / "gap" / "hidden",
+        "cache": tmp_path / "verifier-cache",
+        "verifier": gap_workspace.VERIFIER_ROOT,
+        "symlink": workspace / "alias",
+        "allowed": workspace / "src",
+    }
+    paths["symlink"].symlink_to(paths["hidden"], target_is_directory=True)
+    path = paths[destination]
+    path = os.path.relpath(path, workspace) if relative else str(path)
+    arguments = {"path": path, "pattern": ".", "target": "content"}
+    if tool == "search_files":
+        event = {"type": "tool_call", "id": "s", "name": tool, "arguments": json.dumps(arguments)}
+    else:
+        event = {"type": "tool_use", "part": {"type": "tool", "callID": "s", "tool": tool,
+                 "state": {"status": "completed", "input": arguments}}}
+    assert audit_workspace_calls(
+        [event], cwd=workspace, forbidden_paths=[root, paths["cache"]]
+    ) == ([] if destination == "allowed" else ["workspace:forbidden-read"])
+
+
+def test_opencode_glob_cannot_search_forbidden_paths_via_pattern(tmp_path):
+    forbidden = tmp_path / "catalog"
+    event = {"type": "tool_use", "part": {"type": "tool", "callID": "g", "tool": "glob",
+             "state": {"status": "completed", "input": {"pattern": str(forbidden / "**/*.py")}}}}
+    assert audit_workspace_calls([event], forbidden_paths=[forbidden]) == ["workspace:forbidden-read"]
 
 
 @pytest.fixture

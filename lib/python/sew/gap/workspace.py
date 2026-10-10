@@ -311,7 +311,10 @@ SHELL_TOOLS = {
     # Hermes Agent's shell. Opencode and Pi name theirs "bash".
     "terminal",
 }
-FILE_TOOLS = {"read", "read_file", "edit", "write", "write_file", "patch"}
+FILE_TOOLS = {
+    "read", "read_file", "edit", "write", "write_file", "patch",
+    "search_files", "grep", "glob", "list",
+}
 NETWORK_EXECUTABLES = {
     "curl",
     "wget",
@@ -1081,12 +1084,15 @@ def audit_workspace_calls(
                     denied_attempts.add((call_id, command))
             else:
                 violations.append("workspace:shell-network")
-        # File tools: Claude and Pi spell them read/edit/write, Hermes read_file,
-        # write_file and patch; Opencode's take a filePath.
+        # Search/discovery tools expose local contents and metadata too.
+        # Opencode glob can name an absolute path in its pattern alone.
         if name in FILE_TOOLS or shell:
+            keys = ("file_path", "filePath", "path", "file", "command", "cmd")
+            if name == "glob":
+                keys += ("pattern",)
             values = [
                 str(payload.get(key, ""))
-                for key in ("file_path", "filePath", "path", "file", "command", "cmd")
+                for key in keys
             ]
             text = " ".join(values)
             if "catalogs/gap/hidden" in text or any(
@@ -1230,12 +1236,27 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
 
     if refused(events):
         raise EgressCanaryRefused("GAP refused: model refusal")
+    transcript = []
+    for captured in events:
+        event = captured.get("event", captured)
+        wire_event = event.get("harness_event", event)
+        message = wire_event.get("message")
+        if (
+            harness_id == "pi"
+            and wire_event.get("type") in {"message_start", "message_update"}
+            and isinstance(message, Mapping)
+            and message.get("role") == "assistant"
+        ):
+            # Older Pi releases stream cumulative, incomplete tool arguments.
+            # Only message_end/turn_end calls bind the exact probe to its result.
+            continue
+        transcript.append(event)
     # Match a completed Codex shell item, a Claude tool-use/tool-result pair,
     # or an OSS harness's shell call and its result.
     claude_tool_count = 0
     portable_calls = set()
-    for captured in events:
-        for name, payload, call_id in call_payloads(captured.get("event", captured), include_id=True):
+    for event in transcript:
+        for name, payload, call_id in call_payloads(event, include_id=True):
             if name == "bash" and not portable:
                 claude_tool_count += 1
             if portable:
@@ -1254,8 +1275,7 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
     calls = {}
     outputs = []
     codex_items = set()
-    for captured in events:
-        event = captured.get("event", captured)
+    for event in transcript:
         item = event.get("item", {})
         if (
             event.get("type") == "item.completed"
@@ -1289,7 +1309,6 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
                     )
                 )
     if portable:
-        transcript = [captured.get("event", captured) for captured in events]
         shell_calls, names = _shell_calls(transcript)
         results = set()
         for entry in _blocks(transcript):
