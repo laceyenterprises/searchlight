@@ -1059,7 +1059,7 @@ The bundle holds:
 | `README.md` | The shareable headline: completion, tokens, and $/success per arm, and the pooled deltas, each beside the run id, its n, its 95% interval, and its telemetry gaps. |
 | `runs/<id>/` | A self-contained suite run root: runner state, the run index with run dirs relative to it, and every run's records (task prompt, deliverable, transcript, usage, provider calls, evaluation, spawn metadata with the WSB-06 arm audit), including retried attempts. |
 | `runs/<id>/reports/` | The WSB-09 report, generated from the bundle itself. |
-| `manifests/` | The task manifests and catalogs the report read task classes from, `arms.json` (each arm's declared tool surface), and the price table snapshot. |
+| `manifests/` | The task manifests and catalogs the report read task classes from, `arms.json` (each arm's declared tool surface), the price table snapshot, and `config/oss-models.yaml` (the OSS catalog snapshot). |
 | `redaction-report.json` | Every stripped field, by file and JSON pointer, with the rule that stripped it and the captured file's sha256. |
 | `bundle-manifest.json` | The file inventory (sha256 and size), report schema version, and aggregates digest. |
 
@@ -1070,6 +1070,14 @@ The bundle holds:
 | Redaction is the default | Transcript text outside protocol fields (the prompt, model output, and tool inputs and results) and harness stderr are replaced with `<redacted:raw-transcript>`. Protocol fields (event types, tool names, call ids, models, timestamps, usage counters, the announced tool list) are kept only in recognized event, message, and typed-block positions. Codex `web_search` items additionally keep `item.type`, `item.id`, and `item.action.type` for native price re-derivation; action queries, URLs, and other nested payloads are withheld. `--include-raw-transcripts` is the operator's per-run opt-in. The task prompt is still published, in the task manifest and `<run>/artifacts/prompt.md`, and so is each deliverable, because a grade cannot be disputed without it. |
 | Every stripped field is listed | Along with the bundler's own strips, the redaction report lists every `<redacted...>` and `<elided:...>` placeholder the capture already left, and each absolute run-dir path it rewrote. |
 | No credential material, even under opt-in | Every record goes through the credential scrub: values under credential-named keys, credential-shaped text (auth and cookie headers, bearer and API tokens, using the fleet's HRR-09 vocabulary), and every nonempty literal value of a credential env var on the bundling host, including short values. Explicitly known broker-mode flags and credential-file locations are excluded. The finished bundle is then swept with three independent checks: credential shapes, known credential values, and a second scrub pass that must find nothing left to strip. The bundle is assembled in a staging directory and moved into place only after the sweep, so a refused bundle never exists at its destination. |
+
+New bundles snapshot the OSS catalog used by the source report, taking
+`config/oss-models.yaml` from the module base or falling back to the installed
+catalog when the source has none. Report regeneration, `verify`, and `explain`
+use the bundled catalog for both OSS token prices and `model_rate` labels;
+changing or removing the installed catalog does not change a bundled report.
+GAP's shared aggregates pool model profiles and omit a single-model rate label;
+their costs remain priced per run.
 
 `explain` takes a suite run root, a bundle directory, or a suite run id under the
 SEW state root. It prints one row per arm for the task: passed/attempted, the
