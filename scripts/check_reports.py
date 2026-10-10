@@ -45,7 +45,42 @@ def render(summary):
     )
 
 
-def check(root=ROOT):
+def check_calibration(name, data, calibration):
+    """A calibrated GAP report's admission table, one column per calibrated harness."""
+    errors = []
+    if (not isinstance(calibration, dict)
+            or not isinstance(calibration.get('harnesses'), dict)
+            or not calibration['harnesses']):
+        return [f'{name}: calibration requires non-empty harness records']
+    if any(key not in calibration for key in ('catalog_sha256', 'floor_max_passes', 'ceiling_min_passes')):
+        return [f'{name}: calibration metadata is incomplete']
+    if calibration['catalog_sha256'] != data['catalog']['historical']['battery']:
+        errors.append(f'{name}: calibration catalog hash differs from historical battery')
+    table = next(b['table'] for b in data['blocks'] if 'table' in b and b['table'][0][0] == 'Task')
+    if table[0][2:] != list(calibration['harnesses']):
+        return errors + [f'{name}: calibration harnesses do not match summary columns']
+    for col, (harness, record_set) in enumerate(calibration['harnesses'].items(), start=2):
+        tasks = record_set.get('tasks') if isinstance(record_set, dict) else None
+        if not isinstance(tasks, list) or not tasks:
+            errors.append(f'{name}: {harness}: calibration requires non-empty task records')
+            continue
+        if len(tasks) != len(table[2:]):
+            errors.append(f'{name}: {harness}: calibration task count does not match summary')
+            continue
+        for record, row in zip(tasks, table[2:], strict=True):
+            admitted = (
+                record['floor_passes'] <= calibration['floor_max_passes']
+                and record['ceiling_passes'] >= calibration['ceiling_min_passes']
+            )
+            if record['admitted'] is not admitted:
+                errors.append(f'{name}: {harness}/{record["task"]}: admission violates calibration thresholds')
+            expected = f"Floor: {record['floor_passes']}, Ceiling: {record['ceiling_passes']} — " + ('admitted' if record['admitted'] else 'rejected')
+            if row[col] != expected or row[0] != record['task'] or row[1] != record['family']:
+                errors.append(f'{name}: calibration does not match summary')
+    return errors
+
+
+def check(root=ROOT, reports=REPORTS):
     root = Path(root)
     errors = []
     # Optional private input, supplied outside Git; never print its values.
@@ -54,7 +89,7 @@ def check(root=ROOT):
         for name in os.environ.get('SEW_REPORT_PRIVATE_NAMES', '').splitlines()
         if name.strip()
     )
-    for name in REPORTS:
+    for name in reports:
         directory = root / 'reports' / name
         missing = []
         for filename in ('REPORT.md', 'summary.json', 'calibration.json', 'methodology.md', 'reproduce.md'):
@@ -82,21 +117,8 @@ def check(root=ROOT):
         for digest in catalog['historical'].values():
             if not isinstance(digest, str) or not re.fullmatch('[0-9a-f]{64}', digest):
                 errors.append(f'{name}: incomplete historical catalog hash')
-        if name == REPORTS[1]:
-            if calibration['catalog_sha256'] != catalog['historical']['battery']:
-                errors.append(f'{name}: calibration catalog hash differs from historical battery')
-            table = next(b['table'] for b in data['blocks'] if 'table' in b and b['table'][0][0] == 'Task')
-            for harness, col in [('claude-code', 2), ('codex', 3)]:
-                for record, row in zip(calibration['harnesses'][harness]['tasks'], table[2:], strict=True):
-                    admitted = (
-                        record['floor_passes'] <= calibration['floor_max_passes']
-                        and record['ceiling_passes'] >= calibration['ceiling_min_passes']
-                    )
-                    if record['admitted'] is not admitted:
-                        errors.append(f'{name}: {harness}/{record["task"]}: admission violates calibration thresholds')
-                    expected = f"Floor: {record['floor_passes']}, Ceiling: {record['ceiling_passes']} — " + ('admitted' if record['admitted'] else 'rejected')
-                    if row[col] != expected or row[0] != record['task'] or row[1] != record['family']:
-                        errors.append(f'{name}: calibration does not match summary')
+        if data['bench'] == 'GAP':
+            errors.extend(check_calibration(name, data, calibration))
     for path in (root / 'reports').rglob('*'):
         if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES:
             continue

@@ -111,7 +111,12 @@ SEW starts with a strict catalog and fixture schema layer. This module owns:
 - `tasks/*/task.yaml`: task manifests, prompts, and blinded judge rubrics.
 - `fixtures/runs/*`: redacted success and failure bundles for fixture mode.
 - `config/pi-model-profiles.yaml`: configured Pi OSS model profiles and their
-  telemetry/tooling contracts.
+  telemetry/tooling contracts (offline replay only).
+- `config/oss-models.yaml` + `lib/python/sew/oss.py`: the OSS model catalog
+  (`litellm/<route>` ids, limits, dated rates and their basis) and the opt-in
+  `oss` configuration; see "OSS harnesses and models".
+- `config/litellm-example.yaml`: an example LiteLLM route list for the catalog. It
+  holds no credentials.
 - `lib/python/sew/schema.py`: validators for suite manifests, task manifests,
   run records, metrics records, evaluation records, normalized sources,
   provider calls, Pi harness records, and evidence bundles.
@@ -341,7 +346,11 @@ SEW_HARNESS_LIVE=1 modules/search-evaluation-workbench/bin/hq-sew run-live-harne
   --ephemeral --skip-git-repo-check --sandbox read-only -o <file> -`. The prompt
   goes in on stdin. The cwd is a fresh scratch directory, so the repo's
   CLAUDE.md is not loaded. `SEW_CLAUDE_CODE_BIN` and `SEW_CODEX_BIN` override
-  the binaries.
+  the binaries. The OSS harnesses spawn `hermes -z PROMPT -m ROUTE --provider
+  custom:searchlight --ignore-rules`, `opencode run --pure --format json --model
+  searchlight-litellm/<route>` and `pi --provider searchlight-litellm --model
+  <route> -p --mode json --no-session`; `SEW_HERMES_BIN`, `SEW_OPENCODE_BIN` and
+  `SEW_PI_BIN` override them.
 - **Environment.** The child gets an allowlist (PATH, HOME, locale, proxy/CA,
   and harness auth such as `ANTHROPIC_AUTH_TOKEN`/`CODEX_HOME`) plus
   `HarnessRunConfig.env`, never the caller's whole environment. The evidence
@@ -374,6 +383,48 @@ SEW_HARNESS_LIVE=1 modules/search-evaluation-workbench/bin/hq-sew run-live-harne
 - **Not here.** Tool exposure per arm is WSB-06's job, through
   `harness_args` and `env`. Grading is also out of scope: the evaluation record
   is left `pending` for the evaluator and judge.
+
+### OSS harnesses and models
+
+Hermes Agent (`hermes`), Opencode (`opencode`) and Pi (`pi`) join Claude Code and
+Codex in the harness registry (`sew.harnesses`). Each is an OSS harness: it runs
+only an explicit `litellm/<route>` model from `config/oss-models.yaml`, through a
+LiteLLM proxy the operator runs. Claude Code and Codex can run the same routes.
+Everything is off by default; fixture mode and `sew doctor` in standalone mode
+need none of it.
+
+| Harness | Minimum version | Provider arm | Native arm | Usage source |
+|---|---|---|---|---|
+| Hermes Agent | 0.16.0 | one `mcp-<server>` toolset in a fresh `HERMES_HOME` | not applicable | `HERMES_HOME/state.db` session ledger |
+| Opencode | 1.17.3 | one local MCP server in a cell `opencode.json` | client-side `websearch` + `webfetch` | `step_finish` tokens |
+| Pi | 0.79.8 | one server through Searchlight's stdio MCP bridge extension | not applicable | `message_end` usage |
+| Claude Code, Codex on a `litellm/<route>` | | unchanged | not applicable | harness usage, else the LiteLLM response |
+
+Configuration:
+
+- **LiteLLM** is a separate runtime dependency, never a package requirement.
+  `config/litellm-example.yaml` maps each catalog route to its upstream model and
+  reads upstream keys from LiteLLM's own environment.
+- **`sew.yaml oss`**: `enabled` (default `false`), `litellm.base_url` (default
+  `http://127.0.0.1:4000`), `litellm.api_key_env` (default `SEW_LITELLM_API_KEY`),
+  `harnesses` (default `[hermes, pi, opencode]`) and `models` (default every
+  catalog route).
+- **Environment**: `SEW_OSS_ENABLED` (`1`, `0`, `true` or `false`) overrides
+  `oss.enabled`; `SEW_LITELLM_BASE_URL` overrides the endpoint, which must be
+  HTTP(S) without credentials; `SEW_LITELLM_API_KEY` (or the variable
+  `api_key_env` names) is the proxy key. `--harness-auth litellm` on `run`,
+  `run-live-harness` and `gap run` selects it explicitly.
+- The key is injected into each cell's child environment and never written to a
+  cell config; judges keep their own credentials. `sew doctor` probes
+  `/health/readiness` and `/v1/models` only when OSS is enabled, and never makes a
+  model call.
+
+A suite names an OSS model as a model profile (`model_profiles:
+[litellm/glm-5.2]`), and the runner passes the route through as the cell's model
+id. A disabled flag, an unselected harness or model, or an OSS harness without a
+`litellm/` model refuses the cell before spawn. GAP calibration accepts only
+`claude-code` and `codex`, and the OSS harnesses refuse code cells.
+`sew run-live-harness ... --dry-run` prints a cell plan without reading a key.
 
 ### Live suite execution (WSB-07)
 
@@ -872,6 +923,12 @@ for that context variant.
 Each affected run lists the fallback reason in `cost_pricing_notes` in
 `bakeoff-report.json`.
 
+OSS models (`litellm/<route>`) are priced from `config/oss-models.yaml`, not the
+price table. Each entry has a `rate_basis`: `list` is the provider's published rate
+on the entry's `as_of` date, from its `source`; `self-hosted` is $0 per token, and
+its hardware and power are not counted. The loader refuses a self-hosted entry
+with a nonzero rate.
+
 Claude Code native WebSearch is $0.01 per search; WebFetch has no separate
 tool fee, and a search whose transcript explicitly marks the tool result as
 failed has no search fee. Tavily extract with text-only output uses the
@@ -958,6 +1015,7 @@ deltas against the no-search control and against native search.
 | A rate counts only runs the arm decided | *Attempted* runs are `succeeded`, `failed`, `timeout`, and `budget_exhausted`. `contaminated` (also re-read from the WSB-06 arm audit), `not_applicable`, `provider_unavailable`, `harness_boot_failed`, and `cancelled` leave the denominator and become marks. A delivered run with no pass/fail verdict is `ungraded`; its cell's completion rate and $/success are withheld, because a rate over the graded failures alone would be manufactured. The outcome rate over graded runs is still published beside it with the ungraded count (`withheld (ungraded); graded 50.0% (1/2, 1 ungraded)`), so a cell never loses its outcome rate. |
 | Tokens and dollars are measured or absent | Tokens per task is the mean *measured* usage over attempted runs, printed as `tokens (measured/attempted)`. Every cell also reports tokens per success (measured tokens over graded runs / measured passes), with the measured-pass and graded-run counts beside it. The token mix is fresh input (cache writes included) / cache reads / output (reasoning included); it includes only measured runs whose nonnegative integer buckets sum to `total_billable`. The mix buckets sum to the mean total over those `mix_n` runs; partial bucket coverage can make that mean differ from tokens per task. Unknown or estimated usage is excluded from token and cost tables with a warning. Cost is the WSB-04 `cell_cost` of each run; live usage buckets are reshaped to its convention (reasoning back inside output) only when they provably sum to `total_billable`. A run whose search calls have no priced provider-call record has an unknown cost, never a model-only one. |
 | Deltas name their control and denominator | Controls are declared (`DEFAULT_CONTROLS`: `no_search` = `<harness>+no-search`, `native` = `<harness>+native`) and matched on harness, model profile, and task class. Success change is in points with a Newcombe interval; token change is `arm tokens/task / control tokens/task` with both sides' measured counts, and `tokens/success ratio` compares what each side spent per passed task. A delta against a missing, empty, or under-sampled cell is marked and left blank. The pooled row per arm uses only the task classes where both sides are publishable. |
+| An OSS model names its rate | An arm whose model profile is a `litellm/<route>` carries `model_rate` (the route, `rate_basis`, `price_source`, `price_as_of`) in its aggregate. Once any arm has one, the cost table gains `harness` and `model` columns and each OSS dollar figure is suffixed with its basis, `$1.8400 (catalog 2026-10-06)` or `$0.0000 (self-hosted)`; the notes list each model's rate and source. A run without a spawn-recorded model id is priced as its profile's route. Reports without OSS models render exactly as before, so published bundles re-derive unchanged. |
 | Nothing is dropped or crowned | Every arm x task-class cell appears in the detail table with its marks; `marked_cells` links each mark to the runs it affects; every aggregate lists its run ids and links their evidence bundles; the evidence index links each run's bundle, transcript, usage, evaluation, and provider calls. The per-arm headline is a labelled roll-up of the arm's publishable classes, not a ranking. |
 
 Three gaps the report currently makes visible rather than hides:
@@ -1001,7 +1059,7 @@ The bundle holds:
 | `README.md` | The shareable headline: completion, tokens, and $/success per arm, and the pooled deltas, each beside the run id, its n, its 95% interval, and its telemetry gaps. |
 | `runs/<id>/` | A self-contained suite run root: runner state, the run index with run dirs relative to it, and every run's records (task prompt, deliverable, transcript, usage, provider calls, evaluation, spawn metadata with the WSB-06 arm audit), including retried attempts. |
 | `runs/<id>/reports/` | The WSB-09 report, generated from the bundle itself. |
-| `manifests/` | The task manifests and catalogs the report read task classes from, `arms.json` (each arm's declared tool surface), and the price table snapshot. |
+| `manifests/` | The task manifests and catalogs the report read task classes from, `arms.json` (each arm's declared tool surface), the price table snapshot, and `config/oss-models.yaml` (the OSS catalog snapshot). |
 | `redaction-report.json` | Every stripped field, by file and JSON pointer, with the rule that stripped it and the captured file's sha256. |
 | `bundle-manifest.json` | The file inventory (sha256 and size), report schema version, and aggregates digest. |
 
@@ -1012,6 +1070,14 @@ The bundle holds:
 | Redaction is the default | Transcript text outside protocol fields (the prompt, model output, and tool inputs and results) and harness stderr are replaced with `<redacted:raw-transcript>`. Protocol fields (event types, tool names, call ids, models, timestamps, usage counters, the announced tool list) are kept only in recognized event, message, and typed-block positions. Codex `web_search` items additionally keep `item.type`, `item.id`, and `item.action.type` for native price re-derivation; action queries, URLs, and other nested payloads are withheld. `--include-raw-transcripts` is the operator's per-run opt-in. The task prompt is still published, in the task manifest and `<run>/artifacts/prompt.md`, and so is each deliverable, because a grade cannot be disputed without it. |
 | Every stripped field is listed | Along with the bundler's own strips, the redaction report lists every `<redacted...>` and `<elided:...>` placeholder the capture already left, and each absolute run-dir path it rewrote. |
 | No credential material, even under opt-in | Every record goes through the credential scrub: values under credential-named keys, credential-shaped text (auth and cookie headers, bearer and API tokens, using the fleet's HRR-09 vocabulary), and every nonempty literal value of a credential env var on the bundling host, including short values. Explicitly known broker-mode flags and credential-file locations are excluded. The finished bundle is then swept with three independent checks: credential shapes, known credential values, and a second scrub pass that must find nothing left to strip. The bundle is assembled in a staging directory and moved into place only after the sweep, so a refused bundle never exists at its destination. |
+
+New bundles snapshot the OSS catalog used by the source report, taking
+`config/oss-models.yaml` from the module base or falling back to the installed
+catalog when the source has none. Report regeneration, `verify`, and `explain`
+use the bundled catalog for both OSS token prices and `model_rate` labels;
+changing or removing the installed catalog does not change a bundled report.
+GAP's shared aggregates pool model profiles and omit a single-model rate label;
+their costs remain priced per run.
 
 `explain` takes a suite run root, a bundle directory, or a suite run id under the
 SEW state root. It prints one row per arm for the task: passed/attempted, the

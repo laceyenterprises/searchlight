@@ -54,8 +54,15 @@ class PriceTableError(ValueError):
 
 @dataclass(frozen=True)
 class PriceTable:
+    """Vendor/frontier rates, with optional OSS publication inputs.
+
+    An explicit ``oss_models`` mapping supplies every OSS rate, including
+    unknown routes; only None falls back to the installed catalog.
+    """
+
     vendors: Mapping[str, Mapping[str, Any]]
     models: Mapping[str, Mapping[str, Any]]
+    oss_models: Mapping[str, Mapping[str, Any]] | None = None
 
 
 def default_price_table_path() -> Path:
@@ -326,7 +333,8 @@ def model_cost(
     if model_id.startswith("litellm/"):
         from .oss import load_catalog
 
-        entry = load_catalog().get(model_id[len("litellm/"):])
+        catalog = table.oss_models if table.oss_models is not None else load_catalog()
+        entry = catalog.get(model_id[len("litellm/"):])
     else:
         entry = table.models.get(STANDARD_RATE_VARIANTS.get(model_id, model_id))
     if entry is None:

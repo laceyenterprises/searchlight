@@ -1,5 +1,6 @@
 import json
 import math
+from dataclasses import replace
 
 import pytest
 
@@ -34,6 +35,12 @@ def measured_tokens(input_tokens=1000, cached=0, output=500):
         "reasoning": None,
         "total_billable": input_tokens + output,
     }
+
+
+def test_explicit_empty_oss_catalog_does_not_fall_back_to_installed_rates(table):
+    component = model_cost("litellm/glm-5.2", measured_tokens(), replace(table, oss_models={}))
+    assert component['amount_usd'] is None
+    assert component['reason'].endswith('no_published_rate')
 
 
 def exa_call(total=0.005):

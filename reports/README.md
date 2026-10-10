@@ -38,7 +38,10 @@ To edit a transcription, review summary.json first, then run
 `python3 scripts/check_reports.py --write`. The suite rejects prose or table drift,
 generic private identifiers, catalog hash drift, calibration admission-rule or
 transcription inconsistencies, unresolved template expressions and broken links. Calibration catalog identity must
-match the recorded historical battery hash. The scrub scans Markdown, JSON and
+match the recorded historical battery hash. GAP summaries require non-empty
+calibration harness and task records, including replication reports; the benchmark
+in `summary.json` determines this requirement even if calibration keys are absent
+or the calibration record claims to be not applicable. The scrub scans Markdown, JSON and
 YAML publication text, including private paths in file URIs, and skips binary assets.
 Invalid UTF-8 or malformed publication JSON produces gate errors while validation
 continues for other reports and the text scrub.

@@ -21,6 +21,7 @@ import json
 import math
 import re
 import sys
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -112,9 +113,24 @@ def heading_harness(heading: str) -> str:
     return named[0]
 
 
+def harness_models(summary: dict) -> dict[str, str]:
+    """{harness: model} from a GAP setup table's "Harnesses" row ("codex on gpt-6.1-sol, ...")."""
+    for _, table in tables(summary):
+        for row in data_rows(table):
+            if len(row) > 1 and row[0] == 'Harnesses':
+                return dict(re.findall(r'([\w.-]+) on ([\w./:-]+)', row[1]))
+    return {}
+
+
+def harness_name(board: dict) -> tuple[str, str]:
+    """(display label, model) for a board; the model is empty when the report does not name it."""
+    return harnesses.get(board['harness']).label, board.get('model', '')
+
+
 def leaderboards(reports: dict) -> list[dict]:
     boards = []
     gap = reports['2026-10-03-search-gap-bench']['summary']
+    models = harness_models(gap)
     for intro, table in tables(gap):
         if table[0][:3] != ['Arm', 'Gap closure (95% CI)', 'Pass rate (Wilson 95% CI)']:
             continue
@@ -135,9 +151,10 @@ def leaderboards(reports: dict) -> list[dict]:
                 'flagged': False,
             })
         reference = {r[0].split(' ')[0]: r[2] for r in data_rows(table) if r[0].startswith(('ceiling', 'floor'))}
+        label = harnesses.get(harness).label
         boards.append({
-            'id': f'gap-{harness}', 'bench': 'GAP', 'harness': harness,
-            'title': f'Search gap bench: {"Claude Code (claude-opus-5-5)" if harness == "claude-code" else "Codex (gpt-6.1-sol)"}',
+            'id': f'gap-{harness}', 'bench': 'GAP', 'harness': harness, 'model': models.get(harness, ''),
+            'title': f'Search gap bench: {label}' + (f' ({models[harness]})' if harness in models else ''),
             'scope': f'{cells // 3} admitted post-cutoff brief tasks × 3 repetitions = {cells} cells per arm. '
                      f'Pass = right decision, weighted key-fact recall ≥ {RECALL_MIN}, unsupported claims ≤ {UNSUPPORTED_MAX}.',
             'interval': 'Wilson 95% (published)',
@@ -421,6 +438,8 @@ def forest(board: dict, x: float, y: float, width: float, row_h: float = 30, lab
     """Dot-and-whisker chart on a fixed 0–100% scale. Returns (svg, height)."""
     c = (lambda key, fallback: f'var(--{key})') if css else (lambda key, fallback: colors[fallback])
     plot_x, plot_w = x + label_w, width - label_w - value_w
+    if plot_w <= 0:
+        raise ValueError('forest chart width must leave positive plotting space')
     sx = lambda pct: plot_x + plot_w * pct / 100  # noqa: E731
     rows = board['rows']
     height = row_h * len(rows) + 34
@@ -515,7 +534,7 @@ def _dumbbell(boards, x, y, width, P) -> tuple[list[str], float]:
         cy = top + row_h * i + row_h / 2
         lo, hi = _gap_range(board)
         ceil = _ceiling(board)
-        name = 'Claude Code' if board['harness'] == 'claude-code' else 'Codex'
+        name, _ = harness_name(board)
         out.append(_text(x, cy - 2, name, 15, weight='600'))
         out.append(_text(x, cy + 16, f'{board["rows"][0]["cells"]} runs per setup', 12, P['ink2'], MONO))
         out.append(f'<line x1="{px:.1f}" y1="{cy:.1f}" x2="{px + pw:.1f}" y2="{cy:.1f}" stroke="{P["hatch"]}" stroke-width="2"/>')
@@ -549,17 +568,31 @@ def _wsb_forest(board, x, y, width, P) -> tuple[list[str], float]:
 def _gap_forests(boards, x, y, width, P) -> tuple[list[str], float]:
     out = []
     gap = 24
-    each = (width - gap) / 2
+    label_w, value_w, min_plot_w = 80, 100, 120
+    columns = max(1, min(len(boards), int((width + gap) // (label_w + value_w + min_plot_w + gap))))
+    each = (width - gap * (columns - 1)) / columns
     height = 0.0
-    for i, board in enumerate(boards):
-        bx = x + i * (each + gap)
-        name, model = (('Claude Code', 'claude-opus-5-5') if board['harness'] == 'claude-code'
-                       else ('Codex', 'gpt-6.1-sol'))
-        out.append(_text(bx, y, name, 14, weight='600'))
-        out.append(_text(bx + 9 * len(name) + 8, y, model, 12, P['ink2'], MONO))
-        svg, h = forest(board, bx, y + 18, each, row_h=26, label_w=80, value_w=100, ticks=(0, 50, 100))
-        out.append(svg)
-        height = max(height, 18 + h)
+    for start in range(0, len(boards), columns):
+        if start:
+            height += gap
+        row_height = 0.0
+        for col, board in enumerate(boards[start:start + columns]):
+            bx, by = x + col * (each + gap), y + height
+            name, model = harness_name(board)
+            out.append(_text(bx, by, name, 14, weight='600'))
+            model_offset = 9 * len(name) + 8
+            heading_h = 18
+            if model_offset + 7.2 * len(model) <= each:
+                out.append(_text(bx + model_offset, by, model, 12, P['ink2'], MONO))
+            else:
+                lines = textwrap.wrap(model, width=max(1, int(each / 7.2)))
+                for i, line in enumerate(lines):
+                    out.append(_text(bx, by + 18 + i * 16, line, 12, P['ink2'], MONO))
+                heading_h += 16 * len(lines)
+            svg, h = forest(board, bx, by + heading_h, each, row_h=26, label_w=label_w, value_w=value_w, ticks=(0, 50, 100))
+            out.append(svg)
+            row_height = max(row_height, heading_h + h)
+        height += row_height
     note, nh = _para(x, y + height + 10, 'Claude Code built-in search: rerun on 2026-10-06 after a fix let the agent '
                      'open pages. In the original runs it could only search.',
                      110, 12, 16, fill=P['ink2'])
@@ -618,9 +651,13 @@ def _h2h_panels(h2h: dict, x, y, width, P, ids=('s1', 's4', 's3', 's6')) -> tupl
 def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> str:
     P = PALETTE
     W, M = 1200, 48
+    # The findings narrate the published Claude Code and Codex boards; the
+    # charts show every GAP board the report has.
+    gap_boards = [b for b in boards if b['bench'] == 'GAP']
     gap_cc = next(b for b in boards if b['id'] == 'gap-claude-code')
     gap_cx = next(b for b in boards if b['id'] == 'gap-codex')
     wsb = next(b for b in boards if b['id'] == 'wsb-competitive')
+    agents = len({b['harness'] for b in boards})
     rows = {(r['harness'], r['arm']): r for r in analysis['gap_rows']}
     brows = {r['arm']: r for r in analysis['bakeoff_rows']}
     totals = analysis['gap_totals']
@@ -658,10 +695,10 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
     body.append(_text(M, 100, 'Does web search help coding agents do real work?', 22, P['paper']))
     providers = len({r['arm'] for b in boards for r in b['rows']} - {'native', 'no-search'})
     if h2h:
-        body.append(_text(M, 128, f'Results to date, 2026-09-26 to 2026-10-06 · {runs} graded agent runs · 2 coding '
+        body.append(_text(M, 128, f'Results to date, 2026-09-26 to 2026-10-06 · {runs} graded agent runs · {agents} coding '
                           f'agents · {providers} providers · 1 API study', 14, '#C9D3DA', MONO))
     else:
-        body.append(_text(M, 128, f'Results to date, 2026-09-29 to 2026-10-05 · {runs} graded test runs · 2 AI coding '
+        body.append(_text(M, 128, f'Results to date, 2026-09-29 to 2026-10-05 · {runs} graded test runs · {agents} AI coding '
                           f'agents · {providers} search providers · 2 benchmarks', 14, '#C9D3DA', MONO))
 
     # ---- method strip
@@ -717,7 +754,7 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
          f'{_ceiling(gap_cc):.0f}% and {_ceiling(gap_cx):.0f}% reached when handed an excerpt containing the answer.',
          'For work that depends on recent events, search is not a tuning knob. It is the difference between '
          'failing and passing, and every provider tested closes most of the gap.',
-         lambda yy: _dumbbell((gap_cc, gap_cx), right_x, yy, right_w, P)),
+         lambda yy: _dumbbell(gap_boards, right_x, yy, right_w, P)),
         ('No provider wins everywhere',
          f'The top provider was {cc_top["label"]} on Claude Code ({cc_top["passes"]}/{cc_top["cells"]}) and '
          f'{cx_top["label"]} on Codex ({cx_top["passes"]}/{cx_top["cells"]}), and most ranges overlap. With '
@@ -725,7 +762,7 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
          'separate the leaders.',
          'Choose on cost, latency and integration, then measure on your own agent. Rankings did not carry over '
          'from one agent to the other.',
-         lambda yy: _gap_forests((gap_cc, gap_cx), right_x, yy, right_w, P)),
+         lambda yy: _gap_forests(gap_boards, right_x, yy, right_w, P)),
         ('On documented knowledge, memory does most of the work',
          f'In the bakeoff, answering from memory passed {nos["passes"]}/{nos["cells"]} ({nos["pass_pct"]:.0f}%). '
          f'The best provider reached {best_wsb["pass_pct"]:.0f}%, within the margin of error, '
@@ -1170,6 +1207,7 @@ def headline(boards: list[dict], analysis: dict) -> dict:
     cells = sorted({r['cells'] for b in boards for r in b['rows']})
     return {
         'runs': sum(r['cells'] for b in boards for r in b['rows']),
+        'agents': len({b['harness'] for b in boards}),
         'providers': len({r['arm'] for b in boards for r in b['rows']} - {'native', 'no-search'}),
         'cc': _gap_range(gap_cc), 'cx': _gap_range(gap_cx),
         'cc_top': gap_cc['rows'][0], 'cx_top': gap_cx['rows'][0],
@@ -1290,7 +1328,7 @@ def landing(root: Path, boards: list[dict], analysis: dict) -> str:
 the results blind. The tasks, the code and the data are all open.</p>
 <div class="actions"><a class="btn solid" href="results.html">See the results</a><a class="btn" href="#how">How it works</a>
 <a class="btn" href="{REPO_URL}">View on GitHub</a></div>
-<div class="facts"><div><strong>{h['runs']}</strong>graded test runs</div><div><strong>2</strong>AI coding agents</div>
+<div class="facts"><div><strong>{h['runs']}</strong>graded test runs</div><div><strong>{h['agents']}</strong>AI coding agents</div>
 <div><strong>{h['providers']}</strong>search providers</div><div><strong>2</strong>benchmarks</div></div>
 </div></section>
 
@@ -1703,7 +1741,9 @@ def build(root: Path = ROOT) -> dict[str, str]:
         'generated_from': [f'reports/{name}/summary.json' for name in REPORTS],
         'note': 'Pass rates and intervals as published; WSB intervals are Wilson 95% computed from published counts. '
                 'Overlapping intervals are not rankings.',
-        'boards': boards,
+        # Board titles already name each model; leaving the key out keeps the
+        # published data file unchanged.
+        'boards': [{key: value for key, value in board.items() if key != 'model'} for board in boards],
         'search_api_head_to_head': h2h,
     }
     return {

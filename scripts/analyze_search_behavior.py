@@ -33,13 +33,18 @@ SEARCH_TOOLS = frozenset({
     'brave_video_search', 'brave_image_search', 'brave_place_search',
     'tavily_search', 'tavily_research', 'web_search_exa', 'web_search_advanced_exa',
     'web_search', 'firecrawl_search', 'perplexity_search', 'perplexity_ask',
-    'perplexity_research', 'perplexity_reason', 'WebSearch', 'codex_native_search',
+    'perplexity_research', 'perplexity_reason', 'WebSearch', 'codex_native_search', 'websearch',
 })
 FETCH_TOOLS = frozenset({
     'web_fetch_exa', 'tavily_extract', 'tavily_crawl', 'tavily_map', 'web_fetch',
     'firecrawl_scrape', 'firecrawl_crawl', 'firecrawl_map', 'WebFetch', 'codex_native_open',
-    'brave_summarizer',
+    'brave_summarizer', 'webfetch',
 })
+# MCP server names an arm mounts its provider under. Hermes prefixes a tool with
+# `mcp_<server>_` and Opencode with `<server>_`; Claude Code and Pi use
+# `mcp__<server>__`, and Codex reports the server separately.
+PROVIDER_SERVERS = ('exa', 'parallel', 'firecrawl', 'brave', 'tavily', 'perplexity')
+SERVER_PREFIX = re.compile(r'^(?:mcp_)?(?:%s)_(.+)$' % '|'.join(PROVIDER_SERVERS))
 FUNCTION_WORDS = frozenset(
     'the a an is are was were does do did how what which why when where who that this of to for '
     'with will should can about on from by as be has have'.split()
@@ -64,6 +69,8 @@ RULES = {
                                "fragment and trailing slash removed) appears among URLs in any search result; "
                                'measured only over cells that searched with observable returned results; '
                                'unknown if any search lacks results and no observed result contains the source',
+    'tool_name': 'the provider tool name with any MCP server prefix removed (mcp__<server>__, Hermes mcp_<server>_, '
+                 'Opencode <server>_); Opencode websearch/webfetch are its built-in search and fetch tools',
 }
 
 
@@ -97,14 +104,52 @@ def query_style(query: str) -> dict:
     }
 
 
+def tool_name(name) -> str:
+    name = str(name or '').split('__')[-1]
+    if name in SEARCH_TOOLS or name in FETCH_TOOLS:
+        return name
+    match = SERVER_PREFIX.match(name)
+    if match and (match.group(1) in SEARCH_TOOLS or match.group(1) in FETCH_TOOLS):
+        return match.group(1)
+    return name
+
+
+def _arguments(value) -> dict:
+    # Hermes records the model's tool arguments as the JSON string it emitted.
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            return {}
+    return value if isinstance(value, dict) else {}
+
+
+def _text(content):
+    if content is None or isinstance(content, str):
+        return content
+    return json.dumps(content)
+
+
 def tool_events(transcript):
-    """Yield (tool, arguments, result_text); None means results are not exposed."""
+    """Yield (tool, arguments, result_text); unavailable results are None."""
     pending = {}
     for entry in transcript:
         if not isinstance(entry, dict):
             continue
         event = entry.get('harness_event')
         if not isinstance(event, dict):
+            continue
+        part = event.get('part')
+        if event.get('type') == 'tool_use' and isinstance(part, dict):
+            # Opencode reports each finished tool call as one event; a call that
+            # errored exposes no results.
+            state = part.get('state') if isinstance(part.get('state'), dict) else {}
+            output = state.get('output') if state.get('status') == 'completed' else None
+            yield tool_name(part.get('tool')), _arguments(state.get('input')), _text(output)
+            continue
+        if event.get('type') == 'tool_call':
+            # Hermes: the call, then its result as a tool_result message part.
+            pending[event.get('id')] = (tool_name(event.get('name')), _arguments(event.get('arguments')))
             continue
         item = event.get('item')
         if isinstance(item, dict) and event.get('type') == 'item.completed':
@@ -131,15 +176,26 @@ def tool_events(transcript):
         message = event.get('message')
         if not isinstance(message, dict):
             continue
+        if message.get('role') == 'toolResult' and message.get('toolCallId') in pending:
+            # Pi: a finished tool call is its own message (message_end only;
+            # message_start/update repeat it while it streams).
+            if event.get('type') == 'message_end':
+                name, arguments = pending.pop(message.get('toolCallId'))
+                yield name, arguments, None if message.get('isError') else _text(message.get('content'))
+            continue
         for part in message.get('content') or []:
             if not isinstance(part, dict):
                 continue
             if part.get('type') in ('tool_use', 'server_tool_use'):
-                pending[part.get('id')] = (str(part.get('name', '')).split('__')[-1], part.get('input') or {})
+                pending[part.get('id')] = (tool_name(part.get('name')), part.get('input') or {})
+            elif part.get('type') == 'toolCall' and event.get('type') == 'message_end':
+                pending[part.get('id')] = (tool_name(part.get('name')), _arguments(part.get('arguments')))
             elif part.get('type') in ('tool_result', 'web_search_tool_result') and part.get('tool_use_id') in pending:
                 name, arguments = pending.pop(part.get('tool_use_id'))
                 content = part.get('content')
                 yield name, arguments, content if isinstance(content, str) else json.dumps(content)
+    for name, arguments in pending.values():
+        yield name, arguments, None
 
 
 def queries_of(arguments) -> list[str]:

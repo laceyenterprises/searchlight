@@ -162,7 +162,9 @@ def _summary(cells, arm, seed):
     scope = "gap" if any(c["kind"] == "gap" for c in cells) else "control"
     own = [c for c in cells if c["arm"] == arm and c["kind"] == scope]
     runs = [c["run"] for c in own]
-    aggregate = _aggregate(runs, arm_key=("", arm, ""), task_class="gap")
+    # GAP pools model profiles here; costs were already priced per run, and
+    # this aggregate has no single model whose catalog rate can be labelled.
+    aggregate = _aggregate(runs, arm_key=("", arm, ""), task_class="gap", oss_models={})
     lookup = {(c["task_id"], c["rep"], c["arm"]): c for c in cells if c["kind"] == "gap"}
     clustered = defaultdict(list)
     excluded = []

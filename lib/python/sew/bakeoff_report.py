@@ -32,6 +32,14 @@ is a ratio of measured tokens per attempted task, and both sides' run counts
 are printed beside it. A delta against an absent, empty, or under-sampled cell
 is marked and left blank rather than dropped.
 
+**An OSS model names its rate.** A ``litellm/<route>`` model is priced from the
+versioned OSS catalog (``config/oss-models.yaml`` under ``module_base``, or the
+installed catalog for source runs without one). Published bundles snapshot it;
+the same catalog supplies token prices and rate labels. Its cells carry the route
+and the catalog's rate basis, a dated list rate or a self-hosted zero, so a
+cheap cell is never mistaken for a measured bill. Reports without OSS models
+render exactly as before.
+
 **Nothing is a verdict.** The report is broken down by harness, arm, and task
 class. The per-arm headline is an explicitly labelled roll-up of the arm's own
 publishable task-class cells, and no row ranks one arm above another.
@@ -43,7 +51,7 @@ import json
 import math
 import statistics
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
@@ -51,6 +59,7 @@ from typing import Any, Iterable, Mapping, Sequence
 import yaml
 
 from .mcp_meter import meter_observed
+from .oss import load_catalog
 
 from . import report as sew_report
 from .arms import PROVIDER_SERVER_NAMES, _tool_call_entries
@@ -205,6 +214,8 @@ class BakeoffRun:
 # Disjoint usage buckets (live_harness): input + cached_input + output + reasoning
 # = total_billable. Cache writes stay inside input.
 TOKEN_PARTS = ("input", "cached_input", "output", "reasoning")
+# An OSS model is named by its LiteLLM route (sew.oss).
+OSS_MODEL_PREFIX = "litellm/"
 
 
 def generate_bakeoff_report(
@@ -252,6 +263,9 @@ def build_bakeoff_report(
     report_dir = output_dir or run_root / "reports"
     declared = _validate_controls(controls)
     table = price_table if price_table is not None else load_price_table()
+    if table.oss_models is None:
+        catalog_path = base / "config" / "oss-models.yaml"
+        table = replace(table, oss_models=load_catalog(catalog_path if catalog_path.is_file() else None))
     state = _load_state(run_root)
     index = _load_index(run_root, state)
     rows = _load_rows(index, _task_classes(base, state, index), link_base=report_dir)
@@ -261,17 +275,18 @@ def build_bakeoff_report(
     for run in runs:
         grouped[(run.arm_key, run.row.task_class)].append(run)
     cells = {
-        key: _aggregate(items, arm_key=key[0], task_class=key[1]) for key, items in grouped.items()
+        key: _aggregate(items, arm_key=key[0], task_class=key[1], oss_models=table.oss_models)
+        for key, items in grouped.items()
     }
     arm_keys = _sorted_arm_keys({key[0] for key in cells}, declared)
-    headline = [_headline(arm_key, cells, grouped) for arm_key in arm_keys]
+    headline = [_headline(arm_key, cells, grouped, table.oss_models) for arm_key in arm_keys]
     by_class = [
         cells[(arm_key, task_class)]
         for task_class in sorted({key[1] for key in cells})
         for arm_key in arm_keys
         if (arm_key, task_class) in cells
     ]
-    deltas = _deltas(arm_keys, cells, grouped, declared)
+    deltas = _deltas(arm_keys, cells, grouped, declared, table.oss_models)
     return {
         "schema_version": REPORT_SCHEMA_VERSION,
         "report": "wsb-bakeoff",
@@ -417,6 +432,9 @@ def _bakeoff_run(row: RunRow, table: PriceTable, link_base: Path) -> BakeoffRun:
         token_status = "estimated" if source == "estimated" else "unknown"
         tokens = None
     model_id, model_id_source = _model_id(row.run_dir, spawn)
+    if model_id is None and row.model_profile.startswith(OSS_MODEL_PREFIX):
+        # An OSS cell's profile is the model it ran (runner model_id).
+        model_id, model_id_source = row.model_profile, "model_profile"
     search_calls = _meter(_mapping((spawn or {}).get("process")).get("provider_calls"))
     cost, exclusions = _run_cost(
         row,
@@ -720,6 +738,7 @@ def _aggregate(
     arm_key: tuple[str, str, str],
     task_class: str,
     task_classes: Sequence[str] | None = None,
+    oss_models: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
     harness_id, provider_id, model_profile = arm_key
     dispositions = Counter(run.disposition for run in runs)
@@ -798,7 +817,24 @@ def _aggregate(
     }
     if task_classes is not None:
         aggregate["task_classes"] = list(task_classes)
+    rate = _model_rate(model_profile, oss_models)
+    if rate is not None:
+        aggregate["model_rate"] = rate
     return aggregate
+
+
+def _model_rate(model_profile: str, oss_models: Mapping[str, Mapping[str, Any]]) -> dict[str, Any] | None:
+    """The OSS catalog rate an arm's model is priced at; None for frontier models."""
+
+    if not model_profile.startswith(OSS_MODEL_PREFIX):
+        return None
+    entry = oss_models.get(model_profile[len(OSS_MODEL_PREFIX):]) or {}
+    return {
+        "model_id": model_profile,
+        "rate_basis": entry.get("rate_basis"),
+        "price_source": entry.get("source"),
+        "price_as_of": entry.get("as_of"),
+    }
 
 
 def _marked_runs(
@@ -875,11 +911,13 @@ def _headline(
     arm_key: tuple[str, str, str],
     cells: Mapping[tuple[tuple[str, str, str], str], Mapping[str, Any]],
     grouped: Mapping[tuple[tuple[str, str, str], str], Sequence[BakeoffRun]],
+    oss_models: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
     classes = sorted(task_class for key, task_class in cells if key == arm_key)
     included = [c for c in classes if _publishable(cells[(arm_key, c)])]
     runs = [run for c in included for run in grouped[(arm_key, c)]]
-    row = _aggregate(runs, arm_key=arm_key, task_class=ALL_TASK_CLASSES, task_classes=included)
+    row = _aggregate(runs, arm_key=arm_key, task_class=ALL_TASK_CLASSES, task_classes=included,
+                     oss_models=oss_models)
     row["excluded_task_classes"] = {
         c: _exclusion_reasons(cells[(arm_key, c)]) for c in classes if c not in included
     }
@@ -910,6 +948,7 @@ def _deltas(
     cells: Mapping[tuple[tuple[str, str, str], str], Mapping[str, Any]],
     grouped: Mapping[tuple[tuple[str, str, str], str], Sequence[BakeoffRun]],
     controls: Sequence[Control],
+    oss_models: Mapping[str, Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for position, control in enumerate(controls):
@@ -938,6 +977,7 @@ def _deltas(
                 arm_key=arm_key,
                 task_class=ALL_TASK_CLASSES,
                 task_classes=pooled,
+                oss_models=oss_models,
             )
             baseline_all = (
                 _aggregate(
@@ -945,6 +985,7 @@ def _deltas(
                     arm_key=control_key,
                     task_class=ALL_TASK_CLASSES,
                     task_classes=pooled,
+                    oss_models=oss_models,
                 )
                 if any((control_key, c) in cells for c in classes)
                 else None
@@ -1431,6 +1472,8 @@ def _delta_table(rows: Sequence[Mapping[str, Any]]) -> str:
 
 
 def _cost_table(rows: Sequence[Mapping[str, Any]]) -> str:
+    if any("model_rate" in row for row in rows):
+        return _oss_cost_table(rows)
     return _table(
         ["arm", "costed / attempted", "successes (costed)", "$/task", "$/success", "basis"],
         [
@@ -1446,6 +1489,61 @@ def _cost_table(rows: Sequence[Mapping[str, Any]]) -> str:
             if row["cost"]["in_cost_table"]
         ],
     )
+
+
+def _oss_cost_table(rows: Sequence[Mapping[str, Any]]) -> str:
+    """The cost table once OSS models are present: harness and model are columns,
+    and an OSS model's dollars name the rate basis they were priced at."""
+
+    def usd(row: Mapping[str, Any], text: str) -> str:
+        rate = row.get("model_rate")
+        return f"{text} ({_rate_basis_text(rate)})" if rate and text.startswith("$") else text
+
+    return _table(
+        ["harness", "model", "arm", "costed / attempted", "successes (costed)", "$/task", "$/success", "basis"],
+        [
+            [
+                row["harness_id"],
+                row["model_rate"]["model_id"] if "model_rate" in row else _profile_text(row["model_profile"]),
+                row["provider_id"],
+                f"{row['cost']['costed_n']}/{row['cost']['attempted_n']}",
+                row["cost"]["successes_costed"],
+                usd(row, _cost_usd(row["cost"]["usd_per_task"], row["cost"]["basis"])),
+                usd(row, _per_success_text(row["cost"])),
+                row["cost"]["basis"],
+            ]
+            for row in rows
+            if row["cost"]["in_cost_table"]
+        ],
+    )
+
+
+def _rate_basis_text(rate: Mapping[str, Any]) -> str:
+    if rate["rate_basis"] == "self-hosted":
+        return "self-hosted"
+    if rate["rate_basis"] == "list":
+        return f"catalog {rate['price_as_of']}"
+    return "no catalog rate"
+
+
+def _profile_text(model_profile: str) -> str:
+    return "harness default" if model_profile in ("", "default") else model_profile
+
+
+def _oss_rate_notes(rows: Sequence[Mapping[str, Any]]) -> list[str]:
+    rates = {row["model_rate"]["model_id"]: row["model_rate"] for row in rows if "model_rate" in row}
+    if not rates:
+        return []
+    lines = []
+    for model_id, rate in sorted(rates.items()):
+        if rate["rate_basis"] == "self-hosted":
+            text = "self-hosted, priced at $0 per token; hardware and power are not counted"
+        elif rate["rate_basis"] == "list":
+            text = f"catalog list rate as of {rate['price_as_of']} ({rate['price_source']})"
+        else:
+            text = "not in the OSS catalog, so its cost is unknown"
+        lines.append(f"- {model_id}: {text}")
+    return ["", "OSS model rates (config/oss-models.yaml):", *lines]
 
 
 def _cost_notes(report: Mapping[str, Any]) -> list[str]:
@@ -1473,6 +1571,7 @@ def _cost_notes(report: Mapping[str, Any]) -> list[str]:
     )
     if proxy_notes:
         notes += ["", "Operator proxy rates:", *(f"- {note}" for note in proxy_notes)]
+    notes += _oss_rate_notes(report.get("headline", []))
     return notes or ["- every attempted run has a known cost"]
 
 

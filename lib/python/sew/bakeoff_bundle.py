@@ -8,8 +8,11 @@ Four rules carry the module.
 
 **The bundle re-derives the report, or it is not written.** A bundle holds a
 self-contained suite run root (runner state, run index, and every run's
-records) beside the task manifests, arm declarations, and price table the
-report read. Its report is generated from the bundle itself, and before
+records) beside the task manifests, arm declarations, price table, and OSS
+catalog the report read. The catalog is snapshotted at
+``manifests/config/oss-models.yaml``; report pricing and rate labels both use
+that snapshot, including during verification and task explanation. Its report
+is generated from the bundle itself, and before
 anything is published the bundler compares those aggregates with a report over
 the source run: any difference refuses the bundle. ``verify_bundle`` repeats
 the derivation for a reader, and checks every file against the inventory.
@@ -285,6 +288,10 @@ def assemble_bundle(
         manifests = staging / MANIFESTS_DIR
         _copy_manifests(base, manifests, state, index, redactor, staging)
         redactor.copy_file(table_path, manifests / PRICE_TABLE_NAME, staging)
+        catalog_path = base / "config" / "oss-models.yaml"
+        if not catalog_path.is_file():
+            catalog_path = module_root() / "config" / "oss-models.yaml"
+        redactor.copy_file(catalog_path, manifests / "config" / "oss-models.yaml", staging)
         bundle_index = _load_index(bundle_run_root, _load_state(bundle_run_root))
         _write_json(manifests / ARMS_NAME, _arm_declarations(bundle_index))
 
