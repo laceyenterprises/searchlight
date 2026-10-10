@@ -49,18 +49,19 @@
 <text x="921.0" y="320.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">original sources by graders</text>
 <text x="921.0" y="338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">that never see which provider</text>
 <text x="921.0" y="356.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">was used. Briefs need the right</text>
-<text x="921.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">decision and at least 70% of</text>
-<text x="921.0" y="392.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">the key facts.</text>
+<text x="921.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">decision, 70% of the key facts,</text>
+<text x="921.0" y="392.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">and sources that back their</text>
+<text x="921.0" y="410.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">claims.</text>
 <text x="48.0" y="470.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Pass rates are shown with their 95% range. Where two ranges overlap, the data cannot tell them apart. Finding 5 counts verified items instead.</text>
 <text x="48.0" y="532.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" fill="#111111" font-weight="700">What we found</text>
 <text x="48.0" y="570.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 1</text>
 <text x="48.0" y="600.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Past the training cutoff,</text>
 <text x="48.0" y="628.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">search decides the outcome</text>
-<text x="48.0" y="660.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Without search, both agents failed every</text>
-<text x="48.0" y="680.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">post-cutoff brief (0%). With any search setup,</text>
-<text x="48.0" y="700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Claude Code passed 71–95% and codex 72–94%, close</text>
-<text x="48.0" y="720.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">to the 95% and 89% reached when handed the answer</text>
-<text x="48.0" y="740.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">excerpt.</text>
+<text x="48.0" y="660.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Without search, both agents failed every brief</text>
+<text x="48.0" y="680.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">about recent events (0%). With any search setup,</text>
+<text x="48.0" y="700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Claude Code passed 71–95% and Codex 72–94%, close</text>
+<text x="48.0" y="720.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">to the 95% and 89% reached when handed an excerpt</text>
+<text x="48.0" y="740.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">containing the answer.</text>
 <rect x="48" y="770.0" width="380" height="120.0" rx="6" fill="#EAF3FF"/>
 <rect x="48" y="770.0" width="5" height="120.0" rx="2" fill="#007BFF"/>
 <text x="68.0" y="792.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
@@ -68,7 +69,7 @@
 <text x="68.0" y="834.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">search is not a tuning knob. It is the</text>
 <text x="68.0" y="854.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">difference between failing and passing, and</text>
 <text x="68.0" y="874.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">every provider tested closes most of the gap.</text>
-<text x="460.0" y="570.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on post-cutoff briefs (search gap bench)</text>
+<text x="460.0" y="570.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on briefs about recent events (search gap bench)</text>
 <circle cx="466.0" cy="593.0" r="6" fill="#111111"/>
 <text x="480.0" y="598.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">No search</text>
 <rect x="567.0" y="587.0" width="22" height="12" rx="3" fill="#007BFF"/>
@@ -94,7 +95,7 @@
 <text x="1152.0" y="646.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">no search 0%</text>
 <text x="1152.0" y="662.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="600" text-anchor="end">search 71–95%</text>
 <text x="1152.0" y="678.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67" text-anchor="end">handed over 95%</text>
-<text x="460.0" y="716.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#111111" font-weight="600">codex</text>
+<text x="460.0" y="716.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#111111" font-weight="600">Codex</text>
 <text x="460.0" y="734.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">18 runs per setup</text>
 <line x1="610.0" y1="718.0" x2="1024.0" y2="718.0" stroke="#C5CCD3" stroke-width="2"/>
 <rect x="908.1" y="710.0" width="91.1" height="16" rx="4" fill="#007BFF"/>
@@ -107,9 +108,9 @@
 <text x="48.0" y="942.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 2</text>
 <text x="48.0" y="972.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">No provider wins everywhere</text>
 <text x="48.0" y="1004.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">The top provider was Parallel on Claude Code</text>
-<text x="48.0" y="1024.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">(20/21) and Brave on codex (17/18), and most</text>
-<text x="48.0" y="1044.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">intervals overlap. With 18–21 test runs per</text>
-<text x="48.0" y="1064.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">provider, the bench cannot separate the leaders.</text>
+<text x="48.0" y="1024.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">(20/21) and Brave on Codex (17/18), and most</text>
+<text x="48.0" y="1044.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">ranges overlap. With 18–21 test runs per</text>
+<text x="48.0" y="1064.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">provider, the test cannot separate the leaders.</text>
 <rect x="48" y="1094.0" width="380" height="100.0" rx="6" fill="#EAF3FF"/>
 <rect x="48" y="1094.0" width="5" height="100.0" rx="2" fill="#007BFF"/>
 <text x="68.0" y="1116.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
@@ -159,7 +160,7 @@
 <line x1="617.0" y1="1129.0" x2="672.4" y2="1129.0" stroke="#007BFF" stroke-width="2"/>
 <circle cx="649.3" cy="1129.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
 <text x="794.0" y="1133.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">15/21 · 71%</text>
-<text x="818.0" y="942.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">codex</text>
+<text x="818.0" y="942.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Codex</text>
 <text x="871.0" y="942.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">gpt-6.1-sol</text>
 <line x1="898.0" y1="960.0" x2="898.0" y2="1142.0" stroke="#E1E5EA" stroke-width="1"/>
 <text x="898.0" y="1160.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
@@ -210,16 +211,16 @@
 <text x="48.0" y="1328.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">memory does most of the work</text>
 <text x="48.0" y="1360.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">In the bakeoff, answering from memory passed</text>
 <text x="48.0" y="1380.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">32/42 (76%). The best provider reached 90%,</text>
-<text x="48.0" y="1400.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">within the margin of error, while tokens per</text>
-<text x="48.0" y="1420.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">success rose from 20.9k (No search) to as much as</text>
-<text x="48.0" y="1440.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">89.2k (Brave).</text>
+<text x="48.0" y="1400.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">within the margin of error, while tokens used per</text>
+<text x="48.0" y="1420.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">passing run rose from 20.9k (No search) to as</text>
+<text x="48.0" y="1440.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">much as 89.2k (Brave).</text>
 <rect x="48" y="1470.0" width="380" height="100.0" rx="6" fill="#EAF3FF"/>
 <rect x="48" y="1470.0" width="5" height="100.0" rx="2" fill="#007BFF"/>
 <text x="68.0" y="1492.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
 <text x="68.0" y="1514.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Search pays off where training data runs out.</text>
 <text x="68.0" y="1534.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">On stable, well-documented questions it</text>
-<text x="68.0" y="1554.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">mostly adds tokens.</text>
-<text x="460.0" y="1270.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on documented-knowledge tasks (web search bakeoff, Claude Code)</text>
+<text x="68.0" y="1554.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">mostly adds cost.</text>
+<text x="460.0" y="1270.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on well-documented questions (web search bakeoff, Claude Code)</text>
 <text x="931.8" y="1304.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">no search 76%</text>
 <line x1="564.0" y1="1310.0" x2="564.0" y2="1518.0" stroke="#E1E5EA" stroke-width="1"/>
 <text x="564.0" y="1536.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
@@ -277,18 +278,18 @@
 <text x="48.0" y="1652.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Agents still search like</text>
 <text x="48.0" y="1680.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">keyword users</text>
 <text x="48.0" y="1712.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Only 7% of searches about recent events read as</text>
-<text x="48.0" y="1732.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">plain questions, and Codex leaned on site:</text>
-<text x="48.0" y="1752.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">filters (31–67% of its provider queries). Agents</text>
-<text x="48.0" y="1772.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">often skipped search and opened URLs they</text>
-<text x="48.0" y="1792.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">remembered. Runs did better when the primary</text>
-<text x="48.0" y="1812.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">source surfaced.</text>
+<text x="48.0" y="1732.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">plain questions, and Codex limited many searches</text>
+<text x="48.0" y="1752.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">to one website (31–67% of its provider searches).</text>
+<text x="48.0" y="1772.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Agents often skipped search and opened pages they</text>
+<text x="48.0" y="1792.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">remembered. Runs did better when the original</text>
+<text x="48.0" y="1812.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">source showed up.</text>
 <rect x="48" y="1842.0" width="380" height="120.0" rx="6" fill="#EAF3FF"/>
 <rect x="48" y="1842.0" width="5" height="120.0" rx="2" fill="#007BFF"/>
 <text x="68.0" y="1864.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
 <text x="68.0" y="1886.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">The next gains are in how agents ask and what</text>
-<text x="68.0" y="1906.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">results surface: full-question queries, and</text>
-<text x="68.0" y="1926.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">primary sources first. These are correlations</text>
-<text x="68.0" y="1946.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">across runs, not controlled effects.</text>
+<text x="68.0" y="1906.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">results show: searches written as questions,</text>
+<text x="68.0" y="1926.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">and original sources first. These are</text>
+<text x="68.0" y="1946.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">patterns across runs, not proven causes.</text>
 <rect x="460.0" y="1630.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
 <text x="476.0" y="1674.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">7%</text>
 <text x="476.0" y="1700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">of searches about recent</text>
@@ -298,14 +299,14 @@
 <rect x="696.0" y="1630.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
 <text x="712.0" y="1674.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">36/55</text>
 <text x="712.0" y="1700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa bakeoff runs that</text>
-<text x="712.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">fetched remembered URLs</text>
+<text x="712.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">opened remembered pages</text>
 <text x="712.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">without searching</text>
 <text x="712.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">(Firecrawl 35/55, Tavily</text>
 <text x="712.0" y="1772.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">34/54, Parallel 30/55).</text>
 <rect x="932.0" y="1630.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
 <text x="948.0" y="1674.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">85% vs 61%</text>
 <text x="948.0" y="1700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Claude Code pass rate with</text>
-<text x="948.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">the primary source in its</text>
+<text x="948.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">the original source in its</text>
 <text x="948.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">results (94/111) vs without</text>
 <text x="948.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">it (20/33).</text>
 <line x1="48" y1="1980.0" x2="1152" y2="1980.0" stroke="#E1E5EA" stroke-width="1"/>
@@ -317,17 +318,17 @@
 <text x="48.0" y="2144.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">verified new claims (25 on 40 open questions) and</text>
 <text x="48.0" y="2164.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">the most new dated news facts (20). Firecrawl</text>
 <text x="48.0" y="2184.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">read the most pages other tools could not (14 of</text>
-<text x="48.0" y="2204.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">15), and Parallel filled a fixed schema most</text>
+<text x="48.0" y="2204.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">15), and Parallel filled in a fixed template most</text>
 <text x="48.0" y="2224.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">accurately (113 of 133 values).</text>
 <rect x="48" y="2254.0" width="380" height="140.0" rx="6" fill="#EAF3FF"/>
 <rect x="48" y="2254.0" width="5" height="140.0" rx="2" fill="#007BFF"/>
 <text x="68.0" y="2276.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
-<text x="68.0" y="2298.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Choose by job: discovery, rendering and</text>
-<text x="68.0" y="2318.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">structured extraction rewarded different</text>
-<text x="68.0" y="2338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">providers. The study was run for a knowledge</text>
-<text x="68.0" y="2358.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">base about Exa, one of the four, so read its</text>
-<text x="68.0" y="2378.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">context note.</text>
-<text x="460.0" y="2034.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New or correcting claims, 40 open questions</text>
+<text x="68.0" y="2298.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Choose by job: finding new facts, reading</text>
+<text x="68.0" y="2318.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">hard pages and filling in data rewarded</text>
+<text x="68.0" y="2338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">different providers. The study was run for a</text>
+<text x="68.0" y="2358.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">knowledge base about Exa, one of the four, so</text>
+<text x="68.0" y="2378.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">read its context note.</text>
+<text x="460.0" y="2034.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New or corrected facts, 40 open questions</text>
 <text x="460.0" y="2063.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
 <rect x="534.0" y="2053.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
 <rect x="534.0" y="2053.0" width="192.0" height="12" rx="2" fill="#007BFF"/>
@@ -361,7 +362,7 @@
 <rect x="894.0" y="2119.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
 <rect x="894.0" y="2119.0" width="19.2" height="12" rx="2" fill="#8DBDFF"/>
 <text x="1152.0" y="2129.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">2</text>
-<text x="460.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Pages other tools could not read, recovered (of 15)</text>
+<text x="460.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Pages it read that built-in tools could not (of 15)</text>
 <text x="460.0" y="2201.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
 <rect x="534.0" y="2191.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
 <rect x="534.0" y="2191.0" width="64.0" height="12" rx="2" fill="#8DBDFF"/>
@@ -378,7 +379,7 @@
 <rect x="534.0" y="2257.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
 <rect x="534.0" y="2257.0" width="179.2" height="12" rx="2" fill="#007BFF"/>
 <text x="792.0" y="2267.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">14</text>
-<text x="820.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Schema values right on ground truth (of 133)</text>
+<text x="820.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Correct values filling a fixed template (of 133)</text>
 <text x="820.0" y="2201.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
 <rect x="894.0" y="2191.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
 <rect x="894.0" y="2191.0" width="151.6" height="12" rx="2" fill="#8DBDFF"/>
@@ -394,13 +395,13 @@
 <rect x="894.0" y="2257.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
 <rect x="894.0" y="2257.0" width="135.7" height="12" rx="2" fill="#8DBDFF"/>
 <text x="1152.0" y="2267.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">94</text>
-<text x="460.0" y="2296.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Counts of verified items, one run per question; no 95% ranges were published, so differences of a few</text>
-<text x="460.0" y="2312.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">items are within noise. Tavily sells no structured extraction, so it was not run on the schema.</text>
+<text x="460.0" y="2296.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Counts of checked items, one run per question; no 95% ranges were published, so a difference of a few</text>
+<text x="460.0" y="2312.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">items may be chance. Tavily sells no data-extraction product, so it was not run on the template.</text>
 <rect x="48" y="2434.0" width="1104" height="186" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
 <text x="72.0" y="2468.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18" fill="#111111" font-weight="700">Read before comparing</text>
-<text x="72.0" y="2498.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  18–42 test runs per provider: ranges are wide, and neighbouring positions are not rankings.</text>
-<text x="72.0" y="2522.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  In the agent benchmarks each provider ran through its own MCP server at default settings; the API study called tuned APIs directly.</text>
-<text x="72.0" y="2546.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Grading used automatic checks and blinded model graders. Provider dollar spend was only partly metered.</text>
-<text x="72.0" y="2570.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Search behavior comes from 1629 logged queries; its links to pass rates are correlations.</text>
+<text x="72.0" y="2498.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  18–42 test runs per provider: ranges are wide, so one place higher may not mean better.</text>
+<text x="72.0" y="2522.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  In the agent tests each provider was plugged in through its official connector at default settings; the API study called tuned APIs directly.</text>
+<text x="72.0" y="2546.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Grading used automatic checks and AI graders that never saw the provider. Dollar costs were only partly tracked.</text>
+<text x="72.0" y="2570.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Search behavior comes from 1629 logged searches; its links to pass rates are patterns, not causes.</text>
 <text x="72.0" y="2600.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#555D67">searchlightai.dev · github.com/laceyenterprises/searchlight · a Lacey Enterprises project</text>
 </svg>

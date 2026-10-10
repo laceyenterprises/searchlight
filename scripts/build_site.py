@@ -47,6 +47,7 @@ REPORT_TITLES = {
 }
 H2H = '2026-09-26-search-api-head-to-head'
 H2H_PROVIDERS = ('Exa', 'Tavily', 'Parallel', 'Firecrawl')
+RECALL_MIN, UNSUPPORTED_MAX = 0.7, 0.25  # the search gap bench's brief pass rule
 
 
 # ---------------------------------------------------------------- data
@@ -136,9 +137,9 @@ def leaderboards(reports: dict) -> list[dict]:
         reference = {r[0].split(' ')[0]: r[2] for r in data_rows(table) if r[0].startswith(('ceiling', 'floor'))}
         boards.append({
             'id': f'gap-{harness}', 'bench': 'GAP', 'harness': harness,
-            'title': f'Search gap bench: job outcomes on {"Claude Code (claude-opus-5-5)" if harness == "claude-code" else "codex (gpt-6.1-sol)"}',
+            'title': f'Search gap bench: {"Claude Code (claude-opus-5-5)" if harness == "claude-code" else "Codex (gpt-6.1-sol)"}',
             'scope': f'{cells // 3} admitted post-cutoff brief tasks × 3 repetitions = {cells} cells per arm. '
-                     'Pass = right decision, weighted key-fact recall ≥ 0.7, unsupported claims ≤ 0.25.',
+                     f'Pass = right decision, weighted key-fact recall ≥ {RECALL_MIN}, unsupported claims ≤ {UNSUPPORTED_MAX}.',
             'interval': 'Wilson 95% (published)',
             'token_accounting': 'GAP tokens per success counts all agent tokens in the arm, failed cells included, '
                                 'divided by passing cells.',
@@ -161,7 +162,7 @@ def leaderboards(reports: dict) -> list[dict]:
         })
     boards.append({
         'id': 'wsb-competitive', 'bench': 'WSB', 'harness': 'claude-code',
-        'title': 'Web search bakeoff: competitive research tasks on Claude Code (claude-opus-5-5)',
+        'title': 'Web search bakeoff: Claude Code (claude-opus-5-5)',
         'scope': '14 competitive tasks × 3 repetitions = 42 cells per arm, regraded 2026-09-30. '
                  'Mostly stable, documented knowledge; search adds less here than on post-cutoff jobs.',
         'interval': 'Wilson 95% (computed from the published counts)',
@@ -228,13 +229,13 @@ def head_to_head(reports: dict) -> dict:
 
     c_rows = {r[0]: r for r in data_rows(stage_c)}
     measures = [
-        measure(stage_a, 'S1 new or correcting claims', 's1', 'New or correcting claims, 40 open questions'),
+        measure(stage_a, 'S1 new or correcting claims', 's1', 'New or corrected facts, 40 open questions'),
         measure(stage_a, 'S4 new dated facts', 's4', 'New dated facts, two weeks of company news'),
-        measure(stage_a, 'S3 pages recovered', 's3', 'Pages other tools could not read, recovered'),
-        measure(stage_b, 'S6 right on KB ground truth', 's6', 'Schema values right on ground truth'),
-        measure(stage_b, 'S5 entities verified and new', 's5', 'Entities new to the knowledge base, three lists'),
-        {'id': 'sv', 'label': 'New tier-1 claims on four big vendors (no lead significant)', 'of': None,
-         'values': {p: parse_tally(c_rows[p][1])[0] for p in H2H_PROVIDERS}, 'source_row': stage_c[0][1]},
+        measure(stage_a, 'S3 pages recovered', 's3', 'Pages it read that built-in tools could not'),
+        measure(stage_b, 'S6 right on KB ground truth', 's6', 'Correct values filling a fixed template'),
+        measure(stage_b, 'S5 entities verified and new', 's5', 'New entries found for three lists'),
+        {'id': 'sv', 'label': 'New key figures (prices, volumes, revenue) on four big vendors; no clear leader',
+         'of': None, 'values': {p: parse_tally(c_rows[p][1])[0] for p in H2H_PROVIDERS}, 'source_row': stage_c[0][1]},
     ]
     rows = data_rows(monitors)
     probe = {'monitors': len(rows), 'runs': sum(int(r[1]) for r in rows),
@@ -244,8 +245,8 @@ def head_to_head(reports: dict) -> dict:
         probe['monitors_passing'] = sum(r[5].startswith('yes') for r in rows)
     return {'title': REPORT_TITLES[H2H], 'source': H2H, 'providers': list(H2H_PROVIDERS), 'measures': measures,
             'monitors': probe,
-            'note': 'Counts of verified items from one run per question, transcribed from the report. No intervals '
-                    'were published; differences of a few items are within noise.'}
+            'note': 'Counts of checked items from one run per question, copied from the report. No ranges were '
+                    'published, so a difference of a few items may be chance.'}
 
 
 def leader(measure: dict) -> str:
@@ -488,7 +489,7 @@ def _dumbbell(boards, x, y, width, P) -> tuple[list[str], float]:
     Labels live in their own columns: names on the left, values on the right,
     the legend above. Nothing is written on the track.
     """
-    out = [_text(x, y, 'Pass rate on post-cutoff briefs (search gap bench)', 14, weight='600')]
+    out = [_text(x, y, 'Pass rate on briefs about recent events (search gap bench)', 14, weight='600')]
     lx = x
     legend = [('dot', 'No search'), ('bar', 'Range across all search setups'), ('tri', 'Answer excerpt handed over')]
     for kind, label in legend:
@@ -514,7 +515,7 @@ def _dumbbell(boards, x, y, width, P) -> tuple[list[str], float]:
         cy = top + row_h * i + row_h / 2
         lo, hi = _gap_range(board)
         ceil = _ceiling(board)
-        name = 'Claude Code' if board['harness'] == 'claude-code' else 'codex'
+        name = 'Claude Code' if board['harness'] == 'claude-code' else 'Codex'
         out.append(_text(x, cy - 2, name, 15, weight='600'))
         out.append(_text(x, cy + 16, f'{board["rows"][0]["cells"]} runs per setup', 12, P['ink2'], MONO))
         out.append(f'<line x1="{px:.1f}" y1="{cy:.1f}" x2="{px + pw:.1f}" y2="{cy:.1f}" stroke="{P["hatch"]}" stroke-width="2"/>')
@@ -530,7 +531,7 @@ def _dumbbell(boards, x, y, width, P) -> tuple[list[str], float]:
 
 
 def _wsb_forest(board, x, y, width, P) -> tuple[list[str], float]:
-    out = [_text(x, y, 'Pass rate on documented-knowledge tasks (web search bakeoff, Claude Code)', 14, weight='600')]
+    out = [_text(x, y, 'Pass rate on well-documented questions (web search bakeoff, Claude Code)', 14, weight='600')]
     nos = next(r for r in board['rows'] if r['arm'] == 'no-search')
     label_w, value_w = 104, 104
     px, pw = x + label_w, width - label_w - value_w
@@ -553,7 +554,7 @@ def _gap_forests(boards, x, y, width, P) -> tuple[list[str], float]:
     for i, board in enumerate(boards):
         bx = x + i * (each + gap)
         name, model = (('Claude Code', 'claude-opus-5-5') if board['harness'] == 'claude-code'
-                       else ('codex', 'gpt-6.1-sol'))
+                       else ('Codex', 'gpt-6.1-sol'))
         out.append(_text(bx, y, name, 14, weight='600'))
         out.append(_text(bx + 9 * len(name) + 8, y, model, 12, P['ink2'], MONO))
         svg, h = forest(board, bx, y + 18, each, row_h=26, label_w=80, value_w=100, ticks=(0, 50, 100))
@@ -608,9 +609,9 @@ def _h2h_panels(h2h: dict, x, y, width, P, ids=('s1', 's4', 's3', 's6')) -> tupl
                              anchor='end'))
     rows = (len(measures) + 1) // 2
     height = rows * panel_h + (rows - 1) * 14
-    note, nh = _para(x, y + height + 12, 'Counts of verified items, one run per question; no 95% ranges were '
-                     'published, so differences of a few items are within noise. Tavily sells no structured '
-                     'extraction, so it was not run on the schema.', 104, 12, 16, fill=P['ink2'])
+    note, nh = _para(x, y + height + 12, 'Counts of checked items, one run per question; no 95% ranges were '
+                     'published, so a difference of a few items may be chance. Tavily sells no data-extraction '
+                     'product, so it was not run on the template.', 104, 12, 16, fill=P['ink2'])
     return out + note, height + 12 + nh
 
 
@@ -675,7 +676,8 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
         ('Isolated, repeated runs', f'A fresh, sealed workspace for every run, with every search logged. '
                                     f'{cells[0]}–{cells[-1]} test runs per provider: three repetitions of each task.'),
         ('Blind grading', 'Answers are checked against the original sources by graders that never see which '
-                          'provider was used. Briefs need the right decision and at least 70% of the key facts.'),
+                          'provider was used. Briefs need the right decision, 70% of the key facts, and sources that back '
+                          'their claims.'),
     ]
     gap = 36
     cw = (W - 2 * M - 3 * gap) / 4
@@ -710,16 +712,16 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
     right_w = W - M - right_x
     findings = [
         ('Past the training cutoff, search decides the outcome',
-         f'Without search, both agents failed every post-cutoff brief (0%). With any search setup, '
-         f'Claude Code passed {cc_lo:.0f}–{cc_hi:.0f}% and codex {cx_lo:.0f}–{cx_hi:.0f}%, close to the '
-         f'{_ceiling(gap_cc):.0f}% and {_ceiling(gap_cx):.0f}% reached when handed the answer excerpt.',
+         f'Without search, both agents failed every brief about recent events (0%). With any search setup, '
+         f'Claude Code passed {cc_lo:.0f}–{cc_hi:.0f}% and Codex {cx_lo:.0f}–{cx_hi:.0f}%, close to the '
+         f'{_ceiling(gap_cc):.0f}% and {_ceiling(gap_cx):.0f}% reached when handed an excerpt containing the answer.',
          'For work that depends on recent events, search is not a tuning knob. It is the difference between '
          'failing and passing, and every provider tested closes most of the gap.',
          lambda yy: _dumbbell((gap_cc, gap_cx), right_x, yy, right_w, P)),
         ('No provider wins everywhere',
          f'The top provider was {cc_top["label"]} on Claude Code ({cc_top["passes"]}/{cc_top["cells"]}) and '
-         f'{cx_top["label"]} on codex ({cx_top["passes"]}/{cx_top["cells"]}), and most intervals overlap. With '
-         f'{gap_cx["rows"][0]["cells"]}–{gap_cc["rows"][0]["cells"]} test runs per provider, the bench cannot '
+         f'{cx_top["label"]} on Codex ({cx_top["passes"]}/{cx_top["cells"]}), and most ranges overlap. With '
+         f'{gap_cx["rows"][0]["cells"]}–{gap_cc["rows"][0]["cells"]} test runs per provider, the test cannot '
          'separate the leaders.',
          'Choose on cost, latency and integration, then measure on your own agent. Rankings did not carry over '
          'from one agent to the other.',
@@ -727,25 +729,25 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
         ('On documented knowledge, memory does most of the work',
          f'In the bakeoff, answering from memory passed {nos["passes"]}/{nos["cells"]} ({nos["pass_pct"]:.0f}%). '
          f'The best provider reached {best_wsb["pass_pct"]:.0f}%, within the margin of error, '
-         f'while tokens per success rose from {tps[0]["tokens_per_success"]} ({tps[0]["label"]}) to as much as '
+         f'while tokens used per passing run rose from {tps[0]["tokens_per_success"]} ({tps[0]["label"]}) to as much as '
          f'{tps[-1]["tokens_per_success"]} ({tps[-1]["label"]}).',
          'Search pays off where training data runs out. On stable, well-documented questions it mostly adds '
-         'tokens.',
+         'cost.',
          lambda yy: _wsb_forest(wsb, right_x, yy, right_w, P)),
         ('Agents still search like keyword users',
          f'Only {totals["natural_language_pct"]:.0f}% of searches about recent events read as plain questions, and Codex '
-         f'leaned on site: filters ({site_lo:.0f}–{site_hi:.0f}% of its provider queries). Agents often skipped '
-         'search and opened URLs they remembered. Runs did better when the primary source surfaced.',
-         'The next gains are in how agents ask and what results surface: full-question queries, and primary '
-         'sources first. These are correlations across runs, not controlled effects.',
+         f'limited many searches to one website ({site_lo:.0f}–{site_hi:.0f}% of its provider searches). Agents often '
+         'skipped search and opened pages they remembered. Runs did better when the original source showed up.',
+         'The next gains are in how agents ask and what results show: searches written as questions, and '
+         'original sources first. These are patterns across runs, not proven causes.',
          lambda yy: _tiles([
              (f'{totals["natural_language_pct"]:.0f}%', 'of searches about recent events read as plain questions; '
                                                          'the rest were keyword strings.'),
-             (f'{exa["fetch_only_cells"]}/{exa["cells"]}', 'Exa bakeoff runs that fetched remembered URLs without '
+             (f'{exa["fetch_only_cells"]}/{exa["cells"]}', 'Exa bakeoff runs that opened remembered pages without '
                                                            f'searching (Firecrawl {fc["fetch_only_cells"]}/{fc["cells"]}, '
                                                            f'Tavily {tv["fetch_only_cells"]}/{tv["cells"]}, '
                                                            f'Parallel {pw["fetch_only_cells"]}/{pw["cells"]}).'),
-             (f'{hit_pct:.0f}% vs {miss_pct:.0f}%', 'Claude Code pass rate with the primary source in its results '
+             (f'{hit_pct:.0f}% vs {miss_pct:.0f}%', 'Claude Code pass rate with the original source in its results '
                                                     f'({hit[0]}/{hit[1]}) vs without it ({miss[0]}/{miss[1]}).'),
          ], right_x, yy + 8, right_w, P)),
     ]
@@ -758,9 +760,9 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
             f'A separate study called four search APIs directly on a research workload. {leader(s1)} added the most '
             f'verified new claims ({max(s1["values"].values())} on 40 open questions) and {news}the most new dated '
             f'news facts ({max(s4["values"].values())}). {leader(s3)} read the most pages other tools could not '
-            f'({max(s3["values"].values())} of {s3["of"]}), and {leader(s6)} filled a fixed schema most accurately '
+            f'({max(s3["values"].values())} of {s3["of"]}), and {leader(s6)} filled in a fixed template most accurately '
             f'({max(s6["values"].values())} of {s6["of"]} values).',
-            'Choose by job: discovery, rendering and structured extraction rewarded different providers. The study '
+            'Choose by job: finding new facts, reading hard pages and filling in data rewarded different providers. The study '
             'was run for a knowledge base about Exa, one of the four, so read its context note.',
             lambda yy: _h2h_panels(h2h, right_x, yy + 8, right_w, P)))
     for n, (headline, text, sowhat, chart) in enumerate(findings, start=1):
@@ -791,13 +793,13 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
     body.append(f'<rect x="{M}" y="{y:.1f}" width="{W - 2 * M}" height="186" rx="8" fill="{P["surface"]}" stroke="{P["rule"]}"/>')
     body.append(_text(M + 24, y + 34, 'Read before comparing', 18, P['ink'], COND, '700'))
     caveats = [
-        f'{cells[0]}–{cells[-1]} test runs per provider: ranges are wide, and neighbouring positions are not rankings.',
-        ('In the agent benchmarks each provider ran through its own MCP server at default settings; the API study '
-         'called tuned APIs directly.' if h2h else
+        f'{cells[0]}–{cells[-1]} test runs per provider: ranges are wide, so one place higher may not mean better.',
+        ('In the agent tests each provider was plugged in through its official connector at default settings; the '
+         'API study called tuned APIs directly.' if h2h else
          'Each provider ran through its own MCP server at a pinned version and default settings. Direct APIs, '
          'other search modes and other tools were not tested.'),
-        'Grading used automatic checks and blinded model graders. Provider dollar spend was only partly metered.',
-        f'Search behavior comes from {queries} logged queries; its links to pass rates are correlations.',
+        'Grading used automatic checks and AI graders that never saw the provider. Dollar costs were only partly tracked.',
+        f'Search behavior comes from {queries} logged searches; its links to pass rates are patterns, not causes.',
     ]
     for i, line in enumerate(caveats):
         body.append(_text(M + 24, y + 64 + i * 24, f'·  {line}', 14, P['ink']))
@@ -895,37 +897,76 @@ def ci_svg(row: dict, top_lo: float) -> str:
             f'<rect x="{row["pass_pct"] - 0.9:.1f}" y="4" width="1.8" height="14" fill="{color}"/></svg>')
 
 
+def _point_pct(cell: str) -> str:
+    """'89% (67–97%)' -> '89%'."""
+    match = re.match(r'\s*(\d+(?:\.\d+)?)%', cell)
+    return f'{float(match.group(1)):.0f}%' if match else cell
+
+
+def _gap_pct(cell: str) -> str:
+    """Gap closure as a share of the gap: '1.06 (0.88–1.29)' -> '106% (88–129%)'. Can be negative."""
+    number = r'-?\d+(?:\.\d+)?'
+    match = re.fullmatch(rf'\s*({number})\s*\(\s*({number})\s*[-–]\s*({number})\s*\)\s*', cell)
+    if not match:
+        return cell
+    point, lo, hi = (round(float(x) * 100) for x in match.groups())
+    return f'{point}% ({lo}–{hi}%)'
+
+
+def board_caption(board: dict) -> str:
+    """The tasks behind a leaderboard and what counts as a pass, in plain words."""
+    runs = board['rows'][0]['cells']
+    if board['bench'] == 'GAP':
+        return (f'{runs // 3} research briefs about events after the model\'s training data, each run 3 times: {runs} '
+                f'runs per setup. A brief passes if it reaches the right decision, gets at least '
+                f'{RECALL_MIN:.0%} of the key facts (important ones count more), and no more than '
+                f'{UNSUPPORTED_MAX:.0%} of its claims lack support in the sources it cites.')
+    return (f'{runs // 3} research tasks with mostly well-documented answers, each run 3 times: {runs} runs per setup. '
+            'A run passes the task\'s automatic checks or, for open-ended tasks, a blind AI grader\'s checklist '
+            '(regraded 2026-09-30 after grading fixes).')
+
+
 def board_html(board: dict) -> str:
     top_lo = board['top_lower_bound']
     has_gap = board['bench'] == 'GAP'
-    head = ('<tr><th>Search setup</th><th class="num">Passed</th><th>95% range on a 0–100% scale</th>'
-            + ('<th class="num">Gap closure</th>' if has_gap else '')
-            + '<th class="num">Tokens per success</th><th>Notes</th></tr>')
+    head = ('<tr><th>Search setup</th><th class="num">Passed</th><th>Likely range, 0–100%</th>'
+            + ('<th class="num">Gap closed</th>' if has_gap else '')
+            + '<th class="num">Tokens per pass</th><th>Notes</th></tr>')
+    best = max(r['pass_pct'] for r in board['rows'] if r['arm'] != 'no-search')
     body = []
     for row in board['rows']:
-        pill = ('<span class="pill lead">overlaps top interval</span>' if row['overlaps_top']
-                else '<span class="pill">below top interval</span>')
+        pill = ('<span class="pill lead">overlaps leader</span>' if row['overlaps_top']
+                else '<span class="pill">below leader</span>')
+        if row['pass_pct'] == best:
+            pill = '<span class="pill lead">leader</span>'
         if row['arm'] == 'no-search':
-            pill = '<span class="pill">reference</span>'
+            pill = '<span class="pill">baseline</span>'
         note = f'<div class="flag">{esc(row["note"])}</div>' if row['note'] and row['arm'] != 'no-search' else ''
         body.append(
             f'<tr><td class="setup">{esc(row["label"])}</td>'
             f'<td class="num passed">{row["passes"]}/{row["cells"]} · {row["pass_pct"]:.0f}%'
             f'<div class="flag">{row["ci"][0]:.0f}–{row["ci"][1]:.0f}%</div></td>'
             f'<td class="ci">{ci_svg(row, top_lo)}</td>'
-            + (f'<td class="num gap" data-label="Gap closure">{esc(row["gap_closure"])}</td>' if has_gap else '')
-            + f'<td class="num tps" data-label="Tokens per success">{esc(row["tokens_per_success"])}</td>'
+            + (f'<td class="num gap" data-label="Gap closed">{esc(_gap_pct(row["gap_closure"]))}</td>' if has_gap else '')
+            + f'<td class="num tps" data-label="Tokens per pass">{esc(row["tokens_per_success"])}</td>'
             f'<td class="notes">{pill}{note}</td></tr>')
-    ref = ''
-    if board['reference']:
-        ref = '<p class="flag">' + ' · '.join(f'{esc(k)}: {esc(v)}' for k, v in board['reference'].items()) + '</p>'
+    if has_gap:
+        floor = _point_pct(board['reference']['floor (no search)'])
+        ceiling = _point_pct(board['reference']['ceiling (answer excerpt)'])
+        foot = (f'For scale: with no search the agent passed {floor}; handed an excerpt containing the answer, it passed '
+                f'{ceiling}. Gap closed is how far each setup got from {floor} toward {ceiling}; over 100% means it beat '
+                f'{ceiling}. Tokens per pass: all tokens used, failed runs included, divided by passing runs.')
+        ranges = 'as published'
+    else:
+        foot = ('Tokens per pass counts only runs whose tokens were measured; how many runs each setup was missing was '
+                'not recorded, so treat it as approximate.')
+        ranges = 'computed from its counts'
     return (f'<section class="board" id="board-{board["id"]}"><h3>{esc(board["title"])}</h3>'
-            f'<p class="scope">{esc(board["scope"])} Interval: {esc(board["interval"])}. The dashed line marks the '
-            f'lower end of the top setup\'s range; badges describe overlap of individual ranges only. '
-            f'Overlap does not establish statistical equivalence or test a difference between setups.</p>'
-            f'<div class="tablewrap"><table><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>{ref}'
-            f'<p class="flag">{esc(board["token_accounting"])}</p>'
-            f'<p class="flag">Source: <a href="#run-{board["source"]}">{esc(REPORT_TITLES[board["source"]])}</a>.</p></section>')
+            f'<p class="scope">{esc(board_caption(board))}</p>'
+            f'<div class="tablewrap"><table><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>'
+            f'<p class="flag">{esc(foot)}</p>'
+            f'<p class="flag">Source: <a href="#run-{board["source"]}">{esc(REPORT_TITLES[board["source"]])}</a>; '
+            f'ranges are 95% Wilson intervals, {ranges}.</p></section>')
 
 
 def mermaid(name: str) -> str:
@@ -1459,62 +1500,63 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, body_only: b
                      + [str(m['values'][p]) if p in m['values'] else '—' for p in h2h['providers']]
                      for m in h2h['measures']]
     probe = h2h['monitors']
-    probe_text = (f'An Exa-only Monitors probe made {probe["runs"]} daily runs on {probe["monitors"]} competitors\' pricing and '
-                  f'changelog pages and reported {probe["changes"]} changes'
+    probe_text = (f'A side test of Exa\'s Monitors feature checked {probe["monitors"]} competitors\' pricing and changelog '
+                  f'pages daily ({probe["runs"]} checks) and reported {probe["changes"]} changes'
                   + (f', {probe["confirmed"]} of them confirmed on the page; {probe["monitors_passing"]} of '
-                     f'{probe["monitors"]} monitors surfaced a real, dated pricing or product change.'
+                     f'{probe["monitors"]} monitors caught a real pricing or product change.'
                      if 'confirmed' in probe else '.'))
     direct = f"""<section id="head-to-head"><h2>Search APIs called directly</h2>
-<p>A separate study ({esc(REPORT_TITLES[H2H])}, 2026-09-26 to 2026-10-06) sent the same pre-registered research questions to
-four search APIs directly, with each vendor's best-practice parameters, and had blind model judges verify every counted item
-on its source page. It measures what each API adds to a knowledge base already built with built-in search, not what an
-agent does with it.</p>
+<p>A separate study ({esc(REPORT_TITLES[H2H])}, 2026-09-26 to 2026-10-06) sent the same research questions, fixed in
+advance, straight to four search APIs, each set up as its vendor recommends. AI judges that were not told which API found
+what checked every counted item on its source page. It measures what each API adds to a knowledge base already built with
+built-in search, not how an agent uses it.</p>
 {table_html(rows, H2H)}
-<p class="flag">{esc(h2h['note'])} A dash means not run: Tavily sells no list-building or structured-extraction product.
+<p class="flag">{esc(h2h['note'])} A dash means not run: Tavily sells no list-building or data-extraction product.
 {esc(probe_text)}</p>
-<p class="flag">Context: the study was run while building a go-to-market knowledge base about Exa, one of the four providers,
-and its questions come from that knowledge base. Full report: <a href="#run-{H2H}">{esc(REPORT_TITLES[H2H])}</a>.</p>
+<p class="flag">Disclosure: the study was run while building a sales and marketing knowledge base about Exa, one of the four
+providers, and its questions came from that work. Full report: <a href="#run-{H2H}">{esc(REPORT_TITLES[H2H])}</a>.</p>
 </section>"""
     main = f"""<div class="wrap doc">
 <div class="page-head"><p class="eyebrow">Results</p><h1>What the benchmark measured</h1>
-<p class="lede">Two agent benchmarks, two AI coding agents, {h['providers']} search providers and {h['runs']} graded test runs,
-plus a replication of the search gap bench on Claude Code and a study that called four search APIs directly. Every
-number on this page is generated from the published report data.</p></div>
+<p class="lede">Two AI coding agents, Claude Code and Codex, did the same tasks with each of {h['providers']} web search
+providers, their own built-in search, or no search, and {h['runs']} runs were graded blind. Also here: a rerun of the search gap bench, and a study that
+called four search APIs directly. Every number comes from the published reports.</p></div>
 
 <section id="before"><h2>Read this before comparing providers</h2>
 <ul class="caveats">
-<li><strong>Small samples</strong>{h['min_runs']} to {h['max_runs']} test runs per provider. The 95% ranges overlap widely, so
-neighbouring positions are not rankings, and no provider beat answering from memory on the documented-knowledge benchmark by
-a statistically clear margin.</li>
-<li><strong>One connection per provider</strong>In the two agent benchmarks, each provider ran through its own official MCP
-server at a pinned version and default settings; other search modes and tools were not tested there. The search API
-head-to-head called the APIs directly with tuned parameters, and its results do not transfer to agents, or back.</li>
-<li><strong>The agent matters</strong>Rankings changed between Claude Code and Codex. A result on one agent does not transfer
-to another.</li>
-<li><strong>Built-in search rerun</strong>In the original runs Claude Code's built-in search could not open pages. After the
-fix it was rerun on 2026-10-06, and its rows here come from that rerun. The original rows stay on record in the reports.</li>
-<li><strong>Cost coverage</strong>Token counts are reported; provider dollar spend was only partly metered, so dollar
-comparisons are omitted.</li>
-<li><strong>Who graded</strong>Automatic checks where possible; otherwise model graders that compared answers with the captured
-sources without seeing which provider produced them.</li>
+<li><strong>Small samples</strong>{h['min_runs']} to {h['max_runs']} runs per provider. The likely ranges overlap widely,
+so a provider one place above another may not be better. On well-documented questions, no provider clearly beat answering
+from memory.</li>
+<li><strong>Default settings</strong>In the agent tests each provider was plugged in through its own official connector (an
+MCP server) at default settings; other modes and products were not tested. The API study called the APIs directly with
+tuned settings, so its results do not carry over to agents, or the reverse.</li>
+<li><strong>The agent matters</strong>Rankings changed between Claude Code and Codex, so a result on one agent may not hold on
+another.</li>
+<li><strong>Built-in search rerun</strong>In the original runs Claude Code's built-in search could not open pages. It was
+fixed and rerun on 2026-10-06, and its rows here come from the rerun. The original rows stay in the reports.</li>
+<li><strong>Cost</strong>We report tokens, the units AI models bill by, not dollars: providers' own charges were only partly
+tracked.</li>
+<li><strong>Grading</strong>Automatic checks where possible; otherwise AI graders compared each answer with the saved source
+pages, without knowing which provider was used.</li>
 </ul></section>
 
 <section id="infographic"><h2>Results at a glance</h2>
 <figure><div class="infographic">{infographic(boards, analysis, h2h)}</div>
-<figcaption><a href="infographic.svg">Open the infographic full size</a>. Generated from
-<code>reports/*/summary.json</code>.</figcaption></figure></section>
+<figcaption><a href="infographic.svg">Open the infographic full size</a>. Generated from the published
+reports.</figcaption></figure></section>
 
 <section id="leaderboard"><h2>Leaderboards</h2>
-<p>Ordered by observed pass rate. The bar is the 95% range; the tick is the observed rate. Machine-readable data:
-<a href="leaderboard.json">leaderboard.json</a>.</p>
+<p>Each table ranks the search setups by how often a run passed. The tick marks the pass rate; the bar shows the range
+the true rate likely falls in (95% confidence), and the dashed line marks the bottom of the leader's range. Where bars
+overlap, the difference may be chance. Data: <a href="leaderboard.json">leaderboard.json</a>.</p>
 {''.join(board_html(b) for b in boards)}
 </section>
 
 {direct}
 
 <section id="runs"><h2>Full reports</h2>
-<p>The recorded reports, transcribed and checked by <code>scripts/check_reports.py</code>, with plain-language labels
-for search setups, test runs and agents.</p>
+<p>The complete technical reports, as recorded, with their statistics and corrections. Their terms are explained in
+<a href="methodology.html#terms">the methodology glossary</a>.</p>
 {''.join(runs)}
 </section>
 </div>"""
@@ -1546,12 +1588,27 @@ provider changing. This page describes the apparatus in full.</p></div>
 <section id="terms"><h2>Terms used in the reports</h2>
 <div class="terms">
 <div><b>Search setup (report term: arm)</b>One way of giving the agent search: one provider's MCP server, the agent's built-in
-search, or no search at all.</div>
+search (native), or no search at all.</div>
 <div><b>Test run (report term: cell)</b>One task, one search setup, one repetition, graded once.</div>
 <div><b>Agent (report term: harness)</b>The AI coding agent program: Claude Code or Codex.</div>
-<div><b>Floor and ceiling</b>The same task with no search (floor) and with the answer excerpt handed over (ceiling).</div>
-<div><b>Gap closure</b>How much of the distance from floor to ceiling a search setup recovers.</div>
-<div><b>95% range</b>The Wilson interval around a pass rate. Overlapping ranges mean the data cannot separate two setups.</div>
+<div><b>GAP, WSB, SEW</b>Short names for the search gap bench, the web search bakeoff and the Search Evaluation Workbench
+that runs them.</div>
+<div><b>MCP server</b>The standard connector that plugs a search provider into an agent.</div>
+<div><b>Brief</b>A short research report that ends in a decision and cites its sources. It passes with the right decision,
+key-fact recall of at least 0.7 (70% of the key facts, important ones weighted more) and unsupported claims of at most 0.25
+(a quarter of its claims not backed by the source it cites).</div>
+<div><b>Floor and ceiling</b>The same task with no search (floor) and with an excerpt containing the answer handed over
+(ceiling). A task is admitted only if the agent fails at the floor and passes at the ceiling.</div>
+<div><b>Gap closure</b>How far a search setup got from the floor toward the ceiling: 1.00 means all the way.</div>
+<div><b>Judge</b>An AI model that grades answers without knowing which setup produced them. In the search gap bench a
+Claude Code judge decides and a Codex judge checks; kappa measures their agreement (1 is perfect, 0 is chance).</div>
+<div><b>Tokens per success</b>Tokens used per passing run; the search gap bench counts failed runs' tokens too. Tokens are
+the units AI models bill by.</div>
+<div><b>95% range (CI)</b>The range the true value likely falls in; for pass rates, a Wilson interval. Overlapping ranges
+mean the data cannot separate two setups.</div>
+<div><b>p-value (McNemar, Fisher, sign test)</b>How likely a difference this large would be if the setups were really
+equal. Below 0.05 is the usual bar for a real difference.</div>
+<div><b>Pre-registered</b>Questions and scoring rules fixed before any results were seen.</div>
 </div></section>
 
 <section id="pipeline"><h2>From task to report</h2>
