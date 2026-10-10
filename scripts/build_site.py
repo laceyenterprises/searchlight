@@ -904,8 +904,8 @@ def _point_pct(cell: str) -> str:
 
 
 def _gap_pct(cell: str) -> str:
-    """Gap closure as a share of the gap: '1.06 (0.88–1.29)' -> '106% (88–129%)'."""
-    number = r'\d+(?:\.\d+)?'
+    """Gap closure as a share of the gap: '1.06 (0.88–1.29)' -> '106% (88–129%)'. Can be negative."""
+    number = r'-?\d+(?:\.\d+)?'
     match = re.fullmatch(rf'\s*({number})\s*\(\s*({number})\s*[-–]\s*({number})\s*\)\s*', cell)
     if not match:
         return cell

@@ -266,6 +266,7 @@ def test_boards_explain_the_pass_rule_in_plain_words():
                           for k in ('floor (no search)', 'ceiling (answer excerpt)'))
         assert f'from {floor} toward {ceiling}' in rendered
     assert site._gap_pct('1.06 (0.88–1.29)') == '106% (88–129%)'
+    assert site._gap_pct('-0.12 (-0.30–0.10)') == '-12% (-30–10%)'
     assert site._gap_pct('n/a') == 'n/a'
     assert site._point_pct('89% (67–97%)') == "89%"
 
