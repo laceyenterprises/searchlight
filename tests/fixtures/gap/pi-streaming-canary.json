@@ -1,0 +1,48 @@
+[
+  {"type": "message_start", "message": {"role": "assistant", "content": []}},
+  {
+    "type": "message_update",
+    "assistantMessageEvent": {"type": "toolcall_start", "contentIndex": 0},
+    "message": {"role": "assistant", "content": [
+      {"type": "toolCall", "id": "canary", "name": "bash", "arguments": {}}
+    ]}
+  },
+  {
+    "type": "message_update",
+    "assistantMessageEvent": {"type": "toolcall_delta", "contentIndex": 0, "delta": "{\"command\":\"python3"},
+    "message": {"role": "assistant", "content": [
+      {"type": "toolCall", "id": "canary", "name": "bash", "arguments": {"command": "python3"}}
+    ]}
+  },
+  {
+    "type": "message_update",
+    "assistantMessageEvent": {"type": "toolcall_end", "contentIndex": 0},
+    "message": {"role": "assistant", "content": [
+      {"type": "toolCall", "id": "canary", "name": "bash", "arguments": {"command": "CANARY_COMMAND"}}
+    ]}
+  },
+  {
+    "type": "message_end",
+    "message": {"role": "assistant", "stopReason": "toolUse", "content": [
+      {"type": "toolCall", "id": "canary", "name": "bash", "arguments": {"command": "CANARY_COMMAND"}}
+    ]}
+  },
+  {
+    "type": "message_start",
+    "message": {"role": "toolResult", "toolCallId": "canary", "toolName": "bash",
+      "content": [{"type": "text", "text": "CANARY_OUTPUT"}], "isError": false}
+  },
+  {
+    "type": "message_end",
+    "message": {"role": "toolResult", "toolCallId": "canary", "toolName": "bash",
+      "content": [{"type": "text", "text": "CANARY_OUTPUT"}], "isError": false}
+  },
+  {
+    "type": "turn_end",
+    "message": {"role": "assistant", "stopReason": "toolUse", "content": [
+      {"type": "toolCall", "id": "canary", "name": "bash", "arguments": {"command": "CANARY_COMMAND"}}
+    ]},
+    "toolResults": [{"role": "toolResult", "toolCallId": "canary", "toolName": "bash",
+      "content": [{"type": "text", "text": "CANARY_OUTPUT"}], "isError": false}]
+  }
+]

@@ -890,10 +890,22 @@ def run_live_harness(
                         )
                     else:
                         nonce, command = canary_command(config.harness_id)
+                        canary_prompt = (
+                            "Run this exact command once using your shell tool; "
+                            "do not modify or summarize its output:\n" + command
+                        )
+                        # A harness that takes its prompt in argv (Hermes) gets
+                        # the canary prompt there; stdin harnesses are unchanged.
+                        canary_argv = [
+                            *argv[: len(argv) - len(harness_argv)],
+                            argv[len(argv) - len(harness_argv)],
+                            *protocol.prompt_argv(
+                                binary, spawn_config, last_message_path, canary_prompt
+                            )[1:],
+                        ]
                         canary = spawn_and_capture(
-                            argv,
-                            prompt="Run this exact command once using your shell tool; "
-                            "do not modify or summarize its output:\n" + command,
+                            canary_argv,
+                            prompt=canary_prompt,
                             cwd=workspace_path,
                             env=child_env,
                             limits=LiveLimits(
@@ -944,6 +956,10 @@ def run_live_harness(
                         canary_evidence.update(admissible=True, probes=record["probes"])
                         _write_json(canary_path, _elide_to_cap(canary_evidence))
                         last_message_path.unlink(missing_ok=True)
+                        # The task transcript must not replay the canary's calls.
+                        reset = getattr(protocol, "reset_session", None)
+                        if reset is not None:
+                            reset(child_env)
                 outcome = spawn_and_capture(
                     argv,
                     prompt=prompt,

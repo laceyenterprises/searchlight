@@ -484,3 +484,80 @@ runtime parity. This residual risk is mitigated by per-cell attestation and the
 retained transcript audit. GAPATTEMPT still contaminates only unattributed
 network attempts; attributable denials remain behavior evidence. Non-shell
 transports retain the reduced confinement guarantees documented above.
+
+
+## OHM-08: OSS harness code cells
+
+Hermes, Opencode and Pi have no shell sandbox of their own, so their registry
+entries select `code_cell_sandbox: portable`: the bench's own sandbox is the
+runner, and it confines the entire harness process tree, including the shell
+tool, file tools and MCP descendants. A code cell requires a `litellm/<route>`
+model and LiteLLM auth; the only model endpoint is the LiteLLM authority, never
+the provider hosts behind it. The adapters enable the shell and file tools only
+for code cells (Hermes `terminal` and `file`; Opencode `bash`, `read`, `write`,
+`edit`, `glob`, `grep` and `list`; Pi's default `read`, `bash`, `edit` and
+`write`). Each reads its endpoint from `SEW_LITELLM_BASE_URL` (Hermes `${...}`,
+Opencode `{env:...}`, Pi `baseUrlEnv`), so the Linux bridge can rewrite a
+loopback endpoint per launch. Search cells keep the literal endpoint and the
+shell off.
+
+macOS refuses a nested Seatbelt profile, so the hosted harnesses' outer
+files-only profile cannot also host an inner shell sandbox here. Instead the
+OSS harness tree runs under one profile: the unchanged files-only rules, then
+only denials and the permitted peers. Writes outside the cell scratch (other
+than `/dev/null`, `/dev/tty`, pseudo-terminals and similar devices) are denied. All outbound
+network is denied except `localhost:<port>` for the bench endpoint proxy and,
+when LiteLLM is loopback, its port. DNS, other loopback services and Unix
+sockets are unreachable. `HOME` and `TMPDIR` move into the scratch unless the
+arm already isolated them (Opencode's `HOME`). Linux keeps the existing
+bubblewrap namespace and bridge, with the same `HOME`/`TMPDIR` move. A Python
+console-script launcher (Hermes) also gets its virtual environment and base
+interpreter bound read-only, never a tree containing the account's home.
+
+Before any model turn, the bench qualifies the exact boundary: the direct
+probe must see EPERM/EACCES under the harness-tree profile (macOS; Linux keeps
+its backend canary), and a bench process inside the boundary writes to a
+parent-chosen path outside the scratch. Admission requires that nothing
+reaches the host there, whether the write was denied (macOS, read-only Linux
+binds) or landed in the namespace's private `/tmp`. Evidence is retained as
+`runner_id: bench-seatbelt`, `policy_scope: harness-tree-profile`,
+`harness_tree_confined: true` and `write_escape`.
+
+The agent-run canary is then mandatory, as for Codex. OSS harnesses run
+`PORTABLE_CANARY_PROGRAM`: the same curl, pip download and HTTPS probes, aimed
+at `1.1.1.1` (never a name), with `curl -v` and `pip -vv` so the output
+carries the denial: the OS refusing a direct connect, or the endpoint proxy's
+`403 Permission denied: endpoint not allowlisted` for a proxied one. Each probe
+must fail with denial text, as for Codex. The hosted canary program is
+unchanged. Hermes takes its prompt in argv, so the canary launch carries the
+canary prompt there, and its session ledger is removed before the task so the
+task transcript never replays the canary.
+
+The canary and transcript audit read each harness's event shape: Hermes
+`tool_call` rows and JSON `terminal` results, Opencode `tool_use` parts and
+Pi `toolCall` blocks with `toolResult` messages. Canary validation uses completed
+Pi assistant calls from `message_end` and `turn_end`, deduplicated by call ID;
+older releases' cumulative assistant `message_start`/`message_update` snapshots
+carry incomplete arguments and do not qualify a call. Additional completed
+calls or completed calls outside the exact probe still refuse admission.
+Tool-result start/end repeats count once,
+and Pi's appended `Command exited with code N` status is removed so the
+command's own last line is read, as for Codex. `terminal` joins the shell-tool
+list; Opencode and Pi call theirs `bash`. Hermes `read_file`, `write_file`,
+`patch` and `search_files`, and Opencode `read`, `write`, `edit`, `grep`, `glob`
+and `list` join the forbidden-read audit. The audit checks their path arguments
+(including Opencode `filePath` and paths in `glob` patterns), resolving relative
+paths against the cell workspace. Searching or listing forbidden catalog,
+hidden asset, wheel-cache or verifier paths contaminates the cell just as a read
+does, even when the OS allows the request.
+Denial attribution and the strict pip allowlist are unchanged; tests assert
+that each OSS shape audits exactly as the same Codex command does.
+
+Residual risk: a provider arm's MCP server runs inside the same fence, so on
+both hosts it cannot reach its provider (as for hosted Linux cells); provider
+arms in OSS code cells will report tool failures until a separate decision
+admits provider endpoints. A remote (non-loopback) LiteLLM is reached only
+through the endpoint proxy, so a client that ignores proxy variables (Node's
+default fetch) fails closed. No live OSS code cell has run; offline tests use
+fake harness binaries under the real Seatbelt or bubblewrap boundary and a
+local LiteLLM stub.

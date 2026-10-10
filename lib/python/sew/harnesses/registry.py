@@ -29,8 +29,10 @@ from typing import Any
 Ref = str | Callable[..., Any]
 HARNESS_ID_RE = re.compile(r"[a-z][a-z0-9-]*")
 # How a harness's GAP code cell is sandboxed: Claude Code's pinned sandbox
-# runtime, Codex's own `codex sandbox`, or none (no code-cell path).
-CODE_CELL_SANDBOXES = frozenset({"srt", "codex-sandbox"})
+# runtime, Codex's own `codex sandbox`, the bench's portable whole-tree sandbox
+# (Seatbelt or bubblewrap, for harnesses with no shell sandbox of their own),
+# or none (no code-cell path).
+CODE_CELL_SANDBOXES = frozenset({"srt", "codex-sandbox", "portable"})
 
 
 @dataclass(frozen=True)

@@ -30,8 +30,6 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
         raise SchemaError('Pi requires an explicit litellm/<route> model and LiteLLM auth')
     if config.harness_args:
         raise SchemaError('Pi search cells do not accept extra harness arguments')
-    if config.workspace_profile:
-        raise SchemaError('Pi code cells are not configured by the search adapter')
     if contract.kind == 'provider' and (
         not isinstance(server_config.get('command'), str) or not server_config['command']
         or server_config.get('url')
@@ -55,14 +53,21 @@ def arm_spawn(config, contract, server_config, scratch, source_env, *, harness_a
     shutil.copytree(Path(__file__).parent / 'harnesses/pi_extensions', extensions, dirs_exist_ok=True)
     entry = catalog[route]
     path = home / 'cell.json'
+    # A code cell reads the endpoint from the env so the Linux egress bridge
+    # can rewrite a loopback endpoint per launch.
+    endpoint = ({'baseUrlEnv': 'SEW_LITELLM_BASE_URL'} if contract.workspace_profile
+                else {'baseUrl': settings.base_url.rstrip('/') + '/v1'})
     path.write_text(json.dumps({
-        'route': route, 'baseUrl': settings.base_url.rstrip('/') + '/v1',
+        'route': route, **endpoint,
         'contextWindow': entry['context_window_tokens'], 'maxTokens': entry['max_output_tokens'],
         'serverName': contract.mcp_server_name,
         'server': server_config if contract.kind == 'provider' else None,
     }) + '\n')
     path.chmod(0o600)
-    args = ('--no-builtin-tools', '--no-extensions', '--no-skills',
+    # A GAP code cell keeps Pi's default built-ins (read, bash, edit, write);
+    # the bench's portable sandbox confines the whole tree.
+    builtins = () if contract.workspace_profile else ('--no-builtin-tools',)
+    args = (*builtins, '--no-extensions', '--no-skills',
             '--no-prompt-templates', '--no-themes', '--no-context-files', '--no-approve',
             '--offline', '-e', str(extensions / 'litellm.mjs'), '-e', str(extensions / 'mcp-bridge.mjs'))
     return SpawnSurface(contract, args, {'PI_CODING_AGENT_DIR': str(home),

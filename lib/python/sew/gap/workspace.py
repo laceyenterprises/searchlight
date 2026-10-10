@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import errno
 import hashlib
+import ipaddress
 import json
 import os
 import re
@@ -307,6 +308,12 @@ SHELL_TOOLS = {
     "exec_command",
     "command_execution",
     "unified_exec",
+    # Hermes Agent's shell. Opencode and Pi name theirs "bash".
+    "terminal",
+}
+FILE_TOOLS = {
+    "read", "read_file", "edit", "write", "write_file", "patch",
+    "search_files", "grep", "glob", "list",
 }
 NETWORK_EXECUTABLES = {
     "curl",
@@ -726,6 +733,14 @@ def call_payloads(value, *, include_id=False):
         for entry in value:
             yield from call_payloads(entry, include_id=include_id)
     elif isinstance(value, Mapping):
+        part = value.get("part")
+        if value.get("type") == "tool_use" and isinstance(part, Mapping) and part.get("type") == "tool":
+            # Opencode reports each finished tool as one part, input in its state.
+            state = part.get("state")
+            payload = state.get("input") if isinstance(state, Mapping) else None
+            record = (str(part.get("tool")).casefold(), payload)
+            yield (*record, part.get("callID")) if include_id else record
+            return
         if value.get("type") in {
             "tool_use",
             "tool_call",
@@ -734,6 +749,8 @@ def call_payloads(value, *, include_id=False):
             "mcp_tool_call",
             "web_search",
             "web_search_call",
+            # Pi's assistant content block.
+            "toolCall",
         }:
             name = value.get("name") or value.get("tool") or value.get("type")
             function = value.get("function")
@@ -751,6 +768,80 @@ def call_payloads(value, *, include_id=False):
         for key in ("harness_event", "message", "content", "item"):
             if key in value:
                 yield from call_payloads(value[key], include_id=include_id)
+
+
+def _blocks(value):
+    """Every mapping in a transcript, including nested protocol events."""
+    if isinstance(value, (list, tuple)):
+        for entry in value:
+            yield from _blocks(entry)
+    elif isinstance(value, Mapping):
+        yield value
+        for key in ("harness_event", "message", "content", "item"):
+            if key in value:
+                yield from _blocks(value[key])
+
+
+def _shell_calls(transcript):
+    """``({call_id: command}, {call_id: tool name})`` for shell tool requests."""
+    calls, names = {}, {}
+    for name, payload, call_id in call_payloads(transcript, include_id=True):
+        if name in SHELL_TOOLS and isinstance(payload, Mapping) and call_id is not None:
+            calls[call_id] = payload.get("command", "")
+            names[call_id] = name
+    return calls, names
+
+
+def _portable_shell_result(entry, calls, names):
+    """``(call_id, command, output, failed)`` for an OSS harness's shell result.
+
+    Each shape binds its output to the request id, so the hosted harnesses'
+    pairing rules apply unchanged. Anything else returns None.
+    """
+    part = entry.get("part")
+    if entry.get("type") == "tool_use" and isinstance(part, Mapping) and part.get("type") == "tool":
+        # Opencode: the finished part carries input, output and exit status.
+        state = part.get("state") if isinstance(part.get("state"), Mapping) else {}
+        if state.get("status") not in {"completed", "error"}:
+            return None
+        metadata = state.get("metadata") if isinstance(state.get("metadata"), Mapping) else {}
+        exit_code = metadata.get("exit")
+        failed = state["status"] == "error" or (type(exit_code) is int and exit_code != 0)
+        output = state.get("error" if state["status"] == "error" else "output", "")
+        call_id = part.get("callID")
+        return call_id, calls.get(call_id, ""), output, failed
+    if entry.get("role") == "toolResult":
+        # Pi: a tool result message names its call and flags failures.
+        content = entry.get("content")
+        output = "\n".join(
+            block.get("text", "")
+            for block in (content if isinstance(content, list) else [])
+            if isinstance(block, Mapping) and isinstance(block.get("text", ""), str)
+        )
+        failed = entry.get("isError") is True
+        if failed:
+            # Pi appends the exit status Codex reports separately; the command's
+            # own last line is what the denial rule reads.
+            output = re.sub(r"(?:\A|\n\n)Command exited with code -?[0-9]+\Z", "", output)
+        call_id = entry.get("toolCallId")
+        return call_id, calls.get(call_id, ""), output, failed
+    if entry.get("type") == "tool_result" and names.get(entry.get("tool_use_id")) == "terminal":
+        # Hermes: the terminal tool's result is a JSON object with an exit code.
+        call_id = entry["tool_use_id"]
+        try:
+            result = json.loads(entry.get("content", ""))
+        except (TypeError, ValueError):
+            result = None
+        if not isinstance(result, Mapping):
+            return call_id, calls.get(call_id, ""), "", False
+        exit_code = result.get("exit_code")
+        return (
+            call_id,
+            calls.get(call_id, ""),
+            result.get("output", ""),
+            type(exit_code) is int and exit_code != 0,
+        )
+    return None
 
 
 def _network_invocation_is_last(command, *, inherited_offline_override=False, _depth=0):
@@ -790,25 +881,13 @@ def denied_network_commands(transcript):
     """
     from urllib.parse import urlsplit
 
-    calls = {}
     denied = set()
-
-    def blocks(value):
-        if isinstance(value, (list, tuple)):
-            for entry in value:
-                yield from blocks(entry)
-        elif isinstance(value, Mapping):
-            yield value
-            for key in ("harness_event", "message", "content", "item"):
-                if key in value:
-                    yield from blocks(value[key])
-
-    entries = list(blocks(transcript))
-    for name, payload, call_id in call_payloads(transcript, include_id=True):
-        if name in SHELL_TOOLS and isinstance(payload, Mapping) and call_id is not None:
-            calls[call_id] = payload.get("command", "")
+    entries = list(_blocks(transcript))
+    calls, names = _shell_calls(transcript)
     for entry in entries:
-        if entry.get("type") == "tool_result":
+        if (result := _portable_shell_result(entry, calls, names)) is not None:
+            call_id, command, output, failed = result
+        elif entry.get("type") == "tool_result":
             call_id = entry.get("tool_use_id")
             command = calls.get(call_id, "")
             content = entry.get("content", "")
@@ -901,24 +980,9 @@ def config_neutralized_pip_commands(transcript, env):
     """
     if not _pinned_offline_pip_env(env):
         return set()
-    calls = {
-        call_id: payload.get("command", "")
-        for name, payload, call_id in call_payloads(transcript, include_id=True)
-        if name in SHELL_TOOLS and isinstance(payload, Mapping) and call_id is not None
-    }
+    calls, names = _shell_calls(transcript)
     neutralized = set()
-
-    def blocks(value):
-        if isinstance(value, (list, tuple)):
-            for entry in value:
-                yield from blocks(entry)
-        elif isinstance(value, Mapping):
-            yield value
-            for key in ("harness_event", "message", "content", "item"):
-                if key in value:
-                    yield from blocks(value[key])
-
-    entries = list(blocks(transcript))
+    entries = list(_blocks(transcript))
     # Claude may background a compound command. Its task notification binds
     # the output file to the original request; a paired cat result supplies
     # the pip output without treating unrelated transcript prose as evidence.
@@ -931,7 +995,9 @@ def config_neutralized_pip_commands(transcript, env):
                 if read_command == "cat " + entry["output_file"]:
                     background_reads[read_id] = entry.get("tool_use_id")
     for entry in entries:
-        if entry.get("type") == "tool_result":
+        if (result := _portable_shell_result(entry, calls, names)) is not None:
+            call_id, command, output, _ = result
+        elif entry.get("type") == "tool_result":
             call_id = entry.get("tool_use_id")
             call_id = background_reads.get(call_id, call_id)
             command = calls.get(call_id, "")
@@ -984,6 +1050,8 @@ def audit_workspace_calls(
     denied = denied_network_commands(transcript)
     neutralized = config_neutralized_pip_commands(transcript, cell_env or {}) - denied
     for name, payload, call_id in call_payloads(transcript, include_id=True):
+        # OSS events may omit arguments or carry JSON null/scalars. Guard both
+        # shell and file inspection so a malformed call cannot abort the audit.
         if not isinstance(payload, Mapping):
             continue
         command = payload.get("command", payload.get("cmd", ""))
@@ -1018,9 +1086,15 @@ def audit_workspace_calls(
                     denied_attempts.add((call_id, command))
             else:
                 violations.append("workspace:shell-network")
-        if name in {"read", "read_file", "edit", "write"} or shell:
+        # Search/discovery tools expose local contents and metadata too.
+        # Opencode glob can name an absolute path in its pattern alone.
+        if name in FILE_TOOLS or shell:
+            keys = ("file_path", "filePath", "path", "file", "command", "cmd")
+            if name == "glob":
+                keys += ("pattern",)
             values = [
-                str(payload.get(key, "")) for key in ("file_path", "path", "file", "command", "cmd")
+                str(payload.get(key, ""))
+                for key in keys
             ]
             text = " ".join(values)
             if "catalogs/gap/hidden" in text or any(
@@ -1071,6 +1145,29 @@ probe('https', [sys.executable, '-c',
                 'https://' + https_host + '/'])
 print('GAP_CANARY:' + json.dumps({'nonce': nonce, 'probes': results}, sort_keys=True))
 """
+# OSS harnesses have no shell sandbox of their own; the bench's portable
+# sandbox confines the whole tree. Every probe targets an address, never a
+# name, and verbose output carries the attributable denial: the OS refusing a
+# direct connect, or the bench endpoint proxy refusing a proxied one.
+PORTABLE_CANARY_PROGRAM = r"""
+import json, subprocess, sys
+harness, nonce = sys.argv[1:3]
+results = {}
+def probe(name, argv):
+    try:
+        p = subprocess.run(argv, capture_output=True, text=True, timeout=20)
+        results[name] = {'exit_code': p.returncode, 'error': p.stdout + p.stderr}
+    except Exception as exc:
+        results[name] = {'exit_code': None, 'error': str(exc)}
+probe('curl', ['curl', '-v', '--disable', '-k', '--max-time', '8', 'https://1.1.1.1/'])
+probe('pip', [sys.executable, '-m', 'pip', '--isolated', 'download', '-vv', '--no-cache-dir',
+              '--retries', '0', '--timeout', '8', '--index-url', 'https://1.1.1.1/simple',
+              '--dest', '.', 'pip'])
+probe('https', [sys.executable, '-c',
+                'import urllib.request, sys; urllib.request.urlopen(sys.argv[1], timeout=8)',
+                'https://1.1.1.1/'])
+print('GAP_CANARY:' + json.dumps({'nonce': nonce, 'probes': results}, sort_keys=True))
+"""
 DENIAL = re.compile(
     r"operation not permitted|permission denied|sandbox.*denied|"
     r"network.*(?:blocked|denied)|(?:blocked|denied).*network",
@@ -1078,13 +1175,22 @@ DENIAL = re.compile(
 )
 
 
+def _canary_program(harness_id):
+    spec = harnesses.find(harness_id)
+    sandbox = spec.code_cell_sandbox if spec is not None else None
+    if sandbox in {"srt", "codex-sandbox"}:
+        return CANARY_PROGRAM
+    if sandbox == "portable":
+        return PORTABLE_CANARY_PROGRAM
+    raise EgressCanaryRefused("GAP refused: unsupported canary harness")
+
+
 def canary_command(harness_id):
-    if harness_id not in {"codex", "claude-code"}:
-        raise EgressCanaryRefused("GAP refused: unsupported canary harness")
+    program = _canary_program(harness_id)
     nonce = uuid.uuid4().hex
     # The shell's PATH selects the cell venv; a host interpreter path may
     # not exist inside the harness sandbox.
-    return nonce, shlex.join(["python3", "-c", CANARY_PROGRAM, harness_id, nonce])
+    return nonce, shlex.join(["python3", "-c", program, harness_id, nonce])
 
 
 def _same_command(observed, command):
@@ -1103,14 +1209,19 @@ def _same_command(observed, command):
 
 
 def require_canary(events, nonce: str, command: str, *, harness_id: str):
-    if harness_id not in {"codex", "claude-code"} or shlex.split(command) != [
+    try:
+        program = _canary_program(harness_id)
+    except EgressCanaryRefused:
+        program = None
+    if program is None or shlex.split(command) != [
         "python3",
         "-c",
-        CANARY_PROGRAM,
+        program,
         harness_id,
         nonce,
     ]:
         raise EgressCanaryRefused("GAP refused: canary command harness mismatch")
+    portable = program is PORTABLE_CANARY_PROGRAM
 
     def refused(value):
         if isinstance(value, Mapping):
@@ -1127,12 +1238,32 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
 
     if refused(events):
         raise EgressCanaryRefused("GAP refused: model refusal")
-    # Match a completed Codex shell item or Claude tool-use/tool-result pair.
-    claude_tool_count = 0
+    transcript = []
     for captured in events:
-        for name, payload in call_payloads(captured.get("event", captured)):
-            if name == "bash":
+        event = captured.get("event", captured)
+        wire_event = event.get("harness_event", event)
+        message = wire_event.get("message")
+        if (
+            harness_id == "pi"
+            and wire_event.get("type") in {"message_start", "message_update"}
+            and isinstance(message, Mapping)
+            and message.get("role") == "assistant"
+        ):
+            # Older Pi releases stream cumulative, incomplete tool arguments.
+            # Only message_end/turn_end calls bind the exact probe to its result.
+            continue
+        transcript.append(event)
+    # Match a completed Codex shell item, a Claude tool-use/tool-result pair,
+    # or an OSS harness's shell call and its result.
+    claude_tool_count = 0
+    portable_calls = set()
+    for event in transcript:
+        for name, payload, call_id in call_payloads(event, include_id=True):
+            if name == "bash" and not portable:
                 claude_tool_count += 1
+            if portable:
+                # OSS harnesses repeat one call across events; count distinct ids.
+                portable_calls.add(call_id if call_id is not None else len(portable_calls))
             if (
                 name not in SHELL_TOOLS
                 or not isinstance(payload, Mapping)
@@ -1141,11 +1272,12 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
                 raise EgressCanaryRefused("GAP refused: canary used tools outside its exact probe")
     if claude_tool_count > 1:
         raise EgressCanaryRefused("GAP refused: canary used extra Claude tool calls")
+    if len(portable_calls) > 1:
+        raise EgressCanaryRefused("GAP refused: canary used extra shell tool calls")
     calls = {}
     outputs = []
     codex_items = set()
-    for captured in events:
-        event = captured.get("event", captured)
+    for event in transcript:
         item = event.get("item", {})
         if (
             event.get("type") == "item.completed"
@@ -1157,7 +1289,11 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
                 continue
             codex_items.add(item_id if item_id is not None else ("anonymous", len(codex_items)))
             outputs.append(("codex", item.get("aggregated_output", "")))
-        for block in event.get("message", {}).get("content", []):
+        message = event.get("message")
+        content = message.get("content") if isinstance(message, Mapping) else None
+        for block in content if isinstance(content, list) else []:
+            if not isinstance(block, Mapping):
+                continue
             if block.get("type") == "tool_use" and block.get("name") == "Bash":
                 calls[block.get("id")] = block.get("input", {}).get("command")
             elif block.get("type") == "tool_result" and _same_command(
@@ -1174,6 +1310,15 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
                         ),
                     )
                 )
+    if portable:
+        shell_calls, names = _shell_calls(transcript)
+        results = set()
+        for entry in _blocks(transcript):
+            result = _portable_shell_result(entry, shell_calls, names)
+            # Pi repeats a tool result in its start and end events.
+            if result is not None and result[0] not in results and _same_command(result[1], command):
+                results.add(result[0])
+                outputs.append((harness_id, result[2] if isinstance(result[2], str) else ""))
     if len(codex_items) > 1:
         raise EgressCanaryRefused("GAP refused: canary used extra Codex tool calls")
     records = []
@@ -1550,6 +1695,11 @@ def qualify_claude_code(
     return captured
 
 
+def _portable(harness_id):
+    spec = harnesses.find(harness_id)
+    return spec is not None and spec.code_cell_sandbox == "portable"
+
+
 def _harness_endpoints(env, harness_id, *, harness_auth="account"):
     if harness_id == "claude-code":
         hosts = {"api.anthropic.com"}
@@ -1557,6 +1707,11 @@ def _harness_endpoints(env, harness_id, *, harness_auth="account"):
     elif harness_id == "codex":
         hosts = {"api.openai.com", "chatgpt.com"}
         keys = ("OPENAI_BASE_URL",)
+    elif _portable(harness_id):
+        # An OSS harness reaches its model only through LiteLLM.
+        if harness_auth != "litellm":
+            raise EgressCanaryRefused("GAP refused: OSS harness code cells require LiteLLM auth")
+        hosts, keys = set(), ()
     else:
         raise EgressCanaryRefused("GAP refused: unsupported bench harness")
     authorities = {(host, 443) for host in hosts}
@@ -1656,6 +1811,102 @@ def cache_read_profile(wheelhouse, scratch):
         + denied + ')(deny file-write* (subpath ' + json.dumps(str(wheels))
         + '))(deny file-write-unlink ' + parents + ')'
     )
+
+
+def portable_profile(profile, scratch, proxy, authorities):
+    """Add whole-tree write and egress confinement to the files-only profile.
+
+    A harness with no shell sandbox of its own runs entirely inside this one
+    profile, because macOS refuses a nested Seatbelt profile. Writes stay in
+    the cell scratch, and the only network peers are the bench endpoint proxy
+    and a loopback LiteLLM endpoint: no DNS, no other loopback service.
+    """
+    scratch = Path(scratch).resolve()
+    ports = {urlsplit(proxy).port}
+    for host, port in authorities:
+        try:
+            if host == "localhost" or ipaddress.ip_address(host).is_loopback:
+                ports.add(port)
+        except ValueError:
+            pass  # A remote LiteLLM is reached through the endpoint proxy.
+    # Devices a shell needs, including pseudo-terminals for interactive tools.
+    writable = " ".join(
+        ["(subpath " + json.dumps(str(scratch)) + ")", '(subpath "/dev/fd")']
+        + [
+            '(literal "/dev/' + name + '")'
+            for name in ("null", "zero", "tty", "random", "urandom", "dtracehelper", "ptmx")
+        ]
+        + ['(regex #"^/dev/ttys[0-9]+$")']
+    )
+    return (
+        profile
+        + "(deny file-write* (require-not (require-any " + writable + ")))"
+        + "(deny network-outbound)"
+        + "".join(
+            f'(allow network-outbound (remote ip "localhost:{port}"))' for port in sorted(ports)
+        )
+    )
+
+
+# Parent-chosen target outside the cell. A denied write, or one that lands in
+# the namespace's private /tmp, leaves nothing on the host.
+WRITE_ESCAPE_PROBE = r"""
+import errno, json, sys
+from pathlib import Path
+target, nonce = Path(sys.argv[1]), sys.argv[2]
+try:
+    target.write_text(nonce)
+    denied = False
+except OSError as exc:
+    if exc.errno not in {errno.EACCES, errno.EPERM, errno.EROFS, errno.ENOENT}:
+        raise
+    denied = True
+print(json.dumps({'nonce': nonce, 'denied': denied}))
+"""
+
+
+def qualify_write_escape(wrap, *, cwd, env, backend):
+    """Prove a write outside the cell scratch never reaches the host."""
+    scratch = Path(cwd).resolve().parent
+    nonce = uuid.uuid4().hex
+    target = scratch.parent / ("sew-write-escape-" + nonce)
+    try:
+        completed = _run_probe_process(
+            wrap([sys.executable, "-I", "-c", WRITE_ESCAPE_PROBE, str(target), nonce]),
+            cwd=cwd, env=env, process_group=True,
+        )
+        if completed.returncode:
+            raise ValueError("write probe failed: " + completed.stderr[:500])
+        record = json.loads(completed.stdout)
+        if (
+            not isinstance(record, dict)
+            or set(record) != {"nonce", "denied"}
+            or record["nonce"] != nonce
+            or type(record["denied"]) is not bool
+            or target.exists()
+        ):
+            raise ValueError("write confinement unproven")
+        return {
+            "backend": backend.name,
+            "denied_in_sandbox": record["denied"],
+            "reached_host": False,
+            "harness_tree_confined": True,
+        }
+    except (OSError, ValueError, subprocess.SubprocessError) as exc:
+        raise EgressCanaryRefused("GAP refused: cell write confinement unproven") from exc
+    finally:
+        target.unlink(missing_ok=True)
+
+
+def _portable_cell_env(env, scratch):
+    """Keep an OSS harness's home and temporary files inside the cell scratch."""
+    for key, name in (("HOME", "harness-home"), ("TMPDIR", "harness-tmp")):
+        current = env.get(key)
+        if current and Path(current).resolve().is_relative_to(scratch):
+            continue  # The arm already isolated it (Opencode's HOME).
+        path = scratch / name
+        path.mkdir(mode=0o700, exist_ok=True)
+        env[key] = str(path)
 
 
 WHEELHOUSE_WRITE_PROBE = r"""
@@ -1892,9 +2143,29 @@ def _bench_network_boundary(
         endpoint_proxy(endpoints) as proxy,
         tempfile.TemporaryDirectory(prefix="sew-probe-") as directory,
     ):
-        probe_argv, runner_evidence = sandbox_probe_runner(
-            argv, env, cwd=cwd, harness_id=harness_id, scratch=Path(directory)
-        )
+        if _portable(harness_id):
+            # No harness runner exists: the bench profile is the runner, and
+            # the direct probe runs under the exact profile of the harness tree.
+            scratch = Path(cwd).resolve().parent
+            _portable_cell_env(env, scratch)
+            profile = portable_profile(profile, scratch, proxy, authorities)
+            prefix = backend.command([], Path(cwd).parent, profile=profile)
+            probe_argv = [sys.executable, "-c", DIRECT_PROBE]
+            runner_evidence = {
+                "runner": "sandbox-exec",
+                "runner_id": "bench-seatbelt",
+                "runner_path": backend.executable,
+                "policy": {"profile": profile},
+                "policy_scope": "harness-tree-profile",
+                "harness_tree_confined": True,
+                "write_escape": qualify_write_escape(
+                    lambda command: [*prefix, *command], cwd=cwd, env=env, backend=backend
+                ),
+            }
+        else:
+            probe_argv, runner_evidence = sandbox_probe_runner(
+                argv, env, cwd=cwd, harness_id=harness_id, scratch=Path(directory)
+            )
         for key in ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY"):
             env[key] = env[key.lower()] = proxy
         env["NO_PROXY"] = env["no_proxy"] = "localhost,127.0.0.1,::1"
@@ -1933,6 +2204,45 @@ def _bench_network_boundary(
         yield [*prefix, *argv], evidence
 
 
+def _script_runtime(binary):
+    """Read roots a script launcher's interpreter needs (a Python console script).
+
+    Native and Node launchers return nothing; their closure is bound above.
+    """
+    try:
+        with Path(binary).open("rb") as handle:
+            line = handle.readline(4096)
+    except OSError:
+        return []
+    if not line.startswith(b"#!"):
+        return []
+    try:
+        interpreter = Path(line[2:].split()[0].decode())
+    except (IndexError, UnicodeDecodeError):
+        return []
+    if not interpreter.is_absolute() or interpreter.name == "env":
+        return []
+    environment = interpreter.parent.parent
+    installations = [interpreter.resolve().parent.parent]
+    try:
+        config = (environment / "pyvenv.cfg").read_text(encoding="utf-8")
+    except OSError:
+        config = None
+    if config is not None:
+        # A virtual environment also needs its base interpreter's stdlib.
+        installations.append(environment.resolve())
+        home = re.search(r"^home\s*=\s*(.+)$", config, re.MULTILINE)
+        if home:
+            installations.append(Path(home[1].strip()).resolve().parent)
+    # Never a bare top-level directory such as /usr (bound already) or a tree
+    # that contains the account's home directory.
+    home = Path.home().resolve()
+    return [
+        root for root in installations
+        if root.is_absolute() and len(root.parts) > 2 and not home.is_relative_to(root)
+    ]
+
+
 @contextmanager
 def _bubblewrap_boundary(
     argv, env, *, cwd, harness_id, environ=None, harness_auth="account", wheelhouse=None
@@ -1966,7 +2276,7 @@ def _bubblewrap_boundary(
         )
         reads = [runtime]
     else:
-        reads = [binary_path]
+        reads = [binary_path, *_script_runtime(binary_path)]
     if harness_auth == "litellm" and harnesses.get(harness_id).code_cell_sandbox == "srt":
         runtime = shutil.which("srt", path=env.get("PATH", os.defpath))
         if not runtime:
@@ -1995,6 +2305,8 @@ def _bubblewrap_boundary(
                     shutil.copyfile(source / name, home / name)
                     (home / name).chmod(0o600)
             env["CODEX_HOME"] = str(home)
+    elif _portable(harness_id):
+        _portable_cell_env(env, scratch)
     if harness_auth == "litellm":
         env["SEW_GAP_LITELLM_BASE_URL"] = env["SEW_LITELLM_BASE_URL"]
     else:
@@ -2013,6 +2325,12 @@ def _bubblewrap_boundary(
                 cache_read_profile(wheelhouse, scratch)  # Same overlap refusal on both hosts.
                 evidence["wheel_cache_isolation"] = qualify_cache_reads(
                     wrap, wheelhouse, cwd=cwd, env=env, backend=backend
+                )
+            if _portable(harness_id):
+                # The namespace is the OSS harness's only sandbox.
+                evidence.update(
+                    harness_tree_confined=True,
+                    write_escape=qualify_write_escape(wrap, cwd=cwd, env=env, backend=backend),
                 )
             wrapped = wrap([sys.executable, "-I", "-c", PROXY_BRIDGE, str(socket_path), *argv])
             evidence.update(

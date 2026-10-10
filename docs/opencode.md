@@ -49,8 +49,9 @@ Missing reasoning, cache, or cache read/write fields default to zero. Input and
 output counts remain required; malformed, null, negative, or non-integer counts
 leave usage unknown. An error-only transcript establishes readiness and reports
 the harness error without requiring an earlier success event.
-Code cells require the separate sandbox
-integration and are refused by this adapter.
+GAP code cells also allow the bash, read, write, edit, glob, grep and list
+tools, and run the whole Opencode tree under the bench's portable sandbox; see
+[OSS harness code cells](../lib/python/sew/gap/WORKSPACE.md#ohm-08-oss-harness-code-cells).
 
 The CLI flags were checked with `opencode --help` and `opencode run --help`
 on 1.17.3. The offline replay fixture follows the pinned

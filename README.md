@@ -511,7 +511,9 @@ Select an explicit `litellm/<route>` model. Each cell creates a fresh
 `HERMES_HOME/config.yaml`, uses a custom OpenAI-compatible provider with the
 proxy key read from the child environment, and exposes only the selected MCP
 server. Built-in web, shell and other toolsets are disabled. Hermes's native
-arm is unavailable in this adapter. GAP cells are not supported yet.
+arm is unavailable in this adapter. GAP code cells add the `terminal` and `file`
+toolsets under the bench's portable sandbox; see
+[OSS harness code cells](lib/python/sew/gap/WORKSPACE.md#ohm-08-oss-harness-code-cells).
 
 The adapter uses `hermes -z PROMPT -m ROUTE --provider custom:searchlight
 --ignore-rules` (plus `-t SERVER` for provider arms), verified with 0.16.0
@@ -560,8 +562,9 @@ Built-in tools, extension discovery, skills and project context are disabled. JS
 supply the answer, usage and arm audit; model pricing uses the OSS catalog.
 Pi has no native web tools, so its native arm is not applicable. The offline
 Pi profiles and fixture driver remain available. The legacy `pi-live-smoke`
-help probe no longer creates a live-success bundle. Code-cell support is a
-separate follow-up; this adapter supports search cells only.
+help probe no longer creates a live-success bundle. GAP code cells keep Pi's
+default built-ins (read, bash, edit, write) under the bench's portable sandbox; see
+[OSS harness code cells](lib/python/sew/gap/WORKSPACE.md#ohm-08-oss-harness-code-cells).
 
 MCP tool failures remain errors and include the server's diagnostic text in
 the exception delivered to Pi; non-text content blocks are serialized as JSON.
