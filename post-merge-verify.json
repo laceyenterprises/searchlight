@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "module": "search-evaluation-workbench",
+  "implementationOwner": "tools/searchlight",
+  "changedPaths": [
+    "tools/searchlight/**",
+    "modules/search-evaluation-workbench/README.md"
+  ],
+  "sharedPaths": [
+    "modules/worker-pool/lib/python/cwp_dispatch/smv/**",
+    "modules/worker-pool/lib/python/cwp_dispatch/process_group_runner.py"
+  ],
+  "command": [
+    "python3",
+    "tools/searchlight/scripts/smv-smoke.py"
+  ],
+  "modes": {
+    "sandbox": {
+      "prerequisites": [
+        "Installed Searchlight overlay, managed Python with PyYAML; Agent OS shared SMV runner. Disposable owned scratch."
+      ],
+      "exclusions": [
+        "Synthetic fixture transport/model only. No paid evaluation, live provider, ambient endpoint, harness authentication, VM, host install or restart."
+      ]
+    },
+    "host": {
+      "prerequisites": [
+        "SRE confirms runtime owner/domain and scripts/os-restart.sh restart path before separately authorized activation."
+      ],
+      "exclusions": [
+        "host-unavailable: no approved paid canary. After deploy SRE reviews correlated authoritative runner-state/run-index, schema-valid bundle and grading evidence read-only; native containment and live model/provider execution remain unavailable."
+      ]
+    }
+  },
+  "deployMode": "sandbox",
+  "steps": [
+    {
+      "id": "evaluation.bundle",
+      "promise": "validate-and-grade-offline-bundles",
+      "edges": [
+        "searchlight.cell.7",
+        "searchlight.evaluation.2",
+        "searchlight.evaluation.0"
+      ],
+      "budgetSeconds": 30,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    },
+    {
+      "id": "runner.resume",
+      "promise": "resume-without-duplicate-cells",
+      "edges": [
+        "searchlight.suite.0",
+        "searchlight.suite.1",
+        "searchlight.suite.2",
+        "searchlight.suite.5",
+        "searchlight.retry.0",
+        "searchlight.retry.1",
+        "searchlight.retry.5"
+      ],
+      "budgetSeconds": 30,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    },
+    {
+      "id": "runner.deferral",
+      "promise": "provider-wall-resumes-with-evidence",
+      "edges": [
+        "searchlight.deferral.0",
+        "searchlight.deferral.1",
+        "searchlight.deferral.2",
+        "searchlight.suite.4"
+      ],
+      "budgetSeconds": 30,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    },
+    {
+      "id": "gap.grading",
+      "promise": "grade-only-admitted-within-budget",
+      "edges": [
+        "searchlight.calibration.0",
+        "searchlight.calibration.1",
+        "searchlight.gap-run.0",
+        "searchlight.gap-run.4"
+      ],
+      "budgetSeconds": 30,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    },
+    {
+      "id": "contract.drift",
+      "promise": "exact-code-state-and-writer-inventory",
+      "edges": [
+        "searchlight.suite.0"
+      ],
+      "budgetSeconds": 30,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    }
+  ],
+  "totalBudgetSeconds": 180,
+  "onFailure": "page"
+}
