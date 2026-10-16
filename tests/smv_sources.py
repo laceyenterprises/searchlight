@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def sources():
     base = ROOT / "lib/python/sew"
-    return {str(p.relative_to(base)): p.read_text() for p in base.rglob("*.py")}
+    return {str(p.relative_to(base)): p.read_text(encoding="utf-8") for p in base.rglob("*.py")}
 
 
 def literal(text, symbol):
@@ -72,6 +72,7 @@ def audit(src):
         ("create", "[*]", "unindexed"),
         ("persist", "unindexed", "indexed"),
         ("defer", "indexed", "deferred"),
+        ("defer-unindexed", "unindexed", "deferred"),
         ("resume", "deferred", "indexed"),
         ("replay", "indexed", "indexed"),
     ]
@@ -118,7 +119,7 @@ def inventory(src=None):
 
 
 def definition():
-    return json.loads((ROOT / "state-machines.json").read_text())
+    return json.loads((ROOT / "state-machines.json").read_text(encoding="utf-8"))
 
 
 def verify(doc, src=None):

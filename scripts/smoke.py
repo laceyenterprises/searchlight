@@ -126,18 +126,20 @@ def run(mode="sandbox", commit="synthetic", fail_step=None):
 
 def main():
     mode = os.environ.get("SMV_MODE", "sandbox")
-    commit = (
-        os.environ.get("SMV_COMMIT")
-        or subprocess.run(
-            ["git", "rev-parse", "HEAD"],
-            cwd=ROOT,
-            stdin=subprocess.DEVNULL,
-            capture_output=True,
-            text=True,
-            check=True,
-            timeout=3,
-        ).stdout.strip()
-    )
+    commit = os.environ.get("SMV_COMMIT")
+    if not commit:
+        try:
+            commit = subprocess.run(
+                ["git", "rev-parse", "HEAD"],
+                cwd=ROOT,
+                stdin=subprocess.DEVNULL,
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=3,
+            ).stdout.strip()
+        except (subprocess.SubprocessError, OSError):
+            commit = "synthetic"
     # Allowlist before importing owner code. The harness itself never inherits
     # DSNs, provider/model keys, notification URLs or an operator HOME.
     clean = {

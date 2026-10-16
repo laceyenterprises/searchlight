@@ -65,6 +65,7 @@
       "promise": "provider-wall-stays-incomplete",
       "edges": [
         "searchlight.index.defer",
+        "searchlight.index.defer-unindexed",
         "searchlight.index.resume"
       ],
       "budgetSeconds": 40,

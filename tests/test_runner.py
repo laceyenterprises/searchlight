@@ -458,7 +458,7 @@ def test_resumed_retry_attempt_metrics_count_toward_budget(tmp_path: Path) -> No
     assert second["stopped_reason"] == "provider_call_budget_exhausted"
 
 
-def test_provider_unavailable_streak_stops_resumably(tmp_path: Path) -> None:
+def test_provider_unavailable_streak_stops_resumably(tmp_path: Path, monkeypatch) -> None:
     """2026-09-29: an account 429 failed 145 cells in five minutes. Stop after a streak."""
 
     module_base = _tiny_module(
@@ -468,9 +468,22 @@ def test_provider_unavailable_streak_stops_resumably(tmp_path: Path) -> None:
     )
     state_root = tmp_path / "state"
     walled = RecordingExecutor(["provider_unavailable"] * 4)
-    first = SuiteRunner(module_base=module_base, state_root=state_root, executor=walled).run(
-        "tiny", run_id="unavailable-streak", resume=False
-    )
+    runner = SuiteRunner(module_base=module_base, state_root=state_root, executor=walled)
+    snapshots = []
+    write_state = runner._write_state
+
+    def record_state(run_root, state):
+        write_state(run_root, state)
+        persisted = json.loads((run_root / "runner-state.json").read_text(encoding="utf-8"))
+        snapshots.append(
+            (
+                {entry["cell_key"] for entry in persisted["index"]},
+                set(persisted.get("deferred_unavailable", {})),
+            )
+        )
+
+    monkeypatch.setattr(runner, "_write_state", record_state)
+    first = runner.run("tiny", run_id="unavailable-streak", resume=False)
 
     assert first["stopped_reason"] == "provider_unavailable"
     assert len(walled.calls) == 3
@@ -478,6 +491,12 @@ def test_provider_unavailable_streak_stops_resumably(tmp_path: Path) -> None:
     # All four cells remain; three of them wait on the wall, one never started.
     assert first["remaining_cells"] == 4
     assert first["deferred_unavailable_cells"] == 3
+    # Two entries were persisted before the wall; the third is deferred in
+    # the same write that would otherwise have first persisted its index entry.
+    previously_indexed = set().union(*(indexed for indexed, _ in snapshots))
+    deferred = snapshots[-1][1]
+    assert len(deferred & previously_indexed) == 2
+    assert len(deferred - previously_indexed) == 1
 
     healthy = RecordingExecutor()
     resumed = SuiteRunner(module_base=module_base, state_root=state_root, executor=healthy).run(
@@ -1083,3 +1102,38 @@ def test_smv_sandbox_required_failure_and_host_unavailable():
     host = harness["run"](mode="host")
     assert host["verdict"] == "fail"
     assert all(s["verdict"] == "unavailable" for s in host["steps"])
+
+
+@pytest.mark.parametrize(
+    "override, git_result, expected_commit",
+    [
+        (None, "git-head\n", "git-head"),
+        (None, subprocess.CalledProcessError(128, ["git"]), "synthetic"),
+        (None, FileNotFoundError("git"), "synthetic"),
+        (None, subprocess.TimeoutExpired(["git"], 3), "synthetic"),
+        ("explicit-commit", None, "explicit-commit"),
+    ],
+)
+def test_smv_cli_commit_resolution(override, git_result, expected_commit, monkeypatch, capsys):
+    import runpy
+
+    harness = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    monkeypatch.delenv("SMV_COMMIT", raising=False)
+    monkeypatch.setenv("SMV_MODE", "sandbox")
+    if override:
+        monkeypatch.setenv("SMV_COMMIT", override)
+
+    def git(*args, **kwargs):
+        assert override is None, "SMV_COMMIT must bypass Git"
+        if isinstance(git_result, Exception):
+            raise git_result
+        return subprocess.CompletedProcess(args[0], 0, stdout=git_result)
+
+    def run(*, mode, commit):
+        assert mode == "sandbox"
+        return {"verdict": "pass", "commit": commit, "steps": []}
+
+    monkeypatch.setattr(subprocess, "run", git)
+    monkeypatch.setitem(harness["main"].__globals__, "run", run)
+    assert harness["main"]() == 0
+    assert json.loads(capsys.readouterr().out)["commit"] == expected_commit

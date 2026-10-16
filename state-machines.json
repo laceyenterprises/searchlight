@@ -676,6 +676,13 @@
           "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
         },
         {
+          "id": "searchlight.index.defer-unindexed",
+          "from": "unindexed",
+          "to": "deferred",
+          "trigger": "defer-unindexed",
+          "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+        },
+        {
           "id": "searchlight.index.resume",
           "from": "deferred",
           "to": "indexed",
