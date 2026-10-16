@@ -1104,6 +1104,47 @@ def test_smv_sandbox_required_failure_and_host_unavailable():
     assert all(s["verdict"] == "unavailable" for s in host["steps"])
 
 
+def test_smv_annotated_status_assignments():
+    import ast
+
+    from smv_sources import audit, sources
+
+    src = sources()
+    annotated = dict(src)
+    for path in ("schema.py", "providers.py", "harness.py"):
+        tree = ast.parse(src[path])
+        for index, node in enumerate(tree.body):
+            if (
+                isinstance(node, ast.Assign)
+                and len(node.targets) == 1
+                and isinstance(node.targets[0], ast.Name)
+            ):
+                tree.body[index] = ast.copy_location(
+                    ast.AnnAssign(
+                        target=node.targets[0],
+                        annotation=ast.Name(id="object", ctx=ast.Load()),
+                        value=node.value,
+                        simple=1,
+                    ),
+                    node,
+                )
+        annotated[path] = ast.unparse(tree)
+    assert audit(annotated) == audit(src)
+
+
+def test_smv_empty_steps_fail(monkeypatch, tmp_path):
+    import runpy
+
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    doc = json.loads((MODULE_ROOT / "post-merge-verify.json").read_text())
+    doc["steps"] = []
+    (tmp_path / "post-merge-verify.json").write_text(json.dumps(doc))
+    monkeypatch.setitem(helper["run"].__globals__, "ROOT", tmp_path)
+    report = helper["run"]()
+    assert report["verdict"] == "fail"
+    assert report["steps"] == []
+
+
 @pytest.mark.parametrize(
     "override, git_result, expected_commit",
     [
@@ -1143,9 +1184,8 @@ def test_smv_invocation_alarm_stops_remaining_steps(monkeypatch, capsys):
     import json
     import runpy
     import signal
-    from pathlib import Path
 
-    helper = runpy.run_path(str(Path(__file__).resolve().parents[1] / "scripts/smoke.py"))
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
     calls = []
 
     def expire(step, *args):

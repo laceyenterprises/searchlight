@@ -15,7 +15,7 @@
   "modes": {
     "sandbox": {
       "prerequisites": [
-        "Python >=3.11, PyYAML, packaging and pytest test extra; checked-in synthetic fixture factory and disposable stores"
+        "Python >=3.11, PyYAML, packaging and pytest test extra; checked-in synthetic fixture factory and disposable stores; non-empty declared steps required for a passing verdict"
       ],
       "exclusions": [
         "No live model/provider/ledger/message transport; no runtime activation"

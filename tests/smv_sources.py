@@ -9,15 +9,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def sources():
     base = ROOT / "lib/python/sew"
-    return {str(p.relative_to(base)): p.read_text(encoding="utf-8") for p in base.rglob("*.py")}
+    return {p.relative_to(base).as_posix(): p.read_text(encoding="utf-8") for p in base.rglob("*.py")}
+
+
+def assignments(text):
+    for node in ast.parse(text).body:
+        if isinstance(node, (ast.Assign, ast.AnnAssign)):
+            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            for target in targets:
+                if isinstance(target, ast.Name) and node.value is not None:
+                    yield target.id, node.value
 
 
 def literal(text, symbol):
-    for node in ast.parse(text).body:
-        if isinstance(node, ast.Assign) and any(
-            isinstance(t, ast.Name) and t.id == symbol for t in node.targets
-        ):
-            value = node.value
+    for name, value in assignments(text):
+        if name == symbol:
             return ast.literal_eval(value.args[0] if isinstance(value, ast.Call) else value)
     raise AssertionError("missing enum " + symbol)
 
@@ -42,19 +48,14 @@ def audit(src):
     # GAP reclassifies already-written records. Availability uses a closed
     # eligibility collection resolved from harness STATUS_* constants.
     constants = {
-        n.targets[0].id: n.value.value
-        for n in ast.parse(src["harness.py"]).body
-        if isinstance(n, ast.Assign)
-        and isinstance(n.targets[0], ast.Name)
-        and isinstance(n.value, ast.Constant)
+        name: value.value
+        for name, value in assignments(src["harness.py"])
+        if isinstance(value, ast.Constant)
     }
     node = next(
-        n.value
-        for n in ast.parse(src["harness.py"]).body
-        if isinstance(n, ast.Assign)
-        and any(
-            isinstance(t, ast.Name) and t.id == "PROVIDER_AVAILABILITY_STATUSES" for t in n.targets
-        )
+        value
+        for name, value in assignments(src["harness.py"])
+        if name == "PROVIDER_AVAILABILITY_STATUSES"
     )
     eligible = {
         constants[n.id] for n in ast.walk(node) if isinstance(n, ast.Name) and n.id in constants

@@ -150,7 +150,7 @@ def run(mode="sandbox", commit="synthetic", fail_step=None):
         "module": doc["module"],
         "mode": mode,
         "commit": commit,
-        "verdict": "pass" if all(r["verdict"] == "pass" for r in rows) else "fail",
+        "verdict": "pass" if rows and all(r["verdict"] == "pass" for r in rows) else "fail",
         "durationSeconds": time.monotonic() - started,
         "steps": rows,
     }
