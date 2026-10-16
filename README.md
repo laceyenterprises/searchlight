@@ -681,6 +681,8 @@ searchlight/
 
 The harness uses disposable stores and synthetic external boundaries. Required missing, failed or unavailable evidence exits nonzero. No ambient credentials or endpoints are accepted by the CLI. Host mode is unavailable until a safe canary is approved; SRE instead inspects installed version and authoritative recent tool receipts read-only after deployment. SRE verifies service owner, launchd domain and documented restart path before any separately authorized activation. The existing main-catchup declaration lane owns page-once module/step/commit failures, with no revert and no later-deploy hold. No scheduled workflow changes.
 
+The invocation alarm allows 170 seconds within the declared 180-second budget. Deadline cancellation stops remaining steps and records failure diagnostics with object-valued `observed` evidence. The alarm is disarmed when the run returns, before disposable HOME cleanup and receipt output, so those final operations can emit the JSON report within the remaining budget.
+
 <!-- smv:state-machines:start -->
 
 ### State machine contracts

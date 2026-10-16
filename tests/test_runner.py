@@ -1160,3 +1160,66 @@ def test_smv_invocation_alarm_stops_remaining_steps(monkeypatch, capsys):
     assert len(calls) == 1
     first_failure = next(i for i, row in enumerate(report["steps"]) if row["verdict"] == "fail")
     assert all(row["verdict"] == "unavailable" for row in report["steps"][first_failure + 1 :])
+
+
+@pytest.mark.parametrize("verdict", ["pass", "fail"])
+def test_smv_cli_disarms_alarm_before_home_cleanup_and_output(verdict, monkeypatch, capsys):
+    import builtins
+    from contextlib import contextmanager
+    import runpy
+    import signal
+    import tempfile
+
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    original_directory = tempfile.TemporaryDirectory
+    phases = []
+
+    def run(**kwargs):
+        assert signal.getitimer(signal.ITIMER_REAL)[0] > 0
+        return {"verdict": verdict, "steps": []}
+
+    @contextmanager
+    def directory(**kwargs):
+        with original_directory(**kwargs) as home:
+            yield home
+            phases.append("cleanup")
+            assert signal.getitimer(signal.ITIMER_REAL)[0] == 0
+
+    def output(*args):
+        phases.append("output")
+        assert signal.getitimer(signal.ITIMER_REAL)[0] == 0
+        builtins.print(*args)
+
+    monkeypatch.setitem(helper["main"].__globals__, "run", run)
+    monkeypatch.setitem(helper["main"].__globals__, "print", output)
+    monkeypatch.setattr(tempfile, "TemporaryDirectory", directory)
+    monkeypatch.setenv("SMV_COMMIT", "synthetic")
+    assert helper["main"]() == (0 if verdict == "pass" else 1)
+    assert phases == ["cleanup", "output"]
+    assert json.loads(capsys.readouterr().out)["verdict"] == verdict
+
+
+def test_smv_teardown_deadline_preserves_object_observation(monkeypatch):
+    from contextlib import contextmanager
+    import runpy
+    import tempfile
+
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    original_directory = tempfile.TemporaryDirectory
+
+    @contextmanager
+    def interrupted_directory(**kwargs):
+        with original_directory(**kwargs) as scratch:
+            yield scratch
+        raise helper["InvocationDeadline"]("invocation deadline exceeded")
+
+    monkeypatch.setattr(tempfile, "TemporaryDirectory", interrupted_directory)
+    monkeypatch.setitem(helper["run"].__globals__, "exercise", lambda *args: {"validated": True})
+    report = helper["run"]()
+    assert report["verdict"] == "fail"
+    assert [row["verdict"] for row in report["steps"]] == ["pass", "pass", "fail"]
+    assert all(isinstance(row["observed"], dict) for row in report["steps"])
+    assert report["steps"][-1]["observed"] == {
+        "error": "teardown interrupted",
+        "deadline": "invocation deadline exceeded",
+    }

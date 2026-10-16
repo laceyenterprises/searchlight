@@ -86,7 +86,9 @@ class InvocationDeadline(BaseException):
 def incomplete_rows(doc, rows, mode, tick, error):
     if len(rows) == len(doc["steps"]):
         rows[-1].update(
-            verdict="fail", observed="teardown interrupted", durationSeconds=time.monotonic() - tick
+            verdict="fail",
+            observed={"error": "teardown interrupted", "deadline": str(error)},
+            durationSeconds=time.monotonic() - tick,
         )
         rows[-1]["evidence"]["deadline"] = str(error)
         return
@@ -192,6 +194,9 @@ def main():
             ),
         ):
             report = run(mode=mode, commit=commit)
+            # The deadline handler lives in run(); reserve cleanup/output time
+            # without allowing its alarm to escape that handler's scope.
+            signal.setitimer(signal.ITIMER_REAL, 0)
         for row in report["steps"]:
             print(
                 f"{row['verdict'].upper()} {report['module']}/{row['id']} promise={row['promise']} edges={','.join(row['edges'])}"
