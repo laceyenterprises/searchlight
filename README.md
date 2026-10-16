@@ -674,7 +674,6 @@ searchlight/
 ## What this module promises
 
 `python3 scripts/smoke.py` is the canonical sandbox command, forwarded by installed `hq smoke searchlight`.
-Commit metadata uses `SMV_COMMIT` when supplied, otherwise Git HEAD; if Git resolution fails, it uses `synthetic` and still runs the smoke checks.
 
 - `existing-harness-fixture-matrix` (`fixture.matrix`): Reuse run_acceptance_fixture_matrix and validate its four synthetic evidence bundles through the real schema reader.
 - `durable-resume-without-duplicates` (`index.resume`): Run a tiny real fixture matrix, resume it, and read back the unchanged completed index.
@@ -821,10 +820,6 @@ stateDiagram-v2
     s_696e6465786564 --> s_696e6465786564: searchlight.index.replay
 ```
 
-The provider-wall streak removes entries from the in-memory index before persisting deferrals.
-Previously persisted entries move from `indexed` to `deferred`; a new cell whose index entry
-has not yet been persisted moves directly from durable `unindexed` to `deferred`.
-
 #### searchlight.brief-grade
 
 ```mermaid
@@ -861,8 +856,8 @@ Proposed lifetime/expiry bounds above are not repairs. See each state deadEndEvi
 | `EVALUATION_OUTCOMES; gap/brief_grade.py status; agreement measured/not_measured; verify JUnit statuses` | tools/searchlight | owned/derived | Immutable outcome/brief result snapshots are mapped. Agreement, source coverage, benchmark/report/index aggregates and capture statuses are derived observations; missing judgment is never success. |
 | `schema config enums; catalog/model profiles; token accounting; provider availability; live auth/egress/containment probes` | tools/searchlight | configuration/reference | Configuration and diagnostics are not extra durable status lifecycles. Pure hash/parser/render helpers own no state machine. Existing live/host probes remain explicitly manual; fixture smoke cannot certify paid execution or platform containment. |
 
-The Python AST source inventory records status/state/outcome assignments, dictionary entries, keyword arguments and comparisons.
-The unit suite independently reads those source statements and enums; changing a state or edge fixture must fail.
+The Python AST inventory independently reads actual enums, status writers and mutation guards.
+The normal runner suite rejects changed state names, changed index edges and missing contract fields.
 Snapshots/observations do not transfer ownership from the referenced runtime. Synthetic smoke evidence does not prove live dispatch or provider behavior.
 
 <!-- smv:state-machines:end -->

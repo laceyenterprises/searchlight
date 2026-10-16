@@ -1282,5 +1282,9 @@
       "t['status'] == 'pass'",
       "t['status'] in {'failure', 'error'}"
     ]
-  }
+  },
+  "inventoryNotes": [
+    "The Python AST inventory independently reads actual enums, status writers and mutation guards.",
+    "The normal runner suite rejects changed state names, changed index edges and missing contract fields."
+  ]
 }

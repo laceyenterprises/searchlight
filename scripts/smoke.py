@@ -79,6 +79,32 @@ def exercise(step, scratch):
     raise ValueError("missing step: " + step)
 
 
+class InvocationDeadline(BaseException):
+    """Invocation cancellation must bypass ordinary per-step error handlers."""
+
+
+def incomplete_rows(doc, rows, mode, tick, error):
+    if len(rows) == len(doc["steps"]):
+        rows[-1].update(
+            verdict="fail", observed="teardown interrupted", durationSeconds=time.monotonic() - tick
+        )
+        rows[-1]["evidence"]["deadline"] = str(error)
+        return
+    for offset, step in enumerate(doc["steps"][len(rows) :]):
+        evidence = {"error": str(error), "remainingStepsStopped": True}
+        rows.append(
+            {
+                **{k: step[k] for k in ("id", "promise", "edges")},
+                "verdict": "fail" if offset == 0 else "unavailable",
+                "observed": evidence,
+                "expected": "README entry-point assertions",
+                "evidence": evidence,
+                "durationSeconds": time.monotonic() - tick if offset == 0 else 0,
+                "exclusions": doc["modes"].get(mode, doc["modes"]["host"])["exclusions"],
+            }
+        )
+
+
 def run(mode="sandbox", commit="synthetic", fail_step=None):
     doc = json.loads((ROOT / "post-merge-verify.json").read_text())
     started = time.monotonic()
@@ -87,33 +113,37 @@ def run(mode="sandbox", commit="synthetic", fail_step=None):
     def deny(*args, **kwargs):
         raise RuntimeError("sandbox attempted network")
 
-    with (
-        tempfile.TemporaryDirectory(prefix="searchlight-smv-") as tmp,
-        patch.object(socket.socket, "connect", deny),
-    ):
-        for step in doc["steps"]:
-            tick = time.monotonic()
-            verdict = "pass" if mode == "sandbox" else "unavailable"
-            try:
-                if mode != "sandbox":
-                    evidence = {"reason": doc["modes"]["host"]["exclusions"][0]}
-                elif fail_step == step["id"]:
-                    raise RuntimeError("synthetic required-step failure")
-                else:
-                    evidence = exercise(step["id"], Path(tmp))
-            except Exception as exc:
-                verdict, evidence = "fail", {"error": f"{type(exc).__name__}: {exc}"}
-            rows.append(
-                {
-                    **{k: step[k] for k in ("id", "promise", "edges")},
-                    "verdict": verdict,
-                    "observed": evidence,
-                    "expected": "README entry-point assertions",
-                    "evidence": evidence,
-                    "durationSeconds": time.monotonic() - tick,
-                    "exclusions": doc["modes"].get(mode, doc["modes"]["host"])["exclusions"],
-                }
-            )
+    tick = started
+    try:
+        with (
+            tempfile.TemporaryDirectory(prefix="searchlight-smv-") as tmp,
+            patch.object(socket.socket, "connect", deny),
+        ):
+            for step in doc["steps"]:
+                tick = time.monotonic()
+                verdict = "pass" if mode == "sandbox" else "unavailable"
+                try:
+                    if mode != "sandbox":
+                        evidence = {"reason": doc["modes"]["host"]["exclusions"][0]}
+                    elif fail_step == step["id"]:
+                        raise RuntimeError("synthetic required-step failure")
+                    else:
+                        evidence = exercise(step["id"], Path(tmp))
+                except Exception as exc:
+                    verdict, evidence = "fail", {"error": f"{type(exc).__name__}: {exc}"}
+                rows.append(
+                    {
+                        **{k: step[k] for k in ("id", "promise", "edges")},
+                        "verdict": verdict,
+                        "observed": evidence,
+                        "expected": "README entry-point assertions",
+                        "evidence": evidence,
+                        "durationSeconds": time.monotonic() - tick,
+                        "exclusions": doc["modes"].get(mode, doc["modes"]["host"])["exclusions"],
+                    }
+                )
+    except InvocationDeadline as exc:
+        incomplete_rows(doc, rows, mode, tick, exc)
     return {
         "module": doc["module"],
         "mode": mode,
@@ -147,10 +177,11 @@ def main():
     }
 
     def overdue(*_):
-        raise TimeoutError("180-second invocation budget exceeded")
+        raise InvocationDeadline("invocation deadline exceeded")
 
     previous = signal.signal(signal.SIGALRM, overdue)
-    signal.setitimer(signal.ITIMER_REAL, 175)
+    previous_term = signal.signal(signal.SIGTERM, overdue)
+    signal.setitimer(signal.ITIMER_REAL, 170)
     try:
         with (
             tempfile.TemporaryDirectory(prefix="searchlight-home-") as home,
@@ -170,8 +201,8 @@ def main():
     finally:
         signal.setitimer(signal.ITIMER_REAL, 0)
         signal.signal(signal.SIGALRM, previous)
+        signal.signal(signal.SIGTERM, previous_term)
 
 
 if __name__ == "__main__":
-    sys.stdin.close()
     raise SystemExit(main())

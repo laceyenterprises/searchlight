@@ -1137,3 +1137,26 @@ def test_smv_cli_commit_resolution(override, git_result, expected_commit, monkey
     monkeypatch.setitem(harness["main"].__globals__, "run", run)
     assert harness["main"]() == 0
     assert json.loads(capsys.readouterr().out)["commit"] == expected_commit
+
+
+def test_smv_invocation_alarm_stops_remaining_steps(monkeypatch, capsys):
+    import json
+    import runpy
+    import signal
+    from pathlib import Path
+
+    helper = runpy.run_path(str(Path(__file__).resolve().parents[1] / "scripts/smoke.py"))
+    calls = []
+
+    def expire(step, *args):
+        calls.append(step)
+        signal.raise_signal(signal.SIGALRM)
+
+    monkeypatch.setitem(helper["main"].__globals__, "exercise", expire)
+    monkeypatch.setenv("SMV_MODE", "sandbox")
+    monkeypatch.setenv("SMV_COMMIT", "synthetic")
+    assert helper["main"]() == 1
+    report = json.loads(capsys.readouterr().out.splitlines()[-1])
+    assert len(calls) == 1
+    first_failure = next(i for i, row in enumerate(report["steps"]) if row["verdict"] == "fail")
+    assert all(row["verdict"] == "unavailable" for row in report["steps"][first_failure + 1 :])
