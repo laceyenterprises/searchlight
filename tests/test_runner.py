@@ -315,16 +315,16 @@ def test_resume_after_a_wall_clock_stop_continues_under_a_larger_operator_cap(
     assert first["budget_limits"]["max_wall_clock_seconds"] == 1200
 
     same_cap = RecordingExecutor()
-    held = SuiteRunner(
-        module_base=module_base, state_root=state_root, executor=same_cap
-    ).run("tiny", run_id="wall", operator_budgets=_operator(1200))
+    held = SuiteRunner(module_base=module_base, state_root=state_root, executor=same_cap).run(
+        "tiny", run_id="wall", operator_budgets=_operator(1200)
+    )
     assert same_cap.calls == []
     assert held["stopped_reason"] == "wall_clock_budget_exhausted"
 
     larger = AdvancingExecutor()
-    resumed = SuiteRunner(
-        module_base=module_base, state_root=state_root, executor=larger
-    ).run("tiny", run_id="wall", operator_budgets=_operator(172800))
+    resumed = SuiteRunner(module_base=module_base, state_root=state_root, executor=larger).run(
+        "tiny", run_id="wall", operator_budgets=_operator(172800)
+    )
     assert len(larger.calls) == 1
     assert resumed["completed_cells"] == 2
     assert resumed["remaining_cells"] == 0
@@ -1049,3 +1049,37 @@ def _tiny_module(
 
 def _read_index(run_root: Path) -> list[dict[str, Any]]:
     return json.loads((run_root / "run-index.json").read_text(encoding="utf-8"))
+
+
+def test_smv_source_states_edges_and_mutations():
+    from smv_sources import definition, sources, verify
+
+    doc, src = definition(), sources()
+    verify(doc, src)
+    renamed = dict(src)
+    renamed["schema.py"] = renamed["schema.py"].replace('"contaminated",', '"renamed",')
+    with pytest.raises(AssertionError):
+        verify(doc, renamed)
+    changed = dict(src)
+    changed["runner.py"] = changed["runner.py"].replace(
+        "index.remove(failed)", "index.append(failed)"
+    )
+    with pytest.raises(AssertionError):
+        verify(doc, changed)
+    state = next(s for o in doc["objects"] for s in o["states"] if not s["terminal"])
+    del state["exitOwner"]
+    with pytest.raises((AssertionError, KeyError)):
+        verify(doc, src)
+
+
+def test_smv_sandbox_required_failure_and_host_unavailable():
+    import runpy
+
+    harness = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    report = harness["run"]()
+    assert report["verdict"] == "pass", report
+    assert report["durationSeconds"] < 180
+    assert harness["run"](fail_step="index.resume")["verdict"] == "fail"
+    host = harness["run"](mode="host")
+    assert host["verdict"] == "fail"
+    assert all(s["verdict"] == "unavailable" for s in host["steps"])

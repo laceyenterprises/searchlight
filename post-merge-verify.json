@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "module": "searchlight",
+  "implementationOwner": "tools/searchlight",
+  "changedPaths": [
+    "tools/searchlight/**"
+  ],
+  "sharedPaths": [
+    "modules/worker-pool/lib/python/cwp_dispatch/smv/**"
+  ],
+  "command": [
+    "python3",
+    "tools/searchlight/scripts/smoke.py"
+  ],
+  "modes": {
+    "sandbox": {
+      "prerequisites": [
+        "Python >=3.11, PyYAML, packaging and pytest test extra; checked-in synthetic fixture factory and disposable stores"
+      ],
+      "exclusions": [
+        "No live model/provider/ledger/message transport; no runtime activation"
+      ]
+    },
+    "host": {
+      "prerequisites": [
+        "SRE after deploy verifies service owner/domain/restart path before separately authorized activation"
+      ],
+      "exclusions": [
+        "host-unavailable: no approved canary; inspect installed version and recent authoritative tool receipts read-only"
+      ]
+    }
+  },
+  "deployMode": "sandbox",
+  "totalBudgetSeconds": 180,
+  "onFailure": "page",
+  "steps": [
+    {
+      "id": "fixture.matrix",
+      "promise": "existing-harness-fixture-matrix",
+      "edges": [
+        "searchlight.run.succeeded",
+        "searchlight.provider-call.ok"
+      ],
+      "budgetSeconds": 40,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    },
+    {
+      "id": "index.resume",
+      "promise": "durable-resume-without-duplicates",
+      "edges": [
+        "searchlight.index.persist",
+        "searchlight.index.replay"
+      ],
+      "budgetSeconds": 40,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    },
+    {
+      "id": "index.defer",
+      "promise": "provider-wall-stays-incomplete",
+      "edges": [
+        "searchlight.index.defer",
+        "searchlight.index.resume"
+      ],
+      "budgetSeconds": 40,
+      "acceptance": {
+        "verdict": "pass",
+        "evidenceRequired": true
+      }
+    }
+  ]
+}

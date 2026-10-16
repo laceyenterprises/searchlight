@@ -671,3 +671,192 @@ searchlight/
 - Licensed under [Apache-2.0](LICENSE).
 - Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 - Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md).
+## What this module promises
+
+`python3 scripts/smoke.py` is the canonical sandbox command, forwarded by installed `hq smoke searchlight`.
+
+- `existing-harness-fixture-matrix` (`fixture.matrix`): Reuse run_acceptance_fixture_matrix and validate its four synthetic evidence bundles through the real schema reader.
+- `durable-resume-without-duplicates` (`index.resume`): Run a tiny real fixture matrix, resume it, and read back the unchanged completed index.
+- `provider-wall-stays-incomplete` (`index.defer`): Drive the real runner through an injected unavailable provider streak, then resume healthy synthetic execution without losing evidence.
+
+The harness uses disposable stores and synthetic external boundaries. Required missing, failed or unavailable evidence exits nonzero. No ambient credentials or endpoints are accepted by the CLI. Host mode is unavailable until a safe canary is approved; SRE instead inspects installed version and authoritative recent tool receipts read-only after deployment. SRE verifies service owner, launchd domain and documented restart path before any separately authorized activation. The existing main-catchup declaration lane owns page-once module/step/commit failures, with no revert and no later-deploy hold. No scheduled workflow changes.
+
+<!-- smv:state-machines:start -->
+
+### State machine contracts
+
+Generated from `state-machines.json`. Missing enforcement describes existing dead ends;
+the listed owners and durations are proposed contracts, not implemented repairs.
+
+#### searchlight.run
+
+```mermaid
+stateDiagram-v2
+    state "budget_exhausted" as s_6275646765745f657868617573746564
+    state "cancelled" as s_63616e63656c6c6564
+    state "contaminated" as s_636f6e74616d696e61746564
+    state "failed" as s_6661696c6564
+    state "harness_boot_failed" as s_6861726e6573735f626f6f745f6661696c6564
+    state "not_applicable" as s_6e6f745f6170706c696361626c65
+    state "provider_unavailable" as s_70726f76696465725f756e617661696c61626c65
+    state "succeeded" as s_737563636565646564
+    state "timeout" as s_74696d656f7574
+    state "unsupported" as s_756e737570706f72746564
+    [*] --> s_6275646765745f657868617573746564: searchlight.run.budget_exhausted
+    [*] --> s_63616e63656c6c6564: searchlight.run.cancelled
+    [*] --> s_636f6e74616d696e61746564: searchlight.run.contaminated
+    [*] --> s_6661696c6564: searchlight.run.failed
+    [*] --> s_6861726e6573735f626f6f745f6661696c6564: searchlight.run.harness_boot_failed
+    [*] --> s_6e6f745f6170706c696361626c65: searchlight.run.not_applicable
+    [*] --> s_70726f76696465725f756e617661696c61626c65: searchlight.run.provider_unavailable
+    [*] --> s_737563636565646564: searchlight.run.succeeded
+    [*] --> s_74696d656f7574: searchlight.run.timeout
+    [*] --> s_756e737570706f72746564: searchlight.run.unsupported
+    s_6275646765745f657868617573746564 --> [*]: searchlight.run.end.budget_exhausted
+    s_63616e63656c6c6564 --> [*]: searchlight.run.end.cancelled
+    s_636f6e74616d696e61746564 --> [*]: searchlight.run.end.contaminated
+    s_6661696c6564 --> [*]: searchlight.run.end.failed
+    s_6861726e6573735f626f6f745f6661696c6564 --> [*]: searchlight.run.end.harness_boot_failed
+    s_6e6f745f6170706c696361626c65 --> [*]: searchlight.run.end.not_applicable
+    s_70726f76696465725f756e617661696c61626c65 --> [*]: searchlight.run.end.provider_unavailable
+    s_737563636565646564 --> [*]: searchlight.run.end.succeeded
+    s_74696d656f7574 --> [*]: searchlight.run.end.timeout
+    s_756e737570706f72746564 --> [*]: searchlight.run.end.unsupported
+    s_6661696c6564 --> s_70726f76696465725f756e617661696c61626c65: searchlight.run.unavailable.failed
+    s_6861726e6573735f626f6f745f6661696c6564 --> s_70726f76696465725f756e617661696c61626c65: searchlight.run.unavailable.harness_boot_failed
+    s_737563636565646564 --> s_70726f76696465725f756e617661696c61626c65: searchlight.run.unavailable.succeeded
+    s_74696d656f7574 --> s_70726f76696465725f756e617661696c61626c65: searchlight.run.unavailable.timeout
+    s_6275646765745f657868617573746564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.budget_exhausted
+    s_63616e63656c6c6564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.cancelled
+    s_636f6e74616d696e61746564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.contaminated
+    s_6661696c6564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.failed
+    s_6861726e6573735f626f6f745f6661696c6564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.harness_boot_failed
+    s_6e6f745f6170706c696361626c65 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.not_applicable
+    s_70726f76696465725f756e617661696c61626c65 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.provider_unavailable
+    s_737563636565646564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.succeeded
+    s_74696d656f7574 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.timeout
+    s_756e737570706f72746564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.unsupported
+    s_737563636565646564 --> s_6275646765745f657868617573746564: searchlight.run.budget
+```
+
+#### searchlight.provider-call
+
+```mermaid
+stateDiagram-v2
+    state "failed" as s_6661696c6564
+    state "not_applicable" as s_6e6f745f6170706c696361626c65
+    state "ok" as s_6f6b
+    state "rate_limited" as s_726174655f6c696d69746564
+    state "refused" as s_72656675736564
+    state "timeout" as s_74696d656f7574
+    [*] --> s_6661696c6564: searchlight.provider-call.failed
+    [*] --> s_6e6f745f6170706c696361626c65: searchlight.provider-call.not_applicable
+    [*] --> s_6f6b: searchlight.provider-call.ok
+    [*] --> s_726174655f6c696d69746564: searchlight.provider-call.rate_limited
+    [*] --> s_72656675736564: searchlight.provider-call.refused
+    [*] --> s_74696d656f7574: searchlight.provider-call.timeout
+    s_6661696c6564 --> [*]: searchlight.provider-call.end.failed
+    s_6e6f745f6170706c696361626c65 --> [*]: searchlight.provider-call.end.not_applicable
+    s_6f6b --> [*]: searchlight.provider-call.end.ok
+    s_726174655f6c696d69746564 --> [*]: searchlight.provider-call.end.rate_limited
+    s_72656675736564 --> [*]: searchlight.provider-call.end.refused
+    s_74696d656f7574 --> [*]: searchlight.provider-call.end.timeout
+```
+
+#### searchlight.provider-result
+
+```mermaid
+stateDiagram-v2
+    state "failed" as s_6661696c6564
+    state "not_applicable" as s_6e6f745f6170706c696361626c65
+    state "ok" as s_6f6b
+    state "rate_limited" as s_726174655f6c696d69746564
+    state "refused" as s_72656675736564
+    state "timeout" as s_74696d656f7574
+    state "unavailable" as s_756e617661696c61626c65
+    [*] --> s_6661696c6564: searchlight.provider-result.failed
+    [*] --> s_6e6f745f6170706c696361626c65: searchlight.provider-result.not_applicable
+    [*] --> s_6f6b: searchlight.provider-result.ok
+    [*] --> s_726174655f6c696d69746564: searchlight.provider-result.rate_limited
+    [*] --> s_72656675736564: searchlight.provider-result.refused
+    [*] --> s_74696d656f7574: searchlight.provider-result.timeout
+    [*] --> s_756e617661696c61626c65: searchlight.provider-result.unavailable
+    s_6661696c6564 --> [*]: searchlight.provider-result.end.failed
+    s_6e6f745f6170706c696361626c65 --> [*]: searchlight.provider-result.end.not_applicable
+    s_6f6b --> [*]: searchlight.provider-result.end.ok
+    s_726174655f6c696d69746564 --> [*]: searchlight.provider-result.end.rate_limited
+    s_72656675736564 --> [*]: searchlight.provider-result.end.refused
+    s_74696d656f7574 --> [*]: searchlight.provider-result.end.timeout
+    s_756e617661696c61626c65 --> [*]: searchlight.provider-result.end.unavailable
+```
+
+#### searchlight.evaluation
+
+```mermaid
+stateDiagram-v2
+    state "fail" as s_6661696c
+    state "not_applicable" as s_6e6f745f6170706c696361626c65
+    state "pass" as s_70617373
+    [*] --> s_6661696c: searchlight.evaluation.fail
+    [*] --> s_6e6f745f6170706c696361626c65: searchlight.evaluation.not_applicable
+    [*] --> s_70617373: searchlight.evaluation.pass
+    s_6661696c --> [*]: searchlight.evaluation.end.fail
+    s_6e6f745f6170706c696361626c65 --> [*]: searchlight.evaluation.end.not_applicable
+    s_70617373 --> [*]: searchlight.evaluation.end.pass
+```
+
+#### searchlight.index
+
+```mermaid
+stateDiagram-v2
+    state "deferred" as s_6465666572726564
+    state "indexed" as s_696e6465786564
+    state "unindexed" as s_756e696e6465786564
+    [*] --> s_756e696e6465786564: searchlight.index.create
+    s_756e696e6465786564 --> s_696e6465786564: searchlight.index.persist
+    s_696e6465786564 --> s_6465666572726564: searchlight.index.defer
+    s_6465666572726564 --> s_696e6465786564: searchlight.index.resume
+    s_696e6465786564 --> s_696e6465786564: searchlight.index.replay
+```
+
+#### searchlight.brief-grade
+
+```mermaid
+stateDiagram-v2
+    state "judge_unavailable" as s_6a756467655f756e617661696c61626c65
+    state "schema_invalid" as s_736368656d615f696e76616c6964
+    state "scored" as s_73636f726564
+    [*] --> s_6a756467655f756e617661696c61626c65: searchlight.brief-grade.judge_unavailable
+    [*] --> s_736368656d615f696e76616c6964: searchlight.brief-grade.schema_invalid
+    [*] --> s_73636f726564: searchlight.brief-grade.scored
+    s_6a756467655f756e617661696c61626c65 --> [*]: searchlight.brief-grade.end.judge_unavailable
+    s_736368656d615f696e76616c6964 --> [*]: searchlight.brief-grade.end.schema_invalid
+    s_73636f726564 --> [*]: searchlight.brief-grade.end.scored
+```
+
+### Exit owners and known dead ends
+
+| Object | Non-terminal states | Proposed exit owner | Proposed maximum | Recipient | Enforcement |
+|---|---|---|---|---|---|
+| searchlight.index | `deferred` | searchlight maintainer/caller | 180s | searchlight maintainer | missing |
+| searchlight.index | `indexed` | searchlight maintainer/caller | 180s | searchlight maintainer | missing |
+| searchlight.index | `unindexed` | searchlight maintainer/caller | 180s | searchlight maintainer | missing |
+
+Each missing row has source evidence in its definition. No general overdue enforcer is added here.
+Proposed lifetime/expiry bounds above are not repairs. See each state deadEndEvidence selector.
+
+### Ownership dispositions
+
+| Field | Owner | Disposition | Evidence |
+|---|---|---|---|
+| `RUN_STATUSES / harness STATUS_* and TERMINAL_* / run.json` | tools/searchlight | owned | Run bundles are terminal snapshots, including GAP contamination/provider/budget reclassification; terminal markers are harness observations, independently inventoried. |
+| `runner-state.json index/deferred_unavailable; gap/runner.py entries/deferred/attempts` | tools/searchlight | owned | Durable membership and resumable attempts; status snapshots reference searchlight.run. Cancelled GAP cells and deferred cells may be retried. No mandatory resume actor or retention sweeper; enforcement=missing. Proposed owner audit within 180s. |
+| `PROVIDER_CALL_STATUSES / SCHEMA_STATUS_BY_RESULT_STATUS; retrieval_lane/agent_lane cells` | tools/searchlight | owned/derived | Provider result and normalized call records are mapped separately. Retrieval/agent cells project results; async pending/completed IDs belong to external providers, not a Searchlight job engine. |
+| `EVALUATION_OUTCOMES; gap/brief_grade.py status; agreement measured/not_measured; verify JUnit statuses` | tools/searchlight | owned/derived | Immutable outcome/brief result snapshots are mapped. Agreement, source coverage, benchmark/report/index aggregates and capture statuses are derived observations; missing judgment is never success. |
+| `schema config enums; catalog/model profiles; token accounting; provider availability; live auth/egress/containment probes` | tools/searchlight | configuration/reference | Configuration and diagnostics are not extra durable status lifecycles. Pure hash/parser/render helpers own no state machine. Existing live/host probes remain explicitly manual; fixture smoke cannot certify paid execution or platform containment. |
+
+The SQL source inventory records checks, constants and mutation guards (including bound values).
+The unit suite independently reads those source statements and enums; changing a state or edge fixture must fail.
+Snapshots/observations do not transfer ownership from the referenced runtime. Synthetic smoke evidence does not prove live dispatch or provider behavior.
+
+<!-- smv:state-machines:end -->
