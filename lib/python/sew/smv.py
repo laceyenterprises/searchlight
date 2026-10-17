@@ -78,7 +78,16 @@ def architecture_index(doc):
 
 
 def render():
-    from cwp_dispatch.smv.render import START, END, diagrams
+    try:
+        from cwp_dispatch.smv.render import START, END, diagrams
+    except ModuleNotFoundError as exc:
+        if exc.name not in {"cwp_dispatch", "cwp_dispatch.smv", "cwp_dispatch.smv.render"}:
+            raise
+        raise RuntimeError(
+            "State diagram regeneration requires the Agent OS superproject environment; "
+            "add modules/worker-pool/lib/python to PYTHONPATH in that workspace. "
+            "Standalone smoke commands do not require this dependency."
+        ) from exc
 
     doc = json.loads((ROOT / "state-machines.json").read_text())
     readme = ROOT / "README.md"

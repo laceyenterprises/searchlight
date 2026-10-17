@@ -681,6 +681,11 @@ Searchlight is registered at `tools/searchlight`. In a standalone clone, use
 from any directory. `scripts/smv-smoke.py` forwards to the same runner. Neither
 standalone entry point requires the Agent OS shared Python helpers.
 
+Maintainers regenerating the README state diagrams with `sew.smv.render()` need
+the Agent OS superproject environment, with `modules/worker-pool/lib/python` on
+`PYTHONPATH`. In standalone clones the helper reports this requirement before
+writing generated files; the smoke commands remain independently runnable.
+
 - `existing-harness-fixture-matrix` (`fixture.matrix`): Reuse run_acceptance_fixture_matrix and validate its four synthetic evidence bundles through the real schema reader.
   The step also proves `fixture-run` through the real CLI, `truthful-evaluation`
   through the real evaluator (a passing fixture and a failing timed-out run),

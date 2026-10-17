@@ -1,6 +1,7 @@
 """Canonical contract drift and cwd-independent standalone smoke regressions."""
 
 import copy
+import builtins
 import json
 import os
 import runpy
@@ -17,6 +18,33 @@ from smv_sources import sources, verify
 ROOT = Path(__file__).resolve().parents[1]
 DOC = json.loads((ROOT / "state-machines.json").read_text())
 DECL = json.loads((ROOT / "post-merge-verify.json").read_text())
+
+
+@pytest.mark.parametrize("missing", ["cwp_dispatch", "cwp_dispatch.smv", "cwp_dispatch.smv.render"])
+def test_render_explains_missing_superproject_dependency(monkeypatch, missing):
+    original_import = builtins.__import__
+
+    def standalone_import(name, *args, **kwargs):
+        if name == "cwp_dispatch.smv.render":
+            raise ModuleNotFoundError(f"No module named '{missing}'", name=missing)
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", standalone_import)
+    with pytest.raises(RuntimeError, match="requires the Agent OS superproject environment"):
+        smv.render()
+
+
+def test_render_preserves_other_missing_dependency_errors(monkeypatch):
+    original_import = builtins.__import__
+
+    def broken_import(name, *args, **kwargs):
+        if name == "cwp_dispatch.smv.render":
+            raise ModuleNotFoundError("No module named 'renderer_dependency'", name="renderer_dependency")
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", broken_import)
+    with pytest.raises(ModuleNotFoundError, match="renderer_dependency"):
+        smv.render()
 
 
 def test_actual_states_edges_writers_and_index():
