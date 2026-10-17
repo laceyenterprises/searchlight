@@ -233,13 +233,6 @@
           "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
         },
         {
-          "id": "searchlight.run.contaminated.contaminated",
-          "from": "contaminated",
-          "to": "contaminated",
-          "trigger": "contaminated.contaminated",
-          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
-        },
-        {
           "id": "searchlight.run.contaminated.failed",
           "from": "failed",
           "to": "contaminated",
