@@ -315,16 +315,16 @@ def test_resume_after_a_wall_clock_stop_continues_under_a_larger_operator_cap(
     assert first["budget_limits"]["max_wall_clock_seconds"] == 1200
 
     same_cap = RecordingExecutor()
-    held = SuiteRunner(
-        module_base=module_base, state_root=state_root, executor=same_cap
-    ).run("tiny", run_id="wall", operator_budgets=_operator(1200))
+    held = SuiteRunner(module_base=module_base, state_root=state_root, executor=same_cap).run(
+        "tiny", run_id="wall", operator_budgets=_operator(1200)
+    )
     assert same_cap.calls == []
     assert held["stopped_reason"] == "wall_clock_budget_exhausted"
 
     larger = AdvancingExecutor()
-    resumed = SuiteRunner(
-        module_base=module_base, state_root=state_root, executor=larger
-    ).run("tiny", run_id="wall", operator_budgets=_operator(172800))
+    resumed = SuiteRunner(module_base=module_base, state_root=state_root, executor=larger).run(
+        "tiny", run_id="wall", operator_budgets=_operator(172800)
+    )
     assert len(larger.calls) == 1
     assert resumed["completed_cells"] == 2
     assert resumed["remaining_cells"] == 0
@@ -458,7 +458,7 @@ def test_resumed_retry_attempt_metrics_count_toward_budget(tmp_path: Path) -> No
     assert second["stopped_reason"] == "provider_call_budget_exhausted"
 
 
-def test_provider_unavailable_streak_stops_resumably(tmp_path: Path) -> None:
+def test_provider_unavailable_streak_stops_resumably(tmp_path: Path, monkeypatch) -> None:
     """2026-09-29: an account 429 failed 145 cells in five minutes. Stop after a streak."""
 
     module_base = _tiny_module(
@@ -468,9 +468,22 @@ def test_provider_unavailable_streak_stops_resumably(tmp_path: Path) -> None:
     )
     state_root = tmp_path / "state"
     walled = RecordingExecutor(["provider_unavailable"] * 4)
-    first = SuiteRunner(module_base=module_base, state_root=state_root, executor=walled).run(
-        "tiny", run_id="unavailable-streak", resume=False
-    )
+    runner = SuiteRunner(module_base=module_base, state_root=state_root, executor=walled)
+    snapshots = []
+    write_state = runner._write_state
+
+    def record_state(run_root, state):
+        write_state(run_root, state)
+        persisted = json.loads((run_root / "runner-state.json").read_text(encoding="utf-8"))
+        snapshots.append(
+            (
+                {entry["cell_key"] for entry in persisted["index"]},
+                set(persisted.get("deferred_unavailable", {})),
+            )
+        )
+
+    monkeypatch.setattr(runner, "_write_state", record_state)
+    first = runner.run("tiny", run_id="unavailable-streak", resume=False)
 
     assert first["stopped_reason"] == "provider_unavailable"
     assert len(walled.calls) == 3
@@ -478,6 +491,12 @@ def test_provider_unavailable_streak_stops_resumably(tmp_path: Path) -> None:
     # All four cells remain; three of them wait on the wall, one never started.
     assert first["remaining_cells"] == 4
     assert first["deferred_unavailable_cells"] == 3
+    # Two entries were persisted before the wall; the third is deferred in
+    # the same write that would otherwise have first persisted its index entry.
+    previously_indexed = set().union(*(indexed for indexed, _ in snapshots))
+    deferred = snapshots[-1][1]
+    assert len(deferred & previously_indexed) == 2
+    assert len(deferred - previously_indexed) == 1
 
     healthy = RecordingExecutor()
     resumed = SuiteRunner(module_base=module_base, state_root=state_root, executor=healthy).run(
@@ -1049,3 +1068,198 @@ def _tiny_module(
 
 def _read_index(run_root: Path) -> list[dict[str, Any]]:
     return json.loads((run_root / "run-index.json").read_text(encoding="utf-8"))
+
+
+def test_smv_source_states_edges_and_mutations():
+    from smv_sources import definition, sources, verify
+
+    doc, src = definition(), sources()
+    verify(doc, src)
+    renamed = dict(src)
+    renamed["schema.py"] = renamed["schema.py"].replace('"contaminated",', '"renamed",')
+    with pytest.raises(AssertionError):
+        verify(doc, renamed)
+    changed = dict(src)
+    changed["runner.py"] = changed["runner.py"].replace(
+        "index.remove(failed)", "index.append(failed)"
+    )
+    with pytest.raises(AssertionError):
+        verify(doc, changed)
+    state = next(s for o in doc["objects"] for s in o["states"] if not s["terminal"])
+    del state["exitOwner"]
+    with pytest.raises((AssertionError, KeyError)):
+        verify(doc, src)
+
+
+def test_smv_sandbox_required_failure_and_host_unavailable():
+    import runpy
+
+    harness = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    report = harness["run"]()
+    assert report["verdict"] == "pass", report
+    assert report["durationSeconds"] < 180
+    assert harness["run"](fail_step="index.resume")["verdict"] == "fail"
+    host = harness["run"](mode="host")
+    assert host["verdict"] == "fail"
+    assert all(s["verdict"] == "unavailable" for s in host["steps"])
+
+
+def test_smv_annotated_status_assignments():
+    import ast
+
+    from smv_sources import audit, sources
+
+    src = sources()
+    annotated = dict(src)
+    for path in ("schema.py", "providers.py", "harness.py"):
+        tree = ast.parse(src[path])
+        for index, node in enumerate(tree.body):
+            if (
+                isinstance(node, ast.Assign)
+                and len(node.targets) == 1
+                and isinstance(node.targets[0], ast.Name)
+            ):
+                tree.body[index] = ast.copy_location(
+                    ast.AnnAssign(
+                        target=node.targets[0],
+                        annotation=ast.Name(id="object", ctx=ast.Load()),
+                        value=node.value,
+                        simple=1,
+                    ),
+                    node,
+                )
+        annotated[path] = ast.unparse(tree)
+    assert audit(annotated) == audit(src)
+
+
+def test_smv_empty_steps_fail(monkeypatch, tmp_path):
+    import runpy
+
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    doc = json.loads((MODULE_ROOT / "post-merge-verify.json").read_text())
+    doc["steps"] = []
+    (tmp_path / "post-merge-verify.json").write_text(json.dumps(doc))
+    monkeypatch.setitem(helper["run"].__globals__, "ROOT", tmp_path)
+    report = helper["run"]()
+    assert report["verdict"] == "fail"
+    assert report["steps"] == []
+
+
+@pytest.mark.parametrize(
+    "override, git_result, expected_commit",
+    [
+        (None, "git-head\n", "git-head"),
+        (None, subprocess.CalledProcessError(128, ["git"]), "synthetic"),
+        (None, FileNotFoundError("git"), "synthetic"),
+        (None, subprocess.TimeoutExpired(["git"], 3), "synthetic"),
+        ("explicit-commit", None, "explicit-commit"),
+    ],
+)
+def test_smv_cli_commit_resolution(override, git_result, expected_commit, monkeypatch, capsys):
+    import runpy
+
+    harness = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    monkeypatch.delenv("SMV_COMMIT", raising=False)
+    monkeypatch.setenv("SMV_MODE", "sandbox")
+    if override:
+        monkeypatch.setenv("SMV_COMMIT", override)
+
+    def git(*args, **kwargs):
+        assert override is None, "SMV_COMMIT must bypass Git"
+        if isinstance(git_result, Exception):
+            raise git_result
+        return subprocess.CompletedProcess(args[0], 0, stdout=git_result)
+
+    def run(*, mode, commit):
+        assert mode == "sandbox"
+        return {"verdict": "pass", "commit": commit, "steps": []}
+
+    monkeypatch.setattr(subprocess, "run", git)
+    monkeypatch.setitem(harness["main"].__globals__, "run", run)
+    assert harness["main"]() == 0
+    assert json.loads(capsys.readouterr().out)["commit"] == expected_commit
+
+
+def test_smv_invocation_alarm_stops_remaining_steps(monkeypatch, capsys):
+    import json
+    import runpy
+    import signal
+
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    calls = []
+
+    def expire(step, *args):
+        calls.append(step)
+        signal.raise_signal(signal.SIGALRM)
+
+    monkeypatch.setitem(helper["main"].__globals__, "exercise", expire)
+    monkeypatch.setenv("SMV_MODE", "sandbox")
+    monkeypatch.setenv("SMV_COMMIT", "synthetic")
+    assert helper["main"]() == 1
+    report = json.loads(capsys.readouterr().out.splitlines()[-1])
+    assert len(calls) == 1
+    first_failure = next(i for i, row in enumerate(report["steps"]) if row["verdict"] == "fail")
+    assert all(row["verdict"] == "unavailable" for row in report["steps"][first_failure + 1 :])
+
+
+@pytest.mark.parametrize("verdict", ["pass", "fail"])
+def test_smv_cli_disarms_alarm_before_home_cleanup_and_output(verdict, monkeypatch, capsys):
+    import builtins
+    from contextlib import contextmanager
+    import runpy
+    import signal
+    import tempfile
+
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    original_directory = tempfile.TemporaryDirectory
+    phases = []
+
+    def run(**kwargs):
+        assert signal.getitimer(signal.ITIMER_REAL)[0] > 0
+        return {"verdict": verdict, "steps": []}
+
+    @contextmanager
+    def directory(**kwargs):
+        with original_directory(**kwargs) as home:
+            yield home
+            phases.append("cleanup")
+            assert signal.getitimer(signal.ITIMER_REAL)[0] == 0
+
+    def output(*args):
+        phases.append("output")
+        assert signal.getitimer(signal.ITIMER_REAL)[0] == 0
+        builtins.print(*args)
+
+    monkeypatch.setitem(helper["main"].__globals__, "run", run)
+    monkeypatch.setitem(helper["main"].__globals__, "print", output)
+    monkeypatch.setattr(tempfile, "TemporaryDirectory", directory)
+    monkeypatch.setenv("SMV_COMMIT", "synthetic")
+    assert helper["main"]() == (0 if verdict == "pass" else 1)
+    assert phases == ["cleanup", "output"]
+    assert json.loads(capsys.readouterr().out)["verdict"] == verdict
+
+
+def test_smv_teardown_deadline_preserves_object_observation(monkeypatch):
+    from contextlib import contextmanager
+    import runpy
+    import tempfile
+
+    helper = runpy.run_path(str(MODULE_ROOT / "scripts/smoke.py"))
+    original_directory = tempfile.TemporaryDirectory
+
+    @contextmanager
+    def interrupted_directory(**kwargs):
+        with original_directory(**kwargs) as scratch:
+            yield scratch
+        raise helper["InvocationDeadline"]("invocation deadline exceeded")
+
+    monkeypatch.setattr(tempfile, "TemporaryDirectory", interrupted_directory)
+    monkeypatch.setitem(helper["run"].__globals__, "exercise", lambda *args: {"validated": True})
+    report = helper["run"]()
+    assert report["verdict"] == "fail"
+    assert [row["verdict"] for row in report["steps"]] == ["pass", "pass", "fail"]
+    assert all(isinstance(row["observed"], dict) for row in report["steps"])
+    assert report["steps"][-1]["observed"] == {
+        "error": "teardown interrupted",
+        "deadline": "invocation deadline exceeded",
+    }

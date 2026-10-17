@@ -1,0 +1,1290 @@
+{
+  "version": 1,
+  "objects": [
+    {
+      "id": "searchlight.run",
+      "owner": "tools/searchlight",
+      "codeSources": [
+        "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+      ],
+      "states": [
+        {
+          "name": "budget_exhausted",
+          "terminal": true
+        },
+        {
+          "name": "cancelled",
+          "terminal": true
+        },
+        {
+          "name": "contaminated",
+          "terminal": true
+        },
+        {
+          "name": "failed",
+          "terminal": true
+        },
+        {
+          "name": "harness_boot_failed",
+          "terminal": true
+        },
+        {
+          "name": "not_applicable",
+          "terminal": true
+        },
+        {
+          "name": "provider_unavailable",
+          "terminal": true
+        },
+        {
+          "name": "succeeded",
+          "terminal": true
+        },
+        {
+          "name": "timeout",
+          "terminal": true
+        },
+        {
+          "name": "unsupported",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "id": "searchlight.run.budget_exhausted",
+          "from": "[*]",
+          "to": "budget_exhausted",
+          "trigger": "budget_exhausted",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.cancelled",
+          "from": "[*]",
+          "to": "cancelled",
+          "trigger": "cancelled",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated",
+          "from": "[*]",
+          "to": "contaminated",
+          "trigger": "contaminated",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.failed",
+          "from": "[*]",
+          "to": "failed",
+          "trigger": "failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.harness_boot_failed",
+          "from": "[*]",
+          "to": "harness_boot_failed",
+          "trigger": "harness_boot_failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.not_applicable",
+          "from": "[*]",
+          "to": "not_applicable",
+          "trigger": "not_applicable",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.provider_unavailable",
+          "from": "[*]",
+          "to": "provider_unavailable",
+          "trigger": "provider_unavailable",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.succeeded",
+          "from": "[*]",
+          "to": "succeeded",
+          "trigger": "succeeded",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.timeout",
+          "from": "[*]",
+          "to": "timeout",
+          "trigger": "timeout",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.unsupported",
+          "from": "[*]",
+          "to": "unsupported",
+          "trigger": "unsupported",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.budget_exhausted",
+          "from": "budget_exhausted",
+          "to": "[*]",
+          "trigger": "end.budget_exhausted",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.cancelled",
+          "from": "cancelled",
+          "to": "[*]",
+          "trigger": "end.cancelled",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.contaminated",
+          "from": "contaminated",
+          "to": "[*]",
+          "trigger": "end.contaminated",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.failed",
+          "from": "failed",
+          "to": "[*]",
+          "trigger": "end.failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.harness_boot_failed",
+          "from": "harness_boot_failed",
+          "to": "[*]",
+          "trigger": "end.harness_boot_failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.not_applicable",
+          "from": "not_applicable",
+          "to": "[*]",
+          "trigger": "end.not_applicable",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.provider_unavailable",
+          "from": "provider_unavailable",
+          "to": "[*]",
+          "trigger": "end.provider_unavailable",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.succeeded",
+          "from": "succeeded",
+          "to": "[*]",
+          "trigger": "end.succeeded",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.timeout",
+          "from": "timeout",
+          "to": "[*]",
+          "trigger": "end.timeout",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.end.unsupported",
+          "from": "unsupported",
+          "to": "[*]",
+          "trigger": "end.unsupported",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.unavailable.failed",
+          "from": "failed",
+          "to": "provider_unavailable",
+          "trigger": "unavailable.failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.unavailable.harness_boot_failed",
+          "from": "harness_boot_failed",
+          "to": "provider_unavailable",
+          "trigger": "unavailable.harness_boot_failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.unavailable.succeeded",
+          "from": "succeeded",
+          "to": "provider_unavailable",
+          "trigger": "unavailable.succeeded",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.unavailable.timeout",
+          "from": "timeout",
+          "to": "provider_unavailable",
+          "trigger": "unavailable.timeout",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.budget_exhausted",
+          "from": "budget_exhausted",
+          "to": "contaminated",
+          "trigger": "contaminated.budget_exhausted",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.cancelled",
+          "from": "cancelled",
+          "to": "contaminated",
+          "trigger": "contaminated.cancelled",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.contaminated",
+          "from": "contaminated",
+          "to": "contaminated",
+          "trigger": "contaminated.contaminated",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.failed",
+          "from": "failed",
+          "to": "contaminated",
+          "trigger": "contaminated.failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.harness_boot_failed",
+          "from": "harness_boot_failed",
+          "to": "contaminated",
+          "trigger": "contaminated.harness_boot_failed",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.not_applicable",
+          "from": "not_applicable",
+          "to": "contaminated",
+          "trigger": "contaminated.not_applicable",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.provider_unavailable",
+          "from": "provider_unavailable",
+          "to": "contaminated",
+          "trigger": "contaminated.provider_unavailable",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.succeeded",
+          "from": "succeeded",
+          "to": "contaminated",
+          "trigger": "contaminated.succeeded",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.timeout",
+          "from": "timeout",
+          "to": "contaminated",
+          "trigger": "contaminated.timeout",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.contaminated.unsupported",
+          "from": "unsupported",
+          "to": "contaminated",
+          "trigger": "contaminated.unsupported",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.run.budget",
+          "from": "succeeded",
+          "to": "budget_exhausted",
+          "trigger": "budget",
+          "codeSource": "lib/python/sew/schema.py:RUN_STATUSES;harness.py:classify_terminal;runner.py:_mark_provider_unavailable;gap/runner.py:run"
+        }
+      ]
+    },
+    {
+      "id": "searchlight.provider-call",
+      "owner": "tools/searchlight",
+      "codeSources": [
+        "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+      ],
+      "states": [
+        {
+          "name": "failed",
+          "terminal": true
+        },
+        {
+          "name": "not_applicable",
+          "terminal": true
+        },
+        {
+          "name": "ok",
+          "terminal": true
+        },
+        {
+          "name": "rate_limited",
+          "terminal": true
+        },
+        {
+          "name": "refused",
+          "terminal": true
+        },
+        {
+          "name": "timeout",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "id": "searchlight.provider-call.failed",
+          "from": "[*]",
+          "to": "failed",
+          "trigger": "failed",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.not_applicable",
+          "from": "[*]",
+          "to": "not_applicable",
+          "trigger": "not_applicable",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.ok",
+          "from": "[*]",
+          "to": "ok",
+          "trigger": "ok",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.rate_limited",
+          "from": "[*]",
+          "to": "rate_limited",
+          "trigger": "rate_limited",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.refused",
+          "from": "[*]",
+          "to": "refused",
+          "trigger": "refused",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.timeout",
+          "from": "[*]",
+          "to": "timeout",
+          "trigger": "timeout",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.end.failed",
+          "from": "failed",
+          "to": "[*]",
+          "trigger": "end.failed",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.end.not_applicable",
+          "from": "not_applicable",
+          "to": "[*]",
+          "trigger": "end.not_applicable",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.end.ok",
+          "from": "ok",
+          "to": "[*]",
+          "trigger": "end.ok",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.end.rate_limited",
+          "from": "rate_limited",
+          "to": "[*]",
+          "trigger": "end.rate_limited",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.end.refused",
+          "from": "refused",
+          "to": "[*]",
+          "trigger": "end.refused",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        },
+        {
+          "id": "searchlight.provider-call.end.timeout",
+          "from": "timeout",
+          "to": "[*]",
+          "trigger": "end.timeout",
+          "codeSource": "lib/python/sew/schema.py:PROVIDER_CALL_STATUSES;providers.py:provider_call_record"
+        }
+      ]
+    },
+    {
+      "id": "searchlight.provider-result",
+      "owner": "tools/searchlight",
+      "codeSources": [
+        "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+      ],
+      "states": [
+        {
+          "name": "failed",
+          "terminal": true
+        },
+        {
+          "name": "not_applicable",
+          "terminal": true
+        },
+        {
+          "name": "ok",
+          "terminal": true
+        },
+        {
+          "name": "rate_limited",
+          "terminal": true
+        },
+        {
+          "name": "refused",
+          "terminal": true
+        },
+        {
+          "name": "timeout",
+          "terminal": true
+        },
+        {
+          "name": "unavailable",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "id": "searchlight.provider-result.failed",
+          "from": "[*]",
+          "to": "failed",
+          "trigger": "failed",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.not_applicable",
+          "from": "[*]",
+          "to": "not_applicable",
+          "trigger": "not_applicable",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.ok",
+          "from": "[*]",
+          "to": "ok",
+          "trigger": "ok",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.rate_limited",
+          "from": "[*]",
+          "to": "rate_limited",
+          "trigger": "rate_limited",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.refused",
+          "from": "[*]",
+          "to": "refused",
+          "trigger": "refused",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.timeout",
+          "from": "[*]",
+          "to": "timeout",
+          "trigger": "timeout",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.unavailable",
+          "from": "[*]",
+          "to": "unavailable",
+          "trigger": "unavailable",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.end.failed",
+          "from": "failed",
+          "to": "[*]",
+          "trigger": "end.failed",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.end.not_applicable",
+          "from": "not_applicable",
+          "to": "[*]",
+          "trigger": "end.not_applicable",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.end.ok",
+          "from": "ok",
+          "to": "[*]",
+          "trigger": "end.ok",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.end.rate_limited",
+          "from": "rate_limited",
+          "to": "[*]",
+          "trigger": "end.rate_limited",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.end.refused",
+          "from": "refused",
+          "to": "[*]",
+          "trigger": "end.refused",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.end.timeout",
+          "from": "timeout",
+          "to": "[*]",
+          "trigger": "end.timeout",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        },
+        {
+          "id": "searchlight.provider-result.end.unavailable",
+          "from": "unavailable",
+          "to": "[*]",
+          "trigger": "end.unavailable",
+          "codeSource": "lib/python/sew/providers.py:SCHEMA_STATUS_BY_RESULT_STATUS/SearchProvider.execute"
+        }
+      ]
+    },
+    {
+      "id": "searchlight.evaluation",
+      "owner": "tools/searchlight",
+      "codeSources": [
+        "lib/python/sew/schema.py:EVALUATION_OUTCOMES;gap/runner.py:run"
+      ],
+      "states": [
+        {
+          "name": "fail",
+          "terminal": true
+        },
+        {
+          "name": "not_applicable",
+          "terminal": true
+        },
+        {
+          "name": "pass",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "id": "searchlight.evaluation.fail",
+          "from": "[*]",
+          "to": "fail",
+          "trigger": "fail",
+          "codeSource": "lib/python/sew/schema.py:EVALUATION_OUTCOMES;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.evaluation.not_applicable",
+          "from": "[*]",
+          "to": "not_applicable",
+          "trigger": "not_applicable",
+          "codeSource": "lib/python/sew/schema.py:EVALUATION_OUTCOMES;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.evaluation.pass",
+          "from": "[*]",
+          "to": "pass",
+          "trigger": "pass",
+          "codeSource": "lib/python/sew/schema.py:EVALUATION_OUTCOMES;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.evaluation.end.fail",
+          "from": "fail",
+          "to": "[*]",
+          "trigger": "end.fail",
+          "codeSource": "lib/python/sew/schema.py:EVALUATION_OUTCOMES;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.evaluation.end.not_applicable",
+          "from": "not_applicable",
+          "to": "[*]",
+          "trigger": "end.not_applicable",
+          "codeSource": "lib/python/sew/schema.py:EVALUATION_OUTCOMES;gap/runner.py:run"
+        },
+        {
+          "id": "searchlight.evaluation.end.pass",
+          "from": "pass",
+          "to": "[*]",
+          "trigger": "end.pass",
+          "codeSource": "lib/python/sew/schema.py:EVALUATION_OUTCOMES;gap/runner.py:run"
+        }
+      ]
+    },
+    {
+      "id": "searchlight.index",
+      "owner": "tools/searchlight",
+      "codeSources": [
+        "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+      ],
+      "states": [
+        {
+          "name": "deferred",
+          "terminal": false,
+          "exitOwner": "searchlight maintainer/caller",
+          "maxDurationSeconds": 180,
+          "overdueRecipient": "searchlight maintainer",
+          "enforcement": "missing",
+          "deadEndEvidence": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry: no mandatory caller lifetime/expiry enforcement"
+        },
+        {
+          "name": "indexed",
+          "terminal": false,
+          "exitOwner": "searchlight maintainer/caller",
+          "maxDurationSeconds": 180,
+          "overdueRecipient": "searchlight maintainer",
+          "enforcement": "missing",
+          "deadEndEvidence": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry: no mandatory caller lifetime/expiry enforcement"
+        },
+        {
+          "name": "unindexed",
+          "terminal": false,
+          "exitOwner": "searchlight maintainer/caller",
+          "maxDurationSeconds": 180,
+          "overdueRecipient": "searchlight maintainer",
+          "enforcement": "missing",
+          "deadEndEvidence": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry: no mandatory caller lifetime/expiry enforcement"
+        }
+      ],
+      "transitions": [
+        {
+          "id": "searchlight.index.create",
+          "from": "[*]",
+          "to": "unindexed",
+          "trigger": "create",
+          "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+        },
+        {
+          "id": "searchlight.index.persist",
+          "from": "unindexed",
+          "to": "indexed",
+          "trigger": "persist",
+          "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+        },
+        {
+          "id": "searchlight.index.defer",
+          "from": "indexed",
+          "to": "deferred",
+          "trigger": "defer",
+          "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+        },
+        {
+          "id": "searchlight.index.defer-unindexed",
+          "from": "unindexed",
+          "to": "deferred",
+          "trigger": "defer-unindexed",
+          "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+        },
+        {
+          "id": "searchlight.index.resume",
+          "from": "deferred",
+          "to": "indexed",
+          "trigger": "resume",
+          "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+        },
+        {
+          "id": "searchlight.index.replay",
+          "from": "indexed",
+          "to": "indexed",
+          "trigger": "replay",
+          "codeSource": "lib/python/sew/runner.py:SuiteRunner.run/_persist_progress/_write_state/_index_entry"
+        }
+      ]
+    },
+    {
+      "id": "searchlight.brief-grade",
+      "owner": "tools/searchlight",
+      "codeSources": [
+        "lib/python/sew/gap/brief_grade.py:grade_brief/add_agreement_judge"
+      ],
+      "states": [
+        {
+          "name": "judge_unavailable",
+          "terminal": true
+        },
+        {
+          "name": "schema_invalid",
+          "terminal": true
+        },
+        {
+          "name": "scored",
+          "terminal": true
+        }
+      ],
+      "transitions": [
+        {
+          "id": "searchlight.brief-grade.judge_unavailable",
+          "from": "[*]",
+          "to": "judge_unavailable",
+          "trigger": "judge_unavailable",
+          "codeSource": "lib/python/sew/gap/brief_grade.py:grade_brief/add_agreement_judge"
+        },
+        {
+          "id": "searchlight.brief-grade.schema_invalid",
+          "from": "[*]",
+          "to": "schema_invalid",
+          "trigger": "schema_invalid",
+          "codeSource": "lib/python/sew/gap/brief_grade.py:grade_brief/add_agreement_judge"
+        },
+        {
+          "id": "searchlight.brief-grade.scored",
+          "from": "[*]",
+          "to": "scored",
+          "trigger": "scored",
+          "codeSource": "lib/python/sew/gap/brief_grade.py:grade_brief/add_agreement_judge"
+        },
+        {
+          "id": "searchlight.brief-grade.end.judge_unavailable",
+          "from": "judge_unavailable",
+          "to": "[*]",
+          "trigger": "end.judge_unavailable",
+          "codeSource": "lib/python/sew/gap/brief_grade.py:grade_brief/add_agreement_judge"
+        },
+        {
+          "id": "searchlight.brief-grade.end.schema_invalid",
+          "from": "schema_invalid",
+          "to": "[*]",
+          "trigger": "end.schema_invalid",
+          "codeSource": "lib/python/sew/gap/brief_grade.py:grade_brief/add_agreement_judge"
+        },
+        {
+          "id": "searchlight.brief-grade.end.scored",
+          "from": "scored",
+          "to": "[*]",
+          "trigger": "end.scored",
+          "codeSource": "lib/python/sew/gap/brief_grade.py:grade_brief/add_agreement_judge"
+        }
+      ]
+    }
+  ],
+  "dispositions": [
+    {
+      "field": "RUN_STATUSES / harness STATUS_* and TERMINAL_* / run.json",
+      "owner": "tools/searchlight",
+      "disposition": "owned",
+      "reason": "Run bundles are terminal snapshots, including GAP contamination/provider/budget reclassification; terminal markers are harness observations, independently inventoried."
+    },
+    {
+      "field": "runner-state.json index/deferred_unavailable; gap/runner.py entries/deferred/attempts",
+      "owner": "tools/searchlight",
+      "disposition": "owned",
+      "reason": "Durable membership and resumable attempts; status snapshots reference searchlight.run. Cancelled GAP cells and deferred cells may be retried. No mandatory resume actor or retention sweeper; enforcement=missing. Proposed owner audit within 180s."
+    },
+    {
+      "field": "PROVIDER_CALL_STATUSES / SCHEMA_STATUS_BY_RESULT_STATUS; retrieval_lane/agent_lane cells",
+      "owner": "tools/searchlight",
+      "disposition": "owned/derived",
+      "reason": "Provider result and normalized call records are mapped separately. Retrieval/agent cells project results; async pending/completed IDs belong to external providers, not a Searchlight job engine."
+    },
+    {
+      "field": "EVALUATION_OUTCOMES; gap/brief_grade.py status; agreement measured/not_measured; verify JUnit statuses",
+      "owner": "tools/searchlight",
+      "disposition": "owned/derived",
+      "reason": "Immutable outcome/brief result snapshots are mapped. Agreement, source coverage, benchmark/report/index aggregates and capture statuses are derived observations; missing judgment is never success."
+    },
+    {
+      "field": "schema config enums; catalog/model profiles; token accounting; provider availability; live auth/egress/containment probes",
+      "owner": "tools/searchlight",
+      "disposition": "configuration/reference",
+      "reason": "Configuration and diagnostics are not extra durable status lifecycles. Pure hash/parser/render helpers own no state machine. Existing live/host probes remain explicitly manual; fixture smoke cannot certify paid execution or platform containment."
+    }
+  ],
+  "deadEndNotes": [
+    "Proposed lifetime/expiry bounds above are not repairs. See each state deadEndEvidence selector."
+  ],
+  "ownershipNotes": [
+    "Snapshots/observations do not transfer ownership from the referenced runtime. Synthetic smoke evidence does not prove live dispatch or provider behavior."
+  ],
+  "sourceInventory": {
+    "catalog.py": [
+      "expected_outcome = task.get('expected_claimant_outcome', 'competitive')",
+      "expected_outcome == 'loss'",
+      "expected_outcome not in {'competitive', 'loss'}"
+    ],
+    "metrics.py": [
+      "counts[status] = 0",
+      "counts[status] = int(counts[status] or 0) + 1",
+      "status = str(call.get('status') or 'failed')",
+      "status in PROVIDER_CALL_STATUSES",
+      "status: call.get('status')"
+    ],
+    "pi_driver.py": [
+      "evaluation_outcome = 'not_applicable' if status == 'unsupported' else 'pass'",
+      "outcome: evaluation_outcome",
+      "provider_call_status = 'not_applicable' if status == 'unsupported' else 'ok'",
+      "state: 'sanitized_excerpt'",
+      "status != 'unsupported'",
+      "status = 'succeeded' if supported else 'unsupported'",
+      "status == 'unsupported'",
+      "status: provider_call_status",
+      "status: status",
+      "status: str",
+      "status=status"
+    ],
+    "runner.py": [
+      "RETRYABLE_STATUSES = frozenset({'failed', 'timeout', 'harness_boot_failed'})",
+      "counts[status] = counts.get(status, 0) + 1",
+      "entry.get('status') != 'provider_unavailable'",
+      "last.status in RETRYABLE_STATUSES",
+      "run.get('status') == 'provider_unavailable'",
+      "run['status'] = 'provider_unavailable'",
+      "status = str(entry.get('status'))",
+      "status == 'provider_unavailable'",
+      "status == 'unsupported'",
+      "status: status",
+      "status: str",
+      "status='budget_exhausted'",
+      "status='not_applicable'",
+      "status=last.status",
+      "status=result.status",
+      "status=str(run['status'])"
+    ],
+    "production_scoring.py": [
+      "state: state",
+      "task.get('expected_outcome') == 'expected_fail'"
+    ],
+    "harness.py": [
+      "PROVIDER_AVAILABILITY_STATUSES = frozenset({STATUS_SUCCEEDED, STATUS_FAILED, STATUS_TIMEOUT, STATUS_HARNESS_BOOT_FAILED})",
+      "RunStatus = Literal['succeeded', 'failed', 'timeout', 'unsupported', 'cancelled', 'harness_boot_failed', 'provider_unavailable', 'budget_exhausted', 'contaminated']",
+      "STATUS_BUDGET_EXHAUSTED = 'budget_exhausted'",
+      "STATUS_CANCELLED = 'cancelled'",
+      "STATUS_FAILED = 'failed'",
+      "STATUS_HARNESS_BOOT_FAILED = 'harness_boot_failed'",
+      "STATUS_PROVIDER_UNAVAILABLE = 'provider_unavailable'",
+      "STATUS_SUCCEEDED = 'succeeded'",
+      "STATUS_TIMEOUT = 'timeout'",
+      "counts[status] = counts.get(status, 0) + 1",
+      "fixture_outcome: str = 'success'",
+      "outcome == 'boot_failure'",
+      "outcome == 'budget_exhausted'",
+      "outcome == 'cancelled'",
+      "outcome == 'provider_unavailable'",
+      "outcome == 'timeout'",
+      "outcome: 'pass' if terminal.status == 'succeeded' else 'not_applicable'",
+      "outcome=config.fixture_outcome",
+      "state: 'sanitized_excerpt'",
+      "status = call['status']",
+      "status in PROVIDER_AVAILABILITY_STATUSES",
+      "status: 'ok'",
+      "status: RunStatus",
+      "status: terminal.status",
+      "status=terminal.status",
+      "terminal.status != 'succeeded'",
+      "terminal.status == 'succeeded'"
+    ],
+    "claim_verification.py": [
+      "baseline_outcomes = [result for other_domain in baseline_domains for result in matrix[other_domain, claimant_id]]"
+    ],
+    "grading.py": [
+      "current['outcome'] in {'pass', 'fail'}",
+      "execution['outcome'] == 'not_applicable'",
+      "execution['outcome'] == 'pass'",
+      "judge_record['status'] != 'scored'",
+      "judge_record['status'] == 'blinding_failed'",
+      "outcome: 'would_grade'",
+      "outcome: current['outcome']",
+      "outcome: evaluation['outcome']",
+      "outcome: outcome",
+      "outcome='not_applicable'",
+      "outcome='pass' if judged and schema_valid else 'fail'",
+      "outcome='pass' if passed else 'fail'",
+      "outcome=execution['outcome']",
+      "run['status'] != 'succeeded'"
+    ],
+    "bakeoff_bundle.py": [
+      "run['status'] != 'succeeded'",
+      "run['status'] == 'succeeded'",
+      "status: run['status']",
+      "verified.get('report_version_status') in {'older_report_version', 'legacy_report_version_unverified'}"
+    ],
+    "judge_transport.py": [
+      "outcome = spawn_and_capture(argv, prompt=prompt, cwd=cwd, env=child_env, limits=LiveLimits(timeout_seconds, min(30, timeout_seconds), max_total_tokens), protocol=protocol)",
+      "outcome.exit_code != 0"
+    ],
+    "agent_lane.py": [
+      "body.get('status') != 'completed'",
+      "c.status == 'ok'",
+      "cell.status == 'ok'",
+      "out.get('status') != 'ok'",
+      "result.status != 'ok'",
+      "result.status != 'rate_limited'",
+      "run.get('status') != 'completed'",
+      "run.get('status') in ('completed', 'failed')",
+      "run.get('status') in ('completed', 'failed', 'cancelled')",
+      "state: 'absent_optional'",
+      "state: 'available_unextracted' if in_whole else 'missing'",
+      "state: 'correct'",
+      "state: 'wrong'",
+      "status != 200",
+      "status not in (200, 201, 202)",
+      "status not in (200, 202)",
+      "status, body = _post('https://api.exa.ai/agent/runs', headers, {'query': task['prompt'], 'effort': cfg['effort'], 'outputSchema': task['output_schema']}, timeout)",
+      "status, body = _post('https://api.firecrawl.dev/v2/agent', headers, {'prompt': task['prompt'], 'schema': task['output_schema'], 'model': 'spark-2', 'maxCredits': cfg['max_credits']}, timeout)",
+      "status, body = _post('https://api.parallel.ai/v1/tasks/runs', headers, {'input': task['prompt'], 'task_spec': {'output_schema': {'type': 'json', 'json_schema': _closed(task['output_schema'])}}, 'processor': cfg['processor']}, timeout)",
+      "status, body = _post('https://api.perplexity.ai/v1/agent', {'Authorization': f'Bearer {key}'}, {'preset': cfg['preset'], 'input': task['prompt'], 'response_format': {'type': 'json_schema', 'json_schema': {'name': re.sub('[^A-Za-z0-9_]', '_', f\"sew_{task['id']}\")[:64], 'schema': _closed(task['output_schema'])}}}, timeout)",
+      "status, body = _post('https://api.tavily.com/research', headers, {'input': task['prompt'], 'model': cfg['model'], 'output_schema': _tavily_output_schema(task['output_schema'])}, timeout)",
+      "status, response = _post('https://api.search.brave.com/res/v1/chat/completions', {'X-Subscription-Token': key}, body, timeout)",
+      "status: 'failed'",
+      "status: 'ok'",
+      "status: 'timeout'",
+      "status: result.status",
+      "status: sorted({c.status for c in cells if c.task_id == tid and c.arm == a})",
+      "status: str",
+      "status='ok'",
+      "status=str(out.get('status'))"
+    ],
+    "entity_resolution.py": [
+      "catalog_outcome = task.get('expected_claimant_outcome', 'competitive')",
+      "expected_claimant_outcome: str = 'competitive'",
+      "expected_outcome != catalog_outcome",
+      "expected_outcome = raw.get('expected_claimant_outcome', 'competitive')",
+      "expected_status = str(truth.get('expected_status', 'declined'))",
+      "instance.expected_claimant_outcome == 'loss'",
+      "outcome = 'pass' if board.checks and all(board.checks.values()) else 'fail'",
+      "outcome: self.outcome",
+      "outcome: str",
+      "outcome=outcome",
+      "self.outcome == 'pass'",
+      "status = str(answer.get('status', '')).strip().casefold()",
+      "status == expected_status.casefold()",
+      "sum((1 for instance in instances if instance.expected_claimant_outcome == 'loss')) != 1"
+    ],
+    "retrieval_lane.py": [
+      "c.status != 'ok'",
+      "c.status == 'ok'",
+      "c.status == 'rate_limited'",
+      "cell.status == 'ok'",
+      "result.status != 'rate_limited'",
+      "result.status == 'ok'",
+      "status: sorted({c.status for c in cells if c.query_id == qid and c.provider_id == p})",
+      "status: str",
+      "status='failed'",
+      "status=result.status"
+    ],
+    "production_catalog.py": [
+      "EXPECTED_OUTCOMES = frozenset({'competitive', 'expected_fail'})",
+      "TRUTH_STATUSES = frozenset({'immutable_history', 'current_state', 'none'})",
+      "outcome = task.get('expected_outcome')",
+      "outcome == 'expected_fail'",
+      "outcome not in EXPECTED_OUTCOMES",
+      "provenance.get('status') == 'current_state'",
+      "status != 'none'",
+      "status = value.get('status')",
+      "status == 'current_state'",
+      "status == 'none'",
+      "status not in TRUTH_STATUSES"
+    ],
+    "live_harness.py": [
+      "max(outcome.running_tokens, usage_total(summary.usage)) > limits.max_total_tokens",
+      "outcome = ProcessOutcome()",
+      "outcome = ProcessOutcome(ended_at=datetime.now(UTC))",
+      "outcome = spawn_and_capture(argv, prompt=prompt, cwd=workspace_path, env=child_env, limits=limits, protocol=protocol, cancel_event=cancel_event, contract=contract, provisional_meters_path=run_dir / PROVISIONAL_METERS_REF)",
+      "outcome.boot_timed_out = True",
+      "outcome.budget_killed = True",
+      "outcome.cancelled = True",
+      "outcome.capture_overflow = True",
+      "outcome.ended_at = datetime.now(UTC)",
+      "outcome.events = remove_token(outcome.events)",
+      "outcome.exit_code = proc.returncode",
+      "outcome.exit_code == 0",
+      "outcome.exit_code not in (0, None)",
+      "outcome.first_output_at = received_at",
+      "outcome.first_output_at is None",
+      "outcome.first_output_at is not None",
+      "outcome.last_event_at = received_at",
+      "outcome.prompt_sent_at = datetime.now(UTC)",
+      "outcome.prompt_sent_at is not None",
+      "outcome.provider_budget_killed = True",
+      "outcome.provider_calls = len(calls_seen)",
+      "outcome.provider_calls > limits.max_provider_calls",
+      "outcome.ready = True",
+      "outcome.ready_at = received_at",
+      "outcome.ready_at is None",
+      "outcome.ready_at is not None",
+      "outcome.running_tokens = sum(usage_seen.values())",
+      "outcome.running_tokens > limits.max_total_tokens",
+      "outcome.spawn_error = f'{type(exc).__name__}: {exc.strerror or exc}'",
+      "outcome.spawn_error = remove_token(outcome.spawn_error)",
+      "outcome.spawn_error is not None",
+      "outcome.stderr_tail = _fit_text(outcome.stderr_tail + '\\nGAP workspace diff refused: ' + scrub_text(str(exc)))",
+      "outcome.stderr_tail = b''.join(stderr_chunks)[-STDERR_TAIL_BYTES:].decode('utf-8', errors='replace')",
+      "outcome.stderr_tail = remove_token(outcome.stderr_tail)",
+      "outcome.timed_out = True",
+      "outcome: 'not_applicable'",
+      "outcome=outcome",
+      "result.get('api_error_status') is not None",
+      "status: terminal.status",
+      "status=terminal.status",
+      "terminal.status == STATUS_SUCCEEDED"
+    ],
+    "mcp_meter.py": [
+      "'status' in run",
+      "item.get('status') == 'completed'",
+      "run.get('status') == STATUS_SUCCEEDED",
+      "status = 'failed'",
+      "status = 'ok'",
+      "status == 'ok'",
+      "status, error_class = ('failed', error_class or 'tool_error')",
+      "status, error_class = ('rate_limited', error_class or 'rate_limited')",
+      "status: status",
+      "terminal.status == STATUS_SUCCEEDED"
+    ],
+    "providers.py": [
+      "SCHEMA_STATUS_BY_RESULT_STATUS = {'ok': 'ok', 'failed': 'failed', 'rate_limited': 'rate_limited', 'timeout': 'timeout', 'refused': 'refused', 'not_applicable': 'not_applicable', 'unavailable': 'failed'}",
+      "body.get('status') == 'completed'",
+      "health.status == 'ok'",
+      "item.get('match_status') == 'matched'",
+      "result.status == 'refused'",
+      "retry.status != 'ok'",
+      "state: 'sanitized_excerpt'",
+      "status = 'failed'",
+      "status = 'ok' if self._run_dir.is_dir() else 'unavailable'",
+      "status = body.get('status')",
+      "status = classify_http_status(response.status_code)",
+      "status == 'ok'",
+      "status.get('status') == 'completed'",
+      "status: SCHEMA_STATUS_BY_RESULT_STATUS[status]",
+      "status: result.status",
+      "status: str",
+      "status='failed'",
+      "status='not_applicable'",
+      "status='not_applicable' if run_handle else 'failed'",
+      "status='ok'",
+      "status='timeout'",
+      "status='unavailable'",
+      "status=classify_http_status(exc.code)",
+      "status=health.status",
+      "status=status",
+      "status=validated_call['status']",
+      "status_code == 429",
+      "status_code in {401, 403, 451}",
+      "status_code in {408, 504}",
+      "status_code: int"
+    ],
+    "async_poll.py": [
+      "classify_http_status(response.status_code) != 'ok'",
+      "observed_status is not None",
+      "status = body.get('status')",
+      "status='ok'",
+      "status_code >= 500",
+      "status_code in {408, 429}",
+      "status_path, result_path = paths",
+      "status_response = fetched.response",
+      "status_response is None",
+      "status_response: HttpResponse | None = None"
+    ],
+    "cli.py": [
+      "result.status == 'succeeded'",
+      "status = 'resolved' if check.resolved else 'unresolved'",
+      "task['expected_outcome'] == 'expected_fail'"
+    ],
+    "judge.py": [
+      "agreement.get('status') != 'measured'",
+      "primary['status'] == 'error'",
+      "primary['status'] == 'scored'",
+      "r.get('status') != 'scored'",
+      "record.get('status') == 'scored'",
+      "status = 'judge_unavailable' if primary['status'] == 'error' else 'judge_invalid_result'",
+      "status, passed = ('scored', primary['passed'])",
+      "status: 'blinding_failed'",
+      "status: 'error'",
+      "status: 'invalid'",
+      "status: 'measured'",
+      "status: 'not_measured'",
+      "status: 'scored'",
+      "status: status"
+    ],
+    "domain_suites.py": [
+      "state=state",
+      "status != 200",
+      "status, payload = _api_get(_reference_api_url(reference), token=token, timeout=timeout_seconds)"
+    ],
+    "broker_auth.py": [
+      "_TRANSIENT_OUTCOMES = frozenset({b'oauth-broker-unreachable', b'oauth-broker-gate-saturated', b'oauth-broker-bad-response'})",
+      "outcome = re.search(b'\\\\boutcome=([a-z0-9_-]+)', stderr, re.I)"
+    ],
+    "cost_model.py": [
+      "UNBILLED_CALL_STATUSES = frozenset({'not_applicable'})",
+      "record.get('status') == 'failed'",
+      "status != 'ok'",
+      "status = 'defined'",
+      "status = 'undefined_zero_successes'",
+      "status = 'unknown_cost'",
+      "status = call.get('status')",
+      "status in UNBILLED_CALL_STATUSES",
+      "status: status",
+      "status='ok' if billed_empty_result else str(record.get('status') or 'failed')",
+      "status=result.status"
+    ],
+    "domain_report.py": [
+      "cell['status'] = 'under_sampled' if cell['under_sampled'] else 'not_separable' if domain in non_separable_domains else 'sampled'"
+    ],
+    "bakeoff_report.py": [
+      "INFRASTRUCTURE_STATUSES = frozenset({'provider_unavailable', 'harness_boot_failed', 'cancelled'})",
+      "NON_COMPARABLE_STATUSES = frozenset({'not_applicable', 'unsupported'})",
+      "TASK_FAILURE_STATUSES = frozenset({'failed', 'timeout', 'budget_exhausted'})",
+      "per_success, status = (None, 'no_costed_runs')",
+      "per_success, status = (None, 'withheld_ungraded')",
+      "per_success, status = (summary['usd_per_success'], summary['usd_per_success_status'])",
+      "row.evaluation_outcome == 'fail'",
+      "row.evaluation_outcome == 'pass'",
+      "row.status == 'succeeded'",
+      "row.status == CONTAMINATED",
+      "row.status in INFRASTRUCTURE_STATUSES",
+      "row.status in NON_COMPARABLE_STATUSES",
+      "row.status in TASK_FAILURE_STATUSES",
+      "run.token_status == 'estimated'",
+      "run.token_status == 'measured'",
+      "run.token_status == 'unknown'",
+      "status = cost['usd_per_success_status']",
+      "status == 'undefined_zero_successes'",
+      "status == 'withheld_ungraded'",
+      "status: row.status",
+      "status='not_applicable' if failed else 'ok'",
+      "status='ok'",
+      "token_status != 'measured'",
+      "token_status = 'estimated' if source == 'estimated' else 'unknown'",
+      "token_status, tokens = ('measured', total)",
+      "token_status: str"
+    ],
+    "doctor.py": [
+      "key_status = (f'{settings.api_key_env} set (value not shown)' if host.mode == 'standalone' else 'resolved through the host credential service') if key else 'not provisioned'",
+      "srt_status = f'available ({srt}); canary unverified' if srt else 'unavailable; install @anthropic-ai/sandbox-runtime@0.0.78 with npm install --prefix <dir> and add <dir>/node_modules/.bin to PATH'",
+      "status = 'CLI available; account login unverified' if binary else 'CLI unavailable'",
+      "status = 'OAuth broker configured; authentication unverified'",
+      "status = 'version check failed'",
+      "status = f\"version {'.'.join(map(str, version))}; minimum {minimum}\" if version >= spec.min_version else f'unsupported version; requires >= {minimum}'",
+      "status = f'ok {version}' if version >= Version(spec.minimum_version) else f'unsupported version; requires >= {spec.minimum_version}'",
+      "status = f'version probe failed ({type(exc).__name__})'",
+      "status = f'version unverified; requires >= {spec.minimum_version}'",
+      "status = response.status",
+      "status = version_status(command, env)"
+    ],
+    "evaluator.py": [
+      "answer.get('conclusion_status') != expected_status",
+      "answer.get('match_status') != expected_match_status",
+      "answer.get('status') != expected_status",
+      "expected_match_status = _required_validator_value(validator, flag='require_identifier_match', key='expected_match_status')",
+      "expected_status = _required_validator_value(validator, flag='fail_confident_unsupported_answer', key='expected_status')",
+      "expected_status = validator.get('expected_status')",
+      "outcome: 'pass' if all(builder.dimensions.values()) else 'fail'",
+      "run.get('status') != 'succeeded'"
+    ],
+    "report.py": [
+      "(evaluation or {}).get('outcome') == 'pass'",
+      "entry.get('status') in {'not_applicable', 'unsupported'}",
+      "evaluation_outcome: str | None",
+      "row.status in {'unsupported', 'not_applicable'}",
+      "status = str((run or entry).get('status') or entry.get('status') or 'unknown')",
+      "status == 'succeeded'",
+      "status not in {'not_applicable', 'unsupported'}",
+      "status: entry.get('status')",
+      "status: str",
+      "status=status"
+    ],
+    "schema.py": [
+      "EVALUATION_OUTCOMES = frozenset({'pass', 'fail', 'not_applicable'})",
+      "PROVIDER_CALL_STATUSES = frozenset({'ok', 'failed', 'rate_limited', 'timeout', 'refused', 'not_applicable'})",
+      "RUN_STATUSES = frozenset({'succeeded', 'failed', 'timeout', 'unsupported', 'not_applicable', 'cancelled', 'harness_boot_failed', 'provider_unavailable', 'budget_exhausted', 'contaminated'})",
+      "execution['outcome'] != doc['outcome']",
+      "record.get('status') is not None",
+      "status: str",
+      "status=run['status']"
+    ],
+    "gap/runner.py": [
+      "entry.get('status') == 'provider_unavailable'",
+      "outcome = grader(task, directory, root, wheelhouse, judges or [])",
+      "outcome.get('outcome') not in {'pass', 'fail'}",
+      "previous.get('status') not in {None, 'cancelled'}",
+      "record['status'] = status",
+      "status != record['status']",
+      "status = 'budget_exhausted'",
+      "status = 'contaminated'",
+      "status = 'provider_unavailable'",
+      "status = record['status']",
+      "status == 'cancelled'",
+      "status == 'provider_unavailable'",
+      "status == 'succeeded'",
+      "status=status"
+    ],
+    "gap/agree.py": [
+      "OUTCOMES = ('gap-outcome.json', 'calibration-outcome.json')",
+      "agreement.get('status') == 'measured'",
+      "entry.get('status') != 'succeeded'",
+      "record.get('status') != 'scored'"
+    ],
+    "gap/brief_grade.py": [
+      "(r.get('agreement') or {}).get('status') == 'measured'",
+      "entry['status'] != 'captured'",
+      "j['status'] != 'scored'",
+      "judged['status'] != 'scored'",
+      "outcome: 'fail'",
+      "outcome: 'not_applicable'",
+      "outcome: 'pass' if first['passed'] else 'fail'",
+      "r.get('status') == 'scored'",
+      "record.get('status') != 'scored'",
+      "second.get('status') != 'scored'",
+      "status: 'judge_unavailable'",
+      "status: 'measured'",
+      "status: 'not_measured'",
+      "status: 'schema_invalid'",
+      "status: 'scored'",
+      "status: judged['status']",
+      "status='captured'",
+      "status='uncapturable'"
+    ],
+    "gap/validate.py": [
+      "result['outcome'] != 'pass'",
+      "t['status'] == 'skipped'",
+      "t['status'] in {'failure', 'error'}"
+    ],
+    "gap/calibrate.py": [
+      "c['outcome'] == 'pass'",
+      "graded.get('outcome') not in {'pass', 'fail'}",
+      "outcome: graded['outcome']",
+      "run['status'] == 'contaminated'",
+      "run['status'] == 'succeeded'",
+      "run['status'] not in RETRYABLE_STATUSES"
+    ],
+    "gap/workspace.py": [
+      "entry.get('status') == 'failed'",
+      "entry.get('status') in {'completed', 'failed'}",
+      "state.get('status') not in {'completed', 'error'}",
+      "state['status'] == 'error'"
+    ],
+    "gap/verify.py": [
+      "outcome: 'fail'",
+      "result['outcome'] = 'not_applicable'",
+      "result['outcome'] = 'pass'",
+      "status = 'pass'",
+      "status = tag",
+      "status: status",
+      "t['status'] == 'pass'",
+      "t['status'] in {'failure', 'error'}"
+    ],
+    "gap/brief_validate.py": [
+      "result['status'] != 'scored'"
+    ],
+    "gap/report.py": [
+      "c['run'].row.status == 'budget_exhausted'",
+      "outcome = evaluation.get('outcome') if not evaluation.get('errors') else None",
+      "outcome == 'pass'",
+      "row.status == 'provider_unavailable'",
+      "row.status == 'succeeded'",
+      "status: c['run'].row.status",
+      "t['status'] == 'pass'",
+      "t['status'] in {'failure', 'error'}"
+    ]
+  },
+  "inventoryNotes": [
+    "The Python AST inventory independently reads actual enums, status writers and mutation guards.",
+    "The normal runner suite rejects changed state names, changed index edges and missing contract fields."
+  ]
+}
