@@ -15,7 +15,8 @@
   "modes": {
     "sandbox": {
       "prerequisites": [
-        "Python >=3.11, PyYAML, packaging and pytest test extra; checked-in synthetic fixture factory and disposable stores; non-empty declared steps required for a passing verdict"
+        "Python >=3.11, PyYAML, packaging and pytest test extra; checked-in synthetic fixture factory and disposable stores; non-empty declared steps required for a passing verdict",
+        "Dispatch command and path selectors are relative to the Agent OS superproject root, where this repository is registered at tools/searchlight. In a standalone clone, run python3 scripts/smoke.py from the Searchlight root (or use its absolute path)."
       ],
       "exclusions": [
         "No live model/provider/ledger/message transport; no runtime activation"
@@ -39,7 +40,11 @@
       "promise": "existing-harness-fixture-matrix",
       "edges": [
         "searchlight.run.succeeded",
-        "searchlight.provider-call.ok"
+        "searchlight.provider-call.ok",
+        "searchlight.evaluation.pass",
+        "searchlight.evaluation.fail",
+        "searchlight.run.timeout",
+        "searchlight.index.replay"
       ],
       "budgetSeconds": 40,
       "acceptance": {

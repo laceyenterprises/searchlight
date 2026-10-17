@@ -21,6 +21,7 @@ def exercise(step, scratch):
     from sew.harness import run_acceptance_fixture_matrix
     from sew.runner import SuiteRunner
     from sew.schema import validate_fixture_run
+    from sew.smv import exercise as supplemental_proofs
 
     sys.path.insert(0, str(ROOT / "tests"))
     from test_runner import _tiny_module, RecordingExecutor
@@ -32,7 +33,10 @@ def exercise(step, scratch):
             assert result.status == "succeeded"
             validated = validate_fixture_run(result.bundle_dir)
             assert validated.run_id
+        proofs = {name: evidence for name, evidence, _ in supplemental_proofs(scratch / "proofs")}
+        assert set(proofs) == {"run", "evaluate", "resume"}, "missing supplemental proof"
         return {
+            "proofs": proofs,
             "bundles": len(results),
             "source": "existing synthetic acceptance matrix",
             "validated": True,
@@ -189,7 +193,11 @@ def main():
             tempfile.TemporaryDirectory(prefix="searchlight-home-") as home,
             patch.dict(
                 os.environ,
-                {**clean, "HOME": home, "AGENT_OS_SESSION_LEDGER_VDB": "false"},
+                {
+                    **clean, "HOME": home, "SEW_MODE": "standalone",
+                    "SEW_STATE_ROOT": str(Path(home) / "state"),
+                    "AGENT_OS_SESSION_LEDGER_VDB": "false",
+                },
                 clear=True,
             ),
         ):

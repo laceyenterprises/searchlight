@@ -9,7 +9,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def sources():
     base = ROOT / "lib/python/sew"
-    return {p.relative_to(base).as_posix(): p.read_text(encoding="utf-8") for p in base.rglob("*.py")}
+    # Synthetic smoke assertions are consumers, not production status writers.
+    return {
+        p.relative_to(base).as_posix(): p.read_text(encoding="utf-8")
+        for p in base.rglob("*.py") if p.name != "smv.py"
+    }
 
 
 def assignments(text):
@@ -63,7 +67,9 @@ def audit(src):
     result["searchlight.run"] += [
         ("unavailable." + n, n, "provider_unavailable") for n in sorted(eligible)
     ]
-    result["searchlight.run"] += [("contaminated." + n, n, "contaminated") for n in sorted(runs)]
+    result["searchlight.run"] += [
+        ("contaminated." + n, n, "contaminated") for n in sorted(runs) if n != "contaminated"
+    ]
     result["searchlight.run"] += [("budget", "succeeded", "budget_exhausted")]
     runner = src["runner.py"]
     assert "index.append(entry)" in runner and "index.remove(failed)" in runner

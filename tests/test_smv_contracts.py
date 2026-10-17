@@ -1,95 +1,100 @@
-"""Normal-suite exact source drift and required-evidence regressions."""
+"""Canonical contract drift and cwd-independent standalone smoke regressions."""
 
-import ast
 import copy
 import json
+import os
+import runpy
+import site
 from pathlib import Path
+import subprocess
 import sys
 
 import pytest
 
 from sew import smv
-from cwp_dispatch.smv.contracts import acceptance, declaration
-import cwp_dispatch
-from cwp_dispatch.process_group_runner import run_process_group
-from cwp_dispatch.smv.smoke import sandbox_env
+from smv_sources import sources, verify
 
 ROOT = Path(__file__).resolve().parents[1]
 DOC = json.loads((ROOT / "state-machines.json").read_text())
-DECL = declaration(json.loads((ROOT / "post-merge-verify.json").read_text()))
+DECL = json.loads((ROOT / "post-merge-verify.json").read_text())
 
 
-def test_actual_states_edges_writers_and_diagrams():
-    smv.verify()
+def test_actual_states_edges_writers_and_index():
+    verify(DOC)
     edges = {e["id"] for o in DOC["objects"] for e in o["transitions"]}
-    for s in DECL["steps"]:
-        assert set(s["edges"]) <= edges
-        assert "`" + s["promise"] + "`" in (ROOT / "README.md").read_text()
+    for step in DECL["steps"]:
+        assert set(step["edges"]) <= edges
+        assert "`" + step["promise"] + "`" in (ROOT / "README.md").read_text()
     assert (ROOT / "docs/architecture/STATE-MACHINES.md").read_text() == smv.architecture_index(DOC)
+
+
+def test_contamination_reclassification_only_changes_states():
+    obj = next(o for o in DOC["objects"] if o["id"] == "searchlight.run")
+    edges = [e for e in obj["transitions"] if ".contaminated." in e["id"]]
+    assert {e["from"] for e in edges} == {s["name"] for s in obj["states"]} - {"contaminated"}
+    assert all(e["to"] == "contaminated" for e in edges)
 
 
 @pytest.mark.parametrize("kind", ["remove-state", "rename-state", "edge", "bound"])
 def test_definition_mutation_rejected(kind):
     doc = copy.deepcopy(DOC)
-    obj = doc["objects"][-1] if kind == "bound" else doc["objects"][0]
+    obj = doc["objects"][0]
     if kind == "remove-state":
         obj["states"].pop()
     elif kind == "rename-state":
         obj["states"][0]["name"] = "deliberately-renamed"
     elif kind == "bound":
-        del obj["states"][0]["maxDurationSeconds"]
+        state = next(s for o in doc["objects"] for s in o["states"] if not s["terminal"])
+        del state["maxDurationSeconds"]
     else:
         obj["transitions"][0]["to"] = next(
             s["name"] for s in obj["states"] if s["name"] != obj["transitions"][0]["to"]
         )
-    with pytest.raises((AssertionError, ValueError)):
-        smv.verify({"state-machines.json": json.dumps(doc)})
+    with pytest.raises((AssertionError, KeyError)):
+        verify(doc)
 
 
-def test_actual_enum_and_writer_mutations_rejected():
-    file = "lib/python/sew/schema.py"
-    with pytest.raises(AssertionError):
-        smv.verify({file: (ROOT / file).read_text().replace('"succeeded"', '"renamed"', 1)})
-    for file, anchors in smv.ANCHORS.items():
-        file = "lib/python/sew/" + file
-        source = ast.unparse(ast.parse((ROOT / file).read_text()))
-        with pytest.raises((AssertionError, ValueError, SyntaxError)):
-            smv.verify(
-                {
-                    file: source.replace(
-                        anchors[0],
-                        anchors[0]
-                        .replace("terminal.status", "'changed-status'")
-                        .replace("(path, state)", "(path, {})")
-                        .replace("all(builder.dimensions.values())", "False")
-                        .replace("= status", "= 'changed-status'"),
-                        1,
-                    )
-                }
-            )
-
-
-@pytest.mark.parametrize("mode", ["sandbox", "host"])
-def test_canonical_harness_required_evidence(mode, tmp_path):
-    command = [sys.executable, str(ROOT / "scripts/smv-smoke.py")]
-    env = sandbox_env(ROOT, tmp_path, "smv-test")
-    env["PYTHONPATH"] += ":" + str(Path(cwp_dispatch.__file__).parent.parent)
-    env["SMV_MODE"] = mode
-    result = run_process_group(
-        [sys.executable, "-m", "cwp_dispatch.smv.capture", *command], cwd=ROOT, env=env, timeout=168
+@pytest.mark.parametrize("script", ["smoke.py", "smv-smoke.py"])
+@pytest.mark.parametrize("directory", ["root", "scripts", "unrelated"])
+def test_standalone_smoke_from_any_directory(script, directory, tmp_path):
+    cwd = {"root": ROOT, "scripts": ROOT / "scripts", "unrelated": tmp_path}[directory]
+    # No Agent OS helpers, credentials or user configuration are needed.
+    env = {k: os.environ[k] for k in ("PATH", "LANG", "LC_ALL") if k in os.environ}
+    env.update(HOME=str(tmp_path), SMV_COMMIT="smv-test", SMV_MODE="sandbox",
+               PYTHONUSERBASE=site.getuserbase())
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / script)], cwd=cwd, env=env,
+        capture_output=True, text=True, timeout=30,
     )
-    code, report = result.returncode, json.loads(result.stdout.splitlines()[-1])
-    if mode == "host":
-        assert code != 0
-        assert all(s["verdict"] == "unavailable" for s in report["steps"])
-        return
-    assert code == 0, report
-    acceptance(DECL, report, code, mode=mode, commit="smv-test")
-    for kind in ("missing", "failed", "unavailable"):
-        changed = copy.deepcopy(report)
-        if kind == "missing":
-            changed["steps"].pop()
-        else:
-            changed["steps"][0]["verdict"] = "fail" if kind == "failed" else "unavailable"
-        with pytest.raises(ValueError):
-            acceptance(DECL, changed, 0, mode=mode, commit="smv-test")
+    assert result.returncode == 0, result.stdout + result.stderr
+    report = json.loads(result.stdout.splitlines()[-1])
+    assert report["verdict"] == "pass" and report["commit"] == "smv-test"
+    assert {s["id"] for s in report["steps"]} == {s["id"] for s in DECL["steps"]}
+    proofs = report["steps"][0]["evidence"]["proofs"]
+    assert proofs["run"]["bundles"] == 4
+    assert proofs["evaluate"] == {"success": "pass", "timeout": "fail"}
+    assert proofs["resume"]["uniqueCells"] == 2
+    assert not list(tmp_path.iterdir()), "standalone smoke left persistent state outside its scratch root"
+
+
+def test_actual_writer_mutation_rejected():
+    src = sources()
+    src["runner.py"] = src["runner.py"].replace("index.remove(failed)", "index.append(failed)")
+    with pytest.raises(AssertionError):
+        verify(DOC, src)
+
+
+@pytest.mark.parametrize("kind", ["missing", "failed"])
+def test_supplemental_proofs_are_required(kind, tmp_path, monkeypatch):
+    helper = runpy.run_path(str(ROOT / "scripts/smoke.py"))
+
+    def broken_proofs(scratch):
+        if kind == "failed":
+            raise RuntimeError("synthetic supplemental proof failure")
+        yield "run", {"bundles": 4}, 0
+
+    monkeypatch.setattr(smv, "exercise", broken_proofs)
+    report = helper["run"]()
+    assert report["verdict"] == "fail"
+    assert report["steps"][0]["verdict"] == "fail"
+    assert "error" in report["steps"][0]["evidence"]

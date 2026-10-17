@@ -673,9 +673,18 @@ searchlight/
 - Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md).
 ## What this module promises
 
-`python3 scripts/smoke.py` is the canonical sandbox command, forwarded by installed `hq smoke searchlight`.
+`python3 scripts/smoke.py` is the canonical standalone sandbox command, forwarded by
+installed `hq smoke searchlight`. The command and path selectors in
+`post-merge-verify.json` are relative to the Agent OS superproject root, where
+Searchlight is registered at `tools/searchlight`. In a standalone clone, use
+`python3 scripts/smoke.py` from this repository root, or the absolute script path
+from any directory. `scripts/smv-smoke.py` forwards to the same runner. Neither
+standalone entry point requires the Agent OS shared Python helpers.
 
 - `existing-harness-fixture-matrix` (`fixture.matrix`): Reuse run_acceptance_fixture_matrix and validate its four synthetic evidence bundles through the real schema reader.
+  The step also proves `fixture-run` through the real CLI, `truthful-evaluation`
+  through the real evaluator (a passing fixture and a failing timed-out run),
+  and `unique-resume` through two successive real fixture cells with distinct keys.
 - `durable-resume-without-duplicates` (`index.resume`): Run a tiny real fixture matrix, resume it, and read back the unchanged completed index.
 - `provider-wall-stays-incomplete` (`index.defer`): Drive the real runner through an injected unavailable provider streak, then resume healthy synthetic execution without losing evidence.
 
@@ -730,7 +739,6 @@ stateDiagram-v2
     s_74696d656f7574 --> s_70726f76696465725f756e617661696c61626c65: searchlight.run.unavailable.timeout
     s_6275646765745f657868617573746564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.budget_exhausted
     s_63616e63656c6c6564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.cancelled
-    s_636f6e74616d696e61746564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.contaminated
     s_6661696c6564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.failed
     s_6861726e6573735f626f6f745f6661696c6564 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.harness_boot_failed
     s_6e6f745f6170706c696361626c65 --> s_636f6e74616d696e61746564: searchlight.run.contaminated.not_applicable
