@@ -22,6 +22,11 @@ schedule and manual workflow dispatch also run macOS. Superseded runs are
 cancelled only within the same trigger type and PR or ref, so a push cannot
 cancel scheduled or manual macOS coverage.
 
+On clone-proof failure, CI prints the full log and annotates the last ten pytest
+failure lines, retaining trailing summaries. Indented traceback source does not
+count as a pytest `E` marker. If there are no pytest failure lines, annotations
+use the last ten non-empty setup diagnostic lines instead.
+
 Standalone CI exercises a dependency-free, canonical-writer-shaped Codex receipt
 with float epoch times and a microsecond `Z` refresh stamp. Real SDK integration
 tests remain optional here. After SWX-09, the Agent OS consumer lane should run

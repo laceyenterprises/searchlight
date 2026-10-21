@@ -89,10 +89,13 @@ jobs:
           import re
           import sys
           with open(sys.argv[1], encoding='utf-8', errors='replace') as log:
-              lines = [re.sub(r'\x1b\[[0-9;]*m', '', line).strip() for line in log]
-          failures = [line for line in lines if line.startswith(('E ', 'FAILED ', 'ERROR '))]
+              lines = [re.sub(r'\x1b\[[0-9;]*m', '', line).rstrip() for line in log]
+          # Pytest's E marker is unindented; indented source is not a failure.
+          failures = [line.strip() for line in lines if line.startswith('E   ')
+                      or line.lstrip().startswith(('FAILED ', 'ERROR '))]
           # Setup can fail before pytest starts; retain its diagnostic too.
-          messages = failures or [line for line in lines if line][-20:]
+          # Keep trailing summaries within the step's ten-error annotation limit.
+          messages = (failures or [line.strip() for line in lines if line.strip()])[-10:]
           for line in messages or ['Standalone clone proof failed without output']:
               message = line.replace('%', '%25').replace('\r', '%0D')
               print(f'::error::{message}')

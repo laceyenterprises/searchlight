@@ -84,33 +84,51 @@ fi
 
 
 @pytest.mark.parametrize(
-    "output,exit_code,annotation",
+    "output,exit_code,annotations",
     [
-        ("suite passed\n", 0, None),
+        ("suite passed\n", 0, []),
         (
             "FAILED tests/test_example.py::test_example - assertion\n",
             1,
-            "FAILED tests/test_example.py::test_example - assertion",
+            ["FAILED tests/test_example.py::test_example - assertion"],
         ),
         (
             "  \x1b[31mFAILED tests/test_example.py::test_example - 50%\x1b[0m\n",
             1,
-            "FAILED tests/test_example.py::test_example - 50%25",
+            ["FAILED tests/test_example.py::test_example - 50%25"],
         ),
         (
-            "  E   AssertionError: example\nERROR tests/test_example.py\n",
+            "E   AssertionError: example\nERROR tests/test_example.py\n",
             1,
-            "ERROR tests/test_example.py",
+            ["E   AssertionError: example", "ERROR tests/test_example.py"],
+        ),
+        (
+            "    E = example\n    E is not None\n    E   = example\n"
+            "\x1b[31mE   AssertionError: example\x1b[0m\n",
+            1,
+            ["E   AssertionError: example"],
+        ),
+        (
+            "".join(f"E   AssertionError: {index}\n" for index in range(20))
+            + "FAILED tests/test_example.py::test_example\nERROR tests/test_setup.py\n",
+            1,
+            [f"E   AssertionError: {index}" for index in range(12, 20)]
+            + ["FAILED tests/test_example.py::test_example", "ERROR tests/test_setup.py"],
+        ),
+        (
+            "".join(f"setup diagnostic {index}\n" for index in range(25)),
+            1,
+            [f"setup diagnostic {index}" for index in range(15, 25)],
         ),
         (
             "macOS offline runner requires a disposable hosted runner\n",
             1,
-            "macOS offline runner requires a disposable hosted runner",
+            ["macOS offline runner requires a disposable hosted runner"],
         ),
-        ("", 1, "Standalone clone proof failed without output"),
+        ("", 1, ["Standalone clone proof failed without output"]),
     ],
 )
-def test_suite_step_reports_failures(tmp_path, output, exit_code, annotation):
+def test_suite_step_reports_failures(tmp_path, output, exit_code, annotations):
     scripts = tmp_path / "scripts"
     scripts.mkdir()
     executable(
@@ -141,7 +159,8 @@ def test_suite_step_reports_failures(tmp_path, output, exit_code, annotation):
     )
     assert result.returncode == exit_code, result.stderr
     assert output in result.stdout
-    if annotation is None:
-        assert "::error::" not in result.stdout
-    else:
-        assert f"::error::{annotation}" in result.stdout
+    assert [
+        line.removeprefix("::error::")
+        for line in result.stdout.splitlines()
+        if line.startswith("::error::")
+    ] == annotations
