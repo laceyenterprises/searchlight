@@ -195,6 +195,8 @@ Cells whose isolation cannot be established are refused, not run. See
 
 A GAP task counts only if it is out of the model's reach without search, and within reach
 when the answer is handed over. Calibration is repeated for each harness and model.
+Calibration defers temporarily unavailable cells and stops resumably on a provider
+wall; see [Validate and calibrate](RUNBOOK-gap.md#validate-and-calibrate) for recovery.
 
 ```mermaid
 flowchart LR

@@ -1,5 +1,7 @@
 """Per-model knowledge-gap admission from complete, uncontaminated references."""
 
+from collections import deque
+from contextlib import contextmanager
 from dataclasses import replace
 from datetime import datetime, timezone
 import hashlib
@@ -18,7 +20,12 @@ import zlib
 from ..catalog import module_root
 from ..evaluator import _open_reachability_request, _safe_reachability_target
 from ..harness import HarnessRunConfig, run_harness
-from ..runner import RETRYABLE_STATUSES, atomic_write_json
+from ..runner import (
+    PROVIDER_UNAVAILABLE_MAX_DEFERRALS,
+    PROVIDER_UNAVAILABLE_STOP_STREAK,
+    RETRYABLE_STATUSES,
+    atomic_write_json,
+)
 from ..schema import SchemaError, load_document
 from ..state import default_state_root
 from .catalog import load_gap_tasks
@@ -33,16 +40,27 @@ def admission(kind, floor, ceiling, *, reps=5, max_floor=0.2, min_ceiling=0.8):
     if type(reps) is not int or reps < 1:
         raise CalibrationError("reps must be a positive integer")
     for value in (max_floor, min_ceiling):
-        if type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 1:
-            raise CalibrationError("thresholds must be finite rates between zero and one")
+        if (
+            type(value) not in (int, float)
+            or not math.isfinite(value)
+            or not 0 <= value <= 1
+        ):
+            raise CalibrationError(
+                "thresholds must be finite rates between zero and one"
+            )
     if kind not in {"gap", "control"}:
         raise CalibrationError("unknown task kind")
     for cells in (floor, ceiling):
         if len(cells) != reps or any(type(v) is not bool for v in cells):
-            raise CalibrationError("admission requires exactly the configured reps for both arms")
+            raise CalibrationError(
+                "admission requires exactly the configured reps for both arms"
+            )
     if kind == "control":
         passed = sum(floor) / reps >= min_ceiling
-        return passed, "admitted (control)" if passed else "rejected: floor fails (control)"
+        return (
+            passed,
+            "admitted (control)" if passed else "rejected: floor fails (control)",
+        )
     if sum(floor) / reps > max_floor:
         return False, "rejected: floor passes (no gap)"
     if sum(ceiling) / reps < min_ceiling:
@@ -53,7 +71,9 @@ def admission(kind, floor, ceiling, *, reps=5, max_floor=0.2, min_ceiling=0.8):
 def _outside_tree(path):
     path = Path(path).expanduser().resolve()
     if any((parent / ".git").exists() for parent in (path, *path.parents)):
-        raise CalibrationError("calibration state must be outside the tracked repository tree")
+        raise CalibrationError(
+            "calibration state must be outside the tracked repository tree"
+        )
     return path
 
 
@@ -64,7 +84,11 @@ def calibration_path(state_root, harness, model):
 
     if not valid_model_id(model):
         raise CalibrationError("model must be an explicit, safe model identifier")
-    return _outside_tree(state_root) / "gap/calibration" / f"{harness}@{model.replace('/', '%2F')}.json"
+    return (
+        _outside_tree(state_root)
+        / "gap/calibration"
+        / f"{harness}@{model.replace('/', '%2F')}.json"
+    )
 
 
 def load_calibration(state_root, harness, model):
@@ -85,7 +109,11 @@ def _capture_source(url):
     ]
     try:
         result = subprocess.run(
-            command, input=url.encode("utf-8"), capture_output=True, timeout=30, check=True
+            command,
+            input=url.encode("utf-8"),
+            capture_output=True,
+            timeout=30,
+            check=True,
         )
     except subprocess.TimeoutExpired as exc:
         # subprocess.run kills and reaps the child before raising: no abandoned
@@ -110,7 +138,12 @@ def _capture_source_direct(url):
     # (docs ".../enterprise-server@latest/..." answers 302) is not unsupported.
     for _hop in range(MAX_SOURCE_REDIRECTS + 1):
         parsed = urlsplit(url)
-        if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+        if (
+            parsed.scheme != "https"
+            or not parsed.hostname
+            or parsed.username
+            or parsed.password
+        ):
             raise ValueError("source must be an HTTPS URL without credentials")
         target = _safe_reachability_target(url)
         if target is None:
@@ -122,7 +155,9 @@ def _capture_source_direct(url):
             with _open_reachability_request(request, target, 30) as response:
                 return _source_text(response)
         except HTTPError as exc:
-            location = exc.headers.get("Location") if exc.code in REDIRECT_CODES else None
+            location = (
+                exc.headers.get("Location") if exc.code in REDIRECT_CODES else None
+            )
             exc.close()
             if not location:
                 raise
@@ -146,7 +181,11 @@ def _source_text(response):
     # Judges read prose; markup alone made one docs page 250,000 characters.
     # get_content_type() reports text/plain when the header is absent; only a
     # declared type is authoritative, otherwise the body is sniffed.
-    declared = response.headers.get_content_type() if response.headers.get("Content-Type") else None
+    declared = (
+        response.headers.get_content_type()
+        if response.headers.get("Content-Type")
+        else None
+    )
     if looks_like_html(text, declared):
         return readable_text(text)
     return text
@@ -193,7 +232,9 @@ def _execute_cell(config, run_root, execute):
         attempt_config = (
             config
             if attempt == 1
-            else replace(config, run_id_override=f"{config.run_id_override}-att{attempt}")
+            else replace(
+                config, run_id_override=f"{config.run_id_override}-att{attempt}"
+            )
         )
         result = execute(attempt_config, run_root)
         run_dir = Path(result.bundle_dir)
@@ -209,22 +250,31 @@ def _execute_cell(config, run_root, execute):
                     f"after {attempt} attempts (contaminated reference excluded)"
                 )
             continue
-        if audit.get("contaminated") is not False or metadata.get("model_id") != config.model_id:
+        if (
+            audit.get("contaminated") is not False
+            or metadata.get("model_id") != config.model_id
+        ):
             raise CalibrationError("missing clean audit or mismatched model identity")
-        if run["status"] == "succeeded":
-            return (
-                run_dir,
-                attempt_run_dirs,
-                excluded_contaminated_run_dirs,
-                audit.get("denied_network_attempts", 0),
-                audit.get("config_neutralized_network_attempts", 0),
-            )
+        if run["status"] in {"succeeded", "provider_unavailable"}:
+            return run["status"], {
+                "run_dir": str(run_dir),
+                "attempts": len(attempt_run_dirs),
+                "attempt_run_dirs": attempt_run_dirs,
+                "excluded_contaminated_run_dirs": excluded_contaminated_run_dirs,
+                "denied_network_attempts": audit.get("denied_network_attempts", 0),
+                "config_neutralized_network_attempts": audit.get(
+                    "config_neutralized_network_attempts", 0
+                ),
+                "reused": False,
+            }
         if run["status"] not in RETRYABLE_STATUSES or attempt == 3:
             raise CalibrationError(
                 f"incomplete cell refused: {config.run_id_override}: {run['status']} "
                 f"after {attempt} attempt(s)"
             )
-        time.sleep(bounded_exponential_delay(attempt - 1, base_seconds=1, max_seconds=2))
+        time.sleep(
+            bounded_exponential_delay(attempt - 1, base_seconds=1, max_seconds=2)
+        )
     raise AssertionError("unreachable")
 
 
@@ -335,6 +385,17 @@ def _resume_cell(records, matching, runs_root):
     return None
 
 
+@contextmanager
+def _resume_on_error(run_root):
+    try:
+        yield
+    except CalibrationError as exc:
+        raise CalibrationError(
+            f"{exc}; continue calibration {run_root.name} with "
+            f"sew gap calibrate … --resume {run_root.name}"
+        ) from exc
+
+
 def calibrate(
     *,
     harness,
@@ -394,170 +455,194 @@ def calibrate(
     grader = grader or _grade
     date = datetime.now(timezone.utc).isoformat()
     run_root = runs_root / uuid4().hex
-    entries = []
-    for task_id in selected:
-        task = tasks[task_id]
-        cells = {"floor": [], "ceiling": []}
-        for arm in ("floor",) if _previous is not None else cells:
-            for rep in range(1, reps + 1):
-                matching = {
-                    "harness": harness,
-                    "model": model,
-                    "task_id": task_id,
-                    "arm": arm,
-                    "rep": rep,
-                    "catalog_hash": digest,
-                }
-                config = HarnessRunConfig(
-                    harness_id=harness,
-                    provider_id=arm,
-                    task_id=task_id,
-                    model_id=model,
-                    model_id_origin="explicit",
-                    mode="live",
-                    suite_id="gap-calibration",
-                    task_source="gap",
-                    native_search_available=False,
-                    workspace_profile=task["task_type"] == "code",
-                    gap_module_root=root,
-                    wheelhouse=wheelhouse,
-                    harness_auth=harness_auth,
-                    run_id_override=f"{task_id}-{arm}-{rep}",
-                )
-                restored = _resume_cell(resumable, matching, runs_root)
-                if restored is None:
-                    (
-                        run_dir,
-                        attempt_run_dirs,
-                        excluded_dirs,
-                        denied_attempts,
-                        neutralized_attempts,
-                    ) = _execute_cell(config, run_root, execute)
-                    cell = {
-                        "rep": rep,
-                        "run_dir": str(run_dir),
-                        "attempts": len(attempt_run_dirs),
-                        "attempt_run_dirs": attempt_run_dirs,
-                        "excluded_contaminated_run_dirs": excluded_dirs,
-                        "denied_network_attempts": denied_attempts,
-                        "config_neutralized_network_attempts": neutralized_attempts,
-                        "reused": False,
-                    }
-                    graded = None
-                else:
-                    cell, graded = restored
-                    run_dir = Path(cell["run_dir"])
-                    cell["reused"] = True
-                checkpoint = run_root / f"{config.run_id_override}.calibration.json"
-                if graded is None:
-                    # Save identity before grading: an interrupted grader can consume
-                    # the completed bundle on resume without another harness call.
-                    atomic_write_json(checkpoint, {"config": matching, "cell": cell})
-                    graded = grader(task, run_dir, root, wheelhouse, judges or [])
-                    atomic_write_json(
-                        run_dir / "evaluations/calibration-outcome.json", graded
-                    )
-                if graded.get("errors"):
-                    raise CalibrationError("verifier infrastructure error refused")
-                if graded.get("outcome") not in {"pass", "fail"}:
-                    raise CalibrationError("ungraded cell refused")
-                cell["outcome"] = graded["outcome"]
-                atomic_write_json(checkpoint, {"config": matching, "cell": cell})
-                cells[arm].append(cell)
-        floor_rate = sum(c["outcome"] == "pass" for c in cells["floor"]) / max(reps, 1)
-        retired = False
-        if _previous is None:
-            admitted, reason = admission(
-                task["kind"],
-                [c["outcome"] == "pass" for c in cells["floor"]],
-                [c["outcome"] == "pass" for c in cells["ceiling"]],
-                reps=reps,
-                max_floor=max_floor,
-                min_ceiling=min_ceiling,
-            )
-        elif task["kind"] == "gap":
-            retired = floor_rate > max_floor
-            admitted = not retired
-            reason = (
-                f"retired: floor rate {floor_rate:g} exceeds {max_floor:g} after model change "
-                f"{_previous['model']} -> {model}"
-                if retired
-                else "admitted (gap): floor freshness check"
-            )
-        else:
-            admitted = floor_rate >= min_ceiling
-            reason = (
-                "admitted (control)" if admitted else "rejected: floor fails (control)"
-            )
-        entries.append(
-            {
+    collected = {t: {"floor": [], "ceiling": []} for t in selected}
+    queue = deque(
+        (task_id, arm, rep)
+        for task_id in selected
+        for arm in (("floor",) if _previous is not None else ("floor", "ceiling"))
+        for rep in range(1, reps + 1)
+    )
+    deferred = {}
+    unavailable_streak = 0
+    with _resume_on_error(run_root):
+        while queue:
+            key = task_id, arm, rep = queue.popleft()
+            task = tasks[task_id]
+            matching = {
+                "harness": harness,
+                "model": model,
                 "task_id": task_id,
-                "family": task["family"],
-                "kind": task["kind"],
-                "date": date,
+                "arm": arm,
+                "rep": rep,
                 "catalog_hash": digest,
-                "verdict": "retired"
-                if retired
-                else "admitted"
-                if admitted
-                else "rejected",
-                "reason": reason,
-                **{
-                    arm: {
-                        "passes": sum(c["outcome"] == "pass" for c in records),
-                        "reps": reps,
-                        "rate": sum(c["outcome"] == "pass" for c in records) / reps,
-                        "cells": records,
-                    }
-                    for arm, records in cells.items()
-                },
             }
+            cell_id = f"{task_id}-{arm}-{rep}"
+            prior, deferrals = deferred.get(key, (None, 0))
+            config = HarnessRunConfig(
+                harness_id=harness,
+                provider_id=arm,
+                task_id=task_id,
+                model_id=model,
+                model_id_origin="explicit",
+                mode="live",
+                suite_id="gap-calibration",
+                task_source="gap",
+                native_search_available=False,
+                workspace_profile=task["task_type"] == "code",
+                gap_module_root=root,
+                wheelhouse=wheelhouse,
+                harness_auth=harness_auth,
+                run_id_override=f"{cell_id}-defer{deferrals}" if deferrals else cell_id,
+            )
+            restored = _resume_cell(resumable, matching, runs_root)
+            if restored is None:
+                status, cell = _execute_cell(config, run_root, execute)
+                cell["rep"] = rep
+                if prior is not None:
+                    for field in ("attempt_run_dirs", "excluded_contaminated_run_dirs"):
+                        cell[field] = prior[field] + cell[field]
+                    cell["attempts"] = len(cell["attempt_run_dirs"])
+                if status == "provider_unavailable":
+                    unavailable_streak += 1
+                    if deferrals >= PROVIDER_UNAVAILABLE_MAX_DEFERRALS:
+                        raise CalibrationError(
+                            f"incomplete cell refused: {cell_id}: provider_unavailable "
+                            f"after {cell['attempts']} attempt(s)"
+                        )
+                    if unavailable_streak >= PROVIDER_UNAVAILABLE_STOP_STREAK:
+                        raise CalibrationError(
+                            "provider_unavailable wall: "
+                            f"{unavailable_streak} consecutive unavailable cells"
+                        )
+                    deferred[key] = cell, deferrals + 1
+                    queue.append(key)
+                    continue
+                unavailable_streak = 0
+                graded = None
+            else:
+                cell, graded = restored
+                cell["reused"] = True
+            run_dir = Path(cell["run_dir"])
+            checkpoint = run_root / f"{cell_id}.calibration.json"
+            if graded is None:
+                # Save identity before grading: an interrupted grader can consume
+                # the completed bundle on resume without another harness call.
+                atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+                graded = grader(task, run_dir, root, wheelhouse, judges or [])
+                atomic_write_json(
+                    run_dir / "evaluations/calibration-outcome.json", graded
+                )
+            if graded.get("errors"):
+                raise CalibrationError("verifier infrastructure error refused")
+            if graded.get("outcome") not in {"pass", "fail"}:
+                raise CalibrationError("ungraded cell refused")
+            cell["outcome"] = graded["outcome"]
+            atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+            collected[task_id][arm].append(cell)
+        entries = []
+        for task_id in selected:
+            task = tasks[task_id]
+            cells = collected[task_id]
+            for records in cells.values():
+                records.sort(key=lambda cell: cell["rep"])
+            floor_rate = sum(c["outcome"] == "pass" for c in cells["floor"]) / max(
+                reps, 1
+            )
+            retired = False
+            if _previous is None:
+                admitted, reason = admission(
+                    task["kind"],
+                    [c["outcome"] == "pass" for c in cells["floor"]],
+                    [c["outcome"] == "pass" for c in cells["ceiling"]],
+                    reps=reps,
+                    max_floor=max_floor,
+                    min_ceiling=min_ceiling,
+                )
+            elif task["kind"] == "gap":
+                retired = floor_rate > max_floor
+                admitted = not retired
+                reason = (
+                    f"retired: floor rate {floor_rate:g} exceeds {max_floor:g} after model change "
+                    f"{_previous['model']} -> {model}"
+                    if retired
+                    else "admitted (gap): floor freshness check"
+                )
+            else:
+                admitted = floor_rate >= min_ceiling
+                reason = (
+                    "admitted (control)"
+                    if admitted
+                    else "rejected: floor fails (control)"
+                )
+            entries.append(
+                {
+                    "task_id": task_id,
+                    "family": task["family"],
+                    "kind": task["kind"],
+                    "date": date,
+                    "catalog_hash": digest,
+                    "verdict": "retired"
+                    if retired
+                    else "admitted"
+                    if admitted
+                    else "rejected",
+                    "reason": reason,
+                    **{
+                        arm: {
+                            "passes": sum(c["outcome"] == "pass" for c in records),
+                            "reps": reps,
+                            "rate": sum(c["outcome"] == "pass" for c in records) / reps,
+                            "cells": records,
+                        }
+                        for arm, records in cells.items()
+                    },
+                }
+            )
+            if _previous is not None:
+                entries[-1]["ceiling"] = previous_entries[task_id]["ceiling"]
+                entries[-1]["previous_evidence"] = previous_entries[task_id]
+                if retired:
+                    entries[-1]["retired_at"] = date
+        if _previous is not None:
+            entries.extend(t for t in _previous["tasks"] if t["verdict"] != "admitted")
+        if (
+            hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
+            != digest
+        ):
+            raise CalibrationError("catalog changed during calibration")
+        record = {
+            "record_version": "gap-calibration-v1",
+            "harness": harness,
+            "model": model,
+            "key": f"{harness}@{model}",
+            "date": date,
+            "catalog_hash": digest,
+            "run_id": run_root.name,
+            "run_dir": str(run_root),
+            "reps": reps,
+            "thresholds": {"max_floor": max_floor, "min_ceiling": min_ceiling},
+            "tasks": entries,
+        }
+        if resume is not None:
+            record["resumed_from"] = resume
+        record["excluded_contaminated_attempts"] = sum(
+            len(cell.get("excluded_contaminated_run_dirs", []))
+            for task in entries
+            for arm in ("floor", "ceiling")
+            for cell in task[arm]["cells"]
         )
         if _previous is not None:
-            entries[-1]["ceiling"] = previous_entries[task_id]["ceiling"]
-            entries[-1]["previous_evidence"] = previous_entries[task_id]
-            if retired:
-                entries[-1]["retired_at"] = date
-    if _previous is not None:
-        entries.extend(t for t in _previous["tasks"] if t["verdict"] != "admitted")
-    if (
-        hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
-        != digest
-    ):
-        raise CalibrationError("catalog changed during calibration")
-    record = {
-        "record_version": "gap-calibration-v1",
-        "harness": harness,
-        "model": model,
-        "key": f"{harness}@{model}",
-        "date": date,
-        "catalog_hash": digest,
-        "run_id": run_root.name,
-        "run_dir": str(run_root),
-        "reps": reps,
-        "thresholds": {"max_floor": max_floor, "min_ceiling": min_ceiling},
-        "tasks": entries,
-    }
-    if resume is not None:
-        record["resumed_from"] = resume
-    record["excluded_contaminated_attempts"] = sum(
-        len(cell.get("excluded_contaminated_run_dirs", []))
-        for task in entries
-        for arm in ("floor", "ceiling")
-        for cell in task[arm]["cells"]
-    )
-    if _previous is not None:
-        record["recalibrated_from"] = {
-            "key": _previous["key"],
-            "date": _previous["date"],
-        }
-        record["ceiling_basis"] = (
-            "inherited reference evidence; floor-only freshness check"
-        )
-    atomic_write_json(path, record)
-    if export is not None:
-        atomic_write_json(Path(export), record)
-    return record, path
+            record["recalibrated_from"] = {
+                "key": _previous["key"],
+                "date": _previous["date"],
+            }
+            record["ceiling_basis"] = (
+                "inherited reference evidence; floor-only freshness check"
+            )
+        atomic_write_json(path, record)
+        if export is not None:
+            atomic_write_json(Path(export), record)
+        return record, path
 
 
 def render_calibration(record):
@@ -567,12 +652,18 @@ def render_calibration(record):
             [
                 task["task_id"],
                 task["family"],
-                *[f"{task[a]['passes']}/{task[a]['reps']}" for a in ("floor", "ceiling")],
+                *[
+                    f"{task[a]['passes']}/{task[a]['reps']}"
+                    for a in ("floor", "ceiling")
+                ],
                 task["reason"],
             ]
         )
     widths = [max(len(row[i]) for row in rows) for i in range(4)]
-    table = ["  ".join([*(row[i].ljust(widths[i]) for i in range(4)), row[4]]) for row in rows]
+    table = [
+        "  ".join([*(row[i].ljust(widths[i]) for i in range(4)), row[4]])
+        for row in rows
+    ]
     count = sum(t["verdict"] == "admitted" for t in record["tasks"])
     retired = sum(t["verdict"] == "retired" for t in record["tasks"])
     table.append(

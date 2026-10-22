@@ -255,6 +255,12 @@ cannot be reused. The final record marks reused cells and retains their original
 run directories. Fully graded reused cells save a single checkpoint without
 repeating grading.
 
+Calibration and recalibration defer a `provider_unavailable` cell to the end of
+the queue at most twice; this status is never retried immediately.
+Three consecutive unavailable cells stop the run resumably, and every refusal
+after checkpointing includes the run ID and `sew gap calibrate … --resume RUN_ID`.
+Resume after provider capacity recovers to reuse the checkpointed cells.
+
 Agents receive only `old` and `dependency` wheels; `new` wheels are verifier-only.
 The original cache is denied to the whole agent process tree: a filesystem-only
 Seatbelt profile on macOS and an empty read-only cache mount on Linux, applied
