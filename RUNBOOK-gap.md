@@ -261,6 +261,16 @@ Three consecutive unavailable cells stop the run resumably, and every refusal
 after checkpointing includes the run ID and `sew gap calibrate … --resume RUN_ID`.
 Resume after provider capacity recovers to reuse the checkpointed cells.
 
+For a run made before checkpoints existed, use `sew gap calibrate-backfill RUN_ID
+--harness H --model M --catalog-hash SHA256` (add `--dry-run` to preview), then
+resume it normally. `--catalog-hash` is the operator's statement that the run
+used today's catalog; the command checks it against the SHA256 of the current
+`catalogs/gap/tasks.yaml`. It refuses runs with existing checkpoints, recovers
+only clean, succeeded cells with matching identities, and prints skip reasons.
+Missing grades are recovered on resume without rerunning the harness. Reused
+backfilled cells retain `backfilled: true` and the attested `catalog_hash` in the
+calibration record.
+
 Agents receive only `old` and `dependency` wheels; `new` wheels are verifier-only.
 The original cache is denied to the whole agent process tree: a filesystem-only
 Seatbelt profile on macOS and an empty read-only cache mount on Linux, applied
