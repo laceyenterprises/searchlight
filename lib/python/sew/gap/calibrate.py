@@ -33,16 +33,27 @@ def admission(kind, floor, ceiling, *, reps=5, max_floor=0.2, min_ceiling=0.8):
     if type(reps) is not int or reps < 1:
         raise CalibrationError("reps must be a positive integer")
     for value in (max_floor, min_ceiling):
-        if type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 1:
-            raise CalibrationError("thresholds must be finite rates between zero and one")
+        if (
+            type(value) not in (int, float)
+            or not math.isfinite(value)
+            or not 0 <= value <= 1
+        ):
+            raise CalibrationError(
+                "thresholds must be finite rates between zero and one"
+            )
     if kind not in {"gap", "control"}:
         raise CalibrationError("unknown task kind")
     for cells in (floor, ceiling):
         if len(cells) != reps or any(type(v) is not bool for v in cells):
-            raise CalibrationError("admission requires exactly the configured reps for both arms")
+            raise CalibrationError(
+                "admission requires exactly the configured reps for both arms"
+            )
     if kind == "control":
         passed = sum(floor) / reps >= min_ceiling
-        return passed, "admitted (control)" if passed else "rejected: floor fails (control)"
+        return (
+            passed,
+            "admitted (control)" if passed else "rejected: floor fails (control)",
+        )
     if sum(floor) / reps > max_floor:
         return False, "rejected: floor passes (no gap)"
     if sum(ceiling) / reps < min_ceiling:
@@ -53,7 +64,9 @@ def admission(kind, floor, ceiling, *, reps=5, max_floor=0.2, min_ceiling=0.8):
 def _outside_tree(path):
     path = Path(path).expanduser().resolve()
     if any((parent / ".git").exists() for parent in (path, *path.parents)):
-        raise CalibrationError("calibration state must be outside the tracked repository tree")
+        raise CalibrationError(
+            "calibration state must be outside the tracked repository tree"
+        )
     return path
 
 
@@ -64,7 +77,11 @@ def calibration_path(state_root, harness, model):
 
     if not valid_model_id(model):
         raise CalibrationError("model must be an explicit, safe model identifier")
-    return _outside_tree(state_root) / "gap/calibration" / f"{harness}@{model.replace('/', '%2F')}.json"
+    return (
+        _outside_tree(state_root)
+        / "gap/calibration"
+        / f"{harness}@{model.replace('/', '%2F')}.json"
+    )
 
 
 def load_calibration(state_root, harness, model):
@@ -85,7 +102,11 @@ def _capture_source(url):
     ]
     try:
         result = subprocess.run(
-            command, input=url.encode("utf-8"), capture_output=True, timeout=30, check=True
+            command,
+            input=url.encode("utf-8"),
+            capture_output=True,
+            timeout=30,
+            check=True,
         )
     except subprocess.TimeoutExpired as exc:
         # subprocess.run kills and reaps the child before raising: no abandoned
@@ -110,7 +131,12 @@ def _capture_source_direct(url):
     # (docs ".../enterprise-server@latest/..." answers 302) is not unsupported.
     for _hop in range(MAX_SOURCE_REDIRECTS + 1):
         parsed = urlsplit(url)
-        if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+        if (
+            parsed.scheme != "https"
+            or not parsed.hostname
+            or parsed.username
+            or parsed.password
+        ):
             raise ValueError("source must be an HTTPS URL without credentials")
         target = _safe_reachability_target(url)
         if target is None:
@@ -122,7 +148,9 @@ def _capture_source_direct(url):
             with _open_reachability_request(request, target, 30) as response:
                 return _source_text(response)
         except HTTPError as exc:
-            location = exc.headers.get("Location") if exc.code in REDIRECT_CODES else None
+            location = (
+                exc.headers.get("Location") if exc.code in REDIRECT_CODES else None
+            )
             exc.close()
             if not location:
                 raise
@@ -146,7 +174,11 @@ def _source_text(response):
     # Judges read prose; markup alone made one docs page 250,000 characters.
     # get_content_type() reports text/plain when the header is absent; only a
     # declared type is authoritative, otherwise the body is sniffed.
-    declared = response.headers.get_content_type() if response.headers.get("Content-Type") else None
+    declared = (
+        response.headers.get_content_type()
+        if response.headers.get("Content-Type")
+        else None
+    )
     if looks_like_html(text, declared):
         return readable_text(text)
     return text
@@ -193,7 +225,9 @@ def _execute_cell(config, run_root, execute):
         attempt_config = (
             config
             if attempt == 1
-            else replace(config, run_id_override=f"{config.run_id_override}-att{attempt}")
+            else replace(
+                config, run_id_override=f"{config.run_id_override}-att{attempt}"
+            )
         )
         result = execute(attempt_config, run_root)
         run_dir = Path(result.bundle_dir)
@@ -209,7 +243,10 @@ def _execute_cell(config, run_root, execute):
                     f"after {attempt} attempts (contaminated reference excluded)"
                 )
             continue
-        if audit.get("contaminated") is not False or metadata.get("model_id") != config.model_id:
+        if (
+            audit.get("contaminated") is not False
+            or metadata.get("model_id") != config.model_id
+        ):
             raise CalibrationError("missing clean audit or mismatched model identity")
         if run["status"] == "succeeded":
             return (
@@ -224,7 +261,9 @@ def _execute_cell(config, run_root, execute):
                 f"incomplete cell refused: {config.run_id_override}: {run['status']} "
                 f"after {attempt} attempt(s)"
             )
-        time.sleep(bounded_exponential_delay(attempt - 1, base_seconds=1, max_seconds=2))
+        time.sleep(
+            bounded_exponential_delay(attempt - 1, base_seconds=1, max_seconds=2)
+        )
     raise AssertionError("unreachable")
 
 
@@ -272,6 +311,42 @@ def _preflight_wheels(tasks, selected, wheelhouse):
                     f"--wheelhouse for task {task_id}: {exc}"
                 ) from exc
             checked.add(key)
+
+
+def catalog_digest(root):
+    return hashlib.sha256(
+        (Path(root) / "catalogs/gap/tasks.yaml").read_bytes()
+    ).hexdigest()
+
+
+def cell_config(harness, model, task_id, arm, rep, digest):
+    return {
+        "harness": harness,
+        "model": model,
+        "task_id": task_id,
+        "arm": arm,
+        "rep": rep,
+        "catalog_hash": digest,
+    }
+
+
+def calibration_cell(
+    rep, run_dir, attempt_run_dirs, excluded_dirs, denied, neutralized
+):
+    return {
+        "rep": rep,
+        "run_dir": str(run_dir),
+        "attempts": len(attempt_run_dirs),
+        "attempt_run_dirs": attempt_run_dirs,
+        "excluded_contaminated_run_dirs": excluded_dirs,
+        "denied_network_attempts": denied,
+        "config_neutralized_network_attempts": neutralized,
+        "reused": False,
+    }
+
+
+def calibration_checkpoint(matching, cell):
+    return {"config": matching, "cell": cell}
 
 
 def _resume_cells(runs_root, resume):
@@ -366,7 +441,7 @@ def calibrate(
         min_ceiling=min_ceiling,
     )
     root = Path(root or module_root()).resolve()
-    digest = hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
+    digest = catalog_digest(root)
     tasks = load_gap_tasks(root)
     selected = list(tasks) if task_ids is None else list(dict.fromkeys(task_ids))
     previous_entries = {}
@@ -400,14 +475,7 @@ def calibrate(
         cells = {"floor": [], "ceiling": []}
         for arm in ("floor",) if _previous is not None else cells:
             for rep in range(1, reps + 1):
-                matching = {
-                    "harness": harness,
-                    "model": model,
-                    "task_id": task_id,
-                    "arm": arm,
-                    "rep": rep,
-                    "catalog_hash": digest,
-                }
+                matching = cell_config(harness, model, task_id, arm, rep, digest)
                 config = HarnessRunConfig(
                     harness_id=harness,
                     provider_id=arm,
@@ -433,16 +501,14 @@ def calibrate(
                         denied_attempts,
                         neutralized_attempts,
                     ) = _execute_cell(config, run_root, execute)
-                    cell = {
-                        "rep": rep,
-                        "run_dir": str(run_dir),
-                        "attempts": len(attempt_run_dirs),
-                        "attempt_run_dirs": attempt_run_dirs,
-                        "excluded_contaminated_run_dirs": excluded_dirs,
-                        "denied_network_attempts": denied_attempts,
-                        "config_neutralized_network_attempts": neutralized_attempts,
-                        "reused": False,
-                    }
+                    cell = calibration_cell(
+                        rep,
+                        run_dir,
+                        attempt_run_dirs,
+                        excluded_dirs,
+                        denied_attempts,
+                        neutralized_attempts,
+                    )
                     graded = None
                 else:
                     cell, graded = restored
@@ -452,7 +518,9 @@ def calibrate(
                 if graded is None:
                     # Save identity before grading: an interrupted grader can consume
                     # the completed bundle on resume without another harness call.
-                    atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+                    atomic_write_json(
+                        checkpoint, calibration_checkpoint(matching, cell)
+                    )
                     graded = grader(task, run_dir, root, wheelhouse, judges or [])
                     atomic_write_json(
                         run_dir / "evaluations/calibration-outcome.json", graded
@@ -462,7 +530,7 @@ def calibrate(
                 if graded.get("outcome") not in {"pass", "fail"}:
                     raise CalibrationError("ungraded cell refused")
                 cell["outcome"] = graded["outcome"]
-                atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+                atomic_write_json(checkpoint, calibration_checkpoint(matching, cell))
                 cells[arm].append(cell)
         floor_rate = sum(c["outcome"] == "pass" for c in cells["floor"]) / max(reps, 1)
         retired = False
@@ -520,10 +588,7 @@ def calibrate(
                 entries[-1]["retired_at"] = date
     if _previous is not None:
         entries.extend(t for t in _previous["tasks"] if t["verdict"] != "admitted")
-    if (
-        hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
-        != digest
-    ):
+    if catalog_digest(root) != digest:
         raise CalibrationError("catalog changed during calibration")
     record = {
         "record_version": "gap-calibration-v1",
@@ -567,12 +632,18 @@ def render_calibration(record):
             [
                 task["task_id"],
                 task["family"],
-                *[f"{task[a]['passes']}/{task[a]['reps']}" for a in ("floor", "ceiling")],
+                *[
+                    f"{task[a]['passes']}/{task[a]['reps']}"
+                    for a in ("floor", "ceiling")
+                ],
                 task["reason"],
             ]
         )
     widths = [max(len(row[i]) for row in rows) for i in range(4)]
-    table = ["  ".join([*(row[i].ljust(widths[i]) for i in range(4)), row[4]]) for row in rows]
+    table = [
+        "  ".join([*(row[i].ljust(widths[i]) for i in range(4)), row[4]])
+        for row in rows
+    ]
     count = sum(t["verdict"] == "admitted" for t in record["tasks"])
     retired = sum(t["verdict"] == "retired" for t in record["tasks"])
     table.append(
