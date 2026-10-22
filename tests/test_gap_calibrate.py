@@ -767,6 +767,51 @@ def test_resume_interrupted_calibration_executes_only_missing_cells(setup):
     assert [c["run_dir"] for c in all_cells(again)] == [c["run_dir"] for c in cells]
 
 
+@pytest.mark.parametrize("error", [PermissionError, OSError])
+def test_resume_skips_unreadable_checkpoint(setup, monkeypatch, error):
+    kwargs, configs = setup
+    old, _ = calibrate(**kwargs, reps=1)
+    checkpoint = next(Path(old["run_dir"]).glob("*.calibration.json"))
+    read_text = Path.read_text
+    unreadable = []
+
+    def read(path, *args, **options):
+        if path == checkpoint:
+            unreadable.append(path)
+            raise error("synthetic checkpoint read failure")
+        return read_text(path, *args, **options)
+
+    monkeypatch.setattr(Path, "read_text", read)
+    configs.clear()
+    record, _ = calibrate(**kwargs, reps=1, resume=old["run_id"])
+    assert unreadable == [checkpoint]
+    assert len(configs) == 1 and sum(c["reused"] for c in all_cells(record)) == 1
+    assert record["tasks"][0]["verdict"] == "admitted"
+
+
+def test_resume_graded_cells_writes_each_checkpoint_once(setup, monkeypatch):
+    from sew.runner import atomic_write_json
+
+    kwargs, configs = setup
+    old, _ = calibrate(**kwargs, reps=1)
+    writes = []
+
+    def write(path, record):
+        if path.name.endswith(".calibration.json"):
+            writes.append(path)
+            assert record["cell"]["reused"]
+            assert record["cell"]["outcome"] in {"pass", "fail"}
+        return atomic_write_json(path, record)
+
+    monkeypatch.setattr("sew.gap.calibrate.atomic_write_json", write)
+    kwargs["grader"] = lambda *args: pytest.fail("completed cell must not be regraded")
+    configs.clear()
+    record, _ = calibrate(**kwargs, reps=1, resume=old["run_id"])
+    assert not configs and all(c["reused"] for c in all_cells(record))
+    assert len(writes) == len(set(writes)) == 2
+    assert set(writes) == set(Path(record["run_dir"]).glob("*.calibration.json"))
+
+
 @pytest.mark.parametrize("failure", ["catalog", "model"])
 def test_resume_requires_current_catalog_and_model(setup, failure):
     kwargs, configs = setup

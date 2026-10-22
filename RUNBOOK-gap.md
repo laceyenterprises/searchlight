@@ -249,9 +249,10 @@ all pinned files and matching hashes. To recover an interruption, pass
 with its harness, model, task, arm, rep, catalog digest and original bundle path,
 and its grade in `evaluations/calibration-outcome.json` inside that bundle.
 Resume reuses matching, clean pass/fail cells and regrades matching bundles whose
-grade was never saved; other cells run normally. Older bundles without matching
-config and catalog evidence cannot be reused. The final record marks reused
-cells and retains their original run directories.
+grade was never saved; unreadable or malformed checkpoints are skipped and their
+cells run normally. Older bundles without matching config and catalog evidence
+cannot be reused. The final record marks reused cells and retains their original
+run directories.
 
 Agents receive only `old` and `dependency` wheels; `new` wheels are verifier-only.
 The original cache is denied to the whole agent process tree: a filesystem-only

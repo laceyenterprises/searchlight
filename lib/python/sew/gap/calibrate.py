@@ -449,10 +449,10 @@ def calibrate(
                     run_dir = Path(cell["run_dir"])
                     cell["reused"] = True
                 checkpoint = run_root / f"{config.run_id_override}.calibration.json"
-                # Save identity before grading: an interrupted grader can consume
-                # the completed bundle on resume without another harness call.
-                atomic_write_json(checkpoint, {"config": matching, "cell": cell})
                 if graded is None:
+                    # Save identity before grading: an interrupted grader can consume
+                    # the completed bundle on resume without another harness call.
+                    atomic_write_json(checkpoint, {"config": matching, "cell": cell})
                     graded = grader(task, run_dir, root, wheelhouse, judges or [])
                     atomic_write_json(
                         run_dir / "evaluations/calibration-outcome.json", graded
