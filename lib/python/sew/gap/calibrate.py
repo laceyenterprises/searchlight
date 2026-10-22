@@ -324,6 +324,42 @@ def _preflight_wheels(tasks, selected, wheelhouse):
             checked.add(key)
 
 
+def catalog_digest(root):
+    return hashlib.sha256(
+        (Path(root) / "catalogs/gap/tasks.yaml").read_bytes()
+    ).hexdigest()
+
+
+def cell_config(harness, model, task_id, arm, rep, digest):
+    return {
+        "harness": harness,
+        "model": model,
+        "task_id": task_id,
+        "arm": arm,
+        "rep": rep,
+        "catalog_hash": digest,
+    }
+
+
+def calibration_cell(
+    rep, run_dir, attempt_run_dirs, excluded_dirs, denied, neutralized
+):
+    return {
+        "rep": rep,
+        "run_dir": str(run_dir),
+        "attempts": len(attempt_run_dirs),
+        "attempt_run_dirs": attempt_run_dirs,
+        "excluded_contaminated_run_dirs": excluded_dirs,
+        "denied_network_attempts": denied,
+        "config_neutralized_network_attempts": neutralized,
+        "reused": False,
+    }
+
+
+def calibration_checkpoint(matching, cell):
+    return {"config": matching, "cell": cell}
+
+
 def _resume_cells(runs_root, resume):
     if resume is None:
         return []
@@ -427,7 +463,7 @@ def calibrate(
         min_ceiling=min_ceiling,
     )
     root = Path(root or module_root()).resolve()
-    digest = hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
+    digest = catalog_digest(root)
     tasks = load_gap_tasks(root)
     selected = list(tasks) if task_ids is None else list(dict.fromkeys(task_ids))
     previous_entries = {}
@@ -468,14 +504,7 @@ def calibrate(
         while queue:
             key = task_id, arm, rep = queue.popleft()
             task = tasks[task_id]
-            matching = {
-                "harness": harness,
-                "model": model,
-                "task_id": task_id,
-                "arm": arm,
-                "rep": rep,
-                "catalog_hash": digest,
-            }
+            matching = cell_config(harness, model, task_id, arm, rep, digest)
             cell_id = f"{task_id}-{arm}-{rep}"
             prior, deferrals = deferred.get(key, (None, 0))
             config = HarnessRunConfig(
@@ -532,7 +561,7 @@ def calibrate(
             if graded is None:
                 # Save identity before grading: an interrupted grader can consume
                 # the completed bundle on resume without another harness call.
-                atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+                atomic_write_json(checkpoint, calibration_checkpoint(matching, cell))
                 graded = grader(task, run_dir, root, wheelhouse, judges or [])
                 atomic_write_json(
                     run_dir / "evaluations/calibration-outcome.json", graded
@@ -542,7 +571,7 @@ def calibrate(
             if graded.get("outcome") not in {"pass", "fail"}:
                 raise CalibrationError("ungraded cell refused")
             cell["outcome"] = graded["outcome"]
-            atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+            atomic_write_json(checkpoint, calibration_checkpoint(matching, cell))
             collected[task_id][arm].append(cell)
         entries = []
         for task_id in selected:
@@ -610,10 +639,7 @@ def calibrate(
                     entries[-1]["retired_at"] = date
         if _previous is not None:
             entries.extend(t for t in _previous["tasks"] if t["verdict"] != "admitted")
-        if (
-            hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
-            != digest
-        ):
+        if catalog_digest(root) != digest:
             raise CalibrationError("catalog changed during calibration")
         record = {
             "record_version": "gap-calibration-v1",

@@ -65,7 +65,11 @@ from .state import default_state_root
 
 
 def _validate_fixtures(args: argparse.Namespace) -> int:
-    root = Path(args.fixture_root) if args.fixture_root else module_root() / "fixtures" / "runs"
+    root = (
+        Path(args.fixture_root)
+        if args.fixture_root
+        else module_root() / "fixtures" / "runs"
+    )
     task_ids = validate_lighthouse_catalog(module_root())
     results = validate_fixture_tree(root)
     print(f"state_root={default_state_root()}")
@@ -88,7 +92,9 @@ def _validate_entity_resolution_suite(args: argparse.Namespace) -> int:
     instance_ids = validate_entity_resolution_suite(module_root())
     print(f"suite=entity-resolution-v1 instances={len(instance_ids)}")
     for instance in load_entity_resolution_suite(module_root()):
-        evaluator = instance.validator_kind or (instance.judge_binding or {}).get("rubric_id")
+        evaluator = instance.validator_kind or (instance.judge_binding or {}).get(
+            "rubric_id"
+        )
         # `revalidate` is the operator-facing half: a true here means the
         # instance's ground truth can go stale and DSB-07 must re-verify it
         # before a live publication run, not that the suite is broken.
@@ -110,7 +116,10 @@ def _validate_production_catalog(args: argparse.Namespace) -> int:
         if task["expected_outcome"] == "expected_fail":
             expected_fail.append(task["id"])
     print(f"catalog=production tasks={len(task_ids)}")
-    print("classes=" + " ".join(f"{name}:{count}" for name, count in sorted(by_class.items())))
+    print(
+        "classes="
+        + " ".join(f"{name}:{count}" for name, count in sorted(by_class.items()))
+    )
     print(f"expected_fail={len(expected_fail)} {' '.join(sorted(expected_fail))}")
     # A publication run must not quote accuracy against truth nobody re-checked,
     # so the gate prints the blockers rather than only the green count.
@@ -135,7 +144,9 @@ def _validate_domain_suite(args: argparse.Namespace) -> int:
     root = module_root()
     domains = [args.domain] if args.domain else available_domains(root)
     if not domains:
-        raise SuiteError("no domain suite manifests found under catalogs/domains/suites")
+        raise SuiteError(
+            "no domain suite manifests found under catalogs/domains/suites"
+        )
     capabilities = _domain_capabilities()
     for domain in domains:
         suite = load_domain_suite(domain, root)
@@ -193,7 +204,9 @@ def _verify_domain_ground_truth(args: argparse.Namespace) -> int:
 
 
 def _run_fixture_harnesses(args: argparse.Namespace) -> int:
-    output_root = Path(args.output_root) if args.output_root else default_state_root() / "runs"
+    output_root = (
+        Path(args.output_root) if args.output_root else default_state_root() / "runs"
+    )
     results = run_acceptance_fixture_matrix(
         output_root,
         task_id=args.task_id,
@@ -216,7 +229,11 @@ def _run_live_harness(args: argparse.Namespace) -> int:
         raise HostUnavailable("model must be an explicit, safe model identifier")
     require_enabled(args.harness, args.model_id)
     if args.dry_run:
-        print(cell_plan(args.harness, args.model_id, args.arm, requested_auth=args.harness_auth))
+        print(
+            cell_plan(
+                args.harness, args.model_id, args.arm, requested_auth=args.harness_auth
+            )
+        )
         return 0
     if args.harness not in harness_registry.ids(live=True):
         raise HostUnavailable(f"{args.harness} live adapter is not installed")
@@ -233,7 +250,9 @@ def _run_live_harness(args: argparse.Namespace) -> int:
             mcp_server_name=PROVIDER_SERVER_NAMES[args.arm],
             mcp_server_config=json.loads(Path(args.provider_mcp_config).read_text()),
         )
-    output_root = Path(args.output_root) if args.output_root else default_state_root() / "live"
+    output_root = (
+        Path(args.output_root) if args.output_root else default_state_root() / "live"
+    )
     result = run_harness(
         HarnessRunConfig(
             harness_id=args.harness,
@@ -397,7 +416,11 @@ def _bakeoff_grade(args: argparse.Namespace) -> int:
     if (target / "run.json").is_file():
         run_dirs = [target]
         suite_root = next(
-            (parent for parent in target.parents if (parent / "runner-state.json").is_file()),
+            (
+                parent
+                for parent in target.parents
+                if (parent / "runner-state.json").is_file()
+            ),
             None,
         )
     elif (target / "runner-state.json").is_file():
@@ -416,7 +439,9 @@ def _bakeoff_grade(args: argparse.Namespace) -> int:
         )
     else:
         raise SchemaError("grade expects a run directory or suite run directory")
-    if suite_root is not None and any((suite_root / "publication").glob("*/bundle-manifest.json")):
+    if suite_root is not None and any(
+        (suite_root / "publication").glob("*/bundle-manifest.json")
+    ):
         raise SchemaError(
             "this suite already has a hashed WSB bundle; bundles are never overwritten, so "
             "remove the publication bundle first, grade, then rebuild it with "
@@ -448,7 +473,9 @@ def _bakeoff_grade(args: argparse.Namespace) -> int:
                 max_total_tokens=args.judge_max_tokens,
                 harness_auth=selected_auth,
             )
-            judges.append(Judge(f"{harness}:{model or 'default'}:{len(judges) + 1}", transport))
+            judges.append(
+                Judge(f"{harness}:{model or 'default'}:{len(judges) + 1}", transport)
+            )
     unreadable = 0
     for run_dir in run_dirs:
         try:
@@ -463,7 +490,9 @@ def _bakeoff_grade(args: argparse.Namespace) -> int:
             # A damaged cell cannot carry a valid evaluation record (it may have no
             # run id), so report it and keep grading the rest of the batch.
             unreadable += 1
-            print(f"{run_dir} - unreadable {type(exc).__name__}: {exc}", file=sys.stderr)
+            print(
+                f"{run_dir} - unreadable {type(exc).__name__}: {exc}", file=sys.stderr
+            )
             continue
         print("{run_id} {task_id} {grader} {outcome}".format(**row))
     return 1 if unreadable else 0
@@ -481,7 +510,9 @@ def _bakeoff_bundle(args: argparse.Namespace) -> int:
         json.dumps(
             {
                 "bundle_dir": str(artifacts.bundle_dir),
-                "archive": str(artifacts.archive_path) if artifacts.archive_path else None,
+                "archive": str(artifacts.archive_path)
+                if artifacts.archive_path
+                else None,
                 "published_report": str(artifacts.published_report),
                 "redaction_report": str(artifacts.redaction_report),
                 "json_report": str(artifacts.report_json),
@@ -516,7 +547,11 @@ def _domain_report(args: argparse.Namespace) -> int:
     json_path, markdown_path = generate_domain_report(
         Path(args.run), Path(args.output_dir) if args.output_dir else None
     )
-    print(json.dumps({"json_report": str(json_path), "markdown_report": str(markdown_path)}))
+    print(
+        json.dumps(
+            {"json_report": str(json_path), "markdown_report": str(markdown_path)}
+        )
+    )
     return 0
 
 
@@ -525,13 +560,19 @@ def _domain_explain(args: argparse.Namespace) -> int:
     try:
         report = json.loads(report_path.read_text(encoding="utf-8"))
     except (OSError, ValueError) as exc:
-        raise DomainReportError(f"cannot read domain report {report_path}: {exc}") from exc
+        raise DomainReportError(
+            f"cannot read domain report {report_path}: {exc}"
+        ) from exc
     print(explain_hypothesis(report, args.hypothesis), end="")
     return 0
 
 
 def _retrieval(args: argparse.Namespace) -> int:
-    output_root = Path(args.output_root) if args.output_root else default_state_root() / "retrieval"
+    output_root = (
+        Path(args.output_root)
+        if args.output_root
+        else default_state_root() / "retrieval"
+    )
     report = run_lane(
         output_root,
         config=args.config,
@@ -563,7 +604,9 @@ def _retrieval(args: argparse.Namespace) -> int:
 
 
 def _agent(args: argparse.Namespace) -> int:
-    output_root = Path(args.output_root) if args.output_root else default_state_root() / "agent"
+    output_root = (
+        Path(args.output_root) if args.output_root else default_state_root() / "agent"
+    )
     report = run_agent_lane(
         output_root,
         tier=args.tier,
@@ -644,6 +687,23 @@ def _gap_calibrate(args):
     return 0
 
 
+def _gap_calibrate_backfill(args):
+    from .gap.backfill import backfill, render_backfill
+
+    print(
+        render_backfill(
+            backfill(
+                args.run_id,
+                harness=args.harness,
+                model=args.model,
+                catalog_hash=args.catalog_hash,
+                dry_run=args.dry_run,
+            )
+        )
+    )
+    return 0
+
+
 def _gap_recalibrate(args):
     from .gap.calibrate import recalibrate, render_calibration
 
@@ -685,7 +745,11 @@ def _gap_mine(args):
         / (args.since + ".json")
     )
     _write_gap_record(target, record)
-    print(json.dumps({"candidates": len(record["candidates"]), "path": str(target)}, indent=2))
+    print(
+        json.dumps(
+            {"candidates": len(record["candidates"]), "path": str(target)}, indent=2
+        )
+    )
     return 0
 
 
@@ -695,7 +759,9 @@ def _write_gap_record(target, record):
     if target.resolve().is_relative_to(module_root().resolve()):
         raise SchemaError("GAP state must live outside the tracked SEW module")
     target.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(mode="w", dir=target.parent, delete=False) as stream:
+    with tempfile.NamedTemporaryFile(
+        mode="w", dir=target.parent, delete=False
+    ) as stream:
         staging = Path(stream.name)
         try:
             json.dump(record, stream, indent=2)
@@ -743,7 +809,9 @@ def _gap_report(args):
         output_dir=args.output_dir,
         calibration=args.calibration,
         seed=args.seed,
-        price_table=load_price_table(Path(args.price_table)) if args.price_table else None,
+        price_table=load_price_table(Path(args.price_table))
+        if args.price_table
+        else None,
     )
     print(artifacts.markdown_path.read_text())
     print(f"  -> {artifacts.json_path}")
@@ -770,7 +838,9 @@ def _gap_agree(args):
     result = add_agreement(
         Path(args.run_root),
         catalog_root=Path(args.catalog_root),
-        judge=Judge("codex", HarnessJudgeTransport("codex", harness_auth=args.harness_auth)),
+        judge=Judge(
+            "codex", HarnessJudgeTransport("codex", harness_auth=args.harness_auth)
+        ),
         limit=args.limit,
         progress=lambda line: print(line, file=sys.stderr, flush=True),
     )
@@ -783,7 +853,9 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
     from .doctor import command as doctor_command
 
-    doctor_parser = sub.add_parser("doctor", help="inspect host mode and local capabilities")
+    doctor_parser = sub.add_parser(
+        "doctor", help="inspect host mode and local capabilities"
+    )
     doctor_parser.add_argument(
         "--codex-broker-auth",
         action="store_true",
@@ -833,7 +905,9 @@ def build_parser() -> argparse.ArgumentParser:
         "run-fixture-harnesses",
         help="write Codex/Claude Code native and external-provider fixture bundles",
     )
-    harnesses.add_argument("--output-root", help="override output root for generated run bundles")
+    harnesses.add_argument(
+        "--output-root", help="override output root for generated run bundles"
+    )
     harnesses.add_argument("--task-id", default="current-fact-lookup-v1")
     harnesses.add_argument(
         "--external-provider",
@@ -845,18 +919,53 @@ def build_parser() -> argparse.ArgumentParser:
         "run-live-harness",
         help=f"spawn one real Codex/Claude Code cell (operator-gated: {LIVE_ENV}=1)",
     )
-    live_harness.add_argument("--harness", required=True, choices=tuple(dict.fromkeys((*harness_registry.ids(live=True), "hermes", "pi", "opencode"))))
-    live_harness.add_argument("--output-root", help="override output root for the run bundle")
+    live_harness.add_argument(
+        "--harness",
+        required=True,
+        choices=tuple(
+            dict.fromkeys(
+                (*harness_registry.ids(live=True), "hermes", "pi", "opencode")
+            )
+        ),
+    )
+    live_harness.add_argument(
+        "--output-root", help="override output root for the run bundle"
+    )
     live_harness.add_argument("--task-id", default="current-fact-lookup-v1")
-    live_harness.add_argument("--prompt-text", help="send this prompt instead of the task's")
-    live_harness.add_argument("--model-id", "--model", dest="model_id", help="pass --model to the harness")
+    live_harness.add_argument(
+        "--prompt-text", help="send this prompt instead of the task's"
+    )
+    live_harness.add_argument(
+        "--model-id", "--model", dest="model_id", help="pass --model to the harness"
+    )
     live_harness.add_argument("--timeout-seconds", type=float)
     live_harness.add_argument("--boot-timeout-seconds", type=float)
     live_harness.add_argument("--max-total-tokens", type=int)
-    live_harness.add_argument("--harness-auth", choices=("broker", "account", "litellm"))
-    live_harness.add_argument("--dry-run", action="store_true", help="print cell plan without spawns or key reads")
-    live_harness.add_argument("--arm", default="native", choices=("native", "no-search", "exa", "parallel-web", "firecrawl", "brave", "tavily", "perplexity"))
-    live_harness.add_argument("--provider-mcp-config", help="path to the arm's MCP server JSON")
+    live_harness.add_argument(
+        "--harness-auth", choices=("broker", "account", "litellm")
+    )
+    live_harness.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="print cell plan without spawns or key reads",
+    )
+    live_harness.add_argument(
+        "--arm",
+        default="native",
+        choices=(
+            "native",
+            "no-search",
+            "exa",
+            "parallel-web",
+            "firecrawl",
+            "brave",
+            "tavily",
+            "perplexity",
+        ),
+    )
+    live_harness.add_argument(
+        "--provider-mcp-config", help="path to the arm's MCP server JSON"
+    )
     live_harness.set_defaults(func=_run_live_harness)
     evaluate = sub.add_parser(
         "evaluate-fixture",
@@ -865,8 +974,12 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("run_dir", help="fixture run directory")
     evaluate.add_argument("--task-id", required=True, help="task manifest id")
     evaluate.set_defaults(func=_evaluate_fixture)
-    pi_fixture = sub.add_parser("pi-fixture", help="materialize Pi lighthouse fixture run bundles")
-    pi_fixture.add_argument("--output-root", required=True, help="directory for generated runs")
+    pi_fixture = sub.add_parser(
+        "pi-fixture", help="materialize Pi lighthouse fixture run bundles"
+    )
+    pi_fixture.add_argument(
+        "--output-root", required=True, help="directory for generated runs"
+    )
     pi_fixture.add_argument(
         "--profile",
         action="append",
@@ -889,13 +1002,19 @@ def build_parser() -> argparse.ArgumentParser:
     run = sub.add_parser("run", help="expand and execute a manifest-defined suite")
     run.add_argument("--suite", default="lighthouse", help="suite id under catalogs/")
     run.add_argument("--mode", choices=("fixture", "live"), default="fixture")
-    run.add_argument("--dry-run", action="store_true", help="print seeded matrix without running")
+    run.add_argument(
+        "--dry-run", action="store_true", help="print seeded matrix without running"
+    )
     run.add_argument("--repetitions", type=int, help="override suite repetitions")
     run.add_argument("--seed", type=int, help="override suite randomization seed")
     run.add_argument("--run-id", help="resume state id under the SEW state root")
     run.add_argument("--state-root", help="override SEW state root")
-    run.add_argument("--no-resume", action="store_true", help="start a fresh state file")
-    run.add_argument("--max-cells", type=int, help="execute at most N new cells this invocation")
+    run.add_argument(
+        "--no-resume", action="store_true", help="start a fresh state file"
+    )
+    run.add_argument(
+        "--max-cells", type=int, help="execute at most N new cells this invocation"
+    )
     run.add_argument("--max-provider-calls", type=int)
     run.add_argument("--max-provider-result-chars", type=int)
     run.add_argument("--max-total-tokens", type=int)
@@ -920,10 +1039,14 @@ def build_parser() -> argparse.ArgumentParser:
         choices=RETRIEVAL_PROVIDERS,
         help="restrict to one provider; may be repeated",
     )
-    retrieval.add_argument("--query", action="append", help="restrict to query ids; repeatable")
+    retrieval.add_argument(
+        "--query", action="append", help="restrict to query ids; repeatable"
+    )
     retrieval.add_argument("--timeout-seconds", type=float, default=90.0)
     retrieval.add_argument("--max-cells", type=int, help="cap cells for a smoke run")
-    retrieval.add_argument("--quiet", action="store_true", help="suppress per-cell progress")
+    retrieval.add_argument(
+        "--quiet", action="store_true", help="suppress per-cell progress"
+    )
     retrieval.add_argument(
         "--pace-seconds",
         type=float,
@@ -943,20 +1066,32 @@ def build_parser() -> argparse.ArgumentParser:
         choices=AGENT_ARMS + (CONTROL_ARM,),
         help="restrict to one arm; may be repeated",
     )
-    agent.add_argument("--task", action="append", help="restrict to task ids; repeatable")
+    agent.add_argument(
+        "--task", action="append", help="restrict to task ids; repeatable"
+    )
     agent.add_argument("--timeout-seconds", type=float, default=600.0)
     agent.add_argument("--max-cells", type=int, help="cap cells for a smoke run")
-    agent.add_argument("--quiet", action="store_true", help="suppress per-cell progress")
+    agent.add_argument(
+        "--quiet", action="store_true", help="suppress per-cell progress"
+    )
     agent.set_defaults(func=_agent)
-    report = sub.add_parser("report", help="generate Markdown and JSON reports for a suite run")
+    report = sub.add_parser(
+        "report", help="generate Markdown and JSON reports for a suite run"
+    )
     report.add_argument("run_root", help="suite run root containing runner-state.json")
     report.set_defaults(func=_report)
     gap = sub.add_parser("gap", help="Search Gap Bench knowledge-gap calibration")
     gap_sub = gap.add_subparsers(dest="gap_command", required=True)
-    gap_run = gap_sub.add_parser("run", help="run admitted GAP tasks or project calibration spend")
-    gap_run.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
+    gap_run = gap_sub.add_parser(
+        "run", help="run admitted GAP tasks or project calibration spend"
+    )
+    gap_run.add_argument(
+        "--harness", required=True, choices=harness_registry.ids(live=True)
+    )
     gap_run.add_argument("--model", required=True)
-    gap_run.add_argument("--arm", action="append", required=True, help="arm ID; repeatable")
+    gap_run.add_argument(
+        "--arm", action="append", required=True, help="arm ID; repeatable"
+    )
     gap_run.add_argument("--task", action="append", help="admitted task ID; repeatable")
     gap_run.add_argument("--reps", type=int, default=3)
     gap_run.add_argument("--state-root", type=Path)
@@ -986,8 +1121,12 @@ def build_parser() -> argparse.ArgumentParser:
     gap_run.add_argument("--harness-auth", choices=("broker", "account", "litellm"))
     gap_run.add_argument("--price-table", type=Path)
     gap_run.set_defaults(func=_gap_run)
-    calibration = gap_sub.add_parser("calibrate", help="run floor and ceiling admission references")
-    calibration.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
+    calibration = gap_sub.add_parser(
+        "calibrate", help="run floor and ceiling admission references"
+    )
+    calibration.add_argument(
+        "--harness", required=True, choices=harness_registry.ids(live=True)
+    )
     calibration.add_argument(
         "--model", required=True, help="explicit model ID for per-model admission"
     )
@@ -1013,7 +1152,25 @@ def build_parser() -> argparse.ArgumentParser:
     )
     calibration.add_argument("--harness-auth", choices=("broker", "account"))
     calibration.set_defaults(func=_gap_calibrate)
-    mine = gap_sub.add_parser("mine", help="rank post-cutoff PyPI releases with source receipts")
+    backfill = gap_sub.add_parser(
+        "calibrate-backfill",
+        help="recover checkpoints from a pre-checkpoint calibration run",
+    )
+    backfill.add_argument("run_id", metavar="RUN_ID")
+    backfill.add_argument(
+        "--harness", required=True, choices=harness_registry.ids(live=True)
+    )
+    backfill.add_argument("--model", required=True)
+    backfill.add_argument(
+        "--catalog-hash",
+        required=True,
+        help="attest the run used today's catalog SHA256",
+    )
+    backfill.add_argument("--dry-run", action="store_true")
+    backfill.set_defaults(func=_gap_calibrate_backfill)
+    mine = gap_sub.add_parser(
+        "mine", help="rank post-cutoff PyPI releases with source receipts"
+    )
     mine.add_argument("--ecosystem", required=True, choices=("pypi",))
     mine.add_argument("--since", required=True, help="ISO cutoff date (exclusive)")
     mine.add_argument(
@@ -1023,7 +1180,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     mine.add_argument("--state-root", help="override SEW state root")
     mine.set_defaults(func=_gap_mine)
-    refresh = gap_sub.add_parser("refresh", help="mine candidates and emit authoring tickets")
+    refresh = gap_sub.add_parser(
+        "refresh", help="mine candidates and emit authoring tickets"
+    )
     refresh.add_argument("--ecosystem", required=True, choices=("pypi",))
     refresh.add_argument("--since", required=True)
     refresh.add_argument("--package", action="append")
@@ -1032,7 +1191,9 @@ def build_parser() -> argparse.ArgumentParser:
     recalibration = gap_sub.add_parser(
         "recalibrate", help="check admitted floors after a model change"
     )
-    recalibration.add_argument("--harness", required=True, choices=harness_registry.ids(live=True))
+    recalibration.add_argument(
+        "--harness", required=True, choices=harness_registry.ids(live=True)
+    )
     recalibration.add_argument("--model", required=True)
     recalibration.add_argument("--previous-model", required=True)
     recalibration.add_argument("--reps", type=int, default=5)
@@ -1045,13 +1206,17 @@ def build_parser() -> argparse.ArgumentParser:
         "validate-task", help="repeat offline kind-specific validity checks three times"
     )
     validity.add_argument("task", help="GAP catalog task id")
-    validity.add_argument("--wheelhouse", type=Path, help="offline cache of catalog-pinned wheels")
+    validity.add_argument(
+        "--wheelhouse", type=Path, help="offline cache of catalog-pinned wheels"
+    )
     validity.add_argument(
         "--module-root", help="SEW module root containing catalogs/gap/tasks.yaml"
     )
     validity.add_argument("--state-root", help="override SEW state root")
     validity.set_defaults(func=_gap_validate_task)
-    gap_report = gap_sub.add_parser("report", help="write paired GAP JSON and markdown reports")
+    gap_report = gap_sub.add_parser(
+        "report", help="write paired GAP JSON and markdown reports"
+    )
     gap_report.add_argument("run_root")
     gap_report.add_argument("--calibration", type=Path)
     gap_report.add_argument("--output-dir", type=Path)
@@ -1070,26 +1235,38 @@ def build_parser() -> argparse.ArgumentParser:
     gap_agree.add_argument("--harness-auth", choices=("broker", "account"))
     gap_agree.add_argument("--limit", type=int, help="measure at most this many cells")
     gap_agree.set_defaults(func=_gap_agree)
-    gap_explain = gap_sub.add_parser("explain", help="explain GAP cell outcomes and usage")
+    gap_explain = gap_sub.add_parser(
+        "explain", help="explain GAP cell outcomes and usage"
+    )
     gap_explain.add_argument("run_root")
     gap_explain.add_argument("--calibration", type=Path)
     gap_explain.add_argument("--task", required=True)
     gap_explain.add_argument("--arm", required=True)
-    gap_explain.add_argument("--format", choices=("markdown", "json"), default="markdown")
+    gap_explain.add_argument(
+        "--format", choices=("markdown", "json"), default="markdown"
+    )
     gap_explain.set_defaults(func=_gap_explain)
-    bakeoff = sub.add_parser("bakeoff", help="WSB web search bakeoff reports, bundles, and explain")
+    bakeoff = sub.add_parser(
+        "bakeoff", help="WSB web search bakeoff reports, bundles, and explain"
+    )
     bakeoff_sub = bakeoff.add_subparsers(dest="bakeoff_command", required=True)
     bakeoff_report = bakeoff_sub.add_parser(
         "report",
         help="write the comparative Markdown and JSON bakeoff report for a suite run",
     )
-    bakeoff_report.add_argument("run_root", help="suite run root containing runner-state.json")
+    bakeoff_report.add_argument(
+        "run_root", help="suite run root containing runner-state.json"
+    )
     bakeoff_report.add_argument(
         "--output-dir", help="report directory (default <run_root>/reports)"
     )
-    bakeoff_report.add_argument("--price-table", help="override config/price-table.yaml")
+    bakeoff_report.add_argument(
+        "--price-table", help="override config/price-table.yaml"
+    )
     bakeoff_report.set_defaults(func=_bakeoff_report)
-    bakeoff_grade = bakeoff_sub.add_parser("grade", help="grade captured live bakeoff cells")
+    bakeoff_grade = bakeoff_sub.add_parser(
+        "grade", help="grade captured live bakeoff cells"
+    )
     bakeoff_grade.add_argument("run_dir", help="run directory or suite run directory")
     bakeoff_grade.add_argument(
         "--judge-harness", choices=("claude-code", "codex"), default="claude-code"
@@ -1121,7 +1298,9 @@ def build_parser() -> argparse.ArgumentParser:
         "bundle",
         help="assemble the reproducibility bundle and published headline report for a suite run",
     )
-    bakeoff_bundle.add_argument("run_root", help="suite run root containing runner-state.json")
+    bakeoff_bundle.add_argument(
+        "run_root", help="suite run root containing runner-state.json"
+    )
     bakeoff_bundle.add_argument(
         "--output-dir", help="publication directory (default <run_root>/publication)"
     )
@@ -1130,7 +1309,9 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="operator opt-in: keep transcript text and harness stderr (credentials still stripped)",
     )
-    bakeoff_bundle.add_argument("--price-table", help="override config/price-table.yaml")
+    bakeoff_bundle.add_argument(
+        "--price-table", help="override config/price-table.yaml"
+    )
     bakeoff_bundle.add_argument(
         "--no-archive", action="store_true", help="skip the shareable .tar.gz"
     )
@@ -1152,11 +1333,15 @@ def build_parser() -> argparse.ArgumentParser:
     bakeoff_explain.set_defaults(func=_bakeoff_explain)
     domains = sub.add_parser("domains", help="DSB scorecard and hypothesis explanation")
     domain_sub = domains.add_subparsers(dest="domain_command", required=True)
-    domain_report = domain_sub.add_parser("report", help="score a normalized domain run")
+    domain_report = domain_sub.add_parser(
+        "report", help="score a normalized domain run"
+    )
     domain_report.add_argument("run", help="JSON file with run_id and scored outcomes")
     domain_report.add_argument("--output-dir")
     domain_report.set_defaults(func=_domain_report)
-    explain = domain_sub.add_parser("explain", help="render one hypothesis from a scorecard")
+    explain = domain_sub.add_parser(
+        "explain", help="render one hypothesis from a scorecard"
+    )
     explain.add_argument("report", help="generated report.json")
     explain.add_argument("--hypothesis", required=True)
     explain.set_defaults(func=_domain_explain)
