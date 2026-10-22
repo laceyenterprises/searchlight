@@ -798,7 +798,7 @@ def test_resume_requires_matching_cell_config(setup, field):
 
 @pytest.mark.parametrize(
     "failure",
-    ["status", "audit", "excluded", "invalid-grade", "infra-grade", "bundle-model"],
+    ["status", "audit", "excluded", "infra-grade", "bundle-model"],
 )
 def test_resume_refuses_contaminated_or_invalid_evidence(setup, failure):
     kwargs, configs = setup
@@ -822,11 +822,7 @@ def test_resume_refuses_contaminated_or_invalid_evidence(setup, failure):
         data["cell"]["excluded_contaminated_run_dirs"].append(str(run_dir))
     else:
         path = run_dir / "evaluations/calibration-outcome.json"
-        data = (
-            {"outcome": "not_applicable"}
-            if failure == "invalid-grade"
-            else {"outcome": "fail", "errors": ["synthetic infrastructure error"]}
-        )
+        data = {"outcome": "fail", "errors": ["synthetic infrastructure error"]}
     path.write_text(json.dumps(data))
     configs.clear()
     record, _ = calibrate(**kwargs, reps=1, resume=old["run_id"])
@@ -895,3 +891,24 @@ def test_cli_resume_wiring(setup, monkeypatch):
         == 0
     )
     assert options[0]["resume"] == "synthetic-run"
+
+
+def test_resume_regrades_pending_outcome_without_harness(setup):
+    kwargs, configs = setup
+    old, _ = calibrate(**kwargs, reps=1)
+    pending = Path(old["tasks"][0]["floor"]["cells"][0]["run_dir"])
+    (pending / "evaluations/calibration-outcome.json").write_text(
+        json.dumps({"outcome": "not_applicable"})
+    )
+    configs.clear()
+    graded = []
+    original = kwargs["grader"]
+
+    def grader(task, run_dir, *args):
+        graded.append(run_dir)
+        return original(task, run_dir, *args)
+
+    kwargs["grader"] = grader
+    record, _ = calibrate(**kwargs, reps=1, resume=old["run_id"])
+    assert not configs and graded == [pending]
+    assert record["tasks"][0]["verdict"] == "admitted"

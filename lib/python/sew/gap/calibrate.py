@@ -325,10 +325,10 @@ def _resume_cell(records, matching, runs_root):
                 continue
             grade_path = run_dir / "evaluations/calibration-outcome.json"
             grade = load_document(grade_path) if grade_path.exists() else None
-            if grade is not None and (
-                grade.get("errors") or grade.get("outcome") not in {"pass", "fail"}
-            ):
+            if grade is not None and grade.get("errors"):
                 continue
+            if grade is not None and grade.get("outcome") not in {"pass", "fail"}:
+                grade = None
         except (SchemaError, OSError, ValueError, AttributeError, TypeError):
             continue
         return dict(cell), grade
