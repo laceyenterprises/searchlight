@@ -1238,6 +1238,12 @@
       "t['status'] == 'skipped'",
       "t['status'] in {'failure', 'error'}"
     ],
+    "gap/backfill.py": [
+      "cell['outcome'] = grade['outcome']",
+      "grade.get('outcome') in ('pass', 'fail')",
+      "run.get('status') != 'succeeded'",
+      "run.get('status') == 'contaminated'"
+    ],
     "gap/calibrate.py": [
       "c['outcome'] == 'pass'",
       "cell['outcome'] = graded['outcome']",

@@ -19,7 +19,13 @@ from sew.arms import SpawnSurface, contract_for, prepare_arm_spawn
 from sew.cli import build_parser
 from sew.doctor import doctor
 from sew.harness import HarnessRunConfig
-from sew.live_harness import BIN_ENV, DEFAULT_BIN, PROTOCOLS, CodexProtocol, resolve_binary
+from sew.live_harness import (
+    BIN_ENV,
+    DEFAULT_BIN,
+    PROTOCOLS,
+    CodexProtocol,
+    resolve_binary,
+)
 from sew.runner import HOSTED_HARNESSES, SuiteRunner
 from sew.schema import HARNESSES, SchemaError, load_suite_manifest, validate_fixture_run
 
@@ -28,10 +34,29 @@ SEW = REPO / "lib" / "python" / "sew"
 
 
 def test_registry_derives_every_harness_table() -> None:
-    assert list(HARNESSES) == ["claude-code", "codex", "pi", "fixture", "hermes", "opencode"]
+    assert list(HARNESSES) == [
+        "claude-code",
+        "codex",
+        "pi",
+        "fixture",
+        "hermes",
+        "opencode",
+    ]
     assert set(HOSTED_HARNESSES) == {"claude-code", "codex", "pi", "hermes", "opencode"}
-    assert dict(BIN_ENV) == {"claude-code": "SEW_CLAUDE_CODE_BIN", "codex": "SEW_CODEX_BIN", "pi": "SEW_PI_BIN", "hermes": "SEW_HERMES_BIN", "opencode": "SEW_OPENCODE_BIN"}
-    assert dict(DEFAULT_BIN) == {"claude-code": "claude", "codex": "codex", "pi": "pi", "hermes": "hermes", "opencode": "opencode"}
+    assert dict(BIN_ENV) == {
+        "claude-code": "SEW_CLAUDE_CODE_BIN",
+        "codex": "SEW_CODEX_BIN",
+        "pi": "SEW_PI_BIN",
+        "hermes": "SEW_HERMES_BIN",
+        "opencode": "SEW_OPENCODE_BIN",
+    }
+    assert dict(DEFAULT_BIN) == {
+        "claude-code": "claude",
+        "codex": "codex",
+        "pi": "pi",
+        "hermes": "hermes",
+        "opencode": "opencode",
+    }
     assert {h: type(p).__name__ for h, p in PROTOCOLS.items()} == {
         "claude-code": "ClaudeCodeProtocol",
         "codex": "CodexProtocol",
@@ -40,7 +65,13 @@ def test_registry_derives_every_harness_table() -> None:
         "opencode": "OpencodeProtocol",
     }
     assert PROTOCOLS["codex"] is PROTOCOLS["codex"]
-    assert HARNESSES - {"fixture"} == {"claude-code", "codex", "pi", "hermes", "opencode"}
+    assert HARNESSES - {"fixture"} == {
+        "claude-code",
+        "codex",
+        "pi",
+        "hermes",
+        "opencode",
+    }
 
 
 def test_every_registry_reference_resolves() -> None:
@@ -50,7 +81,9 @@ def test_every_registry_reference_resolves() -> None:
                 assert callable(spec.load(name)), (spec.id, name)
 
 
-def _harness_options(parser: argparse.ArgumentParser, path: str = "sew") -> dict[str, argparse.Action]:
+def _harness_options(
+    parser: argparse.ArgumentParser, path: str = "sew"
+) -> dict[str, argparse.Action]:
     found = {}
     for action in parser._actions:
         if isinstance(action, argparse._SubParsersAction):
@@ -65,6 +98,7 @@ def test_cli_harness_choices_are_the_live_harnesses() -> None:
     options = _harness_options(build_parser())
     assert sorted(options) == [
         "sew gap calibrate",
+        "sew gap calibrate-backfill",
         "sew gap recalibrate",
         "sew gap run",
         "sew run-live-harness",
@@ -80,7 +114,9 @@ def test_registry_rejects_duplicates_and_malformed_specs() -> None:
     with pytest.raises(ValueError, match="must match"):
         harnesses.HarnessSpec(id="Bad_Id", label="bad")
     with pytest.raises(ValueError, match="missing"):
-        harnesses.HarnessSpec(id="half", label="half", live=True, bin_env="SEW_HALF_BIN")
+        harnesses.HarnessSpec(
+            id="half", label="half", live=True, bin_env="SEW_HALF_BIN"
+        )
     with pytest.raises(ValueError, match="code_cell_sandbox"):
         harnesses.HarnessSpec(id="odd", label="odd", code_cell_sandbox="chroot")
     with pytest.raises(KeyError):
@@ -113,7 +149,10 @@ GUARD_ALLOWLIST = Counter(
         ("lib/python/sew/gap/workspace.py", 'harness == "claude-code"'): 3,
         ("lib/python/sew/gap/workspace.py", 'harness_id == "codex"'): 2,
         ("lib/python/sew/gap/workspace.py", 'harness_id == "claude-code"'): 5,
-        ("lib/python/sew/gap/calibrate.py", 'harness not in {"codex", "claude-code"}'): 1,
+        (
+            "lib/python/sew/gap/calibrate.py",
+            'harness not in {"codex", "claude-code"}',
+        ): 1,
         # Published bake-off and site copy about the two hosted harnesses.
         ("lib/python/sew/bakeoff_report.py", 'row.harness_id == "codex"'): 4,
         ("lib/python/sew/bakeoff_report.py", 'row.harness_id == "claude-code"'): 1,
@@ -148,7 +187,9 @@ def hosted_literal_comparisons(path: Path, relpath: str) -> Counter:
                     for side in (left, right)
                 )
             elif isinstance(op, (ast.In, ast.NotIn)):
-                hit = not isinstance(right, ast.Constant) and _names_hosted_literal(right)
+                hit = not isinstance(right, ast.Constant) and _names_hosted_literal(
+                    right
+                )
             else:
                 hit = False
             if hit:
@@ -178,7 +219,9 @@ def test_no_new_hosted_harness_literal_comparisons() -> None:
         f"{sorted(unexpected.elements())}"
     )
     stale = GUARD_ALLOWLIST - found
-    assert not stale, f"drop these guard allowlist entries, the sites are gone: {sorted(stale)}"
+    assert not stale, (
+        f"drop these guard allowlist entries, the sites are gone: {sorted(stale)}"
+    )
 
 
 @pytest.mark.parametrize(
@@ -200,7 +243,7 @@ def test_guard_ignores_registry_reads(tmp_path: Path) -> None:
     path = tmp_path / "ok.py"
     path.write_text(
         'x = harnesses.get(h).code_cell_sandbox == "srt"\n'
-        'y = h in HOSTED_HARNESSES\n'
+        "y = h in HOSTED_HARNESSES\n"
         'z = "codex" in text\n',
         encoding="utf-8",
     )
@@ -217,7 +260,9 @@ class AcmeProtocol(CodexProtocol):
 WRITER_CALLS: list[str] = []
 
 
-def acme_arm_spawn(config, contract, server_config, scratch, source_env, *, harness_auth="account"):
+def acme_arm_spawn(
+    config, contract, server_config, scratch, source_env, *, harness_auth="account"
+):
     WRITER_CALLS.append(config.provider_id)
     mcp_config = Path(scratch) / "acme-mcp.json"
     mcp_config.write_text("{}", encoding="utf-8")
@@ -252,7 +297,9 @@ def acme():
         harnesses.unregister("acme")
 
 
-def test_third_harness_runs_end_to_end_through_the_fixture_path(acme, tmp_path: Path) -> None:
+def test_third_harness_runs_end_to_end_through_the_fixture_path(
+    acme, tmp_path: Path
+) -> None:
     assert "acme" in HARNESSES and "acme" in HOSTED_HARNESSES
     assert BIN_ENV["acme"] == "SEW_ACME_BIN" and DEFAULT_BIN["acme"] == "acme"
     assert isinstance(PROTOCOLS["acme"], AcmeProtocol)
@@ -270,7 +317,11 @@ def test_third_harness_runs_end_to_end_through_the_fixture_path(acme, tmp_path: 
     dry = runner.dry_run("tiny")
     reasons = {c["provider_id"]: c["not_applicable_reason"] for c in dry["cells"]}
     # Acme has no web search of its own, so the native arm is not applicable.
-    assert reasons == {"native": "native_search_unavailable", "exa": None, "brave": None}
+    assert reasons == {
+        "native": "native_search_unavailable",
+        "exa": None,
+        "brave": None,
+    }
 
     summary = runner.run("tiny", run_id="acme-fixture", resume=False)
     assert summary["status_counts"] == {"succeeded": 2, "not_applicable": 1}
@@ -308,7 +359,9 @@ def test_third_harness_dispatches_to_its_own_spawn_writer(acme, tmp_path: Path) 
         prepare_arm_spawn(refused, tmp_path, {})
 
 
-def test_doctor_checks_every_live_harness_binary(acme, tmp_path: Path, monkeypatch) -> None:
+def test_doctor_checks_every_live_harness_binary(
+    acme, tmp_path: Path, monkeypatch
+) -> None:
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr("sew.gap.sandbox.qualify_backend", lambda *a, **kw: {})
     output = doctor({"SEW_MODE": "standalone", "HOME": str(tmp_path), "PATH": ""})
@@ -329,9 +382,13 @@ def test_doctor_checks_every_live_harness_binary(acme, tmp_path: Path, monkeypat
         ("SEW_ACME_BIN", "custom-acme", "custom-acme"),
     ],
 )
-def test_doctor_optional_bin_env(tmp_path, monkeypatch, env_source, bin_env, override, executable):
+def test_doctor_optional_bin_env(
+    tmp_path, monkeypatch, env_source, bin_env, override, executable
+):
     # Exercise doctor independently of the registry's current live-spec validation.
-    spec = harnesses.HarnessSpec(id="acme", label="Acme", bin_env=bin_env, default_bin="acme")
+    spec = harnesses.HarnessSpec(
+        id="acme", label="Acme", bin_env=bin_env, default_bin="acme"
+    )
     monkeypatch.setattr(harnesses, "specs", lambda **where: (spec,))
     monkeypatch.setattr("sew.gap.sandbox.qualify_backend", lambda *a, **kw: {})
     monkeypatch.chdir(tmp_path)
@@ -339,7 +396,12 @@ def test_doctor_optional_bin_env(tmp_path, monkeypatch, env_source, bin_env, ove
         binary = tmp_path / executable
         binary.write_text("#!/bin/sh\nexit 0\n", encoding="utf-8")
         binary.chmod(0o755)
-    env = {"SEW_MODE": "standalone", "SEW_OSS_ENABLED": "0", "HOME": str(tmp_path), "PATH": str(tmp_path)}
+    env = {
+        "SEW_MODE": "standalone",
+        "SEW_OSS_ENABLED": "0",
+        "HOME": str(tmp_path),
+        "PATH": str(tmp_path),
+    }
     if override is not None:
         env[bin_env] = override
     if env_source == "process":
@@ -350,7 +412,11 @@ def test_doctor_optional_bin_env(tmp_path, monkeypatch, env_source, bin_env, ove
         output = doctor()
     else:
         output = doctor(env)
-    status = "CLI available; account login unverified" if executable and override != "" else "CLI unavailable"
+    status = (
+        "CLI available; account login unverified"
+        if executable and override != ""
+        else "CLI unavailable"
+    )
     assert f"harnesses    acme: {status}" in output
 
 
