@@ -252,7 +252,8 @@ Resume reuses matching, clean pass/fail cells and regrades matching bundles whos
 grade was never saved; unreadable or malformed checkpoints are skipped and their
 cells run normally. Older bundles without matching config and catalog evidence
 cannot be reused. The final record marks reused cells and retains their original
-run directories.
+run directories. Fully graded reused cells save a single checkpoint without
+repeating grading.
 
 Agents receive only `old` and `dependency` wheels; `new` wheels are verifier-only.
 The original cache is denied to the whole agent process tree: a filesystem-only

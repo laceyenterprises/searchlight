@@ -290,7 +290,7 @@ def _resume_cells(runs_root, resume):
             record = load_document(checkpoint)
             if isinstance(record, dict):
                 records.append(record)
-        except SchemaError:
+        except (SchemaError, OSError):
             continue  # A damaged checkpoint cannot establish matching evidence.
     return records
 
