@@ -1240,8 +1240,10 @@
     ],
     "gap/calibrate.py": [
       "c['outcome'] == 'pass'",
+      "cell['outcome'] = graded['outcome']",
+      "grade.get('outcome') not in {'pass', 'fail'}",
       "graded.get('outcome') not in {'pass', 'fail'}",
-      "outcome: graded['outcome']",
+      "run.get('status') != 'succeeded'",
       "run['status'] == 'contaminated'",
       "run['status'] == 'succeeded'",
       "run['status'] not in RETRYABLE_STATUSES"

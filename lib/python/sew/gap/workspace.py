@@ -90,6 +90,29 @@ def workspace_task(config):
     return root, task
 
 
+def verified_wheel(pin, wheelhouse, *, destination=None):
+    """Check a pinned cache wheel, or copy and verify the bytes a cell will use."""
+    name = Path(unquote(urlsplit(pin["url"]).path)).name
+    if not name.endswith(".whl") or "/" in name or "\\" in name:
+        raise SchemaError("invalid wheel cache filename")
+    if wheelhouse is None:
+        raise SchemaError("GAP packages require a verified wheelhouse cache")
+    source = Path(wheelhouse) / name
+    if source.is_symlink() or not source.is_file():
+        raise SchemaError(f"missing wheelhouse wheel: {name}")
+    target = source
+    if destination is not None:
+        target = destination / name
+        if target.exists():
+            raise SchemaError(f"conflicting wheelhouse filename: {name}")
+        shutil.copyfile(source, target)
+    if hashlib.sha256(target.read_bytes()).hexdigest() != pin["sha256"]:
+        raise SchemaError(f"wheelhouse hash mismatch: {name}")
+    if destination is not None:
+        target.chmod(0o444)
+    return target
+
+
 def prepare_workspace(
     config, scratch: Path, root: Path, task: dict, *, wheel_roles=("old", "dependency")
 ):
@@ -104,21 +127,7 @@ def prepare_workspace(
     for pin in task["packages"]:
         if pin["role"] not in wheel_roles:
             continue
-        name = Path(unquote(urlsplit(pin["url"]).path)).name
-        if not name.endswith(".whl") or "/" in name or "\\" in name:
-            raise SchemaError("invalid wheel cache filename")
-        if config.wheelhouse is None:
-            raise SchemaError("GAP packages require a verified wheelhouse cache")
-        source = Path(config.wheelhouse) / name
-        if source.is_symlink() or not source.is_file():
-            raise SchemaError(f"missing wheelhouse wheel: {name}")
-        target = wheels / name
-        if target.exists():
-            raise SchemaError(f"conflicting wheelhouse filename: {name}")
-        shutil.copyfile(source, target)
-        if hashlib.sha256(target.read_bytes()).hexdigest() != pin["sha256"]:
-            raise SchemaError(f"wheelhouse hash mismatch: {name}")
-        target.chmod(0o444)
+        verified_wheel(pin, config.wheelhouse, destination=wheels)
     # The installed package source is an allowed floor strategy; only the
     # catalog and workbench internals are verifier-side knowledge.
     return (

@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -29,7 +30,9 @@ def test_every_threshold_edge(kind, floor, ceiling):
     assert reason.startswith("admitted" if verdict else "rejected")
 
 
-@pytest.mark.parametrize("floor,ceiling,expected", [(0, 1, True), (1, 1, False), (0, 0, False)])
+@pytest.mark.parametrize(
+    "floor,ceiling,expected", [(0, 1, True), (1, 1, False), (0, 0, False)]
+)
 def test_custom_thresholds(floor, ceiling, expected):
     assert (
         admission("gap", [bool(floor)], [bool(ceiling)], reps=1, max_floor=0, min_ceiling=1)[0]
@@ -57,15 +60,31 @@ def test_incomplete_reps():
         admission("gap", [False] * 4, [True] * 5)
 
 
+def synthetic_wheelhouse(tasks, directory):
+    directory.mkdir()
+    for task in tasks:
+        for pin in task["packages"]:
+            content = f"synthetic wheel {pin['name']} {pin['version']}".encode()
+            (directory / pin["url"].rsplit("/", 1)[1]).write_bytes(content)
+            pin["sha256"] = hashlib.sha256(content).hexdigest()
+    return directory
+
+
 @pytest.fixture
 def setup(tmp_path):
     root = tmp_path / "module"
     golden = Path(__file__).parent / "fixtures/gap"
     shutil.copytree(golden, root / "catalogs/gap")
     tasks = json.loads((golden / "tasks.json").read_text())[:1]
+    wheelhouse = synthetic_wheelhouse(tasks, tmp_path / "wheels")
     (root / "catalogs/gap/tasks.yaml").write_text(
         yaml.safe_dump(
-            dict(schema_version=1, catalog_id="gap-test", authoring_policy="synthetic", tasks=tasks)
+            dict(
+                schema_version=1,
+                catalog_id="gap-test",
+                authoring_policy="synthetic",
+                tasks=tasks,
+            )
         )
     )
     configs = []
@@ -74,9 +93,20 @@ def setup(tmp_path):
         configs.append(config)
         run_dir = output_root / config.run_id_override
         (run_dir / "artifacts").mkdir(parents=True)
-        (run_dir / "run.json").write_text(json.dumps({"status": "succeeded"}))
+        (run_dir / "run.json").write_text(
+            json.dumps(
+                {
+                    "status": "succeeded",
+                    "harness_id": config.harness_id,
+                    "task_id": config.task_id,
+                    "provider_id": config.provider_id,
+                }
+            )
+        )
         (run_dir / "artifacts/spawn-metadata.json").write_text(
-            json.dumps({"model_id": config.model_id, "arm_audit": {"contaminated": False}})
+            json.dumps(
+                {"model_id": config.model_id, "arm_audit": {"contaminated": False}}
+            )
         )
         return SimpleNamespace(bundle_dir=run_dir)
 
@@ -90,6 +120,7 @@ def setup(tmp_path):
         state_root=tmp_path / "state",
         execute=execute,
         grader=grader,
+        wheelhouse=wheelhouse,
     ), configs
 
 
@@ -293,7 +324,9 @@ def test_brief_grader_wiring(tmp_path, monkeypatch):
     }
 
 
-@pytest.mark.parametrize("data,expected", [(b"snapshot", "snapshot"), (b"x" * 2_000_001, None)])
+@pytest.mark.parametrize(
+    "data,expected", [(b"snapshot", "snapshot"), (b"x" * 2_000_001, None)]
+)
 def test_bounded_source_capture(monkeypatch, data, expected):
     from email.message import Message
     from io import BytesIO
@@ -399,7 +432,9 @@ def test_retry_exhaustion_is_bounded_without_admission(setup, monkeypatch, statu
     assert not calibration_path(kwargs["state_root"], "codex", "gpt-test").exists()
 
 
-@pytest.mark.parametrize("status", ["provider_unavailable", "budget_exhausted", "cancelled"])
+@pytest.mark.parametrize(
+    "status", ["provider_unavailable", "budget_exhausted", "cancelled"]
+)
 def test_nonretryable_status_stops_immediately(setup, monkeypatch, status):
     kwargs, configs = setup
     original = kwargs["execute"]
@@ -611,3 +646,252 @@ def test_contamination_retry_bound_message(setup):
         calibrate(**kwargs, reps=1)
     assert len(configs) == 3
     assert not calibration_path(kwargs["state_root"], "codex", "gpt-test").exists()
+
+
+@pytest.mark.parametrize("command", [calibrate, recalibrate])
+@pytest.mark.parametrize("failure", ["no-cache", "missing", "hash", "symlink"])
+@pytest.mark.parametrize("role", ["old", "new", "dependency"])
+def test_wheel_preflight_before_any_cell_or_write(
+    setup, tmp_path, command, failure, role
+):
+    kwargs, configs = setup
+    previous = {}
+    if command is recalibrate:
+        calibrate(**kwargs, reps=1)
+        previous["previous_model"] = kwargs["model"]
+        kwargs["model"] = "gpt-new"
+        configs.clear()
+    catalog = kwargs["root"] / "catalogs/gap/tasks.yaml"
+    document = yaml.safe_load(catalog.read_text())
+    task = document["tasks"][0]
+    if role == "dependency":
+        task["packages"].append({**task["packages"][0], "role": role})
+        catalog.write_text(yaml.safe_dump(document))
+        # Recalibration also insists on an unchanged catalog.
+        if command is recalibrate:
+            path = calibration_path(kwargs["state_root"], "codex", "gpt-test")
+            record = json.loads(path.read_text())
+            record["catalog_hash"] = hashlib.sha256(catalog.read_bytes()).hexdigest()
+            path.write_text(json.dumps(record))
+    pin = next(p for p in task["packages"] if p["role"] == role)
+    wheel = kwargs["wheelhouse"] / pin["url"].rsplit("/", 1)[1]
+    if failure == "no-cache":
+        kwargs["wheelhouse"] = None
+    elif failure == "missing":
+        wheel.unlink()
+    elif failure == "hash":
+        wheel.write_bytes(b"synthetic corrupt wheel")
+    else:
+        wheel.unlink()
+        wheel.symlink_to(tmp_path / "missing.whl")
+    before = {p: p.read_bytes() for p in kwargs["state_root"].rglob("*") if p.is_file()}
+    export = tmp_path / "review.json"
+    with pytest.raises(CalibrationError, match=f"--wheelhouse.*{task['id']}"):
+        command(**kwargs, **previous, reps=1, export=export)
+    assert not configs and not export.exists()
+    assert {
+        p: p.read_bytes() for p in kwargs["state_root"].rglob("*") if p.is_file()
+    } == before
+
+
+def test_preflight_checks_code_even_after_brief_tasks(setup, monkeypatch):
+    kwargs, configs = setup
+    catalog = kwargs["root"] / "catalogs/gap/tasks.yaml"
+    document = yaml.safe_load(catalog.read_text())
+    golden = json.loads((Path(__file__).parent / "fixtures/gap/tasks.json").read_text())
+    document["tasks"].insert(0, next(t for t in golden if t["task_type"] == "brief"))
+    catalog.write_text(yaml.safe_dump(document))
+    kwargs["wheelhouse"] = None
+    monkeypatch.setattr(
+        "sew.gap.judges.default_brief_judges",
+        lambda *a: pytest.fail("preflight must happen first"),
+    )
+    with pytest.raises(CalibrationError, match="--wheelhouse.*golden-api-break"):
+        calibrate(**kwargs)
+    assert not configs and not kwargs["state_root"].exists()
+
+
+def test_preflight_only_checks_selected_tasks(setup):
+    kwargs, configs = setup
+    catalog = kwargs["root"] / "catalogs/gap/tasks.yaml"
+    document = yaml.safe_load(catalog.read_text())
+    golden = json.loads((Path(__file__).parent / "fixtures/gap/tasks.json").read_text())
+    document["tasks"].append(next(t for t in golden if t["id"] == "golden-control"))
+    catalog.write_text(yaml.safe_dump(document))
+    kwargs["wheelhouse"] = None
+    calibrate(**kwargs, task_ids=["golden-control"], reps=1)
+    assert len(configs) == 2
+
+
+def all_cells(record):
+    return [
+        cell
+        for task in record["tasks"]
+        for arm in ("floor", "ceiling")
+        for cell in task[arm]["cells"]
+    ]
+
+
+def test_resume_interrupted_calibration_executes_only_missing_cells(setup):
+    kwargs, configs = setup
+    original = kwargs["execute"]
+
+    def execute(config, root):
+        if len(configs) == 3:
+            raise KeyboardInterrupt
+        return original(config, root)
+
+    with pytest.raises(KeyboardInterrupt):
+        calibrate(**(kwargs | {"execute": execute}), reps=2)
+    runs_root = kwargs["state_root"] / "gap/calibration-runs"
+    previous = next(runs_root.iterdir())
+    checkpoints = [
+        json.loads(p.read_text()) for p in previous.glob("*.calibration.json")
+    ]
+    assert len(checkpoints) == 3
+    original_dirs = {c["cell"]["run_dir"] for c in checkpoints}
+    assert all(
+        (Path(d) / "evaluations/calibration-outcome.json").exists()
+        for d in original_dirs
+    )
+    record, _ = calibrate(**kwargs, reps=2, resume=previous.name)
+    assert len(configs) == 4
+    cells = all_cells(record)
+    assert {c["run_dir"] for c in cells if c["reused"]} == original_dirs
+    assert sum(c["reused"] for c in cells) == 3
+    assert record["tasks"][0]["verdict"] == "admitted"
+    assert record["resumed_from"] == previous.name
+    # Reused references survive another resume, with the original bundle paths.
+    again, _ = calibrate(**kwargs, reps=2, resume=record["run_id"])
+    assert len(configs) == 4 and all(c["reused"] for c in all_cells(again))
+    assert [c["run_dir"] for c in all_cells(again)] == [c["run_dir"] for c in cells]
+
+
+@pytest.mark.parametrize("failure", ["catalog", "model"])
+def test_resume_requires_current_catalog_and_model(setup, failure):
+    kwargs, configs = setup
+    old, _ = calibrate(**kwargs, reps=2)
+    configs.clear()
+    if failure == "catalog":
+        catalog = kwargs["root"] / "catalogs/gap/tasks.yaml"
+        catalog.write_text(catalog.read_text() + "\n")
+    else:
+        kwargs["model"] = "gpt-new"
+    record, _ = calibrate(**kwargs, reps=2, resume=old["run_id"])
+    assert len(configs) == 4 and not any(c["reused"] for c in all_cells(record))
+
+
+@pytest.mark.parametrize(
+    "field", ["harness", "model", "task_id", "arm", "rep", "catalog_hash"]
+)
+def test_resume_requires_matching_cell_config(setup, field):
+    kwargs, configs = setup
+    old, _ = calibrate(**kwargs, reps=1)
+    checkpoint = next(Path(old["run_dir"]).glob("*.calibration.json"))
+    data = json.loads(checkpoint.read_text())
+    data["config"][field] = 99 if field == "rep" else "different"
+    checkpoint.write_text(json.dumps(data))
+    configs.clear()
+    record, _ = calibrate(**kwargs, reps=1, resume=old["run_id"])
+    assert len(configs) == 1 and sum(c["reused"] for c in all_cells(record)) == 1
+
+
+@pytest.mark.parametrize(
+    "failure",
+    ["status", "audit", "excluded", "invalid-grade", "infra-grade", "bundle-model"],
+)
+def test_resume_refuses_contaminated_or_invalid_evidence(setup, failure):
+    kwargs, configs = setup
+    old, _ = calibrate(**kwargs, reps=1)
+    cell = old["tasks"][0]["floor"]["cells"][0]
+    run_dir = Path(cell["run_dir"])
+    if failure == "status":
+        path = run_dir / "run.json"
+        data = json.loads(path.read_text())
+        data["status"] = "contaminated"
+    elif failure in {"audit", "bundle-model"}:
+        path = run_dir / "artifacts/spawn-metadata.json"
+        data = json.loads(path.read_text())
+        if failure == "audit":
+            data["arm_audit"]["contaminated"] = True
+        else:
+            data["model_id"] = "other-model"
+    elif failure == "excluded":
+        path = Path(old["run_dir"]) / "golden-api-break-floor-1.calibration.json"
+        data = json.loads(path.read_text())
+        data["cell"]["excluded_contaminated_run_dirs"].append(str(run_dir))
+    else:
+        path = run_dir / "evaluations/calibration-outcome.json"
+        data = (
+            {"outcome": "not_applicable"}
+            if failure == "invalid-grade"
+            else {"outcome": "fail", "errors": ["synthetic infrastructure error"]}
+        )
+    path.write_text(json.dumps(data))
+    configs.clear()
+    record, _ = calibrate(**kwargs, reps=1, resume=old["run_id"])
+    assert len(configs) == 1 and sum(c["reused"] for c in all_cells(record)) == 1
+    assert record["tasks"][0]["verdict"] == "admitted"
+
+
+def test_resume_regrades_bundle_after_grader_interruption(setup, monkeypatch):
+    kwargs, configs = setup
+    kwargs["grader"] = lambda *a: (_ for _ in ()).throw(KeyboardInterrupt())
+    with pytest.raises(KeyboardInterrupt):
+        calibrate(**kwargs, reps=1)
+    previous = next((kwargs["state_root"] / "gap/calibration-runs").iterdir())
+    assert len(configs) == 1
+    kwargs.pop("grader")
+    grades = []
+
+    def verify(task, diff, **options):
+        grades.append(diff)
+        return {"outcome": "pass" if "-ceiling-" in diff.parent.parent.name else "fail"}
+
+    monkeypatch.setattr("sew.gap.verify.verify", verify)
+    record, _ = calibrate(**kwargs, reps=1, resume=previous.name)
+    assert len(configs) == 2 and len(grades) == 2
+    cells = all_cells(record)
+    assert cells[0]["reused"] and not cells[1]["reused"]
+    assert Path(cells[0]["run_dir"]).parent == previous
+    assert record["tasks"][0]["verdict"] == "admitted"
+    assert all(
+        (Path(c["run_dir"]) / "evaluations/calibration-outcome.json").exists()
+        for c in cells
+    )
+
+
+@pytest.mark.parametrize("resume", ["../escape", "/absolute", "missing", ".."])
+def test_invalid_resume_refused_before_execution_or_write(setup, resume):
+    kwargs, configs = setup
+    with pytest.raises(CalibrationError, match="--resume"):
+        calibrate(**kwargs, resume=resume)
+    assert not configs and not kwargs["state_root"].exists()
+
+
+def test_cli_resume_wiring(setup, monkeypatch):
+    kwargs, _ = setup
+    record, path = calibrate(**kwargs, reps=1)
+    options = []
+
+    def calibrate_stub(**kwargs):
+        options.append(kwargs)
+        return record, path
+
+    monkeypatch.setattr("sew.gap.calibrate.calibrate", calibrate_stub)
+    assert (
+        main(
+            [
+                "gap",
+                "calibrate",
+                "--harness",
+                "codex",
+                "--model",
+                "gpt-test",
+                "--resume",
+                "synthetic-run",
+            ]
+        )
+        == 0
+    )
+    assert options[0]["resume"] == "synthetic-run"

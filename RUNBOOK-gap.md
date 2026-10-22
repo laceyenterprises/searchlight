@@ -241,6 +241,18 @@ hash-verified pinned wheels. Replace `TASK_ID` with a catalog task ID and
 `MODEL_ID` with the exact model ID. State defaults to SEW's configured state root,
 with calibration at `gap/calibration/<harness>@<model>.json`.
 
+Calibration and recalibration verify every selected code task's agent and verifier
+wheels before any harness starts or state is written; supply `--wheelhouse` with
+all pinned files and matching hashes. To recover an interruption, pass
+`gap calibrate --resume RUN_ID`, using the directory name under
+`gap/calibration-runs/`. Each completed cell saves a `*.calibration.json` sidecar
+with its harness, model, task, arm, rep, catalog digest and original bundle path,
+and its grade in `evaluations/calibration-outcome.json` inside that bundle.
+Resume reuses matching, clean pass/fail cells and regrades matching bundles whose
+grade was never saved; other cells run normally. Older bundles without matching
+config and catalog evidence cannot be reused. The final record marks reused
+cells and retains their original run directories.
+
 Agents receive only `old` and `dependency` wheels; `new` wheels are verifier-only.
 The original cache is denied to the whole agent process tree: a filesystem-only
 Seatbelt profile on macOS and an empty read-only cache mount on Linux, applied

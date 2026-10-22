@@ -13,6 +13,7 @@ from sew.gap.calibrate import calibrate
 from sew.gap.runner import run
 from sew.runner import RunnerError
 from test_bakeoff_report import PRICES
+from test_gap_calibrate import synthetic_wheelhouse
 
 
 def write(path, data):
@@ -26,9 +27,15 @@ def setup(tmp_path):
     golden = Path(__file__).parent / "fixtures/gap"
     shutil.copytree(golden, root / "catalogs/gap")
     tasks = json.loads((golden / "tasks.json").read_text())[:1]
+    wheelhouse = synthetic_wheelhouse(tasks, tmp_path / "wheels")
     (root / "catalogs/gap/tasks.yaml").write_text(
         yaml.safe_dump(
-            dict(schema_version=1, catalog_id="gap-test", authoring_policy="synthetic", tasks=tasks)
+            dict(
+                schema_version=1,
+                catalog_id="gap-test",
+                authoring_policy="synthetic",
+                tasks=tasks,
+            )
         )
     )
     configs = []
@@ -73,6 +80,7 @@ def setup(tmp_path):
         state_root=tmp_path / "state",
         execute=execute,
         grader=grader,
+        wheelhouse=wheelhouse,
     )
     configs.clear()
     kwargs = dict(
