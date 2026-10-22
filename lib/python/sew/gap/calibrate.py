@@ -499,7 +499,12 @@ def calibrate(
                 status, cell = _execute_cell(config, run_root, execute)
                 cell["rep"] = rep
                 if prior is not None:
-                    for field in ("attempt_run_dirs", "excluded_contaminated_run_dirs"):
+                    for field in (
+                        "attempt_run_dirs",
+                        "excluded_contaminated_run_dirs",
+                        "denied_network_attempts",
+                        "config_neutralized_network_attempts",
+                    ):
                         cell[field] = prior[field] + cell[field]
                     cell["attempts"] = len(cell["attempt_run_dirs"])
                 if status == "provider_unavailable":

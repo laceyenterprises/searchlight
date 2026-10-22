@@ -419,8 +419,12 @@ as the prevention boundary.
 Calibration excludes contaminated reference attempts before grading and retries
 the same arm/repetition in fresh `-att2` / `-att3` bundles. Contamination and
 infrastructure retries share a three-attempt total bound; exhaustion publishes
-no calibration record. Accepted cells retain `excluded_contaminated_run_dirs`
-and their own `denied_network_attempts` count. See
+no calibration record. Accepted cells retain `excluded_contaminated_run_dirs`.
+Calibration and recalibration sum `denied_network_attempts` and
+`config_neutralized_network_attempts` across clean provider-unavailable attempts
+and the eventual successful attempt, preserving these totals in cell checkpoints
+and the calibration summary. Excluded contaminated attempts do not contribute
+to these counters. See
 [GAPATTEMPT-01 in WORKSPACE.md](lib/python/sew/gap/WORKSPACE.md#gapattempt-01-information-exposure-and-denied-attempts)
 for attribution requirements and the canary-based validity argument.
 

@@ -510,6 +510,15 @@ def test_provider_unavailable_deferred_to_end(setup, monkeypatch, command, defer
 
     def execute(config, root):
         result = original(config, root)
+        if config.run_id_override.startswith(target):
+            attempt = len(unavailable_dirs) + 1
+            metadata_path = result.bundle_dir / "artifacts/spawn-metadata.json"
+            metadata = json.loads(metadata_path.read_text())
+            metadata["arm_audit"].update(
+                denied_network_attempts=attempt,
+                config_neutralized_network_attempts=2 * attempt,
+            )
+            metadata_path.write_text(json.dumps(metadata))
         if (
             config.run_id_override.startswith(target)
             and len(unavailable_dirs) < deferrals
@@ -536,6 +545,14 @@ def test_provider_unavailable_deferred_to_end(setup, monkeypatch, command, defer
     assert cell["attempt_run_dirs"] == unavailable_dirs + [cell["run_dir"]]
     assert len(set(cell["attempt_run_dirs"])) == deferrals + 1
     assert all(Path(d).is_dir() for d in cell["attempt_run_dirs"])
+    expected_denied = sum(range(1, deferrals + 2))
+    assert cell["denied_network_attempts"] == expected_denied
+    assert cell["config_neutralized_network_attempts"] == 2 * expected_denied
+    checkpoint = Path(record["run_dir"]) / f"{target}.calibration.json"
+    assert json.loads(checkpoint.read_text())["cell"] == cell
+    table = render_calibration(record)
+    assert f"Denied network attempts: {expected_denied}" in table
+    assert f"Config-neutralized network attempts: {2 * expected_denied}" in table
     assert all(t["verdict"] == "admitted" for t in record["tasks"])
 
 
