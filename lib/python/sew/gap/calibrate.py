@@ -251,6 +251,90 @@ def _grade(task, run_dir, root, wheelhouse, judges):
     return record
 
 
+def _preflight_wheels(tasks, selected, wheelhouse):
+    from .workspace import verified_wheel
+
+    checked = set()
+    for task_id in selected:
+        task = tasks[task_id]
+        if task["task_type"] != "code":
+            continue
+        for pin in task["packages"]:
+            if wheelhouse is None:
+                raise CalibrationError(f"--wheelhouse is required for task {task_id}")
+            key = (pin["url"], pin["sha256"])
+            if key in checked:
+                continue
+            try:
+                verified_wheel(pin, wheelhouse)
+            except (SchemaError, OSError) as exc:
+                raise CalibrationError(
+                    f"--wheelhouse for task {task_id}: {exc}"
+                ) from exc
+            checked.add(key)
+
+
+def _resume_cells(runs_root, resume):
+    if resume is None:
+        return []
+    if not isinstance(resume, str) or not re.fullmatch(
+        r"[A-Za-z0-9][A-Za-z0-9_.-]*", resume
+    ):
+        raise CalibrationError("--resume must name a calibration run ID")
+    directory = runs_root / resume
+    if not directory.is_dir() or directory.is_symlink():
+        raise CalibrationError(f"--resume calibration run not found: {resume}")
+    records = []
+    for checkpoint in sorted(directory.glob("*.calibration.json")):
+        try:
+            record = load_document(checkpoint)
+            if isinstance(record, dict):
+                records.append(record)
+        except (SchemaError, OSError):
+            continue  # A damaged checkpoint cannot establish matching evidence.
+    return records
+
+
+def _resume_cell(records, matching, runs_root):
+    for record in records:
+        if record.get("config") != matching:
+            continue
+        cell = record.get("cell")
+        if (
+            not isinstance(cell, dict)
+            or not isinstance(cell.get("run_dir"), str)
+            or cell.get("rep") != matching["rep"]
+        ):
+            continue
+        try:
+            run_dir = Path(cell["run_dir"])
+            if not run_dir.resolve().is_relative_to(runs_root.resolve()):
+                continue
+            if str(run_dir) in cell.get("excluded_contaminated_run_dirs", []):
+                continue
+            run = load_document(run_dir / "run.json")
+            metadata = load_document(run_dir / "artifacts/spawn-metadata.json")
+            if (
+                run.get("status") != "succeeded"
+                or run.get("harness_id") != matching["harness"]
+                or run.get("task_id") != matching["task_id"]
+                or run.get("provider_id") != matching["arm"]
+                or metadata.get("model_id") != matching["model"]
+                or metadata.get("arm_audit", {}).get("contaminated") is not False
+            ):
+                continue
+            grade_path = run_dir / "evaluations/calibration-outcome.json"
+            grade = load_document(grade_path) if grade_path.exists() else None
+            if grade is not None and grade.get("errors"):
+                continue
+            if grade is not None and grade.get("outcome") not in {"pass", "fail"}:
+                grade = None
+        except (SchemaError, OSError, ValueError, AttributeError, TypeError):
+            continue
+        return dict(cell), grade
+    return None
+
+
 def calibrate(
     *,
     harness,
@@ -267,6 +351,7 @@ def calibrate(
     execute=None,
     grader=None,
     judges=None,
+    resume=None,
     _previous=None,
 ):
     state_root = default_state_root() if state_root is None else Path(state_root)
@@ -281,36 +366,48 @@ def calibrate(
         min_ceiling=min_ceiling,
     )
     root = Path(root or module_root()).resolve()
+    digest = hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
     tasks = load_gap_tasks(root)
     selected = list(tasks) if task_ids is None else list(dict.fromkeys(task_ids))
     previous_entries = {}
     if _previous is not None:
         if _previous.get("harness") != harness or _previous.get("model") == model:
-            raise CalibrationError("recalibration requires the same harness and a changed model")
-        if (
-            _previous.get("catalog_hash")
-            != hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
-        ):
+            raise CalibrationError(
+                "recalibration requires the same harness and a changed model"
+            )
+        if _previous.get("catalog_hash") != digest:
             raise CalibrationError("catalog changed; run full calibration")
         previous_entries = {t["task_id"]: t for t in _previous["tasks"]}
-        selected = [t for t, entry in previous_entries.items() if entry["verdict"] == "admitted"]
+        selected = [
+            t for t, entry in previous_entries.items() if entry["verdict"] == "admitted"
+        ]
     if (not selected and _previous is None) or set(selected) - tasks.keys():
         raise CalibrationError("calibration needs known, nonempty GAP tasks")
+    _preflight_wheels(tasks, selected, wheelhouse)
+    runs_root = path.parent.parent / "calibration-runs"
+    resumable = _resume_cells(runs_root, resume)
     if judges is None and any(tasks[t]["task_type"] == "brief" for t in selected):
         from .judges import default_brief_judges
 
         judges = default_brief_judges(harness_auth)
     execute = execute or run_harness
     grader = grader or _grade
-    digest = hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
     date = datetime.now(timezone.utc).isoformat()
-    run_root = path.parent.parent / "calibration-runs" / uuid4().hex
+    run_root = runs_root / uuid4().hex
     entries = []
     for task_id in selected:
         task = tasks[task_id]
         cells = {"floor": [], "ceiling": []}
         for arm in ("floor",) if _previous is not None else cells:
             for rep in range(1, reps + 1):
+                matching = {
+                    "harness": harness,
+                    "model": model,
+                    "task_id": task_id,
+                    "arm": arm,
+                    "rep": rep,
+                    "catalog_hash": digest,
+                }
                 config = HarnessRunConfig(
                     harness_id=harness,
                     provider_id=arm,
@@ -327,30 +424,46 @@ def calibrate(
                     harness_auth=harness_auth,
                     run_id_override=f"{task_id}-{arm}-{rep}",
                 )
-                (
-                    run_dir,
-                    attempt_run_dirs,
-                    excluded_dirs,
-                    denied_attempts,
-                    neutralized_attempts,
-                ) = _execute_cell(config, run_root, execute)
-                graded = grader(task, run_dir, root, wheelhouse, judges or [])
-                if graded.get("errors"):
-                    raise CalibrationError("verifier infrastructure error refused")
-                if graded.get("outcome") not in {"pass", "fail"}:
-                    raise CalibrationError("ungraded cell refused")
-                cells[arm].append(
-                    {
+                restored = _resume_cell(resumable, matching, runs_root)
+                if restored is None:
+                    (
+                        run_dir,
+                        attempt_run_dirs,
+                        excluded_dirs,
+                        denied_attempts,
+                        neutralized_attempts,
+                    ) = _execute_cell(config, run_root, execute)
+                    cell = {
                         "rep": rep,
                         "run_dir": str(run_dir),
-                        "outcome": graded["outcome"],
                         "attempts": len(attempt_run_dirs),
                         "attempt_run_dirs": attempt_run_dirs,
                         "excluded_contaminated_run_dirs": excluded_dirs,
                         "denied_network_attempts": denied_attempts,
                         "config_neutralized_network_attempts": neutralized_attempts,
+                        "reused": False,
                     }
-                )
+                    graded = None
+                else:
+                    cell, graded = restored
+                    run_dir = Path(cell["run_dir"])
+                    cell["reused"] = True
+                checkpoint = run_root / f"{config.run_id_override}.calibration.json"
+                if graded is None:
+                    # Save identity before grading: an interrupted grader can consume
+                    # the completed bundle on resume without another harness call.
+                    atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+                    graded = grader(task, run_dir, root, wheelhouse, judges or [])
+                    atomic_write_json(
+                        run_dir / "evaluations/calibration-outcome.json", graded
+                    )
+                if graded.get("errors"):
+                    raise CalibrationError("verifier infrastructure error refused")
+                if graded.get("outcome") not in {"pass", "fail"}:
+                    raise CalibrationError("ungraded cell refused")
+                cell["outcome"] = graded["outcome"]
+                atomic_write_json(checkpoint, {"config": matching, "cell": cell})
+                cells[arm].append(cell)
         floor_rate = sum(c["outcome"] == "pass" for c in cells["floor"]) / max(reps, 1)
         retired = False
         if _previous is None:
@@ -373,7 +486,9 @@ def calibrate(
             )
         else:
             admitted = floor_rate >= min_ceiling
-            reason = "admitted (control)" if admitted else "rejected: floor fails (control)"
+            reason = (
+                "admitted (control)" if admitted else "rejected: floor fails (control)"
+            )
         entries.append(
             {
                 "task_id": task_id,
@@ -381,7 +496,11 @@ def calibrate(
                 "kind": task["kind"],
                 "date": date,
                 "catalog_hash": digest,
-                "verdict": "retired" if retired else "admitted" if admitted else "rejected",
+                "verdict": "retired"
+                if retired
+                else "admitted"
+                if admitted
+                else "rejected",
                 "reason": reason,
                 **{
                     arm: {
@@ -401,7 +520,10 @@ def calibrate(
                 entries[-1]["retired_at"] = date
     if _previous is not None:
         entries.extend(t for t in _previous["tasks"] if t["verdict"] != "admitted")
-    if hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest() != digest:
+    if (
+        hashlib.sha256((root / "catalogs/gap/tasks.yaml").read_bytes()).hexdigest()
+        != digest
+    ):
         raise CalibrationError("catalog changed during calibration")
     record = {
         "record_version": "gap-calibration-v1",
@@ -410,10 +532,14 @@ def calibrate(
         "key": f"{harness}@{model}",
         "date": date,
         "catalog_hash": digest,
+        "run_id": run_root.name,
+        "run_dir": str(run_root),
         "reps": reps,
         "thresholds": {"max_floor": max_floor, "min_ceiling": min_ceiling},
         "tasks": entries,
     }
+    if resume is not None:
+        record["resumed_from"] = resume
     record["excluded_contaminated_attempts"] = sum(
         len(cell.get("excluded_contaminated_run_dirs", []))
         for task in entries
@@ -421,8 +547,13 @@ def calibrate(
         for cell in task[arm]["cells"]
     )
     if _previous is not None:
-        record["recalibrated_from"] = {"key": _previous["key"], "date": _previous["date"]}
-        record["ceiling_basis"] = "inherited reference evidence; floor-only freshness check"
+        record["recalibrated_from"] = {
+            "key": _previous["key"],
+            "date": _previous["date"],
+        }
+        record["ceiling_basis"] = (
+            "inherited reference evidence; floor-only freshness check"
+        )
     atomic_write_json(path, record)
     if export is not None:
         atomic_write_json(Path(export), record)

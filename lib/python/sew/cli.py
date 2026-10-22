@@ -635,6 +635,7 @@ def _gap_calibrate(args):
         min_ceiling=args.min_ceiling,
         task_ids=args.task,
         wheelhouse=args.wheelhouse,
+        resume=args.resume,
         export=args.export,
         harness_auth=args.harness_auth,
     )
@@ -1000,9 +1001,16 @@ def build_parser() -> argparse.ArgumentParser:
         default=0.8,
         help="minimum ceiling and control floor pass rate",
     )
-    calibration.add_argument("--task", action="append", help="restrict to task IDs; repeatable")
+    calibration.add_argument(
+        "--task", action="append", help="restrict to task IDs; repeatable"
+    )
     calibration.add_argument("--wheelhouse", type=Path)
-    calibration.add_argument("--export", type=Path, help="explicit reviewed-record export path")
+    calibration.add_argument(
+        "--resume", metavar="RUN_ID", help="reuse a previous calibration run"
+    )
+    calibration.add_argument(
+        "--export", type=Path, help="explicit reviewed-record export path"
+    )
     calibration.add_argument("--harness-auth", choices=("broker", "account"))
     calibration.set_defaults(func=_gap_calibrate)
     mine = gap_sub.add_parser("mine", help="rank post-cutoff PyPI releases with source receipts")
