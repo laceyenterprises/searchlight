@@ -197,6 +197,55 @@ def test_all_retry_directories_and_contamination_retained(legacy):
     assert cell["config_neutralized_network_attempts"] == 2
 
 
+@pytest.mark.parametrize("value", [None, 0, 3])
+def test_backfill_normalizes_null_audit_counters(legacy, value):
+    _, _, directory, options = legacy
+    bundle(
+        directory,
+        metadata={
+            "arm_audit": {
+                "contaminated": False,
+                "denied_network_attempts": value,
+                "config_neutralized_network_attempts": value,
+            }
+        },
+    )
+    assert backfill(directory.name, **options)["checkpoints_written"] == 1
+    (checkpoint,) = checkpoints(directory)
+    for key in ("denied_network_attempts", "config_neutralized_network_attempts"):
+        assert checkpoint["cell"][key] == (0 if value is None else value)
+        assert type(checkpoint["cell"][key]) is int
+
+
+@pytest.mark.parametrize(
+    "artifact",
+    ["run.json", "artifacts/spawn-metadata.json", "evaluations/calibration-outcome.json"],
+)
+@pytest.mark.parametrize("content", [b'{"interrupted":', b'\xff'])
+def test_damaged_artifact_does_not_abort_backfill(legacy, artifact, content):
+    _, calls, directory, options = legacy
+    attempt = bundle(directory)
+    (attempt / artifact).write_bytes(content)
+    bundle(
+        directory,
+        "golden-api-break-ceiling-1",
+        run={"provider_id": "ceiling"},
+        outcome="pass",
+    )
+    result = backfill(directory.name, **options)
+    cells = {c["config"]["arm"]: c["cell"] for c in checkpoints(directory)}
+    assert cells["ceiling"]["outcome"] == "pass"
+    if artifact.startswith("evaluations/"):
+        assert result["checkpoints_written"] == 2
+        assert "outcome" not in cells["floor"]
+        assert result["skipped"] == []
+    else:
+        assert result["checkpoints_written"] == 1
+        assert "floor" not in cells
+        assert result["skipped"][0]["cell"] == "golden-api-break-floor-1"
+    assert not calls
+
+
 @pytest.mark.parametrize(
     "run,metadata,name,reason",
     [

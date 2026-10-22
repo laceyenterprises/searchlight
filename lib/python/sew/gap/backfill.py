@@ -27,7 +27,7 @@ def _document(path):
     try:
         document = load_document(path)
         return document if isinstance(document, dict) else {}
-    except (SchemaError, OSError):
+    except (SchemaError, OSError, ValueError):
         return {}
 
 
@@ -76,8 +76,8 @@ def _cell(attempts, *, harness, model, task_id, arm, rep, digest):
         directory,
         [str(p) for p in attempts],
         excluded,
-        audit.get("denied_network_attempts", 0),
-        audit.get("config_neutralized_network_attempts", 0),
+        audit.get("denied_network_attempts") or 0,
+        audit.get("config_neutralized_network_attempts") or 0,
     )
     cell.update(backfilled=True, catalog_hash=digest)
     grade = _document(directory / "evaluations/calibration-outcome.json")

@@ -267,7 +267,9 @@ resume it normally. `--catalog-hash` is the operator's statement that the run
 used today's catalog; the command checks it against the SHA256 of the current
 `catalogs/gap/tasks.yaml`. It refuses runs with existing checkpoints, recovers
 only clean, succeeded cells with matching identities, and prints skip reasons.
-Missing grades are recovered on resume without rerunning the harness. Reused
+Unreadable or malformed run/metadata artifacts exclude that attempt; missing or
+damaged grades are recovered on resume without rerunning the harness. Missing or
+null network audit counters default to zero in recovered checkpoints. Reused
 backfilled cells retain `backfilled: true` and the attested `catalog_hash` in the
 calibration record.
 
