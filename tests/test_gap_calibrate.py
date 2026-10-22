@@ -7,6 +7,10 @@ from types import SimpleNamespace
 import pytest
 import yaml
 
+from sew.runner import (
+    PROVIDER_UNAVAILABLE_MAX_DEFERRALS,
+    PROVIDER_UNAVAILABLE_STOP_STREAK,
+)
 from sew.cli import build_parser, main
 from sew.gap.calibrate import (
     CalibrationError,
@@ -24,7 +28,9 @@ from sew.gap.calibrate import (
 @pytest.mark.parametrize("ceiling", range(6))
 def test_every_threshold_edge(kind, floor, ceiling):
     verdict, reason = admission(
-        kind, [True] * floor + [False] * (5 - floor), [True] * ceiling + [False] * (5 - ceiling)
+        kind,
+        [True] * floor + [False] * (5 - floor),
+        [True] * ceiling + [False] * (5 - ceiling),
     )
     assert verdict == ((floor <= 1 and ceiling >= 4) if kind == "gap" else floor >= 4)
     assert reason.startswith("admitted" if verdict else "rejected")
@@ -35,7 +41,9 @@ def test_every_threshold_edge(kind, floor, ceiling):
 )
 def test_custom_thresholds(floor, ceiling, expected):
     assert (
-        admission("gap", [bool(floor)], [bool(ceiling)], reps=1, max_floor=0, min_ceiling=1)[0]
+        admission(
+            "gap", [bool(floor)], [bool(ceiling)], reps=1, max_floor=0, min_ceiling=1
+        )[0]
         == expected
     )
 
@@ -142,9 +150,18 @@ def test_roundtrip_export_and_table(setup, tmp_path):
     task = record["tasks"][0]
     assert task["verdict"] == "admitted"
     assert task["floor"]["rate"] == 0 and task["ceiling"]["rate"] == 1
-    assert task["catalog_hash"] == record["catalog_hash"] and task["date"] == record["date"]
+    assert (
+        task["catalog_hash"] == record["catalog_hash"]
+        and task["date"] == record["date"]
+    )
     table = render_calibration(record)
-    assert table.splitlines()[0].split() == ["task", "family", "floor", "ceiling", "verdict"]
+    assert table.splitlines()[0].split() == [
+        "task",
+        "family",
+        "floor",
+        "ceiling",
+        "verdict",
+    ]
     assert "0/5" in table and "5/5" in table and "admitted (gap)" in table
     assert "calibration codex@gpt-test" in table
     assert all(
@@ -172,7 +189,11 @@ def test_refuses_bad_cell_without_record(setup, mutation, monkeypatch):
         if mutation in {"status", "boot"}:
             (result.bundle_dir / "run.json").write_text(
                 json.dumps(
-                    {"status": "contaminated" if mutation == "status" else "harness_boot_failed"}
+                    {
+                        "status": "contaminated"
+                        if mutation == "status"
+                        else "harness_boot_failed"
+                    }
                 )
             )
         if mutation in {"audit", "missing_audit", "model"}:
@@ -182,7 +203,9 @@ def test_refuses_bad_cell_without_record(setup, mutation, monkeypatch):
                 if mutation == "missing_audit"
                 else {"contaminated": mutation == "audit"},
             }
-            (result.bundle_dir / "artifacts/spawn-metadata.json").write_text(json.dumps(meta))
+            (result.bundle_dir / "artifacts/spawn-metadata.json").write_text(
+                json.dumps(meta)
+            )
         return result
 
     kwargs["execute"] = execute
@@ -203,7 +226,9 @@ def test_tree_guard_and_unsafe_model(tmp_path):
 
 
 def test_cli_defaults():
-    args = build_parser().parse_args(["gap", "calibrate", "--harness", "codex", "--model", "m"])
+    args = build_parser().parse_args(
+        ["gap", "calibrate", "--harness", "codex", "--model", "m"]
+    )
     assert (args.reps, args.max_floor, args.min_ceiling) == (5, 0.2, 0.8)
 
 
@@ -227,7 +252,9 @@ def test_invalid_reps_refused_before_spawn_or_write(
         )
 
     monkeypatch.setattr("sew.gap.calibrate.module_root", lambda: kwargs["root"])
-    monkeypatch.setattr("sew.gap.calibrate.default_state_root", lambda: kwargs["state_root"])
+    monkeypatch.setattr(
+        "sew.gap.calibrate.default_state_root", lambda: kwargs["state_root"]
+    )
     monkeypatch.setattr("sew.gap.calibrate.run_harness", kwargs["execute"])
     args = ["gap", command, "--harness", "codex", "--model", kwargs["model"]]
     if previous_args:
@@ -245,7 +272,9 @@ def test_invalid_reps_refused_before_spawn_or_write(
     assert captured.err == "sew: error: reps must be a positive integer\n"
     assert captured.out == ""
     assert not configs and not export.exists()
-    assert {p: p.read_bytes() for p in kwargs["state_root"].rglob("*") if p.is_file()} == before
+    assert {
+        p: p.read_bytes() for p in kwargs["state_root"].rglob("*") if p.is_file()
+    } == before
 
 
 def test_cli_render(monkeypatch, setup, capsys):
@@ -306,9 +335,13 @@ def test_brief_grader_wiring(tmp_path, monkeypatch):
 
     run = tmp_path / "run"
     (run / "artifacts").mkdir(parents=True)
-    (run / "run.json").write_text(json.dumps({"harness_id": "codex", "provider_id": "floor"}))
+    (run / "run.json").write_text(
+        json.dumps({"harness_id": "codex", "provider_id": "floor"})
+    )
     (run / "artifacts/final-answer.json").write_text(json.dumps({"brief": "evidence"}))
-    monkeypatch.setattr("sew.gap.brief_grade.load_brief_rubric", lambda *a: {"rubric": "r"})
+    monkeypatch.setattr(
+        "sew.gap.brief_grade.load_brief_rubric", lambda *a: {"rubric": "r"}
+    )
 
     def grade(task, rubric, answer, **options):
         assert task["task_type"] == "brief"
@@ -386,9 +419,14 @@ def test_retry_recovers_cell_and_continues_batch(setup, monkeypatch, status):
     def execute(config, root):
         result = original(config, root)
         # Fail a middle cell, after earlier cells have already been graded.
-        if config.task_id == "golden-api-break" and "-floor-2" in config.run_id_override:
+        if (
+            config.task_id == "golden-api-break"
+            and "-floor-2" in config.run_id_override
+        ):
             if not config.run_id_override.endswith("-att3"):
-                (result.bundle_dir / "run.json").write_text(json.dumps({"status": status}))
+                (result.bundle_dir / "run.json").write_text(
+                    json.dumps({"status": status})
+                )
         return result
 
     def grader(task, run_dir, *args):
@@ -432,13 +470,13 @@ def test_retry_exhaustion_is_bounded_without_admission(setup, monkeypatch, statu
     assert not calibration_path(kwargs["state_root"], "codex", "gpt-test").exists()
 
 
-@pytest.mark.parametrize(
-    "status", ["provider_unavailable", "budget_exhausted", "cancelled"]
-)
+@pytest.mark.parametrize("status", ["budget_exhausted", "cancelled"])
 def test_nonretryable_status_stops_immediately(setup, monkeypatch, status):
     kwargs, configs = setup
     original = kwargs["execute"]
-    monkeypatch.setattr("sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("must not retry"))
+    monkeypatch.setattr(
+        "sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("must not retry")
+    )
 
     def execute(config, root):
         result = original(config, root)
@@ -451,15 +489,262 @@ def test_nonretryable_status_stops_immediately(setup, monkeypatch, status):
     assert len(configs) == 1
 
 
-@pytest.mark.parametrize("audit", [{"contaminated": True}, {}])
-def test_transient_status_never_bypasses_arm_audit(setup, monkeypatch, audit):
+@pytest.mark.parametrize("command", [calibrate, recalibrate])
+@pytest.mark.parametrize("deferrals", range(1, PROVIDER_UNAVAILABLE_MAX_DEFERRALS + 1))
+def test_provider_unavailable_deferred_to_end(setup, monkeypatch, command, deferrals):
     kwargs, configs = setup
+    catalog = kwargs["root"] / "catalogs/gap/tasks.yaml"
+    document = yaml.safe_load(catalog.read_text())
+    document["tasks"].append({**document["tasks"][0], "id": "golden-second"})
+    catalog.write_text(yaml.safe_dump(document))
+    if command is recalibrate:
+        calibrate(**kwargs, reps=2)
+        kwargs.update(model="gpt-new", previous_model="gpt-test")
+        configs.clear()
     original = kwargs["execute"]
-    monkeypatch.setattr("sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("must not retry"))
+    target = "golden-api-break-floor-2"
+    unavailable_dirs = []
+    monkeypatch.setattr(
+        "sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("immediate retry")
+    )
 
     def execute(config, root):
         result = original(config, root)
-        (result.bundle_dir / "run.json").write_text(json.dumps({"status": "timeout"}))
+        if config.run_id_override.startswith(target):
+            attempt = len(unavailable_dirs) + 1
+            metadata_path = result.bundle_dir / "artifacts/spawn-metadata.json"
+            metadata = json.loads(metadata_path.read_text())
+            metadata["arm_audit"].update(
+                denied_network_attempts=attempt,
+                config_neutralized_network_attempts=2 * attempt,
+            )
+            metadata_path.write_text(json.dumps(metadata))
+        if (
+            config.run_id_override.startswith(target)
+            and len(unavailable_dirs) < deferrals
+        ):
+            (result.bundle_dir / "run.json").write_text(
+                json.dumps({"status": "provider_unavailable"})
+            )
+            unavailable_dirs.append(str(result.bundle_dir))
+        return result
+
+    kwargs["execute"] = execute
+    record, _ = command(**kwargs, reps=2)
+    total_cells = 4 if command is recalibrate else 8
+    assert len(configs) == total_cells + deferrals
+    assert configs[1].run_id_override == target
+    assert all(
+        c.task_id == "golden-second" for c in configs[total_cells // 2 : total_cells]
+    )
+    assert [c.run_id_override for c in configs[total_cells:]] == [
+        f"{target}-defer{i}" for i in range(1, deferrals + 1)
+    ]
+    cell = record["tasks"][0]["floor"]["cells"][1]
+    assert cell["rep"] == 2 and cell["attempts"] == deferrals + 1
+    assert cell["attempt_run_dirs"] == unavailable_dirs + [cell["run_dir"]]
+    assert len(set(cell["attempt_run_dirs"])) == deferrals + 1
+    assert all(Path(d).is_dir() for d in cell["attempt_run_dirs"])
+    expected_denied = sum(range(1, deferrals + 2))
+    assert cell["denied_network_attempts"] == expected_denied
+    assert cell["config_neutralized_network_attempts"] == 2 * expected_denied
+    checkpoint = Path(record["run_dir"]) / f"{target}.calibration.json"
+    assert json.loads(checkpoint.read_text())["cell"] == cell
+    table = render_calibration(record)
+    assert f"Denied network attempts: {expected_denied}" in table
+    assert f"Config-neutralized network attempts: {2 * expected_denied}" in table
+    assert all(t["verdict"] == "admitted" for t in record["tasks"])
+
+
+def test_deferred_cell_keeps_contamination_and_immediate_retry_attempts(
+    setup, monkeypatch
+):
+    kwargs, configs = setup
+    original = kwargs["execute"]
+    target = "golden-api-break-floor-2"
+    statuses = {
+        target: "contaminated",
+        f"{target}-att2": "provider_unavailable",
+        f"{target}-defer1": "failed",
+    }
+    sleeps = []
+    monkeypatch.setattr("sew.gap.calibrate.time.sleep", sleeps.append)
+
+    def execute(config, root):
+        result = original(config, root)
+        if status := statuses.get(config.run_id_override):
+            (result.bundle_dir / "run.json").write_text(json.dumps({"status": status}))
+        return result
+
+    record, _ = calibrate(**(kwargs | {"execute": execute}), reps=2)
+    cell = record["tasks"][0]["floor"]["cells"][1]
+    assert len(configs) == 7 and sleeps == [1]
+    assert cell["attempts"] == 4
+    assert [Path(d).name for d in cell["attempt_run_dirs"]] == [
+        target,
+        f"{target}-att2",
+        f"{target}-defer1",
+        f"{target}-defer1-att2",
+    ]
+    assert cell["excluded_contaminated_run_dirs"] == cell["attempt_run_dirs"][:1]
+    assert record["excluded_contaminated_attempts"] == 1
+
+
+def test_success_breaks_provider_unavailable_streak(setup, monkeypatch):
+    kwargs, configs = setup
+    original = kwargs["execute"]
+    unavailable_positions = {1, 3, 4}
+    monkeypatch.setattr(
+        "sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("immediate retry")
+    )
+
+    def execute(config, root):
+        result = original(config, root)
+        if len(configs) in unavailable_positions:
+            (result.bundle_dir / "run.json").write_text(
+                json.dumps({"status": "provider_unavailable"})
+            )
+        return result
+
+    record, _ = calibrate(**(kwargs | {"execute": execute}), reps=3)
+    assert len(configs) == 9
+    assert sum(cell["attempts"] for cell in all_cells(record)) == 9
+    assert record["tasks"][0]["verdict"] == "admitted"
+
+
+def test_provider_unavailable_deferral_bound_names_resume(setup, monkeypatch):
+    kwargs, configs = setup
+    original = kwargs["execute"]
+    monkeypatch.setattr(
+        "sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("immediate retry")
+    )
+
+    def execute(config, root):
+        result = original(config, root)
+        if config.run_id_override.startswith("golden-api-break-floor-2"):
+            (result.bundle_dir / "run.json").write_text(
+                json.dumps({"status": "provider_unavailable"})
+            )
+        return result
+
+    kwargs["execute"] = execute
+    with pytest.raises(
+        CalibrationError, match="incomplete cell refused.*provider_unavailable"
+    ) as error:
+        calibrate(**kwargs, reps=2)
+    run_root = next((kwargs["state_root"] / "gap/calibration-runs").iterdir())
+    assert str(error.value).endswith(f"sew gap calibrate … --resume {run_root.name}")
+    unavailable = [
+        c for c in configs if c.run_id_override.startswith("golden-api-break-floor-2")
+    ]
+    assert len(unavailable) == PROVIDER_UNAVAILABLE_MAX_DEFERRALS + 1
+    assert len(configs) == 4 + PROVIDER_UNAVAILABLE_MAX_DEFERRALS
+    assert len(list(run_root.glob("*.calibration.json"))) == 3
+    assert not calibration_path(kwargs["state_root"], "codex", "gpt-test").exists()
+
+
+@pytest.mark.parametrize("command", [calibrate, recalibrate])
+def test_provider_unavailable_wall_resumes_checkpointed_cells(
+    setup, monkeypatch, command
+):
+    kwargs, configs = setup
+    if command is recalibrate:
+        calibrate(**kwargs)
+        kwargs.update(model="gpt-new", previous_model="gpt-test")
+        configs.clear()
+    original = kwargs["execute"]
+    monkeypatch.setattr(
+        "sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("immediate retry")
+    )
+
+    def execute(config, root):
+        result = original(config, root)
+        if len(configs) > 2:
+            (result.bundle_dir / "run.json").write_text(
+                json.dumps({"status": "provider_unavailable"})
+            )
+        return result
+
+    with pytest.raises(CalibrationError, match="provider_unavailable wall") as error:
+        command(**(kwargs | {"execute": execute}))
+    assert len(configs) == 2 + PROVIDER_UNAVAILABLE_STOP_STREAK
+    run_root = kwargs["state_root"] / "gap/calibration-runs"
+    previous = next(p for p in run_root.iterdir() if p.name in str(error.value))
+    assert str(error.value).endswith(f"sew gap calibrate … --resume {previous.name}")
+    checkpoints = [
+        json.loads(p.read_text()) for p in previous.glob("*.calibration.json")
+    ]
+    assert len(checkpoints) == 2
+    original_dirs = {c["cell"]["run_dir"] for c in checkpoints}
+    assert all(
+        (Path(d) / "evaluations/calibration-outcome.json").exists()
+        for d in original_dirs
+    )
+    configs.clear()
+    graded_dirs = []
+    original_grader = kwargs["grader"]
+
+    def grader(task, directory, *args):
+        graded_dirs.append(str(directory))
+        return original_grader(task, directory, *args)
+
+    record, _ = command(**(kwargs | {"grader": grader}), resume=previous.name)
+    assert len(configs) == (5 if command is recalibrate else 10) - 2
+    cells = record["tasks"][0]["floor"]["cells"]
+    if command is calibrate:
+        cells += record["tasks"][0]["ceiling"]["cells"]
+    assert {c["run_dir"] for c in cells if c["reused"]} == original_dirs
+    assert original_dirs.isdisjoint(graded_dirs)
+    assert record["resumed_from"] == previous.name
+
+
+@pytest.mark.parametrize(
+    "failure", ["failed", "contaminated", "ungraded", "audit", "verifier"]
+)
+def test_refusal_after_checkpoint_names_resume(setup, monkeypatch, failure):
+    kwargs, configs = setup
+    original = kwargs["execute"]
+    original_grader = kwargs["grader"]
+    monkeypatch.setattr("sew.gap.calibrate.time.sleep", lambda *a: None)
+
+    def execute(config, root):
+        result = original(config, root)
+        if len(configs) > 1:
+            if failure in {"failed", "contaminated"}:
+                (result.bundle_dir / "run.json").write_text(
+                    json.dumps({"status": failure})
+                )
+            elif failure == "audit":
+                (result.bundle_dir / "artifacts/spawn-metadata.json").write_text("{}")
+        return result
+
+    def grader(task, directory, *args):
+        if len(configs) > 1:
+            if failure == "ungraded":
+                return {"outcome": "not_applicable"}
+            if failure == "verifier":
+                return {"outcome": "fail", "errors": ["synthetic verifier error"]}
+        return original_grader(task, directory, *args)
+
+    with pytest.raises(CalibrationError) as error:
+        calibrate(**(kwargs | {"execute": execute, "grader": grader}), reps=2)
+    previous = next((kwargs["state_root"] / "gap/calibration-runs").iterdir())
+    assert str(error.value).endswith(f"sew gap calibrate … --resume {previous.name}")
+    assert (previous / "golden-api-break-floor-1.calibration.json").exists()
+
+
+@pytest.mark.parametrize("audit", [{"contaminated": True}, {}])
+@pytest.mark.parametrize("status", ["timeout", "provider_unavailable"])
+def test_transient_status_never_bypasses_arm_audit(setup, monkeypatch, audit, status):
+    kwargs, configs = setup
+    original = kwargs["execute"]
+    monkeypatch.setattr(
+        "sew.gap.calibrate.time.sleep", lambda *a: pytest.fail("must not retry")
+    )
+
+    def execute(config, root):
+        result = original(config, root)
+        (result.bundle_dir / "run.json").write_text(json.dumps({"status": status}))
         (result.bundle_dir / "artifacts/spawn-metadata.json").write_text(
             json.dumps({"model_id": config.model_id, "arm_audit": audit})
         )
@@ -496,7 +781,9 @@ def test_source_capture_rejects_private_addresses(monkeypatch, address, via_dns)
         "sew.gap.calibrate._open_reachability_request",
         lambda *a: pytest.fail("unsafe source must not be fetched"),
     )
-    monkeypatch.setattr("socket.getaddrinfo", lambda *a, **k: [(0, 0, 0, "", (address, 443))])
+    monkeypatch.setattr(
+        "socket.getaddrinfo", lambda *a, **k: [(0, 0, 0, "", (address, 443))]
+    )
     host = "example.org" if via_dns else (f"[{address}]" if ":" in address else address)
     with pytest.raises(ValueError, match="public addresses"):
         _capture_source(f"https://{host}")
@@ -525,7 +812,9 @@ def test_source_capture_rejects_mixed_dns_answers(monkeypatch):
         (b"bad\xff", "unknown-charset", "bad\ufffd"),
     ],
 )
-def test_source_capture_encoding_and_pinned_transport(monkeypatch, data, charset, expected):
+def test_source_capture_encoding_and_pinned_transport(
+    monkeypatch, data, charset, expected
+):
     from email.message import Message
     from io import BytesIO
     from urllib.request import ProxyHandler
@@ -551,12 +840,18 @@ def test_source_capture_encoding_and_pinned_transport(monkeypatch, data, charset
 
     def build_opener(*handlers):
         assert next(h for h in handlers if isinstance(h, ProxyHandler)).proxies == {}
-        redirect = next(h for h in handlers if isinstance(h, evaluator._NoRedirectHandler))
+        redirect = next(
+            h for h in handlers if isinstance(h, evaluator._NoRedirectHandler)
+        )
         assert (
-            redirect.redirect_request(None, None, 302, "Found", {}, "https://127.0.0.1/private")
+            redirect.redirect_request(
+                None, None, 302, "Found", {}, "https://127.0.0.1/private"
+            )
             is None
         )
-        handler = next(h for h in handlers if isinstance(h, evaluator._PinnedHTTPSHandler))
+        handler = next(
+            h for h in handlers if isinstance(h, evaluator._PinnedHTTPSHandler)
+        )
         connection = handler._connection_factory("example.org", timeout=30)
         destinations, tls_hosts = [], []
         sock = object()
@@ -600,9 +895,13 @@ def test_contaminated_reference_excluded_and_rep_retried(setup, audit_only):
                 "config_neutralized_network_attempts": 99 if len(configs) == 1 else 3,
             },
         }
-        (result.bundle_dir / "artifacts/spawn-metadata.json").write_text(json.dumps(metadata))
+        (result.bundle_dir / "artifacts/spawn-metadata.json").write_text(
+            json.dumps(metadata)
+        )
         if len(configs) == 1 and not audit_only:
-            (result.bundle_dir / "run.json").write_text(json.dumps({"status": "contaminated"}))
+            (result.bundle_dir / "run.json").write_text(
+                json.dumps({"status": "contaminated"})
+            )
         return result
 
     kwargs["execute"] = execute
@@ -635,7 +934,9 @@ def test_contamination_retry_bound_message(setup):
 
     def execute(config, root):
         result = original(config, root)
-        (result.bundle_dir / "run.json").write_text(json.dumps({"status": "contaminated"}))
+        (result.bundle_dir / "run.json").write_text(
+            json.dumps({"status": "contaminated"})
+        )
         return result
 
     kwargs["execute"] = execute

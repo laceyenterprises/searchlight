@@ -1245,8 +1245,10 @@
       "graded.get('outcome') not in {'pass', 'fail'}",
       "run.get('status') != 'succeeded'",
       "run['status'] == 'contaminated'",
-      "run['status'] == 'succeeded'",
-      "run['status'] not in RETRYABLE_STATUSES"
+      "run['status'] in {'succeeded', 'provider_unavailable'}",
+      "run['status'] not in RETRYABLE_STATUSES",
+      "status == 'provider_unavailable'",
+      "status, cell = _execute_cell(config, run_root, execute)"
     ],
     "gap/workspace.py": [
       "entry.get('status') == 'failed'",
