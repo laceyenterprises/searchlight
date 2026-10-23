@@ -1147,9 +1147,11 @@ def probe(name, argv):
         results[name] = {'exit_code': None, 'error': str(exc)}
 # The bench proxy returns an attributable reason in the CONNECT response.
 # Curl otherwise reports only the status code, which cannot qualify a denial.
+# Pip otherwise hides that reason behind package-not-found errors.
 curl_options = ['--verbose'] if harness == 'codex' and sys.platform == 'darwin' else []
+pip_options = ['-vv'] if harness == 'codex' and sys.platform == 'darwin' else []
 probe('curl', ['curl', '--disable', *curl_options, '-k', '--max-time', '8', 'https://' + curl_host + '/'])
-probe('pip', [sys.executable, '-m', 'pip', '--isolated', 'download', '--no-cache-dir',
+probe('pip', [sys.executable, '-m', 'pip', '--isolated', 'download', *pip_options, '--no-cache-dir',
               '--retries', '0', '--timeout', '8', '--index-url', 'https://pypi.org/simple',
               '--dest', '.', 'pip'])
 probe('https', [sys.executable, '-c',

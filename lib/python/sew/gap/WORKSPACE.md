@@ -255,9 +255,10 @@ cell-wheelhouse mutation and rename denials under the final launch profile.
 It also qualifies an outside-scratch write and the direct socket denial
 (1.1.1.1:443, requiring EPERM/EACCES). The separate Codex invocation must still
 complete the exact curl, isolated pip download and Python HTTPS canary before
-the task. macOS Codex adds verbose curl diagnostics so the proxy's CONNECT
-permission-denial reason is visible; a bare HTTP status cannot qualify. Any
-failure refuses. Portable harness policy and Linux behavior stay unchanged.
+the task. macOS Codex adds curl `--verbose` and pip `-vv` diagnostics so the
+proxy's CONNECT permission-denial reason is visible. A bare HTTP status or
+pip's package-not-found output cannot qualify a denial. Any failure refuses.
+Portable harness policy and Linux behavior stay unchanged.
 
 Codex evidence records `runner_id: bench-seatbelt`,
 `policy_scope: harness-tree-profile`, `harness_tree_confined: true`,

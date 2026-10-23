@@ -305,17 +305,34 @@ def test_codex_real_seatbelt_denies_reads_renames_and_write_escape(
 
 
 @pytest.mark.parametrize("platform", ["darwin", "linux"])
-def test_codex_curl_exposes_proxy_denial_reason(monkeypatch, capsys, platform):
+@pytest.mark.parametrize("pip_denial", [True, False])
+def test_codex_canary_exposes_proxy_denial_reason(
+    monkeypatch, capsys, platform, pip_denial
+):
     nonce, command = workspace.canary_command("codex")
     calls = []
 
     def run(argv, **kwargs):
         calls.append(argv)
-        # Synthetic curl diagnostics: a bare 403 cannot qualify. The verbose
-        # CONNECT response carries the endpoint proxy's attributable reason.
-        error = "Permission denied: endpoint not allowlisted"
-        if argv[0] == "curl" and "--verbose" not in argv:
-            error = "curl: (56) CONNECT tunnel failed, response 403"
+        # Synthetic client diagnostics expose the proxy's attributable reason
+        # only when curl and pip run verbose.
+        reason = "403 Permission denied: endpoint not allowlisted"
+        if argv[0] == "curl":
+            error = (
+                "< HTTP/1.0 " + reason
+                if "--verbose" in argv
+                else "curl: (56) CONNECT tunnel failed, response 403"
+            )
+            return subprocess.CompletedProcess(argv, 56, "", error)
+        if argv[1:3] == ["-m", "pip"]:
+            error = (
+                "ProxyError: Tunnel connection failed: " + reason
+                if "-vv" in argv and pip_denial
+                else "ERROR: Could not find a version that satisfies the requirement pip "
+                "(from versions: none)\nERROR: No matching distribution found for pip"
+            )
+        else:
+            error = "URLError: <urlopen error Tunnel connection failed: " + reason + ">"
         return subprocess.CompletedProcess(argv, 1, "", error)
 
     monkeypatch.setattr(sys, "platform", platform)
@@ -334,10 +351,13 @@ def test_codex_curl_exposes_proxy_denial_reason(monkeypatch, capsys, platform):
             "status": "completed",
         },
     }
-    if platform == "darwin":
-        assert calls[0][1:3] == ["--disable", "--verbose"]
-        assert workspace.require_canary([event], nonce, command, harness_id="codex")
+    assert ("--verbose" in calls[0]) == (platform == "darwin")
+    assert ("-vv" in calls[1]) == (platform == "darwin")
+    if platform == "darwin" and pip_denial:
+        record = workspace.require_canary([event], nonce, command, harness_id="codex")
+        assert all(
+            probe["attribution"] == "denial-text" for probe in record["probes"].values()
+        )
     else:
-        assert "--verbose" not in calls[0]
         with pytest.raises(workspace.EgressCanaryRefused, match="denial unproven"):
             workspace.require_canary([event], nonce, command, harness_id="codex")

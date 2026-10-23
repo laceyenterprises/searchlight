@@ -602,7 +602,8 @@ def test_canary_fails_closed(harness, failure):
 
 
 @pytest.mark.parametrize("harness", ["claude-code", "codex"])
-def test_canary_program_executes_each_probe(monkeypatch, capsys, harness):
+@pytest.mark.parametrize("platform", ["darwin", "linux"])
+def test_canary_program_executes_each_probe(monkeypatch, capsys, harness, platform):
     calls = []
 
     def run(argv, **kwargs):
@@ -610,20 +611,50 @@ def test_canary_program_executes_each_probe(monkeypatch, capsys, harness):
         return subprocess.CompletedProcess(argv, 1, "", "Operation not permitted")
 
     monkeypatch.setattr(subprocess, "run", run)
+    monkeypatch.setattr(sys, "platform", platform)
 
     monkeypatch.setattr(sys, "argv", ["probe", harness, "nonce"])
     exec(CANARY_PROGRAM, {})
     output = capsys.readouterr().out
     assert len(calls) == 3
-    assert calls[0][0] == "curl"
-    assert "download" in calls[1] and "--isolated" in calls[1]
-    assert calls[2][0:2] == [sys.executable, "-c"]
-    assert calls[0][-1] == (
-        "https://nonce.example.com/" if harness == "claude-code" else "https://1.1.1.1/"
-    )
-    assert calls[2][-1] == (
-        "https://nonce.example.org/" if harness == "claude-code" else "https://1.1.1.1/"
-    )
+    verbose = harness == "codex" and platform == "darwin"
+    assert calls[0] == [
+        "curl",
+        "--disable",
+        *(["--verbose"] if verbose else []),
+        "-k",
+        "--max-time",
+        "8",
+        "https://nonce.example.com/"
+        if harness == "claude-code"
+        else "https://1.1.1.1/",
+    ]
+    assert calls[1] == [
+        sys.executable,
+        "-m",
+        "pip",
+        "--isolated",
+        "download",
+        *(["-vv"] if verbose else []),
+        "--no-cache-dir",
+        "--retries",
+        "0",
+        "--timeout",
+        "8",
+        "--index-url",
+        "https://pypi.org/simple",
+        "--dest",
+        ".",
+        "pip",
+    ]
+    assert calls[2] == [
+        sys.executable,
+        "-c",
+        "import urllib.request, sys; urllib.request.urlopen(sys.argv[1], timeout=8)",
+        "https://nonce.example.org/"
+        if harness == "claude-code"
+        else "https://1.1.1.1/",
+    ]
     assert set(json.loads(output.removeprefix("GAP_CANARY:"))["probes"]) == {
         "curl",
         "pip",
