@@ -24,11 +24,34 @@ def test_codex_bench_replaces_sandbox_option(mode, inline):
     assert argv == original
 
 
-@pytest.mark.parametrize("prefix", [["codex"], ["codex", "exec"], ["codex", "--ephemeral", "exec"]])
+@pytest.mark.parametrize("prefix", [
+    ["codex"],
+    ["codex", "exec"],
+    ["codex", "--ephemeral", "exec"],
+    ["codex", "--profile", "exec", "exec"],
+    ["codex", "--profile", "exec", "--cd", "exec", "exec"],
+])
 def test_codex_bench_inserts_missing_sandbox_option(prefix):
     argv = [*prefix, "-"]
-    assert workspace._codex_bench_argv(argv) == [*prefix, "--sandbox", "danger-full-access", "-"]
+    assert workspace._codex_bench_argv(argv) == [
+        prefix[0], "--sandbox", "danger-full-access", *prefix[1:], "-"
+    ]
     assert argv == [*prefix, "-"]
+
+
+@pytest.mark.parametrize("first", [["--sandbox", "workspace-write"], ["--sandbox=read-only"]])
+@pytest.mark.parametrize("second", [
+    ["--sandbox", "workspace-write"],
+    ["--sandbox=read-only"],
+    ["--sandbox", "danger-full-access"],
+    ["--sandbox=unknown"],
+])
+def test_codex_bench_refuses_duplicate_sandbox_options(first, second):
+    argv = ["codex", *first, "exec", "--json", *second, "-"]
+    original = list(argv)
+    with pytest.raises(workspace.EgressCanaryRefused, match="duplicate Codex cell sandbox options"):
+        workspace._codex_bench_argv(argv)
+    assert argv == original
 
 
 @pytest.mark.parametrize("option", [

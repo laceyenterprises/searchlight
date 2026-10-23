@@ -85,6 +85,9 @@ whole process tree. The driver changes the generated Codex argument to the
 [documented `--sandbox danger-full-access` mode](https://developers.openai.com/codex/cli/reference/)
 inside that profile, retaining `approval_policy = "never"` in the isolated
 `CODEX_HOME`. No `codex sandbox` runner or nested `sandbox_apply` is attempted.
+Duplicate sandbox options refuse launch. A missing sandbox option is inserted
+as a global option after the executable without interpreting option values as
+subcommands.
 `HOME` and `TMPDIR` move into cell scratch. Writes outside scratch are denied
 apart from the existing device exceptions; direct egress is denied except the
 bench endpoint proxy and the selected loopback model endpoint.

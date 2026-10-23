@@ -1715,15 +1715,18 @@ def _portable(harness_id):
 def _codex_bench_argv(argv):
     """Disable Codex's inner sandbox only for launch under the bench profile."""
     command = list(argv)
-    index = next(
-        (i for i, arg in enumerate(command) if arg == "--sandbox" or arg.startswith("--sandbox=")),
-        None,
-    )
+    indices = [
+        i for i, arg in enumerate(command) if arg == "--sandbox" or arg.startswith("--sandbox=")
+    ]
+    if len(indices) > 1:
+        raise EgressCanaryRefused("GAP refused: duplicate Codex cell sandbox options")
+    index = indices[0] if indices else None
     if index is None:
         # The protocol normally supplies this option. Keep direct callers
-        # explicit too; the bench profile must be installed before launch.
-        insert_at = command.index("exec") + 1 if "exec" in command else 1
-        command[insert_at:insert_at] = ["--sandbox", "danger-full-access"]
+        # explicit too. This is a global option: inserting after the executable
+        # avoids mistaking an option value for the subcommand. The bench profile
+        # must be installed before launch.
+        command[1:1] = ["--sandbox", "danger-full-access"]
     else:
         inline = command[index].startswith("--sandbox=")
         mode = command[index].split("=", 1)[1] if inline else (
