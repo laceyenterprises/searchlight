@@ -1410,10 +1410,10 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str, env=Non
         return records[0]
     if len(records) > 1:
         raise EgressCanaryRefused("GAP refused: more than one GAP_CANARY: record found")
-    from ..live_harness import _scrub_canary_credentials, scrub_text
+    from ..live_harness import scrub_canary_credentials, scrub_text
 
     # Scrub before clipping so a truncated credential cannot escape recognition.
-    tail = _scrub_canary_credentials(
+    tail = scrub_canary_credentials(
         scrub_text("\n".join(output for _, output in outputs)), env or {}
     )
     tail = re.sub(r"https?://[^\s\"'<>]+", "<redacted:url>", tail)
@@ -1423,7 +1423,7 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str, env=Non
     raise EgressCanaryRefused(
         "GAP refused: canary command ran but printed no GAP_CANARY: line; "
         + "output tail: "
-        + (tail or "<empty>")
+        + (tail.strip() or "<empty>")
     )
 
 
@@ -1645,10 +1645,10 @@ def qualify_claude_code(
 
     def retain():
         if refusal_path is not None:
-            from ..live_harness import scrub_value, _scrub_canary_credentials, _elide_to_cap
+            from ..live_harness import scrub_value, scrub_canary_credentials, _elide_to_cap
 
             Path(refusal_path).write_text(
-                json.dumps(_elide_to_cap(_scrub_canary_credentials(scrub_value(captured), env))),
+                json.dumps(_elide_to_cap(scrub_canary_credentials(scrub_value(captured), env))),
                 encoding="utf-8",
             )
 
@@ -1728,9 +1728,9 @@ def qualify_claude_code(
             if isinstance(exc, EgressCanaryRefused)
             else EgressCanaryRefused("GAP refused: out-of-model Claude probes failed: " + detail)
         )
-        from ..live_harness import scrub_value, _scrub_canary_credentials
+        from ..live_harness import scrub_value, scrub_canary_credentials
 
-        captured["reason"] = scrub_value(_scrub_canary_credentials(str(refusal), env))[:500]
+        captured["reason"] = scrub_value(scrub_canary_credentials(str(refusal), env))[:500]
         retain()
         if refusal is exc:
             raise
@@ -2164,9 +2164,9 @@ def bench_network_boundary(
                 )
             )
         except Exception as exc:
-            from ..live_harness import scrub_value, _scrub_canary_credentials
+            from ..live_harness import scrub_value, scrub_canary_credentials
 
-            evidence["reason"] = scrub_value(_scrub_canary_credentials(str(exc), env))[:500]
+            evidence["reason"] = scrub_value(scrub_canary_credentials(str(exc), env))[:500]
             retain()
             raise
         yield boundary

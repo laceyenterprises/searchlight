@@ -274,7 +274,10 @@ after the bench boundary had qualified them. That restored `--sandbox
 workspace-write` inside the Seatbelt prefix, reintroducing a nested sandbox
 for the canary even though the direct probe and task arguments used
 `danger-full-access`. The driver now reuses the qualified arguments for
-stdin-prompt harnesses. Hermes still substitutes its canary prompt in argv.
+stdin-prompt harnesses. `HarnessProtocol.takes_prompt_in_argv` defaults to
+`False`, so stdin launches are reused without regenerating arguments even if
+`prompt_argv` would produce a new launch ID. Hermes opts in with `True` and
+still substitutes its canary prompt in argv.
 Linux retains its qualified bubblewrap arguments and inner Codex sandbox.
 
 The existing `CANARY_PROGRAM` and `_same_command` shell-wrapper rules are
@@ -289,7 +292,9 @@ Every probe still needs a nonzero integer exit and attributable denial.
 Missing evidence now distinguishes no matching completed command, a matching
 command with no `GAP_CANARY:` line, and more than one record. The no-line
 refusal includes the last three output lines, capped at 300 characters after
-credential, URL, path and account redaction; empty output is explicit. Malformed
+credential, URL, path and account redaction; empty or whitespace-only output is
+explicitly `<empty>`. Shared exact-credential redaction uses the public
+`scrub_canary_credentials` helper in `sew.live_harness`. Malformed
 or mismatched records, extra tools and reached or unattributed probes still
 refuse admission. A minimal Seatbelt capability probe refused nested
 `sandbox_apply` in the worker, so no live bench-profile Codex canary or

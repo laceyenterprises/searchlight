@@ -69,6 +69,11 @@ Protocol, spawn writer and usage parser references can use `module:attribute`
 strings, resolved lazily to avoid import cycles. Judges remain explicitly pinned
 to the hosted harnesses they support.
 
+Protocols default to stdin prompts. A protocol that carries its prompt in argv
+must set `takes_prompt_in_argv = True` and implement `prompt_argv`; GAP uses this
+explicit capability to substitute the canary prompt while retaining qualified
+launch arguments for stdin protocols.
+
 ```mermaid
 flowchart LR
   subgraph Catalogs

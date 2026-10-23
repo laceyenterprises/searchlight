@@ -262,6 +262,8 @@ class HarnessProtocol:
     """Per-harness argv and stream-event vocabulary."""
 
     harness_id = ""
+    # Stdin is the default; argv-prompt protocols must explicitly opt in.
+    takes_prompt_in_argv = False
 
     def argv(self, binary: str, config: HarnessRunConfig, last_message_path: Path) -> list[str]:
         raise NotImplementedError
@@ -460,7 +462,7 @@ def codex_profile_model(
     return model, origin
 
 
-def _scrub_canary_credentials(value, environment):
+def scrub_canary_credentials(value, environment):
     """Redact string leaves and keys without altering JSON types or escaping."""
     secrets = sorted(
         {v for k, v in environment.items() if v and TRANSCRIPT_SECRET_KEY_RE.search(k)},
@@ -896,21 +898,19 @@ def run_live_harness(
                         )
                         # A harness that takes its prompt in argv (Hermes) gets
                         # the canary prompt there; stdin harnesses are unchanged.
-                        prompt_argv = protocol.prompt_argv(
-                            binary, spawn_config, last_message_path, canary_prompt
-                        )
                         # Stdin harnesses must retain the qualified launch argv.
                         # Rebuilding Codex's args restores workspace-write and
                         # attempts a nested Seatbelt sandbox on macOS.
-                        canary_argv = (
-                            argv
-                            if prompt_argv == harness_argv
-                            else [
+                        canary_argv = argv
+                        if protocol.takes_prompt_in_argv:
+                            prompt_argv = protocol.prompt_argv(
+                                binary, spawn_config, last_message_path, canary_prompt
+                            )
+                            canary_argv = [
                                 *argv[: len(argv) - len(harness_argv)],
                                 argv[len(argv) - len(harness_argv)],
                                 *prompt_argv[1:],
                             ]
-                        )
                         canary = spawn_and_capture(
                             canary_argv,
                             prompt=canary_prompt,
@@ -942,7 +942,7 @@ def run_live_harness(
                         }
                         # Keep the failed probe too, and apply exact credential
                         # scrubbing before anything reaches the durable bundle.
-                        canary_evidence = _scrub_canary_credentials(
+                        canary_evidence = scrub_canary_credentials(
                             scrub_value(canary_evidence), child_env
                         )
                         _write_json(canary_path, _elide_to_cap(canary_evidence))
@@ -969,7 +969,7 @@ def run_live_harness(
                                 env=child_env,
                             )
                         except EgressCanaryRefused as exc:
-                            reason = _scrub_canary_credentials(str(exc), child_env)
+                            reason = scrub_canary_credentials(str(exc), child_env)
                             canary_evidence["reason"] = reason
                             _write_json(canary_path, _elide_to_cap(canary_evidence))
                             raise EgressCanaryRefused(reason) from None

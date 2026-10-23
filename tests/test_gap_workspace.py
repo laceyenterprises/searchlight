@@ -377,6 +377,7 @@ def test_codex_bench_canary_completed_shell_record():
         "wrong-command",
         "no-output",
         "empty-output",
+        "whitespace-output",
         "duplicate",
         "reached",
     ],
@@ -397,7 +398,7 @@ def test_codex_bench_canary_diagnostic_refusals(failure):
         item["command"] += "; echo changed"
         events[2]["item"]["command"] = item["command"]
         message = "no matching canary command observed"
-    elif failure in {"no-output", "empty-output"}:
+    elif failure in {"no-output", "empty-output", "whitespace-output"}:
         item.update(
             exit_code=71,
             status="failed",
@@ -408,7 +409,7 @@ def test_codex_bench_canary_diagnostic_refusals(failure):
                 "Authorization: Bearer synthetic-credential-value\n"
                 "https://fixture.invalid/private user@fixture.invalid"
                 if failure == "no-output"
-                else ""
+                else ("\n  \n\t" if failure == "whitespace-output" else "")
             ),
         )
         message = "canary command ran but printed no GAP_CANARY: line"
@@ -435,8 +436,8 @@ def test_codex_bench_canary_diagnostic_refusals(failure):
             )
         )
         assert len(reason) < 450
-    if failure == "empty-output":
-        assert "output tail: <empty>" in str(caught.value)
+    if failure in {"empty-output", "whitespace-output"}:
+        assert str(caught.value).endswith("output tail: <empty>")
 
 
 @pytest.mark.parametrize("bench_seatbelt", [True, False])
@@ -447,6 +448,17 @@ def test_live_codex_canary_retains_qualified_launch(
     launches = []
     qualified = []
     secret = "synthetic-cell-credential" * 20
+    prompt_argv_calls = []
+
+    def changing_prompt_argv(self, binary, config, last_message_path, prompt):
+        # A stdin protocol may generate a different launch ID on every call.
+        prompt_argv_calls.append(prompt)
+        return [
+            *self.argv(binary, config, last_message_path),
+            "-c", f"synthetic_launch_id={len(prompt_argv_calls)}",
+        ]
+
+    monkeypatch.setattr(CodexProtocol, "prompt_argv", changing_prompt_argv)
 
     @contextmanager
     def boundary(argv, env, **kwargs):
@@ -465,6 +477,7 @@ def test_live_codex_canary_retains_qualified_launch(
     def spawn(argv, *, prompt, **kwargs):
         launches.append(list(argv))
         assert argv == qualified
+        assert len(prompt_argv_calls) == 1
         mode = argv[argv.index("--sandbox") + 1]
         assert mode == ("danger-full-access" if bench_seatbelt else "workspace-write")
         if len(launches) == 1:
@@ -1271,7 +1284,7 @@ def test_diff_refuses_git_failure(tmp_path, monkeypatch):
 def test_canary_credentials_preserve_json_types_and_escape_safety():
     secret = 'quoted"secret\\value'
     evidence = {"exit_code": 1, "events": [{"message": secret + " 1"}], "ok": False}
-    result = live_harness._scrub_canary_credentials(
+    result = live_harness.scrub_canary_credentials(
         evidence, {"API_KEY": secret, "AUTH_TOKEN": "1"}
     )
     assert result["exit_code"] == 1

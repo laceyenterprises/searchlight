@@ -8,6 +8,7 @@ from .hermes import usage_parser
 
 class HermesProtocol(HarnessProtocol):
     harness_id = "hermes"
+    takes_prompt_in_argv = True
 
     def argv(self, binary, config, last_message_path):
         return [binary, "-z", config.prompt_text or "", "-m",
