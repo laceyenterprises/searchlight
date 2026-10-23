@@ -147,7 +147,7 @@ def prepare_python_environment(
 ) -> dict:
     """Provide the catalog runner offline, outside the source diff and host Python."""
     # Local import: the verifier also uses workspace materialization helpers.
-    from .verify import _copy_verifier_tooling
+    from .verify import _copy_verifier_tooling, _execute
 
     environment = scratch / "venv"
     venv.EnvBuilder(with_pip=True, symlinks=False).create(environment)
@@ -172,7 +172,7 @@ def prepare_python_environment(
         encoding="utf-8",
     )
     launcher.chmod(0o755)
-    return {
+    env = {
         **offline_env,
         "VIRTUAL_ENV": str(environment),
         "PATH": str(environment / "bin")
@@ -182,6 +182,43 @@ def prepare_python_environment(
         "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
         "SEW_GAP_PYTEST_VERSION": tooling["pytest"],
     }
+    workspace = scratch / "workspace"
+    requirements = workspace / "requirements.txt"
+    if requirements.exists() or requirements.is_symlink():
+        pins = workspace_requirement_pins(requirements, workspace)
+        if not _pinned_offline_pip_env(env) or not env.get("PIP_FIND_LINKS"):
+            raise SchemaError(
+                "GAP requirements need the pinned offline pip environment"
+            )
+        if pins:
+            home = scratch / "install-home"
+            home.mkdir()
+            temporary = scratch / "install-tmp"
+            temporary.mkdir()
+            installed = _execute(
+                [
+                    str(environment / "bin/python"),
+                    "-I",
+                    "-m",
+                    "pip",
+                    "install",
+                    "--no-index",
+                    "--no-cache-dir",
+                    "--only-binary=:all:",
+                    "--find-links",
+                    env["PIP_FIND_LINKS"],
+                    *pins,
+                ],
+                workspace,
+                {**env, "HOME": str(home), "TMPDIR": str(temporary)},
+                120,
+                sandbox_root=scratch,
+                sandbox_write_roots=[environment, home, temporary],
+            )
+            if installed["exit_code"] or installed["timed_out"]:
+                raise SchemaError("GAP offline requirements installation failed")
+        env["SEW_GAP_REQUIREMENTS_PINS"] = json.dumps(pins)
+    return env
 
 
 def _tree_paths(tree: Path):
@@ -479,9 +516,9 @@ def _pip_index_option(arg, *, include_isolated=True):
 
 
 def _pip_unverified_source_option(arg):
-    # Requirements/constraints can recursively add remote sources. Even a
-    # local find-links HTML file can point to remote wheels. The transcript
-    # contains no immutable copy of these inputs, so none can certify locality.
+    # Detect every indirect source. The exemption separately validates bounded
+    # workspace requirements; constraints and find-links HTML remain untrusted
+    # because they can recursively introduce remote inputs.
     option = arg.partition("=")[0]
     return (
         option.startswith("--")
@@ -514,6 +551,40 @@ def _pip_dynamic_arguments(args):
 # parser: shell syntax is open-ended, so anything unrecognized is not exempt.
 PIP_EXEMPT_FLAGS = frozenset({"--no-deps", "--no-index", "-q", "--quiet"})
 PIP_EXEMPT_PIN = re.compile(r"[A-Za-z0-9](?:[A-Za-z0-9._-]*[A-Za-z0-9])?==([0-9][A-Za-z0-9.+_-]*)")
+
+
+def workspace_requirement_pins(path, workspace) -> list[str]:
+    """Read only bounded workspace requirements containing literal exact pins."""
+    try:
+        root = Path(workspace).resolve(strict=True)
+        # pip interprets URI schemes before opening a requirements file. Do not
+        # certify a similarly named local path for a different remote input.
+        if re.match(r"[A-Za-z][A-Za-z0-9+.-]*:", str(path)):
+            raise ValueError("requirements URI is not a workspace path")
+        path = Path(path)
+        if not path.is_absolute():
+            path = root / path
+        path = path.resolve(strict=True)
+        if not path.is_relative_to(root) or not path.is_file():
+            raise ValueError("requirements outside workspace")
+        with path.open("rb") as source:
+            content = source.read(MAX_WORKSPACE_FILE_BYTES + 1)
+        if len(content) > MAX_WORKSPACE_FILE_BYTES:
+            raise ValueError("requirements exceed cap")
+        pins = []
+        for line in content.decode("utf-8").splitlines():
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            pin = PIP_EXEMPT_PIN.fullmatch(line)
+            if pin is None or not _is_version(pin[1]):
+                raise ValueError("non-pinned requirement")
+            pins.append(line)
+        return pins
+    except (OSError, ValueError, RuntimeError) as exc:
+        raise SchemaError(
+            "requirements must be exact pins inside the cell workspace"
+        ) from exc
 
 
 def _shell_body(args):
@@ -629,7 +700,7 @@ def _pinned_offline_pip_env(env) -> bool:
     )
 
 
-def pip_command_is_exempt(command, env) -> bool:
+def pip_command_is_exempt(command, env, *, cwd=None) -> bool:
     """Exempt only a direct, pinned, local-only pip download/install request."""
     if not _pinned_offline_pip_env(env) or not isinstance(command, str):
         return False
@@ -638,6 +709,19 @@ def pip_command_is_exempt(command, env) -> bool:
         argv = shlex.split(command)
     except ValueError:
         return False
+    # Unwrap only the harness's canonical shell envelope, once. The body still
+    # has to pass the direct-command allowlist below.
+    if (
+        len(argv) == 3
+        and argv[0] == "/bin/zsh"
+        and argv[1] in {"-lc", "-c"}
+        and shlex.join(argv) == command
+    ):
+        command = argv[2]
+        try:
+            argv = shlex.split(command)
+        except ValueError:
+            return False
     # Canonical quoting proves every word is a literal: no wrapper, operator,
     # redirection, expansion, substitution or comment can be present.
     if not argv or shlex.join(argv) != command:
@@ -667,6 +751,14 @@ def pip_command_is_exempt(command, env) -> bool:
             index += 2
         elif arg == "--find-links" and wheelhouse and value == wheelhouse:
             index += 2
+        elif (
+            arg in {"-r", "--requirement"} and value and cwd is not None and wheelhouse
+        ):
+            try:
+                pins += len(workspace_requirement_pins(value, cwd))
+            except SchemaError:
+                return False
+            index += 2
         elif (pin := PIP_EXEMPT_PIN.fullmatch(arg)) and _is_version(pin[1]):
             pins += 1
             index += 1
@@ -688,7 +780,9 @@ def _shell_network_segments(
     if segments is None:
         return None
     invocations = [_shell_invocation(args) for args in segments]
-    offline_override = inherited_offline_override or any(override for _, _, override in invocations)
+    offline_override = inherited_offline_override or any(
+        override for _, _, override in invocations
+    )
     network_segments = []
     for body, nesting in substitutions:
         nested = _shell_network_segments(
@@ -730,7 +824,8 @@ def _shell_network_segments(
                         or (
                             "set" in tail
                             and tail[index + 1 : index + 2]
-                            and tail[index + 1].casefold() in {"", "0", "false", "no", "off"}
+                            and tail[index + 1].casefold()
+                            in {"", "0", "false", "no", "off"}
                         )
                     ):
                         network_segments.append(args)
@@ -746,6 +841,21 @@ def _shell_network_segments(
                         or _pip_unverified_source_option(arg)
                         for arg in tail
                     )
+                    or (
+                        "install" in tail
+                        and (executable != "uv" or "--offline" not in tail)
+                        and any(
+                            re.fullmatch(
+                                r"[A-Za-z0-9][A-Za-z0-9._-]*(?:\[[A-Za-z0-9,._-]+\])?(?:[<>=!~].*)?",
+                                arg,
+                            )
+                            and not (
+                                PIP_EXEMPT_PIN.fullmatch(arg)
+                                and _is_version(arg.partition("==")[2])
+                            )
+                            for arg in tail[tail.index("install") + 1 :]
+                        )
+                    )
                     or offline_override
                     or (executable == "uv" and "--offline" not in tail)
                 ):
@@ -759,9 +869,9 @@ def _shell_network_segments(
             arg in {"view", "info", "install", "add", "search", "fetch"} for arg in tail
         ):
             network_segments.append(args)
-        if executable.startswith(("python", "node", "ruby", "perl")) and SCRIPT_NETWORK.search(
-            " ".join(tail)
-        ):
+        if executable.startswith(
+            ("python", "node", "ruby", "perl")
+        ) and SCRIPT_NETWORK.search(" ".join(tail)):
             network_segments.append(args)
     return network_segments
 
@@ -1011,7 +1121,7 @@ def denied_network_commands(transcript):
     return denied
 
 
-def config_neutralized_pip_commands(transcript, env):
+def config_neutralized_pip_commands(transcript, env, *, cwd=None):
     """Certify local pip results only for the strict allowlist.
 
     See ``pip_command_is_exempt``; any other pip request remains a detected
@@ -1045,7 +1155,9 @@ def config_neutralized_pip_commands(transcript, env):
                 content
                 if isinstance(content, str)
                 else "\n".join(
-                    block.get("text", "") for block in content if isinstance(block, Mapping)
+                    block.get("text", "")
+                    for block in content
+                    if isinstance(block, Mapping)
                 )
                 if isinstance(content, list)
                 else ""
@@ -1060,13 +1172,22 @@ def config_neutralized_pip_commands(transcript, env):
             continue
         if not isinstance(command, str) or not isinstance(output, str):
             continue
-        if not pip_command_is_exempt(command, env):
+        if not pip_command_is_exempt(command, env, cwd=cwd):
             continue
-        if re.search(r"https?://|Retrying|Connecting", output, re.I):
+        if re.search(
+            r"[a-z][a-z0-9+.-]*://|Retrying|Connecting|(?:Looking in|Ignoring) indexes",
+            output,
+            re.I,
+        ):
             continue
         if (
-            "(from versions: none)" in output and "No matching distribution found" in output
-        ) or re.search(r"^Successfully (?:downloaded|installed) .+", output, re.M):
+            "(from versions: none)" in output
+            and "No matching distribution found" in output
+        ) or re.search(
+            r"^(?:Successfully (?:downloaded|installed) .+|Requirement already satisfied: .+)",
+            output,
+            re.M,
+        ):
             neutralized.add((call_id, command))
     return neutralized
 
@@ -1087,7 +1208,9 @@ def audit_workspace_calls(
     forbidden.extend((module_root().resolve(), VERIFIER_ROOT))
     violations = []
     denied = denied_network_commands(transcript)
-    neutralized = config_neutralized_pip_commands(transcript, cell_env or {}) - denied
+    neutralized = (
+        config_neutralized_pip_commands(transcript, cell_env or {}, cwd=cwd) - denied
+    )
     for name, payload, call_id in call_payloads(transcript, include_id=True):
         # OSS events may omit arguments or carry JSON null/scalars. Guard both
         # shell and file inspection so a malformed call cannot abort the audit.
@@ -1107,16 +1230,14 @@ def audit_workspace_calls(
                 package = re.escape(pin["name"]).replace(r"\-", "[-_.]")
                 version = re.escape(pin["version"])
                 if re.search(
-                    rf"(?<![\w.])(?:{package}|{version})(?![\w.])", command, re.IGNORECASE
+                    rf"(?<![\w.])(?:{package}|{version})(?![\w.])",
+                    command,
+                    re.IGNORECASE,
                 ):
                     if new_package_attempts is not None:
                         new_package_attempts.add((call_id, command))
                     break
-        if (
-            shell
-            and isinstance(command, str)
-            and shell_network_attempt(command)
-        ):
+        if shell and isinstance(command, str) and shell_network_attempt(command):
             if (call_id, command) in neutralized:
                 if neutralized_attempts is not None:
                     neutralized_attempts.add((call_id, command))
@@ -1131,13 +1252,11 @@ def audit_workspace_calls(
             keys = ("file_path", "filePath", "path", "file", "command", "cmd")
             if name == "glob":
                 keys += ("pattern",)
-            values = [
-                str(payload.get(key, ""))
-                for key in keys
-            ]
+            values = [str(payload.get(key, "")) for key in keys]
             text = " ".join(values)
             if "catalogs/gap/hidden" in text or any(
-                re.search(re.escape(str(path)) + r"(?:[/\s\"\']|$)", text) for path in forbidden
+                re.search(re.escape(str(path)) + r"(?:[/\s\"\']|$)", text)
+                for path in forbidden
             ):
                 violations.append("workspace:forbidden-read")
                 continue
@@ -2213,7 +2332,13 @@ def bench_network_boundary(
             retain()
             raise
         if env.get("SEW_GAP_PYTEST_VERSION"):
-            boundary[1].setdefault("python_tooling", {})["pytest"] = env["SEW_GAP_PYTEST_VERSION"]
+            boundary[1].setdefault("python_tooling", {})["pytest"] = env[
+                "SEW_GAP_PYTEST_VERSION"
+            ]
+        if env.get("SEW_GAP_REQUIREMENTS_PINS"):
+            boundary[1]["requirements_pins"] = json.loads(
+                env["SEW_GAP_REQUIREMENTS_PINS"]
+            )
         yield boundary
 
 

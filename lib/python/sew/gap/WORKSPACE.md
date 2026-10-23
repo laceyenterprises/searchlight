@@ -24,6 +24,16 @@ Its `bin` directory leads the shell's `PATH`; the canary invokes `python3`
 through that path so it runs with the cell interpreter inside the sandbox.
 Reading installed package source is allowed.
 
+Code cells install their workspace's pinned `requirements.txt` before the agent
+starts (GAPREQS-01). Setup accepts only exact `name==version` lines (plus blank
+lines and full-line comments), resolves the file inside the workspace, and
+installs from the cell's copied wheelhouse with no index, no cache and binary
+wheels only, inside the verifier's network-denying sandbox. Setup uses a clean
+environment and cell-local home and temporary directories; failures refuse the
+cell before a model turn. Installed pins are retained as
+`direct_egress.requirements_pins` in `artifacts/egress-canary.json`. The host
+wheel cache and verifier assets remain denied to the agent.
+
 Code cells provide the catalog's test runner before the agent starts:
 `python -m pytest test_visible.py` uses the same pinned, installed pytest
 distribution closure as the verifier. Setup copies that closure locally through
@@ -455,15 +465,22 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
 `bash -- -c` wrappers. A shell call is exempt only when all of these hold:
 
 1. **Direct invocation.** The command text is exactly the canonical
-   `shlex.join` of its words, so it has no wrapper (`bash`/`sh`/`zsh -c` with
-   any options, `env`, `xargs`, `eval`, `nohup`, `time`), subshell, expansion,
-   command substitution, redirection, comment, pipe or `;`/`&&`/`||` chain.
+   `shlex.join` of its words. Exactly one canonical `/bin/zsh -lc '<command>'`
+   or `/bin/zsh -c '<command>'` harness envelope may be removed first; its body
+   must also be canonical. Other wrappers (`bash`, `sh`, `env`, `xargs`, `eval`,
+   `nohup`, `time`), nested wrappers, subshells, expansions,
+   command substitutions, redirections, comments, pipes and `;`/`&&`/`||`
+   chains cannot qualify.
    Equivalent shell spellings with extra whitespace or different quoting are
    not canonical and therefore do not qualify for the exemption.
 2. **Executable.** `pip`, `pip3`, `python -m pip` or `python3 -m pip`, by bare
    name with nothing before the subcommand.
 3. **Subcommand.** `download` or `install`.
-4. **Packages.** One or more `<name>==<version>` pins with a valid version.
+4. **Packages.** One or more `<name>==<version>` pins with a valid version,
+   directly or through `-r PATH` / `--requirement PATH`. Requirements paths must
+   resolve inside the cell workspace and every nonblank, noncomment line must
+   be an exact pin. Missing files, escaping symlinks, nested requirements,
+   constraints, options and unpinned lines cannot certify an exemption.
 5. **Flags.** Only `--no-deps`, `--no-index`, `-q`/`--quiet` (uncombined),
    `-d DIR`/`--dest DIR` (download only, separate value, no URL) and
    `--find-links` followed by exactly the cell's `PIP_FIND_LINKS` wheelhouse.
@@ -471,7 +488,7 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
    `PIP_CONFIG_FILE=/dev/null`, only allowlisted `PIP_*` settings and a local
    `PIP_FIND_LINKS`.
 
-Anything else is not exempt, including requirements (`-r`), constraints (`-c`),
+Anything else is not exempt, including constraints (`-c`),
 editables (`-e`), index and trusted-host options, `--config-settings`, any URL,
 combined short options, `=`-attached values, abbreviations and unknown flags.
 Such a detected attempt contaminates unless the sandbox recorded an attributable
@@ -479,19 +496,20 @@ denial, which counts in `denied_network_attempts`. Pip download requests, and
 pip installs naming a URL, are detected through the shared invocation parser,
 including the wrappers described in GAPATTEMPT-01; quoted command text in
 ordinary literal arguments does not count as an attempt. Recognizing a wrapper
-for detection or denial attribution never makes it eligible for configuration
-neutralization. Ordinary offline installs that the parser does not classify
-as network attempts, such as `pip install -e .`, are unchanged. Codex reports
-commands through a `-lc` shell wrapper, so its pip downloads never qualify.
+for detection or denial attribution does not by itself make it eligible for
+configuration neutralization. Ordinary offline installs that the parser does
+not classify as network attempts, such as `pip install -e .`, are unchanged.
+Unpinned package installs remain detected attempts.
 
 Claude background evidence requires a `task_notification` tying its
 `tool_use_id` to an `output_file`, plus a paired tool result for the exact
 `cat <output_file>` request. Unrelated output or assistant claims do not qualify.
-Visible HTTP(S), retry or connection output rejects certification. This output
-check is advisory: a pipeline such as `| tail` may hide network lines, and pip
-success alone does not prove a wheelhouse source. The enforced environment and
-override and indirect-source rejection supply the local-only basis; the output
-only confirms a completed pip result.
+Visible URLs, index, retry or connection output rejects certification. An
+already-satisfied requirement is accepted as completed local pip evidence. This
+output check is advisory: a pipeline such as `| tail` may hide network lines,
+and pip success alone does not prove a wheelhouse source. The enforced
+environment, override rejection and workspace requirements validation supply
+the local-only basis; the output only confirms a completed pip result.
 
 `arm_audit.config_neutralized_network_attempts` counts distinct detected
 shell-network calls accepted by this exemption, separately from denials and
