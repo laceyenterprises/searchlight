@@ -591,12 +591,26 @@ def test_portable_cell_env_keeps_home_and_tmp_in_scratch(tmp_path):
     scratch = tmp_path / "cell"
     own_home = scratch / "opencode" / "home"
     own_home.mkdir(parents=True)
-    env = {"HOME": "/Users/someone", "TMPDIR": "/var/folders/x"}
+    env = {
+        "HOME": str(tmp_path / "host-home"),
+        "TMPDIR": str(tmp_path / "host-tmp"),
+        "TMPPREFIX": "/tmp/zsh",
+    }
     gap_workspace._portable_cell_env(env, scratch.resolve())
-    assert env == {"HOME": str(scratch / "harness-home"), "TMPDIR": str(scratch / "harness-tmp")}
+    assert env == {
+        "HOME": str(scratch / "harness-home"),
+        "TMPDIR": str(scratch / "harness-tmp"),
+        "TMPPREFIX": str(scratch / "harness-tmp/zsh"),
+    }
     env = {"HOME": str(own_home)}
     gap_workspace._portable_cell_env(env, scratch.resolve())
     assert env["HOME"] == str(own_home)  # An arm-isolated home is kept.
+    own_tmp = scratch / "own-tmp"
+    own_tmp.mkdir()
+    env["TMPDIR"] = str(own_tmp)
+    gap_workspace._portable_cell_env(env, scratch.resolve())
+    assert env["TMPDIR"] == str(own_tmp)
+    assert env["TMPPREFIX"] == str(own_tmp / "zsh")
 
 
 @pytest.mark.parametrize("escape", ["denied", "reached-host", "malformed"])

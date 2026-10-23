@@ -97,6 +97,46 @@ def test_correct_migration(job, tmp_path):
     assert result["hidden"][0]["tests"][0]["status"] == "pass"
 
 
+def test_cell_and_verifier_use_same_pytest_version(tmp_path):
+    import venv
+
+    from sew.gap.verify import _copy_verifier_tooling
+    from sew.gap.workspace import prepare_python_environment
+
+    cell = tmp_path / "cell"
+    cell.mkdir()
+    env = prepare_python_environment(cell, {}, {"PATH": os.defpath})
+    verifier = tmp_path / "verifier"
+    venv.EnvBuilder(with_pip=False).create(verifier)
+    site = Path(
+        subprocess.check_output(
+            [
+                str(verifier / "bin/python"),
+                "-I",
+                "-c",
+                "import sysconfig; print(sysconfig.get_path('purelib'))",
+            ],
+            text=True,
+            timeout=10,
+        ).strip()
+    )
+    _copy_verifier_tooling(site)
+    for environment in (cell / "venv", verifier):
+        version = subprocess.check_output(
+            [
+                str(environment / "bin/python"),
+                "-I",
+                "-c",
+                "import pytest, sys; from pathlib import Path; "
+                "assert Path(pytest.__file__).is_relative_to(sys.prefix); "
+                "print(pytest.__version__)",
+            ],
+            text=True,
+            timeout=10,
+        ).strip()
+        assert version == env["SEW_GAP_PYTEST_VERSION"]
+
+
 def test_open_agent_boundary_denies_concurrent_verifier_copies(job, tmp_path, monkeypatch):
     """A running cell must deny copies created later by a different GAP run."""
     import importlib
@@ -495,12 +535,14 @@ def test_tooling_closure_uses_metadata_and_excludes_extras(tmp_path, monkeypatch
     packages = {
         "pytest": SimpleNamespace(
             metadata={"Name": "pytest"},
+            version="8.3.0",
             files=[Path("py.py"), Path("../bin/pytest")],
             requires=["support>=1", 'missing-extra; extra == "testing"'],
             locate_file=lambda path: source / path,
         ),
         "support": SimpleNamespace(
             metadata={"Name": "support"},
+            version="1.0",
             files=[Path("support.py")],
             requires=["pytest"],
             locate_file=lambda path: source / path,
@@ -508,7 +550,7 @@ def test_tooling_closure_uses_metadata_and_excludes_extras(tmp_path, monkeypatch
     }
     monkeypatch.setattr(verifier.importlib.metadata, "distribution", packages.__getitem__)
     site = tmp_path / "site"
-    verifier._copy_verifier_tooling(site)
+    assert verifier._copy_verifier_tooling(site) == {"pytest": "8.3.0", "support": "1.0"}
     assert sorted(p.name for p in site.iterdir()) == ["py.py", "support.py"]
     assert not (tmp_path / "bin").exists()
 

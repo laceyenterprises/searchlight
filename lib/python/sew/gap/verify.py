@@ -29,18 +29,18 @@ from .workspace import check_tree, materialize_tree, prepare_workspace, snapshot
 
 
 def _copy_verifier_tooling(site):
-    """Copy pytest's installed distribution closure, not assumed import names."""
+    """Copy the pinned installed pytest closure for verifier and agent venvs."""
     from packaging.requirements import Requirement
 
     pending = ["pytest"]
-    copied = set()
+    copied = {}
     while pending:
         name = pending.pop()
         distribution = importlib.metadata.distribution(name)
         identity = distribution.metadata["Name"].lower().replace("_", "-")
         if identity in copied:
             continue
-        copied.add(identity)
+        copied[identity] = distribution.version
         if not distribution.files:
             raise SchemaError(f"missing verifier tooling file manifest: {name}")
         for relative in distribution.files:
@@ -54,6 +54,7 @@ def _copy_verifier_tooling(site):
             dependency = Requirement(requirement)
             if dependency.marker is None or dependency.marker.evaluate({"extra": ""}):
                 pending.append(dependency.name)
+    return copied
 
 
 def _sandbox_command(argv, scratch, *, write_roots=None, read_roots=(), env=None, backend=None):

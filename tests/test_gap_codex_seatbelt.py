@@ -180,7 +180,10 @@ def test_exact_bench_profile_qualifies_before_admission(
         if harness == "codex"
         else [harness]
     )
-    env = {"HOME": str(scratch.parent / "host-home")}
+    env = {
+        "HOME": str(scratch.parent / "host-home"),
+        "SEW_GAP_PYTEST_VERSION": "8.3.0",
+    }
     receipt = scratch / "refusal.json"
     if failure:
         with pytest.raises(workspace.EgressCanaryRefused):
@@ -221,6 +224,8 @@ def test_exact_bench_profile_qualifies_before_admission(
         assert evidence["wheel_cache_isolation"]["discovery_denied"] is True
         assert Path(env["HOME"]).is_relative_to(scratch)
         assert Path(env["TMPDIR"]).is_relative_to(scratch)
+        assert env["TMPPREFIX"] == str(Path(env["TMPDIR"]) / "zsh")
+        assert evidence["python_tooling"] == {"pytest": "8.3.0"}
         assert env["HTTPS_PROXY"] == env["https_proxy"]
         if harness == "codex":
             assert argv[3:] == [harness, "exec", "--sandbox", "danger-full-access", "-"]
@@ -237,6 +242,7 @@ def test_codex_real_seatbelt_denies_reads_renames_and_write_escape(
 ):
     require_containment("seatbelt")
     scratch, cwd, cache = cell
+    python_env = workspace.prepare_python_environment(scratch, {}, {"PATH": os.defpath})
     binary = tmp_path / "fake-codex"
     binary.write_text(
         f"#!{sys.executable}\n"
@@ -262,6 +268,14 @@ def test_codex_real_seatbelt_denies_reads_renames_and_write_escape(
         "'import os; from pathlib import Path; Path(os.environ[\"CACHE_WHEEL\"]).read_bytes()'], "
         "capture_output=True)\n"
         "assert p.returncode != 0\n"
+        "assert Path(os.environ['TMPPREFIX']).parent == Path(os.environ['TMPDIR'])\n"
+        "heredoc = \"python - <<'PY'\\nimport os, pytest\\n\" "
+        "+ \"assert pytest.__version__ == os.environ['SEW_GAP_PYTEST_VERSION']\\n\" "
+        "+ \"print('catalog runner available')\\nPY\\n\"\n"
+        "p = subprocess.run(['/bin/zsh', '-f', '-c', heredoc], "
+        "capture_output=True, text=True, timeout=10)\n"
+        "assert p.returncode == 0, p.stderr\n"
+        "assert p.stdout.strip() == 'catalog runner available'\n"
         "Path('allowed.txt').write_text('cell output')\n"
     )
     binary.chmod(0o755)
@@ -269,11 +283,13 @@ def test_codex_real_seatbelt_denies_reads_renames_and_write_escape(
     home.mkdir()
     (home / "config.toml").write_text('approval_policy = "never"\n')
     workspace.VERIFIER_ROOT.mkdir()
-    source = workspace.VERIFIER_ROOT / "source.py"
+    source = workspace.VERIFIER_ROOT / "hidden/test_hidden.py"
+    source.parent.mkdir()
     source.write_bytes(b"synthetic verifier source")
     outside = tmp_path / "outside.txt"
     env = {
-        "PATH": os.defpath,
+        **python_env,
+        "TMPPREFIX": "/tmp/outside-zsh",
         "CODEX_HOME": str(home),
         "CACHE_ROOT": str(cache.parent),
         "VERIFIER_ROOT": str(workspace.VERIFIER_ROOT),
@@ -294,6 +310,9 @@ def test_codex_real_seatbelt_denies_reads_renames_and_write_escape(
             argv, env=env, cwd=cwd, capture_output=True, text=True, timeout=20
         )
         assert result.returncode == 0, result.stderr
+        assert evidence["python_tooling"] == {
+            "pytest": python_env["SEW_GAP_PYTEST_VERSION"]
+        }
         assert evidence["wheel_cache_isolation"]["verifier_copies"]["installed_source"][
             "direct_denied"
         ]
