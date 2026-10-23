@@ -62,7 +62,11 @@ alone fetches branches and tags, not PR refs. CI fetches PR refs with a temporar
 read-token header supplied through command-scoped environment configuration (never argv or persisted Git config) and fails closed if neither `refs/remotes/pull/*` nor
 `refs/pull/*` exists, or if the fetch fails. It reports locations and rule names without
 printing credential values. Exact synthetic scrub-test strings retained in
-the imported history are recognized as fixtures (two legacy key/assignment values and three explicit Bearer examples); there are no path allowlists.
+the imported history are recognized as fixtures (two legacy key/assignment values,
+three legacy Bearer examples, and the two explicit synthetic canary values).
+These exceptions match complete values only; extending a fixture value or adding
+another credential alongside it still fails the scan, including in history.
+There are no path allowlists.
 The licence gate follows installed public runtime and test dependencies, including
 transitive dependencies, and rejects missing or non-permissive licence metadata.
 The private optional host extra is outside the standalone publication boundary.

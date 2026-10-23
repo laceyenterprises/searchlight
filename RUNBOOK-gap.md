@@ -99,6 +99,14 @@ direct socket probe. The agent's three-probe canary remains mandatory; macOS
 Codex enables verbose curl diagnostics to expose the proxy's CONNECT denial
 reason. A bare HTTP status still cannot qualify. Every failure refuses the cell.
 Portable harnesses and Linux behavior are unchanged.
+The canary invocation retains these qualified launch arguments: regenerating
+Codex's default argv would restore `workspace-write` and reintroduce a nested
+Seatbelt sandbox. Only harnesses that carry the prompt in argv (Hermes) need
+canary prompt substitution. The existing Codex canary program is unchanged.
+If evidence is absent, the refusal distinguishes no matching completed command,
+a matching command that printed no `GAP_CANARY:` line (with a short redacted
+output tail), and multiple records. A reached probe or unproven denial still
+refuses. See [GAPSANDBOX-02](lib/python/sew/gap/WORKSPACE.md#gapsandbox-02-preserve-the-qualified-canary-launch).
 Linux keeps its bubblewrap qualification and Codex's isolated config with
 `sandbox_workspace_write.network_access=false`; invalid policy and
 configuration/profile overrides refuse.

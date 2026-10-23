@@ -439,3 +439,32 @@ def test_synthetic_bearer_examples_do_not_exempt_adjacent_real_token():
     assert gates.findings(synthetic.encode(), gates.SECRETS) == []
     assert gates.findings((synthetic + '\nBearer ' + 'Zx19' * 10).encode(), gates.SECRETS) == ['bearer-token']
     assert 'provider-key' in gates.findings(('AI' + 'za' + 'Z' * 35).encode(), gates.SECRETS)
+
+
+@pytest.mark.parametrize('category,synthetic,real', [
+    ('bearer-token', 'Bearer synthetic-' + 'credential-value', 'Bearer ' + 'Zx19' * 10),
+    ('credential-assignment', 'secret = "synthetic-cell-' + 'credential"',
+     'secret = "' + 'Zx19' * 10 + '"'),
+])
+def test_canary_synthetic_credentials_are_exact_exceptions(repo, category, synthetic, real):
+    assert gates.findings(synthetic.encode(), gates.SECRETS) == []
+    assert gates.findings((synthetic + '\n' + real).encode(), gates.SECRETS) == [category]
+    # Extending the fixture token must not exempt a different credential.
+    extended = synthetic.replace('credential', 'credential-more', 1)
+    assert gates.findings(extended.encode(), gates.SECRETS) == [category]
+    path = repo / 'fixture.txt'
+    path.write_text(synthetic)
+    git(repo, 'add', 'fixture.txt')
+    git(repo, 'commit', '-m', 'Synthetic canary fixture')
+    git(repo, 'rm', 'fixture.txt')
+    git(repo, 'commit', '-m', 'Remove fixture from tree')
+    assert run_gate('secrets', repo).returncode == 0
+    path.write_text(real)
+    git(repo, 'add', 'fixture.txt')
+    git(repo, 'commit', '-m', 'Planted credential beside historical fixture')
+    git(repo, 'rm', 'fixture.txt')
+    git(repo, 'commit', '-m', 'Keep planted credential only in history')
+    result = run_gate('secrets', repo)
+    assert result.returncode == 1
+    assert category in result.stdout
+    assert real not in result.stdout

@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import sys
 import tomllib
-from contextlib import nullcontext
+from contextlib import contextmanager, nullcontext
 from dataclasses import replace
 from pathlib import Path
 
@@ -346,14 +346,204 @@ def canary_events(harness, nonce, command, probes=None):
     ]
 
 
+def codex_bench_canary_events(nonce, command):
+    # Codex exec's real JSONL shape, with synthetic values only. Source:
+    # https://github.com/openai/codex/blob/rust-v0.163.0/codex-rs/exec/src/event_processor_with_jsonl_output.rs
+    # The processor emits command, aggregated_output, exit_code and status.
+    # core/src/shell.rs derives [shell, -lc (or -c), exact command].
+    output = canary_events("codex", nonce, command)[0]["item"]["aggregated_output"]
+    fixture = (GOLDEN / "codex-danger-full-access-canary.json").read_text()
+    return json.loads(
+        fixture.replace(
+            '"CANARY_SHELL_COMMAND"',
+            json.dumps(shlex.join(["/bin/zsh", "-lc", command])),
+        ).replace('"CANARY_OUTPUT"', json.dumps(output))
+    )
+
+
+def test_codex_bench_canary_completed_shell_record():
+    nonce, command = canary_command("codex")
+    events = codex_bench_canary_events(nonce, command)
+    # The started and completed events are one call, not two records.
+    record = require_canary(events, nonce, command, harness_id="codex")
+    assert record["nonce"] == nonce
+    assert {p["attribution"] for p in record["probes"].values()} == {"denial-text"}
+
+
+@pytest.mark.parametrize(
+    "failure",
+    [
+        "no-command",
+        "wrong-command",
+        "no-output",
+        "empty-output",
+        "whitespace-output",
+        "duplicate",
+        "reached",
+    ],
+)
+def test_codex_bench_canary_diagnostic_refusals(failure):
+    nonce, command = canary_command("codex")
+    events = codex_bench_canary_events(nonce, command)
+    item = events[3]["item"]
+    if failure == "no-command":
+        events = [
+            {
+                "type": "item.completed",
+                "item": {"type": "agent_message", "text": item["aggregated_output"]},
+            }
+        ]
+        message = "no matching completed canary command observed"
+    elif failure == "wrong-command":
+        item["command"] += "; echo changed"
+        events[2]["item"]["command"] = item["command"]
+        message = "no matching canary command observed"
+    elif failure in {"no-output", "empty-output", "whitespace-output"}:
+        item.update(
+            exit_code=71,
+            status="failed",
+            aggregated_output=(
+                "diagnostic "
+                * 80
+                + "\n/fixture/private/cell: sandbox_apply: Operation not permitted\n"
+                "Authorization: Bearer synthetic-credential-value\n"
+                "https://fixture.invalid/private user@fixture.invalid"
+                if failure == "no-output"
+                else ("\n  \n\t" if failure == "whitespace-output" else "")
+            ),
+        )
+        message = "canary command ran but printed no GAP_CANARY: line"
+    elif failure == "duplicate":
+        item["aggregated_output"] += "\n" + item["aggregated_output"]
+        message = "more than one GAP_CANARY: record found"
+    else:
+        record = json.loads(item["aggregated_output"].removeprefix("GAP_CANARY:"))
+        record["probes"]["https"] = {"exit_code": 0, "error": ""}
+        item["aggregated_output"] = "GAP_CANARY:" + json.dumps(record)
+        message = "egress reached or denial unproven"
+    with pytest.raises(EgressCanaryRefused, match=message) as caught:
+        require_canary(events, nonce, command, harness_id="codex")
+    if failure == "no-output":
+        reason = str(caught.value)
+        assert "sandbox_apply: Operation not permitted" in reason
+        assert all(
+            value not in reason
+            for value in (
+                "/fixture/private",
+                "synthetic-credential-value",
+                "fixture.invalid",
+                "user@",
+            )
+        )
+        assert len(reason) < 450
+    if failure in {"empty-output", "whitespace-output"}:
+        assert str(caught.value).endswith("output tail: <empty>")
+
+
+@pytest.mark.parametrize("bench_seatbelt", [True, False])
+@pytest.mark.parametrize("missing_record", [False, True])
+def test_live_codex_canary_retains_qualified_launch(
+    gap_config, tmp_path, monkeypatch, bench_seatbelt, missing_record
+):
+    launches = []
+    qualified = []
+    secret = "synthetic-cell-credential" * 20
+    prompt_argv_calls = []
+
+    def changing_prompt_argv(self, binary, config, last_message_path, prompt):
+        # A stdin protocol may generate a different launch ID on every call.
+        prompt_argv_calls.append(prompt)
+        return [
+            *self.argv(binary, config, last_message_path),
+            "-c", f"synthetic_launch_id={len(prompt_argv_calls)}",
+        ]
+
+    monkeypatch.setattr(CodexProtocol, "prompt_argv", changing_prompt_argv)
+
+    @contextmanager
+    def boundary(argv, env, **kwargs):
+        qualified.extend(
+            [
+                "sandbox-exec",
+                "-p",
+                "synthetic-profile",
+                *gap_workspace._codex_bench_argv(argv),
+            ]
+            if bench_seatbelt
+            else ["bwrap", "--", *argv]
+        )
+        yield qualified, {"attribution": "synthetic-boundary"}
+
+    def spawn(argv, *, prompt, **kwargs):
+        launches.append(list(argv))
+        assert argv == qualified
+        assert len(prompt_argv_calls) == 1
+        mode = argv[argv.index("--sandbox") + 1]
+        assert mode == ("danger-full-access" if bench_seatbelt else "workspace-write")
+        if len(launches) == 1:
+            command = prompt.split("\n", 1)[1]
+            events = codex_bench_canary_events(shlex.split(command)[-1], command)
+            if missing_record:
+                events[3]["item"].update(
+                    aggregated_output="sandbox_apply: Operation not permitted "
+                    + secret,
+                    exit_code=71,
+                    status="failed",
+                )
+        else:
+            events = [
+                {
+                    "type": "item.completed",
+                    "item": {"type": "agent_message", "text": "Done."},
+                }
+            ]
+        return ProcessOutcome(
+            ready=True,
+            exit_code=0,
+            events=[
+                {"event": e, "received_at": "2026-10-23T00:00:00Z"} for e in events
+            ],
+        )
+
+    monkeypatch.setattr(gap_workspace, "bench_network_boundary", boundary)
+    monkeypatch.setattr(live_harness, "spawn_and_capture", spawn)
+    config = replace(gap_config, env={"TEST_API_KEY": secret})
+    if missing_record:
+        with pytest.raises(
+            EgressCanaryRefused, match="printed no GAP_CANARY: line"
+        ) as caught:
+            run_live_harness(
+                config, tmp_path / "runs", environ={"SEW_HARNESS_LIVE": "1"}
+            )
+        assert secret not in str(caught.value)
+        assert "synthetic-cell-credential" not in str(caught.value)
+        evidence_path = next((tmp_path / "runs").rglob("egress-canary.json"))
+        evidence = json.loads(evidence_path.read_text())
+        assert evidence["admissible"] is False
+        assert evidence["reason"] == str(caught.value)
+        assert secret not in evidence_path.read_text()
+        assert launches == [qualified]
+        return
+    result = run_live_harness(
+        config, tmp_path / "runs", environ={"SEW_HARNESS_LIVE": "1"}
+    )
+    assert result.status == "succeeded"
+    assert launches == [qualified, qualified]
+    evidence = json.loads(
+        (result.bundle_dir / "artifacts/egress-canary.json").read_text()
+    )
+    assert evidence["admissible"] is True
+    assert set(evidence["probes"]) == {"curl", "pip", "https"}
+
+
 @pytest.mark.parametrize("harness", ["claude-code", "codex"])
 @pytest.mark.parametrize("shell,flag", [("/bin/sh", "-c"), ("/bin/zsh", "-lc")])
 def test_canary_denial_evidence(harness, shell, flag):
     nonce, command = canary_command(harness)
     assert (
-        require_canary(canary_events(harness, nonce, command), nonce, command, harness_id=harness)[
-            "nonce"
-        ]
+        require_canary(
+            canary_events(harness, nonce, command), nonce, command, harness_id=harness
+        )["nonce"]
         == nonce
     )
     wrapped = shlex.join([shell, flag, command])
@@ -362,7 +552,9 @@ def test_canary_denial_evidence(harness, shell, flag):
     )
     altered = shlex.join([shell, flag, command + "; echo changed"])
     with pytest.raises(EgressCanaryRefused):
-        require_canary(canary_events(harness, nonce, altered), nonce, command, harness_id=harness)
+        require_canary(
+            canary_events(harness, nonce, altered), nonce, command, harness_id=harness
+        )
 
 
 @pytest.mark.parametrize("harness", ["claude-code", "codex"])
@@ -1092,7 +1284,7 @@ def test_diff_refuses_git_failure(tmp_path, monkeypatch):
 def test_canary_credentials_preserve_json_types_and_escape_safety():
     secret = 'quoted"secret\\value'
     evidence = {"exit_code": 1, "events": [{"message": secret + " 1"}], "ok": False}
-    result = live_harness._scrub_canary_credentials(
+    result = live_harness.scrub_canary_credentials(
         evidence, {"API_KEY": secret, "AUTH_TOKEN": "1"}
     )
     assert result["exit_code"] == 1
