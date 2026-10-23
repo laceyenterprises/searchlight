@@ -798,9 +798,12 @@ def test_snapshot_refuses_large_sparse_file_before_reading(tmp_path, monkeypatch
 
 @pytest.mark.parametrize("harness", ["claude-code", "codex"])
 @pytest.mark.parametrize(
-    "contamination", [None, "shell", "hidden", "search", "diff-secret", "diff-oversized"]
+    "contamination",
+    [None, "shell", "pypi", "hidden", "search", "diff-secret", "diff-oversized"],
 )
-def test_live_workspace_bundle(gap_config, tmp_path, monkeypatch, harness, contamination):
+def test_live_workspace_bundle(
+    gap_config, tmp_path, monkeypatch, harness, contamination
+):
     write_json = live_harness._write_json
 
     def write_artifact(path, payload):
@@ -869,11 +872,21 @@ def test_live_workspace_bundle(gap_config, tmp_path, monkeypatch, harness, conta
                         "type": "tool_use",
                         "name": "Read",
                         "input": {
-                            "file_path": str(config.gap_module_root / "catalogs/gap/hidden/test.py")
+                            "file_path": str(
+                                config.gap_module_root / "catalogs/gap/hidden/test.py"
+                            )
                         },
                     }
+                elif contamination == "pypi":
+                    call["input"]["command"] = (
+                        "python -m pip install --index-url https://pypi.org/simple pytest"
+                    )
                 elif contamination == "search":
-                    call = {"type": "tool_use", "name": "WebSearch", "input": {"query": "leak"}}
+                    call = {
+                        "type": "tool_use",
+                        "name": "WebSearch",
+                        "input": {"query": "leak"},
+                    }
                 events.append(call)
             if harness == "claude-code":
                 events.append(
@@ -898,7 +911,10 @@ def test_live_workspace_bundle(gap_config, tmp_path, monkeypatch, harness, conta
                     ]
                 )
         return ProcessOutcome(
-            events=[{"event": event, "received_at": "2026-09-30T19:00:00Z"} for event in events],
+            events=[
+                {"event": event, "received_at": "2026-09-30T19:00:00Z"}
+                for event in events
+            ],
             ready=True,
             exit_code=0,
             stderr_tail="Harness diagnostic.\n",
@@ -912,18 +928,24 @@ def test_live_workspace_bundle(gap_config, tmp_path, monkeypatch, harness, conta
     assert result.status == (
         "failed" if diff_refused else "contaminated" if contamination else "succeeded"
     )
+    if contamination == "pypi":
+        assert result.failure_category == "out_of_arm_tool_call"
     assert len(spawned) == (1 if harness == "claude-code" else 2)
     patch = result.bundle_dir / "artifacts/workspace.diff"
     if diff_refused:
         assert result.failure_category == "workspace_diff_refused"
         assert not patch.exists()
-        transcript = json.loads((result.bundle_dir / "artifacts/transcript.json").read_text())
+        transcript = json.loads(
+            (result.bundle_dir / "artifacts/transcript.json").read_text()
+        )
         assert "Updated code." in json.dumps(transcript)
         stderr = (result.bundle_dir / "artifacts/harness-stderr.txt").read_text()
         assert "Harness diagnostic." in stderr
         assert "GAP workspace diff refused:" in stderr
         assert "fixture-secret123" not in stderr
-        evaluation = json.loads((result.bundle_dir / "evaluations/evaluation.json").read_text())
+        evaluation = json.loads(
+            (result.bundle_dir / "evaluations/evaluation.json").read_text()
+        )
         assert not evaluation["dimensions"]["completed"]
         assert "workspace_diff_refused" in evaluation["failure_reasons"]
     else:
@@ -931,15 +953,22 @@ def test_live_workspace_bundle(gap_config, tmp_path, monkeypatch, harness, conta
     assert not spawned[-1][2].exists()  # fresh cwd is removed after capture
     record = json.loads((result.bundle_dir / "run.json").read_text())
     assert record["task_source"] == "gap"
-    metadata = json.loads((result.bundle_dir / "artifacts/spawn-metadata.json").read_text())
+    metadata = json.loads(
+        (result.bundle_dir / "artifacts/spawn-metadata.json").read_text()
+    )
     assert metadata["arm_contract"]["workspace_profile"]
     if config.provider_id in {"floor", "ceiling"}:
         from sew.gap.reference import resolve_gap_task
 
         _, task = resolve_gap_task(config)
         assert metadata["arm_contract"]["reference_arm"] == config.provider_id
-        assert metadata["arm_contract"]["oracle_excerpt_sha256"] == task["oracle"]["sha256"]
-    canary = json.loads((result.bundle_dir / "artifacts/egress-canary.json").read_text())
+        assert (
+            metadata["arm_contract"]["oracle_excerpt_sha256"]
+            == task["oracle"]["sha256"]
+        )
+    canary = json.loads(
+        (result.bundle_dir / "artifacts/egress-canary.json").read_text()
+    )
     assert len(spawned) == (1 if harness == "claude-code" else 2)
     assert spawned[0][0] == spawned[-1][0]
     assert spawned[0][0][0] != "/usr/bin/sandbox-exec"
@@ -1055,6 +1084,8 @@ def test_workspace_audit_does_not_change_production(gap_config, tmp_path):
 
 
 def test_per_cell_python_environment_is_offline(tmp_path):
+    import importlib.metadata
+
     from sew.gap.workspace import prepare_python_environment
 
     env = prepare_python_environment(
@@ -1062,11 +1093,14 @@ def test_per_cell_python_environment_is_offline(tmp_path):
     )
     assert env["PATH"].startswith(str(tmp_path / "venv/bin") + ":")
     assert env["PIP_REQUIRE_VIRTUALENV"] == "1"
+    assert env["PYTEST_DISABLE_PLUGIN_AUTOLOAD"] == "1"
+    assert env["SEW_GAP_PYTEST_VERSION"] == importlib.metadata.version("pytest")
     result = subprocess.run(
         [
             str(tmp_path / "venv/bin/python"),
             "-c",
-            "import sys; print(sys.prefix); print(sys.base_prefix)",
+            "import sys, pytest, importlib.metadata; print(sys.prefix); print(sys.base_prefix); "
+            "print(pytest.__version__); print(importlib.metadata.version('pytest'))",
         ],
         check=True,
         capture_output=True,
@@ -1075,7 +1109,25 @@ def test_per_cell_python_environment_is_offline(tmp_path):
     lines = result.stdout.splitlines()
     assert lines[0] == env["VIRTUAL_ENV"]
     assert lines[0] != lines[1]
+    assert lines[2:] == [env["SEW_GAP_PYTEST_VERSION"]] * 2
     assert not (tmp_path / "workspace").exists()
+    cwd = tmp_path / "workspace"
+    cwd.mkdir()
+    (cwd / "test_visible.py").write_text(
+        "import pytest\n@pytest.mark.parametrize('value', [0, 1])\n"
+        "def test_visible(value):\n"
+        "    with pytest.raises(ZeroDivisionError):\n        value / 0\n"
+    )
+    tested = subprocess.run(
+        ["python", "-m", "pytest", "test_visible.py"],
+        cwd=cwd,
+        env={**os.environ, **env},
+        capture_output=True,
+        text=True,
+        timeout=15,
+    )
+    assert tested.returncode == 0, tested.stdout + tested.stderr
+    assert "2 passed" in tested.stdout
 
 
 def test_canary_uses_cell_interpreter_from_path(tmp_path, monkeypatch):

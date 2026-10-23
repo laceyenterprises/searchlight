@@ -142,15 +142,37 @@ def prepare_workspace(
     )
 
 
-def prepare_python_environment(scratch: Path, offline_env: dict, source_env: Mapping) -> dict:
-    """Keep installs out of the host interpreter and out of the source diff."""
+def prepare_python_environment(
+    scratch: Path, offline_env: dict, source_env: Mapping
+) -> dict:
+    """Provide the catalog runner offline, outside the source diff and host Python."""
+    # Local import: the verifier also uses workspace materialization helpers.
+    from .verify import _copy_verifier_tooling
+
     environment = scratch / "venv"
     venv.EnvBuilder(with_pip=True, symlinks=False).create(environment)
+    site = Path(
+        subprocess.check_output(
+            [
+                str(environment / "bin/python"),
+                "-I",
+                "-c",
+                "import sysconfig; print(sysconfig.get_path('purelib'))",
+            ],
+            text=True,
+            timeout=30,
+        ).strip()
+    )
+    tooling = _copy_verifier_tooling(site)
     return {
         **offline_env,
         "VIRTUAL_ENV": str(environment),
-        "PATH": str(environment / "bin") + os.pathsep + source_env.get("PATH", os.defpath),
+        "PATH": str(environment / "bin")
+        + os.pathsep
+        + source_env.get("PATH", os.defpath),
         "PIP_REQUIRE_VIRTUALENV": "1",
+        "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1",
+        "SEW_GAP_PYTEST_VERSION": tooling["pytest"],
     }
 
 
@@ -1982,6 +2004,8 @@ def _portable_cell_env(env, scratch):
         path = scratch / name
         path.mkdir(mode=0o700, exist_ok=True)
         env[key] = str(path)
+    # zsh uses TMPPREFIX rather than TMPDIR when creating here-documents.
+    env["TMPPREFIX"] = str(Path(env["TMPDIR"]) / "zsh")
 
 
 WHEELHOUSE_WRITE_PROBE = r"""
@@ -2137,7 +2161,14 @@ def qualify_verifier_reads(wrap, wheelhouse, *, cwd, env, backend):
 
 @contextmanager
 def bench_network_boundary(
-    argv, env, *, cwd, harness_id, refusal_path=None, environ=None, harness_auth="account",
+    argv,
+    env,
+    *,
+    cwd,
+    harness_id,
+    refusal_path=None,
+    environ=None,
+    harness_auth="account",
     wheelhouse=None,
 ):
     """Retain failed preflight evidence without replacing captured shell evidence."""
@@ -2168,9 +2199,13 @@ def bench_network_boundary(
         except Exception as exc:
             from ..live_harness import scrub_value, scrub_canary_credentials
 
-            evidence["reason"] = scrub_value(scrub_canary_credentials(str(exc), env))[:500]
+            evidence["reason"] = scrub_value(scrub_canary_credentials(str(exc), env))[
+                :500
+            ]
             retain()
             raise
+        if env.get("SEW_GAP_PYTEST_VERSION"):
+            boundary[1]["python_tooling"] = {"pytest": env["SEW_GAP_PYTEST_VERSION"]}
         yield boundary
 
 
