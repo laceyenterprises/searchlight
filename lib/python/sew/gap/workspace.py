@@ -164,6 +164,14 @@ def prepare_python_environment(
         ).strip()
     )
     tooling = _copy_verifier_tooling(site)
+    # Pin direct console invocations to the cell interpreter too. A shell
+    # launcher handles spaces and long scratch paths without shebang limits.
+    launcher = environment / "bin/pytest"
+    launcher.write_text(
+        f'#!/bin/sh\nexec {shlex.quote(str(environment / "bin/python"))} -m pytest "$@"\n',
+        encoding="utf-8",
+    )
+    launcher.chmod(0o755)
     return {
         **offline_env,
         "VIRTUAL_ENV": str(environment),
@@ -2205,7 +2213,7 @@ def bench_network_boundary(
             retain()
             raise
         if env.get("SEW_GAP_PYTEST_VERSION"):
-            boundary[1]["python_tooling"] = {"pytest": env["SEW_GAP_PYTEST_VERSION"]}
+            boundary[1].setdefault("python_tooling", {})["pytest"] = env["SEW_GAP_PYTEST_VERSION"]
         yield boundary
 
 

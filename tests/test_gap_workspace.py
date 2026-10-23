@@ -1083,11 +1083,14 @@ def test_workspace_audit_does_not_change_production(gap_config, tmp_path):
     assert args[args.index("--sandbox") + 1] == "read-only"
 
 
-def test_per_cell_python_environment_is_offline(tmp_path):
+@pytest.mark.parametrize("cell_name", ["cell", "cell's workspace"])
+def test_per_cell_python_environment_is_offline(tmp_path, cell_name):
     import importlib.metadata
 
     from sew.gap.workspace import prepare_python_environment
 
+    tmp_path = tmp_path / cell_name
+    tmp_path.mkdir()
     env = prepare_python_environment(
         tmp_path, {"PIP_NO_INDEX": "1", "PIP_FIND_LINKS": "/wheels"}, {"PATH": "/bin"}
     )
@@ -1114,20 +1117,25 @@ def test_per_cell_python_environment_is_offline(tmp_path):
     cwd = tmp_path / "workspace"
     cwd.mkdir()
     (cwd / "test_visible.py").write_text(
-        "import pytest\n@pytest.mark.parametrize('value', [0, 1])\n"
+        "import os, sys, pytest\n"
+        "from pathlib import Path\n"
+        "@pytest.mark.parametrize('value', [0, 1])\n"
         "def test_visible(value):\n"
+        "    assert sys.prefix == os.environ['VIRTUAL_ENV']\n"
+        "    assert Path(pytest.__file__).is_relative_to(sys.prefix)\n"
         "    with pytest.raises(ZeroDivisionError):\n        value / 0\n"
     )
-    tested = subprocess.run(
-        ["python", "-m", "pytest", "test_visible.py"],
-        cwd=cwd,
-        env={**os.environ, **env},
-        capture_output=True,
-        text=True,
-        timeout=15,
-    )
-    assert tested.returncode == 0, tested.stdout + tested.stderr
-    assert "2 passed" in tested.stdout
+    for command in (["python", "-m", "pytest"], ["pytest"]):
+        tested = subprocess.run(
+            [*command, "test_visible.py"],
+            cwd=cwd,
+            env={**os.environ, **env},
+            capture_output=True,
+            text=True,
+            timeout=15,
+        )
+        assert tested.returncode == 0, tested.stdout + tested.stderr
+        assert "2 passed" in tested.stdout
 
 
 def test_canary_uses_cell_interpreter_from_path(tmp_path, monkeypatch):
@@ -1725,6 +1733,23 @@ def test_claude_partial_wording_drift_and_crlf():
 
 REAL_BENCH_BOUNDARY = gap_workspace.bench_network_boundary
 REAL_CLAUDE_QUALIFICATION = gap_workspace.qualify_claude_code
+
+
+@pytest.mark.parametrize("tooling", [None, {}, {"other-tool": "1.2"}])
+def test_bench_boundary_preserves_python_tooling(monkeypatch, tmp_path, tooling):
+    evidence = {} if tooling is None else {"python_tooling": tooling}
+    expected = {**(tooling or {}), "pytest": "9.1.0"}
+    monkeypatch.setattr(
+        gap_workspace,
+        "_bench_network_boundary",
+        lambda argv, env, **kwargs: nullcontext((argv, evidence)),
+    )
+    with REAL_BENCH_BOUNDARY(
+        ["codex"], {"SEW_GAP_PYTEST_VERSION": "9.1.0"}, cwd=tmp_path, harness_id="codex"
+    ) as (_, retained):
+        assert retained["python_tooling"] == expected
+        if tooling is not None:
+            assert retained["python_tooling"] is tooling
 
 
 def test_live_claude_boundary_receives_selected_broker_auth(

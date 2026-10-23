@@ -29,9 +29,12 @@ Code cells provide the catalog's test runner before the agent starts:
 distribution closure as the verifier. Setup copies that closure locally through
 the shared verifier helper, without a network fetch or adding host site-packages
 to the cell import path.
+The cell's `bin/pytest` launcher invokes that cell's Python with `-m pytest`,
+so `pytest test_visible.py` also uses the isolated closure through `PATH`.
 `PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` keeps unrelated host plugins out. The pytest
 version is retained as `python_tooling.pytest` in the direct runner evidence in
-`artifacts/egress-canary.json`. Hidden tests and the original wheel cache remain
+`artifacts/egress-canary.json`, preserving other `python_tooling` entries.
+Hidden tests and the original wheel cache remain
 verifier-only; task dependency wheels keep their existing role and hash checks.
 
 Bench-confined harnesses, including macOS Codex, place `TMPDIR` in cell scratch
