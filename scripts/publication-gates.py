@@ -97,9 +97,12 @@ def findings(data, patterns, *, depth=0, budget=None):
             if name == 'bearer-token' and match.group().lower() in {
                     'bearer sk-' + 'ant-api03-' + 'secret' * 4,
                     'bearer sk-' + 'ant-api03-' + 'abcdefghij1234567890',
-                    'bearer ' + 'abcdefghijklmnopqrstuvwxyz0123456789'}:
+                    'bearer ' + 'abcdefghijklmnopqrstuvwxyz0123456789',
+                    'bearer synthetic-' + 'credential-value'}:
                 continue
-            if name == 'credential-assignment' and match.group(1) == 'synthetic-' + 'credential-for-test':
+            if name == 'credential-assignment' and match.group(1) in {
+                    'synthetic-' + 'credential-for-test',
+                    'synthetic-cell-' + 'credential'}:
                 continue
             matches.append(name)
             break
