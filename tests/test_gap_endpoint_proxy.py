@@ -270,7 +270,9 @@ def test_bench_probe_retries_transient_errors(
     def run(argv, **kwargs):
         calls.append((argv, kwargs))
         if recovers and len(calls) == 3:
-            return subprocess.CompletedProcess(argv, 0, '{"connected":false,"errno":1}', "")
+            return subprocess.CompletedProcess(
+                argv, 0, '{"connected":false,"errno":1}', ""
+            )
         failure = (
             subprocess.TimeoutExpired(argv, kwargs["timeout"])
             if error == "timeout"
@@ -282,21 +284,27 @@ def test_bench_probe_retries_transient_errors(
     monkeypatch.setattr(subprocess, "run", run)
     env = {}
     if recovers:
-        with bench_network_boundary(["codex"], env, cwd=tmp_path, harness_id="codex") as (
+        with bench_network_boundary(
+            ["codex"], env, cwd=tmp_path, harness_id="codex"
+        ) as (
             _,
             evidence,
         ):
-            assert evidence["attribution"] == "harness-runner-permission:codex-sandbox"
+            assert evidence["attribution"] == "harness-runner-permission:bench-seatbelt"
     else:
         with pytest.raises(EgressCanaryRefused, match="bench probe failed") as refusal:
-            with bench_network_boundary(["codex"], env, cwd=tmp_path, harness_id="codex"):
+            with bench_network_boundary(
+                ["codex"], env, cwd=tmp_path, harness_id="codex"
+            ):
                 pytest.fail("exhausted probe admitted")
         assert refusal.value.__cause__ is failures[-1]
     assert len(calls) == 3
     assert all(call == calls[0] for call in calls)
     assert probe_environment == [0.5, 1.0]
     with pytest.raises(OSError):
-        socket.create_connection(("127.0.0.1", urlsplit(env["HTTPS_PROXY"]).port), timeout=1)
+        socket.create_connection(
+            ("127.0.0.1", urlsplit(env["HTTPS_PROXY"]).port), timeout=1
+        )
 
 
 @pytest.mark.parametrize(
@@ -339,8 +347,18 @@ def fixture_runner(monkeypatch):
     from sew.gap import sandbox
 
     monkeypatch.setattr(
-        sandbox, "select_backend",
+        sandbox,
+        "select_backend",
         lambda env=None: sandbox.SandboxBackend("seatbelt", "/fixture/sandbox-exec"),
+    )
+    monkeypatch.setattr(
+        workspace,
+        "qualify_write_escape",
+        lambda *a, **kw: {
+            "denied_in_sandbox": True,
+            "reached_host": False,
+            "harness_tree_confined": True,
+        },
     )
     monkeypatch.setattr(
         workspace,
@@ -358,7 +376,9 @@ def fixture_runner(monkeypatch):
     )
 
 
-def test_harness_without_cache_still_denies_verifier_root(monkeypatch, tmp_path, probe_environment):
+def test_harness_without_cache_still_denies_verifier_root(
+    monkeypatch, tmp_path, probe_environment
+):
     calls = []
 
     def run(argv, **kw):
@@ -367,17 +387,21 @@ def test_harness_without_cache_still_denies_verifier_root(monkeypatch, tmp_path,
 
     monkeypatch.setattr(subprocess, "run", run)
     original = ["codex", "exec", "--sandbox", "workspace-write"]
-    with bench_network_boundary(original, {}, cwd=tmp_path, harness_id="codex") as (argv, evidence):
+    with bench_network_boundary(original, {}, cwd=tmp_path, harness_id="codex") as (
+        argv,
+        evidence,
+    ):
         assert argv[:2] == ["/fixture/sandbox-exec", "-p"]
         assert str(workspace.VERIFIER_ROOT) in argv[2]
-        assert argv[3:] == original
+        assert argv[3:] == workspace._codex_bench_argv(original)
         assert calls[0][:3] == argv[:3]
-        assert calls[0][3:5] == ["codex", "sandbox"]
-        assert evidence["runner_version"] == "fixture"
+        assert calls[0][3:] == [sys.executable, "-c", workspace.DIRECT_PROBE]
+        assert evidence["runner_id"] == "bench-seatbelt"
+        assert evidence["inner_sandbox_enabled"] is False
 
 
 @pytest.mark.parametrize("harness", ["codex", "claude-code"])
-def test_cache_boundary_wraps_harness_and_nested_runner(
+def test_cache_boundary_wraps_harness_and_qualifications(
     monkeypatch, tmp_path, probe_environment, harness
 ):
     cache = tmp_path / "cache"
@@ -392,11 +416,18 @@ def test_cache_boundary_wraps_harness_and_nested_runner(
         assert prefix[:2] == ["/fixture/sandbox-exec", "-p"]
         assert "file-read* file-write*" in prefix[2]
         assert str(cache) in prefix[2]
-        return {"direct_denied": True, "discovery_denied": True, "harness_tree_confined": True}
+        return {
+            "direct_denied": True,
+            "discovery_denied": True,
+            "harness_tree_confined": True,
+        }
 
     def run(argv, **kw):
-        assert argv[:len(prefix)] == prefix
-        assert argv[len(prefix):len(prefix) + 2] == ["codex", "sandbox"]
+        assert argv[: len(prefix)] == prefix
+        expected = (
+            [sys.executable, "-c"] if harness == "codex" else ["codex", "sandbox"]
+        )
+        assert argv[len(prefix) : len(prefix) + 2] == expected
         return subprocess.CompletedProcess(argv, 0, '{"connected":false,"errno":1}', "")
 
     monkeypatch.setattr(workspace, "qualify_cache_reads", qualify)
@@ -407,7 +438,10 @@ def test_cache_boundary_wraps_harness_and_nested_runner(
         assert wrap([]) == prefix
         assert str(workspace.VERIFIER_ROOT) in prefix[2]
         copy_probes.append(wheelhouse)
-        return {"wheel": {"direct_denied": True}, "installed_source": {"direct_denied": True}}
+        return {
+            "wheel": {"direct_denied": True},
+            "installed_source": {"direct_denied": True},
+        }
 
     monkeypatch.setattr(workspace, "qualify_verifier_reads", qualify_copies)
     write_probes = []
@@ -415,7 +449,12 @@ def test_cache_boundary_wraps_harness_and_nested_runner(
     def qualify_writes(wrap, **kw):
         assert wrap([]) == prefix
         assert kw["cwd"] == cwd
-        assert '(deny file-write* (subpath ' + json.dumps(str(cwd.parent / "wheelhouse")) + '))' in prefix[2]
+        assert (
+            "(deny file-write* (subpath "
+            + json.dumps(str(cwd.parent / "wheelhouse"))
+            + "))"
+            in prefix[2]
+        )
         write_probes.append(cwd)
         return {"denied": {"create": True}, "harness_tree_confined": True}
 
@@ -425,9 +464,14 @@ def test_cache_boundary_wraps_harness_and_nested_runner(
     with bench_network_boundary(
         original, {}, cwd=cwd, harness_id=harness, wheelhouse=cache
     ) as (argv, evidence):
-        assert argv == [*prefix, *original]
+        expected = (
+            workspace._codex_bench_argv(original) if harness == "codex" else original
+        )
+        assert argv == [*prefix, *expected]
         assert evidence["wheel_cache_isolation"]["harness_tree_confined"]
-        assert evidence["wheel_cache_isolation"]["verifier_copies"]["wheel"]["direct_denied"]
+        assert evidence["wheel_cache_isolation"]["verifier_copies"]["wheel"][
+            "direct_denied"
+        ]
         assert evidence["wheel_cache_isolation"]["cell_wheelhouse"]["denied"]["create"]
     assert copy_probes == [cache]
     assert write_probes == [cwd]
@@ -449,11 +493,16 @@ def test_nested_sandbox_is_distinct_refusal(
         subprocess,
         "run",
         lambda argv, **kw: subprocess.CompletedProcess(
-            argv, 71, message if stream == "stdout" else "", message if stream == "stderr" else ""
+            argv,
+            71,
+            message if stream == "stdout" else "",
+            message if stream == "stderr" else "",
         ),
     )
     with pytest.raises(EgressCanaryRefused, match="nested sandbox"):
-        with bench_network_boundary(["codex"], {}, cwd=tmp_path, harness_id="codex"):
+        with bench_network_boundary(
+            ["claude"], {}, cwd=tmp_path, harness_id="claude-code"
+        ):
             pytest.fail("runner never started")
 
 
