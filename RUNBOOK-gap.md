@@ -79,13 +79,29 @@ Claude uses nonce-bearing HTTPS hosts and requires each exact host/port denial
 in the matching Bash result's `<sandbox_violations>` block. Codex requires denial
 text in each probe error and uses raw-IP curl/HTTPS targets to avoid DNS dependency.
 SEW separately runs a bench-owned direct socket probe to 1.1.1.1:443 before
-launching the agent canary, requiring EPERM or EACCES. The probe runs under a
-separate sandbox runner: `codex sandbox` (or its `macos` subcommand when
-advertised by CLI help), requesting the cell sandbox mode and inheriting its
-isolated `$CODEX_HOME/config.toml`. The cell must explicitly set
-`sandbox_workspace_write.network_access=false`; missing, malformed or
-network-enabled policy and cell configuration/profile overrides refuse admission.
-The probe does not override the cell's network policy.
+launching the agent canary, requiring EPERM or EACCES. On macOS, Codex reuses the
+portable harness path: the bench Seatbelt profile is the only sandbox for the
+whole process tree. The driver changes the generated Codex argument to the
+[documented `--sandbox danger-full-access` mode](https://developers.openai.com/codex/cli/reference/)
+inside that profile, retaining `approval_policy = "never"` in the isolated
+`CODEX_HOME`. No `codex sandbox` runner or nested `sandbox_apply` is attempted.
+Duplicate sandbox options refuse launch. A missing sandbox option is inserted
+as a global option after the executable without interpreting option values as
+subcommands.
+`HOME` and `TMPDIR` move into cell scratch. Writes outside scratch are denied
+apart from the existing device exceptions; direct egress is denied except the
+bench endpoint proxy and the selected loopback model endpoint.
+
+Before launch, the exact profile must pass cache direct-read and parent-directory
+discovery denials, verifier wheel and installed-source denials, cell-wheelhouse
+mutation and rename denials, the outside-scratch write qualification, and the
+direct socket probe. The agent's three-probe canary remains mandatory; macOS
+Codex enables verbose curl diagnostics to expose the proxy's CONNECT denial
+reason. A bare HTTP status still cannot qualify. Every failure refuses the cell.
+Portable harnesses and Linux behavior are unchanged.
+Linux keeps its bubblewrap qualification and Codex's isolated config with
+`sandbox_workspace_write.network_access=false`; invalid policy and
+configuration/profile overrides refuse.
 
 For Claude, the probe runs under standalone Anthropic `srt --settings`, using
 the cell's network policy (empty allowlist, global deny) and a bench-synthesized
@@ -98,7 +114,8 @@ this standalone probe does not qualify that implementation or its filesystem
 policy. Evidence records both srt and Claude Code versions, with bundled runtime
 version unknown. The separate agent canary qualifies the cell's shell behavior.
 
-Code cells with a wheelhouse have an outer filesystem-only Seatbelt wrapper
+macOS Claude code cells with a wheelhouse have an outer filesystem-only Seatbelt
+wrapper
 denying verifier-cache access; nested sandbox startup failures refuse admission.
 The wrapper adds no network policy. **Non-shell harness descendants and transports, including MCP servers,
 WebFetch and harness HTTP clients, have no bench-owned OS egress confinement.**
@@ -123,17 +140,25 @@ connection errors try the next saved address, allowing IPv4 fallback when IPv6
 is unsupported; exhaustion returns HTTP 502. Child proxy variables replace
 inherited proxy settings, with local-only NO_PROXY. The proxy shuts down when
 the cell ends or refuses. Evidence retains endpoint addresses/authorities,
-runner path/version, requested runner policy (`policy_scope`), and
-`harness_tree_confined: false`. Runner permission attribution is
-`harness-runner-permission:codex-sandbox` or `harness-runner-permission:srt`.
+runner policy (`policy_scope`) and confinement qualifications. macOS Codex records
+`runner_id: bench-seatbelt`, `policy_scope: harness-tree-profile`,
+`harness_tree_confined: true`, `inner_sandbox_enabled: false`,
+`policy.harness_sandbox_mode: danger-full-access`, `policy.profile` and
+`write_escape`. Its attribution is `harness-runner-permission:bench-seatbelt`.
+macOS Claude retains runner path/version, `harness_tree_confined: false` and
+`harness-runner-permission:srt`; the separate Codex runner records
+`harness-runner-permission:codex-sandbox`.
 Policy metadata describes inputs, not independently observed applied policy;
 the permission-denied socket outcome is the measured result.
 Loopback transports remain trusted exceptions. On macOS, both `NO_PROXY` and
-`no_proxy` retain `localhost,127.0.0.1,::1` for frontier and OSS cells, so
-proxy-aware clients can reach local development servers. A loopback LiteLLM
-URL connects directly to the host listener; a non-loopback LiteLLM URL uses
+`no_proxy` retain `localhost,127.0.0.1,::1` only for Claude cells, so
+Claude proxy-aware clients can reach local development servers. Codex and
+portable profiles permit only the endpoint proxy and selected loopback model
+port. A loopback LiteLLM URL connects directly to the host listener; a non-loopback
+LiteLLM URL uses
 the parent proxy restricted to that endpoint's host and port. This retains
-the advisory proxy and limited runner qualification guarantees described above.
+the endpoint routing described above; macOS Claude retains the advisory proxy
+and limited runner qualification guarantees.
 Successful egress on any probe, incomplete evidence or ordinary network errors
 on the first three probes refuse the job. A sandbox block with no recognized
 denials reports `unrecognized sandbox_violations format`; inspect CLI wording.
@@ -275,14 +300,16 @@ calibration record.
 
 Agents receive only `old` and `dependency` wheels; `new` wheels are verifier-only.
 The original cache is denied to the whole agent process tree: a filesystem-only
-Seatbelt profile on macOS and an empty read-only cache mount on Linux, applied
+Seatbelt profile for macOS Claude, the combined bench profile for macOS Codex,
+and an empty read-only cache mount on Linux, applied
 after runtime mounts. Cache paths overlapping cell scratch refuse admission.
 Before each code cell, bench-owned probes attempt direct reads and discovery
 from the cache's parent without the cache pathname, then reading discovered
 wheels. Keep the cache under a small dedicated parent directory: discovery is
 bounded to 10,000 entries and 12 seconds per attempt, and excludes cell scratch.
-Both denials must qualify, and the harness's required nested sandbox must start;
-otherwise the cell refuses without a model task. Successful evidence is under
+Both denials must qualify. Codex disables its inner sandbox only inside the
+qualified bench profile on macOS; any other required inner sandbox must start.
+Otherwise the cell refuses without a model task. Successful evidence is under
 `direct_egress.wheel_cache_isolation` in `artifacts/egress-canary.json`.
 See [GAPWHEEL-01](lib/python/sew/gap/WORKSPACE.md#gapwheel-01-verifier-cache-containment).
 
@@ -528,7 +555,8 @@ transport denial from resolver availability. Neither harness's admitted canary
 qualifies independent DNS containment; their network sandbox remains the boundary.
 Admitted probes carry `attribution`: `sandbox-violation` for Claude's matched
 host/port denials and `denial-text` for Codex. The separate bench-owned direct
-socket probe carries `harness-runner-permission:codex-sandbox` or
+socket probe carries `harness-runner-permission:bench-seatbelt` for macOS Codex,
+`harness-runner-permission:codex-sandbox` for the separate Codex runner, or
 `harness-runner-permission:srt`; historical outer-boundary bundles retain
 `bench-seatbelt-permission` and their profile hash. Commands and event shapes
 must match the explicitly selected harness. Repeated completed Codex calls

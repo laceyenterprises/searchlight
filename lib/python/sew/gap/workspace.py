@@ -1145,7 +1145,10 @@ def probe(name, argv):
         results[name] = {'exit_code': p.returncode, 'error': p.stdout + p.stderr}
     except Exception as exc:
         results[name] = {'exit_code': None, 'error': str(exc)}
-probe('curl', ['curl', '--disable', '-k', '--max-time', '8', 'https://' + curl_host + '/'])
+# The bench proxy returns an attributable reason in the CONNECT response.
+# Curl otherwise reports only the status code, which cannot qualify a denial.
+curl_options = ['--verbose'] if harness == 'codex' and sys.platform == 'darwin' else []
+probe('curl', ['curl', '--disable', *curl_options, '-k', '--max-time', '8', 'https://' + curl_host + '/'])
 probe('pip', [sys.executable, '-m', 'pip', '--isolated', 'download', '--no-cache-dir',
               '--retries', '0', '--timeout', '8', '--index-url', 'https://pypi.org/simple',
               '--dest', '.', 'pip'])
@@ -1709,6 +1712,35 @@ def _portable(harness_id):
     return spec is not None and spec.code_cell_sandbox == "portable"
 
 
+def _codex_bench_argv(argv):
+    """Disable Codex's inner sandbox only for launch under the bench profile."""
+    command = list(argv)
+    indices = [
+        i for i, arg in enumerate(command) if arg == "--sandbox" or arg.startswith("--sandbox=")
+    ]
+    if len(indices) > 1:
+        raise EgressCanaryRefused("GAP refused: duplicate Codex cell sandbox options")
+    index = indices[0] if indices else None
+    if index is None:
+        # The protocol normally supplies this option. Keep direct callers
+        # explicit too. This is a global option: inserting after the executable
+        # avoids mistaking an option value for the subcommand. The bench profile
+        # must be installed before launch.
+        command[1:1] = ["--sandbox", "danger-full-access"]
+    else:
+        inline = command[index].startswith("--sandbox=")
+        mode = command[index].split("=", 1)[1] if inline else (
+            command[index + 1] if index + 1 < len(command) else None
+        )
+        if mode not in {"workspace-write", "read-only"}:
+            raise EgressCanaryRefused("GAP refused: invalid Codex cell sandbox mode")
+        if inline:
+            command[index] = "--sandbox=danger-full-access"
+        else:
+            command[index + 1] = "danger-full-access"
+    return command
+
+
 def _harness_endpoints(env, harness_id, *, harness_auth="account"):
     if harness_id == "claude-code":
         hosts = {"api.anthropic.com"}
@@ -1825,7 +1857,7 @@ def cache_read_profile(wheelhouse, scratch):
 def portable_profile(profile, scratch, proxy, authorities):
     """Add whole-tree write and egress confinement to the files-only profile.
 
-    A harness with no shell sandbox of its own runs entirely inside this one
+    A harness with no active shell sandbox of its own runs entirely inside this one
     profile, because macOS refuses a nested Seatbelt profile. Writes stay in
     the cell scratch, and the only network peers are the bench endpoint proxy
     and a loopback LiteLLM endpoint: no DNS, no other loopback service.
@@ -1908,7 +1940,7 @@ def qualify_write_escape(wrap, *, cwd, env, backend):
 
 
 def _portable_cell_env(env, scratch):
-    """Keep an OSS harness's home and temporary files inside the cell scratch."""
+    """Keep a bench-confined harness's home and temp files in the cell scratch."""
     for key, name in (("HOME", "harness-home"), ("TMPDIR", "harness-tmp")):
         current = env.get(key)
         if current and Path(current).resolve().is_relative_to(scratch):
@@ -2112,7 +2144,7 @@ def bench_network_boundary(
 def _bench_network_boundary(
     argv, env, *, cwd, harness_id, environ=None, harness_auth="account", wheelhouse=None
 ):
-    """Qualify macOS runners separately; confine Linux invocations with bubblewrap.
+    """Confine macOS Codex/portable trees; qualify other inner runners separately.
 
     Retry transient probe subprocess failures, then fail closed on exhaustion.
     Unsupported hosts, resolution failures and unproven denials fail closed.
@@ -2123,28 +2155,24 @@ def _bench_network_boundary(
     backend = select_backend(env if environ is None else environ)
     if backend.name == "bubblewrap":
         with _bubblewrap_boundary(
-            argv, env, cwd=cwd, harness_id=harness_id, environ=environ, harness_auth=harness_auth,
+            argv,
+            env,
+            cwd=cwd,
+            harness_id=harness_id,
+            environ=environ,
+            harness_auth=harness_auth,
             wheelhouse=wheelhouse,
         ) as boundary:
             yield boundary
         return
-    endpoints, addresses, authorities = _harness_endpoints(env, harness_id, harness_auth=harness_auth)
-    # File-only Seatbelt policy applies to the harness and all descendants,
-    # including non-shell read tools. Shell sandbox compatibility is mandatory.
+    endpoints, addresses, authorities = _harness_endpoints(
+        env, harness_id, harness_auth=harness_auth
+    )
+    # Seatbelt policy applies to the harness and all descendants, including
+    # non-shell read tools. Codex/portable trees add write and network policy.
     # Even code controls without package pins must not read another run's verifier.
     profile = cache_read_profile(wheelhouse, Path(cwd).resolve().parent)
     prefix = backend.command([], Path(cwd).parent, profile=profile)
-    cache_evidence = None
-    if wheelhouse is not None:
-        cache_evidence = qualify_cache_reads(
-            lambda command: [*prefix, *command], wheelhouse, cwd=cwd, env=env, backend=backend
-        )
-        cache_evidence["verifier_copies"] = qualify_verifier_reads(
-            lambda command: [*prefix, *command], wheelhouse, cwd=cwd, env=env, backend=backend
-        )
-        cache_evidence["cell_wheelhouse"] = qualify_wheelhouse_writes(
-            lambda command: [*prefix, *command], cwd=cwd, env=env, backend=backend
-        )
     # Resolve and filter proxy-aware destinations in an unsandboxed parent.
     from .endpoint_proxy import endpoint_proxy
 
@@ -2152,13 +2180,32 @@ def _bench_network_boundary(
         endpoint_proxy(endpoints) as proxy,
         tempfile.TemporaryDirectory(prefix="sew-probe-") as directory,
     ):
-        if _portable(harness_id):
-            # No harness runner exists: the bench profile is the runner, and
+        spec = harnesses.find(harness_id)
+        codex_runner = spec is not None and spec.code_cell_sandbox == "codex-sandbox"
+        bench_runner = _portable(harness_id) or codex_runner
+        if bench_runner:
+            # No inner runner is active: the bench profile is the runner, and
             # the direct probe runs under the exact profile of the harness tree.
             scratch = Path(cwd).resolve().parent
             _portable_cell_env(env, scratch)
             profile = portable_profile(profile, scratch, proxy, authorities)
             prefix = backend.command([], Path(cwd).parent, profile=profile)
+        cache_evidence = None
+        if wheelhouse is not None:
+
+            def wrap(command):
+                return [*prefix, *command]
+
+            cache_evidence = qualify_cache_reads(
+                wrap, wheelhouse, cwd=cwd, env=env, backend=backend
+            )
+            cache_evidence["verifier_copies"] = qualify_verifier_reads(
+                wrap, wheelhouse, cwd=cwd, env=env, backend=backend
+            )
+            cache_evidence["cell_wheelhouse"] = qualify_wheelhouse_writes(
+                wrap, cwd=cwd, env=env, backend=backend
+            )
+        if bench_runner:
             probe_argv = [sys.executable, "-c", DIRECT_PROBE]
             runner_evidence = {
                 "runner": "sandbox-exec",
@@ -2167,10 +2214,14 @@ def _bench_network_boundary(
                 "policy": {"profile": profile},
                 "policy_scope": "harness-tree-profile",
                 "harness_tree_confined": True,
-                "write_escape": qualify_write_escape(
-                    lambda command: [*prefix, *command], cwd=cwd, env=env, backend=backend
-                ),
             }
+            if codex_runner:
+                argv = _codex_bench_argv(argv)
+                runner_evidence["policy"]["harness_sandbox_mode"] = "danger-full-access"
+                runner_evidence["inner_sandbox_enabled"] = False
+            runner_evidence["write_escape"] = qualify_write_escape(
+                lambda command: [*prefix, *command], cwd=cwd, env=env, backend=backend
+            )
         else:
             probe_argv, runner_evidence = sandbox_probe_runner(
                 argv, env, cwd=cwd, harness_id=harness_id, scratch=Path(directory)

@@ -28,7 +28,9 @@ Every live code cell with a wheelhouse also requires the filesystem containment
 described in [GAPWHEEL-01](#gapwheel-01-verifier-cache-containment) below.
 
 Claude Code gets Read, Edit, Write and sandboxed Bash. Codex gets shell tools
-and `workspace-write` with command networking disabled. Native search or the
+and, on Linux, `workspace-write` with command networking disabled. On macOS,
+Codex runs with `--sandbox danger-full-access` inside the bench's full Seatbelt
+profile; the bench is its only sandbox (see GAPSANDBOX-01 below). Native search or the
 single metered provider MCP is added according to the existing arm contract.
 For Claude provider arms, `--tools` retains the built-in `ToolSearch` for deferred
 schema discovery; `--mcp-config` supplies the provider and `--allowedTools`
@@ -154,13 +156,14 @@ regression holds an agent boundary open while real verification installs the new
 package, proving denial of the newly created wheel and installed source while
 the agent's old inputs remain readable.
 
-The macOS direct runner probe and Codex shell canary also run inside the new
-filesystem profile. Claude's out-of-model srt qualification receives the same
-prefix while attesting the unwrapped harness arguments. If the outer profile
-prevents a nested sandbox from starting, the cell refuses; there is no fallback
-to an exposed cache. This filesystem guarantee does not change the reduced
-non-shell network confinement described below. Brief cells have no wheel cache
-boundary. Transcript auditing of the cache remains additional evidence.
+On macOS, Codex uses the combined filesystem, write and egress profile described
+in GAPSANDBOX-01 below for the direct probe, shell canary and task. All cache,
+verifier-copy and wheelhouse rename qualifications run under that exact profile.
+Claude's out-of-model srt qualification receives its filesystem-only prefix while
+attesting the unwrapped harness arguments. If a required inner sandbox cannot
+start, the cell refuses; there is no fallback to an exposed cache. Claude retains
+the reduced non-shell network confinement described below. Brief cells have no
+wheel cache boundary. Transcript auditing of the cache remains additional evidence.
 The transcript audit also forbids the shared verifier root for every caller.
 
 ## CANARYCLAUDE-01 RCA and denial attribution
@@ -221,23 +224,60 @@ containment qualification depend on willingness to perform the probe.
 The sanitized captured refusal is a regression fixture. Refusals remain cell
 refusals; no probe is reworded or retried to overcome a safety refusal.
 
-CANARYBYPASS-01 originally implemented the second design option: an additional
-bench-owned macOS Seatbelt profile around the direct probe and both harness
-process trees. CANARYNEST-01 removes that outer profile because it prevented the
-harness's inner shell sandbox from starting. The replacement below records the
-current implementation, not operator approval to relax the original guarantee.
-An explicit operator decision accepting non-shell egress, or a compatible
-replacement harness-tree boundary, remains required.
+### GAPSANDBOX-01: macOS Codex uses only the bench sandbox
 
-The agent prompt retains only the three existing probes for both harnesses.
-SEW runs the direct socket probe outside the model under a separate sandbox
-runner, connecting to 1.1.1.1:443 and requiring EPERM or EACCES. Success,
-timeouts, routing errors, malformed output, missing runners and probe process
-failure refuse. Codex uses its installed `sandbox` command (or `sandbox macos`
-when advertised), requesting the cell's sandbox mode and inheriting the isolated
-`CODEX_HOME` unchanged. The config must explicitly disable workspace-write
-networking; invalid policy and configuration/profile overrides refuse rather
-than being masked with a network override.
+macOS cannot nest Seatbelt profiles. Codex code cells therefore reuse the portable
+harness path: `portable_profile` adds write and egress confinement to the cache
+and verifier-root rules, and `backend.command` wraps the whole harness tree.
+Only inside this boundary, the driver replaces Codex's `--sandbox workspace-write`
+(or `read-only`) with the documented [`--sandbox danger-full-access` mode](https://developers.openai.com/codex/cli/reference/).
+Both `--sandbox MODE` and `--sandbox=MODE` are accepted; duplicate sandbox
+options refuse the cell before launch. If the option is absent, the driver
+inserts the global option immediately after the executable, preserving global
+option values even when they are named `exec`.
+The isolated Codex config retains `approval_policy = "never"`. Codex applies no
+inner shell sandbox, so neither qualification nor a code cell invokes a nested
+`codex sandbox` or `sandbox_apply`. Other harnesses keep their required inner
+sandbox; inability to start it still refuses, with no exposed-cache fallback.
+Linux keeps its existing bubblewrap path and Codex shell sandbox.
+
+The same profile confines shell tools, non-shell tools and MCP descendants.
+Writes stay inside cell scratch apart from the existing device exceptions.
+`HOME` and `TMPDIR` move into scratch using `_portable_cell_env`; the arm's
+isolated `CODEX_HOME` and provider configuration remain in scratch. Outbound
+network is denied except the parent-owned endpoint proxy and an explicitly
+selected loopback model endpoint. Other loopback services and direct external
+connections are denied even if a client ignores proxy variables.
+
+Before admission, the bench qualifies direct-read and parent-directory discovery
+denials for the wheel cache, verifier wheel and installed-source denials, and
+cell-wheelhouse mutation and rename denials under the final launch profile.
+It also qualifies an outside-scratch write and the direct socket denial
+(1.1.1.1:443, requiring EPERM/EACCES). The separate Codex invocation must still
+complete the exact curl, isolated pip download and Python HTTPS canary before
+the task. macOS Codex adds verbose curl diagnostics so the proxy's CONNECT
+permission-denial reason is visible; a bare HTTP status cannot qualify. Any
+failure refuses. Portable harness policy and Linux behavior stay unchanged.
+
+Codex evidence records `runner_id: bench-seatbelt`,
+`policy_scope: harness-tree-profile`, `harness_tree_confined: true`,
+`inner_sandbox_enabled: false`, `policy.harness_sandbox_mode: danger-full-access`,
+`policy.profile`, and `write_escape`. Direct attribution is
+`harness-runner-permission:bench-seatbelt`. Cache and verifier qualifications
+remain under `wheel_cache_isolation`. Synthetic tests exercise every refusal
+and portable parity; a real Seatbelt test runs when the host permits containment.
+These tests do not certify a live authenticated model invocation.
+
+### Other macOS inner runners and shared endpoint proxy
+
+CANARYNEST-01 removed an earlier outer network profile because it prevented
+inner shell sandboxes from starting. The reduced non-shell egress guarantee below
+now applies to Claude; Codex uses GAPSANDBOX-01 above. The direct socket probe
+runs outside the model. Success, timeouts, routing errors, malformed output,
+missing runners and probe process failure refuse. Linux retains its bubblewrap
+qualification and Codex's isolated
+`CODEX_HOME`, with workspace-write networking explicitly disabled. Invalid
+policy or configuration/profile overrides refuse.
 
 Claude's probe uses separately provisioned `@anthropic-ai/sandbox-runtime`
 (`srt`, pinned to 0.0.78 in the runbook), with the cell's deny-all network
@@ -258,8 +298,8 @@ probe target cannot be an endpoint exception. The proxy relays HTTP requests
 and opaque CONNECT streams without logging credentials and closes on success,
 refusal, cancellation or exceptions.
 
-**The proxy is only advisory outside the shell sandbox.** The harness process,
-MCP server descendants, WebFetch and harness HTTP clients are not wrapped in a
+**For macOS Claude, the proxy is only advisory outside the shell sandbox.** Its
+harness process, MCP descendants, WebFetch and HTTP clients are not wrapped in a
 bench-owned OS network boundary. Clients that ignore proxy variables can reach
 arbitrary external hosts directly. The sibling direct probe cannot qualify
 those paths. External provider transports therefore no longer fail closed.
@@ -267,9 +307,10 @@ An admitted cell proves the recorded runner and shell probe denials, not
 harness-tree confinement. This loss of the original second design option is
 the unresolved containment decision described above.
 
-The artifact retains runner-specific direct attribution
-(`harness-runner-permission:codex-sandbox` or
-`harness-runner-permission:srt`), runner path/version, requested `policy`
+Separate inner-runner qualification retains runner-specific direct attribution
+(`harness-runner-permission:srt` for macOS Claude;
+`harness-runner-permission:codex-sandbox` for the separate Codex runner),
+runner path/version, requested `policy`
 and `policy_scope: requested-runner-policy`, `harness_tree_confined: false`,
 endpoint addresses and host/port authorities. Claude records `harness_version`,
 `bundled_sandbox_runtime_version: null` and
@@ -279,19 +320,20 @@ retain that hash and `bench-seatbelt-permission` attribution. Failed boundary
 preflight leaves an inadmissible artifact with unproven attribution.
 Requested policy metadata is not a measurement of the applied runner policy.
 
-Residual risk includes arbitrary non-shell egress, opaque CONNECT streams and
-trusted endpoint or loopback relays. The inner harness shell sandbox and its
+Claude's residual risk includes arbitrary non-shell egress, opaque CONNECT
+streams and trusted endpoint or loopback relays. Its inner shell sandbox and its
 three attributed probes retain their tighter shell policy. Endpoint address
 changes after resolution can break proxy-aware transport; no dynamic allowlist
 expansion occurs. Hermetic tests cover runner discovery, version evidence,
 rejection of network-enabled Codex config, transient process retries, startup
 failure classification in both output streams, permission-denial admission and
 preserved harness arguments inside the filesystem wrapper even without a cache.
-GAPWHEEL-01 now adds a separate filesystem-only outer profile and refusal on nested startup
-failure. Proxy tests cover HTTP/CONNECT relay, custom ports,
-denied authorities, address fallback and teardown. The generated outer-profile
-compilation and real Seatbelt direct-egress tests were removed with that
-profile; remaining tests do not certify a live authenticated harness.
+GAPWHEEL-01 adds a separate filesystem-only outer profile for Claude and refuses
+nested startup failure; Codex uses the combined GAPSANDBOX-01 profile. Proxy
+tests cover HTTP/CONNECT relay, custom ports, denied authorities, address
+fallback and teardown. The Codex regression tests qualify the final combined
+profile with synthetic probes and, when available, real Seatbelt containment.
+These tests do not certify a live authenticated harness.
 
 ## GAPATTEMPT-01: information exposure and denied attempts
 
@@ -501,8 +543,7 @@ Opencode `{env:...}`, Pi `baseUrlEnv`), so the Linux bridge can rewrite a
 loopback endpoint per launch. Search cells keep the literal endpoint and the
 shell off.
 
-macOS refuses a nested Seatbelt profile, so the hosted harnesses' outer
-files-only profile cannot also host an inner shell sandbox here. Instead the
+macOS refuses a nested Seatbelt profile. As with macOS Codex above, the
 OSS harness tree runs under one profile: the unchanged files-only rules, then
 only denials and the permitted peers. Writes outside the cell scratch (other
 than `/dev/null`, `/dev/tty`, pseudo-terminals and similar devices) are denied. All outbound
