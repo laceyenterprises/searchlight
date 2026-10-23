@@ -1715,19 +1715,26 @@ def _portable(harness_id):
 def _codex_bench_argv(argv):
     """Disable Codex's inner sandbox only for launch under the bench profile."""
     command = list(argv)
-    try:
-        index = command.index("--sandbox")
-    except ValueError:
+    index = next(
+        (i for i, arg in enumerate(command) if arg == "--sandbox" or arg.startswith("--sandbox=")),
+        None,
+    )
+    if index is None:
         # The protocol normally supplies this option. Keep direct callers
         # explicit too; the bench profile must be installed before launch.
-        command[1:1] = ["--sandbox", "danger-full-access"]
+        insert_at = command.index("exec") + 1 if "exec" in command else 1
+        command[insert_at:insert_at] = ["--sandbox", "danger-full-access"]
     else:
-        if index + 1 == len(command) or command[index + 1] not in {
-            "workspace-write",
-            "read-only",
-        }:
+        inline = command[index].startswith("--sandbox=")
+        mode = command[index].split("=", 1)[1] if inline else (
+            command[index + 1] if index + 1 < len(command) else None
+        )
+        if mode not in {"workspace-write", "read-only"}:
             raise EgressCanaryRefused("GAP refused: invalid Codex cell sandbox mode")
-        command[index + 1] = "danger-full-access"
+        if inline:
+            command[index] = "--sandbox=danger-full-access"
+        else:
+            command[index + 1] = "danger-full-access"
     return command
 
 

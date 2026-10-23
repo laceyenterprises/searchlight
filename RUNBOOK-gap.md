@@ -148,7 +148,7 @@ macOS Claude retains runner path/version, `harness_tree_confined: false` and
 Policy metadata describes inputs, not independently observed applied policy;
 the permission-denied socket outcome is the measured result.
 Loopback transports remain trusted exceptions. On macOS, both `NO_PROXY` and
-`no_proxy` retain `localhost,127.0.0.1,::1` for frontier and OSS cells, so
+`no_proxy` retain `localhost,127.0.0.1,::1` only for Claude cells, so
 Claude proxy-aware clients can reach local development servers. Codex and
 portable profiles permit only the endpoint proxy and selected loopback model
 port. A loopback LiteLLM URL connects directly to the host listener; a non-loopback

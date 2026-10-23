@@ -13,6 +13,38 @@ import pytest
 from sew.gap import sandbox, workspace
 
 
+@pytest.mark.parametrize("mode", ["workspace-write", "read-only"])
+@pytest.mark.parametrize("inline", [False, True])
+def test_codex_bench_replaces_sandbox_option(mode, inline):
+    option = [f"--sandbox={mode}"] if inline else ["--sandbox", mode]
+    argv = ["codex", "exec", "--json", *option, "-"]
+    original = list(argv)
+    expected = ["--sandbox=danger-full-access"] if inline else ["--sandbox", "danger-full-access"]
+    assert workspace._codex_bench_argv(argv) == ["codex", "exec", "--json", *expected, "-"]
+    assert argv == original
+
+
+@pytest.mark.parametrize("prefix", [["codex"], ["codex", "exec"], ["codex", "--ephemeral", "exec"]])
+def test_codex_bench_inserts_missing_sandbox_option(prefix):
+    argv = [*prefix, "-"]
+    assert workspace._codex_bench_argv(argv) == [*prefix, "--sandbox", "danger-full-access", "-"]
+    assert argv == [*prefix, "-"]
+
+
+@pytest.mark.parametrize("option", [
+    ["--sandbox"],
+    ["--sandbox", "--json"],
+    ["--sandbox", "danger-full-access"],
+    ["--sandbox", "unknown"],
+    ["--sandbox="],
+    ["--sandbox=danger-full-access"],
+    ["--sandbox=unknown"],
+])
+def test_codex_bench_refuses_invalid_sandbox_mode(option):
+    with pytest.raises(workspace.EgressCanaryRefused, match="invalid Codex cell sandbox mode"):
+        workspace._codex_bench_argv(["codex", "exec", *option])
+
+
 @pytest.fixture
 def cell(tmp_path, monkeypatch):
     scratch = tmp_path / "cell"

@@ -231,6 +231,8 @@ harness path: `portable_profile` adds write and egress confinement to the cache
 and verifier-root rules, and `backend.command` wraps the whole harness tree.
 Only inside this boundary, the driver replaces Codex's `--sandbox workspace-write`
 (or `read-only`) with the documented [`--sandbox danger-full-access` mode](https://developers.openai.com/codex/cli/reference/).
+Both `--sandbox MODE` and `--sandbox=MODE` are accepted. If the option is absent,
+the driver inserts it after `exec` for subcommand invocations.
 The isolated Codex config retains `approval_policy = "never"`. Codex applies no
 inner shell sandbox, so neither qualification nor a code cell invokes a nested
 `codex sandbox` or `sandbox_apply`. Other harnesses keep their required inner
