@@ -30,7 +30,10 @@ lines and full-line comments), resolves the file inside the workspace, and
 installs from the cell's copied wheelhouse with no index, no cache and binary
 wheels only, inside the verifier's network-denying sandbox. Setup uses a clean
 environment and cell-local home and temporary directories; failures refuse the
-cell before a model turn. Installed pins are retained as
+cell before a model turn. Installer failures report the exit code, timeout flag
+and at most the last 2,000 characters of retained combined stdout/stderr (or an
+explicit no-output diagnostic). Setup can reuse its install home and temporary
+directories when retried in the same scratch tree. Installed pins are retained as
 `direct_egress.requirements_pins` in `artifacts/egress-canary.json`. The host
 wheel cache and verifier assets remain denied to the agent.
 
@@ -487,6 +490,16 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
 6. **Environment.** The enforced cell configuration has `PIP_NO_INDEX=1`,
    `PIP_CONFIG_FILE=/dev/null`, only allowlisted `PIP_*` settings and a local
    `PIP_FIND_LINKS`.
+
+Requirements inspection happens after the agent turn and reads the final
+workspace, not a command-time snapshot. Deleting or unpinning a requirements
+file after an otherwise valid install can therefore prevent an exemption.
+The setup-time `SEW_GAP_REQUIREMENTS_PINS` metadata attests only the pre-agent
+installation; it cannot certify what a later command read from a mutable path.
+It is deliberately not a fallback for missing or unsafe requirements. Use
+literal exact pins in later pip commands to avoid this temporal ambiguity.
+Removing this limitation requires command-time requirements evidence; simply
+trusting a known path or setup pins would also exempt modified remote sources.
 
 Anything else is not exempt, including constraints (`-c`),
 editables (`-e`), index and trusted-host options, `--config-settings`, any URL,

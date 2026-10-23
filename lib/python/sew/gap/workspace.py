@@ -192,9 +192,9 @@ def prepare_python_environment(
             )
         if pins:
             home = scratch / "install-home"
-            home.mkdir()
+            home.mkdir(exist_ok=True)
             temporary = scratch / "install-tmp"
-            temporary.mkdir()
+            temporary.mkdir(exist_ok=True)
             installed = _execute(
                 [
                     str(environment / "bin/python"),
@@ -216,7 +216,15 @@ def prepare_python_environment(
                 sandbox_write_roots=[environment, home, temporary],
             )
             if installed["exit_code"] or installed["timed_out"]:
-                raise SchemaError("GAP offline requirements installation failed")
+                diagnostic = installed.get("output", "").strip()
+                if len(diagnostic) > 2000:
+                    diagnostic = "..." + diagnostic[-2000:]
+                raise SchemaError(
+                    "GAP offline requirements installation failed "
+                    f"(exit_code={installed['exit_code']}, "
+                    f"timed_out={installed['timed_out']}): "
+                    + (diagnostic or "no installer output")
+                )
         env["SEW_GAP_REQUIREMENTS_PINS"] = json.dumps(pins)
     return env
 

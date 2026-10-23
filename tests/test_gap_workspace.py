@@ -3225,9 +3225,31 @@ def test_requirements_exemption_refuses_unsafe_inputs(tmp_path, case):
     assert not neutralized
 
 
-@pytest.mark.parametrize("failed", [False, True])
+@pytest.mark.parametrize("change", ["deleted", "unpinned", "remote-source"])
+def test_setup_pins_do_not_attest_later_requirements(tmp_path, change):
+    path = tmp_path / "requirements.txt"
+    path.write_text("mini==1.0\n")
+    env = {**STRICT_PIP_ENV, "SEW_GAP_REQUIREMENTS_PINS": '["mini==1.0"]'}
+    if change == "deleted":
+        path.unlink()
+    elif change == "unpinned":
+        path.write_text("mini\n")
+    else:
+        path.write_text("--find-links https://example.org/wheels/\nmini==1.0\n")
+    command = "python -m pip install -r requirements.txt"
+    neutralized = set()
+    assert audit_workspace_calls(
+        _pip_result("codex", command, "Successfully installed mini"),
+        cwd=tmp_path,
+        cell_env=env,
+        neutralized_attempts=neutralized,
+    ) == ["workspace:shell-network"]
+    assert not neutralized
+
+
+@pytest.mark.parametrize("outcome", ["success", "exit", "timeout", "empty", "long"])
 def test_requirements_setup_uses_clean_confined_offline_installer(
-    tmp_path, monkeypatch, failed
+    tmp_path, monkeypatch, outcome
 ):
     from sew.gap import verify
 
@@ -3254,16 +3276,39 @@ def test_requirements_setup_uses_clean_confined_offline_installer(
         assert "--no-cache-dir" in argv and "--only-binary=:all:" in argv
         assert argv[-1] == "mini==1.0"
         assert 0 < timeout <= 120
-        return {"exit_code": int(failed), "timed_out": False}
+        output = "ERROR: No matching distribution found for mini==1.0"
+        if outcome == "empty":
+            output = ""
+        elif outcome == "long":
+            output = "verbose installer preamble\n" * 200 + output
+        return {
+            "exit_code": 0 if outcome == "success" else -9 if outcome == "timeout" else 1,
+            "timed_out": outcome == "timeout",
+            "output": output,
+        }
 
     monkeypatch.setattr(verify, "_execute", install)
     source = {"PATH": os.defpath, "PIP_INDEX_URL": "https://example.org/simple"}
-    if failed:
+    if outcome != "success":
         with pytest.raises(
             SchemaError, match="offline requirements installation failed"
-        ):
+        ) as error:
             gap_workspace.prepare_python_environment(tmp_path, STRICT_PIP_ENV, source)
+        message = str(error.value)
+        assert f"exit_code={-9 if outcome == 'timeout' else 1}" in message
+        assert f"timed_out={outcome == 'timeout'}" in message
+        assert len(message) < 2200
+        if outcome == "empty":
+            assert message.endswith("no installer output")
+        else:
+            assert message.endswith("ERROR: No matching distribution found for mini==1.0")
+        if outcome == "long":
+            assert "): ..." in message
     else:
         env = gap_workspace.prepare_python_environment(tmp_path, STRICT_PIP_ENV, source)
         assert json.loads(env["SEW_GAP_REQUIREMENTS_PINS"]) == ["mini==1.0"]
-    assert len(calls) == 1
+    # Reuse both a successful and a failed setup's scratch directories.
+    outcome = "success"
+    env = gap_workspace.prepare_python_environment(tmp_path, STRICT_PIP_ENV, source)
+    assert json.loads(env["SEW_GAP_REQUIREMENTS_PINS"]) == ["mini==1.0"]
+    assert len(calls) == 2
