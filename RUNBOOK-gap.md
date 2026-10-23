@@ -96,8 +96,9 @@ Before launch, the exact profile must pass cache direct-read and parent-director
 discovery denials, verifier wheel and installed-source denials, cell-wheelhouse
 mutation and rename denials, the outside-scratch write qualification, and the
 direct socket probe. The agent's three-probe canary remains mandatory; macOS
-Codex enables verbose curl diagnostics to expose the proxy's CONNECT denial
-reason. A bare HTTP status still cannot qualify. Every failure refuses the cell.
+Codex enables curl `--verbose` and pip `-vv` diagnostics to expose the proxy's
+CONNECT denial reason. A bare HTTP status or pip's package-not-found output
+still cannot qualify. Every failure refuses the cell.
 Portable harnesses and Linux behavior are unchanged.
 The canary invocation retains these qualified launch arguments: regenerating
 Codex's default argv would restore `workspace-write` and reintroduce a nested
