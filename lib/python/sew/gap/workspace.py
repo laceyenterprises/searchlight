@@ -1220,7 +1220,7 @@ def _same_command(observed, command):
     )
 
 
-def require_canary(events, nonce: str, command: str, *, harness_id: str):
+def require_canary(events, nonce: str, command: str, *, harness_id: str, env=None):
     try:
         program = _canary_program(harness_id)
     except EgressCanaryRefused:
@@ -1269,19 +1269,31 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
     # or an OSS harness's shell call and its result.
     claude_tool_count = 0
     portable_calls = set()
+    matching_call = invalid_call = False
     for event in transcript:
         for name, payload, call_id in call_payloads(event, include_id=True):
             if name == "bash" and not portable:
                 claude_tool_count += 1
             if portable:
                 # OSS harnesses repeat one call across events; count distinct ids.
-                portable_calls.add(call_id if call_id is not None else len(portable_calls))
+                portable_calls.add(
+                    call_id if call_id is not None else len(portable_calls)
+                )
             if (
                 name not in SHELL_TOOLS
                 or not isinstance(payload, Mapping)
-                or not _same_command(payload.get("command", payload.get("cmd")), command)
+                or not _same_command(
+                    payload.get("command", payload.get("cmd")), command
+                )
             ):
-                raise EgressCanaryRefused("GAP refused: canary used tools outside its exact probe")
+                invalid_call = True
+            else:
+                matching_call = True
+    if invalid_call:
+        detail = "canary used tools outside its exact probe"
+        if not matching_call:
+            detail = "no matching canary command observed; " + detail
+        raise EgressCanaryRefused("GAP refused: " + detail)
     if claude_tool_count > 1:
         raise EgressCanaryRefused("GAP refused: canary used extra Claude tool calls")
     if len(portable_calls) > 1:
@@ -1333,6 +1345,8 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
                 outputs.append((harness_id, result[2] if isinstance(result[2], str) else ""))
     if len(codex_items) > 1:
         raise EgressCanaryRefused("GAP refused: canary used extra Codex tool calls")
+    if not outputs:
+        raise EgressCanaryRefused("GAP refused: no matching completed canary command observed")
     records = []
     for harness, output in outputs:
         if harness != harness_id:
@@ -1383,7 +1397,9 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
                     raise EgressCanaryRefused("GAP refused: egress reached or denial unproven")
                 for name, probe in probes.items():
                     probe["attribution"] = (
-                        "sandbox-violation" if harness == "claude-code" else "denial-text"
+                        "sandbox-violation"
+                        if harness == "claude-code"
+                        else "denial-text"
                     )
                 records.append(record)
             except EgressCanaryRefused:
@@ -1392,7 +1408,23 @@ def require_canary(events, nonce: str, command: str, *, harness_id: str):
                 raise EgressCanaryRefused("GAP refused: malformed canary evidence")
     if len(records) == 1:
         return records[0]
-    raise EgressCanaryRefused("GAP refused: curl, pip download and HTTPS must show sandbox denial")
+    if len(records) > 1:
+        raise EgressCanaryRefused("GAP refused: more than one GAP_CANARY: record found")
+    from ..live_harness import _scrub_canary_credentials, scrub_text
+
+    # Scrub before clipping so a truncated credential cannot escape recognition.
+    tail = _scrub_canary_credentials(
+        scrub_text("\n".join(output for _, output in outputs)), env or {}
+    )
+    tail = re.sub(r"https?://[^\s\"'<>]+", "<redacted:url>", tail)
+    tail = re.sub(r"(?<!\w)/[^\s\"'<>]+", "<redacted:path>", tail)
+    tail = re.sub(r"[\w.+-]+@[\w.-]+", "<redacted:account>", tail)
+    tail = " ".join(tail.splitlines()[-3:])[-300:]
+    raise EgressCanaryRefused(
+        "GAP refused: canary command ran but printed no GAP_CANARY: line; "
+        + "output tail: "
+        + (tail or "<empty>")
+    )
 
 
 DIRECT_PROBE = """

@@ -266,6 +266,38 @@ Codex evidence records `runner_id: bench-seatbelt`,
 `harness-runner-permission:bench-seatbelt`. Cache and verifier qualifications
 remain under `wheel_cache_isolation`. Synthetic tests exercise every refusal
 and portable parity; a real Seatbelt test runs when the host permits containment.
+
+### GAPSANDBOX-02: preserve the qualified canary launch
+
+The canary launch previously rebuilt Codex's arguments from `CodexProtocol`
+after the bench boundary had qualified them. That restored `--sandbox
+workspace-write` inside the Seatbelt prefix, reintroducing a nested sandbox
+for the canary even though the direct probe and task arguments used
+`danger-full-access`. The driver now reuses the qualified arguments for
+stdin-prompt harnesses. Hermes still substitutes its canary prompt in argv.
+Linux retains its qualified bubblewrap arguments and inner Codex sandbox.
+
+The existing `CANARY_PROGRAM` and `_same_command` shell-wrapper rules are
+unchanged. Synthetic fixtures use Codex's actual `item.started` and
+`item.completed` command-execution shape, including the shell command,
+`aggregated_output`, exit code and status, from the
+[Codex 0.163.0 JSONL event processor](https://github.com/openai/codex/blob/rust-v0.163.0/codex-rs/exec/src/event_processor_with_jsonl_output.rs)
+and its [shell argument builder](https://github.com/openai/codex/blob/rust-v0.163.0/codex-rs/core/src/shell.rs).
+Only the matching completed item's output can supply the single canary record.
+Every probe still needs a nonzero integer exit and attributable denial.
+
+Missing evidence now distinguishes no matching completed command, a matching
+command with no `GAP_CANARY:` line, and more than one record. The no-line
+refusal includes the last three output lines, capped at 300 characters after
+credential, URL, path and account redaction; empty output is explicit. Malformed
+or mismatched records, extra tools and reached or unattributed probes still
+refuse admission. A minimal Seatbelt capability probe refused nested
+`sandbox_apply` in the worker, so no live bench-profile Codex canary or
+calibration was run for this change.
+
+The live driver supplies the cell environment to `require_canary` so exact
+credential values are scrubbed before truncation, then retains the redacted
+refusal reason alongside the already scrubbed refused transcript.
 These tests do not certify a live authenticated model invocation.
 
 ### Other macOS inner runners and shared endpoint proxy

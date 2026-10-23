@@ -896,13 +896,21 @@ def run_live_harness(
                         )
                         # A harness that takes its prompt in argv (Hermes) gets
                         # the canary prompt there; stdin harnesses are unchanged.
-                        canary_argv = [
-                            *argv[: len(argv) - len(harness_argv)],
-                            argv[len(argv) - len(harness_argv)],
-                            *protocol.prompt_argv(
-                                binary, spawn_config, last_message_path, canary_prompt
-                            )[1:],
-                        ]
+                        prompt_argv = protocol.prompt_argv(
+                            binary, spawn_config, last_message_path, canary_prompt
+                        )
+                        # Stdin harnesses must retain the qualified launch argv.
+                        # Rebuilding Codex's args restores workspace-write and
+                        # attempts a nested Seatbelt sandbox on macOS.
+                        canary_argv = (
+                            argv
+                            if prompt_argv == harness_argv
+                            else [
+                                *argv[: len(argv) - len(harness_argv)],
+                                argv[len(argv) - len(harness_argv)],
+                                *prompt_argv[1:],
+                            ]
+                        )
                         canary = spawn_and_capture(
                             canary_argv,
                             prompt=canary_prompt,
@@ -949,10 +957,22 @@ def run_live_harness(
                             or canary.provider_budget_killed
                             or canary.capture_overflow
                         ):
-                            raise EgressCanaryRefused("GAP refused: canary cell did not complete")
-                        record = require_canary(
-                            canary.events, nonce, command, harness_id=config.harness_id
-                        )
+                            raise EgressCanaryRefused(
+                                "GAP refused: canary cell did not complete"
+                            )
+                        try:
+                            record = require_canary(
+                                canary.events,
+                                nonce,
+                                command,
+                                harness_id=config.harness_id,
+                                env=child_env,
+                            )
+                        except EgressCanaryRefused as exc:
+                            reason = _scrub_canary_credentials(str(exc), child_env)
+                            canary_evidence["reason"] = reason
+                            _write_json(canary_path, _elide_to_cap(canary_evidence))
+                            raise EgressCanaryRefused(reason) from None
                         canary_evidence.update(admissible=True, probes=record["probes"])
                         _write_json(canary_path, _elide_to_cap(canary_evidence))
                         last_message_path.unlink(missing_ok=True)

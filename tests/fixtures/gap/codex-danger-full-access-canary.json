@@ -1,0 +1,27 @@
+[
+  {"type": "thread.started", "thread_id": "synthetic-thread"},
+  {"type": "turn.started"},
+  {
+    "type": "item.started",
+    "item": {
+      "id": "item_0",
+      "type": "command_execution",
+      "command": "CANARY_SHELL_COMMAND",
+      "aggregated_output": "",
+      "exit_code": null,
+      "status": "in_progress"
+    }
+  },
+  {
+    "type": "item.completed",
+    "item": {
+      "id": "item_0",
+      "type": "command_execution",
+      "command": "CANARY_SHELL_COMMAND",
+      "aggregated_output": "CANARY_OUTPUT",
+      "exit_code": 0,
+      "status": "completed"
+    }
+  },
+  {"type": "turn.completed", "usage": {"input_tokens": 100, "cached_input_tokens": 0, "output_tokens": 20}}
+]
