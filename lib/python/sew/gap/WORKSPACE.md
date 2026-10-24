@@ -469,8 +469,9 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
 
 1. **Direct invocation.** The command text is exactly the canonical
    `shlex.join` of its words. Exactly one canonical `bash`, `sh` or `zsh`
-   `-c '<command>'` or `-lc '<command>'` harness envelope (bare name or shell
-   path) may be removed first; its body must also be canonical. These are the
+   `-c '<command>'` or `-lc '<command>'` harness envelope (bare name or absolute shell
+   path) may be removed first; its body must also be canonical. Relative paths
+   such as `./bash` cannot qualify. These are the
    same envelopes recognized by canary command matching. Other wrappers (`env`, `xargs`, `eval`,
    `nohup`, `time`), nested wrappers, subshells, expansions,
    command substitutions, redirections, comments, pipes and `;`/`&&`/`||`

@@ -613,17 +613,19 @@ def _shell_body(args):
     return None
 
 
-def _shell_envelope_body(command, *, canonical=False):
+def _shell_envelope_body(command, *, canonical=False, parts=None):
     """Recognize one simple shell -c/-lc envelope shared by both audits."""
     if not isinstance(command, str):
         return None
-    try:
-        parts = shlex.split(command)
-    except ValueError:
-        return None
+    if parts is None:
+        try:
+            parts = shlex.split(command)
+        except ValueError:
+            return None
     if (
         len(parts) == 3
         and Path(parts[0]).name in {"bash", "sh", "zsh"}
+        and (parts[0] in {"bash", "sh", "zsh"} or Path(parts[0]).is_absolute())
         and parts[1] in {"-c", "-lc"}
         and (not canonical or shlex.join(parts) == command)
     ):
@@ -737,7 +739,7 @@ def pip_command_is_exempt(command, env, *, cwd=None) -> bool:
         return False
     # Use the same shell envelopes as canary matching. Canonical outer quoting
     # also proves that the shell body was passed literally, without expansions.
-    if (body := _shell_envelope_body(command, canonical=True)) is not None:
+    if (body := _shell_envelope_body(command, canonical=True, parts=argv)) is not None:
         command = body
         try:
             argv = shlex.split(command)

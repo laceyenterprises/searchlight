@@ -3226,6 +3226,23 @@ def test_codex_offline_pip_with_prepared_cell_env(gap_config, tmp_path):
             assert audit.config_neutralized_network_attempts == 0
 
 
+@pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
+@pytest.mark.parametrize("prefix", ["./", "../", "bin/"])
+@pytest.mark.parametrize("option", ["-c", "-lc"])
+def test_relative_shell_paths_are_not_harness_envelopes(shell, prefix, option):
+    body = f"pip download {PIP_PIN}"
+    command = shlex.join([prefix + shell, option, body])
+    assert not gap_workspace._same_command(command, body)
+    assert not gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV)
+    neutralized = set()
+    assert audit_workspace_calls(
+        _pip_result("codex", command),
+        cell_env=STRICT_PIP_ENV,
+        neutralized_attempts=neutralized,
+    ) == ["workspace:shell-network"]
+    assert not neutralized
+
+
 def test_audit_violation_calls_are_deduplicated(gap_config, tmp_path):
     contract = prepare_arm_spawn(gap_config, tmp_path, {}).contract
     bad_call = {

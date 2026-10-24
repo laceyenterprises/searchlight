@@ -451,8 +451,9 @@ whose file resolves inside the workspace and contains only exact pins, with
 only `--no-deps`, `--no-index`, `-q`/`--quiet`,
 `-d`/`--dest DIR` and `--find-links` naming the cell's own wheelhouse, under the
 enforced offline cell configuration. One canonical `bash`, `sh` or `zsh`
-`-c`/`-lc` envelope, using a bare name or shell path, may wrap the direct
-command. Nested or interactive wrappers, pipes, chains,
+`-c`/`-lc` envelope, using a bare name or absolute shell path, may wrap the direct
+command. Relative shell paths such as `./bash` do not qualify. Nested or
+interactive wrappers, pipes, chains,
 constraints, URLs, combined short options and unknown flags never qualify.
 Requirements are inspected after the turn, so deleting or unpinning the file
 can prevent an exemption even for an earlier valid install. Setup pins do not
