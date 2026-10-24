@@ -443,10 +443,16 @@ attributed denial evidence are counted separately in each cell's
 `spawn-metadata.json` as `arm_audit.denied_network_attempts` and do not
 contaminate on their own. The local-only pip exemption is a strict allowlist:
 a direct `pip`/`pip3`/`python -m pip` `download` or `install` of
-`<name>==<version>` pins with only `--no-deps`, `--no-index`, `-q`/`--quiet`,
+`<name>==<version>` pins, directly or via `-r PATH` / `--requirement PATH`
+whose file resolves inside the workspace and contains only exact pins, with
+only `--no-deps`, `--no-index`, `-q`/`--quiet`,
 `-d`/`--dest DIR` and `--find-links` naming the cell's own wheelhouse, under the
-enforced offline cell configuration. Shell wrappers, pipes, chains, requirements,
+enforced offline cell configuration. One canonical `/bin/zsh -c` or `-lc`
+envelope may wrap the direct command. Other shell wrappers, pipes, chains,
 constraints, URLs, combined short options and unknown flags never qualify.
+Requirements are inspected after the turn, so deleting or unpinning the file
+can prevent an exemption even for an earlier valid install. Setup pins do not
+prove what later commands read; use literal pins to avoid this ambiguity.
 Qualifying calls count in `arm_audit.config_neutralized_network_attempts`; see
 `lib/python/sew/gap/WORKSPACE.md` (GAPPIP-01).
 Detection and denial attribution share invocation parsing: quoted pip text in

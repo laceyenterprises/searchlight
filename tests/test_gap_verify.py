@@ -18,8 +18,7 @@ from sew.gap.workspace import capture_diff
 
 
 @pytest.fixture
-def job(tmp_path, require_containment):
-    require_containment("seatbelt")
+def synthetic_job(tmp_path):
     root = tmp_path / "module"
     catalog = root / "catalogs/gap"
     fixture = catalog / "fixture"
@@ -75,6 +74,12 @@ def job(tmp_path, require_containment):
     return root, fixture, workspace, wheels, task
 
 
+@pytest.fixture
+def job(synthetic_job, require_containment):
+    require_containment("seatbelt")
+    return synthetic_job
+
+
 def run(job, tmp_path):
     root, fixture, agent, wheels, task = job
     patch = tmp_path / "workspace.diff"
@@ -95,6 +100,75 @@ def test_correct_migration(job, tmp_path):
     assert result["outcome"] == "pass"
     assert result["escaped_defects"] == result["visible_regressions"] == 0
     assert result["hidden"][0]["tests"][0]["status"] == "pass"
+
+
+def test_cell_requirements_are_installed_offline_before_agent(
+    synthetic_job, tmp_path, require_containment
+):
+    from types import SimpleNamespace
+
+    from sew.gap.workspace import prepare_python_environment, prepare_workspace
+
+    require_containment()
+    root, _, _, wheels, task = synthetic_job
+    scratch = tmp_path / "cell"
+    scratch.mkdir()
+    _, cwd, offline = prepare_workspace(
+        SimpleNamespace(wheelhouse=wheels), scratch, root, task
+    )
+    env = prepare_python_environment(
+        scratch,
+        offline,
+        {
+            "PATH": os.defpath,
+            "PIP_INDEX_URL": "https://example.org/simple",
+            "PYTHONPATH": "/synthetic/host-packages",
+        },
+    )
+    assert "PIP_INDEX_URL" not in env
+    assert "PYTHONPATH" not in env
+    assert json.loads(env["SEW_GAP_REQUIREMENTS_PINS"]) == ["mini==1.0"]
+    result = subprocess.run(
+        ["python", "-c", "import mini; print(mini.legacy())"],
+        cwd=cwd,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=15,
+        check=True,
+    )
+    assert result.stdout.strip() == "1"
+    assert sorted(p.name for p in (scratch / "wheelhouse").iterdir()) == [
+        "mini-1.0-py3-none-any.whl"
+    ]
+    result = subprocess.run(
+        ["python", "-m", "pip", "install", "-r", "requirements.txt"],
+        cwd=cwd,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=15,
+        check=True,
+    )
+    assert "Requirement already satisfied: mini==1.0" in result.stdout
+    from sew.gap.workspace import audit_workspace_calls
+
+    assert (
+        audit_workspace_calls(
+            [
+                {
+                    "type": "command_execution",
+                    "id": "install",
+                    "status": "completed",
+                    "command": "/bin/zsh -lc 'python -m pip install -r requirements.txt'",
+                    "aggregated_output": result.stdout,
+                }
+            ],
+            cwd=cwd,
+            cell_env=env,
+        )
+        == []
+    )
 
 
 def test_cell_and_verifier_use_same_pytest_version(tmp_path):

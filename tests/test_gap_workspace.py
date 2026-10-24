@@ -217,7 +217,7 @@ def test_bad_wheel_cache_refuses(gap_config, tmp_path, failure):
         ("python -m pip config --user set global.no-index 0", True),
         ("pip config unset global.no-index", True),
         ("pip config set global.no-index true", False),
-        ("PIP_NO_INDEX=1 pip install x", False),
+        ("PIP_NO_INDEX=1 pip install x", True),
         ('echo "PIP_NO_INDEX= pip install x"', False),
         ("unset PIP_NO_INDEX; pip install x", True),
         ("pip --isolated install x", True),
@@ -229,7 +229,7 @@ def test_bad_wheel_cache_refuses(gap_config, tmp_path, failure):
         ("dig example.org", True),
         ('python -c "import urllib.request; urllib.request.urlopen(url)"', True),
         ('python -c "import socket; socket.getaddrinfo(host, 80)"', True),
-        ("python -m pip install x", False),
+        ("python -m pip install x", True),
         ("pip install --no-index --find-links /tmp/wheels x", True),
         ("git diff", False),
         ("npm test", False),
@@ -245,7 +245,10 @@ def test_shell_network_audit(command, contaminated, harness):
     event = (
         {"type": "tool_use", "name": "Bash", "input": {"command": command}}
         if harness == "claude-code"
-        else {"type": "item.completed", "item": {"type": "command_execution", "command": command}}
+        else {
+            "type": "item.completed",
+            "item": {"type": "command_execution", "command": command},
+        }
     )
     assert bool(audit_workspace_calls([event])) == contaminated
     # Prose and tool results mentioning commands are never tool requests.
@@ -1745,9 +1748,16 @@ def test_bench_boundary_preserves_python_tooling(monkeypatch, tmp_path, tooling)
         lambda argv, env, **kwargs: nullcontext((argv, evidence)),
     )
     with REAL_BENCH_BOUNDARY(
-        ["codex"], {"SEW_GAP_PYTEST_VERSION": "9.1.0"}, cwd=tmp_path, harness_id="codex"
+        ["codex"],
+        {
+            "SEW_GAP_PYTEST_VERSION": "9.1.0",
+            "SEW_GAP_REQUIREMENTS_PINS": '["mini==1.0"]',
+        },
+        cwd=tmp_path,
+        harness_id="codex",
     ) as (_, retained):
         assert retained["python_tooling"] == expected
+        assert retained["requirements_pins"] == ["mini==1.0"]
         if tooling is not None:
             assert retained["python_tooling"] is tooling
 
@@ -2415,8 +2425,6 @@ def test_pip_download_from_cell_wheelhouse_still_qualifies(gap_config, tmp_path,
     [
         "pip download stripe==15.6.1 --no-deps -d /tmp/x",
         "python -m pip download stripe==15.6.1 --no-deps -d downloads",
-        "/tmp/venv/bin/pip install pytest",
-        "pip install stripe",
     ],
 )
 @pytest.mark.parametrize(
@@ -2555,6 +2563,7 @@ def test_quoted_pip_arguments_do_not_contaminate(harness, command):
     [
         f"pip download {PIP_PIN}",
         f"pip3 install {PIP_PIN}",
+        f"/bin/zsh -lc 'pip download {PIP_PIN}'",
         f"python -m pip download {PIP_PIN} other-name==2.0.0rc1",
         f"python3 -m pip install {PIP_PIN} --no-deps",
         f"pip download --no-deps -d downloads --no-index -q {PIP_PIN}",
@@ -2565,9 +2574,14 @@ def test_quoted_pip_arguments_do_not_contaminate(harness, command):
 )
 def test_strict_pip_allowlist_is_exempt(harness, command):
     neutralized = set()
-    assert audit_workspace_calls(
-        _pip_result(harness, command), cell_env=STRICT_PIP_ENV, neutralized_attempts=neutralized
-    ) == []
+    assert (
+        audit_workspace_calls(
+            _pip_result(harness, command),
+            cell_env=STRICT_PIP_ENV,
+            neutralized_attempts=neutralized,
+        )
+        == []
+    )
     assert gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV)
     # Neutralization counts detected attempts; a plain offline install is not one.
     assert len(neutralized) == int(gap_workspace.shell_network_attempt(command))
@@ -2587,7 +2601,6 @@ def test_strict_pip_allowlist_is_exempt(harness, command):
         f"bash -- -c 'pip download {PIP_PIN}'",
         f"bash -c 'pip download {PIP_PIN}'",
         f"bash -lc 'pip download {PIP_PIN}'",
-        f"/bin/zsh -lc 'pip download {PIP_PIN}'",
         f"sh -c 'pip download {PIP_PIN}'",
         "bash -i -c 'pip install https://example.org/stripe-15.6.1-py3-none-any.whl'",
         f"env pip download {PIP_PIN}",
@@ -2936,9 +2949,9 @@ def test_pip_neutralization_requires_local_result_evidence(output):
 @pytest.mark.parametrize(
     "command",
     [
-        "printenv PIP_NO_INDEX; pip install stripe",
-        "env -u A -u B pip install stripe",
-        "env --unset=A pip install stripe",
+        "printenv PIP_NO_INDEX; pip install stripe==15.6.1",
+        "env -u A -u B pip install stripe==15.6.1",
+        "env --unset=A pip install stripe==15.6.1",
     ],
 )
 def test_pip_offline_diagnostics_do_not_count_as_network(command):
@@ -3078,3 +3091,224 @@ def test_oss_linux_claude_qualifies_srt_inside_namespace(tmp_path, monkeypatch):
     stdout = "GAP_CANARY:" + json.dumps({"nonce": nonce, "probes": probes})
     with pytest.raises(EgressCanaryRefused):
         REAL_CLAUDE_QUALIFICATION(["claude"], env, cwd=cwd, direct_evidence={"backend": "bubblewrap"}, command_prefix=["namespace-prefix"])
+
+
+@pytest.mark.parametrize("operation", ["install", "download"])
+@pytest.mark.parametrize("wrapper", [None, "-lc", "-c"])
+@pytest.mark.parametrize("option", ["-r", "--requirement"])
+@pytest.mark.parametrize("satisfied", [False, True])
+def test_workspace_pinned_requirements_are_config_neutralized(
+    tmp_path, operation, wrapper, option, satisfied
+):
+    (tmp_path / "requirements.txt").write_text(
+        "# synthetic pins\nmini==1.0\nother-name==2.0rc1\n"
+    )
+    command = f"python -m pip {operation} {option} requirements.txt"
+    if wrapper:
+        command = shlex.join(["/bin/zsh", wrapper, command])
+    output = "Looking in links: /tmp/cell/wheelhouse\n" + (
+        "Requirement already satisfied: mini==1.0"
+        if satisfied
+        else f"Processing /tmp/cell/wheelhouse/mini-1.0-py3-none-any.whl\nSuccessfully {operation}ed mini"
+    )
+    neutralized = set()
+    assert (
+        audit_workspace_calls(
+            _pip_result("codex", command, output),
+            cwd=tmp_path,
+            cell_env=STRICT_PIP_ENV,
+            neutralized_attempts=neutralized,
+        )
+        == []
+    )
+    assert neutralized == {("pip", command)}
+
+
+@pytest.mark.parametrize(
+    "case",
+    [
+        "unpinned",
+        "mixed",
+        "outside",
+        "symlink",
+        "missing",
+        "recursive",
+        "url",
+        "url-path",
+        "file-url-path",
+        "index",
+        "curl",
+        "unpinned-install",
+        "nested-wrapper",
+        "other-wrapper",
+        "noncanonical-wrapper",
+        "compound",
+        "url-output",
+        "index-output",
+        "retry-output",
+        "bad-env",
+        "no-links",
+        "no-cwd",
+    ],
+)
+def test_requirements_exemption_refuses_unsafe_inputs(tmp_path, case):
+    cwd = tmp_path / "workspace"
+    cwd.mkdir()
+    path = cwd / "requirements.txt"
+    path.write_text("mini==1.0\n")
+    command = "python -m pip install -r requirements.txt"
+    output = "Successfully installed mini"
+    env = dict(STRICT_PIP_ENV)
+    if case in {"unpinned", "mixed", "recursive", "url"}:
+        path.write_text(
+            {
+                "unpinned": "mini\n",
+                "mixed": "mini==1.0\nother\n",
+                "recursive": "-r other.txt\n",
+                "url": "mini @ https://example.org/mini.whl\n",
+            }[case]
+        )
+    elif case in {"outside", "symlink"}:
+        outside = tmp_path / "outside.txt"
+        outside.write_text("mini==1.0\n")
+        if case == "outside":
+            command = "python -m pip install -r ../outside.txt"
+        else:
+            path.unlink()
+            path.symlink_to(outside)
+    elif case == "missing":
+        path.unlink()
+    elif case == "index":
+        command += " --index-url https://example.org/simple"
+    elif case in {"url-path", "file-url-path"}:
+        value = (
+            "https://example.org/requirements.txt"
+            if case == "url-path"
+            else "file:/outside.txt"
+        )
+        # A Path-only validator would confuse this local lookalike with pip's
+        # URL input, despite the actual requirements source being elsewhere.
+        lookalike = cwd / value
+        lookalike.parent.mkdir(parents=True, exist_ok=True)
+        lookalike.write_text("mini==1.0\n")
+        command = shlex.join(["python", "-m", "pip", "install", "-r", value])
+    elif case == "curl":
+        command = "curl https://example.org"
+    elif case == "unpinned-install":
+        command = "python -m pip install mini"
+    elif case == "compound":
+        command += "; true"
+    elif case == "bad-env":
+        env["PIP_INDEX_URL"] = "https://example.org/simple"
+    elif case == "no-links":
+        env.pop("PIP_FIND_LINKS")
+    elif case.endswith("-output"):
+        output += {
+            "url-output": "\nfile://remote/mini.whl",
+            "index-output": "\nLooking in indexes: local-index",
+            "retry-output": "\nRetrying connection",
+        }[case]
+    command = shlex.join(["/bin/zsh", "-lc", command])
+    if case == "nested-wrapper":
+        command = shlex.join(["/bin/zsh", "-lc", command])
+    elif case == "other-wrapper":
+        command = command.replace("/bin/zsh", "bash", 1)
+    elif case == "noncanonical-wrapper":
+        command = command.replace(" -lc ", "  -lc ", 1)
+    neutralized = set()
+    assert audit_workspace_calls(
+        _pip_result("codex", command, output),
+        cwd=None if case == "no-cwd" else cwd,
+        cell_env=env,
+        neutralized_attempts=neutralized,
+    ) == ["workspace:shell-network"]
+    assert not neutralized
+
+
+@pytest.mark.parametrize("change", ["deleted", "unpinned", "remote-source"])
+def test_setup_pins_do_not_attest_later_requirements(tmp_path, change):
+    path = tmp_path / "requirements.txt"
+    path.write_text("mini==1.0\n")
+    env = {**STRICT_PIP_ENV, "SEW_GAP_REQUIREMENTS_PINS": '["mini==1.0"]'}
+    if change == "deleted":
+        path.unlink()
+    elif change == "unpinned":
+        path.write_text("mini\n")
+    else:
+        path.write_text("--find-links https://example.org/wheels/\nmini==1.0\n")
+    command = "python -m pip install -r requirements.txt"
+    neutralized = set()
+    assert audit_workspace_calls(
+        _pip_result("codex", command, "Successfully installed mini"),
+        cwd=tmp_path,
+        cell_env=env,
+        neutralized_attempts=neutralized,
+    ) == ["workspace:shell-network"]
+    assert not neutralized
+
+
+@pytest.mark.parametrize("outcome", ["success", "exit", "timeout", "empty", "long"])
+def test_requirements_setup_uses_clean_confined_offline_installer(
+    tmp_path, monkeypatch, outcome
+):
+    from sew.gap import verify
+
+    cwd = tmp_path / "workspace"
+    cwd.mkdir()
+    (cwd / "requirements.txt").write_text("mini==1.0\n")
+    calls = []
+
+    def install(argv, install_cwd, env, timeout, **kwargs):
+        calls.append(argv)
+        assert install_cwd == cwd
+        assert env["PIP_NO_INDEX"] == "1"
+        assert env["PIP_CONFIG_FILE"] == os.devnull
+        assert "PIP_INDEX_URL" not in env
+        assert "PYTHONPATH" not in env
+        assert Path(env["HOME"]).is_relative_to(tmp_path)
+        assert Path(env["TMPDIR"]).is_relative_to(tmp_path)
+        assert kwargs["sandbox_root"] == tmp_path
+        assert set(kwargs["sandbox_write_roots"]) == {
+            tmp_path / "venv",
+            Path(env["HOME"]),
+            Path(env["TMPDIR"]),
+        }
+        assert "--no-cache-dir" in argv and "--only-binary=:all:" in argv
+        assert argv[-1] == "mini==1.0"
+        assert 0 < timeout <= 120
+        output = "ERROR: No matching distribution found for mini==1.0"
+        if outcome == "empty":
+            output = ""
+        elif outcome == "long":
+            output = "verbose installer preamble\n" * 200 + output
+        return {
+            "exit_code": 0 if outcome == "success" else -9 if outcome == "timeout" else 1,
+            "timed_out": outcome == "timeout",
+            "output": output,
+        }
+
+    monkeypatch.setattr(verify, "_execute", install)
+    source = {"PATH": os.defpath, "PIP_INDEX_URL": "https://example.org/simple"}
+    if outcome != "success":
+        with pytest.raises(
+            SchemaError, match="offline requirements installation failed"
+        ) as error:
+            gap_workspace.prepare_python_environment(tmp_path, STRICT_PIP_ENV, source)
+        message = str(error.value)
+        assert f"exit_code={-9 if outcome == 'timeout' else 1}" in message
+        assert f"timed_out={outcome == 'timeout'}" in message
+        assert len(message) < 2200
+        if outcome == "empty":
+            assert message.endswith("no installer output")
+        else:
+            assert message.endswith("ERROR: No matching distribution found for mini==1.0")
+        if outcome == "long":
+            assert "): ..." in message
+    else:
+        env = gap_workspace.prepare_python_environment(tmp_path, STRICT_PIP_ENV, source)
+        assert json.loads(env["SEW_GAP_REQUIREMENTS_PINS"]) == ["mini==1.0"]
+    # Reuse both a successful and a failed setup's scratch directories.
+    outcome = "success"
+    env = gap_workspace.prepare_python_environment(tmp_path, STRICT_PIP_ENV, source)
+    assert json.loads(env["SEW_GAP_REQUIREMENTS_PINS"]) == ["mini==1.0"]
+    assert len(calls) == 2
