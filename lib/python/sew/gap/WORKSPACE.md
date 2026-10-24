@@ -468,9 +468,15 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
 `bash -- -c` wrappers. A shell call is exempt only when all of these hold:
 
 1. **Direct invocation.** The command text is exactly the canonical
-   `shlex.join` of its words. Exactly one canonical `/bin/zsh -lc '<command>'`
-   or `/bin/zsh -c '<command>'` harness envelope may be removed first; its body
-   must also be canonical. Other wrappers (`bash`, `sh`, `env`, `xargs`, `eval`,
+   `shlex.join` of its words. Exactly one canonical `bash`, `sh` or `zsh`
+   `-c '<command>'` or `-lc '<command>'` harness envelope may be removed first;
+   its body must also be canonical. Only `/bin/{bash,sh,zsh}` and
+   `/usr/bin/{bash,sh,zsh}` qualify, with bare names resolved through the cell
+   PATH to one of those paths. Relative and cell-local absolute paths cannot
+   qualify. The cell HOME must contain none of `.profile`, `.bash_profile`,
+   `.bash_login`, `.bashrc`, `.zshenv`, `.zprofile`, `.zshrc` or `.zlogin`;
+   `BASH_ENV`, `ENV` and `ZDOTDIR` keys also refuse the exemption. Canary
+   command matching keeps its looser shell recognition. Other wrappers (`env`, `xargs`, `eval`,
    `nohup`, `time`), nested wrappers, subshells, expansions,
    command substitutions, redirections, comments, pipes and `;`/`&&`/`||`
    chains cannot qualify.
@@ -530,6 +536,22 @@ scoring. Calls with attributed denials count only in `denied_network_attempts`.
 Calibration retains the accepted cell's count and sums it in its summary;
 excluded attempt bundles retain their own audit counts. GAP JSON and Markdown
 expose the metric for included and excluded cells. Legacy fields default to zero.
+
+GAPPIP-02 exercises the synthetic `danger-full-access` Codex transcript with
+the environment from `prepare_workspace`, `prepare_python_environment` and
+`_portable_cell_env`. The five effective `PIP_*` keys already match the
+allowlist. On the GAPREQS-01 baseline, canonical `/bin/zsh -c` and `-lc`
+requirements installs already qualify; equivalent bash/sh envelopes did not.
+Shell-envelope recognition is now shared without relaxing the literal command
+body, requirements, environment or output checks.
+
+Each cell's `artifacts/spawn-metadata.json` also retains
+`arm_audit.violation_calls`, a list of `{"kind": ..., "call_id": ...}` records
+for workspace and out-of-arm tool violations. Identical kind/call pairs are
+deduplicated across Codex start/completion events only when a real ID exists.
+Missing protocol IDs are represented by JSON null and each occurrence is retained. Existing `arm_audit.violations` remains the list of
+violation kinds. These records identify the offending transcript calls without
+retaining command text or environment values in the audit metadata.
 
 ## Portable backend selection (SWX-04)
 

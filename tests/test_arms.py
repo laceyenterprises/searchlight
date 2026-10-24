@@ -659,3 +659,13 @@ def test_claude_arms_preapprove_every_web_tool_they_expose(
     exposed = surface.harness_args[surface.harness_args.index("--tools") + 1].split(",")
     web_tools = {name for name in exposed if name in {"WebSearch", "WebFetch"}}
     assert web_tools <= set(allowed.split(","))
+
+
+@pytest.mark.parametrize("fixture", sorted((Path(__file__).parent / "fixtures" / "gap").glob("*.json")), ids=lambda path: path.name)
+def test_tool_call_projection_preserves_golden_transcript_counts(fixture):
+    from sew.arms import _tool_calls, _tool_call_entries
+
+    transcript = json.loads(fixture.read_text())
+    names = _tool_calls(transcript)
+    assert names == [name for _, name in _tool_call_entries(transcript)]
+    assert audit_transcript(contract_for(_provider_config("codex", "exa")), transcript).observed_tool_calls == tuple(names)

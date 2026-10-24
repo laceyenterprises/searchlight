@@ -122,6 +122,7 @@ class TranscriptAudit:
     denied_network_attempts: int = 0
     config_neutralized_network_attempts: int = 0
     new_package_attempts: int = 0
+    violation_calls: tuple[tuple[str, str | None], ...] = ()
 
 
 def contract_for(config: Any) -> ArmContract:
@@ -422,8 +423,12 @@ def audit_transcript(
     cell_env=None,
     new_packages=(),
 ) -> TranscriptAudit:
-    calls = tuple(_tool_calls(transcript))
+    entries = _tool_call_entries(transcript)
+    calls = tuple(name for _, name in entries)
     violations = tuple(name for name in calls if not _allowed(contract, name))
+    violation_calls = [
+        (name, call_id) for call_id, name in entries if not _allowed(contract, name)
+    ]
     denied_attempts = set()
     neutralized_attempts = set()
     new_package_attempts = set()
@@ -440,8 +445,17 @@ def audit_transcript(
                 neutralized_attempts=neutralized_attempts,
                 new_packages=new_packages,
                 new_package_attempts=new_package_attempts,
+                violation_calls=violation_calls,
             )
         )
+    # Protocol IDs identify duplicate start/completion events. Without an ID,
+    # retain each occurrence rather than merging distinct offending calls.
+    seen = set()
+    distinct_violation_calls = []
+    for pair in violation_calls:
+        if pair[1] is None or pair not in seen:
+            distinct_violation_calls.append(pair)
+            seen.add(pair)
     return TranscriptAudit(
         bool(violations),
         calls,
@@ -449,6 +463,7 @@ def audit_transcript(
         len(denied_attempts),
         len(neutralized_attempts),
         len(new_package_attempts),
+        tuple(distinct_violation_calls),
     )
 
 

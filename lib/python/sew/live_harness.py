@@ -1885,6 +1885,10 @@ def _spawn_metadata(
                 "contaminated": arm_audit.contaminated,
                 "observed_tool_calls": list(arm_audit.observed_tool_calls),
                 "violations": list(arm_audit.violations),
+                "violation_calls": [
+                    {"kind": kind, "call_id": call_id}
+                    for kind, call_id in arm_audit.violation_calls
+                ],
                 "new_package_attempts": arm_audit.new_package_attempts,
                 "denied_network_attempts": arm_audit.denied_network_attempts,
                 "config_neutralized_network_attempts": arm_audit.config_neutralized_network_attempts,

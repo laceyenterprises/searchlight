@@ -613,6 +613,26 @@ def _shell_body(args):
     return None
 
 
+def _shell_envelope_body(command, *, canonical=False, parts=None):
+    """Recognize one simple shell -c/-lc envelope shared by both audits."""
+    if not isinstance(command, str):
+        return None
+    if parts is None:
+        try:
+            parts = shlex.split(command)
+        except ValueError:
+            return None
+    if (
+        len(parts) == 3
+        and Path(parts[0]).name in {"bash", "sh", "zsh"}
+        and (parts[0] in {"bash", "sh", "zsh"} or Path(parts[0]).is_absolute())
+        and parts[1] in {"-c", "-lc"}
+        and (not canonical or shlex.join(parts) == command)
+    ):
+        return parts[2]
+    return None
+
+
 # Bound both substitution scanning and recursive shell-body interpretation.
 # Excessive nesting is uncertifiable, never an exception or a clean command.
 SHELL_PARSE_MAX_DEPTH = 64
@@ -717,15 +737,24 @@ def pip_command_is_exempt(command, env, *, cwd=None) -> bool:
         argv = shlex.split(command)
     except ValueError:
         return False
-    # Unwrap only the harness's canonical shell envelope, once. The body still
-    # has to pass the direct-command allowlist below.
-    if (
-        len(argv) == 3
-        and argv[0] == "/bin/zsh"
-        and argv[1] in {"-lc", "-c"}
-        and shlex.join(argv) == command
-    ):
-        command = argv[2]
+    # Use the same shell envelopes as canary matching. Canonical outer quoting
+    # also proves that the shell body was passed literally, without expansions.
+    if (body := _shell_envelope_body(command, canonical=True, parts=argv)) is not None:
+        trusted_shells = {f"{directory}/{shell}" for directory in ("/bin", "/usr/bin")
+                          for shell in ("bash", "sh", "zsh")}
+        shell = argv[0]
+        if shell in {"bash", "sh", "zsh"}:
+            shell = shutil.which(shell, path=env.get("PATH", os.defpath))
+        if shell not in trusted_shells or any(key in env for key in ("BASH_ENV", "ENV", "ZDOTDIR")):
+            return False
+        # Startup files can silently change pip's environment or run side effects.
+        # Check all supported shells conservatively, including non-login hooks.
+        if home := env.get("HOME"):
+            startup_files = (".profile", ".bash_profile", ".bash_login", ".bashrc",
+                             ".zshenv", ".zprofile", ".zshrc", ".zlogin")
+            if any(os.path.lexists(Path(home) / name) for name in startup_files):
+                return False
+        command = body
         try:
             argv = shlex.split(command)
         except ValueError:
@@ -1210,11 +1239,18 @@ def audit_workspace_calls(
     neutralized_attempts=None,
     new_packages=(),
     new_package_attempts=None,
+    violation_calls=None,
 ):
     forbidden = [Path(path).resolve() for path in forbidden_paths]
     # Always guard the canonical module too, including ad-hoc audit callers.
     forbidden.extend((module_root().resolve(), VERIFIER_ROOT))
     violations = []
+
+    def violation(kind, call_id):
+        violations.append(kind)
+        if violation_calls is not None:
+            violation_calls.append((kind, call_id))
+
     denied = denied_network_commands(transcript)
     neutralized = (
         config_neutralized_pip_commands(transcript, cell_env or {}, cwd=cwd) - denied
@@ -1253,7 +1289,7 @@ def audit_workspace_calls(
                 if denied_attempts is not None:
                     denied_attempts.add((call_id, command))
             else:
-                violations.append("workspace:shell-network")
+                violation("workspace:shell-network", call_id)
         # Search/discovery tools expose local contents and metadata too.
         # Opencode glob can name an absolute path in its pattern alone.
         if name in FILE_TOOLS or shell:
@@ -1266,7 +1302,7 @@ def audit_workspace_calls(
                 re.search(re.escape(str(path)) + r"(?:[/\s\"\']|$)", text)
                 for path in forbidden
             ):
-                violations.append("workspace:forbidden-read")
+                violation("workspace:forbidden-read", call_id)
                 continue
             try:
                 tokens = shlex.split(text)
@@ -1283,7 +1319,7 @@ def audit_workspace_calls(
                     candidate = cwd / candidate
                 candidate = candidate.resolve()
                 if any(candidate.is_relative_to(path) for path in forbidden):
-                    violations.append("workspace:forbidden-read")
+                    violation("workspace:forbidden-read", call_id)
                     break
     return list(dict.fromkeys(violations))
 
@@ -1367,16 +1403,7 @@ def canary_command(harness_id):
 def _same_command(observed, command):
     if observed == command:
         return True
-    try:
-        parts = shlex.split(observed or "")
-    except (ValueError, TypeError):
-        return False
-    return (
-        len(parts) == 3
-        and Path(parts[0]).name in {"bash", "sh", "zsh"}
-        and parts[1] in {"-c", "-lc"}
-        and parts[2] == command
-    )
+    return isinstance(command, str) and _shell_envelope_body(observed) == command
 
 
 def require_canary(events, nonce: str, command: str, *, harness_id: str, env=None):

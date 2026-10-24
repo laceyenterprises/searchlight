@@ -439,6 +439,9 @@ root, including brief search and reference cells without a workspace profile.
 Catalog reads (including `tasks.yaml`, which contains the oracle) mark the cell
 `contaminated` and exclude it from grading. Code cells also forbid their hidden
 asset path. Unattributed shell-network attempts also contaminate; calls with
+violations retain their kinds and offending call IDs in
+`artifacts/spawn-metadata.json` under `arm_audit.violation_calls` (missing IDs
+are null and retain each occurrence; repeated records with a real ID are deduplicated). Calls with
 attributed denial evidence are counted separately in each cell's
 `spawn-metadata.json` as `arm_audit.denied_network_attempts` and do not
 contaminate on their own. The local-only pip exemption is a strict allowlist:
@@ -447,8 +450,13 @@ a direct `pip`/`pip3`/`python -m pip` `download` or `install` of
 whose file resolves inside the workspace and contains only exact pins, with
 only `--no-deps`, `--no-index`, `-q`/`--quiet`,
 `-d`/`--dest DIR` and `--find-links` naming the cell's own wheelhouse, under the
-enforced offline cell configuration. One canonical `/bin/zsh -c` or `-lc`
-envelope may wrap the direct command. Other shell wrappers, pipes, chains,
+enforced offline cell configuration. One canonical `bash`, `sh` or `zsh`
+`-c`/`-lc` envelope may wrap the direct command when the interpreter is
+`/bin/{bash,sh,zsh}` or `/usr/bin/{bash,sh,zsh}`; bare names must resolve
+through the cell PATH to one of those paths. Relative and cell-local absolute
+shell paths do not qualify. Shell envelopes also require no shell startup
+files in the cell HOME and no `BASH_ENV`, `ENV` or `ZDOTDIR` environment keys. Nested or
+interactive wrappers, pipes, chains,
 constraints, URLs, combined short options and unknown flags never qualify.
 Requirements are inspected after the turn, so deleting or unpinning the file
 can prevent an exemption even for an earlier valid install. Setup pins do not
@@ -620,3 +628,10 @@ vendor's `pricing_coverage`, and publish the corrected report with a recovery
 note. Keep lower-bound labels wherever metering or pricing remains incomplete;
 do not remove them solely because a vendor now has a tariff. Updating the
 published battery reports and their external copies is an operator step.
+
+
+GAPPIP-02 portability: a bare shell receives the pip exemption only when actual
+cell-PATH resolution reaches a trusted system path. A shell absent on the host
+is not exempt. The prepared-environment lexical fixture models trusted shell
+resolution explicitly so portable CI does not require zsh installation; separate
+fixtures retain missing-shell, cell-controlled executable and startup-file refusal.
