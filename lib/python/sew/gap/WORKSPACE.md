@@ -469,10 +469,14 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
 
 1. **Direct invocation.** The command text is exactly the canonical
    `shlex.join` of its words. Exactly one canonical `bash`, `sh` or `zsh`
-   `-c '<command>'` or `-lc '<command>'` harness envelope (bare name or absolute shell
-   path) may be removed first; its body must also be canonical. Relative paths
-   such as `./bash` cannot qualify. These are the
-   same envelopes recognized by canary command matching. Other wrappers (`env`, `xargs`, `eval`,
+   `-c '<command>'` or `-lc '<command>'` harness envelope may be removed first;
+   its body must also be canonical. Only `/bin/{bash,sh,zsh}` and
+   `/usr/bin/{bash,sh,zsh}` qualify, with bare names resolved through the cell
+   PATH to one of those paths. Relative and cell-local absolute paths cannot
+   qualify. The cell HOME must contain none of `.profile`, `.bash_profile`,
+   `.bash_login`, `.bashrc`, `.zshenv`, `.zprofile`, `.zshrc` or `.zlogin`;
+   `BASH_ENV`, `ENV` and `ZDOTDIR` keys also refuse the exemption. Canary
+   command matching keeps its looser shell recognition. Other wrappers (`env`, `xargs`, `eval`,
    `nohup`, `time`), nested wrappers, subshells, expansions,
    command substitutions, redirections, comments, pipes and `;`/`&&`/`||`
    chains cannot qualify.
@@ -544,8 +548,8 @@ body, requirements, environment or output checks.
 Each cell's `artifacts/spawn-metadata.json` also retains
 `arm_audit.violation_calls`, a list of `{"kind": ..., "call_id": ...}` records
 for workspace and out-of-arm tool violations. Identical kind/call pairs are
-deduplicated across Codex start/completion events. Missing protocol IDs are
-represented by JSON null. Existing `arm_audit.violations` remains the list of
+deduplicated across Codex start/completion events only when a real ID exists.
+Missing protocol IDs are represented by JSON null and each occurrence is retained. Existing `arm_audit.violations` remains the list of
 violation kinds. These records identify the offending transcript calls without
 retaining command text or environment values in the audit metadata.
 

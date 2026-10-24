@@ -740,6 +740,20 @@ def pip_command_is_exempt(command, env, *, cwd=None) -> bool:
     # Use the same shell envelopes as canary matching. Canonical outer quoting
     # also proves that the shell body was passed literally, without expansions.
     if (body := _shell_envelope_body(command, canonical=True, parts=argv)) is not None:
+        trusted_shells = {f"{directory}/{shell}" for directory in ("/bin", "/usr/bin")
+                          for shell in ("bash", "sh", "zsh")}
+        shell = argv[0]
+        if shell in {"bash", "sh", "zsh"}:
+            shell = shutil.which(shell, path=env.get("PATH", os.defpath))
+        if shell not in trusted_shells or any(key in env for key in ("BASH_ENV", "ENV", "ZDOTDIR")):
+            return False
+        # Startup files can silently change pip's environment or run side effects.
+        # Check all supported shells conservatively, including non-login hooks.
+        if home := env.get("HOME"):
+            startup_files = (".profile", ".bash_profile", ".bash_login", ".bashrc",
+                             ".zshenv", ".zprofile", ".zshrc", ".zlogin")
+            if any(os.path.lexists(Path(home) / name) for name in startup_files):
+                return False
         command = body
         try:
             argv = shlex.split(command)

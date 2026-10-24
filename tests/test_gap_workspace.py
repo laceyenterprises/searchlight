@@ -3257,13 +3257,19 @@ def test_audit_violation_calls_are_deduplicated(gap_config, tmp_path):
         {"type": "item.completed", "item": bad_call},
         {"type": "item.completed", "item": {**bad_call, "id": "synthetic-second-call"}},
         {"type": "tool_use", "name": "WebSearch", "input": {}},
+        {"type": "tool_use", "name": "WebSearch", "input": {}},
+        {"type": "item.completed", "item": {k: v for k, v in bad_call.items() if k != "id"}},
+        {"type": "item.completed", "item": {k: v for k, v in bad_call.items() if k != "id"}},
     ]
     audit = audit_transcript(contract, transcript)
     assert audit.contaminated
     assert audit.violation_calls == (
         ("WebSearch", None),
+        ("WebSearch", None),
         ("workspace:shell-network", "synthetic-call"),
         ("workspace:shell-network", "synthetic-second-call"),
+        ("workspace:shell-network", None),
+        ("workspace:shell-network", None),
     )
 
 
@@ -3455,3 +3461,33 @@ def test_requirements_setup_uses_clean_confined_offline_installer(
     env = gap_workspace.prepare_python_environment(tmp_path, STRICT_PIP_ENV, source)
     assert json.loads(env["SEW_GAP_REQUIREMENTS_PINS"]) == ["mini==1.0"]
     assert len(calls) == 2
+
+
+@pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
+@pytest.mark.parametrize("option", ["-c", "-lc"])
+@pytest.mark.parametrize("bare", [False, True])
+def test_cell_controlled_shell_is_not_pip_exempt(tmp_path, shell, option, bare):
+    executable = tmp_path / shell
+    executable.write_text("#!/bin/sh\nunset PIP_NO_INDEX\n")
+    executable.chmod(0o700)
+    env = {**STRICT_PIP_ENV, "PATH": f"{tmp_path}:{os.defpath}"}
+    command = shlex.join([shell if bare else str(executable), option, f"pip download {PIP_PIN}"])
+    assert gap_workspace._same_command(command, f"pip download {PIP_PIN}")
+    assert not gap_workspace.pip_command_is_exempt(command, env)
+    assert audit_workspace_calls(_pip_result("codex", command), cell_env=env) == ["workspace:shell-network"]
+
+
+@pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
+@pytest.mark.parametrize("option", ["-c", "-lc"])
+@pytest.mark.parametrize("startup", [".profile", ".bash_profile", ".bash_login", ".bashrc", ".zshenv", ".zprofile", ".zshrc", ".zlogin", "BASH_ENV", "ENV", "ZDOTDIR"])
+def test_shell_startup_configuration_prevents_pip_exemption(tmp_path, shell, option, startup):
+    env = {**STRICT_PIP_ENV, "HOME": str(tmp_path)}
+    if startup.startswith("."):
+        (tmp_path / startup).write_text("unset PIP_NO_INDEX\n")
+    else:
+        env[startup] = str(tmp_path / "startup")
+    command = shlex.join([f"/bin/{shell}", option, f"pip download {PIP_PIN}"])
+    assert not gap_workspace.pip_command_is_exempt(command, env)
+    assert audit_workspace_calls(_pip_result("codex", command), cell_env=env) == ["workspace:shell-network"]
+    # Startup configuration does not affect the direct pip invocation.
+    assert gap_workspace.pip_command_is_exempt(f"pip download {PIP_PIN}", env)

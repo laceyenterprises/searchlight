@@ -448,6 +448,14 @@ def audit_transcript(
                 violation_calls=violation_calls,
             )
         )
+    # Protocol IDs identify duplicate start/completion events. Without an ID,
+    # retain each occurrence rather than merging distinct offending calls.
+    seen = set()
+    distinct_violation_calls = []
+    for pair in violation_calls:
+        if pair[1] is None or pair not in seen:
+            distinct_violation_calls.append(pair)
+            seen.add(pair)
     return TranscriptAudit(
         bool(violations),
         calls,
@@ -455,7 +463,7 @@ def audit_transcript(
         len(denied_attempts),
         len(neutralized_attempts),
         len(new_package_attempts),
-        tuple(dict.fromkeys(violation_calls)),
+        tuple(distinct_violation_calls),
     )
 
 
