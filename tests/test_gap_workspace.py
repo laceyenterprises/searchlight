@@ -2587,17 +2587,19 @@ def test_quoted_pip_arguments_do_not_contaminate(harness, command):
         f"pip install --no-index --find-links /tmp/cell/wheelhouse {PIP_PIN}",
     ],
 )
-def test_strict_pip_allowlist_is_exempt(harness, command):
+def test_strict_pip_allowlist_is_exempt(tmp_path, monkeypatch, harness, command):
+    env = {**STRICT_PIP_ENV, "HOME": str(tmp_path)}
+    monkeypatch.setattr(gap_workspace.shutil, "which", lambda name, path=None: "/bin/" + name)
     neutralized = set()
     assert (
         audit_workspace_calls(
             _pip_result(harness, command),
-            cell_env=STRICT_PIP_ENV,
+            cell_env=env,
             neutralized_attempts=neutralized,
         )
         == []
     )
-    assert gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV)
+    assert gap_workspace.pip_command_is_exempt(command, env)
     # Neutralization counts detected attempts; a plain offline install is not one.
     assert len(neutralized) == int(gap_workspace.shell_network_attempt(command))
 
@@ -3128,7 +3130,7 @@ def test_workspace_pinned_requirements_are_config_neutralized(
         audit_workspace_calls(
             _pip_result("codex", command, output),
             cwd=tmp_path,
-            cell_env=STRICT_PIP_ENV,
+            cell_env={**STRICT_PIP_ENV, "HOME": str(tmp_path)},
             neutralized_attempts=neutralized,
         )
         == []
@@ -3501,8 +3503,46 @@ def test_shell_startup_configuration_prevents_pip_exemption(tmp_path, shell, opt
 
 
 @pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
+@pytest.mark.parametrize("option", ["-c", "-lc"])
+@pytest.mark.parametrize("home", [None, ""])
+@pytest.mark.parametrize("bare", [False, True])
+def test_shell_exemption_requires_explicit_home(monkeypatch, shell, option, home, bare):
+    env = dict(STRICT_PIP_ENV)
+    if home is not None:
+        env["HOME"] = home
+    monkeypatch.setattr(gap_workspace.shutil, "which", lambda name, path=None: "/bin/" + name)
+    body = f"pip download {PIP_PIN}"
+    command = shlex.join([shell if bare else f"/bin/{shell}", option, body])
+    neutralized = set()
+    assert not gap_workspace.pip_command_is_exempt(command, env)
+    assert audit_workspace_calls(
+        _pip_result("codex", command), cell_env=env, neutralized_attempts=neutralized
+    ) == ["workspace:shell-network"]
+    assert not neutralized
+    assert gap_workspace.pip_command_is_exempt(body, env)
+
+
+@pytest.mark.parametrize("resolved", ["/bin/bash", "/usr/bin/bash", "/opt/homebrew/bin/bash", "/usr/local/bin/bash", "/nix/store/shell/bin/bash"])
+def test_bare_shell_exemption_depends_on_resolved_path(tmp_path, monkeypatch, resolved):
+    env = {**STRICT_PIP_ENV, "HOME": str(tmp_path), "PATH": "/cell/bin:/bin"}
+
+    def which(name, path=None):
+        assert name == "bash" and path == env["PATH"]
+        return resolved
+
+    monkeypatch.setattr(gap_workspace.shutil, "which", which)
+    command = shlex.join(["bash", "-c", f"pip download {PIP_PIN}"])
+    trusted = resolved in {"/bin/bash", "/usr/bin/bash"}
+    assert gap_workspace.pip_command_is_exempt(command, env) == trusted
+    assert audit_workspace_calls(_pip_result("codex", command), cell_env=env) == (
+        [] if trusted else ["workspace:shell-network"]
+    )
+
+
+@pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
 def test_missing_bare_shell_never_receives_pip_exemption(tmp_path, monkeypatch, shell):
     monkeypatch.setattr(gap_workspace.shutil, "which", lambda *a, **kw: None)
+    env = {**STRICT_PIP_ENV, "HOME": str(tmp_path)}
     command = shlex.join([shell, "-c", "pip download mini==1.0"])
-    assert not gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV, cwd=tmp_path)
-    assert audit_workspace_calls(_pip_result("codex", command, "Processing /tmp/cell/wheelhouse/mini-1.0-py3-none-any.whl\n"), cwd=tmp_path, cell_env=STRICT_PIP_ENV) == ["workspace:shell-network"]
+    assert not gap_workspace.pip_command_is_exempt(command, env, cwd=tmp_path)
+    assert audit_workspace_calls(_pip_result("codex", command, "Processing /tmp/cell/wheelhouse/mini-1.0-py3-none-any.whl\n"), cwd=tmp_path, cell_env=env) == ["workspace:shell-network"]
