@@ -561,6 +561,21 @@ def test_canary_denial_evidence(harness, shell, flag):
 
 
 @pytest.mark.parametrize("harness", ["claude-code", "codex"])
+@pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
+@pytest.mark.parametrize("prefix,accepted", [("./", False), ("bin/", False), ("/opt/homebrew/bin/", True)])
+@pytest.mark.parametrize("flag", ["-c", "-lc"])
+def test_canary_shell_path_matching(harness, shell, prefix, accepted, flag):
+    nonce, command = canary_command(harness)
+    wrapped = shlex.join([prefix + shell, flag, command])
+    events = canary_events(harness, nonce, wrapped)
+    if accepted:
+        assert require_canary(events, nonce, command, harness_id=harness)["nonce"] == nonce
+    else:
+        with pytest.raises(EgressCanaryRefused):
+            require_canary(events, nonce, command, harness_id=harness)
+
+
+@pytest.mark.parametrize("harness", ["claude-code", "codex"])
 @pytest.mark.parametrize(
     "failure",
     [
@@ -2587,17 +2602,24 @@ def test_quoted_pip_arguments_do_not_contaminate(harness, command):
         f"pip install --no-index --find-links /tmp/cell/wheelhouse {PIP_PIN}",
     ],
 )
-def test_strict_pip_allowlist_is_exempt(harness, command):
+def test_strict_pip_allowlist_is_exempt(tmp_path, monkeypatch, harness, command):
+    env = {**STRICT_PIP_ENV, "HOME": str(tmp_path)}
+    original_which = gap_workspace.shutil.which
+    monkeypatch.setattr(
+        gap_workspace.shutil, "which",
+        lambda name, path=None: "/bin/" + name if name in {"bash", "sh", "zsh"}
+        else original_which(name, path=path),
+    )
     neutralized = set()
     assert (
         audit_workspace_calls(
             _pip_result(harness, command),
-            cell_env=STRICT_PIP_ENV,
+            cell_env=env,
             neutralized_attempts=neutralized,
         )
         == []
     )
-    assert gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV)
+    assert gap_workspace.pip_command_is_exempt(command, env)
     # Neutralization counts detected attempts; a plain offline install is not one.
     assert len(neutralized) == int(gap_workspace.shell_network_attempt(command))
 
@@ -3128,7 +3150,7 @@ def test_workspace_pinned_requirements_are_config_neutralized(
         audit_workspace_calls(
             _pip_result("codex", command, output),
             cwd=tmp_path,
-            cell_env=STRICT_PIP_ENV,
+            cell_env={**STRICT_PIP_ENV, "HOME": str(tmp_path)},
             neutralized_attempts=neutralized,
         )
         == []
@@ -3145,6 +3167,8 @@ def test_codex_offline_pip_with_prepared_cell_env(gap_config, tmp_path, monkeypa
         scratch, offline_env, {"PATH": os.defpath}
     )
     gap_workspace._portable_cell_env(env, scratch)
+    assert Path(env["HOME"]).is_absolute()
+    assert Path(env["HOME"]).is_dir()
     assert gap_workspace._pinned_offline_pip_env(env)
     surface = prepare_arm_spawn(replace(gap_config, env=env), scratch, {})
     settings = tomllib.loads(surface.mcp_config_path.read_text())
@@ -3231,6 +3255,51 @@ def test_codex_offline_pip_with_prepared_cell_env(gap_config, tmp_path, monkeypa
             )
             assert audit.new_package_attempts == 1
             assert audit.config_neutralized_network_attempts == 0
+
+
+@pytest.mark.parametrize("harness", ["codex", "claude-code"])
+@pytest.mark.parametrize("startup", [False, True])
+def test_live_pip_audit_uses_prepared_child_home(gap_config, tmp_path, monkeypatch, harness, startup):
+    config = replace(gap_config, harness_id=harness)
+    assert "HOME" not in config.env
+    launches = []
+
+    @contextmanager
+    def boundary(argv, env, *, cwd, **kwargs):
+        # Exercise the real home builder at the sandbox seam without live egress.
+        gap_workspace._portable_cell_env(env, cwd.parent)
+        home = Path(env["HOME"])
+        assert home.is_absolute() and home.is_dir()
+        if startup:
+            (home / ".bashrc").write_text("unset PIP_NO_INDEX\n")
+        yield argv, {"attribution": "synthetic-boundary"}
+
+    def spawn(argv, *, prompt, env, **kwargs):
+        launches.append(dict(env))
+        if harness == "codex" and len(launches) == 1:
+            command = prompt.split("\n", 1)[1]
+            events = canary_events(harness, shlex.split(command)[-1], command)
+        else:
+            events = _pip_result(harness, "/bin/bash -c 'pip download mini==1.0'")
+            events.append(
+                {"type": "item.completed", "item": {"type": "agent_message", "text": "Done."}}
+                if harness == "codex"
+                else {"type": "result", "subtype": "success", "result": "Done."}
+            )
+        return ProcessOutcome(
+            ready=True,
+            exit_code=0,
+            events=[{"event": event, "received_at": "2026-10-24T00:00:00Z"} for event in events],
+        )
+
+    monkeypatch.setattr(gap_workspace, "bench_network_boundary", boundary)
+    monkeypatch.setattr(live_harness, "spawn_and_capture", spawn)
+    result = run_live_harness(config, tmp_path / "runs", environ={"SEW_HARNESS_LIVE": "1"})
+    assert result.status == ("contaminated" if startup else "succeeded")
+    assert "HOME" in launches[-1]
+    metadata = json.loads((result.bundle_dir / "artifacts/spawn-metadata.json").read_text())
+    assert metadata["arm_audit"]["config_neutralized_network_attempts"] == int(not startup)
+    assert metadata["arm_audit"]["violations"] == (["workspace:shell-network"] if startup else [])
 
 
 @pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
@@ -3501,8 +3570,50 @@ def test_shell_startup_configuration_prevents_pip_exemption(tmp_path, shell, opt
 
 
 @pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
+@pytest.mark.parametrize("option", ["-c", "-lc"])
+@pytest.mark.parametrize("home", [None, "", "rel", "."])
+@pytest.mark.parametrize("bare", [False, True])
+def test_shell_exemption_requires_explicit_home(tmp_path, monkeypatch, shell, option, home, bare):
+    env = dict(STRICT_PIP_ENV)
+    if home is not None:
+        env["HOME"] = home
+    if home in {"rel", "."}:
+        relative_home = tmp_path / home
+        relative_home.mkdir(exist_ok=True)
+        (relative_home / ".bashrc").write_text("unset PIP_NO_INDEX\n")
+    monkeypatch.setattr(gap_workspace.shutil, "which", lambda name, path=None: "/bin/" + name)
+    body = f"pip download {PIP_PIN}"
+    command = shlex.join([shell if bare else f"/bin/{shell}", option, body])
+    neutralized = set()
+    assert not gap_workspace.pip_command_is_exempt(command, env, cwd=tmp_path)
+    assert audit_workspace_calls(
+        _pip_result("codex", command), cwd=tmp_path, cell_env=env, neutralized_attempts=neutralized
+    ) == ["workspace:shell-network"]
+    assert not neutralized
+    assert gap_workspace.pip_command_is_exempt(body, env)
+
+
+@pytest.mark.parametrize("resolved", ["/bin/bash", "/usr/bin/bash", "/opt/homebrew/bin/bash", "/usr/local/bin/bash", "/nix/store/shell/bin/bash"])
+def test_bare_shell_exemption_depends_on_resolved_path(tmp_path, monkeypatch, resolved):
+    env = {**STRICT_PIP_ENV, "HOME": str(tmp_path), "PATH": "/cell/bin:/bin"}
+
+    def which(name, path=None):
+        assert name == "bash" and path == env["PATH"]
+        return resolved
+
+    monkeypatch.setattr(gap_workspace.shutil, "which", which)
+    command = shlex.join(["bash", "-c", f"pip download {PIP_PIN}"])
+    trusted = resolved in {"/bin/bash", "/usr/bin/bash"}
+    assert gap_workspace.pip_command_is_exempt(command, env) == trusted
+    assert audit_workspace_calls(_pip_result("codex", command), cell_env=env) == (
+        [] if trusted else ["workspace:shell-network"]
+    )
+
+
+@pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
 def test_missing_bare_shell_never_receives_pip_exemption(tmp_path, monkeypatch, shell):
     monkeypatch.setattr(gap_workspace.shutil, "which", lambda *a, **kw: None)
+    env = {**STRICT_PIP_ENV, "HOME": str(tmp_path)}
     command = shlex.join([shell, "-c", "pip download mini==1.0"])
-    assert not gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV, cwd=tmp_path)
-    assert audit_workspace_calls(_pip_result("codex", command, "Processing /tmp/cell/wheelhouse/mini-1.0-py3-none-any.whl\n"), cwd=tmp_path, cell_env=STRICT_PIP_ENV) == ["workspace:shell-network"]
+    assert not gap_workspace.pip_command_is_exempt(command, env, cwd=tmp_path)
+    assert audit_workspace_calls(_pip_result("codex", command, "Processing /tmp/cell/wheelhouse/mini-1.0-py3-none-any.whl\n"), cwd=tmp_path, cell_env=env) == ["workspace:shell-network"]

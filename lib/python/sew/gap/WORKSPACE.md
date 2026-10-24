@@ -473,15 +473,20 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
    its body must also be canonical. Only `/bin/{bash,sh,zsh}` and
    `/usr/bin/{bash,sh,zsh}` qualify, with bare names resolved through the cell
    PATH to one of those paths. Relative and cell-local absolute paths cannot
-   qualify. The cell HOME must contain none of `.profile`, `.bash_profile`,
+   qualify. HOME must be explicitly set to an absolute path in the cell
+   environment and contain none of `.profile`, `.bash_profile`,
    `.bash_login`, `.bashrc`, `.zshenv`, `.zprofile`, `.zshrc` or `.zlogin`;
    `BASH_ENV`, `ENV` and `ZDOTDIR` keys also refuse the exemption. Canary
-   command matching keeps its looser shell recognition. Other wrappers (`env`, `xargs`, `eval`,
+   command matching accepts bare `bash`/`sh`/`zsh` names or absolute paths
+   with those names, rejects relative shell paths, and skips the trust,
+   startup-file and canonical-quoting checks. Other wrappers (`env`, `xargs`, `eval`,
    `nohup`, `time`), nested wrappers, subshells, expansions,
    command substitutions, redirections, comments, pipes and `;`/`&&`/`||`
    chains cannot qualify.
    Equivalent shell spellings with extra whitespace or different quoting are
    not canonical and therefore do not qualify for the exemption.
+   The live audit uses the launched child's environment after sandbox setup,
+   including its isolated HOME, rather than the caller's configuration alone.
 2. **Executable.** `pip`, `pip3`, `python -m pip` or `python3 -m pip`, by bare
    name with nothing before the subcommand.
 3. **Subcommand.** `download` or `install`.
@@ -496,6 +501,23 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
 6. **Environment.** The enforced cell configuration has `PIP_NO_INDEX=1`,
    `PIP_CONFIG_FILE=/dev/null`, only allowlisted `PIP_*` settings and a local
    `PIP_FIND_LINKS`.
+
+Shell resolution and startup-file inspection also happen after the agent turn.
+They describe the final PATH and HOME state, without proving which executable
+or startup files a shell used during the turn. A cell can temporarily create a
+shell wrapper in a writable PATH directory or a startup file in HOME, run a
+command and remove the file before the audit. The final-state checks can then
+still grant the exemption. Bare pip/python executables are likewise not
+authenticated, so replacing one in a writable PATH directory is an existing
+limitation even without a shell envelope. Command-time execution evidence is
+needed to certify these transient changes; start/end snapshots alone cannot
+detect a file that was created and removed between them.
+
+Bare shell resolution depends on the audit host's executables at the cell PATH.
+A Homebrew, Nix or other shell outside `/bin` and `/usr/bin` refuses the
+exemption, even for otherwise identical command text. Absolute trusted shell
+paths avoid this PATH resolution dependency; this lexical check does not prove
+that the named system shell exists on the host.
 
 Requirements inspection happens after the agent turn and reads the final
 workspace, not a command-time snapshot. Deleting or unpinning a requirements

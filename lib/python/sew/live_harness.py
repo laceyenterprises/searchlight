@@ -1033,7 +1033,8 @@ def run_live_harness(
             [captured["event"] for captured in outcome.events],
             cwd=workspace_path,
             forbidden_paths=forbidden_paths,
-            cell_env=config.env,
+            # Sandbox setup can add HOME and other effective shell settings.
+            cell_env=child_env,
             new_packages=[p for p in gap_task["packages"] if p["role"] == "new"]
             if config.workspace_profile
             else (),
