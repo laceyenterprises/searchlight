@@ -3136,7 +3136,7 @@ def test_workspace_pinned_requirements_are_config_neutralized(
     assert neutralized == {("pip", command)}
 
 
-def test_codex_offline_pip_with_prepared_cell_env(gap_config, tmp_path):
+def test_codex_offline_pip_with_prepared_cell_env(gap_config, tmp_path, monkeypatch):
     scratch = tmp_path / "cell"
     scratch.mkdir()
     root, task = workspace_task(gap_config)
@@ -3168,8 +3168,15 @@ def test_codex_offline_pip_with_prepared_cell_env(gap_config, tmp_path):
         ["codex", "exec", "--sandbox", "workspace-write", "--json", "-"]
     )
     assert "danger-full-access" in argv
-    # The canonical zsh spelling already works on this baseline. Equivalent
-    # harness envelopes must not change the classification of the same body.
+    # Model trusted system-shell resolution explicitly: zsh need not be
+    # installed on the host running this lexical audit fixture (Linux CI).
+    original_which = gap_workspace.shutil.which
+    monkeypatch.setattr(
+        gap_workspace.shutil, "which",
+        lambda name, path=None: "/bin/" + name if name in {"bash", "sh", "zsh"}
+        else original_which(name, path=path),
+    )
+    # Equivalent trusted harness envelopes preserve the same offline body.
     for shell in ("/bin/zsh", "/bin/bash", "/bin/sh", "zsh", "bash", "sh"):
         for option in ("-c", "-lc"):
             command = shlex.join([shell, option, body])
@@ -3491,3 +3498,11 @@ def test_shell_startup_configuration_prevents_pip_exemption(tmp_path, shell, opt
     assert audit_workspace_calls(_pip_result("codex", command), cell_env=env) == ["workspace:shell-network"]
     # Startup configuration does not affect the direct pip invocation.
     assert gap_workspace.pip_command_is_exempt(f"pip download {PIP_PIN}", env)
+
+
+@pytest.mark.parametrize("shell", ["bash", "sh", "zsh"])
+def test_missing_bare_shell_never_receives_pip_exemption(tmp_path, monkeypatch, shell):
+    monkeypatch.setattr(gap_workspace.shutil, "which", lambda *a, **kw: None)
+    command = shlex.join([shell, "-c", "pip download mini==1.0"])
+    assert not gap_workspace.pip_command_is_exempt(command, STRICT_PIP_ENV, cwd=tmp_path)
+    assert audit_workspace_calls(_pip_result("codex", command, "Processing /tmp/cell/wheelhouse/mini-1.0-py3-none-any.whl\n"), cwd=tmp_path, cell_env=STRICT_PIP_ENV) == ["workspace:shell-network"]

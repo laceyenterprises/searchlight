@@ -628,3 +628,10 @@ vendor's `pricing_coverage`, and publish the corrected report with a recovery
 note. Keep lower-bound labels wherever metering or pricing remains incomplete;
 do not remove them solely because a vendor now has a tariff. Updating the
 published battery reports and their external copies is an operator step.
+
+
+GAPPIP-02 portability: a bare shell receives the pip exemption only when actual
+cell-PATH resolution reaches a trusted system path. A shell absent on the host
+is not exempt. The prepared-environment lexical fixture models trusted shell
+resolution explicitly so portable CI does not require zsh installation; separate
+fixtures retain missing-shell, cell-controlled executable and startup-file refusal.
