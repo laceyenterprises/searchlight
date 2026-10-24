@@ -750,7 +750,7 @@ def pip_command_is_exempt(command, env, *, cwd=None) -> bool:
         # Startup files can silently change pip's environment or run side effects.
         # Check all supported shells conservatively, including non-login hooks.
         home = env.get("HOME")
-        if not home:
+        if not home or not os.path.isabs(home):
             return False
         startup_files = (".profile", ".bash_profile", ".bash_login", ".bashrc",
                          ".zshenv", ".zprofile", ".zshrc", ".zlogin")

@@ -473,7 +473,7 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
    its body must also be canonical. Only `/bin/{bash,sh,zsh}` and
    `/usr/bin/{bash,sh,zsh}` qualify, with bare names resolved through the cell
    PATH to one of those paths. Relative and cell-local absolute paths cannot
-   qualify. HOME must be explicitly set to a nonempty value in the cell
+   qualify. HOME must be explicitly set to an absolute path in the cell
    environment and contain none of `.profile`, `.bash_profile`,
    `.bash_login`, `.bashrc`, `.zshenv`, `.zprofile`, `.zshrc` or `.zlogin`;
    `BASH_ENV`, `ENV` and `ZDOTDIR` keys also refuse the exemption. Canary
@@ -485,6 +485,8 @@ carrying a remote `--find-links`, combined short options and `bash -i -c` /
    chains cannot qualify.
    Equivalent shell spellings with extra whitespace or different quoting are
    not canonical and therefore do not qualify for the exemption.
+   The live audit uses the launched child's environment after sandbox setup,
+   including its isolated HOME, rather than the caller's configuration alone.
 2. **Executable.** `pip`, `pip3`, `python -m pip` or `python3 -m pip`, by bare
    name with nothing before the subcommand.
 3. **Subcommand.** `download` or `install`.
