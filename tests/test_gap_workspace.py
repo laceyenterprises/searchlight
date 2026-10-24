@@ -890,6 +890,7 @@ def test_live_workspace_bundle(
                         "name": "WebSearch",
                         "input": {"query": "leak"},
                     }
+                call["id"] = "synthetic-offending-call"
                 events.append(call)
             if harness == "claude-code":
                 events.append(
@@ -960,6 +961,17 @@ def test_live_workspace_bundle(
         (result.bundle_dir / "artifacts/spawn-metadata.json").read_text()
     )
     assert metadata["arm_contract"]["workspace_profile"]
+    expected_kind = {
+        "shell": "workspace:shell-network",
+        "pypi": "workspace:shell-network",
+        "hidden": "workspace:forbidden-read",
+        "search": "WebSearch",
+    }.get(contamination)
+    assert metadata["arm_audit"]["violation_calls"] == (
+        [{"kind": expected_kind, "call_id": "synthetic-offending-call"}]
+        if expected_kind
+        else []
+    )
     if config.provider_id in {"floor", "ceiling"}:
         from sew.gap.reference import resolve_gap_task
 
@@ -2564,6 +2576,9 @@ def test_quoted_pip_arguments_do_not_contaminate(harness, command):
         f"pip download {PIP_PIN}",
         f"pip3 install {PIP_PIN}",
         f"/bin/zsh -lc 'pip download {PIP_PIN}'",
+        f"bash -c 'pip download {PIP_PIN}'",
+        f"bash -lc 'pip download {PIP_PIN}'",
+        f"sh -c 'pip download {PIP_PIN}'",
         f"python -m pip download {PIP_PIN} other-name==2.0.0rc1",
         f"python3 -m pip install {PIP_PIN} --no-deps",
         f"pip download --no-deps -d downloads --no-index -q {PIP_PIN}",
@@ -2599,9 +2614,6 @@ def test_strict_pip_allowlist_is_exempt(harness, command):
         f"pip install -qvi /tmp/my_index {PIP_PIN}",
         f"bash -i -c 'pip download {PIP_PIN}'",
         f"bash -- -c 'pip download {PIP_PIN}'",
-        f"bash -c 'pip download {PIP_PIN}'",
-        f"bash -lc 'pip download {PIP_PIN}'",
-        f"sh -c 'pip download {PIP_PIN}'",
         "bash -i -c 'pip install https://example.org/stripe-15.6.1-py3-none-any.whl'",
         f"env pip download {PIP_PIN}",
         f"env -u PIP_NO_INDEX pip download {PIP_PIN}",
@@ -3124,6 +3136,120 @@ def test_workspace_pinned_requirements_are_config_neutralized(
     assert neutralized == {("pip", command)}
 
 
+def test_codex_offline_pip_with_prepared_cell_env(gap_config, tmp_path):
+    scratch = tmp_path / "cell"
+    scratch.mkdir()
+    root, task = workspace_task(gap_config)
+    _, cwd, offline_env = prepare_workspace(gap_config, scratch, root, task)
+    env = gap_workspace.prepare_python_environment(
+        scratch, offline_env, {"PATH": os.defpath}
+    )
+    gap_workspace._portable_cell_env(env, scratch)
+    assert gap_workspace._pinned_offline_pip_env(env)
+    surface = prepare_arm_spawn(replace(gap_config, env=env), scratch, {})
+    settings = tomllib.loads(surface.mcp_config_path.read_text())
+    assert settings["shell_environment_policy"]["set"] == {
+        key: value
+        for key, value in env.items()
+        if key.startswith("PIP_") or key in {"PATH", "VIRTUAL_ENV"}
+    }
+    old = next(pin for pin in task["packages"] if pin["role"] == "old")
+    new = next(pin for pin in task["packages"] if pin["role"] == "new")
+    (cwd / "requirements.txt").write_text(f"{old['name']}=={old['version']}\n")
+    wheel = Path(env["PIP_FIND_LINKS"]) / old["url"].rsplit("/", 1)[1]
+    assert wheel.is_file()
+    body = "python -m pip install -r requirements.txt"
+    output = (
+        f"Looking in links: {env['PIP_FIND_LINKS']}\n"
+        f"Processing {wheel}\n"
+        f"Successfully installed {old['name']}-{old['version']}\n"
+    )
+    argv = gap_workspace._codex_bench_argv(
+        ["codex", "exec", "--sandbox", "workspace-write", "--json", "-"]
+    )
+    assert "danger-full-access" in argv
+    # The canonical zsh spelling already works on this baseline. Equivalent
+    # harness envelopes must not change the classification of the same body.
+    for shell in ("/bin/zsh", "/bin/bash", "/bin/sh", "zsh", "bash", "sh"):
+        for option in ("-c", "-lc"):
+            command = shlex.join([shell, option, body])
+            transcript = json.loads(
+                (GOLDEN / "codex-danger-full-access-canary.json").read_text()
+            )
+            for event in transcript:
+                item = event.get("item", {})
+                if item.get("type") == "command_execution":
+                    item["command"] = command
+                    item["aggregated_output"] = (
+                        output if item["status"] == "completed" else ""
+                    )
+            neutralized = set()
+            assert (
+                audit_workspace_calls(
+                    transcript, cwd=cwd, cell_env=env, neutralized_attempts=neutralized
+                )
+                == []
+            ), command
+            assert neutralized == {("item_0", command)}
+            for unsafe_body, unsafe_output in (
+                (body + " --index-url https://example.org/simple", output),
+                (body + " -i https://example.org/simple", output),
+                (body + " --extra-index-url https://example.org/simple", output),
+                (body, output + "Looking in indexes: synthetic-index\n"),
+                (body, output + "https://example.org/mini.whl\n"),
+                (body, output + "Retrying connection\n"),
+                ("python -m pip install mini", output),
+                ("curl https://example.org/mini.whl", output),
+                ("wget https://example.org/mini.whl", output),
+            ):
+                unsafe_command = shlex.join([shell, option, unsafe_body])
+                assert audit_workspace_calls(
+                    _pip_result("codex", unsafe_command, unsafe_output),
+                    cwd=cwd,
+                    cell_env=env,
+                ) == ["workspace:shell-network"]
+            new_command = shlex.join(
+                [
+                    shell,
+                    option,
+                    f"python -m pip install {new['name']}=={new['version']}",
+                ]
+            )
+            audit = audit_transcript(
+                surface.contract,
+                _pip_result("codex", new_command, "No matching distribution found"),
+                cwd=cwd,
+                cell_env=env,
+                new_packages=[new],
+            )
+            assert audit.new_package_attempts == 1
+            assert audit.config_neutralized_network_attempts == 0
+
+
+def test_audit_violation_calls_are_deduplicated(gap_config, tmp_path):
+    contract = prepare_arm_spawn(gap_config, tmp_path, {}).contract
+    bad_call = {
+        "type": "command_execution",
+        "id": "synthetic-call",
+        "command": "curl https://example.org",
+        "status": "completed",
+        "aggregated_output": "synthetic output",
+    }
+    transcript = [
+        {"type": "item.started", "item": bad_call},
+        {"type": "item.completed", "item": bad_call},
+        {"type": "item.completed", "item": {**bad_call, "id": "synthetic-second-call"}},
+        {"type": "tool_use", "name": "WebSearch", "input": {}},
+    ]
+    audit = audit_transcript(contract, transcript)
+    assert audit.contaminated
+    assert audit.violation_calls == (
+        ("WebSearch", None),
+        ("workspace:shell-network", "synthetic-call"),
+        ("workspace:shell-network", "synthetic-second-call"),
+    )
+
+
 @pytest.mark.parametrize(
     "case",
     [
@@ -3140,7 +3266,7 @@ def test_workspace_pinned_requirements_are_config_neutralized(
         "curl",
         "unpinned-install",
         "nested-wrapper",
-        "other-wrapper",
+        "interactive-wrapper",
         "noncanonical-wrapper",
         "compound",
         "url-output",
@@ -3211,8 +3337,8 @@ def test_requirements_exemption_refuses_unsafe_inputs(tmp_path, case):
     command = shlex.join(["/bin/zsh", "-lc", command])
     if case == "nested-wrapper":
         command = shlex.join(["/bin/zsh", "-lc", command])
-    elif case == "other-wrapper":
-        command = command.replace("/bin/zsh", "bash", 1)
+    elif case == "interactive-wrapper":
+        command = command.replace(" -lc ", " -ic ", 1)
     elif case == "noncanonical-wrapper":
         command = command.replace(" -lc ", "  -lc ", 1)
     neutralized = set()

@@ -439,6 +439,9 @@ root, including brief search and reference cells without a workspace profile.
 Catalog reads (including `tasks.yaml`, which contains the oracle) mark the cell
 `contaminated` and exclude it from grading. Code cells also forbid their hidden
 asset path. Unattributed shell-network attempts also contaminate; calls with
+violations retain their kinds and offending call IDs in
+`artifacts/spawn-metadata.json` under `arm_audit.violation_calls` (missing IDs
+are null; repeated start/completion records are deduplicated). Calls with
 attributed denial evidence are counted separately in each cell's
 `spawn-metadata.json` as `arm_audit.denied_network_attempts` and do not
 contaminate on their own. The local-only pip exemption is a strict allowlist:
@@ -447,8 +450,9 @@ a direct `pip`/`pip3`/`python -m pip` `download` or `install` of
 whose file resolves inside the workspace and contains only exact pins, with
 only `--no-deps`, `--no-index`, `-q`/`--quiet`,
 `-d`/`--dest DIR` and `--find-links` naming the cell's own wheelhouse, under the
-enforced offline cell configuration. One canonical `/bin/zsh -c` or `-lc`
-envelope may wrap the direct command. Other shell wrappers, pipes, chains,
+enforced offline cell configuration. One canonical `bash`, `sh` or `zsh`
+`-c`/`-lc` envelope, using a bare name or shell path, may wrap the direct
+command. Nested or interactive wrappers, pipes, chains,
 constraints, URLs, combined short options and unknown flags never qualify.
 Requirements are inspected after the turn, so deleting or unpinning the file
 can prevent an exemption even for an earlier valid install. Setup pins do not
