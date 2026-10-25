@@ -107,7 +107,11 @@ def test_cell_requirements_are_installed_offline_before_agent(
 ):
     from types import SimpleNamespace
 
-    from sew.gap.workspace import prepare_python_environment, prepare_workspace
+    from sew.gap.workspace import (
+        _portable_cell_env,
+        prepare_python_environment,
+        prepare_workspace,
+    )
 
     require_containment()
     root, _, _, wheels, task = synthetic_job
@@ -125,6 +129,7 @@ def test_cell_requirements_are_installed_offline_before_agent(
             "PYTHONPATH": "/synthetic/host-packages",
         },
     )
+    _portable_cell_env(env, scratch)
     assert "PIP_INDEX_URL" not in env
     assert "PYTHONPATH" not in env
     assert json.loads(env["SEW_GAP_REQUIREMENTS_PINS"]) == ["mini==1.0"]
