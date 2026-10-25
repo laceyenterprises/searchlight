@@ -454,8 +454,10 @@ enforced offline cell configuration. One canonical `bash`, `sh` or `zsh`
 `-c`/`-lc` envelope may wrap the direct command when the interpreter is
 `/bin/{bash,sh,zsh}` or `/usr/bin/{bash,sh,zsh}`; bare names must resolve
 through the cell PATH to one of those paths. Relative and cell-local absolute
-shell paths do not qualify. Shell envelopes also require no shell startup
-files in the cell HOME and no `BASH_ENV`, `ENV` or `ZDOTDIR` environment keys. Nested or
+shell paths do not qualify. Shell envelopes also require an explicitly set,
+absolute HOME with no shell startup files and no `BASH_ENV`, `ENV` or `ZDOTDIR`
+environment keys. The audit checks the launched child's environment after
+sandbox setup, including its isolated HOME. Nested or
 interactive wrappers, pipes, chains,
 constraints, URLs, combined short options and unknown flags never qualify.
 Requirements are inspected after the turn, so deleting or unpinning the file
