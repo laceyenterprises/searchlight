@@ -31,6 +31,21 @@ from check_reports import REPORTS  # noqa: E402
 from sew import harnesses  # noqa: E402
 
 REPO_URL = 'https://github.com/laceyenterprises/searchlight'
+GTM_CONTAINER_ID = "GTM-TWQZV6F7"
+GTM_HEAD = f"""<!-- Google consent defaults: analytics off in the EEA, UK and Switzerland until consent; ad storage off everywhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}
+gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']}});
+gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'}});</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
+new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+}})(window,document,'script','dataLayer','{GTM_CONTAINER_ID}');</script>
+<!-- End Google Tag Manager -->"""
+GTM_BODY = f"""<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM_CONTAINER_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->"""
 MERMAID_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js'
 # SHA-384 of the pinned CDN asset; update together with MERMAID_URL.
 MERMAID_INTEGRITY = 'sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I'
@@ -1238,7 +1253,9 @@ def _footer() -> str:
             f'<div><h4>Source</h4><p><a href="{REPO_URL}">github.com/laceyenterprises/searchlight</a></p>'
             f'<p style="margin-top:8px"><a href="{REPO_URL}/tree/main/reports">Raw report data</a></p></div>'
             f'</div><div class="foot-base">A <a href="{LACEY_URL}">Lacey Enterprises</a> project · '
-            '© 2026 Lacey Enterprises LLC</div></div></footer>')
+            '© 2026 Lacey Enterprises LLC'
+            '<p>This site uses Google Analytics to count visits. Analytics is off by default for visitors in the EEA, '
+            'the UK and Switzerland.</p></div></div></footer>')
 
 
 CARD_SIZE = (1200, 630)
@@ -1268,11 +1285,13 @@ def _document(title: str, description: str, active: str, main: str, script: str 
              'href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" '
              'href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">')
     return ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
+            f'\n{GTM_HEAD}\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
             f'<meta name="description" content="{esc(description)}">'
             f'{_social_meta(social_title or title, description, active, card_alt or CARD_ALT_DEFAULT)}'
             '<link rel="icon" type="image/svg+xml" href="logo.svg">'
             f'\n<title>{esc(title)}</title>\n{fonts}\n<style>{CSS}</style>\n</head><body>\n'
+            f'{GTM_BODY}\n'
             f'{_nav(active)}\n<main>\n{main}\n</main>\n{_footer()}\n{script}</body></html>\n')
 
 

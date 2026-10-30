@@ -4,6 +4,7 @@ import json
 import re
 from pathlib import Path
 import xml.etree.ElementTree as ET
+from urllib.parse import urlsplit
 
 import pytest
 
@@ -57,6 +58,131 @@ def test_leaderboards_transcribe_published_tables(leaderboard_reports):
     assert wsb[0]['arm'] == 'firecrawl' and wsb[0]['passes'] == 38 and wsb[0]['cells'] == 42
     assert next(row for row in wsb if row['arm'] == 'native')['note'] == site.RERUN_NOTE
     assert not any(row['flagged'] for board in boards.values() for row in board['rows'])
+
+
+@pytest.fixture
+def synthetic_site(monkeypatch, tmp_path, leaderboard_reports):
+    reports = leaderboard_reports
+    for name in site.REPORTS:
+        reports.setdefault(name, {"summary": {"blocks": []}})
+        reports[name]["summary"].setdefault("blocks", [])
+        reports[name]["methodology"] = "# Synthetic methodology\n\nFixture text."
+    site.behavior(reports)["gap_totals"] = {"natural_language_pct": 25}
+    monkeypatch.setattr(site, "load_reports", lambda root=tmp_path: reports)
+    monkeypatch.setattr(site, "arm_configs", lambda root=tmp_path: [])
+    monkeypatch.setattr(site, "_catalog_prompt", lambda *args: ("Synthetic task.", ""))
+    monkeypatch.setattr(
+        site,
+        "head_to_head",
+        lambda reports: {
+            "providers": ["Exa"],
+            "measures": [],
+            "note": "Synthetic counts.",
+            "monitors": {"monitors": 1, "runs": 2, "changes": 0},
+        },
+    )
+    monkeypatch.setattr(
+        site,
+        "infographic",
+        lambda *args: '<svg xmlns="http://www.w3.org/2000/svg"></svg>',
+    )
+    return lambda: site.build(tmp_path)
+
+
+def test_every_built_page_has_exact_consent_and_gtm_markup(synthetic_site):
+    consent = """<!-- Google consent defaults: analytics off in the EEA, UK and Switzerland until consent; ad storage off everywhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']});
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});</script>"""
+    loader = """<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TWQZV6F7');</script>
+<!-- End Google Tag Manager -->"""
+    noscript = """<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWQZV6F7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->"""
+    notice = (
+        "This site uses Google Analytics to count visits. Analytics is off by default for visitors in the EEA, "
+        "the UK and Switzerland."
+    )
+    assert site.GTM_CONTAINER_ID == "GTM-TWQZV6F7"
+    files = synthetic_site()
+    pages = {
+        name: markup
+        for name, markup in files.items()
+        if name.endswith(".html") and name != "social-card.html"
+    }
+    assert set(pages) == {"index.html", "results.html", "methodology.html"}
+    for name, markup in pages.items():
+        head = markup.split("<head>", 1)[1].split("</head>", 1)[0]
+        assert head.count(consent) == head.count(loader) == 1, name
+        assert (
+            markup.count(consent) == markup.count(loader) == markup.count(noscript) == 1
+        ), name
+        assert head.index("<script") == head.index(consent) + consent.index(
+            "<script>"
+        ), name
+        assert head.index(consent) < head.index(loader), name
+        assert markup.split("<body>", 1)[1].lstrip().startswith(noscript), name
+        assert markup.count("GTM-TWQZV6F7") == 2, name
+        footer = re.search(r"<footer\b.*?</footer>", markup, re.S).group()
+        assert footer.count(notice) == 1, name
+        assert "gtag/js" not in markup and "gtag('config'" not in markup, name
+    card = files["social-card.html"]
+    assert (
+        "googletagmanager.com" not in card
+        and "GTM-" not in card
+        and "gtag(" not in card
+    )
+
+
+def test_built_pages_allow_only_existing_external_hosts_and_tag_manager(synthetic_site):
+    allowed = {
+        "https://blog.python.org",
+        "https://github.blog",
+        "https://github.com",
+        "https://fonts.googleapis.com",
+        "https://fonts.gstatic.com",
+        "https://cdn.jsdelivr.net",
+        "https://searchlightai.dev",
+        "https://www.laceyenterprises.com",
+        "https://search.parallel.ai",
+        "https://www.npmjs.com",
+        "http://www.w3.org",
+        "https://www.googletagmanager.com",
+    }
+    for name, markup in synthetic_site().items():
+        if not name.endswith(".html"):
+            continue
+        urls = re.findall(r'https?://[^\s"\'<>]+', markup)
+        assert all(
+            f"{urlsplit(url).scheme}://{urlsplit(url).netloc}" in allowed
+            for url in urls
+        ), name
+        tag_urls = [
+            url for url in urls if urlsplit(url).netloc == "www.googletagmanager.com"
+        ]
+        assert sorted(tag_urls) == (
+            []
+            if name == "social-card.html"
+            else [
+                "https://www.googletagmanager.com/gtm.js?id=",
+                "https://www.googletagmanager.com/ns.html?id=GTM-TWQZV6F7",
+            ]
+        ), name
+
+
+def test_site_build_is_byte_identical_for_the_same_inputs(synthetic_site):
+    first = {
+        name: content.encode("utf-8") for name, content in synthetic_site().items()
+    }
+    second = {
+        name: content.encode("utf-8") for name, content in synthetic_site().items()
+    }
+    assert first == second
 
 
 @pytest.fixture
