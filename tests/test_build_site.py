@@ -1,6 +1,7 @@
 import copy
 import importlib.util
 import json
+from html.parser import HTMLParser
 import re
 from pathlib import Path
 import xml.etree.ElementTree as ET
@@ -62,7 +63,7 @@ def test_leaderboards_transcribe_published_tables(leaderboard_reports):
 
 @pytest.fixture
 def synthetic_site(monkeypatch, tmp_path, leaderboard_reports):
-    reports = leaderboard_reports
+    reports = copy.deepcopy(leaderboard_reports)
     for name in site.REPORTS:
         reports.setdefault(name, {"summary": {"blocks": []}})
         reports[name]["summary"].setdefault("blocks", [])
@@ -90,10 +91,10 @@ def synthetic_site(monkeypatch, tmp_path, leaderboard_reports):
 
 
 def test_every_built_page_has_exact_consent_and_gtm_markup(synthetic_site):
-    consent = """<!-- Google consent defaults: analytics off in the EEA, UK and Switzerland until consent; ad storage off everywhere -->
+    consent = """<!-- Google consent defaults: analytics storage denied in the EEA, UK, Switzerland and listed territories; no consent UI; ad storage off everywhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});
-gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']});</script>"""
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH','AX','GF','GP','MQ','RE','YT','MF','GI','JE','GG','IM']});</script>"""
     loader = """<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -101,12 +102,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TWQZV6F7');</script>
 <!-- End Google Tag Manager -->"""
-    noscript = """<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWQZV6F7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->"""
     notice = (
-        "This site uses Google Analytics to count visits. Analytics is off by default for visitors in the EEA, "
-        "the UK and Switzerland."
+        "Google Tag Manager loads on every page; analytics cookies are disabled for "
+        "visitors in the EEA, the UK, Switzerland and listed territories. No consent opt-in is offered."
     )
     assert site.GTM_CONTAINER_ID == "GTM-TWQZV6F7"
     files = synthetic_site()
@@ -120,15 +118,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         head = markup.split("<head>", 1)[1].split("</head>", 1)[0]
         assert head.count(consent) == head.count(loader) == 1, name
         assert (
-            markup.count(consent) == markup.count(loader) == markup.count(noscript) == 1
+            markup.count(consent) == markup.count(loader) == 1
         ), name
         assert head.index("<script") == head.index(consent) + consent.index(
             "<script>"
         ), name
         assert head.index(consent) < head.index(loader), name
         assert head.index('<meta name="viewport"') < head.index(consent), name
-        assert markup.split("<body>", 1)[1].lstrip().startswith(noscript), name
-        assert markup.count("GTM-TWQZV6F7") == 2, name
+        assert "<noscript>" not in markup and "<iframe" not in markup, name
+        assert markup.count("GTM-TWQZV6F7") == 1, name
         footer = re.search(r"<footer\b.*?</footer>", markup, re.S).group()
         assert footer.count(notice) == 1, name
         assert "gtag/js" not in markup and "gtag('config'" not in markup, name
@@ -141,39 +139,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 def test_built_pages_allow_only_existing_external_hosts_and_tag_manager(synthetic_site):
+    class Assets(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.urls = []
+            self.script = False
+
+        def handle_starttag(self, tag, attrs):
+            attrs = dict(attrs)
+            field = {"script": "src", "iframe": "src", "link": "href"}.get(tag)
+            if field and attrs.get(field):
+                self.urls.append(attrs[field])
+            if tag == "script":
+                self.script = attrs.get("type", "").lower() not in {"application/json", "application/ld+json"}
+
+        def handle_endtag(self, tag):
+            if tag == "script":
+                self.script = False
+
+        def handle_data(self, data):
+            if self.script:
+                self.urls.extend(re.findall(r"https?://[^\s\"'<>]+", data))
+
     allowed = {
-        "https://blog.python.org",
-        "https://github.blog",
-        "https://github.com",
-        "https://fonts.googleapis.com",
-        "https://fonts.gstatic.com",
-        "https://cdn.jsdelivr.net",
-        "https://searchlightai.dev",
-        "https://www.laceyenterprises.com",
-        "https://search.parallel.ai",
-        "https://www.npmjs.com",
-        "http://www.w3.org",
+        "https://fonts.googleapis.com", "https://fonts.gstatic.com",
+        "https://cdn.jsdelivr.net", "https://searchlightai.dev",
         "https://www.googletagmanager.com",
     }
     for name, markup in synthetic_site().items():
         if not name.endswith(".html"):
             continue
-        urls = re.findall(r'https?://[^\s"\'<>]+', markup)
-        assert all(
-            f"{urlsplit(url).scheme}://{urlsplit(url).netloc}" in allowed
-            for url in urls
-        ), name
-        tag_urls = [
-            url for url in urls if urlsplit(url).netloc == "www.googletagmanager.com"
-        ]
-        assert sorted(tag_urls) == (
-            []
-            if name == "social-card.html"
-            else [
-                "https://www.googletagmanager.com/gtm.js?id=",
-                "https://www.googletagmanager.com/ns.html?id=GTM-TWQZV6F7",
-            ]
-        ), name
+        parser = Assets()
+        parser.feed(markup)
+        urls = [url for url in parser.urls if urlsplit(url).scheme in {"http", "https"}]
+        assert all(f"{urlsplit(url).scheme}://{urlsplit(url).netloc}" in allowed for url in urls), name
+        tag_urls = [url for url in urls if urlsplit(url).netloc == "www.googletagmanager.com"]
+        assert tag_urls == ([] if name == "social-card.html" else ["https://www.googletagmanager.com/gtm.js?id="]), name
 
 
 def test_site_build_is_byte_identical_for_the_same_inputs(synthetic_site):

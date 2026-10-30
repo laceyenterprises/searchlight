@@ -31,11 +31,14 @@ from check_reports import REPORTS  # noqa: E402
 from sew import harnesses  # noqa: E402
 
 REPO_URL = 'https://github.com/laceyenterprises/searchlight'
+# Container publishers control unpinned third-party script execution. Limit
+# publish access to trusted maintainers and review container/tag changes.
+# Consent defaults govern storage, not every network request or cookieless ping.
 GTM_CONTAINER_ID = "GTM-TWQZV6F7"
-GTM_HEAD = f"""<!-- Google consent defaults: analytics off in the EEA, UK and Switzerland until consent; ad storage off everywhere -->
+GTM_HEAD = f"""<!-- Google consent defaults: analytics storage denied in the EEA, UK, Switzerland and listed territories; no consent UI; ad storage off everywhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}
 gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'}});
-gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']}});</script>
+gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH','AX','GF','GP','MQ','RE','YT','MF','GI','JE','GG','IM']}});</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
 new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
@@ -43,9 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 }})(window,document,'script','dataLayer','{GTM_CONTAINER_ID}');</script>
 <!-- End Google Tag Manager -->"""
-GTM_BODY = f"""<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM_CONTAINER_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->"""
+# No non-JavaScript iframe: it cannot apply the storage defaults above.
+GTM_BODY = ""
 MERMAID_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js'
 # SHA-384 of the pinned CDN asset; update together with MERMAID_URL.
 MERMAID_INTEGRITY = 'sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I'
@@ -1101,6 +1103,7 @@ h3{font-size:20px;letter-spacing:-.01em}
 .foot h4{margin:0 0 10px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#B9BEC5;font-weight:600}
 .foot p{margin:0;font-size:15px;color:#E8EAED}
 .foot-base{margin-top:40px;padding-top:20px;border-top:1px solid #5A5A5A;font-size:14px;color:#B9BEC5}
+.foot-base .analytics-disclosure{margin-top:8px;font-size:14px;line-height:1.5}
 .page-head{padding-block:64px 24px}
 .doc section{padding-block:28px}
 .doc h2{font-size:30px;margin-top:8px}
@@ -1252,10 +1255,10 @@ def _footer() -> str:
             'original.</p></div>'
             f'<div><h4>Source</h4><p><a href="{REPO_URL}">github.com/laceyenterprises/searchlight</a></p>'
             f'<p style="margin-top:8px"><a href="{REPO_URL}/tree/main/reports">Raw report data</a></p></div>'
-            f'</div><div class="foot-base">A <a href="{LACEY_URL}">Lacey Enterprises</a> project · '
-            '© 2026 Lacey Enterprises LLC'
-            '<p>This site uses Google Analytics to count visits. Analytics is off by default for visitors in the EEA, '
-            'the UK and Switzerland.</p></div></div></footer>')
+            f'</div><div class="foot-base"><span>A <a href="{LACEY_URL}">Lacey Enterprises</a> project · '
+            '© 2026 Lacey Enterprises LLC</span>'
+            '<p class="analytics-disclosure">Google Tag Manager loads on every page; analytics cookies are disabled for '
+            'visitors in the EEA, the UK, Switzerland and listed territories. No consent opt-in is offered.</p></div></div></footer>')
 
 
 CARD_SIZE = (1200, 630)
