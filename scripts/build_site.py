@@ -34,8 +34,8 @@ REPO_URL = 'https://github.com/laceyenterprises/searchlight'
 GTM_CONTAINER_ID = "GTM-TWQZV6F7"
 GTM_HEAD = f"""<!-- Google consent defaults: analytics off in the EEA, UK and Switzerland until consent; ad storage off everywhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}
-gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']}});
-gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'}});</script>
+gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'}});
+gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']}});</script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
 new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
@@ -1285,8 +1285,8 @@ def _document(title: str, description: str, active: str, main: str, script: str 
              'href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" '
              'href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">')
     return ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
-            f'\n{GTM_HEAD}\n'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
+            f'\n{GTM_HEAD}\n'
             f'<meta name="description" content="{esc(description)}">'
             f'{_social_meta(social_title or title, description, active, card_alt or CARD_ALT_DEFAULT)}'
             '<link rel="icon" type="image/svg+xml" href="logo.svg">'

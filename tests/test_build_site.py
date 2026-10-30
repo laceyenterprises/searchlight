@@ -92,8 +92,8 @@ def synthetic_site(monkeypatch, tmp_path, leaderboard_reports):
 def test_every_built_page_has_exact_consent_and_gtm_markup(synthetic_site):
     consent = """<!-- Google consent defaults: analytics off in the EEA, UK and Switzerland until consent; ad storage off everywhere -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']});
-gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});</script>"""
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']});</script>"""
     loader = """<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -126,6 +126,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             "<script>"
         ), name
         assert head.index(consent) < head.index(loader), name
+        assert head.index('<meta name="viewport"') < head.index(consent), name
         assert markup.split("<body>", 1)[1].lstrip().startswith(noscript), name
         assert markup.count("GTM-TWQZV6F7") == 2, name
         footer = re.search(r"<footer\b.*?</footer>", markup, re.S).group()
