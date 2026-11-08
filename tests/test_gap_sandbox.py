@@ -379,6 +379,7 @@ def test_litellm_bridge_preserves_local_http_and_config(tmp_path, host, userinfo
             expected = "Basic " + base64.b64encode(b"user:p@ss").decode() if userinfo else None
             assert self.headers.get("Authorization") == expected
             self.send_response(200)
+            self.send_header("Content-Length", str(len(b"model transport works")))
             self.end_headers()
             self.wfile.write(b"model transport works")
 
