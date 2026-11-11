@@ -41,6 +41,7 @@ def test_registry_derives_every_harness_table() -> None:
         "fixture",
         "hermes",
         "opencode",
+        "grok",
     ]
     assert set(HOSTED_HARNESSES) == {"claude-code", "codex", "pi", "hermes", "opencode"}
     assert dict(BIN_ENV) == {
@@ -65,7 +66,7 @@ def test_registry_derives_every_harness_table() -> None:
         "opencode": "OpencodeProtocol",
     }
     assert PROTOCOLS["codex"] is PROTOCOLS["codex"]
-    assert HARNESSES - {"fixture"} == {
+    assert HARNESSES - {"fixture", "grok"} == {
         "claude-code",
         "codex",
         "pi",
@@ -114,9 +115,7 @@ def test_registry_rejects_duplicates_and_malformed_specs() -> None:
     with pytest.raises(ValueError, match="must match"):
         harnesses.HarnessSpec(id="Bad_Id", label="bad")
     with pytest.raises(ValueError, match="missing"):
-        harnesses.HarnessSpec(
-            id="half", label="half", live=True, bin_env="SEW_HALF_BIN"
-        )
+        harnesses.HarnessSpec(id="half", label="half", live=True, bin_env="SEW_HALF_BIN")
     with pytest.raises(ValueError, match="code_cell_sandbox"):
         harnesses.HarnessSpec(id="odd", label="odd", code_cell_sandbox="chroot")
     with pytest.raises(KeyError):
@@ -187,9 +186,7 @@ def hosted_literal_comparisons(path: Path, relpath: str) -> Counter:
                     for side in (left, right)
                 )
             elif isinstance(op, (ast.In, ast.NotIn)):
-                hit = not isinstance(right, ast.Constant) and _names_hosted_literal(
-                    right
-                )
+                hit = not isinstance(right, ast.Constant) and _names_hosted_literal(right)
             else:
                 hit = False
             if hit:
@@ -219,9 +216,7 @@ def test_no_new_hosted_harness_literal_comparisons() -> None:
         f"{sorted(unexpected.elements())}"
     )
     stale = GUARD_ALLOWLIST - found
-    assert not stale, (
-        f"drop these guard allowlist entries, the sites are gone: {sorted(stale)}"
-    )
+    assert not stale, f"drop these guard allowlist entries, the sites are gone: {sorted(stale)}"
 
 
 @pytest.mark.parametrize(
@@ -260,9 +255,7 @@ class AcmeProtocol(CodexProtocol):
 WRITER_CALLS: list[str] = []
 
 
-def acme_arm_spawn(
-    config, contract, server_config, scratch, source_env, *, harness_auth="account"
-):
+def acme_arm_spawn(config, contract, server_config, scratch, source_env, *, harness_auth="account"):
     WRITER_CALLS.append(config.provider_id)
     mcp_config = Path(scratch) / "acme-mcp.json"
     mcp_config.write_text("{}", encoding="utf-8")
@@ -297,9 +290,7 @@ def acme():
         harnesses.unregister("acme")
 
 
-def test_third_harness_runs_end_to_end_through_the_fixture_path(
-    acme, tmp_path: Path
-) -> None:
+def test_third_harness_runs_end_to_end_through_the_fixture_path(acme, tmp_path: Path) -> None:
     assert "acme" in HARNESSES and "acme" in HOSTED_HARNESSES
     assert BIN_ENV["acme"] == "SEW_ACME_BIN" and DEFAULT_BIN["acme"] == "acme"
     assert isinstance(PROTOCOLS["acme"], AcmeProtocol)
@@ -359,9 +350,7 @@ def test_third_harness_dispatches_to_its_own_spawn_writer(acme, tmp_path: Path) 
         prepare_arm_spawn(refused, tmp_path, {})
 
 
-def test_doctor_checks_every_live_harness_binary(
-    acme, tmp_path: Path, monkeypatch
-) -> None:
+def test_doctor_checks_every_live_harness_binary(acme, tmp_path: Path, monkeypatch) -> None:
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr("sew.gap.sandbox.qualify_backend", lambda *a, **kw: {})
     output = doctor({"SEW_MODE": "standalone", "HOME": str(tmp_path), "PATH": ""})
@@ -382,13 +371,9 @@ def test_doctor_checks_every_live_harness_binary(
         ("SEW_ACME_BIN", "custom-acme", "custom-acme"),
     ],
 )
-def test_doctor_optional_bin_env(
-    tmp_path, monkeypatch, env_source, bin_env, override, executable
-):
+def test_doctor_optional_bin_env(tmp_path, monkeypatch, env_source, bin_env, override, executable):
     # Exercise doctor independently of the registry's current live-spec validation.
-    spec = harnesses.HarnessSpec(
-        id="acme", label="Acme", bin_env=bin_env, default_bin="acme"
-    )
+    spec = harnesses.HarnessSpec(id="acme", label="Acme", bin_env=bin_env, default_bin="acme")
     monkeypatch.setattr(harnesses, "specs", lambda **where: (spec,))
     monkeypatch.setattr("sew.gap.sandbox.qualify_backend", lambda *a, **kw: {})
     monkeypatch.chdir(tmp_path)
@@ -437,3 +422,38 @@ def test_unregistered_harness_is_refused_everywhere(tmp_path: Path) -> None:
     )
     with pytest.raises(SchemaError, match="unsupported live harness"):
         prepare_arm_spawn(config, tmp_path, {})
+
+
+def test_grok_registry_and_arm_unavailable_lock():
+    from sew.harnesses import grok
+
+    assert not harnesses.get("grok").live
+    with pytest.raises(SchemaError, match="unavailable: Grok"):
+        grok.arm_spawn()
+    lock = json.loads((REPO / "config/locks/grok.json").read_text())
+    assert lock["cliVersion"] == "1.0.70"
+    assert lock["searchArmsAvailable"] is False
+    assert lock["authKinds"] == ["oauth", "api-key"]
+
+
+def test_grok_fleet_cells_use_common_adapter(monkeypatch):
+    import sys
+    from types import ModuleType
+    from sew.harnesses import grok
+
+    package = ModuleType("cwp_dispatch")
+    grok_smoke = ModuleType("cwp_dispatch.grok_smoke")
+    grok_smoke.ROLES = ("builder", "reviewer", "remediator", "hammer")
+    grok_smoke.KINDS = ("oauth", "api-key")
+    monkeypatch.setitem(sys.modules, "cwp_dispatch", package)
+    monkeypatch.setitem(sys.modules, "cwp_dispatch.grok_smoke", grok_smoke)
+
+    seen = []
+
+    def run(role, kind, **kwargs):
+        seen.append((role, kind, kwargs))
+        return {"status": "unavailable", "costUSD": None}
+
+    monkeypatch.setattr(grok_smoke, "run_cell", run, raising=False)
+    assert len(grok.fleet_cells()) == 8
+    assert all(not kwargs["opt_in"] for role, kind, kwargs in seen)

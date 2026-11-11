@@ -33,6 +33,14 @@ records every tool call, so you can see *how* the agent used the tool it was giv
 
 ---
 
+Grok is registered as a non-live harness. Search arms explicitly report
+unavailable until their tool isolation is qualified. On an entitled fleet host,
+`sew.harnesses.grok.fleet_cells(opt_in=True)` delegates native smoke to the
+shared fleet adapter; the lock is `config/locks/grok.json`. Without opt-in,
+every role/auth cell is unavailable. Operator provisioning and MODEL-TURN
+receipts belong to GRK-16; hammer remains pending GRK-17. These cells do not
+qualify search arms or native resume.
+
 ## What Searchlight measures
 
 | Benchmark | Question it answers | Unit of work | Graded on |
