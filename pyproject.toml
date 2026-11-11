@@ -23,6 +23,7 @@ sew = "sew.cli:main"
 agent-os = ["agent-os-app-sdk"]
 test = [
   "pytest>=8,<10",
+  "pytest-xdist>=3.6,<4",
 ]
 
 [tool.setuptools]

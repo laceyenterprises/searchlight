@@ -617,6 +617,8 @@ SEW_MODE=standalone python3 -m pytest -q
 When running the suite inside a sandbox, tests that need unavailable containment
 capabilities skip with a reason. Set `SEW_REQUIRE_CONTAINMENT_TESTS=1` to make
 those capabilities mandatory on supported platforms (as in Linux CI).
+See the [CI change note](docs/changes/SLCI-01.md) for the standalone matrix,
+parallel suite and runtime cap.
 
 ### How the leaderboard stays current
 

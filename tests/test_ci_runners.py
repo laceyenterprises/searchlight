@@ -54,6 +54,8 @@ if [[ "$*" == *rev-parse* ]]; then echo deadbeef; fi
 [[ "$SEW_TEST_INSTALLED" == 1 ]]
 if [[ "$*" == *pytest* ]]; then
   [[ "$SEW_OFFLINE_TESTS" == 1 && "$SEW_REQUIRE_SEATBELT" == 1 ]]
+  [[ "$PYTEST_DISABLE_PLUGIN_AUTOLOAD" == 1 ]]
+  [[ "$*" == *"-p xdist.plugin -n auto --durations=30"* ]]
   echo 'offline pytest reached'
 fi
 """,
@@ -113,7 +115,10 @@ fi
             + "FAILED tests/test_example.py::test_example\nERROR tests/test_setup.py\n",
             1,
             [f"E   AssertionError: {index}" for index in range(12, 20)]
-            + ["FAILED tests/test_example.py::test_example", "ERROR tests/test_setup.py"],
+            + [
+                "FAILED tests/test_example.py::test_example",
+                "ERROR tests/test_setup.py",
+            ],
         ),
         (
             "".join(f"setup diagnostic {index}\n" for index in range(25)),
