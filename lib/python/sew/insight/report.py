@@ -156,12 +156,12 @@ def score(run_dir: Path, *, set_root: Path | None = None,
         cells[(doc["question_id"], doc["arm_id"])] = doc
     claims = load_claims(run_dir)
     support = supported_claims(run_dir, claims)
-    by_id = {c["id"]: c for qc in claims.values() for c in qc}
+    by_id = {(qid, c["id"]): c for qid, qc in claims.items() for c in qc}
 
     def verdict(c: Mapping[str, Any]) -> str:
         if not c.get("url"):
             return "uncited"
-        return {1: "supported", 0: "unsupported", None: "unverifiable"}[support.get(c["id"])]
+        return {1: "supported", 0: "unsupported", None: "unverifiable"}[support.get((c["question_id"], c["id"]))]
 
     def claim_view(c: Mapping[str, Any], qid: str) -> dict[str, Any]:
         key = _verify_key(c["url"]) if c.get("url") else None
@@ -181,8 +181,8 @@ def score(run_dir: Path, *, set_root: Path | None = None,
         values = read_json(jpath)["values"] if jpath.is_file() else {}
         views = []
         for cl in read_json(cpath)["clusters"] if cpath.is_file() else []:
-            members = [by_id[m] for m in cl["members"] if m in by_id]
-            credited = sorted({m["arm_id"] for m in members if support.get(m["id"]) == 1})
+            members = [by_id[(qid, m)] for m in cl["members"] if (qid, m) in by_id]
+            credited = sorted({m["arm_id"] for m in members if support.get((qid, m["id"])) == 1})
             judged = values.get(cl["id"], {}) if credited else {}
             view = {"id": cl["id"], "value": judged.get("score"), "reason": judged.get("reason"),
                     "credited": credited, "found_by": sorted({m["arm_id"] for m in members}),

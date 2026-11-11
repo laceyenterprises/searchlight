@@ -372,12 +372,16 @@ def _request_identity(model: Model) -> dict[str, Any]:
 
 
 def load_claims(run_dir: Path) -> dict[str, list[dict[str, Any]]]:
-    """Extracted claims per question, each with a stable id ``<arm_id>#<n>``."""
+    """Extracted claims per question, each with a stable id ``<arm_id>#<n>``.
+
+    Ids are unique only within a question; anything keyed across questions must use
+    ``(question_id, id)``.
+    """
     out: dict[str, list[dict[str, Any]]] = {}
     for path in sorted((run_dir / "grading" / "extract").glob("*/*.json")):
         doc = read_json(path)
         out.setdefault(doc["question_id"], []).extend(
-            {"id": f"{doc['arm_id']}#{n + 1}", "arm_id": doc["arm_id"], **c}
+            {"id": f"{doc['arm_id']}#{n + 1}", "arm_id": doc["arm_id"], "question_id": doc["question_id"], **c}
             for n, c in enumerate(doc["claims"])
         )
     return out
@@ -520,7 +524,7 @@ def grade_run(
                 return
             texts = {}
             for cl in read_json(path)["clusters"]:
-                ok = [c["text"] for c in claims[qid] if c["id"] in cl["members"] and support.get(c["id"]) == 1]
+                ok = [c["text"] for c in claims[qid] if c["id"] in cl["members"] and support.get((qid, c["id"])) == 1]
                 if ok:
                     texts[cl["id"]] = sorted(ok, key=lambda t: (-len(t), t))[0]
             out = gdir / "judge" / f"{qid}.json"
@@ -544,15 +548,17 @@ def grade_run(
     return summary
 
 
-def supported_claims(run_dir: Path, claims: Mapping[str, list[Mapping[str, Any]]]) -> dict[str, int | None]:
-    """claim id -> 1 supported, 0 unsupported, None unverifiable; uncited claims are absent."""
+def supported_claims(
+    run_dir: Path, claims: Mapping[str, list[Mapping[str, Any]]]
+) -> dict[tuple[str, str], int | None]:
+    """(question id, claim id) -> 1 supported, 0 unsupported, None unverifiable; uncited claims are absent."""
     verdicts: dict[tuple[str, str], int | None] = {}
     for path in (run_dir / "grading" / "verify").glob("*.json"):
         doc = read_json(path)
         for text, verdict in doc["verdicts"].items():
             verdicts[(doc["url"], text)] = verdict
-    return {c["id"]: verdicts.get((c["url"], c["text"]))
-            for qclaims in claims.values() for c in qclaims if c.get("url")}
+    return {(qid, c["id"]): verdicts.get((c["url"], c["text"]))
+            for qid, qclaims in claims.items() for c in qclaims if c.get("url")}
 
 
 def _default_capture(url: str) -> str:

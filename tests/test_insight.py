@@ -608,3 +608,17 @@ def test_value_accepts_integer_string_scores_and_refuses_others():
     with pytest.raises(G.InsightError):
         G.value_findings(judge("high"), findings, question="q", context="ctx", baseline=None,
                          rng=random.Random(1), arm_ids=["exa.search"])
+
+
+def test_claim_support_is_scoped_by_question(tmp_path):
+    # Claim ids (<arm>#<n>) repeat across questions; support must not leak between them.
+    for qid, url, verdict in (("Q01", "https://a.example/1", 1), ("Q02", "https://a.example/2", 0)):
+        (tmp_path / "grading" / "extract" / qid).mkdir(parents=True)
+        (tmp_path / "grading" / "extract" / qid / "exa.search.json").write_text(json.dumps(
+            {"question_id": qid, "arm_id": "exa.search", "claims": [{"text": f"fact {qid}", "url": url}]}))
+        (tmp_path / "grading" / "verify").mkdir(parents=True, exist_ok=True)
+        (tmp_path / "grading" / "verify" / f"{qid}.json").write_text(json.dumps(
+            {"url": url, "verdicts": {f"fact {qid}": verdict}}))
+    claims = G.load_claims(tmp_path)
+    assert claims["Q01"][0]["id"] == claims["Q02"][0]["id"] == "exa.search#1"
+    assert G.supported_claims(tmp_path, claims) == {("Q01", "exa.search#1"): 1, ("Q02", "exa.search#1"): 0}
