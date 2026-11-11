@@ -26,7 +26,7 @@
   "top_k": null,
   "pace_seconds": 3.0,
   "est_cost_usd_per_question": 0.3,
-  "cost_model": "Dynamic: pro = 15-250 credits per request ($0.075-$2.00 at $0.005-$0.008/credit). Midpoint guess $1.00; read usage.",
+  "cost_model": "Dynamic: mini = 4-110 credits per request ($0.020-$0.880 at $0.005-$0.008/credit). Estimate $0.30; read usage.",
   "unverified_fields": {
     "async.poll_endpoint": {
       "unverified": true,
@@ -60,7 +60,7 @@
     }
   ],
   "rationale": {
-    "model": "'pro' = multi-agent research for complex topics and 'maximum accuracy'; our questions are multi-facet. 2026-09 used 'mini'; variant TAV-R-MINI pre-registered.",
+    "model": "Pre-registered mini model, the 2026-09 tier, for comparison with the primary pro model; estimate $0.30 and record actual credits.",
     "output_schema": "Omitted: a report is the documented shape for reading; judges grade claims from the report + sources.",
     "variant": "Pre-registered price variant: model mini, the 2026-09 Stage C tier, instead of pro."
   },

@@ -193,11 +193,13 @@ def claude_code_env(
         token = receipt["env"]["ANTHROPIC_AUTH_TOKEN"]
         if not isinstance(token, str) or not token:
             raise ValueError("empty token")
+        if provider is not None and receipt.get("provider") != provider:
+            raise ReceiptRefused("broker did not confirm the requested Claude provider")
         return BrokerClaudeEnv(
             token,
             receipt["fingerprint"],
             receipt["expires_at"],
-            receipt.get("provider") or provider,
+            receipt.get("provider"),
         )
     except (KeyError, TypeError, ValueError) as exc:
         raise _auth_failure("claude-code", log_dir, exc) from exc

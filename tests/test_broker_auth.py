@@ -680,3 +680,17 @@ def test_claude_model_and_provider_reach_sdk(tmp_path, monkeypatch):
     ]
     assert receipt.metadata["provider"] == "claude-code-corp"
     assert "synthetic-token" not in json.dumps(receipt.metadata)
+
+
+@pytest.mark.parametrize("confirmed", [None, "claude-code"])
+def test_requested_claude_provider_requires_receipt_confirmation(tmp_path, monkeypatch, confirmed):
+    from sew import host
+
+    class Plugin:
+        def harness_auth(self, harness, **selectors):
+            return {"env": {"ANTHROPIC_AUTH_TOKEN": "synthetic"},
+                    "fingerprint": "receipt", "expires_at": "999", "provider": confirmed}
+
+    monkeypatch.setattr(host, "get_host", lambda environ=None: host.AgentOsHost(Plugin(), {}))
+    with pytest.raises(broker_auth.BrokerAuthError, match="did not confirm"):
+        broker_auth.claude_code_env(tmp_path / "log", provider="claude-code-corp")

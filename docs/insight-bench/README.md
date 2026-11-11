@@ -30,10 +30,15 @@ flowchart LR
 
 For corporate Claude grading on Agent OS, pin the extractor/judge models and
 pass `--harness-auth broker --claude-broker-provider claude-code-corp` to
-`sew insight grade`. The updated SDK host forwards the model entitlement and
-provider; no `CLAUDE_MODEL_ID` or `CLAUDE_BROKER_PROVIDER` environment overrides
+`sew insight run` (the shared query-writer) and `sew insight grade`. The updated SDK host
+forwards the model entitlement and provider; no `CLAUDE_MODEL_ID` or `CLAUDE_BROKER_PROVIDER` environment overrides
 are needed. `grading/grading.json` records the auth source and broker provider
-for newly executed extractor/judge calls. Standalone account login is unchanged.
+for executed extractor/judge calls. A provider selector requires broker auth and Claude Code
+for both roles; broker grading requires both models to be pinned (the extractor may come from
+the manifest). Explicit model/provider flags take precedence over selector environment variables.
+A requested provider must be confirmed in the broker receipt or the call is refused.
+Deploy the updated agent-os SDK before floating Searchlight; older hosts fail with a named
+model/provider-selector error. Standalone account login is unchanged.
 
 ## Run it
 
@@ -152,7 +157,10 @@ enforces these rules:
      where one exists (Exa `/stop`), and scored on what it gathered. It is never re-run with a larger
      budget.
    - Transient failures (rate limits, timeouts without a stop endpoint, caps, missing keys) are
-     retried by the next run of the same command.
+     retried by the next run of the same command. Within a cell, HTTP retries use bounded backoff
+     (up to three retries), except paid async task POSTs, which make one attempt. An ambiguous
+     timeout or 5xx retains one estimated charge; reconcile vendor state before resuming. Each
+     new attempt must fit the remaining spend cap.
 8. **Hard spend caps.**
    - A ledger in the run directory reserves each cell's estimate before the call, and records the
      measured cost after it. Measured cost means `costDollars`, `usage.cost`, `usage.credits` or
@@ -232,13 +240,17 @@ curated list (`REPORTS` in that script), so adding a study there is a separate, 
   ledger.json            spend per arm, caps
   cells/<Q>/<arm>.json   request (headers with key slots only), raw response, items, notices,
                          cost (measured or estimate), latency, stopped_at_timeout
-  grading/               grading.json (seed, models), extract/, clusters/, pages/, verify/, judge/
+  grading/               grading.json (seed, model/auth requests and receipt descriptors), extract/, clusters/, pages/, verify/, judge/
   report/                summary.json, REPORT.md, dashboard.html
 <state>/insight/history/<set>.json
 ```
 
 Every artifact records a digest of its inputs, so a rerun redoes only what is missing, transient or
-stale. Raw vendor text stays in the state root and is never committed.
+stale. `grading.json` also freezes the requested extractor/judge model and auth identities before
+work begins. Resume refuses a different identity; use a fresh copy without `grading/` to regrade
+with a different model or auth path. Legacy grades without a request record are reusable only
+when their recorded descriptors match. A resume that makes no calls keeps its receipt metadata.
+Raw vendor text stays in the state root and is never committed.
 
 ## Add a question set
 

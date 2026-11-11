@@ -352,9 +352,14 @@ def execute_cell(
     headers = _headers(profile, secret)
     t0 = clock()
     response, error = _send(transport, profile.method, profile.endpoint, headers, body,
-                            timeout=180.0 if profile.poll else profile.timeout_seconds, sleep=sleep)
+                            timeout=180.0 if profile.poll else profile.timeout_seconds, sleep=sleep,
+                            retries=0 if profile.poll and profile.method == "POST" else 3)
     status = classify_http_status(response.status_code) if response is not None else error
-    accepted, stopped = status == "ok", False  # a refused request is not billed
+    # A timed-out/5xx task submission may already have created a paid run.
+    uncertain_submission = bool(profile.poll and profile.method == "POST" and (
+        response is None or response.status_code >= 500
+    ))
+    accepted, stopped = status == "ok" or uncertain_submission, False
     if status == "ok" and profile.poll:
         response, error, stopped = _poll(profile, response, transport, headers,
                                          t0 + profile.timeout_seconds, sleep, clock)

@@ -31,7 +31,7 @@
   "top_k": null,
   "pace_seconds": 0.2,
   "est_cost_usd_per_question": 0.1,
-  "cost_model": "Task 'ultra' $300/1k successful runs = $0.30, one charge per run regardless of output fields.",
+  "cost_model": "Task 'pro' $100/1k successful runs = $0.10, one charge per run regardless of output fields.",
   "unverified_fields": {
     "freshness_overlay": {
       "unverified": true,
@@ -70,7 +70,7 @@
     }
   ],
   "rationale": {
-    "processor": "'ultra' is the documented tier for 'multi-source deep research'; 'pro' (our 2026-09 choice, $0.10) is 'exploratory web research'. Variant PAR-R-PRO pre-registered for price-matched comparison.",
+    "processor": "Pre-registered pro processor for exploratory web research ($0.10), the 2026-09 tier, compared with the primary ultra tier ($0.30).",
     "output_schema": "auto = Deep Research style output with nested FieldBasis citations.",
     "variant": "Pre-registered price variant: processor pro ($0.10), the 2026-09 Stage C tier, instead of ultra."
   },

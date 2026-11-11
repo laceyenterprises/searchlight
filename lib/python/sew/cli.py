@@ -225,6 +225,8 @@ def _run_live_harness(args: argparse.Namespace) -> int:
     from .oss import cell_plan, require_enabled, valid_model_id
     from .host import HostUnavailable
 
+    if args.claude_broker_provider:
+        _claude_provider_auth(args, [args.harness])
     if args.model_id and not valid_model_id(args.model_id):
         raise HostUnavailable("model must be an explicit, safe model identifier")
     require_enabled(args.harness, args.model_id)
@@ -638,6 +640,15 @@ def _agent(args: argparse.Namespace) -> int:
     return 0
 
 
+def _claude_provider_auth(args, harnesses):
+    selected = broker_auth.auth_source(args.harness_auth)
+    if args.claude_broker_provider and (
+        selected != "broker" or any(h != "claude-code" for h in harnesses)
+    ):
+        raise SchemaError("--claude-broker-provider requires broker auth and claude-code harnesses")
+    return selected
+
+
 def _insight_run(args):
     from .insight.run import dry_run_view, plan_run, run
 
@@ -660,8 +671,11 @@ def _insight_run(args):
         raise SchemaError(f"an insight run makes paid provider calls; set {LIVE_ENV}=1 (or --dry-run)")
     if plan["query_writer_questions"] and not args.extractor_model:
         raise SchemaError("pin --extractor-model: it writes the shared queries and is the extractor")
+    selected_auth = _claude_provider_auth(args, [args.extractor_harness])
     writer = lambda: HarnessJudgeTransport(  # noqa: E731 - the shared query-writer
-        args.extractor_harness, args.extractor_model, contract="json", harness_auth=args.harness_auth
+        harness_id=args.extractor_harness, model_id=args.extractor_model,
+        contract="json", harness_auth=selected_auth,
+        claude_broker_provider=args.claude_broker_provider,
     )
     print(json.dumps(run(plan, writer=writer), indent=2, sort_keys=True))
     return 0
@@ -678,13 +692,16 @@ def _insight_grade(args):
     if pinned and args.extractor_model not in (None, pinned):
         raise SchemaError(f"this run pinned extractor {pinned}; grade with the same model")
     args.extractor_model = args.extractor_model or pinned
+    selected_auth = _claude_provider_auth(args, [args.extractor_harness, args.judge_harness])
+    if selected_auth == "broker" and not (args.extractor_model and args.judge_model):
+        raise SchemaError("broker grading requires pinned --extractor-model and --judge-model")
 
     def transport(harness, model):
         return lambda: HarnessJudgeTransport(
-            harness,
-            model,
+            harness_id=harness,
+            model_id=model,
             contract="json",
-            harness_auth=args.harness_auth,
+            harness_auth=selected_auth,
             claude_broker_provider=args.claude_broker_provider,
             timeout_seconds=args.judge_timeout_seconds,
         )
@@ -1367,6 +1384,9 @@ def build_parser() -> argparse.ArgumentParser:
         "--extractor-model", help="the fixed extractor model: writes shared queries, fills client_model"
     )
     insight_run.add_argument("--harness-auth", choices=("broker", "account"))
+    insight_run.add_argument(
+        "--claude-broker-provider", choices=("claude-code", "claude-code-corp")
+    )
     insight_run.set_defaults(func=_insight_run)
     insight_grade = insight_sub.add_parser(
         "grade", help="extract, cluster, verify and value claims (resumable; live models)"

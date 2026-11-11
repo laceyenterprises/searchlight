@@ -626,8 +626,9 @@ Record `chars_delivered` per result so per-character efficiency can be reported 
    Perplexity) keep the first 10 unique URLs in returned order. Post-step fetches use the top 3 where the vendor
    prescribes a fetch step. Native and research arms have no top-k control; their briefs cap reading at 10 pages,
    and transcripts are audited.
-2. **Same day.** All arms run each question within one UTC day, interleaved by question rather than by arm, so an
-   index update cannot favour one arm. Q24's freshness window is computed from that run date.
+2. **Same day.** Arms run side by side, each walking the questions in set order; async arms may run
+   several questions concurrently. Schedule the study within one UTC day; there is no question barrier
+   across arms. Freshness windows use the recorded run date.
 3. **Frozen params.** The profiles in `config/insight/profiles/` are hashed into the pre-registration before the first paid call.
    No parameter changes after results are seen. Variants (EXA-S-STD, EXA-S-OBJ, EXA-D, EXA-R-XHIGH, PAR-R-PRO,
    PAR-R-RESP, TAV-S-SPLIT3, TAV-R-MINI, FC-S-TOP3, PPLX-S-SINGLE) run only if pre-registered, and are reported as
@@ -649,8 +650,10 @@ Record `chars_delivered` per result so per-character efficiency can be reported 
    per question and $ per verified unique insight. Measured spend (`costDollars`, `usage.credits`, `creditsUsed`,
    `<usage>`, `usage.total_cost`) wins over list prices.
 8. **Caps and failures.** A run that hits its frozen cap (Firecrawl `maxCredits`, Brave seconds, our timeouts) is
-   scored on what it returned, never re-run with a larger budget. Errors get one retry with backoff, and the retry
-   is logged.
+   scored on what it returned, never re-run with a larger budget. Transient HTTP errors use bounded backoff (up to three retries). Paid async task POSTs
+   get one attempt: a timeout or 5xx may have created a billed task, so its estimate remains charged.
+   Failed cells can be retried by the next run of the command if the remaining cap permits it;
+   operators should reconcile ambiguous submissions with the vendor before resuming.
 9. **Pace and concurrency.** Stay under every documented rate limit, using `pace_seconds` in each profile. Never
    pace one arm to slow it relative to others.
 10. **Blind grading.** As in 2026-09: pooled, deduplicated and shuffled with a recorded seed. A claim counts only

@@ -99,6 +99,8 @@ class HarnessJudgeTransport:
     ) -> None:
         if harness_id not in {"claude-code", "codex"}:
             raise ValueError(f"unsupported judge harness: {harness_id}")
+        if claude_broker_provider and harness_id != "claude-code":
+            raise ValueError("--claude-broker-provider requires the claude-code harness")
         if contract not in {"dimensions", "json"}:
             raise ValueError(f"unsupported judge contract: {contract}")
         # "dimensions" scores a rubric; "json" returns whatever object the
@@ -168,6 +170,7 @@ class HarnessJudgeTransport:
         # cell's usage or failure against this one.
         self.usage = None
         self.last_error = None
+        self.broker_provider = None
         if self.harness_id == "codex" and not self.model_id:
             self.model_id, self.model_id_origin = codex_profile_model(os.environ, "default")
         protocol = ClaudeCodeProtocol() if self.harness_id == "claude-code" else CodexProtocol()
@@ -185,6 +188,8 @@ class HarnessJudgeTransport:
             broker_tokens: list[str] = []
             auth_source = broker_auth.auth_source(self.harness_auth)
             self.auth_source = auth_source
+            if self.claude_broker_provider and auth_source != "broker":
+                raise ValueError("--claude-broker-provider requires broker auth")
             surface = prepare_arm_spawn(config, cwd, os.environ, harness_auth=auth_source)
             config = replace(config, harness_args=surface.harness_args, env=dict(surface.env))
             try:

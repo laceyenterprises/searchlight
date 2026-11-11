@@ -355,6 +355,17 @@ def _describe(model: Model) -> dict[str, Any]:
     }
 
 
+def _request_identity(model: Model) -> dict[str, Any]:
+    """Identity known before calling a model; receipts remain separate evidence."""
+    descriptor = _describe(model)
+    if hasattr(model, "harness_auth"):
+        from ..broker_auth import auth_source
+
+        descriptor["auth_source"] = auth_source(model.harness_auth)
+        descriptor["broker_provider"] = getattr(model, "claude_broker_provider", None)
+    return descriptor
+
+
 def load_claims(run_dir: Path) -> dict[str, list[dict[str, Any]]]:
     """Extracted claims per question, each with a stable id ``<arm_id>#<n>``."""
     out: dict[str, list[dict[str, Any]]] = {}
@@ -390,8 +401,19 @@ def grade_run(
         "created_at": now()}
     if seed is not None and seed != meta["seed"]:
         raise InsightError(f"run was graded with seed {meta['seed']}; regrade in a fresh copy")
+    initial_models = {"extractor": extractor(), "judge": judge()}
+    requests = {kind: _request_identity(instance) for kind, instance in initial_models.items()}
+    previous_requests = meta.get("requests")
+    if previous_requests is None and any(gdir.glob("extract/*/*.json")):
+        previous_requests = {kind: meta.get(kind) for kind in requests}
+    if previous_requests is not None and previous_requests != requests:
+        raise InsightError("grading model/auth identity changed; regrade in a fresh copy without grading/")
+    meta["requests"] = requests
+    for kind, instance in initial_models.items():
+        meta.setdefault(kind, _describe(instance))
+    write_json(meta_path, meta)
     local = threading.local()
-    models: list[tuple[str, Model]] = []
+    lock = threading.Lock()
     arm_ids = sorted(manifest["profiles"])
     errors: list[str] = []
     stats = {"model_calls": 0}
@@ -399,9 +421,18 @@ def grade_run(
     def model(kind: str) -> Model:
         if not hasattr(local, kind):
             setattr(local, kind, (extractor if kind == "extractor" else judge)())
-            models.append((kind, getattr(local, kind)))
-        stats["model_calls"] += 1
-        return getattr(local, kind)
+
+        def call(payload):
+            instance = getattr(local, kind)
+            with lock:
+                stats["model_calls"] += 1
+            try:
+                return instance(payload)
+            finally:
+                with lock:
+                    meta[kind] = _describe(instance)
+
+        return call
 
     def rng(*parts: str) -> random.Random:
         return random.Random(f"{meta['seed']}:" + ":".join(parts))
@@ -416,90 +447,90 @@ def grade_run(
         with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
             list(pool.map(safe, jobs))
 
-    # 1. extract
-    def extract(path: Path) -> None:
-        record = read_json(path)
-        out = gdir / "extract" / record["question_id"] / f"{record['arm_id']}.json"
-        digest = _sha(record)
-        if out.is_file() and read_json(out).get("cell_sha") == digest:
-            return
-        question = iset.question(record["question_id"])["text"]
-        claims = extract_cell(model("extractor"), question, record)
-        write_json(out, {"question_id": record["question_id"], "arm_id": record["arm_id"],
-                         "cell_sha": digest, "claims": claims})
+    try:
+        # 1. extract
+        def extract(path: Path) -> None:
+            record = read_json(path)
+            out = gdir / "extract" / record["question_id"] / f"{record['arm_id']}.json"
+            digest = _sha(record)
+            if out.is_file() and read_json(out).get("cell_sha") == digest:
+                return
+            question = iset.question(record["question_id"])["text"]
+            claims = extract_cell(model("extractor"), question, record)
+            write_json(out, {"question_id": record["question_id"], "arm_id": record["arm_id"],
+                             "cell_sha": digest, "claims": claims})
 
-    cells = [p for p in sorted((run_dir / "cells").glob("*/*.json")) if read_json(p).get("status") == "ok"]
-    parallel(extract, cells)
-    claims = load_claims(run_dir)
+        cells = [p for p in sorted((run_dir / "cells").glob("*/*.json")) if read_json(p).get("status") == "ok"]
+        parallel(extract, cells)
+        claims = load_claims(run_dir)
 
-    # 2. cluster
-    def cluster(qid: str) -> None:
-        out = gdir / "clusters" / f"{qid}.json"
-        digest = _sha([(c["id"], c["text"]) for c in claims[qid]])
-        if out.is_file() and read_json(out).get("digest") == digest:
-            return
-        groups, checked = cluster_claims(model("judge"), claims[qid], rng=rng(qid, "pairs"),
-                                         arm_ids=arm_ids)
-        write_json(out, {"digest": digest, "pairs_checked": checked,
-                         "clusters": [{"id": f"{qid}-k{n + 1}", "members": g}
-                                      for n, g in enumerate(groups)]})
+        # 2. cluster
+        def cluster(qid: str) -> None:
+            out = gdir / "clusters" / f"{qid}.json"
+            digest = _sha([(c["id"], c["text"]) for c in claims[qid]])
+            if out.is_file() and read_json(out).get("digest") == digest:
+                return
+            groups, checked = cluster_claims(model("judge"), claims[qid], rng=rng(qid, "pairs"),
+                                             arm_ids=arm_ids)
+            write_json(out, {"digest": digest, "pairs_checked": checked,
+                             "clusters": [{"id": f"{qid}-k{n + 1}", "members": g}
+                                          for n, g in enumerate(groups)]})
 
-    parallel(cluster, sorted(claims))
+        parallel(cluster, sorted(claims))
 
-    # 3. verify, once per cited page
-    by_url: dict[str, set[str]] = {}
-    for qclaims in claims.values():
-        for c in qclaims:
-            if c.get("url"):
-                by_url.setdefault(c["url"], set()).add(c["text"])
+        # 3. verify, once per cited page
+        by_url: dict[str, set[str]] = {}
+        for qclaims in claims.values():
+            for c in qclaims:
+                if c.get("url"):
+                    by_url.setdefault(c["url"], set()).add(c["text"])
 
-    def verify(url: str) -> None:
-        key = hashlib.sha256(url.encode()).hexdigest()[:20]
-        out, page_path = gdir / "verify" / f"{key}.json", gdir / "pages" / f"{key}.json"
-        texts = sorted(by_url[url])
-        digest = _sha(texts)
-        if out.is_file() and read_json(out).get("digest") == digest:
-            return
-        if not page_path.is_file():
-            try:
-                text = (capture or _default_capture)(url)
-                page = {"url": url, "status": "captured" if text.strip() else "empty", "text": text}
-            except Exception as exc:  # noqa: BLE001 - an unreadable page is evidence, not a crash
-                page = {"url": url, "status": "uncapturable", "text": None, "error": type(exc).__name__}
-            write_json(page_path, page)
-        page = read_json(page_path)
-        verdicts = (verify_page(model("judge"), page["text"], texts, rng=rng(key), arm_ids=arm_ids)
-                    if page["status"] == "captured" else {t: None for t in texts})
-        write_json(out, {"url": url, "digest": digest, "capture": page["status"], "verdicts": verdicts})
+        def verify(url: str) -> None:
+            key = hashlib.sha256(url.encode()).hexdigest()[:20]
+            out, page_path = gdir / "verify" / f"{key}.json", gdir / "pages" / f"{key}.json"
+            texts = sorted(by_url[url])
+            digest = _sha(texts)
+            if out.is_file() and read_json(out).get("digest") == digest:
+                return
+            if not page_path.is_file():
+                try:
+                    text = (capture or _default_capture)(url)
+                    page = {"url": url, "status": "captured" if text.strip() else "empty", "text": text}
+                except Exception as exc:  # noqa: BLE001 - an unreadable page is evidence, not a crash
+                    page = {"url": url, "status": "uncapturable", "text": None, "error": type(exc).__name__}
+                write_json(page_path, page)
+            page = read_json(page_path)
+            verdicts = (verify_page(model("judge"), page["text"], texts, rng=rng(key), arm_ids=arm_ids)
+                        if page["status"] == "captured" else {t: None for t in texts})
+            write_json(out, {"url": url, "digest": digest, "capture": page["status"], "verdicts": verdicts})
 
-    parallel(verify, sorted(by_url))
+        parallel(verify, sorted(by_url))
 
-    # 4. value the clusters that have at least one supported claim
-    support = supported_claims(run_dir, claims)
+        # 4. value the clusters that have at least one supported claim
+        support = supported_claims(run_dir, claims)
 
-    def value(qid: str) -> None:
-        path = gdir / "clusters" / f"{qid}.json"
-        if not path.is_file():
-            return
-        texts = {}
-        for cl in read_json(path)["clusters"]:
-            ok = [c["text"] for c in claims[qid] if c["id"] in cl["members"] and support.get(c["id"]) == 1]
-            if ok:
-                texts[cl["id"]] = sorted(ok, key=lambda t: (-len(t), t))[0]
-        out = gdir / "judge" / f"{qid}.json"
-        digest = _sha([texts, iset.context, iset.baseline])
-        if out.is_file() and read_json(out).get("digest") == digest:
-            return
-        values = value_findings(model("judge"), texts, question=iset.question(qid)["text"],
-                                context=iset.context, baseline=iset.baseline,
-                                rng=rng(qid, "value"), arm_ids=arm_ids) if texts else {}
-        write_json(out, {"digest": digest, "values": values})
+        def value(qid: str) -> None:
+            path = gdir / "clusters" / f"{qid}.json"
+            if not path.is_file():
+                return
+            texts = {}
+            for cl in read_json(path)["clusters"]:
+                ok = [c["text"] for c in claims[qid] if c["id"] in cl["members"] and support.get(c["id"]) == 1]
+                if ok:
+                    texts[cl["id"]] = sorted(ok, key=lambda t: (-len(t), t))[0]
+            out = gdir / "judge" / f"{qid}.json"
+            digest = _sha([texts, iset.context, iset.baseline])
+            if out.is_file() and read_json(out).get("digest") == digest:
+                return
+            values = value_findings(model("judge"), texts, question=iset.question(qid)["text"],
+                                    context=iset.context, baseline=iset.baseline,
+                                    rng=rng(qid, "value"), arm_ids=arm_ids) if texts else {}
+            write_json(out, {"digest": digest, "values": values})
 
-    parallel(value, sorted(claims))
-    meta["updated_at"] = now()
-    for kind, instance in models:
-        meta[kind] = _describe(instance)
-    write_json(meta_path, meta)
+        parallel(value, sorted(claims))
+    finally:
+        meta["updated_at"] = now()
+        write_json(meta_path, meta)
     summary = {"run_dir": str(run_dir), "seed": meta["seed"], "cells_graded": len(cells),
                "claims": sum(len(v) for v in claims.values()), "pages": len(by_url),
                "model_calls": stats["model_calls"], "errors": errors}

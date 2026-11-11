@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib
 import importlib.metadata
 import importlib.util
+import inspect
 import os
 import sys
 from collections.abc import Mapping
@@ -152,6 +153,13 @@ class AgentOsHost:
             selectors["model"] = model
         if provider is not None:
             selectors["provider"] = provider
+        if selectors:
+            try:
+                inspect.signature(self.plugin.harness_auth).bind(harness, **selectors)
+            except (TypeError, ValueError) as exc:
+                raise HostUnavailable(
+                    "host too old for model/provider selectors; deploy the updated agent-os SDK before Searchlight"
+                ) from exc
         return self.plugin.harness_auth(harness, **selectors)
 
     def litellm_credentials(self, harness: str) -> dict[str, Any]:

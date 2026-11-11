@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import json
 import re
+import shlex
 import shutil
 from pathlib import Path
 from typing import Any, Mapping
@@ -99,6 +100,12 @@ def _reproduce(summary: Mapping[str, Any], manifest: Mapping[str, Any]) -> str:
     own = [a["arm_id"] for a in summary["arms"] if not a["imported"]]
     model = (manifest.get("extractor_model") or "MODEL_ID")
     judge = (run.get("judge") or {}).get("model") or "MODEL_ID"
+    descriptor = run.get("judge") or {}
+    auth_flags = ""
+    if descriptor.get("auth_source") in ("account", "broker"):
+        auth_flags += f" --harness-auth {descriptor['auth_source']}"
+    if descriptor.get("auth_source") == "broker" and descriptor.get("broker_provider"):
+        auth_flags += f" --claude-broker-provider {shlex.quote(descriptor['broker_provider'])}"
     lines = [f"# Reproduce: {s['title']}", "",
              "A new live run evaluates the method again: the web, the vendors' indexes and the models change, "
              "so its numbers will differ. These are the inputs and commands this run used.", "",
@@ -111,7 +118,8 @@ def _reproduce(summary: Mapping[str, Any], manifest: Mapping[str, Any]) -> str:
     for i in summary["imported"]:
         lines.append(f"sew insight import --run RUN --arm {i['arm_id']} --claims CLAIMS.jsonl "
                      f"--label {json.dumps(i['label'])} --note {json.dumps(i['note'] or '')}")
-    lines += [f"SEW_HARNESS_LIVE=1 sew insight grade --run RUN --judge-model {judge}",
+    lines += [f"SEW_HARNESS_LIVE=1 sew insight grade --run RUN --extractor-model {shlex.quote(model)}"
+              f" --judge-model {shlex.quote(judge)}{auth_flags}",
               "sew insight report --run RUN", "sew insight publish --run RUN --to reports/YYYY-MM-DD-SLUG/", "```",
               "", "Keys come from `SEW_*_API_KEY` variables or `*_API_KEY_REF` references; none are stored here."]
     return "\n".join(lines) + "\n"

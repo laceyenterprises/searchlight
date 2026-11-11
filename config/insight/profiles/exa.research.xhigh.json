@@ -30,11 +30,11 @@
   "top_k": null,
   "pace_seconds": 0.4,
   "est_cost_usd_per_question": 1.0,
-  "cost_model": "Fixed effort 'high' = $0.50/request (pricing page). Fixed efforts are not metered by ACU; budget.maxCostDollars only caps contact enrichment for fixed efforts.",
+  "cost_model": "Fixed effort 'xhigh' = $1.00/request (pricing page). Fixed efforts are not metered by ACU; budget.maxCostDollars only caps contact enrichment for fixed efforts.",
   "unverified_fields": {
     "async.timeout_s": {
       "unverified": true,
-      "note": "Docs give no latency figures for effort levels ('high: slower, more thorough'). 30 min is our ceiling; record actual durations."
+      "note": "Docs give no latency figures for xhigh. 30 min is our ceiling; record actual durations."
     }
   },
   "docs": [
@@ -65,7 +65,7 @@
     }
   ],
   "rationale": {
-    "effort": "'high' is the most thorough fixed (predictable-price) effort below xhigh. Docs: use fixed effort for predictable per-request cost; xhigh/ultra when completeness matters more than cost. Variant EXA-R-XHIGH ($1.00) pre-registered.",
+    "effort": "Pre-registered xhigh fixed-price effort ($1.00) for comparison with high ($0.50); prioritizes completeness at a predictable per-request price.",
     "outputSchema": "Omitted; prose + output.grounding is the documented shape when downstream reads text.",
     "variant": "Pre-registered price variant: effort xhigh ($1.00 a request) instead of high ($0.50)."
   },
