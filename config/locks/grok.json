@@ -1,0 +1,12 @@
+{
+  "schema": "grok-fleet-smoke/v1",
+  "harness": "grok",
+  "cliVersion": "1.0.70",
+  "platform": "darwin-arm64",
+  "requestedModel": "grok-build",
+  "effort": "cli-default",
+  "authKinds": ["oauth", "api-key"],
+  "sourceClasses": ["grok", "grok-reviewer", "remediator-grok", "hammer-grok"],
+  "searchArmsAvailable": false,
+  "hammerPending": "GRK-17"
+}
