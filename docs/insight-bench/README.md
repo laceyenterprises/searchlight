@@ -12,7 +12,8 @@ INS generalizes the one-off [search API head-to-head](../../reports/2026-09-26-s
 (2026-09) into a repeatable command. It keeps that study's method: pooled results, blind and shuffled
 grading with a recorded seed, claims verified on their page, strict per-claim credit, values of 3/2/1/0,
 unique-to-arm counts, cost per new claim, sign tests and bootstraps. Each vendor's request follows
-its own current documentation: see [provider best practices](provider-best-practices.md).
+its own current documentation: see [provider best practices](provider-best-practices.md). To run or
+sponsor a new study, start with the [study kit](STUDY-KIT.md).
 
 ```mermaid
 flowchart LR
@@ -40,8 +41,12 @@ SEW_HARNESS_LIVE=1 sew insight run --set software-factories-2026-11 --extractor-
 # 3. Extract, cluster, verify and value, with the extractor pinned by the run.
 SEW_HARNESS_LIVE=1 sew insight grade --run software-factories-2026-11-20261111 --judge-model MODEL_ID
 
-# 4. Score. This is offline and free, and can be re-run any time.
+# 4. Score into <run>/report/. This is offline and free, and can be re-run any time.
 sew insight report --run software-factories-2026-11-20261111
+open ~/.local/share/sew/insight/runs/software-factories-2026-11-20261111/report/dashboard.html
+
+# 5. Package a shareable, sanitized study.
+sew insight publish --run software-factories-2026-11-20261111 --to reports/2026-11-12-software-factories/
 ```
 
 - **Choosing arms and questions.**
@@ -171,6 +176,46 @@ Repeat runs are comparable when they share the set hash, the profile hashes and 
 `sew insight report` writes a **comparable key**, and appends the run to
 `<state>/insight/history/<set>.json`. The report then tabulates every earlier comparable run.
 
+## The result bundle
+
+`sew insight report` writes `<run>/report/`:
+
+| File | What it is |
+|---|---|
+| `summary.json` | Everything, versioned and checked against [`config/insight/summary.schema.json`](../../config/insight/summary.schema.json): the set, the sponsor and disclosure, each arm's profile hash, docs and unverified fields, per-arm metrics with n and 95% intervals, overlap, best-k, per-question winners, every cluster with its claims, arms, verdicts, values and sources, spend, and the caveats |
+| `REPORT.md` | The human report, cross-linked like the summary |
+| `dashboard.html` | One self-contained page: data embedded, no network, works from `file://` and when published |
+
+**Every metric and every claim links to the raw files it came from:** the cell, the extract, the
+cluster, verify and value files, the query-writer output and the ledger. The bundle is stable:
+re-reporting an unchanged run writes identical bytes.
+
+**The dashboard** has a view for each of these:
+- the leaderboard, sortable by every metric;
+- what only one arm found;
+- the overlap heatmap, with counts in every cell;
+- best-k marginal contribution;
+- cost against unique insight, with marker shapes for search, research and imported arms;
+- a per-question drill-down: clusters, arms, verdicts, values and sources;
+- claim search;
+- every raw file.
+
+The arm filter applies to every view. The dashboard follows the system theme, or you can switch it.
+It is keyboard navigable (arrow keys move between tabs) and readable at phone width. Every color
+signal also has text or a shape.
+
+**`sew insight publish`** packages a study under `reports/<yyyy-mm-dd>-<slug>/`, following the
+2026-09 head-to-head:
+- the bundle, the set, the frozen profiles, and generated `methodology.md` and `reproduce.md`;
+- `data/`: the manifest, the ledger, the query-writer output, sanitized cells and every grading
+  file;
+- a link from `reports/README.md`.
+
+Published data keeps claims, URLs, verdicts, values, metadata and excerpts of at most 300
+characters. Captured page text and full vendor answer bodies stay local, and their links read
+*local only*. The published bundle passes `scripts/check_reports.py`. The site leaderboard is a
+curated list (`REPORTS` in that script), so adding a study there is a separate, reviewed step.
+
 ## Layout
 
 ```
@@ -181,7 +226,7 @@ Repeat runs are comparable when they share the set hash, the profile hashes and 
   cells/<Q>/<arm>.json   request (headers with key slots only), raw response, items, notices,
                          cost (measured or estimate), latency, stopped_at_timeout
   grading/               grading.json (seed, models), extract/, clusters/, pages/, verify/, judge/
-  REPORT.md  summary.json
+  report/                summary.json, REPORT.md, dashboard.html
 <state>/insight/history/<set>.json
 ```
 

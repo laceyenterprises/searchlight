@@ -36,6 +36,7 @@ PAGES = {
     "https://c.example/3": "An unrelated page about gardening.",
     "https://d.example/4": "Kiro uses spec files.",
 }
+LONG = " Appendix: " + "lorem ipsum dolor " * 40  # page text beyond any publishable excerpt
 WRITTEN = {"objective": "Find how background agents work.", "keyword_queries": ["background agents", "agent sandbox"]}
 
 
@@ -105,7 +106,7 @@ class Transport:
                 {"url": "https://b.example/2", "title": "B", "highlights": ["Devin runs in a sandbox VM."]}]})
         if url == "https://api.exa.ai/contents":
             return HttpResponse(200, {"costDollars": {"total": 0.003},
-                                      "results": [{"url": u, "text": PAGES[u]} for u in json_body["urls"]]})
+                                      "results": [{"url": u, "text": PAGES[u] + LONG} for u in json_body["urls"]]})
         if "tavily" in url:
             return HttpResponse(200, {"usage": {"credits": 2}, "results": [
                 {"url": "https://a.example/1", "title": "A", "content": "Stripe's Minions merge 1300 PRs weekly"},
@@ -242,7 +243,8 @@ def test_run_records_cells_and_never_writes_a_key(tmp_path):
     assert exa["request"]["body"] == {"query": "How do background coding agents work?", "numResults": 10}
     assert exa["request"]["headers"] == {"x-api-key": "<EXA_API_KEY>", "Exa-Beta": "dyn"}
     assert [i["url"] for i in exa["items"]] == ["https://a.example/1", "https://b.example/2"]
-    assert exa["items"][0]["page_text"] == PAGES["https://a.example/1"] and "page_text" not in exa["items"][1]
+    assert exa["items"][0]["page_text"] == PAGES["https://a.example/1"] + LONG
+    assert "page_text" not in exa["items"][1]
     assert exa["notices"] == ["site: operator dropped"]
     sent = next(c for c in transport.calls if c[1] == "https://api.exa.ai/search")
     assert sent[2] == {"x-api-key": "sk-exa-SECRET", "Exa-Beta": "dyn"}
@@ -422,28 +424,40 @@ def test_excerpt_keeps_matching_paragraphs():
 
 def test_strict_credit_unique_and_report(tmp_path):
     run_dir, _, _ = _graded(tmp_path)
-    paths = write_report(run_dir)
+    paths = write_report(run_dir, set_root=tmp_path)
+    assert Path(paths["summary"]).parent == run_dir / "report"
     summary = read_json(Path(paths["summary"]))
-    per = summary["per_arm"]
+    m = {arm: {k: v["value"] for k, v in metrics.items()} for arm, metrics in summary["metrics"].items()}
     # Stripe (3) is shared by exa and tavily; Devin (2) is exa's alone; Tavily's Goose claim is
     # unsupported on its own page; Kiro (2) is the research arm's alone. Two questions.
-    assert (per["exa.search"]["weighted"], per["exa.search"]["unique_insights"]) == (10, 2)
-    assert (per["tavily.search"]["weighted"], per["tavily.search"]["unique_insights"]) == (6, 0)
-    assert (per["parallel.research"]["weighted"], per["parallel.research"]["unique_insights"]) == (4, 2)
-    assert per["tavily.search"]["unsupported_rate"] == 0.5 and per["exa.search"]["unsupported_rate"] == 0.0
-    assert summary["pooled_weighted"] == 14 and per["exa.search"]["share_of_pool"] == pytest.approx(10 / 14, abs=1e-4)
+    assert (m["exa.search"]["weighted"], m["exa.search"]["unique_insights"]) == (10, 2)
+    assert (m["tavily.search"]["weighted"], m["tavily.search"]["unique_insights"]) == (6, 0)
+    assert (m["parallel.research"]["weighted"], m["parallel.research"]["unique_insights"]) == (4, 2)
+    assert m["tavily.search"]["unsupported_rate"] == 0.5 and m["exa.search"]["unsupported_rate"] == 0.0
+    assert summary["metrics"]["tavily.search"]["unsupported_rate"]["n"] == 4
+    assert summary["metrics"]["exa.search"]["weighted"]["n"] == 2
+    lo, hi = summary["metrics"]["exa.search"]["weighted"]["ci95"]
+    assert lo <= 10 <= hi
+    assert summary["pool"]["weighted"] == 14 and m["exa.search"]["share_of_pool"] == pytest.approx(10 / 14, abs=1e-4)
     assert [g["arm"] for g in summary["greedy"]] == ["exa.search", "parallel.research", "tavily.search"]
     assert [g["added_weighted"] for g in summary["greedy"]] == [10, 4, 0]
-    assert summary["overlap"]["exa.search"]["tavily.search"] == 2
-    assert summary["per_question"]["Q1"]["winners"]["arms"] == ["exa.search"]
-    assert per["exa.search"]["cost_per_unique_insight"] == pytest.approx(0.015)
+    ov = summary["overlap"]
+    assert ov["matrix"][ov["arms"].index("exa.search")][ov["arms"].index("tavily.search")] == 2
+    q1 = summary["questions"][0]
+    assert q1["winners"] == ["exa.search"] and q1["text"] == "How do background coding agents work?"
+    stripe = next(c for c in q1["clusters"] if c["value"] == 3)
+    assert stripe["credited"] == ["exa.search", "tavily.search"] and not stripe["unique"]
+    goose = next(c for c in q1["clusters"] if c["found_by"] == ["tavily.search"])
+    assert goose["credited"] == [] and goose["claims"][0]["verdict"] == "unsupported"
+    assert m["exa.search"]["cost_per_unique_insight"] == pytest.approx(0.015)
     report = Path(paths["report"]).read_text()
-    for heading in ("## Arms", "## If you could only buy k", "## Overlap", "## Per question",
-                    "## Is the lead real?", "## Profile fields to confirm"):
+    for heading in ("## Read this first", "## Arms", "## If you could only buy k", "## Overlap",
+                    "## Unique insights", "## Per question", "## Is the lead real?", "## Profiles", "## Raw data"):
         assert heading in report
     assert "n = 2 questions" in report and "`contents.highlights.dynamic`" in report
+    assert "[cell](../cells/Q1/exa.search.json)" in report
     history = read_json(Path(paths["history"]))
-    assert list(history["runs"]) == [summary["run_id"]]
+    assert list(history["runs"]) == [summary["run"]["run_id"]]
 
 
 def test_statistics():
@@ -533,15 +547,154 @@ def test_imported_arm_is_regraded_and_marked_in_the_report(tmp_path):
     G.grade_run(run_dir, extractor=lambda: FakeModel(seen), judge=lambda: FakeModel(seen),
                 capture=PAGES.__getitem__, seed=3, set_root=tmp_path, progress=None)
     assert any(p["instructions"] == G.EXTRACT and p["answer"] and "Kiro" in p["answer"] for p in seen)
-    summary = read_json(Path(write_report(run_dir)["summary"]))
-    per = summary["per_arm"]["claude-native.agent"]
-    assert per["imported"] and per["insights"] == 1 and per["unique_insights"] == 0
-    assert per["cost_usd"] == 1.2 and per["latency_p50_ms"] is None
-    assert summary["per_arm"]["parallel.research"]["unique_insights"] == 1  # Q1's Kiro is now shared
-    report = (run_dir / "REPORT.md").read_text()
+    summary = read_json(Path(write_report(run_dir, set_root=tmp_path)["summary"]))
+    arm = next(a for a in summary["arms"] if a["arm_id"] == "claude-native.agent")
+    m = {k: v["value"] for k, v in summary["metrics"]["claude-native.agent"].items()}
+    assert arm["imported"] and arm["note"] == CAVEAT and m["insights"] == 1 and m["unique_insights"] == 0
+    assert m["cost_usd"] == 1.2 and m["latency_p50_ms"] is None
+    assert summary["metrics"]["parallel.research"]["unique_insights"]["value"] == 1  # Q1's Kiro is now shared
+    assert summary["imported"][0]["cost_basis"] == "reported"
+    assert any(CAVEAT in c for c in summary["caveats"])
+    report = (run_dir / "report" / "REPORT.md").read_text()
     assert "| claude-native.agent (imported) |" in report and f"Caveat: {CAVEAT}" in report
+    assert '"imported":true' in (run_dir / "report" / "dashboard.html").read_text()
     # Re-import with no Q1 claims replaces only this arm's cells.
     import_arm(run_dir, arm_id="claude-native.agent", label="again", set_root=tmp_path,
                profile_dir=tmp_path / "profiles",
                claims_path=_claims_file(tmp_path, [{"qid": "Q2", "claim": "c", "source_url": "https://d.example/4"}]))
     assert sorted(p.parent.name for p in (run_dir / "cells").glob("*/claude-native.agent.json")) == ["Q2"]
+
+
+# -- result bundle, dashboard and publication ------------------------------
+
+
+def _reported(tmp):
+    run_dir, _, _ = _graded(tmp)
+    write_report(run_dir, set_root=tmp)
+    return run_dir
+
+
+def _links(value):
+    if isinstance(value, dict):
+        for k, v in value.items():
+            if k == "links":
+                yield from (x for x in (v.values() if isinstance(v, dict) else v) if x)
+            else:
+                yield from _links(v)
+    elif isinstance(value, list):
+        for v in value:
+            yield from _links(v)
+
+
+def test_summary_matches_its_schema_and_every_link_resolves(tmp_path):
+    from sew.insight.report import load_schema, validate
+
+    run_dir = _reported(tmp_path)
+    summary = read_json(run_dir / "report" / "summary.json")
+    assert summary["schema_version"] == 2 and validate(summary, load_schema()) == []
+    broken = json.loads(json.dumps(summary))
+    del broken["run"]["seed"]
+    broken["metrics"]["exa.search"]["weighted"]["n"] = "two"
+    assert len(validate(broken, load_schema())) == 2
+    links = list(_links(summary))
+    assert len(links) > 50 and all((run_dir / "report" / l).resolve().is_file() for l in links)
+    claim = summary["questions"][0]["clusters"][0]["claims"][0]
+    assert set(claim["links"]) == {"cell", "extract", "verify", "page"} and claim["links"]["page"]
+
+
+def test_report_bundle_is_stable(tmp_path):
+    run_dir = _reported(tmp_path)
+    first = {p.name: p.read_bytes() for p in (run_dir / "report").iterdir()}
+    write_report(run_dir, set_root=tmp_path)
+    assert {p.name: p.read_bytes() for p in (run_dir / "report").iterdir()} == first
+
+
+def test_dashboard_is_self_contained(tmp_path):
+    run_dir = _reported(tmp_path)
+    html = (run_dir / "report" / "dashboard.html").read_text()
+    data = re.search(r'<script type="application/json" id="data">(.*?)</script>', html, re.S)
+    assert json.loads(data.group(1)) == read_json(run_dir / "report" / "summary.json")
+    shell = html.replace(data.group(0), "")
+    assert not re.search(r"https?://", shell)  # only data links, never fonts, scripts or trackers
+    assert not re.search(r"<(link|img|iframe)\b|\bsrc=|@import|fetch\(|XMLHttpRequest", shell)
+    for view in ("Leaderboard", "Unique", "Overlap", "Best k", "Cost", "Questions", "Claims", "Files"):
+        assert f'label:"{view}"' in shell
+    assert "prefers-color-scheme:dark" in shell and 'role="tablist"' in shell and "aria-sort" in shell
+    assert "\u003c" not in data.group(1) or "<" not in data.group(1)
+
+
+def test_publish_bundle_is_sanitized_and_passes_the_report_checks(tmp_path):
+    import importlib.util
+    from sew.insight.publish import publish
+
+    run_dir = _reported(tmp_path)
+    root = tmp_path / "repo"
+    (root / "reports" / "old").mkdir(parents=True)
+    (root / "reports" / "old" / "REPORT.md").write_text("# Old\n")
+    (root / "reports" / "README.md").write_text("# Reports\n\n- [Old](old/REPORT.md): a study.\n\nMore text.\n")
+    to = root / "reports" / "2026-11-11-demo-insight"
+    out = publish(run_dir, to, set_root=tmp_path)
+    names = {p.relative_to(to).as_posix() for p in to.rglob("*") if p.is_file()}
+    assert {"REPORT.md", "summary.json", "dashboard.html", "methodology.md", "reproduce.md",
+            f"set/{SET_ID}.json", "profiles/_shared.json", "profiles/exa.search.json",
+            "data/manifest.json", "data/ledger.json", "data/cells/Q1/exa.search.json"} <= names
+    assert not any(n.startswith("data/grading/pages") for n in names) and out["files"] == len(names)
+    text = "".join(p.read_text() for p in to.rglob("*") if p.is_file())
+    assert "lorem ipsum dolor lorem" not in text and "page_text" not in text
+    assert "See https://d.example/4" not in text  # the research arm's full answer body stays local
+    assert all(secret not in text for secret in KEYS.values()) and "op://" not in text
+    cell = read_json(to / "data/cells/Q1/exa.search.json")
+    assert cell["response"]["local_only"] and all(len(i["text"]) <= 300 for i in cell["items"])
+    summary = read_json(to / "summary.json")
+    links = list(_links(summary))
+    assert any(l.startswith("local-only:grading/pages/") for l in links)
+    assert all((to / l).is_file() for l in links if not l.startswith("local-only:"))
+    assert "(local only)" in (to / "REPORT.md").read_text()
+    index = (root / "reports" / "README.md").read_text()
+    assert index.count("(2026-11-11-demo-insight/REPORT.md)") == 1 and index.index("demo-insight") < index.index("More text")
+    publish(run_dir, to, set_root=tmp_path)  # republish replaces the bundle, links once
+    assert (root / "reports" / "README.md").read_text().count("demo-insight/REPORT.md") == 1
+    spec = importlib.util.spec_from_file_location("check_reports", MODULE_ROOT / "scripts/check_reports.py")
+    checks = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checks)
+    assert checks.check(root=root, reports=()) == []  # scrub, links and anchors, as CI runs them
+
+
+def test_publish_refusals(tmp_path):
+    from sew.insight.publish import publish
+
+    run_dir = _reported(tmp_path)
+    with pytest.raises(InsightError, match="reports/<yyyy-mm-dd>-<slug>"):
+        publish(run_dir, tmp_path / "out" / "demo", set_root=tmp_path)
+    other = tmp_path / "reports" / "2026-11-11-taken"
+    other.mkdir(parents=True)
+    (other / "notes.md").write_text("someone else's study")
+    with pytest.raises(InsightError, match="not an insight bundle"):
+        publish(run_dir, other, set_root=tmp_path)
+
+
+def test_sponsor_is_disclosed_and_cannot_tune_other_vendors(tmp_path):
+    from sew.insight.catalog import check_sponsor
+
+    _set(tmp_path)
+    path = tmp_path / "catalogs" / "insight" / f"{SET_ID}.json"
+    doc = json.loads(path.read_text())
+    doc["sponsor"] = {"name": "Tavily", "products": ["tavily"], "disclosure": "Tavily paid for the API credits."}
+    path.write_text(json.dumps(doc))
+    run_dir = _reported(tmp_path)
+    summary = read_json(run_dir / "report" / "summary.json")
+    assert summary["set"]["sponsor"]["name"] == "Tavily"
+    assert [a["arm_id"] for a in summary["arms"] if a["sponsor"]] == ["tavily.search"]
+    assert "Sponsor disclosure" in (run_dir / "report" / "REPORT.md").read_text()
+    iset = load_set(SET_ID, tmp_path)
+    own = parse_profile({"arm": "tavily", "operation": "search", "requested_by": "Tavily",
+                         "endpoint": "POST https://api.tavily.com/search", "headers": {"Authorization": "Bearer <TAVILY_API_KEY>"},
+                         "params": {"query": "{{QUERY}}"}, "est_cost_usd_per_question": 0.01}, "t")
+    check_sponsor(iset, {"tavily.search": own})
+    rival = parse_profile({**own.raw, "arm": "exa", "headers": {"x-api-key": "<EXA_API_KEY>"}}, "t")
+    with pytest.raises(InsightError, match="own products"):
+        check_sponsor(iset, {"exa.search": rival})
+    doc["sponsor"] = {"name": "Tavily"}
+    path.write_text(json.dumps(doc))
+    with pytest.raises(InsightError, match="disclosure"):
+        load_set(SET_ID, tmp_path)

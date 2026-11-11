@@ -42,7 +42,7 @@ from ..providers import (
 )
 from ..state import default_state_root
 from .catalog import _KEY_SLOT, InsightError, InsightSet, Profile, Shared
-from .catalog import load_profiles, load_set, load_shared, placeholders, render, request_body
+from .catalog import check_sponsor, load_profiles, load_set, load_shared, placeholders, render, request_body
 
 RUN_VERSION = "insight-run-v2"
 ITEM_CHARS = 6000  # per-result returned text kept for extraction, the same for every arm
@@ -460,6 +460,7 @@ def plan_run(
     shared = load_shared(profile_dir)
     every = load_profiles(arms, directory=profile_dir)
     profiles = {k: p for k, p in every.items() if p.runnable}
+    check_sponsor(iset, profiles)
     qids = question_ids or [q["id"] for q in iset.questions]
     for qid in qids:
         iset.question(qid)

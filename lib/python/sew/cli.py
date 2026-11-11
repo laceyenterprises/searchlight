@@ -707,6 +707,15 @@ def _insight_import(args):
     return 0
 
 
+def _insight_publish(args):
+    from .insight.publish import publish
+    from .insight.run import resolve_run
+
+    run_dir = resolve_run(args.run, Path(args.state_root) if args.state_root else None)
+    print(json.dumps(publish(run_dir, Path(args.to)), indent=2, sort_keys=True))
+    return 0
+
+
 def _insight_report(args):
     from .insight.report import write_report
     from .insight.run import resolve_run
@@ -1376,8 +1385,15 @@ def build_parser() -> argparse.ArgumentParser:
     insight_import.add_argument("--note", help="caveat shown beside the arm in the report")
     insight_import.add_argument("--state-root")
     insight_import.set_defaults(func=_insight_import)
+    insight_publish = insight_sub.add_parser(
+        "publish", help="package a graded run as a sanitized study under reports/<yyyy-mm-dd>-<slug>/"
+    )
+    insight_publish.add_argument("--run", required=True, help="run id or run directory")
+    insight_publish.add_argument("--to", required=True, help="reports/<yyyy-mm-dd>-<slug>/")
+    insight_publish.add_argument("--state-root")
+    insight_publish.set_defaults(func=_insight_publish)
     insight_report = insight_sub.add_parser(
-        "report", help="score a graded run: REPORT.md, summary.json, run history"
+        "report", help="score a graded run into <run>/report/: summary.json, REPORT.md, dashboard.html"
     )
     insight_report.add_argument("--run", required=True, help="run id or run directory")
     insight_report.add_argument("--state-root")

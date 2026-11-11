@@ -1,0 +1,729 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "sew-insight-summary-v2",
+ "title": "INS insight bake-off summary, schema version 2",
+ "description": "Written by `sew insight report` to <run>/report/summary.json and by `sew insight publish`. Every link is relative to the file itself; a `local-only:` link names a raw file that stays on the machine that ran the study.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "schema",
+  "schema_version",
+  "run",
+  "set",
+  "arms",
+  "ranked",
+  "metrics",
+  "pool",
+  "overlap",
+  "greedy",
+  "questions",
+  "paired_tests",
+  "spend",
+  "imported",
+  "caveats",
+  "cells_to_note",
+  "comparable_runs"
+ ],
+ "properties": {
+  "schema": {
+   "enum": [
+    "sew-insight-summary"
+   ]
+  },
+  "schema_version": {
+   "enum": [
+    2
+   ]
+  },
+  "run": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "run_id",
+    "run_date",
+    "set_sha256",
+    "seed",
+    "extractor",
+    "judge",
+    "comparable_key",
+    "links"
+   ],
+   "properties": {
+    "run_id": {
+     "type": "string"
+    },
+    "run_date": {
+     "type": "string",
+     "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "set_sha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "shared_sha256": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "seed": {
+     "type": "integer"
+    },
+    "graded_at": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "extractor": {
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "judge": {
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "comparable_key": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{16}$"
+    },
+    "links": {
+     "type": "object",
+     "additionalProperties": {
+      "$ref": "#/$defs/link"
+     }
+    }
+   }
+  },
+  "set": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "set_id",
+    "title",
+    "questions",
+    "sponsor"
+   ],
+   "properties": {
+    "set_id": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    },
+    "context": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "questions": {
+     "type": "integer",
+     "minimum": 1
+    },
+    "sponsor": {
+     "type": [
+      "object",
+      "null"
+     ],
+     "required": [
+      "name",
+      "disclosure"
+     ],
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "disclosure": {
+       "type": "string"
+      },
+      "products": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  },
+  "arms": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/arm"
+   }
+  },
+  "ranked": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "metrics": {
+   "type": "object",
+   "additionalProperties": {
+    "$ref": "#/$defs/arm_metrics"
+   }
+  },
+  "pool": {
+   "type": "object",
+   "required": [
+    "clusters",
+    "insights",
+    "weighted"
+   ],
+   "properties": {
+    "clusters": {
+     "type": "integer"
+    },
+    "insights": {
+     "type": "integer"
+    },
+    "weighted": {
+     "type": "integer"
+    }
+   }
+  },
+  "overlap": {
+   "type": "object",
+   "required": [
+    "arms",
+    "matrix"
+   ],
+   "properties": {
+    "arms": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "matrix": {
+     "type": "array",
+     "items": {
+      "type": "array",
+      "items": {
+       "type": "integer"
+      }
+     }
+    }
+   }
+  },
+  "greedy": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "arm",
+     "added_weighted",
+     "cumulative_weighted",
+     "cumulative_share"
+    ],
+    "properties": {
+     "arm": {
+      "type": "string"
+     },
+     "added_weighted": {
+      "type": "integer"
+     },
+     "cumulative_weighted": {
+      "type": "integer"
+     },
+     "cumulative_share": {
+      "type": [
+       "number",
+       "null"
+      ]
+     }
+    }
+   }
+  },
+  "questions": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/question"
+   }
+  },
+  "paired_tests": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "leader",
+     "other",
+     "n_questions",
+     "ahead",
+     "behind",
+     "p_sign",
+     "p_holm",
+     "ci95_total_diff"
+    ]
+   }
+  },
+  "spend": {
+   "type": "object",
+   "required": [
+    "by_arm",
+    "total_usd",
+    "links"
+   ],
+   "properties": {
+    "by_arm": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "number"
+     }
+    },
+    "total_usd": {
+     "type": "number"
+    },
+    "max_usd": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "links": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/link"
+     }
+    }
+   }
+  },
+  "imported": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "arm_id",
+     "label",
+     "note",
+     "cost_basis",
+     "reported_usd",
+     "source_sha256"
+    ],
+    "properties": {
+     "arm_id": {
+      "type": "string"
+     },
+     "label": {
+      "type": "string"
+     },
+     "note": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "cost_basis": {
+      "enum": [
+       "reported",
+       "unknown"
+      ]
+     },
+     "reported_usd": {
+      "type": [
+       "number",
+       "null"
+      ]
+     },
+     "source_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+     }
+    }
+   }
+  },
+  "caveats": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "cells_to_note": {
+   "type": "object",
+   "required": [
+    "incomplete",
+    "off_day"
+   ],
+   "properties": {
+    "incomplete": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "off_day": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "comparable_runs": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "required": [
+     "run_id",
+     "run_date",
+     "comparable_key",
+     "weighted"
+    ]
+   }
+  }
+ },
+ "$defs": {
+  "link": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^(\\.\\./|data/|set/|profiles/|local-only:)[\\w./@-]+$"
+  },
+  "metric": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "value",
+    "n",
+    "ci95",
+    "links"
+   ],
+   "properties": {
+    "value": {
+     "type": [
+      "number",
+      "null"
+     ]
+    },
+    "n": {
+     "type": "integer",
+     "minimum": 0
+    },
+    "ci95": {
+     "type": [
+      "array",
+      "null"
+     ],
+     "items": {
+      "type": "number"
+     }
+    },
+    "links": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/link"
+     }
+    }
+   }
+  },
+  "arm_metrics": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "insights",
+    "weighted",
+    "unique_insights",
+    "unique_weighted",
+    "share_of_pool",
+    "unsupported_rate",
+    "cost_usd",
+    "cost_per_insight",
+    "cost_per_unique_insight",
+    "latency_p50_ms"
+   ],
+   "properties": {
+    "insights": {
+     "$ref": "#/$defs/metric"
+    },
+    "weighted": {
+     "$ref": "#/$defs/metric"
+    },
+    "unique_insights": {
+     "$ref": "#/$defs/metric"
+    },
+    "unique_weighted": {
+     "$ref": "#/$defs/metric"
+    },
+    "share_of_pool": {
+     "$ref": "#/$defs/metric"
+    },
+    "unsupported_rate": {
+     "$ref": "#/$defs/metric"
+    },
+    "cost_usd": {
+     "$ref": "#/$defs/metric"
+    },
+    "cost_per_insight": {
+     "$ref": "#/$defs/metric"
+    },
+    "cost_per_unique_insight": {
+     "$ref": "#/$defs/metric"
+    },
+    "latency_p50_ms": {
+     "$ref": "#/$defs/metric"
+    }
+   }
+  },
+  "arm": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "arm_id",
+    "vendor",
+    "operation",
+    "variant",
+    "kind",
+    "imported",
+    "label",
+    "note",
+    "sponsor",
+    "profile_sha256",
+    "docs",
+    "unverified",
+    "cost_basis",
+    "counts",
+    "links"
+   ],
+   "properties": {
+    "arm_id": {
+     "type": "string",
+     "pattern": "^[a-z][a-z0-9-]*\\.[a-z][a-z-]*(\\.[a-z0-9-]+)?$"
+    },
+    "vendor": {
+     "type": "string"
+    },
+    "operation": {
+     "type": "string"
+    },
+    "variant": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "kind": {
+     "enum": [
+      "results",
+      "answer"
+     ]
+    },
+    "imported": {
+     "type": "boolean"
+    },
+    "label": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "note": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "sponsor": {
+     "type": "boolean"
+    },
+    "profile_sha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "docs": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "unverified": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "cost_basis": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "counts": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "integer"
+     }
+    },
+    "links": {
+     "type": "object",
+     "additionalProperties": {
+      "$ref": "#/$defs/link"
+     }
+    }
+   }
+  },
+  "claim": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "id",
+    "arm",
+    "text",
+    "url",
+    "verdict",
+    "links"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "arm": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "url": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "verdict": {
+     "enum": [
+      "supported",
+      "unsupported",
+      "unverifiable",
+      "uncited"
+     ]
+    },
+    "links": {
+     "type": "object",
+     "required": [
+      "cell",
+      "extract",
+      "verify",
+      "page"
+     ],
+     "additionalProperties": {
+      "$ref": "#/$defs/link"
+     }
+    }
+   }
+  },
+  "cluster": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "id",
+    "value",
+    "reason",
+    "credited",
+    "found_by",
+    "unique",
+    "claims"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "value": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "reason": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "credited": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "found_by": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "unique": {
+     "type": "boolean"
+    },
+    "claims": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/claim"
+     }
+    }
+   }
+  },
+  "question": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "id",
+    "text",
+    "freshness_days",
+    "clusters",
+    "links",
+    "weighted",
+    "top_weighted",
+    "winners"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "freshness_days": {
+     "type": [
+      "integer",
+      "null"
+     ]
+    },
+    "clusters": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/cluster"
+     }
+    },
+    "links": {
+     "type": "object",
+     "additionalProperties": {
+      "$ref": "#/$defs/link"
+     }
+    },
+    "weighted": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "integer"
+     }
+    },
+    "top_weighted": {
+     "type": "integer"
+    },
+    "winners": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  }
+ }
+}

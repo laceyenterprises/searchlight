@@ -34,3 +34,4 @@ include = ["sew*"]
 
 [tool.setuptools.package-data]
 "sew.harnesses" = ["pi_extensions/*.mjs"]
+"sew.insight" = ["dashboard.html"]

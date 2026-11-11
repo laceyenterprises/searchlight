@@ -64,6 +64,11 @@ class InsightSet:
     context: str
     questions: tuple[Mapping[str, Any], ...]
     baseline: str | None = None
+    raw: Mapping[str, Any] = field(default_factory=dict)
+
+    @property
+    def sponsor(self) -> Mapping[str, Any] | None:
+        return self.raw.get("sponsor")
 
     def question(self, qid: str) -> Mapping[str, Any]:
         for question in self.questions:
@@ -174,6 +179,13 @@ def load_set(set_id: str, root: Path | None = None) -> InsightSet:
         days = q.get("freshness_days")
         if days is not None and (not isinstance(days, int) or isinstance(days, bool) or days < 1):
             raise InsightError(f"{path}: question {qid} freshness_days must be a positive integer")
+    sponsor = doc.get("sponsor")
+    if sponsor is not None and not (
+        isinstance(sponsor, dict) and isinstance(sponsor.get("name"), str) and sponsor["name"].strip()
+        and isinstance(sponsor.get("disclosure"), str) and sponsor["disclosure"].strip()
+        and isinstance(sponsor.get("products", []), list)
+    ):
+        raise InsightError(f"{path}: sponsor needs a name, a disclosure and a list of products (vendor arms)")
     baseline = None
     if doc.get("baseline"):
         baseline_path = (path.parent / str(doc["baseline"])).resolve()
@@ -185,7 +197,7 @@ def load_set(set_id: str, root: Path | None = None) -> InsightSet:
             raise InsightError(f"cannot read baseline {baseline_path}: {exc}") from exc
     return InsightSet(set_id=set_id, title=str(doc.get("title") or set_id),
                       sha256=digest({"set": doc, "baseline": baseline}), context=context,
-                      questions=tuple(questions), baseline=baseline)
+                      questions=tuple(questions), baseline=baseline, raw=doc)
 
 
 def load_shared(directory: Path | None = None) -> Shared:
@@ -387,3 +399,16 @@ def request_body(profile: Profile, question: Mapping[str, Any], values: Mapping[
         raise InsightError(f"{profile.arm_id}: unresolved placeholder(s) {sorted(left)}")
     return body
 
+
+
+def check_sponsor(iset: InsightSet, profiles: Mapping[str, Profile]) -> None:
+    """A sponsor may request arms for its own products, never tune another vendor's."""
+    sponsor = iset.sponsor
+    for profile in profiles.values():
+        requester = profile.raw.get("requested_by")
+        if requester is None:
+            continue
+        if not sponsor or requester != sponsor["name"]:
+            raise InsightError(f"{profile.arm_id}: requested_by {requester!r} is not this set's sponsor")
+        if profile.arm not in sponsor.get("products", []):
+            raise InsightError(f"{profile.arm_id}: a sponsor may request arms only for its own products")
