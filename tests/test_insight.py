@@ -622,3 +622,13 @@ def test_claim_support_is_scoped_by_question(tmp_path):
     claims = G.load_claims(tmp_path)
     assert claims["Q01"][0]["id"] == claims["Q02"][0]["id"] == "exa.search#1"
     assert G.supported_claims(tmp_path, claims) == {("Q01", "exa.search#1"): 1, ("Q02", "exa.search#1"): 0}
+
+
+def test_answer_urls_are_read_from_decoded_text():
+    md = "Minions merge 1,300 PRs a week [1].\n[1] https://stripe.dev/blog/minions\n[2] https://x.example/a."
+    _, urls = G._answer_material({"response": {"content": md}})
+    assert urls == ["https://stripe.dev/blog/minions", "https://x.example/a"]
+    sse = "\n".join("data: " + json.dumps({"choices": [{"delta": {"content": part}}]})
+                    for part in ("See https://brave.example/p", "\nand more.")) + "\ndata: [DONE]"
+    body, urls = G._answer_material({"response": sse})
+    assert urls == ["https://brave.example/p"] and body.startswith("See https://brave.example/p")

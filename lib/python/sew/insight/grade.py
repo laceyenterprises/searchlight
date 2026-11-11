@@ -74,6 +74,7 @@ BRANDS = {
 }
 _WORD = re.compile(r"[a-z0-9][a-z0-9.+-]*")
 _URL = re.compile(r"https?://[^\s\"'<>\]\)}]+")
+_TRACE = re.compile(r"<(queries|analyzing|thinking|progress)>.*?</\1>", re.S)
 
 
 def _sha(value: Any) -> str:
@@ -145,11 +146,47 @@ def _drop_warnings(value: Any) -> Any:
     return value
 
 
+def _sse_text(body: str) -> str | None:
+    """Reassemble a chat-completions SSE stream into its content; None if it is not one."""
+    parts, seen = [], False
+    for line in body.splitlines():
+        if not line.startswith("data: ") or line.strip() == "data: [DONE]":
+            continue
+        try:
+            chunk = json.loads(line[6:])
+        except ValueError:
+            continue
+        for choice in chunk.get("choices") or []:
+            seen = True
+            parts.append(str((choice.get("delta") or choice.get("message") or {}).get("content") or ""))
+    return "".join(parts) if seen else None
+
+
+def _strings(value: Any) -> Iterable[str]:
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, Mapping):
+        for v in value.values():
+            yield from _strings(v)
+    elif isinstance(value, list):
+        for v in value:
+            yield from _strings(v)
+
+
 def _answer_material(record: Mapping[str, Any]) -> tuple[str, list[str]]:
-    response = record.get("response")
-    body = response if isinstance(response, str) else json.dumps(
-        _drop_warnings(response), ensure_ascii=False, default=str)
-    urls = list(dict.fromkeys(u.rstrip(".,;:") for u in _URL.findall(body)))[:80]
+    # URLs are read from decoded text: a regex over JSON-escaped text keeps "\n[2" on the URL.
+    response = _drop_warnings(record.get("response"))
+    if isinstance(response, str):
+        sse = _sse_text(response)
+        # Streamed research agents interleave trace blocks before the answer. The extractor reads
+        # the answer; candidate sources come from the whole stream, as for every other arm, and
+        # strict page verification still decides credit.
+        text = response if sse is None else sse
+        body = text if sse is None else _TRACE.sub("", sse)
+    else:
+        body = json.dumps(response, ensure_ascii=False, default=str)
+        text = "\n".join(_strings(response))
+    urls = list(dict.fromkeys(u.rstrip(".,;:") for u in _URL.findall(text)))[:80]
     return body[:ANSWER_CHARS], urls
 
 
