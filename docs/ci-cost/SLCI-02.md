@@ -94,7 +94,12 @@ weekly cost in the model. Full PR clone proofs remain the largest per-merge cost
   Publication hardcode/history, secret and licence gates remain on PRs and main.
   The full 3.11/3.12/3.13 × Linux/macOS matrix remains unconditional on weekly
   schedule and manual dispatch. No additional version coverage moves off PRs
-  beyond SLCI-01's already merged choice.
+  beyond SLCI-01's already merged choice. On main, Python 3.11 and 3.13
+  regressions can therefore remain unseen until the weekly schedule. GitHub
+  reports no classic protection for `main` and no matching branch rules as of
+  2026-11-11; a PR validated against an older base can merge without a fresh
+  full-suite run on the merged tree, leaving semantic conflicts undetected
+  until that schedule.
 - Documentation-only PRs omit the full clone proof (including its containment
   tests, sandbox provisioning and fixture battery), while keeping installation,
   doctor, lint, report integrity, site currency and publication gates. The exact
@@ -113,8 +118,8 @@ weekly cost in the model. Full PR clone proofs remain the largest per-merge cost
   in the slowest job. Reusing a test/verifier venv would undermine isolation.
 - The two slowest local tests spent 10.01 and 7.02 seconds resolving a
   submission with real sleeps before applying fake clocks. Three clock
-  tests now submit through `provider.call` and resolve exactly once with
-  their injected clocks. Deadline, retry status and `[1, 2, 4]` backoff
+  tests now submit through `search_domain` and resolve with patched clocks.
+  Deadline, retry status and `[1, 2, 4]` backoff
   assertions remain; an exact clock/poll-count assertion was added.
   All three now pass together in 0.25 seconds, with each call phase printing
   0.00 seconds. Other domain-surface tests retain public `search_domain` coverage.

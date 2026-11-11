@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from collections.abc import Mapping
 from typing import Any
 
@@ -626,22 +627,6 @@ def _findall_context() -> dict[str, Any]:
     }
 
 
-def _submit_findall(provider: HttpProvider, run_id: str):
-    # search_domain resolves automatically with real sleeps. Start from the
-    # receipt so the tests below exercise each poll/retry with their fake clock.
-    submission = provider.call(
-        ProviderRequest(
-            "findall",
-            run_id=run_id,
-            query="SaaS companies",
-            options=_findall_context(),
-            timeout_seconds=60.0,
-        )
-    )
-    assert submission.error_class == "async_run_pending"
-    return submission
-
-
 def test_http_451_is_not_entitlement_evidence() -> None:
     # 451 is a legal block on the *content*, not a statement about what this
     # plan bought. Latching on it would move a legal-domain cell off its
@@ -862,7 +847,9 @@ def test_declared_variant_value_still_selects_the_variant() -> None:
     assert selection.generic_surface is False
 
 
-def test_async_poll_is_bounded_by_the_callers_wall_clock_budget() -> None:
+def test_async_poll_is_bounded_by_the_callers_wall_clock_budget(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Attempt-count bounding alone silently multiplies the operator's budget:
     # 30 attempts x 5s sleeps x a per-GET timeout is ~33 minutes inside one
     # cell, and nothing between cells interrupts it.
@@ -878,16 +865,20 @@ def test_async_poll_is_bounded_by_the_callers_wall_clock_budget() -> None:
     def _sleep(seconds: float) -> None:
         clock["t"] += seconds
 
+    monkeypatch.setattr(time, "monotonic", _monotonic)
+    monkeypatch.setattr(time, "sleep", _sleep)
+
     # The poll horizon is its own budget, independent of the per-request
     # timeout: reusing `timeout_seconds` made ASYNC_POLL_MAX_ATTEMPTS
     # unreachable at every suite timeout the repo ships.
     provider.ASYNC_POLL_BUDGET_SECONDS = 12.0
 
-    result = provider.resolve_async_run(
-        _submit_findall(provider, "budget"),
-        request=ProviderRequest("findall", run_id="budget", query="x", timeout_seconds=60.0),
-        sleep=_sleep,
-        monotonic=_monotonic,
+    result = provider.search_domain(
+        "SaaS companies",
+        domain="gtm",
+        run_id="budget",
+        timeout_seconds=60.0,
+        surface_context=_findall_context(),
     )
 
     # Stops on the poll budget, well short of the 30-attempt cap, and does not
@@ -895,6 +886,8 @@ def test_async_poll_is_bounded_by_the_callers_wall_clock_budget() -> None:
     assert clock["t"] <= 12.0
     assert clock["t"] == 10.0
     assert len(transport.calls) == 4  # POST and three status polls.
+    assert transport.calls[0]["json_body"]["entity_type"] == PARALLEL_FINDALL_ENTITY_TYPE
+    assert result.call_record["response"]["domain_surface"]["surface_id"] == "parallel.findall"
     assert result.error_class == "async_poll_deadline_exceeded"
 
 
@@ -1211,7 +1204,9 @@ def test_final_result_fetch_retries_a_transient_failure() -> None:
     assert result.call_record["response"]["async_poll_calls"] == 4
 
 
-def test_result_fetch_backs_off_between_attempts_and_stays_inside_the_budget() -> None:
+def test_result_fetch_backs_off_between_attempts_and_stays_inside_the_budget(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Backoff must grow, and must never push the cell past the operator's
     # wall-clock budget: the deadline wins over the retry schedule.
     transport = FlakyFindAllTransport(result_failures=[HttpResponse(502, {})] * 10)
@@ -1227,11 +1222,15 @@ def test_result_fetch_backs_off_between_attempts_and_stays_inside_the_budget() -
         slept.append(seconds)
         clock["t"] += seconds
 
-    result = provider.resolve_async_run(
-        _submit_findall(provider, "backoff"),
-        request=ProviderRequest("findall", run_id="backoff", query="x", timeout_seconds=60.0),
-        sleep=_sleep,
-        monotonic=lambda: clock["t"],
+    monkeypatch.setattr(time, "monotonic", lambda: clock["t"])
+    monkeypatch.setattr(time, "sleep", _sleep)
+
+    result = provider.search_domain(
+        "SaaS companies",
+        domain="gtm",
+        run_id="backoff",
+        timeout_seconds=60.0,
+        surface_context=_findall_context(),
     )
 
     assert slept == [1.0, 2.0, 4.0]
@@ -1258,7 +1257,9 @@ def test_exhausted_result_retries_name_the_real_status_code() -> None:
     )
 
 
-def test_deadline_during_result_retries_records_what_was_being_retried() -> None:
+def test_deadline_during_result_retries_records_what_was_being_retried(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # "We ran out of time" must not hide "we ran out of time being rate
     # limited" -- those are different operator actions.
     transport = FlakyFindAllTransport(result_failures=[HttpResponse(429, {})] * 8)
@@ -1272,11 +1273,15 @@ def test_deadline_during_result_retries_records_what_was_being_retried() -> None
     def _sleep(seconds: float) -> None:
         clock["t"] += seconds
 
-    result = provider.resolve_async_run(
-        _submit_findall(provider, "cut"),
-        request=ProviderRequest("findall", run_id="cut", query="x", timeout_seconds=60.0),
-        sleep=_sleep,
-        monotonic=lambda: clock["t"],
+    monkeypatch.setattr(time, "monotonic", lambda: clock["t"])
+    monkeypatch.setattr(time, "sleep", _sleep)
+
+    result = provider.search_domain(
+        "SaaS companies",
+        domain="gtm",
+        run_id="cut",
+        timeout_seconds=60.0,
+        surface_context=_findall_context(),
     )
 
     assert result.error_class == "async_poll_deadline_exceeded"
