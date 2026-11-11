@@ -225,7 +225,7 @@ def test_codex_judge_uses_source_model_and_records_it(monkeypatch, tmp_path: Pat
 def test_judge_broker_failure_keeps_safe_diagnostic_in_last_error(monkeypatch) -> None:
     from sew import broker_auth, judge_transport
 
-    def fail(log_dir):
+    def fail(log_dir, **selectors):
         log_dir.mkdir()
         (log_dir / "claude-code-broker-auth-stderr.log").write_text(
             "claude-code adapter: outcome=oauth-broker-unreachable http=503; failing closed"
@@ -248,11 +248,17 @@ def test_judge_broker_token_is_redacted_from_output_and_errors(monkeypatch) -> N
     from sew.live_harness import ProcessOutcome
 
     token = "fake-judge-broker-secret"
-    monkeypatch.setattr(
-        broker_auth,
-        "claude_code_env",
-        lambda _log_dir: broker_auth.BrokerClaudeEnv(token, "abc123", "soon"),
-    )
+    monkeypatch.setenv("CLAUDE_MODEL_ID", "environment-model")
+    monkeypatch.setenv("CLAUDE_BROKER_PROVIDER", "claude-code")
+
+    def fetch(_log_dir, **selectors):
+        assert selectors == {
+            "model_id": "claude-opus-5-5",
+            "provider": "claude-code-corp",
+        }
+        return broker_auth.BrokerClaudeEnv(token, "abc123", "soon", "claude-code-corp")
+
+    monkeypatch.setattr(broker_auth, "claude_code_env", fetch)
 
     def spawn(*_args, **_kwargs):
         response = {"dimensions": {"quality": {"score": 5, "reason": f"saw {token}"}}}
@@ -271,8 +277,15 @@ def test_judge_broker_token_is_redacted_from_output_and_errors(monkeypatch) -> N
         )
 
     monkeypatch.setattr(judge_transport, "spawn_and_capture", spawn)
-    transport = HarnessJudgeTransport("claude-code", harness_auth="broker")
+    transport = HarnessJudgeTransport(
+        "claude-code",
+        "claude-opus-5-5",
+        harness_auth="broker",
+        claude_broker_provider="claude-code-corp",
+    )
     result = transport({"rubric": {"dimensions": ["quality"]}})
+    assert transport.auth_source == "broker"
+    assert transport.broker_provider == "claude-code-corp"
     assert token not in json.dumps(result)
     assert result["dimensions"]["quality"]["reason"] == "saw <redacted:broker-token>"
     with pytest.raises(judge_transport.JudgeTransportError):
@@ -638,3 +651,30 @@ def test_sandbox_unavailable_stays_pending(tmp_path, monkeypatch):
     evaluation = _evaluation(root)
     assert evaluation["judge"]["kind"] == "pending"
     assert evaluation["failure_reasons"] == ["sandbox_unavailable"]
+
+
+def test_provider_selector_rejects_non_claude_judge():
+    with pytest.raises(ValueError, match="requires the claude-code harness"):
+        HarnessJudgeTransport("codex", claude_broker_provider="claude-code-corp")
+
+
+def test_provider_selector_rejects_account_judge():
+    transport = HarnessJudgeTransport("claude-code", harness_auth="account",
+                                       claude_broker_provider="claude-code-corp")
+    with pytest.raises(ValueError, match="requires broker auth"):
+        transport({})
+
+
+@pytest.mark.usefixtures("agent_os_host")
+def test_failed_broker_fetch_clears_previous_provider(monkeypatch):
+    from sew import broker_auth, judge_transport
+
+    def fail(log_dir, **selectors):
+        raise broker_auth.BrokerAuthError("refused")
+
+    monkeypatch.setattr(broker_auth, "claude_code_env", fail)
+    transport = HarnessJudgeTransport("claude-code", harness_auth="broker")
+    transport.broker_provider = "claude-code-corp"
+    with pytest.raises(judge_transport.JudgeTransportError, match="harness_auth_failed"):
+        transport({})
+    assert transport.broker_provider is None

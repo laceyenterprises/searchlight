@@ -479,3 +479,19 @@ def test_doctor_reports_srt_available(tmp_path, monkeypatch):
     )
     output = doctor({"SEW_MODE": "standalone", "HOME": str(tmp_path), "PATH": "/tools"})
     assert "srt          available (/tools/srt); canary unverified" in output
+
+
+def test_old_host_selector_error_is_actionable_and_does_not_fetch():
+    calls = []
+
+    class OldPlugin:
+        def harness_auth(self, harness):
+            calls.append(harness)
+            return {"source": "broker"}
+
+    adapter = host.AgentOsHost(OldPlugin(), {})
+    assert adapter.harness_auth("claude-code") == {"source": "broker"}
+    for selector in ({"model": "pinned"}, {"provider": "claude-code-corp"}):
+        with pytest.raises(host.HostUnavailable, match="host too old.*deploy.*SDK"):
+            adapter.harness_auth("claude-code", **selector)
+    assert calls == ["claude-code"]

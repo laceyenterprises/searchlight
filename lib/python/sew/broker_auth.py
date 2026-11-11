@@ -18,12 +18,15 @@ from typing import Mapping
 class BrokerClaudeEnv(dict[str, str]):
     """Child environment with non-secret broker receipt metadata."""
 
-    def __init__(self, token: str, fingerprint: str, expires_at: str) -> None:
+    def __init__(
+        self, token: str, fingerprint: str, expires_at: str, provider: str | None = None
+    ) -> None:
         super().__init__(ANTHROPIC_AUTH_TOKEN=token)
         self.metadata = {
             "source": "broker",
             "fingerprint": fingerprint,
             "expires_at": expires_at,
+            "provider": provider,
         }
 
 
@@ -143,7 +146,14 @@ def auth_source(requested: str | None = None, environ: Mapping[str, str] | None 
     )
 
 
-def _broker_credentials(harness: str, log_dir: Path, environ: Mapping[str, str] | None):
+def _broker_credentials(
+    harness: str,
+    log_dir: Path,
+    environ: Mapping[str, str] | None,
+    *,
+    model_id: str | None = None,
+    provider: str | None = None,
+):
     from .host import get_host
 
     host = get_host(environ)
@@ -154,21 +164,43 @@ def _broker_credentials(harness: str, log_dir: Path, environ: Mapping[str, str] 
 
     for attempt in range(3):
         try:
-            return host.harness_auth(harness)
+            selectors = {}
+            if model_id is not None:
+                selectors["model"] = model_id
+            if provider is not None:
+                selectors["provider"] = provider
+            return host.harness_auth(harness, **selectors)
         except Exception as exc:
             if not _transient(exc) or attempt == 2:
                 raise _auth_failure(harness, log_dir, exc) from exc
-            time.sleep(bounded_exponential_delay(attempt, base_seconds=0.5, max_seconds=2))
+            time.sleep(
+                bounded_exponential_delay(attempt, base_seconds=0.5, max_seconds=2)
+            )
     raise AssertionError("unreachable")
 
 
-def claude_code_env(log_dir: Path, *, environ: Mapping[str, str] | None = None) -> dict[str, str]:
-    receipt = _broker_credentials("claude-code", log_dir, environ)
+def claude_code_env(
+    log_dir: Path,
+    *,
+    environ: Mapping[str, str] | None = None,
+    model_id: str | None = None,
+    provider: str | None = None,
+) -> dict[str, str]:
+    receipt = _broker_credentials(
+        "claude-code", log_dir, environ, model_id=model_id, provider=provider
+    )
     try:
         token = receipt["env"]["ANTHROPIC_AUTH_TOKEN"]
         if not isinstance(token, str) or not token:
             raise ValueError("empty token")
-        return BrokerClaudeEnv(token, receipt["fingerprint"], receipt["expires_at"])
+        if provider is not None and receipt.get("provider") != provider:
+            raise ReceiptRefused("broker did not confirm the requested Claude provider")
+        return BrokerClaudeEnv(
+            token,
+            receipt["fingerprint"],
+            receipt["expires_at"],
+            receipt.get("provider"),
+        )
     except (KeyError, TypeError, ValueError) as exc:
         raise _auth_failure("claude-code", log_dir, exc) from exc
 

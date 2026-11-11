@@ -51,6 +51,7 @@ qualify search arms or native resume.
 | **WSB** (web search bakeoff) | Does an arm help an agent answer research questions correctly? | 18 production tasks, 3 repetitions | deterministic validators or a blinded rubric judge |
 | **GAP** (search gap bench) | Does search change the outcome of a job whose answer post-dates the model? | calibrated briefs (and code tasks) | the finished deliverable, judged against captured primary sources |
 | **DSB** (domain strength bench) | Which retrieval surface is strong in which domain? | recorded domain observations | per-domain scorecards |
+| **INS** ([insight bench](docs/insight-bench/README.md)) | Which search or research API finds the most verified insight no other API finds? | a versioned question set, every arm the same day, frozen request profiles | claims verified on their own cited page, valued blind, unique insight per arm |
 | **Behavior analysis** | How did the agent actually use its tool? | every logged tool call | query style, search versus fetch, primary-source retrieval |
 
 ```

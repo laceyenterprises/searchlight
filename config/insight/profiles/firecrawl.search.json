@@ -1,0 +1,77 @@
+{
+  "arm": "firecrawl",
+  "operation": "search",
+  "endpoint": "POST https://api.firecrawl.dev/v2/search",
+  "headers": {
+    "Authorization": "Bearer <FIRECRAWL_API_KEY>"
+  },
+  "params": {
+    "query": "{{QUERY}}",
+    "limit": 10,
+    "sources": [
+      {
+        "type": "web"
+      }
+    ],
+    "scrapeOptions": {
+      "formats": [
+        {
+          "type": "markdown"
+        }
+      ],
+      "onlyMainContent": true
+    },
+    "ignoreInvalidURLs": true
+  },
+  "freshness_overlay": {
+    "tbs": "cdr:1,cd_min:{{AFTER_DATE_MDY}},cd_max:{{RUN_DATE_MDY}}"
+  },
+  "query_transform": "verbatim",
+  "query_transform_notes": "Docs: 'Use plain, specific queries.' query max 500 chars; all questions fit. 2026-09 harness sent a separately written keyword_query; current docs do not prescribe keyword rewriting, so verbatim.",
+  "post_steps": [],
+  "async": null,
+  "top_k": 10,
+  "pace_seconds": 0.2,
+  "est_cost_usd_per_question": 0.036,
+  "cost_model": "2 credits per 10 results + 1 credit per scraped page (10) + 1 credit per PDF page = ~12+ credits. USD/credit $0.001-$0.005 by plan (price-table assumption $0.00083 Standard yearly). At $0.003 = $0.036. creditsUsed is authoritative.",
+  "unverified_fields": {
+    "scrapeOptions.parsers": {
+      "unverified": true,
+      "note": "Default parsers ['pdf','image'] parse PDFs at 1 credit/page with no documented page cap in the v2 search reference; our 2026-09 maxPages:3 shape was not re-verified. Watch creditsUsed on PDF-heavy questions."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://docs.firecrawl.dev/features/search",
+      "read_on": "2026-11-11",
+      "supports": "one-step scrapeOptions, don't answer from snippets, tbs, credits"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/api-reference/endpoint/search",
+      "read_on": "2026-11-11",
+      "supports": "full v2 params; query <=500 chars; highlights default true; maxAge 2 days"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/billing.md",
+      "read_on": "2026-11-11",
+      "supports": "credits per endpoint; PAYG $/credit by plan"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/rate-limits.md",
+      "read_on": "2026-11-11",
+      "supports": "Standard 500 search/min"
+    },
+    {
+      "url": "https://www.firecrawl.dev/changelog",
+      "read_on": "2026-11-11",
+      "supports": "2026-07-22 new relevance model / highlights"
+    }
+  ],
+  "rationale": {
+    "scrapeOptions": "Docs: one-step search+scrape is 'simpler and faster'; 'Don't summarize from search snippets alone.'",
+    "onlyMainContent": "Default true; strips nav/boilerplate.",
+    "limit": "Fixed top-k 10; scraping all 10 gives each result page text (the two-step top-3 variant is FC-S-TOP3).",
+    "sources": "web only; tbs filters only apply to web."
+  },
+  "unverified": true
+}

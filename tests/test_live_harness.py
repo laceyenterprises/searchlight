@@ -1079,21 +1079,22 @@ def test_cli_run_live_harness_is_gated_and_runs(tmp_path: Path, fake_harness: Pa
 
 
 @pytest.mark.usefixtures("agent_os_host")
+@pytest.mark.parametrize("provider", [None, "claude-code-corp"])
 def test_broker_claude_fetches_each_cell_and_never_passes_api_key(
-    tmp_path: Path, fake_harness: Path, monkeypatch: pytest.MonkeyPatch
+    tmp_path: Path, fake_harness: Path, monkeypatch: pytest.MonkeyPatch, provider
 ) -> None:
     from sew import broker_auth
 
     calls = []
     token = "fake-sew-broker-access-token"
 
-    def fetch(log_dir: Path, *, environ=None):
-        calls.append(log_dir)
+    def fetch(log_dir: Path, *, environ=None, model_id=None, provider=None):
+        calls.append((log_dir, model_id, provider))
         log_dir.mkdir(parents=True, exist_ok=True)
         (log_dir / "broker-fetch.json").write_text(
             json.dumps({"status": "success", "secret": "must-scrub", "detail": "x" * 200000})
         )
-        return broker_auth.BrokerClaudeEnv(token, "abc123", "soon")
+        return broker_auth.BrokerClaudeEnv(token, "abc123", "soon", provider)
 
     captured = []
     original = live_harness.spawn_and_capture
@@ -1106,7 +1107,12 @@ def test_broker_claude_fetches_each_cell_and_never_passes_api_key(
     monkeypatch.setattr(live_harness, "spawn_and_capture", capture)
     for index in range(2):
         config = _config(
-            fake_harness, "success", run_id_override=f"broker-{index}", harness_auth="broker"
+            fake_harness,
+            "success",
+            run_id_override=f"broker-{index}",
+            harness_auth="broker",
+            model_id="claude-opus-5-5",
+            claude_broker_provider=provider,
         )
         result = run_live_harness(
             config, tmp_path, environ=_live_env(ANTHROPIC_API_KEY="old-account-key")
@@ -1116,6 +1122,7 @@ def test_broker_claude_fetches_each_cell_and_never_passes_api_key(
             "source": "broker",
             "fingerprint": "abc123",
             "expires_at": "soon",
+            "provider": provider,
         }
         assert "ANTHROPIC_API_KEY" not in metadata["env_passthrough"]
         receipt = _read(result.bundle_dir, "logs/broker-fetch.json")
@@ -1125,7 +1132,9 @@ def test_broker_claude_fetches_each_cell_and_never_passes_api_key(
         assert token not in "".join(
             p.read_text() for p in result.bundle_dir.rglob("*") if p.is_file()
         )
-    assert len(calls) == 2
+    assert [(model, selected_provider) for _, model, selected_provider in calls] == [
+        ("claude-opus-5-5", provider)
+    ] * 2
     assert all(
         env["ANTHROPIC_AUTH_TOKEN"] == token and "ANTHROPIC_API_KEY" not in env for env in captured
     )
@@ -1139,7 +1148,7 @@ def test_malformed_broker_receipt_does_not_abort_cell_finalization(
 
     token = "fake-sew-broker-access-token"
 
-    def fetch(log_dir: Path, *, environ=None):
+    def fetch(log_dir: Path, *, environ=None, model_id=None, provider=None):
         log_dir.mkdir(parents=True, exist_ok=True)
         (log_dir / "broker-fetch.json").write_text(f'{{broken "{token}"')
         return broker_auth.BrokerClaudeEnv(token, "abc123", "soon")

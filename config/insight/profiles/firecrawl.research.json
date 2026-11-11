@@ -1,0 +1,62 @@
+{
+  "arm": "firecrawl",
+  "operation": "research",
+  "endpoint": "POST https://api.firecrawl.dev/v2/agent",
+  "headers": {
+    "Authorization": "Bearer <FIRECRAWL_API_KEY>"
+  },
+  "params": {
+    "prompt": "{{RESEARCH_BRIEF}}",
+    "model": "spark-2",
+    "effort": "high",
+    "maxCredits": 1000
+  },
+  "freshness_overlay": {
+    "prompt_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "research_brief",
+  "query_transform_notes": "Agent docs: specific prompts (<=10,000 chars) use fewer credits. No schema: our research output is prose claims with sources; Agent accepts schema optionally.",
+  "post_steps": [],
+  "async": {
+    "poll_endpoint": "GET https://api.firecrawl.dev/v2/agent/{jobId}",
+    "interval_s": 30,
+    "timeout_s": 1800,
+    "on_credit_stop": "do not continue the threadId; score what returned (frozen budget)"
+  },
+  "top_k": null,
+  "pace_seconds": 0.6,
+  "est_cost_usd_per_question": 1.5,
+  "cost_model": "Dynamic credits; docs say most runs use 'a few hundred credits'; capped by maxCredits 1000. At $0.001-$0.005/credit = $0.30-$5.00 at the cap. 5 free runs/day.",
+  "unverified_fields": {
+    "effort": {
+      "unverified": true,
+      "note": "Docs list low/medium/high (spark-2 only) without describing what each changes or recommending one for research."
+    },
+    "maxCredits": {
+      "unverified": true,
+      "note": "Our cap, not a vendor recommendation; 2026-09 used 100, below the documented typical run."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://docs.firecrawl.dev/features/agent",
+      "read_on": "2026-11-11",
+      "supports": "prompt, model spark-2, effort, maxCredits default 2500, polling, replaces /extract"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/rate-limits.md",
+      "read_on": "2026-11-11",
+      "supports": "Standard 100 agent/min"
+    },
+    {
+      "url": "https://docs.firecrawl.dev/billing.md",
+      "read_on": "2026-11-11",
+      "supports": "agent dynamic billing, 5 free daily runs"
+    }
+  ],
+  "rationale": {
+    "model": "spark-2 is the only routed model (spark-1 names route to it).",
+    "effort": "'high' for deep research questions (thoroughness over cost); unverified semantics."
+  },
+  "unverified": true
+}

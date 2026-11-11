@@ -1,0 +1,101 @@
+{
+  "arm": "parallel",
+  "operation": "search",
+  "endpoint": "POST https://api.parallel.ai/v1/search",
+  "headers": {
+    "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "params": {
+    "objective": "{{OBJECTIVE}}",
+    "search_queries": "{{KEYWORD_QUERIES}}",
+    "mode": "advanced",
+    "client_model": "{{EXTRACTOR_MODEL}}",
+    "session_id": "{{SESSION_ID}}",
+    "advanced_settings": {
+      "max_results": 10
+    }
+  },
+  "freshness_overlay": {
+    "advanced_settings.source_policy": {
+      "after_date": "{{AFTER_DATE}}"
+    }
+  },
+  "query_transform": "objective+subqueries",
+  "query_transform_notes": "Required by the API shape and the docs: 'Don't send the raw question as both objective and the only search query.' The shared query-writer (frozen prompt, frozen model, run once per question, outputs stored) writes a goal-style objective that embeds the question verbatim, plus 2-3 keyword queries of 3-6 words, <=200 chars, no sentences, no site:, key entity in every query.",
+  "post_steps": [
+    {
+      "op": "fetch",
+      "endpoint": "POST https://api.parallel.ai/v1/extract",
+      "params": {
+        "urls": "{{TOP_K_URLS}}",
+        "objective": "{{OBJECTIVE}}",
+        "search_queries": "{{KEYWORD_QUERIES}}",
+        "client_model": "{{EXTRACTOR_MODEL}}",
+        "session_id": "{{SESSION_ID}}",
+        "advanced_settings": {
+          "full_content": true
+        }
+      },
+      "top_k": 3,
+      "why": "Search/Extract best practices: reuse one session_id across Search and Extract for a task; full_content when the whole page is needed."
+    }
+  ],
+  "async": null,
+  "top_k": 10,
+  "pace_seconds": 0.2,
+  "est_cost_usd_per_question": 0.008,
+  "cost_model": "advanced $5/1k requests (10 results included) + Extract $1/1k URLs x3 = $0.008. Response has a usage[] SKU list but no dollar figure.",
+  "unverified_fields": {
+    "advanced_settings.excerpt_settings": {
+      "unverified": true,
+      "note": "No documented default for excerpt size; docs say max_chars_total default is dynamic by objective/queries/client_model. Left unset so the vendor sizes excerpts for the client model."
+    },
+    "client_model": {
+      "unverified": true,
+      "note": "Docs give examples (claude-opus-4-7, gpt-5.4, gemini-3.1-pro); whether newer ids are recognised is not stated."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://docs.parallel.ai/search/best-practices.md",
+      "read_on": "2026-11-11",
+      "supports": "objective <=5000 chars, 1-5 keyword queries of 3-6 words, pitfalls"
+    },
+    {
+      "url": "https://docs.parallel.ai/search/modes.md",
+      "read_on": "2026-11-11",
+      "supports": "turbo/fast/basic/advanced latency, price, advanced for deep research"
+    },
+    {
+      "url": "https://docs.parallel.ai/api-reference/search/search.md",
+      "read_on": "2026-11-11",
+      "supports": "exact V1SearchRequest schema, advanced_settings, source_policy.after_date, fetch_policy"
+    },
+    {
+      "url": "https://docs.parallel.ai/extract/best-practices.md",
+      "read_on": "2026-11-11",
+      "supports": "/v1/extract body, full_content in advanced_settings, <=20 URLs"
+    },
+    {
+      "url": "https://docs.parallel.ai/getting-started/pricing.md",
+      "read_on": "2026-11-11",
+      "supports": "search, extract prices"
+    },
+    {
+      "url": "https://docs.parallel.ai/getting-started/rate-limits.md",
+      "read_on": "2026-11-11",
+      "supports": "Search 600/min, Extract 600/min"
+    },
+    {
+      "url": "https://docs.parallel.ai/resources/changelog.md",
+      "read_on": "2026-11-11",
+      "supports": "2026-08-19 fast mode; 2026-11-05 MCP 2.0"
+    }
+  ],
+  "rationale": {
+    "mode": "'advanced' (API default) is documented for 'multi-hop background agents that can tolerate extra latency', deep research. sew/providers.py defaults to 'fast'; this profile must pin 'advanced'.",
+    "client_model": "Lets Search size excerpts for the consuming model (documented field).",
+    "fetch_policy": "Omitted: live fetching 'noticeably increases latency' and restrictive settings reduce coverage."
+  },
+  "unverified": true
+}

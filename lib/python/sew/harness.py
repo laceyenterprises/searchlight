@@ -147,6 +147,7 @@ class HarnessRunConfig:
     run_id_override: str | None = None
     env: dict[str, str] = field(default_factory=dict)
     harness_auth: str | None = None
+    claude_broker_provider: str | None = None
     started_at: datetime = field(default_factory=lambda: datetime(2026, 9, 16, 18, 20, tzinfo=UTC))
     # Live-mode knobs; fixture mode ignores them. Unset limits resolve from the
     # task manifest budgets (see sew.live_harness.resolve_live_limits).

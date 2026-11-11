@@ -225,6 +225,8 @@ def _run_live_harness(args: argparse.Namespace) -> int:
     from .oss import cell_plan, require_enabled, valid_model_id
     from .host import HostUnavailable
 
+    if args.claude_broker_provider:
+        _claude_provider_auth(args, [args.harness])
     if args.model_id and not valid_model_id(args.model_id):
         raise HostUnavailable("model must be an explicit, safe model identifier")
     require_enabled(args.harness, args.model_id)
@@ -267,6 +269,7 @@ def _run_live_harness(args: argparse.Namespace) -> int:
             boot_timeout_seconds=args.boot_timeout_seconds,
             max_total_tokens=args.max_total_tokens,
             harness_auth=args.harness_auth,
+            claude_broker_provider=args.claude_broker_provider,
         ),
         output_root,
     )
@@ -637,6 +640,113 @@ def _agent(args: argparse.Namespace) -> int:
     return 0
 
 
+def _claude_provider_auth(args, harnesses):
+    selected = broker_auth.auth_source(args.harness_auth)
+    if args.claude_broker_provider and (
+        selected != "broker" or any(h != "claude-code" for h in harnesses)
+    ):
+        raise SchemaError("--claude-broker-provider requires broker auth and claude-code harnesses")
+    return selected
+
+
+def _insight_run(args):
+    from .insight.run import dry_run_view, plan_run, run
+
+    arms = [a for value in args.arm or [] for a in value.split(",") if a]
+    questions = [q for q in (args.questions or "").split(",") if q]
+    plan = plan_run(
+        args.set,
+        arms=arms or None,
+        question_ids=questions or None,
+        max_usd=args.max_usd,
+        arm_max_usd=args.arm_max_usd,
+        run_id=args.run,
+        state_root=Path(args.state_root) if args.state_root else None,
+        extractor_model=args.extractor_model,
+    )
+    if args.dry_run:
+        print(json.dumps(dry_run_view(plan), indent=2, sort_keys=True))
+        return 0
+    if os.environ.get(LIVE_ENV) != "1":
+        raise SchemaError(f"an insight run makes paid provider calls; set {LIVE_ENV}=1 (or --dry-run)")
+    if plan["query_writer_questions"] and not args.extractor_model:
+        raise SchemaError("pin --extractor-model: it writes the shared queries and is the extractor")
+    selected_auth = _claude_provider_auth(args, [args.extractor_harness])
+    writer = lambda: HarnessJudgeTransport(  # noqa: E731 - the shared query-writer
+        harness_id=args.extractor_harness, model_id=args.extractor_model,
+        contract="json", harness_auth=selected_auth,
+        claude_broker_provider=args.claude_broker_provider,
+    )
+    print(json.dumps(run(plan, writer=writer), indent=2, sort_keys=True))
+    return 0
+
+
+def _insight_grade(args):
+    from .insight.grade import grade_run
+    from .insight.run import resolve_run
+
+    run_dir = resolve_run(args.run, Path(args.state_root) if args.state_root else None)
+    if os.environ.get(LIVE_ENV) != "1":
+        raise SchemaError(f"grading spawns live extractor and judge models; set {LIVE_ENV}=1")
+    pinned = json.loads((run_dir / "manifest.json").read_text()).get("extractor_model")
+    if pinned and args.extractor_model not in (None, pinned):
+        raise SchemaError(f"this run pinned extractor {pinned}; grade with the same model")
+    args.extractor_model = args.extractor_model or pinned
+    selected_auth = _claude_provider_auth(args, [args.extractor_harness, args.judge_harness])
+    if selected_auth == "broker" and not (args.extractor_model and args.judge_model):
+        raise SchemaError("broker grading requires pinned --extractor-model and --judge-model")
+
+    def transport(harness, model):
+        return lambda: HarnessJudgeTransport(
+            harness_id=harness,
+            model_id=model,
+            contract="json",
+            harness_auth=selected_auth,
+            claude_broker_provider=args.claude_broker_provider,
+            timeout_seconds=args.judge_timeout_seconds,
+        )
+
+    summary = grade_run(
+        run_dir,
+        extractor=transport(args.extractor_harness, args.extractor_model),
+        judge=transport(args.judge_harness, args.judge_model),
+        seed=args.seed,
+        workers=args.workers,
+        progress=None,
+    )
+    print(json.dumps(summary, indent=2, sort_keys=True))
+    return 1 if summary["errors"] else 0
+
+
+def _insight_import(args):
+    from .insight.importer import import_arm
+    from .insight.run import resolve_run
+
+    run_dir = resolve_run(args.run, Path(args.state_root) if args.state_root else None)
+    out = import_arm(run_dir, arm_id=args.arm, claims_path=Path(args.claims), label=args.label,
+                     usd=args.usd, note=args.note)
+    print(json.dumps(out, indent=2, sort_keys=True))
+    return 0
+
+
+def _insight_publish(args):
+    from .insight.publish import publish
+    from .insight.run import resolve_run
+
+    run_dir = resolve_run(args.run, Path(args.state_root) if args.state_root else None)
+    print(json.dumps(publish(run_dir, Path(args.to)), indent=2, sort_keys=True))
+    return 0
+
+
+def _insight_report(args):
+    from .insight.report import write_report
+    from .insight.run import resolve_run
+
+    run_dir = resolve_run(args.run, Path(args.state_root) if args.state_root else None)
+    print(json.dumps(write_report(run_dir), indent=2, sort_keys=True))
+    return 0
+
+
 def _gap_run(args):
     from .gap.runner import run
     from .cost_model import load_price_table
@@ -937,6 +1047,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     live_harness.add_argument(
         "--model-id", "--model", dest="model_id", help="pass --model to the harness"
+    )
+    live_harness.add_argument(
+        "--claude-broker-provider", choices=("claude-code", "claude-code-corp")
     )
     live_harness.add_argument("--timeout-seconds", type=float)
     live_harness.add_argument("--boot-timeout-seconds", type=float)
@@ -1246,6 +1359,76 @@ def build_parser() -> argparse.ArgumentParser:
         "--format", choices=("markdown", "json"), default="markdown"
     )
     gap_explain.set_defaults(func=_gap_explain)
+    insight = sub.add_parser(
+        "insight", help="INS: unique-insight bake-off of search and research APIs"
+    )
+    insight_sub = insight.add_subparsers(dest="insight_command", required=True)
+    insight_run = insight_sub.add_parser(
+        "run", help="pose a question set to every arm (resumable; --dry-run prints the plan)"
+    )
+    insight_run.add_argument("--set", required=True, help="catalogs/insight/<set>.json id")
+    insight_run.add_argument(
+        "--arms", dest="arm", action="append",
+        help="arm ids (exa.search) or vendors (exa), comma-separated or repeated",
+    )
+    insight_run.add_argument("--questions", help="comma-separated question ids, e.g. Q01,Q02")
+    insight_run.add_argument("--max-usd", type=float, default=25.0, help="hard cap for the run")
+    insight_run.add_argument(
+        "--arm-max-usd", type=float, help="hard cap per arm (default: twice its estimate)"
+    )
+    insight_run.add_argument("--run", help="run id to create or resume (default <set>-<UTC date>)")
+    insight_run.add_argument("--state-root", help="state root (default: the host's)")
+    insight_run.add_argument("--dry-run", action="store_true", help="print cells and estimates only")
+    insight_run.add_argument("--extractor-harness", default="claude-code", choices=("claude-code", "codex"))
+    insight_run.add_argument(
+        "--extractor-model", help="the fixed extractor model: writes shared queries, fills client_model"
+    )
+    insight_run.add_argument("--harness-auth", choices=("broker", "account"))
+    insight_run.add_argument(
+        "--claude-broker-provider", choices=("claude-code", "claude-code-corp")
+    )
+    insight_run.set_defaults(func=_insight_run)
+    insight_grade = insight_sub.add_parser(
+        "grade", help="extract, cluster, verify and value claims (resumable; live models)"
+    )
+    insight_grade.add_argument("--run", required=True, help="run id or run directory")
+    insight_grade.add_argument("--state-root")
+    insight_grade.add_argument("--extractor-harness", default="claude-code", choices=("claude-code", "codex"))
+    insight_grade.add_argument("--extractor-model", help="pin the extractor model (recorded)")
+    insight_grade.add_argument("--judge-harness", default="claude-code", choices=("claude-code", "codex"))
+    insight_grade.add_argument("--judge-model", help="pin the judge model (recorded)")
+    insight_grade.add_argument("--harness-auth", choices=("broker", "account"))
+    insight_grade.add_argument(
+        "--claude-broker-provider", choices=("claude-code", "claude-code-corp")
+    )
+    insight_grade.add_argument("--judge-timeout-seconds", type=float, default=DEFAULT_JUDGE_TIMEOUT_SECONDS)
+    insight_grade.add_argument("--seed", type=int, help="blinding shuffle seed (recorded)")
+    insight_grade.add_argument("--workers", type=int, default=4)
+    insight_grade.set_defaults(func=_insight_grade)
+    insight_import = insight_sub.add_parser(
+        "import", help="join an externally produced arm's claims to a run as a graded arm"
+    )
+    insight_import.add_argument("--run", required=True, help="run id or run directory")
+    insight_import.add_argument("--arm", required=True, help="new arm id <vendor>.<operation>")
+    insight_import.add_argument("--claims", required=True, help="JSONL: {qid, claim, source_url, ...} per line")
+    insight_import.add_argument("--label", required=True, help="what the arm is, shown in the report")
+    insight_import.add_argument("--usd", type=float, help="reported total spend (omit if unknown)")
+    insight_import.add_argument("--note", help="caveat shown beside the arm in the report")
+    insight_import.add_argument("--state-root")
+    insight_import.set_defaults(func=_insight_import)
+    insight_publish = insight_sub.add_parser(
+        "publish", help="package a graded run as a sanitized study under reports/<yyyy-mm-dd>-<slug>/"
+    )
+    insight_publish.add_argument("--run", required=True, help="run id or run directory")
+    insight_publish.add_argument("--to", required=True, help="reports/<yyyy-mm-dd>-<slug>/")
+    insight_publish.add_argument("--state-root")
+    insight_publish.set_defaults(func=_insight_publish)
+    insight_report = insight_sub.add_parser(
+        "report", help="score a graded run into <run>/report/: summary.json, REPORT.md, dashboard.html"
+    )
+    insight_report.add_argument("--run", required=True, help="run id or run directory")
+    insight_report.add_argument("--state-root")
+    insight_report.set_defaults(func=_insight_report)
     bakeoff = sub.add_parser(
         "bakeoff", help="WSB web search bakeoff reports, bundles, and explain"
     )

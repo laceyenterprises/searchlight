@@ -1126,10 +1126,11 @@ class ExaProvider(HttpProvider):
     Spend is reported in ``costDollars`` and index latency in ``searchTime``.
     """
 
-    # `type` selects retrieval depth: auto | fast | instant | deep-lite | deep |
-    # deep-reasoning. `fast` is the latency-matched peer of Parallel's `fast`
-    # mode; `auto` is the product default. Suites pin this explicitly so a
-    # provider's default depth never silently becomes the comparison.
+    # `type` selects retrieval depth. Exa 3.0 (2026-10-19) recommends lite | auto |
+    # deep (plus deep-lite); fast | instant | deep-reasoning are legacy, and Exa
+    # points `fast` users to `lite` or `auto`. `lite` is cache-only and rejects
+    # unknown options with a 400. Suites pin this explicitly so a provider's
+    # default depth never silently becomes the comparison.
     DEFAULT_SEARCH_TYPE = "auto"
 
     def __init__(self, **kwargs: Any) -> None:
@@ -1210,8 +1211,12 @@ class ExaProvider(HttpProvider):
         units: dict[str, Any] = {}
         if body.get("searchTime") is not None:
             units["search_time_ms"] = body.get("searchTime")
-        if body.get("resolvedSearchType"):
-            units["resolved_search_type"] = body.get("resolvedSearchType")
+        # `resolvedSearchType` is deprecated and "may be empty" (Exa 3.0), so it
+        # is not recorded. `warnings` stay call metadata; `notices` are for the
+        # model reading the results. Only their counts are units here.
+        for key in ("warnings", "notices"):
+            if isinstance(body.get(key), list) and body[key]:
+                units[f"{key}_count"] = len(body[key])
         if body.get("requestId"):
             units["request_id"] = body.get("requestId")
         if units:

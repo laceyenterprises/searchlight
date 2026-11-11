@@ -1,0 +1,70 @@
+{
+  "arm": "perplexity",
+  "operation": "search",
+  "endpoint": "POST https://api.perplexity.ai/search",
+  "headers": {
+    "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "params": {
+    "query": [
+      "{{QUERY}}",
+      "{{KEYWORD_QUERIES...}}"
+    ],
+    "search_type": "web",
+    "max_results": 10,
+    "max_tokens_per_page": 4096,
+    "country": "US"
+  },
+  "freshness_overlay": {
+    "search_after_date_filter": "{{AFTER_DATE_MDY}}"
+  },
+  "query_transform": "multi-query:verbatim+subqueries(<=5)",
+  "query_transform_notes": "Best practices: specific queries with context and precise terminology; pass related sub-queries as a list to cover facets, up to 5 per request. The verbatim question plus the shared query-writer's 2-3 keyword queries (same ones Parallel gets). Variant PPLX-S-SINGLE sends the question alone.",
+  "post_steps": [],
+  "async": null,
+  "top_k": 10,
+  "pace_seconds": 0.1,
+  "est_cost_usd_per_question": 0.005,
+  "cost_model": "$5 per 1,000 successful requests (web); no token charge. A multi-query request bills as one request (price-table note 2026-09-27) but consumes one rate-limit unit per query.",
+  "unverified_fields": {
+    "query(list) response shape": {
+      "unverified": true,
+      "note": "Whether max_results applies per sub-query and how results from several queries are ordered is not documented in the reference read. Harness keeps the first 10 unique URLs in returned order and records the raw count."
+    },
+    "max_tokens_per_page": {
+      "unverified": true,
+      "note": "No documented default or recommendation for the Search API. 4096 matches the per-page budget Perplexity's own Agent effort presets give web_search (Oct 2026 changelog: 4,000)."
+    },
+    "est_cost_usd_per_question": {
+      "unverified": true,
+      "note": "Pricing page says per successful request; multi-query billing as one request is from the 2026-09-27 read, not re-confirmed."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://docs.perplexity.ai/docs/search/best-practices.md",
+      "read_on": "2026-11-11",
+      "supports": "specific queries, multi-query up to 5, max_results <=20 web"
+    },
+    {
+      "url": "https://docs.perplexity.ai/api-reference/search-post.md",
+      "read_on": "2026-11-11",
+      "supports": "request schema: query string|array, max_tokens(_per_page), search_type web/fast/people, filters"
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/getting-started/pricing.md",
+      "read_on": "2026-11-11",
+      "supports": "Search $5/1k web, $1/1k fast"
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/admin/rate-limits-usage-tiers.md",
+      "read_on": "2026-11-11",
+      "supports": "50 query units/s"
+    }
+  ],
+  "rationale": {
+    "search_type": "'web' (standard) over 'fast' for research quality.",
+    "max_tokens_per_page": "Gives the extractor page text; search_context_size is not in the current Search API schema (sew/providers.py still references it)."
+  },
+  "unverified": true
+}

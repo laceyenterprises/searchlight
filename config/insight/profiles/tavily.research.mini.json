@@ -1,0 +1,72 @@
+{
+  "arm": "tavily",
+  "operation": "research",
+  "endpoint": "POST https://api.tavily.com/research",
+  "headers": {
+    "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "params": {
+    "input": "{{RESEARCH_BRIEF}}",
+    "model": "mini",
+    "citation_format": "numbered",
+    "output_length": "long",
+    "stream": false
+  },
+  "freshness_overlay": {
+    "input_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "research_brief",
+  "query_transform_notes": "Research best practices: clear goal, known context, desired output format, 'Include citations'; no contradictory constraints; state baseline knowledge.",
+  "post_steps": [],
+  "async": {
+    "poll_endpoint": "GET https://api.tavily.com/research/{request_id}?include_usage=true",
+    "interval_s": 10,
+    "timeout_s": 1200
+  },
+  "top_k": null,
+  "pace_seconds": 3.0,
+  "est_cost_usd_per_question": 0.3,
+  "cost_model": "Dynamic: mini = 4-110 credits per request ($0.020-$0.880 at $0.005-$0.008/credit). Estimate $0.30; read usage.",
+  "unverified_fields": {
+    "async.poll_endpoint": {
+      "unverified": true,
+      "note": "The /research reference read on 2026-11-11 does not describe polling; path is from our 2026-09 harness."
+    },
+    "output_length": {
+      "unverified": true,
+      "note": "'long' is a target, not a cap; effect on credits not documented."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://docs.tavily.com/documentation/api-reference/endpoint/research",
+      "read_on": "2026-11-11",
+      "supports": "input, model mini/pro/auto, output_schema, citation_format, output_length, domains"
+    },
+    {
+      "url": "https://docs.tavily.com/documentation/best-practices/best-practices-research",
+      "read_on": "2026-11-11",
+      "supports": "prompting, pro for complex multi-domain topics, report vs structured"
+    },
+    {
+      "url": "https://docs.tavily.com/documentation/api-credits",
+      "read_on": "2026-11-11",
+      "supports": "research mini 4-110, pro 15-250 credits"
+    },
+    {
+      "url": "https://docs.tavily.com/documentation/rate-limits",
+      "read_on": "2026-11-11",
+      "supports": "/research 20 RPM"
+    }
+  ],
+  "rationale": {
+    "model": "Pre-registered mini model, the 2026-09 tier, for comparison with the primary pro model; estimate $0.30 and record actual credits.",
+    "output_schema": "Omitted: a report is the documented shape for reading; judges grade claims from the report + sources.",
+    "variant": "Pre-registered price variant: model mini, the 2026-09 Stage C tier, instead of pro."
+  },
+  "unverified": true,
+  "variant": "mini",
+  "variant_id": "TAV-R-MINI",
+  "variant_of": "tavily.research",
+  "default_arm": false
+}
