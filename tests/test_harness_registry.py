@@ -436,7 +436,14 @@ def test_grok_registry_and_arm_unavailable_lock():
     assert lock["authKinds"] == ["oauth", "api-key"]
 
 
-def test_grok_fleet_cells_use_common_adapter(monkeypatch):
+@pytest.mark.parametrize(
+    "call_kwargs, expected_kwargs",
+    [
+        ({}, {"opt_in": False, "timeout": 240}),
+        ({"opt_in": True, "timeout": 120}, {"opt_in": True, "timeout": 120}),
+    ],
+)
+def test_grok_fleet_cells_use_common_adapter(monkeypatch, call_kwargs, expected_kwargs):
     import sys
     from types import ModuleType
     from sew.harnesses import grok
@@ -455,5 +462,32 @@ def test_grok_fleet_cells_use_common_adapter(monkeypatch):
         return {"status": "unavailable", "costUSD": None}
 
     monkeypatch.setattr(grok_smoke, "run_cell", run, raising=False)
-    assert len(grok.fleet_cells()) == 8
-    assert all(not kwargs["opt_in"] for role, kind, kwargs in seen)
+    assert len(grok.fleet_cells(**call_kwargs)) == 8
+    assert seen == [
+        (role, kind, expected_kwargs)
+        for role in grok_smoke.ROLES
+        for kind in grok_smoke.KINDS
+    ]
+
+
+@pytest.mark.parametrize("missing", ["package", "module", "exports"])
+@pytest.mark.parametrize("opt_in", [False, True])
+def test_grok_fleet_cells_without_adapter(monkeypatch, missing, opt_in):
+    import sys
+    from types import ModuleType
+    from sew.harnesses import grok
+
+    package = ModuleType("cwp_dispatch")
+    package.__path__ = []
+    monkeypatch.setitem(sys.modules, "cwp_dispatch", None if missing == "package" else package)
+    monkeypatch.setitem(
+        sys.modules,
+        "cwp_dispatch.grok_smoke",
+        ModuleType("cwp_dispatch.grok_smoke") if missing == "exports" else None,
+    )
+
+    with pytest.raises(
+        SchemaError, match="Grok fleet smoke requires the Agent OS fleet adapter"
+    ) as exc:
+        grok.fleet_cells(opt_in=opt_in)
+    assert isinstance(exc.value.__cause__, ImportError)

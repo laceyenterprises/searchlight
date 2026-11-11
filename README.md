@@ -36,8 +36,11 @@ records every tool call, so you can see *how* the agent used the tool it was giv
 Grok is registered as a non-live harness. Search arms explicitly report
 unavailable until their tool isolation is qualified. On an entitled fleet host,
 `sew.harnesses.grok.fleet_cells(opt_in=True)` delegates native smoke to the
-shared fleet adapter; the lock is `config/locks/grok.json`. Without opt-in,
-every role/auth cell is unavailable. Operator provisioning and MODEL-TURN
+shared fleet adapter; the lock is `config/locks/grok.json`. With the adapter
+installed, every role/auth cell is unavailable without opt-in. If the adapter
+or its dependencies cannot be imported, `fleet_cells()` raises a descriptive
+`sew.schema.SchemaError`; importing Searchlight does not require the adapter.
+Operator provisioning and MODEL-TURN
 receipts belong to GRK-16; hammer remains pending GRK-17. These cells do not
 qualify search arms or native resume.
 

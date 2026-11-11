@@ -12,8 +12,17 @@ def arm_spawn(*args, **kwargs):
 
 
 def fleet_cells(*, opt_in=False, timeout=240):
-    """Optional host adapter; importing Searchlight needs no fleet installation."""
-    from cwp_dispatch.grok_smoke import KINDS, ROLES, run_cell
+    """Delegate fleet cells, raising SchemaError if the optional adapter cannot load."""
+    try:
+        from cwp_dispatch.grok_smoke import KINDS, ROLES, run_cell
+    except ImportError as exc:
+        from sew.schema import SchemaError
+
+        raise SchemaError(
+            "unavailable: Grok fleet smoke requires the Agent OS fleet adapter "
+            "(cwp_dispatch.grok_smoke); use an entitled fleet host with the "
+            "adapter and its dependencies installed and importable"
+        ) from exc
 
     return [
         run_cell(role, kind, opt_in=opt_in, timeout=timeout) for role in ROLES for kind in KINDS
