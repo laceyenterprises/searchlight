@@ -117,6 +117,8 @@ def _binary_map(key: str, labels: Sequence[str]) -> Callable[[Any], dict[str, in
     def check(reply: Any) -> dict[str, int]:
         got = reply[key]
         out = {label: got[label] for label in labels}
+        out = {k: int(v.strip()) if isinstance(v, str) and v.strip() in ("0", "1") else v
+               for k, v in out.items()}
         if any(v not in (0, 1) or isinstance(v, bool) for v in out.values()):
             raise InsightError(f"{key} values must be 0 or 1")
         return out
@@ -329,6 +331,9 @@ def value_findings(
             out = {}
             for lab in labels:
                 score, reason = reply["value"][lab]["score"], reply["value"][lab]["reason"]
+                # The contract shows "<0-3>", so judges often answer "3"; accept integer strings.
+                if isinstance(score, str) and score.strip() in ("0", "1", "2", "3"):
+                    score = int(score.strip())
                 if isinstance(score, bool) or score not in (0, 1, 2, 3) or not str(reason).strip():
                     raise InsightError(f"value for {lab} must be 0-3 with a reason")
                 out[lab] = {"score": int(score), "reason": str(reason).strip()[:400]}

@@ -595,3 +595,16 @@ def test_reproduce_carries_recorded_broker_auth_and_models(tmp_path):
     text = _reproduce(score(run_dir, set_root=tmp_path), read_json(run_dir / "manifest.json"))
     assert "--harness-auth broker --claude-broker-provider claude-code-corp" in text
     assert "--extractor-model" in text and "--judge-model fake-1" in text
+
+
+def test_value_accepts_integer_string_scores_and_refuses_others():
+    def judge(scores):
+        return lambda payload: {"value": {f["k"]: {"score": scores, "reason": "r"} for f in payload["findings"]}}
+
+    findings = {"c1": "Stripe merges 1,300 PRs a week.", "c2": "Agents are useful."}
+    got = G.value_findings(judge(" 3"), findings, question="q", context="ctx", baseline=None,
+                           rng=random.Random(1), arm_ids=["exa.search"])
+    assert {v["score"] for v in got.values()} == {3}
+    with pytest.raises(G.InsightError):
+        G.value_findings(judge("high"), findings, question="q", context="ctx", baseline=None,
+                         rng=random.Random(1), arm_ids=["exa.search"])
