@@ -225,7 +225,7 @@ def test_codex_judge_uses_source_model_and_records_it(monkeypatch, tmp_path: Pat
 def test_judge_broker_failure_keeps_safe_diagnostic_in_last_error(monkeypatch) -> None:
     from sew import broker_auth, judge_transport
 
-    def fail(log_dir):
+    def fail(log_dir, **selectors):
         log_dir.mkdir()
         (log_dir / "claude-code-broker-auth-stderr.log").write_text(
             "claude-code adapter: outcome=oauth-broker-unreachable http=503; failing closed"
@@ -248,11 +248,15 @@ def test_judge_broker_token_is_redacted_from_output_and_errors(monkeypatch) -> N
     from sew.live_harness import ProcessOutcome
 
     token = "fake-judge-broker-secret"
-    monkeypatch.setattr(
-        broker_auth,
-        "claude_code_env",
-        lambda _log_dir: broker_auth.BrokerClaudeEnv(token, "abc123", "soon"),
-    )
+
+    def fetch(_log_dir, **selectors):
+        assert selectors == {
+            "model_id": "claude-opus-5-5",
+            "provider": "claude-code-corp",
+        }
+        return broker_auth.BrokerClaudeEnv(token, "abc123", "soon", "claude-code-corp")
+
+    monkeypatch.setattr(broker_auth, "claude_code_env", fetch)
 
     def spawn(*_args, **_kwargs):
         response = {"dimensions": {"quality": {"score": 5, "reason": f"saw {token}"}}}
@@ -271,8 +275,15 @@ def test_judge_broker_token_is_redacted_from_output_and_errors(monkeypatch) -> N
         )
 
     monkeypatch.setattr(judge_transport, "spawn_and_capture", spawn)
-    transport = HarnessJudgeTransport("claude-code", harness_auth="broker")
+    transport = HarnessJudgeTransport(
+        "claude-code",
+        "claude-opus-5-5",
+        harness_auth="broker",
+        claude_broker_provider="claude-code-corp",
+    )
     result = transport({"rubric": {"dimensions": ["quality"]}})
+    assert transport.auth_source == "broker"
+    assert transport.broker_provider == "claude-code-corp"
     assert token not in json.dumps(result)
     assert result["dimensions"]["quality"]["reason"] == "saw <redacted:broker-token>"
     with pytest.raises(judge_transport.JudgeTransportError):

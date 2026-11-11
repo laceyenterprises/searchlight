@@ -1087,13 +1087,15 @@ def test_broker_claude_fetches_each_cell_and_never_passes_api_key(
     calls = []
     token = "fake-sew-broker-access-token"
 
-    def fetch(log_dir: Path, *, environ=None):
+    def fetch(log_dir: Path, *, environ=None, model_id=None, provider=None):
+        assert model_id == "claude-opus-5-5"
+        assert provider == "claude-code-corp"
         calls.append(log_dir)
         log_dir.mkdir(parents=True, exist_ok=True)
         (log_dir / "broker-fetch.json").write_text(
             json.dumps({"status": "success", "secret": "must-scrub", "detail": "x" * 200000})
         )
-        return broker_auth.BrokerClaudeEnv(token, "abc123", "soon")
+        return broker_auth.BrokerClaudeEnv(token, "abc123", "soon", provider)
 
     captured = []
     original = live_harness.spawn_and_capture
@@ -1106,7 +1108,12 @@ def test_broker_claude_fetches_each_cell_and_never_passes_api_key(
     monkeypatch.setattr(live_harness, "spawn_and_capture", capture)
     for index in range(2):
         config = _config(
-            fake_harness, "success", run_id_override=f"broker-{index}", harness_auth="broker"
+            fake_harness,
+            "success",
+            run_id_override=f"broker-{index}",
+            harness_auth="broker",
+            model_id="claude-opus-5-5",
+            claude_broker_provider="claude-code-corp",
         )
         result = run_live_harness(
             config, tmp_path, environ=_live_env(ANTHROPIC_API_KEY="old-account-key")
@@ -1116,6 +1123,7 @@ def test_broker_claude_fetches_each_cell_and_never_passes_api_key(
             "source": "broker",
             "fingerprint": "abc123",
             "expires_at": "soon",
+            "provider": "claude-code-corp",
         }
         assert "ANTHROPIC_API_KEY" not in metadata["env_passthrough"]
         receipt = _read(result.bundle_dir, "logs/broker-fetch.json")
@@ -1139,7 +1147,7 @@ def test_malformed_broker_receipt_does_not_abort_cell_finalization(
 
     token = "fake-sew-broker-access-token"
 
-    def fetch(log_dir: Path, *, environ=None):
+    def fetch(log_dir: Path, *, environ=None, model_id=None, provider=None):
         log_dir.mkdir(parents=True, exist_ok=True)
         (log_dir / "broker-fetch.json").write_text(f'{{broken "{token}"')
         return broker_auth.BrokerClaudeEnv(token, "abc123", "soon")

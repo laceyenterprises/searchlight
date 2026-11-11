@@ -28,6 +28,13 @@ flowchart LR
   J --> T["sew insight report<br/>REPORT.md, summary.json, run history"]
 ```
 
+For corporate Claude grading on Agent OS, pin the extractor/judge models and
+pass `--harness-auth broker --claude-broker-provider claude-code-corp` to
+`sew insight grade`. The updated SDK host forwards the model entitlement and
+provider; no `CLAUDE_MODEL_ID` or `CLAUDE_BROKER_PROVIDER` environment overrides
+are needed. `grading/grading.json` records the auth source and broker provider
+for newly executed extractor/judge calls. Standalone account login is unchanged.
+
 ## Run it
 
 ```sh

@@ -94,6 +94,7 @@ class HarnessJudgeTransport:
         timeout_seconds: float = DEFAULT_JUDGE_TIMEOUT_SECONDS,
         max_total_tokens: int = DEFAULT_JUDGE_MAX_TOTAL_TOKENS,
         harness_auth: str | None = None,
+        claude_broker_provider: str | None = None,
         contract: str = "dimensions",
     ) -> None:
         if harness_id not in {"claude-code", "codex"}:
@@ -103,6 +104,9 @@ class HarnessJudgeTransport:
         # "dimensions" scores a rubric; "json" returns whatever object the
         # payload's own response_contract asks for, validated by the caller.
         self.contract = contract
+        self.claude_broker_provider = claude_broker_provider
+        self.auth_source = None
+        self.broker_provider = None
         self.harness_id = harness_id
         self.model_id = model_id
         self.model_id_origin = "explicit" if model_id else None
@@ -180,12 +184,20 @@ class HarnessJudgeTransport:
             cwd = Path(directory)
             broker_tokens: list[str] = []
             auth_source = broker_auth.auth_source(self.harness_auth)
+            self.auth_source = auth_source
             surface = prepare_arm_spawn(config, cwd, os.environ, harness_auth=auth_source)
             config = replace(config, harness_args=surface.harness_args, env=dict(surface.env))
             try:
                 if auth_source == "broker":
                     if self.harness_id == "claude-code":
-                        auth_env = broker_auth.claude_code_env(cwd / "broker-log")
+                        auth_env = broker_auth.claude_code_env(
+                            cwd / "broker-log",
+                            model_id=self.model_id,
+                            provider=self.claude_broker_provider,
+                        )
+                        self.broker_provider = getattr(auth_env, "metadata", {}).get(
+                            "provider"
+                        )
                         broker_tokens.append(auth_env["ANTHROPIC_AUTH_TOKEN"])
                         config = replace(config, env={**config.env, **auth_env})
                     else:

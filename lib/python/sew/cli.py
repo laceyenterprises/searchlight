@@ -267,6 +267,7 @@ def _run_live_harness(args: argparse.Namespace) -> int:
             boot_timeout_seconds=args.boot_timeout_seconds,
             max_total_tokens=args.max_total_tokens,
             harness_auth=args.harness_auth,
+            claude_broker_provider=args.claude_broker_provider,
         ),
         output_root,
     )
@@ -680,7 +681,11 @@ def _insight_grade(args):
 
     def transport(harness, model):
         return lambda: HarnessJudgeTransport(
-            harness, model, contract="json", harness_auth=args.harness_auth,
+            harness,
+            model,
+            contract="json",
+            harness_auth=args.harness_auth,
+            claude_broker_provider=args.claude_broker_provider,
             timeout_seconds=args.judge_timeout_seconds,
         )
 
@@ -1026,6 +1031,9 @@ def build_parser() -> argparse.ArgumentParser:
     live_harness.add_argument(
         "--model-id", "--model", dest="model_id", help="pass --model to the harness"
     )
+    live_harness.add_argument(
+        "--claude-broker-provider", choices=("claude-code", "claude-code-corp")
+    )
     live_harness.add_argument("--timeout-seconds", type=float)
     live_harness.add_argument("--boot-timeout-seconds", type=float)
     live_harness.add_argument("--max-total-tokens", type=int)
@@ -1370,6 +1378,9 @@ def build_parser() -> argparse.ArgumentParser:
     insight_grade.add_argument("--judge-harness", default="claude-code", choices=("claude-code", "codex"))
     insight_grade.add_argument("--judge-model", help="pin the judge model (recorded)")
     insight_grade.add_argument("--harness-auth", choices=("broker", "account"))
+    insight_grade.add_argument(
+        "--claude-broker-provider", choices=("claude-code", "claude-code-corp")
+    )
     insight_grade.add_argument("--judge-timeout-seconds", type=float, default=DEFAULT_JUDGE_TIMEOUT_SECONDS)
     insight_grade.add_argument("--seed", type=int, help="blinding shuffle seed (recorded)")
     insight_grade.add_argument("--workers", type=int, default=4)

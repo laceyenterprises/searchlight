@@ -22,7 +22,9 @@ class HostServices(Protocol):
 
     def state_root(self, app_id: str = "sew") -> Path: ...
     def resolve_credential(self, ref: str, *, worker_class: str, purpose: str) -> str: ...
-    def harness_auth(self, harness: str) -> dict[str, Any]: ...
+    def harness_auth(
+        self, harness: str, *, model: str | None = None, provider: str | None = None
+    ) -> dict[str, Any]: ...
     def litellm_credentials(self, harness: str) -> dict[str, Any]: ...
     def meter_provider_call(self, **call: Any) -> bool: ...
 
@@ -105,7 +107,9 @@ class StandaloneHost:
             "environment credentials"
         )
 
-    def harness_auth(self, harness: str) -> dict[str, Any]:
+    def harness_auth(
+        self, harness: str, *, model: str | None = None, provider: str | None = None
+    ) -> dict[str, Any]:
         return {"source": "account"}
 
     def litellm_credentials(self, harness: str) -> dict[str, Any]:
@@ -140,8 +144,15 @@ class AgentOsHost:
         detect = getattr(self.plugin, "harness_auth_source", None)
         return detect(self.env) if detect else "broker"
 
-    def harness_auth(self, harness: str) -> dict[str, Any]:
-        return self.plugin.harness_auth(harness)
+    def harness_auth(
+        self, harness: str, *, model: str | None = None, provider: str | None = None
+    ) -> dict[str, Any]:
+        selectors = {}
+        if model is not None:
+            selectors["model"] = model
+        if provider is not None:
+            selectors["provider"] = provider
+        return self.plugin.harness_auth(harness, **selectors)
 
     def litellm_credentials(self, harness: str) -> dict[str, Any]:
         resolve = getattr(self.plugin, "litellm_credentials", None)

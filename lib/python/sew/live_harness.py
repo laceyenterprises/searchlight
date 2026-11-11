@@ -812,7 +812,12 @@ def run_live_harness(
                     auth_metadata = {"source": "litellm"}
                 if auth_source == "broker":
                     if config.harness_id == "claude-code":
-                        auth_env = broker_auth.claude_code_env(broker_log_dir, environ=source_env)
+                        auth_env = broker_auth.claude_code_env(
+                            broker_log_dir,
+                            environ=source_env,
+                            model_id=config.model_id,
+                            provider=config.claude_broker_provider,
+                        )
                         auth_metadata = getattr(
                             auth_env,
                             "metadata",

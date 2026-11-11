@@ -1,0 +1,25 @@
+# Operator-only acceptance, after both repositories and the insight prerequisite deploy.
+actions: []
+operator_steps:
+  - description: >-
+      This is the shared two-repository acceptance: reuse sanitized evidence
+      already collected for the companion PR rather than repeating model work.
+      After the SDK deploy and Searchlight insight-bench merge and float, run a
+      bounded approved grade with --harness-auth broker --claude-broker-provider
+      claude-code-corp and pinned extractor/judge models. Unset CLAUDE_MODEL_ID
+      and CLAUDE_BROKER_PROVIDER. Confirm token acquisition and grading.json
+      extractor/judge auth_source=broker and broker_provider=claude-code-corp.
+      Account rate limits may still prevent a model result; distinguish those
+      from credential issuance. Never display credentials. Separately request
+      an unentitled model and confirm the refusal names model_not_entitled and
+      safe provider/model selectors, without token material. Retain sanitized evidence.
+    run_as: designated SRE operator
+    command: >-
+      env -u CLAUDE_MODEL_ID -u CLAUDE_BROKER_PROVIDER
+      SEW_HARNESS_LIVE=1 sew insight grade --run <approved-run> --harness-auth broker
+      --claude-broker-provider claude-code-corp
+      --extractor-model claude-opus-5-5 --judge-model claude-opus-5-5
+      --workers 1
+catchup:
+  catchup_timeout_s: 1800
+contact_on_failure: operator

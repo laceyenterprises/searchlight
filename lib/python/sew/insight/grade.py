@@ -346,9 +346,13 @@ def value_findings(
 
 
 def _describe(model: Model) -> dict[str, Any]:
-    return {"harness": getattr(model, "harness_id", None),
-            "model": getattr(model, "model_id", None) or "harness default",
-            "kind": type(model).__name__}
+    return {
+        "harness": getattr(model, "harness_id", None),
+        "model": getattr(model, "model_id", None) or "harness default",
+        "kind": type(model).__name__,
+        "auth_source": getattr(model, "auth_source", None),
+        "broker_provider": getattr(model, "broker_provider", None),
+    }
 
 
 def load_claims(run_dir: Path) -> dict[str, list[dict[str, Any]]]:
@@ -387,6 +391,7 @@ def grade_run(
     if seed is not None and seed != meta["seed"]:
         raise InsightError(f"run was graded with seed {meta['seed']}; regrade in a fresh copy")
     local = threading.local()
+    models: list[tuple[str, Model]] = []
     arm_ids = sorted(manifest["profiles"])
     errors: list[str] = []
     stats = {"model_calls": 0}
@@ -394,7 +399,7 @@ def grade_run(
     def model(kind: str) -> Model:
         if not hasattr(local, kind):
             setattr(local, kind, (extractor if kind == "extractor" else judge)())
-            meta[kind] = _describe(getattr(local, kind))
+            models.append((kind, getattr(local, kind)))
         stats["model_calls"] += 1
         return getattr(local, kind)
 
@@ -492,6 +497,8 @@ def grade_run(
 
     parallel(value, sorted(claims))
     meta["updated_at"] = now()
+    for kind, instance in models:
+        meta[kind] = _describe(instance)
     write_json(meta_path, meta)
     summary = {"run_dir": str(run_dir), "seed": meta["seed"], "cells_graded": len(cells),
                "claims": sum(len(v) for v in claims.values()), "pages": len(by_url),

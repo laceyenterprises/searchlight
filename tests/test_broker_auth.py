@@ -18,6 +18,7 @@ class BrokerHost:
                 "env": {"ANTHROPIC_AUTH_TOKEN": "fake-token"},
                 "fingerprint": "receipt",
                 "expires_at": "999",
+                "provider": "claude-code",
             }
         return {
             "auth": {
@@ -110,6 +111,7 @@ def test_claude_host_receipt(tmp_path, broker_host):
         "source": "broker",
         "fingerprint": "receipt",
         "expires_at": "999",
+        "provider": "claude-code",
     }
     assert broker_auth.auth_source() == "broker"
     assert broker_auth.auth_source("account") == "account"
@@ -651,3 +653,30 @@ def test_codex_old_refresh_stamp_preserves_operator_policy(tmp_path, broker_host
     broker_host.harness_auth = lambda harness: receipt
     broker_auth.codex_home_auth(tmp_path / "home", tmp_path / "log")
     assert json.loads((tmp_path / "home/auth.json").read_text()) == receipt["auth"]
+
+
+def test_claude_model_and_provider_reach_sdk(tmp_path, monkeypatch):
+    from sew import host
+
+    calls = []
+
+    class Plugin:
+        def harness_auth(self, harness, **kwargs):
+            calls.append((harness, kwargs))
+            return {
+                "env": {"ANTHROPIC_AUTH_TOKEN": "synthetic-token"},
+                "fingerprint": "receipt",
+                "expires_at": "999",
+                "provider": "claude-code-corp",
+            }
+
+    adapter = host.AgentOsHost(Plugin(), {})
+    monkeypatch.setattr(host, "get_host", lambda environ=None: adapter)
+    receipt = broker_auth.claude_code_env(
+        tmp_path / "log", model_id="claude-opus-5-5", provider="claude-code-corp"
+    )
+    assert calls == [
+        ("claude-code", {"model": "claude-opus-5-5", "provider": "claude-code-corp"})
+    ]
+    assert receipt.metadata["provider"] == "claude-code-corp"
+    assert "synthetic-token" not in json.dumps(receipt.metadata)
