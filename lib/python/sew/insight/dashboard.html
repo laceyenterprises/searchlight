@@ -135,7 +135,7 @@ document.getElementById("chips").addEventListener("click",function(e){var b=e.ta
 document.getElementById("allarms").addEventListener("click",function(){D.ranked.forEach(function(x){on[x]=true});chips();show(current)});
 
 // Views.
-var COLS=[["arm","Arm"],["weighted","Weighted"],["insights","Insights"],["unique_insights","Unique"],["share_of_pool","Share"],
+var COLS=[["arm","Arm"],["weighted","Weighted"],["weighted_per_question","Per question"],["insights","Insights"],["unique_insights","Unique"],["share_of_pool","Share"],
   ["unsupported_rate","Unsupported"],["cost_usd","Cost"],["cost_per_unique_insight","$ / unique"],["latency_p50_ms","p50"]];
 var sort={key:"weighted",dir:-1};
 var V={
@@ -147,10 +147,10 @@ leaderboard:{label:"Leaderboard",render:function(){
     return '<th scope="col" aria-sort="'+s+'"'+(c[0]==="arm"?"":' class="num"')+'><button type="button" data-sort="'+c[0]+'">'+c[1]+'</button></th>'}).join("");
   var body=rows.map(function(x){var m=D.metrics[x],w=m.weighted;
     return "<tr><th scope=row>"+esc(x)+tags(x)+'</th><td class="num"><div class="bar"><span class="track" aria-hidden="true"><i style="width:'+(100*(w.value||0)/max).toFixed(1)+'%"></i></span><span class="n">'+w.value+
-    '<span class="ci">'+(w.ci95?w.ci95[0]+"–"+w.ci95[1]:"")+'</span></span></div></td><td class="num">'+m.insights.value+'</td><td class="num">'+m.unique_insights.value+
+    '<span class="ci">'+(w.ci95?w.ci95[0]+"–"+w.ci95[1]:"")+'</span></span></div></td><td class="num">'+(m.weighted_per_question.value==null?"—":m.weighted_per_question.value)+'<span class="ci">'+m.weighted_per_question.n+' Qs</span></td><td class="num">'+m.insights.value+'</td><td class="num">'+m.unique_insights.value+
     '<span class="ci">'+m.unique_insights.ci95[0]+"–"+m.unique_insights.ci95[1]+'</span></td><td class="num">'+pct(m.share_of_pool.value)+'</td><td class="num">'+pct(m.unsupported_rate.value)+
     '<span class="ci">n '+m.unsupported_rate.n+'</span></td><td class="num">'+money(m.cost_usd.value)+'</td><td class="num">'+money(m.cost_per_unique_insight.value)+'</td><td class="num">'+ms(m.latency_p50_ms.value)+"</td></tr>"}).join("");
-  return '<div class="panel"><h2>Verified insight by arm</h2><p class="muted small">Sort by any column. Ranges are 95% question-bootstrap intervals; n = '+D.set.questions+' questions.</p><div class="scroll"><table><caption class="muted small" style="caption-side:bottom;text-align:left;padding-top:8px">Insight: a credited finding valued 1–3. Unique: only this arm earned it.</caption><thead><tr>'+head+"</tr></thead><tbody>"+body+"</tbody></table></div></div>"},
+  return '<div class="panel"><h2>Verified insight by arm</h2><p class="muted small">Sort by any column. Ranges are 95% question-bootstrap intervals over the questions each arm ran (up to '+D.set.questions+'). Arms that ran a subset are fairest compared per question.</p><div class="scroll"><table><caption class="muted small" style="caption-side:bottom;text-align:left;padding-top:8px">Insight: a credited finding valued 1–3. Unique: only this arm earned it.</caption><thead><tr>'+head+"</tr></thead><tbody>"+body+"</tbody></table></div></div>"},
   bind:function(){main.querySelectorAll("[data-sort]").forEach(function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-sort");
     sort={key:k,dir:sort.key===k?-sort.dir:(k==="arm"?1:-1)};show("leaderboard");var n=main.querySelector('[data-sort="'+k+'"]');if(n)n.focus()})})}},
 unique:{label:"Unique",render:function(){

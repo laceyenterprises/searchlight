@@ -632,3 +632,17 @@ def test_answer_urls_are_read_from_decoded_text():
                     for part in ("See https://brave.example/p", "\nand more.")) + "\ndata: [DONE]"
     body, urls = G._answer_material({"response": sse})
     assert urls == ["https://brave.example/p"] and body.startswith("See https://brave.example/p")
+
+
+def test_arms_run_on_a_subset_are_scored_on_their_questions(tmp_path):
+    run_dir, _, _ = _graded(tmp_path)
+    (run_dir / "cells" / "Q2" / "parallel.research.json").unlink()  # as if it ran only on Q1
+    summary = read_json(Path(write_report(run_dir, set_root=tmp_path)["summary"]))
+    m = summary["metrics"]["parallel.research"]
+    assert m["weighted"]["n"] == 1 and m["weighted_per_question"]["n"] == 1
+    row = next(r for r in summary["arms"] if r["arm_id"] == "parallel.research")
+    assert row["counts"]["questions_run"] == 1
+    test = next(t for t in summary["paired_tests"] if t["other"] == "parallel.research")
+    assert test["n_questions"] == 1
+    assert any("ran on a subset" in c for c in summary["caveats"])
+    assert not any("did not return ok" in c for c in summary["caveats"])

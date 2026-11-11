@@ -433,6 +433,7 @@
     "weighted",
     "unique_insights",
     "unique_weighted",
+    "weighted_per_question",
     "share_of_pool",
     "unsupported_rate",
     "cost_usd",
@@ -469,6 +470,9 @@
      "$ref": "#/$defs/metric"
     },
     "latency_p50_ms": {
+     "$ref": "#/$defs/metric"
+    },
+    "weighted_per_question": {
      "$ref": "#/$defs/metric"
     }
    }
