@@ -67,6 +67,30 @@ sew insight report --run software-factories-2026-11-20261111
 - **Model calls** (the query-writer, extraction and judging) use the same harness auth as every
   other Searchlight judge (`--harness-auth broker` or `account`). No model API keys are used.
 
+## Import an external arm
+
+An arm produced outside the bench can join a run as a graded arm. The first use is a native
+harness research run:
+
+```sh
+sew insight import --run software-factories-2026-11-20261111 --arm claude-native.agent \
+  --claims claims.jsonl --label "Claude Code native WebSearch/WebFetch" \
+  --note "freeform research brief mapped to questions afterwards; not posed each question verbatim"
+```
+
+- **Input.** `--claims` is JSONL with one claim per line: `{qid, claim, source_url, retrieved_via}`.
+- **Cells.** Each question with claims becomes one `ok` answer cell. Its response is the claims as
+  text with their URLs, so the run's own extractor re-extracts them, and verification, clustering and
+  valuation treat them like any other arm. The pre-split claims are never trusted as they are.
+- **Manifest.** The entry is marked `imported`, with the label, the note, the source file's sha256 and
+  the cost basis: `reported` with `--usd`, otherwise `unknown`.
+- **Refusals.** A question that is not in the set or the run is refused, and so is an arm id that
+  collides with a profile. Only the imported arm's own cells are written; re-importing replaces
+  exactly those.
+- **Report.** Imported arms are marked `(imported)`, and the report prints their caveat. They did not
+  run under the run's profiles, date or spend ledger, so their latency is n/a, and their cost is n/a
+  unless `--usd` reported it.
+
 ## Fairness rules
 
 The full list, with the vendor evidence behind it, is in
@@ -218,7 +242,8 @@ pairs to cluster, one per cited page to verify, and one per question to value.
 
 ## Deviations and deferred work
 
-- **Native and optional arms do not run yet.**
+- **Native and optional arms do not run yet.** A native run done elsewhere can join through
+  `sew insight import`, with its caveat recorded.
   - Covered: `claude-native.search`, `codex-native.search` and `claude-native.research`, which needs
     an Anthropic API key that no `CredentialResolver` id serves, plus the optional `gemini-grounding`
     and `xai-grok`.

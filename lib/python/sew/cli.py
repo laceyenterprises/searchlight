@@ -696,6 +696,17 @@ def _insight_grade(args):
     return 1 if summary["errors"] else 0
 
 
+def _insight_import(args):
+    from .insight.importer import import_arm
+    from .insight.run import resolve_run
+
+    run_dir = resolve_run(args.run, Path(args.state_root) if args.state_root else None)
+    out = import_arm(run_dir, arm_id=args.arm, claims_path=Path(args.claims), label=args.label,
+                     usd=args.usd, note=args.note)
+    print(json.dumps(out, indent=2, sort_keys=True))
+    return 0
+
+
 def _insight_report(args):
     from .insight.report import write_report
     from .insight.run import resolve_run
@@ -1354,6 +1365,17 @@ def build_parser() -> argparse.ArgumentParser:
     insight_grade.add_argument("--seed", type=int, help="blinding shuffle seed (recorded)")
     insight_grade.add_argument("--workers", type=int, default=4)
     insight_grade.set_defaults(func=_insight_grade)
+    insight_import = insight_sub.add_parser(
+        "import", help="join an externally produced arm's claims to a run as a graded arm"
+    )
+    insight_import.add_argument("--run", required=True, help="run id or run directory")
+    insight_import.add_argument("--arm", required=True, help="new arm id <vendor>.<operation>")
+    insight_import.add_argument("--claims", required=True, help="JSONL: {qid, claim, source_url, ...} per line")
+    insight_import.add_argument("--label", required=True, help="what the arm is, shown in the report")
+    insight_import.add_argument("--usd", type=float, help="reported total spend (omit if unknown)")
+    insight_import.add_argument("--note", help="caveat shown beside the arm in the report")
+    insight_import.add_argument("--state-root")
+    insight_import.set_defaults(func=_insight_import)
     insight_report = insight_sub.add_parser(
         "report", help="score a graded run: REPORT.md, summary.json, run history"
     )

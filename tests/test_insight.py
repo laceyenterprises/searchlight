@@ -461,3 +461,87 @@ def test_a_failed_model_step_is_reported_and_retried_later(tmp_path):
                           seed=1, set_root=tmp_path, progress=None)
     assert len(summary["errors"]) == 6 and all(e.split(":")[0].count("/") == 1 for e in summary["errors"])
     assert not (Path(plan["run_dir"]) / "grading" / "extract").exists()
+
+
+# -- imported arms ---------------------------------------------------------
+
+CAVEAT = "freeform research brief mapped to questions afterwards; not posed each question verbatim"
+
+
+def _claims_file(tmp, rows):
+    path = tmp / "claims.jsonl"
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows))
+    return path
+
+
+def _snapshot(run_dir):
+    return {p.relative_to(run_dir): p.read_bytes() for p in (run_dir / "cells").rglob("*.json")}
+
+
+def test_import_adds_an_arm_without_touching_other_cells(tmp_path, capsys, monkeypatch):
+    import sew.insight.importer as importer
+
+    monkeypatch.setattr(importer, "load_set", lambda set_id, root=None: load_set(set_id, tmp_path))
+    plan, _ = _run(tmp_path)
+    run_dir = Path(plan["run_dir"])
+    before = _snapshot(run_dir)
+    claims = _claims_file(tmp_path, [
+        {"qid": "Q1", "claim": "Kiro uses spec files.", "source_url": "https://d.example/4", "retrieved_via": "WebFetch"},
+        {"qid": "Q1", "claim": "Devin runs in a sandbox VM.", "source_url": "https://b.example/2",
+         "retrieved_via": "WebSearch"}])
+    assert main(["insight", "import", "--run", run_dir.name, "--state-root", str(tmp_path / "state"),
+                 "--arm", "claude-native.agent", "--claims", str(claims), "--label", "Claude Code native search",
+                 "--note", CAVEAT]) == 0
+    assert json.loads(capsys.readouterr().out)["questions"] == ["Q1"]
+    entry = read_json(run_dir / "manifest.json")["profiles"]["claude-native.agent"]
+    assert entry["imported"] and entry["label"] == "Claude Code native search" and entry["note"] == CAVEAT
+    assert entry["cost_basis"] == "unknown" and len(entry["source_sha256"]) == 64
+    cell = read_json(run_dir / "cells" / "Q1" / "claude-native.agent.json")
+    assert cell["status"] == "ok" and cell["response"].startswith("Kiro uses spec files.\nSource: https://d.example/4")
+    assert not (run_dir / "cells" / "Q2" / "claude-native.agent.json").exists()
+    after = _snapshot(run_dir)
+    assert {k: v for k, v in after.items() if "claude-native" not in str(k)} == before
+
+
+def test_import_refusals(tmp_path):
+    from sew.insight.importer import import_arm
+
+    plan, _ = _run(tmp_path)
+    run_dir = Path(plan["run_dir"])
+    ok = [{"qid": "Q1", "claim": "c", "source_url": "https://d.example/4"}]
+    common = dict(claims_path=_claims_file(tmp_path, ok), label="x", set_root=tmp_path,
+                  profile_dir=tmp_path / "profiles")
+    for arm in ("exa.search", "parallel.search", "Bad Arm"):  # in the run, a profile file, malformed
+        with pytest.raises(InsightError):
+            import_arm(run_dir, arm_id=arm, **common)
+    common["claims_path"] = _claims_file(tmp_path, ok + [{"qid": "Q9", "claim": "c", "source_url": "https://x.example"}])
+    with pytest.raises(InsightError, match="not in set"):
+        import_arm(run_dir, arm_id="claude-native.agent", **common)
+    assert not list((run_dir / "cells").glob("*/claude-native.agent.json"))
+    assert "claude-native.agent" not in read_json(run_dir / "manifest.json")["profiles"]
+
+
+def test_imported_arm_is_regraded_and_marked_in_the_report(tmp_path):
+    from sew.insight.importer import import_arm
+
+    plan, _ = _run(tmp_path)
+    run_dir = Path(plan["run_dir"])
+    claims = _claims_file(tmp_path, [{"qid": "Q1", "claim": "Kiro uses spec files.", "source_url": "https://d.example/4"}])
+    import_arm(run_dir, arm_id="claude-native.agent", claims_path=claims, label="Claude Code native search",
+               note=CAVEAT, usd=1.2, set_root=tmp_path, profile_dir=tmp_path / "profiles")
+    seen: list[dict] = []
+    G.grade_run(run_dir, extractor=lambda: FakeModel(seen), judge=lambda: FakeModel(seen),
+                capture=PAGES.__getitem__, seed=3, set_root=tmp_path, progress=None)
+    assert any(p["instructions"] == G.EXTRACT and p["answer"] and "Kiro" in p["answer"] for p in seen)
+    summary = read_json(Path(write_report(run_dir)["summary"]))
+    per = summary["per_arm"]["claude-native.agent"]
+    assert per["imported"] and per["insights"] == 1 and per["unique_insights"] == 0
+    assert per["cost_usd"] == 1.2 and per["latency_p50_ms"] is None
+    assert summary["per_arm"]["parallel.research"]["unique_insights"] == 1  # Q1's Kiro is now shared
+    report = (run_dir / "REPORT.md").read_text()
+    assert "| claude-native.agent (imported) |" in report and f"Caveat: {CAVEAT}" in report
+    # Re-import with no Q1 claims replaces only this arm's cells.
+    import_arm(run_dir, arm_id="claude-native.agent", label="again", set_root=tmp_path,
+               profile_dir=tmp_path / "profiles",
+               claims_path=_claims_file(tmp_path, [{"qid": "Q2", "claim": "c", "source_url": "https://d.example/4"}]))
+    assert sorted(p.parent.name for p in (run_dir / "cells").glob("*/claude-native.agent.json")) == ["Q2"]

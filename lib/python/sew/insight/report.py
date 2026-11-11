@@ -49,6 +49,10 @@ def bootstrap_ci(diffs: Sequence[float], seed: int, n: int = BOOTSTRAP) -> tuple
     return (totals[int(0.025 * n)], totals[int(0.975 * n) - 1])
 
 
+def _cost_key(usd: float | None) -> float:
+    return float("inf") if usd is None else usd
+
+
 def score(run_dir: Path) -> dict[str, Any]:
     manifest = read_json(run_dir / "manifest.json")
     grading = read_json(run_dir / "grading" / "grading.json")
@@ -91,9 +95,12 @@ def score(run_dir: Path) -> dict[str, Any]:
         supported, unsupported = verdicts.count(1), verdicts.count(0)
         uncited, unverifiable = verdicts.count("uncited"), verdicts.count(None)
         checkable = supported + unsupported + uncited
+        entry = manifest["profiles"][arm]
+        imported = bool(entry.get("imported"))
+        cost_known = not (imported and entry.get("cost_basis") == "unknown")
         cost = sum(float(c.get("cost", {}).get("usd") or 0.0) for c in arm_cells)
         weighted = sum(c["value"] for c in mine.values())
-        latency = [float(c.get("latency_ms") or 0.0) for c in ok]
+        latency = [float(c["latency_ms"]) for c in ok if c.get("latency_ms") is not None]
         per_arm[arm] = {
             "cells": len(arm_cells), "cells_ok": len(ok),
             "insights": len(mine), "weighted": weighted,
@@ -102,14 +109,16 @@ def score(run_dir: Path) -> dict[str, Any]:
             "claims": len(own), "supported": supported, "unsupported": unsupported,
             "uncited": uncited, "unverifiable": unverifiable,
             "unsupported_rate": round((unsupported + uncited) / checkable, 4) if checkable else None,
-            "cost_usd": round(cost, 4),
+            "imported": imported,
+            "cost_usd": round(cost, 4) if cost_known else None,
             "cost_basis": sorted({c.get("cost", {}).get("basis", "none") for c in arm_cells}),
-            "cost_per_insight": round(cost / len(mine), 4) if mine else None,
-            "cost_per_unique_insight": round(cost / len(unique), 4) if unique else None,
-            "latency_p50_ms": round(pct(latency, 0.5)), "latency_p90_ms": round(pct(latency, 0.9)),
+            "cost_per_insight": round(cost / len(mine), 4) if mine and cost_known else None,
+            "cost_per_unique_insight": round(cost / len(unique), 4) if unique and cost_known else None,
+            "latency_p50_ms": round(pct(latency, 0.5)) if latency else None,
+            "latency_p90_ms": round(pct(latency, 0.9)) if latency else None,
             "questions_with_insight": sum(1 for q in qids if weighted_by_q[arm][q] > 0),
         }
-    ranked = sorted(arms, key=lambda a: (-per_arm[a]["weighted"], per_arm[a]["cost_usd"], a))
+    ranked = sorted(arms, key=lambda a: (-per_arm[a]["weighted"], _cost_key(per_arm[a]["cost_usd"]), a))
     owned = {a: {cid for cid, c in insights.items() if a in c["credited"]} for a in arms}
     overlap = {a: {b: len(owned[a] & owned[b]) for b in arms} for a in arms}
 
@@ -118,7 +127,7 @@ def score(run_dir: Path) -> dict[str, Any]:
     while left:
         def gain(a: str) -> int:
             return sum(insights[c]["value"] for c in owned[a] - covered)
-        best = min(left, key=lambda a: (-gain(a), per_arm[a]["cost_usd"], a))
+        best = min(left, key=lambda a: (-gain(a), _cost_key(per_arm[a]["cost_usd"]), a))
         added = gain(best)
         covered |= owned[best]
         left.remove(best)
@@ -166,6 +175,9 @@ def score(run_dir: Path) -> dict[str, Any]:
         "unverified_fields": {a: manifest["profiles"][a].get("unverified") or [] for a in arms
                               if manifest["profiles"][a].get("unverified")},
         "variants": [a for a in arms if manifest["profiles"][a]["profile"].get("variant")],
+        "imported": {a: {k: manifest["profiles"][a].get(k) for k in
+                         ("label", "note", "source_sha256", "source_file", "cost_basis", "reported_usd")}
+                     for a in arms if manifest["profiles"][a].get("imported")},
         "off_day_cells": sorted(f"{q}/{a}" for (q, a), c in cells.items()
                                 if c.get("date") and c["date"] != manifest["run_date"]),
         "incomplete_cells": sorted(f"{q}/{a}" for q in qids for a in arms
@@ -208,11 +220,14 @@ def render(summary: Mapping[str, Any], history: Sequence[Mapping[str, Any]] = ()
     ]
     for a in arms:
         s = per[a]
-        cost = _money(s["cost_usd"]) + ("" if s["cost_basis"] == ["measured"] else " (est.)")
+        exact = s["cost_basis"] in (["measured"], ["reported"]) or s["cost_usd"] is None
+        cost = _money(s["cost_usd"]) + ("" if exact else " (est.)")
+        latency = "n/a" if s["latency_p50_ms"] is None else f"{s['latency_p50_ms'] / 1000:.1f} s"
+        name = f"{a} (imported)" if s.get("imported") else a
         lines.append(
-            f"| {a} | {s['insights']} | {s['weighted']} | {s['unique_insights']} | {s['unique_weighted']} "
+            f"| {name} | {s['insights']} | {s['weighted']} | {s['unique_insights']} | {s['unique_weighted']} "
             f"| {_pctx(s['share_of_pool'])} | {cost} | {_money(s['cost_per_insight'])} "
-            f"| {_money(s['cost_per_unique_insight'])} | {s['latency_p50_ms'] / 1000:.1f} s "
+            f"| {_money(s['cost_per_unique_insight'])} | {latency} "
             f"| {_pctx(s['unsupported_rate'])} | {s['cells_ok']}/{s['cells']} |"
         )
     lines += [
@@ -247,6 +262,15 @@ def render(summary: Mapping[str, Any], history: Sequence[Mapping[str, Any]] = ()
     lines += [f"| {t['leader']} | {t['other']} | {t['n_questions']} | {t['ahead']} / {t['behind']} "
               f"| {t['p_sign']:.3f} | {t['p_holm']:.3f} | {t['ci95_total_diff'][0]:g} to "
               f"{t['ci95_total_diff'][1]:g} |" for t in summary["paired_tests"]]
+    if summary["imported"]:
+        lines += ["", "**Imported arms** were produced outside this run and joined it afterwards. Their "
+                  "claims were re-extracted by the run's extractor and verified like every other arm's, "
+                  "but they did not run under this run's profiles, date or spend ledger.", ""]
+        for a, meta in summary["imported"].items():
+            cost = (f"${meta['reported_usd']:,.4f} reported" if meta["cost_basis"] == "reported"
+                    else "cost unknown")
+            lines.append(f"- `{a}` (imported): {meta['label']}. Caveat: {meta['note'] or 'none recorded'}. "
+                         f"{cost}; source `{meta['source_file']}`, sha256 `{meta['source_sha256'][:16]}`.")
     if summary["variants"]:
         lines += ["", f"Pre-registered variants (report beside, not instead of, their primary arm): "
                   f"{', '.join(summary['variants'])}."]
