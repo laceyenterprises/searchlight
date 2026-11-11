@@ -1,0 +1,47 @@
+{
+  "arm": "gemini-grounding",
+  "operation": "research",
+  "optional": true,
+  "endpoint": "Gemini API generate call with the google_search tool",
+  "params": {
+    "model": "gemini-4-argon",
+    "input": "{{RESEARCH_BRIEF}}",
+    "tools": [
+      {
+        "type": "google_search"
+      }
+    ]
+  },
+  "freshness_overlay": {
+    "input_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "research_brief",
+  "query_transform_notes": "Model decides queries; google_search_call lists them. Optional arm.",
+  "post_steps": [],
+  "async": null,
+  "top_k": null,
+  "pace_seconds": 1.0,
+  "est_cost_usd_per_question": 0.2,
+  "cost_model": "Gemini 3+: $14 per 1,000 search queries the model executes (5,000/month free) + model tokens.",
+  "unverified_fields": {
+    "endpoint": {
+      "unverified": true,
+      "note": "The grounding page shows tools=[{'type':'google_search'}] (Interactions-style) without the HTTP path; endpoint and model id choice not verified."
+    },
+    "model": {
+      "unverified": true,
+      "note": "Gemini 4 Argon is listed as supported; whether it is the right deep-research choice is not stated."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://aistudio.google.com/docs/google-search",
+      "read_on": "2026-11-11",
+      "supports": "tool syntax, supported models, per-query pricing, 1,500 RPD"
+    }
+  ],
+  "rationale": {
+    "tools": "Only documented tool form for current models."
+  },
+  "unverified": true
+}

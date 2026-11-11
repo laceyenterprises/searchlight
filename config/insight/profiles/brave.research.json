@@ -1,0 +1,73 @@
+{
+  "arm": "brave",
+  "operation": "research",
+  "endpoint": "POST https://api.search.brave.com/res/v1/chat/completions",
+  "headers": {
+    "x-subscription-token": "<BRAVE_ANSWERS_KEY>"
+  },
+  "params": {
+    "model": "brave",
+    "stream": true,
+    "messages": [
+      {
+        "role": "user",
+        "content": "{{RESEARCH_BRIEF}}"
+      }
+    ],
+    "country": "us",
+    "language": "en",
+    "enable_research": true
+  },
+  "freshness_overlay": {
+    "messages[0].content_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "research_brief",
+  "query_transform_notes": "Exactly one user message (Brave skill). No query-writing guidance published.",
+  "post_steps": [],
+  "async": {
+    "poll_endpoint": null,
+    "stream": "SSE; keep <answer>, <blindspots>, <usage>; log <progress>",
+    "interval_s": null,
+    "timeout_s": 330
+  },
+  "top_k": null,
+  "pace_seconds": 0.5,
+  "est_cost_usd_per_question": 0.5,
+  "cost_model": "searches x $4/1k + input tokens x $5/M + output tokens x $5/M (Answers plan). Research defaults allow up to 20 queries ($0.08) plus large input contexts; read the <usage> tag.",
+  "unverified_fields": {
+    "est_cost_usd_per_question": {
+      "unverified": true,
+      "note": "No published per-research-run figure; token volume of research mode not documented. Estimate only."
+    },
+    "research_* defaults": {
+      "unverified": true,
+      "note": "Vendor defaults are left in force. Official reference: max queries 20 (1-50), results per query default 30 (changelog 2026-08-21); the brave-search-skills SKILL.md still says 60. Iterations 4 (1-5) and seconds 180 (1-300) come from SKILL.md only."
+    },
+    "enable_citations": {
+      "unverified": true,
+      "note": "Not set: research mode cannot be combined with enable_citations (SKILL.md). Whether research <answer> carries URLs inline is not documented; record what comes back."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://api-dashboard.search.brave.com/documentation/services/answers",
+      "read_on": "2026-11-11",
+      "supports": "endpoint, enable_research, stream required, pricing, 2 rps, research for thoroughness"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/brave/brave-search-skills/main/skills/answers/SKILL.md",
+      "read_on": "2026-11-11",
+      "supports": "research_* params, constraints, response tags, >=300 s client timeout"
+    },
+    {
+      "url": "https://api-dashboard.search.brave.com/api-reference/summarizer/answers",
+      "read_on": "2026-11-11",
+      "supports": "research_maximum_number_of_queries 1-50 default 20; results per query default 30"
+    }
+  ],
+  "rationale": {
+    "enable_research": "Docs: research mode when thoroughness matters more than speed (background tasks).",
+    "research_* params": "Vendor defaults; no tuning beyond docs."
+  },
+  "unverified": true
+}

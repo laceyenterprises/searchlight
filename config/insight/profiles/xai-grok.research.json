@@ -1,0 +1,48 @@
+{
+  "arm": "xai-grok",
+  "operation": "research",
+  "optional": true,
+  "endpoint": "POST https://api.x.ai/v1/responses",
+  "params": {
+    "model": "grok-4.7",
+    "input": "{{RESEARCH_BRIEF}}",
+    "tools": [
+      {
+        "type": "web_search"
+      }
+    ]
+  },
+  "freshness_overlay": {
+    "input_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "research_brief",
+  "query_transform_notes": "Web Search is a Responses-API server-side tool; legacy Live Search (search_parameters on Chat Completions) is deprecated. Optional arm.",
+  "post_steps": [],
+  "async": null,
+  "top_k": null,
+  "pace_seconds": 1.0,
+  "est_cost_usd_per_question": 0.2,
+  "cost_model": "$5 per 1,000 web_search calls + model tokens.",
+  "unverified_fields": {
+    "endpoint": {
+      "unverified": true,
+      "note": "Responses path and model id grok-4.7 come from examples; Live Search deprecation date/410 status only from third-party sources."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://docs.x.ai/docs/guides/tools/search-tools",
+      "read_on": "2026-11-11",
+      "supports": "web_search tool, allowed/excluded domains (max 5)"
+    },
+    {
+      "url": "https://docs.x.ai/developers/pricing",
+      "read_on": "2026-11-11",
+      "supports": "web_search $5/1k calls"
+    }
+  ],
+  "rationale": {
+    "tools": "web_search only; x_search excluded (bills per post, not web retrieval)."
+  },
+  "unverified": true
+}

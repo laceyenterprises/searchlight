@@ -1,0 +1,56 @@
+{
+  "arm": "codex-native",
+  "operation": "search",
+  "endpoint": "codex exec (Codex CLI headless) with hosted web_search",
+  "params": {
+    "cli": [
+      "codex",
+      "exec",
+      "--model",
+      "{{CODEX_MODEL}}",
+      "-c",
+      "web_search=\"live\"",
+      "-c",
+      "tools.web_search={context_size=\"high\"}",
+      "{{EXTRACTOR_BRIEF}}"
+    ]
+  },
+  "freshness_overlay": {
+    "brief_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "harness-model-writes-queries",
+  "query_transform_notes": "Codex writes its own queries. 'cached' (default) reads an OpenAI-maintained index without external access; 'live' is for tasks that depend on current information.",
+  "post_steps": [],
+  "async": null,
+  "top_k": 10,
+  "pace_seconds": 0,
+  "est_cost_usd_per_question": 0.5,
+  "cost_model": "No published per-call price; operator proxy $0.005/search (price-table 2026-09-30) + model tokens of the pinned Codex model.",
+  "unverified_fields": {
+    "cli flags": {
+      "unverified": true,
+      "note": "'-c key=value' override syntax and 'codex exec' are from prior use, not re-read on 2026-11-11; the config reference documents the keys (web_search, tools.web_search{context_size,allowed_domains,location})."
+    },
+    "model": {
+      "unverified": true,
+      "note": "Reader is the Codex model, not the fixed extractor, unless the extractor is an OpenAI model Codex can pin."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://learn.chatgpt.com/docs/config-file/config-reference",
+      "read_on": "2026-11-11",
+      "supports": "web_search disabled|cached|indexed|live (default cached; live under full access); tools.web_search object; deprecated features.* toggles"
+    },
+    {
+      "url": "https://learn.chatgpt.com/docs/web-search",
+      "read_on": "2026-11-11",
+      "supports": "mode semantics, allow-lists, hosted tool ignores sandbox network rules"
+    }
+  ],
+  "rationale": {
+    "web_search": "'live' so freshness matches other arms that fetch live; cached index may lag.",
+    "context_size": "'high' gives the model the most search context (documented option low|medium|high)."
+  },
+  "unverified": true
+}

@@ -1,0 +1,89 @@
+{
+  "arm": "perplexity",
+  "operation": "research",
+  "endpoint": "POST https://api.perplexity.ai/v1/agent",
+  "headers": {
+    "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "params": {
+    "effort": "high",
+    "input": "{{RESEARCH_BRIEF}}",
+    "background": true
+  },
+  "freshness_overlay": {
+    "tools": [
+      {
+        "type": "web_search",
+        "filters": {
+          "search_after_date_filter": "{{AFTER_DATE_MDY}}"
+        }
+      },
+      {
+        "type": "fetch_url"
+      }
+    ]
+  },
+  "query_transform": "research_brief",
+  "query_transform_notes": "Sonar migration guide: sonar-deep-research -> effort 'high'. Effort page: high = 'deep, source-heavy research without code execution, where completeness matters more than latency'.",
+  "post_steps": [],
+  "async": {
+    "poll_endpoint": "GET https://api.perplexity.ai/v1/agent/{id}",
+    "interval_s": 10,
+    "timeout_s": 1800,
+    "note": "Polling counts against Agent API QPS (Tier 0 = 1 QPS)."
+  },
+  "top_k": null,
+  "pace_seconds": 1.0,
+  "est_cost_usd_per_question": 0.6,
+  "cost_model": "Tokens of the effort's model (high = openai/gpt-6.1-terra) + tool calls: web_search fast $0.001 (presets default to Fast Search), fetch_url $0.0005. Up to 40 steps. Response usage.total_cost is authoritative.",
+  "unverified_fields": {
+    "est_cost_usd_per_question": {
+      "unverified": true,
+      "note": "No per-effort price published; gpt-6.1-terra token price not read. Estimate."
+    },
+    "freshness_overlay": {
+      "unverified": true,
+      "note": "Supplying a tools array alongside effort: docs only state that search_type on web_search overrides the preset; whether a filters-only tool entry merges with the preset's tool config is not documented."
+    },
+    "background": {
+      "unverified": true,
+      "note": "Background mode is documented for long runs (ultra) and Sonar async migration; not explicitly for 'high'."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/migrate-from-sonar/overview.md",
+      "read_on": "2026-11-11",
+      "supports": "Sonar Chat Completions support ended 2026-09-27; model->effort mapping"
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/migrate-from-sonar/how-to.md",
+      "read_on": "2026-11-11",
+      "supports": "param mapping: search_context_size -> max_tokens, filters move into web_search tool"
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/effort.md",
+      "read_on": "2026-11-11",
+      "supports": "effort table: high = gpt-6.1-terra, 40 steps, web_search+fetch_url"
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/agent-api/tools/web-search.md",
+      "read_on": "2026-11-11",
+      "supports": "web_search filters, max_tokens, presets default to fast search"
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/getting-started/pricing.md",
+      "read_on": "2026-11-11",
+      "supports": "tool call prices"
+    },
+    {
+      "url": "https://docs.perplexity.ai/docs/resources/changelog.md",
+      "read_on": "2026-11-11",
+      "supports": "Sep-Nov effort changes, preset->effort rename, ultra"
+    }
+  ],
+  "rationale": {
+    "effort": "Vendor's own recommendation for deep research without code. 'xhigh' (Claude Opus 5.5, 300 steps, sandbox) and 'ultra' (broad coverage) are pre-registered variants; xhigh/ultra run on Anthropic models, which confounds a vendor comparison."
+  },
+  "unverified": true
+}

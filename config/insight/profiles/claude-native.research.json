@@ -1,0 +1,79 @@
+{
+  "arm": "claude-native",
+  "operation": "research",
+  "endpoint": "POST https://api.anthropic.com/v1/messages",
+  "headers": {
+    "x-api-key": "<ANTHROPIC_API_KEY>",
+    "anthropic-version": "2026-10-21"
+  },
+  "params": {
+    "model": "claude-opus-5-5",
+    "max_tokens": 32000,
+    "messages": [
+      {
+        "role": "user",
+        "content": "{{RESEARCH_BRIEF}}"
+      }
+    ],
+    "tools": [
+      {
+        "type": "web_search_20260318",
+        "name": "web_search",
+        "max_uses": 20
+      },
+      {
+        "type": "web_fetch_20260318",
+        "name": "web_fetch",
+        "max_uses": 20,
+        "citations": {
+          "enabled": true
+        },
+        "max_content_tokens": 30000
+      }
+    ]
+  },
+  "freshness_overlay": {
+    "messages[0].content_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "research_brief",
+  "query_transform_notes": "Claude writes its own queries. Triggering is steerable via prompt; max_uses caps per turn. Handle stop_reason 'pause_turn' by resending the assistant message unchanged.",
+  "post_steps": [],
+  "async": {
+    "poll_endpoint": null,
+    "loop": "resend on pause_turn until end_turn",
+    "interval_s": 0,
+    "timeout_s": 1200
+  },
+  "top_k": null,
+  "pace_seconds": 0,
+  "est_cost_usd_per_question": 1.2,
+  "cost_model": "web_search $10/1k (<=20 -> <=$0.20) + web_fetch free + Opus 5.5 tokens ($4/M in, $20/M out). Dynamic filtering keeps fetched/search content out of context, lowering input tokens; code-execution calls from dynamic filtering carry no extra fee.",
+  "unverified_fields": {
+    "est_cost_usd_per_question": {
+      "unverified": true,
+      "note": "Token use per research turn not measured on this workload."
+    },
+    "max_uses": {
+      "unverified": true,
+      "note": "Our cap. Docs: 'comparative or multientity research can use 10 or more'."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "read_on": "2026-11-11",
+      "supports": "versions 20250305/20260209/20260318, dynamic filtering, max_uses, domains, pricing"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool",
+      "read_on": "2026-11-11",
+      "supports": "versions through 20260318, citations, max_content_tokens, use_cache, URL validation"
+    }
+  ],
+  "rationale": {
+    "tool versions": "20260318 = dynamic filtering + response_inclusion; dynamic filtering runs on code execution automatically (allowed_callers defaults to code_execution_20260120).",
+    "web_fetch.citations": "Off by default for fetch; on so claims carry char-located citations.",
+    "model": "Strongest generally available Claude model in our price table; fixed."
+  },
+  "unverified": true
+}

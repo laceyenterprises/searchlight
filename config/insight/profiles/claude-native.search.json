@@ -1,0 +1,63 @@
+{
+  "arm": "claude-native",
+  "operation": "search",
+  "endpoint": "claude -p (Claude Code headless) with built-in WebSearch + WebFetch",
+  "params": {
+    "cli": [
+      "claude",
+      "-p",
+      "{{EXTRACTOR_BRIEF}}",
+      "--model",
+      "{{EXTRACTOR_MODEL}}",
+      "--allowedTools",
+      "WebSearch,WebFetch",
+      "--output-format",
+      "json"
+    ],
+    "env": {
+      "CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION": "10"
+    }
+  },
+  "freshness_overlay": {
+    "brief_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+  },
+  "query_transform": "harness-model-writes-queries",
+  "query_transform_notes": "The harness model writes its own queries; the brief is the shared extractor brief. WebSearch returns titles+URLs only (up to 8 backend searches per call); WebFetch runs a small-model extraction over the page (lossy by design).",
+  "post_steps": [],
+  "async": null,
+  "top_k": 10,
+  "pace_seconds": 0,
+  "est_cost_usd_per_question": 0.8,
+  "cost_model": "$10/1k searches + extractor-model tokens (WebFetch adds no tool fee). Searches capped at 10 per run via env cap; tokens dominate.",
+  "unverified_fields": {
+    "env.CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION": {
+      "unverified": true,
+      "note": "Documented as a cap that 'can be raised'; lowering it below 200 is not documented as supported. Alternative: cap in the brief and audit the transcript."
+    },
+    "billing per backend search": {
+      "unverified": true,
+      "note": "Docs: WebSearch 'may issue up to eight backend searches per call'; whether each is billed as one search is not stated."
+    },
+    "top_k": {
+      "unverified": true,
+      "note": "Native harness has no top-k control; 10 is enforced by the brief ('read at most 10 pages') and audited."
+    }
+  },
+  "docs": [
+    {
+      "url": "https://code.claude.com/docs/en/tools-reference",
+      "read_on": "2026-11-11",
+      "supports": "WebSearch/WebFetch behavior, 200-search session cap, env vars, WebFetch 100k chars, 15-min cache"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
+      "read_on": "2026-11-11",
+      "supports": "$10/1k searches"
+    }
+  ],
+  "rationale": {
+    "model": "Pin the fixed extractor model so the reader is the same as other search arms (only possible when the extractor is a Claude model).",
+    "tools": "Only WebSearch+WebFetch: the native retrieval surface; no MCP search."
+  },
+  "unverified": true
+}
