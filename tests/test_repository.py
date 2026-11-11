@@ -25,8 +25,9 @@ def test_ci_covers_all_supported_platforms_offline():
         "os": "${{ fromJSON((github.event_name == 'schedule' || "
         "github.event_name == 'workflow_dispatch') && "
         '\'["ubuntu-latest","macos-latest"]\' || \'["ubuntu-latest"]\') }}',
-        "python": "${{ fromJSON(github.event_name == 'pull_request' && "
-        '\'["3.12"]\' || \'["3.11","3.12","3.13"]\') }}',
+        "python": "${{ fromJSON((github.event_name == 'schedule' || "
+        "github.event_name == 'workflow_dispatch') && "
+        '\'["3.11","3.12","3.13"]\' || \'["3.12"]\') }}',
     }
     for event in ("pull_request", "push", "schedule", "workflow_dispatch"):
         matrix = {}
@@ -40,7 +41,9 @@ def test_ci_covers_all_supported_platforms_offline():
                 eval(expression, {"__builtins__": {}}, {"event": event})
             )
         assert matrix["python"] == (
-            ["3.12"] if event == "pull_request" else ["3.11", "3.12", "3.13"]
+            ["3.11", "3.12", "3.13"]
+            if event in ("schedule", "workflow_dispatch")
+            else ["3.12"]
         )
         assert matrix["os"] == (
             ["ubuntu-latest", "macos-latest"]
@@ -102,14 +105,17 @@ def test_external_network_is_denied_in_child_process():
         [
             sys.executable,
             "-c",
-            "import socket\n"
-            "try:\n"
-            '    socket.create_connection(("1.1.1.1", 443), timeout=2)\n'
-            "except OSError:\n"
-            "    pass\n"
-            "else:\n"
-            '    raise AssertionError("external network allowed")\n',
+            (
+                "import socket\n"
+                "try:\n"
+                '    socket.create_connection(("1.1.1.1", 443), timeout=2)\n'
+                "except OSError:\n"
+                "    pass\n"
+                "else:\n"
+                '    raise AssertionError("external network allowed")\n'
+            ),
         ],
+        check=False,
         capture_output=True,
         text=True,
         timeout=5,

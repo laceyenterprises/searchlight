@@ -1,0 +1,4 @@
+operator_steps:
+  - description: "Observe the next 5 merged searchlight PRs: total CI runner-minutes per merge (PR run plus main push) at or below the 50-minute target stated in this PR. Include all attempts and cancellations; follow docs/ci-cost/SLCI-02.md and record weekly scheduled/manual/Pages cost separately. Do not trigger runs."
+    run_as: operator
+    command: "Follow the read-only gh api measurement procedure in docs/ci-cost/SLCI-02.md after the next five PRs merge, record each total against 50 runner-minutes, and acknowledge with the evidence."
