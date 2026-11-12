@@ -307,6 +307,10 @@ Provider keys come from environment variables: `SEW_EXA_API_KEY`, `SEW_PARALLEL_
 and `SEW_PERPLEXITY_API_KEY`.
 - An untracked `.env` also works (`SEW_ENV_FILE` selects it).
 - `SEW_*_API_KEY_REF=env:NAME` references another variable.
+- On Agent OS, `SEW_BRAVE_CREDENTIAL_LEASE=<credential-name>` (off by default; a
+  name, never a key) routes Brave calls through `host.credential`. The broker runs
+  `sew.credential_child` with the key on a private FD; Searchlight never reads
+  `SEW_BRAVE_API_KEY` or its ref, gets no fallback, and sees only key-free results.
 - Never commit keys.
 - Live runs require `SEW_HARNESS_LIVE=1` and spend model and provider quota.
 

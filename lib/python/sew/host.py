@@ -23,6 +23,7 @@ class HostServices(Protocol):
 
     def state_root(self, app_id: str = "sew") -> Path: ...
     def resolve_credential(self, ref: str, *, worker_class: str, purpose: str) -> str: ...
+    def credential(self, name: str, **request: Any) -> Any: ...
     def harness_auth(
         self, harness: str, *, model: str | None = None, provider: str | None = None
     ) -> dict[str, Any]: ...
@@ -113,6 +114,9 @@ class StandaloneHost:
     ) -> dict[str, Any]:
         return {"source": "account"}
 
+    def credential(self, name: str, **request: Any) -> Any:
+        raise HostUnavailable(self.unavailable_message("governed credential lease"))
+
     def litellm_credentials(self, harness: str) -> dict[str, Any]:
         from .oss import configuration
 
@@ -140,6 +144,15 @@ class AgentOsHost:
 
     def resolve_credential(self, ref: str, *, worker_class: str, purpose: str) -> str:
         return self.plugin.resolve_credential(ref, worker_class=worker_class, purpose=purpose)
+
+    def credential(self, name: str, **request: Any) -> Any:
+        """Agent OS ``host.credential`` lease (KEY-21); never returns a value."""
+        lease = getattr(self.plugin, "credential", None)
+        if lease is None:
+            raise HostUnavailable(
+                "host too old for governed credential leases; deploy the updated agent-os SDK"
+            )
+        return lease(name, **request)
 
     def harness_auth_source(self) -> str:
         detect = getattr(self.plugin, "harness_auth_source", None)
