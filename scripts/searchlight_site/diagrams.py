@@ -240,6 +240,8 @@ def _route(src: tuple, dst: tuple, rail: float | None, entry: float | None = Non
         mid = ((pts[1][0] + pts[-2][0]) / 2, (pts[1][1] + pts[-2][1]) / 2) if len(pts) > 2 else pts[0]
         return d, mid, pts
     (p0, d0), (p1, d1) = _anchor(src, dst, flow), _anchor(dst, src, flow)
+    if d0 == (-d1[0], -d1[1]) and (p1[0] - p0[0]) * d0[0] + (p1[1] - p0[1]) * d0[1] > 0:
+        return _elbow(p0, p1, d0)
     k = max(28.0, (abs(p1[0] - p0[0]) + abs(p1[1] - p0[1])) * 0.35)
     c0 = (p0[0] + d0[0] * k, p0[1] + d0[1] * k)
     c1 = (p1[0] + d1[0] * k, p1[1] + d1[1] * k)
@@ -247,6 +249,34 @@ def _route(src: tuple, dst: tuple, rail: float | None, entry: float | None = Non
     mid = (0.125 * p0[0] + 0.375 * c0[0] + 0.375 * c1[0] + 0.125 * p1[0],
            0.125 * p0[1] + 0.375 * c0[1] + 0.375 * c1[1] + 0.125 * p1[1])
     return d, mid, _bezier(p0, c0, c1, p1)
+
+
+def _elbow(p0: tuple, p1: tuple, d0: tuple, r: float = 10.0) -> tuple[str, tuple, list]:
+    """Facing sides join with a right-angled path that turns halfway, so edges fanning in or out of one box share a
+    single straight bus instead of crossing curves."""
+    if d0[0]:  # side to side: across, then along a vertical bus at the halfway x
+        m = (p0[0] + p1[0]) / 2
+        corners = [p0, (m, p0[1]), (m, p1[1]), p1]
+    else:  # top to bottom: down, then along a horizontal bus at the halfway y
+        m = (p0[1] + p1[1]) / 2
+        corners = [p0, (p0[0], m), (p1[0], m), p1]
+    corners = [c for i, c in enumerate(corners) if i == 0 or c != corners[i - 1]]
+    d = f'M{p0[0]:.1f} {p0[1]:.1f}'
+    for i in range(1, len(corners) - 1):
+        (ax, ay), (bx, by), (cx, cy) = corners[i - 1], corners[i], corners[i + 1]
+        rr = min(r, abs(bx - ax) / 2 + abs(by - ay) / 2, abs(cx - bx) / 2 + abs(cy - by) / 2)
+        ux, uy = (bx > ax) - (bx < ax), (by > ay) - (by < ay)
+        vx, vy = (cx > bx) - (cx < bx), (cy > by) - (cy < by)
+        d += f' L{bx - ux * rr:.1f} {by - uy * rr:.1f} Q{bx:.1f} {by:.1f} {bx + vx * rr:.1f} {by + vy * rr:.1f}'
+    d += f' L{p1[0]:.1f} {p1[1]:.1f}'
+    pts = []
+    for (ax, ay), (bx, by) in zip(corners, corners[1:]):
+        n = max(1, int((abs(bx - ax) + abs(by - ay)) // 8))
+        pts += [(ax + (bx - ax) * i / n, ay + (by - ay) * i / n) for i in range(n)]
+    pts.append(p1)
+    mid = ((corners[1][0] + corners[-2][0]) / 2, (corners[1][1] + corners[-2][1]) / 2) if len(corners) > 2 else \
+        ((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2)
+    return d, mid, pts
 
 
 def label_box(text: str, at: tuple, t: dict, upright: bool = False) -> tuple:

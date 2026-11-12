@@ -273,7 +273,7 @@ def _board_block(board: dict, top: int, note: str = '') -> dict:
             chip = ('control', 'control')
         elif row_note:
             chip = (row_note[0], 'caveat')
-        out.append({'rank': i if r in board['rows'] else '', 'label': r['label'], 'value': f'{r["pass_pct"]:.0f}%', 'lo': r['ci'][0], 'hi': r['ci'][1],
+        out.append({'rank': '' if r['arm'] == 'no-search' else i, 'label': r['label'], 'value': f'{r["pass_pct"]:.0f}%', 'lo': r['ci'][0], 'hi': r['ci'][1],
                      'point': r['pass_pct'], 'range': f'{r["ci"][0]:.0f}–{r["ci"][1]:.0f}%',
                      'n': f'{r["passes"]} of {r["cells"]}', 'control': r['arm'] in ('no-search', 'native'), 'chip': chip})
     bench = BENCH_LABEL.get(board['bench'], board['bench'])
