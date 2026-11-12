@@ -646,3 +646,11 @@ def test_arms_run_on_a_subset_are_scored_on_their_questions(tmp_path):
     assert test["n_questions"] == 1
     assert any("ran on a subset" in c for c in summary["caveats"])
     assert not any("did not return ok" in c for c in summary["caveats"])
+
+
+def test_streamed_usage_cost_is_measured():
+    from sew.insight import run as R
+    chunk = {"choices": [{"delta": {"content": '<usage>{"X-Request-Total-Cost": 1.25}</usage>'}}]}
+    sse = "data: " + json.dumps(chunk) + "\ndata: [DONE]"
+    profile = type("P", (), {"usd_per_credit": None, "est_cost_usd": 0.5})()
+    assert R._cost(profile, [sse], 1) == {"usd": 1.25, "basis": "measured", "credits": 0.0}

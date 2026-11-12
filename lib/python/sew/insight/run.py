@@ -17,6 +17,7 @@ from __future__ import annotations
 import copy
 import json
 import os
+import re
 import threading
 import time
 import urllib.error
@@ -270,9 +271,18 @@ def _skip(url: str, domains: Iterable[str]) -> bool:
     return any(host == d or host.endswith("." + d) for d in domains)
 
 
+_STREAMED_COST = re.compile(r'\\?"X-Request-Total-Cost\\?": ?([0-9.]+)')
+
+
 def _cost(profile: Profile, bodies: list[Any], billed_calls: int) -> dict[str, Any]:
     usd, credits, measured = 0.0, 0.0, 0
     for body in bodies:
+        # Brave Answers streams its bill in a <usage> block (X-Request-Total-Cost, USD).
+        streamed = _STREAMED_COST.findall(body) if isinstance(body, str) else []
+        if streamed:
+            usd += float(streamed[-1])
+            measured += 1
+            continue
         spend = measured_spend([body])
         if "provider_cost" in spend:
             usd += float(spend["provider_cost"]["total"])
