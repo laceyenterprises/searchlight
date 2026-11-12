@@ -75,7 +75,7 @@ def _methodology(summary: Mapping[str, Any], manifest: Mapping[str, Any]) -> str
              "- **Insight** is an earned cluster valued 1-3 (3 decision-changing, 2 new design detail, "
              "1 corroborating); **unique** means exactly one arm earned it.",
              "- **Intervals.** Counts carry 95% question-bootstrap intervals, and the unsupported rate a Wilson "
-             f"interval; the leader is compared with each arm by an exact sign test with Holm adjustment.", "",
+             "interval; the leader is compared with each arm by an exact sign test with Holm adjustment.", "",
              "## Grading", "",
              f"- Extractor: {run['extractor']}; judge: {run['judge']}; blinding seed {run['seed']}.",
              "- Judging payloads carried no arm labels, the value judge saw clusters in a seeded shuffle "

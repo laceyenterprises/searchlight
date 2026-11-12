@@ -457,7 +457,7 @@ def test_summary_matches_its_schema_and_every_link_resolves(tmp_path):
     broken["metrics"]["exa.search"]["weighted"]["n"] = "two"
     assert len(validate(broken, load_schema())) == 2
     links = list(_links(summary))
-    assert len(links) > 50 and all((run_dir / "report" / l).resolve().is_file() for l in links)
+    assert len(links) > 50 and all((run_dir / "report" / link).resolve().is_file() for link in links)
     claim = summary["questions"][0]["clusters"][0]["claims"][0]
     assert set(claim["links"]) == {"cell", "extract", "verify", "page"} and claim["links"]["page"]
 
@@ -507,8 +507,8 @@ def test_publish_bundle_is_sanitized_and_passes_the_report_checks(tmp_path):
     assert cell["response"]["local_only"] and all(len(i["text"]) <= 300 for i in cell["items"])
     summary = read_json(to / "summary.json")
     links = list(_links(summary))
-    assert any(l.startswith("local-only:grading/pages/") for l in links)
-    assert all((to / l).is_file() for l in links if not l.startswith("local-only:"))
+    assert any(link.startswith("local-only:grading/pages/") for link in links)
+    assert all((to / link).is_file() for link in links if not link.startswith("local-only:"))
     assert "(local only)" in (to / "REPORT.md").read_text()
     index = (root / "reports" / "README.md").read_text()
     assert index.count("(2026-11-11-demo-insight/REPORT.md)") == 1 and index.index("demo-insight") < index.index("More text")
