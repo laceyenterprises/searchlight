@@ -155,7 +155,7 @@ GUARD_ALLOWLIST = Counter(
         # Published bake-off and site copy about the two hosted harnesses.
         ("lib/python/sew/bakeoff_report.py", 'row.harness_id == "codex"'): 4,
         ("lib/python/sew/bakeoff_report.py", 'row.harness_id == "claude-code"'): 1,
-        ("scripts/build_site.py", "harness == 'claude-code'"): 1,
+        ("scripts/searchlight_site/data.py", "harness == 'claude-code'"): 1,
     }
 )
 
@@ -197,7 +197,7 @@ def hosted_literal_comparisons(path: Path, relpath: str) -> Counter:
 
 
 def _guarded_files() -> list[tuple[Path, str]]:
-    paths = sorted(SEW.rglob("*.py")) + sorted((REPO / "scripts").glob("*.py"))
+    paths = sorted(SEW.rglob("*.py")) + sorted((REPO / "scripts").rglob("*.py"))
     files = []
     for path in paths:
         relpath = path.relative_to(REPO).as_posix()
