@@ -22,6 +22,9 @@ def test_ci_covers_all_supported_platforms_offline():
     job = workflow["jobs"]["standalone"]
     # Pin the event-dependent matrix contract directly; GitHub Actions owns
     # expression evaluation, whose semantics need not match Python's.
+    # pull_request: Python 3.12 on ubuntu-latest.
+    # push: Python 3.11/3.12/3.13 on ubuntu-latest.
+    # schedule/workflow_dispatch: Python 3.11/3.12/3.13 on ubuntu-latest and macos-latest.
     assert job["strategy"]["matrix"] == {
         "os": "${{ fromJSON((github.event_name == 'schedule' || "
         "github.event_name == 'workflow_dispatch') && "
