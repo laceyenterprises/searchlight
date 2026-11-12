@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "4c4dc4c970fbbf36",
+ "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations",
+ "verdicts": {
+  "Google SRE AI is built on Gemini (including custom fine-tuned Gemini models), Gemini Enterprise Agent Platform, Agent Development Kit (ADK), and MCP servers running on standard Google API infrastructure.": 1,
+  "Google SRE built AI Insights, a system powered by Gemini embedding models and vector-enabled databases that continuously reviews known incidents and extracts information for agents, and it marks each incident with risk categories that agents can use before applying mitigations.": 1,
+  "Google SRE built agents that continuously monitor and improve playbooks based on their usage during incidents and can generate new playbooks from incidents.": 1,
+  "Google SRE requires SRE AI agents to be able to explain why and how they performed an action, including which options were considered and rejected, favoring transparency over black-box automation.": 1,
+  "Google SRE requires SRE AI agents to have a strong identity, with roles and permissions assigned.": 1,
+  "Google SRE requires SRE AI agents to have well-defined automated or manual backup options and high reliability SLOs, and requires business continuity plans to include contingencies for AI failures.": 1,
+  "Google SRE says its agent ecosystem needs consistent controls to prevent unwanted mutations of production state.": 1,
+  "Google SRE's anomaly detection has agents collect signals and feed them to a model such as TimesFM; an alerting agent then groups, pre-processes and enriches the alerts, and autonomous AI alert handlers address or mitigate many issues.": 1,
+  "Google SRE's investigation agents use observability data (logging, monitoring, tracing) plus system topology, taxonomy and dependency data to establish domain and intent before forming hypotheses and proposing mitigations; in some cases they mitigate issues autonomously.": 1
+ }
+}

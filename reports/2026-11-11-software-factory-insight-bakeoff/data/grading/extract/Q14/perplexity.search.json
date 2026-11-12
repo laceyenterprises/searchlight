@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "576cca5ccdb2cf8b",
+ "claims": [
+  {
+   "text": "CVE-2025-6514 (CVSS 9.6, JFrog, July 2025) affected mcp-remote 0.0.5-0.1.15: a malicious or man-in-the-middle remote MCP server could return a crafted OAuth authorization_endpoint URL that caused local OS command execution when the proxy opened the browser.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "The official GitHub MCP server exposes over 90 tools consuming 46k+ tokens, including high-risk operations like delete_file and delete_workflow_run_logs alongside benign tools like get_pull_requests.",
+   "url": "https://arxiv.org/html/2511.20920v1"
+  },
+  {
+   "text": "Without a gateway, the practical MCP tool limit is 20 to 50 tools under context pressure; the mcp-gateway project claims tools are discoverable on demand instead.",
+   "url": "https://github.com/MikkoParkkola/mcp-gateway"
+  },
+  {
+   "text": "The mcp-gateway project presents the agent with a compact meta-surface of 9 to 17 tools instead of every backend tool definition, while fronting MCP servers and REST APIs.",
+   "url": "https://github.com/MikkoParkkola/mcp-gateway"
+  },
+  {
+   "text": "The mcp-gateway project provides bearer tokens, API keys, admin keys, per-client rate limits, opt-in circuit breakers, and a security firewall with credential redaction, prompt-injection detection, and shell/SQL/path-traversal scanning.",
+   "url": "https://github.com/MikkoParkkola/mcp-gateway"
+  },
+  {
+   "text": "The MCPTox benchmark (August 2025) tested 20 LLM agents across 45+ real-world MCP servers with 353 tools; o1-mini had a 72.8% attack success rate, and Claude 3.7 Sonnet had the highest refusal rate but still under 3%.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "More capable models are often more susceptible to tool poisoning because the attacks exploit superior instruction-following.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "Between January and February 2026, 30+ CVEs were filed targeting MCP infrastructure, 43% of them exec/shell injection.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "CVE-2025-53773 (CVSS 7.8): prompt injection in source files manipulates GitHub Copilot into enabling 'YOLO mode' (auto-approve all tools), achieving full RCE including MCP server injection.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "Check Point Research showed (CVE-2025-59536, CVSS 8.7; CVE-2026-21852, CVSS 5.3) that malicious .mcp.json files in untrusted repositories could run arbitrary shell commands on tool initialization and exfiltrate Anthropic API keys before any user trust decision.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "CVE-2026-32211 (CVSS 9.1, disclosed April 3, 2026): the @azure-devops/mcp server lacked authentication on its local listener, letting any process or browser-reachable origin enumerate Azure DevOps data via MCP tool calls.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "The SANDWORM_MODE npm worm (Socket, February 20, 2026) planted a rogue MCP server under ~/.dev-utils/ via an McpInject module, registering innocuous-sounding tools whose descriptions carried prompt injection to steal SSH keys, AWS credentials, npm tokens and .env files, spread via 19 typosquatted packages.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "The OWASP AISVS MCP chapter describes the MCP auth requirements as OAuth 2.1 + PKCE (S256) mandatory, RFC 8707 Resource Indicators required, step-up authorization, and token passthrough explicitly forbidden.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "Incidents such as a Square OAuth bypass, the Azure DevOps MCP missing-auth CVE, and CVE-2026-52870 (Python SDK Tasks missing per-session authorization, fixed in 1.27.2) show that authentication and transport isolation do not replace tool-, argument-, and object-level authorization.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "Solo.io agentgateway and Cloudflare Access with MCP Server Portals add gateway-level OAuth 2.1 enforcement, RBAC, and DLP; AWS IAM context keys (April 2026) distinguish agent from human callers.",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "text": "In September 2025, researchers found the first known malicious MCP server in the wild: a compromised npm package called postmark-mcp.",
+   "url": "https://checkmarx.com/learn/mcp-security-risks-real-world-incidents-and-security-controls/"
+  },
+  {
+   "text": "In November 2025, a WhatsApp MCP integration was exploited via a malicious MCP server that poisoned tool descriptions with hidden instructions, silently redirecting message data to an attacker-controlled phone number.",
+   "url": "https://checkmarx.com/learn/mcp-security-risks-real-world-incidents-and-security-controls/"
+  },
+  {
+   "text": "In November 2025, Anthropic's official Git MCP server was found to have critical vulnerabilities (path validation bypass, argument injection, unsafe repository initialization) that could be chained with a filesystem MCP server for remote code execution via prompt injection.",
+   "url": "https://checkmarx.com/learn/mcp-security-risks-real-world-incidents-and-security-controls/"
+  },
+  {
+   "text": "In a widely cited 2025 demonstration, a GitHub issue planted in a public repository caused an agent using the GitHub MCP server to read the user's private repository data and publish it in a pull request.",
+   "url": "https://corgea.com/learn/mcp-security-best-practices"
+  },
+  {
+   "text": "MCP relies on OAuth 2.1 bearer tokens without specifying protocol-level token lifecycle management (refresh, revocation, reuse control), which can enable replay or session hijacking.",
+   "url": "https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf"
+  },
+  {
+   "text": "Some MCP orchestrators auto-resolve tool names from public registries or local modules, and clients often cannot specify unique tool identifiers or strict resolution policies, enabling tool name collisions that hijack execution.",
+   "url": "https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf"
+  },
+  {
+   "text": "Enterprises are converging on internal MCP registries/catalogs of vetted, approved servers as the governance unit, combined with strict authorization scoping, allowlisting, and treating every tool response as untrusted input.",
+   "url": "https://erikcaldwell.com/field-guide/mcp-and-agent-interoperability.md"
+  },
+  {
+   "text": "Tool poisoning exploits a trust gap between connect-time review of a tool's description and runtime, when a server can return malicious instructions in live responses; mitigations include fixed-schema tool outputs and isolating high-privilege tools from external servers.",
+   "url": "https://erikcaldwell.com/field-guide/mcp-and-agent-interoperability.md"
+  },
+  {
+   "text": "The MCP spec of 2026-07-28 made RFC 9728 protected-resource metadata and audience validation mandatory and left per-tool scopes to servers; agentgateway 1.6.0 evaluates CEL authorization on mcp.tool.arguments and hides denied items from lists.",
+   "url": "https://github.com/Smana/ai-native-ref/blob/main/docs/superpowers/specs/2026-10-21-v3-landscape-research.md"
+  },
+  {
+   "text": "The MCP Registry remains in 'preview', with server.json metadata under verified namespaces but no tool-level or security metadata; A2A 1.0 is stable but only Atlassian's Rovo connector among the surveyed tools consumes it.",
+   "url": "https://github.com/Smana/ai-native-ref/blob/main/docs/superpowers/specs/2026-10-21-v3-landscape-research.md"
+  }
+ ],
+ "question_id": "Q14"
+}

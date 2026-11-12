@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "87fbcaeb4729635f",
+ "url": "https://github.com/agiresearch/AIOS",
+ "verdicts": {
+  "AIOS retains LLM Core(s), Context Manager, and Memory Manager as essential components.": 1,
+  "For computer-use agents, AIOS redesigns the Tool Manager to include a VM (Virtual Machine) Controller and an MCP Server, creating a sandboxed environment for safe interaction with computer systems.": 1,
+  "In AIOS, the Tool Manager was redesigned to incorporate a VM (Virtual Machine) Controller and an MCP Server, creating a sandboxed environment for agents to interact with computer systems while keeping a consistent semantic mapping between agent intentions and computer operations.": 1,
+  "The AIOS kernel acts as an abstraction layer over the operating system kernel, managing resources agents require such as LLM, memory, storage and tool.": 1,
+  "The AIOS repository includes an experimental Rust rewrite (aios-rs) with trait definitions and placeholder implementations for context, memory, storage, tool, scheduler and LLM, which is not yet feature-parity.": 1
+ }
+}

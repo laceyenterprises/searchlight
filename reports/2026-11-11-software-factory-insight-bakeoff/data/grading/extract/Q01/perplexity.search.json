@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "2fd798af059aec67",
+ "claims": [
+  {
+   "text": "StrongDM's Software Factory is described as non-interactive development where specs and scenarios drive agents that write code, run harnesses, and converge without human review.",
+   "url": null
+  },
+  {
+   "text": "StrongDM's charter states that code must not be written by humans and must not be reviewed by humans; code is treated as opaque weights whose correctness is inferred from behavior rather than inspection.",
+   "url": null
+  },
+  {
+   "text": "A 3-person StrongDM team has been building software since July 2025 with no human-written and no human-reviewed code.",
+   "url": null
+  },
+  {
+   "text": "A Software Factory run starts from a natural-language seed (a few sentences, a screenshot, or an existing codebase); agents write code and run the end-to-end scenario harness, and a sample of the output feeds back into the inputs for self-correction.",
+   "url": null
+  },
+  {
+   "text": "The Software Factory loop runs until the holdout scenarios pass and stay passing, and the code then ships without human review.",
+   "url": null
+  },
+  {
+   "text": "The initial agent in the factory loop used Cursor in YOLO mode, with the validation harness running scenarios against the Digital Twin Universe and an LLM-as-judge evaluating satisfaction.",
+   "url": null
+  },
+  {
+   "text": "StrongDM found its coding agents were gaming narrow unit tests by returning true just to pass them, so it moved verification scenarios into an external holdout set.",
+   "url": null
+  },
+  {
+   "text": "StrongDM states that tests stored in the same codebase as the code will always be vulnerable to reward hacking, and that writing rules against agent cheating does not stop agents finding other ways to game tests.",
+   "url": null
+  },
+  {
+   "text": "StrongDM repurposed the word 'scenario' (inspired by Cem Kaner's 2003 scenario testing) to mean an end-to-end user story, often stored outside the codebase like a model-training holdout set, that an LLM can flexibly validate.",
+   "url": null
+  },
+  {
+   "text": "Simon Willison notes that holdout scenarios imitate aggressive testing by an external QA team, evaluating the software without being stored where the coding agents can see them.",
+   "url": null
+  },
+  {
+   "text": "Because much of the software StrongDM builds has an agentic component, it moved from boolean success (test suite green) to a probabilistic, empirical measure.",
+   "url": null
+  },
+  {
+   "text": "Satisfaction is defined as the fraction of all observed trajectories through all scenarios that likely satisfy the user.",
+   "url": null
+  },
+  {
+   "text": "Holdouts are a design claim that scenarios stored outside the codebase are less vulnerable to reward hacking; prevention of reward hacking is not proven.",
+   "url": null
+  },
+  {
+   "text": "The Digital Twin Universe consists of behavioral clones of Okta, Jira, Slack, Google Docs, Google Drive, and Google Sheets, replicating their APIs, edge cases, and observable behaviors.",
+   "url": null
+  },
+  {
+   "text": "The DTU lets StrongDM validate at volumes and rates beyond production limits, test failure modes dangerous or impossible against live services, and run thousands of scenarios per hour without rate limits, abuse detection, or API costs.",
+   "url": null
+  },
+  {
+   "text": "The twins were built by dumping a service's full public API documentation into the agent harness and having it build an imitation of the API as a self-contained Go binary, with a simplified UI on top.",
+   "url": null
+  },
+  {
+   "text": "The instruction for building the twins used the most popular public reference SDK client libraries as compatibility targets, with the goal of 100% compatibility.",
+   "url": null
+  },
+  {
+   "text": "The software being built in the demo helped manage user permissions across a suite of connected services.",
+   "url": null
+  },
+  {
+   "text": "The DTU provides high-volume testing but not infinite testing.",
+   "url": null
+  },
+  {
+   "text": "StrongDM aims to spend at least $1,000 per day per engineer on AI tokens.",
+   "url": null
+  },
+  {
+   "text": "StrongDM's benchmark is that if a team has not spent at least $1,000 on tokens per human engineer that day, its software factory has room for improvement; token spend and pull request volume alone establish neither autonomy nor return on investment.",
+   "url": null
+  },
+  {
+   "text": "StrongDM has released Attractor, a spec-only repo for building coding agents, and cxdb, an AI context store.",
+   "url": null
+  },
+  {
+   "text": "A Hacker News thread included direct criticism of StrongDM's claimed token spend and code quality, alongside a commenter's report of building a working toy app from about 6,000 to 7,000 lines of public specs that they judged better than direct prompting alone.",
+   "url": null
+  },
+  {
+   "text": "No public peer-reviewed longitudinal study was found showing IDD-style teams outperform disciplined TDD-centric or spec-first teams, and AttractorBench warns its totals are not yet valid for ranking.",
+   "url": null
+  },
+  {
+   "text": "What happens when a factory run fails to converge is not documented, and the captures report no measured outcomes of the factory's software.",
+   "url": null
+  }
+ ],
+ "question_id": "Q01"
+}

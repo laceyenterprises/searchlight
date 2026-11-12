@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "2e80fb51f4fc44cb",
+ "claims": [
+  {
+   "text": "Spotify's Fleet Management runs source-to-source code transformations as jobs in a containerized environment, which automatically open pull requests against target repositories.",
+   "url": null
+  },
+  {
+   "text": "Since mid-2024, around half of Spotify's pull requests have been automated by its Fleet Management system.",
+   "url": null
+  },
+  {
+   "text": "Spotify began investigating AI agents within Fleet Management in February (2025), aiming to let engineers define fleet-wide changes in natural language.",
+   "url": null
+  },
+  {
+   "text": "Spotify replaced deterministic migration scripts with a prompt-driven agent while keeping the surrounding Fleet Management infrastructure (targeting repositories, opening PRs, reviews, merging) unchanged.",
+   "url": null
+  },
+  {
+   "text": "Spotify built a small internal CLI that delegates prompt execution to an agent, runs custom formatting and linting via local MCP, evaluates diffs with an LLM as judge, uploads logs to GCP, and captures traces in MLflow.",
+   "url": null
+  },
+  {
+   "text": "Spotify's background coding agents generated more than 1,500 PRs merged into production, with a reported 60-90% time saving versus writing the code by hand.",
+   "url": null
+  },
+  {
+   "text": "Spotify exposed its background coding agent via MCP so engineers can start tasks from Slack and GitHub Enterprise; an interactive agent first gathers task information and produces a prompt handed to the coding agent, which produces a PR.",
+   "url": null
+  },
+  {
+   "text": "Spotify has merged more than 2.5 million automated maintenance PRs via Fleet Management (system called Fleetshift), the vast majority auto-merged with no human in the loop.",
+   "url": null
+  },
+  {
+   "text": "Honk runs Claude using the Agent SDK inside Spotify's own harness, deployed in Kubernetes pods to schedule many sessions concurrently, with access to trusted tools including running builds in CI across multiple operating systems to verify changes.",
+   "url": null
+  },
+  {
+   "text": "Spotify reports its most recent Java migration across backend services took three days.",
+   "url": null
+  },
+  {
+   "text": "Spotify reports over 99% of engineers use AI coding tools weekly and a 76% increase in pull request frequency.",
+   "url": null
+  },
+  {
+   "text": "Spotify's first homegrown agentic loop limited tasks to 10 turns per session and three session retries, completing when tests passed or limits were exceeded.",
+   "url": null
+  },
+  {
+   "text": "Claude Code is Spotify's top-performing agent, applied to about 50 migrations and the majority of background agent PRs merged into production.",
+   "url": null
+  },
+  {
+   "text": "Spotify found its homegrown agent did best with strict step-by-step prompts, whereas Claude Code does better with prompts describing the desired end state, ideally expressed as tests.",
+   "url": null
+  },
+  {
+   "text": "Spotify encoded how to invoke its in-house build systems in a 'verify' MCP tool (running formatters, linters, tests) rather than AGENTS.md-style files, because the agent must operate on thousands of repositories with differing build configurations.",
+   "url": null
+  },
+  {
+   "text": "Spotify's verification loop consists of independent verifiers that activate automatically based on software component contents and are not directly exposed to the agent; all relevant verifiers also run before the agent opens a PR.",
+   "url": null
+  },
+  {
+   "text": "Spotify's LLM judge receives the proposed diff and the original prompt, and runs after all other verifiers in the verification loop.",
+   "url": null
+  },
+  {
+   "text": "Spotify's judge vetoes about a quarter of thousands of agent sessions, and the agent course-corrects about half the time after a veto; the most common trigger is the agent going outside the prompt's instructions.",
+   "url": null
+  },
+  {
+   "text": "Spotify's agent runs in a highly sandboxed container with limited permissions, few binaries, and virtually no access to surrounding systems; it can only see the codebase, edit files and run verifiers.",
+   "url": null
+  },
+  {
+   "text": "In a Spotify dataset migration of ~1,800 downstream pipelines across BigQuery Runner, dbt and Scio, Honk with Fleetshift rolled out 240 automated PRs, saving an estimated 10 engineering weeks.",
+   "url": null
+  },
+  {
+   "text": "BigQuery Runner and dbt repositories rarely had build-time unit tests, so Honk could not verify its work and downstream owning teams had to test manually before merging.",
+   "url": null
+  },
+  {
+   "text": "Spotify found that a migration guide written for humans worked poorly as agent context; making mappings explicit in tables in the context file and specifying where not to migrate gave solid performance.",
+   "url": null
+  },
+  {
+   "text": "Ramp's internal background coding agent, Ramp Inspect, writes over half of all merged pull requests at Ramp, and over 80% of Inspect itself is written by Inspect.",
+   "url": null
+  },
+  {
+   "text": "Each Ramp Inspect session runs in a Modal Sandbox with a full-stack dev environment (Postgres, Redis, Temporal, RabbitMQ), running OpenCode as the agent plus a VS Code server, web terminal, and VNC with Chromium for visual verification via before-and-after screenshots.",
+   "url": null
+  },
+  {
+   "text": "Ramp Inspect's infrastructure uses a Modal Function cron every 30 minutes to build fresh repository snapshots, Dicts for session locks and image metadata, and Queues to route prompts from Slack, web or Chrome extension into sessions; it integrates with Sentry, Datadog, LaunchDarkly, Buildkite, GitHub and Slack.",
+   "url": null
+  }
+ ],
+ "question_id": "Q07"
+}

@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "3d7ef82c5c33c884",
+ "url": "https://innfactory.ai/en/ai-harness/devin/",
+ "verdicts": {
+  "Cloud Devin works session-based with an Ask mode for planning and an Agent mode for autonomous execution; the Devin CLI runs the same loop locally and can hand a task off to a cloud session.": 1,
+  "Devin Knowledge stores project- or organization-wide guidance that is retrieved automatically only when relevant rather than loaded fully into every context.": 1,
+  "Devin Playbooks bundle reusable procedures for recurring tasks and standardise recurring workflows across a team.": 1,
+  "Devin automatically looks for an AGENTS.md file in the project for setup commands, code standards, test requirements and workflow; repositories must first be indexed.": 1,
+  "Devin does not support custom LLM API keys or model endpoints, as it is built as a closed 'compound AI system'.": 1,
+  "The Devin CLI does not yet support Knowledge, Playbooks, or Secrets from a Devin account, according to the documentation.": 1,
+  "The Devin CLI uses an Allow/Ask/Deny permission model with an optional sandbox that restricts write access and refuses to start rather than run unsandboxed if sandbox resolution fails.": 1
+ }
+}

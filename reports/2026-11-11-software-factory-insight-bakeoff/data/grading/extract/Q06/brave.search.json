@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "7b5f57c3a94f2abd",
+ "claims": [
+  {
+   "text": "Over 1,300 Stripe pull requests merged each week (up from 1,000 as of Part 1) are completely minion-produced, human-reviewed, and contain no human-written code.",
+   "url": null
+  },
+  {
+   "text": "Minions are fully unattended, so their agent harness cannot use human-facing features such as interruptibility or human-triggered commands to start or steer a run.",
+   "url": null
+  },
+  {
+   "text": "Blueprints are workflows defined in code that direct a minion run; each node runs either deterministic code or an agent loop focused on a task.",
+   "url": null
+  },
+  {
+   "text": "In the minion blueprint, agent nodes such as 'Implement task' and 'Fix CI failures' have wide latitude, while nodes such as 'Run configured linters' and 'Push changes' are fully deterministic and invoke no LLM.",
+   "url": null
+  },
+  {
+   "text": "The minion blueprint resembles a state machine that intermixes deterministic code nodes and free-flowing agent nodes.",
+   "url": null
+  },
+  {
+   "text": "Stripe says deterministically coding small anticipated decisions, such as always linting at the end of a run, saves tokens and CI costs at scale and gives the agent less opportunity to err.",
+   "url": null
+  },
+  {
+   "text": "Stripe runs a subset of linters as a deterministic node in the blueprint and loops on it locally before pushing, so the branch has a fair chance of passing CI the first time.",
+   "url": null
+  },
+  {
+   "text": "The standard minion blueprint includes one iteration against the full CI suite: after the push, CI runs and autofixes are auto-applied to failing tests.",
+   "url": null
+  },
+  {
+   "text": "If CI failures have no autofix, the failure goes back to a blueprint agent node for one more local fix attempt; after the second push and CI run, the branch goes to its human operator.",
+   "url": null
+  },
+  {
+   "text": "A typical minion run starts in a Slack message and ends in a pull request that passes CI and is ready for human review, with no interaction in between.",
+   "url": null
+  },
+  {
+   "text": "Minions' core agent loop runs on a fork of Block's coding agent goose, customized to interleave agent loops with deterministic code for git operations, linters and testing.",
+   "url": null
+  },
+  {
+   "text": "A minion creates a branch, pushes it to CI and prepares a pull request following Stripe's PR template; the engineer then opens it and requests review from another Stripe engineer, or gives the minion further instructions.",
+   "url": null
+  },
+  {
+   "text": "CI runs at most two rounds because CI costs tokens, compute and time, and Stripe sees diminishing marginal returns from an LLM running many full CI loops.",
+   "url": null
+  },
+  {
+   "text": "Engineers frequently spin up multiple minions in parallel, which helps resolve many small issues during on-call rotations.",
+   "url": null
+  },
+  {
+   "text": "An automated local executable uses heuristics to select and run lints on each git push, taking under five seconds.",
+   "url": null
+  },
+  {
+   "text": "Devboxes are cloud machines pre-loaded with the entire codebase, tools and services, and spin up in ten seconds because Stripe proactively provisions and warms a pool by cloning repositories, warming caches and starting background services ahead of time.",
+   "url": null
+  },
+  {
+   "text": "Engineers already used one devbox per task, and a single engineer might have half a dozen running at once; agents slot into the same pattern.",
+   "url": null
+  },
+  {
+   "text": "Devboxes run in a QA environment isolated from production data, real user information and arbitrary network access, so agents can run with full permissions and no confirmation prompts, confining any mistake to one disposable machine.",
+   "url": null
+  },
+  {
+   "text": "Stripe scopes coding rules to specific subdirectories and file patterns and uses global rules sparingly, so agents pick up only relevant rules; these are the same rule files that Cursor and Claude Code read.",
+   "url": null
+  },
+  {
+   "text": "A background daemon precomputes which lint rules apply and caches the results, making local linting on every push nearly instantaneous.",
+   "url": null
+  },
+  {
+   "text": "Devboxes are standardized AWS EC2 instances pre-loaded with Stripe's full source tree, warmed Bazel and type-checking caches and code generation services, provisioned from a warm pool in under 10 seconds under a 'cattle, not pets' philosophy.",
+   "url": null
+  },
+  {
+   "text": "Engineers trigger Minions via Slack (the most common path), a CLI, a web interface, or automated systems such as flaky-test detectors.",
+   "url": null
+  },
+  {
+   "text": "Minion output grew from 1,000 to 1,300 merged PRs per week in under two weeks, about 30% growth.",
+   "url": null
+  },
+  {
+   "text": "The goose fork removes interruptibility, human-triggered commands and confirmation prompts, since Devbox isolation provides safety.",
+   "url": null
+  },
+  {
+   "text": "Toolshed, Stripe's internal MCP server, exposes roughly 400-500 tools (sources differ), and each task receives a prefetched subset of about 15 tools.",
+   "url": null
+  }
+ ],
+ "question_id": "Q06"
+}

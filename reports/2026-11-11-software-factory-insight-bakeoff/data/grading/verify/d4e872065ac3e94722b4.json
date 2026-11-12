@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "543ddd767f5d6260",
+ "url": "https://medium.com/@vivek.babu/where-autonomous-coding-agents-fail-a-forensic-audit-of-real-world-prs-59d66e33efe9",
+ "verdicts": {
+  "A study of 33,596 agent-authored GitHub pull requests (arXiv:2601.15195) covering agents such as OpenAI Codex, GitHub Copilot, Devin, Cursor and Claude Code found agents often produce compilable code yet still fail at high rates.": 1,
+  "Failed agent PRs generated more comments, revisions and back-and-forth cycles than merged ones, consuming reviewer attention; the paper's recommended mitigations are checking for existing work first, decomposing changes into atomic PRs, and pre-validating against CI.": 1,
+  "In the 33,596-PR study, each failed CI check reduced a PR's merge probability by about 15%, and many agent PRs failed on linting, formatting or build misconfiguration rather than logic.": 1,
+  "In the 33,596-PR study, merged agent PRs tended to touch fewer files and lines, while failed PRs were larger and sprawling; agents did well on documentation, formatting, CI fixes and small refactors but struggled with corrective logic and feature design.": 1,
+  "Over a third of failed agent PRs received no meaningful human interaction before being closed automatically, and a large fraction of rejected PRs duplicated work already resolved, superseded or deferred.": 1
+ }
+}

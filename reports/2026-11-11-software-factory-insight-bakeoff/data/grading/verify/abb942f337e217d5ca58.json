@@ -1,0 +1,27 @@
+{
+ "capture": "captured",
+ "digest": "104902c374e64d22",
+ "url": "https://openai.com/index/introducing-codex",
+ "verdicts": {
+  "AGENTS.md files placed in a repository are text files, akin to README.md, that tell Codex how to navigate the codebase, which commands to run for testing, and how to follow project practices.": 1,
+  "After finishing, Codex commits its changes in its environment and provides verifiable evidence via citations of terminal logs and test outputs; the user can request revisions, open a GitHub pull request, or integrate changes locally.": 1,
+  "As a research preview, Codex lacked image inputs for frontend work and the ability to course-correct the agent mid-task; delegating to a remote agent takes longer than interactive editing.": 1,
+  "At launch, OpenAI stated that internet access is disabled during Codex task execution, limiting the agent to code provided via GitHub repositories and pre-installed dependencies.": 1,
+  "At launch, internet access was disabled during task execution, limiting the agent to code provided via GitHub repositories and dependencies pre-installed via a user-configured setup script; it could not access external websites, APIs, or other services.": 1,
+  "Codex is powered by codex-1, a version of OpenAI o3 optimized for software engineering.": 1,
+  "Codex launched as a research preview of a cloud-based software engineering agent that can work on many tasks in parallel, with each task running in its own cloud sandbox environment preloaded with the user's repository.": 1,
+  "Codex task completion typically takes between 1 and 30 minutes depending on complexity, and progress can be monitored in real time.": 1,
+  "Each Codex task runs in its own cloud sandbox environment preloaded with the user's repository, processed independently in a separate isolated environment.": 1,
+  "Inside the sandbox Codex can read and edit files and run commands including test harnesses, linters, and type checkers.": 1,
+  "On June 3, 2025 OpenAI added Codex for ChatGPT Plus users and enabled users to give Codex internet access during task execution.": 1,
+  "OpenAI engineers most often use Codex to offload repetitive, well-scoped tasks such as refactoring, renaming, and writing tests, and also for triaging on-call issues, planning daily tasks, and background work.": 1,
+  "OpenAI launched Codex on May 16, 2025 as a research preview: a cloud-based software engineering agent that can work on many tasks in parallel, powered by codex-1.": 1,
+  "OpenAI recommends assigning well-scoped tasks to multiple agents simultaneously, based on learnings from early testers.": 1,
+  "OpenAI states codex-1 shows strong performance on coding evaluations and internal benchmarks even without AGENTS.md files or custom scaffolding.": 1,
+  "The codex-1 system message tells the agent to run all tests mentioned in AGENTS.md, but users can ask Codex to skip them if short on time; it also says AGENTS.md files can appear anywhere in the container filesystem (e.g. /, ~, inside Git repos).": 1,
+  "The launch post says users must still manually review and validate all agent-generated code; Codex explicitly communicates uncertainty or test failures.": 1,
+  "codex-1 is a version of OpenAI o3 optimized for software engineering, trained with reinforcement learning on real-world coding tasks to mirror human style and PR preferences, follow instructions precisely, and iteratively run tests until a passing result.": 1,
+  "codex-1 was evaluated on SWE-Bench Verified at a maximum context length of 192k tokens and medium reasoning effort, with 23 samples excluded because they were not runnable on OpenAI's internal infrastructure.": 1,
+  "codex-mini-latest (a smaller o4-mini-based codex-1 version for Codex CLI) was priced at $1.50 per 1M input tokens and $6 per 1M output tokens with a 75% prompt caching discount.": 1
+ }
+}

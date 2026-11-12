@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "e70de6b86fb44ceb",
+ "url": "https://factory.ai/news/terminal-bench",
+ "verdicts": {
+  "Droid bootstraps each session with system information presented as shell command output, which helped it avoid reissuing redundant commands.": 1,
+  "Droid has an opt-in background-execution primitive that filters dangerous or resource-intensive commands and tracks every spawned process for cleanup.": 1,
+  "Factory is exploring decomposing projects across specialized agents, racing different solution approaches, and cross-verifying critical changes, and says memory must be durable, scoped (org/team/repo), searchable and safe by default.": 1,
+  "For Terminal-Bench, Droid ran five times per model in non-interactive task mode with all permissions skipped because the environment was sandboxed.": 1,
+  "In the earlier Terminal-Bench results, Droid with Opus scored 58.8% and with Sonnet 50.5%, beating Claude Code with Opus (43.2%), and Droid with GPT-5 (52.5%) beat Codex CLI (42.8%).": 1
+ }
+}

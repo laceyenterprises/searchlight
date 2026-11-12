@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "23d27c0313d13dc7",
+ "url": "https://developers.openai.com/codex/agent-approvals-security",
+ "verdicts": {
+  "Codex Cloud uses a two-phase runtime: setup can access the network to install dependencies, then the agent phase runs offline by default unless internet access is enabled for that environment.": 1
+ }
+}

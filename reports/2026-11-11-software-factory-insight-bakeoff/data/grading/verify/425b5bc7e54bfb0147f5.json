@@ -1,0 +1,20 @@
+{
+ "capture": "captured",
+ "digest": "853882e171df7978",
+ "url": "https://arxiv.org/html/2403.16971v5",
+ "verdicts": {
+  "AIOS decomposes agent queries into sub-execution units called AIOS syscalls to facilitate parallelism.": 1,
+  "AIOS includes a context manager to handle context interruption and an access manager to verify agent operations and ensure kernel reliability.": 1,
+  "AIOS isolates resources and LLM-specific services from agent applications into a kernel, and provides an AIOS SDK of APIs for using kernel functionality.": 1,
+  "AIOS treats the LLM as a kernel-managed resource, with the operating-system kernel providing a scheduler, a context manager, a memory manager, a storage manager and access control.": 1,
+  "AIOS's context manager snapshots and restores the state of LLM generation, which enables context switching between agents' requests.": 1,
+  "In AIOS, an agent scheduler orchestrates syscall execution across modules, while the memory, storage and tool managers and the LLM core handle the dispatched syscalls.": 1,
+  "The AIOS Access Manager exposes the syscalls add_privilege, check_access and ask_permission.": 1,
+  "The AIOS Context Manager exposes the syscalls generate_response_with_interruption, load_context and clear_context.": 1,
+  "The AIOS Storage Manager exposes syscalls including sto_mount, sto_write, sto_retrieve, sto_rollback and sto_share.": 1,
+  "The AIOS paper (arXiv:2403.16971, Rutgers University) proposes an AIOS kernel that isolates resources and LLM-specific services from agent applications, providing scheduling, context management, memory management, storage management and access control for runtime agents.": 1,
+  "The AIOS paper argues that unrestricted agent access to LLM or tool resources can cause inefficient or potentially harmful resource allocation, and that the absence of scheduling and resource management in current agent designs hinders concurrent processing and limits system efficiency.": 1,
+  "The AIOS paper includes an AIOS SDK, a suite of APIs for using the functionality provided by the AIOS kernel.": 1,
+  "The AIOS paper reports up to 2.1x faster execution when serving agents built by various agent frameworks.": 1
+ }
+}

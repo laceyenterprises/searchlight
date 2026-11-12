@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "57faf48a9dd50558",
+ "url": "https://www.zenml.io/llmops-database/building-production-coding-agents-with-pi-framework-for-sales-process-automation",
+ "verdicts": {
+  "Each Tavon customer agent is configured by an agent config file (harness, role, instructions) and a customer-specific file (special discounts, access rights, requirements, communication preferences), and uses CLI tools to access CRM and ERP systems in sandboxed environments with per-case sessions.": 1,
+  "OpenClaw adds multi-channel routing, provider orchestration, sub-agent management and gateway support on top of the Pi framework's core agent and session mechanics.": 1,
+  "Tavon built a production RFP sales automation for a parts supplier on the Pi agent framework and OpenClaw: a gateway monitors an email inbox, triages and routes messages to one dedicated agent per customer.": 1,
+  "Tavon's agents do not send emails automatically; they place draft responses in the user's email client for review, editing and approval before sending.": 1,
+  "The Tavon case reports no scale, accuracy or business outcome data, shows a single example, and leaves unclear how often drafts need human editing.": 1
+ }
+}

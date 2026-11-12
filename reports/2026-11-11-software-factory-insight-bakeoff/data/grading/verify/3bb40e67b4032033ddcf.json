@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "cfb4fcf4a30a6973",
+ "url": "https://arxiv.org/html/2403.16971v1",
+ "verdicts": {
+  "AIOS is an LLM agent operating system that embeds a large language model into an operating system and uses an LLM-specific kernel to separate LLM-related duties from non-LLM OS tasks.": 1,
+  "The AIOS Access Manager enforces privacy and access control policies between agents.": 1,
+  "The AIOS Agent Scheduler uses strategies such as First-In-First-Out (FIFO) and Round Robin (RR) to interleave steps from different agents, balancing waiting time and turnaround time compared with sequential execution where one agent's steps all run first.": 1,
+  "The AIOS Context Manager supports snapshot and restoration of the LLM's intermediate generation state, and context window management using basic text summarization and other window-expansion techniques.": 1,
+  "The AIOS LLM kernel contains six modules: Agent Scheduler, Context Manager, Memory Manager, Storage Manager, Tool Manager, and Access Manager.": 1,
+  "The AIOS Memory Manager provides short-term memory for each agent's interaction logs, while the Storage Manager persists those logs to long-term storage for later retrieval.": 1,
+  "The AIOS Tool Manager manages agents' calls to external API tools, grouping them into categories such as web search, scientific computing, database retrieval, and image processing.": 1,
+  "The AIOS kernel exposes an LLM system call interface through which agents use kernel services, and the AIOS SDK wraps these system calls in library functions for agent developers.": 1
+ }
+}

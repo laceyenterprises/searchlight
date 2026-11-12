@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "d104a631004ffc63",
+ "claims": [
+  {
+   "text": "Anthropic found a multi-agent system with Claude Opus 4 as lead agent and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on its internal research eval.",
+   "url": null
+  },
+  {
+   "text": "In the BrowseComp evaluation, token usage alone explained 80% of performance variance; token usage, number of tool calls, and model choice together explained 95%.",
+   "url": null
+  },
+  {
+   "text": "Upgrading to Claude Sonnet 4 gave a larger performance gain than doubling the token budget on Claude Sonnet 3.7.",
+   "url": null
+  },
+  {
+   "text": "Agents typically use about 4× more tokens than chat interactions, and multi-agent systems use about 15× more tokens than chats, so they need tasks valuable enough to justify the cost.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's testing found multi-agent implementations typically use 3-10x more tokens than single-agent approaches for equivalent tasks, due to duplicated context, coordination messages, and summarizing results for handoffs.",
+   "url": null
+  },
+  {
+   "text": "Teams that built elaborate multi-agent systems with separate planning, execution, review, and iteration agents suffered lost context at each handoff and spent more tokens coordinating than executing.",
+   "url": null
+  },
+  {
+   "text": "The Research system uses an orchestrator-worker pattern: a lead agent analyzes the query, develops a strategy, and spawns subagents that search different aspects in parallel.",
+   "url": null
+  },
+  {
+   "text": "The LeadResearcher saves its plan to Memory because the context window is truncated if it exceeds 200,000 tokens.",
+   "url": null
+  },
+  {
+   "text": "After the research loop, a CitationAgent processes the documents and report to identify specific locations for citations.",
+   "url": null
+  },
+  {
+   "text": "Each subagent given to a lead agent needs an objective, an output format, guidance on tools and sources, and clear task boundaries; vague instructions like 'research the semiconductor shortage' led to duplicated searches.",
+   "url": null
+  },
+  {
+   "text": "Scaling rules embedded in prompts: simple fact-finding uses 1 agent with 3-10 tool calls, direct comparisons 2-4 subagents with 10-15 calls each, and complex research more than 10 subagents.",
+   "url": null
+  },
+  {
+   "text": "Early Research agents spawned 50 subagents for simple queries, searched endlessly for nonexistent sources, and distracted each other with excessive updates.",
+   "url": null
+  },
+  {
+   "text": "Parallelization (lead spins up 3-5 subagents in parallel; subagents use 3+ tools in parallel) cut research time by up to 90% for complex queries.",
+   "url": null
+  },
+  {
+   "text": "A tool-testing agent that rewrote flawed MCP tool descriptions produced a 40% decrease in task completion time for future agents.",
+   "url": null
+  },
+  {
+   "text": "Multi-agent systems are a poor fit for tasks requiring a shared context or many inter-agent dependencies; most coding tasks have fewer parallelizable parts than research.",
+   "url": null
+  },
+  {
+   "text": "The Claude Agent SDK supports subagents, which enable parallelization and manage context by using isolated context windows and sending only relevant information back to the orchestrator.",
+   "url": null
+  },
+  {
+   "text": "The Claude Agent SDK's compact feature automatically summarizes previous messages as the context limit approaches, built on Claude Code's compact slash command.",
+   "url": null
+  },
+  {
+   "text": "The long-running harness uses an initializer agent in the first session to create an init.sh script, a claude-progress.txt log, and an initial git commit; subsequent coding agent sessions make incremental progress and leave structured updates.",
+   "url": null
+  },
+  {
+   "text": "Compaction alone was insufficient: agents tried to one-shot the app and ran out of context mid-feature, or later declared the job done prematurely after seeing progress.",
+   "url": null
+  },
+  {
+   "text": "The initializer wrote a feature list of over 200 features for the claude.ai clone, all initially marked failing; coding agents may only change the passes field, and JSON was chosen because the model is less likely to inappropriately overwrite JSON than Markdown.",
+   "url": null
+  },
+  {
+   "text": "Each coding session starts by running pwd, reading git logs and the progress file, choosing the highest-priority unfinished feature from the feature list, and running init.sh with a basic end-to-end test before new work.",
+   "url": null
+  },
+  {
+   "text": "Claude marked features complete without end-to-end testing until explicitly prompted to use browser automation (Puppeteer MCP); it could not see browser-native alert modals.",
+   "url": null
+  },
+  {
+   "text": "Context resets (clearing the context with a structured handoff) differ from compaction, which summarizes in place; Sonnet 4.5 showed 'context anxiety' strongly enough that compaction alone was insufficient, though resets add orchestration complexity, token overhead, and latency.",
+   "url": null
+  },
+  {
+   "text": "Opus 4.5 largely removed context anxiety, so a later planner-generator-evaluator harness dropped context resets and used one continuous session with the Claude Agent SDK's automatic compaction.",
+   "url": null
+  },
+  {
+   "text": "In the retro game maker comparison, the solo run took 20 minutes and cost $9 while the full three-agent harness took 6 hours and cost $200, but produced a working play mode the solo run lacked.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

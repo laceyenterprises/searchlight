@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "bf0441f494e84ce4",
+ "claims": [
+  {
+   "text": "The IBM trajectory-informed memory framework produces three types of guidance from agent trajectories: strategy tips from successful patterns, recovery tips from failure handling, and optimization tips from inefficient but successful executions.",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "text": "The IBM framework extracts tips at two granularities: task-level tips capturing end-to-end patterns, and subtask-level tips decomposing trajectories into reusable phases such as authentication, data retrieval and processing.",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "text": "The IBM framework's Adaptive Memory Retrieval System injects relevant learnings into agent prompts based on multi-dimensional similarity, combining semantic similarity with metadata filtering and priority-based ranking.",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "text": "The IBM framework tracks provenance linking each learning to its source trajectory and outcome, so teams can check whether similar failures still occur after a learning is deployed and debug incorrect guidance.",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "text": "On the AppWorld benchmark, the memory-enhanced agent reached 73.2% task goal completion versus 69.6% for the baseline (+3.6 pp), and 64.3% scenario goal completion versus 50.0% (+14.3 pp).",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "text": "On AppWorld Difficulty 3 tasks, the IBM memory framework raised scenario goal completion from 19.1% to 47.6% (+28.5 pp, a 149% relative increase) and task goal completion by 4.7 pp; Difficulty 2 tasks gained 4.1 pp task goal completion with no scenario goal change.",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "text": "Empirical studies cited in the IBM paper find that naive experience accumulation leads to error propagation and misaligned replay, and that agents closely follow retrieved experiences, so mismatched retrieval directly degrades performance.",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "text": "ACE (Agentic Context Engineering) stores context as a playbook of itemized bullets, each with an ID and helpful/harmful counters, and uses three roles: a Generator that solves tasks, a Reflector that extracts lessons, and a Curator that forms small delta updates merged by deterministic non-LLM logic.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "In an ACE AppWorld example, an LLM full rewrite shrank the context from 18,282 tokens (66.7% accuracy) to 122 tokens (57.1% accuracy), below the 63.7% no-adaptive-context baseline; this is the 'context collapse' failure mode.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "Prompt optimizers such as GEPA and MIPROv2 tend toward short, generic instructions ('brevity bias'), discarding API quirks and error patterns that matter for tool-using agents.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "On AppWorld with DeepSeek-V3.1, offline ReAct+ACE averaged 59.4% versus 46.0% for in-context learning and 46.4% for GEPA, and online ACE averaged 66.0% versus 52.3% for Dynamic Cheatsheet; ACE also gained 14.8% over the ReAct baseline using only execution feedback, without labels.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "ACE reduced adaptation latency by 82.3% and rollouts by 75.1% versus GEPA offline on AppWorld, and reduced latency by 91.5% and token cost by 83.6% versus Dynamic Cheatsheet online on FiNER.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "Without reliable labels or execution feedback, ACE (and Dynamic Cheatsheet) can pollute their own context with spurious lessons and degrade below baseline.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "ACE's grow-and-refine step appends new bullets, updates counters in place, and prunes semantically redundant bullets via embedding de-duplication; the review notes that overly aggressive de-dup reintroduces brevity bias while loose de-dup lets the playbook bloat.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "ACE's evidence is limited: two task families (agents and financial XBRL), mostly one base model (DeepSeek-V3.1), and the same model for all three roles; the review also notes its helpful/harmful counters are monotonic without recency decay and contradictory bullets are not reconciled.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "The ACE review suggests injecting only the top-k relevant bullets per query because the paper feeds the whole playbook, and suggests gating deltas with a verifier before merging to avoid label-free degradation.",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "text": "A six-week case study of one markdown repository edited by three AI agent tools logged 118 agent failures; stale documentation (drift) was the largest class at 48 of 118, though 35 of those were found on one audit day.",
+   "url": "https://arxiv.org/abs/2610.32578"
+  },
+  {
+   "text": "A single monthly LLM documentation audit found about half of known drift (Claude Sonnet 5.5 mean 50%) with at least 93% of its findings correct, so an LLM audit alone misses much drift.",
+   "url": "https://arxiv.org/abs/2610.32578"
+  },
+  {
+   "text": "Replaying five past failures in git clones on Sonnet 5.5, three of four finished failures did not occur with or without their fixes, and only the stale-count failure recurred (in all three unguarded runs), which a deterministic check stopped in every run; the author calls the results exploratory (one repo, three runs per condition).",
+   "url": "https://arxiv.org/abs/2610.32578"
+  },
+  {
+   "text": "The author warns that harness-evolving tools add lessons faster than they retire them and recommends recording the motivating model version and a re-test date on each rule; a counterfactual git replay (30 headless sessions) took 10 minutes and about $3.55.",
+   "url": "https://arxiv.org/abs/2610.32578"
+  },
+  {
+   "text": "Incident Memory uses velocity-stratified retrieval that ages structural, behavioral, contextual and ephemeral facts at different rates, giving an architectural staleness guarantee versus 36% stale returns for a flat baseline.",
+   "url": "https://arxiv.org/pdf/2609.01616.pdf"
+  },
+  {
+   "text": "Incident Memory mined 39 ordered playbooks with PrefixSpan from 23,110 traces in the UCI ITSM log (24,918 incidents) and covered 84.3% of 6,934 held-out incidents; on 19 fingerprint groups PrefixSpan reached 0.985 ordered precision versus 0.661 for a Claude Haiku baseline.",
+   "url": "https://arxiv.org/pdf/2609.01616.pdf"
+  },
+  {
+   "text": "Cognitive immunity stores scoped 'antibody' rules with provenance, decay and review metadata and retrieves them before later responses; across 1,200 events it lowered pooled severe repeat-failure rate from 0.764 (no memory) to 0.650 (bootstrap difference -0.106, 95% CI [-0.211, -0.003]), while Reflexion retained the highest aggregate improvement score.",
+   "url": "https://mianzhang.org/papers/kdd-2026/mian-zhang-kdd-2026-cognitive-immunity.pdf"
+  },
+  {
+   "text": "In a single-deployment coding-agent study, 9 tracked error classes had zero recurrences across 74 post-rule session exposures, but the authors stress this is observational rather than a controlled experiment and does not establish a permanent guarantee.",
+   "url": "https://arxiv.org/html/2607.13091"
+  },
+  {
+   "text": "A bad reflection can become permanent policy: a stored confident rule influences later runs whose outcomes appear to validate it, creating a self-reinforcing error loop; the guide recommends states such as proposed, verified, rejected and superseded, plus scoping rules (e.g., to an API version).",
+   "url": "https://lev8.com/blog/agentic-context-engineering"
+  }
+ ],
+ "question_id": "Q23"
+}

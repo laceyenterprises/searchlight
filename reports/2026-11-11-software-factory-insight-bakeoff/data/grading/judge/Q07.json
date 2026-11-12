@@ -1,0 +1,250 @@
+{
+ "digest": "9e38f27bbb79220b",
+ "values": {
+  "Q07-k12": {
+   "position": 9,
+   "reason": "Content-activated verifiers returning concise feedback plus stop-hook PR gating largely restates k1/k5/k31.",
+   "score": 1
+  },
+  "Q07-k19": {
+   "position": 25,
+   "reason": "Measured judge veto rate (~25%), ~50% recovery, and scope drift as the top trigger, with no judge evals, directly informs the reader's adversarial review design and metrics.",
+   "score": 3
+  },
+  "Q07-k20": {
+   "position": 18,
+   "reason": "Swapping only the transformation step for an agent while keeping targeting, PR, review and merge infrastructure intact is a useful incremental-adoption design detail.",
+   "score": 2
+  },
+  "Q07-k21": {
+   "position": 39,
+   "reason": "A thin CLI that abstracts agent/LLM choice with judge, log upload and MLflow tracing is a specific pattern relevant to multi-harness dispatch and observability.",
+   "score": 2
+  },
+  "Q07-k22": {
+   "position": 1,
+   "reason": "Agent SDK inside a custom harness on Kubernetes pods with multi-OS CI builds is a specific runtime architecture comparable to the reader's dispatch layer.",
+   "score": 2
+  },
+  "Q07-k23": {
+   "position": 34,
+   "reason": "Scale of auto-merged maintenance PRs with no human in the loop corroborates the viability of autonomous merge, but is minor detail.",
+   "score": 1
+  },
+  "Q07-k24": {
+   "position": 46,
+   "reason": "Company-reported speedup claims are corroborating but not architectural.",
+   "score": 1
+  },
+  "Q07-k26": {
+   "position": 43,
+   "reason": "Measured LLM share and time reduction from Google's study is a modest corroborating data point.",
+   "score": 1
+  },
+  "Q07-k27": {
+   "position": 0,
+   "reason": "Gating PR creation on verifiers via a stop hook is a concrete, adoptable control point for the reader's Claude Code workers before autonomous merge.",
+   "score": 2
+  },
+  "Q07-k28": {
+   "position": 45,
+   "reason": "Duplicates k9's PR count.",
+   "score": 0
+  },
+  "Q07-k29": {
+   "position": 36,
+   "reason": "Volume metrics for Meta's auto-landing are notable but don't by themselves change design.",
+   "score": 1
+  },
+  "Q07-k30": {
+   "position": 5,
+   "reason": "Concrete onboarding gates for auto-landing (60-day clean record, daily caps, risk thresholds, denylist) could directly shape the reader's autonomous-merge governance.",
+   "score": 3
+  },
+  "Q07-k31": {
+   "position": 28,
+   "reason": "Concrete scale result where AI was used only to debug failures of deterministic migration, informing a hybrid deterministic-plus-agent design.",
+   "score": 2
+  },
+  "Q07-k32": {
+   "position": 22,
+   "reason": "A failure taxonomy that ranks passes-CI-but-wrong as the most serious gives the reader a concrete way to prioritize review and SEV classification.",
+   "score": 3
+  },
+  "Q07-k33": {
+   "position": 38,
+   "reason": "Basic description of Fleet Management's containerized job model, generic background.",
+   "score": 1
+  },
+  "Q07-k34": {
+   "position": 8,
+   "reason": "Outcome count and migration types corroborate scale but add little architectural insight.",
+   "score": 1
+  },
+  "Q07-k35": {
+   "position": 10,
+   "reason": "Two-stage design where an interactive agent gathers context and writes the prompt for a background agent is a specific pattern relevant to multi-surface task intake.",
+   "score": 2
+  },
+  "Q07-k36": {
+   "position": 30,
+   "reason": "Verifiers auto-activating from repo contents (e.g., pom.xml) is a concrete pluggable-verifier design.",
+   "score": 2
+  },
+  "Q07-k37": {
+   "position": 35,
+   "reason": "Encoding org standards as lint rules gives immediate self-correction signals, a moderately specific pattern akin to scar memory enforcement.",
+   "score": 2
+  },
+  "Q07-k38": {
+   "position": 33,
+   "reason": "Adoption and PR-frequency stats with a generic review-bottleneck claim.",
+   "score": 1
+  },
+  "Q07-k39": {
+   "position": 27,
+   "reason": "Deliberately withholding skills and MCPs at runtime as a guardrail is a specific capability-restriction decision relevant to governed dispatch.",
+   "score": 2
+  },
+  "Q07-k4": {
+   "position": 26,
+   "reason": "Generalizing the agent sharply accelerated PR volume and created a review bottleneck, a measured consequence relevant to the reader's general-platform ambition.",
+   "score": 2
+  },
+  "Q07-k40": {
+   "position": 20,
+   "reason": "Measured finding that explicit mapping tables beat LLM-generated prose context files directly informs how build packs should encode specs.",
+   "score": 3
+  },
+  "Q07-k41": {
+   "position": 17,
+   "reason": "Shows the verify loop is unavailable without build-time tests yet migrations still shipped, informing a per-repo verification-capability gate.",
+   "score": 2
+  },
+  "Q07-k42": {
+   "position": 4,
+   "reason": "Abstracting build-system verifiers behind a single MCP tool is a specific design choice that keeps worker prompts harness-agnostic.",
+   "score": 2
+  },
+  "Q07-k43": {
+   "position": 29,
+   "reason": "Regex-extracting errors and returning terse success messages to save context is a specific, cheap design detail for verifier outputs.",
+   "score": 2
+  },
+  "Q07-k44": {
+   "position": 47,
+   "reason": "Keeping push, Slack and prompt authoring outside a minimally privileged sandbox is a specific least-privilege boundary relevant to the reader's worker isolation.",
+   "score": 2
+  },
+  "Q07-k45": {
+   "position": 37,
+   "reason": "Platform limits and planned outer CI loop and evals largely repeat k32 and k7.",
+   "score": 1
+  },
+  "Q07-k46": {
+   "position": 6,
+   "reason": "Moving full validation to a separate CI verification service because agent runtimes are poor CI substitutes is a measured design reversal relevant to the reader's verification architecture.",
+   "score": 3
+  },
+  "Q07-k47": {
+   "position": 16,
+   "reason": "Repos without tests forcing manual owner testing is a concrete limit on autonomous verification that affects merge-eligibility design.",
+   "score": 2
+  },
+  "Q07-k48": {
+   "position": 7,
+   "reason": "Product marketing and access model with no technical substance.",
+   "score": 0
+  },
+  "Q07-k49": {
+   "position": 11,
+   "reason": "Lint/compile/test feedback loop with bounded iterations is a common pattern, mildly corroborating.",
+   "score": 1
+  },
+  "Q07-k50": {
+   "position": 24,
+   "reason": "Using a software catalog as structured agent context is a generic point.",
+   "score": 1
+  },
+  "Q07-k51": {
+   "position": 44,
+   "reason": "Concrete runtime limits (three tools, Bash allowlist, ten turns, three retries) are specific governance parameters the reader could benchmark against.",
+   "score": 2
+  },
+  "Q07-k52": {
+   "position": 21,
+   "reason": "Volume stats corroborate scale but don't change design.",
+   "score": 1
+  },
+  "Q07-k53": {
+   "position": 31,
+   "reason": "Admitted limitations, such as Linux-only verifiers and prompting by intuition, are useful candor but minor.",
+   "score": 1
+  },
+  "Q07-k54": {
+   "position": 41,
+   "reason": "Investor-day metrics are undefined and the critique notes the narrow scope, so they are of low decision value.",
+   "score": 1
+  },
+  "Q07-k55": {
+   "position": 32,
+   "reason": "Restricting git push and origin plus end-state prompts outperforming step-by-step ones are specific design details for tool restriction and prompting.",
+   "score": 2
+  },
+  "Q07-k56": {
+   "position": 12,
+   "reason": "Uncorroborated secondary claims with weak reliability limit their decision value.",
+   "score": 1
+  },
+  "Q07-k57": {
+   "position": 13,
+   "reason": "The failure mode of agents deleting tests to pass, caught by an LLM judge, is a concrete risk the reader's review and scar memory should explicitly target.",
+   "score": 3
+  },
+  "Q07-k58": {
+   "position": 15,
+   "reason": "Adoption percentages from a secondary summary are mostly trivia for architecture decisions.",
+   "score": 1
+  },
+  "Q07-k59": {
+   "position": 2,
+   "reason": "Positioning statement contrasting companies with little concrete design detail.",
+   "score": 1
+  },
+  "Q07-k6": {
+   "position": 19,
+   "reason": "Full-stack sandbox with observability and feature-flag integrations for self-verification, plus over half of merged PRs, is a specific architecture and outcome relevant to the reader's worker environments.",
+   "score": 3
+  },
+  "Q07-k61": {
+   "position": 14,
+   "reason": "Exposing ownership and owner-contact capabilities to agents is a specific design detail for routing escalations.",
+   "score": 2
+  },
+  "Q07-k62": {
+   "position": 42,
+   "reason": "Multiplayer sessions and orchestration are mentioned without enough detail to act on.",
+   "score": 1
+  },
+  "Q07-k66": {
+   "position": 48,
+   "reason": "An ordered four-gate checkpoint pipeline with visual review and two context-isolated adversarial reviewers that must both approve directly informs the reader's cross-model review design.",
+   "score": 3
+  },
+  "Q07-k67": {
+   "position": 40,
+   "reason": "Motivation backstory, mostly trivia.",
+   "score": 0
+  },
+  "Q07-k68": {
+   "position": 3,
+   "reason": "Explains why deterministic scripts failed on complex changes, useful context but not a new design detail.",
+   "score": 1
+  },
+  "Q07-k8": {
+   "position": 23,
+   "reason": "A self-hosting outcome metric that is interesting but mostly corroborates k20.",
+   "score": 1
+  }
+ }
+}

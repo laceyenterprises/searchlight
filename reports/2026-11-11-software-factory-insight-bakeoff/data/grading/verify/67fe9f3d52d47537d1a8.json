@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "330771b593bb5e8d",
+ "url": "https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent",
+ "verdicts": {
+  "As of April 3, 2026, organization admins can manage the Copilot cloud agent firewall across all repositories; previously it was configured only at the repository level by repository admins.": 1,
+  "GitHub Copilot cloud agent includes a built-in agent firewall that controls Copilot's internet access and helps protect against prompt injection and data exfiltration.": 1,
+  "Organization admins can add entries to an organization-wide custom allowlist covering all repositories, for example to allow access to an internal package registry.": 1,
+  "Organization admins can control whether repository admins may add their own custom allowlist entries; by default all firewall settings let each repository decide, preserving existing behavior.": 1,
+  "Organization admins can turn the Copilot cloud agent firewall on or off across all repositories, or allow each repository to decide.": 1,
+  "Organization admins can turn the recommended allowlist on or off across all repositories, or allow each repository to decide.": 1
+ }
+}

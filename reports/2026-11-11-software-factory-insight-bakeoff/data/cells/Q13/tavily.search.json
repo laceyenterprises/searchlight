@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 4.0,
+  "usd": 0.032
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:36.516811Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1975,
+   "page_chars_delivered": 17846,
+   "post_step": "fetched",
+   "published": null,
+   "text": "▶Frequently asked questions\n\nWhat is an agent operating system?\n:   An agent operating system is a runtime layer that sits between large language models and the agents built on top of them, providing the same core services a traditional OS provides to applications: scheduling, memory management, st…",
+   "title": "The Rise of the Agent Operating System | Requesty",
+   "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system"
+  },
+  {
+   "chars_delivered": 1887,
+   "page_chars_delivered": 19372,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The architecture is sound. It maps classical OS concepts (process scheduling, context switching, memory management, access control) onto the specific needs of LLM-based agents. Their ICLR 2025 paper on an LLM-based semantic file system was integrated into AIOS as a terminal UI, which means agents n…",
+   "title": "Who Is Building the Agent-Native Operating System? | by Marc Bara | Medium",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "chars_delivered": 1464,
+   "page_chars_delivered": 34524,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The academic “LLM Agent Operating System.” AIOS: LLM Agent Operating System is an open-source research project from Rutgers University, maintained on GitHub as agiresearch/AIOS. It embeds an LLM in an OS-style kernel that handles scheduling, memory management, and context switching for concurrently…",
+   "title": "What Is an Enterprise AI Operating System? | Alation | Alation",
+   "url": "https://www.alation.com/blog/what-is-aios-ai-operating-system"
+  },
+  {
+   "chars_delivered": 1950,
+   "published": null,
+   "text": "AIOS proposes a kernel-shaped architecture for running multiple LLM agents concurrently: a scheduler, a context manager, a memory manager, a storage manager, a tool manager, and an access manager. The kernel sits between the agent application layer (developer-facing) and the underlying LLM and tool…",
+   "title": "AIOS, The LLM Agent Operating System Explained (2026) | Knowlee Blog",
+   "url": "https://www.knowlee.ai/blog/aios-llm-agent-operating-system"
+  },
+  {
+   "chars_delivered": 723,
+   "published": null,
+   "text": "### AIOS: LLM Agent Operating System\n\nOne of the most rigorous definitions of an AI Operating System comes from the article, AIOS: LLM Agent Operating System, authored by researchers at Rutgers University. In this article and architecture, LLMs act as the \"kernel\" of the OS, while agents are treate…",
+   "title": "Complete Guide to AI OS in 2025: Types, Examples, and Use Cases",
+   "url": "https://picovoice.ai/blog/ai-operating-system"
+  },
+  {
+   "chars_delivered": 783,
+   "published": null,
+   "text": "MemGPT introduced memory management for agents by creating a memory hierarchy inspired by a traditional operating system (OS). Agents actively manage what remains in their immediate context (core memory) versus what gets stored in external layers (conversational memory, archival memory, and externa…",
+   "title": "Benchmarking AI Agent Memory: Is a Filesystem All You Need? | Letta",
+   "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory"
+  },
+  {
+   "chars_delivered": 1937,
+   "published": null,
+   "text": "∘\\circ  AIOS Kernel Design and Implementation. At the core of AIOS, we design and implement an AIOS kernel to encapsulate resource management abstractions. In this kernel, agent queries are decomposed into sub execution units (i.e., AIOS syscalls) to facilitate parallelism.\nWe design an agent sched…",
+   "title": "AIOS: LLM Agent Operating System",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "chars_delivered": 2011,
+   "published": null,
+   "text": "The system's demonstrated ability to maintain agent performance while dramatically improving efficiency and scalability makes it particularly valuable for production deployments where multiple agents must operate concurrently and reliably. This foundational infrastructure contribution could acceler…",
+   "title": "AIOS: LLM Agent Operating System | alphaXiv",
+   "url": "https://www.alphaxiv.org/abs/2403.16971"
+  },
+  {
+   "chars_delivered": 2098,
+   "published": null,
+   "text": "The key architectural choice: Mem0 is framework-agnostic. It doesn't care whether your agent runs in LangChain, CrewAI, AutoGen, or a custom loop. You import the SDK, point it at Mem0, and your agent has persistent memory. Your orchestration, tool management, and agent logic stay exactly where they…",
+   "title": "Mem0 vs Letta (MemGPT): AI Agent Memory Compared (2026)",
+   "url": "https://vectorize.io/articles/mem0-vs-letta"
+  },
+  {
+   "chars_delivered": 2378,
+   "published": null,
+   "text": "When I read the original MemGPT paper, I thought it was an innovative technique for handling memory for LLMs. The open-source Letta framework, which we'll use in this course, makes MemGPT easy to implement. It adds memory to your LLM agents and gives them transparent long-term memory.\n  In detail,…",
+   "title": "New short course: LLMs as Operating Systems: Agent Memory ...",
+   "url": "https://www.linkedin.com/posts/andrewyng_new-short-course-llms-as-operating-systems-activity-7260353293229436928-XR6w"
+  }
+ ],
+ "latency_ms": 2176.0,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q13",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What 'operating system for agents' designs exist (AIOS, Letta/MemGPT, others)? How do they handle scheduling, memory management, context switching, tool access and isolation between agents, and what has been learned from them?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q13-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 20169,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:34.340761Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

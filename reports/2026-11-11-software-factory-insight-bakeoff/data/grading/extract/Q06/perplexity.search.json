@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "9f9f1d6e63d5256b",
+ "claims": [
+  {
+   "text": "Over 1,300 Stripe pull requests merged each week are completely minion-produced (up from 1,000 as of Part 1), human-reviewed, and contain no human-written code.",
+   "url": null
+  },
+  {
+   "text": "Over a thousand pull requests merged each week at Stripe were completely minion-produced as of Part 1, human-reviewed, with no human-written code.",
+   "url": null
+  },
+  {
+   "text": "A typical minion run starts in a Slack message and ends in a pull request that passes CI and is ready for human review, with no interaction in between.",
+   "url": null
+  },
+  {
+   "text": "Minions run in isolated devboxes, the same type of machine Stripe engineers write code on.",
+   "url": null
+  },
+  {
+   "text": "Devboxes are pre-warmed so one can be spun up in 10 seconds, with Stripe code and services pre-loaded.",
+   "url": null
+  },
+  {
+   "text": "Devboxes are isolated from production resources and the internet, so minions can run on them without human permission checks.",
+   "url": null
+  },
+  {
+   "text": "Devbox isolation gives parallelization without the overhead of git worktrees, which wouldn't scale at Stripe.",
+   "url": null
+  },
+  {
+   "text": "A Stripe devbox is an AWS EC2 instance containing Stripe's source code and running services under development.",
+   "url": null
+  },
+  {
+   "text": "Because mistakes are confined to the blast radius of one devbox, the agent runs with full permissions and without confirmation prompts.",
+   "url": null
+  },
+  {
+   "text": "Minions are fully unattended, so the harness cannot use human-facing features such as interruptibility or human-triggered commands to steer the run.",
+   "url": null
+  },
+  {
+   "text": "Devbox instances are treated as cattle: identical and disposable, drawn from a pool provisioned ahead of time with repos cloned, caches warm and background services started.",
+   "url": null
+  },
+  {
+   "text": "The core agent loop runs on a fork of Block's coding agent goose.",
+   "url": null
+  },
+  {
+   "text": "Blueprints are workflows defined in code in which each node runs either deterministic code or an agent loop focused on a task.",
+   "url": null
+  },
+  {
+   "text": "Agent nodes in the minion blueprint, such as 'Implement task' and 'Fix CI failures', are given wide latitude to make their own decisions.",
+   "url": null
+  },
+  {
+   "text": "Deterministic nodes in the minion blueprint, such as 'Run configured linters' and 'Push changes', invoke no LLM and just run code.",
+   "url": null
+  },
+  {
+   "text": "The minion blueprint resembles a state machine intermixing deterministic code nodes and free-flowing agent nodes.",
+   "url": null
+  },
+  {
+   "text": "Minions connect to MCP to gather context such as internal documentation, ticket details, build statuses and Sourcegraph code intelligence.",
+   "url": null
+  },
+  {
+   "text": "Almost all agent rules at Stripe are conditionally applied based on subdirectories, since many unconditional rules would be impractical.",
+   "url": null
+  },
+  {
+   "text": "A subset of linters runs as a deterministic node, looped on locally before the branch is pushed, so the branch has a fair chance of passing CI the first time.",
+   "url": null
+  },
+  {
+   "text": "Local lint finishes in under 5 seconds, before any CI push.",
+   "url": null
+  },
+  {
+   "text": "CI selectively runs tests from a battery of over three million tests upon a push.",
+   "url": null
+  },
+  {
+   "text": "Many tests have autofixes for failures, which are applied automatically; failures without an autofix are sent back to the minion.",
+   "url": null
+  },
+  {
+   "text": "CI is limited to at most two rounds because CI runs cost tokens, compute and time.",
+   "url": null
+  },
+  {
+   "text": "After the second push and CI run, the branch is sent back to its human operator for manual scrutiny.",
+   "url": null
+  },
+  {
+   "text": "After the run, the minion pushes a branch and prepares a pull request following Stripe's PR template; the engineer requests review from another engineer, or gives the minion further instructions, which are pushed to the branch.",
+   "url": null
+  }
+ ],
+ "question_id": "Q06"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "7bbed33cbfe6b799",
+ "claims": [
+  {
+   "text": "In the AIDev-pop dataset (33,596 PRs across 2,807 repositories), 40.2% of repositories contain co-active agent-authored PR pairs under exact temporal overlap, and those co-active pairs account for 79.4% of all agent-generated PRs.",
+   "url": "https://arxiv.org/html/2607.04697v1"
+  },
+  {
+   "text": "Within a one-week collaboration window, 53.4% of repositories contain co-active agent-authored PR pairs, and those pairs account for 95.0% of agent-generated PRs.",
+   "url": "https://arxiv.org/html/2607.04697v1"
+  },
+  {
+   "text": "Replaying real three-way git merges on 747 unique co-active PR pairs (one per repository) found textual conflict rates of 41.7% for cross-agent pairs versus 19.8% for intra-agent pairs, with non-overlapping 95% confidence intervals.",
+   "url": "https://arxiv.org/html/2607.04697v1"
+  },
+  {
+   "text": "Only 0.5% of co-active agent PR pairs are cross-agent, occurring in 122 of 2,807 repositories (about 4.3%); the vast majority of co-active pairs are two PRs from the same agent.",
+   "url": "https://arxiv.org/html/2607.04697v1"
+  },
+  {
+   "text": "Of conflicted files in the agent PR merge replay, 84.4% were source code files rather than dependency manifests, and nearly 42% of conflicts were structural (modify/delete or add/add).",
+   "url": "https://arxiv.org/html/2607.04697v1"
+  },
+  {
+   "text": "The authors describe their textual-conflict measurements as conservative lower bounds on the cost of uncoordinated multi-agent contributions, since git cannot detect semantic or intent conflicts.",
+   "url": "https://arxiv.org/html/2607.04697v1"
+  },
+  {
+   "text": "Anthropic CPO Mike Krieger said 90-95% of changes to Claude Code's codebase are written by Claude Code, and Anthropic's merge queue became a bottleneck that had to be completely re-architected because PR volume far exceeded its expectations.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Trunk describes batching as saving CI cost by running fewer CI jobs, but when a batch fails it must be bisected and PRs retested, which slows CI and can increase total cost.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Trunk states that parallel queues, which test unrelated PRs simultaneously, are only an option when a build system like Bazel is used in the repo, and cost additional CI resources.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Trunk ran merge queue simulations with batch sizes of 1, 4, 8 and 16, with and without parallel queues, across 8 scenarios, using a public repo that automates PR creation via cron and is configured in .config/mq.toml.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Mitchell Hashimoto said merge queues work for humans but become untenable at 100x to 1,000x the churn from AI agents, framing the problem as a release/throughput problem rather than an AI review problem.",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  },
+  {
+   "text": "Mergify says a serial single-lane queue fails under agent load because each PR waits behind serial CI runs and must be rebased repeatedly as others land ahead of it.",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  },
+  {
+   "text": "Mergify's proposed agent-scale design combines speculative parallel testing, batching with bisect-on-failure, and scope-aware queues that test batches touching independent parts of a monorepo concurrently as a directed graph.",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  },
+  {
+   "text": "Mergify says the rebase changes the SHA but not the change, and that making the change (not the SHA) first-class so rebases do not discard valid reviews or test results is unfinished work that agent churn makes urgent.",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  },
+  {
+   "text": "Mergify claims batches of 4 mean roughly 25% as many CI runs, at the cost of one extra bisection round when a batch fails, and that most teams cut queue CI cost by 50 to 75% with batching alone.",
+   "url": "https://mergify.com/learn/merge-queue"
+  },
+  {
+   "text": "Speculative checks in a merge queue run multiple PRs in parallel so per-PR latency drops toward the single-CI floor even at 50+ PRs a day, but waste CI when an early speculation fails and PRs behind it must restart.",
+   "url": "https://mergify.com/learn/merge-queue"
+  },
+  {
+   "text": "A serial merge queue with a 30-minute pipeline adds one CI run of latency per PR, so a PR queued at 9:00 merges around 9:30.",
+   "url": "https://mergify.com/learn/merge-queue"
+  },
+  {
+   "text": "Two-step CI runs lightweight checks (lint, unit tests, type check) on the PR and the full expensive suite (E2E, integration, browser) only in the queue, so full CI cost is paid only for PRs about to land.",
+   "url": "https://mergify.com/learn/merge-queue"
+  },
+  {
+   "text": "When a PR fails in a merge queue, PRs behind it are automatically re-evaluated because they were being tested against a state that will never exist.",
+   "url": "https://mergify.com/learn/merge-queue"
+  },
+  {
+   "text": "GitHub made stacked PRs generally available in October 2026, with management through GitHub or the gh-stack CLI extension.",
+   "url": "https://circleci.com/blog/stacked-prs-and-ci/"
+  },
+  {
+   "text": "In a stacked PR workflow, updating an earlier PR and rebasing the branches above it can trigger new CI pipelines across every PR in the stack, multiplying CI cost.",
+   "url": "https://circleci.com/blog/stacked-prs-and-ci/"
+  },
+  {
+   "text": "GitHub can merge a stack through its merge queue as a single group, but changes to the underlying commits still require fresh validation.",
+   "url": "https://circleci.com/blog/stacked-prs-and-ci/"
+  },
+  {
+   "text": "A user reported that with required GitHub Merge Queue, clicking 'Merge stack' on a stacked PR appeared to enqueue only the bottom PR, with upper PRs left to be merged manually after the lower one landed.",
+   "url": "https://github.com/github/gh-stack/discussions/172"
+  },
+  {
+   "text": "In a five-PR stack reproduction (ALLGREEN, build concurrency 5, max merge size 3), all five PRs were queued in order and the bottom PR squash-merged, but GitHub then rebased and force-pushed the remaining four branches and removed their queue entries instead of continuing the stack.",
+   "url": "https://github.com/github/gh-stack/discussions/172"
+  },
+  {
+   "text": "A reproduction with merge queue and latest-push approval enabled showed the bottom PR merged, GitHub rebased the upper PR and invalidated its approval, and the upper PR was never queued.",
+   "url": "https://github.com/github/gh-stack/discussions/172"
+  }
+ ],
+ "question_id": "Q21"
+}

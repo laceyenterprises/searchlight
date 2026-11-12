@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "0821b75380c559d1",
+ "url": "https://fckgit.com/posts/merge-queue-throughput-benchmarking-for-software-factories",
+ "verdicts": {
+  "A 30-minute CI suite on a serial queue caps output at around 48 PRs a day.": 1,
+  "Bursty agent PR arrivals push queue utilization toward the steep part of the queueing curve, where small load increases produce disproportionate increases in wait time.": 1,
+  "Dependency-bot PRs clear the merge queue in about 0.4 minutes on average versus roughly 12 minutes for human PRs; Plaid measured queue overhead at about 40 seconds per merge before CI.": 1
+ }
+}

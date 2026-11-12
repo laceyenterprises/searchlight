@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "7fc3b3944a0381d8",
+ "url": "https://www.letta.com/blog/agent-memory/",
+ "verdicts": {
+  "For context eviction, Letta guidance is to evict only a portion (e.g., 70%) of messages when the context window is full, and evicted messages are recursively summarized together with existing summaries so older messages have progressively less influence.": 1,
+  "Letta memory blocks are in-context units, each with a label, a description, a value (the tokens placed in context) and a character limit, and they are editable via APIs and pinned to the agent's context window.": 1,
+  "Letta memory blocks can be rewritten by the agent itself via tools or by other agents specialized in memory management, such as sleep-time agents.": 1,
+  "Letta's memory blocks have a label, description, value and character limit, which bounds the context window space allocated to each block of in-context memory.": 1,
+  "Letta's memory components are the message buffer (a single perpetual thread per agent), core memory (in-context blocks), recall memory (searchable full conversation history saved automatically to disk) and archival memory (explicitly stored, indexed knowledge in external databases such as vector or graph databases).": 1
+ }
+}

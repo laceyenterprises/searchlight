@@ -1,0 +1,325 @@
+{
+ "digest": "8a44fb38ce42abf4",
+ "values": {
+  "Q10-k1": {
+   "position": 57,
+   "reason": "Requirements-first versus design-first modes and separate bugfix specs are specific workflow variants the reader could adopt, though the content partly overlaps k13.",
+   "score": 2
+  },
+  "Q10-k10": {
+   "position": 52,
+   "reason": "This evidence-quality caveat matters for judging the claims but does not by itself change an architecture decision.",
+   "score": 1
+  },
+  "Q10-k100": {
+   "position": 36,
+   "reason": "Measured trade-off showing specs improve traceability (81% vs 0%) but add 78% review time informs the cost and design of spec-bound review.",
+   "score": 3
+  },
+  "Q10-k101": {
+   "position": 46,
+   "reason": "A concrete seven-element spec template (non-goals, decisions made, open questions, and others) is directly usable in build-pack specs.",
+   "score": 2
+  },
+  "Q10-k102": {
+   "position": 58,
+   "reason": "Keeping specs reviewable in one sitting, grounded in the lost-in-the-middle result, is a mildly useful constraint on spec length for prompt injection.",
+   "score": 1
+  },
+  "Q10-k103": {
+   "position": 42,
+   "reason": "Clear separation of the spec (what plus acceptance criteria) from the plan (architecture and interfaces) is a useful structural detail.",
+   "score": 2
+  },
+  "Q10-k104": {
+   "position": 37,
+   "reason": "Concrete timings showing review dominates cost because of large single-push output support smaller PR slicing.",
+   "score": 2
+  },
+  "Q10-k106": {
+   "position": 61,
+   "reason": "A measured result showing spec staging roughly doubles a weaker model's pass rate but barely helps a strong one, which could change how the reader routes spec overhead by worker model tier.",
+   "score": 3
+  },
+  "Q10-k107": {
+   "position": 22,
+   "reason": "Measured comparison showing reason-first (95%) roughly matches spec-first (92%) on simple tasks suggests full spec ceremony is unnecessary for small tickets.",
+   "score": 3
+  },
+  "Q10-k108": {
+   "position": 8,
+   "reason": "Notes that the evidence is mostly anecdotal, which corroborates other findings and is minor.",
+   "score": 1
+  },
+  "Q10-k109": {
+   "position": 48,
+   "reason": "A large-sample measured result showing review time up 91% under high AI adoption supports investing in automated review capacity.",
+   "score": 3
+  },
+  "Q10-k11": {
+   "position": 21,
+   "reason": "Practitioner reports of higher planning and review costs and selective use mainly for new features inform when to route work through build packs.",
+   "score": 2
+  },
+  "Q10-k110": {
+   "position": 18,
+   "reason": "Uncontrolled self-reported greenfield productivity estimate that is close to marketing.",
+   "score": 0
+  },
+  "Q10-k111": {
+   "position": 3,
+   "reason": "Workshop anecdote with token-limit and scalability doubts is a minor qualitative signal.",
+   "score": 1
+  },
+  "Q10-k12": {
+   "position": 5,
+   "reason": "Dependency-wave execution of tasks is a specific design detail paralleling the reader's DAG dispatch.",
+   "score": 2
+  },
+  "Q10-k13": {
+   "position": 12,
+   "reason": "The 'up to 50%' error reduction is a secondhand aggregate claim without specifics, so it is weak evidence.",
+   "score": 1
+  },
+  "Q10-k16": {
+   "position": 56,
+   "reason": "A concrete failure mode, one small bug ballooning into 4 stories and 16 criteria, that argues for size-tiered or bugfix-lite spec paths in the reader's build packs.",
+   "score": 2
+  },
+  "Q10-k19": {
+   "position": 19,
+   "reason": "Version-controlled staged artifacts with approval gates corroborate a standard pattern the reader already follows.",
+   "score": 1
+  },
+  "Q10-k20": {
+   "position": 59,
+   "reason": "Naming Kiro's steering files (product.md, structure.md, tech.md) is a minor detail the reader's scar-memory injection already covers conceptually.",
+   "score": 1
+  },
+  "Q10-k22": {
+   "position": 50,
+   "reason": "Describes Spec Kit's four-phase pipeline and what each phase captures, a useful but fairly well-known structural detail that maps onto the reader's existing spec->DAG->tickets flow.",
+   "score": 2
+  },
+  "Q10-k26": {
+   "position": 31,
+   "reason": "A generic definition of SDD.",
+   "score": 0
+  },
+  "Q10-k27": {
+   "position": 6,
+   "reason": "Details the constitution plus template scripts and checklists and notes there is no enforcement guarantee, which argues for deterministic gates over prompt-based rules.",
+   "score": 2
+  },
+  "Q10-k28": {
+   "position": 54,
+   "reason": "Install command and harness compatibility are trivia for a reader who already runs multi-harness dispatch.",
+   "score": 0
+  },
+  "Q10-k29": {
+   "position": 35,
+   "reason": "Vendor rationale with no evidence, so it is marketing.",
+   "score": 0
+  },
+  "Q10-k30": {
+   "position": 40,
+   "reason": "Branch-per-spec lifecycle is a specific detail on spec scope that is relevant to the spec lifecycle in build packs.",
+   "score": 2
+  },
+  "Q10-k31": {
+   "position": 44,
+   "reason": "Tessl's 1:1 spec-to-file mapping with DO-NOT-EDIT markers and @generate/@test tags is a specific design detail for spec-as-source.",
+   "score": 2
+  },
+  "Q10-k32": {
+   "position": 28,
+   "reason": "Non-deterministic regeneration from the same spec is a concrete failure mode that argues against spec-as-source for autonomous merge.",
+   "score": 2
+  },
+  "Q10-k33": {
+   "position": 23,
+   "reason": "Failure mode of spec-kit being overkill for small stories supports size-based routing, but is anecdotal.",
+   "score": 2
+  },
+  "Q10-k34": {
+   "position": 34,
+   "reason": "Concrete agent failure modes (duplicating existing classes from research notes, over-following the constitution) are directly relevant to worker prompt design and review checks.",
+   "score": 2
+  },
+  "Q10-k35": {
+   "position": 45,
+   "reason": "Caveats about limited evidence and the model-driven development comparison corroborate other findings.",
+   "score": 1
+  },
+  "Q10-k36": {
+   "position": 16,
+   "reason": "GitClear data shows problems with unstructured AI coding but does not measure an SDD benefit, so it only adds context.",
+   "score": 1
+  },
+  "Q10-k37": {
+   "position": 29,
+   "reason": "GA date and preview user count are trivia.",
+   "score": 0
+  },
+  "Q10-k38": {
+   "position": 60,
+   "reason": "Gives a concrete evaluation design (128 runs, 32 features, five real repos, Full vs Baseline artifacts) the reader could replicate to measure whether its own spec stage pays off.",
+   "score": 2
+  },
+  "Q10-k39": {
+   "position": 20,
+   "reason": "Measured result that spec artifacts alone add only +0.05 while grounding hooks add +0.15 (significant) would shift investment from spec documents to grounding and validation.",
+   "score": 3
+  },
+  "Q10-k4": {
+   "position": 49,
+   "reason": "Mostly duplicates k42, though the optional verify step adds a little.",
+   "score": 1
+  },
+  "Q10-k40": {
+   "position": 15,
+   "reason": "A measured result showing that context-grounding hooks (read-only repo probing before each phase, validation after) improve SWE-bench and preserve test compatibility directly informs worker-phase design.",
+   "score": 3
+  },
+  "Q10-k41": {
+   "position": 39,
+   "reason": "Kiro's three-document workflow is basic structural background.",
+   "score": 1
+  },
+  "Q10-k42": {
+   "position": 51,
+   "reason": "Requirement-number traceability and per-task run-and-review are concrete design details relevant to linking tickets and PRs back to spec requirements.",
+   "score": 2
+  },
+  "Q10-k43": {
+   "position": 62,
+   "reason": "Specific design details (EARS criteria, codebase-aware design step, dependency-sequenced tasks mapped to requirements, optional tests) directly inform the reader's spec and DAG ticket schema.",
+   "score": 2
+  },
+  "Q10-k44": {
+   "position": 14,
+   "reason": "Steering file location and the Vibe/Spec modes are minor product details.",
+   "score": 1
+  },
+  "Q10-k45": {
+   "position": 25,
+   "reason": "A basic description of the Spec Kit workflow that is generic background.",
+   "score": 1
+  },
+  "Q10-k46": {
+   "position": 9,
+   "reason": "Gives the contrasting loop structures of OpenSpec and BMAD, a modest design detail.",
+   "score": 1
+  },
+  "Q10-k47": {
+   "position": 47,
+   "reason": "A generic description of a constitution that overlaps with other findings.",
+   "score": 1
+  },
+  "Q10-k48": {
+   "position": 30,
+   "reason": "A clarify step that records answers back into the spec is a specific design detail worth adopting before dispatch.",
+   "score": 2
+  },
+  "Q10-k49": {
+   "position": 0,
+   "reason": "Concrete task-granularity rule (small, dependency-linked, with completion check tied to an acceptance criterion) maps directly onto the reader's spec->DAG->tickets design.",
+   "score": 2
+  },
+  "Q10-k50": {
+   "position": 55,
+   "reason": "This is a generic motivation story listing well-known failure types, with no measured or specific design content.",
+   "score": 1
+  },
+  "Q10-k51": {
+   "position": 63,
+   "reason": "Names a specific failure mode, spec drift when verification against the spec is skipped, which argues for binding adversarial review and smoke tests to spec acceptance criteria.",
+   "score": 2
+  },
+  "Q10-k52": {
+   "position": 1,
+   "reason": "Pricing and star counts are market trivia that do not affect the reader's architecture.",
+   "score": 0
+  },
+  "Q10-k53": {
+   "position": 17,
+   "reason": "A vendor claim about drift within hours, with self-interest and no measurement.",
+   "score": 1
+  },
+  "Q10-k54": {
+   "position": 11,
+   "reason": "Specs with implementation detail decay and spec-code checks happen only at completion, a failure mode that could justify continuous drift checks in the reader's pipeline.",
+   "score": 3
+  },
+  "Q10-k55": {
+   "position": 4,
+   "reason": "Suggests individual vs team benefits come from different mechanisms, but it is a soft interpretation.",
+   "score": 1
+  },
+  "Q10-k56": {
+   "position": 33,
+   "reason": "Only a disclaimer about one source's nature, with no design value.",
+   "score": 0
+  },
+  "Q10-k57": {
+   "position": 38,
+   "reason": "Notes that spec maintenance strategy is often vague, which mostly repeats the taxonomy.",
+   "score": 1
+  },
+  "Q10-k58": {
+   "position": 26,
+   "reason": "Distinguishing behavior specs from memory-bank context documents is a useful design separation, given the reader's scar-memory injection.",
+   "score": 2
+  },
+  "Q10-k59": {
+   "position": 32,
+   "reason": "Brownfield introduction difficulty is a relevant caution but is anecdotal.",
+   "score": 1
+  },
+  "Q10-k60": {
+   "position": 27,
+   "reason": "Constitution-first ordering and per-phase human approval are mostly redundant with other findings.",
+   "score": 1
+  },
+  "Q10-k61": {
+   "position": 43,
+   "reason": "Lists the command set including analyze, checklist and converge consistency checks, which is a minor detail.",
+   "score": 1
+  },
+  "Q10-k7": {
+   "position": 10,
+   "reason": "The spec-first / spec-anchored / spec-as-source taxonomy is a concrete framing that bears on whether build-pack specs should persist after merge.",
+   "score": 2
+  },
+  "Q10-k8": {
+   "position": 53,
+   "reason": "The study's methodology and corpus size are background context, not an actionable finding.",
+   "score": 1
+  },
+  "Q10-k93": {
+   "position": 24,
+   "reason": "Measured pilot result that specs did not raise reviewers' defect recall directly bears on the value of feeding specs to the adversarial review stage.",
+   "score": 3
+  },
+  "Q10-k94": {
+   "position": 7,
+   "reason": "Lack of a shared spec definition is useful context but does not change the design.",
+   "score": 1
+  },
+  "Q10-k97": {
+   "position": 13,
+   "reason": "Sequential spec-number collisions under parallel authoring are a concrete failure mode relevant to a parallel agent fleet.",
+   "score": 2
+  },
+  "Q10-k98": {
+   "position": 41,
+   "reason": "OpenSpec's current-specs plus delta-changes folders with merge-on-archive is a specific brownfield-friendly design that would suit a living spec ledger.",
+   "score": 2
+  },
+  "Q10-k99": {
+   "position": 2,
+   "reason": "A concrete failure mode (312 spec files in three hours for a trivial app) warns against persona-heavy planning overhead in build packs.",
+   "score": 2
+  }
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "GitHub Agent HQ Mission Control multiple coding agents",
+  "Copilot coding agent Actions runner firewall allowlist",
+  "GitHub Agent HQ governance controls third-party agents pull request review"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How do the GitHub Copilot coding agent and GitHub Agent HQ / Mission Control orchestrate multiple vendors' coding agents? Cover the execution environment (Actions runners), firewall, review and merge flow, and governance controls. Rank first primary sources: GitHub's own docs (docs.github.com), the GitHub Blog and changelog, GitHub Universe announcements and talks, and engineering posts, followed by credible technology reporting. Pull out mechanisms, such as how agent sessions run on GitHub Actions runners, how the agent firewall and network allowlist work, how pull requests, branch protections, required reviews and CI approval gate merges, and how admins govern agents and third-party vendors (Anthropic, OpenAI, Google, Cognition, xAI) through policies, audit logs, and access controls. Also pull out names, dates, limits, and known failure modes.",
+ "question_id": "Q05",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

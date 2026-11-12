@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "ce9c3d38c3eb9eac",
+ "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026",
+ "verdicts": {
+  "A checkpointer (e.g. LangGraph's PostgresSaver, DynamoDBSaver, Redis checkpointer) is not durable execution: the developer still owns retry, resume and side-effect deduplication, whereas durable execution makes the runtime own them.": 1,
+  "Andreessen Horowitz led a $300M Series D into Temporal on the AI agent thesis; AWS Durable Functions, Cloudflare Workflows GA and the Vercel Workflow DevKit launched around the same time.": 1,
+  "Durable execution journals every workflow step (LLM call, tool invocation, external API request) before it runs and records the result when it returns; after a crash the next worker replays the journal to reconstruct state up to the last completed step.": 1,
+  "Four guarantees named for durable execution: persistence of state across crashes, exactly-once execution of side-effects, suspend/resume across arbitrary delays without holding a running thread, and deterministic replay.": 1,
+  "In Temporal, workflow.wait_condition is the durable suspend point for approvals; the workflow consumes no compute while waiting and resumes when the approve signal arrives.": 1,
+  "Inngest's step.waitForEvent suspends a function awaiting an approval event (e.g. 'refund/approved' with a 3-day timeout, matched on ticketId) before high-impact actions like refunds.": 1,
+  "Replit's Agent 3, OpenAI's Codex web agent, and long-running automation at Cursor are stated to run on Temporal.": 1,
+  "The recommended architecture keeps the ReAct-style outer loop deterministic in workflow code and pushes every LLM call, tool execution and external HTTP request into an Activity/Step whose result is recorded on first run and looked up on replay.": 1,
+  "Workflow code cannot read the system clock directly (use workflow.now()), cannot generate random numbers directly (use workflow.uuid4()), and cannot rely on changing global state; anything non-deterministic belongs in an Activity.": 1
+ }
+}

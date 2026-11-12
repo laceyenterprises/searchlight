@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "0be686e13bc72f13",
+ "claims": [
+  {
+   "text": "Inngest's `step.run()` makes each call independently executed and retried; if an LLM call in step 3 of a document pipeline times out, only that step is retried without re-running validation or the first LLM call.",
+   "url": "https://www.inngest.com/docs/patterns/durable/reliably-run-critical-workflows?ref=patterns"
+  },
+  {
+   "text": "In Inngest, data returned from each step is persisted and automatically available to subsequent steps.",
+   "url": "https://www.inngest.com/docs/patterns/durable/reliably-run-critical-workflows?ref=patterns"
+  },
+  {
+   "text": "Inngest's pattern guidance is to break long-running jobs into discrete steps that each run independently, throw their own errors, retry on their own, and pass data to the next step, so a failure in an evaluation LLM call does not force re-running and re-paying for the first LLM call.",
+   "url": "https://www.inngest.com/docs/patterns/durable/reliably-run-critical-workflows?ref=patterns"
+  },
+  {
+   "text": "Inngest docs say Step Functions require defining workflows in a JSON DSL, and Temporal requires running its own server infrastructure and learning a framework-specific programming model.",
+   "url": "https://www.inngest.com/docs/patterns/durable/reliably-run-critical-workflows?ref=patterns"
+  },
+  {
+   "text": "DBOS.recv, called inside a workflow, durably waits for a message with a timeout (e.g. `DBOS.recv(timeout_seconds=TIMEOUT)`), allowing an agent to wait hours or days for human input.",
+   "url": "https://docs.dbos.dev/ai/hitl"
+  },
+  {
+   "text": "In DBOS, the workflow's progress is checkpointed and both the deadline and the notification are stored in the database, so a waiting agent recovers and keeps waiting after server restarts or code upgrades until the notification arrives or the deadline is reached.",
+   "url": "https://docs.dbos.dev/ai/hitl"
+  },
+  {
+   "text": "DBOS.send persists messages to the database, so if `send` completes successfully the destination workflow is guaranteed to receive it; it can be called from an HTTP endpoint to deliver human responses to an agent.",
+   "url": "https://docs.dbos.dev/ai/hitl"
+  },
+  {
+   "text": "DBOS agents can publish status with DBOS.set_event (e.g. 'working', 'pending_approval', 'denied') and external code can read it with DBOS.get_event, letting a frontend show what an agent is doing.",
+   "url": "https://docs.dbos.dev/ai/hitl"
+  },
+  {
+   "text": "DBOS's workflow introspection API (list_workflows with status PENDING) combined with get_event can be used to build an 'inbox' of all agents currently waiting for human input.",
+   "url": "https://docs.dbos.dev/ai/hitl"
+  },
+  {
+   "text": "DBOS provides an agent inbox example application demonstrating human-in-the-loop, where DBOS.recv durably waits for a configurable time and recovers automatically from transient failures and process restarts.",
+   "url": "https://docs.dbos.dev/python/examples/agent-inbox"
+  },
+  {
+   "text": "Inngest stores each completed step's result, and when work resumes after a retry or wait, functions resume from the last completed step instead of from the start.",
+   "url": "https://www.inngest.com/docs/durable-execution"
+  },
+  {
+   "text": "Inngest describes durable agents as workflows whose next step is chosen by a model, with each model call and tool call running as a step.",
+   "url": "https://www.inngest.com/docs/durable-execution"
+  },
+  {
+   "text": "Inngest lets users set concurrency and other flow controls to protect services a workflow calls, and says runs can wait without holding compute.",
+   "url": "https://www.inngest.com/docs/durable-execution"
+  },
+  {
+   "text": "Inngest offers 'Durable Endpoints', regular HTTP endpoints that return results as HTTP responses even after temporary errors and retries.",
+   "url": "https://www.inngest.com/docs/durable-execution"
+  },
+  {
+   "text": "On Inngest, an agent is a loop of model calls and tool calls where each call runs in its own `step.run()`; a successful step's result is saved as a checkpoint, and completed steps return saved results instead of re-running when a step fails and is retried.",
+   "url": "https://www.inngest.com/docs/durable-execution/durable-agents"
+  },
+  {
+   "text": "Inngest's `step.waitForEvent()` pauses an agent until a matching event arrives or a timeout passes, used for actions needing human approval.",
+   "url": "https://www.inngest.com/docs/durable-execution/durable-agents"
+  },
+  {
+   "text": "Inngest uses step-level memoization for agent durability: every completed step (LLM call, tool invocation, side effect) has its result persisted, and on replay a stored result is injected rather than the call being re-made.",
+   "url": "https://www.inngest.com/docs/learn/durable-agents"
+  },
+  {
+   "text": "Every Inngest `step.run()` gets automatic retries with configurable policies for number of attempts, backoff strategy, and timeout.",
+   "url": "https://www.inngest.com/docs/learn/durable-agents"
+  },
+  {
+   "text": "Temporal's LangGraph Plugin (blog post dated Jul 16, 2026) runs a LangGraph graph as a Temporal Workflow, with each node able to execute as a Temporal Activity and execution checkpointed at every node.",
+   "url": "https://temporal.io/blog/temporal-langgraph-plugin-durable-execution"
+  },
+  {
+   "text": "With Temporal's LangGraph plugin, a failed step such as a model call timeout or tool error is retried per policy and the graph resumes from durable state on the same or a different worker.",
+   "url": "https://temporal.io/blog/temporal-langgraph-plugin-durable-execution"
+  },
+  {
+   "text": "Temporal supports human-in-the-loop agents through Signals & Updates and Queries.",
+   "url": "https://temporal.io/blog/durable-execution-meets-ai-why-temporal-is-the-perfect-foundation-for-ai"
+  },
+  {
+   "text": "In Temporal, Activities automatically retry LLM requests that fail due to network glitches or rate limiting, so developers don't write the retry logic themselves.",
+   "url": "https://temporal.io/blog/durable-execution-meets-ai-why-temporal-is-the-perfect-foundation-for-ai"
+  },
+  {
+   "text": "Temporal records a full Event History when executing a Workflow, which underpins its durability.",
+   "url": "https://temporal.io/blog/durable-execution-meets-ai-why-temporal-is-the-perfect-foundation-for-ai"
+  },
+  {
+   "text": "Restate automatically retries transient errors such as rate limits and network failures, persists steps (LLM calls, tools) to recover progress after failures, and suspends idle long-running agents to save costs.",
+   "url": "https://docs.restate.dev/use-cases/ai-agents"
+  },
+  {
+   "text": "Restate documents a Human Approval pattern: durable waiting for human decisions with crash-proof timeouts.",
+   "url": "https://docs.restate.dev/use-cases/ai-agents"
+  }
+ ],
+ "question_id": "Q11"
+}

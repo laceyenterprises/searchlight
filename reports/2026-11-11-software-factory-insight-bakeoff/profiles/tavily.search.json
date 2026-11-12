@@ -1,0 +1,94 @@
+{
+ "arm": "tavily",
+ "async": null,
+ "cost_model": "advanced search 2 credits + advanced extract 2 credits per 5 successful URLs (3 URLs) = up to 4 credits; $0.005-$0.008/credit by plan (PAYG $0.008) = $0.020-$0.032. usage.credits is authoritative.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "query <1500 chars, splitting, depth choice, chunks, raw content vs extract, auto_parameters pitfall",
+   "url": "https://docs.tavily.com/documentation/best-practices/best-practices-search"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "full param table, depth credit costs",
+   "url": "https://docs.tavily.com/documentation/api-reference/endpoint/search"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "extract params, credit cost",
+   "url": "https://docs.tavily.com/documentation/api-reference/endpoint/extract"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "credit costs, USD per credit by plan",
+   "url": "https://docs.tavily.com/documentation/api-credits"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "1000 RPM paid; shared per org",
+   "url": "https://docs.tavily.com/documentation/rate-limits"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "Jul chunked basic; Aug include_domains_mode/language; Oct max_age_hours; Nov per-org limits",
+   "url": "https://docs.tavily.com/changelog"
+  }
+ ],
+ "endpoint": "POST https://api.tavily.com/search",
+ "est_cost_usd_per_question": 0.032,
+ "freshness_overlay": {
+  "start_date": "{{AFTER_DATE}}"
+ },
+ "headers": {
+  "Authorization": "Bearer <TAVILY_API_KEY>"
+ },
+ "operation": "search",
+ "pace_seconds": 0.1,
+ "params": {
+  "auto_parameters": false,
+  "chunks_per_source": 3,
+  "include_answer": false,
+  "include_raw_content": false,
+  "include_usage": true,
+  "max_results": 10,
+  "query": "{{QUERY}}",
+  "search_depth": "advanced",
+  "session_id": "{{SESSION_ID}}",
+  "topic": "general"
+ },
+ "post_steps": [
+  {
+   "endpoint": "POST https://api.tavily.com/extract",
+   "op": "fetch",
+   "params": {
+    "extract_depth": "advanced",
+    "format": "markdown",
+    "include_usage": true,
+    "urls": "{{TOP_K_URLS}}"
+   },
+   "top_k": 3,
+   "why": "Best practices: 'For thorough extraction, search first, then pass the URLs to the Extract API.'"
+  }
+ ],
+ "query_transform": "verbatim",
+ "query_transform_notes": "Under the 1,500-char limit. Tavily: keep queries short and send separate searches for multi-topic questions; 'advanced' is for 'multi-faceted questions, or long, detailed queries', so the single question is kept. Variant TAV-S-SPLIT3 (3 focused sub-queries, merged to top 10) pre-registered.",
+ "rationale": {
+  "auto_parameters": "Off: explicit params are frozen; auto may silently upgrade cost.",
+  "chunks_per_source": "Max (3): more query-relevant text per source for the extractor.",
+  "include_answer": "Off for the search arm: the fixed extractor reads content, not a vendor answer.",
+  "include_raw_content": "Off: docs prescribe Extract for thorough reading; post-step fetches top 3.",
+  "search_depth": "'advanced': highest relevance, for niche topics and multi-faceted questions."
+ },
+ "top_k": 10,
+ "unverified": true,
+ "unverified_fields": {
+  "max_results": {
+   "note": "API reference says default 10 (0-20); the best-practices page says default 5. We pin 10 explicitly, so the conflict does not matter.",
+   "unverified": true
+  },
+  "session_id": {
+   "note": "Named in Search Best Practices (session tracking) but not shown in the /search API reference table read on 2026-11-11. Drop it if the API rejects it.",
+   "unverified": true
+  }
+ }
+}

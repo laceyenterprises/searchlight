@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "065fd491d1057a72",
+ "url": "https://github.com/leanprover-community/bors-ng",
+ "verdicts": {
+  "Bors batching costs O(E log N) CI runs, where E is the number of failing PRs, versus O(N) for the original one-PR-at-a-time approach.": 1,
+  "Bors bisects a failed batch by splitting it into two batches and pushing them back to the queue.": 1,
+  "In bors-ng, bundled/stacked PRs each need their own r+, merge together or not at all, and are never separated by bisection.": 1
+ }
+}

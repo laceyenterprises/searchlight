@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "6f58f4e02d5d08d6",
+ "url": "https://mergify.com/blog/dynamic-merge-queue-batch-size",
+ "verdicts": {
+  "Before Mergify's dynamic batch-size change, 100% of its speculative checks were size 1; the first size-2 batch in its history fired on June 16 at 07:01 UTC, during a European morning with agent PRs stacking up.": 1,
+  "Mergify made batch_size accept a {min, max} object so the queue stays at min when parallel-check slots are plentiful and grows batches only when the queue backs up.": 1,
+  "Mergify reports that its own merge queue, which tested every PR alone, choked on a morning when a burst of agent PRs landed faster than CI could clear them.": 1,
+  "Mergify runs parallel speculative checks and pays for the reliability and velocity in cost, specifically five bare-metal CI slots.": 1,
+  "Mergify states that its dynamic batch sizing did not raise throughput; the post says it will not claim a throughput increase.": 1
+ }
+}

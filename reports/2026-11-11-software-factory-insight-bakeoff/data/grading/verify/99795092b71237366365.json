@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "e192d8cccad66770",
+ "url": "https://www.langchain.com/blog/paid-media-agent",
+ "verdicts": {
+  "A LangChain paid-media agent repeatedly checked whether its PDF rendered, consuming excessive tokens and trying to rebuild it; the fix restricted it to read-context, compute and render tools and treated successful rendering as completion.": 1,
+  "A LangChain paid-media failure: two subagents shared an output location and completion flag so one platform's report suppressed another's; the fix separated their files and completion state.": 1,
+  "In LangChain's paid-media agent, only designated Slack user IDs can edit or approve campaign changes; approval cards show current and proposed values, and code executes approved changes and verifies success on the advertising platform.": 1,
+  "LangChain reports paid media rose from 0% to 20% of marketing pipeline in six months, cost per qualified lead fell 30% from June to August while monthly spend rose about 60%, and in-house reporting saved about $5,000/month; these are team-reported before/after outcomes, not a controlled attribution study.": 1,
+  "LangChain's paid-media agent is built on general-purpose Deep Agents and LangSmith infrastructure with bespoke advertising tools and playbooks; scheduled reporting delegates to platform-specific subagents, each request gets an isolated sandbox/checkpoint, and calculations and hard safeguards are code rather than model judgment.": 1,
+  "LangChain's paid-media agent runs a recurring Monday Slack workflow that joins advertising data to warehouse leads/pipeline and produces platform-specific reports, and users can request analysis and campaign changes.": 1,
+  "Moving calculations into code and removing unnecessary model calls made an early LangChain reporting workflow about 40x cheaper and 13x faster (18 minutes to 85 seconds).": 1,
+  "When cross-platform data cannot be joined reliably, LangChain's paid-media agent reports source, date window and attribution model rather than filling gaps; Slack proved awkward for complex bulk edits, prompting a dedicated interface.": 1
+ }
+}

@@ -1,0 +1,30 @@
+{
+ "capture": "captured",
+ "digest": "1884a3854cc87e5e",
+ "url": "https://openai.com/index/introducing-codex/",
+ "verdicts": {
+  "AGENTS.md files placed in a repository are text files, akin to README.md, that tell Codex how to navigate the codebase, which commands to run for testing, and how to follow project practices.": 1,
+  "After finishing a task, Codex commits its changes in its environment and cites terminal logs and test outputs as verifiable evidence; users can then request revisions, open a GitHub pull request, or integrate changes locally.": 1,
+  "At launch, Codex lacked image inputs for frontend work and the ability to course-correct the agent mid-task.": 1,
+  "At launch, OpenAI stated that users must still manually review and validate all agent-generated code before integration; Codex reports uncertainty and test failures explicitly.": 1,
+  "At launch, internet access was disabled during task execution, limiting the agent to code provided via GitHub repositories and dependencies pre-installed by the user's setup script.": 1,
+  "Codex cloud was launched on May 16, 2025 as a research preview: a cloud-based software engineering agent that works on many tasks in parallel, powered by codex-1, a version of OpenAI o3 optimized for software engineering.": 1,
+  "Codex tasks typically take between 1 and 30 minutes depending on complexity, and users can monitor progress in real time.": 1,
+  "Each Codex cloud task runs independently in its own isolated cloud sandbox environment preloaded with the user's repository.": 1,
+  "Each Codex task runs in its own isolated cloud sandbox environment preloaded with the user's repository.": 1,
+  "In its sandbox, Codex can read and edit files and run commands including test harnesses, linters, and type checkers.": 1,
+  "On June 3, 2025, OpenAI made Codex available to ChatGPT Plus users and added the option to give Codex internet access during task execution.": 1,
+  "On June 3, 2025, OpenAI updated Codex to let users give it internet access during task execution, and made Codex available to ChatGPT Plus users.": 1,
+  "On OpenAI's internal SWE task benchmark, codex-1 scored 75%, versus 70% for o3-high, 67% for o4-mini-high, and 11% for o1-high.": 0,
+  "OpenAI launched Codex on May 16, 2025 as a research preview: a cloud-based software engineering agent that works on many tasks in parallel, powered by codex-1.": 1,
+  "OpenAI recommends assigning well-scoped tasks to multiple agents simultaneously, based on learnings from early testers.": 1,
+  "The SWE-Bench Verified evaluation of codex-1 excluded 23 samples not runnable on OpenAI's infrastructure and used a 192k-token maximum context length and medium reasoning effort.": 1,
+  "The codex-1 system message requires the agent to run all programmatic checks specified in AGENTS.md after its code changes, even for simple changes such as documentation, and to leave the git worktree clean with changes committed (no new branches, no amending existing commits).": 1,
+  "The codex-1 system message states that an AGENTS.md file's scope is the directory tree rooted at its folder, more deeply nested AGENTS.md files take precedence on conflicts, and direct system/developer/user prompt instructions take precedence over AGENTS.md.": 1,
+  "When a task completes, Codex commits its changes in its environment and cites terminal logs and test outputs so users can trace each step; users can then review, request revisions, open a GitHub pull request, or integrate changes locally.": 1,
+  "Within a Codex sandbox, the agent can read and edit files and run commands including test harnesses, linters, and type checkers.": 1,
+  "codex-1 is a version of OpenAI o3 optimized for software engineering, trained with reinforcement learning on real-world coding tasks to mirror human style and PR preferences, follow instructions precisely, and iteratively run tests until they pass.": 1,
+  "codex-1 was evaluated on SWE-Bench Verified at a maximum context length of 192k tokens and medium reasoning effort, excluding 23 samples that were not runnable on OpenAI's internal infrastructure.": 1,
+  "codex-1 was trained with reinforcement learning on real-world coding tasks across a variety of environments to mirror human style and PR preferences, follow instructions precisely, and iteratively run tests until it gets a passing result.": 1
+ }
+}

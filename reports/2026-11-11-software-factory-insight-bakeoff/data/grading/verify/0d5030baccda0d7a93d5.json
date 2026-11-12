@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "e1b3d26e50fc3b54",
+ "url": "https://www.langchain.com/blog/what-is-eval-driven-development",
+ "verdicts": {
+  "LangChain describes agents as non-deterministic in three ways: outputs vary, more than one answer can be correct, and the agent chooses its own steps (it may call an unneeded tool or skip a needed one and still reach a correct answer).": 1,
+  "LangChain notes that a change fixing one case may break another, so changes should be judged by comparing experiments, and that failures found in CI and production should be turned into new dataset examples.": 1,
+  "LangChain recommends that an EDD spec state when the behavior should happen, what the agent should do, what it should not do, and which existing behaviors must keep working, and be definitive enough to score pass or fail.": 1,
+  "LangChain's EDD process has three steps: define what good looks like, write the eval before building, then make the change and compare experiments.": 1
+ }
+}

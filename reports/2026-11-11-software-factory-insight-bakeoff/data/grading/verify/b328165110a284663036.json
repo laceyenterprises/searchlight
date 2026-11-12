@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "482def8145fa683d",
+ "url": "https://precisionaiacademy.com/insights/agent-evals-how-teams-test-2026",
+ "verdicts": {
+  "An audit of the hard subset of SWE-bench Verified found at least 59.4% of those problems had flawed test cases, showing eval harnesses themselves can be wrong.": 1,
+  "LLM judges show length bias, position bias and self-preference, and are non-deterministic; the source advises using them offline on a sample, calibrated against human labels, and never as the sole release gate.": 1
+ }
+}

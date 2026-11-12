@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "ebaad04485973532",
+ "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes",
+ "verdicts": {
+  "MCP does not mandate distributed tracing; the MuleSoft recipe propagates W3C Trace Context (traceparent) through the MCP layer as a convention so slow agent calls can be localized across hops.": 1,
+  "Multi-agent A2A orchestration needs call depth limits because circular agent calls cause infinite loops, and sequential calls compound latency.": 1,
+  "Of 17 MuleSoft MCP/A2A recipes, 14 are moderately hard or harder, so about 82% of implementation work lies above basic tutorial level (server setup and tool exposure).": 1,
+  "Retried A2A tasks must be idempotent; the author cites an agent triggering duplicate Salesforce record updates on retry, and recommends retry-then-fallback with a secondary agent.": 1,
+  "The MCP protocol does not natively define authentication per the MuleSoft cookbook author, who has seen teams deploy MCP servers to CloudHub with no auth because the getting-started tutorial omitted it.": 1,
+  "The author wants community patterns for MCP behind API gateways with rate limiting per agent, as these are not yet documented.": 1,
+  "The cookbook's oauth-security recipe adds token introspection at the MCP entry point, validating tokens before any tool executes, with scope-to-tool mapping and cached validation results to manage latency overhead.": 1
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "7d21c65d893cb1c8",
+ "url": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue",
+ "verdicts": {
+  "GitHub merge queue has a build concurrency setting of 1 to 100 that throttles concurrent merge_group CI builds, and merge limits of 1 to 100 PRs per merge.": 1,
+  "In GitHub merge queue, jumping a PR to the top of the queue forces a full rebuild of all in-progress PRs, and heavy use can slow merge velocity.": 1
+ }
+}

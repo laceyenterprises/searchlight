@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "279214787a785cca",
+ "url": "https://factory.com/news/frontier-harness?ref=thenewway.ai",
+ "verdicts": {
+  "Droid 1.0 sessions share a daemon process, each session adding about 20 MB, whereas earlier each session was a separate process using about 350 MB (five parallel subagents plus the main session exceeded 2 GB).": 1,
+  "Droid 1.0 uses programmatic tool calling: the model writes JavaScript that runs in a sandbox with no file, network or system access of its own and invokes tools, so a Script can make hundreds of tool calls in one model request.": 1,
+  "The model can move long-running work such as a subagent or command to the background and sleep, and Droid wakes it with a reminder when the work finishes.": 1
+ }
+}

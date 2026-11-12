@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 4.0,
+  "usd": 0.032
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:17.364140Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1673,
+   "page_chars_delivered": 64965,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Concretely: the rules in your system prompt, the playbook documents your agent consults before known task types, and the skills it can load on demand. \"Building procedural memory\" means capturing candidate procedures from successful episodes, validating them (replay, repetition, or human review), a…",
+   "title": "AI Agent Memory Design Guide - Working, Long-Term, and Procedural Memory with Forgetting and Staleness Management | hidekazu-konishi.com",
+   "url": "https://hidekazu-konishi.com/entry/ai_agent_memory_design_guide.html"
+  },
+  {
+   "chars_delivered": 1991,
+   "page_chars_delivered": 22269,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Three iterations is the sweet spot. We saw diminishing returns every time we pushed past that.\n\nWhen to use it: any agent that keeps making the same kind of mistake. Reflective memory turns a recurring problem into a one-time problem.\n\n### 3. Auto-Prompt Optimization: The Agent Rewrites Its Own Pro…",
+   "title": "Medium",
+   "url": "https://medium.com/@kumaran.isk/your-ai-agent-makes-the-same-mistake-twice-a-self-evolving-agent-doesnt-a77349e07f7d"
+  },
+  {
+   "chars_delivered": 1740,
+   "page_chars_delivered": 38333,
+   "post_step": "fetched",
+   "published": null,
+   "text": "| Observed failure | First surface to investigate | Typical change | Main regression risk |\n ---  --- |\n| Missing, stale, or organization-specific knowledge | Retrieval, memory, or runtime context | Update a source, metadata filter, freshness rule, memory record, or retrieved example | Wrong or out…",
+   "title": "Continual Learning for AI Agents | Complete Guide | Arize AI",
+   "url": "https://arize.com/resources/continual-learning"
+  },
+  {
+   "chars_delivered": 2353,
+   "published": null,
+   "text": "### I-A Scope and Positioning\n\nTo preempt a natural question, “Is this just disciplined prompt engineering?”, we clarify what the framework is and is not.\n\nThis framework is:\n\nA persistent organizational memory mechanism for coding-agent behavior, where memory content is derived exclusively from ac…",
+   "title": "Self-Improving AI Coding Agents Through Accumulated Behavioral Rules: A Closed-Loop Framework",
+   "url": "https://arxiv.org/html/2607.13091v1"
+  },
+  {
+   "chars_delivered": 2127,
+   "published": null,
+   "text": "Table of Contents\n\n> You ship an agent, it works, and then it stops getting better. Every fix is you, by hand, editing a prompt again. The promise of a self-improving agent is that the loop closes itself: the system watches its own failures and rewrites its own prompts, memory, or weights, so the n…",
+   "title": "Self-Improving AI Agent Frameworks: Mechanism + License",
+   "url": "https://futureagi.com/blog/self-improving-ai-agents-open-source-frameworks"
+  },
+  {
+   "chars_delivered": 2118,
+   "published": null,
+   "text": "This can help in recognizing, say, “Oh, I’ve seen a failing test like this before and how it was fixed.” However, such approaches add complexity and may not be needed if you diligently maintain simpler artifacts (files and logs) that the agent can directly read.\n\nTip: Whatever persistence you use,…",
+   "title": "Self-Improving Coding Agents | AddyOsmani.com",
+   "url": "https://addyosmani.com/blog/self-improving-agents"
+  },
+  {
+   "chars_delivered": 2130,
+   "published": null,
+   "text": "### Is self-reflection the same as self-improvement?\n\nNo. Reflection can help an agent notice an error and repair the current run without leaving a persistent change. If reflection creates a saved lesson in memory, a skill, a prompt, or another component future runs inherit, it becomes a persistent…",
+   "title": "Self-improving agents: how to prove each update | Arize AI",
+   "url": "https://arize.com/resources/self-improving-agents"
+  },
+  {
+   "chars_delivered": 2397,
+   "published": null,
+   "text": "getting stale? SELF-IMPROVEMENT TARGETS Allow the system to improve: - prompts - skills - playbooks - rules - tool adapters - automations - specialized harnesses - dashboards - workflows - task decomposition policy - control-plane objects - eval suites - memory structure - model routing - retry log…",
+   "title": "GitHub - fainir/most-capable-agent-system-prompt: Most Capable Agent System Prompt · GitHub",
+   "url": "https://github.com/fainir/most-capable-agent-system-prompt"
+  },
+  {
+   "chars_delivered": 1493,
+   "published": null,
+   "text": "Qizheng Zhang et al. · 2025\n\n   Treats context as a playbook that grows through small incremental edits rather than wholesale rewrites, and names context collapse, the failure where repeated rewriting erodes detail. It is the current reference design for improving an agent through context alone.…",
+   "title": "Self-Improving Agents | DAIR.AI Academy | DAIR.AI Academy",
+   "url": "https://academy.dair.ai/papers/collections/self-improving-agents"
+  },
+  {
+   "chars_delivered": 2200,
+   "published": null,
+   "text": "### 1. Separate your layers\n\nAsk three questions:\n\n What do we already know and want available from the start? Instructions and rules.\n What procedures should the agent reuse? Skills and specialist roles.\n What does the work keep teaching us that isn’t encoded anywhere yet? Memory.\n\n### 2. Add a re…",
+   "title": "Agentic memory: what agents should and shouldn't remember | Chris Reddington",
+   "url": "https://chrisreddington.com/blog/agentic-memory-what-agents-should-remember"
+  }
+ ],
+ "latency_ms": 3017.5,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q23",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How do agent systems capture and reuse lessons from past failures: incident memory, playbooks, learned rules injected into prompts, and self-improving agents? What evidence is there that this reduces repeat failures, and what are the risks (prompt bloat, stale rules)?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q23-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 23427,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:24:14.346637Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

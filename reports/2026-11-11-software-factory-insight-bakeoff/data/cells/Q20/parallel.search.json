@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:57.068600Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 998,
+   "page_chars_delivered": 16086,
+   "post_step": "fetched",
+   "published": "2026-05-28",
+   "text": "Perhaps the most obvious SRE area that could benefit from agentic AI is **investigation and mitigation** , sometimes referred to as root cause analysis (RCA), a cornerstone of the traditional SRE discipline.\n\n...\n\nWhat's key in this ecosystem of agents is to be consistently transparent about what t…",
+   "title": "How Google SRE is using agentic AI to improve operations | Google Cloud Blog",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "chars_delivered": 897,
+   "page_chars_delivered": 12499,
+   "post_step": "fetched",
+   "published": "2025-06-10",
+   "text": "**Today, we’re announcing the general availability of Bits Investigation, an autonomous AI teammate that’s always on call and built for the most complex environments.** Bits works completely autonomously, without requiring any initial prompting to begin its work. By the time you get to your laptop…",
+   "title": "Introducing Bits Investigation, your AI on-call teammate | Datadog",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre"
+  },
+  {
+   "chars_delivered": 935,
+   "page_chars_delivered": 5938,
+   "post_step": "fetched",
+   "published": "2026-05-13",
+   "text": "the same two things: context about the system and evidence that their\ndecisions worked. Cleric builds both from your environment.\n\n## Most agents do not check what happened next\n\nThey investigate an alert or incident, recommend or apply a fix, and\nstop. They also stop after a change—a specific rele…",
+   "title": "How Cleric Verifies Production Changes | Cleric",
+   "url": "https://cleric.ai/technology"
+  },
+  {
+   "chars_delivered": 946,
+   "published": null,
+   "text": "**Progressive Authorization:** AI agents are not granted full production access from day one. We release agents to lower levels of autonomy (human approved) and scale up based on the SRE Autonomy Levels described below.\n\nTo support the Safety Trifecta and safely progress through the Autonomy Levels…",
+   "title": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "chars_delivered": 973,
+   "published": "2026-01-12",
+   "text": "Today, Bits Investigation is already helping teams decrease time to resolution by up to 95%.\n\nBits Investigation is our new agent that automatically investigates incidents and monitor alerts by autonomously reasoning over complex telemetry data and producing audit-ready root cause analyses in minut…",
+   "title": "How we built an AI SRE agent that investigates like a team of engineers | Datadog",
+   "url": "https://www.datadoghq.com/blog/building-bits-ai-sre"
+  },
+  {
+   "chars_delivered": 910,
+   "published": "2026-04-07",
+   "text": "Published\n\nApr 7, 2026\n\nRead time\n\n16m\n\nBenjamin Barton\n\nWe shipped a feature that made perfect sense.\n\n...\n\nBut the overall quality of the agent had shifted, and we had no reliable way to detect it.\n\n[Bits Investigation](https://docs.datadoghq.com/bits_ai/bits_investigation) is Datadog’s autonomou…",
+   "title": "How we built a real-world evaluation platform for autonomous SRE agents at scale | Datadog",
+   "url": "https://www.datadoghq.com/blog/engineering/bits-ai-eval-platform"
+  },
+  {
+   "chars_delivered": 956,
+   "published": "2025-10-08",
+   "text": "## Find the signal in the noise\n\nSRE Agent fetches data on-demand or autonomously from observability and knowledge base tools to enrich memory, turning logs, metrics, and service topology into actionable insights. Responders get the context they need to start resolving the issue faster.\n\nPagerDuty…",
+   "title": "SRE Agent | PagerDuty",
+   "url": "https://pagerduty.com/platform/ai-agents/sre"
+  },
+  {
+   "chars_delivered": 961,
+   "published": "2026-03-05",
+   "text": "When we announced [Bits Investigation at DASH 2025](https://www.datadoghq.com/blog/bits-ai-sre/) , we introduced an autonomous SRE agent that investigates alerts the moment they trigger. [Bits Investigation](https://www.datadoghq.com/product/ai/bits-ai-sre/) reads the same telemetry data as your te…",
+   "title": "Meet the new Bits Investigation: Deeper reasoning, twice as fast | Datadog",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre-deeper-reasoning"
+  },
+  {
+   "chars_delivered": 834,
+   "published": null,
+   "text": "* [Help](https://docs.datadoghq.com/help/)\n\n# Bits Remediation\n\n\n...\n\nSupported actions include:\n\n* Sending Slack and Microsoft Teams messages\n* Creating incidents in Datadog and PagerDuty\n* Paging engineers using Datadog On-Call\n\n...\n\n* A user role with permission to run actions and resolve the Ku…",
+   "title": "Bits Remediation",
+   "url": "https://docs.datadoghq.com/bits_ai/bits_remediation/"
+  },
+  {
+   "chars_delivered": 912,
+   "published": null,
+   "text": "- Context Awareness: During long-running incidents, the agent needs to continuously adapt to war room discussions, shared notes, and uploaded artifacts.\n- Guardrails & Governance: Fine-grained controls are necessary to specify permissible autonomous actions versus operations requiring explicit huma…",
+   "title": "Lessons from PD Labs: From experimentation to a production-ready SRE Agent",
+   "url": "https://www.pagerduty.com/eng/lessons-from-pd-labs-from-experimentation-to-a-production-ready-sre-agent/"
+  }
+ ],
+ "latency_ms": 2079.1,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q20",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: What AI SRE / self-healing systems exist (for example Resolve.ai, Cleric, Traversal, PagerDuty and Datadog agents, Meta's or Google's internal remediation)? How do they detect, diagnose, remediate and verify, and what autonomy levels and safety controls do they use? Rank first primary sources: vendor engineering blogs, product docs, conference talks, papers, and Meta/Google engineering posts or SRE publications on automated remediation, plus credible reporting. Extract mechanisms (alert triage, root cause analysis, telemetry and causal graph use, runbook or code-fix execution, rollback, verification of recovery), named systems, dates, measured results (MTTR reductions, accuracy, auto-resolution rates), autonomy levels (suggest, approve, autonomous), safety controls (human approval, guardrails, permissions, blast radius limits), and documented failure modes.",
+   "search_queries": [
+    "AI SRE agents Resolve.ai Cleric Traversal autonomous incident remediation",
+    "PagerDuty SRE agent Datadog Bits AI SRE root cause remediation",
+    "Meta Google automated remediation self-healing production incidents AI agents safety"
+   ],
+   "session_id": "sl-parallel.search-Q20-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11760,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:54.989523Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

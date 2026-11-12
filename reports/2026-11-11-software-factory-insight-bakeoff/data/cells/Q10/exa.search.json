@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:12.038309Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2168,
+   "page_chars_delivered": 19282,
+   "post_step": "fetched",
+   "published": "2025-10-15T00:00:00.000Z",
+   "text": "## Kiro\n\nKiro is the simplest (or most lightweight) one of the three I tried. It seems to be mostly spec-first, all the examples I have found use it for a task, or a user story, with no mention of how to use the requirements document in a spec-anchored way over time, across multiple tasks.\n\nWorkflo…",
+   "title": "Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "chars_delivered": 3700,
+   "page_chars_delivered": 12045,
+   "post_step": "fetched",
+   "published": "2025-09-02T16:48:03.000Z",
+   "text": "### 💡 What is spec-driven development?\n\nInstead of coding first and writing docs later, in spec-driven development, you start with a (you guessed it) spec. This is a contract for how your code should behave and becomes the source of truth your tools and AI agents use to generate, test, and validate…",
+   "title": "Spec-driven development with AI: Get started with a new open source toolkit - The GitHub Blog",
+   "url": "https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/"
+  },
+  {
+   "chars_delivered": 252,
+   "page_chars_delivered": 9918,
+   "post_step": "fetched",
+   "published": "2026-06-05T00:51:18.000Z",
+   "text": ", dependency-sequenced steps, each mapped back to the requirement it satisfies, with optional tests. You execute them and\n...\n? Fix it before a single line of code exists. As AWS senior principal engineer David Yanacek, an advisor to the Kiro team, put",
+   "title": "Spec-Driven Development vs Vibe Coding: Why Kiro Bets on Writing It Down | AWS Builder Center",
+   "url": "https://builder.aws.com/content/3Eh9lgxjMNKtxCPXPSdQjqaVZfP/spec-driven-development-vs-vibe-coding-why-kiro-bets-on-writing-it-down"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "specification, then proceed through multiple steps to break it down into smaller pieces, solutions and tasks. ... specification can take many forms: a single document, a set of documents or structured artifacts that capture different functional aspects.",
+   "title": "Spec-driven development",
+   "url": "https://thoughtworks.com/radar/techniques/spec-driven-development"
+  },
+  {
+   "chars_delivered": 238,
+   "published": "2025-10-22T07:01:11.000Z",
+   "text": "or higher accuracy in implementing specs on the first go, with code that's error-free and unit tested ... on user stories or natural-language descriptions of desired outcomes, while setting \"how\" guardrails for everything from security to",
+   "title": "How spec-driven development improves AI coding quality | Red Hat Developer",
+   "url": "https://developers.redhat.com/articles/2025/10/22/how-spec-driven-development-improves-ai-coding-quality"
+  },
+  {
+   "chars_delivered": 6132,
+   "published": "2026-04-07T00:00:00.000Z",
+   "text": "###### Abstract.\n\nSpec-driven development (SDD) with AI coding agents provides a structured workflow, but agents often remain “context blind” in large, evolving repositories, leading to hallucinated APIs and architectural violations. We present Spec Kit Agents a multi-agent SDD pipeline (with PM an…",
+   "title": "Spec Kit Agents: Context-Grounded Agentic Workflows",
+   "url": "https://arxiv.org/html/2604.05278"
+  },
+  {
+   "chars_delivered": 233,
+   "published": "2026-01-09T00:00:00.000Z",
+   "text": "In Kiro, you do edit feature specs when you make changes, making them a living representation of that feature. You can update the specs at any of the three documents, and those changes will cascade to the later stages. From the docs:",
+   "title": "Making Sense of Spec-Driven Development - Dan Jutan | danjutan.com",
+   "url": "https://danjutan.com/making-sense-of-spec-driven-development/"
+  },
+  {
+   "chars_delivered": 254,
+   "published": null,
+   "text": "|\n| Task progress | Checkboxes | Checkboxes | Story status | Task list in the IDE | Ledger entries with the tool and host that made them\n...\n; the session stays in Kiro | `specweave handoff` and `specweave\n...\n| Kiro | Any agent that reads `AGENTS.md` or",
+   "title": "Spec-driven development tools compared | SpecWeave",
+   "url": "https://spec-weave.com/docs/compare/spec-driven-development-tools/"
+  },
+  {
+   "chars_delivered": 229,
+   "published": null,
+   "text": "Design: interfaces, schemas, data flow | The architecture review while it's cheap |\n| Breakdown ... , checkable units |\n| Build | `/speckit.implement` | Implementation traced to requirements | The part everyone thought was hard |",
+   "title": "Spec-Driven Development: Spec Kit, Kiro, and What Sticks",
+   "url": "http://shirokoff.ca/blog/spec-driven-development"
+  },
+  {
+   "chars_delivered": 250,
+   "published": "2026-11-11T12:09:00.000Z",
+   "text": "produce a technical spec, and **stop before writing any code** until that spec was\n...\nsession sketched the plan; it didn't ship a finished server in the room. For comparison ... workflow, not Kiro). It's a useful reference for what \"done\" looks like",
+   "title": "From Vibe Coding to Spec-Driven Development with Kiro IDE from AWS - DEV Community",
+   "url": "https://dev.to/aws-builders/from-vibe-coding-to-spec-driven-development-with-kiro-ide-from-aws-jh3"
+  }
+ ],
+ "latency_ms": 718.2,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q10",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What is spec-driven development as implemented by Amazon Kiro, GitHub Spec Kit and similar tools? How are specs, plans and tasks structured, and what evidence is there that it improves agent output quality?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 19372,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:11.320131Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

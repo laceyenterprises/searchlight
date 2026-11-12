@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:15.167910Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2315,
+   "page_chars_delivered": 22471,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Inside Stripe’s 1,300-PRs-Per-Week AI Coding System\n\nStripe’s engineering organization is doing something most teams would find hard to believe: an internal AI system called Minions is writing and submitting roughly 1,300 pull requests every week. Not suggestions, not drafts for humans to rework…",
+   "title": "What Is Stripe Minions' Blueprint Architecture? How Deterministic and Agentic Nodes Work Together | MindStudio",
+   "url": "https://www.mindstudio.ai/blog/stripe-minions-blueprint-architecture-deterministic-agentic-nodes"
+  },
+  {
+   "chars_delivered": 2002,
+   "page_chars_delivered": 13701,
+   "post_step": "fetched",
+   "published": null,
+   "text": "← Back to research\n\n•·8 min read·company\n\n# Stripe Minions\n\nStripe's in-house coding agents produce 1,300+ merged PRs per week — fully unattended, human-reviewed code built on a Goose fork with a ~500-tool MCP server.\n\nBy Ry Walker, founder of Tembo and Astronomer.\n\n ↗\n\nRepresent this profile?Claim…",
+   "title": "Stripe Minions | Ry Walker Research | Ry Walker",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "chars_delivered": 1974,
+   "page_chars_delivered": 10981,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Minions differ from interactive coding assistants such as GitHub Copilot or AI code editors like Cursor by executing one-shot), end-to-end tasks. Tasks can originate from multiple sources, including Slack threads, bug reports, or feature requests. A task description is sent to a Minion, which orche…",
+   "title": "Stripe Engineers Deploy Minions, Autonomous Agents Producing Thousands of Pull Requests Weekly - InfoQ",
+   "url": "https://www.infoq.com/news/2026/03/stripe-autonomous-coding-agents"
+  },
+  {
+   "chars_delivered": 1913,
+   "published": null,
+   "text": "Stripe built something in between that they call “blueprints.” A blueprint is a sequence of nodes where some nodes run deterministic code, and other nodes run an agentic loop. Think of it as a structure that alternates between rigid steps and creative steps. For example, the “implement the feature”…",
+   "title": "How Stripe’s Minions Ship 1,300 PRs a Week",
+   "url": "https://blog.bytebytego.com/p/how-stripes-minions-ship-1300-prs"
+  },
+  {
+   "chars_delivered": 2130,
+   "published": null,
+   "text": "## Blueprints: The Hybrid Secret#\n\nThe architecture that makes Minions reliable at scale is what Stripe calls Blueprints. A Blueprint is a workflow template that defines a sequence of nodes, where each node is either an agentic step or a deterministic step.\n\nThe agentic nodes are where the LLM does…",
+   "title": "Stripe Minions and the Hybrid Secret: Deterministic Rails Around AI - Dotzlaw Consulting",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails"
+  },
+  {
+   "chars_delivered": 645,
+   "published": null,
+   "text": "In early 2025, Stripe revealed something that caught a lot of engineers off guard: their internal AI system — called Minions — was already generating roughly 1,300 pull requests per week, with about 70% merged without any human modification. That’s not a few AI-assisted commits. That’s a substantia…",
+   "title": "How to Build a Structured AI Workflow Engine Like Stripe Minions for Your Own Business | MindStudio",
+   "url": "https://www.mindstudio.ai/blog/build-structured-ai-workflow-engine-stripe-minions-pattern"
+  },
+  {
+   "chars_delivered": 2184,
+   "published": null,
+   "text": "[3:41] entire system. Most coding agents are purely agented. The LLM decides everything. If it forgets to l that step\n[3:49] doesn't happen. Stripe does something different. They interle creative LLM steps with deterministic gates. The\n[3:56] agent writes code. That's the creative LLM part. Then a…",
+   "title": "How Stripe Built AI Agents That Write 1,000+ Pull Requests a Week",
+   "url": "https://www.youtube.com/watch?v=GQ6piqfwr5c&vl=en"
+  },
+  {
+   "chars_delivered": 2227,
+   "published": null,
+   "text": "[11:01] does the implementation. We have a deterministic step for linting and type-cheing with sorbet. And then we address any of those issues that come up\n[11:09] with another agent node. And this entire step, everything that runs the agent is running in an isolated dev box. And so\n[11:16] they sp…",
+   "title": "Stripe's Coding Agents Ship 1,300 PRs EVERY Week - Here's How They Do It",
+   "url": "https://www.youtube.com/watch?v=NMWgXvm--to&vl=en"
+  },
+  {
+   "chars_delivered": 2160,
+   "published": null,
+   "text": "[4:46] Unattended coding agents have gone from possibility to reality. You know, Stripe engineers know what they're talking about because this is true. If you are\n[4:55] not agentic coding, the gap between you and the agent coding team within a week, within a month is going to be astronomical. Okay…",
+   "title": "I Studied Stripe's AI Agents... Vibe Coding Is Already Dead",
+   "url": "https://www.youtube.com/watch?v=V5A1IU8VVp4"
+  },
+  {
+   "chars_delivered": 561,
+   "published": null,
+   "text": "All workflows\n\nEpisode outline\n\nStripe is landing roughly 1,300 pull requests a week that receive no human assistance until review. The surprising part is not the number. It is where those pull requests begin: a Google Doc, a ticket, a Slack conversation, or one emoji reaction.\n\nSteve Kaliski says…",
+   "title": "How Stripe's AI 'Minions' Ship 1,300 PRs Weekly from a Slack Emoji | How I AI",
+   "url": "https://www.chatprd.ai/how-i-ai/stripes-ai-minions-ship-1300-prs-weekly-from-a-slack-emoji"
+  }
+ ],
+ "latency_ms": 2644.6,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q06",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How does Stripe's 'Minions' system produce unattended pull requests at scale? Cover the devbox and sandbox model, the blueprint/workflow mix of deterministic and agentic steps, CI and review, and volume numbers.",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q06-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 21388,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:12.523284Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

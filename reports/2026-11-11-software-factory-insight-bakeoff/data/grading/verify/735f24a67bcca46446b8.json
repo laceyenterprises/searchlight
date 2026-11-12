@@ -1,0 +1,18 @@
+{
+ "capture": "captured",
+ "digest": "8070a04ea0596264",
+ "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review",
+ "verdicts": {
+  "A third-party review describes a coordinator agent that decomposes tickets and dispatches role-scoped droids (code, review, test, docs, Knowledge), with the review droid barred from writing features and typed outputs such as diffs, review comments and test results handed between droids.": 1,
+  "A third-party review says the Knowledge droid indexes the repo, docs and ticket history as a shared memory layer so other droids do not re-read the codebase each run.": 1,
+  "Digital Applied describes five canonical droids: Code, Review, Docs, Test, and Knowledge.": 1,
+  "Digital Applied recommends keeping human merge authority and mandatory review on every PR rather than auto-merging on review droid approval alone, and notes that coordinator overhead outweighs benefit for trivial one-line fixes.": 1,
+  "Each droid produces typed output (diffs, review comments, test results) that the next droid consumes, rather than conversational context.": 1,
+  "Each droid runs in a sandboxed cloud dev environment mirroring the project's toolchain (runtimes, package managers, linters, test frameworks, and Git state of the target branch).": 1,
+  "Factory's Linear and Jira integrations pull ticket title, description, acceptance criteria, comments, linked issues, and attachments into the coordinator's context, and droids post status updates and PR links back to the ticket.": 1,
+  "Factory's architecture, as described by Digital Applied, uses a coordinator agent that decomposes tickets into droid-sized work items, assigns them to role-scoped droids, and sequences their execution.": 1,
+  "For a feature touching three services, the coordinator dispatches three parallel Code droid sessions in isolated sandboxes before converging on review.": 1,
+  "The Knowledge droid builds and maintains an index over the repo, internal documentation, and ticket history; downstream droids query it instead of re-reading the codebase on each run.": 1,
+  "The Review droid never writes features, so it cannot silently patch its own complaints; the Test droid does not refactor production code.": 1
+ }
+}

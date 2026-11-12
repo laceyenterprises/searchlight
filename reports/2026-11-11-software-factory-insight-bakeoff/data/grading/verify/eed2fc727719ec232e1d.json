@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "0794add74190bdae",
+ "url": "https://arxiv.org/html/2603.10600",
+ "verdicts": {
+  "Empirical studies cited in the IBM paper find that naive experience accumulation leads to error propagation and misaligned replay, and that agents closely follow retrieved experiences, so mismatched retrieval directly degrades performance.": 1,
+  "On AppWorld Difficulty 3 tasks, the IBM memory framework raised scenario goal completion from 19.1% to 47.6% (+28.5 pp, a 149% relative increase) and task goal completion by 4.7 pp; Difficulty 2 tasks gained 4.1 pp task goal completion with no scenario goal change.": 1,
+  "On the AppWorld benchmark, the memory-enhanced agent reached 73.2% task goal completion versus 69.6% for the baseline (+3.6 pp), and 64.3% scenario goal completion versus 50.0% (+14.3 pp).": 1,
+  "The IBM framework extracts tips at two granularities: task-level tips capturing end-to-end patterns, and subtask-level tips decomposing trajectories into reusable phases such as authentication, data retrieval and processing.": 1,
+  "The IBM framework tracks provenance linking each learning to its source trajectory and outcome, so teams can check whether similar failures still occur after a learning is deployed and debug incorrect guidance.": 1,
+  "The IBM framework's Adaptive Memory Retrieval System injects relevant learnings into agent prompts based on multi-dimensional similarity, combining semantic similarity with metadata filtering and priority-based ranking.": 1,
+  "The IBM trajectory-informed memory framework produces three types of guidance from agent trajectories: strategy tips from successful patterns, recovery tips from failure handling, and optimization tips from inefficient but successful executions.": 1
+ }
+}

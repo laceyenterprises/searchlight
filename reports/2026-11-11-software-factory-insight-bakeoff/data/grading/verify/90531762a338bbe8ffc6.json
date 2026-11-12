@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "d99ad94e2cd6c723",
+ "url": "https://www.inngest.com/docs/learn/durable-agents",
+ "verdicts": {
+  "Every Inngest `step.run()` gets automatic retries with configurable policies for number of attempts, backoff strategy, and timeout.": 0,
+  "Inngest uses step-level memoization for agent durability: every completed step (LLM call, tool invocation, side effect) has its result persisted, and on replay a stored result is injected rather than the call being re-made.": 1
+ }
+}

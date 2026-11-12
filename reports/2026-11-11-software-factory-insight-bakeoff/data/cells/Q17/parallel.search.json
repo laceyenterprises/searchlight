@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:48.352228Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 962,
+   "page_chars_delivered": 13574,
+   "post_step": "fetched",
+   "published": "2025-12-01",
+   "text": "Dec 1, 2025 · Maja Trębacz, Sam Arnesen, Albin Cassirer, Max Johnson, Xin Lin, Thibault Sottiaux,  \nin collaboration with the rest of the Codex team\n\n...\n\nIn this post, we share what we learned from training a dedicated, agentic code reviewer as part of [gpt-5-codex](https://openai.com/index/introd…",
+   "title": "A Practical Approach to Verifying Code at Scale",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "chars_delivered": 961,
+   "page_chars_delivered": 67016,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Large language models now generate code, documentation, and analyses, and are increasingly used to review such output. We ask when a second review by a different model helps. Building on the author’s earlier preprints, which varied context, repetition, and role structure within one model, we test m…",
+   "title": "When Does a Second Model Help?Cross-Model Review in LLM Verification",
+   "url": "https://arxiv.org/html/2610.01471v1"
+  },
+  {
+   "chars_delivered": 826,
+   "page_chars_delivered": 73685,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Large language models now generate code, documentation, and analyses, and are increasingly used to review such output. We ask when a second review by a different model helps.\n\n...\n\nTwo questions are open: what makes AI review of AI output independent, and does cross-model review improve defect dete…",
+   "title": "When Does a Second Model Help?Cross-Model Review in LLM Verification",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "chars_delivered": 885,
+   "published": "2026-06-26",
+   "text": "Our results expose previously under-explored limitations in LLM-based code review capabilities, and provide practical\n\n...\n\nTo investigate the reliability, bias patterns, and practical implications of LLM-based requirement conformance judgement _without test cases_ , we propose the following resear…",
+   "title": "Are LLMs reliable code reviewers? systematic overcorrection in requirement conformance judgement | Automated Software Engineering | Springer Nature Link",
+   "url": "https://link.springer.com/article/10.1007/s10515-026-00638-5"
+  },
+  {
+   "chars_delivered": 924,
+   "published": "2026-09-21",
+   "text": "While existing test suites can verify whether a patch passes all tests, they cannot guarantee that the patch truly fixes the defect rather than merely passing the tests [3].\n\n...\n\nBeyond standalone APCA methods, LLM Judge is increasingly used as a de facto assessment layer in agentic APR pipelines…",
+   "title": "How Reliable Is LLM-as-Judge for Patch Correctness Assessment? An Empirical Study",
+   "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol394-esem2026/LIPIcs.ESEM.2026.21/LIPIcs.ESEM.2026.21.pdf"
+  },
+  {
+   "chars_delivered": 944,
+   "published": "2026-09-19",
+   "text": "The problem is, a passing LLM-generated unit test suite provides evidence only that the code is correct with respect to the LLM’s understanding, not the developer’s.\n\n...\n\nSpecifically, we propose a benchmark, ScenarioBench, of expert-curated test scenarios for a subset of 30 methods from the Defec…",
+   "title": "Correct According to Whom? Auditing What LLM-Generated Tests Actually Check",
+   "url": "https://dl.acm.org/doi/pdf/10.1145/3832783.3844564"
+  },
+  {
+   "chars_delivered": 878,
+   "published": "2024-01-01",
+   "text": "# Comparative Analysis of Large Language Models' Performance in Identifying Different Types of Code Defects During Automated Code Review\n\nPublished\n2024-05-23\n\n* Tianjun Mo\n,* Pengfei Li\n\n...\n\nOur experimental framework evaluates the performance of leading LLMs including GPT-4, Claude-3, CodeBERT,…",
+   "title": "\n\t\tComparative Analysis of Large Language Models' Performance in Identifying Different Types of Code Defects During Automated Code Review\n\t\t\t\t\t\t\t| Annals of Applied Sciences\n\t\t\t",
+   "url": "https://annalsofappliedsciences.com/index.php/aas/article/view/28"
+  },
+  {
+   "chars_delivered": 986,
+   "published": "2026-10-05",
+   "text": "### Warrant [Miranda de Leao 2026] is an open protocol and reference tool for accepting code that agents write without a person reading it: checks, some hidden from the builder, decide plain-language promises by running the code, and a deterministic gatekeeper\n\n...\n\nOn SWE-bench Verified, 29.6% of…",
+   "title": "Warrant: hidden checks and a deterministic gate for software written by AI agents, with an exploratory evaluation",
+   "url": "https://assets-eu.researchsquare.com/files/rs-11224002/v1/03ed5c53-d832-4e4d-8011-5f0d4fdaa6a1.pdf?c=1791211391"
+  },
+  {
+   "chars_delivered": 990,
+   "published": "2026-04-24",
+   "text": "Coding agents are an ideal example of the core problems with agentic behavior evaluation, since they are required to balance between the low-fidel test-passing measurements with comprehensive code\n\n...\n\nSWE-bench has now been adopted as the standard benchmark of repository-level code agents, consis…",
+   "title": "From benchmarks to deployment: a comprehensive review of agentic AI evaluation | Artificial Intelligence Review | Springer Nature Link",
+   "url": "https://link.springer.com/article/10.1007/s10462-026-11571-0"
+  },
+  {
+   "chars_delivered": 914,
+   "published": "2025-07-10",
+   "text": "As a widely used benchmark for evaluating the code gener- ation capabilities of these agents, SWE-Bench uses real-world problems based on GitHub issues and their corresponding pull requests. However, the manually written test cases in- cluded in these pull requests are often insuffi- cient, allowin…",
+   "title": "UTBoost: Rigorous Evaluation of Coding Agents on SWE-Bench",
+   "url": "https://aclanthology.org/2025.acl-long.189.pdf"
+  }
+ ],
+ "latency_ms": 3020.2,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q17",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: How do teams verify autonomous agent output without human code review: eval-driven development, scenario or holdout tests, property-based tests, LLM-as-judge, cross-model review, and digital twins of external services? What evidence exists on how well each catches defects? Rank first primary sources: engineering blog posts, docs, talks, and papers from organisations running autonomous coding agents, plus benchmark and academic studies, and credible reporting. Pull out mechanisms, numbers, names, dates, measured defect-detection or false-positive rates, and failure modes such as judge bias, reward hacking, test overfitting, and twin fidelity gaps.",
+   "search_queries": [
+    "verifying autonomous coding agent output without human code review",
+    "holdout scenario tests digital twin agent validation",
+    "LLM-as-judge cross-model code review defect detection rate"
+   ],
+   "session_id": "sl-parallel.search-Q17-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11984,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:45.332041Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

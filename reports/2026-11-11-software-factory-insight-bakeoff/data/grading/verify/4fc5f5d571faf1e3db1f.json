@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "fa7762b37e830099",
+ "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf",
+ "verdicts": {
+  "For multi-hop delegation, scope should narrow at each hop and never exceed the delegating principal's effective permissions; depth limits should be enforced via token TTLs, audience restrictions and constrained token exchange; and revocation should cascade to all downstream delegations.": 0,
+  "The Coalition for Secure AI guidance says each agent runtime instance should receive its own identity derived from an agent card, and agents needing higher assurance should be bound to a signed manifest (code hash, version, signer ID) with runtime attestation.": 0,
+  "The guidance names RFC 8693 token exchange for cross-domain/cross-tenant cases and RFC 9396 Rich Authorization Requests (authorization_details) for fine-grained, structured descriptions of operations or tools.": 0,
+  "The guidance says agents have own rights plus delegated on-behalf-of rights carried in OBO tokens with explicit actor and subject claims, and delegation is preferred over impersonation for anything beyond simple tool-like operations.": 0,
+  "The guidance says policies should be ABAC/PBAC over agent, subject, resource and environment attributes, re-evaluated continuously, with high-impact or irreversible actions requiring human-in-the-loop or step-up controls, and enforcement at agents, tools, APIs and data systems rather than only at perimeter gateways.": 0
+ }
+}

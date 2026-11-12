@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "85a5a6265701b05a",
+ "url": "https://www.trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f",
+ "verdicts": {
+  "A higher logical conflict rate (0.2% vs 0.1%) did not significantly affect time to merge or CI time per PR in Trunk's simulation.": 1,
+  "In Trunk's simulation, going from batch size 1 to 16 at a 0.1% logical conflict rate made PRs merge 54.9% slower, from 41m56s to 1h5m.": 1,
+  "In Trunk's simulation, the lowest peak CI concurrency occurred at batch size 16 with a 0.1% logical conflict rate.": 1,
+  "In the same simulation, CI time per PR fell 77.5% from 41m28s to 9m19s when batch size went from 1 to 16.": 1,
+  "Parallel merge queues are only an option when a build system like Bazel is used in the repo; batching failures require bisection that slows CI and raises costs.": 1
+ }
+}

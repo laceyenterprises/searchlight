@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "5ddd6622b7d7d7de",
+ "url": "https://cleric.ai/resources/reports/the-state-of-ai-sre",
+ "verdicts": {
+  "Cleric captures decision traces from investigations, corrections and follow-up actions, reinforcing patterns that led to verified outcomes and discarding others.": 1,
+  "Cleric uses graduated autonomy by problem type: per-problem-class accuracy scores decide where the agent acts independently and where it escalates to an engineer with a recommendation and evidence.": 1,
+  "Cleric verifies outcomes in a closed loop by triangulating after the fact: whether the alert recurred, whether downstream services stabilized, and whether the engineer overrode the fix.": 1,
+  "Per Cleric's own report, Traversal verification is open-loop (no automated check that the inferred causal chain matched the true root cause), Resolve is designed for autonomous remediation against pre-defined workflows, and Traversal does investigation only with no remediation.": 1
+ }
+}

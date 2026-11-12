@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "69a3161b6f6fb11a",
+ "url": "https://mergify.com/reports/state-of-merge-queues-2026",
+ "verdicts": {
+  "AI-assisted PRs broke main 1.9% of the time versus 4.4% for non-AI PRs, holding within PR-size bands and within the same repositories; autonomous agent-authored PRs were only a few hundred of 153,000 merges.": 1,
+  "In Mergify's data (153,000 merges, about 160 organizations, 90 days), 94% of private merges go through the queue one PR at a time; batched merges average four PRs per batch with a maximum of sixteen.": 1,
+  "Median queue time is about 7 minutes, 90% of PRs clear within an hour, and the median repo merges about 3 PRs per active day, with the top 10% merging 13 or more.": 1,
+  "Mergify found AI-assisted PRs broke main 1.9% of the time versus 4.4% for non-AI PRs, holding within repos and PR-size bands; the finding is observational and AI is detected only via commit signatures.": 1,
+  "Mergify reports 94% of private merges still go one PR at a time; batches average about four PRs, and failed private batches bundle about 5.8 PRs. Autonomous agent-authored PRs were only a few hundred of 153,000 merges.": 1,
+  "Mergify's analysis of 200,000+ merges across 477 teams found the rate of green PRs breaking main rose from 0.77% at 2–5 engineers to 12.5% (1 in 8) at 40+ engineers.": 1,
+  "On private repos, failed batches bundle about six PRs on average, so one bad change can stall five good ones.": 1,
+  "The broken-main rate for green PRs rises about 16x with team size, from 0.8% (about 1 in 130) at 2–5 engineers to 12.5% (1 in 8) at 40+ engineers.": 1
+ }
+}

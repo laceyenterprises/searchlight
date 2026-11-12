@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.research",
+ "cell_sha": "bed0709eec744e09",
+ "claims": [
+  {
+   "text": "Temporal workflows have a hard limit of 51,200 events or 50 MB of history, and exceeding it requires using ContinueAsNew to reset the history.",
+   "url": null
+  },
+  {
+   "text": "Inngest has a hard limit of 1,000 steps per function, so an agent looping 500 times with a model step and a tool step per iteration hits the cap and fails; the work must be split across functions.",
+   "url": null
+  },
+  {
+   "text": "Inngest adds 15 ms to 50 ms of dispatch overhead per step because each step is invoked through an HTTP webhook.",
+   "url": null
+  },
+  {
+   "text": "DBOS achieves durability with a Postgres database write of about 1 millisecond, instead of a round trip to an external orchestration server.",
+   "url": null
+  },
+  {
+   "text": "Temporal separates deterministic Workflow code from non-deterministic Activities such as LLM and tool calls; on a crash it replays the Workflow and returns recorded results for completed Activities, so paid LLM calls are not re-executed.",
+   "url": null
+  },
+  {
+   "text": "Calling an LLM inside Temporal Workflow code causes a Non-Deterministic Error during replay if the output differs between runs.",
+   "url": null
+  },
+  {
+   "text": "Temporal recommends using the Workflow Run ID combined with the Activity ID as an idempotency key, because Activities have at-least-once execution semantics and may re-run after a mid-execution failure.",
+   "url": null
+  },
+  {
+   "text": "Inngest wraps LLM calls and tool invocations in step.run(), memoizes each successful step result so it is never re-executed, and gives every step its own independent retry counter.",
+   "url": null
+  },
+  {
+   "text": "Inngest implements human-in-the-loop with step.waitForEvent() and a match condition, which suspends the agent for hours or days until the input arrives.",
+   "url": null
+  },
+  {
+   "text": "Restate journals LLM calls and tool executions through ctx.run(), supports retry limits via the maxRetryAttempts parameter, and works with agent SDKs such as the Vercel AI SDK and OpenAI Agent SDK.",
+   "url": null
+  },
+  {
+   "text": "Restate implements human-in-the-loop waits with durable promises or ctx.awakeable<boolean>(), and the agent resumes exactly where it left off even across restarts.",
+   "url": null
+  },
+  {
+   "text": "Temporal implements human approval by using Signals in Workflows that block until an external approval decision arrives.",
+   "url": null
+  },
+  {
+   "text": "DBOS runs as a library embedded in the application and backed by Postgres, with no separate orchestration server, and treats sub-agent calls as child workflows.",
+   "url": null
+  },
+  {
+   "text": "DBOS human-in-the-loop uses DBOS.start_workflow so the agent starts an approval workflow asynchronously and immediately returns control to the chatbot, while the approval workflow waits for a notification such as a manager's decision.",
+   "url": null
+  },
+  {
+   "text": "Inngest run length limits depend on the plan: 30 days on Free, 90 days on Pro and 366 days on Business.",
+   "url": null
+  },
+  {
+   "text": "Replit switched its AI coding agent from Temporal to Restate for faster durable execution, cost efficiency and BYOC deployments that keep sensitive data in its own cloud account; after migration, a promotional traffic spike reached close to 25,000 durable actions per second per cell.",
+   "url": null
+  },
+  {
+   "text": "OpenAI launched a public preview integration with Temporal in September 2025 for agent durability, and OpenAI Codex uses Temporal for millions of daily coding-agent requests.",
+   "url": null
+  },
+  {
+   "text": "Cubic, a YC startup, cut false positives by 51% with a multi-agent code review system on Inngest, using Inngest's idempotency feature to resolve race conditions among parallel agents and flow control to handle rate limits.",
+   "url": null
+  },
+  {
+   "text": "Outtake runs always-on AI agents on Inngest that process millions of threat scans every minute, using batching to group related signals and flow control to handle data-source API rate limits.",
+   "url": null
+  },
+  {
+   "text": "Dosu migrated from Celery to DBOS and scaled to 20,000 workflows per hour, serving agents for 50,000 software projects.",
+   "url": null
+  },
+  {
+   "text": "Goblins switched from Inngest to DBOS and reported 3x faster performance (2-3 seconds locally versus 9 seconds), after an Inngest outage in which it could not catch up on a backlog of queued workflows.",
+   "url": null
+  },
+  {
+   "text": "Walmart integrated DBOS into its internal agentic AI framework, and Yutori, Cortex and Riviera also run agent workloads on DBOS.",
+   "url": null
+  },
+  {
+   "text": "A reported DBOS bug allowed two concurrent runs of the same agent to cross over, so a resumed workflow could return results from the other run when one model request was slower.",
+   "url": null
+  },
+  {
+   "text": "When Temporal cancels an activity it raises CancelledError in the Python thread; if the wrapper does not intercept it and kill the child process, the binary keeps running in the background and consuming resources.",
+   "url": null
+  },
+  {
+   "text": "Tool-calling fails 3 to 15% of the time in production, and silent failures, where tools return HTTP 200 with an empty payload, are the most damaging because no error surfaces.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:25.680929Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 949,
+   "page_chars_delivered": 13671,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Specs or specifications are structured artifacts that formalize the development process for features and bug fixes in your application. They provide a systematic approach to transform high-level ideas into detailed implementation plans with clear tracking and accountability.\n\n|Capability |IDE |CLI…",
+   "title": "Specs - Features - Docs - Kiro",
+   "url": "https://kiro.dev/docs/specs"
+  },
+  {
+   "chars_delivered": 986,
+   "page_chars_delivered": 67977,
+   "post_step": "fetched",
+   "published": "2026-09-16",
+   "text": "These tools – including GitHub’s Spec Kit [8] and Amazon’s Kiro [6] – claim that writing formal specifications before implementation leads to fewer defects, less rework, and higher-quality code, particularly when AI agents perform the implementation.\n\n...\n\nSpec Kit’s template asks for “core require…",
+   "title": "Specification Artifacts in Open-Source Pull Request Workflows Do Not Reduce Defects: An Empirical Test of Spec-Driven Development Claims",
+   "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol394-esem2026/LIPIcs.ESEM.2026.84/LIPIcs.ESEM.2026.84.pdf"
+  },
+  {
+   "chars_delivered": 879,
+   "page_chars_delivered": 13258,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Spec Kit is an open source toolkit that gives AI coding agents structured\nprocesses, reusable templates, and documented outcomes. Start with a ready-made\nprocess, customize it, or bring your own.\n\n## Choose your process\n\n|What you need |Process |Outcome |\n| --- | --- | --- |\n|Build a feature or app…",
+   "title": "GitHub - github/spec-kit: 💫 Toolkit to help you get started with SDD or any other process! · GitHub",
+   "url": "https://github.com/github/spec-kit"
+  },
+  {
+   "chars_delivered": 994,
+   "published": null,
+   "text": "[Back to all posts](https://kiro.dev/blog/)\n\nJuly 14, 2025\n\n# Introducing Kiro\n\nA new agentic IDE that works alongside you from prototype to production\n\nBy\n\n...\n\n**Kiro specs** are artifacts that prove useful anytime you need to think through a feature in-depth, refactor work that needs upfront pla…",
+   "title": "Introducing Kiro - Kiro",
+   "url": "https://kiro.dev/blog/introducing-kiro?sc_channel=sm&trk=590f3278-5a4b-4d35-ab93-c7f69fbfaea0"
+  },
+  {
+   "chars_delivered": 963,
+   "published": null,
+   "text": "**Kiro specs** are artifacts that prove useful anytime you need to think through a feature in-depth, refactor work that needs upfront planning, or when you want to understand the behavior of systems—in short, most things you need to get to production.\n\n...\n\nEach user story includes EARS (Easy Appro…",
+   "title": "Introducing Kiro - Kiro",
+   "url": "https://kiro.dev/blog/introducing-kiro"
+  },
+  {
+   "chars_delivered": 851,
+   "published": "2026-02-18",
+   "text": "This [accelerator](https://github.com/aws-samples/sample-target-identification-agent-using-kiro) , now available through AWS, demonstrates that rapid agentic AI development is feasible and fast, even for complex domains using a spec-driven development approach with [Kiro](https://kiro.dev/) , an\n\n.…",
+   "title": "From spec to production: a three-week drug discovery agent using Kiro | AWS for Industries",
+   "url": "https://aws.amazon.com/blogs/industries/from-spec-to-production-a-three-week-drug-discovery-agent-using-kiro/"
+  },
+  {
+   "chars_delivered": 919,
+   "published": null,
+   "text": "Spec Kit gives your coding agent structured processes that keep intent and evidence ahead of implementation. Start with Spec-Driven Development (SDD), bug fixing, or idea assessment. Run a process step by step, automate it, or [shape one of your own](https://github.github.com/spec-kit/guides/custom…",
+   "title": "GitHub Spec Kit | Spec Kit Documentation ",
+   "url": "https://github.github.com/spec-kit/"
+  },
+  {
+   "chars_delivered": 983,
+   "published": null,
+   "text": "A spec is a structured, behavior-oriented artifact - or a set of related artifacts - written in natural language that expresses software functionality and serves as guidance to AI coding agents.\n\n...\n\n[Kiro](https://kiro.dev/) is the simplest (or most lightweight) one of the three I tried. It seems…",
+   "title": "Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "chars_delivered": 992,
+   "published": null,
+   "text": "**Build with a spec, fix a bug, or assess an idea — with your coding agent.**\n\nSpec Kit gives your coding agent structured processes that keep intent and evidence ahead of implementation. Start with Spec-Driven Development (SDD), bug fixing, or idea assessment. Run a process step by step, automate…",
+   "title": "GitHub Spec Kit | Spec Kit Documentation ",
+   "url": "https://github.github.com/spec-kit/index.html"
+  },
+  {
+   "chars_delivered": 971,
+   "published": "2026-07-16",
+   "text": "###### Abstract.\n\nLLM-based agents are increasingly used for coding tasks, where they have outperformed many classical approaches and scaled to repository-level tasks, such as test generation.\n\n...\n\nTo address this limitation, we propose _Spec-Driven Test Generation_ , where we instruct an agent to…",
+   "title": "Grounding AI Agents in Contracts: An Empirical Evaluation of Spec-Driven Test Generation",
+   "url": "https://arxiv.org/html/2608.17177"
+  }
+ ],
+ "latency_ms": 2773.2,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q10",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: What is spec-driven development as implemented by Amazon Kiro, GitHub Spec Kit and similar tools? How are specs, plans and tasks structured, and what evidence is there that it improves agent output quality? Rank first primary sources: Kiro's official docs and engineering blog posts, the GitHub Spec Kit repository, README and GitHub blog posts, talks and papers, plus credible reporting and independent evaluations of similar tools (e.g. Tessl, BMAD). Extract mechanisms (requirements, design, tasks files, EARS notation, constitution, specify/plan/tasks commands), names, dates, measured results or benchmarks on agent output quality, and documented failure modes or criticisms.",
+   "search_queries": [
+    "spec-driven development Kiro GitHub Spec Kit",
+    "Kiro specs requirements design tasks EARS",
+    "spec-driven development AI agents evidence effectiveness evaluation"
+   ],
+   "session_id": "sl-parallel.search-Q10-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 12093,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:22.907713Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,20 @@
+{
+ "capture": "captured",
+ "digest": "15551f80c79f769b",
+ "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5",
+ "verdicts": {
+  "AIOS has three layers: an application layer where agents are built with the AIOS SDK, a kernel layer split into an OS Kernel and an LLM Kernel, and a hardware layer. The LLM Kernel contains a scheduler, a context manager supporting snapshot and restoration of LLM state, memory and storage managers, and access control.": 1,
+  "AIOS supports multiple agent frameworks including ReAct, AutoGen, Open Interpreter, and MetaGPT.": 1,
+  "AIOS treats LLM context switching as an OS-level concern rather than leaving each agent to manage its own state.": 1,
+  "AIOS was published at COLM 2025, supports agent frameworks including ReAct, AutoGen, Open Interpreter and MetaGPT, and has roughly 5,100 GitHub stars, 690 forks and about 27 contributors, which the author calls a research project rather than a production system with no known production workloads.": 1,
+  "Agno's AgentOS runs agents, teams and workflows as FastAPI APIs with shared memory and knowledge, uses MCP for tool access, and exposes itself as an MCP server so other agents can use its agents as tools.": 1,
+  "An agent-native OS needs, beyond traditional OS features, kernel-level context management (snapshotting, restoration, multi-turn state), tool resolution treated as a scheduling problem, and a user-centric, task-aware trust and safety layer rather than file-centric Unix permissions.": 1,
+  "Claude Cowork runs in a lightweight Linux VM with a sandboxed filesystem and a three-tier permission model (no access by default, read/write after folder selection, explicit prompts for high-risk actions like permanent deletion), and loads Skills by reading metadata first before full instructions.": 1,
+  "Cowork's isolation and permissions address individual-agent safety but not multi-agent coordination or agents acting under indirect instruction through documents or emails; the author calls the trust layer the hardest part of agent-native OS design.": 1,
+  "OpenClaw has minimal permissions beyond 'the machine is trusted', giving the agent shell, filesystem and browser access through a local Node.js gateway, and it grew past 140,000 GitHub stars by early February 2026.": 1,
+  "The ChatGPT 'OS' lacks kernel-level primitives such as agent scheduling, shared memory between agents, and a process isolation model.": 1,
+  "The ChatGPT Apps SDK platform does not expose kernel-level primitives such as agent scheduling, shared memory between agents, or a process isolation model, making it closer to a browser with an app directory than an OS.": 1,
+  "The Medium author (Marc Bara, Mar 3, 2026) concludes that the agent-native OS exists only in fragments, with kernel designs in papers, runtimes in products and economies in whitepapers, and no single project holding all layers.": 1,
+  "The author's lesson is that no surveyed system (Cowork, OpenAI, AIOS, OpenClaw, Agno) solves all four needs: context management, tool resolution, trust and safety, and inter-agent communication; each covers only a subset, so the field is fragmented.": 1
+ }
+}

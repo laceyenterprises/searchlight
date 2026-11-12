@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "MCP A2A production agent platform extension architecture",
+  "MCP OAuth authorization security tool poisoning prompt injection incidents",
+  "MCP gateway registry tool count limit context"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: How are MCP and A2A being used as extension seams for agent platforms in production? What are the known problems: tool-count limits, auth and authorization (OAuth for MCP), security incidents like prompt injection via tools, and gateway or registry patterns that address them? Rank first primary sources: engineering posts, official docs and specs (MCP, A2A), conference talks, papers, security advisories and vendor incident write-ups, plus credible reporting. Pull mechanisms, numbers (tool-count limits, context token costs), names, dates, measured results, failure modes (tool poisoning, prompt injection, confused deputy, token passthrough), and gateway, registry and proxy patterns with named implementations.",
+ "question_id": "Q14",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "b6b8fe2555bc3cff",
+ "url": "https://github.com/brandongilchrist/agent_memory_techniques/blob/main/all_techniques/26_letta_memgpt_patterns/README.md",
+ "verdicts": {
+  "In Letta/MemGPT the agent manages its own memory through function calls, using tools to edit core memory, search recall or archival memory, and insert archival entries.": 1,
+  "Letta (MemGPT) treats the context window as the agent's RAM and uses three memory tiers: core memory (always in context), archival memory (vector-database long-term store), and recall memory (full conversation history).": 1,
+  "Letta uses a heartbeat mechanism (request_heartbeat=true) so the agent can chain multiple tool calls in one turn without waiting for user input, and memory-pressure signals prompt it to summarize or archive when the context nears capacity.": 1
+ }
+}

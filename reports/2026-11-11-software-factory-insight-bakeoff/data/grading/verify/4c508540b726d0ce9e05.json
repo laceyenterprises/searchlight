@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "12beb012478e1d2f",
+ "url": "https://code.claude.com/docs/en/agent-sdk/skills",
+ "verdicts": {
+  "In the Agent SDK, skills must be created as filesystem artifacts such as .claude/skills/<name>/SKILL.md, are loaded according to settingSources, and have no programmatic registration API, unlike subagents which can be defined in the agents option.": 1
+ }
+}

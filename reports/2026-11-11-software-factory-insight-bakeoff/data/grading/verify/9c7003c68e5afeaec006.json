@@ -1,0 +1,8 @@
+{
+ "capture": "uncapturable",
+ "digest": "a88b9134fa86bde3",
+ "url": "https://agent-safehouse.dev/docs/agent-investigations/droid\\n[14",
+ "verdicts": {
+  "An independent sandbox analysis found the Droid CLI has no built-in OS-level isolation. Its project-directory write restriction is enforced by the agent rather than the OS, hooks and MCP stdio servers run with the user's credentials, and --skip-permissions-unsafe removes all guardrails.": null
+ }
+}

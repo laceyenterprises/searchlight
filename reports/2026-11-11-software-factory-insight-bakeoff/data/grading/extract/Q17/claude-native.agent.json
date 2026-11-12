@@ -1,0 +1,31 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "a961ee49eb33b051",
+ "claims": [
+  {
+   "text": "Anthropic recommends starting agent evals with 20-50 simple tasks drawn from real failures and grading outcomes rather than paths.",
+   "url": null
+  },
+  {
+   "text": "pass^k measures the probability that all k trials succeed; a 75% per-trial success rate gives about 42% pass^3.",
+   "url": null
+  },
+  {
+   "text": "Meta diffs landed via RADAR had a revert rate about one-third that of non-RADAR diffs and a production-incident rate about one-fiftieth that of non-RADAR diffs (observational, not causal).",
+   "url": null
+  },
+  {
+   "text": "Anthropic found that generator self-evaluation fails because agents confidently praise their own mediocre work; a separate evaluator is easier to tune toward skepticism.",
+   "url": null
+  },
+  {
+   "text": "Uber's uReview comments are rated useful 75% of the time, and 65% of them are addressed in the same changeset.",
+   "url": null
+  },
+  {
+   "text": "ImpossibleBench found that hiding test files reduces reward hacking to near zero but significantly degrades legitimate performance.",
+   "url": null
+  }
+ ],
+ "question_id": "Q17"
+}

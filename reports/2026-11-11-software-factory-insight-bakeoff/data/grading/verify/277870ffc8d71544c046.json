@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "2f096c0ba86a766f",
+ "url": "https://openai.com/index/scaling-git-at-openai",
+ "verdicts": {
+  "OpenAI built Pando, a new Git backend, without interrupting engineering work or changing how its team uses Git.": 1,
+  "Pando targets horizontally scalable writes optimized for concurrent pushes to many branches, with a coordinator instructing nodes to perform the update once a majority acknowledges a pre-commit message.": 0
+ }
+}

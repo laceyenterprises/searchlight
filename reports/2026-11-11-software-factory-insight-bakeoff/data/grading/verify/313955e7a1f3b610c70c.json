@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "d3f3b283da8fe168",
+ "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent",
+ "verdicts": {
+  "A full Copilot coding agent session counts as only one premium request.": 1,
+  "In VS Code, the 'Copilot on My Behalf' query in the Pull Requests view lists the agent's work, 'View Session' shows every command and decision, and the user can terminate the agent.": 1,
+  "PR preview services such as Azure Static Web Apps, Vercel, and Netlify let reviewers check the agent's work without checking out the branch locally.": 1,
+  "Reviewers can leave comments on the agent's PR, and the agent picks up the feedback, updates the PR, and notifies the user when finished.": 1,
+  "The Copilot coding agent is a member of the repo that can comment on issues, open PRs, do code reviews, and use Model Context Protocol (MCP) tools to work with databases or cloud services.": 1,
+  "The Copilot coding agent runs within a temporary isolated dev environment that is spun up so the agent can explore the codebase, make changes, build the code, and run tests.": 1,
+  "When the Copilot coding agent finishes, it assigns the PR to the user and requests them as a reviewer, including a screenshot where applicable.": 1
+ }
+}

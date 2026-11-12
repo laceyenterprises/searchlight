@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "8d02cbfba95450f9",
+ "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+ "verdicts": {
+  "Anthropic suggests compaction for tasks needing extensive back-and-forth, note-taking for iterative development with clear milestones, and multi-agent architectures for complex research where parallel exploration pays off.": 1,
+  "Anthropic's September 2025 compaction implementation summarized architectural decisions, unresolved bugs and implementation details, then continued with the summary plus the five most recently accessed files; it recommends tuning for recall first, then precision.": 1,
+  "Compaction takes a conversation nearing the context window limit, summarizes its contents, and reinitiates a new context window with the summary; Anthropic calls it typically the first lever in context engineering for long-term coherence.": 1,
+  "Structured note-taking (agentic memory) has the agent regularly write notes persisted outside the context window that are pulled back into context later.": 1,
+  "Sub-agent architectures let specialized subagents handle focused tasks with clean context windows, each exploring extensively with tens of thousands of tokens but returning only a condensed summary, often 1,000-2,000 tokens.": 1,
+  "Subagents can explore using tens of thousands of tokens while returning a distilled summary of often 1,000-2,000 tokens to the parent agent.": 1
+ }
+}

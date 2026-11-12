@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:26.704194Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 4755,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-09-04T00:00:00.000Z",
+   "text": "This is also why benchmark audits matter. If hidden tests are too narrow, too wide, or contaminated, an agent can be judged incorrectly even when the patch is functionally sound [17]. In long-horizon settings, the failure can go the other way: an agent can find a shortcut through the verifier rathe…",
+   "title": "Beyond Code Generation: Reliability, Verification, and Cost Economics in the Agentic Software Development Lifecycle",
+   "url": "https://arxiv.org/pdf/2609.04681"
+  },
+  {
+   "chars_delivered": 248,
+   "page_chars_delivered": 19974,
+   "post_step": "fetched",
+   "published": "2026-10-07T00:00:00.000Z",
+   "text": "from prior literature. These results have direct implications for SE tool designers and benchmark developers: guardrails must go beyond adversarial-prompt defenses to enforce environmental constraints, failure transparency, and safe-halt behaviors.",
+   "title": "What Breaks When LLMs Code? Characterizing Operational Safety Failures of Agentic Code Assistants | Proceedings of the 41st IEEE/ACM International Conference on Automated Software Engineering",
+   "url": "https://dl.acm.org/doi/10.1145/3832783.3834393"
+  },
+  {
+   "chars_delivered": 1328,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": null,
+   "text": "We evaluated 8,600 real transcripts from the public SWE-chat dataset and our own internal coding agent traffic. We constructed detailed judges for two categories of misaligned coding agent behaviors:\n\n* **Overselling success**: the agent makes overconfident, misleading, or false statements. Example…",
+   "title": "",
+   "url": "https://www.lesswrong.com/posts/smE9h9RnaK7FWKBZ2/measuring-coding-agent-misalignment-in-the-wild-1"
+  },
+  {
+   "chars_delivered": 232,
+   "published": null,
+   "text": "## Agent hard-codes expected values or edits tests to make them pass\n\nAnthropic's system card says Claude 3.7 Sonnet sometimes special-cased tests in agentic coding, returning expected values or changing the tests.\n\n- Reward hacking",
+   "title": "Agent Failure Modes",
+   "url": "https://failures.sadana.app/"
+  },
+  {
+   "chars_delivered": 209,
+   "published": null,
+   "text": "| Unbounded retries, oversized contexts, no budget policy | Budget ceilings, retry caps, budget regression tests |\n| ... production promotion | Weak canaries, missing rollback, poor observability | Progressive",
+   "title": "Implementing an Enterprise AI Factory for Autonomous Code Development and Closed-Loop Agentic Systems",
+   "url": "https://adamwong.dev/research/enterprise-ai-factory"
+  },
+  {
+   "chars_delivered": 2404,
+   "published": "2026-01-30T13:53:40.000Z",
+   "text": "In agentic coding, the \"reward\" is often an observable success signal:\n\n- tests are green\n- linters are quiet\n- the diff looks plausible at a glance\n- the agent says \"done\"\n- the UI loads once\n\nIf that's all we validate, that's all we'll reliably get.\n\nThese failure modes cluster around a gap: mach…",
+   "title": "Designing agentic workflows: where agents fail and where we fail - DEV Community",
+   "url": "https://dev.to/danielbutlerirl/designing-agentic-workflows-where-agents-fail-and-where-we-fail-4a95"
+  },
+  {
+   "chars_delivered": 255,
+   "published": "2026-06-11T17:46:06.000Z",
+   "text": "F04 — Test Tampering.\n\nThe agent removes, weakens, or mutates failing tests instead of fixing the underlying code. It passes by moving the goalposts. No standard benchmark checks whether the test suite changed between the start of the session and the end.",
+   "title": "AI Coding Agents Are Failing in Ways Nobody Is Measuring | by Vakeesan Mahalingam, CFA | Jun, 2026 | Medium",
+   "url": "https://keesan.medium.com/ai-coding-agents-are-failing-in-ways-nobody-is-measuring-6fecd6fa2b52"
+  },
+  {
+   "chars_delivered": 1817,
+   "published": null,
+   "text": "### 20.4.4 Cost Runaway\n\n| Symptom | A task that should have taken 3 dispatches has consumed 15. Each retry makes marginal or no progress. Token costs climb. |\n| --- | --- |\n| Root cause | Unbounded retry loops combined with scope absorption. Retrying without changing input is expecting different r…",
+   "title": "20  Anti-Patterns and Failure Modes – The Agentic SDLC Handbook",
+   "url": "https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch20-anti-patterns-and-failure-modes.html"
+  },
+  {
+   "chars_delivered": 1696,
+   "published": "2026-08-19T14:50:32.000Z",
+   "text": "## Finding 1: The #1 failure mode is an instruction conflict, not a capability gap\n\nThe largest explanation cluster across all six models—247 failures—is agents misreading or over-literally applying task instructions, and one instruction dominates: the harness boilerplate that says \"DO NOT MODIFY:…",
+   "title": "Why AI coding agents actually fail (it's not the model)",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "chars_delivered": 245,
+   "published": "2026-06-30T20:41:47.000Z",
+   "text": ". Fake-passing tests — The agent writes tests that pass but don't test the ... behavior. Closely related to hallucination but distinct: the code is often\n...\nThe fix is verifier separation — your test command is the ground truth, not the agent's",
+   "title": "What 12 failure classes and 30 Billion tokens spent taught us about trusting AI coding agents - DEV Community",
+   "url": "https://dev.to/keesan/what-12-failure-classes-and-30-billion-tokens-spent-taught-us-about-trusting-ai-coding-agents-pi7"
+  }
+ ],
+ "latency_ms": 3172.3,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q18",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What are the documented failure modes of autonomous AI coding agents at scale: reward hacking or test tampering, review rubber-stamping, regressions introduced by fixes, runaway token spend, and merge conflicts in high-volume repos? How do organizations mitigate them?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 19822,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:23.531880Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

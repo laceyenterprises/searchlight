@@ -1,0 +1,33 @@
+{
+ "extractor_brief_template": "Question: {{QUERY}}\n\nSearch the web and read at most 10 pages. From what the pages actually state, list every specific, verifiable finding that answers the question (mechanisms, design details, numbers, names, dates, measured results, failure modes), each with the URL of the page that states it. Do not use prior knowledge. If something is not publicly disclosed, say so.",
+ "frozen_on": "2026-11-11",
+ "placeholders": {
+  "{{AFTER_DATE_MDY}}": "same date as MM/DD/YYYY (Firecrawl tbs uses M/D/YYYY; zero-padded accepted per our 2026-09 harness)",
+  "{{AFTER_DATE}}": "run_date - question.freshness_days, YYYY-MM-DD; overlay applied only when freshness_days is set",
+  "{{EXTRACTOR_BRIEF}}": "extractor_brief_template with {{QUERY}} substituted (native harness search arms only)",
+  "{{EXTRACTOR_MODEL}}": "the fixed extractor model id",
+  "{{KEYWORD_QUERIES...}}": "same list, spread into the enclosing array after {{QUERY}} (Perplexity multi-query; total <=5)",
+  "{{KEYWORD_QUERIES}}": "query-writer output.keyword_queries (list of 2-3 strings)",
+  "{{OBJECTIVE}}": "query-writer output.objective",
+  "{{QUERY}}": "question.text verbatim",
+  "{{RESEARCH_BRIEF}}": "research_brief_template with {{QUERY}} substituted",
+  "{{RUN_DATE_MDY}}": "run date MM/DD/YYYY",
+  "{{RUN_DATE}}": "run date YYYY-MM-DD",
+  "{{SESSION_ID}}": "'sl-' + arm + '-' + question.id + '-' + run_date",
+  "{{TOP_K_URLS}}": "URLs of the first k results of the main call, in returned order"
+ },
+ "purpose": "Shared transforms and templates used by every arm profile. Arms differ only in where the vendor's docs say text goes, never in wording.",
+ "query_writer": {
+  "consumers": [
+   "parallel.search (objective + search_queries)",
+   "parallel.search post-step extract",
+   "perplexity.search (keyword queries appended to the verbatim question)"
+  ],
+  "model": "{{EXTRACTOR_MODEL}}",
+  "prompt": "You write inputs for a web search API. Question: {{QUERY}}\n\nReturn JSON {\"objective\": string, \"keyword_queries\": [string]}.\n- objective: one self-contained paragraph (under 1,000 characters) that restates the question verbatim, then says what pages should rank first (primary sources: the organisation's own engineering posts, docs, talks, papers, filings, code; credible reporting) and what facts to pull (mechanisms, numbers, names, dates, measured results, failure modes).\n- keyword_queries: 2 or 3 keyword queries, each 3 to 6 words and under 200 characters, no sentences, no site: or other operators, each containing the question's key entity, varying synonyms or angles across queries.",
+  "run": "once per question, before any arm runs; outputs stored and hashed with the set",
+  "temperature": 0
+ },
+ "research_brief_template": "Research question: {{QUERY}}\n\nFind specific, verifiable facts that answer this question: how it works (mechanisms, components, design decisions), numbers and measured results, names, dates, and reported problems or failure modes. Prefer primary sources (the organisation's own engineering posts, documentation, talks, papers, filings, code) and credible independent reporting. Report every distinct finding as a short statement with the URL of the page that states it. Do not pad with generic background. If something is not publicly disclosed, say so plainly. Include citations.",
+ "search_arm_extraction": "Search arms: the fixed extractor model receives, per question, every result's url, title, published date and returned text (excerpts/highlights/chunks/markdown) plus post-step page text, in returned rank order, and the same extractor prompt as the native search arms."
+}

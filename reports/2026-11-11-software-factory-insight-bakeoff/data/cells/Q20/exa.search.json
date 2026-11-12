@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:28.767899Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1772,
+   "page_chars_delivered": 16228,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Detect — Triage signals from dev and prod When an incident fires, Paige is already on-call and jumps straight into triage. Paige pulls in change events, docs and runbooks from dev, and observability data from prod, turning logs, metrics, and topology into context automatically.\n3. Mobilize — Bring…",
+   "title": "Meet Paige, your agentic on-call teammate",
+   "url": "https://www.pagerduty.com/platform/ai-agents/sre/"
+  },
+  {
+   "chars_delivered": 10224,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": null,
+   "text": "#### The Safety Trifecta\n\nTo address these risks, Google SRE is pioneering an AI-Ops governance model built around a \"Safety Trifecta\":\n\n1. Transparency: AI actions and decisions must be observable and understandable. This means AI agents must log their \"chain of thought\"—the signals used, the hypo…",
+   "title": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "chars_delivered": 240,
+   "page_chars_delivered": 6430,
+   "post_step": "fetched",
+   "published": null,
+   "text": "When you enable self-healing, Traversal goes past diagnosis: it applies an evidence-backed fix, checks it against production, and confirms the problem is gone.\n...\nnormal baseline:\n\n- Checkout conversion is within 1% of its 7-day baseline\n-",
+   "title": "Self-healing | Traversal AI SRE automated remediation",
+   "url": "https://www.traversal.com/agentic-capabilities/self-healing"
+  },
+  {
+   "chars_delivered": 249,
+   "published": null,
+   "text": "evidence. Each piece of evidence links a specific claim to the source it came from, such as a log line, a metric, a deploy event, ... than the configuration change that actually caused it. The agent also records the alternatives it rejected, and the",
+   "title": "Engineering Blog",
+   "url": "https://www.pagerduty.com/eng/lessons-from-pd-labs-from-experimentation-to-a-production-ready-sre-agent/"
+  },
+  {
+   "chars_delivered": 217,
+   "published": "2026-08-10T05:01:34.000Z",
+   "text": "proposes the action.\n- Approval and execution. Every production mutation runs behind risk metadata, policy checks,\n...\nand repair. Gemini correlates recent changes with production evidence, identifies a configuration-",
+   "title": "AI in Incident Response: Google's Gemini SRE Playbook | NeuBird AI",
+   "url": "https://neubird.ai/blog/ai-sre-tools-incident-response"
+  },
+  {
+   "chars_delivered": 254,
+   "published": "2026-10-06T13:00:35.000Z",
+   "text": "are the test environment.\nWhere the data comes fromDstl8Its own. Dstl8 distills logs at\n...\nthe evidence and a recommended fix. Your own agent applies it under your policy: fully automated, or reviewed first. Dstl8 never touches production.ClericFindings",
+   "title": "AI SRE Tools Compared: Dstl8 vs Resolve AI, Traversal & Cleric",
+   "url": "https://www.controltheory.com/compare/ai-sre-tools/"
+  },
+  {
+   "chars_delivered": 253,
+   "published": "2026-05-19T00:00:00.000Z",
+   "text": "PagerDuty’s native UI, sometimes both. The structured output ... — is the product. The engineer’s role is to read it, override the ranking if\n...\n, we will not do it.” This is the right default and probably will remain the right default for several more",
+   "title": "AI SREs in production: Resolve.ai, Cleric, Parity — datarekha",
+   "url": "https://datarekha.com/blog/ai-sres-in-production/"
+  },
+  {
+   "chars_delivered": 251,
+   "published": "2026-05-22T09:06:09.000Z",
+   "text": "write actions on roadmap; the workflow platforms execute approved runbook steps but not autonomous fixes |\n| Failure- ... -first reference point — agent recommends, humans execute |\n|\n...\n; Bits AI SRE Datadog-only; workflow platforms multi-vendor |\n|",
+   "title": "Resolve AI Alternatives: 6 Autonomous SRE Platforms Compared",
+   "url": "https://wetheflywheel.com/en/comparisons/resolve-ai-alternatives/"
+  },
+  {
+   "chars_delivered": 237,
+   "published": "2026-10-27T16:19:22.000Z",
+   "text": "pull in relevant data like telemetry and logs to find out what’s changed recently, like deployment and feature flags\n3. Fan\n...\nchallenge the conclusions of investigative agents\n5. Report: update Slack and other communication channels\n6.",
+   "title": "AI SRE: what is it, how could it change on-call – and does it work?",
+   "url": "https://newsletter.pragmaticengineer.com/p/ai-sre"
+  },
+  {
+   "chars_delivered": 248,
+   "published": "2026-06-09T15:56:47.000Z",
+   "text": "with Actus, which performs pre-flight checks, validates justifications against ... engine (the agent) from the actuation engine (the control plane) ensures that no model, regardless of complexity, can bypass fundamental production safety standards.",
+   "title": "AI in SRE: How Google is Engineering the Future of Reliable Operations - SiteM",
+   "url": "https://sitem.co/public/summary/1560/ai-in-sre-how-google-is-engineering-the-future-of-reliable-operations"
+  }
+ ],
+ "latency_ms": 707.6,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q20",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What AI SRE / self-healing systems exist (for example Resolve.ai, Cleric, Traversal, PagerDuty and Datadog agents, Meta's or Google's internal remediation)? How do they detect, diagnose, remediate and verify, and what autonomy levels and safety controls do they use?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 18005,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:28.060248Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

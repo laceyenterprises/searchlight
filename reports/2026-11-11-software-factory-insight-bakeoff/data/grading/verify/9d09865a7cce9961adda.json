@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "40f12caaea12e879",
+ "url": "https://circleci.com/blog/stacked-prs-and-ci/",
+ "verdicts": {
+  "GitHub can merge a stack through its merge queue as a single group, but changes to the underlying commits still require fresh validation.": 1,
+  "GitHub made stacked PRs generally available in October 2026, with management through GitHub or the gh-stack CLI extension.": 1,
+  "In a stacked PR workflow, updating an earlier PR and rebasing the branches above it can trigger new CI pipelines across every PR in the stack, multiplying CI cost.": 1
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "f39b4702f32ded90",
+ "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization",
+ "verdicts": {
+  "In OpenFGA an agent can be granted access to a specific workspace, document set, or tool rather than the user's entire footprint; task-based authorization can bound an agent to a single task or session.": 1,
+  "In OpenFGA, agents appear on the left side of tuples like users do, so check, list-objects, and list-users all work on agent identities.": 1,
+  "OpenFGA argues ReBAC fits agent workflows because they are graph-shaped (user grants agent a workspace, workspace contains documents, some shared from other workspaces), which roles would model only by exploding into per-resource role definitions.": 1,
+  "OpenFGA distinguishes acting 'on behalf of' a user from acting 'as' the user: a well-modeled agent has its own identity, inherits only the permissions it needs, and can be revoked independently of the user it serves.": 1,
+  "OpenFGA documents AI agent authorization and RAG authorization patterns that filter retrieved content by user permissions before the model sees it.": 1,
+  "OpenFGA expresses agent delegation through relations such as `can_act_on_behalf_of`, which make delegation explicit and revocable rather than copying the user's permissions to the agent.": 1,
+  "OpenFGA expresses delegation with relations such as `can_act_on_behalf_of`, making delegation explicit and revocable rather than copying user permissions.": 1,
+  "OpenFGA models AI agents as first-class principals that appear on the left side of tuples like users, so check, list-objects, and list-users all work on agent identities.": 1,
+  "OpenFGA scope for an agent can be bounded to a specific workspace, document set, or tool rather than the user's entire footprint.": 1
+ }
+}

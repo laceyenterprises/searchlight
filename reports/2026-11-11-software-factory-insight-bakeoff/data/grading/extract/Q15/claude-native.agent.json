@@ -1,0 +1,39 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "c75c1cd117153ae8",
+ "claims": [
+  {
+   "text": "Uber's STS issues short-lived, scoped, single-hop JWTs carrying an actor chain (engineer to Oncall Agent to Investigation Agent), loosely based on RFC 8693 token exchange.",
+   "url": "https://www.uber.com/us/en/blog/solving-the-agent-identity-crisis/"
+  },
+  {
+   "text": "Uber's STS token exchange p99 latency stays below 40 ms.",
+   "url": "https://www.uber.com/us/en/blog/solving-the-agent-identity-crisis/"
+  },
+  {
+   "text": "Uber chose SDK integration over a proxy for agent identity because full provenance is created in the application layer.",
+   "url": "https://www.uber.com/us/en/blog/solving-the-agent-identity-crisis/"
+  },
+  {
+   "text": "In Anthropic Managed Agents, MCP OAuth tokens are held in a vault and a proxy makes the call, so the harness is never made aware of any credentials.",
+   "url": "https://www.anthropic.com/engineering/managed-agents"
+  },
+  {
+   "text": "Claude Code auto mode ends a run and escalates to a human after three consecutive or 20 total classifier denials.",
+   "url": "https://www.anthropic.com/engineering/claude-code-auto-mode"
+  },
+  {
+   "text": "AgentCore's Cedar-based Policy layer evaluates each tool call at the Gateway and became GA on March 3, 2026.",
+   "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-bedrock-agentcore-enterprise-attack-surfac/"
+  },
+  {
+   "text": "AgentCore's Cedar-based Policy layer does not inspect what happens inside the runtime.",
+   "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-bedrock-agentcore-enterprise-attack-surfac/"
+  },
+  {
+   "text": "OpenFGA documents AI agent authorization and RAG authorization patterns that filter retrieved content by user permissions before the model sees it.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  }
+ ],
+ "question_id": "Q15"
+}

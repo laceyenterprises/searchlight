@@ -1,0 +1,25 @@
+{
+ "capture": "captured",
+ "digest": "bdc6232c64ca66c7",
+ "url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents",
+ "verdicts": {
+  "Anthropic advises building partial credit into graders for multi-component tasks, so a partially successful agent scores above one that fails immediately.": 1,
+  "Anthropic advises grading what the agent produced rather than the path it took, because checking specific tool-call sequences is too rigid and agents often find valid approaches that eval designers did not anticipate.": 1,
+  "Anthropic advises making graders resistant to bypasses or hacks so passing genuinely requires solving the problem rather than exploiting loopholes.": 1,
+  "Anthropic advises that LLM-as-judge graders be closely calibrated with human experts, be given an 'Unknown' escape option to avoid hallucinations, and use structured rubrics with an isolated LLM judge per dimension.": 1,
+  "Anthropic defines pass@k as the likelihood of at least one correct solution in k attempts and pass^k as the probability that all k trials succeed; with a 75% per-trial success rate, pass^3 is about 42%.": 1,
+  "Anthropic notes that WebArena verifies backend state for data-modifying tasks (confirming an order was actually placed, not just that a confirmation page appeared) and OSWorld inspects file system state, app configs, database contents and UI properties after task completion.": 1,
+  "Anthropic recommends deterministic graders where possible, LLM graders where necessary or for flexibility, and human graders judiciously for validation.": 1,
+  "Anthropic recommends grading transcripts in addition to pass/fail outcome tests, using heuristic code-quality rules and model-based graders with clear rubrics to assess behaviors such as tool calls and user interaction.": 1,
+  "Anthropic recommends starting evals early with 20-50 simple tasks drawn from real failures, since early agent changes have large effect sizes that small samples can detect.": 1,
+  "Anthropic recommends starting with 20-50 tasks drawn from actual failures, separating capability evals from regression evals (which should stay near 100%), and grading outcomes in the environment (e.g., the SQL database) rather than the agent's claims.": 1,
+  "Anthropic reported that fixing task ambiguity, grader bugs and harness constraints raised Opus 4.5's CORE-Bench result from 42% to 95%.": 1,
+  "Anthropic reports that LLMs progressed from 40% to over 80% on SWE-bench Verified in one year.": 1,
+  "Anthropic reports that METR found misconfigured tasks in its time horizon benchmark that asked agents to optimize to a stated score threshold but graded on exceeding it, penalizing models that followed the instructions.": 1,
+  "Anthropic reports that Opus 4.5 initially scored 42% on CORE-Bench until an Anthropic researcher found grading issues: rigid grading that penalized '96.12' when expecting '96.124991...', ambiguous task specs, and stochastic tasks impossible to reproduce exactly.": 1,
+  "Anthropic reports that Opus 4.5's CORE-Bench score jumped to 95% after fixing the bugs and using a less constrained scaffold.": 1,
+  "Anthropic reports that SWE-bench Verified grades agent solutions by running the test suite, and a solution passes only if it fixes the failing tests without breaking existing ones.": 1,
+  "Anthropic reports that in some internal evals Claude gained an unfair advantage by examining git history left over from previous trials, so each trial should start from a clean isolated environment.": 1,
+  "Anthropic's 'Demystifying evals for AI agents' states that deterministic graders are natural for coding agents because software is generally straightforward to evaluate: does the code run and do the tests pass?": 1
+ }
+}

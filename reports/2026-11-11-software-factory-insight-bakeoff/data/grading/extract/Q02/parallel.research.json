@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.research",
+ "cell_sha": "5148213135acfb32",
+ "claims": [
+  {
+   "text": "Code Droid scored 19.27% on SWE-bench Full, according to Factory's June 18, 2024 technical report.",
+   "url": null
+  },
+  {
+   "text": "Code Droid scored 31.67% pass@1 on SWE-bench Lite, rising to 37.67% at pass@2 and 42.67% at pass@6.",
+   "url": null
+  },
+  {
+   "text": "In 39 SWE-bench cases (1.7%), Code Droid's patch exactly matched the oracle patch, and in 80 further cases it was similar to the oracle patch.",
+   "url": null
+  },
+  {
+   "text": "For the SWE-bench run, Code Droid received only the problem statement as a ticket, with no hints, test patches or oracle patches, and its internet access was revoked.",
+   "url": null
+  },
+  {
+   "text": "In 8% of SWE-bench tasks Code Droid failed to include the target file among the files it analyzed. In another 8% the target file was analyzed but not ranked in its top 5. In 6% of all cases the target file was a top priority but was not selected for editing.",
+   "url": null
+  },
+  {
+   "text": "Code Droid took on average 5 to 20 minutes to generate one patch, producing up to three patches per task before selecting the most promising one. The longest case took 136 minutes.",
+   "url": null
+  },
+  {
+   "text": "Token usage per patch averaged under 2 million tokens, with some runs consuming as many as 13 million tokens.",
+   "url": null
+  },
+  {
+   "text": "Code Droid scored 21.75% on a SWE-bench subset, compared with 18.9% for Aider GPT-4o and 13.86% for Devin. Factory cautions that the subset has a different problem distribution and should not be the sole performance indicator.",
+   "url": null
+  },
+  {
+   "text": "Code Droid can generate multiple trajectories for a task, validate them with existing and self-generated tests, and select the best solution.",
+   "url": null
+  },
+  {
+   "text": "Code Droid uses different LLMs from Anthropic and OpenAI for different sub-tasks and samples several models when creating candidate solutions, for diversity and robustness.",
+   "url": null
+  },
+  {
+   "text": "Factory's HyperCode system builds a multi-resolution representation of an engineering system, with explicit graph relationships and implicit latent-space similarity relationships, to give Droids codebase understanding. Its ByteRank retrieval algorithm uses this to fetch relevant information for a task.",
+   "url": null
+  },
+  {
+   "text": "Code Droid decomposes high-level problems into smaller subtasks and has access to developer tools such as version control, editing tools, debuggers, linters and static analyzers.",
+   "url": null
+  },
+  {
+   "text": "Most SWE-bench tasks are debugging-style tasks because of how the GitHub issues were scraped, whereas Code Droid is designed for migration, modernization, feature implementation and refactoring work as well.",
+   "url": null
+  },
+  {
+   "text": "Factory documents three deployment patterns: cloud-managed, hybrid, and fully airgapped. Droid runs on developer machines, CI, VMs and Kubernetes clusters, and LLM traffic can be routed through the customer's own gateways and providers.",
+   "url": null
+  },
+  {
+   "text": "In the fully airgapped pattern, Droid runs in an isolated network with no outbound internet connectivity.",
+   "url": null
+  },
+  {
+   "text": "Factory advises running Droid at higher autonomy levels only inside a sandboxed container or VM, never directly on a developer host or a machine with standing production credentials.",
+   "url": null
+  },
+  {
+   "text": "Factory-managed Droid Computers are persistent cloud environments that retain installed packages, files, services and configuration across sessions, and they auto-pause when idle and auto-resume when a session targets them.",
+   "url": null
+  },
+  {
+   "text": "Platform-managed Droid Computers use iptables rules to allow only the daemon port inbound and disable root login and password SSH. The factory-user account has passwordless sudo and could modify those rules.",
+   "url": null
+  },
+  {
+   "text": "Each Environment-backed Droid run starts on a fresh Computer created from the Environment's successful snapshot. Changes are not written back to the snapshot, and parallel agents do not share working-tree changes.",
+   "url": null
+  },
+  {
+   "text": "Droid's OS-level sandbox uses Seatbelt on macOS and bubblewrap with a seccomp filter on Linux and WSL2, and routes network traffic through an HTTP/SOCKS filtering proxy that allows only approved domains.",
+   "url": null
+  },
+  {
+   "text": "The sandbox's default policy allows all file reads, denies file writes except to the current working directory, and denies network access except to Factory and WorkOS authentication domains.",
+   "url": null
+  },
+  {
+   "text": "The sandbox has two modes. per-command (the default) confines each shell command and its children but leaves the main Droid process unisolated. whole-process isolates the entire Droid process and refuses to start if isolation is unavailable.",
+   "url": null
+  },
+  {
+   "text": "Subagents launched through the Task tool inherit the parent's sandbox policy, and hook commands are wrapped by the sandbox or blocked if it cannot be established.",
+   "url": null
+  },
+  {
+   "text": "Factory states that the sandbox is defense in depth, not a hard boundary around untrusted code. Allowed network domains can still leak data, and writes within permitted paths are not restricted in content.",
+   "url": null
+  },
+  {
+   "text": "droid exec is a one-shot headless mode for CI/CD and scripts. It is read-only by default, --auto low/medium/high enables edits with risk tiers, and --worktree runs jobs in isolated git worktrees. It stops and exits non-zero if an action exceeds the autonomy level, and exit code 0 does not mean the task succeeded, so results should be checked with tests or linters.",
+   "url": null
+  }
+ ],
+ "question_id": "Q02"
+}

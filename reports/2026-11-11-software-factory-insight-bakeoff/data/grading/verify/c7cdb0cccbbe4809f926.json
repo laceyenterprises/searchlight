@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "fb681a17fb825fb2",
+ "url": "https://commandline.microsoft.com/tokenops-real-time-run-scoped-cost-control-ai-agents/",
+ "verdicts": {
+  "Microsoft's TokenOps authors argue gateways such as LiteLLM, Portkey and Cloudflare AI Gateway meter per request or key, whereas an agent run spans many requests, so budgets need a run id carried through the execution graph.": 1,
+  "Microsoft's TokenOps enforces one shared run-scoped budget through a shared ledger; a bug where each process kept its own counter let a $2 run cap effectively allow $4 across two agents.": 1,
+  "TokenOps reported mean cost per completed run 78.9% lower than no governance ($0.068 to $0.014) and within-cap success rising from 67% to 96% (18/27 to 26/27), on N=27 scored trials.": 1,
+  "TokenOps's cost_guard policy steers cheaper (downgrades model, trims) once per run when spend crosses about 80% of budget, pre_call_worst_case caps output or halts if the next call's worst case won't fit, and cost_budget halts at the cap.": 1
+ }
+}

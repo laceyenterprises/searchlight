@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "b6fb4887a03f0f69",
+ "url": "https://vadim.blog/page/8/",
+ "verdicts": {
+  "A cited study (Maiorano, 2026, arXiv:2603.15676) found human reviewers and an automated quality gate agreed at only kappa = 0.13 in a multi-agent conversational system, barely above chance.": 1,
+  "In the Autonomous Sales Fleet, all LLM calls go through one DeepSeek endpoint behind a Cloudflare AI Gateway, no graph ships unless its golden dataset passes an eval gate, and every persisted AI decision carries a four-field provenance record.": 1,
+  "The Autonomous Sales Fleet applies a ≥0.80 eval bar to every prompt path.": 1,
+  "The Autonomous Sales Fleet is a production agentic-sales system built on LangGraph StateGraphs (control plane), Cloudflare D1/Workers/Queues (data plane), and LangSmith tracing with per-graph golden datasets (observability plane).": 1,
+  "The Autonomous Sales Fleet's lead-to-proposal pipeline uses three agents that qualify, research from grounded facts, and draft a proposal unattended, with a single human gate on the send; outreach is always draft-first and held for human approval.": 1
+ }
+}

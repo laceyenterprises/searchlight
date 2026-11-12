@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "f83f4c1b53ae7ff5",
+ "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/",
+ "verdicts": {
+  "Agent-authored changes fail in the queue more often because the agent verified against the base commit it checked out rather than the tip at queue time, edits files with no local context, and opens PRs faster than the tree settles, making cross-agent conflicts ordinary.": 1,
+  "At a 20% per-PR queue-failure rate (described as typical for agent-authored, unrebased PRs), a batch of 10 passes only 10.7% of the time and costs about 0.93 CI runs per merged PR, roughly the unbatched baseline.": 1,
+  "At a 5% per-PR queue-failure rate a batch of 10 passes 59.9% of the time (0.17 CI runs per merge); at 10% it passes 34.9% of the time (0.29 CI runs per merge).": 1,
+  "GitHub merge queue has a build-concurrency setting between 1 and 100 that caps how many merge_group webhooks dispatch at once.": 1,
+  "If each PR independently fails in the merge queue with probability p, a batch of b PRs passes with probability (1−p)^b, and without bisection one failure discards the whole batch.": 1,
+  "Isolating one culprit in a failed batch of b via bisection costs roughly 2·log2(b) extra CI runs instead of re-running everything, and innocent PRs do not return to the end of the line.": 1,
+  "Mergify batch size can be a fixed integer from 1 to 128 or a {min, max} object for dynamic batching that grows toward max to drain a backlog; speculative parallel checks use temporary draft PRs combining queued changes with the base branch, capped by max_parallel_checks.": 1
+ }
+}

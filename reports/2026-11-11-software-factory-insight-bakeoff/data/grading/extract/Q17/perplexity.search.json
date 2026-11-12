@@ -1,0 +1,103 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "e6c730b37b098b39",
+ "claims": [
+  {
+   "text": "In a LiveCodeBench experiment with 116 hard and medium tasks, Claude Opus 4.7 reviewing Codex GPT-5.5 drafts (reviewer could not execute tests) raised the pass rate from 71.6% to 89.7% (p_BH=.001).",
+   "url": "https://ar5iv.labs.arxiv.org/html/2607.21656"
+  },
+  {
+   "text": "Codex GPT-5.5 self-review raised its own drafts' pass rate from 71.6% to 84.5% (p_BH=.022), less than cross-model review by Claude Opus 4.7.",
+   "url": "https://ar5iv.labs.arxiv.org/html/2607.21656"
+  },
+  {
+   "text": "Codex GPT-5.5 reviewing Claude Opus 4.7 drafts lowered the pass rate from 91.4% to 82.8% (p_BH=.046), while Claude Opus 4.7 self-review left the 91.4% baseline unchanged.",
+   "url": "https://ar5iv.labs.arxiv.org/html/2607.21656"
+  },
+  {
+   "text": "Claude Opus 4.7 reviewing Codex GPT-5.5 fixed 26 of its failures and regressed 5 of its successes (net +21); Codex GPT-5.5 reviewing Claude Opus 4.7 fixed only 3 failures and broke 13 successes (net -10), so the useful cross-model pairing is asymmetric.",
+   "url": "https://ar5iv.labs.arxiv.org/html/2607.21656"
+  },
+  {
+   "text": "In a controlled experiment with 30 artifacts, 150 planted errors and 900 review sessions, a top-tier cross-model reviewer was not significantly different in F1 from same-model review in a fresh session (CCR), which does not establish equivalence.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "Cross-model review and same-model fresh-session review find partly different planted errors (Jaccard 41.2%), with same-model review ahead on code (F1 40.7%) and cross-model review ahead on documents (F1 up to 42.1%).",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "At two review calls, one same-model plus one cross-model review matched 56.7% of planted errors versus 42.7% for two same-model reviews (Holm-adjusted p=.006), but this was not significantly more than two top-tier cross-model reviews.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "A lightweight cross-model reviewer scored no higher than same-model review, and even the union approach matched only 56.7% of planted errors under the automated matcher.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "In a pre-registered study on three stateful services, a verifier in a fresh context detected more of 46 seeded faults than the builder's own tests (Holm-corrected p=0.006), at the price of rare false oracles.",
+   "url": "https://ar5iv.labs.arxiv.org/html/2610.28667"
+  },
+  {
+   "text": "In the same study, a verifier from another provider did not add fault detection beyond the fresh-context verifier.",
+   "url": "https://ar5iv.labs.arxiv.org/html/2610.28667"
+  },
+  {
+   "text": "The builder's programs in that study were correct but its own tests missed subtle interactions; the only evaluation gap observed came from hidden tests exceeding the specification, not from the builder.",
+   "url": "https://ar5iv.labs.arxiv.org/html/2610.28667"
+  },
+  {
+   "text": "The proposed assurance framework runs a specification-first verification phase designed without access to the implementation, then an implementation-aware phase using mutation analysis, property-based testing, fuzzing, and metamorphic or differential relations.",
+   "url": "https://ar5iv.labs.arxiv.org/html/2610.28667"
+  },
+  {
+   "text": "In a live team's corpus of 33 code/mixed artifacts with 294 human-confirmed issues reviewed by fifteen model versions, no large-sample model exceeded about 61% recall on code, and a typical model missed about half of confirmed defects.",
+   "url": "https://zenodo.org/records/21328807/files/LLM_Code_Reviews_v2.pdf?download=1"
+  },
+  {
+   "text": "56.8% of confirmed code defects (167/294) were found by exactly one model, with cross-model Jaccard overlap on code of about 0.29, and a permutation null confirmed the disjointness is real.",
+   "url": "https://zenodo.org/records/21328807/files/LLM_Code_Reviews_v2.pdf?download=1"
+  },
+  {
+   "text": "Coverage of an artifact's confirmed defects rose from about 47% with one reviewer to about 72% with a second reviewer, the largest single step, with diminishing returns after; the authors recommend 2-3 independent, blind reviewers followed by reconciliation.",
+   "url": "https://zenodo.org/records/21328807/files/LLM_Code_Reviews_v2.pdf?download=1"
+  },
+  {
+   "text": "StrongDM's Software Factory uses end-to-end 'scenarios' stored outside the codebase, like a holdout set, so coding agents cannot see them, and an LLM validates them; this guards against agents writing tests that just `assert true`.",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM replaced boolean 'test suite is green' success with a probabilistic 'satisfaction' metric: the fraction of observed trajectories through all scenarios that likely satisfy the user.",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's Digital Twin Universe consists of behavioral clones of Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets, letting them run thousands of scenarios per hour without rate limits, abuse detection or API costs, and test failure modes dangerous against live services.",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM built each twin by feeding public API documentation into an agent harness to produce a self-contained Go binary, using popular public reference SDK client libraries as compatibility targets with a goal of 100% compatibility.",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "text": "A spec-first, zero-human-code-review workflow gates changes with CI checks: a zero-axiom/well-formedness linter, vacuity witness proofs, an adversarial mutation runner that injects synthetic bugs and requires the proof to break on every mutant, and an independent critic agent generating test vectors from the natural-language prompt.",
+   "url": "https://arxiv.org/html/2611.02285v1"
+  },
+  {
+   "text": "The claimed >90% reduction in human review attention is an estimate; its first measurement is the ratio of specification lines to implementation and proof lines over the 181 conditions in SaltBench's pilot matrix.",
+   "url": "https://arxiv.org/html/2611.02285v1"
+  },
+  {
+   "text": "One practitioner blog claims tests, type checking and lint together catch roughly 40-60% of AI-generated defects (no supporting study cited), and recommends a different model for diff review, property-based invariant tests, and snapshot tests for refactors.",
+   "url": "https://ralphworkflow.com/blog/ai-coding-agent-testing-strategy"
+  },
+  {
+   "text": "Self-review by an agent works reasonably on small, predictable codebases where call paths fit in context, which is why it looks strong in pilots but weaker on large enterprise estates.",
+   "url": "https://securityboulevard.com/2026/10/how-do-you-verify-ai-coding-agent-output-from-any-tool-not-just-one/"
+  },
+  {
+   "text": "Sonar argues an agent cannot be its own reviewer and that verification must be independent of generation, with quality gates in CI and findings routed back to the agent; this is a vendor claim without quantitative evidence.",
+   "url": "https://www.sonarsource.com/blog/how-to-achieve-first-pass-quality-with-ai-coding-agents/"
+  }
+ ],
+ "question_id": "Q17"
+}

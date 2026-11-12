@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "204ce4595c33372a",
+ "claims": [
+  {
+   "text": "In Restate, each virtual object has a unique key (e.g., a session ID) and all handler calls on that object are serialized.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "text": "In Restate, each ctx.run() call is journaled before execution; if the handler crashes, Restate re-invokes it and replays the journal, skipping already-executed runs, giving exactly-once semantics without idempotency keys in application code.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "text": "Restate deduplicates requests using the Idempotency-Key header and stores completed responses for 24 hours by default, returning them when the same key is invoked again.",
+   "url": "https://www.zenml.io/blog/inngest-alternatives"
+  },
+  {
+   "text": "Without an explicit idempotency key, Restate's controlled idempotent sharding protects only retries of the same in-flight request, not separate requests sent later.",
+   "url": "https://www.zenml.io/blog/inngest-alternatives"
+  },
+  {
+   "text": "ZenML recommends modeling agent sessions as Restate Virtual Objects keyed by a session, customer, or task ID: requests for the same key run one at a time while different keys run in parallel.",
+   "url": "https://www.zenml.io/blog/inngest-alternatives"
+  },
+  {
+   "text": "Restate SDKs expose ctx.run-style durable steps, built-in key-value state, durable timers, idempotency keys, and callback waits called awakeables.",
+   "url": "https://zylos.ai/research/2026-04-24-durable-execution-agent-runtimes"
+  },
+  {
+   "text": "Temporal records an event history per workflow (activity scheduled, started, completed); on replay the workflow code re-executes deterministically and completed steps return their recorded results.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "text": "Temporal guidance for GPU-backed agents is to put GPU-bound or side-effecting operations in activities, not workflow code, because workflow code must be deterministic and fast since it replays on every worker restart.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "text": "Temporal's heartbeat_timeout (e.g., 60s, with heartbeats every 30s) lets Temporal detect a dead GPU worker (spot preemption, OOM, crash) within one timeout interval and reschedule the activity.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "text": "The Spheron article says Temporal gets exactly-once semantics via idempotency keys, Inngest via step IDs, and Restate natively.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "text": "Temporal workflow code must be deterministic (no Date.now(), random, or direct HTTP); every non-deterministic operation must move into an Activity, and the author estimates about two weeks to production versus an afternoon to attach a LangGraph checkpointer.",
+   "url": "https://theaiengineer.substack.com/p/inngest-vs-temporal-vs-dbos-vs-langgraph"
+  },
+  {
+   "text": "Because a model call can return a different answer each time, it must be treated as a recorded step rather than part of replayed workflow logic; changing workflow code while runs are open can make old histories replay down a mismatched path.",
+   "url": "https://decagon.ai/glossary/what-is-durable-execution"
+  },
+  {
+   "text": "Inngest's step.run() persists each step result; if a workflow fails at the analysis step it resumes there, and the planning and search steps are not re-executed, so each LLM call is paid for once.",
+   "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents"
+  },
+  {
+   "text": "Inngest's step.waitForEvent() suspends a workflow for human approval (the example uses a 7-day timeout, matched on data.draftId) without consuming compute while waiting.",
+   "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents"
+  },
+  {
+   "text": "Inngest step.run accepts per-step retry options, e.g., retries: 5 with exponential backoff from 1s to a 5m maximum; if the API rate-limits on the 15th contact, the first 14 enrichments are not re-run.",
+   "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents"
+  },
+  {
+   "text": "Inngest's function-level concurrency option caps parallel GPU calls, and retries are per step, so only the failed step is retried.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "text": "Inngest describes durable agents as workflows whose next step is chosen by a model, with each model call and tool call running as a step, and durable endpoints as HTTP endpoints that survive intermittent errors.",
+   "url": "https://www.inngest.com/docs/durable-execution"
+  },
+  {
+   "text": "In Inngest, an agent that picks tool calls at runtime needs each call in its own durable step; grouping several calls in one step makes them share a recovery boundary, and the Pro plan ($99/month) includes 1 million executions and 100 concurrent steps.",
+   "url": "https://www.zenml.io/blog/inngest-alternatives"
+  },
+  {
+   "text": "Hatchet's ordinary tasks are at-least-once, so idempotency remains the developer's responsibility unless durable boundaries are used carefully.",
+   "url": "https://zylos.ai/research/2026-04-24-durable-execution-agent-runtimes"
+  },
+  {
+   "text": "DBOS is durable execution as a library that checkpoints into an existing Postgres database.",
+   "url": "https://theaiengineer.substack.com/p/inngest-vs-temporal-vs-dbos-vs-langgraph"
+  },
+  {
+   "text": "A workflow replay that re-sends a provider call without the same idempotency key causes a second charge, email, or ticket; the idempotency key must be reused on the retry, and neither Temporal nor Inngest does this automatically.",
+   "url": "https://www.swytchcode.com/content/best-durable-execution-platforms"
+  },
+  {
+   "text": "A step that timed out may have actually succeeded before retry, so refunds, emails, and account changes need idempotency keys or check-before-write at the receiving system.",
+   "url": "https://decagon.ai/glossary/what-is-durable-execution"
+  },
+  {
+   "text": "A human-in-the-loop gate suspends the agent at a named checkpoint, writes full state to the log, releases the process thread, and resumes when approval arrives, whether minutes or days later.",
+   "url": "https://blog.traversaal.ai/durable-execution-ai-agents-state-persistence-long-running-workflows"
+  },
+  {
+   "text": "A Vercel AI SDK comparison states WorkflowAgent adds process-restart recovery, per-step tool retries, and durable suspension for long approval waits over the in-memory ToolLoopAgent, but recommends keeping ToolLoopAgent for short synchronous interactions.",
+   "url": "https://dev.to/serifcolakel/durable-execution-for-ai-agents-state-checkpointing-retries-and-human-in-the-loop-99f"
+  },
+  {
+   "text": "Decagon's glossary describes customer-support uses such as refunds awaiting manager sign-off or warehouse confirmation, and says the event history doubles as an AI audit trail.",
+   "url": "https://decagon.ai/glossary/what-is-durable-execution"
+  }
+ ],
+ "question_id": "Q11"
+}

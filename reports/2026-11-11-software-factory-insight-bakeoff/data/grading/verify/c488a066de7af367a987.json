@@ -1,0 +1,17 @@
+{
+ "capture": "captured",
+ "digest": "0ff97696c0dc8749",
+ "url": "https://arxiv.org/html/2610.28667",
+ "verdicts": {
+  "A verifier from a different provider than the builder detected fewer faults than the same-model verifier: 13 faults favored the same-model verifier, none favored the other-provider verifier, and 33 were ties (Holm p=0.0005); the authors note this confounds provider and capability because only one model pair was compared.": 1,
+  "For stateful requirements the specification-first verifier produces model-based tests over operation sequences, including forbidden transitions such as paying twice or refunding a payment never captured.": 1,
+  "In a study with 46 seeded faults across three stateful services, a fresh-context independent verifier (AB) detected more seeded faults than the builder's own tests: 11 faults favored AB, 1 favored the self-verifier, and 34 were ties (Holm-corrected p=0.006).": 1,
+  "Independent verification conditions cost 67k to 126k tokens per unit on top of the shared builder phase.": 1,
+  "MuTAP feeds surviving mutants back to an LLM to strengthen tests, and Meta's ACH generates mutants for specific fault classes and then tests that kill them.": 1,
+  "On the two services written solely by third-party models, the independent fresh-context verifier detected 7 seeded faults that the builder's tests missed and none in the other direction (p=0.016).": 1,
+  "SpecBench, which separates visible validation tests from held-out composition tests, finds that the gap between visible and held-out performance grows with code size.": 1,
+  "The authors caution that seeded faults and mutants may not represent the real faults of agent-produced code, and that hidden tests can both miss specified behavior and exceed the specification (as one EvalPlus task did).": 1,
+  "The proposed framework has a specification-first phase in which the verifier sees the approved contract and public interface but not the implementation, and an implementation-aware phase using mutation analysis, property-based testing and fuzzing; the resulting assurance report leaves the release decision to a human.": 1,
+  "Verifier-generated tests were invalid 7 to 11% of the time, but genuine false oracles were only 0.7 to 2.3%.": 1
+ }
+}

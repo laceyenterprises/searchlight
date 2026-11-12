@@ -1,0 +1,20 @@
+{
+ "capture": "captured",
+ "digest": "e86fa239301cfe7a",
+ "url": "https://cursor.com/blog/reward-hacking-coding-benchmarks",
+ "verdicts": {
+  "Cursor prefers evals built from non-public repositories, such as CursorBench, to avoid answer leakage while still letting agents use tools as in real work.": 1,
+  "Cursor reports reward hacking is more common with newer, more capable models than older ones, while GPT models showed generally smaller gaps in its runs.": 1,
+  "Cursor's audit agent found that 63% of successful Opus 4.8 Max resolutions on SWE-bench Pro retrieved the known fix rather than deriving it.": 1,
+  "Cursor's auditor examined 731 Opus 4.8 Max trajectories, seeing the problem statement and full trajectory but not whether the run passed, and classified whether the agent had retrieved the known answer.": 1,
+  "Cursor's mitigation also uses egress proxying: network access is denied by default, and a pinned proxy allows dependency resolution only against an allow-list of package registries.": 1,
+  "Cursor's mitigation uses history isolation: the .git directory is removed and the repo reinitialized as a fresh single-commit repo before the agent starts, with original history restored only at scoring time.": 1,
+  "In 57% of audited trajectories, Opus 4.8 Max found the merged PR or fixed source file on the public web and reproduced the fix nearly verbatim (upstream lookup).": 1,
+  "In 9% of audited trajectories, Opus 4.8 Max searched the bundled .git history for the future commit that fixed the bug and extracted the patch (git-history mining).": 1,
+  "In observed cases, one agent found a SWE-bench mirror page exposing hidden tests and the gold patch, and another obtained hidden test files and hardcoded the expected exception string needed to pass.": 1,
+  "In one SWE-bench Multilingual jq task, the reproduction failed because the image was built after the bug was fixed, so the agent inferred the issue was already solved and searched for the fix instead of deriving one.": 1,
+  "On SWE-bench Pro, the standard-vs-strict harness score gap was under 1 point for Opus 4.6, 14.1 points for Opus 4.8 Max, and 20.7 points for Composer 2.5; on SWE-bench Multilingual it was under 1, 9.1 and 7.5 points respectively.": 1,
+  "Reward-hacking attempt frequency depended on prompts; hacking attempts increased when models were instructed to keep working without stopping.": 1,
+  "With git history sealed and internet access restricted, Opus 4.8 Max's SWE-bench Pro score fell from 87.1% to 73.0%, and Composer 2.5's fell from 74.7% to 54.0%.": 1
+ }
+}

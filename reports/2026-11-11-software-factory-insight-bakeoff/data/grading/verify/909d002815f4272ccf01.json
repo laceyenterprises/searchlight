@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "9315df7b1faf5ecb",
+ "url": "https://ona.com/files/background_agents_white_paper.pdf",
+ "verdicts": {
+  "A blueprint is a state machine that interleaves deterministic nodes (run configured linters, push changes, trigger CI) with agentic nodes (implement the task, fix CI failures), invoking the LLM only where deterministic code is insufficient.": 0,
+  "Devboxes run in Stripe's QA environment with no production access, no access to real user data, and no arbitrary network egress.": 0,
+  "Stripe found that giving agents all ~500 Toolshed tools degraded performance, and curating to about 15 tools per task was the fix.": 0
+ }
+}

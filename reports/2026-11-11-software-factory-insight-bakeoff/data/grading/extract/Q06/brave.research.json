@@ -1,0 +1,95 @@
+{
+ "arm_id": "brave.research",
+ "cell_sha": "7393e89d0bb2de66",
+ "claims": [
+  {
+   "text": "Stripe's Minions system merges over 1,300 pull requests per week that are entirely minion-produced, containing no human-written code but undergoing human review.",
+   "url": null
+  },
+  {
+   "text": "Minions' weekly merged PR volume rose from about 1,000 in earlier trials to over 1,300.",
+   "url": null
+  },
+  {
+   "text": "By February 2026, Minions were responsible for more than 10% of all code contributions at Stripe.",
+   "url": null
+  },
+  {
+   "text": "Minions are allowed at most two rounds of CI, a limit meant to balance speed, cost, and diminishing returns.",
+   "url": null
+  },
+  {
+   "text": "If a Minion branch still fails CI after two rounds, it is escalated to a human operator for manual scrutiny.",
+   "url": null
+  },
+  {
+   "text": "Stripe's CI selectively runs tests from a battery of over three million tests.",
+   "url": null
+  },
+  {
+   "text": "When CI hits a known failure pattern that has an autofix, the autofix is applied automatically; otherwise the failure goes back to the Minion for repair.",
+   "url": null
+  },
+  {
+   "text": "Minions run in pre-warmed, standardized AWS EC2 instances called devboxes, which spin up in approximately 10 seconds.",
+   "url": null
+  },
+  {
+   "text": "Devboxes are isolated sandboxes, separated from production servers and the internet, which allows Minions to run unattended without risking production stability.",
+   "url": null
+  },
+  {
+   "text": "Devboxes mirror a human engineer's environment, with repositories cloned, caches warmed, and background services started ahead of time.",
+   "url": null
+  },
+  {
+   "text": "Minions' orchestration mechanism is called 'blueprints': workflows defined in code that intermix deterministic nodes and agentic loops.",
+   "url": null
+  },
+  {
+   "text": "Deterministic blueprint nodes handle repeatable tasks such as running linters, pushing changes, and executing specific test suites.",
+   "url": null
+  },
+  {
+   "text": "Agentic blueprint nodes handle complex tasks such as implementing features or fixing CI failures, where the agent has tools and freedom to reason.",
+   "url": null
+  },
+  {
+   "text": "A local executable runs selected lints on each git push in under five seconds using heuristics, giving the branch a fair chance of passing CI the first time.",
+   "url": null
+  },
+  {
+   "text": "The deterministic/agentic split keeps the agent from wasting tokens or CI minutes on trivial tasks like auto-formatting and keeps critical steps consistent.",
+   "url": null
+  },
+  {
+   "text": "Before a Minion run, a deterministic orchestrator prehydrates context by scanning the Slack thread for links, pulling Jira tickets, retrieving documentation, and searching code via Sourcegraph.",
+   "url": null
+  },
+  {
+   "text": "Stripe's internal MCP server, 'Toolshed', hosts nearly 500 MCP tools spanning internal systems and SaaS platforms.",
+   "url": null
+  },
+  {
+   "text": "Each Minion task receives a prefetched subset of about 15 Toolshed tools, chosen by scanning the prompt, to avoid overwhelming the agent.",
+   "url": null
+  },
+  {
+   "text": "Agent rules are applied conditionally by subdirectory, so the agent only picks up rules relevant to the code area it is working in.",
+   "url": null
+  },
+  {
+   "text": "Every Minion PR is human-reviewed, and reviewing 1,300+ PRs weekly is a noted challenge because AI-written code can be opaque in intent.",
+   "url": null
+  },
+  {
+   "text": "Minions perform best on well-defined tasks such as configuration adjustments, dependency upgrades, and minor refactoring.",
+   "url": null
+  },
+  {
+   "text": "Engineers can launch multiple Minions in parallel, multiplying their production capacity.",
+   "url": null
+  }
+ ],
+ "question_id": "Q06"
+}

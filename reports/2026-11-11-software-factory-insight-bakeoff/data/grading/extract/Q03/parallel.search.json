@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "c6cd6f24029665b2",
+ "claims": [
+  {
+   "text": "Devin is a cloud agent that runs in its own infrastructure and environment, and can work for minutes or hours while opening PRs, running tests, and QAing its own work using computer vision.",
+   "url": "https://cognition.com/blog/devin-in-windsurf"
+  },
+  {
+   "text": "In Windsurf 2.0, a developer plans locally in Windsurf and sends the plan to Devin with a single click; Devin spins up its own machine to implement it, and the resulting PR is reviewed inside Windsurf.",
+   "url": "https://cognition.com/blog/devin-in-windsurf"
+  },
+  {
+   "text": "Cognition says Devin releases have added self-testing with computer use, review and auto-fixing of its own code, management of parallel sub-agent teams, and scheduling of its own work.",
+   "url": "https://cognition.com/blog/devin-in-windsurf"
+  },
+  {
+   "text": "Cognition argues that containerized agents share a kernel, so one compromised session could access other containers' filesystems, credentials, and network connections.",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "text": "Cognition's microVM implementation took over a year of hypervisor engineering and gives every agent session its own dedicated kernel with isolated storage, networking, and compute; this also lets agents use a full browser and desktop applications.",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "text": "Cognition snapshots full machine state at the hypervisor level (memory, process trees, filesystem) so compute shuts down while the agent is idle and the session resumes exactly where it left off when a CI result or review comment arrives.",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "text": "Cognition says containers cannot reliably snapshot an individual container's full state, so a containerized agent can only survive async gaps by burning compute, and the session is lost if the container is rescheduled, times out, or crashes.",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "text": "Cognition's orchestration layer took over three quarters of dedicated engineering to build and manages thousands of concurrent VMs, handling provisioning, demand prediction, crash recovery, and teardown.",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "text": "Cognition reports that a cloud data platform company attempted to build its own cloud agent infrastructure and moved on after the project scope overwhelmed its infrastructure team.",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "text": "Cognition cites Itaú (nearly 17,000 engineers, eleven months in) as completing migrations 5 to 6x faster, auto-remediating 70% of static-analysis security vulnerabilities, and doubling test coverage.",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "text": "Windsurf's Cascade has built-in planning in which a specialized planning agent continuously refines the long-term plan in the background while the selected model takes short-term actions, and Cascade keeps a Todo list in the conversation for complex tasks.",
+   "url": "https://docs.windsurf.com/windsurf/cascade/cascade"
+  },
+  {
+   "text": "Cascade can make up to 20 tool calls per prompt.",
+   "url": "https://docs.windsurf.com/windsurf/cascade/cascade"
+  },
+  {
+   "text": "Cognition describes a Playbook as a custom system prompt for a repeated task.",
+   "url": "https://cognition.ai/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Cognition lists a good Playbook as including the desired outcome, required steps, postcondition specifications, advice to correct Devin's priors, forbidden actions, and required input from whoever kicks it off.",
+   "url": "https://cognition.ai/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Cognition uses a !triage-bug playbook that captures its engineers' investigation steps (read the report, search relevant code paths, check git history) to automate bug triage.",
+   "url": "https://cognition.ai/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Devin Knowledge is a collection of tips, docs, and instructions recalled automatically across sessions, scoped to repos, organization, or enterprise.",
+   "url": "https://docs.devin.ai/product-guides/knowledge"
+  },
+  {
+   "text": "Knowledge is deprecated and is being automatically migrated to Skills in Plugins.",
+   "url": "https://docs.devin.ai/product-guides/knowledge"
+  },
+  {
+   "text": "In Devin's test mode, early failure modes included over-testing unrelated parts of the product, getting lost in setup before reaching the feature, and missing the core behavior the PR changed.",
+   "url": "https://cognition.com/blog/testing-development"
+  },
+  {
+   "text": "To fix this, Devin first writes a test plan grounded in source rather than assumptions, and can suggest saving setup steps it learned the hard way as a testing skill in the repo.",
+   "url": "https://cognition.com/blog/testing-development"
+  },
+  {
+   "text": "Cognition reports Devin has merged hundreds of thousands of PRs and that its PR merge rate doubled over the past year, driven partly by better understanding of large codebases.",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "text": "Cognition reports company test coverage typically rises from 50-60% to 80-90% when using Devin, using playbooks written by humans that fleets of Devins run across a few hundred repos.",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "text": "In Crossmint's GOAT SDK trial, Devin became the top contributor by PR count, merging 8 PRs versus 4 for the next contributor.",
+   "url": "https://cognition.com/blog/crossmint-devin"
+  },
+  {
+   "text": "For the Crossmint DEXScreener plugin, Devin needed one round of GitHub feedback to merge; Crossmint said it should have given example code in the initial prompt or a playbook.",
+   "url": "https://cognition.com/blog/crossmint-devin"
+  },
+  {
+   "text": "For the Crossmint Sui integration, Devin needed 3 rounds of feedback and got stuck in a loop by using an old version of Sui's standard library, yet it merged with about an hour of human involvement versus days from scratch.",
+   "url": "https://cognition.com/blog/crossmint-devin"
+  },
+  {
+   "text": "Crossmint says the most common mistake is overestimating Devin: giving insufficient context, assuming pre-existing codebase knowledge, and holding unrealistic expectations.",
+   "url": "https://cognition.com/blog/crossmint-devin"
+  }
+ ],
+ "question_id": "Q03"
+}

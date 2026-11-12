@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "3b8e7c710fe8f296",
+ "claims": [
+  {
+   "text": "Mini-SWE-Agent's minimal linear loop achieves reported SWE-Bench Verified results in the same range as OpenHands's event-sourced conversation engine, despite OpenHands committing substantially more code to loop orchestration alone.",
+   "url": null
+  },
+  {
+   "text": "Mini-SWE-Agent's minimal scaffold reportedly achieves 74%+ on SWE-Bench Verified, while Codex's far larger codebase reports 69.1%; the figures are not directly comparable because the models, evaluation runs and deployments differ (Mini-SWE-Agent is unsandboxed, Codex is sandboxed).",
+   "url": null
+  },
+  {
+   "text": "A source-code study of eleven coding-agent systems found that loop sophistication does not predict benchmark performance; most code in production systems addresses safety, user experience, extensibility, clients and transport rather than task completion.",
+   "url": null
+  },
+  {
+   "text": "OpenHands reports ~66% on SWE-Bench Verified with Sonnet 4.5 and ~77% (77.6% in the at-a-glance table) with Opus 4.5 using its internal harness, the best of any open scaffold; SWE-agent's best Verified score with Opus 4.5 is listed as 72.0%.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's tool set is ls, find_file, open, scroll, edit, submit with a line-range linear edit format and full trajectory kept in context, whereas OpenHands offers bash, file_edit, browse, jupyter and custom MCP tools with str_replace plus full-file rewrite edits and event-history memory with a condenser.",
+   "url": null
+  },
+  {
+   "text": "The mini-SWE-agent, a 100-line-of-code descendant of SWE-agent, is often used for apples-to-apples model comparison.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's ACI is built on the hypothesis that standard Unix shells are poorly suited to language models: raw bash gives verbose error output, lacks guardrails against destructive file overwrites, and requires complex sed/awk invocations that trigger hallucinations.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's ACI provides open_file with a 100-line viewing window, scroll_up/scroll_down, regex-backed search_dir and search_file, and an edit command with automatic syntax validation and linter checks.",
+   "url": null
+  },
+  {
+   "text": "OpenHands builds on the CodeAct paradigm, in which the model emits executable Python and bash directly rather than rigid JSON tool-calling schemas.",
+   "url": null
+  },
+  {
+   "text": "OpenHands runtime uses an append-only event stream of Actions (CmdRunAction, IPythonRunCellAction, BrowseURLAction) and Observations (CmdOutputObservation, BrowserOutputObservation) passing through a central controller, enabling a planning agent to delegate subtasks to micro-agents.",
+   "url": null
+  },
+  {
+   "text": "OpenHands executes all actions inside isolated Docker containers or ephemeral cloud VMs, allowing arbitrary shell execution, dependency installation and headless browsing without risking the host.",
+   "url": null
+  },
+  {
+   "text": "OpenHands implements a 'runtime' that executes all agent actions in a Docker environment; the agent sends actions and receives observations, so it can run arbitrary code like a human developer without damaging the host machine.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent uses configurable agent-computer interfaces to interact with isolated computer environments and employs SWE-ReX for sandboxed code execution.",
+   "url": null
+  },
+  {
+   "text": "OpenHands supports multi-agent coordination via AgentDelegateAction, where sub-tasks are delegated to specialized agents and results returned to the parent, and runs agents in per-session Docker containers.",
+   "url": null
+  },
+  {
+   "text": "In OpenHands' SWE-Bench Lite evaluation of 10 models (run on a cloud sandbox giving 30x or greater speedup), Claude 3.5 Sonnet was best with a 27% resolve rate using the default agent.",
+   "url": null
+  },
+  {
+   "text": "In the same OpenHands evaluation, o1-mini scored worse than GPT-4o, apparently because it 'overthought' and performed extra environment configuration instead of finishing the task; Llama 3.1 405B and deepseek-v2.5 were the strongest open models and beat some closed ones.",
+   "url": null
+  },
+  {
+   "text": "On SWE-Bench Lite (300 instances, no hints), OpenHands CodeActAgent v1.8 scored 26.0% with claude-3-5-sonnet at $1.10 average cost, 22.0% with gpt-4o at $1.72, and 7.0% with gpt-4o-mini, versus SWE-agent 18.0% with gpt-4-1106-preview and Aider 26.3%.",
+   "url": null
+  },
+  {
+   "text": "SWE-bench evaluates agents by running the agent-modified repository against a test suite including new tests from the human fix; the OpenHands paper reports all results without hint text and defaults to the SWE-bench Lite subset for cost saving.",
+   "url": null
+  },
+  {
+   "text": "SWE-bench Verified is a 500-issue subset in which OpenAI hired software engineers to filter out issues that were flawed or not solvable with the provided information.",
+   "url": null
+  },
+  {
+   "text": "AIDE reached 62.2% on SWE-bench Verified by scaling test-time inference with multiple complete runs and reward-based selection, at around $20 per issue.",
+   "url": null
+  },
+  {
+   "text": "Autonomous resolution of a complex multi-file bug on OpenHands or SWE-agent often consumes 300,000 to 2,000,000 tokens and 5 to 25 minutes per issue, while interactive tools like Aider and Cline use roughly 20,000 to 150,000 tokens per task.",
+   "url": null
+  },
+  {
+   "text": "OpenHands limitations reported include needing strong tests and well-scoped issues, high token cost on complex work, and security/ops concerns from its Docker-based runtime and Docker socket mounting.",
+   "url": null
+  },
+  {
+   "text": "OpenHands launched as OpenDevin in March 2024 as an open alternative to Cognition's Devin, is MIT licensed, and All Hands AI raised a $5 million seed round announced 5 September 2024 led by Menlo Ventures.",
+   "url": null
+  },
+  {
+   "text": "OpenHands announced state-of-the-art SWE-bench Verified results on 17 April 2025 using inference-time scaling and a critic model.",
+   "url": null
+  },
+  {
+   "text": "Sourcegraph's Amp does not expose model selection to users, which lets it switch backend models without user friction, and it uses 'handoff' (starting a new thread with needed context) rather than 'compact' summarization for context management.",
+   "url": null
+  }
+ ],
+ "question_id": "Q09"
+}

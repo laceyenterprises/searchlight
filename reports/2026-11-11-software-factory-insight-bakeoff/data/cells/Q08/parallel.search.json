@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:18.607946Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 986,
+   "page_chars_delivered": 13481,
+   "post_step": "fetched",
+   "published": "2025-11-26",
+   "text": "We developed a two-fold solution to enable the [Claude Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) to work effectively across many context windows: an **initializer agent** that sets up the environment on the first run, and a **coding\n\n...\n\nThe Claude Agent SDK is a powerful,…",
+   "title": "Effective harnesses for long-running agents \\ Anthropic",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "chars_delivered": 986,
+   "page_chars_delivered": 13481,
+   "post_step": "fetched",
+   "published": "2025-11-26",
+   "text": "We developed a two-fold solution to enable the [Claude Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) to work effectively across many context windows: an **initializer agent** that sets up the environment on the first run, and a **coding\n\n...\n\nThe Claude Agent SDK is a powerful,…",
+   "title": "Effective harnesses for long-running agents \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "chars_delivered": 965,
+   "page_chars_delivered": 27356,
+   "post_step": "fetched",
+   "published": "2025-06-13",
+   "text": "[Try Claude](https://claude.ai/)\n\n[Engineering at Anthropic](https://www.anthropic.com/engineering)\n\n# How we built our multi-agent research system\n\nPublished Jun 13, 2025\n\n...\n\nSubagents facilitate compression by operating in parallel with their own context windows, exploring different aspects of…",
+   "title": "How we built our multi-agent research system \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "chars_delivered": 932,
+   "published": "2025-06-13",
+   "text": "We found that a multi-agent system with Claude Opus 4 as the lead agent and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on our internal research eval.\n\n...\n\nThere is a downside: in practice, these architectures burn through tokens fast. In our data, agents typically u…",
+   "title": "How we built our multi-agent research system \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system"
+  },
+  {
+   "chars_delivered": 898,
+   "published": "2026-03-24",
+   "text": "Taking inspiration from [Generative Adversarial Networks](https://en.wikipedia.org/wiki/Generative_adversarial_network) (GANs), I designed a multi-agent structure with a **generator** and **evaluator** agent.\n\n...\n\nThe final result was a three-agent architecture—planner, generator, and evaluator—th…",
+   "title": "Harness design for long-running apps \\ Anthropic",
+   "url": "https://www.anthropic.com/research/harness-design-long-running-apps"
+  },
+  {
+   "chars_delivered": 896,
+   "published": "2025-06-13",
+   "text": "The essence of search is compression: distilling insights from a vast corpus. Subagents facilitate compression by operating in parallel with their own context windows, exploring different aspects of\n\n...\n\nOur internal evaluations show that multi-agent research systems excel especially for breadth-f…",
+   "title": "How we built our multi-agent research system \\ Anthropic",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "chars_delivered": 984,
+   "published": "2026-01-23",
+   "text": "A multi-agent system is an architecture where multiple LLM instances run with separate conversation contexts, coordinated through code. Each agent handles a distinct slice of a task — a subagent researches while an orchestrator plans, for example — which protects context, enables parallel work, and…",
+   "title": "When to use multi-agent systems (and when not to) | Claude by Anthropic",
+   "url": "https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them"
+  },
+  {
+   "chars_delivered": 966,
+   "published": "2026-03-24",
+   "text": "Taking inspiration from [Generative Adversarial Networks](https://en.wikipedia.org/wiki/Generative_adversarial_network) (GANs), I designed a multi-agent structure with a **generator** and\n\n...\n\nThe final result was a three-agent architecture—planner, generator, and evaluator—that produced rich full…",
+   "title": "Harness design for long-running application development \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/harness-design-long-running-apps?from=bd_signal"
+  },
+  {
+   "chars_delivered": 898,
+   "published": "2026-03-24",
+   "text": "Taking inspiration from [Generative Adversarial Networks](https://en.wikipedia.org/wiki/Generative_adversarial_network) (GANs), I designed a multi-agent structure with a **generator** and **evaluator** agent.\n\n...\n\nThe final result was a three-agent architecture—planner, generator, and evaluator—th…",
+   "title": "Harness design for long-running apps \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/harness-design-long-running-apps"
+  },
+  {
+   "chars_delivered": 979,
+   "published": "2025-06-13",
+   "text": "Published Jun 13, 2025\n\nOur Research feature uses multiple Claude agents to explore complex topics more effectively.\n\n...\n\nSubagents facilitate compression by operating in parallel with their own context windows, exploring different aspects of the question simultaneously before condensing the most…",
+   "title": "Built Multi Agent Research System",
+   "url": "http://anthropic.com/engineering/built-multi-agent-research-system"
+  }
+ ],
+ "latency_ms": 2604.5,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q08",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "What does Anthropic recommend for long-running agent harnesses and multi-agent systems? Cover initializer and coding agents, progress files, context compaction, subagents, the Claude Agent SDK, Agent Skills, and the multi-agent research system's lessons on token cost and orchestration. Rank first the primary sources: Anthropic's own engineering blog posts (e.g. effective harnesses for long-running agents, how we built our multi-agent research system, building agents with the Claude Agent SDK, equipping agents with Agent Skills), Anthropic docs, and talks. Pull out mechanisms (initializer agent vs coding agent, progress files, feature lists, git commits, compaction, subagent context isolation, orchestrator-worker pattern), numbers (token usage multiples versus chat, performance gains over single-agent), names, dates, and failure modes and lessons learned.",
+   "search_queries": [
+    "Anthropic effective harnesses long-running agents initializer coding agent",
+    "Anthropic multi-agent research system orchestrator subagents token cost",
+    "Claude Agent SDK subagents context compaction Agent Skills"
+   ],
+   "session_id": "sl-parallel.search-Q08-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11931,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:16.003430Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,35 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "7859c1e1c22d3577",
+ "claims": [
+  {
+   "text": "Anthropic found that a 'record only failures' memory rule cut Opus 5's memory gain by 0.234.",
+   "url": null
+  },
+  {
+   "text": "Claude Code loads only the first 200 lines or 25 KB of its MEMORY.md index because the injected memory layer must stay small.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's wiki-plus-search memory scored 61%, versus 53% for search alone and 48% for wiki alone.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's wiki-plus-search memory saved about 20,000 tokens per question.",
+   "url": null
+  },
+  {
+   "text": "Zalando's LLM postmortem analysis pipeline still shows about 10% Surface Attribution Error with Claude Sonnet 4.",
+   "url": null
+  },
+  {
+   "text": "Zalando's postmortem-pattern findings led to automated IaC change validation that prevented 25% of subsequent datastore incidents.",
+   "url": null
+  },
+  {
+   "text": "Mistake Notebook Learning updates its external failure memory only when batch performance improves.",
+   "url": null
+  }
+ ],
+ "question_id": "Q23"
+}

@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "Temporal durable execution AI agents production",
+  "Restate DBOS Inngest durable agents human-in-the-loop",
+  "durable execution LLM agent idempotent tool calls retries"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How are durable-execution engines (Temporal, Restate, Inngest, DBOS) used to run AI agents reliably? What patterns do they recommend for retries, human-in-the-loop waits, long-running workflows, and idempotent tool calls, and which companies run agents on them in production? Rank first primary sources: the vendors' own engineering blogs, documentation, conference talks, papers, code repositories, and customer case studies, plus credible technical reporting. Pull out concrete facts: mechanisms (event history replay, journaling, checkpointing to Postgres, signals, awakeables, waitForEvent, step memoization), retry and timeout policies, idempotency key practices, named production companies and use cases, dates, scale numbers, measured results, and failure modes or limitations.",
+ "question_id": "Q11",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "a3d53865f7eb4c2a",
+ "url": "https://www.augmentcode.com/tools/platforms-with-ai-root-cause-analysis",
+ "verdicts": {
+  "Safe autonomous remediation requires idempotent actions, pre-defined rollback plans, audit logs and human approval for state-mutating writes, with starting points such as restarting a single stateless instance or rolling back a feature flag with health gating.": 0
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "9a2b995d71437fbc",
+ "claims": [
+  {
+   "text": "Lamplit Labs reduced cost per merged PR for coding agents from $31 to $9 over eight weeks while the merge rate of agent PRs stayed between 60% and 67%.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs defines cost per merged PR as total model spend attributed to agent runs divided by the agent-authored pull requests that actually landed.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "In one week of Lamplit Labs run logs, 6% of agent runs consumed 48% of tokens, and almost all of those runs ended with a PR closed without merging or no PR at all.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs set a per-task token budget declared in the task via .agents/budgets.yml: default 400k input and 60k output tokens, docs 150k/30k, bugfix 400k/60k, feature 900k/120k.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs' runner tells the agent at 80% of budget to open a PR with what it has or write a handoff note; about a third of near-cap runs now land a smaller PR instead of nothing.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs added a retry cap: after three failures of the same test command with the same failing test names, the runner refuses to run it again and tells the agent to change approach or stop.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs added a context-size guard that truncates tool results over 12 KB to the first and last 4 KB, cutting per-pass input tokens on test-heavy tasks by roughly 60%.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "At Lamplit Labs, the budget cap fired on only 4% of runs by week 8; the retry cap and context guard did most of the cost reduction and the budget acts as a backstop.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs' week-8 figures were 58 agent PRs opened, 39 merged (67%), $351 spend, $9 per merged PR, versus week 1 with 49 opened, 30 merged (61%), $930 spend, $31 per merged PR.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs' waste ratio (share of spend in runs that did not merge) fell from 48% to 17%, and median passes per task fell from 7.8 to 3.4.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Lamplit Labs alerts when the 7-day cost per merged PR rises more than 30% over the 28-day value, and found per-agent budgets failed because docs and feature tasks needed different caps, so budgets belong in the task.",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "text": "Git AI reports an average cost per merged PR of $14.20 across 312 merged PRs in the last 30 days, down 37% from $22.40 six months earlier.",
+   "url": "https://usegitai.com/token-accounting"
+  },
+  {
+   "text": "DigiUsher reported a fully allocated cost of $52.55 per merged PR for a 1,000-engineer firm, based on 77 agent sessions joined to shipped code within seven days.",
+   "url": "https://www.digiusher.com/blog/dollar5255-per-merged-pull-request-how-one-1000-engineer-firm-priced-its-own-ai-spend/"
+  },
+  {
+   "text": "The DigiUsher customer had a 96.8% cache-hit rate and a blended rate of $0.75 per million tokens across six model classes.",
+   "url": "https://www.digiusher.com/blog/dollar5255-per-merged-pull-request-how-one-1000-engineer-firm-priced-its-own-ai-spend/"
+  },
+  {
+   "text": "Microsoft's TokenOps enforces one shared run-scoped budget through a shared ledger; a bug where each process kept its own counter let a $2 run cap effectively allow $4 across two agents.",
+   "url": "https://commandline.microsoft.com/tokenops-real-time-run-scoped-cost-control-ai-agents/"
+  },
+  {
+   "text": "TokenOps's cost_guard policy steers cheaper (downgrades model, trims) once per run when spend crosses about 80% of budget, pre_call_worst_case caps output or halts if the next call's worst case won't fit, and cost_budget halts at the cap.",
+   "url": "https://commandline.microsoft.com/tokenops-real-time-run-scoped-cost-control-ai-agents/"
+  },
+  {
+   "text": "TokenOps reported mean cost per completed run 78.9% lower than no governance ($0.068 to $0.014) and within-cap success rising from 67% to 96% (18/27 to 26/27), on N=27 scored trials.",
+   "url": "https://commandline.microsoft.com/tokenops-real-time-run-scoped-cost-control-ai-agents/"
+  },
+  {
+   "text": "Microsoft's TokenOps authors argue gateways such as LiteLLM, Portkey and Cloudflare AI Gateway meter per request or key, whereas an agent run spans many requests, so budgets need a run id carried through the execution graph.",
+   "url": "https://commandline.microsoft.com/tokenops-real-time-run-scoped-cost-control-ai-agents/"
+  },
+  {
+   "text": "Vanja Petreski's guide recommends per-task budget reservations (routine task $5, hard debug $25, migration $100) with thresholds at 50% (reassess), 80% (freeze new fan-out, require escalation) and 100% (checkpoint and pause).",
+   "url": "https://vanja.io/ai-cost-management/"
+  },
+  {
+   "text": "The guide recommends tracking cost per merged PR (paired with change size and rollback rate), cost per accepted task, retry-waste %, cache-read ratio, flagship-token share and escalation precision, with attribution by task, PR, and team tags.",
+   "url": "https://vanja.io/ai-cost-management/"
+  },
+  {
+   "text": "The guide says to order prompt context most-stable-first and put volatile content last because caching is a prefix game; one cache write plus one read costs 1.35× versus 2× for two uncached uses at 0.1× read and 1.25× write rates.",
+   "url": "https://vanja.io/ai-cost-management/"
+  },
+  {
+   "text": "Accenture's preprint estimates a cache-safe router that routes at session start, in side lanes and at subagent launch recovers 14 to 21% of model spend ($3.3M to $5.0M a year) in an emulated 10,000-seat enterprise at Anthropic list prices of 21 September 2026.",
+   "url": "https://arxiv.org/html/2609.28919v1"
+  },
+  {
+   "text": "The preprint derives that a mid-task model switch must earn back cache writes: on Anthropic's sheet, Fable 5.1 to Sonnet 5 pays back after 291 requests with return (46 without), and Opus 5 to Sonnet 5 after 27 (8 without).",
+   "url": "https://arxiv.org/html/2609.28919v1"
+  },
+  {
+   "text": "The preprint finds that because Fable 5.1 cache reads cost $0.25 per million tokens versus $0.50 for Opus 5, the highest-priced model can cost less than the next tier on long tool-heavy sessions.",
+   "url": "https://arxiv.org/html/2609.28919v1"
+  },
+  {
+   "text": "amux's FinOps guide suggests per-agent-session token caps, such as 500K tokens for an implementation agent, with the agent pausing and alerting the developer at the cap.",
+   "url": "https://amux.io/guides/ai-coding-finops/"
+  }
+ ],
+ "question_id": "Q19"
+}

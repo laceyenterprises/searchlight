@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "478ab49b07d7c4fb",
+ "url": "https://github.blog/engineering/engineering-principles/how-github-uses-merge-queue-to-ship-hundreds-of-changes-every-day/",
+ "verdicts": {
+  "At GitHub, over 500 engineers merge 2,500 PRs per month into the monorepo via merge queue, and average wait time to ship fell by 33%.": 1,
+  "GitHub's merge queue shipped 30,000+ PRs with 4.5 million CI runs for GitHub.com before general availability, and now lets GitHub deploy 30+ changes at once versus a 15 limit with the old trains system.": 1
+ }
+}

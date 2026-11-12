@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "4ac19943b3bd8481",
+ "url": "https://arxiv.org/html/2610.32578v1",
+ "verdicts": {
+  "A written prompt rule on run-time estimates did not change Sonnet 4.5's overestimates. An em-dash lint check rejected an em-dash an older-model agent drafted.": 1,
+  "In a counterfactual replay of five past failures in one repository, three of the four replayable behavioural failures did not recur on Sonnet 5.5 even without their fix. Only the stale-count failure recurred without its pre-commit check (3 of 3 runs), and the check stopped it in every run.": 0,
+  "The author recommends that each rule record the model version that motivated it and a re-test date. When the base model is upgraded, the stored trigger task should be replayed without the lesson to archive obsolete prompt rules, and new lessons should be checked for false positives before going live.": 1,
+  "The replay results come from one repository with three runs per condition and are reported as exploratory. Stale documentation was the largest failure class (48 of 118 failures), although 35 of those were found on a single audit day.": 1,
+  "The studied harness had no automated way to retire old lessons, and rules were pruned only once, in a manual simplification pass. The author concludes that tools that evolve harnesses add lessons faster than they retire them.": 1,
+  "Vendor guides describe prompt rule files as advisory rather than guaranteed enforcement, recommend runtime hooks for hard constraints and on-demand skills to keep always-loaded context small, and the literature catalogues configuration smells such as rule bloat and contradictory directives.": 1
+ }
+}

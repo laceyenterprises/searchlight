@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:09.542369Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 6044,
+   "page_chars_delivered": 13269,
+   "post_step": "fetched",
+   "published": "2025-11-26T00:00:00.000Z",
+   "text": "We developed a two-fold solution to enable the Claude Agent SDK to work effectively across many context windows: an initializer agent that sets up the environment on the first run, and a coding agent that is tasked with\n\n...\n\n## The long-running agent problem\n\nThe Claude Agent SDK is a powerful, ge…",
+   "title": "Effective harnesses for long-running agents \\ Anthropic",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "chars_delivered": 4556,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2025-06-13T00:00:00.000Z",
+   "text": "Multi-agent systems work mainly because they help spend enough tokens to solve the problem. In our analysis, three factors explained 95% of the performance variance in the BrowseComp evaluation (which tests the ability of browsing agents to locate hard-to-find information). We found that token usag…",
+   "title": "How we built our multi-agent research system \\ Anthropic",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "chars_delivered": 252,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-03-24T00:00:00.000Z",
+   "text": "differs from compaction, where earlier parts of the conversation are summarized in place so ... can keep going on a shortened history. While compaction preserves continuity, it doesn't give the ... for the next agent to pick up the work cleanly. In our",
+   "title": "Harness design for long-running apps \\ Anthropic",
+   "url": "https://www.anthropic.com/research/harness-design-long-running-apps"
+  },
+  {
+   "chars_delivered": 841,
+   "published": "2025-09-29T15:15:54.000Z",
+   "text": "### Subagents\n\nClaude Agent SDK supports subagents by default. Subagents are useful for two main reasons. First, they enable parallelization: you can spin up multiple subagents to work on different tasks simultaneously. Second, they help manage context: subagents use their own isolated context wind…",
+   "title": "Building agents with the Claude Agent SDK | Claude by Anthropic",
+   "url": "https://claude.com/resources/articles/building-agents-with-the-claude-agent-sdk"
+  },
+  {
+   "chars_delivered": 555,
+   "published": "2026-01-23T16:47:50.000Z",
+   "text": "Multi-agent systems introduce overhead.\n\n...\n\nWe've observed teams build elaborate multi-agent systems with separate agents for planning, execution, review, and iteration, only to discover that they suffered from lost context at each handoff and spent more tokens coordinating than executing. In our…",
+   "title": "When to use multi-agent systems (and when not to) | Claude by Anthropic",
+   "url": "https://claude.com/resources/articles/building-multi-agent-systems-when-and-how-to-use-them"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "records to process, anything shaped like \"look into N things, then summarize\" - ... one piece would fill its context with reading, **use a multiagent session instead of one long single ... , and only each subagent's report comes back, so the coordinator",
+   "title": "skills/claude-api/shared/managed-agents-multiagent.md",
+   "url": "https://github.com/anthropics/skills/blob/main/skills/claude-api/shared/managed-agents-multiagent.md"
+  },
+  {
+   "chars_delivered": 249,
+   "published": null,
+   "text": "> \n> Running several sessions or subagents at once multiplies token usage\n...\n- Who coordinates the work? Claude delegates and collects results inside one conversation: subagents ... , and supervises a group of workers: agent teams, experimental and",
+   "title": "Run agents in parallel",
+   "url": "https://code.claude.com/docs/en/agents"
+  },
+  {
+   "chars_delivered": 255,
+   "published": "2026-06-27T06:02:15.000Z",
+   "text": "We developed a two-fold solution to enable the Claude Agent SDK to work effectively across ... : an initializer agent that sets up the environment on the first run, and a coding agent that is tasked with making incremental progress in every session, while",
+   "title": "Agent Harnesses with Claude — Intuitively and Exhaustively Explained",
+   "url": "https://iaee.substack.com/p/agent-harnesses-with-claude-intuitively"
+  },
+  {
+   "chars_delivered": 220,
+   "published": null,
+   "text": "subagent’s work \nis not a priority for you and only need a task to complete \nand return a few conclusions \nEnhance context management \nSubagents can be a great strategy to manage your \ncontext, under the right conditions",
+   "title": "Claude Code Advanced Patterns: Subagents, MCP, and Scaling to Real Codebases",
+   "url": "https://resources.anthropic.com/hubfs/Claude%20Code%20Advanced%20Patterns_%20Subagents,%20MCP,%20and%20Scaling%20to%20Real%20Codebases.pdf"
+  },
+  {
+   "chars_delivered": 214,
+   "published": "2026-02-05T00:00:00.000Z",
+   "text": "help itself, I included instructions to maintain extensive READMEs and progress files that should be updated frequently with the current status.\n...\nuseless bytes. At most, it should print a few lines of output and",
+   "title": "Building a C compiler with parallel Claudes \\ Anthropic",
+   "url": "https://www.anthropic.com/research/building-c-compiler"
+  }
+ ],
+ "latency_ms": 1003.2,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q08",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What does Anthropic recommend for long-running agent harnesses and multi-agent systems? Cover initializer and coding agents, progress files, context compaction, subagents, the Claude Agent SDK, Agent Skills, and the multi-agent research system's lessons on token cost and orchestration.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17849,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:08.539148Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

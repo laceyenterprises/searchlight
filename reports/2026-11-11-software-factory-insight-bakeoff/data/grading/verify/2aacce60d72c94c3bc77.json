@@ -1,0 +1,18 @@
+{
+ "capture": "captured",
+ "digest": "05ee7138055b8fbd",
+ "url": "https://developers.openai.com/codex/cloud/environments.md",
+ "verdicts": {
+  "After creating the container, Codex runs the user's setup script, plus an optional maintenance script when a cached container is resumed.": 1,
+  "Codex caches cloud container state for up to 12 hours; the cache is invalidated when the setup script, maintenance script, environment variables, or secrets change, and for Business and Enterprise users caches are shared across all users with access to the environment.": 1,
+  "Codex cloud environments run behind an HTTP/HTTPS network proxy for security and abuse prevention, and all outbound internet traffic passes through it.": 1,
+  "Codex cloud secrets are stored with an additional layer of encryption, are available only to setup scripts, and are removed before the agent phase starts; environment variables persist for the full task including the agent phase.": 1,
+  "Codex cloud setup scripts run in a separate Bash session from the agent, so `export` commands do not persist into the agent phase; variables must be added to ~/.bashrc or set in environment settings.": 1,
+  "For projects using npm, yarn, pnpm, pip, pipenv, and poetry, Codex can automatically install dependencies and tools.": 1,
+  "If a repo includes AGENTS.md, the Codex cloud agent uses it to find project-specific lint and test commands.": 1,
+  "In Codex cloud tasks, the agent runs terminal commands in a loop: it edits code, runs checks, and tries to validate its work.": 1,
+  "The Codex cloud agent runs in a default container image called `universal`, pre-installed with common languages, packages, and tools; versions of Python, Node.js and other runtimes can be pinned via 'Set package versions'.": 1,
+  "When a Codex cloud task is submitted, Codex creates a container and checks out the repo at the selected branch or commit SHA.": 1,
+  "When the Codex cloud agent finishes, it shows its answer and a diff of changed files, and the user can open a PR or ask follow-up questions.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "9c200ff4928eac0d",
+ "claims": [
+  {
+   "text": "Devin's PR merge rate improved from 34% to 67% over 2025, which the DeployHQ guide notes means roughly one-third of PRs still need significant rework.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin is reported to complete vulnerability remediation in an average of 1.5 minutes versus 30 minutes for a human developer.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin is reported to handle framework migrations (e.g., Angular to React, .NET Framework to .NET Core) 10-14x faster than manual effort.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin is reported to boost test coverage from 50-60% to 80-90% by writing missing tests.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin spins up its own cloud environment with a terminal, code editor, and browser, then works autonomously, delivering results as a pull request on GitHub.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin's workflow is: plan (shows the plan), code in its cloud IDE, run the test suite and fix failures, then push a feature branch and open a PR.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Every Devin terminal command, file edit, and browser action is recorded in a full replay timeline, and users can intervene with chat messages to redirect it.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin can respond to review comments and push fixes only while its session is active.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "One ACU (Agent Compute Unit) is roughly 15 minutes of active Devin work, covering VM time, model inference and networking; the Teams plan's 250 ACUs equal about 62 hours of agent work per month.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin has read/write access to code, PRs, issues and workflows on GitHub, read-only access to deployments and security advisories, and cannot create new repositories.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin looks for a custom PR template at .github/PULL_REQUEST_TEMPLATE/devin_pr_template.md before falling back to the standard template.",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "text": "Devin produces a visible multi-step written plan before touching any file, serving as a planning checkpoint where users can course-correct before execution.",
+   "url": "https://medium.com/@nitinmatani22/how-devin-ai-actually-thinks-autonomous-planning-dag-execution-and-dynamic-re-planning-explained-997be175a475"
+  },
+  {
+   "text": "A Medium explainer describes Devin's plan as better understood as a directed acyclic graph (DAG) than a numbered list, with a continuous plan-execute-observe-re-plan loop (the author's interpretation, not vendor documentation).",
+   "url": "https://medium.com/@nitinmatani22/how-devin-ai-actually-thinks-autonomous-planning-dag-execution-and-dynamic-re-planning-explained-997be175a475"
+  },
+  {
+   "text": "Cloud Devin works session-based with an Ask mode for planning and an Agent mode for autonomous execution; the Devin CLI runs the same loop locally and can hand a task off to a cloud session.",
+   "url": "https://innfactory.ai/en/ai-harness/devin/"
+  },
+  {
+   "text": "Devin automatically looks for an AGENTS.md file in the project for setup commands, code standards, test requirements and workflow; repositories must first be indexed.",
+   "url": "https://innfactory.ai/en/ai-harness/devin/"
+  },
+  {
+   "text": "Devin Knowledge stores project- or organization-wide guidance that is retrieved automatically only when relevant rather than loaded fully into every context.",
+   "url": "https://innfactory.ai/en/ai-harness/devin/"
+  },
+  {
+   "text": "Devin Playbooks bundle reusable procedures for recurring tasks and standardise recurring workflows across a team.",
+   "url": "https://innfactory.ai/en/ai-harness/devin/"
+  },
+  {
+   "text": "The Devin CLI does not yet support Knowledge, Playbooks, or Secrets from a Devin account, according to the documentation.",
+   "url": "https://innfactory.ai/en/ai-harness/devin/"
+  },
+  {
+   "text": "The Devin CLI uses an Allow/Ask/Deny permission model with an optional sandbox that restricts write access and refuses to start rather than run unsandboxed if sandbox resolution fails.",
+   "url": "https://innfactory.ai/en/ai-harness/devin/"
+  },
+  {
+   "text": "Devin does not support custom LLM API keys or model endpoints, as it is built as a closed 'compound AI system'.",
+   "url": "https://innfactory.ai/en/ai-harness/devin/"
+  },
+  {
+   "text": "Cognition's cloud execution layer gives every task a dedicated secure development environment on specialized VM infrastructure, with state persisting across steps and sessions, and an orchestration layer letting thousands of agents run concurrently.",
+   "url": "https://www.youtube.com/watch?v=--4v6wP4zws"
+  },
+  {
+   "text": "Cognition describes Devin as the autonomous cloud agent for multi-hour tasks, and says Cognition's platform provides session timelines, audit logs with Git-linked execution lineage, and post-session analysis of credit usage and issue detection.",
+   "url": "https://www.youtube.com/watch?v=--4v6wP4zws"
+  },
+  {
+   "text": "Windsurf was renamed Devin Desktop on June 2, 2026; its default screen became an Agent Command Center board of local and cloud agent sessions, and the local agent Devin Local replaced Cascade.",
+   "url": "https://axonbuild.com/blog/devin-desktop-review/"
+  },
+  {
+   "text": "Cascade memories and workflows are not supported by Devin Local and must be migrated into skills; App Deploys and Arena mode are unavailable with Devin Local.",
+   "url": "https://axonbuild.com/blog/devin-desktop-review/"
+  },
+  {
+   "text": "NewMarketPitch reports independent evidence that agents perform much better on documentation and bug fixes than on complex new features, and that a large share of agent-generated pull requests still gets rejected.",
+   "url": "https://newmarketpitch.com/blogs/news/ai-code-assistant-who-is-ahead"
+  }
+ ],
+ "question_id": "Q03"
+}

@@ -1,0 +1,11 @@
+{
+ "capture": "uncapturable",
+ "digest": "4bcb2a6ee46ddf52",
+ "url": "https://dl.acm.org/doi/pdf/10.1145/3793302.3793587?download=true",
+ "verdicts": {
+  "In a study of 33,580 agentic PRs, 2.66% contained at least one reverting commit, ranging from 0.7% for OpenAI Codex to 7.6% for GitHub Copilot, versus 4.68% for human PRs.": null,
+  "Merge conflicts appear as a distinct theme in the revert taxonomy, split out from 'breaking changes'.": null,
+  "Test failures accounted for 9.86% of reverts, with missing test updates the largest share at 4.63%; in one F# compiler PR an agent's change broke three existing tests.": null,
+  "The top causes of agentic reverts in a 500-commit manual analysis were overengineering/unintended side effects (22.33%), functional incorrectness (22.13%), code quality issues (17.71%), and dependency management problems (12.47%).": null
+ }
+}

@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:03.143765Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2200,
+   "page_chars_delivered": 22229,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Delivery unit: Use spend per merged change for teams whose agents open pull requests, and spend per completed task for a fleet that closes tickets or triages incidents without a merge.\n Human cost: Load the FTE line with salary, benefits, taxes, recruiting, and equipment.\n Agent cost: Load the flee…",
+   "title": "Budgeting the Agent Fleet: Tokens, Compute, and Headcount | Augment Code",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "chars_delivered": 1943,
+   "page_chars_delivered": 31456,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Correlation One · Enterprise AI Enablement · July 2026\n\nAI token costs are controlled through engineering behavior and architecture, not procurement. Unlike software licenses, inference costs scale with usage — every prompt, every retrieved document, every agent step consumes tokens — so the organi…",
+   "title": "How to Manage AI Token Costs in the Enterprise: The 2026 Playbook",
+   "url": "https://www.correlation-one.com/blog/how-to-manage-ai-token-costs-in-the-enterprise-the-2026-playbook"
+  },
+  {
+   "chars_delivered": 2185,
+   "page_chars_delivered": 25062,
+   "post_step": "fetched",
+   "published": null,
+   "text": "For the person approving the work: the first two levers alone are worth 33% and 30% on the worked example above, and published routing research reports 44% to 72% cost reduction at under 3% quality loss on one benchmark. That range is the difference between an agent program that scales and one that…",
+   "title": "AI Agent Cost: What Agents Really Cost To Run",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost"
+  },
+  {
+   "chars_delivered": 2386,
+   "published": null,
+   "text": "What grounds the problem statement. Ten years in enterprise platform engineering, and since 2025 responsibility for an enterprise AIOps platform in production at a large United States bank, combining log analysis, generative inferencing and automated runbook recommendation. The problem is therefore…",
+   "title": "Cost and Resource Governance for Autonomous AI Agent Fleets: A FinOps Reference Framework for Bursty, Stateful, Multi-Agent Workloads at Scale | Journal of Intelligent Decision Making and Information Science",
+   "url": "https://jidmis.org/index.php/jidmis/article/view/5352"
+  },
+  {
+   "chars_delivered": 2163,
+   "published": null,
+   "text": "Flat-rate AI access is tightening. Anthropic stopped letting flat-rate plans run agent fleets, and Google offers Gemini CLI as an open-source terminal agent and publishes enterprise guidance for deploying and managing it in enterprise environments. Budgets built on subscription seat counts will und…",
+   "title": "Stop Budgeting for Tokens. Start Budgeting for Outcomes. | Splunk",
+   "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html"
+  },
+  {
+   "chars_delivered": 1560,
+   "published": null,
+   "text": "## Key Takeaways\n\n A 2026 study of eight frontier models completing SWE-bench Verified tasks found that agentic coding tasks consumed roughly 1,000 times more tokens than code reasoning and code chat, with input tokens driving most of the cost.\n A LeanOps audit of 30 engineering teams attributed 62…",
+   "title": "Why Your AI Agent Can Cost 50x More Than Expected",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "chars_delivered": 486,
+   "published": null,
+   "text": "# Organizations adopt cost per merged PR to track AI coding agents\n\ntechnologyreview.com3 min read\n\nThe author argues that organizations should measure AI coding agent efficiency by cost per merged pull request rather than tracking token consumption. To control rising inference expenses without lim…",
+   "title": "Organizations adopt cost per merged PR to track AI coding… | TLDR",
+   "url": "https://tldr.tech/story/9baaf27e-99ee-43df-afe5-f345d17a3588"
+  },
+  {
+   "chars_delivered": 2027,
+   "published": null,
+   "text": "### Cost per agent task or resolved interaction\n\nCalculate total costs (LLM, compute, storage) divided by successfully completed tasks. Lower cost per task indicates more efficient agent design.\n\n### Cost per customer or tenant\n\nFor SaaS companies offering AI features, this metric is critical. If A…",
+   "title": "Agentic AI Cost Governance: Controlling Spend Before It Controls You",
+   "url": "https://www.finout.io/blog/agentic-ai-cost-governance-controlling-spend-before-it-controls-you"
+  },
+  {
+   "chars_delivered": 1918,
+   "published": null,
+   "text": "Start with the visible controls:\n\n Model routing: Send simple steps to cheaper models and reserve stronger models for high-risk reasoning (see model router vs. model gateway).\n Gateway budgets: Use an AI gateway or LLM gateway to enforce budgets, rate limits, and fallback rules.\n Caching: Use conte…",
+   "title": "Cost to Run AI Agents at Scale: The Full TCO Breakdown 2026",
+   "url": "https://atlan.com/know/ai-agent/cost-to-run-ai-agents-at-scale"
+  },
+  {
+   "chars_delivered": 2193,
+   "published": null,
+   "text": "This is part four of a series. In the harnessarticle I argued that the model is not the product — the harness around it is. In the observabilitypiece we built the flight recorder that tells you what your agent actually did. In the context engineering article we treated the context window as a scarc…",
+   "title": "The Economics of Agents: Token Accounting, Caching, and Routing",
+   "url": "https://pub.towardsai.net/the-economics-of-agents-token-accounting-caching-and-routing-a53cbdef11bb"
+  }
+ ],
+ "latency_ms": 2719.4,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q19",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How do organizations govern token and compute cost for agent fleets: budgets per task or agent, model routing and cascades, prompt caching, and cost attribution? What figures have been published for the cost per merged PR or per completed agent task?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q19-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 22411,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:24:00.424401Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

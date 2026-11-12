@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.research",
+ "cell_sha": "32593f9bd89a52ce",
+ "claims": [
+  {
+   "text": "Anthropic's advanced-tool-use example shows 35 GitHub tools, 11 Slack tools, 5 Sentry tools, 5 Grafana tools and 2 Splunk tools consuming about 55,000 tokens before a conversation starts, and Anthropic says it has seen tool definitions consume 134,000 tokens before optimization.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's Tool Search Tool defers MCP tool definitions and loads only matching schemas on demand, cutting upfront context from about 77,000 tokens to about 8,700 tokens (85% reduction); internal evaluations improved Opus 4 from 49% to 74% and Opus 4.5 from 79.5% to 88.1%.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's code-execution-with-MCP design exposes MCP servers as filesystem/code APIs so agents filter data before it enters model context, reducing an example from 150,000 tokens to 2,000 tokens (98.7%) and a 10,000-row tool result to 5 rows.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's Programmatic Tool Calling keeps intermediate tool results in a code-execution environment, reducing average token use on complex research tasks from 43,588 to 27,297 (37%).",
+   "url": null
+  },
+  {
+   "text": "The MCP tools specification defines no numeric maximum tool count; it defines tools/list discovery, opaque-cursor pagination and an optional notifications/tools/list_changed notification.",
+   "url": null
+  },
+  {
+   "text": "MCP pagination is server-determined and clients must not assume a fixed page size; it limits transfer size but does not select semantically relevant tools for the model.",
+   "url": null
+  },
+  {
+   "text": "CVE-2025-6514 in mcp-remote (versions 0.0.5 through 0.1.15) allowed a malicious MCP server to supply a crafted authorization_endpoint URL that triggered OS command injection on the client; NVD rated it CVSS 9.6 Critical.",
+   "url": null
+  },
+  {
+   "text": "Invariant Labs' May 26, 2025 demonstration used a malicious issue in a public GitHub repository to prompt-inject an agent using the official GitHub MCP server, which pulled private-repository data into context and leaked it in a public pull request.",
+   "url": null
+  },
+  {
+   "text": "Invariant Labs' April 7, 2025 WhatsApp MCP proof of concept used a sleeper MCP server that changed its tool description after approval to manipulate a trusted WhatsApp server, enabling exfiltration of in-context chat history without calling the malicious server directly.",
+   "url": null
+  },
+  {
+   "text": "Invariant Labs reported that MCP tool descriptions can carry hidden instructions visible to the model but not normally to users; its Cursor proof of concept exfiltrated ~/.cursor/mcp.json and SSH keys and showed cross-server shadowing of a trusted send_email tool.",
+   "url": null
+  },
+  {
+   "text": "A study of 1,899 open-source MCP servers found general vulnerability patterns in 7.2%, credential exposure in 3.6%, and MCP-specific tool poisoning in 5.5%.",
+   "url": null
+  },
+  {
+   "text": "Palo Alto Networks Unit 42 demonstrated three MCP-sampling attacks in a coding copilot: resource theft via excessive token consumption, persistent conversation hijacking, and covert writeFile invocation, because sampling lets servers send prompts to the client's LLM with insufficient built-in controls.",
+   "url": null
+  },
+  {
+   "text": "Microsoft's Foundry guidance says to treat MCP tool descriptions, annotations and results as untrusted input, use a nonempty allowed_tools list, require approval for high-risk writes, enforce permissions independently, and log approvals and tool calls.",
+   "url": null
+  },
+  {
+   "text": "The MCP 2025-06-18 specification makes RFC 8707 Resource Indicators mandatory for clients (resource parameter in authorization and token requests), requires servers to validate audience binding, and requires bearer tokens in the Authorization header rather than query strings; authorization is optional overall.",
+   "url": null
+  },
+  {
+   "text": "The MCP 2025-11-25 authorization specification requires MCP servers to publish RFC 9728 Protected Resource Metadata, which clients must use for authorization-server discovery, alongside RFC 8414 and OpenID Connect Discovery support.",
+   "url": null
+  },
+  {
+   "text": "The MCP draft client-registration spec prioritizes pre-registration, Client ID Metadata Documents, Dynamic Client Registration (deprecated but retained for compatibility) and user-entered client info, and requires a native application_type for localhost clients.",
+   "url": null
+  },
+  {
+   "text": "MCP Enterprise-Managed Authorization makes the enterprise IdP a policy intermediary: corporate SSO yields an Identity Assertion JWT Authorization Grant exchanged at the MCP authorization server for an access token, allowing group, role and conditional-access policy.",
+   "url": null
+  },
+  {
+   "text": "A2A delegates authentication to HTTP headers and OAuth2/OIDC, advertises schemes in the Agent Card security field, keeps identity out of JSON-RPC payloads, and leaves credential acquisition and mid-task secondary credentials outside the protocol.",
+   "url": null
+  },
+  {
+   "text": "Amazon Bedrock AgentCore Gateway provides one managed endpoint for MCP tools, A2A passthrough, HTTP services and model providers, translates OpenAPI, Smithy and Lambda into MCP tools, and offers semantic tool search for thousands of tools.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Foundry Toolboxes bundle tools behind one MCP-compatible endpoint, injecting credentials and enforcing policy, with agents authenticating via Microsoft Entra rather than holding each downstream credential.",
+   "url": null
+  },
+  {
+   "text": "Google Agent Gateway enforces traffic for human-to-agent, agent-to-MCP-tool and agent-to-agent calls using SPIFFE identity, mTLS, DPoP, registry-approved destinations, default-deny IAM, Model Armor scanning and token budgets.",
+   "url": null
+  },
+  {
+   "text": "AWS Agent Registry uses a publish, approval/rejection, deprecation and discovery workflow for MCP servers, tools, agents and skills, with hybrid semantic/keyword search and a remote MCP endpoint authorized by IAM or corporate JWT.",
+   "url": null
+  },
+  {
+   "text": "The MCP Registry design discussion explicitly lists unresolved risks including typosquatting, repo-jacking, malicious remote URLs, ownership verification and spam.",
+   "url": null
+  },
+  {
+   "text": "Anthropic reported more than 10,000 active public MCP servers, over 75 Claude connectors, and more than 97 million monthly downloads of the official Python and TypeScript SDKs as of November 25, 2025.",
+   "url": null
+  },
+  {
+   "text": "Google's July 31, 2025 announcement described A2A version 0.3 with gRPC and signed security cards, and reported an A2A ecosystem of more than 150 organizations.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

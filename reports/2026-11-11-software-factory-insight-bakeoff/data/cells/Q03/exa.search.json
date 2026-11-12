@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:04.141102Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 993,
+   "page_chars_delivered": 4871,
+   "post_step": "fetched",
+   "published": "2025-02-13T15:25:37.000Z",
+   "text": "For some tasks Devin can nail it in one shot and it feels like magic. But it also struggles with a lot of tasks, so the key is for the team to develop the intuition on what tasks are the best candidates for Devin.\n\nOnce we find a type of common task that works well, we try to operationalize it. For…",
+   "title": "Linktree expands social media platform coverage and ships new features with Devin | Cognition",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "chars_delivered": 666,
+   "page_chars_delivered": 12031,
+   "post_step": "fetched",
+   "published": "2026-02-27T16:29:36.000Z",
+   "text": "## Playbooks\n\nA Playbook is like a custom system prompt for a repeated task. If we find ourselves repeating the same instructions across multiple sessions, that's when we create a Playbook.\n\nOnce anyone succeeds with Devin, others can replicate that success. A good Playbook includes:\n\n- The outcome…",
+   "title": "How Cognition Uses Devin to Build Devin | Cognition",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "chars_delivered": 3110,
+   "page_chars_delivered": 8413,
+   "post_step": "fetched",
+   "published": "2025-09-29T13:17:09.000Z",
+   "text": "## The model is aware of its context window\n\nSonnet 4.5 is the first model we've seen that is aware of its own context window, and this shapes how it behaves. As it approaches context limits, we've observed it proactively summarizing its progress and becoming more decisive about implementing fixes…",
+   "title": "Rebuilding Devin for Claude Sonnet 4.5: Lessons and Challenges",
+   "url": "https://cognition.com/blog/devin-sonnet-4-5-lessons-and-challenges"
+  },
+  {
+   "chars_delivered": 1509,
+   "published": "2025-11-14T13:47:42.000Z",
+   "text": "Unlike a human, though, it is infinitely parallelizable and never sleeps. This makes it well-suited to critical but less creative work like migrating and modernizing repos, fixing vulnerabilities surfaced by static analysis tools like SonarQube and Veracode, writing unit tests, and completing small…",
+   "title": "Devin's 2025 Performance Review: Learnings From 18 Months of Agents At Work | Cognition",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "chars_delivered": 652,
+   "published": null,
+   "text": "Users systematically under-specify tasks. ... The agent has to clarify, ask the right questions back, and infer intent correctly, because a wrong starting point means the entire trajectory goes off course.\n\nThe agent also has to stay focused over long horizons without drifting. A lot of our enginee…",
+   "title": "Cognition Claude Platform (API) case study | Claude by Anthropic",
+   "url": "https://claude.com/customers/cognition"
+  },
+  {
+   "chars_delivered": 1740,
+   "published": null,
+   "text": "## The Challenge: Establishing Trust in AI-Generated Code\n\nCitation’s engineering leaders needed a reliable way to evaluate whether Devin was contributing production-quality work. Traditional metrics, such as sprint velocity, varied too much to isolate Devin’s impact. With distributed teams and par…",
+   "title": "How The Citation Group Measures Engineering ROI with Devin",
+   "url": "https://devin.ai/customers/thecitationgroup"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "but time-consuming work that gets deferred sprint after sprint, starting with the migration of a legacy suite of hundreds of ... run in their own environments with a shell, an editor, a browser, and a build environment, enabling them to execute the full",
+   "title": "How WPP Won a Competitive 3-year Renewal by Proving 30-40% Efficiency Gains with Devin",
+   "url": "https://devin.ai/customers/wpp-enterprise-solutions"
+  },
+  {
+   "chars_delivered": 251,
+   "published": "2026-05-28T17:57:06.000Z",
+   "text": "inspect it and use that to drive the model. Yeah. Yeah. Uh for those who haven't seen it before, ... set up, but if it isn't actually integrated into your larger ecosystem, it isn ... and how do you deliberately think about these problems um I find to",
+   "title": "Devin’s 80% Moment: Background Agents, 7x PRs, & End of Hand-Held Coding — Walden Yan & Cole Murray",
+   "url": "https://www.youtube.com/watch?v=0fgJPhYcbVk"
+  },
+  {
+   "chars_delivered": 233,
+   "published": null,
+   "text": "while agents are idle, and sessions resume exactly where they left off when CI results or review ... this work reliably across thousands of concurrent sessions, each with different repositories, dependencies, and runtime environments",
+   "title": "Cognition: Building and Deploying Production Cloud Agents for Software Engineering - ZenML LLMOps Database",
+   "url": "https://www.zenml.io/llmops-database/building-and-deploying-production-cloud-agents-for-software-engineering"
+  },
+  {
+   "chars_delivered": 3327,
+   "published": "2026-05-29T18:17:30.000Z",
+   "text": "### Increasing Reliability\n\n In early versions, it was very common for Devin to go off track during testing. It happened in all sorts of ways: over-testing unrelated parts of the product, getting lost in setup before reaching the feature, or simply missing the core behavior the PR was actually mean…",
+   "title": "Verifying Agentic Development at Scale",
+   "url": "https://www.linkedin.com/pulse/verifying-agentic-development-scale-ido-pesok-meohc"
+  }
+ ],
+ "latency_ms": 1628.2,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q03",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How do Cognition's Devin and Windsurf run long autonomous coding sessions (sandbox, planning, sessions, knowledge, playbooks)? What do published customer case studies report about merge rates and failure modes?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17167,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:02.512896Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

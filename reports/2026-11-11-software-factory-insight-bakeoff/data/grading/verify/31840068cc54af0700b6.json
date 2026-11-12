@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "1d65bc8d5295f9bf",
+ "url": "https://arxiv.org/html/2604.22750v3",
+ "verdicts": {
+  "A 2026 study (arXiv:2604.22750) of eight frontier LLMs on SWE-bench Verified found agentic coding tasks consume about 1000× more tokens than code reasoning and code chat, with input tokens rather than output tokens driving overall cost.": 1,
+  "Frontier models fail to accurately predict their own token usage before execution (correlations up to 0.39) and systematically underestimate real token costs, limiting up-front per-task budget estimation.": 1,
+  "Kimi-K2 and Claude-Sonnet-4.5 consumed on average over 1.5 million more tokens than GPT-5 on the same SWE-bench Verified tasks.": 1,
+  "Runs on the same SWE-bench Verified task can differ by up to 30× in total tokens, and higher token usage does not translate into higher accuracy; accuracy often peaks at intermediate cost and saturates at higher costs.": 1
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "d81fc5e304540296",
+ "url": "https://arxiv.org/html/2610.31846",
+ "verdicts": {
+  "On 185 prior mistakes across GAIA, Terminal-Bench 2.1 and Claw-Eval, Self-Direction raised pass^3 from 9.7% to 18.9%. On Claw-Eval pass^3 rose from 51.6% to 64.6%.": 1,
+  "On GAIA, encoding failure reflections in model weights gave 10.3 percentage points higher task success than loading the same reflections into context.": 1,
+  "Self-Direction distills a lesson from a failed trajectory into a separate low-rank adapter (about 0.02% of base-model parameters) kept in a persistent library, with the base model and earlier adapters frozen. A router picks adapters by similarity between the current task description and the descriptions of previously seen tasks.": 1,
+  "Self-Direction routes every first attempt to the unchanged base model and retrieves adapters only after a mistake, limiting interference with existing capabilities.": 1
+ }
+}

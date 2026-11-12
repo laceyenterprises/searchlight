@@ -1,0 +1,103 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "a742813c2c15dd15",
+ "claims": [
+  {
+   "text": "A study of 306 practitioners and 20 in-depth case studies across 26 domains found that 68% of production agents execute at most 10 steps before requiring human intervention.",
+   "url": "https://arxiv.org/html/2512.04123v1"
+  },
+  {
+   "text": "The same study found 70% of production agents rely on prompting off-the-shelf models rather than weight tuning, and 74% depend primarily on human evaluation.",
+   "url": "https://arxiv.org/html/2512.04123v1"
+  },
+  {
+   "text": "Allianz's Project Nemo, launched in Australia in July 2025 and deployed in under 100 days, uses seven specialised agents for low-complexity food-spoilage claims; the workflow runs in under five minutes, then a human claims professional reviews the audit summary and authorises payout, cutting processing and settlement time 80%.",
+   "url": "https://emerj.com/artificial-intelligence-at-allianz-two-use-cases"
+  },
+  {
+   "text": "Allianz Partners with Taktile deployed modular specialised agents in a sequential claims system, lifting straight-through processing 30% in a six-month production pilot, with human experts kept in the loop on every decision and high-risk claims routed to specialists.",
+   "url": "https://taktile.com/customer-stories/allianz-partners-and-taktile"
+  },
+  {
+   "text": "Mediahuis is testing a custom-built newsroom agent pipeline in which agents commission stories from a curated database of verified sources, draft text, select images, fact-check and review legally, with a human editor reviewing before publication.",
+   "url": "https://mediacopilot.ai/mediahuis-ai-agents-first-line-news"
+  },
+  {
+   "text": "Zalando uses a 'product truth' engine as an AI quality-assurance layer that compares generated content against original product imagery for colour, construction and brand marks and flags altered details, leaving creative teams to judge brand fit.",
+   "url": "https://corporate.zalando.com/en/technology/how-zalando-approaches-ai-powered-content-accuracy-customer-value-and-human-judgement"
+  },
+  {
+   "text": "WPP Open is an agentic marketing platform connecting strategy, creative, media and production with hundreds of verified agents; WPP reports a global technology brand cut strategy and creative development from four weeks to three hours and Hawkstone achieved 33x content volume.",
+   "url": "https://www.wpp.com/open"
+  },
+  {
+   "text": "WPP Open is built on a $400 million, five-year Google partnership using Gemini, Vertex AI, Veo, Imagen and Google DeepMind.",
+   "url": "https://enterprisesolutions.wpp.com/en/partners/google"
+  },
+  {
+   "text": "JAKALA runs a hybrid agent model on the Claude Agent SDK that cut campaign-optimisation cycles from 5-7 working days to under 24 hours and raised team productivity about 30%, with 3,000+ Claude seats.",
+   "url": null
+  },
+  {
+   "text": "Salesforce's own Agentforce SDR agent worked more than 43,000 leads and generated $1.7 million in pipeline from dormant leads, while its service agent handled over 1.4 million conversations and the company says it took about $100 million of support cost out.",
+   "url": "https://www.cio.com/article/4063765/lessons-learned-as-agentforce-customer-zero.html"
+  },
+  {
+   "text": "At Wipro, Ema's AI employee serves 240,000+ associates across 65 countries, handling about 2.9 million queries a year across 100+ workflows and eliminating about 60% of tickets.",
+   "url": "https://techjacksolutions.com/ai-brief/ema-77m-series-b-enterprise-agentic-ai-workforce"
+  },
+  {
+   "text": "Ema uses EmaFusion to route tasks across more than 100 AI models and a no-code Generative Workflow Engine, with 50+ prebuilt AI employees and 250+ integrations.",
+   "url": "https://techjacksolutions.com/ai-brief/ema-77m-series-b-enterprise-agentic-ai-workforce"
+  },
+  {
+   "text": "Hypatos claims 85-92% straight-through processing for accounts payable in mixed-document enterprise environments, higher than RPA or traditional IDP-plus-workflow approaches.",
+   "url": "https://www.hypatos.ai/guides/agentic-back-office-automation"
+  },
+  {
+   "text": "A Hypatos fashion-retail case covering about 800,000 invoices a year across 70+ markets reports roughly a 40% reduction in FTE requirements, with the customer's centre of excellence taking over configuration after a five-wave rollout.",
+   "url": "https://cdn.prod.website-files.com/637f2179adeda60f9af98c49/68a6e07571acb719fdfc43ad_Hypatos_Customer%20Case%20Study_Fashion%20and%20Retail_Digital_final_compressed.pdf"
+  },
+  {
+   "text": "UiPath's Johnson Controls case reports 200,000 monthly AP transactions automated, vendor costs cut 75%, and $6 million saved in accounts payable.",
+   "url": "https://www.uipath.com/resources/automation-case-studies/johnson-controls-is-unlocking-substantial-savings-with-intelligent-automation"
+  },
+  {
+   "text": "In mortgage lending, Vesta starts lenders with a human approving each agent step and then graduates to shared autonomy, logging every action and its reasoning, with the lender remaining responsible for underwriting decisions.",
+   "url": "https://www.linkedin.com/posts/grishinrobotics_vesta-raised-30-million-in-series-b-funding-activity-7514280722925244416-kQuE"
+  },
+  {
+   "text": "CrewAI production lessons: agents that work alone fail when composed, unbounded tool loops grow costs exponentially, and tiered model selection (frontier models for reasoning, cheap models for extraction) cut per-document cost 40-60% without measurable quality loss on routine documents.",
+   "url": "https://www.agilesoftlabs.com/blog/2026/06/crewai-in-production-2026-real-lessons"
+  },
+  {
+   "text": "CrewAI reports executing over 10 million agents in 30 days and uses its own stack for marketing content generation and lead qualification, which generated 15+ customer calls in two weeks.",
+   "url": "https://www.zenml.io/llmops-database/building-and-orchestrating-multi-agent-systems-at-scale-with-crewai"
+  },
+  {
+   "text": "Unilever's content studios operate under 'Brand DNAi' governance for brand-safe content, yet Unilever reports no company-wide AI return despite 330+ active AI projects.",
+   "url": "https://imagine.ai/research/unilever"
+  },
+  {
+   "text": "Aggregated analyses put annual AI SDR churn at 50-70%, and reply rates of 0.5-1.5% for autonomous sending versus 4-8% for human-in-the-loop configurations.",
+   "url": "https://www.therevenueaireport.com/sample-issue"
+  },
+  {
+   "text": "TechCrunch reporting found former 11x employees describing 70-80% attrition among early customers, with about $14 million reported ARR but only about $3 million in contracts surviving three-month break clauses.",
+   "url": "https://newmarketpitch.com/blogs/news/ai-sales-agents-business-model"
+  },
+  {
+   "text": "Gartner predicts over 40% of agentic AI projects will be cancelled by the end of 2027 and warns of 'agent washing', estimating only about 130 of thousands of agentic vendors are real.",
+   "url": "https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027"
+  },
+  {
+   "text": "Roughly 72% of enterprises run agents in production while only about 21% have a mature governance model; KPMG's Agent 365 deployment is positioned as a central registry for governing agents.",
+   "url": "https://www.digitalapplied.com/blog/kpmg-microsoft-agent-365-deployment-2026-enterprise-governance-analysis"
+  },
+  {
+   "text": "Decagon uses a supervisor model that checks for hallucinations before responses reach customers, and its own blog acknowledges high deflection rates can hide customer rage and brand damage.",
+   "url": "https://myaskai.com/blog/decagon-ai-complete-guide-2026"
+  }
+ ],
+ "question_id": "Q22"
+}

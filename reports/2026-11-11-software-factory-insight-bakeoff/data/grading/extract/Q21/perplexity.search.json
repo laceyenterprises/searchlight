@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "828650b1967aca40",
+ "claims": [
+  {
+   "text": "Batching PRs so one CI run clears several becomes arithmetically worse as agent share rises, because agents raise the per-PR failure rate that batching multiplies.",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "text": "With batch size b=10 and a 5% per-PR failure rate, expected CI runs per merged PR is about 0.17, so batching wins big.",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "text": "With batch size b=10 and a 20% per-PR failure rate, expected CI runs per merged PR is about 0.93, so batching buys almost nothing.",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "text": "Agent-authored changes have a higher queue failure rate for three structural reasons: the agent verified against the base commit it started from rather than the current tip, it touches files it has no local context for, and it opens PRs faster than the tree can settle so conflicts between agents' changes are ordinary.",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "text": "When a batch fails, splitting it and testing the halves recursively isolates one culprit in a batch of b at roughly 2·log2(b) extra runs, while healthy PRs keep moving.",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "text": "Affected-target queueing derives each change's targets from the build graph and gives non-overlapping changes their own lane so they merge independently.",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "text": "The recommended weekly metrics are queue-failure rate p split by author type, expected CI runs per merged PR, median approval-to-main time, and share of changes reaching main without passing the queue.",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "text": "The AgenticFlict dataset (over 142,000 agentic PRs from over 59,000 repositories) found merge conflicts in 27.67% of the roughly 107,000 PRs that could be merge-simulated, across more than 336,000 conflict regions.",
+   "url": "https://infragap.com/ai-code-review-bottleneck/"
+  },
+  {
+   "text": "Agentic AI pull requests have a pickup time 5.3x longer than unassisted ones.",
+   "url": "https://infragap.com/ai-code-review-bottleneck/"
+  },
+  {
+   "text": "Agent workloads often cut many branches from the same base commit at nearly the same moment without awareness of each other, producing semantic conflicts that merge cleanly in text but are wrong together.",
+   "url": "https://infragap.com/ai-code-review-bottleneck/"
+  },
+  {
+   "text": "Larger batches are cheaper when things pass and much more expensive when they fail, so batch size should be tuned to the actual failure rate.",
+   "url": "https://infragap.com/ai-code-review-bottleneck/"
+  },
+  {
+   "text": "Suggested mitigations for agent PR volume include stacked PRs, a maximum changed-line limit on agent branches, bounded staleness from main before queue entry, and exclusive paths for globally shared files.",
+   "url": "https://infragap.com/ai-code-review-bottleneck/"
+  },
+  {
+   "text": "In Trunk's simulation, going from batch size 1 to 16 at a 0.1% logical conflict rate made PRs merge 54.9% slower, from 41m56s to 1h5m.",
+   "url": "https://www.trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "In the same simulation, CI time per PR fell 77.5% from 41m28s to 9m19s when batch size went from 1 to 16.",
+   "url": "https://www.trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "In Trunk's simulation, the lowest peak CI concurrency occurred at batch size 16 with a 0.1% logical conflict rate.",
+   "url": "https://www.trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "A higher logical conflict rate (0.2% vs 0.1%) did not significantly affect time to merge or CI time per PR in Trunk's simulation.",
+   "url": "https://www.trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Parallel merge queues are only an option when a build system like Bazel is used in the repo; batching failures require bisection that slows CI and raises costs.",
+   "url": "https://www.trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "GitHub merge queue cuts review and CI cost from O(N^2) to O(N) runs, and to O(N/K) with batching of size K.",
+   "url": "https://github.com/Morrison-Lab/ai-config/blob/main/shared/workflow/merge-queue.md"
+  },
+  {
+   "text": "GitHub merge queue evicts a failing PR and rebuilds speculative branches for later PRs without it, re-running checks automatically.",
+   "url": "https://github.com/Morrison-Lab/ai-config/blob/main/shared/workflow/merge-queue.md"
+  },
+  {
+   "text": "GitHub merge queue has a build concurrency setting, between 1 and 100, limiting the number of merge_group webhooks dispatched and thus concurrent CI builds.",
+   "url": "https://docs.github.com/api/article?pathname=/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue"
+  },
+  {
+   "text": "Bors batching costs O(E log N) CI runs, where E is the number of failing PRs, versus O(N) for the original one-PR-at-a-time approach.",
+   "url": "https://github.com/leanprover-community/bors-ng"
+  },
+  {
+   "text": "Bors bisects a failed batch by splitting it into two batches and pushing them back to the queue.",
+   "url": "https://github.com/leanprover-community/bors-ng"
+  },
+  {
+   "text": "In bors-ng, bundled/stacked PRs each need their own r+, merge together or not at all, and are never separated by bisection.",
+   "url": "https://github.com/leanprover-community/bors-ng"
+  },
+  {
+   "text": "rust-lang/bors runs only one auto build at a time so each PR is tested against the branch state it will merge into.",
+   "url": "https://github.com/rust-lang/bors/blob/main/docs/design.md"
+  },
+  {
+   "text": "Mergify's agent-oriented queue uses speculative parallel lanes, batching with bisection, scope-aware queues for independent monorepo parts, and two-step CI with cheap checks per push and the expensive suite only in the queue.",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  }
+ ],
+ "question_id": "Q21"
+}

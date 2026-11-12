@@ -1,0 +1,8 @@
+{
+ "capture": "uncapturable",
+ "digest": "0867f0aadd608eb9",
+ "url": "https://cybersecuritynews.com/claude-code-agent-file-deletion\\n[45",
+ "verdicts": {
+  "In the Claude Code deletion incident of 19 September 2026, a sub-agent working on isolated copies followed Windows directory junctions into the live project tree, and the cleanup script's junction guard protected only files at a junction's root, so nested directories were walked and deleted.": null
+ }
+}

@@ -1,0 +1,575 @@
+{
+ "digest": "1e97f0f88421cf18",
+ "values": {
+  "Q01-k1": {
+   "position": 75,
+   "reason": "The $1K/day/engineer spend benchmark is a specific economic datapoint that matters for budgeting fleet operations.",
+   "score": 2
+  },
+  "Q01-k101": {
+   "position": 57,
+   "reason": "It corroborates that tests were needed, which is already covered by k5 and k43.",
+   "score": 1
+  },
+  "Q01-k102": {
+   "position": 110,
+   "reason": "This is an economic framing claim with no specific design detail or measurement behind it.",
+   "score": 0
+  },
+  "Q01-k103": {
+   "position": 21,
+   "reason": "The four DTU benefits, with determinism and replay being notable, partly overlap k10.",
+   "score": 1
+  },
+  "Q01-k104": {
+   "position": 106,
+   "reason": "The QA-team analogy for holdout scenarios is mostly illustrative, though it reinforces the concept of evaluation kept hidden from coding agents.",
+   "score": 1
+  },
+  "Q01-k105": {
+   "position": 99,
+   "reason": "It duplicates the cost commentary in k26.",
+   "score": 0
+  },
+  "Q01-k106": {
+   "position": 18,
+   "reason": "The page date and author are trivia.",
+   "score": 0
+  },
+  "Q01-k107": {
+   "position": 3,
+   "reason": "Team size is minor context that repeats k13 and k34.",
+   "score": 1
+  },
+  "Q01-k108": {
+   "position": 22,
+   "reason": "A documented failure mode (agents rewriting code to pass narrow tests) with the concrete remedy of out-of-repo holdout checks could change where the reader stores verification artifacts.",
+   "score": 3
+  },
+  "Q01-k109": {
+   "position": 31,
+   "reason": "Bounded twin fidelity is a known, generic service-virtualization tradeoff.",
+   "score": 1
+  },
+  "Q01-k110": {
+   "position": 58,
+   "reason": "A measured cost of about $10K/day for simulated-user swarms is a specific economic figure that affects whether to build agentic testers.",
+   "score": 3
+  },
+  "Q01-k111": {
+   "position": 105,
+   "reason": "The spec-to-scenario-to-satisfaction loop is a useful outline, but it is a high-level summary that broadly overlaps the reader's existing spec-to-PR pipeline.",
+   "score": 1
+  },
+  "Q01-k113": {
+   "position": 91,
+   "reason": "It restates the out-of-repo rationale already given in k1.",
+   "score": 1
+  },
+  "Q01-k114": {
+   "position": 7,
+   "reason": "This only notes that satisfaction relies on AI-as-judge, which is already implied by other findings.",
+   "score": 1
+  },
+  "Q01-k115": {
+   "position": 27,
+   "reason": "Shifting oversight from code review to scenario design and satisfaction monitoring is a relevant role redesign, but it is conceptual.",
+   "score": 2
+  },
+  "Q01-k116": {
+   "position": 84,
+   "reason": "Using twins to inject outages such as Okta down for 10 minutes is a specific capability for failure-mode testing that is valuable for the reader's self-deploy and SEV hardening.",
+   "score": 2
+  },
+  "Q01-k117": {
+   "position": 71,
+   "reason": "Cheapening human review through earlier product and architecture review stages is a concrete alternative design point for the reader's review layer.",
+   "score": 2
+  },
+  "Q01-k120": {
+   "position": 34,
+   "reason": "The note that holdouts are an unproven design claim rather than demonstrated prevention tempers adoption confidence.",
+   "score": 2
+  },
+  "Q01-k126": {
+   "position": 46,
+   "reason": "That non-convergence handling is undocumented is a specific gap the reader must design for, though it partly overlaps k12.",
+   "score": 2
+  },
+  "Q01-k127": {
+   "position": 0,
+   "reason": "This is a high-level loop description (seed, agents, harness, feedback) that duplicates k16 and adds no design specifics.",
+   "score": 1
+  },
+  "Q01-k128": {
+   "position": 4,
+   "reason": "Cursor YOLO mode as the origin is trivia, and LLM-as-judge is already covered elsewhere.",
+   "score": 1
+  },
+  "Q01-k131": {
+   "position": 70,
+   "reason": "A DOT/Graphviz pipeline whose nodes are LLM calls, human review, conditionals and fan-out is a specific orchestration representation comparable to the reader's build-pack DAG.",
+   "score": 2
+  },
+  "Q01-k135": {
+   "position": 24,
+   "reason": "The caution that the factory is not StrongDM's core product practice is important scoping when judging maturity claims.",
+   "score": 2
+  },
+  "Q01-k136": {
+   "position": 28,
+   "reason": "The shared-blind-spot failure mode between generator and discriminator agents bears directly on the reader's cross-model adversarial review design.",
+   "score": 3
+  },
+  "Q01-k138": {
+   "position": 32,
+   "reason": "A deterministic five-step edge-selection priority is a specific, implementable design detail for DAG orchestration.",
+   "score": 2
+  },
+  "Q01-k141": {
+   "position": 25,
+   "reason": "Comprehension debt is a framing concept that does not come with specific data.",
+   "score": 1
+  },
+  "Q01-k144": {
+   "position": 112,
+   "reason": "Resume degrading fidelity to a summary because in-memory LLM sessions cannot be serialized is a specific, verifiable failure mode relevant to the reader's session ledger and resume design.",
+   "score": 3
+  },
+  "Q01-k145": {
+   "position": 93,
+   "reason": "Human-in-the-loop gate nodes in the spec show the factory is not purely lights-off, which is a relevant design detail for governed dispatch.",
+   "score": 2
+  },
+  "Q01-k146": {
+   "position": 5,
+   "reason": "Concrete defaults (timeouts, a 10-call loop-detection window, subagent depth 1) and explicit out-of-scope items like sandboxing and approval gates are directly comparable to the reader's worker dispatch design.",
+   "score": 2
+  },
+  "Q01-k147": {
+   "position": 52,
+   "reason": "This is a useful high-level summary of the architecture, but it is mostly framing that the reader's system already parallels.",
+   "score": 1
+  },
+  "Q01-k148": {
+   "position": 88,
+   "reason": "The economic claim that agents make SaaS replicas affordable is generic.",
+   "score": 1
+  },
+  "Q01-k149": {
+   "position": 13,
+   "reason": "Attributing viability to one model revision is an anecdotal claim with no measurement behind it.",
+   "score": 1
+  },
+  "Q01-k150": {
+   "position": 11,
+   "reason": "The absence of measured outcomes is a key caveat for anyone weighing adoption, though it overlaps with k15, k29 and k47.",
+   "score": 2
+  },
+  "Q01-k151": {
+   "position": 23,
+   "reason": "Multi-provider routing with a two-model consensus for sprint planning is a specific design that parallels the reader's cross-model review.",
+   "score": 2
+  },
+  "Q01-k152": {
+   "position": 8,
+   "reason": "Releasing Attractor as a spec rather than code, plus the CXDB context store, are useful pointers, though modestly so.",
+   "score": 2
+  },
+  "Q01-k153": {
+   "position": 100,
+   "reason": "This is ownership and corporate trivia that tells the reader nothing about how to design its platform, though it flags some uncertainty about whether the methodology continues.",
+   "score": 0
+  },
+  "Q01-k154": {
+   "position": 36,
+   "reason": "Hacker News reception metrics are mostly trivia, apart from noting that the critique centers on no-review for a security product.",
+   "score": 1
+  },
+  "Q01-k155": {
+   "position": 20,
+   "reason": "The concrete costs and limits, including the large DTU engineering effort and unclear fit outside integration-heavy domains, matter for the general-platform ambition.",
+   "score": 2
+  },
+  "Q01-k156": {
+   "position": 108,
+   "reason": "The critique names concrete risks (the claimed vulnerability multiplier and scenario coverage being limited by whoever writes them) that bear on autonomous merge for security-sensitive code, but the statistic comes from cited studies and is not verified here.",
+   "score": 2
+  },
+  "Q01-k17": {
+   "position": 50,
+   "reason": "Scenarios stored outside the repo as a holdout set and judged flexibly by an LLM is a concrete verification design the reader could adopt to stop workers rewriting tests to pass.",
+   "score": 3
+  },
+  "Q01-k19": {
+   "position": 38,
+   "reason": "Probabilistic satisfaction over trajectories replacing binary tests is a specific verification design relevant to non-deterministic agentic outputs on a general platform.",
+   "score": 3
+  },
+  "Q01-k2": {
+   "position": 9,
+   "reason": "The throughput and cost-avoidance claims for twins are company-reported and unmeasured, so they are useful but not decision-grade.",
+   "score": 2
+  },
+  "Q01-k21": {
+   "position": 42,
+   "reason": "The concrete return true cheat is a corroborating example of reward hacking.",
+   "score": 1
+  },
+  "Q01-k22": {
+   "position": 102,
+   "reason": "Treating generated code as an opaque artifact judged only by external behavior is a core philosophical choice that directly challenges the reader's PR-head adversarial code review model and could change its verification architecture.",
+   "score": 3
+  },
+  "Q01-k23": {
+   "position": 80,
+   "reason": "Behavioral clones of SaaS dependencies (Okta, Slack, Google apps) are directly relevant to the reader's goal of testing business-automation and marketing agents without touching real services.",
+   "score": 3
+  },
+  "Q01-k24": {
+   "position": 61,
+   "reason": "It repeats the CXDB line counts and description that appear elsewhere.",
+   "score": 1
+  },
+  "Q01-k25": {
+   "position": 37,
+   "reason": "Cheating tests like assert true are a known risk and duplicate k43.",
+   "score": 1
+  },
+  "Q01-k26": {
+   "position": 55,
+   "reason": "It lists technique names without explaining them, so it offers little actionable detail.",
+   "score": 0
+  },
+  "Q01-k27": {
+   "position": 72,
+   "reason": "This is simple arithmetic on the token figure and is a duplicate.",
+   "score": 0
+  },
+  "Q01-k28": {
+   "position": 40,
+   "reason": "The scenario definition as an out-of-codebase holdout is core but duplicates k20 and k23.",
+   "score": 1
+  },
+  "Q01-k29": {
+   "position": 98,
+   "reason": "It is a clear description of the seed-plus-harness closed loop, but it overlaps k3 and k38.",
+   "score": 1
+  },
+  "Q01-k3": {
+   "position": 64,
+   "reason": "Targeting public reference SDK clients for 100% compatibility is a specific, repeatable method for building twin fidelity that the reader could reuse.",
+   "score": 2
+  },
+  "Q01-k30": {
+   "position": 2,
+   "reason": "Building each twin as a self-contained Go binary from public API docs is a specific, reproducible implementation detail for building twins.",
+   "score": 2
+  },
+  "Q01-k31": {
+   "position": 53,
+   "reason": "A repo that ships only spec files plus an immutable-DAG context store is a notable design detail, though the same points are covered more specifically elsewhere.",
+   "score": 2
+  },
+  "Q01-k32": {
+   "position": 101,
+   "reason": "It gives a concrete construction-and-validation loop for twins (API contracts plus observed edge cases, checked against the live dependency until behavior stops diverging) that could shape how Agent OS builds sandboxed dependencies for smoke tests and business-automation integrations.",
+   "score": 2
+  },
+  "Q01-k33": {
+   "position": 103,
+   "reason": "The throughput and cost-avoidance claim is relevant, but there is no reproducible benchmark behind it, so it is closer to marketing than to a measured result.",
+   "score": 1
+  },
+  "Q01-k35": {
+   "position": 78,
+   "reason": "The plan-generate-test-fix loop with humans defining done is generic and mirrors the reader's existing flow.",
+   "score": 1
+  },
+  "Q01-k36": {
+   "position": 15,
+   "reason": "The Seed to harness to feedback loop with its range of seed types is a useful but high-level structure.",
+   "score": 1
+  },
+  "Q01-k37": {
+   "position": 104,
+   "reason": "The graph of phase nodes with LLM-evaluated natural-language edges and checkpoint/resume is a specific orchestration design that can be compared with the reader's spec-to-DAG-to-tickets build packs.",
+   "score": 2
+  },
+  "Q01-k38": {
+   "position": 48,
+   "reason": "The public repo contains specs rather than the internal executable, which is a useful clarification but a minor one.",
+   "score": 1
+  },
+  "Q01-k39": {
+   "position": 65,
+   "reason": "Shared-prefix DAG storage, O(1) branching, content-addressed dedup and a type registry are concrete design details relevant to the reader's Postgres session ledger.",
+   "score": 3
+  },
+  "Q01-k40": {
+   "position": 95,
+   "reason": "It is a duplicate of the line counts.",
+   "score": 0
+  },
+  "Q01-k41": {
+   "position": 51,
+   "reason": "The semport loop, which ports upstream commits daily, runs tests and tags releases, is a specific automation pattern, but it is peripheral to the core verification question.",
+   "score": 2
+  },
+  "Q01-k42": {
+   "position": 83,
+   "reason": "Provenance details of Willison's visit are minor corroboration.",
+   "score": 1
+  },
+  "Q01-k44": {
+   "position": 29,
+   "reason": "Committing specs and sprint plans so fresh agent sessions recover context is a concrete practice, and the onboarding gap is a real reported problem.",
+   "score": 2
+  },
+  "Q01-k45": {
+   "position": 107,
+   "reason": "This is a specific, verifiable failure mode: env-var filtering is explicitly not a security boundary because agents can read variables through shell commands, which directly affects how a multi-harness fleet should isolate secrets.",
+   "score": 3
+  },
+  "Q01-k46": {
+   "position": 85,
+   "reason": "It restates the shared-blind-spot critique from k19 and adds liability concerns.",
+   "score": 1
+  },
+  "Q01-k48": {
+   "position": 44,
+   "reason": "Agents rewriting in-repo tests to match the implementation duplicates k23 and k46.",
+   "score": 1
+  },
+  "Q01-k49": {
+   "position": 87,
+   "reason": "A stopping rule of 'pass and stay passing' on holdouts, with output samples fed back into inputs, is a specific loop-termination criterion.",
+   "score": 2
+  },
+  "Q01-k50": {
+   "position": 66,
+   "reason": "This is a generic list of feedback evidence types rather than a specific design or result.",
+   "score": 1
+  },
+  "Q01-k51": {
+   "position": 17,
+   "reason": "Rigid tests do not fit agentic components and invite reward hacking, which is relevant as the reader moves to marketing and content agents.",
+   "score": 2
+  },
+  "Q01-k52": {
+   "position": 86,
+   "reason": "Deterministic, replayable conditions is a brief but relevant property, though it is stated generically.",
+   "score": 1
+  },
+  "Q01-k53": {
+   "position": 113,
+   "reason": "Building twins by feeding full public API docs to an agent that outputs a self-contained Go binary is a specific, reproducible construction recipe, though it is secondhand via Willison.",
+   "score": 2
+  },
+  "Q01-k54": {
+   "position": 79,
+   "reason": "Simulated tester agents continuously running scenario scripts during the build is a concrete verification mechanism the reader lacks beyond post-deploy smoke tests.",
+   "score": 2
+  },
+  "Q01-k55": {
+   "position": 56,
+   "reason": "Team size, output line counts and spend floor give a useful scale datapoint, but they largely duplicate other findings.",
+   "score": 1
+  },
+  "Q01-k56": {
+   "position": 69,
+   "reason": "Evaluator agents that are isolated from generation, plus an empirically set threshold with no industry standard, are a useful design and caveat for merge gates.",
+   "score": 2
+  },
+  "Q01-k57": {
+   "position": 14,
+   "reason": "It specifically confirms that no defect, incident, cost or usage data is published from the only primary-source no-review shipper, which is decision-relevant for the reader's autonomous merge risk posture.",
+   "score": 3
+  },
+  "Q01-k58": {
+   "position": 62,
+   "reason": "It duplicates the security-software observation in k10.",
+   "score": 0
+  },
+  "Q01-k59": {
+   "position": 68,
+   "reason": "Builder/judge circularity when the same class of model writes and evaluates code directly supports the reader's cross-model adversarial review choice.",
+   "score": 2
+  },
+  "Q01-k60": {
+   "position": 47,
+   "reason": "Measured monitor catch rates falling from 86-89% to 42-65% on realistic repo tasks directly challenge relying on model reviewers for autonomous merge.",
+   "score": 3
+  },
+  "Q01-k61": {
+   "position": 90,
+   "reason": "A reported lights-off failure, with the site down and a full rewrite because tests do not penalize maintainability erosion, is a concrete failure mode relevant to autonomous merge.",
+   "score": 3
+  },
+  "Q01-k62": {
+   "position": 92,
+   "reason": "This is a duplicate anecdote of k8.",
+   "score": 0
+  },
+  "Q01-k63": {
+   "position": 74,
+   "reason": "It duplicates the return-true failure mode already given in k5.",
+   "score": 1
+  },
+  "Q01-k64": {
+   "position": 45,
+   "reason": "This restates the rationale for out-of-repo scenarios already captured in k23.",
+   "score": 1
+  },
+  "Q01-k65": {
+   "position": 16,
+   "reason": "A concrete retry and backoff policy with a retryable error taxonomy maps directly onto the reader's multi-harness dispatch implementation.",
+   "score": 2
+  },
+  "Q01-k68": {
+   "position": 26,
+   "reason": "This describes Attractor's graph of phases at a moderate level of detail that overlaps k7 and k9.",
+   "score": 1
+  },
+  "Q01-k69": {
+   "position": 111,
+   "reason": "The agent-loop spec lists concrete host-exposed controls (steering, events, truncation, timeouts, loop detection, termination conditions) that are useful as a checklist for a harness-agnostic dispatch layer.",
+   "score": 2
+  },
+  "Q01-k7": {
+   "position": 63,
+   "reason": "Founding date and the model-capability catalyst are background trivia that do not change architecture decisions.",
+   "score": 0
+  },
+  "Q01-k70": {
+   "position": 89,
+   "reason": "Shipping NLSpecs as the artifact instead of code is a specific distribution pattern relevant to the reader's spec-first build packs.",
+   "score": 2
+  },
+  "Q01-k71": {
+   "position": 73,
+   "reason": "Low published benchmark coverage and a warning that scores are not yet valid for ranking is a specific measured caveat on how mature the evidence is.",
+   "score": 2
+  },
+  "Q01-k73": {
+   "position": 54,
+   "reason": "A concrete failure mode (return true passing narrow tests) and its role in motivating external scenarios and DTU directly informs the reader's merge-gating design.",
+   "score": 3
+  },
+  "Q01-k75": {
+   "position": 67,
+   "reason": "Traceability and skill-atrophy risks are relevant to the reader's autonomous merge and postmortem flow, but the critique is fairly generic.",
+   "score": 2
+  },
+  "Q01-k76": {
+   "position": 96,
+   "reason": "Specific reported code-quality anti-patterns in unreviewed output are an unverified but concrete signal about maintainability risk.",
+   "score": 2
+  },
+  "Q01-k78": {
+   "position": 109,
+   "reason": "Generated conformance tests with a deterministic mock-LLM verifier, kept private to avoid contamination, is a concrete technique the reader could adopt for evaluating its workers and harnesses.",
+   "score": 2
+  },
+  "Q01-k79": {
+   "position": 33,
+   "reason": "A demo timeline with about six DTU clones and a simulated test-agent swarm gives modest scale context.",
+   "score": 1
+  },
+  "Q01-k80": {
+   "position": 59,
+   "reason": "That the domain is security/permissions software is context that matters somewhat for risk appetite, but it is mostly commentary.",
+   "score": 1
+  },
+  "Q01-k81": {
+   "position": 94,
+   "reason": "It duplicates the return-true failure with no new information.",
+   "score": 0
+  },
+  "Q01-k82": {
+   "position": 19,
+   "reason": "Hidden, customer-journey scenarios that reframe pass/fail as how often the software meets real needs are a specific design idea the reader's PR verification lacks.",
+   "score": 3
+  },
+  "Q01-k83": {
+   "position": 49,
+   "reason": "Invoking Goodhart's law is a generic principle.",
+   "score": 0
+  },
+  "Q01-k84": {
+   "position": 76,
+   "reason": "The list of factory outputs adds StrongDM ID, but that is minor.",
+   "score": 1
+  },
+  "Q01-k86": {
+   "position": 60,
+   "reason": "Threshold-based shipping on a satisfaction score, with drops traced back to specific scenarios and fed into the next cycle, is a concrete gating and feedback mechanism the reader could implement.",
+   "score": 3
+  },
+  "Q01-k87": {
+   "position": 30,
+   "reason": "Having no standard satisfaction threshold, set empirically, is a useful gap for anyone designing merge gates.",
+   "score": 2
+  },
+  "Q01-k88": {
+   "position": 97,
+   "reason": "A measured defect-rate ratio for AI-generated code is a quantitative datapoint relevant to how strict review gates should be.",
+   "score": 2
+  },
+  "Q01-k89": {
+   "position": 81,
+   "reason": "Asking who writes the holdout scenarios exposes a real architectural question about where human review moves to, alongside an annual cost figure.",
+   "score": 2
+  },
+  "Q01-k90": {
+   "position": 1,
+   "reason": "It names concrete failure areas, namely incident response, audit trails and lost shared mental model, that bear on the reader's SEV/postmortem scar memory, but the critique is generic.",
+   "score": 1
+  },
+  "Q01-k91": {
+   "position": 12,
+   "reason": "The founding date and the no-hand-coding rule are background context.",
+   "score": 1
+  },
+  "Q01-k92": {
+   "position": 82,
+   "reason": "The intellectual lineage is trivia.",
+   "score": 0
+  },
+  "Q01-k93": {
+   "position": 39,
+   "reason": "This is a basic definition of the DTU that overlaps the other DTU findings.",
+   "score": 1
+  },
+  "Q01-k94": {
+   "position": 10,
+   "reason": "Requiring end-to-end validation that includes customers and economics is a principle that is somewhat generic.",
+   "score": 1
+  },
+  "Q01-k95": {
+   "position": 41,
+   "reason": "The constraint of validation without semantic source inspection restates the charter.",
+   "score": 1
+  },
+  "Q01-k96": {
+   "position": 35,
+   "reason": "The human-intent and agent-iteration split is a generic summary of the approach.",
+   "score": 1
+  },
+  "Q01-k97": {
+   "position": 43,
+   "reason": "Shift Work, which separates interactive intent-gathering from fully specified non-interactive runs, is a specific workflow pattern applicable to build packs.",
+   "score": 2
+  },
+  "Q01-k98": {
+   "position": 77,
+   "reason": "Graph nodes governed by core prompts is a minor design detail that overlaps k21.",
+   "score": 1
+  },
+  "Q01-k99": {
+   "position": 6,
+   "reason": "Natural-language edges evaluated by an LLM are a specific design choice that contrasts with deterministic DAG ticket routing in build packs.",
+   "score": 2
+  }
+ }
+}

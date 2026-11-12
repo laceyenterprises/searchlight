@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "cd7d2963d5e08f93",
+ "url": "https://cognition.com/blog/devin-sonnet-4-5-lessons-and-challenges",
+ "verdicts": {
+  "Cognition found that relying on Sonnet 4.5's self-written notes without its own compaction and summarization systems caused performance degradation and knowledge gaps, because the notes sometimes paraphrased the task and omitted details.": 1,
+  "With Claude Sonnet 4.5, Cognition observed 'context anxiety': the model took shortcuts or left tasks incomplete when it believed it neared its context limit, even with room left; Cognition countered with reminders at both the start and end of prompts and by enabling the 1M token beta while capping usage at 200k.": 1
+ }
+}

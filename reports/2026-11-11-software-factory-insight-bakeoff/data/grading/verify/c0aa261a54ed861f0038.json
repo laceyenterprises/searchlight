@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "a4b329743da0d9fd",
+ "url": "https://www.developersdigest.tech/blog/durable-execution-for-ai-agents",
+ "verdicts": {
+  "DBOS has no selective non-retryable-exception support, so with step retries enabled a misconfigured agent burns its full retry budget before failing.": 1,
+  "In a Temporal example, the refund Activity receives an idempotency key built from `${workflowInfo().workflowId}:issue-refund`; the Inngest equivalent uses `${runId}:issue-refund`, and the DBOS version uses `{DBOS.workflow_id}:issue_refund`.": 1,
+  "Inngest states that a wait does not keep a worker running, and each completed step's result is stored as a checkpoint.": 1,
+  "Inngest throws NonRetriableError for permanent failures and RetryAfterError to control retry timing; step.waitForEvent() returns null on timeout, and match and if cannot be combined.": 1,
+  "Temporal handles human-in-the-loop approvals via Signals and a durable condition wait (e.g. 7 days), during which no worker is held.": 1,
+  "Temporal's docs-derived advice is to set maximumAttempts on any Activity that costs money, such as a paid LLM call, because the default retry policy is unlimited.": 1
+ }
+}

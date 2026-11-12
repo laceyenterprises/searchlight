@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "1b4ac95f50b83966",
+ "url": "https://github.com/strongdm/attractorbench",
+ "verdicts": {
+  "AttractorBench evaluates agents implementing StrongDM's natural-language specs using generated conformance tests and a deterministic mock-LLM verifier. The generated tests are kept out of the public repo to avoid evaluation contamination.": 1,
+  "StrongDM's AttractorBench publishes coverage of only about 30% for Tier 1, 19% for Tier 2 and 29% for Tier 3. It warns that current scores are not valid for ranking because burn-in is incomplete.": 1
+ }
+}

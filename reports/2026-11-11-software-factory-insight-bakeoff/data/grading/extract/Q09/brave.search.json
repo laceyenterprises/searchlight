@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "4ff522fdf1931cee",
+ "claims": [
+  {
+   "text": "SWE-agent introduced the Agent-Computer Interface (ACI), a custom interface offering LM agents a small set of simple actions for viewing, searching and editing files, in contrast to the Linux shell's granular, highly configurable action space.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's ACI uses guardrails to prevent common mistakes, and the agent receives specific, concise feedback about a command's effects at every turn.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent with GPT-4 Turbo solved 12.47% (286/2,294) of the full SWE-bench test set and 18.00% (54/300) of SWE-bench Lite, versus a previous best of 3.8% by a non-interactive retrieval-augmented system.",
+   "url": null
+  },
+  {
+   "text": "In the SWE-agent ablation on SWE-bench Lite, the ACI solved 10.7 percentage points more instances than a baseline agent using only the default Linux shell, a 64% relative increase with GPT-4 Turbo.",
+   "url": null
+  },
+  {
+   "text": "The SWE-agent ACI was developed for GPT-4 Turbo but ported to Claude 3 Opus, which solved 10.5% of SWE-bench tasks.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent achieved pass@1 of 87.7% on HumanEvalFix (reported as 88.3% in a later table), and compared to RAG on SWE-bench Lite it was 8-13x more costly but yielded a 6.7-fold improved resolve rate.",
+   "url": null
+  },
+  {
+   "text": "In SWE-agent's GPT-4 Turbo full-split results, 266 of the resolved instances ended via an intentional submit command and 20 ended via cost-limit exit with submission, so most resolved tasks are intentionally submitted.",
+   "url": null
+  },
+  {
+   "text": "mini-SWE-agent, from the Princeton/Stanford SWE-agent team, uses roughly one hundred lines of Python for its core agent class and scores over 74% on SWE-bench Verified.",
+   "url": null
+  },
+  {
+   "text": "mini-SWE-agent uses bash as its sole tool, executed via standard subprocess calls so each action is independent and stateless, with the model using cat, sed/heredocs, grep/find and pytest rather than specialized commands.",
+   "url": null
+  },
+  {
+   "text": "mini-SWE-agent signals control flow with an exception hierarchy (InterruptAgentFlow: Submitted, LimitsExceeded, FormatError) whose messages are injected into history by run().",
+   "url": null
+  },
+  {
+   "text": "mini-SWE-agent has no context compaction and crashes with ContextWindowExceededError on overflow, keeps raw history unfiltered, and uses a single model throughout.",
+   "url": null
+  },
+  {
+   "text": "Mini-SWE-Agent implements all seven harness subsystems in roughly 100 lines, with a while loop, one template, one tool, a message list, and limits on steps, format errors and wall clock.",
+   "url": null
+  },
+  {
+   "text": "Spring-2026 self-reported SWE-Bench Verified figures were OpenHands 77.6%, Mini-SWE-Agent 74%+, Claude Code 72.7% and Codex 69.1%, using different models, and the study concludes loop sophistication does not predict benchmark performance.",
+   "url": null
+  },
+  {
+   "text": "OpenHands uses an event-sourced conversation loop over a persistent event log with parallel action batches governed by resource locks (default limit 1), and sandboxes via Docker, Apptainer or remote runtimes.",
+   "url": null
+  },
+  {
+   "text": "OpenHands uses an immutable EventStream with views computed from condensation markers, and compacts context via LLM summarization triggered at a token threshold.",
+   "url": null
+  },
+  {
+   "text": "OpenHands defaults to single-model operation through a noop router; its only implemented router (MultimodalRouter) decides based on image presence and token limits.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent has 3 default tools (35 across 15 bundles), runs in Docker containers, and compacts context with 7 composable rule-based processors that keep the first and last N observations and elide the rest.",
+   "url": null
+  },
+  {
+   "text": "mini-SWE-agent is the only surveyed agent that edits files directly via shell commands rather than producing patches for the scaffold to apply, and provides process-level isolation without containerization.",
+   "url": null
+  },
+  {
+   "text": "OpenHands sandbox sessions run in a Docker container containing a bash shell, a Jupyter IPython server and a Playwright-controlled Chromium browser, with only task-relevant files exposed through workspace mounting.",
+   "url": null
+  },
+  {
+   "text": "OpenHands scored 60.6% on SWE-bench Verified at baseline and 66.4% with inference-time scaling (April 2025 blog post), while Docker isolation gives an ephemeral per-session environment that limits blast radius.",
+   "url": null
+  },
+  {
+   "text": "OpenHands with CodeAct v3 and Claude Opus 4.6 reached 68.4% on SWE-bench Verified, while Qwen3 Coder 480B reached 41.21%.",
+   "url": null
+  },
+  {
+   "text": "On SWE-bench-Live, OpenHands with Claude 3.7 scored 19.25% and SWE-Agent with GPT-4.1 scored 18.57%, with OpenHands re-running SWE-bench Verified at 43.20%, suggesting model choice matters more than framework on novel issues.",
+   "url": null
+  },
+  {
+   "text": "OpenHands-Versa, a generalist single agent built on OpenHands, gained 9.1 points on SWE-Bench Multimodal, 1.3 on GAIA and 9.1 on The Agent Company, and beat SWE-Agent variants by over 22 points on SWE-Bench M.",
+   "url": null
+  },
+  {
+   "text": "OpenHands supports MCP, multi-agent delegation, BrowserGym browser automation and enterprise RBAC/audit/quotas, whereas SWE-Agent is CLI-only with Docker/SWE-ReX sandboxing and an EnIGMA cybersecurity mode.",
+   "url": null
+  },
+  {
+   "text": "Goose was released by Block in January 2025 under Apache 2.0 and in 2026 moved to the Agentic AI Foundation under the Linux Foundation.",
+   "url": null
+  }
+ ],
+ "question_id": "Q09"
+}

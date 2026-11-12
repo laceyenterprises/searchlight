@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "aa893b903645c040",
+ "url": "https://www.emergentmind.com/topics/aios",
+ "verdicts": {
+  "AIOS enforces privilege groups and explicit inter-agent permission checks before any cross-agent or destructive operation.": 1,
+  "AIOS per-agent runtime memory blocks support LRU-k eviction from RAM to disk, and persistent storage uses a versioned filesystem (default 20 versions) plus vector database backends for semantic search.": 1,
+  "AIOS supports LLM invocations that can be interrupted and resumed, using text-based or logits-based context snapshotting.": 1,
+  "In AIOS, a central queue holds all syscalls (LLM, tool use, memory, storage), scheduled with FIFO and round-robin policies; reported results are up to 2.1x throughput and a 60-70% reduction in resource contention latency versus unmanaged baselines.": 1
+ }
+}

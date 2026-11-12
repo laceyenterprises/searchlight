@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "cec259fa0b12c4a9",
+ "url": "https://machinelearningmastery.com/ai-agent-memory-design-what-works-and-what-doesnt/",
+ "verdicts": {
+  "Machine Learning Mastery recommends importance scoring before writing memory, storing entries with timestamp, confidence, source and tags, and persisting only entries meeting thresholds (example: importance >= 0.6 and confidence >= 0.7).": 1,
+  "Machine Learning Mastery warns that giving all agents in a multi-agent system the same shared memory store lets one agent misread notes written for another agent's own use.": 1,
+  "Machine Learning Mastery warns that poorly built memory creates persistent, hard-to-trace failures, that stale information can cause repeated mistakes, and that storing everything raises cost and makes retrieval noisier.": 1
+ }
+}

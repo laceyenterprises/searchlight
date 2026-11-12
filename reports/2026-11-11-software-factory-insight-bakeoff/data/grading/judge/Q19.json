@@ -1,0 +1,600 @@
+{
+ "digest": "f6ccf271219bf152",
+ "values": {
+  "Q19-k1": {
+   "position": 71,
+   "reason": "An instrumented trace of one ordinary PR (512 turns, about 156M tokens, about $41) is a strong measured data point on real per-PR cost and its composition.",
+   "score": 3
+  },
+  "Q19-k10": {
+   "position": 101,
+   "reason": "Shows that a major vendor bills in pooled credits and lacks native per-repository attribution, which mildly supports building attribution in-house.",
+   "score": 1
+  },
+  "Q19-k100": {
+   "position": 95,
+   "reason": "Specific price and peak-window data enables off-peak scheduling of fleet work, but it is vendor price trivia.",
+   "score": 1
+  },
+  "Q19-k101": {
+   "position": 30,
+   "reason": "A 97.8% median cache-read share across 169 deliveries corroborates k19.",
+   "score": 1
+  },
+  "Q19-k102": {
+   "position": 18,
+   "reason": "Measured per-delivery token distribution, including a heavy p90 tail and a 95.9% cache-read share, gives strong baseline data for fleet budgeting.",
+   "score": 3
+  },
+  "Q19-k103": {
+   "position": 38,
+   "reason": "An order-of-magnitude cost penalty without caching matters when choosing harnesses and endpoints.",
+   "score": 2
+  },
+  "Q19-k104": {
+   "position": 102,
+   "reason": "Implementation followed by an independent review session is a pattern the reader already runs with cross-model adversarial review, so this mostly corroborates.",
+   "score": 1
+  },
+  "Q19-k106": {
+   "position": 5,
+   "reason": "Vendor average cost per developer is a reference figure but is seat-oriented rather than fleet-task oriented.",
+   "score": 1
+  },
+  "Q19-k107": {
+   "position": 3,
+   "reason": "Simple seat-cost arithmetic that adds little architectural insight.",
+   "score": 1
+  },
+  "Q19-k108": {
+   "position": 112,
+   "reason": "A measured finding that input tokens dominate cost and that runs on the same task vary up to 30x, which argues for context controls and distribution-aware budgets over fixed per-task averages.",
+   "score": 3
+  },
+  "Q19-k11": {
+   "position": 7,
+   "reason": "An eight-fold blended-cost gap from tiered routing is a measured figure that could justify building model routing.",
+   "score": 2
+  },
+  "Q19-k110": {
+   "position": 72,
+   "reason": "Mostly generic governance advice, though the shared codebase context point is somewhat useful.",
+   "score": 1
+  },
+  "Q19-k114": {
+   "position": 19,
+   "reason": "Attributing cost at team level read monthly because per-PR cost is noisy is a specific attribution design choice.",
+   "score": 2
+  },
+  "Q19-k115": {
+   "position": 75,
+   "reason": "Requiring a named owner for every key and agent account, with the unattributed bucket as the first metric, is a concrete attribution design rule.",
+   "score": 2
+  },
+  "Q19-k117": {
+   "position": 113,
+   "reason": "A reported drop from roughly 90% to roughly 30% merge rate for fully agentic flows sharply changes the denominator in cost per merged PR, though it is an executive's quote rather than a published study.",
+   "score": 2
+  },
+  "Q19-k118": {
+   "position": 86,
+   "reason": "Merge and unmodified-merge rates affect the cost-per-merged-PR denominator, but are tangential.",
+   "score": 1
+  },
+  "Q19-k119": {
+   "position": 21,
+   "reason": "Measured review-time and PR-size increases without DORA gains are relevant context for autonomous merge economics, though not about token cost directly.",
+   "score": 2
+  },
+  "Q19-k12": {
+   "position": 61,
+   "reason": "Shows that about 98% of billed tokens are cache re-reads of re-sent context, which redirects optimization toward context size and turn count rather than cache adoption.",
+   "score": 3
+  },
+  "Q19-k120": {
+   "position": 16,
+   "reason": "Estimating API-equivalent cost for flat-rate subscription users is relevant to the multi-harness fleet but is mostly a product description.",
+   "score": 1
+  },
+  "Q19-k121": {
+   "position": 59,
+   "reason": "Specific denominator rules (exclude bot-authored and deleted PRs) refine metric definitions, but this is minor.",
+   "score": 1
+  },
+  "Q19-k123": {
+   "position": 68,
+   "reason": "Hypothetical worked arithmetic, not a measured figure.",
+   "score": 1
+  },
+  "Q19-k124": {
+   "position": 104,
+   "reason": "An admittedly illustrative, non-customer figure; the only useful detail is counting PRs only if they survive a churn window.",
+   "score": 1
+  },
+  "Q19-k125": {
+   "position": 98,
+   "reason": "A controlled test showing better context cut tokens by 42% supports investing in shared context and scar-memory injection, but it comes from a vendor.",
+   "score": 2
+  },
+  "Q19-k126": {
+   "position": 14,
+   "reason": "A precise definition of cost per merged PR that includes rework and a churn window is a metric design the reader can implement in its ledger.",
+   "score": 2
+  },
+  "Q19-k13": {
+   "position": 94,
+   "reason": "Semantic caching savings and gateway caps are generic claims.",
+   "score": 1
+  },
+  "Q19-k130": {
+   "position": 28,
+   "reason": "The warning against ranking by token spend is useful, but the soft-cap preference is a vendor opinion.",
+   "score": 1
+  },
+  "Q19-k131": {
+   "position": 53,
+   "reason": "Specific ACU thresholds for flagging unhealthy session sizes are a concrete heuristic that could feed into session-ledger anomaly flags.",
+   "score": 2
+  },
+  "Q19-k132": {
+   "position": 27,
+   "reason": "Vendor pricing detail for Copilot with limited relevance to a self-hosted fleet.",
+   "score": 1
+  },
+  "Q19-k133": {
+   "position": 73,
+   "reason": "A survey on delegation share is tangential to cost governance.",
+   "score": 0
+  },
+  "Q19-k134": {
+   "position": 67,
+   "reason": "A worked per-task cost comparison across models is illustrative arithmetic rather than a measured result.",
+   "score": 1
+  },
+  "Q19-k135": {
+   "position": 24,
+   "reason": "Cross-provider cache and batch pricing ratios are useful reference data for a multi-provider cost model.",
+   "score": 2
+  },
+  "Q19-k136": {
+   "position": 40,
+   "reason": "An unnoticed $600K per year from one employee is a striking attribution failure case supporting per-agent keys, though anecdotal.",
+   "score": 2
+  },
+  "Q19-k137": {
+   "position": 96,
+   "reason": "Measured 7–9x usage growth with flat spend shows cost optimization at scale is achievable.",
+   "score": 2
+  },
+  "Q19-k138": {
+   "position": 66,
+   "reason": "A per-task budget with a circuit breaker is a generic recommendation.",
+   "score": 1
+  },
+  "Q19-k141": {
+   "position": 12,
+   "reason": "Treating 10x expected cost as a test defect and escalating to humans on budget breach is a usable design idea for the reader's smoke and review gates.",
+   "score": 2
+  },
+  "Q19-k142": {
+   "position": 97,
+   "reason": "A loosely sourced macro figure on cost per agent workflow.",
+   "score": 1
+  },
+  "Q19-k143": {
+   "position": 106,
+   "reason": "Specific operational controls (50/80/100% nudges, a live cost counter, a separate tier for hosted fleet work, manager-approved upgrades) that the reader could adopt directly.",
+   "score": 2
+  },
+  "Q19-k144": {
+   "position": 58,
+   "reason": "The 70%+ agent-authored PR share and the argument for fleet-level managed agents over session tuning support the platform direction, but are partly opinion.",
+   "score": 2
+  },
+  "Q19-k145": {
+   "position": 79,
+   "reason": "Separating fleet spend, supervision hours and the platform ceiling with distinct owners adds supervision cost as a budget dimension.",
+   "score": 2
+  },
+  "Q19-k146": {
+   "position": 34,
+   "reason": "Vendor billing and plan details that are mostly marketing.",
+   "score": 0
+  },
+  "Q19-k17": {
+   "position": 48,
+   "reason": "Worked routing and caching savings of about 30% are illustrative and modest.",
+   "score": 1
+  },
+  "Q19-k18": {
+   "position": 44,
+   "reason": "Gartner's estimate of realistic 5-6x routing savings versus the 20x claim is a useful calibration but secondhand.",
+   "score": 1
+  },
+  "Q19-k19": {
+   "position": 11,
+   "reason": "A single-repo median of $52 per PR is a published cost-per-PR figure, though narrow.",
+   "score": 2
+  },
+  "Q19-k2": {
+   "position": 80,
+   "reason": "Chargeback by merge-gate owner and the warning against token leaderboards are a specific attribution choice that fits autonomous-merge gates.",
+   "score": 2
+  },
+  "Q19-k20": {
+   "position": 116,
+   "reason": "Quantified modelling showing that cost grows superlinearly with agent turns (a 10% turn cut gives about 16% savings), which supports prioritizing turn reduction, though it is derived from price cards rather than measured.",
+   "score": 2
+  },
+  "Q19-k21": {
+   "position": 29,
+   "reason": "Exact cache pricing multipliers are reference data that largely duplicates k25.",
+   "score": 1
+  },
+  "Q19-k22": {
+   "position": 13,
+   "reason": "A measured 20% per-task cost increase from higher output verbosity on a newer model matters for model upgrade decisions.",
+   "score": 2
+  },
+  "Q19-k23": {
+   "position": 49,
+   "reason": "A unit metric that includes supervision hours largely overlaps k15.",
+   "score": 1
+  },
+  "Q19-k24": {
+   "position": 114,
+   "reason": "A vendor's routing savings claim with marketing language ('preserving frontier quality') and no verifiable methodology.",
+   "score": 1
+  },
+  "Q19-k25": {
+   "position": 56,
+   "reason": "A six-term multiplicative cost decomposition is a specific ledger and dashboard schema that structures attribution and optimization.",
+   "score": 2
+  },
+  "Q19-k27": {
+   "position": 54,
+   "reason": "Measured cost-per-session and per-request reductions holding the model constant, though self-reported by a single company.",
+   "score": 2
+  },
+  "Q19-k3": {
+   "position": 52,
+   "reason": "Pooled ceilings, spend tiers and cheaper default subagent models are reasonable but common governance patterns.",
+   "score": 1
+  },
+  "Q19-k31": {
+   "position": 91,
+   "reason": "A catalogue of 16 anti-patterns, each with financial impact and remediation, is a concrete design idea for feeding scar memory and session analysis.",
+   "score": 2
+  },
+  "Q19-k33": {
+   "position": 2,
+   "reason": "Concrete before/after cost-per-merged-PR figures ($31 to $9) from an operating fleet give a usable benchmark for the reader's PR pipeline.",
+   "score": 3
+  },
+  "Q19-k34": {
+   "position": 37,
+   "reason": "Measured waste-ratio and passes-per-task improvements give a useful fleet metric and benchmark.",
+   "score": 2
+  },
+  "Q19-k35": {
+   "position": 32,
+   "reason": "A concrete alerting rule, plus the finding that per-agent budgets failed and budgets belong on the task, informs where the reader puts budgets.",
+   "score": 3
+  },
+  "Q19-k36": {
+   "position": 50,
+   "reason": "Gives a concrete published cost-per-merged-PR figure with sample size and trend, directly answering the benchmark question.",
+   "score": 2
+  },
+  "Q19-k37": {
+   "position": 107,
+   "reason": "A published, fully allocated cost per merged PR, with its methodology of joining sessions to code shipped within seven days, directly answers the question and gives a benchmark for the reader's session ledger.",
+   "score": 3
+  },
+  "Q19-k38": {
+   "position": 90,
+   "reason": "A single customer's cache-hit rate and blended rate is a minor corroborating data point.",
+   "score": 1
+  },
+  "Q19-k39": {
+   "position": 20,
+   "reason": "Per-process counters that doubled a run cap is a concrete failure mode that argues for a single shared ledger, which maps directly to the reader's Postgres ledger.",
+   "score": 3
+  },
+  "Q19-k4": {
+   "position": 39,
+   "reason": "Typical cap ranges are generic.",
+   "score": 1
+  },
+  "Q19-k40": {
+   "position": 55,
+   "reason": "Concrete three-stage enforcement semantics (steer at 80% once, worst-case pre-call check, hard halt) are directly implementable in dispatch governance.",
+   "score": 2
+  },
+  "Q19-k41": {
+   "position": 25,
+   "reason": "A measured 78.9% cost reduction and higher within-cap success from run-level governance is useful evidence, though N is small.",
+   "score": 2
+  },
+  "Q19-k42": {
+   "position": 46,
+   "reason": "Per-request gateways cannot enforce run budgets without a run id propagated through the graph, a key architectural point for the reader's ledger and dispatch.",
+   "score": 3
+  },
+  "Q19-k43": {
+   "position": 76,
+   "reason": "Specific per-task-class reservation amounts and staged 50/80/100% actions, including freezing fan-out, are directly adoptable for build packs.",
+   "score": 2
+  },
+  "Q19-k44": {
+   "position": 57,
+   "reason": "A standard cost-per-merged-PR definition, useful but largely obvious.",
+   "score": 1
+  },
+  "Q19-k45": {
+   "position": 88,
+   "reason": "A concrete metric set (retry-waste %, cache-read ratio, flagship share, escalation precision) is useful for ledger dashboards.",
+   "score": 2
+  },
+  "Q19-k46": {
+   "position": 36,
+   "reason": "Ordering prompts stable-first matters for injecting scar memory into prompts, but it is fairly well known.",
+   "score": 2
+  },
+  "Q19-k48": {
+   "position": 62,
+   "reason": "Quantified cache-write payback for mid-task model switches directly affects whether cascades and routing should switch models mid-session.",
+   "score": 3
+  },
+  "Q19-k49": {
+   "position": 22,
+   "reason": "A cache-read price inversion that makes the top model cheaper on long tool-heavy sessions could change model routing decisions.",
+   "score": 3
+  },
+  "Q19-k5": {
+   "position": 35,
+   "reason": "Cascade savings figures are general claims without a clear measured source.",
+   "score": 1
+  },
+  "Q19-k50": {
+   "position": 43,
+   "reason": "A per-session cap example is generic.",
+   "score": 1
+  },
+  "Q19-k51": {
+   "position": 82,
+   "reason": "6% of runs consuming 48% of tokens, and those runs mostly failing, argues strongly for early kill-switches on runaway runs.",
+   "score": 3
+  },
+  "Q19-k52": {
+   "position": 4,
+   "reason": "Specific per-task-type budget values declared in a repo file are a concrete design the reader could adopt for build-pack tickets.",
+   "score": 2
+  },
+  "Q19-k53": {
+   "position": 26,
+   "reason": "Telling agents at 80% of budget to ship a partial PR or handoff note, with about a third of near-cap runs salvaged, is a concrete and measured design.",
+   "score": 3
+  },
+  "Q19-k54": {
+   "position": 109,
+   "reason": "A precise retry-cap rule (the same command and the same failing test names, three times) that could be implemented directly in worker dispatch.",
+   "score": 2
+  },
+  "Q19-k55": {
+   "position": 31,
+   "reason": "A specific truncation rule (over 12 KB keeps the first and last 4 KB) with a measured ~60% input reduction is directly implementable in worker harnesses.",
+   "score": 3
+  },
+  "Q19-k56": {
+   "position": 115,
+   "reason": "A measured result that retry caps and context guards, not budget caps, drove the cost reduction, with the budget firing on only 4% of runs, which directly guides where to invest in governance.",
+   "score": 3
+  },
+  "Q19-k57": {
+   "position": 42,
+   "reason": "A 1000x token multiplier and 62% of spend going to re-sent context are measured figures that point to context management as the main lever.",
+   "score": 2
+  },
+  "Q19-k58": {
+   "position": 85,
+   "reason": "The limits of prompt caching are well known.",
+   "score": 1
+  },
+  "Q19-k59": {
+   "position": 105,
+   "reason": "A generic list of mitigations and attribution dimensions that most cost-governance writeups already cover.",
+   "score": 1
+  },
+  "Q19-k6": {
+   "position": 51,
+   "reason": "An order-of-magnitude per-PR review cost spread plus advice to chart cost per completed task over time is useful, but the guidance is fairly generic.",
+   "score": 1
+  },
+  "Q19-k60": {
+   "position": 33,
+   "reason": "A detailed gateway flow covering identity overwrite, pre-request reservation and settlement is a concrete enforcement architecture.",
+   "score": 2
+  },
+  "Q19-k61": {
+   "position": 100,
+   "reason": "A concrete per-workload budget isolation example at the gateway that maps directly onto per-task or per-agent budgets in a multi-tenant fleet, though it is illustrative rather than measured.",
+   "score": 2
+  },
+  "Q19-k62": {
+   "position": 41,
+   "reason": "A feature list largely overlapping k34.",
+   "score": 1
+  },
+  "Q19-k63": {
+   "position": 23,
+   "reason": "Fallback chains and context compression are generic recommendations.",
+   "score": 1
+  },
+  "Q19-k68": {
+   "position": 87,
+   "reason": "A measured 4.17M tokens per agentic task, versus thousands for chat, is a strong baseline for budget sizing.",
+   "score": 2
+  },
+  "Q19-k7": {
+   "position": 69,
+   "reason": "A quantified 30–60% misattribution when pricing whole sessions at the primary model mandates per-call model recording in the ledger.",
+   "score": 3
+  },
+  "Q19-k70": {
+   "position": 111,
+   "reason": "Generic consensus advice about step and budget caps, backed by a well-known anecdote.",
+   "score": 0
+  },
+  "Q19-k71": {
+   "position": 77,
+   "reason": "Warns that multi-agent budgets can overrun 5–15x versus a naive 3x, which is relevant to DAG fan-out budgeting, but the figure is loosely sourced.",
+   "score": 2
+  },
+  "Q19-k72": {
+   "position": 15,
+   "reason": "Superlinear cost growth with session turns is a useful detail for session length and context reset policy.",
+   "score": 2
+  },
+  "Q19-k73": {
+   "position": 64,
+   "reason": "A 30x token variance on the same task, with accuracy saturating at higher cost, argues for per-task budget caps and changes how budgets are set.",
+   "score": 3
+  },
+  "Q19-k74": {
+   "position": 81,
+   "reason": "A measured input-to-output ratio of about 154:1 confirms that input and context dominate cost, which shapes pricing and optimization priorities.",
+   "score": 2
+  },
+  "Q19-k75": {
+   "position": 0,
+   "reason": "A measured cross-model token-consumption gap of over 1.5M tokens per task directly informs harness/model selection in a multi-harness dispatcher.",
+   "score": 3
+  },
+  "Q19-k76": {
+   "position": 1,
+   "reason": "Measured evidence that models cannot self-estimate token cost argues against agent-declared budgets and for externally set per-task caps.",
+   "score": 3
+  },
+  "Q19-k77": {
+   "position": 84,
+   "reason": "Vendor data attributing 62% of spend to re-sent context and a 20x developer spread corroborates k12, but is vendor-sourced.",
+   "score": 1
+  },
+  "Q19-k78": {
+   "position": 108,
+   "reason": "Basic arithmetic showing quadratic context growth, which is well known and adds no measured insight.",
+   "score": 1
+  },
+  "Q19-k79": {
+   "position": 117,
+   "reason": "First-party multipliers for agent and multi-agent token use, plus a concrete subagent-explosion failure mode, are useful for capacity planning and subagent caps.",
+   "score": 2
+  },
+  "Q19-k8": {
+   "position": 118,
+   "reason": "A specific attribution failure mode (20–40% under-attribution, and cross-project cache-write windfalls) that the Postgres session ledger must handle with an explicit amortization policy.",
+   "score": 3
+  },
+  "Q19-k80": {
+   "position": 63,
+   "reason": "A very low measured cost per merged delivery on a cheap model, from a specific sample, is a concrete benchmark for cost per PR.",
+   "score": 2
+  },
+  "Q19-k81": {
+   "position": 70,
+   "reason": "A worked caching example with roughly 42% savings is illustrative and corroborating.",
+   "score": 1
+  },
+  "Q19-k82": {
+   "position": 45,
+   "reason": "A labeling scheme plus worked per-PR figures gives a concrete attribution pattern and low benchmark numbers.",
+   "score": 2
+  },
+  "Q19-k83": {
+   "position": 8,
+   "reason": "A hypothetical example showing metered usage dominates seat cost is illustrative but not measured.",
+   "score": 1
+  },
+  "Q19-k84": {
+   "position": 47,
+   "reason": "A 7x token multiplier for agent teams in plan mode is a useful but secondhand figure.",
+   "score": 2
+  },
+  "Q19-k85": {
+   "position": 74,
+   "reason": "Measured caching savings of 49–80% on real agent trajectories, broken down by model, inform the caching strategy.",
+   "score": 2
+  },
+  "Q19-k87": {
+   "position": 103,
+   "reason": "A specific three-resource policy decomposition (aggregation keys, token pools, per-model cost overrides) that is a usable schema for the ledger and budget layer.",
+   "score": 2
+  },
+  "Q19-k88": {
+   "position": 78,
+   "reason": "A concrete token pool schema with reset windows and 429 enforcement is a useful reference design.",
+   "score": 2
+  },
+  "Q19-k89": {
+   "position": 10,
+   "reason": "Post-response reconciliation lets concurrent requests overshoot the budget, a concrete failure mode that should shape the reader's ledger reservation design.",
+   "score": 3
+  },
+  "Q19-k9": {
+   "position": 92,
+   "reason": "Downgrading at 90% before a hard cap, because hard stops leave inconsistent states, is a relevant failure mode, though the sourcing is generic.",
+   "score": 2
+  },
+  "Q19-k90": {
+   "position": 9,
+   "reason": "Specific gateway limits and the silent 'undefined' pool fallthrough failure mode matter if the reader builds on Google's gateway.",
+   "score": 2
+  },
+  "Q19-k91": {
+   "position": 89,
+   "reason": "Distribution statistics for the Orbi cost-per-delivery sample complement k14.",
+   "score": 1
+  },
+  "Q19-k92": {
+   "position": 6,
+   "reason": "Points out that request-count limiting fails for token-heavy agents, a known but relevant failure mode for gateway design.",
+   "score": 2
+  },
+  "Q19-k93": {
+   "position": 17,
+   "reason": "A concrete policy template with attempt reservations and premium fallback requiring a new reservation is a specific design pattern.",
+   "score": 2
+  },
+  "Q19-k94": {
+   "position": 65,
+   "reason": "Atomic dual reservation before dispatch, holding reservations for timed-out calls, and refusing on unknown prices are precise design details for a Postgres ledger with governed dispatch.",
+   "score": 3
+  },
+  "Q19-k95": {
+   "position": 110,
+   "reason": "A synthetic ledger example illustrating cost per successful task, with no real-world measurement behind it.",
+   "score": 1
+  },
+  "Q19-k96": {
+   "position": 99,
+   "reason": "Generic metrics guidance from AWS.",
+   "score": 1
+  },
+  "Q19-k97": {
+   "position": 60,
+   "reason": "Concrete per-agent daily and monthly token budget fields with alert and pause semantics form a usable config design.",
+   "score": 2
+  },
+  "Q19-k98": {
+   "position": 93,
+   "reason": "Measured peak versus off-peak cost per merged PR shows time-of-day pricing doubling cost, which is relevant to scheduling.",
+   "score": 2
+  },
+  "Q19-k99": {
+   "position": 83,
+   "reason": "Concrete median tokens, runtime and request counts per merged PR provide a useful benchmark.",
+   "score": 2
+  }
+ }
+}

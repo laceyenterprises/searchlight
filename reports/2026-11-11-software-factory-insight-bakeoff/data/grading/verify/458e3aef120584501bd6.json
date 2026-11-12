@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "78e4fe51a0a153ff",
+ "url": "https://amplitude.com/explore/analytics/ai-agent-failure-modes",
+ "verdicts": {
+  "Amplitude suggests detecting runaway spend by tracking tokens per session and latency by task type, plus Cost per Successful Task = Total Agent Spend / Tasks That Pass Quality Checks.": 1,
+  "Vectara's catalog of agent failures reports an agent that deployed five 48-vCPU AWS instances without a cost preview and ran up a $6,531 bill, and a LangChain multi-agent loop that reportedly ran 11 days undetected and cost $47,000.": 1
+ }
+}

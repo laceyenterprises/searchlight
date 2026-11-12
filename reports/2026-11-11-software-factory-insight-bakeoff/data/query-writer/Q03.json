@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "Cognition Devin PR merge rate case study",
+  "Devin playbooks knowledge sandbox long-running sessions docs",
+  "Cognition Devin Windsurf Cascade autonomous agent failure modes"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How do Cognition's Devin and Windsurf run long autonomous coding sessions (sandbox, planning, sessions, knowledge, playbooks)? What do published customer case studies report about merge rates and failure modes? Rank first primary sources: Cognition's own engineering blog posts, Devin and Windsurf documentation, talks, and credible reporting, plus customer case studies (e.g. Goldman Sachs, Nubank, Citi). Extract mechanisms (cloud sandbox/VM, planning, session management, Knowledge, Playbooks, Devin Wiki/Search, Cascade agent), numbers, names, dates, measured PR merge rates, and documented failure modes and limitations.",
+ "question_id": "Q03",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:15:20.294703Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 13991,
+   "published": null,
+   "text": "# The Software Factory: When No Human Writes or Reviews the Code\n### StrongDM's radical experiment with AI-generated code\nStrongDM's Software Factory has three cardinal rules. Rule one: code must not be written by humans. Rule two: code must not be reviewed by humans. Rule three: if you haven't spe…",
+   "title": "The Software Factory: When No Human Writes or Reviews the Code",
+   "url": "https://www.thepragmaticcto.com/p/the-software-factory-when-no-human"
+  },
+  {
+   "chars_delivered": 8131,
+   "published": null,
+   "text": "# Don't write, don't read, don't review: This security company has decided to stop letting humans touch code and has open-sourced this model.\nCan software still be delivered even if no one writes or reads the code?\n\nCan software still be delivered without anyone writing or reviewing code?\n\nIn Febru…",
+   "title": "Security Company Stops Human Code Interaction, Open - Sources Model: No Writing, Reading, or Reviewing",
+   "url": "https://eu.36kr.com/en/p/3675741413302915"
+  },
+  {
+   "chars_delivered": 10929,
+   "published": null,
+   "text": "# StrongDM Software Factory\n\nASDM Level 6: Autonomous Coding & Review\n\nHow StrongDM's Software Factory removes humans from coding and code review, replacing review with scenario-based validation and Digital Twin testing.\n\n## Key Metrics\nReported outcomes and operating signals from this case study.…",
+   "title": "StrongDM Software Factory",
+   "url": "https://productbuildershq.com/case-studies/strongdm-software-factory/"
+  },
+  {
+   "chars_delivered": 6010,
+   "published": null,
+   "text": "# Built by Agents, Tested by Agents, Trusted by Whom?\nOn February 6, 2026, StrongDM’s AI team published a manifesto. Three engineers described a “Software Factory” where coding agents write, test, and ship production software. No human writes code. No human reviews code. The humans design specifica…",
+   "title": "Built by Agents, Tested by Agents, Trusted by Whom? - CodeX - Stanford Law School",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "chars_delivered": 6623,
+   "published": null,
+   "text": "# StrongDM's Software Factory\nA visual map of the system that writes, tests, and ships production code with zero human authorship and zero human review. Founded July 2025 by Justin McCarthy (CTO), Jay Taylor, and Navan Chauhan — a 3-person team.\n\nSources: factory.strongdm.ai · github.com/strongdm/a…",
+   "title": "StrongDM Software Factory — System Map",
+   "url": "https://mvp-club-ai.github.io/getting-started-with-claude/research/strongdm-system-map.html"
+  },
+  {
+   "chars_delivered": 6925,
+   "published": null,
+   "text": "# What Is a Software Factory? How AI Agents Ship Code\nStripe merges more than 1,300 pull requests every week that contain zero lines of human-written code. A three-person team at StrongDM builds software that no engineer writes or reviews.  They are running in production right now, and the people o…",
+   "title": "What Is a Software Factory? How AI Agents Ship Code",
+   "url": "https://murraycole.com/posts/software-factory"
+  },
+  {
+   "chars_delivered": 2747,
+   "published": null,
+   "text": "# How StrongDM's AI Team Build Serious Software Without Even Looking at the Code\n## Highlights\n- Last week I hinted at a demo I had seen from a team implementing what Dan Shapiro called the Dark Factory level of AI adoption, where no human even looks at the code the coding agents are producing. Tha…",
+   "title": "How StrongDM's AI Team Build Serious Software Without Even Looking at the Code",
+   "url": "https://www.pelayoarbues.com/literature-notes/articles/how-strongdm's-ai-team-build-serious-software-without-even-looking-at-the-code"
+  },
+  {
+   "chars_delivered": 8705,
+   "published": null,
+   "text": "# The Dark Factory: How Software Is Learning to Build Itself\nThe idea of the *dark factory* is often presented as if software has suddenly become fully autonomous.  The real shift is not that machines now “magically build software alone.” The shift is that some teams have started to build software…",
+   "title": "The Dark Factory: How Software Is Learning to Build Itself",
+   "url": "https://el-kaim.com/the-dark-factory-how-software-is-learning-to-build-itself-6496a69ba14e?gi=fcabd290b859"
+  },
+  {
+   "chars_delivered": 6292,
+   "published": null,
+   "text": "# Agentic Software Factories: How to Build an AI Pipeline From Issue to Production That You Can Trust\nCI/CD automated the path a change takes. A factory automates the production of the change itself, which moves the scarce resource from writing code to verifying and reviewing it. The teams that hav…",
+   "title": "Agentic Software Factories: How to Build an AI Pipeline From Issue to Production That You Can Trust",
+   "url": "https://fdeinterviews.com/blog/agentic-software-factory"
+  },
+  {
+   "chars_delivered": 4415,
+   "published": null,
+   "text": "# What Is an AI Software Factory and How to Measure Its Output\n## TL;DR\n- An AI software factory uses agents to turn specs into merged code, checked by tests, reviewer agents and human gates.\n- The pattern took shape in 2026 through Dan Shapiro’s levels, StrongDM’s rules, 8090’s Software Factory an…",
+   "title": "What Is an AI Software Factory and How to Measure Its Output",
+   "url": "https://futureagi.com/blog/ai-software-factory/"
+  }
+ ],
+ "latency_ms": 1561.2,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q01",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How does StrongDM's 'Software Factory' work, where no human writes or reviews code? What are its scenario holdouts and digital twin universe, how is correctness verified, and what results or problems have been reported?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 83688,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:15:18.733420Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

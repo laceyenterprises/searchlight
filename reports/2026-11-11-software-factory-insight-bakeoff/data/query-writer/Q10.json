@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "spec-driven development Kiro GitHub Spec Kit",
+  "Kiro specs requirements design tasks EARS",
+  "spec-driven development AI agents evidence effectiveness evaluation"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: What is spec-driven development as implemented by Amazon Kiro, GitHub Spec Kit and similar tools? How are specs, plans and tasks structured, and what evidence is there that it improves agent output quality? Rank first primary sources: Kiro's official docs and engineering blog posts, the GitHub Spec Kit repository, README and GitHub blog posts, talks and papers, plus credible reporting and independent evaluations of similar tools (e.g. Tessl, BMAD). Extract mechanisms (requirements, design, tasks files, EARS notation, constitution, specify/plan/tasks commands), names, dates, measured results or benchmarks on agent output quality, and documented failure modes or criticisms.",
+ "question_id": "Q10",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

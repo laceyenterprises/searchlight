@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:01.332196Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 3855,
+   "published": "2026-02-09",
+   "text": "# Minions: Stripe’s one-shot, end-to-end coding agents\nMinions are Stripe’s homegrown coding agents.\nThey’re fully unattended and built to one-shot tasks.\nOver a thousand pull requests merged each week at Stripe are completely minion-produced, and while they’re human-reviewed, they contain no human…",
+   "title": "Minions: Stripe's one-shot, end-to-end coding agents",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "chars_delivered": 2161,
+   "published": "2026-03-07",
+   "text": "# Stripe Minions\n## What they do\nStripe Minions are one-shot coding agents.\nA run takes a disposable devbox from a warm pool, calls a curated slice of internal tools, and opens a pull request.\nIn the sandbox notes, a \"devbox\" is a standardized AWS EC2 instance preloaded with the source tree and war…",
+   "title": "software-factory/docs/practitioners/stripe-minions.md at main",
+   "url": "https://github.com/Chipagosfinest/software-factory/blob/main/docs/practitioners/stripe-minions.md"
+  },
+  {
+   "chars_delivered": 3622,
+   "published": "2026-02-19",
+   "text": "As a recap of Part 1 in this blog miniseries, minions are a homegrown unattended agentic coding flow at Stripe.\nOver 1,300 Stripe pull requests (up from 1,000 as of Part 1) merged each week are completely minion-produced, human-reviewed, but containing no human-written code.\n...\nFor maximum effecti…",
+   "title": "Minions: Stripe's one-shot, end-to-end coding agents—Part 2",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "chars_delivered": 620,
+   "published": null,
+   "text": "description: Stripe's internal AI coding agents, called 'minions', autonomously merge over 1,000 pull requests weekly through a six-layer system architecture.\n...\nStripe's internal AI coding agents, called 'minions', autonomously merge over 1,000 pull requests weekly through a six-layer system arch…",
+   "title": "How Stripe Built AI Agents That Write 1000+ Pull...",
+   "url": "https://daily.dev/posts/how-stripe-built-ai-agents-that-write-1-000-pull-requests-a-week-hk49rzyw0"
+  },
+  {
+   "chars_delivered": 1472,
+   "published": null,
+   "text": "Stripe’s Minions show what happens when coding agents stop being copilots and start running real work in the background.\nAlistair Gray walks through the dev boxes, retrieval, blueprints, Slack/Jira workflow, and review model that let Stripe turn tasks into pull requests on a massive Ruby codebase.…",
+   "title": "Stripe Minions: one-shot coding agents on a 30-million-line ...",
+   "url": "https://background-agents.com/summit/sessions/alistair-gray/"
+  },
+  {
+   "chars_delivered": 1007,
+   "published": "2026-11-05",
+   "text": "Minions are Stripe’s homegrown coding agents.\nIn February 2026, Stripe reported that over 1,300 of its pull requests merged each week “are completely minion-produced, human-reviewed, but containing no human-written code” (Minions: Stripe’s one-shot, end-to-end coding agents, Part 2).\n...\nSplit a lo…",
+   "title": "Stripe’s CI playbook | StarSling",
+   "url": "https://starsling.dev/ci-playbooks/stripe"
+  },
+  {
+   "chars_delivered": 2186,
+   "published": null,
+   "text": "Homegrown one-shot coding agents that read work context, implement a change end-to-end, and produce a PR for human review.\n...\nRepresentative workflow: An engineer sends a request through Slack or an internal app.\nThe agent prepares a pull request for human review.\n...\nAn engineer tags the Slack ap…",
+   "title": "stripe-minions.md",
+   "url": "https://internal-agents.com/agents/stripe-minions.md"
+  },
+  {
+   "chars_delivered": 1786,
+   "published": "2026-02-13",
+   "text": "Stripe's in-house coding agents produce 1,300+ merged PRs per week — fully unattended, human-reviewed code built on a Goose fork with a ~500-tool MCP server.\n...\nStripe's internal coding agent system that writes code end-to-end and ships over 1,300 merged pull requests per week, with human review b…",
+   "title": "Stripe Minions | Ry Walker Research",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "chars_delivered": 184,
+   "published": "2026-10-21",
+   "text": "Minions are Stripe’s homegrown coding agents, responsible for more than a thousand pull requests merged each week.\nThough humans review the code, minions write it from start to finish.",
+   "title": "Stripe Dot Dev Blog",
+   "url": "https://stripe.dev/blog/topic/ai"
+  },
+  {
+   "chars_delivered": 1868,
+   "published": "2026-08-02",
+   "text": "|type|entity|\n|--|--|\n|description|Stripe's internal agent harness that runs 'blueprints' interweaving agent nodes with deterministic code steps, shipping 1,300+ fully AI-written PRs every week.|\n...\nStripe Minions is Stripe's internal agent harness for delegated coding work: \"for anything that the…",
+   "title": "Youtube-knowledge-base/entities/tools/stripe-minions.md at ...",
+   "url": "https://github.com/MLupu88/Youtube-knowledge-base/blob/main/entities/tools/stripe-minions.md"
+  }
+ ],
+ "latency_ms": 458.5,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q06",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How does Stripe's 'Minions' system produce unattended pull requests at scale? Cover the devbox and sandbox model, the blueprint/workflow mix of deterministic and agentic steps, CI and review, and volume numbers.",
+    "Stripe Minions unattended pull requests",
+    "Stripe Minions devbox sandbox blueprints agent",
+    "Stripe Minions coding agents PRs per week CI review"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 21395,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:00.873709Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,17 @@
+{
+ "capture": "captured",
+ "digest": "9b10313bd3931067",
+ "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026",
+ "verdicts": {
+  "A policy gateway between orchestrator, MCP servers, and A2A agents should log identities, scopes, tool calls, task transitions, and final outputs, answering who asked, what they called, and what changed.": 1,
+  "A specialist agent that merely wraps a single API call should be exposed as an MCP tool; an agent that negotiates scope, streams progress, and returns artifacts should be exposed as an A2A service agent.": 1,
+  "A stale Agent Card can route work to the wrong capability, so Agent Cards should be treated like API contracts with versioning, ownership, review, and policy metadata.": 1,
+  "A stateless MCP core changes how teams deploy remote MCP servers behind gateways, load balancers, and serverless platforms.": 1,
+  "In April 2026 the Linux Foundation said A2A had passed 150 supporting organizations with integrations across Google, Microsoft, and AWS platforms; Anthropic reported more than 10,000 active public MCP servers when donating MCP to the Agentic AI Foundation.": 1,
+  "On May 21, 2026, the MCP project announced a 2026-07-28 release candidate with a stateless protocol core, first-class extensions, Tasks, MCP Apps, authorization hardening, a formal deprecation policy, and JSON Schema 2020-12 for tools.": 1,
+  "Task state, tool results, approvals, artifacts, and identity claims should be stored as durable records with IDs in the workflow system and gateway, not only in model context, which is temporary, lossy, and hard to audit.": 1,
+  "The A2A H2 2026 roadmap lists authorization schemes in Agent Cards, dynamic skill querying, dynamic UX negotiation inside tasks, more client-initiated methods, better streaming reliability, and improved push notifications.": 1,
+  "The enterprise control point for MCP is an MCP server registry and policy gateway; for A2A it is an agent registry, Agent Cards, and a task audit trail.": 1,
+  "The listed failure modes for MCP are over-broad tools, prompt injection, and tool poisoning; for A2A they are agent impersonation, unclear ownership, and lost task state.": 1
+ }
+}

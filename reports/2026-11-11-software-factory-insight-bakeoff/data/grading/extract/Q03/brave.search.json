@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "01280dcd39296970",
+ "claims": [
+  {
+   "text": "Cognition reports that Devin's PR merge rate on all PRs rose from 34% (2024 baseline) to 67% (2025/early 2026), roughly a 2x improvement.",
+   "url": "https://agentmarketcap-1.onbex.co/blog/2026/07/13/cognition-devin-67-percent-pr-merge-rate-vendor-production-metric"
+  },
+  {
+   "text": "Cognition's November 2025 performance review reported Devin was up to 4x faster at problem solving, 2x more resource efficient, and had ~67% of its PRs merged versus ~34% previously.",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "text": "The 67% merge rate applies to well-defined tasks, while complex or ambiguous tasks show roughly 85% failure without human intervention.",
+   "url": "https://agentmarketcap-1.onbex.co/blog/2026/07/13/cognition-devin-67-percent-pr-merge-rate-vendor-production-metric"
+  },
+  {
+   "text": "In February 2026, Cognition reported merging 659 Devin-generated pull requests in one week, versus a previous weekly record of 154 (a 4.3-fold increase).",
+   "url": "https://newmarketpitch.com/blogs/news/ai-code-assistant-is-cognition-overvalued"
+  },
+  {
+   "text": "Cognition's November 2025 review reported Devin had helped produce hundreds of thousands of merged pull requests across customer environments.",
+   "url": "https://newmarketpitch.com/blogs/news/ai-code-assistant-is-cognition-overvalued"
+  },
+  {
+   "text": "Merged PR counts do not show the size or complexity of contributions, which range from small dependency updates to architectural changes, nor how much human review was required.",
+   "url": "https://newmarketpitch.com/blogs/news/ai-code-assistant-is-cognition-overvalued"
+  },
+  {
+   "text": "Cognition's customer examples are largely vendor-reported; Cognition has not released a representative breakdown of average savings, failed projects, customer retention, or engineering hours saved across its full customer base.",
+   "url": "https://newmarketpitch.com/blogs/news/ai-code-assistant-is-cognition-overvalued"
+  },
+  {
+   "text": "An Answer.AI evaluation found that of 20 tasks assigned to Devin, only 3 succeeded, 14 failed and 3 were inconclusive (about a 15% success rate).",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "text": "The Answer.AI report noted Devin sometimes took days to complete tasks that typically take human engineers a few hours.",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "text": "Third-party evaluations reported lower real-world task completion than launch claims implied; success falls off sharply with task complexity, and Devin's self-reported 'done' signal correlates imperfectly with true completion.",
+   "url": "https://www.compelframework.org/articles/casestudy-devin-and-replit-coding-agents-incidents"
+  },
+  {
+   "text": "Publicly discussed failure class: the agent modifying its own environment, such as installing global packages affecting later sessions, changing environment variables, or leaving state in shared locations.",
+   "url": "https://www.compelframework.org/articles/casestudy-devin-and-replit-coding-agents-incidents"
+  },
+  {
+   "text": "Devin can introduce subtle vulnerabilities in auth, input validation and cryptographic code, so security-critical PRs should not be merged without expert human review.",
+   "url": "https://easyclaw.com/blog/knowledge/devin-ai-review"
+  },
+  {
+   "text": "Unusual deployment targets, custom build tooling or non-standard infrastructure often produce failed Devin sessions with unclear error loops.",
+   "url": "https://easyclaw.com/blog/knowledge/devin-ai-review"
+  },
+  {
+   "text": "Devin runs in a sandboxed cloud environment with its own shell, code editor and browser, and the sandbox is per-task and isolated, with no shared state between tasks.",
+   "url": "https://safeguard.sh/resources/blog/devin-cognition-autonomous-engineer-blast-radius"
+  },
+  {
+   "text": "Devin has two human checkpoints: a Planning Checkpoint requiring approval of the plan before code is written, and a Pull Request Checkpoint requiring approval of the diff before merge.",
+   "url": "https://safeguard.sh/resources/blog/devin-cognition-autonomous-engineer-blast-radius"
+  },
+  {
+   "text": "Devin reads issue descriptions, PR comments, docs and web pages while planning, so planted text in those sources creates prompt-injection risk that the Planning Checkpoint may not catch when manipulations are subtle.",
+   "url": "https://safeguard.sh/resources/blog/devin-cognition-autonomous-engineer-blast-radius"
+  },
+  {
+   "text": "Devin's session sandbox is ephemeral: it clones the repo, plans step by step, runs tests and fixes failures until done or stuck, and users can observe and intervene in real time.",
+   "url": "https://easyclaw.com/blog/knowledge/devin-ai-review"
+  },
+  {
+   "text": "Devin retains context across thousands of steps and has a self-reflection loop that adjusts strategy and retries when tests fail.",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "text": "Devin maintains context across a full session, including shell history, code changes, test results and browsing history, by summarizing and referencing prior steps rather than using a fixed token limit.",
+   "url": "https://agents.4geeks.com/agent/devin-ai"
+  },
+  {
+   "text": "MultiDevin uses one manager Devin coordinating up to ten worker Devins on isolated subtasks in parallel, with successful outputs automatically merged into one codebase.",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "text": "Devin playbooks are Markdown files with a .devin.md extension defining step-by-step procedures, post-condition specifications, advice and forbidden actions, and can be triggered by macros such as !setup-testing.",
+   "url": "https://fast.io/resources/what-is-devin-ai/"
+  },
+  {
+   "text": "Developers can upload knowledge items such as API specifications or formatting guides that Devin references to ground its coding decisions.",
+   "url": "https://fast.io/resources/what-is-devin-ai/"
+  },
+  {
+   "text": "Cognition agreed in July 2025 to acquire Windsurf, an agentic IDE for long-running coding agents, and its SWE-1.5 and SWE-grep models became available inside Windsurf.",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "text": "Windsurf indexes projects with Fast Context and has a Memories feature that learns coding patterns over roughly 48 hours of use.",
+   "url": "https://codegen.com/ai-tools/windsurf/"
+  },
+  {
+   "text": "Nubank's case study describes a multi-million-line ETL modernization where engineers taught Devin the migration pattern and delegated sub-tasks with human review; Cognition reports 8x-12x efficiency gains and over 20x cost savings.",
+   "url": "https://fast.io/resources/cognition-ai-company-overview/"
+  }
+ ],
+ "question_id": "Q03"
+}

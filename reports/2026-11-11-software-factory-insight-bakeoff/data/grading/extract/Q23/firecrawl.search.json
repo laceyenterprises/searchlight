@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "a84246b87a996012",
+ "claims": [
+  {
+   "text": "The IBM Research framework for trajectory-informed memory generation has four components: a Trajectory Intelligence Extractor, a Decision Attribution Analyzer, a Contextual Learning Generator, and an Adaptive Memory Retrieval System.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The Decision Attribution Analyzer in the IBM framework identifies which decisions and reasoning steps led to failures, recoveries, or inefficiencies.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The IBM Contextual Learning Generator produces three types of guidance: strategy tips from successful patterns, recovery tips from failure handling, and optimization tips from inefficient but successful executions.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The IBM Adaptive Memory Retrieval System injects relevant learnings into agent prompts based on multi-dimensional similarity.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The IBM framework extracts structured learnings with provenance, in contrast to generic memory systems that store conversational facts in vector databases.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "On the AppWorld benchmark, the IBM framework achieved up to 14.3 percentage point gains in scenario goal completion on held-out tasks.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "On complex AppWorld tasks, the IBM framework improved scenario goal completion by 28.5 percentage points, a 149% relative increase.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The IBM paper states that an agent that struggles with a particular API authentication flow today will struggle with the same flow tomorrow unless its prompts are manually updated.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The IBM paper gives a recovery-tip example: when checkout fails due to a missing payment method, verify that payment information is configured before retrying.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The IBM paper gives an optimization-tip example: use a single amazon_empty_cart() call instead of looping amazon_remove_from_cart(item_id) to empty a cart.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "The IBM paper criticizes rule-based systems as brittle because developers must manually anticipate patterns, and criticizes generic memory systems for lacking causal analysis of which decisions led to failures.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "Anthropic describes 'dreaming' as having an agent reflect on logs or transcripts between sessions to fix mistakes or produce new notes and representations, inspired by sleep-time compute from Letta and UC Berkeley.",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "text": "Anthropic describes a memory hierarchy of transcripts, memory notes written by Claude, memory representations such as wikis, and injected context loaded into every session, with dreaming organizing across these layers.",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "text": "Anthropic frames writing a memory rule as a prediction that the described pattern will be relevant again.",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "text": "In Anthropic's CL-Bench 1.0 database-question task, Claude is told the correct answer after responding and can record the failure, theorize about what went wrong, test theories, and turn findings into a rule for future answers.",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "text": "LangChain defines a trace or log as evidence of what happened that becomes memory only when the lesson is converted into context the agent can retrieve on a later run to change its behavior.",
+   "url": "https://www.langchain.com/blog/how-to-give-your-agent-memory"
+  },
+  {
+   "text": "LangChain's memory process is to capture traces, analyze traces, and update memory, using LangSmith Observability as trace store, LangSmith Engine as analyzer, and Context Hub as memory store.",
+   "url": "https://www.langchain.com/blog/how-to-give-your-agent-memory"
+  },
+  {
+   "text": "LangChain says many of the most visible agent improvements come from procedural memory (instructions, workflows, skills, tool-use rules), for example fixing wrong tool order, wrong subagent delegation, or ignored tone rules.",
+   "url": "https://www.langchain.com/blog/how-to-give-your-agent-memory"
+  },
+  {
+   "text": "A survey of LLM agent memory lists reflective self-improvement as one of five mechanism families and names trustworthy reflection and learned forgetting as open challenges.",
+   "url": "https://arxiv.org/html/2603.07670v1"
+  },
+  {
+   "text": "The survey describes a debugging agent without memory that retries the exact fix that crashed the build the previous Friday, and says memory lets agents avoid repeating costly mistakes.",
+   "url": "https://arxiv.org/html/2603.07670v1"
+  },
+  {
+   "text": "Machine Learning Mastery recommends importance scoring before writing memory, storing entries with timestamp, confidence, source and tags, and persisting only entries meeting thresholds (example: importance >= 0.6 and confidence >= 0.7).",
+   "url": "https://machinelearningmastery.com/ai-agent-memory-design-what-works-and-what-doesnt/"
+  },
+  {
+   "text": "Machine Learning Mastery warns that poorly built memory creates persistent, hard-to-trace failures, that stale information can cause repeated mistakes, and that storing everything raises cost and makes retrieval noisier.",
+   "url": "https://machinelearningmastery.com/ai-agent-memory-design-what-works-and-what-doesnt/"
+  },
+  {
+   "text": "Machine Learning Mastery warns that giving all agents in a multi-agent system the same shared memory store lets one agent misread notes written for another agent's own use.",
+   "url": "https://machinelearningmastery.com/ai-agent-memory-design-what-works-and-what-doesnt/"
+  },
+  {
+   "text": "Red Hat notes that as context grows models suffer attention errors and 'context rot', and early studies show a mid-sized model with better harness and memory can outperform a larger model lacking them.",
+   "url": "https://next.redhat.com/2026/06/01/from-context-to-dreams-architecting-memory-for-ai-agents/"
+  },
+  {
+   "text": "Letta's memory blocks have a label, description, value and character limit, which bounds the context window space allocated to each block of in-context memory.",
+   "url": "https://www.letta.com/blog/agent-memory/"
+  }
+ ],
+ "question_id": "Q23"
+}

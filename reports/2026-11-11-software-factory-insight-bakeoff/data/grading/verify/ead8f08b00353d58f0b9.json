@@ -1,0 +1,12 @@
+{
+ "capture": "uncapturable",
+ "digest": "6b29ec6722028adc",
+ "url": "https://mr.technology/payloads/open_source_letta_memgpt_agent_framework_june_2026",
+ "verdicts": {
+  "Letta core memory consists of named in-context blocks (e.g., persona, human, project_context), each with a character limit and description, which the model edits with tool calls and which appear in the prompt every turn.": null,
+  "Letta's memory quality is bounded by the model's tool-use capability, and smaller open models degrade the experience.": null,
+  "Letta's memory toolset includes core_memory_append, core_memory_replace, archival_memory_insert, archival_memory_search, and conversation_search.": null,
+  "Letta's sleep-time compute uses a background agent to consolidate and rewrite memory blocks while the user is idle, avoiding latency during live conversation.": null,
+  "The Letta API decouples agent identity, memory, and state from the underlying model, so the model can be swapped while the agent keeps its memory and history.": null
+ }
+}

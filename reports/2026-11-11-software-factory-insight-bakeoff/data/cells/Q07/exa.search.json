@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:08.331556Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 5574,
+   "page_chars_delivered": 8153,
+   "post_step": "fetched",
+   "published": "2025-12-09T00:00:00.000Z",
+   "text": "## How things fail\n\nOn a high level, when we run agentic code changes across thousands of different software components, we worry about three primary failure modes.\n\n1. The background agent fails to produce a PR. This is a minor annoyance. We can generally live with a small failure rate here. The w…",
+   "title": "Background Coding Agents: Predictable Results Through Strong Feedback Loops (Honk, Part 3) | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "chars_delivered": 2710,
+   "page_chars_delivered": 9035,
+   "post_step": "fetched",
+   "published": "2025-11-06T00:00:00.000Z",
+   "text": "## Enter AI coding agents\n\nLast February, we began an investigation into using AI agents within our Fleet Management system. The goal was to allow engineers to define and run fleet-wide changes using natural language.\n\nFigure 3: Integration of coding agents into our Fleet Management architecture.…",
+   "title": "1,500+ PRs Later: Spotify’s Journey with Our Background Coding Agent (Honk, Part 1) | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "chars_delivered": 1010,
+   "page_chars_delivered": 9119,
+   "post_step": "fetched",
+   "published": "2026-06-03T00:00:00.000Z",
+   "text": "After many iterations, the result is Honk, our background coding agent. It may have a silly name, but our fine feathered coding friend has become an essential part of our everyday operations. Under the hood, Honk runs Claude using the Agent SDK, wrapped inside our own harness and deployed in Kubern…",
+   "title": "Coding Is No Longer the Constraint: Scaling Developer Experience to Teams and Agents at Spotify | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "chars_delivered": 2232,
+   "published": "2026-04-22T00:00:00.000Z",
+   "text": "Although we are adding these features now, at the time of these migrations, Honk did not have access to Claude skills or custom configurability when it runs. This was a design choice made to establish guardrails around the range of possible outcomes during the migration. This meant that the prompt…",
+   "title": "Background Coding Agents: Supercharging Downstream Consumer Dataset Migrations (Honk, Part 4) | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "chars_delivered": 214,
+   "published": "2026-08-07T11:00:00.000Z",
+   "text": ". It starts the build and waits for it to be finished. Then when it's finished, it ... ll summarize any failures and return it back to the verify tool. If it' ... agent goes again, but if it's correct, it'll create",
+   "title": "Rewriting All of Spotify's Code Base, All the Time - InfoQ",
+   "url": "https://www.infoq.com/presentations/spotify-ai-codebase-migration-agent/"
+  },
+  {
+   "chars_delivered": 249,
+   "published": null,
+   "text": "that require codebase awareness. Before sending a pull request, the agent runs formatting, linting, builds, and tests in a verification process to ensure its changes are valid, shippable code — reducing manual review and repetitive engineering work.",
+   "title": "Spotify Claude Agent SDK case study | Claude by Anthropic",
+   "url": "https://claude.com/customers/spotify"
+  },
+  {
+   "chars_delivered": 255,
+   "published": null,
+   "text": "Learn how Honk’s verification loop wraps every coding task in a harness of linting, compiling, and testing — feeding errors back to the agent to self-correct within a set number of iterations — so that even across a thousand repos, every change lands with",
+   "title": "How Spotify Built Honk | AI Coding Agent Webinar",
+   "url": "https://backstage.spotify.com/how-spotify-built-honk"
+  },
+  {
+   "chars_delivered": 208,
+   "published": null,
+   "text": "The results were dramatic. What took three months to achieve 1,000 merged PRs as a migration tool now happens in ten days as a general-purpose agent. However, this success created a new bottleneck: PR review.",
+   "title": "Spotify: Fleet-Wide Autonomous Code Migrations with AI Coding Agents - ZenML LLMOps Database",
+   "url": "https://www.zenml.io/llmops-database/fleet-wide-autonomous-code-migrations-with-ai-coding-agents"
+  },
+  {
+   "chars_delivered": 218,
+   "published": "2026-10-12T13:57:00.000Z",
+   "text": ". Quality and optimization work rose from 27% to 31% of merged changes, while maintenance and configuration fell from ... corresponding increase in rework, although pull request size and code complexity are rising. Its",
+   "title": "Spotify More Than Doubled Monthly Code Changes as AI Accelerated Development - InfoQ",
+   "url": "https://www.infoq.com/news/2026/10/spotify-ai-quality-controls/"
+  },
+  {
+   "chars_delivered": 474,
+   "published": null,
+   "text": "Scale: As of February 2026, Inspect accounts for over half of all merged pull requests across Ramp's frontend and backend repositories. Over 80% of Inspect itself is written by Inspect.\n\nAgent harness: OpenCode, running inside Modal Sandboxes. Ramp did not build a custom agent or custom execution i…",
+   "title": "How Stripe and Ramp Built Self-Driving Codebases — Ona",
+   "url": "https://ona.com/files/background_agents_white_paper.pdf"
+  }
+ ],
+ "latency_ms": 846.8,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q07",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What have Ramp, Spotify (Honk / Fleet Management), Shopify, Uber, Airbnb or Meta published about their internal background coding agents or fleet-wide automated code migrations? Include architecture, verification approach and measured outcomes.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 18112,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:07.484764Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

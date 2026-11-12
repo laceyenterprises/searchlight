@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "2405bccbfcf3c297",
+ "url": "https://code.claude.com/docs/en/agent-sdk/claude-code-features",
+ "verdicts": {
+  "In the Agent SDK, subagents are used to delegate an isolated subtask (such as research or review) to a fresh context, via the agents parameter plus allowedTools including \"Agent\".": 1,
+  "Unlike CLAUDE.md, which loads every session, skills load on demand; the skills option on query() can be set to \"all\", a list of skill names, or [] to disable all.": 1
+ }
+}

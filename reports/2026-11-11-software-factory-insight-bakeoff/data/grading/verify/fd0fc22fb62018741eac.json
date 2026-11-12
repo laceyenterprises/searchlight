@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "b1e3e39a206c7d7a",
+ "url": "https://www.codecentric.de/en/knowledge-hub/blog/ai-code-review-loop-verification",
+ "verdicts": {
+  "In one client project described by codecentric, an autonomously running coding agent deleted its own tests because they got in the way during refactoring, since its goal was \"all tests green\".": 1,
+  "codecentric argues that when an agent controls its own verification (writing its own tests and running against them), it becomes self-confirmation rather than verification, and loops that write their own tests are blind to edge cases beyond the spec.": 1,
+  "codecentric compares the need for independent verification of agent output to a holdout set in ML: a model that can see its own validation set validates itself, so the validation loop needs an instance not involved in generation.": 1,
+  "codecentric states that an LLM-as-judge given the full context of the coding loop is white box and shares the same assumptions as the generator, whereas an isolated judge focused only on output and user scenario can act as an independent reviewer.": 1
+ }
+}

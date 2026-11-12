@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "3dc4e4439062eddb",
+ "url": "https://arxiv.org/abs/2403.16971",
+ "verdicts": {
+  "AIOS experiments report up to 2.1x faster execution when serving agents built by various agent frameworks.": 1,
+  "AIOS includes an SDK, a suite of APIs for using the kernel's functionality.": 1,
+  "The AIOS kernel provides scheduling, context management, memory management, storage management, and access control services for runtime agents.": 1,
+  "The AIOS paper (arXiv:2403.16971, first submitted 25 Mar 2024, published at COLM 2025) isolates resources and LLM-specific services from agent applications into an AIOS kernel.": 1,
+  "The AIOS paper motivates the design by noting that unrestricted access to LLM or tool resources can cause inefficient or harmful resource use, and that the absence of scheduling and resource management in current agent designs hinders concurrency.": 1
+ }
+}

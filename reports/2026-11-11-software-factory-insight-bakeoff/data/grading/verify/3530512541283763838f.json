@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "3677e34bb72e506d",
+ "url": "https://www.augmentcode.com/guides/ai-sre-incident-management",
+ "verdicts": {
+  "Google Cloud's Alert Triage Agent (announced at Cloud Next '25) analyzes each alert's context, gathers information and renders a verdict along with a history of its evidence and decisions, enabling audit of the reasoning.": 1,
+  "Google's SRE materials describe fetch_playbook as a function call in an internal agentic framework, so the agent retrieves an approved runbook as a tool-style operation rather than running freeform commands.": 1,
+  "Meta's Diff Risk Score uses AI to predict the risk of code changes at the diff/PR stage to inform merge and gating decisions before release.": 1,
+  "Meta's RCA system measured 42% accuracy at investigation creation time on its web monorepo, and it suppresses low-confidence answers rather than misleading engineers.": 1,
+  "Meta's root-cause system uses a two-stage architecture: heuristic retrieval, code ownership and runtime code graph traversal cut thousands of changes to a few hundred, then an LLM ranker identifies the root cause.": 1
+ }
+}

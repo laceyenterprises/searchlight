@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "f20be964550d181c",
+ "claims": [
+  {
+   "text": "Microsoft announced Agent Framework on 1 Oct 2025 and shipped 1.0 for .NET and Python on 3 Apr 2026; Go is in public preview.",
+   "url": null
+  },
+  {
+   "text": "The AutoGen repository reads 'Project archived and no longer maintained', and the Semantic Kernel README says Semantic Kernel is now Microsoft Agent Framework.",
+   "url": null
+  },
+  {
+   "text": "LangChain and LangGraph reached 1.0 on 22 Oct 2025 with a promise of no breaking changes until 2.0; LangChain's create_agent runs on the LangGraph runtime and langgraph.prebuilt is deprecated in favour of langchain.agents.",
+   "url": null
+  },
+  {
+   "text": "LangGraph orchestrates a graph of nodes and edges, with checkpointers keyed by thread_id and interrupts for approval.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework supports graph workflows plus sequential, concurrent, handoff, group chat and Magentic patterns, with checkpointing, pause and resume; its Durable Extension was in preview at 1.0.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK provides agents, handoffs, agents as tools, guardrails, sessions, human in the loop and sandbox agents, and was still on 0.x releases (Python 0.24.0 on 15 Oct 2026).",
+   "url": null
+  },
+  {
+   "text": "For long-running OpenAI Agents SDK runs, Temporal is the documented durability engine.",
+   "url": null
+  },
+  {
+   "text": "Google ADK Python 2.0, with a graph-based workflow runtime, became generally available on 19 May 2026; ADK offers sequential, parallel and loop workflow agents, LLM transfer, 2.0 graph workflows with human input, and A2A.",
+   "url": null
+  },
+  {
+   "text": "On Google Cloud, ADK sessions and Memory Bank run on Agent Runtime.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Runtime works with CrewAI, LangGraph, LlamaIndex, ADK, the OpenAI Agents SDK, Strands and any model.",
+   "url": null
+  },
+  {
+   "text": "The AgentCore harness, generally available since 17 Jun 2026, lets users declare model, tools, skills and instructions while AgentCore handles environment, compute, memory, identity, networking and observability; AWS recommends it in place of Bedrock Agents Classic.",
+   "url": null
+  },
+  {
+   "text": "AWS's own comparison says routing-mode multi-agent 'is not straightforward today' on the AgentCore harness and full multi-agent collaboration 'requires custom framework code'.",
+   "url": null
+  },
+  {
+   "text": "CrewAI uses role-based crews inside Flows with state, events and loops, and is hosted via AgentCore Runtime or CrewAI AMP, which provides managed deployment and a no-code studio.",
+   "url": null
+  },
+  {
+   "text": "Agent Framework emits OpenTelemetry GenAI spans for agent, model and tool calls with sensitive data off by default; those conventions are still in Development status.",
+   "url": null
+  },
+  {
+   "text": "In October 2025, LangGraph Platform was renamed LangSmith Deployment; it provides durable execution, streaming, horizontal scaling, persistence, human-in-the-loop and observability, can run self-hosted, and is framework-agnostic (also supporting Strands, CrewAI, AutoGen and Google ADK).",
+   "url": null
+  },
+  {
+   "text": "Amazon Bedrock AgentCore offers Runtime, Identity, Memory, Gateway, Browser, Code Interpreter and Observability as individual services, and is framework- and model-agnostic.",
+   "url": null
+  },
+  {
+   "text": "Vertex AI Agent Engine provides managed deployment, scaling, session management, observability and IAM; it has full integration with ADK, LangChain and LangGraph, AG2 and LlamaIndex integrate via the Vertex AI SDK, and CrewAI deploys via custom templates.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Foundry Agent Service provides hosting, scaling, identity, security, observability and session management, with Microsoft Entra ID, RBAC and network isolation, and hosts Agent Framework, LangGraph, OpenAI Agents SDK, Anthropic Agent SDK and GitHub Copilot SDK agents.",
+   "url": null
+  },
+  {
+   "text": "ADK composes multi-agent systems through template workflows (SequentialAgent, ParallelAgent, LoopAgent), graph-based workflows (ADK 2.0+), dynamic workflows and collaborative coordinator-plus-sub-agents; workflow agents are themselves agents and can nest.",
+   "url": null
+  },
+  {
+   "text": "LangGraph multi-agent patterns include subagents, handoffs, skills, router and custom workflow; LangChain is migrating from the langgraph-supervisor package to wrapping workers as tools on a coordinating agent.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework supports both MCP for tool discovery and Google's A2A protocol natively.",
+   "url": null
+  },
+  {
+   "text": "CrewAI state is lighter-weight, passing through crew/task context, and concurrent and loop patterns are not first-class CrewAI primitives.",
+   "url": null
+  },
+  {
+   "text": "One comparison reports orchestration overhead of 120ms for LangGraph versus 450ms for CrewAI, and describes CrewAI state persistence as limited.",
+   "url": null
+  },
+  {
+   "text": "OpenAI Agents SDK SandboxAgent supports snapshots and resume, with persistent storage backends including S3, R2, GCS and Azure Blob Storage.",
+   "url": null
+  },
+  {
+   "text": "CrewAI state spans crew memory, flow state and configured persistence, while Microsoft Agent Framework uses sessions, workflow checkpoints and optional Durable Task integration.",
+   "url": null
+  }
+ ],
+ "question_id": "Q12"
+}

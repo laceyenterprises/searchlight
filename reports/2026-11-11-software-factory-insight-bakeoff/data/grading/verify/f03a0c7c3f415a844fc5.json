@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "2ad2811a3f7e9058",
+ "url": "https://erikcaldwell.com/field-guide/mcp-and-agent-interoperability.md",
+ "verdicts": {
+  "Enterprises are converging on internal MCP registries/catalogs of vetted, approved servers as the governance unit, combined with strict authorization scoping, allowlisting, and treating every tool response as untrusted input.": 1,
+  "Tool poisoning exploits a trust gap between connect-time review of a tool's description and runtime, when a server can return malicious instructions in live responses; mitigations include fixed-schema tool outputs and isolating high-privilege tools from external servers.": 1
+ }
+}

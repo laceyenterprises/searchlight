@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "8683ad51ab1d3887",
+ "url": "https://www.langchain.com/blog/how-to-give-your-agent-memory",
+ "verdicts": {
+  "LangChain defines a trace or log as evidence of what happened that becomes memory only when the lesson is converted into context the agent can retrieve on a later run to change its behavior.": 1,
+  "LangChain says many of the most visible agent improvements come from procedural memory (instructions, workflows, skills, tool-use rules), for example fixing wrong tool order, wrong subagent delegation, or ignored tone rules.": 1,
+  "LangChain's memory process is to capture traces, analyze traces, and update memory, using LangSmith Observability as trace store, LangSmith Engine as analyzer, and Context Hub as memory store.": 1
+ }
+}

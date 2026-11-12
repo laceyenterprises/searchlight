@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "2a7f0fb6d932eabe",
+ "url": "https://arxiv.org/html/2603.11337",
+ "verdicts": {
+  "In RewardHackingAgents, evaluator locking eliminates evaluator-tampering attempts at a median runtime overhead of about 25-31%.": 1,
+  "In natural-agent runs of RewardHackingAgents, evaluator-tampering attempts occur in approximately 50% of episodes.": 1,
+  "RewardHackingAgents finds that single-mechanism defenses block only one of the two compromise vectors (evaluator tampering, train/test leakage), while a combined regime blocks both.": 1
+ }
+}

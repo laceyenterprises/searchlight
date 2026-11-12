@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:15:19.342146Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1768,
+   "published": null,
+   "text": "An internal agent system in which natural-language seeds and end-to-end scenario harnesses drive agents that write, validate, and iterate on code under standing rules that humans neither write nor review code.\n...\nA natural-language seed — a few sentences, a screenshot, or an existing codebase — st…",
+   "title": "strongdm-software-factory.md",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory.md"
+  },
+  {
+   "chars_delivered": 826,
+   "published": null,
+   "text": "StrongDM's AI team has implemented a \"Software Factory\" approach where coding agents write and test software without human code review.\n# How StrongDM’s AI team build serious software without even looking at the code\n## Summary\nTheir system uses scenario testing with holdout sets, a Digital Twin Un…",
+   "title": "How StrongDM's AI team build serious software without...",
+   "url": "https://daily.dev/posts/how-strongdm-s-ai-team-build-serious-software-without-even-looking-at-the-code-qecjgcttt"
+  },
+  {
+   "chars_delivered": 2722,
+   "published": "2026-02-13",
+   "text": "StrongDM's radical approach to AI coding: no human-written code, no human review — code treated as opaque weights validated purely by behavior.\n...\nA non-interactive development system where specs and scenarios drive coding agents that write, test, and converge code without any human review or inte…",
+   "title": "StrongDM Software Factory | Ry Walker Research",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "chars_delivered": 3349,
+   "published": null,
+   "text": "# Simon Willison’s Weblog\n## How StrongDM’s AI team build serious software without even looking at the code\nThat team was part of StrongDM, and they’ve just shared the first public description of how they are working in Software Factories and the Agentic Moment:\n> We built a **Software Factory**: n…",
+   "title": "How StrongDM's AI team build serious software without ...",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "chars_delivered": 770,
+   "published": "2026-11-05",
+   "text": "# Optimising the Hybrid Flow\n## Three approaches to human review #\n### StrongDM prohibited human code review #\nStrongDM's rules prohibit humans from both writing and reviewing code.\nSpecifications and scenarios drive agents to converge without human review, with testing against behavioural clones o…",
+   "title": "Optimising the Hybrid Flow",
+   "url": "https://re-cinq.com/blog/optimising-the-hybrid-flow"
+  },
+  {
+   "chars_delivered": 803,
+   "published": null,
+   "text": "StrongDM saw its agents return true to pass narrow tests, so it moved scenarios outside the codebase as a holdout set\n, and it built a Digital Twin Universe of third-party dependencies.\n...\nStrongDM found its coding agents were gaming narrow unit tests by returning true just to pass them, so it mov…",
+   "title": "building-an-agentic-software-factory-start-with-the-sensor--415aebcyu",
+   "url": "https://daily.dev/posts/building-an-agentic-software-factory-start-with-the-sensor--415aebcyu"
+  },
+  {
+   "chars_delivered": 704,
+   "published": "2026-02-11",
+   "text": "StrongDM’s “software factory” pitch is basically: push humans out of the code path and move correctness into specs + scenarios + harnesses.\nThe part that sticks is the insistence that humans shouldn’t even review the code—which forces you to build a validation loop you actually trust.\nI like their…",
+   "title": "StrongDM Software Factory | Notes - Ryan Wolfe",
+   "url": "https://www.rwolfe.io/notes/strongdm-software-factory"
+  },
+  {
+   "chars_delivered": 3990,
+   "published": "2026-03-16",
+   "text": "[fact] StrongDM does not use \"intent-driven development\" as its primary label; its public material instead describes a \"Software Factory,\" \"non-interactive development,\" and \"grown software\" driven by specs, scenarios, validation harnesses, and feedback loops.\n...\n[fact] StrongDM states that tests…",
+   "title": "2026 03 16 intent driven development",
+   "url": "https://github.com/davidamitchell/Research/wiki/2026-03-16-intent-driven-development"
+  },
+  {
+   "chars_delivered": 2584,
+   "published": null,
+   "text": "StrongDM's 3-person team has bee\nn building software since July 2025 with zero human-written or reviewed code, treating source code like neural network weights—opaque and validated purely by behavior.\nThey prevent AI agents from gaming tests by using external \"scenarios\" (end-to-end user stories ag…",
+   "title": "Three Engineers, Zero Code Review, One Wild Experiment",
+   "url": "https://daily.dev/posts/three-engineers-zero-code-review-one-wild-experiment-xrlyzhr0f"
+  },
+  {
+   "chars_delivered": 2460,
+   "published": "2026-09-17",
+   "text": "An internal agent system in which natural-language seeds and end-to-end scenario harnesses drive agents that write, validate, and iterate on code under standing rules that humans neither write nor review code.\n...\n- **Approach type**\n...\n- **Human involvement**\n...\nNatural-language seed through the…",
+   "title": "Software Factory at StrongDM - Internal Agents Map",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  }
+ ],
+ "latency_ms": 605.3,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q01",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How does StrongDM's 'Software Factory' work, where no human writes or reviews code? What are its scenario holdouts and digital twin universe, how is correctness verified, and what results or problems have been reported?",
+    "StrongDM Software Factory scenario holdouts digital twin universe",
+    "StrongDM software factory no human code review results",
+    "StrongDM dark factory agentic coding correctness validation criticism"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 22536,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:15:18.736852Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

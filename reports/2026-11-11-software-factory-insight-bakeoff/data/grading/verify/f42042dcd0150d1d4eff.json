@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "79b54907a437c8a5",
+ "url": "https://arxiv.org/html/2610.13668v1",
+ "verdicts": {
+  "CRBugBench found agents executed code in only 9.7% of the best model's turns; multi-agent review improved performance 4.7% at 5.55x cost, and higher reasoning raised performance from 36% to 57% at 23.22x cost; the authors recommend human-in-the-loop review.": 1,
+  "The CRBugBench paper (2026-10-09; 1,800 tasks across 98 open-source repositories, two industry repositories and five languages) found the best agent caught 79.6% of pre-merge and 64.2% of post-merge bugs in its top five comments, with performance falling by up to 25.5% on proprietary repositories and agents missing more than 20% of human-found bugs.": 1
+ }
+}

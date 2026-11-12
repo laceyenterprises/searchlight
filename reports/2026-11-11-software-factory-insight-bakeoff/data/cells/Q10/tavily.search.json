@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:27.403807Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2377,
+   "page_chars_delivered": 54311,
+   "post_step": "fetched",
+   "published": null,
+   "text": "practical, but once the job is done the specs are usually discarded. 2 - Spec Kit: “spec anchored” Adds a constitution file that defines team rules and values, alongside detailed spec, plan and task files. It is designed to keep specs alive across changes, helping the AI stay aligned with team stan…",
+   "title": "I tried to make sense of spec-driven development by looking at 3 tools: Amazon's Kiro, GitHub's spec-kit, and the Tessl Framework https://lnkd.in/dc4m77-e My main conclusion is that as is often the… | Birgitta Boeckeler | 25 comments",
+   "url": "https://www.linkedin.com/posts/birgittaboeckeler_i-tried-to-make-sense-of-spec-driven-development-activity-7384214295590502401-xeIi"
+  },
+  {
+   "chars_delivered": 2361,
+   "page_chars_delivered": 35925,
+   "post_step": "fetched",
+   "published": null,
+   "text": "| Tool | Type | Workflow and artefacts | Strengths | Watch-outs |\n ---  --- \n| GitHub Spec Kit | Open-source toolkit (MIT), works with 30+ agents | Constitution, specify, clarify, plan, tasks, implement; analyse, checklist and converge commands check consistency | The most complete command set; a c…",
+   "title": "What Is Spec-Driven Development? Tools and Specs | re:cinq",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "chars_delivered": 2107,
+   "page_chars_delivered": 38857,
+   "post_step": "fetched",
+   "published": null,
+   "text": "GitHub Spec Kit  is an open-source toolkit providing commands for spec-driven AI development. The workflow follows four explicit phases: /specify generates a detailed spec from a prompt, /plan creates technical architecture, /tasks breaks the plan into implementation tasks, and finally implementati…",
+   "title": "Spec-Driven Development:From Code to Contract in the Age of AI Coding Assistants",
+   "url": "https://arxiv.org/html/2602.00180v1"
+  },
+  {
+   "chars_delivered": 2203,
+   "published": null,
+   "text": "Spec driven development helps when your AI coding agent produces working code for the wrong feature: settle the behavior before asking it to implement. Use 4 stages, spec, plan, tasks, then code, with review between them. The payoff is catching a mistaken requirement before it spreads through the i…",
+   "title": "Spec Driven Development: GitHub Spec Kit and Kiro | Omid Saffari",
+   "url": "https://omidsaffari.com/blog/spec-driven-development"
+  },
+  {
+   "chars_delivered": 1478,
+   "published": null,
+   "text": "Spec-driven development: A workflow where you author a structured specification of what to build before any code is generated, then drive an AI coding agent to produce a plan, a task list, and an implementation that all trace back to that spec. The specification, not the prompt, becomes the source…",
+   "title": "7 Spec-Driven Development Tools: Spec Kit, Kiro, OpenSpec, Tessl & More",
+   "url": "https://ssojet.com/blog/best-spec-driven-development-tools"
+  },
+  {
+   "chars_delivered": 1541,
+   "published": null,
+   "text": "GitHub Spec Kit is an open-source CLI toolkit released under the MIT license that makes specifications the center of the engineering process. Installation uses `uv tool install specify-cli`, and the CLI organizes projects around a `.speckit` directory with slash commands driving each phase: `/speck…",
+   "title": "6 Best Spec-Driven Development Tools for AI Coding in 2026",
+   "url": "https://www.augmentcode.com/tools/best-spec-driven-development-tools"
+  },
+  {
+   "chars_delivered": 2131,
+   "published": null,
+   "text": "In each of the workflow steps (specify, plan, tasks), spec-kit instantiates a set of files and prompts with the help of a bash script and some templates. The workflow then makes heavy use of checklists inside of the files, to track necessary user clarifications, constitution violations, research ta…",
+   "title": "Understanding Spec-Driven-Development: Kiro, spec-kit, and Tessl",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "chars_delivered": 1178,
+   "published": null,
+   "text": "Spec Kit, our new open sourced toolkit for spec-driven development, provides a structured process to bring spec-driven development to your coding agent workflows with tools including GitHub Copilot, Claude Code, and Gemini CLI.\n\n## What is the spec-driven process with Spec Kit?\n\nSpec Kit makes your…",
+   "title": "Spec-driven development with AI: Get started with a new open source toolkit - The GitHub Blog",
+   "url": "https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit"
+  },
+  {
+   "chars_delivered": 1787,
+   "published": null,
+   "text": "Vishal Mysore\n\nFollow\n\n5 min read\n\n·\n\nSep 30, 2025\n\n?\n\nSpec-Driven Development (SDD) is a methodology where specifications become executable, first-class artifacts that directly generate working implementations rather than merely guiding them. The fundamental shift is:\n\n## Core Principles\n\n1.   Spe…",
+   "title": "Comprehensive Guide to Spec-Driven Development Kiro, GitHub Spec Kit, and BMAD-METHOD",
+   "url": "https://medium.com/@visrow/comprehensive-guide-to-spec-driven-development-kiro-github-spec-kit-and-bmad-method-5d28ff61b9b1"
+  },
+  {
+   "chars_delivered": 2298,
+   "published": null,
+   "text": "A typical flow looks like this:\n\n1. Start with Intent, Not Code\n\nInstead of opening a file and writing logic, you define:\n\nExample (simplified):\n\nThis service must process orders idempotently, tolerate retries, and never double-charge a customer.\n\nThat sentence matters more than any single function…",
+   "title": "Spec-Driven Development with Amazon Kiro: Building Software Backwards (in a Good Way) - DEV Community",
+   "url": "https://dev.to/udaya_veeramreddygari_645/spec-driven-development-with-amazon-kiro-building-software-backwards-in-a-good-way-1op9"
+  }
+ ],
+ "latency_ms": 2708.5,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q10",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What is spec-driven development as implemented by Amazon Kiro, GitHub Spec Kit and similar tools? How are specs, plans and tasks structured, and what evidence is there that it improves agent output quality?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q10-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 23185,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:24.695231Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

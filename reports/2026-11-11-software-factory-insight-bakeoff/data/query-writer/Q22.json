@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "multi-agent system marketing content production case study results",
+  "multi-agent sales automation production human approval architecture",
+  "multi-agent back-office automation production Agentforce LangGraph measured results"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: Beyond coding, what multi-agent systems run marketing, content production, sales or back-office automation in production? Cover architecture, human approval points, brand and quality control, and measured results, and say which are built on general agent platforms rather than bespoke code. Top-ranking pages should be primary sources (the organisation's own engineering blogs, docs, conference talks, papers, filings, open-source code) and credible reporting or case studies. Extract mechanisms (agent roles, orchestration, tools), human-in-the-loop approval steps, brand and quality guardrails, numbers, names, dates, measured results (time saved, conversion, cost, volume), failure modes, and whether each system uses a general agent platform (e.g. Salesforce Agentforce, Microsoft Copilot Studio, Google Agentspace, LangGraph, CrewAI) or bespoke code.",
+ "question_id": "Q22",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

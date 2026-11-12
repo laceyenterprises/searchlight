@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "452a02341a150c4b",
+ "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/agent-identity-overview",
+ "verdicts": {
+  "Google Cloud Agent Identity gives each deployed agent a cryptographically attested SPIFFE identity and an auto-provisioned X.509 certificate, representing the agent acting on its own authority.": 1,
+  "Google Cloud defines a 'delegated identity' as the combined authority context when an agent acts for the initiating human user using scoped 3-legged OAuth (3LO); user-delegated authority via 3LO is used for external tools such as a user's Jira tasks or GitHub repositories.": 1
+ }
+}

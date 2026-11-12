@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:03.035820Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2060,
+   "page_chars_delivered": 12473,
+   "post_step": "fetched",
+   "published": null,
+   "text": "### 7. Flexible Execution Modes\n\nDroids support both local and remote execution. Locally, they pair-program via Factory Bridge (requiring Docker, as noted in the docs). Remotely, they execute tasks independently, switching modes seamlessly to suit team needs.\n\n### 8. Organizational Memory\n\nWith org…",
+   "title": "Revolutionizing Software Development with Factory.ai's Droids",
+   "url": "https://rimusz.net/revolutionizing-software-development-with-factory-ais-droids"
+  },
+  {
+   "chars_delivered": 2067,
+   "page_chars_delivered": 21376,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Ticket-Driven Entry Points: Factory's Linear and Jira integrations turn tickets into the native unit of work, so the droid swarm picks up issues with acceptance criteria, comments, and linked context already attached.\n\nCloud Dev Environment Parity: Each droid operates inside a sandboxed workspace t…",
+   "title": "Factory AI: Multi-Agent Coding Platform Review 2026",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "chars_delivered": 1678,
+   "page_chars_delivered": 21918,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Match the Layer to the Problem You Actually Have\n\nStart by mapping where your agent output actually breaks down. If the gap shows up at generation, when nobody's shipping code fast enough, Factory's Droids deliver pull requests, code review, tests, and incident-response workflows, and the named…",
+   "title": "Factory AI vs Augment Cosmos: Which Agent Layer Do You Actually Need? | Augment Code",
+   "url": "https://www.augmentcode.com/tools/factory-ai-vs-augment-cosmos"
+  },
+  {
+   "chars_delivered": 2628,
+   "published": null,
+   "text": "Title: SoftwareForge\nSoftwareForge is the governed AI-SDLC. Factory.ai is a benchmark-driven coding agent. SoftwareForge carries intent, context, and compliance from idea to production. Factory.ai's Droid is a fast, benchmark-leading CLI agent built for engineering teams. ## AI-driven delivery. Sof…",
+   "title": "SoftwareForge",
+   "url": "https://softwareforge.ai/comparison/factory-ai"
+  },
+  {
+   "chars_delivered": 1970,
+   "published": null,
+   "text": "## Try Factory\n\nWith Factory, developers can choose to use any model, including their own custom ones, and get the best possible results across a wide variety of tasks without changing their workflows. Running Droids locally and in the cloud, they can operate at significantly higher velocity by del…",
+   "title": "Droid: The #1 Software Development Agent on Terminal-Bench | Factory",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "chars_delivered": 1932,
+   "published": null,
+   "text": "Factory markets itself as autonomous, but requiring users to manually switch between agent \"modes\" isn't autonomous behavior. A proper multi-agent system should have an orchestrator agent that takes your task, understands the full workflow, and delegates appropriately. It should hand off to documen…",
+   "title": "Factory AI CodeDroid: Promising Concept, Premature Execution",
+   "url": "https://hyperdev.matsuoka.com/p/factory-ai-codedroid-promising-concept"
+  },
+  {
+   "chars_delivered": 2033,
+   "published": null,
+   "text": "### 1. Context-Aware Coding and Incident Response\n\nTraditional AI coding tools struggle with large, complex codebases. Factory AI’s “context engineering” ensures its Droids understand your entire repository, relationships between files, and project history—making their suggestions relevant and safe…",
+   "title": "Vibe Coding and Factory AI: The Future of Effortless Software Development",
+   "url": "https://apidog.com/blog/factory-ai"
+  },
+  {
+   "chars_delivered": 1715,
+   "published": null,
+   "text": "Start free\n\nStart free\n\nLLMOps database\n\n# AI Agent-Driven Software Development Platform for Enterprise Engineering Teams\n\nFactory·2025\n\nView source\n\nSummary\n\nFactory is building a platform to transition from human-driven to agent-driven software development, targeting enterprise organizations with…",
+   "title": "Factory: AI Agent-Driven Software Development Platform for Enterprise Engineering Teams - ZenML LLMOps Database",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "chars_delivered": 1639,
+   "published": null,
+   "text": "## Factory Benchmarking Approach\n\nWe understand that the traditional benchmarks for software engineering automation, while useful, do not fully encapsulate the diversity and complexity of real-world software development tasks that our Droids face. This understanding led us to develop Crucible, Fact…",
+   "title": "Code Droid: A Technical Report | Factory",
+   "url": "https://factory.com/news/code-droid-technical-report"
+  },
+  {
+   "chars_delivered": 2021,
+   "published": null,
+   "text": "Spec Mode will not rescue a vague product decision. It gives ambiguity a nice document if you never resolve it. Treat the output as a draft from a fast engineer who has read a lot of your repository, then review it like one.\n\n## Context: Where Factory Actually Competes\n\nEvery coding agent looks bri…",
+   "title": "Factory Droid Tutorial: Missions, Skills, and Agents",
+   "url": "https://sidbharath.com/blog/factory-ai-guide"
+  }
+ ],
+ "latency_ms": 4618.6,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q02",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What is the architecture of Factory.ai's Droids: execution environment, context and memory, how tasks are delegated, and how output is verified? What do engineering write-ups or benchmarks say about results?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q02-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 22729,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:22:58.417182Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "64e37e93db779485",
+ "url": "https://stytch.com/blog/agent-to-agent-oauth-guide/",
+ "verdicts": {
+  "In the MCP OAuth model each agent acts as an OAuth client, the application's API is the resource server, and its authorization server issues scoped, time-limited, revocable tokens so the agent never handles the user's password or API key.": 1,
+  "The Stytch agent OAuth flow is: discover authorization server metadata (/.well-known/openid-configuration), optionally self-register via Dynamic Client Registration, obtain user consent for scopes, exchange the auth code for a short-lived access token, and validate signature, expiry and scope on every bearer-token call.": 1,
+  "With agent-to-agent OAuth a compromised agent's impact is limited to its own scopes and tokens can be revoked individually, whereas embedded agent-as-client access reuses the user's session and carries the user's full privileges.": 1
+ }
+}

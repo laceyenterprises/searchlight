@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "e9d2fddf5bd4030f",
+ "claims": [
+  {
+   "text": "Droid 1.0 makes programmatic tool calling (PTC) the default, implemented as a Script tool in which the model writes JavaScript that runs in a sandbox with no file, network, or system access of its own.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "In a Linear cleanup task, a Script moved and verified 151 issues (312 tool calls) using 2 model requests and about 61,000 tokens, versus an estimated 36 requests and about 3.1M input tokens with direct calls at 10 calls per request.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "In a CI sweep, a Script checked 5,384 desktop jobs across 547 runs (550 tool calls, 60 at a time) in 2 requests instead of an estimated 59 to 187; under 0.1% of tool results reached the model's context.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "A Script program waits up to 5 minutes and then returns its output so far, or can run in the background; a dedicated tool checks on, waits for, or stops running programs, and Droid wakes the model when background work finishes.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Droid's base prompt shrank from 20,887 input tokens (v0.170.0) to 13,055 (v0.250.0), a 37% reduction.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Parallel sessions now share the daemon's process at about 20 MB each, instead of separate processes at about 350 MB each.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Factory runs an 'Agent Factory' loop in which agents read traces of failed runs, propose a draft change, and test it in controlled experiments on every affected model, and nothing ships until an engineer reviews and merges it.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Droid 1.0 has bounded autonomy: 3 identical tool calls trigger a nudge and 6 stop the loop, and compaction summaries hold 16,000 tokens, up from 8,000.",
+   "url": "https://www.marktechpost.com/2026/10/31/factory-droid-1-0-frontier-harness/"
+  },
+  {
+   "text": "Droid 1.0 scored 65.2% on Terminal-Bench 4 with Claude Opus 5.5 at $4.73 per passed task (self-reported); with GPT-6.1 Sol it takes 10% longer per passed task than Codex.",
+   "url": "https://www.marktechpost.com/2026/10/31/factory-droid-1-0-frontier-harness/"
+  },
+  {
+   "text": "On Terminal-Bench 4 with Claude Opus 5.5, Droid passed 65.2% of tasks versus Devin's 59.6%, at 24% lower cost and 16% less time per passed task.",
+   "url": "https://factory.com/articles/droid-vs-devin-enterprise-workflows"
+  },
+  {
+   "text": "In the earlier Terminal-Bench results, Droid with Opus scored 58.8% and with Sonnet 50.5%, beating Claude Code with Opus (43.2%), and Droid with GPT-5 (52.5%) beat Codex CLI (42.8%).",
+   "url": "https://factory.ai/news/terminal-bench"
+  },
+  {
+   "text": "Droid bootstraps each session with system information presented as shell command output, which helped it avoid reissuing redundant commands.",
+   "url": "https://factory.ai/news/terminal-bench"
+  },
+  {
+   "text": "Droid has an opt-in background-execution primitive that filters dangerous or resource-intensive commands and tracks every spawned process for cleanup.",
+   "url": "https://factory.ai/news/terminal-bench"
+  },
+  {
+   "text": "For Terminal-Bench, Droid ran five times per model in non-interactive task mode with all permissions skipped because the environment was sandboxed.",
+   "url": "https://factory.ai/news/terminal-bench"
+  },
+  {
+   "text": "Factory is exploring decomposing projects across specialized agents, racing different solution approaches, and cross-verifying critical changes, and says memory must be durable, scoped (org/team/repo), searchable and safe by default.",
+   "url": "https://factory.ai/news/terminal-bench"
+  },
+  {
+   "text": "Code Droid uses HyperCode to build a multi-resolution representation of a codebase (explicit graph and implicit latent-similarity relationships) and ByteRank as the retrieval algorithm over it.",
+   "url": "https://factory.ai/news/code-droid-technical-report"
+  },
+  {
+   "text": "In SWE-bench, Code Droid received only the problem statement as a ticket, without hints or the test patch, and ran until it produced a patch without human help.",
+   "url": "https://factory.ai/news/code-droid-technical-report"
+  },
+  {
+   "text": "Code Droid took 5 to 20 minutes on average per patch, up to 136 minutes at the extreme, and produced up to three patches per task before selecting the most promising one; token use averaged under 2 million per patch and reached 13 million.",
+   "url": "https://factory.ai/news/code-droid-technical-report"
+  },
+  {
+   "text": "Each Code Droid runs in a sandboxed environment isolated from main development environments, with audit trails and version-control integrations so actions are traceable and reversible, and it logs the reasoning behind its actions.",
+   "url": "https://factory.ai/news/code-droid-technical-report"
+  },
+  {
+   "text": "A third-party review describes a coordinator agent that decomposes tickets and dispatches role-scoped droids (code, review, test, docs, Knowledge), with the review droid barred from writing features and typed outputs such as diffs, review comments and test results handed between droids.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "A third-party review says the Knowledge droid indexes the repo, docs and ticket history as a shared memory layer so other droids do not re-read the codebase each run.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "Droid's context mechanisms include AGENTS.md project conventions, file context, an automatic semantic and text search index, in-session conversation memory, and organizational knowledge; a Permission Checker enforces allowlists, denylists and autonomy levels, and write tools require approval based on autonomy.",
+   "url": "https://deepwiki.com/factory-ai/factory/3.1-droid-agent-architecture"
+  },
+  {
+   "text": "Specification Mode has Droid investigate and write a plan before any source edit, then wait for approval; Droid Computers can be Factory-managed (4 CPU, 8 GB RAM, persistent with idle pause/resume) or customer-owned machines registered through a relay.",
+   "url": "https://continuumcode.ai/guides/what-is-factory-ai/"
+  },
+  {
+   "text": "Factory resolves context via Autowiki (codebase index), persistent memory, reusable skills and MCP connectors, plans with Missions and custom droids, and reviews with Code Review and Droid Shield before delivery through GitHub Actions.",
+   "url": "https://factory.ai/articles/what-is-a-software-factory-architecture"
+  },
+  {
+   "text": "Missions have the engineer and Droid agree on a plan split into features and milestones that the engineer approves before work starts.",
+   "url": "https://factory.com/articles/droid-vs-devin-enterprise-workflows"
+  }
+ ],
+ "question_id": "Q02"
+}

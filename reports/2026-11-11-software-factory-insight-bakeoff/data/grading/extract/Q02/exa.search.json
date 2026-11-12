@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "492adf908bfb6611",
+ "claims": [
+  {
+   "text": "In Factory's Missions, the orchestrator writes a validation contract (a finite checklist of testable behavioral assertions defining completion and correctness) before defining any features, so the contract is not influenced by the planned implementation.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "In Factory's Missions, a programmatic runner takes the feature list and spawns a fresh-context worker for each feature in order; each worker receives its feature spec, writes tests first, then implements.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Missions separates roles: the orchestrator plans and decomposes the work, workers implement features, and validators evaluate completed work; validators do not implement fixes but surface issues to the orchestrator, which creates fix features for future workers.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Missions groups features into milestones; when all features in a milestone finish, the runner triggers validation with fresh agents: scrutiny validators review each worker's implementation and trajectory, and user-testing validators exercise the system as a black box against the validation contract.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "In Missions, the orchestrator creates fix features for gaps found by validators, and the milestone re-validates until validation passes; if implementation or validation is blocked, the orchestrator halts the mission and returns control to the user.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Missions externalizes state in shared artifacts (validation contract, feature list, research notes, operational guidelines, an evolving knowledge base; files include validation-contract.md, features.json, services.yaml, AGENTS.md) so no single agent holds the full picture in context.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Factory's rationale for separate validators is that an agent that implemented something is worse at objectively evaluating its own work than a fresh reviewer, because its prior reasoning biases it toward confirming what it did.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Factory's Slack-clone mission ran 16.5 hours with 185 total runs (1 orchestration, 63 worker, 27 validator runs), consuming 778.5M tokens, with validation taking 37.2% of runtime.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "The Slack-clone mission produced 38.8k lines of code (52.5% tests) with 89.25% statement coverage across six milestones.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "In the Slack-clone mission every milestone converged in 2-4 validation rounds; validators surfaced 81 issues (65 blocking), and the orchestrator generated 21 fix features, 34.4% of 61 implementation features.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "In the Slack-clone mission, median trajectory length was 51 assistant turns for implementation (p90 123) and 30 for validation (p90 37).",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Droid 1.0 makes programmatic tool calling (PTC) the default: the model writes a JavaScript Script that runs in a sandbox with no file, network, or system access of its own and invokes tools, so raw tool outputs stay in the program as variables rather than in the model's context.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Droid's Script tool can make hundreds of tool calls in one model request, caps printed output size, logs full results where the model can search them, and runs independent calls concurrently.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "A Script waits up to 5 minutes before handing back its output so far, can start in the background, and a dedicated tool checks, waits for, or stops running programs; Droid wakes the model when background work finishes.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "In Factory's example of fixing a failing unit test with GPT-6.1 Sol, the Script tool needed 5 model calls instead of 10 for the same 15 tool calls, finishing in 41.6 s versus 56.8 s.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Script mode cuts Droid's cost by 15% on Claude Opus 5.5 compared with direct tool calling, with savings concentrated in the 12.5% of Scripts that make six or more tool calls.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "A real Linear cleanup of 151 issues (312 tool calls) took 2 model requests and ~61,000 input tokens as a Script, versus an estimated 36 requests and ~3.1M input tokens with direct calls at 10 calls per request.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "On Terminal-Bench 4 with GPT-6.1 Sol, Droid scores 3.5 points higher than Codex at 12% lower cost; with Claude Opus 5.5, Droid scores 3.0 to 7.6 points higher than Cursor, OpenCode, Devin, and Claude Code at up to 24% lower cost.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Droid's internal Agent Factory has agents study benchmark failures and real-session friction, propose changes with stated hypotheses, and test each on every affected model family; engineers review the evidence and decide what ships.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Droid keeps the prompt cache warm by appending newly discovered MCP/connector tools to the end of the request rather than inserting them into the tool list; a before-and-after Azure test reused 100% of 26,400 tokens.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Missions runs locally or in isolated cloud containers with git as the source of truth, classifies every command by risk level, runs Droid Shield to scan for secrets before content reaches a model, and logs every action with telemetry via OpenTelemetry.",
+   "url": "https://factory.com/news/missions"
+  },
+  {
+   "text": "Missions uses different models per role: Opus 4.6 for orchestration, Sonnet 4.6/Opus 4.6 for feature implementation, GPT-5.3-Codex for validation and user testing; validation workers use native computer use to launch the app and click through flows.",
+   "url": "https://factory.com/news/missions"
+  },
+  {
+   "text": "The median mission runs about 2 hours, 37% run longer than four hours, 14% exceed 24 hours, and the longest ran 16 days; a median mission consumes 12x more tokens than a normal session.",
+   "url": "https://factory.com/news/missions"
+  },
+  {
+   "text": "Droid with Opus 4.1 (no thinking) scored 58.8% on Terminal-Bench, first among all agents; Factory agents held three of the top five positions (GPT-5 medium 52.5%, Sonnet 4 no thinking 50.5%).",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "In a GDAL reimplementation experiment, a single Droid agent wrote 17,000 lines of C++ reproducing 36% of behavior and stopped by its own judgment; an orchestrator/implementer/validator system with a validator-built hidden instrument reached 115,000 lines and 90% behavioral parity, at about 14x the credits and 13x the wall time.",
+   "url": "https://factory.com/news/what-it-takes-for-coding-agents-to-complete-large-software-tasks"
+  }
+ ],
+ "question_id": "Q02"
+}

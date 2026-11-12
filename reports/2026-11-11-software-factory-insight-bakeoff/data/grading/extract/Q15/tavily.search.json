@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "dac754378bd93139",
+ "claims": [
+  {
+   "text": "Cedar policies are permit or forbid; if no permit matches the result is deny, any matching forbid overrides every permit, and policy order never matters.",
+   "url": null
+  },
+  {
+   "text": "Policy in Amazon Bedrock AgentCore uses Cedar and checks every tool call passing through an AgentCore Gateway before the tool runs; the gateway blocks everything by default.",
+   "url": null
+  },
+  {
+   "text": "AWS uses Cedar's partial evaluation in AgentCore Policy to hide tools from the agent's tool list when they would always be denied, so the model cannot try a tool it never sees.",
+   "url": null
+  },
+  {
+   "text": "Cedar's built-in schema validator caught a typo (context.amount instead of amount_cents) and a tenant-to-string comparison before anything ran, whereas plain `opa check` passed the broken policy with exit code 0.",
+   "url": null
+  },
+  {
+   "text": "OPA can catch the same typo when a JSON schema is passed to `opa check`, but this is opt-in rather than the default.",
+   "url": null
+  },
+  {
+   "text": "Rego does not impose permit/forbid semantics, so teams must build a deny-set convention themselves (allow only when permitted and the deny set is empty); nothing stops a colleague adding an `allow if` rule that bypasses the deny set.",
+   "url": null
+  },
+  {
+   "text": "OpenFGA has no forbid; it expresses numeric limits and approvals through CEL conditions on tuples with context sent on each check, and its exclusion operator `but not` is the tool for 'never' rules.",
+   "url": null
+  },
+  {
+   "text": "In OpenFGA, a check missing a context parameter (e.g. amount_cents) returns an error ('missing context parameters') rather than false, so a gateway written as `if (res.allowed === false) block()` would let the call through; callers must treat errors as deny.",
+   "url": null
+  },
+  {
+   "text": "OpenFGA is strongest on relational questions such as tenant ownership across millions of orders using stored tuples, while Cedar and OPA require entities or data to be passed in or loaded.",
+   "url": null
+  },
+  {
+   "text": "A suggested combination is OpenFGA answering 'is this order in a tenant this agent may act for?' and passing a boolean into the Cedar or OPA context, which then checks amount, approval and environment; this means running two systems.",
+   "url": null
+  },
+  {
+   "text": "None of Cedar, OPA or OpenFGA consumes an approval: they keep returning allow for the same approval (e.g. AP-77) for as long as it exists, so single-use must be enforced by the tool service in the same transaction as the write.",
+   "url": null
+  },
+  {
+   "text": "A test found an approval checked in one transaction and the action executed in another, so a change in between went unseen; approvals should be bound to the exact arguments and state version they were approved against.",
+   "url": null
+  },
+  {
+   "text": "Coarse rules (is this tool allowed for this agent, is a staging token reaching production) belong at the gateway, while fine-grained rules must be enforced at the tool service, which holds the data and transaction.",
+   "url": null
+  },
+  {
+   "text": "A Ware test found an agent with delegated authority could take a packer off a bench packing another customer's order; the fix was a single cross-tenant forbid rule.",
+   "url": null
+  },
+  {
+   "text": "Cedar joined the CNCF as a Sandbox project on 8 October 2025, OpenFGA moved to CNCF Incubating on 28 October 2025, and OPA graduated in the CNCF in January 2021.",
+   "url": null
+  },
+  {
+   "text": "For agents, OPA input should extend {subject, action, resource} with actor id/role/tenant, delegating user, tool action, a delegation_chain (from, to, scope, tenant, expires_at), parent_agent tool_scope, and workflow id.",
+   "url": null
+  },
+  {
+   "text": "The Rego pattern computes effective permission as the intersection of agent role scope, user delegation scope, delegation chain validity, tenant consistency and parent-agent constraints, with default deny.",
+   "url": null
+  },
+  {
+   "text": "The delegation chain must start at the human user, end at the current agent, link each hop's 'to' to the next hop's 'from', and contain no expired hops; a child agent cannot exceed its parent's tool scope.",
+   "url": null
+  },
+  {
+   "text": "Zero Standing Permissions means no persistent agent credentials or long-lived wildcard tokens, with delegation-scoped context re-evaluated on every call rather than once per session.",
+   "url": null
+  },
+  {
+   "text": "Permit.io recommends tying agent identity expiry to workflow duration: for a five-minute workflow a twenty-minute expiry is reasonable but twenty-four hours is not.",
+   "url": null
+  },
+  {
+   "text": "OPAL pushes policy and data updates in real time to all OPA PDP instances so revocations take effect on the next hop, since periodic bundle pulls are too slow for revocation-sensitive workloads.",
+   "url": null
+  },
+  {
+   "text": "Permit.io proposes OPA enforcement at four layers: MCP gateway (coarse tool scope), dedicated PDP (delegation chain), API/service (endpoint), and data layer (row/column filtering via OPA partial evaluation).",
+   "url": null
+  },
+  {
+   "text": "SecureAuth's Agent Authority has agents exchange the delegating user's token via OAuth token exchange (RFC 8693) for a narrowly scoped, short-lived token, treats the user's permissions as a hard ceiling, and allows, denies or escalates each call to a person.",
+   "url": null
+  },
+  {
+   "text": "OpenFGA's Task-Based Authorization has agents start with zero permissions and receive narrowly scoped per-task grants with optional expiration, turn limits and agent binding.",
+   "url": null
+  },
+  {
+   "text": "A practitioner landscape lists MCP Auth (OAuth 2.1) with scoped tokens and auto-discovery, RFC 8693 token exchange (impersonation vs delegation), and A2A for agent identity and trust, calling just-in-time short-lived per-operation credentials the right pattern but with immature tooling.",
+   "url": null
+  }
+ ],
+ "question_id": "Q15"
+}

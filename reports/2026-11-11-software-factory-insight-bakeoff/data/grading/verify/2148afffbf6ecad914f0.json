@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "d6d0980a4a47f504",
+ "url": "https://danielmeppiel.github.io/agentic-sdlc-handbook/handbook/ch20-anti-patterns-and-failure-modes.html",
+ "verdicts": {
+  "Cost runaway occurs when unbounded retry loops with scope absorption make a 3-dispatch task consume 15; the handbook prescribes a retry budget, changing approach after two failed dispatches (decompose, add context, or escalate).": 1,
+  "Cross-wave merge conflicts occur when parallel agent waves each pass tests but break when combined due to conflicting imports, incompatible type signatures or divergent edits; mitigations are integration tests after each wave and passing the earlier wave's output as context.": 1
+ }
+}

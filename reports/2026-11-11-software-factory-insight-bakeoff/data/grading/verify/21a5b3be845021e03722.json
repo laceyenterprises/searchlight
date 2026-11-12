@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "2ccef2e4ec51e97f",
+ "url": "https://bhavishyapandit9.substack.com/p/everything-about-codex-the-complete",
+ "verdicts": {
+  "A third-party guide reports OpenAI has said teams cut manual review time by around 60% when Codex pre-screens pull requests; this is a secondary-source claim, not from the OpenAI launch post.": 1,
+  "The guide says Codex was launched without general internet access for security, with optional network access added later under user control, and risky actions can pause for human approval depending on the configured mode.": 1,
+  "The guide says the Codex prompt stacks environment context, AGENTS.md contents, sandbox permission rules, and tool definitions with static content first for prompt caching, with cached prefix tokens costing roughly a tenth of fresh input tokens; changing AGENTS.md mid-session invalidates the largest cached prefix.": 1
+ }
+}

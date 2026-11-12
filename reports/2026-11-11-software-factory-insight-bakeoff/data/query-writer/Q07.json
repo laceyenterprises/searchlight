@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "Spotify Honk background coding agent Fleet Management",
+  "Ramp Uber Airbnb background coding agent engineering blog",
+  "Meta Shopify automated code migration LLM agents fleet-wide"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "What have Ramp, Spotify (Honk / Fleet Management), Shopify, Uber, Airbnb or Meta published about their internal background coding agents or fleet-wide automated code migrations? Include architecture, verification approach and measured outcomes. Rank first primary sources: the organisations' own engineering blog posts, docs, talks, papers and code, then credible reporting. Pull out mechanisms (agent architecture, sandboxes, orchestration, PR workflow), verification methods (tests, CI, LLM judges, human review), numbers, names, dates, measured results (PRs merged, time saved, migration success rates) and failure modes.",
+ "question_id": "Q07",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

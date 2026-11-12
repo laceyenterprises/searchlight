@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "268e1b9be52e9196",
+ "claims": [
+  {
+   "text": "On 2026-09-24 Cortex (author Nikhil Unni) open-sourced `engrams`, a platform for running coding agents such as Claude Code, Codex, or a custom agent in the user's own cloud to automate parts of the SDLC, positioned as an open source alternative to Devin or Factory.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "engrams production deployment requires Intel nodes with nested virtualization: C3 on GKE, or m8i or *.metal on EKS.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "engrams local development runs sessions under Apple's Virtualization framework on Apple Silicon Macs, or under Firecracker on Linux machines with /dev/kvm.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "engrams is version 0.x and its APIs are stated to be subject to change.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "engrams supports OpenRouter, which Cortex uses to choose a model per workload to optimize cost.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "Cortex's engrams dependency-upgrade automation scans on a schedule for outdated dependencies and open CVEs, opens one pull request per upgrade, runs tests and fixes breakage, has the PR review automation review it before a human, and escalates to a human when a question (such as an under-tested runtime jump) needs a person.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "Cortex's engrams memory-hot-spot automation runs daily, queries Datadog profiles for the largest production allocation frames, rewrites the hot path in the owning service, and includes before and after numbers in the pull request.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "Cortex's engrams bug-triage automation reproduces and diagnoses each new runtime error and either pushes a fix or files an issue with the root cause; repeat errors join the run already in flight (deduplication), and noise errors are reported as such without opening a PR.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "Cortex is experimenting with an autonomous end-to-end engrams agent that owns a Linear project and its Slack channel, opens PRs, answers thread questions, posts daily status updates, diagnoses and fixes CI failures, and spawns sub-agents that each run in their own microVM for individual tickets.",
+   "url": "https://builders.cortex.io/blog/introducing-engrams/"
+  },
+  {
+   "text": "On 2026-10-30 Mutagent released Architech (a software-engineering harness) and the Software Factory in Early Access; the factory runs on a laptop or on Mutagent Cloud, taking board issues in and returning reviewed pull requests.",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "Architech has five agents: Orchestrator, Architect, Developer, LLM-Whisperer, and Reviewer; the Reviewer never reviews a change it wrote, so every change is read by a second session.",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "The Mutagent Software Factory pipeline runs plan (Architect), plan gate (human), build (Developer), review (Reviewer, which can send work back to build at most twice), merge gate (human), and land (Orchestrator).",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "Mutagent's own board has run through the Software Factory on Mutagent Cloud since October 27, 2026.",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "The factory is configured by one committed file, .architech/factory/factory.yaml, which refuses unknown keys so that a typo fails validation rather than being silently dropped; credentials never go in it.",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "Mutagent's policy.autonomy has three levels: calibrating (default; plan and merge approval on every change), standard (merge approval only on protected paths), and autonomous (no plan approval, merge approval on protected paths); the merge always waits for a person's merge-ready or merge:yolo label.",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "Mutagent gate approvals count only if a GitHub user with write access adds the label; labels from bots, apps or the factory are ignored, and merge-ready is removed if new commits land after approval.",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "In Mutagent Cloud, every labeled issue becomes its own run with its own sandboxes, limited by limits.maxActiveRuns (runs awaiting approval count toward it), with dollar budgets per run and per day; agents act through the Mutagent GitHub App rather than personal tokens.",
+   "url": "https://mutagent.io/blog/introducing-architech-software-factory/"
+  },
+  {
+   "text": "On 2026-09-30 Mutagent described how its software factory Architech (multi-agent, parallel workers, built on Pi) built its agent factory Helix (Spec, Build, Evaluate, Diagnose, Optimize, Ship), and then Helix was pointed at Architech to optimize its architect, orchestrator and review agents.",
+   "url": "https://mutagent.io/blog/self-improving-software-factory/"
+  },
+  {
+   "text": "Mutagent named an open problem with its self-improving factory loop: amplification, where a bad mutation to the review agent degrades every later iteration, including the review of the next mutation, and guardrails to contain this are not yet solved.",
+   "url": "https://mutagent.io/blog/self-improving-software-factory/"
+  },
+  {
+   "text": "Stratonext's Local Software Factory (post dated 2026-09-23) defines pipelines as GitHub-Actions-inspired YAML in the repo, gives each request its own git worktree under ~/.sf/worktrees/, and caps failed test/review loops with max_passes before parking for a human.",
+   "url": "https://www.stratonext.ai/blog/software-factory"
+  },
+  {
+   "text": "Stratonext's factory sets resume: false on the review step so the reviewer starts a fresh session, because a request only reaches done when a separate step (tests, a cold review, or a Jev judgment) says so.",
+   "url": "https://www.stratonext.ai/blog/software-factory"
+  },
+  {
+   "text": "NVIDIA's Agent Substrate, donated to the CNCF Sandbox, is an open-source zero-trust runtime for sandboxed agents that multiplexes many sessions over a small pool of worker Pods, claiming 10x higher density than standard containers.",
+   "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/"
+  },
+  {
+   "text": "Agent Substrate checkpoints idle actors (memory and filesystem, from a gVisor or microVM sandbox) and restores them onto any free worker without a new trip through the API server, scheduler or kubelet.",
+   "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/"
+  },
+  {
+   "text": "Factory Research announced Droid 1.0 on October 29, 2026, a frontier harness built on new design principles and a programmatic tool-calling engine.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Warp's Zach Lloyd published 'Don't vibe code your software factory' on November 4, 2026, on building a production software factory.",
+   "url": "https://www.warp.dev/blog/build-production-software-factory"
+  }
+ ],
+ "question_id": "Q24"
+}

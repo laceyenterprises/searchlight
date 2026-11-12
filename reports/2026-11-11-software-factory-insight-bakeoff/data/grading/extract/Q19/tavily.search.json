@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "3a6b1d1ffd735a35",
+ "claims": [
+  {
+   "text": "Uber's engineering team decomposes total agent spend into six multiplicative terms: users, sessions per user, turns per session, requests per turn, tokens per request, and price per token.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Between February and mid-August 2026, Uber's weekly active users across agentic tools grew 7x and weekly agent requests grew 9.4x, while total AI spend stayed relatively flat from April onward.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Holding one model constant from February to July, Uber's cost per 1,000 model requests fell almost 34% from its peak and cost per session fell 52% from its June peak (self-reported, one company and one monorepo environment).",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Uber nudges engineers in Slack at 50, 80, and 100% of expected spend, shows a live cost counter in each interactive tool's status line, uses one shared spend tier across interactive tools plus a separate tier for hosted fleet work, and requires manager approval for tier upgrades.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Uber's session-analysis dashboard flags 16 distinct anti-patterns, each paired with a financial impact and a remediation, including multi-turn sessions run on a frontier model when a smaller one would do.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Uber attributes more than 70% of its pull requests to local or cloud agents, and argues that optimizing a fleet of specialized managed agents with dedicated benchmarks is more cost-effective and scalable than optimizing individual terminal sessions.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Augment's recommended unit metric is spend per merged change: total fleet spend (provider consumption plus service fees) plus supervision hours costed at a loaded rate, divided by agent-attributed changes merged in the period; spend per completed task is used where no merge occurs.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Augment's budget model has three components: fleet spend (owned by the platform engineering lead), supervision hours (owned by the review/gate lead), and a platform ceiling of included allowance plus approved top-ups (owned by the VP Engineering with finance).",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Augment bills usage at the provider's public API list price plus a flat 40% service fee on model inference with no fee on compute; the Standard plan is $20/month with $20 usage included and Business is $100/month with $100 included, both pooling up to 50 seats.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Augment's Cosmos routes each conversational turn to a model through Prism at 20 to 30% lower cost per task while preserving frontier quality.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Augment recommends against hard monthly token caps and token budgets for finance, preferring tiers, alerts before the ceiling, and manager sign-off, and warns that ranking engineers by token spend ('tokenmaxxing') rewards agent overhead.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Devin Enterprise bills in Agent Compute Units; Cognition flags sessions sized Large or Extra Large as unhealthy, starting above 10 ACUs on the standard scale and above 100 on the Enterprise scale.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "GitHub prices its Copilot cloud agent at $0.01 per AI credit (set by model and tokens consumed) plus Actions minutes, while legacy annual Pro/Pro+ subscribers consume one premium request per session.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "In an August 2025 internal survey, more than half of 132 Anthropic engineers and researchers said they can fully delegate only 0 to 20% of their work to Claude.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Anthropic reported that agents use about 4x more tokens than chat interactions and multi-agent systems about 15x more; early agents spawned 50 subagents for simple queries.",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost"
+  },
+  {
+   "text": "CloudZero's worked example (12 calls, 36,000 input and 6,000 output tokens per task) gives $0.132 per task on Claude Sonnet 5, $0.33 on Opus 5, $0.066 on Haiku 4.5, and $0.014 on GPT-5.6 Luna, i.e. $13,200 per month at 100,000 tasks on Sonnet 5.",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost"
+  },
+  {
+   "text": "In CloudZero's worked example, routing 8 of 12 steps from Sonnet 5 to Haiku 4.5 cuts task cost from $0.132 to about $0.088 (33%), and caching 2,000 of 3,000 input tokens per step cuts a Terra task from $0.144 to about $0.101 (30%).",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost"
+  },
+  {
+   "text": "Cache reads are priced near 10% of the input rate across the three major providers (5% on Anthropic's newest models), cache writes carry a 1.25x to 2x surcharge, and Google adds hourly storage rent; batch discounts of 50% apply to non-interactive agent tasks.",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost"
+  },
+  {
+   "text": "CloudZero found one Hudl employee driving $600K a year in token spend across 40 models, 70% of that company's total AI costs, unnoticed by finance and engineering; it recommends attributable API keys per agent and per-task token logging keyed to who triggered the run.",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost"
+  },
+  {
+   "text": "CloudZero recommends giving every agent a per-task budget and circuit breaker, so a runaway loop becomes a logged retry rather than an incident.",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost"
+  },
+  {
+   "text": "Splunk reports cached reads cost 10% of standard input price with break-even after about 1.4 reads of the same prefix, and that UC Berkeley's RouteLLM reported cost reductions up to 85% (85% on MT Bench, 45% on MMLU, 35% on GSM8K) while keeping 95% of GPT-4 performance.",
+   "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html"
+  },
+  {
+   "text": "Splunk cites a workload running a frontier model at $200,000 a month that routed 60% of tasks to cheaper models and cut cost 42% with compliance intact.",
+   "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html"
+  },
+  {
+   "text": "Correlation One recommends step and tool-call budgets per task with explicit human escalation when exceeded, and recording token consumption per task as a test dimension, treating a correct workflow at 10x expected cost as a defect.",
+   "url": "https://www.correlation-one.com/blog/how-to-manage-ai-token-costs-in-the-enterprise-the-2026-playbook"
+  },
+  {
+   "text": "A 2026 study of eight frontier models on SWE-bench Verified found agentic coding tasks consumed roughly 1,000 times more tokens than code reasoning and chat, and a LeanOps audit of 30 engineering teams attributed 62% of the agent bill to re-sent context.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "text": "Per EY's 2026 analysis cited by Atlan, an LLM chat cost about $0.04 in 2023 versus about $1.20 per orchestrated agent workflow in 2026, roughly 30x higher.",
+   "url": "https://atlan.com/know/ai-agent/cost-to-run-ai-agents-at-scale"
+  }
+ ],
+ "question_id": "Q19"
+}

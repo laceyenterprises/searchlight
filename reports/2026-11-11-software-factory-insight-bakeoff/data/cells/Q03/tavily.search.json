@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 4.0,
+  "usd": 0.032
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:06.441268Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2269,
+   "page_chars_delivered": 13448,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Devin: The Agent That Finally Delivers\n\nDevin's initial launch in March 2024 had drawn a mix of enthusiasm and skepticism. Early SWE-bench benchmarks were decent but not revolutionary (~14% in 2024), and several developer YouTubers documented major hallucinations.\n\nTwo years later, the picture h…",
+   "title": "Cognition (Devin) Raises at $25B — Windsurf Integrated, ARR Doubled, Autonomous AI Agent | Idlen",
+   "url": "https://www.idlen.io/news/cognition-devin-25-billion-valuation-windsurf-vibe-coding-april-2026"
+  },
+  {
+   "chars_delivered": 2049,
+   "page_chars_delivered": 14488,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## What is the core difference between Devin and Windsurf?\n\nDevin is an autonomous coding agent - you give it a task, it works independently in a cloud environment, and you review the result. Windsurf is an AI-powered IDE where you write code with AI assistance throughout the session. One replaces…",
+   "title": "Devin vs Windsurf: Now Owned by Cognition, Which to Use",
+   "url": "https://www.13labs.au/compare/devin-vs-windsurf"
+  },
+  {
+   "chars_delivered": 1703,
+   "page_chars_delivered": 14365,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Cloud Devin distinguishes an Ask mode for planning together and an Agent mode for autonomous execution; repositories must be indexed before the first session so Devin understands the codebase. Project context comes from an `AGENTS.md` file with setup commands, code standards, and test requirements,…",
+   "title": "Devin: Cognition's AI Coding Agent Harness · innFactory AI",
+   "url": "https://innfactory.ai/en/ai-harness/devin"
+  },
+  {
+   "chars_delivered": 1602,
+   "published": null,
+   "text": "Three answers, because there are three cases.\n\nA Devin Local session runs on your machine, inside the OS-level sandbox, under the writable-path and network rules you set. A Devin Cloud session does not: the Agent Command Center describes cloud agents as Devin sessions running on their own VMs, whic…",
+   "title": "Devin Desktop Review 2026: Windsurf's Successor",
+   "url": "https://axonbuild.com/blog/devin-desktop-review"
+  },
+  {
+   "chars_delivered": 2152,
+   "published": null,
+   "text": "### Devin in Windsurf\n\nToday, with Windsurf 2.0, that workflow is built in.\n\nYou work locally in Windsurf to understand the codebase and put together a plan. With a single click, you send it to Devin for implementation. Devin spins up its own machine and gets to work. In the meantime, you keep codi…",
+   "title": "Devin in Windsurf | Cognition",
+   "url": "https://cognition.com/blog/devin-in-windsurf"
+  },
+  {
+   "chars_delivered": 2103,
+   "published": null,
+   "text": "Many teams use both: Windsurf for hands-on development sessions, Devin for clearing backlogs and handling routine tasks in the background. Both produce standard Git commits that DeployHQ can deploy.\n\n## Troubleshooting\n\nDevin's PR doesn't pass CI: Comment on the PR with the CI failure details. If t…",
+   "title": "Devin AI Guide: Autonomous Coding Agent & Deployment | DeployHQ",
+   "url": "https://www.deployhq.com/guides/devin"
+  },
+  {
+   "chars_delivered": 2178,
+   "published": null,
+   "text": "As of January 2026, Cognition’s customers included OpenSea, Ramp\\, Nubank, Lumos, Microsoft, and Curai Health. The company has further highlighted Goldman Sachs, Citi, Dell, Cisco, Ramp, Palantir, Nubank, and Mercado Libre as users of Devin and associated products following the Windsurf acquisition…",
+   "title": "Report: Cognition Business Breakdown & Founding Story | Contrary Research",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "chars_delivered": 2026,
+   "published": null,
+   "text": "Cursor also learns from millions of agent sessions. That data shows which suggestions survive, where agents fail, how developers interrupt them, and which workflows lead to accepted code. Cursor has used it to train Composer. That investment now matters more: when OpenAI said it would end Cursor’s…",
+   "title": "AI coding agents: which company is ahead? – New Market Pitch",
+   "url": "https://newmarketpitch.com/blogs/news/ai-code-assistant-who-is-ahead"
+  },
+  {
+   "chars_delivered": 702,
+   "published": null,
+   "text": "LISTEN CASE STUDY\n\n### How Cognition uses Listen to build better AI products\n\n#### How Cognition uses Listen to build better AI products\n\nBuilding better AI products\n\n### 2x\n\n###### Activation Rate\n\n Engineers run research directly without a dedicated research team\n Identified critical onboarding f…",
+   "title": "Cognition & Listen Labs | Customer Stories",
+   "url": "https://listenlabs.com/case-studies/cognition"
+  },
+  {
+   "chars_delivered": 1630,
+   "published": null,
+   "text": "[0:39] orchestration layer lets thousands of agents run concurrently at a fraction of the cost of standard VMs. The cognition\n[0:46] platform offers three products built on shared platform intelligence. Codebased understanding, memory planning, and execution that improve across every\n[0:54] service…",
+   "title": "Cognition Platform Overview: Devin, Devin for Terminal, & Windsurf - For Enterprise Engineering",
+   "url": "https://www.youtube.com/watch?v=--4v6wP4zws"
+  }
+ ],
+ "latency_ms": 3297.9,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q03",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How do Cognition's Devin and Windsurf run long autonomous coding sessions (sandbox, planning, sessions, knowledge, playbooks)? What do published customer case studies report about merge rates and failure modes?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q03-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 21279,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:03.143306Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

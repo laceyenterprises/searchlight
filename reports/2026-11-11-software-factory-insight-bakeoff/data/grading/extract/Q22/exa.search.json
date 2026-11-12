@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "7993e081f15432c3",
+ "claims": [
+  {
+   "text": "MaxReach is a 30-agent content production platform in which each agent has exactly one defined role and no agent does two jobs.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach's pipeline has eight sequential stages with two fan-out points: input, research, strategy fan-out, persuasion brief, writer draft, quality gate, human approval gate, and adapter fan-out to six destinations.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "In MaxReach's strategy stage, three analysts run in parallel (competitive content landscape, ICP profile, expertise signals), then a strategy reviewer validates their outputs and a strategy aggregator merges them into a single plan referenced by all downstream steps.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach's quality gate has four sequential checks (fact-checker against research output, AI detector, neuro-optimizer checking the persuasion brief is reflected, and a review agent for consistency and brand voice); all four must pass or the content does not advance.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach's human approval gate sits between the quality gate and the adapters; a Telegram bot gives the editor one-tap approve or reject, and nothing publishes without an explicit approve signal, so the human reviews one version instead of six.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach publishes to six channels (WordPress, DevTo, Hashnode, LinkedIn, Telegram Channel, Astro) via six adapter agents and publisher agents that push in parallel.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach uses 918 automated tests validating pipeline transitions, agent output schemas, queue behavior and publishing integrations; a job does not advance unless the upstream output matches the expected schema.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach is multi-tenant: each brand has its own ICP, voice specification, competitor data and channel configuration, which agents resolve at runtime, so the same writer agent produces different brand content without code changes.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach's reported results: 15+ hours per week of production coordination replaced, six channels managed simultaneously (previously 1 to 2), and two people now run a six-channel publishing operation; the case study gives no throughput or performance metrics beyond this.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "MaxReach has an analytics feedback loop in which three analytics agents and a hypothesis-generator feed performance insights back into the strategy stage.",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "text": "Opuslon built a three-agent sequential system for the marketing agency Wasel.ma, where each agent receives the previous agent's output and has access only to the data its role needs (CRM, analytics, client drive).",
+   "url": "https://opuslon.com/en/cas-clients/wasel-ma"
+  },
+  {
+   "text": "In the Wasel.ma system, a strategist agent runs every Monday, synthesizing the brand brief, live data (Search Console, last week's results, competitor moves) and market trends into a weekly brief that a human approves on Telegram before execution.",
+   "url": "https://opuslon.com/en/cas-clients/wasel-ma"
+  },
+  {
+   "text": "In the Wasel.ma system, agents do not call each other; they read and write Markdown files (BRAND_BRIEF.md, CAMPAIGN_BRIEF.md, RESULTS.md, SEO_REPORT.md, CRM.md) in a shared Obsidian vault, which serves as the audit trail and limits what a compromised agent can see.",
+   "url": "https://opuslon.com/en/cas-clients/wasel-ma"
+  },
+  {
+   "text": "The Wasel.ma system uses an expensive model only for the weekly strategist and the lead-qualifying mailer, and a cheap model for content, publisher and FAQ-reply agents, to control cost.",
+   "url": "https://opuslon.com/en/cas-clients/wasel-ma"
+  },
+  {
+   "text": "In the Wasel.ma system, final publishing and email sending require human validation via Telegram, and a mailer agent auto-replies to FAQ/pricing questions while escalating hot leads and demo requests to a human.",
+   "url": "https://opuslon.com/en/cas-clients/wasel-ma"
+  },
+  {
+   "text": "Reported Wasel.ma results: content volume x4 without hiring and commercial response time reduced from 24 hours to 2 hours.",
+   "url": "https://opuslon.com/en/cas-clients/wasel-ma"
+  },
+  {
+   "text": "Google Cloud Marketing agentified its integrated campaign workflow: an agent scans calendars and budgets, generates three brief options for a human to review and approve, distributes the approved strategy, localizes, translates and resizes assets under human supervision, runs brand compliance checks, and marketing leadership gives final sign-off.",
+   "url": "https://business.google.com/us/think/ai-excellence/cloud-agentic-workflow-integration/"
+  },
+  {
+   "text": "Google Cloud Marketing reports its agentified campaign workflow is 2X to 3X faster, compressing a weeklong cycle into two days.",
+   "url": "https://business.google.com/us/think/ai-excellence/cloud-agentic-workflow-integration/"
+  },
+  {
+   "text": "Google Cloud Marketing uses a manager review rubric for AI agents with four criteria: accuracy, speed, brand compliance and value; it also formed temporary 'AI pods' of three to five people paired with a workflow architect.",
+   "url": "https://business.google.com/us/think/ai-excellence/cloud-agentic-workflow-integration/"
+  },
+  {
+   "text": "Draft & Goal is a commercial 'Agentic Marketing OS' platform where routes coordinate specialized agents, multiple models, company knowledge and integrations, with people approving at every step that matters.",
+   "url": "https://linkedin.com/company/draft-goal"
+  },
+  {
+   "text": "Draft & Goal claims production results of TotalEnergies going from 2 to 24 articles a day and Turo shipping tens of thousands of pages at about $1 each (vendor claims).",
+   "url": "https://linkedin.com/company/draft-goal"
+  },
+  {
+   "text": "Draft & Goal's Google Ads agents query search_term_view via GAQL, flag terms that spend without converting, and draft negative keywords held for human review, with no account changes without sign-off.",
+   "url": "https://linkedin.com/company/draft-goal"
+  },
+  {
+   "text": "MERIDIAN (Gruntflow) is a planner-led multi-agent content engine with one planner and six specialists, posting to Meta, X and LinkedIn; a critic agent checks brand voice and tone, logs every rejection, and a human keeps the final veto.",
+   "url": "https://gruntflow.io/solutions/meridian/"
+  },
+  {
+   "text": "MERIDIAN feeds performance analytics back into the brief rather than the model, so the learning is human-readable and overridable.",
+   "url": "https://gruntflow.io/solutions/meridian/"
+  },
+  {
+   "text": "SaaStr runs its AI operation with 3 humans and 21+ AI agents; for one event its sales agents booked 614 meetings at roughly $85K average ticket size, with about 2.25 million site sessions and about 402,000 interactions handled.",
+   "url": "https://www.saastr.com/the-agents-episode-06-we-run-saastr-on-3-humans-and-21-ai-agents-heres-every-agent-agent-by-agent-with-the-numbers/"
+  }
+ ],
+ "question_id": "Q22"
+}

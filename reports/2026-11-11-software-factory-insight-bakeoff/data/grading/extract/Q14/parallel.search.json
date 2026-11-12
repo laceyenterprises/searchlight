@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "42ef78502f294229",
+ "claims": [
+  {
+   "text": "The NSA's May 2026 MCP security guidance says MCP's rapid proliferation has outpaced the development of its security model, and that the protocol was released with a flexible, underspecified design.",
+   "url": null
+  },
+  {
+   "text": "The NSA report states that associating a session with an identity is not defined by the MCP protocol; it is left optional at the implementor's discretion, and many implementations omit authentication entirely.",
+   "url": null
+  },
+  {
+   "text": "The NSA report states that MCP implementations that do include authentication often lack role-based enforcement, such as distinguishing Create, Read, Update and Delete permissions.",
+   "url": null
+  },
+  {
+   "text": "The NSA report states that MCP currently lacks support for exchanging RBAC permissions at instantiation, making access boundaries between tasks or services hard to enforce or verify.",
+   "url": null
+  },
+  {
+   "text": "MCP servers rely on OAuth 2.1 bearer tokens without protocol-level token lifecycle management (refresh, revocation, reuse control), and the NSA says this can lead to message replay or unauthorized reuse of valid sessions.",
+   "url": null
+  },
+  {
+   "text": "The NSA report says that a change in capability or data access of an already trusted MCP server can often be made without user approval or notification, so a previously approved service could later access sensitive resources without review.",
+   "url": null
+  },
+  {
+   "text": "Open source MCP agents were observed exposing sensitive MCP server data when unsanitized tool parameters passed via malformed MCP messages were executed, letting attackers run arbitrary commands through legitimate interfaces.",
+   "url": null
+  },
+  {
+   "text": "Some MCP orchestrators automatically resolve tool names from public registries or local modules, which let attackers load attacker-controlled code through naming collisions; MCP clients often cannot specify unique tool identifiers or strict resolution policies.",
+   "url": null
+  },
+  {
+   "text": "With the GitHub MCP server, users grant blanket access, so tools may get unrestricted read/write access across private and public repositories, enabling compromised tools to copy private repository content into public repositories without the user's awareness.",
+   "url": null
+  },
+  {
+   "text": "Researchers demonstrated that a malicious MCP server connected to the same MCP client as a trusted WhatsApp MCP server could coerce the client into exposing WhatsApp message data without user notice or approval.",
+   "url": null
+  },
+  {
+   "text": "The NSA report says MCP servers serving agent-like functions can be susceptible to prompt storms, malformed inputs or recursive task requests that cause denial of service, and that such resource exhaustion is hard to distinguish from valid high load.",
+   "url": null
+  },
+  {
+   "text": "The OWASP MCP Security Cheat Sheet notes that the LLM sees all tool descriptions from all connected servers in its context, which is key to understanding cross-server attacks.",
+   "url": null
+  },
+  {
+   "text": "The OWASP cheat sheet lists key MCP risks including tool poisoning (hidden instructions in tool descriptions, parameter schemas or return values), rug pull attacks (a server changing tool definitions after user approval), and tool shadowing/cross-origin escalation (a malicious server's tool description manipulating behavior with other trusted servers' tools).",
+   "url": null
+  },
+  {
+   "text": "OWASP recommends treating every tool response as untrusted data, including from approved servers, and enforcing authorization and validating subsequent tool calls in trusted application code independently of the model's interpretation.",
+   "url": null
+  },
+  {
+   "text": "OWASP recommends validating tool outputs before returning them to the LLM context, since output is often used as input by other tools and can cause downstream SSRF or command injection if unsanitized.",
+   "url": null
+  },
+  {
+   "text": "The OWASP cheat sheet states that the older HTTP+SSE MCP transport is deprecated in favor of Streamable HTTP for remote servers, with stdio for local servers.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Incident Response describes an MCP tool poisoning attack in a finance workflow in which an update to an enrichment server silently modifies the tool description while the tool name and user-facing summary remain unchanged.",
+   "url": null
+  },
+  {
+   "text": "Microsoft says the tool poisoning technique was first disclosed by Invariant Labs in April 2025 and was observed in 2026 against a growing range of enterprise agents.",
+   "url": null
+  },
+  {
+   "text": "MCP's security best practices describe the confused deputy problem for MCP proxy servers that connect to third-party APIs; one mitigation is maintaining a per-user registry of approved client_id values checked before initiating the third-party authorization flow.",
+   "url": null
+  },
+  {
+   "text": "The MCP confused deputy attack arises when a proxy lets clients dynamically register with their own client_id, the third-party authorization server sets a consent cookie after first authorization, and the proxy does not implement per-client consent before forwarding.",
+   "url": null
+  },
+  {
+   "text": "MCP security best practices call 'token passthrough', where an MCP server accepts client tokens without validating they were issued to the MCP server, an anti-pattern that can cause confused deputy problems with downstream APIs.",
+   "url": null
+  },
+  {
+   "text": "The official MCP Registry (in preview) is a centralized metadata repository for publicly accessible MCP servers, backed by Anthropic, GitHub, PulseMCP and Microsoft, using DNS-verified namespace authentication to ensure servers come from their claimed sources and exposing a REST API for clients and aggregators.",
+   "url": null
+  },
+  {
+   "text": "Uber's MCP Gateway provides built-in authorization and redaction at tool-level granularity for all servers, and offers an 'Omni MCP' proxy with gradual discovery because exposing context for hundreds of servers would consume the model context limit.",
+   "url": null
+  },
+  {
+   "text": "SAP uses A2A through an Agent Gateway (A2A 0.3.0 with HTTP+JSON transport, authenticated with IAS App2App tokens with named user context) for multi-agent delegation, and an MCP Gateway in SAP Integration Suite that exposes SAP and non-SAP APIs as governed MCP tools with OIDC-based authentication and authorization, rate limiting, payload protection and monitoring.",
+   "url": null
+  },
+  {
+   "text": "The A2A specification requires production deployments to use encrypted communication (HTTPS or TLS for gRPC) and leaves authorization implementation-specific, potentially based on requested skills, actions within tasks, data access policies and OAuth scopes.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

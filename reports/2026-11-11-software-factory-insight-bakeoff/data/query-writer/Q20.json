@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "AI SRE agents Resolve.ai Cleric Traversal autonomous incident remediation",
+  "PagerDuty SRE agent Datadog Bits AI SRE root cause remediation",
+  "Meta Google automated remediation self-healing production incidents AI agents safety"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: What AI SRE / self-healing systems exist (for example Resolve.ai, Cleric, Traversal, PagerDuty and Datadog agents, Meta's or Google's internal remediation)? How do they detect, diagnose, remediate and verify, and what autonomy levels and safety controls do they use? Rank first primary sources: vendor engineering blogs, product docs, conference talks, papers, and Meta/Google engineering posts or SRE publications on automated remediation, plus credible reporting. Extract mechanisms (alert triage, root cause analysis, telemetry and causal graph use, runbook or code-fix execution, rollback, verification of recovery), named systems, dates, measured results (MTTR reductions, accuracy, auto-resolution rates), autonomy levels (suggest, approve, autonomous), safety controls (human approval, guardrails, permissions, blast radius limits), and documented failure modes.",
+ "question_id": "Q20",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

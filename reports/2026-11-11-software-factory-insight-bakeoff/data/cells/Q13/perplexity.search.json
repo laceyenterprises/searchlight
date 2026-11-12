@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:05.386002Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 5921,
+   "published": null,
+   "text": "To address these challenges, this paper proposes the architecture of AIOS (LLM-based AI Agent Operating System) under the context of managing LLM-based agents.\nIt introduces a novel architecture for serving LLM-based agents by isolating resources and LLM-specific services from agent applications in…",
+   "title": "AIOS: LLM Agent Operating System - arXiv",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "chars_delivered": 408,
+   "published": null,
+   "text": "# Welcome to AIOS!#\nThe goal of AIOS is to build a large language model (LLM) agent operating system, which intends to embed large language model into the operating system as the brain of the OS.\nAIOS is designed to address problems (e.g., scheduling, context switch, memory management, etc.) during…",
+   "title": "Welcome to AIOS!",
+   "url": "https://aios.readthedocs.io/en/stable/"
+  },
+  {
+   "chars_delivered": 3021,
+   "published": "2021-11-03",
+   "text": "# Understand trust and safety for AI agents\n## Stay in control\n- **Enforce boundaries at the OS level.** Agent sandboxing restricts file system and network access for terminal commands so auto-approved actions cannot escape a defined scope.\n...\n## Agent sandboxing\nAgent sandboxing uses operating sy…",
+   "title": "Understand trust and safety for AI agents - Visual Studio Code",
+   "url": "https://code.visualstudio.com/docs/agents/concepts/trust-and-safety"
+  },
+  {
+   "chars_delivered": 1113,
+   "published": null,
+   "text": "AIOS is the AI Agent Operating System, which embeds large language model (LLM) into the operating system and facilitates the development and deployment of LLM-based AI Agents.\nAIOS is designed to address problems (e.g., scheduling, context switch, memory management, storage management, tool managem…",
+   "title": "Welcome | AIOS Docs",
+   "url": "https://docs.aios.foundation/aios-docs"
+  },
+  {
+   "chars_delivered": 427,
+   "published": null,
+   "text": "# AIOS: LLM Agent Operating System\n...\nThe goal of AIOS is to build a large language model (LLM) agent operating system,\nwhich intends to embed large language model into the operating system as the brain of the OS.\nAIOS is designed to address problems (e.g., scheduling, context switch, memory manag…",
+   "title": "Welcome to AIOS! — AIOS",
+   "url": "https://aios.readthedocs.io/en/latest/"
+  },
+  {
+   "chars_delivered": 2224,
+   "published": "2024-01-15",
+   "text": "# AIOS: AI Agent Operating System\nAIOS is the AI Agent Operating System, which embeds large language model (LLM) into the operating system and facilitates the development and deployment of LLM-based AI Agents.\nAIOS is designed to address problems (e.g., scheduling, context switch, memory management…",
+   "title": "GitHub - agiresearch/AIOS: AIOS: AI Agent Operating System",
+   "url": "https://github.com/agiresearch/AIOS"
+  },
+  {
+   "chars_delivered": 2284,
+   "published": "2026-11-02",
+   "text": "Agents generate code, interact with filesystems, and run shell commands.\nBecause you can’t predict what an agent might do, it’s important that its environment is isolated so it can’t access credentials, files, or the network.\nSandboxes provide this isolation by creating a boundary between the agent…",
+   "title": "Sandboxes - Docs by LangChain",
+   "url": "https://docs.langchain.com/oss/javascript/deepagents/sandboxes"
+  },
+  {
+   "chars_delivered": 3780,
+   "published": "2026-08-17",
+   "text": "# Letta (MemGPT) Patterns\n## 📖 At a Glance\nThis technique is for developers interested in MemGPT-style memory management where the agent controls its own memory reads and writes through function calls.\n## TL;DR\n- **What it is:** **Letta (MemGPT) Patterns** implements tiered memory (core, archival,…",
+   "title": "agent_memory_techniques/all_techniques/26_letta_memgpt_patterns/README.md at main · brandongilchrist/agent_memory_techniques",
+   "url": "https://github.com/brandongilchrist/agent_memory_techniques/blob/main/all_techniques/26_letta_memgpt_patterns/README.md"
+  },
+  {
+   "chars_delivered": 901,
+   "published": "2026-08-26",
+   "text": "2. **Enable agent sandboxing.** On macOS and Linux, including WSL2 environments, enable `setting(chat.agent.sandbox.enabled)` to restrict file system and network access for agent-executed commands.\n...\n- **Agent isolation**: Copilot, Claude, and Codex sessions can work in a separate Git worktree, p…",
+   "title": "vscode-docs/docs/agents/run/security.md at main · vanduren/vscode-docs",
+   "url": "https://github.com/vanduren/vscode-docs/blob/main/docs/agents/run/security.md"
+  },
+  {
+   "chars_delivered": 616,
+   "published": "2024-07-30",
+   "text": "The goal of AIOS is to build a large language model (LLM) agent operating system, which intends to embed large language model into the operating system as the brain of the OS.\nAIOS is designed to address problems (e.g., scheduling, context switch, memory management, etc.) during the development and…",
+   "title": "GitHub - markmbain/agiresearch-AIOS: AIOS: LLM Agent ...",
+   "url": "https://github.com/markmbain/agiresearch-AIOS"
+  }
+ ],
+ "latency_ms": 532.7,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q13",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What 'operating system for agents' designs exist (AIOS, Letta/MemGPT, others)? How do they handle scheduling, memory management, context switching, tool access and isolation between agents, and what has been learned from them?",
+    "AIOS LLM agent operating system scheduler",
+    "Letta MemGPT virtual context memory management",
+    "agent operating system isolation tool access sandboxing"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 22969,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:04.853280Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

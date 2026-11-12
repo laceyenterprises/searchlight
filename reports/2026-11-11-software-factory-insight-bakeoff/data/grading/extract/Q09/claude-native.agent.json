@@ -1,0 +1,47 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "4a7e191161ff777e",
+ "claims": [
+  {
+   "text": "mini-swe-agent is about 100 lines of Python and uses only bash as its tool.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent scores above 74% on SWE-bench Verified.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent keeps a linear message history and runs actions via subprocess.run.",
+   "url": null
+  },
+  {
+   "text": "The OpenHands SDK models interactions as immutable events stored in an append-only log.",
+   "url": null
+  },
+  {
+   "text": "In the OpenHands SDK, ConversationState is the only mutable component.",
+   "url": null
+  },
+  {
+   "text": "OpenHands SDK conversations are resumed by replaying the event log.",
+   "url": null
+  },
+  {
+   "text": "Goose moved from the block/goose repository to the Agentic AI Foundation organization on April 7, 2026.",
+   "url": null
+  },
+  {
+   "text": "Cursor found that lock-based coordination reduced twenty agents to the effective throughput of two or three.",
+   "url": null
+  },
+  {
+   "text": "Cursor replaced flat agent coordination with a planner/worker/judge hierarchy.",
+   "url": null
+  },
+  {
+   "text": "Cursor found that removing an integrator role helped more than adding complexity.",
+   "url": null
+  }
+ ],
+ "question_id": "Q09"
+}

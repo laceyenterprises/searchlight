@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "8e3f65aa9543dcfe",
+ "url": "https://cleric.ai/technology",
+ "verdicts": {
+  "Cleric weights verification signals using context from the change and environment because each signal has known failure modes and none is conclusive alone, and it records the result and signals in its Decision Model.": 1,
+  "Cleric's Decision Model comprises a world model of services and dependencies, strategies distilled from real investigations, and verification results, and its verification results show where Cleric has been reliable and where an engineer should still review its work.": 1,
+  "Cleric's calibration engine tests investigation strategies against past production issues through replay and self-play, retaining strategies that produce correct diagnoses and dropping those that don't.": 1,
+  "Cleric's verification engine follows each change into production for up to 14 days starting from the change announcement in Slack, checking alert recurrence, downstream stability, metric recovery, and engineer overrides.": 1
+ }
+}

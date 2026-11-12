@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "6a27ad72bebb27a3",
+ "url": "https://openai.com/index/running-codex-safely/",
+ "verdicts": {
+  "OpenAI's internal Auto-review mode sends planned actions and recent context to an auto-approval subagent that can approve low-risk actions, or high-risk ones with sufficient user authorization, instead of interrupting the user.": 1,
+  "OpenAI's internal Codex deployment uses a managed network policy that allows expected destinations, blocks unwanted ones, and requires approval for unfamiliar domains, rather than open-ended outbound access.": 1,
+  "OpenAI's internal config sets web search to cached mode only, enables a network proxy, denies domains like pastebin.com, and allows domains like *.openai.com and login.microsoftonline.com.": 1
+ }
+}

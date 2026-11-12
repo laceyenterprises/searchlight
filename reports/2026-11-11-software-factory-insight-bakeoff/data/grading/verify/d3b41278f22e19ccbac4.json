@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "dcd9582530664786",
+ "url": "https://github.com/Smana/ai-native-ref/blob/main/docs/superpowers/specs/2026-10-21-v3-landscape-research.md",
+ "verdicts": {
+  "The MCP Registry remains in 'preview', with server.json metadata under verified namespaces but no tool-level or security metadata; A2A 1.0 is stable but only Atlassian's Rovo connector among the surveyed tools consumes it.": 1,
+  "The MCP spec of 2026-07-28 made RFC 9728 protected-resource metadata and audience validation mandatory and left per-tool scopes to servers; agentgateway 1.6.0 evaluates CEL authorization on mcp.tool.arguments and hides denied items from lists.": 1
+ }
+}

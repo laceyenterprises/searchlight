@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "ae93eb2a65359ae0",
+ "url": "https://www.ninetwothree.co/blog/honk-spotify-ai-infrastructure",
+ "verdicts": {
+  "At its May 21, 2026 Investor Day, Spotify said 99% of engineers use AI weekly and 73% of code contributions are AI-assisted; the critic notes these metrics are undefined and Honk mainly handles migrations and dependency updates, not features.": 1,
+  "Fleet Management processed 652,000 automated PRs in 2024, per Splunk's recap of Spotify's PlatEngDay data; Anthropic's customer page reports 650+ monthly Honk PRs.": 1,
+  "Honk runs Claude Code in a sandboxed Kubernetes Job with three tools (verify, Git, Bash allowlist), with ten turns and three retries before a PR, per a critical third-party summary.": 1,
+  "Spotify's blog admits limitations: no code search or documentation tools exposed to the agent, verifiers only on Linux x86 (macOS and iOS planned), and the team is 'still flying mostly by intuition' on prompt engineering.": 1
+ }
+}

@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:45.120477Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 924,
+   "page_chars_delivered": 30297,
+   "post_step": "fetched",
+   "published": null,
+   "text": "A new scheduling policy moves control over each sandbox into application code, while a redesigned runtime provides a faster path to a running Container. In ComputeSDK’s independent benchmark, median startup fell from just over four seconds to 648 milliseconds, and, in our own preliminary tests, bur…",
+   "title": "Cloudflare Containers, rebuilt to scale agent sandboxes",
+   "url": "https://blog.cloudflare.com/faster-agent-sandboxes/"
+  },
+  {
+   "chars_delivered": 833,
+   "page_chars_delivered": 14406,
+   "post_step": "fetched",
+   "published": null,
+   "text": "- Run untrusted or model-generated code away from the storage and credentials of the agent.\n\nNote\n\nIf the code that the model writes only calls methods that you define, such as methods that read or update your data, use [Code Mode](https://developers.cloudflare.com/agents/tools/codemode/) instead.…",
+   "title": "Sandbox",
+   "url": "https://developers.cloudflare.com/agents/tools/sandbox/"
+  },
+  {
+   "chars_delivered": 991,
+   "page_chars_delivered": 25429,
+   "post_step": "fetched",
+   "published": "2026-08-04",
+   "text": "The matrix below compares 15 sandbox platforms across those dimensions, plus GPU support and deployment model.\n\n|Platform |Cold start |Isolation |Persistence |SDK |Pricing model |GPU |Deployment |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n|E2B |717ms create / 662ms resume (measured) |Firecr…",
+   "title": "Comparing AI agent sandbox platforms: E2B, Modal, Daytona, and more - LogRocket Blog",
+   "url": "https://blog.logrocket.com/comparing-ai-agent-sandbox-platforms-e2b-modal-daytona-and-more/"
+  },
+  {
+   "chars_delivered": 928,
+   "published": null,
+   "text": "Outbound handlers let you intercept and modify HTTP traffic from a sandbox with trusted code.\n\nUse them to:\n\n...\n\n```ts\nexport class MySandbox extends Sandbox {\n\tenableInternet = false;\n}\n```\n\nWhen `enableInternet` is `false`, only traffic you explicitly allow later on this page through `allowedHos…",
+   "title": "Handle outbound traffic",
+   "url": "https://developers.cloudflare.com/sandbox/guides/outbound-traffic"
+  },
+  {
+   "chars_delivered": 883,
+   "published": null,
+   "text": "# Sandboxes\n\nCopy for LLM [View as Markdown](https://www.daytona.io/docs/en/sandboxes.md) Open\n\nDaytona provides **full composable computers** — **sandboxes** — for AI agents. Sandboxes are isolated runtime environments you can manage programmatically to run code. Each sandbox runs in isolation, gi…",
+   "title": "Sandboxes | Daytona",
+   "url": "https://www.daytona.io/docs/en/sandboxes"
+  },
+  {
+   "chars_delivered": 995,
+   "published": null,
+   "text": "The sandbox lifecycle: create, connect to, pause, resume, and kill an isolated Linux VM for your agent, and control what happens when its timeout expires.\n\nCopy page Copy page\n\nSandboxes stay running as long as you need them. When their timeout expires, they can automatically pause to save resource…",
+   "title": "Sandbox lifecycle - E2B Docs",
+   "url": "https://docs.e2b.dev/sandbox"
+  },
+  {
+   "chars_delivered": 877,
+   "published": null,
+   "text": "Last updated Sep 30, 2026|Copy as Markdown| [View as Markdown](https://developers.cloudflare.com/sandbox/index.md)| [Agent setup](https://developers.cloudflare.com/agent-setup/)\n\nStart a sandbox and run untrusted or generated code\n\nAvailable on Workers Paid plan\n\nA sandbox is an isolated place to r…",
+   "title": "Sandboxes on Cloudflare",
+   "url": "https://developers.cloudflare.com/sandbox"
+  },
+  {
+   "chars_delivered": 955,
+   "published": null,
+   "text": "Create a persistent point-in-time capture of a running sandbox, including filesystem and memory, and spawn new sandboxes from that exact state.\n\nCopy page Copy page\n\n...\n\nYou can then use a snapshot to spawn new sandboxes that start from the exact same state. The original sandbox continues running…",
+   "title": "Sandbox snapshots - E2B Docs",
+   "url": "https://docs.e2b.dev/sandbox/snapshots"
+  },
+  {
+   "chars_delivered": 961,
+   "published": null,
+   "text": "# The Sandbox Kernel for Agents\n\nMemory-safe, lightweight Linux-compatible userspace kernel\nto safely sandbox agents at high density without virtual\nmachine overhead.\n\n...\n\n**Handle bursty code execution demand** with **high density** from agentic\ntools, distributed RL environments, LLM-generated c…",
+   "title": "The Sandbox Kernel for Agents - gVisor",
+   "url": "https://gvisor.dev/"
+  },
+  {
+   "chars_delivered": 969,
+   "published": "2026-09-16",
+   "text": "Reported figures Median time to interactive, in seconds\n\n1. Daytona 0\\.27 s\n2. Vercel Sandbox 0\\.67 s\n3. Modal 0\\.88 s\n4. E2B 1\\.61 s\n5. Cloudflare Sandbox 5\\.06 s\n\n...\n\n* Vendor cold starts and measured startup are not the same number. Blaxel quotes **25ms resume** ; an August 2026 benchmark measu…",
+   "title": "Agent sandboxes: vendors quote 25ms, benchmarks measure 0.27s to 5.06s",
+   "url": "https://readhandoff.com/agent-sandbox-isolation-compared"
+  }
+ ],
+ "latency_ms": 3696.7,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q16",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: What sandboxing approaches are used for autonomous agents (Firecracker microVMs, gVisor, e2b, Modal, Daytona, Cloudflare, devcontainers)? Compare startup time, isolation strength, snapshot/resume, cost, and network egress control, with any published benchmarks. Pages that should rank first are primary sources: the organisations' own engineering blog posts, documentation, talks, papers, and source code (Firecracker, gVisor, E2B, Modal, Daytona, Cloudflare Sandbox/Containers, devcontainers spec), plus credible independent benchmarks and reporting. Pull out mechanisms (microVM vs user-space kernel vs container), cold start and resume numbers in milliseconds, isolation and security model, snapshot/restore features, pricing per vCPU-second, network egress policy options, measured results, dates, and known failure modes or limitations.",
+   "search_queries": [
+    "AI agent sandbox Firecracker gVisor comparison benchmarks",
+    "E2B Modal Daytona sandbox cold start snapshot",
+    "Cloudflare sandbox devcontainers agent network egress isolation"
+   ],
+   "session_id": "sl-parallel.search-Q16-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11348,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:41.423732Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

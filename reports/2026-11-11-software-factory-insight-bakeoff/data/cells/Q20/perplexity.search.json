@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:09.784004Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 4506,
+   "published": null,
+   "text": "Broadly defined, an AI SRE is an agentic system that automates production operations work: the cross-system investigation, diagnosis, and resolution that currently requires engineers to context-switch across dozens of tools and reconstruct understanding from scratch every time.\nMost AI SREs focus o…",
+   "title": "The State of AI SRE - Cleric",
+   "url": "https://cleric.ai/resources/reports/the-state-of-ai-sre"
+  },
+  {
+   "chars_delivered": 1205,
+   "published": "2026-11-06",
+   "text": "An AI SRE investigates alerts and incidents across production data, identifies root cause, and supports remediation.\n...\nTraversal's AI SRE Platform covers Alert Intelligence, Incident RCA, Self-healing, Code Resilience, and Production Support.\nIts agents investigate multi-hop incidents across apps…",
+   "title": "Best AI SRE Tools for Financial Services (2026)",
+   "url": "https://www.traversal.com/blog/best-ai-sre-tools-for-financial-services"
+  },
+  {
+   "chars_delivered": 1861,
+   "published": "2026-09-18",
+   "text": "An AI SRE tool is an autonomous or semi-autonomous system that participates in production reliability work: detecting incidents, correlating signals, running investigations, proposing or executing fixes, and writing up findings.\n...\nThey form hypotheses, query observability tools, code repositories…",
+   "title": "The 2026 AI SRE Landscape: AI-Native Tools | Corelayer",
+   "url": "https://www.corelayer.com/guides/2026-ai-sre-landscape"
+  },
+  {
+   "chars_delivered": 711,
+   "published": "2026-03-03",
+   "text": "# Awesome AI SRE\n## AI SRE Agents\n*Autonomous AI agents purpose-built for SRE workflows — investigating alerts, performing root cause analysis, and resolving incidents with minimal human intervention.*\n- Resolve AI - Autonomous SRE platform by OpenTelemetry co-creators that targets 80% autonomous r…",
+   "title": "awesome-ai-sre/README.md at main",
+   "url": "https://github.com/agamm/awesome-ai-sre/blob/main/README.md"
+  },
+  {
+   "chars_delivered": 1211,
+   "published": "2026-05-29",
+   "text": "An evidence trail is the auditable record of which observability queries the agent ran, which spans and log lines it cited, which model it called with what prompt, what hypothesis it returned, what mitigation it suggested or executed, what the outcome was, and at what confidence.\n...\nThe product is…",
+   "title": "AI-SRE Vendor Comparison 2026: Ten Tools, Four Criteria ...",
+   "url": "https://aistrategy.guide/en/capabilities/sre/vendor-comparison/"
+  },
+  {
+   "chars_delivered": 1794,
+   "published": "2025-12-02",
+   "text": "*Bits AI SRE is an on-call 24/7 agent that autonomously investigates alerts and surfaces the fastest path to remediation*\n**LAS VEGAS --** Datadog, Inc. (NASDAQ: DDOG), the monitoring and security platform for cloud applications, has launched Bits AI SRE, an AI agent aware of telemetry, architectur…",
+   "title": "Datadog Launches Bits AI SRE Agent to Resolve Incidents ...",
+   "url": "https://investors.datadoghq.com/news-releases/news-release-details/datadog-launches-bits-ai-sre-agent-resolve-incidents-faster"
+  },
+  {
+   "chars_delivered": 2752,
+   "published": "2026-08-11",
+   "text": "A newer category, dedicated AI SRE agents, goes further: they actively query logs, metrics, and deploy history live during an incident.\n...\nA handful of startups have built agents whose entire job is investigating production incidents autonomously, not just clustering alerts that already exist.\n**T…",
+   "title": "Incident Management and the Rise of AI SRE Agents - DZone",
+   "url": "https://dzone.com/articles/ai-sre-agents"
+  },
+  {
+   "chars_delivered": 2062,
+   "published": "2026-05-26",
+   "text": "In practice, the best teams are still building the prerequisites with humans in the approval loop.\nEvidence from real incidents shows over-reliance on automation can double recovery times when it fails.\n...\nThe term \"self-healing\" covers three distinct tracks that vendors blur together but practiti…",
+   "title": "The Current State of Self-Healing Software - Daz",
+   "url": "https://daz.is/blog/self-healing-software/"
+  },
+  {
+   "chars_delivered": 1444,
+   "published": "2026-06-18",
+   "text": "Determining why an incident occurred, not just that it did.\nAI adds the ability to reason across logs, metrics, traces, infrastructure state and change history simultaneously – testing multiple hypotheses in parallel rather than relying on an engineer to correlate signals manually across dashboards…",
+   "title": "The best AI SRE tools in 2026 | Just After Midnight",
+   "url": "https://www.justaftermidnight247.com/insights/the-best-ai-sre-tools-in-2026/"
+  },
+  {
+   "chars_delivered": 3531,
+   "published": null,
+   "text": "This means AI agents must log their \"chain of thought\"—the signals used, the hypotheses considered, the reasons for choosing a particular action, and the confidence level.\n2. **Real-time Risk Evaluation:** Every action proposed by an AI agent undergoes a risk assessment.\nThis evaluation considers t…",
+   "title": "How Google is Engineering the Future of Reliable Operations",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  }
+ ],
+ "latency_ms": 586.0,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q20",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What AI SRE / self-healing systems exist (for example Resolve.ai, Cleric, Traversal, PagerDuty and Datadog agents, Meta's or Google's internal remediation)? How do they detect, diagnose, remediate and verify, and what autonomy levels and safety controls do they use?",
+    "AI SRE agents Resolve.ai Cleric Traversal autonomous incident remediation",
+    "PagerDuty SRE agent Datadog Bits AI SRE root cause remediation",
+    "Meta Google automated remediation self-healing production incidents AI agents safety"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 23537,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:09.198028Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

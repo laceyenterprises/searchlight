@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "28a93a318b045466",
+ "claims": [
+  {
+   "text": "A longitudinal case study of a real-world consumer app using agentic infrastructure to personalise marketing messaging over 11 months compared an active phase (marketers curated content, audiences and strategies) with a passive phase (agents operated autonomously from a fixed library of components).",
+   "url": "https://arxiv.org/html/2604.08621"
+  },
+  {
+   "text": "In the marketing personalisation case study, agents assembled messages by selecting atomic content components (e.g. value propositions, greetings, visual assets) via a sequential decision-making framework.",
+   "url": "https://arxiv.org/html/2604.08621"
+  },
+  {
+   "text": "During the active human-managed phase of the marketing personalisation study, days with direct app opens attributable to push notifications rose +65.3% (±1.31), days with positive engagement +2.8% (±0.19), days with intent +0.3% (±0.23), and days with conversions +0.3% (±0.24).",
+   "url": "https://arxiv.org/html/2604.08621"
+  },
+  {
+   "text": "After manual content injection and optimisation stopped for 7 months, autonomous marketing agents sustained a +57% (±0.11) lift in notification clicks, +2.4% (±0.21) days with engagement per user, and +0.2% (±0.27) lift in intent and conversion metrics, not reverting to baseline.",
+   "url": "https://arxiv.org/html/2604.08621"
+  },
+  {
+   "text": "Moving to fully autonomous operation dampened lift by roughly 15% for overall engagement, 12% for notification opens, and 26% for days with intent and days with conversion events per user, relative to the active phase.",
+   "url": "https://arxiv.org/html/2604.08621"
+  },
+  {
+   "text": "EnDevSols built a LangGraph multi-agent content system with a Supervisor Agent orchestrating sub-agents for research, SEO drafting and multi-lingual localization, on a FastAPI backend with a custom UI triggered by CSV uploads or prompts.",
+   "url": "https://endevsols.com/use-cases/ai-content-automation-publishing-case-study"
+  },
+  {
+   "text": "The EnDevSols content system uses a human-in-the-loop pending queue so every AI-generated post is reviewed against brand standards before one-click publishing to WordPress.",
+   "url": "https://endevsols.com/use-cases/ai-content-automation-publishing-case-study"
+  },
+  {
+   "text": "In the EnDevSols system, an SEO Auditor agent cross-references drafts against real-time search data before the Translation agent sees the text, preserving content across 10+ languages.",
+   "url": "https://endevsols.com/use-cases/ai-content-automation-publishing-case-study"
+  },
+  {
+   "text": "EnDevSols reports (vendor case study) time-to-publish falling from 48–72 hours to under 15 minutes, 95% fewer manual content tasks, 10x monthly output without added headcount, and 30% better international SEO rankings in the first quarter.",
+   "url": "https://endevsols.com/use-cases/ai-content-automation-publishing-case-study"
+  },
+  {
+   "text": "The Autonomous Sales Fleet is a production agentic-sales system built on LangGraph StateGraphs (control plane), Cloudflare D1/Workers/Queues (data plane), and LangSmith tracing with per-graph golden datasets (observability plane).",
+   "url": "https://vadim.blog/page/8/"
+  },
+  {
+   "text": "In the Autonomous Sales Fleet, all LLM calls go through one DeepSeek endpoint behind a Cloudflare AI Gateway, no graph ships unless its golden dataset passes an eval gate, and every persisted AI decision carries a four-field provenance record.",
+   "url": "https://vadim.blog/page/8/"
+  },
+  {
+   "text": "The Autonomous Sales Fleet's lead-to-proposal pipeline uses three agents that qualify, research from grounded facts, and draft a proposal unattended, with a single human gate on the send; outreach is always draft-first and held for human approval.",
+   "url": "https://vadim.blog/page/8/"
+  },
+  {
+   "text": "The Autonomous Sales Fleet applies a ≥0.80 eval bar to every prompt path.",
+   "url": "https://vadim.blog/page/8/"
+  },
+  {
+   "text": "A cited study (Maiorano, 2026, arXiv:2603.15676) found human reviewers and an automated quality gate agreed at only kappa = 0.13 in a multi-agent conversational system, barely above chance.",
+   "url": "https://vadim.blog/page/8/"
+  },
+  {
+   "text": "Tavon built a production RFP sales automation for a parts supplier on the Pi agent framework and OpenClaw: a gateway monitors an email inbox, triages and routes messages to one dedicated agent per customer.",
+   "url": "https://www.zenml.io/llmops-database/building-production-coding-agents-with-pi-framework-for-sales-process-automation"
+  },
+  {
+   "text": "Each Tavon customer agent is configured by an agent config file (harness, role, instructions) and a customer-specific file (special discounts, access rights, requirements, communication preferences), and uses CLI tools to access CRM and ERP systems in sandboxed environments with per-case sessions.",
+   "url": "https://www.zenml.io/llmops-database/building-production-coding-agents-with-pi-framework-for-sales-process-automation"
+  },
+  {
+   "text": "Tavon's agents do not send emails automatically; they place draft responses in the user's email client for review, editing and approval before sending.",
+   "url": "https://www.zenml.io/llmops-database/building-production-coding-agents-with-pi-framework-for-sales-process-automation"
+  },
+  {
+   "text": "OpenClaw adds multi-channel routing, provider orchestration, sub-agent management and gateway support on top of the Pi framework's core agent and session mechanics.",
+   "url": "https://www.zenml.io/llmops-database/building-production-coding-agents-with-pi-framework-for-sales-process-automation"
+  },
+  {
+   "text": "The Tavon case reports no scale, accuracy or business outcome data, shows a single example, and leaves unclear how often drafts need human editing.",
+   "url": "https://www.zenml.io/llmops-database/building-production-coding-agents-with-pi-framework-for-sales-process-automation"
+  },
+  {
+   "text": "Oliv.ai describes a sales multi-agent system with three layers: a commoditised data layer capturing activity, a fine-tuned LLM intelligence layer extracting signals like MEDDICC, and specialist agents coordinated by an orchestrator producing follow-ups, reports and next steps.",
+   "url": "https://oliv.ai/blog/agentic-sales-automation"
+  },
+  {
+   "text": "Oliv.ai defines three maturity levels: Augmented (AI drafts, human does the work), Assisted (agents execute, humans approve before shipping), and Autonomous (agents run end to end, humans handle exceptions); it claims one operator runs about '1.2 humans plus 20 agents' doing the work of 10 GTMs.",
+   "url": "https://oliv.ai/blog/agentic-sales-automation"
+  },
+  {
+   "text": "IBM's reference architecture uses watsonx Orchestrate as the orchestration plane with MCP for tool integration, A2A for agent collaboration and watsonx.governance, including supervisor/sub-agent hierarchies and a HITL gate pattern with state persisted at the checkpoint.",
+   "url": "https://cloud.ibm.com/docs/pattern-multiagent-orchestration-architecture?topic=pattern-multiagent-orchestration-architecture-white-paper&locale=pt-BR"
+  },
+  {
+   "text": "IBM's guidance says human-escalation thresholds should be risk-calibrated, such as financial transactions above a limit, irreversible actions or low-confidence decisions.",
+   "url": "https://cloud.ibm.com/docs/pattern-multiagent-orchestration-architecture?topic=pattern-multiagent-orchestration-architecture-white-paper&locale=pt-BR"
+  },
+  {
+   "text": "LangGraph supports human approval gates for high-risk steps such as updating a system, sending a customer message or escalating an incident; a cited benchmark found it more than twice as fast as CrewAI over 100 runs of a five-agent workflow.",
+   "url": "https://aerospike.com/blog/langgraph-production-latency-replay-scale/"
+  },
+  {
+   "text": "The Poochaman multi-agent-orchestration repository documents sales, research and execution agents with structured handoffs, bounded retries, human escalation, and a runnable Python example of approvals, tenant isolation and mock CRM recovery.",
+   "url": "https://github.com/Poochaman/multi-agent-orchestration"
+  }
+ ],
+ "question_id": "Q22"
+}

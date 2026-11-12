@@ -1,0 +1,18 @@
+{
+ "capture": "captured",
+ "digest": "fa1bb9400a5959bc",
+ "url": "https://arxiv.org/html/2610.01471v2",
+ "verdicts": {
+  "A lightweight cross-model reviewer (Gemini 2.5 Flash) scored no higher than same-model review, and numerically below baseline same-context review.": 1,
+  "A lightweight cross-model reviewer scored no higher than same-model review, and even the union approach matched only 56.7% of planted errors under the automated matcher.": 1,
+  "At two review calls, one same-model fresh-session review plus one cross-model review matched 56.7% of planted errors versus 42.7% for two same-model reviews (Holm-adjusted p=.006), but not significantly more than two top-tier cross-model reviews, so model difference and reviewer capability are not separated.": 1,
+  "At two review calls, one same-model plus one cross-model review matched 56.7% of planted errors versus 42.7% for two same-model reviews (Holm-adjusted p=.006), but this was not significantly more than two top-tier cross-model reviews.": 1,
+  "Cross-model review and same-model fresh-session review find partly different planted errors (Jaccard 41.2%), with same-model review ahead on code (F1 40.7%) and cross-model review ahead on documents (F1 up to 42.1%).": 1,
+  "Cross-model review and same-model fresh-session review found partly different planted errors, with a Jaccard overlap of 41.2%.": 1,
+  "In a controlled experiment with 30 artifacts, 150 planted errors and 900 review sessions, a top-tier cross-model reviewer was not significantly different in F1 from same-model review in a fresh session (CCR), which does not establish equivalence.": 1,
+  "In a controlled experiment with 30 artifacts, 150 planted errors, 10 review conditions and 900 review sessions, a top-tier cross-model reviewer (GPT-5.4) was not significantly different in F1 from same-model review in a fresh session (CCR), which does not establish equivalence.": 1,
+  "Pairwise finding overlap was 52.2% within the same model versus 37-46% across models, a descriptive comparison rather than a test of error correlation.": 1,
+  "Same-model fresh-session review (CCR) exceeded same-context self-review by only 1.5pp F1 (28.6% vs 27.1%, unadjusted p=0.26) after excluding one baseline run of uncertain provenance.": 1,
+  "Withholding requirements from the reviewer raised cross-model F1 by +2.2 and +3.0pp for the two lower-tier reviewers but not the top tier (-0.2pp), in untested point estimates.": 1
+ }
+}

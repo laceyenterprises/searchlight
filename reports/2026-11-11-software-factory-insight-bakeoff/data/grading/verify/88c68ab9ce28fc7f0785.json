@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "66cb739d2c7d7e41",
+ "url": "https://arxiv.org/html/2604.23581",
+ "verdicts": {
+  "AgentEval, a DAG-structured step-level judge, reached failure-detection recall 0.89 on 150 human-annotated cases versus 0.41 for end-to-end-only evaluation and 0.67 for flat step-level evaluation, at FPR 0.07 versus 0.08 and 0.15.": 1,
+  "In the AgentEval study, 63% of step-level failures across 450 test cases were propagated from upstream errors rather than locally caused, and the DAG advantage over flat evaluation grew from +15 pp for workflows of ≤3 steps to +28 pp for ≥6 steps.": 1
+ }
+}

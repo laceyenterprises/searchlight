@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "5f382dcdccd289a4",
+ "claims": [
+  {
+   "text": "In LogRocket's own benchmark, E2B created a sandbox in 717ms and resumed in 662ms, the fastest and most consistent of the platforms tested.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's benchmark, Daytona created a sandbox in 742ms but resumed in 1254ms, because its stop-then-start flow rebuilds more than a memory-preserving pause.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's benchmark, Vercel Sandbox created in 1852ms but resumed in 3333ms, the one platform where resume took longer than fresh create.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's benchmark, Modal created a sandbox in 2437ms and booted from a snapshot in 2347ms; Modal has no in-place resume, so that figure is snapshot-boot time rather than pause/resume time.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's benchmark, Blaxel created a sandbox in 2824ms and woke from standby in 1924ms.",
+   "url": null
+  },
+  {
+   "text": "MarkTechPost's August 2026 benchmark measured median time to interactive of 0.27s for Daytona, 0.67s for Vercel Sandbox, 0.88s for Modal, 1.61s for E2B, and 5.06s for Cloudflare Sandbox.",
+   "url": null
+  },
+  {
+   "text": "Daytona's 0.27s median time to interactive came with only a 37% success rate in the same benchmark's concurrent burst test.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare Sandbox's documentation publishes no latency figure, yet sub-50ms claims circulate, apparently borrowed from Workers isolate startup; the measured median was 5.06 seconds.",
+   "url": null
+  },
+  {
+   "text": "Vendor cold-start figures typically measure only VM or container creation, while measured time to interactive adds image pull, agent process boot, SDK handshake and first command round trip, a gap of roughly tenfold.",
+   "url": null
+  },
+  {
+   "text": "Blaxel's 25ms figure is a resume from standby, not a cold start, so it is not comparable to cold-start numbers.",
+   "url": null
+  },
+  {
+   "text": "A qmu fixtured probe (n=5, marked 'fixtured') reported cold p50 of 92 ms for E2B, 153 ms for Daytona, 255 ms for Vercel Sandbox, 408 ms for Modal, 510 ms for Cloudflare Containers, 612 ms for AWS Lambda microVMs, 1224 ms for Northflank and 2856 ms for Fly.io Machines.",
+   "url": null
+  },
+  {
+   "text": "E2B and Vercel use Firecracker microVMs, Microsandbox uses libkrun microVMs, Modal uses gVisor, and Daytona runs Docker containers by default with Kata/Sysbox as opt-in.",
+   "url": null
+  },
+  {
+   "text": "gVisor's user-space kernel, the Sentry, intercepts syscalls and re-implements them in user space, shrinking the attack surface to the Sentry itself, while shared-kernel containers can be broken by a kernel exploit.",
+   "url": null
+  },
+  {
+   "text": "BeyondTrust research found AWS AgentCore's 'Sandbox' mode, running on Firecracker, still permitted outbound DNS A/AAAA queries, enabling a DNS command-and-control channel; AWS remediated DNS tunneling on April 15, 2026.",
+   "url": null
+  },
+  {
+   "text": "In Vercel's $1M sandbox challenge, a Linux kernel bug let a sandbox read host memory in production despite microVM isolation; Vercel says it mitigated the bug and no reports showed access to customer data.",
+   "url": null
+  },
+  {
+   "text": "Dbggr lists Cloudflare as Firecracker-isolated with a median 648 ms start per a third-party test it cites, and Daytona as containers by default with a VM option and a vendor claim of 'under 90ms'.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare's Worker Loader uses V8 isolates that start in milliseconds but isolate only at the process level, whereas its container-based Sandbox SDK is a separate and stronger product.",
+   "url": null
+  },
+  {
+   "text": "E2B snapshots capture memory and filesystem state, and E2B advertises same-region sandbox starts of 80 ms from templates; creating a snapshot briefly pauses the original sandbox and drops active command streams, WebSockets and PTYs.",
+   "url": null
+  },
+  {
+   "text": "E2B, Blaxel, DigitalOcean, Render, Lambda MicroVMs, Prime Intellect, Docker and Daytona's VMs can pause or stop with memory intact; Modal offers file snapshots with memory snapshots in alpha.",
+   "url": null
+  },
+  {
+   "text": "Daytona container snapshots preserve the filesystem while VM captures can include memory; ephemeral and GPU sandboxes are deleted on stop.",
+   "url": null
+  },
+  {
+   "text": "E2B and Daytona charge CPU and memory for the full sandbox lifetime at $0.0504/vCPU-hr and $0.0162/GiB-hr, while Vercel bills active CPU only at $0.128/vCPU-hr with memory billed for full wall-clock.",
+   "url": null
+  },
+  {
+   "text": "For a 2 vCPU/4 GB sandbox at 25% CPU busy, list-price cost per hour is about $0.060 (DigitalOcean), $0.067 (Northflank), $0.166 (E2B, Daytona, Blaxel), $0.238 (Modal) and $0.252 (Lambda MicroVMs), a spread of about 4x; E2B production requires a $150/month Pro plan.",
+   "url": null
+  },
+  {
+   "text": "For 30,000 bursty sessions a month (5 minutes alive, 30 seconds of CPU, 2 vCPU/4GB), LogRocket estimates about $36 on Modal, $276 on Vercel, and about $414 on E2B, Daytona and Blaxel.",
+   "url": null
+  },
+  {
+   "text": "Most sandbox products default to open outbound internet access, including E2B, Modal, Vercel, Fly.io Sprites and Render, while Docker locally, Google Agent Platform and Azure default to blocked, and Daytona is restricted on Tiers 1-2 but open on Tiers 3-4.",
+   "url": null
+  },
+  {
+   "text": "E2B, Modal and Vercel filter domains by checking the TLS SNI server name, Fly and Docker filter at DNS, and only Cloudflare and Vercel can terminate TLS to filter by path or rewrite headers; almost no vendor logs egress for you, with Docker Cloud and AWS (via VPC firewall) as exceptions.",
+   "url": null
+  }
+ ],
+ "question_id": "Q16"
+}

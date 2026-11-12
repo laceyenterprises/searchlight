@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "6217b52cb3a00054",
+ "url": "https://arize.com/resources/agent-evals-from-traces",
+ "verdicts": {
+  "Arize describes Agent-as-a-Judge as having higher cost and latency and being more variable than standard LLM judges, requiring validation; at publication it was in closed Enterprise beta with a Claude Code harness.": 1,
+  "Arize distinguishes capability evals (behaviors not yet reliable, expected to fail often) from regression evals (behaviors already reliable, which block release), and says confirmed production failures often become regression cases after being fixed.": 1,
+  "Arize lists code-eval-suitable checks such as JSON parsing, tool-argument schema validity, prohibited tool use, database state changes, generated code passing its tests, artifact existence and latency thresholds, while LLM judges suit faithfulness, actionability and escalation appropriateness.": 1,
+  "Arize's example agent sometimes claimed to have saved a file when no file existed, which a state-based artifact eval is meant to catch.": 1,
+  "Arize's tutorial recommends a litmus test for choosing evaluators: if two reviewers with the same rubric and evidence could not disagree, the check is mechanical and belongs in a code eval; otherwise use an LLM judge, Agent-as-a-Judge, or human review.": 1,
+  "Arize's tutorial validates automated judges against human-labeled calibration sets by measuring precision and recall.": 1
+ }
+}

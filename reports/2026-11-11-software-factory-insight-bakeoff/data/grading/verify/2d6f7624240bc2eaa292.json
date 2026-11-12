@@ -1,0 +1,19 @@
+{
+ "capture": "captured",
+ "digest": "e1e829921c45585c",
+ "url": "https://zentor.ai/blog/best-ai-sre-tools",
+ "verdicts": {
+  "Cleric is read-only by default: it investigates and recommends, and ships fixes only when explicitly authorized.": 1,
+  "Cleric reports root cause in about 5 minutes, a 92% actionable-findings rate, and over 200,000 production investigations (vendor-reported).": 1,
+  "Datadog Bits AI SRE generates multiple root cause hypotheses, tests them by querying data across the environment, and classifies each as validated, invalidated, or inconclusive.": 1,
+  "Datadog reports Bits AI SRE investigations complete in approximately 3-4 minutes and services are restored 90% faster; these are vendor-reported, not independent benchmarks.": 1,
+  "Flawless, a source-available (PolyForm Noncommercial) Kubernetes SRE control plane, runs a discover, diagnose, preview, approve, execute, verify, learn cycle and gates remediation on explicit human approval.": 1,
+  "Komodor's Klaudia agent for Kubernetes covers detecting, investigating, remediating, validating, and learning; Komodor reports 97%+ accuracy and up to 80% MTTR reduction (vendor-reported).": 1,
+  "Middleware OpsAI acts autonomously only above 95% confidence, with human review before anything merges; it traces incidents to the exact line of code and opens a pull request with the fix.": 1,
+  "PagerDuty launched its AI agent suite on October 8, 2025, with four agents: SRE, Scribe, Shift, and Insights.": 1,
+  "PagerDuty reports customers using its agent suite resolve incidents up to 50% faster (vendor claim).": 1,
+  "Resolve.ai's homepage emphasizes a human-in-the-loop model, with engineers stepping in to direct and take action, rather than fully unattended fixes.": 1,
+  "The PagerDuty SRE Agent analyzes past failures, runs approved automations, and confirms the fix worked; remediation is limited to pre-approved automations.": 1,
+  "incident.io's AI SRE recommends actions rather than auto-executing them.": 1
+ }
+}

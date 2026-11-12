@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "3e1db93ed6f9ea13",
+ "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents",
+ "verdicts": {
+  "Cognition argues that containerized agents share a kernel, so one compromised session could access other containers' filesystems, credentials, and network connections.": 1,
+  "Cognition cites Itaú (nearly 17,000 engineers, eleven months in) as completing migrations 5 to 6x faster, auto-remediating 70% of static-analysis security vulnerabilities, and doubling test coverage.": 1,
+  "Cognition reports that a cloud data platform company attempted to build its own cloud agent infrastructure and moved on after the project scope overwhelmed its infrastructure team.": 1,
+  "Cognition says containers cannot reliably snapshot an individual container's full state, so a containerized agent can only survive async gaps by burning compute, and the session is lost if the container is rescheduled, times out, or crashes.": 1,
+  "Cognition snapshots full machine state at the hypervisor level (memory, process trees, filesystem) so compute shuts down while the agent is idle and the session resumes exactly where it left off when a CI result or review comment arrives.": 1,
+  "Cognition's microVM implementation took over a year of hypervisor engineering and gives every agent session its own dedicated kernel with isolated storage, networking, and compute; this also lets agents use a full browser and desktop applications.": 1,
+  "Cognition's orchestration layer took over three quarters of dedicated engineering to build and manages thousands of concurrent VMs, handling provisioning, demand prediction, crash recovery, and teardown.": 1
+ }
+}

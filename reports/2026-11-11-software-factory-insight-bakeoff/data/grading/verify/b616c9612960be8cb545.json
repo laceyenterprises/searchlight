@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "4f38c0c2e4cd5144",
+ "url": "https://www.inngest.com/docs/durable-execution",
+ "verdicts": {
+  "Inngest describes durable agents as workflows whose next step is chosen by a model, with each model call and tool call running as a step, and durable endpoints as HTTP endpoints that survive intermittent errors.": 1,
+  "Inngest describes durable agents as workflows whose next step is chosen by a model, with each model call and tool call running as a step.": 1,
+  "Inngest lets users set concurrency and other flow controls to protect services a workflow calls, and says runs can wait without holding compute.": 1,
+  "Inngest offers 'Durable Endpoints', regular HTTP endpoints that return results as HTTP responses even after temporary errors and retries.": 1,
+  "Inngest stores each completed step's result, and when work resumes after a retry or wait, functions resume from the last completed step instead of from the start.": 1
+ }
+}

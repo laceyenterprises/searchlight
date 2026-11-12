@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "b86aca7f65421ef3",
+ "claims": [
+  {
+   "text": "Microsoft announced Agent Framework on 1 Oct 2025 and shipped 1.0 for .NET and Python on 3 Apr 2026; Go support is in public preview.",
+   "url": null
+  },
+  {
+   "text": "The AutoGen repository now reads \"Project archived and no longer maintained\", and the Semantic Kernel README says Semantic Kernel is now Microsoft Agent Framework.",
+   "url": null
+  },
+  {
+   "text": "LangChain and LangGraph reached 1.0 on 22 Oct 2025 with a promise of no breaking changes until 2.0.",
+   "url": null
+  },
+  {
+   "text": "LangChain's create_agent now runs on the LangGraph runtime, and langgraph.prebuilt is deprecated in favour of langchain.agents.",
+   "url": null
+  },
+  {
+   "text": "Google open-sourced the Agent Development Kit on 9 Apr 2025 and made ADK Python 2.0, with a graph-based workflow runtime, generally available on 19 May 2026.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK is still on 0.x releases (Python 0.24.0 on 15 Oct 2026) and is the successor to OpenAI's experimental Swarm.",
+   "url": null
+  },
+  {
+   "text": "AWS released Strands Agents 1.0 on 15 Jul 2025 and uses it to power the AgentCore harness, which went GA on 17 Jun 2026.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Runtime runs each session in its own microVM, and Google Agent Runtime was formerly called Agent Engine.",
+   "url": null
+  },
+  {
+   "text": "Foundry hosted agents and AgentCore Runtime both accept several frameworks, so the choice of cloud does not force the choice of framework.",
+   "url": null
+  },
+  {
+   "text": "MCP (agent to tool), A2A (agent to agent) and OpenTelemetry (traces and metrics) are the open protocols at the edges that make agents portable between frameworks and runtimes.",
+   "url": null
+  },
+  {
+   "text": "LangGraph is categorized as an orchestration runtime whose control model is explicit nodes, edges, state transitions and checkpoints, suited to complex, durable workflows mixing deterministic and model-directed steps.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK uses a model-directed loop with handoffs, agents-as-tools and code orchestration, and fits OpenAI-first applications needing a small set of composable primitives.",
+   "url": null
+  },
+  {
+   "text": "Google ADK offers LLM agents, workflow agents, graph workflows and dynamic workflows, and fits Google Cloud, Gemini, multimodal, MCP and A2A-oriented systems.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework combines agents, graph workflows, middleware, handoffs and typed routing, targeting Microsoft and Azure teams needing enterprise integration and explicit workflows.",
+   "url": null
+  },
+  {
+   "text": "CrewAI combines role-based crews with stateful flows, suited to workflows that benefit from distinct roles, delegation and coordinated agents.",
+   "url": null
+  },
+  {
+   "text": "Amazon Bedrock AgentCore is classed as a managed runtime or platform providing hosted infrastructure to deploy, scale, secure, observe and govern agents built with one or more frameworks.",
+   "url": null
+  },
+  {
+   "text": "AgentCore documentation shows examples of running agents built with Strands Agents, LangGraph, Google ADK and the OpenAI Agents SDK.",
+   "url": null
+  },
+  {
+   "text": "Managed hyperscaler agent runtimes include AWS Bedrock AgentCore, Google Vertex AI Agent Engine and Azure AI Foundry Agent Service, while LangGraph Platform and OpenAI AgentKit are framework-native platforms.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework is the unified successor to AutoGen and Semantic Kernel, with graph-based workflows, responsible AI guardrails available through Azure AI Foundry, and Python and .NET runtimes at 1.0 GA.",
+   "url": null
+  },
+  {
+   "text": "Google ADK is Apache 2.0 licensed and described as an opinionated, batteries-included agent runtime with built-in debugging UIs for GCP-native teams.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK is MIT licensed and is positioned for tightly scoped assistants and clean multi-agent delegation with minimal abstraction.",
+   "url": null
+  },
+  {
+   "text": "CrewAI is MIT licensed and is positioned for rapid prototyping of role-based multi-agent workflows.",
+   "url": null
+  },
+  {
+   "text": "OpenAI is shutting down its visual Agent Builder on 30 November 2026, and AWS closed the original Bedrock Agents to new customers on 30 July 2026.",
+   "url": null
+  },
+  {
+   "text": "Google renamed Vertex AI, and OpenAI, Anthropic, Google, LangChain and AWS each launched a hosted agent runtime in 2026; LangGraph is paired with LangSmith Deployment.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK's main abstraction is the agent and runner, handling repeated model/tool execution and handoffs, while deployment, tool implementations, storage and approval policy remain the application's responsibility.",
+   "url": null
+  }
+ ],
+ "question_id": "Q12"
+}

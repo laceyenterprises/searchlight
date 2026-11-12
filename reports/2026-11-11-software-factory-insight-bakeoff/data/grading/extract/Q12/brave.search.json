@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "f60de7f0d97f6d52",
+ "claims": [
+  {
+   "text": "LangGraph with a persistent checkpointer such as Postgres or Redis saves state at every super-step, so agents can survive server restarts and replay from any prior checkpoint.",
+   "url": null
+  },
+  {
+   "text": "LangGraph state is a shared schema in which nodes return partial updates that reducers merge; InMemorySaver is RAM-only and meant for development, while PostgresSaver or RedisSaver plus the Store interface and LangMem provide long-term, cross-thread memory for production.",
+   "url": null
+  },
+  {
+   "text": "LangGraph has no native token budget management; developers must trim messages, use LangMem summarization, or build on create_agent, whose SummarizationMiddleware summarizes older messages as history nears a token threshold.",
+   "url": null
+  },
+  {
+   "text": "LangGraph supports cycles and conditional edges natively, with a configurable recursion_limit that stops runaway loops.",
+   "url": null
+  },
+  {
+   "text": "LangGraph managed hosting is LangSmith Deployment, priced at Plus $39/seat/month plus usage.",
+   "url": null
+  },
+  {
+   "text": "LangGraph's deployment and evals live in the paid LangSmith tier; LangSmith Deploy has a free developer tier at 5k traces and meters usage in LCU and LSU units.",
+   "url": null
+  },
+  {
+   "text": "LangGraph can be hosted on Microsoft Foundry hosted agents and on AWS AgentCore Runtime; its checkpointers are keyed by thread_id and it supports interrupts for approval.",
+   "url": null
+  },
+  {
+   "text": "LangGraph observability is via LangSmith and OpenTelemetry, and its multi-agent composition is a graph with supervisor or swarm patterns.",
+   "url": null
+  },
+  {
+   "text": "CrewAI ships a unified Memory class with remember, recall and forget that replaces separate short-term, long-term, entity and external memory; it uses an LLM to infer scopes, ranks recall by semantic similarity, recency and importance, stores data in LanceDB by default, and adds token cost because an LLM analyzes content on each save.",
+   "url": null
+  },
+  {
+   "text": "CrewAI has no built-in token budget, only iteration, time and rate limits (max_iter default 20, optional max_execution_time and max_rpm).",
+   "url": null
+  },
+  {
+   "text": "CrewAI is SOC 2 Type II and HIPAA compliant, offers PII detection, audit logs and secret manager integrations, and its Enterprise plan adds SSO via SAML 2.0 and OAuth 2.0/OIDC plus RBAC; AMP Factory keeps data within the customer's infrastructure.",
+   "url": null
+  },
+  {
+   "text": "CrewAI composes multi-agent systems as role-based Crews paired, since 1.0, with event-driven Flows that provide conditional branching and state handling, wrapping agent autonomy in deterministic business logic; it is standalone and not built on LangChain.",
+   "url": null
+  },
+  {
+   "text": "CrewAI can run on AWS AgentCore Runtime, or be deployed through CrewAI AMP, which offers managed deployment and a no-code studio.",
+   "url": null
+  },
+  {
+   "text": "CrewAI's RBAC, SSO and agent cards sit in the commercial AMP tier.",
+   "url": null
+  },
+  {
+   "text": "OpenAI Agents SDK sessions are opt-in: without a session the SDK does not persist history automatically, though turns can be chained with previous_response_id or result.to_input_list(); the SDK is a library only with no managed hosting.",
+   "url": null
+  },
+  {
+   "text": "OpenAI Agents SDK has no declarative parallel node; agents can be run concurrently with asyncio.gather orchestrated in code.",
+   "url": null
+  },
+  {
+   "text": "OpenAI Agents SDK is built from agents, handoffs, guardrails and sessions, supports over 100 non-OpenAI models via LiteLLM and any-llm, and ships built-in tracing and realtime voice agents.",
+   "url": null
+  },
+  {
+   "text": "OpenAI Agents SDK can be hosted on Foundry hosted agents or AgentCore Runtime, and Temporal can be paired with it for durability on long runs.",
+   "url": null
+  },
+  {
+   "text": "OpenAI Agents SDK observability is a Traces UI plus OpenTelemetry, and its multi-agent model is handoffs.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework succeeds both AutoGen and Semantic Kernel, offering graph-based workflows (sequential, concurrent, handoff, group collaboration), middleware, YAML declarative agents, consistent Python and .NET APIs, built-in OpenTelemetry observability, and deployment to Microsoft Foundry.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework 1.0 reached GA on 3 Apr 2026 with checkpointing, pause and resume, and a Durable Extension (preview at 1.0); it can be hosted on Foundry hosted agents or Azure Functions via the Durable Extension.",
+   "url": null
+  },
+  {
+   "text": "Google ADK offers sequential, parallel and loop workflow agents, LLM transfer, 2.0 graph workflows with human input, and A2A; it is hosted on Agent Runtime with Sessions and Memory Bank, or on AgentCore Runtime.",
+   "url": null
+  },
+  {
+   "text": "Google ADK 2.x centers on a graph-based workflow runtime (routing, loops, retry logic, nested workflows) and a Task API for structured agent-to-agent delegation with multi-turn and human-in-the-loop support.",
+   "url": null
+  },
+  {
+   "text": "Google's Agent Runtime (formerly Vertex AI Agent Engine, renamed 22 Apr 2026) offers Memory Bank, SPIFFE-based Agent Identity (API preview since 18 Jun 2026), and Agent Observability (GA 18 Jun 2026).",
+   "url": null
+  },
+  {
+   "text": "AWS Bedrock AgentCore (GA 13 Oct 2025) comprises Runtime with a microVM per session, Memory (semantic, summary, user-preference, episodic), Identity with workload identities and any IdP, Gateway, Policy, and Observability on CloudWatch.",
+   "url": null
+  }
+ ],
+ "question_id": "Q12"
+}

@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "76a9a556ad37b015",
+ "url": "https://docs.cloud.google.com/iam/docs/agent-identity-overview",
+ "verdicts": {
+  "Google Cloud Agent Identity provides each agent a strongly attested, cryptographic identity based on the SPIFFE standard.": 1,
+  "Google Cloud agent identities are not shared by multiple workloads, unlike service accounts.": 0,
+  "Google Cloud's Agent Identity auth manager creates and manages auth providers, the configurations used to acquire, manage, and secure API keys, OAuth client IDs, OAuth client secrets, and delegated end-user OAuth tokens.": 1
+ }
+}

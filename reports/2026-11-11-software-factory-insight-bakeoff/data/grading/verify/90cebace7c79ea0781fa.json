@@ -1,0 +1,21 @@
+{
+ "capture": "captured",
+ "digest": "bd8fb60bfe7cfa14",
+ "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3",
+ "verdicts": {
+  "Spotify added an LLM-as-judge on top of deterministic verifiers because agents were too ambitious, e.g., refactoring code or disabling flaky tests outside the prompt. The judge receives the proposed diff and the original prompt and runs after all other verifiers.": 1,
+  "Spotify exposes its verifiers to the agent through a Model Context Protocol (MCP) tool, so the agent is unaware of the underlying build system verifier.": 1,
+  "Spotify identifies the most serious failure mode of background agents as a PR that passes CI but is functionally incorrect, because it erodes trust; failing to produce a PR is a minor annoyance.": 1,
+  "Spotify identifies three failure modes for background coding agents across thousands of components: no PR produced (minor), a PR that fails CI (frustrating), and a PR that passes CI but is functionally incorrect (most serious, as it erodes trust and is hard to spot in review).": 1,
+  "Spotify runs all relevant verifiers before the agent opens a PR; with Claude Code this is done via the stop hook, and if a verifier fails the PR is not opened and the user sees an error message.": 1,
+  "Spotify runs its verifiers in Claude Code's stop hook; if any verifier fails, no PR is opened.": 1,
+  "Spotify's Honk verification loops include an LLM judge that receives the proposed diff and the original prompt for evaluation.": 1,
+  "Spotify's Honk verifiers activate automatically based on repository contents, are exposed to the agent via MCP, and use regexes to surface only the most relevant errors.": 1,
+  "Spotify's LLM judge vetoes about a quarter of agent sessions, and the agent course-corrects about half the time after a veto; scope creep is the most common trigger.": 1,
+  "Spotify's agent runs in a sandboxed container with limited permissions, few binaries, and virtually no access to surrounding systems; pushing code, Slack interaction, and prompt authoring are handled by surrounding infrastructure rather than the agent.": 1,
+  "Spotify's internal metrics show that, across thousands of agent sessions, the judge vetoes about a quarter of them, and the agent course-corrects about half the time after a veto; the most common trigger is the agent going outside the prompt's instructions. Spotify had not yet invested in evals for the judge.": 1,
+  "Spotify's verification loop consists of independent verifiers that are not exposed directly to the agent; each activates automatically based on component contents, e.g., a Maven verifier activates if a pom.xml is in the codebase root.": 1,
+  "Spotify's verifiers only run on Linux x86 at the time of Part 3; iOS needs macOS hosts and some backends need ARM64. Planned future work includes an outer loop acting on CI checks in GitHub PRs and structured evals.": 1,
+  "Spotify's verifiers reduce context-window noise by using regular expressions to extract only the most relevant error messages on failure and returning a very short success message otherwise.": 1
+ }
+}

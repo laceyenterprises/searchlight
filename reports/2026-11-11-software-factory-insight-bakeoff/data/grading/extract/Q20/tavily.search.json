@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "74924276421a4db0",
+ "claims": [
+  {
+   "text": "Google SRE's agents begin at Level 2 Autonomy, where they investigate, propose, and stage mitigations but require explicit human approval to execute them.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations"
+  },
+  {
+   "text": "Google SRE agents advance to Level 3 or Level 4 (High/Full Autonomy) only for specific, well-bounded scenarios, after demonstrating sustained, statistically significant success rates against human-verified \"Golden\" evaluation data.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations"
+  },
+  {
+   "text": "Google SRE describes Level 3 (High Autonomy) as automation covering Monitoring, Investigation, Approval, and Actuation for well-defined scenarios, where the agent can detect, decide, and act without human approval for bounded actions, humans are often notified, and safety relies heavily on technical controls and guardrails.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations"
+  },
+  {
+   "text": "Google SRE's stated goal for autonomous mitigation is to remediate routine, predictable incidents such as localized capacity constraints or known transient task failures, freeing human SREs for novel, complex systemic risks.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations"
+  },
+  {
+   "text": "Google SRE says it must adopt L2+ Autonomous Mitigation, where AI agents actively mutate production state, to hold operations cost steady while supporting a projected 4x increase in development velocity.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations"
+  },
+  {
+   "text": "Google SRE's agents operate within a Progressive Authorization framework relying on its \"Safety Trifecta\" and evaluation data pipelines, because the cost of an erroneous action in live production is exceptionally high.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations"
+  },
+  {
+   "text": "Datadog Bits AI SRE generates multiple root cause hypotheses, tests them by querying data across the environment, and classifies each as validated, invalidated, or inconclusive.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Datadog reports Bits AI SRE investigations complete in approximately 3-4 minutes and services are restored 90% faster; these are vendor-reported, not independent benchmarks.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Middleware OpsAI acts autonomously only above 95% confidence, with human review before anything merges; it traces incidents to the exact line of code and opens a pull request with the fix.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "PagerDuty launched its AI agent suite on October 8, 2025, with four agents: SRE, Scribe, Shift, and Insights.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "The PagerDuty SRE Agent analyzes past failures, runs approved automations, and confirms the fix worked; remediation is limited to pre-approved automations.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "PagerDuty reports customers using its agent suite resolve incidents up to 50% faster (vendor claim).",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Cleric is read-only by default: it investigates and recommends, and ships fixes only when explicitly authorized.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Cleric reports root cause in about 5 minutes, a 92% actionable-findings rate, and over 200,000 production investigations (vendor-reported).",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Resolve.ai's homepage emphasizes a human-in-the-loop model, with engineers stepping in to direct and take action, rather than fully unattended fixes.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Komodor's Klaudia agent for Kubernetes covers detecting, investigating, remediating, validating, and learning; Komodor reports 97%+ accuracy and up to 80% MTTR reduction (vendor-reported).",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Flawless, a source-available (PolyForm Noncommercial) Kubernetes SRE control plane, runs a discover, diagnose, preview, approve, execute, verify, learn cycle and gates remediation on explicit human approval.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "incident.io's AI SRE recommends actions rather than auto-executing them.",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Resolve.ai raised $250M at a $1B valuation in December 2025 and targets auto-resolving 80% of production incidents without human intervention.",
+   "url": "https://wetheflywheel.com/en/comparisons/cleric-vs-resolve-ai-vs-traversal"
+  },
+  {
+   "text": "Traversal claims 90%+ root cause accuracy in 2-4 minutes, offers on-premise deployment, and provides recommendations and health checks rather than executing fixes.",
+   "url": "https://wetheflywheel.com/en/comparisons/cleric-vs-resolve-ai-vs-traversal"
+  },
+  {
+   "text": "At DigitalOcean, Traversal was reported to deliver a 38% MTTR reduction and 36,000 engineering hours saved annually, with 50+ engineers using it.",
+   "url": "https://wetheflywheel.com/en/comparisons/cleric-vs-resolve-ai-vs-traversal"
+  },
+  {
+   "text": "Datadog Bits AI SRE became generally available in December 2025 and proposes code fixes.",
+   "url": "https://wetheflywheel.com/en/comparisons/cleric-vs-resolve-ai-vs-traversal"
+  },
+  {
+   "text": "Resolve.ai describes a graduated, human-in-the-loop trust model: teams start with advisory recommendations requiring approval, expand autonomy for low-risk, well-understood remediations as accuracy is shown, and keep humans in control of novel or high-risk changes.",
+   "url": "https://resolve.ai/glossary/what-is-ai-sre"
+  },
+  {
+   "text": "AI SRE remediation actions include rolling back a faulty deployment, scaling up resources, restarting crashed pods or services, and creating pull requests to fix code.",
+   "url": "https://metoro.io/knowledge-base/what-is-an-ai-sre"
+  },
+  {
+   "text": "Self-healing agent designs use redundancy and consensus, where other agents independently verify an anomaly before corrective action begins, to reduce false-positive fixes.",
+   "url": "https://www.arionresearch.com/blog/xh820vl36xy0pn9x1ril7d5nsx1wk9"
+  }
+ ],
+ "question_id": "Q20"
+}

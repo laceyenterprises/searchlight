@@ -1,0 +1,17 @@
+{
+ "capture": "captured",
+ "digest": "b7296747a2b4c3de",
+ "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/",
+ "verdicts": {
+  "In MaxReach's strategy stage, three analysts run in parallel (competitive content landscape, ICP profile, expertise signals), then a strategy reviewer validates their outputs and a strategy aggregator merges them into a single plan referenced by all downstream steps.": 1,
+  "MaxReach has an analytics feedback loop in which three analytics agents and a hypothesis-generator feed performance insights back into the strategy stage.": 1,
+  "MaxReach is a 30-agent content production platform in which each agent has exactly one defined role and no agent does two jobs.": 1,
+  "MaxReach is multi-tenant: each brand has its own ICP, voice specification, competitor data and channel configuration, which agents resolve at runtime, so the same writer agent produces different brand content without code changes.": 1,
+  "MaxReach publishes to six channels (WordPress, DevTo, Hashnode, LinkedIn, Telegram Channel, Astro) via six adapter agents and publisher agents that push in parallel.": 1,
+  "MaxReach uses 918 automated tests validating pipeline transitions, agent output schemas, queue behavior and publishing integrations; a job does not advance unless the upstream output matches the expected schema.": 1,
+  "MaxReach's human approval gate sits between the quality gate and the adapters; a Telegram bot gives the editor one-tap approve or reject, and nothing publishes without an explicit approve signal, so the human reviews one version instead of six.": 1,
+  "MaxReach's pipeline has eight sequential stages with two fan-out points: input, research, strategy fan-out, persuasion brief, writer draft, quality gate, human approval gate, and adapter fan-out to six destinations.": 1,
+  "MaxReach's quality gate has four sequential checks (fact-checker against research output, AI detector, neuro-optimizer checking the persuasion brief is reflected, and a review agent for consistency and brand voice); all four must pass or the content does not advance.": 1,
+  "MaxReach's reported results: 15+ hours per week of production coordination replaced, six channels managed simultaneously (previously 1 to 2), and two people now run a six-channel publishing operation; the case study gives no throughput or performance metrics beyond this.": 1
+ }
+}

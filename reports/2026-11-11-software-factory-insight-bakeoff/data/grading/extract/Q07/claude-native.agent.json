@@ -1,0 +1,47 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "ecd5e271f4a48c51",
+ "claims": [
+  {
+   "text": "Spotify's Honk verifiers activate automatically based on repository contents, are exposed to the agent via MCP, and use regexes to surface only the most relevant errors.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify's LLM judge vetoes about a quarter of agent sessions, and the agent course-corrects about half the time after a veto; scope creep is the most common trigger.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify runs its verifiers in Claude Code's stop hook; if any verifier fails, no PR is opened.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify reports 1,500+ agent-generated PRs merged into production and 60-90% time savings on migrations.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Ramp's Inspect runs each session in a Modal Sandbox with Postgres, Redis, Temporal and RabbitMQ, started from filesystem snapshots rebuilt every 30 minutes.",
+   "url": "https://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal"
+  },
+  {
+   "text": "Ramp's Inspect starts about half of Ramp's merged PRs, and over 80% of Inspect's own code is written by Inspect.",
+   "url": "https://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal"
+  },
+  {
+   "text": "Meta's RADAR reviewed 535K+ diffs and landed 331K+, peaking at around 25K diffs per day.",
+   "url": "https://arxiv.org/html/2605.30208v1"
+  },
+  {
+   "text": "Meta's RACER runbooks must show a 60-day clean track record, daily caps, DRS thresholds and a denylist before being onboarded to RADAR auto-landing.",
+   "url": "https://arxiv.org/html/2605.30208v1"
+  },
+  {
+   "text": "Uber's Shepherd migrated about 75,000 JUnit test classes (1.25M lines of code) in four months via 5,000+ diffs, using AI only to debug failures.",
+   "url": "https://software-factories.port.io/uber"
+  },
+  {
+   "text": "Google's LLM migration study covered 39 migrations by three developers over twelve months; 74.45% of 595 code changes were LLM-generated, with an estimated 50% reduction in time.",
+   "url": "https://arxiv.org/abs/2504.09691"
+  }
+ ],
+ "question_id": "Q07"
+}

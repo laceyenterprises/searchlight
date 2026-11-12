@@ -1,0 +1,103 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "d331659452f40d85",
+ "claims": [
+  {
+   "text": "Factory announced OpenCompute on October 14, 2026, a self-hosted orchestrator for agent sandboxes on the customer's choice of runtime, in private preview.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "OpenCompute's first customer deployment, into a bespoke on-premises environment with an in-house provider interface, came six weeks after the early prototype; the customer provisioned their first sandbox two days after Factory arrived on-site.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "Factory kicked off a Mission to build the initial OpenCompute driver for the customer's environment right before boarding the flight to the customer, and the driver was built by the time they landed.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "OpenCompute runs in the customer's environment and opens an outbound TLS-secured WebSocket connection to Factory, so no public endpoint or inbound firewall port is needed.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "On enrollment, an OpenCompute deployment registers a public key with Factory and proves possession of the private key by signing a fresh challenge on connection; the private key can live in a supported cloud KMS.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "OpenCompute's Go control plane records desired and observed computer state in a customer-hosted Postgres database, and a reconciler continuously drives computers toward the requested state, retrying recoverable failures and surviving control-plane restarts.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "OpenCompute computers launch from immutable Builds, with S3-compatible storage holding build artifacts and snapshot payloads.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "Each OpenCompute provider integration runs as a standalone gRPC driver; the contract defines a required Core conformance profile and optional Suspend, Snapshot, and Fork profiles, verified by black-box tests, and unsupported requests are rejected before durable state changes.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "Factory developed and evaluated OpenCompute drivers for AWS Lambda MicroVMs, Kubernetes, EC2, Agent Sandbox, Agent Substrate, and other experimental providers.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "Factory plans to open-source OpenCompute, and the layer exposes its own API, CLI, and administration panel, with Factory as only one possible client.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "OpenCompute builds on Remote Control, introduced with Droid Computers in April 2026, which let customers register their own machines; OpenCompute addresses the gap that self-hosted machines lacked native provisioning, suspension, and resumption.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "Agent Baseline published 'The Secure Software Factory: A Reference Architecture' on October 13, 2026, co-authored by Socket CTO Ahmad Nassri with contributors from Docker, Keycard, Barclays, and Secure Theory.",
+   "url": "https://socket.dev/blog/agent-baseline-software-factory"
+  },
+  {
+   "text": "The reference architecture treats the agent as untrusted and enforces four boundaries outside its decision loop: sandbox, network, supply chain, and identity and access, under the principle that the agent proposes, policy authorizes, and infrastructure enforces.",
+   "url": "https://socket.dev/blog/agent-baseline-software-factory"
+  },
+  {
+   "text": "The reference architecture applies the same four boundaries at three autonomy levels: a developer directing one coding agent, a predefined workflow running as a shared service, and an orchestrator agent deciding what work happens next.",
+   "url": "https://socket.dev/blog/agent-baseline-software-factory"
+  },
+  {
+   "text": "The paper opens with the April PocketOS incident, in which a coding agent on a routine staging task found an API token in an unrelated file and used it to delete the company's production database and its backups in nine seconds.",
+   "url": "https://socket.dev/blog/agent-baseline-software-factory"
+  },
+  {
+   "text": "Agents denied a package have reportedly gone to the CDN for the tarball, rewritten registry configuration, or run their own DNS lookups to reach npm or PyPI directly; the architecture counters this with an egress proxy the agent cannot reconfigure.",
+   "url": "https://socket.dev/blog/agent-baseline-software-factory"
+  },
+  {
+   "text": "Uber says more than 70% of its pull requests are attributed to agents, with weekly agent requests growing 9.4 times between February and August; Stripe's Minions merge more than a thousand pull requests per week; Vercel's AI SDK factory authored 25 to 35% of merged pull requests during its first four weeks.",
+   "url": "https://socket.dev/blog/agent-baseline-software-factory"
+  },
+  {
+   "text": "On October 27, 2026, Atlassian announced that Factory's Droid coding agent can be invoked from a Jira work item through Rovo Chat, built as the Forge Remote Agent for Jira using the A2A protocol.",
+   "url": "https://www.atlassian.com/blog/jira/factory-in-jira"
+  },
+  {
+   "text": "The Droid-in-Jira flow pulls Jira and Confluence context through Atlassian MCP, runs the task in the configured environment, streams progress into Jira chat, and writes results back to the work item.",
+   "url": "https://www.atlassian.com/blog/jira/factory-in-jira"
+  },
+  {
+   "text": "The Factory Forge Remote Agent for Jira originated with a request from an enterprise customer in a regulated industry building a software factory in a highly controlled environment; it targets Jira Cloud customers with Rovo enabled, with each Factory organization linking to one Jira site.",
+   "url": "https://www.atlassian.com/blog/jira/factory-in-jira"
+  },
+  {
+   "text": "The arXiv paper 'Towards an AI Software Factory for Data Systems' reports scaled deployments at Microsoft across tens of repositories with 3x engineering efficiency over agentic coding and up to 22x token efficiency, and introduces Darwin, a system using evolutionary strategies to guide a swarm of agents optimizing software against a measurable objective.",
+   "url": "https://arxiv.org/html/2609.36323v1"
+  },
+  {
+   "text": "HumanLayer announced on November 4, 2026 that it is joining Factory.",
+   "url": "https://factory.com/news/humanlayer"
+  },
+  {
+   "text": "Factory announced the acquisition of Mentlio (YC S26) on October 9, 2026, to build in-harness model routing and intelligent token allocation for the software factory.",
+   "url": "https://factory.com/news/mentlio"
+  },
+  {
+   "text": "StackGen launched the Autonomous Operations Factory, a production line of agents running on Aiden OS with a shared world model, harness, and governance model, covering infrastructure, delivery, SRE, and observability.",
+   "url": "https://www.businesswire.com/news/home/20260915082461/en/StackGen-Launches-the-Autonomous-Operations-Factory"
+  }
+ ],
+ "question_id": "Q24"
+}

@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:14.073634Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 3015,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-07-30T20:00:14.000Z",
+   "text": "## LangGraph\n\nLangGraph is a low-level orchestration runtime for stateful, long-running agents. Developers model the workflow as nodes connected by edges, with shared state determining what each node reads, writes, and does next.\n\nThe graph can combine deterministic application code with model-dire…",
+   "title": "AI agent frameworks compared: LangGraph, CrewAI, AutoGen, and more",
+   "url": "https://arize.com/ai-agents/agent-frameworks/"
+  },
+  {
+   "chars_delivered": 1273,
+   "page_chars_delivered": 13686,
+   "post_step": "fetched",
+   "published": "2026-11-02T08:27:45.000Z",
+   "text": "Agent frameworks compared on orchestration, managed hosting and fit, as documented on 2 Nov 2026.\n\n| Framework | Orchestration and state | Managed hosting documented | Fits when |\n| --- | --- | --- | --- |\n| LangGraph | Graph of nodes and edges; checkpointers keyed by thread_id; interrupts for appr…",
+   "title": "Agent Frameworks Compared: LangGraph, Agent Framework, ADK | QueryNow®",
+   "url": "https://www.querynow.com/ai-agents/platforms/agent-frameworks-compared"
+  },
+  {
+   "chars_delivered": 248,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-06-06T16:01:01.000Z",
+   "text": "Agent Framework is the unified successor to AutoGen and Semantic Kernel, built by the same teams and announced in October 2025 as Microsoft's single orchestration SDK going forward. It combines AutoGen's conversational multi-agent abstractions with",
+   "title": "The best AI agent frameworks in 2026",
+   "url": "https://www.langchain.com/resources/ai-agent-frameworks"
+  },
+  {
+   "chars_delivered": 4927,
+   "published": null,
+   "text": "#### Amazon Bedrock AgentCore\n\nAmazon Bedrock AgentCore is an agentic platform to build, deploy and operate highly capable agents securely at scale using any framework, model, or protocol. Using AgentCore, you can do the following, all without any infrastructure management:\n\nImplementation approach…",
+   "title": "AWS Prescriptive Guidance - Agentic AI frameworks, platforms, protocols, and tools on AWS",
+   "url": "https://docs.aws.amazon.com/pdfs/prescriptive-guidance/latest/agentic-ai-frameworks/agentic-ai-frameworks.pdf"
+  },
+  {
+   "chars_delivered": 250,
+   "published": "2026-11-10T18:41:18.000Z",
+   "text": ", Code Interpreter, Browser, Evaluations | Framework-neutral;\n...\n) and Flows (stateful, event-driven workflows), plus an enterprise console ... hybrid processes; Flows with start, listen and router steps | Not stated on the documentation home page |",
+   "title": "Multi-Agent Platforms in 2026: Frameworks Compared",
+   "url": "https://www.xenonstack.com/blog/top-multi-agent-platforms"
+  },
+  {
+   "chars_delivered": 247,
+   "published": "2026-08-05T13:41:46.000Z",
+   "text": "define roles, the framework coordinates. (CrewAI, classic AutoGen conversation\n...\nroutes to a refunds agent). Minimal, readable, and a natural fit for support-style routing. The ... OpenAI's own hosted tools (web search, file search, computer use",
+   "title": "AI Agent Frameworks Compared (2026): LangGraph vs CrewAI vs OpenAI Agents SDK vs Google ADK vs Microsoft Agent Framework | Agentmelt",
+   "url": "https://agentmelt.com/blog/ai-agent-frameworks-compared-2026/"
+  },
+  {
+   "chars_delivered": 253,
+   "published": "2026-10-15T02:00:00.000Z",
+   "text": "survives with the selected backend and resume configuration? |\n| Vercel AI SDK | Stored\n...\n-executes when the graph resumes? |\n| Pydantic AI | Message history and the selected durable\n...\n| Microsoft Agent Framework | Sessions, workflow checkpoints and",
+   "title": "Comparing Agent SDKs and Frameworks: Who Owns the Loop, State, and Runtime? | Zhengyu Chen",
+   "url": "https://prov1dence.top/posts/ai-agents/comparing-agent-sdks/"
+  },
+  {
+   "chars_delivered": 223,
+   "published": null,
+   "text": "sequentially or under a manager agent. Flows have built-in persistence (`@persist`, SQLite by ... . Model support is native for six providers (OpenAI, Anthropic, Gemini, Azure, Bedrock and Snowflake Cortex) and goes through",
+   "title": "The best Python AI agent frameworks in 2026",
+   "url": "https://pydantic.dev/articles/best-python-ai-agent-frameworks.md"
+  },
+  {
+   "chars_delivered": 221,
+   "published": "2026-09-08T08:57:14.000Z",
+   "text": "The OpenAI Agents SDK supports agents, handoffs, guardrails, sessions, tracing, and sandbox execution. Conversational session history and persistent sandbox memory serve different purposes (sandbox documentation). Support",
+   "title": "AI Agent Frameworks: Comparing the Leading Options - Liorant",
+   "url": "https://liorant.com/blog/ai-agent-frameworks-enterprise/"
+  },
+  {
+   "chars_delivered": 2781,
+   "published": "2026-07-14T00:00:00.000Z",
+   "text": "## Bedrock AgentCore: managed posture, IAM, Gateway, Identity\n\nThink of Amazon Bedrock AgentCore less as “the framework” and more as the managed layer under whatever framework the team already chose. AWS describes Runtime as framework-agnostic. The examples are not subtle: LangGraph, CrewAI, Strand…",
+   "title": "Agent Frameworks Compared: Security Trade-offs of AgentCore, CrewAI & LangGraph",
+   "url": "https://www.cloudsecuritypartners.com/blog/agent-frameworks-compared"
+  }
+ ],
+ "latency_ms": 906.8,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q12",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "Compare the general-purpose agent platforms: LangGraph Platform, CrewAI, Microsoft Agent Framework (AutoGen + Semantic Kernel), OpenAI Agents SDK, Google ADK / Vertex Agent Engine, and AWS Bedrock AgentCore. Cover runtime, state and memory, deployment, identity and auth, observability, and how multi-agent systems are composed.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17537,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:13.166856Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

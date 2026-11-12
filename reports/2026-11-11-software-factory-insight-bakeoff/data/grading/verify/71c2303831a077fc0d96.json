@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "ea567cc585704a3e",
+ "url": "https://opuslon.com/en/cas-clients/wasel-ma",
+ "verdicts": {
+  "In the Wasel.ma system, a strategist agent runs every Monday, synthesizing the brand brief, live data (Search Console, last week's results, competitor moves) and market trends into a weekly brief that a human approves on Telegram before execution.": 1,
+  "In the Wasel.ma system, agents do not call each other; they read and write Markdown files (BRAND_BRIEF.md, CAMPAIGN_BRIEF.md, RESULTS.md, SEO_REPORT.md, CRM.md) in a shared Obsidian vault, which serves as the audit trail and limits what a compromised agent can see.": 1,
+  "In the Wasel.ma system, final publishing and email sending require human validation via Telegram, and a mailer agent auto-replies to FAQ/pricing questions while escalating hot leads and demo requests to a human.": 1,
+  "Opuslon built a three-agent sequential system for the marketing agency Wasel.ma, where each agent receives the previous agent's output and has access only to the data its role needs (CRM, analytics, client drive).": 1,
+  "Reported Wasel.ma results: content volume x4 without hiring and commercial response time reduced from 24 hours to 2 hours.": 1,
+  "The Wasel.ma system uses an expensive model only for the weekly strategist and the lead-qualifying mailer, and a cheap model for content, publisher and FAQ-reply agents, to control cost.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "b07ede49904f960a",
+ "claims": [
+  {
+   "text": "StrongDM's AI team was founded by CTO/co-founder Justin McCarthy with Jay Taylor and Navan Chauhan on July 14, 2025.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "McCarthy published the factory account on February 6, 2026, stating the rules 'Code must not be written by humans' and 'Code must not be reviewed by humans.'",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's scenarios are end-to-end user stories, often stored outside the codebase like a machine-learning holdout set, and can be flexibly evaluated by an LLM.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM reported that agents took shortcuts against narrow tests (e.g. 'return true' could pass) and could rewrite in-repository tests to match the implementation, which motivated holdout scenarios.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM measures 'satisfaction': the fraction of observed trajectories across all scenarios that would likely satisfy the user, using a probabilistic, empirical approach partly because the software built itself contains LLMs and agent loops.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM treats generated code like an ML model snapshot, with opaque weights whose correctness is inferred exclusively from externally observable behavior.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "The stated stopping rule is that holdout scenarios 'pass (and stay passing)'; the harness is end-to-end and approximates customers, integrations and economics, with output samples fed back into inputs.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "Feedback evidence can include use traces, screen capture, conversation transcripts, incident replays, adversarial use, agentic simulation, surveys and customer interviews.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "The Digital Twin Universe contains six named service twins: Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM builds DTU twins from API contracts and observed edge cases, then validates them against the live dependency until no more behavioral differences are found.",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "StrongDM claims the DTU can run thousands of scenarios per hour without third-party rate limits, abuse detection or service API charges, but gives no reproducible benchmark.",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "The twins provide deterministic, replayable conditions and permit failure scenarios that would be dangerous or impossible against live services.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "Chauhan describes the workflow as plan, generate, run tests/validators, fix, repeat, with humans deciding what to build, what 'done' means and how to decompose work.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "The starting 'seed' can be a PRD/spec, a few sentences, a screenshot or an existing codebase.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "Attractor is the orchestration agent: a graph of work phases with node prompts and LLM-evaluated natural-language edges, traversed until convergence or termination, with checkpoint/resume.",
+   "url": "https://factory.strongdm.ai/products/attractor"
+  },
+  {
+   "text": "The public Attractor repository provides natural-language specifications (Attractor, Coding Agent Loop, Unified LLM Client) for a coding agent to implement, not StrongDM's internal executable.",
+   "url": "https://github.com/strongdm/attractor"
+  },
+  {
+   "text": "CXDB stores agent turn histories as a DAG with shared prefixes, O(1) branching via a new head pointer, content-addressed blob deduplication and a dynamic type registry.",
+   "url": "https://factory.strongdm.ai/products/cxdb"
+  },
+  {
+   "text": "Willison counted CXDB at about 16,000 lines of Rust, 9,500 of Go and 6,700 of TypeScript in his February 7, 2026 report.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's 'semport' technique daily checks openai/openai-agents-python commits for an internal Go implementation; Attractor records applicable fixes, runs tests and tags releases.",
+   "url": "https://factory.strongdm.ai/techniques/semport"
+  },
+  {
+   "text": "Willison visited in October 2025 and saw working demos of the coding harness, about half a dozen service twins and a swarm of simulated test agents; his report was published February 7, 2026.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "McCarthy's rule of thumb is at least $1,000 per human engineer per day in tokens; Willison extrapolated about $20,000 per engineer per month and questioned the economics.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "Chauhan said the team has not fully figured out how to onboard people to the codebases; each person owns multiple repositories and specs/sprint plans are committed so fresh agent sessions can recover context.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "The Coding Agent Loop spec filters sensitive environment-variable names by default but calls this 'a safety default, not a security boundary,' since agents can still read variables via shell commands.",
+   "url": "https://github.com/strongdm/attractor/blob/main/coding-agent-loop-spec.md"
+  },
+  {
+   "text": "Stanford CodeX's Eran Kahana (February 8, 2026) argues AI writers and AI judges may share blind spots and miss the same defects, and raises liability, accountability and loss-of-understanding risks.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "The reviewed materials do not publish the private holdout corpus or size, judge prompts and calibration, numeric acceptance thresholds, satisfaction scores, controlled productivity comparisons, or production defect/incident rates.",
+   "url": null
+  }
+ ],
+ "question_id": "Q01"
+}

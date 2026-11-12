@@ -1,0 +1,385 @@
+{
+ "digest": "3188f87136a9fded",
+ "values": {
+  "Q03-k1": {
+   "position": 70,
+   "reason": "A measured merge-rate jump from ~34% to ~67% gives a concrete benchmark for Agent OS's autonomous merge metrics, though it is self-reported.",
+   "score": 2
+  },
+  "Q03-k10": {
+   "position": 74,
+   "reason": "Claims of context across thousands of steps and a self-reflection retry loop are marketing-level and unspecific.",
+   "score": 0
+  },
+  "Q03-k11": {
+   "position": 7,
+   "reason": "Context kept by summarizing and referencing prior steps rather than a fixed token window is a relevant design detail for long sessions.",
+   "score": 2
+  },
+  "Q03-k12": {
+   "position": 43,
+   "reason": "A concrete topology (one manager, up to ten workers on isolated subtasks, automatic merge) that is comparable to the reader's dispatch design.",
+   "score": 2
+  },
+  "Q03-k13": {
+   "position": 22,
+   "reason": "File-format and macro-trigger details largely overlap with k21.",
+   "score": 1
+  },
+  "Q03-k14": {
+   "position": 18,
+   "reason": "Generic description of a knowledge-upload feature.",
+   "score": 0
+  },
+  "Q03-k15": {
+   "position": 40,
+   "reason": "Corporate acquisition trivia.",
+   "score": 0
+  },
+  "Q03-k16": {
+   "position": 15,
+   "reason": "Windsurf's indexing and a memory feature learned over about 48 hours are product details of minor value.",
+   "score": 1
+  },
+  "Q03-k17": {
+   "position": 60,
+   "reason": "A large-scale migration case study with a teach-the-pattern-then-delegate approach, but the efficiency and cost multipliers are vendor-reported and loosely defined.",
+   "score": 1
+  },
+  "Q03-k18": {
+   "position": 51,
+   "reason": "A measured contrast (67% merge on well-defined tasks vs. ~85% failure on ambiguous ones) directly informs task-scoping gates before autonomous dispatch and merge.",
+   "score": 3
+  },
+  "Q03-k19": {
+   "position": 12,
+   "reason": "An internal throughput number (659 vs 154 merged PRs per week) that is notable but lacks quality or size context.",
+   "score": 1
+  },
+  "Q03-k2": {
+   "position": 46,
+   "reason": "The finding that the agent's self-reported 'done' signal correlates imperfectly with true completion directly supports independent verification before autonomous merge.",
+   "score": 2
+  },
+  "Q03-k20": {
+   "position": 36,
+   "reason": "An aggregate vendor claim with no rates or denominators.",
+   "score": 0
+  },
+  "Q03-k21": {
+   "position": 14,
+   "reason": "An important measurement caveat: merged PR counts hide size and review effort, which should shape the metrics the ledger records.",
+   "score": 2
+  },
+  "Q03-k22": {
+   "position": 42,
+   "reason": "An important evidence-quality caveat: case studies are vendor-reported with no data on failures or retention.",
+   "score": 2
+  },
+  "Q03-k23": {
+   "position": 23,
+   "reason": "An independent measured success rate (3 of 20 tasks) is a key calibration point for autonomous merge.",
+   "score": 3
+  },
+  "Q03-k24": {
+   "position": 58,
+   "reason": "An observation that Devin took days on tasks humans finish in hours is a useful latency failure mode, but it is anecdotal and minor.",
+   "score": 1
+  },
+  "Q03-k28": {
+   "position": 45,
+   "reason": "A generic statement about needing clear requirements.",
+   "score": 0
+  },
+  "Q03-k3": {
+   "position": 4,
+   "reason": "Agents mutating shared environment state across sessions is a specific failure class that argues for per-session isolation and hardening-ledger entries.",
+   "score": 3
+  },
+  "Q03-k31": {
+   "position": 0,
+   "reason": "A concrete merge rate of about 33% (100 of 300 PRs), broken down by task type, is a useful baseline for calibrating autonomous-merge expectations.",
+   "score": 3
+  },
+  "Q03-k32": {
+   "position": 39,
+   "reason": "Parallel per-repo agents plus file-location knowledge for large repos is a minor but concrete practice.",
+   "score": 1
+  },
+  "Q03-k33": {
+   "position": 65,
+   "reason": "API-spawned parallel agents for a multi-repo feature corroborates Agent OS's existing build-pack DAG fan-out without giving new detail.",
+   "score": 1
+  },
+  "Q03-k34": {
+   "position": 38,
+   "reason": "Generic prompting advice.",
+   "score": 1
+  },
+  "Q03-k35": {
+   "position": 25,
+   "reason": "An anecdote about using a failed attempt as a proof of concept, with limited architectural value.",
+   "score": 1
+  },
+  "Q03-k36": {
+   "position": 20,
+   "reason": "A concrete playbook schema (outcome, steps, postconditions, prior corrections, forbidden actions, required inputs) is directly adoptable for build packs.",
+   "score": 2
+  },
+  "Q03-k37": {
+   "position": 41,
+   "reason": "Example use cases for playbooks with little design detail.",
+   "score": 1
+  },
+  "Q03-k38": {
+   "position": 62,
+   "reason": "A specific event-triggered playbook (Linear label → triage using git history and Datadog MCP) is a concrete pattern for automated SEV intake.",
+   "score": 2
+  },
+  "Q03-k39": {
+   "position": 55,
+   "reason": "Giving the agent observability and read-only DB access for end-to-end bug fixing with regression tests is a concrete access-scoping pattern relevant to the SEV pipeline.",
+   "score": 2
+  },
+  "Q03-k4": {
+   "position": 56,
+   "reason": "A specific failure class (subtle vulnerabilities in auth, validation, and crypto code) argues for a path-based exception to autonomous merge in security-critical areas.",
+   "score": 3
+  },
+  "Q03-k40": {
+   "position": 73,
+   "reason": "Autofix loops on review flags and CI until green, with review identified as the bottleneck, inform how Agent OS couples adversarial review to automatic remediation.",
+   "score": 2
+  },
+  "Q03-k41": {
+   "position": 52,
+   "reason": "Post-session analysis for scope creep and communication gaps, with suggested improved prompts, is a concrete feedback-loop design that could extend Agent OS's postmortem ledger to non-incident sessions.",
+   "score": 2
+  },
+  "Q03-k42": {
+   "position": 34,
+   "reason": "Practical guidance on small isolated sessions and needed verification mechanisms that corroborates existing design.",
+   "score": 1
+  },
+  "Q03-k43": {
+   "position": 29,
+   "reason": "A failure mode where performance degrades when requirements change mid-task, which argues for immutable tickets and re-dispatch rather than amending running sessions.",
+   "score": 2
+  },
+  "Q03-k44": {
+   "position": 53,
+   "reason": "A model-specific failure mode (premature shortcuts from perceived context limits) and the precise mitigation (start and end reminders, 1M window capped at 200k) could change how Agent OS configures worker context budgets per harness.",
+   "score": 3
+  },
+  "Q03-k45": {
+   "position": 17,
+   "reason": "A measured finding that model self-written notes paraphrase and drop task details without harness-side compaction, which directly informs memory and context architecture.",
+   "score": 3
+  },
+  "Q03-k46": {
+   "position": 50,
+   "reason": "Concrete failure modes of agent-driven testing (over-testing, setup drift, JS execution instead of UI clicks) plus a specific mitigation (code-grounded test plan with expected-behavior annotations) that could reshape Agent OS's smoke-test and review design.",
+   "score": 3
+  },
+  "Q03-k47": {
+   "position": 71,
+   "reason": "A concrete customer metric (271 PRs, 80% success after senior review) is a useful external baseline for merge success.",
+   "score": 2
+  },
+  "Q03-k48": {
+   "position": 69,
+   "reason": "Customer evidence that structured, documented tickets beat unstructured prompts supports spec-first ticketing, but it corroborates rather than adds.",
+   "score": 1
+  },
+  "Q03-k49": {
+   "position": 13,
+   "reason": "Concrete input practices (scoped tickets with acceptance criteria, context pulled into sessions, Markdown spec files) that validate the spec-to-ticket design.",
+   "score": 2
+  },
+  "Q03-k5": {
+   "position": 26,
+   "reason": "Names a failure class (non-standard infrastructure and tooling causing unclear error loops) that matters for loop detection and routing, though it is unquantified.",
+   "score": 2
+  },
+  "Q03-k50": {
+   "position": 27,
+   "reason": "A concrete scoping heuristic (tasks of about two engineer-hours, low ambiguity) useful for ticket sizing in DAG decomposition.",
+   "score": 2
+  },
+  "Q03-k51": {
+   "position": 24,
+   "reason": "Shows that narrow, repetitive tasks with a continually refined prompt reach high success, supporting task-type routing.",
+   "score": 2
+  },
+  "Q03-k54": {
+   "position": 44,
+   "reason": "A third-party interpretation of DAG planning that the reader already does.",
+   "score": 0
+  },
+  "Q03-k55": {
+   "position": 2,
+   "reason": "The split between an Ask/plan mode and an Agent/execute mode, plus local-to-cloud handoff of a session, is a concrete design detail relevant to multi-harness dispatch.",
+   "score": 2
+  },
+  "Q03-k56": {
+   "position": 21,
+   "reason": "AGENTS.md discovery with a repo-indexing prerequisite is a minor convention detail.",
+   "score": 1
+  },
+  "Q03-k57": {
+   "position": 64,
+   "reason": "Relevance-gated retrieval of knowledge, rather than loading everything into context, bears directly on how Agent OS injects scar memory into worker prompts as the ledger grows.",
+   "score": 2
+  },
+  "Q03-k58": {
+   "position": 30,
+   "reason": "A generic description of playbooks.",
+   "score": 0
+  },
+  "Q03-k59": {
+   "position": 3,
+   "reason": "A minor product-parity limitation of the CLI with little architectural consequence for the reader.",
+   "score": 1
+  },
+  "Q03-k6": {
+   "position": 48,
+   "reason": "Per-task isolated sandbox with no shared state is a corroborating isolation detail.",
+   "score": 1
+  },
+  "Q03-k60": {
+   "position": 57,
+   "reason": "The Allow/Ask/Deny permission model, with a sandbox that fails closed rather than running unsandboxed, is a specific governance design worth adopting in worker dispatch.",
+   "score": 2
+  },
+  "Q03-k61": {
+   "position": 61,
+   "reason": "A closed model stack is a product constraint that contrasts with Agent OS's multi-harness approach but does not inform its architecture.",
+   "score": 1
+  },
+  "Q03-k64": {
+   "position": 37,
+   "reason": "Product rebrand news, though a unified board of local and cloud sessions is a minor UI design signal.",
+   "score": 1
+  },
+  "Q03-k65": {
+   "position": 11,
+   "reason": "Product migration trivia about Cascade memories moving to skills, though it does signal a consolidation toward skills.",
+   "score": 1
+  },
+  "Q03-k66": {
+   "position": 5,
+   "reason": "Corroborates that agents do better on bug fixes and docs than on complex features, but the source is secondary and vague.",
+   "score": 1
+  },
+  "Q03-k68": {
+   "position": 28,
+   "reason": "Human-written playbooks run by fleets across hundreds of repos is relevant fleet evidence, though the numbers are vendor-reported.",
+   "score": 2
+  },
+  "Q03-k7": {
+   "position": 59,
+   "reason": "Two explicit human checkpoints (plan approval and diff approval) are a clear design detail, though Agent OS already has spec→DAG planning and PR review gates.",
+   "score": 2
+  },
+  "Q03-k73": {
+   "position": 10,
+   "reason": "A generic description of Devin as a cloud agent, mostly marketing.",
+   "score": 0
+  },
+  "Q03-k74": {
+   "position": 6,
+   "reason": "Vendor-reported customer metrics with some specificity, but they say little about architecture.",
+   "score": 1
+  },
+  "Q03-k75": {
+   "position": 47,
+   "reason": "A background planning agent refining the long-term plan while the executing model takes short-term actions is a specific, adoptable planning architecture.",
+   "score": 2
+  },
+  "Q03-k77": {
+   "position": 68,
+   "reason": "Scoping knowledge to repo, org, or enterprise is a useful tiering detail for multi-tenant memory, but it largely overlaps k15.",
+   "score": 1
+  },
+  "Q03-k78": {
+   "position": 49,
+   "reason": "A product deprecation (Knowledge moving to Skills) that mildly signals consolidation of the knowledge model.",
+   "score": 1
+  },
+  "Q03-k79": {
+   "position": 9,
+   "reason": "Writing a source-grounded test plan first and persisting hard-won setup steps as repo skills maps closely onto scar-memory and smoke-test design.",
+   "score": 2
+  },
+  "Q03-k8": {
+   "position": 33,
+   "reason": "A specific security failure mode (prompt injection via issues, PRs and web content evading the planning checkpoint) that matters for a general-purpose platform and its review gates.",
+   "score": 3
+  },
+  "Q03-k80": {
+   "position": 66,
+   "reason": "The local plan → one-click cloud execution → in-IDE review handoff is a modest new integration detail for the human-facing surface.",
+   "score": 1
+  },
+  "Q03-k81": {
+   "position": 32,
+   "reason": "A small-sample PR-count anecdote.",
+   "score": 0
+  },
+  "Q03-k82": {
+   "position": 1,
+   "reason": "Shows that example code or a playbook up front cuts review rounds, which mildly supports richer spec inputs in build packs.",
+   "score": 1
+  },
+  "Q03-k83": {
+   "position": 16,
+   "reason": "A specific failure mode (looping on an outdated library version) plus a measured human-time saving, informing dependency-version grounding.",
+   "score": 2
+  },
+  "Q03-k84": {
+   "position": 72,
+   "reason": "Insufficient context and unrealistic expectations are generic advice.",
+   "score": 0
+  },
+  "Q03-k85": {
+   "position": 19,
+   "reason": "A vendor feature list without measured detail.",
+   "score": 1
+  },
+  "Q03-k86": {
+   "position": 63,
+   "reason": "The shared-kernel isolation argument for VMs over containers is a specific security consideration that could change Agent OS's worker sandboxing choice, though it is vendor-framed.",
+   "score": 2
+  },
+  "Q03-k87": {
+   "position": 35,
+   "reason": "A specific sandbox design (per-session microVM with its own kernel, enabling full browser and desktop use) plus its engineering cost, which directly informs isolation architecture.",
+   "score": 3
+  },
+  "Q03-k88": {
+   "position": 54,
+   "reason": "Hypervisor-level full-state snapshots that idle compute while waiting on CI or review, then resume exactly, are a specific infrastructure design that could change how Agent OS handles long-waiting sessions.",
+   "score": 3
+  },
+  "Q03-k89": {
+   "position": 8,
+   "reason": "A specific infrastructure finding that container state can't be snapshotted, forcing compute burn or session loss, which bears directly on sandbox choice for async long-running workers.",
+   "score": 3
+  },
+  "Q03-k9": {
+   "position": 67,
+   "reason": "An ephemeral clone/plan/test/fix loop with live observation is a generic description of how coding agents work.",
+   "score": 1
+  },
+  "Q03-k90": {
+   "position": 31,
+   "reason": "A concrete cost and scope signal: orchestration took three quarters of work and covers provisioning, demand prediction, crash recovery and teardown, which informs build-vs-buy and component scope.",
+   "score": 2
+  },
+  "Q03-k91": {
+   "position": 75,
+   "reason": "An anecdote that a company abandoned its own agent infrastructure is vendor marketing.",
+   "score": 0
+  }
+ }
+}

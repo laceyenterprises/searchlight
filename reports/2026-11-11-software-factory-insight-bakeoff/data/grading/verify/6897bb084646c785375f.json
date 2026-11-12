@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "719adbf5303d4c27",
+ "url": "https://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal",
+ "verdicts": {
+  "Ramp's Inspect background coding agent runs each session in a Modal Sandbox with a full-stack dev environment (Postgres, Redis, Temporal, RabbitMQ) and integrates with Sentry, Datadog, LaunchDarkly and Temporal to verify its own work; it now writes over half of merged PRs at Ramp.": 1,
+  "Ramp's Inspect runs each session in a Modal Sandbox with Postgres, Redis, Temporal and RabbitMQ, started from filesystem snapshots rebuilt every 30 minutes.": 1,
+  "Ramp's Inspect starts about half of Ramp's merged PRs, and over 80% of Inspect's own code is written by Inspect.": 1
+ }
+}

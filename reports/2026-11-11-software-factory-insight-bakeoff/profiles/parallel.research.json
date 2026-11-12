@@ -1,0 +1,77 @@
+{
+ "arm": "parallel",
+ "async": {
+  "interval_s": 15,
+  "poll_endpoint": "GET https://api.parallel.ai/v1/tasks/runs/{run_id}",
+  "result_endpoint": "GET https://api.parallel.ai/v1/tasks/runs/{run_id}/result",
+  "timeout_s": 2700
+ },
+ "cost_model": "Task 'ultra' $300/1k successful runs = $0.30, one charge per run regardless of output fields.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "processor latency/fields: pro 2-10 min exploratory; ultra 3-25 min multi-source deep research",
+   "url": "https://docs.parallel.ai/task-api/guides/choose-a-processor.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "output_schema json/text/auto; auto = deep research only on pro+",
+   "url": "https://docs.parallel.ai/task-api/guides/specify-a-task.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "auto schema for deep research tasks; field descriptions",
+   "url": "https://docs.parallel.ai/task-api/best-practices.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "lite $5 ... pro $100, ultra $300, ultra8x $2400 per 1k",
+   "url": "https://docs.parallel.ai/getting-started/pricing.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "Task runs 2000/min",
+   "url": "https://docs.parallel.ai/getting-started/rate-limits.md"
+  }
+ ],
+ "endpoint": "POST https://api.parallel.ai/v1/tasks/runs",
+ "est_cost_usd_per_question": 0.3,
+ "freshness_overlay": {
+  "source_policy": {
+   "after_date": "{{AFTER_DATE}}"
+  }
+ },
+ "headers": {
+  "x-api-key": "<PARALLEL_API_KEY>"
+ },
+ "operation": "research",
+ "pace_seconds": 0.2,
+ "params": {
+  "input": "{{RESEARCH_BRIEF}}",
+  "processor": "ultra",
+  "task_spec": {
+   "output_schema": {
+    "type": "auto"
+   }
+  }
+ },
+ "post_steps": [],
+ "query_transform": "research_brief",
+ "query_transform_notes": "Task best practices: be specific about what you expect back; auto schema for Deep-Research-style tasks (works only on pro and above).",
+ "rationale": {
+  "output_schema": "auto = Deep Research style output with nested FieldBasis citations.",
+  "processor": "'ultra' is the documented tier for 'multi-source deep research'; 'pro' (our 2026-09 choice, $0.10) is 'exploratory web research'. Variant PAR-R-PRO pre-registered for price-matched comparison."
+ },
+ "top_k": null,
+ "unverified": true,
+ "unverified_fields": {
+  "async": {
+   "note": "Poll/result paths are from our 2026-09 harness (verified then); not re-read on 2026-11-11.",
+   "unverified": true
+  },
+  "freshness_overlay": {
+   "note": "Task API source_policy exists (docs page 'Source Policy (Task API)') but its after_date field was not read on 2026-11-11.",
+   "unverified": true
+  }
+ }
+}

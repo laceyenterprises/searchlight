@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:18.279531Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 3692,
+   "published": null,
+   "text": "# Who Is Building the Agent-Native Operating System?\n## The academic kernel: AIOS\nThe most rigorous attempt to define what an agent operating system *should* look like comes from academia. AIOS, developed by researchers at Rutgers University, was published at the Conference on Language Modeling (CO…",
+   "title": "Who Is Building the Agent-Native Operating System?",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "chars_delivered": 2894,
+   "published": null,
+   "text": "# Agent OS: the concept shaping the new stack layer\n## Key takeaways\n- The **AIOS paper** (Rutgers, March 2024) coins the concept with rigor: autonomous agents share the same classic problems an OS had to solve for processes.\n- An Agent OS consists of **four pieces** at varying maturity: request sc…",
+   "title": "Agent OS: Autonomous Agent Architecture",
+   "url": "https://jacar.es/en/agent-os-the-concept-shaping-the-new-stack-layer/"
+  },
+  {
+   "chars_delivered": 6717,
+   "published": null,
+   "text": "###### Abstract\nInspired by these challenges, this paper presents AIOS, an LLM agent operating system, which embeds large language model into operating systems (OS).  We present the architecture of such an operating system, outline the core challenges it aims to resolve, and provide the basic desig…",
+   "title": "LLM Agent Operating System",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "chars_delivered": 2744,
+   "published": null,
+   "text": "# AI Agent Memory Architecture: Persistent State Management for Long-Running Agents\n## Key Findings: Framework Landscape\n### Letta (formerly MemGPT) — OS-Inspired Self-Managed Memory\nDeveloped at UC Berkeley, Letta takes an operating system metaphor: the LLM itself manages memory tiers through expl…",
+   "title": "AI Agent Memory Architecture: Persistent State Management for Long-Running Agents",
+   "url": "https://zylos.ai/research/2026-05-28-ai-agent-memory-architecture-persistent-state-management/"
+  },
+  {
+   "chars_delivered": 3989,
+   "published": null,
+   "text": "# Agentic OS: What an Agent Operating System Actually Is\n## Where the metaphor holds: five primitives that map cleanly\n### Memory management\nThis is the cleanest mapping of the five, and it has academic backing. The context window is finite working memory, and everything an agent knows that does no…",
+   "title": "Agentic OS: What an Agent Operating System Actually Is",
+   "url": "https://rerun.build/blog/agentic-os"
+  },
+  {
+   "chars_delivered": 2518,
+   "published": null,
+   "text": "# AIOS: AI-Integrated Operating System\n- AIOS is an LLM-centric operating system that orchestrates agents, memory, and tool access via natural language system calls.\n- It integrates traditional OS primitives with AI-specific functions, achieving performance improvements in scheduling and context ma…",
+   "title": "AIOS: AI-Integrated Operating System",
+   "url": "https://www.emergentmind.com/topics/aios"
+  },
+  {
+   "chars_delivered": 3457,
+   "published": null,
+   "text": "# Letta: The Open-Source Agent Framework That Finally Treats the LLM Like an Operating System\nMost agent memory is retrieval-augmented guessing. Letta, the open-source descendant of the MemGPT paper, takes a different bet: give the LLM explicit memory-management tool calls and let it page its own c…",
+   "title": "Letta: The Open-Source Agent Framework That Finally Treats the LLM Like an Operating System",
+   "url": "https://mr.technology/payloads/open_source_letta_memgpt_agent_framework_june_2026"
+  },
+  {
+   "chars_delivered": 8655,
+   "published": null,
+   "text": "# Letta (MemGPT) Walkthrough: How Self-Managing Agent Memory Works (2026)\nLetta (formerly MemGPT) is an open-source stateful agent framework where the agent itself manages its memory via tool calls. It uses an OS-inspired hierarchy — main context, recall storage, archival storage — and labeled memo…",
+   "title": "Letta (MemGPT) Walkthrough: How Self-Managing Agent Memory Works (2026)",
+   "url": "https://sureprompts.com/blog/letta-memgpt-walkthrough"
+  },
+  {
+   "chars_delivered": 4449,
+   "published": null,
+   "text": "# Mem0 vs Cognee vs Letta: Which AI Agent Memory Actually Sticks?\n## The Three Approaches#\nBefore comparing features, you need to understand what each tool actually *is*.\n\n**Mem0** is a memory layer you attach to an existing agent. Your agent handles reasoning, Mem0 handles remembering. It extracts…",
+   "title": "Mem0 vs Cognee vs Letta: Which AI Agent Memory Actually Sticks?",
+   "url": "https://www.danilchenko.dev/posts/mem0-vs-cognee-vs-letta/"
+  },
+  {
+   "chars_delivered": 3753,
+   "published": null,
+   "text": "Letta reviewed: the only major agent framework where long-term memory management is the primary design goal. Three-tier memory architecture, persistent stateful agents, 9 agent types, MCP client, 15+ LLM providers. 22K stars, Apache 2.0, Python, v0.16.7. Rating: 4/5.\n\nThree-tier memory hierarchy (c…",
+   "title": "Letta (MemGPT) — The Memory-Native Agent Framework — ChatForest",
+   "url": "https://chatforest.com/reviews/letta-memgpt-stateful-agent-framework/"
+  }
+ ],
+ "latency_ms": 1919.5,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q13",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What 'operating system for agents' designs exist (AIOS, Letta/MemGPT, others)? How do they handle scheduling, memory management, context switching, tool access and isolation between agents, and what has been learned from them?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 50503,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:16.359999Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

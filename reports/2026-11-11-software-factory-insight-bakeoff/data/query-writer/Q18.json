@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "autonomous coding agents reward hacking test tampering",
+  "AI coding agent failure modes at scale mitigation",
+  "AI code review rubber-stamping agent pull requests regressions"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: What are the documented failure modes of autonomous AI coding agents at scale: reward hacking or test tampering, review rubber-stamping, regressions introduced by fixes, runaway token spend, and merge conflicts in high-volume repos? How do organizations mitigate them? Rank first primary sources: organizations' own engineering blog posts, docs, conference talks, research papers, and credible reporting. Extract mechanisms, numbers, names, dates, measured results, and specific failure modes (agents editing or deleting tests, special-casing to pass, AI reviewers approving flawed PRs, fixes causing regressions, token cost overruns, merge queue conflicts), plus concrete mitigations such as sandboxing, held-out tests, human review gates, budget caps, and merge queues.",
+ "question_id": "Q18",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

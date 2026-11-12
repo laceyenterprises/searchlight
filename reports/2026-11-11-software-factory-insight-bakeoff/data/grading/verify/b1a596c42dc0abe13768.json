@@ -1,0 +1,13 @@
+{
+ "capture": "uncapturable",
+ "digest": "606f50cdfccb9c56",
+ "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html",
+ "verdicts": {
+  "A team spending $60,000 a month at 5% monthly growth crosses $100,000 by month 12 and approaches $200,000 by month 24, even as per-token prices fall.": null,
+  "Splunk advises measuring cost and quality together, routing tasks to cheaper models when they meet required quality, and measuring savings from caching, routing, compression and batching.": null,
+  "Splunk cites a workload running a frontier model at $200,000 a month that routed 60% of tasks to cheaper models and cut cost 42% with compliance intact.": null,
+  "Splunk recommends budgeting for outcomes: the FinOps Foundation example maps a $50,000 monthly AI bill to 200,000 resolved customer queries at $0.25 per query, down from $0.40 the prior quarter.": null,
+  "Splunk reports cached reads cost 10% of standard input price with break-even after about 1.4 reads of the same prefix, and that UC Berkeley's RouteLLM reported cost reductions up to 85% (85% on MT Bench, 45% on MMLU, 35% on GSM8K) while keeping 95% of GPT-4 performance.": null,
+  "Uber deployed Claude Code to roughly 5,000 engineers and reportedly burned its 2026 AI budget in four months before introducing monthly AI coding limits.": null
+ }
+}

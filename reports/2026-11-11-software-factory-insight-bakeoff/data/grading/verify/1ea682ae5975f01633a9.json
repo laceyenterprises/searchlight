@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "dc713b05579835c5",
+ "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud",
+ "verdicts": {
+  "In Restate, each ctx.run() call is journaled before execution; if the handler crashes, Restate re-invokes it and replays the journal, skipping already-executed runs, giving exactly-once semantics without idempotency keys in application code.": 1,
+  "In Restate, each virtual object has a unique key (e.g., a session ID) and all handler calls on that object are serialized.": 1,
+  "Inngest's function-level concurrency option caps parallel GPU calls, and retries are per step, so only the failed step is retried.": 1,
+  "Temporal guidance for GPU-backed agents is to put GPU-bound or side-effecting operations in activities, not workflow code, because workflow code must be deterministic and fast since it replays on every worker restart.": 1,
+  "Temporal records an event history per workflow (activity scheduled, started, completed); on replay the workflow code re-executes deterministically and completed steps return their recorded results.": 1,
+  "Temporal's heartbeat_timeout (e.g., 60s, with heartbeats every 30s) lets Temporal detect a dead GPU worker (spot preemption, OOM, crash) within one timeout interval and reschedule the activity.": 1,
+  "The Spheron article says Temporal gets exactly-once semantics via idempotency keys, Inngest via step IDs, and Restate natively.": 1
+ }
+}

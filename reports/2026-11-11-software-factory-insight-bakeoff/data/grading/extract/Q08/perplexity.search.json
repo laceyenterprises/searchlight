@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "23d6cc04926e00e7",
+ "claims": [
+  {
+   "text": "Anthropic's long-running agent harness for the Claude Agent SDK uses two parts: an initializer agent that sets up the environment on the first run, and a coding agent that makes incremental progress in every session while leaving clear artifacts for the next session.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent's first session uses a specialized prompt to create an init.sh script, a claude-progress.txt file logging what agents have done, and an initial git commit showing which files were added.",
+   "url": null
+  },
+  {
+   "text": "Agents quickly understand the state of work when starting with a fresh context window through the claude-progress.txt file alongside the git history.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent writes a comprehensive feature requirements file expanding on the user's prompt, with all features initially marked as \"failing\", to stop the agent from one-shotting the app or prematurely considering the project complete.",
+   "url": null
+  },
+  {
+   "text": "Coding agents are told to edit the feature list only by changing the status of a passes field, with strongly worded instructions such as \"It is unacceptable to remove or edit tests because this could lead to missing or buggy functionality.\"",
+   "url": null
+  },
+  {
+   "text": "Anthropic used JSON for the feature list because the model is less likely to inappropriately change or overwrite JSON files than Markdown files.",
+   "url": null
+  },
+  {
+   "text": "Asking the coding agent to work on only one feature at a time was critical to addressing the agent's tendency to do too much at once.",
+   "url": null
+  },
+  {
+   "text": "To leave the environment clean, the model is asked to commit progress to git with descriptive commit messages and write progress summaries to a progress file, which lets it use git to revert bad changes and recover working states.",
+   "url": null
+  },
+  {
+   "text": "Each coding agent starts a session by running pwd, reading git logs and progress files, and reading the feature list to choose the highest-priority unfinished feature; it also runs a basic end-to-end test of the dev server (started via init.sh) before implementing a new feature.",
+   "url": null
+  },
+  {
+   "text": "Anthropic states it is still unclear whether a single general-purpose coding agent performs best or whether a multi-agent architecture with specialized agents (testing, quality assurance, code cleanup) would do better.",
+   "url": null
+  },
+  {
+   "text": "In the multi-agent research system, three factors explained 95% of performance variance on the BrowseComp evaluation, and token usage by itself explained 80% of the variance, with number of tool calls and model choice as the other two factors.",
+   "url": null
+  },
+  {
+   "text": "Agents typically use about 4× more tokens than chat interactions, and multi-agent systems use about 15× more tokens than chats, so they require tasks valuable enough to pay for the increased performance.",
+   "url": null
+  },
+  {
+   "text": "Upgrading to Claude Sonnet 4 was a larger performance gain than doubling the token budget on Claude Sonnet 3.7.",
+   "url": null
+  },
+  {
+   "text": "The Research system uses an orchestrator-worker pattern in which a lead agent analyzes the query, develops a strategy, and spawns subagents that search different aspects in parallel.",
+   "url": null
+  },
+  {
+   "text": "Each subagent needs an objective, an output format, guidance on tools and sources, and clear task boundaries; without detailed task descriptions, agents duplicate work, leave gaps, or fail to find necessary information.",
+   "url": null
+  },
+  {
+   "text": "Because agents struggle to judge appropriate effort, scaling rules were embedded in prompts: simple fact-finding uses 1 agent with 3-10 tool calls, direct comparisons 2-4 subagents with 10-15 calls each, and complex research more than 10 subagents.",
+   "url": null
+  },
+  {
+   "text": "Overinvestment in simple queries was a common failure mode in early versions of the Research system.",
+   "url": null
+  },
+  {
+   "text": "Parallelization, with the lead agent spinning up 3-5 subagents in parallel and subagents using 3+ tools in parallel, cut research time by up to 90% for complex queries.",
+   "url": null
+  },
+  {
+   "text": "Lead agents execute subagents synchronously, waiting for each set to complete, which simplifies coordination but creates bottlenecks in information flow.",
+   "url": null
+  },
+  {
+   "text": "Anthropic uses rainbow deployments, gradually shifting traffic from old to new versions while both run, to avoid disrupting running agents.",
+   "url": null
+  },
+  {
+   "text": "For long conversations, agents summarize completed work phases and store essential information in external memory, and can spawn fresh subagents with clean contexts with careful handoffs when context limits approach.",
+   "url": null
+  },
+  {
+   "text": "Subagents can write outputs to a filesystem as artifacts, bypassing the lead coordinator, to minimize the 'game of telephone' and improve fidelity and performance.",
+   "url": null
+  },
+  {
+   "text": "The Claude Agent SDK supports subagents by default for parallelization and context management, since subagents use isolated context windows and send only relevant information back to the orchestrator.",
+   "url": null
+  },
+  {
+   "text": "The Claude Agent SDK's compact feature automatically summarizes previous messages when the context limit approaches, and is built on Claude Code's compact slash command.",
+   "url": null
+  },
+  {
+   "text": "SDK compaction replaces older messages with a summary, so specific instructions from early in the conversation may not be preserved; it emits a system message with subtype \"compact_boundary\", and /compact can be sent to trigger it manually.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

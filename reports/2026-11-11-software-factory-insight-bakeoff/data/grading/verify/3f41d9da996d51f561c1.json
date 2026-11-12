@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "4a65051b61b7dc92",
+ "url": "https://docs.restate.dev/use-cases/ai-agents",
+ "verdicts": {
+  "Restate automatically retries transient errors such as rate limits and network failures, persists steps (LLM calls, tools) to recover progress after failures, and suspends idle long-running agents to save costs.": 1,
+  "Restate documents a Human Approval pattern: durable waiting for human decisions with crash-proof timeouts.": 1
+ }
+}

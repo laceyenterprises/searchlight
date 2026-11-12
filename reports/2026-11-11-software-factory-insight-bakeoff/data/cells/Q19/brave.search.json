@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:28.614376Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 7046,
+   "published": null,
+   "text": "# AI Agent Token Attribution and Cost Allocation in Multi-Project Workflows\n## Executive Summary\nAs AI coding agents evolve from single-session tools into autonomous CI/CD participants operating across dozens of repositories simultaneously, the question of *who pays for what* has become an engineer…",
+   "title": "AI Agent Token Attribution and Cost Allocation in Multi-Project Workflows",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "chars_delivered": 7161,
+   "published": null,
+   "text": "# Budgeting the Agent Fleet: Tokens, Compute, and Headcount\n## Budget the Fleet by Output\nAgent capacity behaves like variable labor. The budget line should be sized by the work the fleet completes. Seats distribute access. A seat license buys access; an agent invoice buys inference and compute, in…",
+   "title": "Budgeting the Agent Fleet: Tokens, Compute, and Headcount",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "chars_delivered": 5153,
+   "published": null,
+   "text": "# AI Agent Cost Optimization: Token FinOps for the Age of Runaway Agent Spend\nAgents get cheaper per token and more expensive per task at the same time. Per-token prices are collapsing, but each agent resends its full context on every step, so a single autonomous workflow can burn what a chatbot wo…",
+   "title": "AI Agent Cost Optimization: Token FinOps for the Age of Runaway Agent Spend",
+   "url": "https://gainam.com/insights/ai-agent-cost-optimization"
+  },
+  {
+   "chars_delivered": 2415,
+   "published": null,
+   "text": "# The Bill Arrives: How to Manage Agentic AI Costs at Scale\nMonthly API costs per engineer were running between $500 and $2,000. Enterprise AI inference now represents 85% of total AI budgets, and agentic workflows consume 5 to 30 times more tokens per task than a standard chatbot query.\n\n## The hi…",
+   "title": "The Bill Arrives: How to Manage Agentic AI Costs at Scale",
+   "url": "https://www.cockroachlabs.com/blog/agentic-ai-costs-at-scale/"
+  },
+  {
+   "chars_delivered": 3653,
+   "published": null,
+   "text": "# The Token Economics of Agentic Systems\n#### The levers, in order of return\n| Lever | Mechanism | Where it pays |\n| --- | --- | --- |\n| Prompt caching | Stable prefix (system prompt, tool schemas) cached by the provider at a discounted rate | Every multi-turn loop; often the single largest saving…",
+   "title": "The Token Economics of Agentic Systems · Zorost Intelligence",
+   "url": "https://zorost.com/token-economics-agentic-systems"
+  },
+  {
+   "chars_delivered": 3632,
+   "published": null,
+   "text": "# One PR Billed 156M Tokens. Cap the Reads, Not the Rate.\nA published trace of one 800-line pull request shows a coding agent billed roughly 156 million tokens to produce 289,000 — 98% of the volume was cache re-reads of context re-sent on every one of 512 turns. Coding-agent cost is set by turns p…",
+   "title": "One PR Billed 156M Tokens. Cap the Reads, Not the Rate.",
+   "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget"
+  },
+  {
+   "chars_delivered": 3228,
+   "published": null,
+   "text": "# The Hidden Cost of Autonomy: Managing Token Optimization in Agentic AI\n## The Metric That Changes Behaviour: Cost Per Resolved Task\nCost per token is the wrong unit. It falls every year and tells IT nothing actionable. Cost per task is closer, but it quietly rewards an agent that gives up early.…",
+   "title": "Token Optimization in Agentic AI: How to Stop Agents Draining?",
+   "url": "https://silentinfotech.com/blog/ai-9/cost-of-autonomy-managing-token-optimization-in-agentic-ai-688"
+  },
+  {
+   "chars_delivered": 1521,
+   "published": null,
+   "text": "# AI agent costs: what agents really cost and how to optimize them\n## How much does an AI agent cost to run?\nCost per agent task=S×(T_(in)×P_(in)+T_(out)×P_(out))+C_(tools)+C_(infra)\n\nWhere S is the average model calls per task, T_in and T_out are average input and output tokens per call, P_in and…",
+   "title": "AI agent costs: what agents really cost and how to optimize them",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost/"
+  },
+  {
+   "chars_delivered": 4350,
+   "published": null,
+   "text": "## Who charges for what\n| Vendor and product | What is charged | What is known | Source |\n| --- | --- | --- | --- |\n| Oracle Fusion applications | \"AI units\" consumed as AI does work, on top of the subscription. The press headline calls this billing per task. | Announced at Oracle's investor day on…",
+   "title": "AI Agent Costs: How to Budget by Finished Task",
+   "url": "https://www.querynow.com/blog/budget-ai-agents-cost-per-finished-task-usage-billing-693815"
+  },
+  {
+   "chars_delivered": 2654,
+   "published": null,
+   "text": "# AI Agent Loop Token Costs: How to Constrain Context\n## The Math: How 10 Retries Cost 5-10x a Constrained Approach\nOne common first response to this problem is prompt caching, but caching only addresses the fixed system prompt portion of each call. On Claude Sonnet 4.6, cache reads cost $0.30/1M v…",
+   "title": "AI Agent Loop Token Costs: How to Constrain Context",
+   "url": "https://www.augmentcode.com/guides/ai-agent-loop-token-cost-context-constraints"
+  }
+ ],
+ "latency_ms": 1373.8,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q19",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How do organizations govern token and compute cost for agent fleets: budgets per task or agent, model routing and cascades, prompt caching, and cost attribution? What figures have been published for the cost per merged PR or per completed agent task?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 48328,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:27.240545Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "7b67a326b8625bd1",
+ "url": "https://github.com/strongdm/attractor/blob/main/attractor-spec.md#34-goal-gate-enforcement",
+ "verdicts": {
+  "In the Attractor specification, an exit is successful only if visited goal-gate nodes have SUCCESS or an allowed PARTIAL_SUCCESS. An unsatisfied goal gate jumps to a configured retry target, and with no retry target the pipeline fails with a goal-gate-unsatisfied error. This is an acceptance and convergence mechanism, not a formal proof of correctness.": 0
+ }
+}

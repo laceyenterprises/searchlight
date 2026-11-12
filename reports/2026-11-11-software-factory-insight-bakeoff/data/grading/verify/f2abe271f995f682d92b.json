@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "f2ff4dc077f06077",
+ "url": "https://factory.strongdm.ai/techniques/dtu",
+ "verdicts": {
+  "According to the DTU page, twins are built from API contracts and observed edge cases, then validated against the live dependency until behavioral differences stop being found.": 1,
+  "StrongDM builds DTU test doubles from API contracts and observed edge cases, then validates them against the live dependency until no more behavioral differences are found.": 1,
+  "StrongDM builds DTU twins from API contracts and observed edge cases, then validates them against the live dependency until no more behavioral differences are found.": 1,
+  "StrongDM claims the DTU can run thousands of scenarios per hour without third-party rate limits, abuse detection or service API charges, but gives no reproducible benchmark.": 1,
+  "StrongDM lists four DTU benefits: high-volume validation, testing dangerous failure modes, avoiding abuse detection, and determinism (replayable, controlled test conditions).": 1,
+  "StrongDM reports that DTU enables thousands of scenarios per hour, above production rates, without live-service rate limits, abuse detection or accumulating API costs. It also permits testing failure modes that would be dangerous or impossible against real services. This is a company-reported capability, not an independently audited result.": 1,
+  "StrongDM's Digital Twin Universe (DTU) is a collection of behavioral clones of dependencies, with twins named for Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets. They are intended to reproduce APIs, edge cases and observable behavior.": 1,
+  "StrongDM's Digital Twin Universe clones services such as Okta, Jira, Slack and Google Docs/Drive/Sheets, validated against the live dependency until no behavioral differences are found; it reports thousands of scenarios per hour but discloses no defect catch rate or controlled comparison.": 1
+ }
+}

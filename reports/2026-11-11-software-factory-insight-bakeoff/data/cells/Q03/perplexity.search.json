@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:22:59.576219Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2188,
+   "published": "2025-11-14",
+   "text": "# Devin's 2025 Performance Review: Learnings From 18 Months of Agents At Work\nDevin's now merged **hundreds of thousands of PRs**.\n...\n## Strength pattern #1: Junior execution at infinite scale\nDevin excels at **tasks with clear, upfront requirements and verifiable outcomes that would take a junior…",
+   "title": "Devin's 2025 Performance Review: Learnings From 18 ...",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "chars_delivered": 2272,
+   "published": "2026-02-27",
+   "text": "Last week, we merged 659 Devin PRs into our own codebase, up from 154 in our best week in 2025.\n...\nWe use this constantly for scoping work before starting sessions.\nThe workflow: use Ask Devin to explore the code and clarify a goal, then start a session directly from the search interface.\nDevin st…",
+   "title": "How Cognition Uses Devin to Build Devin",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "chars_delivered": 3242,
+   "published": "2026-10-30",
+   "text": "Devin can orchestrate managed sessions in parallel, analyze past work, create skills, and keep your organization’s knowledge base current.\n**These capabilities are available in every Devin session — just ask.** You can also access prompt templates for each capability from the **Explore Advanced Cap…",
+   "title": "Advanced Capabilities - Devin Docs",
+   "url": "https://docs.devin.ai/work-with-devin/advanced-capabilities"
+  },
+  {
+   "chars_delivered": 1167,
+   "published": "2026-11-07",
+   "text": "Create Devin playbooks in the web app to build a library of reusable, detailed prompts that your organization can share and run across sessions.\n...\nA playbook is like a custom system prompt for a repeated task.\nFor example, if you need to have many different Devin sessions that each integrate the…",
+   "title": "Creating Playbooks",
+   "url": "https://docs.devin.ai/product-guides/creating-playbooks"
+  },
+  {
+   "chars_delivered": 2895,
+   "published": "2026-06-16",
+   "text": "Cognition is the company behind Devin, one of the first AI software engineers, deployed across enterprises including Goldman Sachs, Mercedes-Benz, and the US Army.\nDevin handles autonomous, long-horizon software engineering tasks — from scoping tickets and locating relevant files to writing and tes…",
+   "title": "How Cognition Uses AI for How Cognition Tripled Merged PRs ...",
+   "url": "https://theapplied.co/use-cases/how-cognition-tripled-merged-prs-per-week-using-claude-to-power-devin-its-autonomous-ai-engineer"
+  },
+  {
+   "chars_delivered": 675,
+   "published": "2026-10-24",
+   "text": "Attach Devin playbooks to a session with a macro, refine them as Devin runs, and browse Organization, Enterprise, and System playbooks in Settings.\n...\nTo use playbooks simply select one of the playbooks available to you: your organization’s playbooks, your enterprise’s playbooks, or Devin’s System…",
+   "title": "Using Playbooks - Devin Docs",
+   "url": "https://docs.devin.ai/product-guides/using-playbooks"
+  },
+  {
+   "chars_delivered": 1355,
+   "published": "2026-03-07",
+   "text": "Devin is Cognition's cloud coding agent.\nEach instance gets a sandbox with a shell, editor, and browser.\nIt plans, edits, tests, and opens pull requests.\nSeveral sandboxes can run at once.\n...\nDevin 2.0 (April 2025, as recorded in that note) added an agent-native IDE, editable plans, codebase searc…",
+   "title": "software-factory/docs/practitioners/cognition-devin.md at main · Chipagosfinest/software-factory",
+   "url": "https://github.com/Chipagosfinest/software-factory/blob/main/docs/practitioners/cognition-devin.md"
+  },
+  {
+   "chars_delivered": 1997,
+   "published": "2026-11-09",
+   "text": "- **Doubled the percentage** of users who progressed from landing page to merging a PR with Devin\n...\nAs Marcu shared, onboarding Devin is a uniquely difficult product challenge.\nUsers must connect repositories, configure permissions, grant access to services, and trust an AI agent with their codeb…",
+   "title": "Cognition & Listen Labs | Customer Stories",
+   "url": "https://listenlabs.com/case-studies/cognition"
+  },
+  {
+   "chars_delivered": 1161,
+   "published": null,
+   "text": "The merge rate indicates the proportion of submitted pull requests that are successfully merged into the target branch, using the state attribute.\n|(2)| |\\text{Merge rate}=\\frac{\\text{Number of merged PRs}}{\\text{Total number of PRs}}| |\n...\n|Devin|64.1%|23.0%|14.3%|0|39|\n...\nMerge Rate: In Figure…",
+   "title": "Investigating Autonomous Agent Contributions in the Wild: Activity ...",
+   "url": "https://arxiv.org/html/2604.00917v1"
+  },
+  {
+   "chars_delivered": 2627,
+   "published": "2025-01-14",
+   "text": "When Cognition provided us with Devin credits as part of their Open Source Initiative, we saw an opportunity to test an innovative hypothesis: Could we leverage AI to scale our open-source development while allowing human developers to focus on higher-order challenges?\n...\nDuring our initial trial,…",
+   "title": "Scaling Open Source Development of GOAT with Devin: A Crossmint Case Study",
+   "url": "https://cognition.com/blog/crossmint-devin"
+  }
+ ],
+ "latency_ms": 462.1,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q03",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How do Cognition's Devin and Windsurf run long autonomous coding sessions (sandbox, planning, sessions, knowledge, playbooks)? What do published customer case studies report about merge rates and failure modes?",
+    "Cognition Devin PR merge rate case study",
+    "Devin playbooks knowledge sandbox long-running sessions docs",
+    "Cognition Devin Windsurf Cascade autonomous agent failure modes"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 22255,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:22:59.114048Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "d1431a9ce32baa7d",
+ "claims": [
+  {
+   "text": "In a study of 88,052 pull requests across 119 open-source repositories, none of five hypotheses derived from spec-driven development vendor claims were supported; after propensity score matching, spec'd and unspec'd PRs showed no difference in defect introduction (−0.6 percentage points, p=0.133).",
+   "url": null
+  },
+  {
+   "text": "The Hill (ESEM 2026) study measured specification artifacts, 97.5% of which were references to tracking issues or tickets, not SDD tool output; no repository in the sample commits SDD tool output, so SDD tool adoption itself remains untested.",
+   "url": null
+  },
+  {
+   "text": "In the Hill study, specification quality (scored by Claude Haiku on seven dimensions mirroring Spec Kit and Kiro templates) predicted neither defects (p=0.164) nor rework (p=0.860), and specifications did not constrain the scope of AI-tagged changes (p=0.997).",
+   "url": null
+  },
+  {
+   "text": "The Hill study found the positive raw association between specification artifacts and defects is explained by task complexity: developers write specs for their hardest work.",
+   "url": null
+  },
+  {
+   "text": "In the Hill study, one subgroup (repositories with no detected AI use) showed specifications associated with less rework (−3.3pp, p=0.014), but it was one of six subgroup tests and does not survive correction for multiple comparisons.",
+   "url": null
+  },
+  {
+   "text": "The Hill study states that no SDD tool vendor has published empirical evidence for its quality claims, and that GitHub describes Spec Kit as \"an experiment\" with no effectiveness data.",
+   "url": null
+  },
+  {
+   "text": "Piskala's claim of \"error reductions of up to 50%\" from controlled studies traces to a Red Hat blog post and an InfoQ article that contain no controlled study or quantitative data, according to the Hill paper.",
+   "url": null
+  },
+  {
+   "text": "Marri reports a 73% security defect reduction from constitutional specs, but on a single project with the same developer implementing both conditions sequentially, with acknowledged limited statistical power.",
+   "url": null
+  },
+  {
+   "text": "Practitioner Eberhardt found Spec Kit roughly ten times slower than iterative development, producing thousands of lines of specification markdown that still resulted in buggy code, per the Hill paper.",
+   "url": null
+  },
+  {
+   "text": "Zaninotto argued that SDD shines when starting a new project from scratch, but as the application grows the specs miss the point more often and slow development.",
+   "url": null
+  },
+  {
+   "text": "Vendors claim specs yield \"fewer iterations and higher accuracy\" and \"prevent costly rewrites\" (Kiro), and that a clear spec, technical plan and focused tasks give the coding agent \"more clarity, improving its overall efficacy\" (GitHub Spec Kit blog).",
+   "url": null
+  },
+  {
+   "text": "Böckeler defines spec-driven development as writing a spec before writing code with AI, where the spec becomes the source of truth for the human and the AI.",
+   "url": null
+  },
+  {
+   "text": "Every Kiro spec generates three files: requirements.md (or bugfix.md for bugs), design.md, and tasks.md.",
+   "url": null
+  },
+  {
+   "text": "Kiro specs follow a three-phase workflow: requirements or bug analysis, design (architecture, sequence diagrams, data flow, error handling, testing strategy), then tasks.",
+   "url": null
+  },
+  {
+   "text": "Kiro feature specs offer two workflow variants, Requirements-First and Design-First; Quick Spec auto-generates all three artifacts without approval gates.",
+   "url": null
+  },
+  {
+   "text": "Kiro bugfix specs document current, expected, and unchanged behavior in bugfix.md.",
+   "url": null
+  },
+  {
+   "text": "When running all tasks, Kiro builds a dependency graph of tasks in tasks.md and groups independent tasks into waves; tasks within a wave run concurrently and waves run sequentially.",
+   "url": null
+  },
+  {
+   "text": "Kiro's Correctness feature (property-based testing) is available only in the IDE.",
+   "url": null
+  },
+  {
+   "text": "Kiro generates user stories from a single prompt, each with acceptance criteria in EARS (Easy Approach to Requirements Syntax) notation covering edge cases.",
+   "url": null
+  },
+  {
+   "text": "Kiro generates tasks and sub-tasks sequenced by dependencies and linked to requirements, each including details such as unit tests, integration tests, loading states, mobile responsiveness, and accessibility.",
+   "url": null
+  },
+  {
+   "text": "Kiro generates a design document by analyzing the codebase and approved requirements, producing data flow diagrams, TypeScript interfaces, database schemas, and API endpoints.",
+   "url": null
+  },
+  {
+   "text": "Per Böckeler/Fowler, Kiro's requirements are a list of user stories in \"As a…\" format with acceptance criteria in \"GIVEN… WHEN… THEN…\" format, and its workflow is Requirements → Design → Tasks; it appears mostly spec-first rather than spec-anchored over time.",
+   "url": null
+  },
+  {
+   "text": "GitHub Spec Kit's SDD flow uses commands /speckit-constitution (once per project), /speckit-specify, /speckit-plan, /speckit-tasks, /speckit-implement, and /speckit-converge, repeating implement and converge until convergence reports Converged.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit's core process is Specify → Plan → Tasks → Implement → Converge, with each phase producing a Markdown artifact that feeds the next, plus templates, quality checklists, and cross-artifact analysis.",
+   "url": null
+  },
+  {
+   "text": "A Spec-Driven Test Generation study found that instructing an agent to document pre-conditions, post-conditions, and invariants first produced test suites judged higher quality than a baseline agent in 77.8% of cases, without degrading code generation performance.",
+   "url": null
+  }
+ ],
+ "question_id": "Q10"
+}

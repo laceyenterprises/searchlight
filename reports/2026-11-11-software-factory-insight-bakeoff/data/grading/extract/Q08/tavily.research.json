@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "cec68f39c44eb234",
+ "claims": [
+  {
+   "text": "In Anthropic's harness experiment, a solo run took 20 minutes and cost $9, while the full planner/generator/evaluator harness ran 6 hours and cost $200, over 20x more expensive but with visibly better output quality.",
+   "url": null
+  },
+  {
+   "text": "A multi-agent research system with Claude Opus 4 as lead and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research eval.",
+   "url": null
+  },
+  {
+   "text": "Three factors explained 95% of performance variance on BrowseComp: token usage alone explained 80%, with tool-call count and model choice accounting for the rest.",
+   "url": null
+  },
+  {
+   "text": "Agents typically use about 4x more tokens than chat interactions, and multi-agent systems use about 15x more tokens than chats, so they require tasks valuable enough to pay for the extra performance.",
+   "url": null
+  },
+  {
+   "text": "Anthropic says domains where all agents must share the same context or have many inter-agent dependencies are a poor fit for multi-agent systems; most coding tasks have fewer parallelizable tasks than research.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's long-running harness uses an initializer agent that sets up the environment on the first run (init.sh script, claude-progress.txt file, initial git commit) and a coding agent that makes incremental progress each session and leaves clear artifacts for the next.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent expands the user's prompt into a JSON feature list of end-to-end features all initially marked 'failing' (over 200 in the claude.ai clone example), and coding agents mark a feature 'passing' only after careful self-verification.",
+   "url": null
+  },
+  {
+   "text": "Each coding agent session starts by running pwd, reading git logs and progress files, then reading the features list and choosing the highest-priority unfinished feature; init.sh starts the dev server and runs a basic end-to-end test.",
+   "url": null
+  },
+  {
+   "text": "The claude-progress.txt file alongside git history lets an agent quickly understand the state of work when starting with a fresh context window.",
+   "url": null
+  },
+  {
+   "text": "Anthropic reports self-evaluation bias: agents asked to evaluate their own work confidently praise it even when quality is mediocre, motivating a separate evaluator agent.",
+   "url": null
+  },
+  {
+   "text": "The evaluator agent uses the Playwright MCP to click through the running app and grades each sprint against criteria with hard thresholds; the generator and evaluator negotiate a 'sprint contract' defining 'done' before each sprint, communicating via files.",
+   "url": null
+  },
+  {
+   "text": "Anthropic states 'Out of the box, Claude is a poor QA agent': it identifies issues then talks itself into approving the work, so the evaluator required prompt tuning.",
+   "url": null
+  },
+  {
+   "text": "Anthropic recommends removing harness components one at a time and measuring impact, because each component encodes an assumption about what the model can't do alone and may go stale; with Opus 4.6 sprint decomposition became unnecessary.",
+   "url": null
+  },
+  {
+   "text": "Claude Sonnet 4.5 exhibited 'context anxiety' (wrapping up prematurely near the context limit) so strongly that compaction alone was insufficient and context resets became essential; Opus 4.5 largely removed the behavior.",
+   "url": null
+  },
+  {
+   "text": "Context resets clear the context window entirely and start a fresh agent with a structured handoff, unlike compaction which summarizes in place, at the cost of orchestration complexity, token overhead, and latency.",
+   "url": null
+  },
+  {
+   "text": "Anthropic defines compaction as summarizing a conversation nearing the context limit and reinitiating a new context window with the summary; its techniques for long-horizon tasks are compaction, structured note-taking, and multi-agent architectures.",
+   "url": null
+  },
+  {
+   "text": "With server-side tools, cache_read_input_tokens accumulates across internal calls, so a real 63,000-token context can be computed as 334,400 tokens and trigger compaction prematurely.",
+   "url": null
+  },
+  {
+   "text": "Combining the memory tool with context editing improved performance 39% over baseline on an internal agentic-search eval (context editing alone 29%), and cut token consumption 84% in a 100-turn web search evaluation.",
+   "url": null
+  },
+  {
+   "text": "The research lead agent saves its plan to Memory before spawning subagents because context exceeding 200,000 tokens is truncated; subagents should write outputs to a filesystem and pass lightweight references back to avoid information loss and token overhead.",
+   "url": null
+  },
+  {
+   "text": "Each subagent needs an objective, output format, tool and source guidance, and clear task boundaries; vague instructions led to duplicated work. Effort should scale with query complexity (1 agent with 3-10 tool calls for simple facts, 10+ subagents for complex research).",
+   "url": null
+  },
+  {
+   "text": "Parallelization (3-5 subagents, 3+ parallel tool calls each) cut research time by up to 90% for complex queries; a tool-testing agent rewriting a flawed tool description yielded a 40% decrease in task completion time.",
+   "url": null
+  },
+  {
+   "text": "Production lessons: agents are stateful and errors compound, so Anthropic built resume-from-failure, retries, and checkpoints, used rainbow deployments, and found synchronous subagent execution a bottleneck.",
+   "url": null
+  },
+  {
+   "text": "The Claude Agent SDK gives the same tools, agent loop, and context management that power Claude Code, programmable in Python and TypeScript; both long-running harness designs were built on it.",
+   "url": null
+  },
+  {
+   "text": "Agent Skills use progressive disclosure: metadata (~100 tokens per Skill) always loaded, SKILL.md body (under 5k tokens) loaded when triggered, and bundled resources loaded only as needed.",
+   "url": null
+  },
+  {
+   "text": "SkillsBench found Skills improve performance by +16.2 percentage points on average across 7 model-harness configurations, with high variance, and that efficacy depends strongly on the agent-model combination.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

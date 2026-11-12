@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "061653147c1c9f52",
+ "url": "https://www.braintrust.dev/articles/eval-driven-development",
+ "verdicts": {
+  "Braintrust argues that if an eval correctly captures what 'good' means, optimizing against it is sufficient, which shifts the hard problem to calibrating the eval, a bounded problem that gets easier as production examples are added to datasets and compared to human annotations.": 1,
+  "Braintrust describes regression gates in which a prompt change that drops accuracy beyond a defined threshold on the golden dataset is automatically blocked from staging or production.": 1,
+  "Braintrust describes regression gates in which eval scores block promotion when accuracy on a golden dataset drops beyond a threshold, and warns that without periodic recalibration against human ratings, LLM-judge scoring drift can inflate or deflate results.": 1,
+  "Braintrust lists four properties of EDD: evals as specifications, dataset and run lineage (each run tied to a dataset version, prompt version and model configuration), judge calibration, and regression gates.": 1,
+  "Braintrust states that EDD differs from TDD because TDD tests return pass/fail on exact match, while EDD scores outputs across multiple quality dimensions (e.g., a response can be factually accurate but too long).": 1,
+  "Braintrust states that LLM-as-a-judge scorers need regular calibration against human ratings; without it, scoring drift inflates or deflates results over time and scores stop reflecting actual quality.": 1,
+  "Eval-driven development (EDD) treats evaluations as the working specification for LLM applications: quality criteria are defined before a prompt is modified or a model swapped, and every change is tested against them before reaching production.": 1
+ }
+}

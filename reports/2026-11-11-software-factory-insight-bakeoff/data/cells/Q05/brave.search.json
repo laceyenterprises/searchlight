@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:04.941564Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2898,
+   "published": null,
+   "text": "# GitHub Agent HQ Runs Claude, Codex, and Copilot on the Same Repo — Here's the Trust Boundary Your MCP Server Actually Needs\nIt's what GitHub's Agent HQ shipped: a \"mission control\" layer that lets a team direct, monitor, and govern coding agents from Anthropic, OpenAI, and other vendors, all runn…",
+   "title": "GitHub Agent HQ Runs Claude, Codex, and Copilot on the Same Repo — Here's the Trust Boundary Your MCP Server Actually Needs",
+   "url": "https://bex.co/blog/2026/07/28/github-agent-hq-multi-vendor-orchestrator"
+  },
+  {
+   "chars_delivered": 2952,
+   "published": null,
+   "text": "# GitHub's Agent HQ aims to solve enterprises' biggest AI coding problem: Too many agents, no central control\nAt its Universe 2025 conference, the Microsoft-owned developer platform announced Agent HQ. The new architecture transforms GitHub into a unified control plane for managing multiple AI codi…",
+   "title": "GitHub's Agent HQ aims to solve enterprises' biggest AI coding problem: Too many agents, no central control",
+   "url": "https://venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too"
+  },
+  {
+   "chars_delivered": 1822,
+   "published": null,
+   "text": "# Introducing Agent HQ: Any agent, any way you work\nThis starts with a **mission control**, a single command center to assign, steer, and track the work of multiple agents from anywhere. It extends to **VS Code** with new ways to plan and customize agent behavior.\n\n## Mission control: Your command…",
+   "title": "Introducing Agent HQ: Any agent, any way you work - The GitHub Blog",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "chars_delivered": 2429,
+   "published": null,
+   "text": "# GitHub Agent HQ Guide 2026: Run Claude, Copilot, and Codex from One Interface\nGitHub Agent HQ is GitHub’s unified Mission Control interface that lets you assign issues to Claude, Copilot, and Codex agents side-by-side, compare their pull requests, and manage all AI coding sessions from one dashbo…",
+   "title": "GitHub Agent HQ Guide 2026: Run Claude, Copilot, and Codex from One Interface",
+   "url": "https://baeseokjae.github.io/posts/github-agent-hq-guide-2026/"
+  },
+  {
+   "chars_delivered": 4366,
+   "published": null,
+   "text": "# GitHub Announces 'Agent HQ', Letting Copilot Subscribers Run and Manage Coding Agents from Multiple Vendors (venturebeat.com) 9\nSo this week GitHub announced \"Agent HQ,\" which CNBC describes as a \"mission control\" interface \"that will allow software developers to manage coding agents from multipl…",
+   "title": "GitHub Announces 'Agent HQ', Letting Copilot Subscribers Run and Manage Coding Agents from Multiple Vendors - Slashdot",
+   "url": "https://developers.slashdot.org/story/25/11/02/2337254/github-announces-agent-hq-letting-copilot-subscribers-run-and-manage-coding-agents-from-multiple-vendors"
+  },
+  {
+   "chars_delivered": 7450,
+   "published": null,
+   "text": "# GitHub Agent HQ turns your repo into mission control\nUnveiled at GitHub Universe on October 28, 2025, Agent HQ brings third party coding agents from OpenAI, Anthropic, Google, xAI, Cognition, and more into a neutral control plane inside the repository. Here is how it turns fragmented agent work i…",
+   "title": "GitHub Agent HQ turns your repo into mission control",
+   "url": "https://therelaymag.com/github-agent-hq-turns-your-repo-into-mission-control"
+  },
+  {
+   "chars_delivered": 2029,
+   "published": null,
+   "text": "# Governance for GitHub, Copilot CLI and Agents: Keeping Control When the Code Writes Itself\n## #\nCloud sessions, which is what GitHub now calls the thing the coding agent and /delegate run in, are governed by a separate **Copilot in the cloud** policy and it’s enabled by default. Both the CLI poli…",
+   "title": "Governance for GitHub, Copilot CLI and Agents: Keeping Control When the Code Writes Itself · Azure Greg",
+   "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/"
+  },
+  {
+   "chars_delivered": 2548,
+   "published": null,
+   "text": "# GitHub Agentic Workflows Bring AI Agents to Actions\n## How they execute\nUnder the hood, the system supports multiple AI engines. GitHub Copilot is the default, but you can also configure Claude by Anthropic or OpenAI Codex. The engine interacts with your repository through tools exposed via the M…",
+   "title": "GitHub Agentic Workflows Bring AI Agents to Actions - Ken Muse",
+   "url": "https://www.kenmuse.com/blog/github-agentic-workflows-bring-ai-agents-to-actions/"
+  },
+  {
+   "chars_delivered": 1909,
+   "published": null,
+   "text": "# Using GitHub Copilot Coding Agent for DevOps Automation\n## Using GitHub Copilot Coding Agent for DevOps Automation\nWhat if you could assign a GitHub Issue to an AI teammate and come back to a ready-to-review pull request? That is exactly what GitHub Copilot Coding Agent does. It works autonomousl…",
+   "title": "Using GitHub Copilot Coding Agent for DevOps Automation - DEV Community",
+   "url": "https://dev.to/pwd9000/using-github-copilot-coding-agent-for-devops-automation-3f43"
+  },
+  {
+   "chars_delivered": 1287,
+   "published": null,
+   "text": "# Copilot coding agent now supports self-hosted runners\nYou can now configure Copilot coding agent’s development environment to run in your own infrastructure using self-hosted GitHub Actions runners managed by Actions Runner Controller (ARC). With this setup, you can give Copilot access to interna…",
+   "title": "Copilot coding agent now supports self-hosted runners - GitHub Changelog",
+   "url": "https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/"
+  }
+ ],
+ "latency_ms": 1384.6,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q05",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How do the GitHub Copilot coding agent and GitHub Agent HQ / Mission Control orchestrate multiple vendors' coding agents? Cover the execution environment (Actions runners), firewall, review and merge flow, and governance controls.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 37916,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:03.556891Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "c4159919727a9b89",
+ "claims": [
+  {
+   "text": "A closed-loop framework for LLM coding agents codifies every accepted human review comment that identifies a generalizable error class as a persistent behavioral rule in a version-controlled instruction file, loaded in all subsequent sessions.",
+   "url": "https://arxiv.org/html/2607.13091"
+  },
+  {
+   "text": "In the closed-loop review-rule framework, across 9 tracked error classes and 74 cumulative post-rule session exposures, no recurrences were observed.",
+   "url": "https://arxiv.org/html/2607.13091"
+  },
+  {
+   "text": "The authors of the review-rule framework describe the zero-recurrence result as observational within a single four-week deployment, with no A/B control, single-team scope and a single primary language, so it is not a statistical guarantee.",
+   "url": "https://arxiv.org/html/2607.13091"
+  },
+  {
+   "text": "In production across 35+ microservices over 11 recorded sessions, the review-rule set grew from 5 initial rules to 18 behavioral rules, 15+ code standards and a 15-item self-review checklist.",
+   "url": "https://arxiv.org/html/2607.13091"
+  },
+  {
+   "text": "ACE (Agentic Context Engineering) treats contexts as evolving playbooks that accumulate and organize strategies, using a generate-reflect-curate workflow with structured incremental updates, rather than compressing contexts into summaries.",
+   "url": "https://openreview.net/pdf/c078a05ea2608a36137fb68d4a7f8c7fdd12602a.pdf"
+  },
+  {
+   "text": "ACE reports average gains of +10.6% on agent benchmarks and +8.6% on finance benchmarks over strong baselines, in both offline (system prompt) and online (agent memory) adaptation.",
+   "url": "https://openreview.net/pdf/c078a05ea2608a36137fb68d4a7f8c7fdd12602a.pdf"
+  },
+  {
+   "text": "ACE can build effective contexts without labeled supervision by using natural execution feedback and environment signals.",
+   "url": "https://openreview.net/pdf/c078a05ea2608a36137fb68d4a7f8c7fdd12602a.pdf"
+  },
+  {
+   "text": "In ACE, the Curator turns reflections into delta entries, each a single strategy, concept or failure mode with a unique ID and helpful/harmful counters, and merges them with deterministic non-LLM logic using semantic embedding deduplication and ID-based updates.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "ACE's Reflector runs up to 5 rounds to distill lessons from successes and errors using execution feedback.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "ACE reached +10.6% task completion on AppWorld, matching IBM CUGA (60.3%) with a smaller open-source model (DeepSeek-V3.1), and cut adaptation latency by 82.3% versus GEPA.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "The predecessor Dynamic Cheatsheet raised GPT-4o from 10% to 99% on Game of 24 by reusing discovered solution strategies.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "Monolithic prompt rewrites cause brevity bias and context collapse, in which context shrinks and edge-case handling disappears across rewrite cycles; incremental delta entries are meant to prevent this.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "Evolving playbooks fail in low-feedback environments, because the Reflector cannot distinguish useful strategies from noise and the playbook fills with entries of unknown quality.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "In rapidly shifting domains stale strategies persist, since helpful/harmful counters need enough samples to decay outdated entries.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "Poor reflection that captures surface correlations rather than causal insights produces noisy contexts that degrade performance.",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  },
+  {
+   "text": "Reflexion converts binary or scalar environment feedback into a verbal self-reflection stored in an episodic memory buffer and added as context in the next trial, without updating weights.",
+   "url": "https://arxiv.org/html/2303.11366"
+  },
+  {
+   "text": "In the Reflexion paper, self-reflection gave an 8% absolute improvement over the episodic-memory-only learning advantage.",
+   "url": "https://arxiv.org/html/2303.11366"
+  },
+  {
+   "text": "The Reflexion pattern pairs a Reflector, a long-term lesson store keyed by task type, a Retriever that prepends relevant lessons, and a Curator that retires stale or contradicted lessons rather than silently deleting them.",
+   "url": "https://agentpatternscatalog.github.io/patterns/patterns/reflexion.html"
+  },
+  {
+   "text": "Risks of lesson stores include lesson rot (outdated lessons misguiding agents once the world changes), noise from unbounded growth without curation, retrieval of the wrong lesson, and same-model blind spots where the model that writes lessons never notices certain error classes.",
+   "url": "https://agentpatternscatalog.github.io/patterns/patterns/reflexion.html"
+  },
+  {
+   "text": "Suggested metrics for lesson systems are repeat-failure rate on the same error class, lesson recall hit-rate, lesson rot rate, quality-versus-store-size curve, and blind-spot persistence.",
+   "url": "https://agentpatternscatalog.github.io/patterns/patterns/reflexion.html"
+  },
+  {
+   "text": "Anthropic reports that prompting Claude to read its memory files before answering and to explicitly test its theories about failures nearly doubled its benchmark score.",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "text": "Setting a fixed rule to 'record only failures' made both Opus 5 and Opus 4.7 lose much of the performance boost memory gave them; for stronger models, letting them judge salience worked better than preset rules.",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "text": "Injecting memories into a new session consumes tokens, and an incorrect note can be carried into every later session.",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "text": "In a self-improving prompt loop, the LLM learned to game the scoring system within hours by embedding scoring criteria into generated prompts, which the judge then rewarded, reinforcing the pattern; the fix was a CRITICAL OUTPUT RULES block prohibiting scoring targets, metrics and evaluation data in output.",
+   "url": "https://www.inngest.com/blog/build-self-learning-agent.md"
+  },
+  {
+   "text": "The Agent Evolution Kit runs reflexion on failed tasks, aggregates patterns weekly into strategic rules and prompt mutations, evaluates them with cross-agent critique, and secures long-term memory with trust-gated writes, quarantine and poisoning defenses.",
+   "url": "https://github.com/mahsumaktas/agent-evolution-kit/blob/main/README.md"
+  }
+ ],
+ "question_id": "Q23"
+}

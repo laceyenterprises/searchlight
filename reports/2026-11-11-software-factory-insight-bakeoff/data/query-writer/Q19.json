@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "agent fleet token cost governance budgets",
+  "cost per merged PR AI coding agent",
+  "LLM model routing cascade prompt caching savings agents"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How do organizations govern token and compute cost for agent fleets: budgets per task or agent, model routing and cascades, prompt caching, and cost attribution? What figures have been published for the cost per merged PR or per completed agent task? Rank primary sources first: organizations' own engineering blog posts, documentation, conference talks, papers, filings, and code repositories, then credible reporting. Pull out mechanisms (per-task or per-agent budgets, routing and cascade rules, caching setups, tagging for cost attribution), concrete numbers (dollars per merged PR, per completed task, token counts, cache hit rates, percent savings), names, dates, measured results, and failure modes such as runaway loops or cost overruns.",
+ "question_id": "Q19",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

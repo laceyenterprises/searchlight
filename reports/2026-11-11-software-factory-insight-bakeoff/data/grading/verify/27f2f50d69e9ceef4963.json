@@ -1,0 +1,19 @@
+{
+ "capture": "captured",
+ "digest": "eb9d907482ef9e81",
+ "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent",
+ "verdicts": {
+  "In LangChain's GTM agent, reps get Slack drafts with reasoning and sources and can send, edit or cancel, but a 48-hour SLA for 'silver' leads auto-sends if no approval or rejection occurs, an exception to the initial no-send-without-approval requirement.": 1,
+  "LangChain reports for December 2025 to March 2026 that lead-to-qualified-opportunity conversion rose 250%, pipeline dollars 3x, and reps reclaimed 40 hours/month each (1,320 hours team-wide); the post does not establish a controlled causal estimate.": 1,
+  "LangChain's GTM agent avoids outreach after a recent support ticket or teammate contact because a poorly timed email could damage relationships.": 1,
+  "LangChain's GTM agent checks recent support issues and prior teammate contact before drafting; CI combines tool/order/duplicate-draft assertions with an LLM judge for tone, length and formatting, and substantive rep edits become per-rep style memories in PostgreSQL.": 1,
+  "LangChain's GTM agent follow-up rose 97% for lower-intent leads and 18% for higher-intent leads, and reps reclaimed 40 hours per month each (1,320 hours total).": 1,
+  "LangChain's GTM agent has a later 48-hour SLA that auto-sends silver-lead drafts if no decision is made, an exception to the approval rule.": 1,
+  "LangChain's GTM agent is built on LangChain Deep Agents and LangSmith, using Salesforce, Gong, LinkedIn/web research, BigQuery and Exa, constrained parallel subagents, and PostgreSQL per-rep style memory.": 1,
+  "LangChain's GTM agent quality control uses rule assertions on tool order and duplicates plus an LLM judge scoring tone, word count and formatting, with every send, edit and cancel traced.": 1,
+  "LangChain's GTM agent reports lead-to-qualified-opportunity conversion up 250% from December 2025 to March 2026, with 3x pipeline dollars.": 1,
+  "LangChain's GTM agent requires explicit rep approval before anything is sent; the rep can send, edit or cancel in Slack.": 0,
+  "LangChain's GTM agent, built on general-purpose Deep Agents and LangSmith, does Salesforce-triggered lead research and personalized outreach using isolated subagents with constrained tool sets, structured output contracts, and a virtual filesystem for large tool results.": 1,
+  "LangChain's production GTM agent triggers on Salesforce leads, researches the account, drafts outreach and account-intelligence reports, and presents a Slack draft with sources and reasoning.": 1
+ }
+}

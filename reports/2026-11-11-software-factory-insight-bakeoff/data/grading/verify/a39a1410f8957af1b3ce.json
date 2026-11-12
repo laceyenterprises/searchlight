@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "42b5da987a3dbcb4",
+ "url": "https://infragap.com/ai-code-review-bottleneck/",
+ "verdicts": {
+  "Agent workloads often cut many branches from the same base commit at nearly the same moment without awareness of each other, producing semantic conflicts that merge cleanly in text but are wrong together.": 1,
+  "Agentic AI pull requests have a pickup time 5.3x longer than unassisted ones.": 1,
+  "Larger batches are cheaper when things pass and much more expensive when they fail, so batch size should be tuned to the actual failure rate.": 1,
+  "Suggested mitigations for agent PR volume include stacked PRs, a maximum changed-line limit on agent branches, bounded staleness from main before queue entry, and exclusive paths for globally shared files.": 1,
+  "The AgenticFlict dataset (over 142,000 agentic PRs from over 59,000 repositories) found merge conflicts in 27.67% of the roughly 107,000 PRs that could be merge-simulated, across more than 336,000 conflict regions.": 1
+ }
+}

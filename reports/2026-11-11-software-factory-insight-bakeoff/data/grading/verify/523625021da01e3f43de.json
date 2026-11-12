@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "110bcbce43dc54ea",
+ "url": "https://www.aviator.co/blog/merge-queues-for-large-monorepos",
+ "verdicts": {
+  "Aviator's optimistic validation keeps a PR in the queue when a batch failure may be a flake, waiting to see whether other PRs in the batch pass rather than resetting the queue and re-running all tests.": 1
+ }
+}

@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:24.585268Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1526,
+   "page_chars_delivered": 2544,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Open-source scaffoldsUpdated April 2026\n\n# OpenHands vs SWE-agent\n\nThe two most cited open-source agentic coding frameworks. SWE-agent (Princeton, 2024) introduced the Agent-Computer Interface idea. OpenHands (AllHands, formerly OpenDevin) went production: Docker sandboxes, a browser tool, a growin…",
+   "title": "OpenHands vs SWE-agent (2026): Open-Source Coding Scaffolds Compared | CodeSOTA",
+   "url": "https://www.codesota.com/agentic/openhands-vs-swe-agent"
+  },
+  {
+   "chars_delivered": 2004,
+   "page_chars_delivered": 13396,
+   "post_step": "fetched",
+   "published": null,
+   "text": "OpenHands structures its runtime around an append-only event stream. Actions (`CmdRunAction`, `IPythonRunCellAction`, `BrowseURLAction`) and Observations (`CmdOutputObservation`, `BrowserOutputObservation`) flow across a centralized controller. This decoupling allows OpenHands to maintain multi-age…",
+   "title": "Autonomous Coding Agent Harnesses in Production: Comparing OpenHands, SWE-agent, Aider, and Cline | LLMs Blog",
+   "url": "https://www.llms.blog/posts/autonomous-coding-agent-harnesses-in-production-comparing-openhands-swe-agent-aider-and-cline"
+  },
+  {
+   "chars_delivered": 1311,
+   "page_chars_delivered": 22973,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The projects below give you both options. The table below gives a quick architectural snapshot to help you choose a base depending on your target domain and UX.\n\n## OpenHands (All Hands AI)\n\nOpenHands is an open-source platform for “AI software development agents for everyone, in the open,” maintai…",
+   "title": "Open-Source Coding Agents: A Survey - by Hamid Bagheri",
+   "url": "https://airesponsibly.substack.com/p/open-source-ai-coding-agents-a-survey"
+  },
+  {
+   "chars_delivered": 2066,
+   "published": null,
+   "text": "## SWE-Agent\n\nSWE-Agent is a multi-purpose agent framework created by the same authors as the SWE-bench benchmark itself. It lets your language model of choice autonomously use tools to fix issues in real GitHub repositories, perform tasks on the web, crack cybersecurity challenges, or handle any c…",
+   "title": "Coding Agents - Open Source Approaches | by Jonas Tebbe | Medium",
+   "url": "https://medium.com/@te2be/coding-agents-open-source-approaches-on-swe-bench-074cc28c5bb0"
+  },
+  {
+   "chars_delivered": 1965,
+   "published": null,
+   "text": "One important element of OpenHands is sandboxing, where we allow the agent to write, run, and test code within an environment that is cordoned off from the rest of the machine. We do sandboxing because we don't want to damage the computer that the agent is running on – but at the same time the agen…",
+   "title": "Evaluation of LLMs as Coding Agents on SWE-Bench (at 30x Speed!) | Oct 04, 2024",
+   "url": "https://www.openhands.dev/blog/evaluation-of-llms-as-coding-agents-on-swe-bench-at-30x-speed"
+  },
+  {
+   "chars_delivered": 1678,
+   "published": null,
+   "text": "OpenHands est une plateforme gratuite, open source et auto-hébergée pour agents de code autonomes — lancée à l'origine sous le nom \"OpenDevin\" en mars 2024 comme alternative ouverte au Devin propriétaire de Cognition. Développée par All Hands AI (soutenue par une levée de fonds d'amorçage de 5 mill…",
+   "title": "OpenHands Review 2026 : agent de code IA open source",
+   "url": "https://www.promptquorum.com/power-local-llm/openhands-review"
+  },
+  {
+   "chars_delivered": 2030,
+   "published": null,
+   "text": "Observation 1. The eleven systems span three orders of magnitude in code size while targeting similar tasks, yet loop sophistication does not predict benchmark performance. Mini-SWE-Agent’s minimal linear loop achieves reported results in the same range as OpenHands’s event-sourced conversation eng…",
+   "title": "Harness Engineering:Anatomy, Architecture, and Evolution of Coding AgentsA Source-Code Study of Eleven Systems",
+   "url": "https://arxiv.org/html/2609.00006v1"
+  },
+  {
+   "chars_delivered": 2027,
+   "published": null,
+   "text": "Headless SDKs and higher abstractions: The speaker is bullish on headless Claude Code SDK and similar offerings, suggesting developers might build agents at higher abstraction levels, relying on coding agents for orchestration and harness implementation. This represents potential architectural laye…",
+   "title": "Anthropic: Architecture and Production Patterns of Autonomous Coding Agents - ZenML LLMOps Database",
+   "url": "https://www.zenml.io/llmops-database/architecture-and-production-patterns-of-autonomous-coding-agents"
+  },
+  {
+   "chars_delivered": 1998,
+   "published": null,
+   "text": "OpenHands is a family of open, extensible frameworks designed for AI-driven software agents and, separately, for pose-based sign language recognition; however, usage in research since 2023 primarily refers to a modular end-to-end platform for developing, orchestrating, and evaluating agents that pe…",
+   "title": "OpenHands Framework",
+   "url": "https://www.emergentmind.com/topics/openhands-framework"
+  },
+  {
+   "chars_delivered": 2039,
+   "published": null,
+   "text": "Agent\nModel\nSuccess Rate (%)\n$ Avg. Cost\n\nSWE-Bench Lite (Jimenez et al., 2024), 300 instances, w/o Hint\n\nSWE-Agent (Yang et al., 2024)\ngpt-4-1106-preview\n18.018.0\n1.671.67\n\nAutoCodeRover (Zhang et al., 2024b)\ngpt-4-0125-preview\n19.019.0\n−-\n\nAider (Gauthier, )\ngpt-4o & claude-3-opus\n26.326.3\n−-\n\nOH…",
+   "title": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+   "url": "https://arxiv.org/html/2407.16741v3"
+  }
+ ],
+ "latency_ms": 2760.3,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q09",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What are the architectures and reported results of open-source autonomous coding agents and frameworks: OpenHands (All Hands), SWE-agent / mini-swe-agent, Block's goose, and Sourcegraph Amp? Focus on the agent-computer interface, sandboxing, and lessons from SWE-bench-style evaluation.",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q09-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 22440,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:21.824912Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

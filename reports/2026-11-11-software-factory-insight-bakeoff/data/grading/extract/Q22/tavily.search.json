@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "c0fed508fb8ae327",
+ "claims": [
+  {
+   "text": "A SaaS company built a Zenphi agent that generates and delivers 6,000 personalised customer insight reports every month, pulling 12 months of usage data per customer, benchmarking against industry standards, and writing an AI narrative delivered as a report.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi states the monthly personalised insight reports doubled (2×) customer retention for the SaaS company that adopted them.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "The Zenphi customer insight agent eliminates about two weeks of analyst time per reporting cycle, which a team of analysts would otherwise need to produce the reports manually.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi's content marketing agent is triggered by an RSS feed signal, uses Claude to draft the blog post in brand voice and Gemini to generate the hero image, then a manager approves before it publishes automatically to Webflow.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "In Zenphi's content agent, manager feedback at the approval gate becomes a new Claude prompt and the post is regenerated, looping until the manager approves.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi's competitor intelligence agent monitors G2/Capterra reviews, press releases and job postings, uses Claude to generate a briefing as a Google Doc, and emails it every Monday on a weekly schedule trigger.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi reports three production marketing agents running today: content marketing, customer engagement and retention, and competitive intelligence.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi states its approval gates are enforced architecturally, so no content is published, campaign email sent or lead record updated without passing the gate the workflow specifies.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi logs every AI step: which model was called, the input, the output, the routing decision, plus approver identity and decision timestamp; the audit trail persists in the organization's Google or Microsoft environment.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi lets users choose where humans sit in the loop: assign an approval task, skip it for fully automatic runs, or configure a review gate at a confidence threshold with escalation logic.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi is a no-code orchestration platform connecting Claude, Gemini and OpenAI to 100+ systems (HubSpot, Salesforce, Slack, DocuSign, Webflow, Google Workspace), with its ZAIA assistant generating workflow structure from a plain-language description.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Zenphi's own positioning says Zapier/Make hit limits with approval loops and branching and have per-task pricing that gets expensive at volume, while n8n creates an ownership gap because only the developer can change it.",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "text": "Profound's content agents are built via its Aim assistant, can run on a schedule (e.g. every Monday find prompts where competitors are cited and the brand is not, then draft a brief for each), and every run ends at a human approval step before anything publishes.",
+   "url": "https://www.tryprofound.com/articles/best-ai-agents-for-content-creation"
+  },
+  {
+   "text": "Profound's Brand Kits and Knowledge Bases provide multi-brand governance, and its Grids feature runs bulk execution across large batches for content library refreshes.",
+   "url": "https://www.tryprofound.com/articles/best-ai-agents-for-content-creation"
+  },
+  {
+   "text": "Profound's Agent Analytics measures which pages earned AI-search citations and feeds results back into the next content cycle.",
+   "url": "https://www.tryprofound.com/articles/best-ai-agents-for-content-creation"
+  },
+  {
+   "text": "HubSpot recommends requiring human approval before agent actions that are hard to reverse, expose sensitive information or carry significant consequences, with a retry limit and unresolved disagreements routed to the campaign owner.",
+   "url": "https://blog.hubspot.com/marketing/multi-agent-system-ai"
+  },
+  {
+   "text": "In HubSpot's deal agent, teams choose which CRM property updates run automatically and which stay with a rep for review.",
+   "url": "https://blog.hubspot.com/marketing/multi-agent-system-ai"
+  },
+  {
+   "text": "A January 2026 Google Research evaluation of 180 agent configurations found centralized multi-agent coordination gave an 80.9% improvement on parallelizable financial reasoning tasks, but every multi-agent variant performed 39%–70% worse on sequential PlanCraft tasks.",
+   "url": "https://blog.hubspot.com/marketing/multi-agent-system-ai"
+  },
+  {
+   "text": "HubSpot's example marketing multi-agent system uses a strategy agent, a content agent that drafts copy and visuals, and a performance agent that flags low-performing elements, each with a specified approval owner.",
+   "url": "https://blog.hubspot.com/marketing/multi-agent-system-ai"
+  },
+  {
+   "text": "HubSpot notes prepackaged multi-agent systems mainly target large enterprise use cases, citing Accenture's AI Refinery and Salesforce's Agentforce.",
+   "url": "https://blog.hubspot.com/marketing/multi-agent-system-ai"
+  },
+  {
+   "text": "Mastra, an open-source TypeScript framework, can build marketing agents with workflows, memory, observability and human approval gates in one codebase, and recommends evals for brand-voice adherence, factual grounding and tone.",
+   "url": "https://mastra.ai/articles/ai-agents-for-marketing"
+  },
+  {
+   "text": "Mastra's guide says Jasper is a content engine rather than a workflow orchestrator, and Copy.ai has shifted to a GTM platform with account research, sequence generation and ABM assets.",
+   "url": "https://mastra.ai/articles/ai-agents-for-marketing"
+  },
+  {
+   "text": "MindStudio's guide recommends validating outputs manually on at least 20-30 runs before removing human review checkpoints, and lists failure modes of agent sprawl, prompt drift and hallucination propagation.",
+   "url": "https://www.mindstudio.ai/blog/multi-agent-workflow-business-automation"
+  },
+  {
+   "text": "MindStudio describes a B2B lead intelligence pipeline of enrichment, fit-scoring, research, brief-writing and CRM-update agents that writes scores and briefs back to the CRM and creates tasks for sales reps.",
+   "url": "https://www.mindstudio.ai/blog/multi-agent-workflow-business-automation"
+  },
+  {
+   "text": "MindStudio says fully automated content underperforms human-edited content, recommending AI draft first with humans providing strategy, editing and final approval, and training agents on top-performing content and brand guidelines.",
+   "url": "https://www.mindstudio.ai/blog/ai-agents-content-marketing"
+  }
+ ],
+ "question_id": "Q22"
+}

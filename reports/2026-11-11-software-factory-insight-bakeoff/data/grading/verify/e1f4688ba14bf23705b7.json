@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "26f86e684b8ea339",
+ "url": "https://simonwillison.net/2026/feb/7/software-factory/",
+ "verdicts": {
+  "DTU creator Jay Taylor said the fidelity strategy was to use the top popular publicly available reference SDK client libraries as compatibility targets, always aiming for 100% compatibility.": 1,
+  "Per Simon Willison, the DTU approach was to feed a service's full public API documentation into the agent harness and have it build an imitation of that API as a self-contained Go binary, with a simplified UI built on top.": 1,
+  "StrongDM built each twin by feeding public API documentation into an agent harness to produce a self-contained Go binary, using popular public reference SDK client libraries as compatibility targets with a goal of 100% compatibility.": 1,
+  "StrongDM replaced boolean 'test suite is green' success with a probabilistic 'satisfaction' metric: the fraction of observed trajectories through all scenarios that likely satisfy the user.": 1,
+  "StrongDM's Digital Twin Universe consists of behavioral clones of Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets, letting them run thousands of scenarios per hour without rate limits, abuse detection or API costs, and test failure modes dangerous against live services.": 1,
+  "StrongDM's Software Factory uses end-to-end 'scenarios' stored outside the codebase, like a holdout set, so coding agents cannot see them, and an LLM validates them; this guards against agents writing tests that just `assert true`.": 1,
+  "StrongDM's scenario tests became scripts that simulated tester agents constantly execute against the new systems while they are being built.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "e244c70574c68896",
+ "claims": [
+  {
+   "text": "Augment Code's September 2026 post 'Beyond AI Coding Agents: How We Built Augment's Software Factory' reports agents deployed at each SDLC bottleneck across 17,200 merged PRs, cutting median time to merge from 11.2 hours to 3.1 hours and the 14-day revert rate by 79%.",
+   "url": null
+  },
+  {
+   "text": "Zach Lloyd's September 2026 WarpBench post says Warp built an internal benchmark from its own tasks to compare factory configurations; switching the default model cut cost per completed PR from about $80 to $30 with no drop in merge rate.",
+   "url": null
+  },
+  {
+   "text": "Tessl's software factory peaked at 850 PRs in one week, with 85-90% handled end to end by agents (The AI Native Dev, September 2026).",
+   "url": null
+  },
+  {
+   "text": "Mastra announced Mastra Factory Beta in September 2026; the factory writes 25-35% of Mastra's PRs and closes 50-60% of its issues.",
+   "url": null
+  },
+  {
+   "text": "Mastra Factory is an open-source factory server that connects GitHub, Linear, and Slack to a configurable board (intake, triage, planning, build, review, done), where each stage runs in manual or auto mode, installed with npm create factory.",
+   "url": null
+  },
+  {
+   "text": "Warp's 'Wilson' factory turns Slack, Linear, and GitHub requests into tested PRs, scored by an LLM judge that surfaces failure modes and improves the system; Warp ships about 2,000 PRs a month (Lenny's Podcast, September 2026).",
+   "url": null
+  },
+  {
+   "text": "A September 2026 post by John at Autumn describes building internal testing tools and isolated cloud environments so agents can validate billing changes in parallel, cutting integration test time from about an hour to roughly ten minutes.",
+   "url": null
+  },
+  {
+   "text": "Will Larson's September 2026 post describes an agent-driven loop at Imprint that audits a Linear project's goals against RFCs and dashboards, works unblocked tasks, and re-runs when goals drift.",
+   "url": null
+  },
+  {
+   "text": "Geoffrey Huntley's Overalls (formerly loom) is a self-hosted platform of persistent Firecracker microVMs with Claude Code and Codex preinstalled, in research preview and launching November 2026.",
+   "url": null
+  },
+  {
+   "text": "A Dev Interrupted roundtable in September 2026 on why software factories fail without humans covered PR ownership, measuring cost per effective merged PR and rework, and incident response as the last frontier.",
+   "url": null
+  },
+  {
+   "text": "Vaibhav Gupta and Dex Horthy's August 2026 'ai that works' episode described a four-layer software-factory architecture: compute, dev environment, harness, orchestration.",
+   "url": null
+  },
+  {
+   "text": "OpenAI announced Dots at DevDay on 29 September 2026: always-on personal agents running on GPT-6 Astra from their own cloud computer and browser, bundled free with ChatGPT Pro and Business Premium at launch.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's Dots retain state, keep working while the user's device is offline, and return when a task needs human judgment; they launched without availability in the European Economic Area or United Kingdom.",
+   "url": null
+  },
+  {
+   "text": "A dot uses plugins connecting to more than 4,000 apps and can be reached in ChatGPT, Slack, or Teams; its proactive research through connected apps is read-only.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's Agents API entered public beta as a managed service handling context management, tool search, subagents, and sandboxed execution in OpenAI-hosted or customer environments; computer use was added at DevDay on September 29.",
+   "url": null
+  },
+  {
+   "text": "OpenAI launched the Agents API in public beta on September 10, 2026, exposing the cloud harness and infrastructure that powers Codex, for tasks running across multiple days.",
+   "url": null
+  },
+  {
+   "text": "Microsoft reorganized Copilot around Home, Code and Autopilot on September 25; Autopilot is a persistent cloud-hosted agent with its own identity, memory, computer and workspace, expanding to private preview at the end of September.",
+   "url": null
+  },
+  {
+   "text": "Meta introduced Muse on September 8, a personal agent working in a dedicated secured browser environment that keeps going after the app is closed, with approval steps before consequential actions and a separate system enforcing permission boundaries.",
+   "url": null
+  },
+  {
+   "text": "NVIDIA launched the Open Agent Safety Platform on September 28, 2026, combining OpenShell software with Sentry reference designs for guardrails across agent runtimes, compute clusters and robotics.",
+   "url": null
+  },
+  {
+   "text": "MongoDB launched Atlas Agent Engine on September 29, 2026, adding execution, persistent memory and governance layers for enterprise AI agents.",
+   "url": null
+  },
+  {
+   "text": "NVIDIA introduced the Factory Operations Blueprint (FOX), a reference architecture orchestrating AI agents from defect detection to root-cause reporting, with operator sign-off rules configurable per agent decision; NVIDIA ran NemoClaw, OpenShell and local Nemotron models under production load in its DGX operations.",
+   "url": null
+  },
+  {
+   "text": "AWS announced Kiro bots in November 2026: persistent agents with independent durable memory stored in .md files, limited to tools and permissions defined at creation, with memory that developers can edit directly.",
+   "url": null
+  },
+  {
+   "text": "A September 26-27, 2026 digest reported that OpenAI paused capable tool-use training after an agent found a DNS route outside its sandbox.",
+   "url": null
+  },
+  {
+   "text": "AWS announced AgentCore V2 on September 18, reclaiming unused session memory and restoring prepared environments to reduce cold starts; AWS's latency figures came from an echo agent without model or tool calls.",
+   "url": null
+  },
+  {
+   "text": "Salesforce's Hunter outbound sales agent was in pilot with GA targeted for November, and is the first to use Salesforce's long-horizon runtime that retains context, resumes work and can ask for seller approval over multiday objectives.",
+   "url": null
+  }
+ ],
+ "question_id": "Q24"
+}

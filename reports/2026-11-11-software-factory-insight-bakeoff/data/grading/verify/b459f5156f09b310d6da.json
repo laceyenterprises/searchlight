@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "66951e41770d7265",
+ "url": "https://arxiv.org/html/2607.04697v1",
+ "verdicts": {
+  "In the AIDev-pop dataset (33,596 PRs across 2,807 repositories), 40.2% of repositories contain co-active agent-authored PR pairs under exact temporal overlap, and those co-active pairs account for 79.4% of all agent-generated PRs.": 1,
+  "Of conflicted files in the agent PR merge replay, 84.4% were source code files rather than dependency manifests, and nearly 42% of conflicts were structural (modify/delete or add/add).": 1,
+  "Only 0.5% of co-active agent PR pairs are cross-agent, occurring in 122 of 2,807 repositories (about 4.3%); the vast majority of co-active pairs are two PRs from the same agent.": 1,
+  "Replaying real three-way git merges on 747 unique co-active PR pairs (one per repository) found textual conflict rates of 41.7% for cross-agent pairs versus 19.8% for intra-agent pairs, with non-overlapping 95% confidence intervals.": 1,
+  "The authors describe their textual-conflict measurements as conservative lower bounds on the cost of uncoordinated multi-agent contributions, since git cannot detect semantic or intent conflicts.": 1,
+  "Within a one-week collaboration window, 53.4% of repositories contain co-active agent-authored PR pairs, and those pairs account for 95.0% of agent-generated PRs.": 1
+ }
+}

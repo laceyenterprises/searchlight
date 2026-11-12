@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "3dab9a93914b4a9e",
+ "url": "https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/",
+ "verdicts": {
+  "Copilot coding agent can run on self-hosted GitHub Actions runners managed by Actions Runner Controller (ARC), configured by setting runs-on in copilot-setup-steps.yml to the ARC scale set name.": 1,
+  "Running the Copilot coding agent on ARC self-hosted runners lets it access internal resources, such as packages, that are not available on the public internet.": 1
+ }
+}

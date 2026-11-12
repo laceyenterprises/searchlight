@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "719c45c794dd1ec9",
+ "url": "https://factory.strongdm.ai/products/attractor",
+ "verdicts": {
+  "Attractor is StrongDM's non-interactive coding agent, structured as a graph of nodes (e.g., Implement, Optimize, Validate), each governed by a core prompt.": 1,
+  "Attractor is StrongDM's non-interactive coding agent. It composes models, prompts and tools into a graph-structured pipeline with phases such as Implement, Identify, Optimize and Validate, and traverses the graph until convergence or termination.": 1,
+  "Attractor is the orchestration agent: a graph of work phases with node prompts and LLM-evaluated natural-language edges, traversed until convergence or termination, with checkpoint/resume.": 1,
+  "In Attractor, edges between nodes are written in natural language and evaluated by the LLM, and execution traverses the graph until convergence or termination conditions are met.": 1
+ }
+}

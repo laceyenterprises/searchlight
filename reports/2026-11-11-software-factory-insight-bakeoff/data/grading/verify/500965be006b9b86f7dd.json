@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "227479095e56bb9e",
+ "url": "https://www.agent37.com/blog/codex-cloud",
+ "verdicts": {
+  "Current Codex cloud internet presets are Package managers, Custom domains only, or All (unrestricted), behind OpenAI's proxy; internet is restricted by default.": 1,
+  "OpenAI relaunched Codex cloud at DevDay on September 29, 2026: users publish a reusable environment once and every task starts from that prepared filesystem in its own isolated workspace; the earlier architecture is labeled Codex Cloud (Legacy) and still powers code review and GitHub, GitLab (beta), and Linear integrations.": 1,
+  "Since the September 29 relaunch, a cloud environment is created once (Codex checks out selected repos, installs dependencies, and records an install script plus an editable start skill), then tasks run in isolated parallel workspaces; a task's saved VM state is recoverable for up to seven days.": 1,
+  "The legacy Codex Cloud architecture still powers code review and the GitHub, GitLab (beta), and Linear integrations.": 1
+ }
+}

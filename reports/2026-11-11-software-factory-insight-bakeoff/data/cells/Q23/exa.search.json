@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:32.407981Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2577,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-03-11T00:00:00.000Z",
+   "text": "###### Abstract.\n\nLLM-powered agents face a persistent challenge: learning from their execution experiences to improve future performance. While agents can successfully complete many tasks, they often repeat inefficient patterns, fail to recover from similar errors, and miss opportunities to apply…",
+   "title": "Trajectory-Informed Memory Generation for Self-Improving Agent Systems",
+   "url": "https://arxiv.org/html/2603.10600"
+  },
+  {
+   "chars_delivered": 252,
+   "page_chars_delivered": 7696,
+   "post_step": "fetched",
+   "published": null,
+   "text": "'s context as an evolving playbook of concrete strategies that is improved by three roles ... and a Curator that merges those lessons into the playbook ... where iterative rewriting erodes hard-won specifics. It needs no labeled supervision and applies",
+   "title": "Agentic Context Engineering (Evolving Playbook) (ACE) - Agentic Design",
+   "url": "https://agentic-design.ai/patterns/learning-adaptation/agentic-context-engineering"
+  },
+  {
+   "chars_delivered": 254,
+   "page_chars_delivered": 19838,
+   "post_step": "fetched",
+   "published": null,
+   "text": "error?) and distills concrete lessons: “API X needs auth header Y”, “this task type fails when you\n...\n’s lessons into delta items (small candidate bullets, each tagged add/ ... playbook using deterministic, non-LLM logic — string IDs, counter increments",
+   "title": "Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models — The Agent Atlas",
+   "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/"
+  },
+  {
+   "chars_delivered": 3770,
+   "published": "2026-10-23T00:00:00.000Z",
+   "text": "AI coding agents increasingly work inside a harness: rule files such as AGENTS.md, on-demand skills, runtime hooks and automated checks. Most studies of harnesses look at a single point in time or at short benchmark runs. I report a six-week case study of my personal system of record, a plain-markd…",
+   "title": "Lessons Outlive Their Failures: A Case Study of Rules for AI Coding Agents",
+   "url": "https://arxiv.org/abs/2610.32578"
+  },
+  {
+   "chars_delivered": 1522,
+   "published": null,
+   "text": "### Abstract\n\nIncident response is a memory problem: teams accumulate tickets, traces, postmortems, and wiki pages, but the knowledge needed for the next incident is rarely stored with its order, freshness, and provenance intact. We present Incident Memory, a deterministic system that accumulates o…",
+   "title": "Incident Memory: Training-Free Operational Memory through Sequential Pattern Mining and Velocity-Stratified Retrieval",
+   "url": "https://arxiv.org/pdf/2609.01616.pdf"
+  },
+  {
+   "chars_delivered": 771,
+   "published": null,
+   "text": "### Bad Reflection Can Become Permanent Policy\n\nOne failed run can produce a confident rule. Once stored, that rule influences later runs, and those later outcomes may appear to validate it. The system has created a self-reinforcing error loop.\n\nMemory magnifies learning, and it magnifies mistakes…",
+   "title": "Agentic Context Engineering: Practical Guide",
+   "url": "https://lev8.com/blog/agentic-context-engineering"
+  },
+  {
+   "chars_delivered": 1377,
+   "published": null,
+   "text": "Abstract Trustworthy LLM agents should not merely apologize after a fail ure; they should convert safety-relevant failures into reusable, auditable defenses. We introduce cognitive immunity, a runtime failure-memory layer that extracts a scoped “antigen” descriptor from an observed failure, stores…",
+   "title": "Cognitive Immunity for Trustworthy LLM Agents: Auditable Failure Memory Against Repeated Safety Errors",
+   "url": "https://mianzhang.org/papers/kdd-2026/mian-zhang-kdd-2026-cognitive-immunity.pdf"
+  },
+  {
+   "chars_delivered": 1013,
+   "published": "2026-07-13T00:00:00.000Z",
+   "text": "Table IV shows the central result: zero recurrences across all tracked error classes.\n\nTABLE IV: Error-Class Recurrence After Rule Addition\n\n| Error Class | Rule | Post- | Recur- |\n| --- | --- | --- | --- |\n| | Added | rule | rences |\n| Factory HttpClient disposal | W1-S3 | 8 | 0 |\n| String interpo…",
+   "title": "Self-Improving AI Coding Agents Through Accumulated Behavioral Rules: A Closed-Loop Framework",
+   "url": "https://arxiv.org/html/2607.13091"
+  },
+  {
+   "chars_delivered": 542,
+   "published": "2025-08-08T00:00:00.000Z",
+   "text": "Large Language Models (LLMs) based agents excel at diverse tasks, yet they suffer from brittle procedural memory that is manually engineered or entangled in static parameters. In this work, we investigate strategies to endow agents with a learnable, updatable, and lifelong procedural memory. We pro…",
+   "title": "Memp: Exploring Agent Procedural Memory",
+   "url": "https://doi.org/10.18653/v1/2026.findings-acl.866"
+  },
+  {
+   "chars_delivered": 420,
+   "published": "2023-10-24T00:00:00.000Z",
+   "text": "In this work, we propose our Tuning-free Rule Accumulation (TRAN) framework, which guides LLMs in improving their performance by learning from previous mistakes. Considering data arrives sequentially, LLMs gradually accumulate rules from incorrect cases, forming a rule collection. These rules are t…",
+   "title": "Failures Pave the Way: Enhancing Large Language Models through Tuning-free Rule Accumulation",
+   "url": "https://arxiv.org/html/2310.15746v1"
+  }
+ ],
+ "latency_ms": 1204.6,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q23",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How do agent systems capture and reuse lessons from past failures: incident memory, playbooks, learned rules injected into prompts, and self-improving agents? What evidence is there that this reduces repeat failures, and what are the risks (prompt bloat, stale rules)?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 27487,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:31.203340Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

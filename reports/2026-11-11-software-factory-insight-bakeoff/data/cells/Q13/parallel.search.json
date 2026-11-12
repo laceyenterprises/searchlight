@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:34.430432Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 970,
+   "page_chars_delivered": 3626,
+   "post_step": "fetched",
+   "published": null,
+   "text": "# Scheduler\n\nInstead of placing separate queues within each processing module (e.g., LLM core(s) or memory manager), we centralize all the queues within the scheduler module. This aims to isolate the responsibility for request management from the individual modules, allowing each processing module…",
+   "title": "Scheduler",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "chars_delivered": 973,
+   "page_chars_delivered": 8360,
+   "post_step": "fetched",
+   "published": "2024-03-25",
+   "text": "# Computer Science > Operating Systems\n\n**arXiv:2403.16971** (cs)\n\n[Submitted on 25 Mar 2024 ( [v1](https://arxiv.org/abs/2403.16971v1) ), last revised 12 Aug 2025 (this version, v5)]\n\n...\n\nTo address these challenges, this paper proposes the architecture of AIOS (LLM-based AI Agent Operating Syste…",
+   "title": "[2403.16971] AIOS: LLM Agent Operating System",
+   "url": "https://arxiv.org/abs/2403.16971"
+  },
+  {
+   "chars_delivered": 925,
+   "page_chars_delivered": 7302,
+   "post_step": "fetched",
+   "published": null,
+   "text": "# MemGPT\n\nCopy page\n\nLearn about the key ideas behind MemGPT\n\nThe MemGPT open source framework / package was renamed to _Letta_ .\n\n...\n\nTo read the paper, visit <https://arxiv.org/abs/2310.08560> .\n\n**MemGPT** is the name of a [**research paper**](https://arxiv.org/abs/2310.08560) that popularized…",
+   "title": "MemGPT | Letta",
+   "url": "https://docs.letta.com/concepts/memgpt"
+  },
+  {
+   "chars_delivered": 795,
+   "published": "2025-10-29",
+   "text": "Inspired by the memory management principles in op- erating systems, MemoryOS designs a hierar- chical storage architecture and consists\n\n...\n\nto allow long-term memory updating; and (3) _Architecture-driven_ methods (Packer et al., 2023; Chhikara et al., 2025; Zhang et al., 2024b), such as MemGPT…",
+   "title": "Memory OS of AI Agent",
+   "url": "https://aclanthology.org/2025.emnlp-main.1318.pdf"
+  },
+  {
+   "chars_delivered": 964,
+   "published": null,
+   "text": "With Letta Agent, you use the same agent indefinitely — across sessions, days, or months — and have it get better over time. Your agent remembers past interactions, learns your preferences, and self-edits its memory as it works.\n\nLetta Agent also lets you customize your agent’s personality.\n\n...\n\nS…",
+   "title": "Memory | Letta Docs",
+   "url": "https://docs.letta.com/letta-agent/memory"
+  },
+  {
+   "chars_delivered": 881,
+   "published": "2026-04-06",
+   "text": "How- ever, these optimizations fail to account for the program-level context, such as the dependencies between LLM calls in the same program or program-level statistics, like total execution time.\n\n...\n\nOur results show that Agentix improves throughput by 4-15x over state-of-the-art inference syste…",
+   "title": "Agentix: An Efficient Serving Engine for LLM Agents as General Programs",
+   "url": "https://www.usenix.org/system/files/nsdi26-luo.pdf"
+  },
+  {
+   "chars_delivered": 961,
+   "published": null,
+   "text": "# About local sandboxing for GitHub Copilot\n\nLocal sandboxes provide isolated execution environments that let Copilot safely interact with code, tools, filesystem, and network resources securely on\n\n...\n\nAs Copilot takes more actions on your behalf—running tools, executing commands, and modifying f…",
+   "title": "About local sandboxing for GitHub Copilot",
+   "url": "https://docs.github.com/en/copilot/concepts/security-governance-and-network-settings/about-cloud-and-local-sandboxes"
+  },
+  {
+   "chars_delivered": 925,
+   "published": null,
+   "text": "AIOS is the AI Agent Operating System, which embeds large language model (LLM) into the operating system and facilitates the development and deployment of LLM-based AI Agents.\n\n...\n\nduring the development and deployment of LLM-based agents, towards a better AIOS-Agent ecosystem for agent developers…",
+   "title": "GitHub - agiresearch/AIOS: AIOS: AI Agent Operating System · GitHub",
+   "url": "https://github.com/agiresearch/AIOS"
+  },
+  {
+   "chars_delivered": 930,
+   "published": null,
+   "text": "- [.rst](https://aios.readthedocs.io/en/latest/_sources/aios_developer/scheduler/fifo.rst \"Download source file\")\n- .pdf\n\n# FIFO Scheduler\n\n# FIFO Scheduler \\#\n\nSource [agiresearch/AIOS](https://github.com/agiresearch/AIOS/blob/main/aios/scheduler/fifo_scheduler.py).\n\n```\n# This implements a (mostl…",
+   "title": "FIFO Scheduler",
+   "url": "https://aios.readthedocs.io/en/latest/aios_developer/scheduler/fifo.html"
+  },
+  {
+   "chars_delivered": 929,
+   "published": "2023-10-12",
+   "text": "# Computer Science > Artificial Intelligence\n\n**arXiv:2310.08560** (cs)\n\n[Submitted on 12 Oct 2023 ( [v1](https://arxiv.org/abs/2310.08560v1) ), last revised 12 Feb 2024 (this version, v2)]\n\n...\n\nTo enable using context beyond limited context windows, we propose virtual context management, a techni…",
+   "title": "[2310.08560] MemGPT: Towards LLMs as Operating Systems",
+   "url": "https://arxiv.org/abs/2310.08560"
+  }
+ ],
+ "latency_ms": 2661.3,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q13",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "What 'operating system for agents' designs exist (AIOS, Letta/MemGPT, others)? How do they handle scheduling, memory management, context switching, tool access and isolation between agents, and what has been learned from them? Rank first primary sources: the AIOS paper and GitHub repo (Rutgers/AGI Research), the MemGPT paper, Letta's docs and engineering blog posts, other agent-OS project docs, talks, and credible reporting or surveys. Extract mechanisms (schedulers such as FIFO and round robin, virtual context paging, memory tiers, context snapshot and restore, tool managers, access control and sandboxing), names, dates, measured results (throughput, latency, benchmark numbers), and failure modes and lessons learned.",
+   "search_queries": [
+    "AIOS LLM agent operating system scheduler",
+    "Letta MemGPT virtual context memory management",
+    "agent operating system isolation tool access sandboxing"
+   ],
+   "session_id": "sl-parallel.search-Q13-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11380,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:31.769100Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

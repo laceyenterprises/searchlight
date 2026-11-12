@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "ba2d0c721eff14fb",
+ "claims": [
+  {
+   "text": "E2B supports memory plus filesystem snapshots and fork() of up to 20 copies per call in its SDKs; its egress is open by default, with allow/deny rules by domain, CIDR, or IP (allow wins), runtime updates, and header injection (beta).",
+   "url": null
+  },
+  {
+   "text": "E2B pause saves both filesystem and memory, so running processes and loaded variables survive; pausing takes about 4 seconds per GiB of RAM, resuming about 1 second, and a paused sandbox is kept indefinitely until killed.",
+   "url": null
+  },
+  {
+   "text": "E2B checkpoint/restore can snapshot the entire disk state in about 300 milliseconds, while sandbox creation takes 1 to 12 seconds.",
+   "url": null
+  },
+  {
+   "text": "Firecracker cold boot takes 125-200ms; with snapshot-restore it drops to 5-30ms per sandbox, and E2B uses this technique by default.",
+   "url": null
+  },
+  {
+   "text": "E2B cold start is about 150ms with Firecracker microVMs, while Firecracker generally adds 150ms-2s to cold starts.",
+   "url": null
+  },
+  {
+   "text": "Firecracker microVMs boot in ~80-200ms with 128-256MB memory per VM and ~5-10% CPU overhead; gVisor boots in milliseconds with 30-50MB per sandbox and ~10-20% CPU overhead; Kata Containers boot in ~500ms-1s.",
+   "url": null
+  },
+  {
+   "text": "Firecracker microVMs boot in under 150ms with under 5MB memory overhead, and gVisor adds 5-15% overhead on syscall-heavy workloads but near-zero on typical coding tasks.",
+   "url": null
+  },
+  {
+   "text": "gVisor's Sentry reimplements the Linux syscall interface in Go and inspects every syscall before forwarding to the host, costing 10-15% CPU overhead and offering no direct path to GPU hardware.",
+   "url": null
+  },
+  {
+   "text": "Firecracker is about 50K lines of Rust versus QEMU's 1.4M lines of C, giving a minimal VMM attack surface; each microVM sandbox has a dedicated kernel.",
+   "url": null
+  },
+  {
+   "text": "gVisor's isolation is software-enforced, so a bug in the user-space kernel itself becomes the new escape vector, while standard Docker containers share the host kernel and are insufficient for untrusted code.",
+   "url": null
+  },
+  {
+   "text": "E2B has no outbound filtering at all according to this source, and Daytona does not offer network policies by default; egress control is described as missing across much of the market.",
+   "url": null
+  },
+  {
+   "text": "In one forum comparison, E2B (Firecracker) had ~150ms cold start with open egress by default, Docker+gVisor runsc had ~380ms, plain Docker with seccomp ~80ms, and Modal containers ~1.5s cold.",
+   "url": null
+  },
+  {
+   "text": "Modal uses gVisor by default (VM option available), has no pause state, supports filesystem snapshots with memory snapshots in alpha, and its egress is open by default with block-all, CIDR allowlist, and a beta domain allowlist (443 only).",
+   "url": null
+  },
+  {
+   "text": "Modal memory snapshots are experimental and expire after 7 days; its continuous run limit is 5 minutes by default and 24 hours maximum; GPUs are available only with the gVisor runtime.",
+   "url": null
+  },
+  {
+   "text": "Modal CPU-bound sandbox cold starts are 2-4 seconds, but its 2025 GPU memory snapshots capture full VRAM state and can push warm-restart latency below 1 second.",
+   "url": null
+  },
+  {
+   "text": "Modal's cold start is listed at ~3s in one comparison table, versus Daytona at 90ms, Cloudflare Sandboxes under 50ms, and Blaxel at 25ms resume.",
+   "url": null
+  },
+  {
+   "text": "In one comparison Modal Sandboxes (gVisor) are listed at 100-300ms cold start with T4/A10G GPUs and no self-hosting, and Daytona is listed at 200-500ms with Docker+gVisor.",
+   "url": null
+  },
+  {
+   "text": "Daytona uses containers by default with VM and Windows classes; egress is restricted on Tiers 1-2 and open on Tiers 3-4, with CIDR (max 10) and domain (max 100) allowlists and block-all; its cold start is claimed under 90ms.",
+   "url": null
+  },
+  {
+   "text": "Daytona sandboxes are Linux containers by default, and only VM-class sandboxes support pause, fork, memory snapshots, and nested virtualization; container sandboxes keep filesystem but not memory on stop.",
+   "url": null
+  },
+  {
+   "text": "Daytona claims cold starts as low as 27ms using pre-warmed sandbox pools, with Docker/OCI containers by default and optional Kata Containers for VM-level isolation.",
+   "url": null
+  },
+  {
+   "text": "Daytona uses a devcontainer.json config standard and achieves sub-90ms container startup via warm pools of pre-built runtimes; its multi-tenant safety is rated Medium versus High for E2B and Modal.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare Sandbox is a container in its own VM with 1-3s cold start, open egress by default with options to disable internet or use host allow/deny globs and CIDRs (HTTP/HTTPS only), and only directory backups to R2 for persistence.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare Dynamic Workers use V8 isolates that start in a few milliseconds using a few megabytes of memory, claimed 100x faster and 10-100x more memory efficient than containers, with a capability-based model exposing no filesystem, environment variables, or shell.",
+   "url": null
+  },
+  {
+   "text": "V8 isolates (Cloudflare Dynamic Workers, open beta April 2026) cannot run arbitrary Linux code, so Python dependencies, filesystem access, or long-running processes are not supported.",
+   "url": null
+  },
+  {
+   "text": "E2B and Daytona both charge $0.0504 per vCPU-hour and $0.0162 per GiB-hour (about $0.17 for a busy hour of 2 vCPU/4 GiB), Modal about $0.24, and Cloudflare about $0.22; E2B Pro is $150/month.",
+   "url": null
+  }
+ ],
+ "question_id": "Q16"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "d9a3a58d6382c8ee",
+ "claims": [
+  {
+   "text": "Amazon Bedrock AgentCore Runtime is a secure, serverless runtime for deploying and scaling AI agents and tools, with fast cold starts for real-time interactions, extended runtime support for asynchronous agents, true session isolation, built-in identity, and support for multi-modal and multi-agent workloads.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Runtime works with custom frameworks and open-source frameworks including CrewAI, LangGraph, LlamaIndex, Google ADK, OpenAI Agents SDK, and Strands Agents, with models inside or outside Amazon Bedrock (OpenAI, Gemini, Claude, Nova, Llama, Mistral), and with the MCP and A2A protocols.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Harness is a managed agent loop that defines and invokes agents with a single API call (model, system prompt and tools specified inline); each session runs in an isolated microVM with filesystem and shell access, and a custom container image can be supplied.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Memory supports short-term memory for multi-turn conversations and long-term memory that persists across sessions, can be shared across agents, and works with LangGraph, LangChain, Strands, and LlamaIndex.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Identity is an agent identity, access and authentication service compatible with existing identity providers such as Amazon Cognito, Okta, Microsoft Azure Entra ID, and Auth0, without user migration or rebuilding authentication flows.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Runtime integrates with existing identity providers such as Amazon Cognito, Microsoft Entra ID, and Okta to limit who can work with an agent.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Observability provides traces, step-by-step visualizations of the agent workflow, and debugging of performance bottlenecks and failures, and integrates with any monitoring stack that accepts OpenTelemetry-compatible telemetry.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Policy provides deterministic control using rules authored in natural language or in the Dogwood policy language (compatible with Cedar), integrates with AgentCore Gateway, and intercepts every tool call before execution.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Gateway converts APIs, Lambda functions, and existing services into MCP-compatible tools and connects to pre-existing MCP servers, including integrations such as Salesforce, Zoom, JIRA, and Slack.",
+   "url": null
+  },
+  {
+   "text": "AgentCore also offers Evaluations (supporting sessions, traces and spans from Strands Agents or LangGraph instrumented with OpenTelemetry or OpenInference), Optimization (A/B testing of system prompts and tool descriptions), Registry, Code Interpreter, Browser, and Payments services.",
+   "url": null
+  },
+  {
+   "text": "AgentCore supports the Model Context Protocol (MCP) and the Agent to Agent Protocol (A2A).",
+   "url": null
+  },
+  {
+   "text": "Arize categorizes Amazon Bedrock AgentCore as a managed agent platform that runs and governs agents built with other SDKs and frameworks, rather than as an agent framework itself.",
+   "url": null
+  },
+  {
+   "text": "LangGraph is a low-level orchestration framework and runtime for long-running, stateful agents in which workflows are graphs of shared state, nodes, and edges that can mix deterministic and LLM-driven steps.",
+   "url": null
+  },
+  {
+   "text": "LangGraph provides persistence (checkpointing state and resuming after failures or pauses), human-in-the-loop interrupts, short-term thread memory plus longer-term cross-session memory, and streaming of tokens and state updates.",
+   "url": null
+  },
+  {
+   "text": "LangGraph does not prescribe prompts or agent architecture and does not require LangChain.",
+   "url": null
+  },
+  {
+   "text": "LangGraph deployment is handled by LangSmith Deployment (scaling stateful agents, with Studio for visual prototyping), and tracing, evaluation and monitoring by LangSmith Observability.",
+   "url": null
+  },
+  {
+   "text": "Deep Agents is an agent harness built on LangGraph, providing planning, subagents, filesystem tools, and context management.",
+   "url": null
+  },
+  {
+   "text": "LangGraph's state model is typed graph state plus a checkpointer, whereas CrewAI uses Pydantic flow state and Google ADK uses session state plus memory.",
+   "url": null
+  },
+  {
+   "text": "CrewAI is built around roles and crews: agents with goals and backstories, crews that collaborate, and Flows that orchestrate them; LangGraph's abstraction is a state graph.",
+   "url": null
+  },
+  {
+   "text": "CrewAI combines role-based crews with stateful flows and is suited to workflows needing distinct roles, delegation, and coordinated agents.",
+   "url": null
+  },
+  {
+   "text": "In a May 2026 comparison, the languages listed were Python and TypeScript for LangGraph, Python only for CrewAI, and Python, TypeScript, Go and Java for Google ADK.",
+   "url": null
+  },
+  {
+   "text": "OpenAI Agents SDK provides agents, tools, handoffs, guardrails, sessions, and a runner that manages the model-and-tool loop, in Python and TypeScript.",
+   "url": null
+  },
+  {
+   "text": "In OpenAI Agents SDK, multi-agent systems are composed through handoffs, agents exposed as tools to a central manager, or code-based orchestration that can run independent agents concurrently; complex state machines and durable workflows generally need extra application code or another orchestration layer.",
+   "url": null
+  },
+  {
+   "text": "Google ADK supports LLM agents, predefined sequential, loop and parallel workflow agents, and ADK 2.0 graph and dynamic workflows with automatic checkpointing so a resumed run skips work that already succeeded.",
+   "url": null
+  },
+  {
+   "text": "Google ADK agents can be composed through hierarchical composition, delegation, shared state, or the Agent2Agent protocol, and tools can be attached directly, exposed via MCP, or connected to Google Cloud services.",
+   "url": null
+  }
+ ],
+ "question_id": "Q12"
+}

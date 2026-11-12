@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "242a9b60ee277d0c",
+ "claims": [
+  {
+   "text": "LangChain's paid-media agent runs a recurring Monday Slack workflow that joins advertising data to warehouse leads/pipeline and produces platform-specific reports, and users can request analysis and campaign changes.",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "LangChain's paid-media agent is built on general-purpose Deep Agents and LangSmith infrastructure with bespoke advertising tools and playbooks; scheduled reporting delegates to platform-specific subagents, each request gets an isolated sandbox/checkpoint, and calculations and hard safeguards are code rather than model judgment.",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "In LangChain's paid-media agent, only designated Slack user IDs can edit or approve campaign changes; approval cards show current and proposed values, and code executes approved changes and verifies success on the advertising platform.",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "LangChain reports paid media rose from 0% to 20% of marketing pipeline in six months, cost per qualified lead fell 30% from June to August while monthly spend rose about 60%, and in-house reporting saved about $5,000/month; these are team-reported before/after outcomes, not a controlled attribution study.",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "Moving calculations into code and removing unnecessary model calls made an early LangChain reporting workflow about 40x cheaper and 13x faster (18 minutes to 85 seconds).",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "A LangChain paid-media failure: two subagents shared an output location and completion flag so one platform's report suppressed another's; the fix separated their files and completion state.",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "A LangChain paid-media agent repeatedly checked whether its PDF rendered, consuming excessive tokens and trying to rebuild it; the fix restricted it to read-context, compute and render tools and treated successful rendering as completion.",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "When cross-platform data cannot be joined reliably, LangChain's paid-media agent reports source, date window and attribution model rather than filling gaps; Slack proved awkward for complex bulk edits, prompting a dedicated interface.",
+   "url": "https://www.langchain.com/blog/paid-media-agent"
+  },
+  {
+   "text": "LangChain's GTM agent, built on general-purpose Deep Agents and LangSmith, does Salesforce-triggered lead research and personalized outreach using isolated subagents with constrained tool sets, structured output contracts, and a virtual filesystem for large tool results.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "In LangChain's GTM agent, reps get Slack drafts with reasoning and sources and can send, edit or cancel, but a 48-hour SLA for 'silver' leads auto-sends if no approval or rejection occurs, an exception to the initial no-send-without-approval requirement.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent checks recent support issues and prior teammate contact before drafting; CI combines tool/order/duplicate-draft assertions with an LLM judge for tone, length and formatting, and substantive rep edits become per-rep style memories in PostgreSQL.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain reports for December 2025 to March 2026 that lead-to-qualified-opportunity conversion rose 250%, pipeline dollars 3x, and reps reclaimed 40 hours/month each (1,320 hours team-wide); the post does not establish a controlled causal estimate.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "Docusign's sales outreach system uses five agents (Identifier, Researcher, Composer, Validator, Orchestrator) inside a deterministic CrewAI Flow that controls sequencing, state and errors, with three validation layers: LLM-as-judge, hallucination checks against source material, and API-based quality scoring.",
+   "url": "https://blog.crewai.com/lessons-from-2-billion-agentic-workflows/"
+  },
+  {
+   "text": "CrewAI reports faster turnaround and higher open, reply and conversion rates for Docusign but publishes no numerical uplift or explicit human approval gate; the '14x less code' figure in the article concerns another customer.",
+   "url": "https://blog.crewai.com/lessons-from-2-billion-agentic-workflows/"
+  },
+  {
+   "text": "7-Eleven's marketing creative assistant is a custom application on LangGraph and Databricks with campaign creative generator, copywriter, general assistant, supervisor and web-search agents; the supervisor routes work and reviews quality.",
+   "url": "https://www.databricks.com/blog/how-7-eleven-inc-built-game-changing-genai-creative-assistant-marketing-mosaic-ai"
+  },
+  {
+   "text": "7-Eleven's system allows live UI interruptions and email reviews for human approval at any stage, applies brand-voice configuration, and runs toxicity, PII and off-policy filters, with MLflow tracing and evaluation of groundedness, safety and relevance.",
+   "url": "https://www.databricks.com/blog/how-7-eleven-inc-built-game-changing-genai-creative-assistant-marketing-mosaic-ai"
+  },
+  {
+   "text": "7-Eleven reports multi-channel concepts and scripts that took hours or days can be generated, refined and approved in minutes, but discloses no campaign lift or numerical labor savings; automated execution and image/video features are roadmap items.",
+   "url": "https://www.databricks.com/blog/how-7-eleven-inc-built-game-changing-genai-creative-assistant-marketing-mosaic-ai"
+  },
+  {
+   "text": "Bonterra uses two custom agents in Jasper Grid, a categorizer labeling reviews by sentiment, rating and content type and a response generator with conditional rules, with Jasper IQ enforcing brand voice and flagging edge cases for human review.",
+   "url": "https://www.jasper.ai/case-studies/bonterra"
+  },
+  {
+   "text": "Bonterra reports review responses taking under two hours versus at least 12 hours before (83% reduction) and monthly batches of about 40 reviews handled in under two minutes; whether every public response receives human sign-off is not specified.",
+   "url": "https://www.jasper.ai/case-studies/bonterra"
+  },
+  {
+   "text": "PGA TOUR's Automated Content System uses research, writer, validation, editor and multimedia agents on Amazon Bedrock; validators extract factual claims into fact tables, verify them against authoritative sources and trigger writer revisions on discrepancies.",
+   "url": "https://aws.amazon.com/blogs/media/accelerating-sports-content-creation-usingagentic-ai-pga-tour/"
+  },
+  {
+   "text": "PGA TOUR reports about 1,200+ content pieces per week at under $0.25 per piece and a 95% cost reduction, but does not document mandatory human sign-off before publication or name a reusable orchestration framework.",
+   "url": "https://aws.amazon.com/blogs/media/accelerating-sports-content-creation-usingagentic-ai-pga-tour/"
+  },
+  {
+   "text": "Gradial, a commercial domain-specific agent platform on AWS, uses different models per task (Nova for authoring/AEM updates, Nova Act for simulated buyer journeys, Claude for QA/governance/optimization); AWS reports up to 20x efficiency gains and 99.9% content-operation accuracy for AWS and T-Mobile without publishing the test definition or an approval gate.",
+   "url": "https://aws.amazon.com/solutions/case-studies/gradial-case-study/"
+  },
+  {
+   "text": "BlueOceanAI Spark decomposes marketer questions into subquestions for specialist agents with dataset access, using Amazon Bedrock and unnamed open-source multi-agent frameworks; AWS reports 1.2 billion tokens and 10,000+ questions in the first month, tasks falling from about five days to two hours, and 66-96% lower customer analytics costs.",
+   "url": "https://aws.amazon.com/solutions/case-studies/blueoceanai-bedrock/"
+  },
+  {
+   "text": "Morgan Stanley's FIXR reconciliation agents turn repeated controller resolutions into durable rules, auto-clear known breaks and flag unfamiliar ones for controllers to approve or correct; reconciliation fell from up to six hours to two to three hours and about 1,500 hours saved weekly across roughly 100 controllers, with framework, error rate and auto-clear share undisclosed.",
+   "url": "https://venturebeat.com/orchestration/morgan-stanley-cut-its-riskiest-reconciliation-job-in-half-by-making-its-agents-less-autonomous"
+  },
+  {
+   "text": "Bertelsmann's Content Search is a production LangGraph system routing natural-language queries to specialist agents across existing book, documentary and news systems and synthesizing answers; discovery fell from hours to seconds, with no numerical benchmark disclosed.",
+   "url": "https://www.langchain.com/blog/customer-bertelsmann"
+  }
+ ],
+ "question_id": "Q22"
+}

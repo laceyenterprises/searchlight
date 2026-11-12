@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "c0cfb13246482d93",
+ "claims": [
+  {
+   "text": "Firecracker's NSDI paper (February 2020) reports about 3 MB measured VMM memory overhead per microVM (under 5 MiB claimed), start under 125 ms to application code, and 99th percentile 146 ms with 50 microVMs booting in parallel, pre-configured.",
+   "url": null
+  },
+  {
+   "text": "In the Firecracker NSDI paper's v0.20 tests, block I/O was limited to about 13,000 IOPS against hardware capable of over 340,000, and network throughput was about 15 Gb/s against 44 Gb/s on the host.",
+   "url": null
+  },
+  {
+   "text": "Cloud Hypervisor showed about 13 MB measured memory overhead and a 99th percentile start of 158 ms in parallel in the Firecracker NSDI paper tests, marginally faster than pre-configured Firecracker serially.",
+   "url": null
+  },
+  {
+   "text": "Firecracker documentation warns that resuming one snapshot more than once can duplicate identifiers, random numbers and cryptographic tokens, so cloning from one snapshot is only secure if each snapshot is loaded at most once; VMGenID reseeds the kernel RNG on Linux 5.18 and later.",
+   "url": null
+  },
+  {
+   "text": "A Firecracker snapshot consists of a guest memory file plus a microVM state file, restored by mapping memory privately and loading pages on demand; diff snapshots save only changed pages.",
+   "url": null
+  },
+  {
+   "text": "Firecracker exposes five devices, so it has no GPU passthrough, has weaker I/O, requires KVM, and leaves orchestration to the user.",
+   "url": null
+  },
+  {
+   "text": "None of the vendor start-time claims comes with an independent benchmark, and they measure different things (a VM to its init process versus an isolate to code execution).",
+   "url": null
+  },
+  {
+   "text": "A microVM pays at device boundaries (disk and network), while gVisor pays on every system call.",
+   "url": null
+  },
+  {
+   "text": "None of Sprites, E2B, Modal or Daytona publishes p50 or p99 start latency, so all start-time numbers are vendor claims.",
+   "url": null
+  },
+  {
+   "text": "Daytona publishes under 90 ms from code to execution; E2B resume of a paused sandbox takes about one second; Fly Sprites warm wake takes 100 to 500 ms and cold wake 1 to 2 s; Modal publishes no start-time figure.",
+   "url": null
+  },
+  {
+   "text": "E2B pausing takes about four seconds per GiB of RAM.",
+   "url": null
+  },
+  {
+   "text": "Per-CPU pricing listed: Sprites $0.0385 per CPU-hour of actual use, E2B $0.0504 per vCPU-hour, Modal $0.1419 per core-hour, Daytona $0.0504 per vCPU-hour.",
+   "url": null
+  },
+  {
+   "text": "Sprites billing stops when the Sprite goes warm, E2B stops billing once paused, while Daytona bills while a sandbox is started.",
+   "url": null
+  },
+  {
+   "text": "One source claims E2B managed achieves 5-30 ms snapshot cold starts at about $0.000014 per sandbox-second, while a cold Firecracker boot takes 125-200 ms.",
+   "url": null
+  },
+  {
+   "text": "One source lists Daytona as Docker plus gVisor with 200-500 ms cold start and Modal as gVisor (runsc) with 100-300 ms cold start and T4/A10G GPU support.",
+   "url": null
+  },
+  {
+   "text": "gVisor's user-space kernel blocks direct PCIe GPU passthrough, whereas Firecracker's hardware virtualization supports VFIO passthrough, so GPU in a Firecracker sandbox requires self-hosted E2B OSS or raw bare metal.",
+   "url": null
+  },
+  {
+   "text": "E2B is described as Firecracker microVMs with about 150 ms startup and a free tier.",
+   "url": null
+  },
+  {
+   "text": "E2B makes each sandbox a Firecracker microVM with its own kernel; Modal uses gVisor; Daytona offers a container class and a VM class with its own kernel enabling pause, fork and hot snapshots; Cloudflare runs each sandbox container instance in its own VM.",
+   "url": null
+  },
+  {
+   "text": "E2B pause preserves filesystem and memory including running processes and is kept indefinitely, but E2B terminates a sandbox at timeout unless the action is set to pause.",
+   "url": null
+  },
+  {
+   "text": "Modal memory snapshots expire after seven days and filesystem snapshots are expected before the 24-hour maximum lifetime; Daytona archives a stopped container after seven days.",
+   "url": null
+  },
+  {
+   "text": "E2B egress is open by default, supports allow and deny lists of IPs, CIDRs and domains, and per-host rules where an egress proxy swaps a placeholder for a fresh token so the credential never enters the sandbox.",
+   "url": null
+  },
+  {
+   "text": "Modal offers block_network, an outbound CIDR allowlist and a domain allowlist; Daytona's firewall is restricted by default on tiers 1 and 2 and open on tiers 3 and 4.",
+   "url": null
+  },
+  {
+   "text": "Session defaults: Modal and Vercel 5 minutes; E2B caps at 1 hour on Hobby and 24 hours on Pro; Daytona stops after 15 idle minutes; Cloudflare sleeps after 10 minutes.",
+   "url": null
+  },
+  {
+   "text": "A Cloudflare agent sandbox starts without Internet access; enableInternet: true allows all destinations, and an outbound handler in the Worker can allow specific hostnames or inject credentials after requests leave the sandbox.",
+   "url": null
+  },
+  {
+   "text": "When a Cloudflare sandbox container stops, files are lost unless a snapshot was saved and later restored; Code Mode instead uses Dynamic Workers, which start faster than a container.",
+   "url": null
+  }
+ ],
+ "question_id": "Q16"
+}

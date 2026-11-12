@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.research",
+ "cell_sha": "3b4c511c078900ed",
+ "claims": [
+  {
+   "text": "Factory Router's September 2026 production update reported that routed sessions cost 63% less in aggregate than the same workload at published frontier-model rates.",
+   "url": "https://factory.com/news/factory-router-inference-savings"
+  },
+  {
+   "text": "Factory Router reached 99% of Claude Opus 4.7's Terminal-Bench 2 pass rate and 96% on Legacy-Bench, choosing an efficient model when it can complete the task reliably and escalating to a stronger model when needed.",
+   "url": "https://factory.com/news/factory-router-inference-savings"
+  },
+  {
+   "text": "Among Factory Router sessions from Sep. 5–18, 84% saved at least 50%, and median per-session savings were 72.5%.",
+   "url": "https://factory.com/news/factory-router-inference-savings"
+  },
+  {
+   "text": "Factory Private (private preview, announced 2026-09-18) offers two deployment models: Factory Managed keeps the control plane hosted while Droids run on developer machines, CI/CD infrastructure or managed Droid Computers, and Factory Private places some or all infrastructure in the customer's VPC with sandbox execution through OpenCompute and customer IAM/network/security controls.",
+   "url": "https://factory.com/news/factory-private"
+  },
+  {
+   "text": "Factory said the NVIDIA Nemotron research team used Factory Private for post-training, evaluation and optimization while keeping code, models and IP in its own infrastructure.",
+   "url": "https://factory.com/news/factory-private"
+  },
+  {
+   "text": "Orq's September 2026 explainer describes a Software Factory as shared infrastructure around coding agents (workflow-specific context and skills, agent runtime/model/harness, execution environments, controls, observability and run evidence) that feeds a pull request into existing CI/CD rather than replacing source control or delivery.",
+   "url": "https://orq.ai/blog/what-is-a-software-factory"
+  },
+  {
+   "text": "Orq warned that stronger agents can follow dependencies into work nobody intended to delegate, making workflow boundaries and scope more important as capability improves.",
+   "url": "https://orq.ai/blog/what-is-a-software-factory"
+  },
+  {
+   "text": "Factory Automations became generally available on 2026-09-30 as a four-part workflow of trigger, instructions, model/reasoning level and computer, with triggers from schedules, Slack, GitHub or webhooks and runs under a user identity or service account with inspectable sessions, event history, seven-day success rate and failure notifications.",
+   "url": "https://factory.com/news/automations"
+  },
+  {
+   "text": "Factory reported that 30% of code-review automation runs used an open-weight model, and that among enterprise users in the prior 30 days 52% used automated code review, 48% security review and 35% AutoWiki, with session volume up 51% month over month.",
+   "url": "https://factory.com/news/automations"
+  },
+  {
+   "text": "Factory's own automations had median incident acknowledgement of 20 seconds and resolution of 6 minutes, reviewed 99.5% of mergeable PRs, and had 81% of comments resolved by engineers.",
+   "url": "https://factory.com/news/automations"
+  },
+  {
+   "text": "Factory's Environments announcement (2026-10-12) defines the sandbox as a reusable prebuilt definition of repositories, tools and dependencies, with images built ahead of time, rebuilt every few hours and promoted only after validation; automations start from the latest validated build.",
+   "url": "https://factory.com/news/droids-now-have-a-fleet-of-sandboxes"
+  },
+  {
+   "text": "Factory Environments let administrators centrally restrict reachable hosts, shell commands, approvals, Connectors and Skills, and a blocked command is stopped before execution.",
+   "url": "https://factory.com/news/droids-now-have-a-fleet-of-sandboxes"
+  },
+  {
+   "text": "Factory reported that most enterprise customers start at Agent Readiness level 2/5 and that its long-running Missions work best at level 4 or above.",
+   "url": "https://factory.com/news/droids-now-have-a-fleet-of-sandboxes"
+  },
+  {
+   "text": "Factory's OpenCompute private preview (2026-10-14) separates agent-sandbox fleet lifecycle from the underlying compute provider: a self-hosted service in the customer's environment connects outbound to Factory over TLS WebSockets, and a Go control plane records desired and observed state in local Postgres with a reconciler that retries provisioning.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "OpenCompute uses standalone gRPC drivers for provider-specific operations, with required Core and optional Suspend/Snapshot/Fork conformance profiles and black-box tests that reject unsupported requests before durable state changes.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "Factory said its first bespoke on-prem OpenCompute deployment took six weeks from prototype to first deployment and two days on site after the initial driver was built.",
+   "url": "https://factory.com/news/opencompute"
+  },
+  {
+   "text": "Microsoft's 2026-09-25 Copilot announcement added Code, which runs in a sandboxed environment that can be hosted inside the tenant, and Autopilot, a persistent proactive agent with its own identity, memory, computer and workspace governed by permissions, audit and organizational controls.",
+   "url": "https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/"
+  },
+  {
+   "text": "Microsoft said Copilot's Auto routing weighs accuracy, speed and cost per request, and that long-running Code and Autopilot use usage-based billing.",
+   "url": "https://blogs.microsoft.com/blog/2026/09/25/introducing-the-new-copilot-with-home-code-and-autopilot/"
+  },
+  {
+   "text": "AWS's Deep Insight reference system uses eight specialized agents (Coordinator, Planner, Plan Reviewer, Supervisor, Coder, Validator, Reporter, Tracker), with a Strands Graph defining order and human-in-the-loop branching and role-specific models (Haiku for routing, Opus for planning, Sonnet for execution).",
+   "url": "https://aws.amazon.com/blogs/machine-learning/5-production-challenges-in-multi-agent-systems-and-how-deep-insight-solved-them/"
+  },
+  {
+   "text": "AWS reported selective prompt caching can cut repeated input-token costs by up to 90%, and an LG Electronics system using the same pattern reduced an analysis from three days to 30 minutes (288x); AWS also warned container isolation alone does not stop prompt injection in uploaded data.",
+   "url": "https://aws.amazon.com/blogs/machine-learning/5-production-challenges-in-multi-agent-systems-and-how-deep-insight-solved-them/"
+  },
+  {
+   "text": "The CRBugBench paper (2026-10-09; 1,800 tasks across 98 open-source repositories, two industry repositories and five languages) found the best agent caught 79.6% of pre-merge and 64.2% of post-merge bugs in its top five comments, with performance falling by up to 25.5% on proprietary repositories and agents missing more than 20% of human-found bugs.",
+   "url": "https://arxiv.org/html/2610.13668v1"
+  },
+  {
+   "text": "CRBugBench found agents executed code in only 9.7% of the best model's turns; multi-agent review improved performance 4.7% at 5.55x cost, and higher reasoning raised performance from 36% to 57% at 23.22x cost; the authors recommend human-in-the-loop review.",
+   "url": "https://arxiv.org/html/2610.13668v1"
+  },
+  {
+   "text": "The Instant Software Factories paper (2026-10-26) reported that in its CLI factory, about 30 scheduled agents raised daily merges 15x during rollout and filed 95% of new issues, but at least 5.6% of issues marked fixed were later incorrect, seven incorrect fixes shipped unrepaired, and the other factory's validation harness returned no verdict in 28% of reruns.",
+   "url": "https://arxiv.org/html/2610.36254v1"
+  },
+  {
+   "text": "Google's Project Chrysalis (2026-10-22), a research reference architecture and demo rather than a disclosed production deployment, reported in simulation time-to-first-mitigation of 1.8 seconds versus 15–45 minutes and P99 latency falling from 519.8 ms to 18.2 ms, with permanent topology changes requiring dual-custody SRE approval.",
+   "url": "https://developers.googleblog.com/architecting-governed-self-evolving-ai-agents-on-gemini-agent-platform/"
+  },
+  {
+   "text": "Factory's Droid 1.0 (2026-10-29) made programmatic tool calling the default, with a sandboxed JavaScript Script running tool calls; it reported 15% lower cost on Claude Opus 5.5 and a 5,384-job CI sweep completed in two requests with under 0.1% of tool results reaching model context.",
+   "url": "https://factory.com/news/frontier-harness"
+  }
+ ],
+ "question_id": "Q24"
+}

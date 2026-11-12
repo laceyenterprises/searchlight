@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "b6fe4f00f4d48734",
+ "claims": [
+  {
+   "text": "The GitHub Copilot coding agent is a cloud-based autonomous agent that accepts a GitHub Issue as input, works independently in a GitHub Actions-powered sandbox environment, and delivers a pull request for human review without developer interaction during execution.",
+   "url": "https://baeseokjae.github.io/posts/github-copilot-coding-agent-guide-2026/"
+  },
+  {
+   "text": "The Copilot coding agent runs in a GitHub Actions runner for minutes or hours and opens a PR when done, making it asynchronous, unlike VS Code agent mode, which is synchronous and interactive.",
+   "url": "https://baeseokjae.github.io/posts/github-copilot-coding-agent-guide-2026/"
+  },
+  {
+   "text": "The Copilot coding agent applies built-in security checks (CodeQL analysis, secret scanning, dependency review) and produces PRs that pass through the same review workflow as human-authored code.",
+   "url": "https://baeseokjae.github.io/posts/github-copilot-coding-agent-guide-2026/"
+  },
+  {
+   "text": "Agent mode in VS Code is available on all Copilot plans including Free, while the Copilot coding agent requires Copilot Pro+, Business, or Enterprise subscriptions.",
+   "url": "https://baeseokjae.github.io/posts/github-copilot-coding-agent-guide-2026/"
+  },
+  {
+   "text": "The Copilot coding agent runs within a temporary isolated dev environment that is spun up so the agent can explore the codebase, make changes, build the code, and run tests.",
+   "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent"
+  },
+  {
+   "text": "The Copilot coding agent is a member of the repo that can comment on issues, open PRs, do code reviews, and use Model Context Protocol (MCP) tools to work with databases or cloud services.",
+   "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent"
+  },
+  {
+   "text": "When the Copilot coding agent finishes, it assigns the PR to the user and requests them as a reviewer, including a screenshot where applicable.",
+   "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent"
+  },
+  {
+   "text": "Reviewers can leave comments on the agent's PR, and the agent picks up the feedback, updates the PR, and notifies the user when finished.",
+   "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent"
+  },
+  {
+   "text": "A full Copilot coding agent session counts as only one premium request.",
+   "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent"
+  },
+  {
+   "text": "In VS Code, the 'Copilot on My Behalf' query in the Pull Requests view lists the agent's work, 'View Session' shows every command and decision, and the user can terminate the agent.",
+   "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent"
+  },
+  {
+   "text": "PR preview services such as Azure Static Web Apps, Vercel, and Netlify let reviewers check the agent's work without checking out the branch locally.",
+   "url": "https://code.visualstudio.com/blogs/2025/07/17/copilot-coding-agent"
+  },
+  {
+   "text": "GitHub Agent HQ is a centralized orchestration layer that lets teams deploy, monitor, and compare GitHub Copilot, Anthropic Claude, and OpenAI Codex agents from a single interface.",
+   "url": "https://baeseokjae.github.io/posts/github-agent-hq-guide-2026/"
+  },
+  {
+   "text": "In Agent HQ, agent selection happens through the Assignees dropdown on any GitHub issue, and the agents' work is standardized under GitHub's existing issue and PR model.",
+   "url": "https://baeseokjae.github.io/posts/github-agent-hq-guide-2026/"
+  },
+  {
+   "text": "Agent HQ is included with all GitHub Copilot plans, with no separate marketplace purchase required, and works on github.com, VS Code, and GitHub Mobile.",
+   "url": "https://baeseokjae.github.io/posts/github-agent-hq-guide-2026/"
+  },
+  {
+   "text": "Agent HQ supports a workflow of assigning the same issue to several agents side by side and comparing their pull requests.",
+   "url": "https://baeseokjae.github.io/posts/github-agent-hq-guide-2026/"
+  },
+  {
+   "text": "GitHub launched Agent HQ to unite Codex, Claude, and Jules, letting developers manage multiple AI agents side by side from Mission Control.",
+   "url": "https://www.zdnet.com/article/githubs-new-agent-hq-gives-devs-a-command-center-for-all-their-ai-tools-why-this-is-a-huge-deal/"
+  },
+  {
+   "text": "Mission Control task entry points are github.com/copilot/agents, the /task command in github.com/copilot chat, the Issues page, and GitHub Mobile.",
+   "url": "https://agentpatterns.ai/tools/copilot/agent-mission-control/"
+  },
+  {
+   "text": "Mission Control lets users steer a running session through the chat panel, where Copilot adapts as soon as its current tool call completes, or by commenting on specific lines in the Files Changed view.",
+   "url": "https://agentpatterns.ai/tools/copilot/agent-mission-control/"
+  },
+  {
+   "text": "Recommended Mission Control review flow: check session logs first, scan files changed for unexpected modifications, verify CI passes, request a Copilot self-review of edge cases, and batch similar PRs.",
+   "url": "https://agentpatterns.ai/tools/copilot/agent-mission-control/"
+  },
+  {
+   "text": "Custom agents defined in .github/agents/ can be assigned to Mission Control tasks to give consistent specialized behavior, such as a security-reviewer agent.",
+   "url": "https://agentpatterns.ai/tools/copilot/agent-mission-control/"
+  },
+  {
+   "text": "In March 2026, Enterprise AI Controls added session filters for admins by status (queued, in progress, completed, failed, idle, timed out, canceled), repository, and user.",
+   "url": "https://agentpatterns.ai/tools/copilot/agent-mission-control/"
+  },
+  {
+   "text": "Mission Control lets users assign tasks to Copilot across repos, pick a custom agent, watch real-time session logs, steer mid-run (pause, refine, or restart), and jump to the resulting pull requests.",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "text": "Agents working in parallel on the same repo can create merge conflicts if they touch the same files, so work should be partitioned; dependent or exploratory tasks should stay sequential.",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "text": "Signals that an agent needs intervention include repeated failing tests or fetches, unexpected files in the diff, scope creep, misread intent in the session log, and circular behavior.",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "text": "With OpenAI Codex under a Copilot Pro+ subscription, Copilot handles all model calls and standard rate limits apply, and VS Code's Agent Sessions view manages local and cloud agents in one place.",
+   "url": "https://code.visualstudio.com/blogs/2025/11/03/unified-agent-experience"
+  }
+ ],
+ "question_id": "Q05"
+}

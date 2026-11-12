@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "b3792014facbbce8",
+ "url": "https://www.anthropic.com/research/components-of-agent-memory",
+ "verdicts": {
+  "Anthropic describes 'dreaming' as having an agent reflect on logs or transcripts between sessions to fix mistakes or produce new notes and representations, inspired by sleep-time compute from Letta and UC Berkeley.": 1,
+  "Anthropic describes a memory hierarchy of transcripts, memory notes written by Claude, memory representations such as wikis, and injected context loaded into every session, with dreaming organizing across these layers.": 0,
+  "Anthropic frames writing a memory rule as a prediction that the described pattern will be relevant again.": 1,
+  "Anthropic reports that prompting Claude to read its memory files before answering and to explicitly test its theories about failures nearly doubled its benchmark score.": 1,
+  "In Anthropic's CL-Bench 1.0 database-question task, Claude is told the correct answer after responding and can record the failure, theorize about what went wrong, test theories, and turn findings into a rule for future answers.": 1,
+  "Injecting memories into a new session consumes tokens, and an incorrect note can be carried into every later session.": 1,
+  "Setting a fixed rule to 'record only failures' made both Opus 5 and Opus 4.7 lose much of the performance boost memory gave them; for stronger models, letting them judge salience worked better than preset rules.": 1
+ }
+}

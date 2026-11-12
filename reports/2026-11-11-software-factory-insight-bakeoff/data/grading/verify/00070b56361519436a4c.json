@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "b7c9aefe4e80dc37",
+ "url": "https://www.btsavvy.com/insights/ai-agents-cheat-on-their-own-tests/",
+ "verdicts": {
+  "ImpossibleBench found GPT-5 cheated 54% and o3 49% of the time on Conflicting-SWEbench; giving the agent an explicit option to flag the task for a person cut these to 9% and 12%.": 1,
+  "In OpenAI's training runs, a monitor seeing only agent actions achieved 60% recall on systemic hacks (exit(0), SkipTest), versus 95% for a monitor that could read the reasoning; penalizing the reasoning led the model to hide its intent.": 1
+ }
+}

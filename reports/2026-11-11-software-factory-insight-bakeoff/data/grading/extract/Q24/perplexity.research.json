@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "4af5e71551b3bb09",
+ "claims": [
+  {
+   "text": "Gumloop's engineering blog described its Software Factory, in which a Gumloop agent acts as engineering manager and coding agents do the work, with data as of October 28, 2026.",
+   "url": "https://www.gumloop.com/engineering/software-factory"
+  },
+  {
+   "text": "As of October 28, 2026, Gumloop's Factory made agents start 5x faster at P99 (from 24.9 seconds to 4.5 seconds) and merged 571 agent-written PRs in six weeks.",
+   "url": "https://www.gumloop.com/engineering/software-factory"
+  },
+  {
+   "text": "In Gumloop's Factory, a trigger (daily schedule reading production telemetry, or a person pinging the agent) opens a Linear issue that starts a Gumloop worker agent, which reads engineering skills and conventions, hands the job to a coding agent, and asks the line owner in Slack when a judgment call is needed.",
+   "url": "https://www.gumloop.com/engineering/software-factory"
+  },
+  {
+   "text": "Gumloop's coding agent opens a pull request with proof, such as a test that fails before the fix and passes after it, and an engineer reviews and merges it.",
+   "url": "https://www.gumloop.com/engineering/software-factory"
+  },
+  {
+   "text": "A Cursor outage on September 17, 2026 stopped Gumloop Factory work, and on September 29 the agent sandbox line moved to Devin.",
+   "url": "https://www.gumloop.com/engineering/software-factory"
+  },
+  {
+   "text": "Coforge announced its Autonomous Software Factory (ASF) on October 29, 2026, an operating model for orchestrating, executing, governing and overseeing AI agents across the SDLC, running coding, testing, validation, code review and QA agents in parallel in secure execution environments.",
+   "url": "https://news.coforge.com/newsroom/press-release/coforge-introduces-autonomous-software-factory-for-the-era-of-agentic-software-development"
+  },
+  {
+   "text": "Harness's Cosmos became the Harness Cosmos Software Factory Agent (announced October 8, 2026 alongside the Augment Code acquisition), which can plan changes, write code and tests, open a PR and respond to review feedback, triggered by tickets, PRs, schedules and webhooks.",
+   "url": "https://www.harness.io/blog/harness-acquires-augment-code-cosmos?ref=pharaoh.so"
+  },
+  {
+   "text": "Harness Cosmos ships prebuilt Experts such as PR Author, Deep Reviewer, Risk Analyzer and Verifier that teams can customize.",
+   "url": "https://www.harness.io/blog/harness-acquires-augment-code-cosmos?ref=pharaoh.so"
+  },
+  {
+   "text": "Harness Cosmos and Chainguard Workspaces (Chainguard launched Workspaces and Checks on October 14, 2026) both run coding agents in ephemeral isolated microVMs and offer network controls limiting where agents can send data.",
+   "url": "https://www.techtarget.com/news/Vendors-build-safeguards-for-autonomous-software-factories/856921/"
+  },
+  {
+   "text": "Chainguard Checks lets agents run tests and fix problems during development without waiting for a traditional CI pipeline.",
+   "url": "https://www.techtarget.com/news/Vendors-build-safeguards-for-autonomous-software-factories/856921/"
+  },
+  {
+   "text": "Harness CEO Jyoti Bansal estimated Cosmos could autonomously handle 40 to 50% of software engineering tasks, while practitioners said fully autonomous ticket-to-production remains uncommon and one said an autonomous software factory had not yet been established.",
+   "url": "https://www.techtarget.com/news/Vendors-build-safeguards-for-autonomous-software-factories/856921/"
+  },
+  {
+   "text": "Factory raised $200M at a $5B valuation on September 15, 2026, with Nvidia, Blackstone, RBC, Palo Alto Networks, Adobe and T-Mobile named as customers building self-improving software factories.",
+   "url": "https://factory.com/news/5-billion-valuation"
+  },
+  {
+   "text": "Factory's April 2026 Factory 2.0 release introduced Factory Router, which routes models per task and cut token spend by more than 60% while maintaining frontier performance.",
+   "url": "https://factory.com/news/5-billion-valuation"
+  },
+  {
+   "text": "Factory introduced Factory Private on September 18, 2026, where Factory runs the control plane while Droid sandboxes run in the customer's VPC through OpenCompute, alongside the Factory Managed deployment model.",
+   "url": "https://factory.com/news/factory-private"
+  },
+  {
+   "text": "NVIDIA's Nemotron research team used Factory Private for post-training Nemotron 3 Ultra, including evaluation and optimization.",
+   "url": "https://factory.com/news/factory-private"
+  },
+  {
+   "text": "Factory's Droid coding agent can be invoked from a Jira work item through Rovo Chat, pulling Jira and Confluence context via Atlassian MCP and writing results back to the work item.",
+   "url": "https://www.atlassian.com/blog/jira/factory-in-jira"
+  },
+  {
+   "text": "Factory announced a partnership with Databricks on October 19, 2026, letting Droids use models from Databricks Unity Gateway and be purchased through Databricks Marketplace.",
+   "url": "https://www.aol.com/articles/factory-partners-databricks-bring-autonomous-130000000.html"
+  },
+  {
+   "text": "Factory acquired Mentlio (YC S26) on October 9, 2026, to add in-harness model routing, context compression and AI-spend measurement.",
+   "url": "https://factory.com/news/mentlio"
+  },
+  {
+   "text": "HumanLayer announced it is joining Factory on November 4, 2026.",
+   "url": "https://factory.com/news/humanlayer?ref=explainx"
+  },
+  {
+   "text": "StackGen launched the Autonomous Operations Factory on September 15, 2026, running Aiden agents for InfraOps, DevOps, SRE and Observability on Aiden OS, a harness with shared operational context and policy-bound, human-approved guardrails.",
+   "url": "https://finance.yahoo.com/technology/ai/articles/stackgen-launches-autonomous-operations-factory-123000211.html"
+  },
+  {
+   "text": "StackGen's Autonomous Operations Factory is in preview for AWS, Azure, Google Cloud and Oracle Cloud, and pairs Aiden OS with an Aiden World Model recording what is deployed, what changed and what broke.",
+   "url": "https://siliconangle.com/2026/09/15/stackgen-launches-autonomous-operations-factory-to-govern-production-agents/"
+  },
+  {
+   "text": "GitBook's November 2026 postmortem said an attacker hijacked a customer account on November 2, abused an SSO flaw to act as GitBook staff, and reached production in 76 minutes in an attack GitBook described as largely AI-driven.",
+   "url": "https://agentgid.com/news/agents-in-action/"
+  },
+  {
+   "text": "Per GitBook's November 4 postmortem, the attacker had production access for about 3.5 hours and the app and authenticated docs sites were offline about 16 hours, with GitBook treating all customer data as exposed.",
+   "url": "https://www.eon.io/rogue-ai-agent-tracker"
+  },
+  {
+   "text": "Eon's analysis of 33 public cases of AI agents breaking production found 8 where a routine command hit a production database, and of those 33, 7 were fully recovered, 4 partly, and 6 not at all.",
+   "url": "https://www.eon.io/blog/ai-agent-production-incidents"
+  },
+  {
+   "text": "A November 4, 2026 postmortem described an autonomous coding agent's rapid deploy loops on November 3 that wiped the Nginx edge cache, caused an 11-minute TypeScript compiler memory thrash, and exhausted CI resources.",
+   "url": "https://webdesigner.la/ai-agent-production-uptime-disruption-postmortem"
+  }
+ ],
+ "question_id": "Q24"
+}

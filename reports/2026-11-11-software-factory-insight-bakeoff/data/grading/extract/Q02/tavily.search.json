@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "ca59a6d3afdf594d",
+ "claims": [
+  {
+   "text": "Factory's architecture, as described by Digital Applied, uses a coordinator agent that decomposes tickets into droid-sized work items, assigns them to role-scoped droids, and sequences their execution.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "Digital Applied describes five canonical droids: Code, Review, Docs, Test, and Knowledge.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "The Review droid never writes features, so it cannot silently patch its own complaints; the Test droid does not refactor production code.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "The Knowledge droid builds and maintains an index over the repo, internal documentation, and ticket history; downstream droids query it instead of re-reading the codebase on each run.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "For a feature touching three services, the coordinator dispatches three parallel Code droid sessions in isolated sandboxes before converging on review.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "Each droid produces typed output (diffs, review comments, test results) that the next droid consumes, rather than conversational context.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "Each droid runs in a sandboxed cloud dev environment mirroring the project's toolchain (runtimes, package managers, linters, test frameworks, and Git state of the target branch).",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "Factory's Linear and Jira integrations pull ticket title, description, acceptance criteria, comments, linked issues, and attachments into the coordinator's context, and droids post status updates and PR links back to the ticket.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "Digital Applied recommends keeping human merge authority and mandatory review on every PR rather than auto-merging on review droid approval alone, and notes that coordinator overhead outweighs benefit for trivial one-line fixes.",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "text": "Droids support local execution (pair-programming via Factory Bridge, which requires Docker) and remote execution where they work independently.",
+   "url": "https://rimusz.net/revolutionizing-software-development-with-factory-ais-droids"
+  },
+  {
+   "text": "Droids have org-level and user-level memory that retains decisions, documentation, and run-books across sessions without cloning the codebase.",
+   "url": "https://rimusz.net/revolutionizing-software-development-with-factory-ais-droids"
+  },
+  {
+   "text": "Droids are browser-based with an activity log and context panel, and support parallel task execution via multiple tabs.",
+   "url": "https://rimusz.net/revolutionizing-software-development-with-factory-ais-droids"
+  },
+  {
+   "text": "A Latent.Space article is cited as reporting that Droids reduced an enterprise migration timeline from 4 months to 3.5 days, with code churn at 3-4% in high-quality codebases.",
+   "url": "https://rimusz.net/revolutionizing-software-development-with-factory-ais-droids"
+  },
+  {
+   "text": "Factory has shifted toward benchmarks like PutnamBench and SWELancer because SWE-Bench is python-centric; tasks lasting 1-3 hours require sustained goal-directed model behavior.",
+   "url": "https://rimusz.net/revolutionizing-software-development-with-factory-ais-droids"
+  },
+  {
+   "text": "Factory's planning uses subtask decomposition (e.g., separate plan steps for frontend, backend, tests, and feature flag rollout) and model predictive control, where plans are continuously updated from environmental feedback during execution.",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "Factory reports spending most of its engineering effort on environmental grounding, i.e., AI-computer interfaces connecting agents to development tools, observability systems, and knowledge bases; it targets enterprises with 5,000+ engineers.",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "Factory's Missions feature breaks a large project (e.g., migrating a PHP codebase to TypeScript) into features, assigns them to Droid worker sessions, and coordinates handoffs through git.",
+   "url": "https://www.augmentcode.com/tools/factory-ai-vs-augment-cosmos"
+  },
+  {
+   "text": "Droid Exec runs Droids non-interactively inside CI/CD pipelines; Factory offers a single-tenant VPC with AES-256 encryption at rest and Zero Data Retention on its Business plan, and its GitHub Action checks out code transiently and auto-revokes tokens.",
+   "url": "https://www.augmentcode.com/tools/factory-ai-vs-augment-cosmos"
+  },
+  {
+   "text": "Current Factory context layers include AGENTS.md, custom droids (specialist subagents with their own instructions, models, and tool permissions), Spec Mode (plan before code changes), worktree sessions isolating concurrent changes in separate Git worktrees, and Missions that validate results.",
+   "url": "https://sidbharath.com/blog/factory-ai-guide"
+  },
+  {
+   "text": "Droids log and report the reasoning behind all their actions as a core architectural component, so developers can validate them; DroidShield safeguards code and IP.",
+   "url": "https://factory.com/news/code-droid-technical-report"
+  },
+  {
+   "text": "Code Droid scored 19.27% on SWE-bench Full and 31.67% pass rate on SWE-bench Lite (300 problems) on the first attempt, rising to 37.67% at pass@2 and 42.67% at pass@6.",
+   "url": "https://factory.com/news/code-droid-technical-report"
+  },
+  {
+   "text": "Factory developed Crucible, a proprietary benchmarking suite meant to better reflect real-world production software tasks than traditional benchmarks.",
+   "url": "https://factory.com/news/code-droid-technical-report"
+  },
+  {
+   "text": "Empower reportedly cut average incident response time by up to 40% with Factory's Review Droid, and Nav reported a 60% reduction in context-switching time and 2x faster feature development cycles.",
+   "url": "https://www.augmentcode.com/tools/factory-ai-vs-augment-cosmos"
+  },
+  {
+   "text": "Factory's Legacy-Bench benchmark targets COBOL, Fortran, and Java 7 workloads; Factory holds SOC 2 Type I (April 8, 2024) and ISO 42001.",
+   "url": "https://www.augmentcode.com/tools/factory-ai-vs-augment-cosmos"
+  },
+  {
+   "text": "Factory says it is exploring memory that is durable, scoped (org/team/repo), searchable, and safe by default, plus orchestration patterns like racing solution approaches and cross-verifying critical changes across parallel Droids.",
+   "url": "https://factory.com/news/terminal-bench"
+  }
+ ],
+ "question_id": "Q02"
+}

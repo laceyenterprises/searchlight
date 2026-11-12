@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:18.959810Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1699,
+   "page_chars_delivered": 2190,
+   "post_step": "fetched",
+   "published": null,
+   "text": "> Authorize AI agents with OpenFGA. Model agents as principals, delegate user permissions, and enforce least privilege for autonomous and copilot agents.\n\nAutonomous and copilot agents act on behalf of users — but \"on behalf of\" is not the same as \"as.\" A well-modeled agent has its own identity, in…",
+   "title": "AI Agent Authorization",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "chars_delivered": 2226,
+   "page_chars_delivered": 5978,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Per-action authorization\n\nAuthorization on Context is evaluated per action, not per session. A preset decides which actions wait for the requester's yes, from read-only to never asking. A yes lasts once, for the task, or always; an \"always\" approval expires after 90 days and covers only the exac…",
+   "title": "Identity, authorization, and audit | Context",
+   "url": "https://www.context.ai/trust-center/identity"
+  },
+  {
+   "chars_delivered": 254,
+   "page_chars_delivered": 5193,
+   "post_step": "fetched",
+   "published": null,
+   "text": "the principal’s relationships — not a blanket grant. (MUST — ... for agentic RAG.)\n- A human gate on every irreversible/ ... -risk action, software-enforced, with a checklist — intent, data lineage, permission chain, blast radius, rollback — not a bare “",
+   "title": "Access & Identity — Agent Native Engineering",
+   "url": "https://agentnativeengineering.com/guide/access-and-identity/"
+  },
+  {
+   "chars_delivered": 249,
+   "published": null,
+   "text": ":\n\n1. Which agent is presenting the request, and which organization is accountable for it?\n2. Which principal delegated this action, and is that delegation active and revocable?\n...\ntime?\n5. Can another verifier reconstruct the decision and observed",
+   "title": "AI Agent Authorization: Implementation Guide | Intelliger",
+   "url": "https://intelliger.ai/guides/ai-agent-authorization/"
+  },
+  {
+   "chars_delivered": 203,
+   "published": null,
+   "text": "+ live signals, then allowed, shaped, paused, or blocked.\n...\n### Just-in-time access\n\nShort-lived, task-scoped credentials minted on demand and expired when the work is done. No standing access to leak.",
+   "title": "",
+   "url": "https://www.highflame.com/platform"
+  },
+  {
+   "chars_delivered": 255,
+   "published": "2026-05-05T20:19:41.000Z",
+   "text": ". When a policy returns `REQUIRE_APPROVAL`, OpenLeash creates a pending approval request that an owner reviews in a portal and approves or denies. The approval token is single-use, action-scoped, and time-limited — the agent gets it back, includes it on a",
+   "title": "Where General-Purpose Policy Engines Stop, and Agent Governance Starts — OpenLeash",
+   "url": "https://openleash.ai/blog/where-policy-engines-stop-for-ai-agents/"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "the principles and challenges discussed are broadly applicable to\n...\nalways established through a workload identifier. \n2. User Authentication & Delegation: The human user must be authenticated, \nand their intent to delegate specific permissions to the",
+   "title": "Identity Management for Agentic AI",
+   "url": "https://openid.net/wp-content/uploads/2025/10/Identity-Management-for-Agentic-AI.pdf"
+  },
+  {
+   "chars_delivered": 2613,
+   "published": "2026-03-14T05:33:38.000Z",
+   "text": "OPA is a CNCF-graduated, general-purpose policy engine that decouples policy decision-making from policy enforcement. Applications query OPA over a local HTTP API or in-process Go library, providing structured input (JSON) and receiving a structured decision.\n\n...\n\n### AWS Cedar\n\nCedar is a policy…",
+   "title": "Policy Engines for AI Agent Governance: Rule-Based and Hybrid Approaches | Zylos Research",
+   "url": "https://zylos.ai/research/2026-03-14-policy-engines-ai-agent-governance/"
+  },
+  {
+   "chars_delivered": 5393,
+   "published": null,
+   "text": "#### 1.2 Core principles (agentic identity imperatives)\n\n1. Treat agents as first-class identities: AI agents MUST be modeled as distinct identities with their own lifecycle, governance, and accountability, on par with human users and services. Each runtime instance SHOULD receive its own identity…",
+   "title": "Agentic Identity and Access Management",
+   "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf"
+  },
+  {
+   "chars_delivered": 214,
+   "published": "2026-06-10T05:18:10.000Z",
+   "text": "agent's effective authority at any given tool call must be calculated as the strict intersection of two sets:\n\n- The agent's own\n...\nuser's permissions, not the agent's maximum theoretical capabilities. The overlap",
+   "title": "Delegated access for AI agents: The intersection rule explained — WorkOS",
+   "url": "https://workos.com/blog/delegated-access-ai-agents"
+  }
+ ],
+ "latency_ms": 879.0,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q15",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How do production agent platforms authorize agents to act on behalf of users and organizations? Cover policy engines (Cedar, OPA, OpenFGA / Zanzibar-style ReBAC) applied to agents, scoped short-lived credentials, agent identity standards, and approval gates for irreversible actions.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 16758,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:18.080813Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

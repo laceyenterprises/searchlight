@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "5f1c38f83d2f1250",
+ "claims": [
+  {
+   "text": "SWE-agent with GPT-4 Turbo resolved 12.47% of the 2,294 SWE-bench test tasks, versus the previous best of 3.8% from a non-interactive, retrieval-augmented system.",
+   "url": null
+  },
+  {
+   "text": "On SWE-bench Lite, SWE-agent with GPT-4 Turbo resolved 18.00% (average cost $1.67) and with Claude 3 Opus resolved 13.00% (average cost $2.18).",
+   "url": null
+  },
+  {
+   "text": "On SWE-bench Lite, a Shell-only agent with GPT-4 Turbo resolved 11.00% with a demonstration and 7.33% without one, versus 18.00% for SWE-agent; the paper states SWE-agent solves 10.7 percentage points more instances than the default-shell baseline.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent with GPT-4 Turbo reached 87.7% pass@1 on HumanEvalFix Python (89.7% JS, 87.9% Java), versus 47.0% for GPT-4 in Python.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's agent-computer interface (ACI) is an abstraction layer between the LM and the computer that defines the available commands and the format of feedback, built atop the Linux shell.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's ACI design principles are: simple actions, compact and efficient actions, informative but concise environment feedback, and guardrails that mitigate error propagation.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's search commands (find_file, search_file, search_dir) return at most 50 results; if a search exceeds that, no results are shown and the agent is told to write a more specific query.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's file viewer shows at most 100 lines at a time, with the file path, total line count, omitted-line counts and line numbers, and is navigated with scroll_down, scroll_up and goto.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's edit command replaces a line range (start line, end line, replacement text) in the open file, and the viewer then automatically displays the updated file.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent integrates a code linter into the edit command; edits that introduce errors are discarded and the agent is asked to retry.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent manages context by collapsing observations older than the last 5 into single lines and by keeping only the first error message among past malformed-generation errors.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent runs used a per-instance budget of $4; if exceeded, existing edits were submitted automatically.",
+   "url": null
+  },
+  {
+   "text": "Llama 3 (8k context window) and DeepSeek Coder performed subpar in the SWE-agent setting, with small context windows cited as a problem.",
+   "url": null
+  },
+  {
+   "text": "The SWE-bench RAG baseline, in which BM25 retrieves files and the model generates a patch directly, resolved 1.31% (GPT-4 Turbo) and 3.79% (Claude 3 Opus) of full SWE-bench.",
+   "url": null
+  },
+  {
+   "text": "Mini-SWE-Agent implements all seven harness subsystems in roughly 100 lines of Python: a linear while loop over a single bash tool, one template, unbounded linear history, and cost and step limits as its only safety controls.",
+   "url": null
+  },
+  {
+   "text": "The source-code study of eleven coding harnesses found no agent runtime importing a general-purpose agentic framework such as LangChain, and none retrieving code with vector embeddings.",
+   "url": null
+  },
+  {
+   "text": "OpenHands uses an event-sourced conversation over a persistent event log with parallel action batches, and since mid-2026 can run Claude Code, Codex or Gemini CLI as interchangeable backends via ACP.",
+   "url": null
+  },
+  {
+   "text": "The Agentic Harness Engineering paper reports that a harness evolved from a bash-only seed comparable to Mini-SWE-Agent reached 71.9% on SWE-Bench Verified.",
+   "url": null
+  },
+  {
+   "text": "Agentless reports that a fixed localize/repair/validate pipeline is competitive with agent loops on SWE-Bench Lite.",
+   "url": null
+  },
+  {
+   "text": "OpenHands starts an isolated Docker container sandbox per task session, executing event-stream actions through a REST API server inside it and returning results as observations.",
+   "url": null
+  },
+  {
+   "text": "The OpenHands in-sandbox action execution API maintains a bash shell, a Jupyter IPython server, and a Playwright-based Chromium browser exposing BrowserGym action primitives.",
+   "url": null
+  },
+  {
+   "text": "OpenHands supports arbitrary Docker images by building a user-provided image with the action execution API installed, and mounts a configurable workspace directory into the sandbox.",
+   "url": null
+  },
+  {
+   "text": "Fixing one SWE-bench Lite example can take about 10 minutes, so running all 300 instances can take two days; the OpenHands remote runtime running 32x parallel cut a SWE-bench Lite eval from several days to several hours.",
+   "url": null
+  },
+  {
+   "text": "In OpenHands' SWE-bench Lite comparison, Claude 3.5 Sonnet was best at a 27% resolve rate (about $0.3 per issue), o1-mini performed somewhat worse than GPT-4o, and deepseek-v2.5 cost about $0.003 per issue.",
+   "url": null
+  },
+  {
+   "text": "OpenHands CodeAct 2.1 with Claude Sonnet 3.5 achieved a 53% resolve rate on SWE-Bench Verified and 41.7% on SWE-Bench Lite, and switched to function calling.",
+   "url": null
+  }
+ ],
+ "question_id": "Q09"
+}

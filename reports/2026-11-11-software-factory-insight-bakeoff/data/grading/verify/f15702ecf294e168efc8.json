@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "c638211d641fe644",
+ "url": "https://arxiv.org/html/2611.02285v1",
+ "verdicts": {
+  "A spec-first, zero-human-code-review workflow gates changes with CI checks: a zero-axiom/well-formedness linter, vacuity witness proofs, an adversarial mutation runner that injects synthetic bugs and requires the proof to break on every mutant, and an independent critic agent generating test vectors from the natural-language prompt.": 1,
+  "The claimed >90% reduction in human review attention is an estimate; its first measurement is the ratio of specification lines to implementation and proof lines over the 181 conditions in SaltBench's pilot matrix.": 1
+ }
+}

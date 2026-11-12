@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "b8baf7d9e2f1e18e",
+ "claims": [
+  {
+   "text": "Codex is a cloud-based coding agent powered by codex-1, a version of OpenAI o3 optimized for software engineering.",
+   "url": null
+  },
+  {
+   "text": "Each Codex agent runs in its own cloud container, which is preloaded with the user's code and a user-defined development environment including dependencies, configuration, and tooling.",
+   "url": null
+  },
+  {
+   "text": "After environment setup, internet access is disabled and the model trajectory begins in the original Codex cloud design.",
+   "url": null
+  },
+  {
+   "text": "Within its container, Codex can read and edit files and execute commands including tests, linters, and type checkers.",
+   "url": null
+  },
+  {
+   "text": "Codex is trained to provide verifiable evidence of its actions through citations of terminal logs and files, so users can validate its work.",
+   "url": null
+  },
+  {
+   "text": "When a Codex task is complete, users can inspect results, request refinements, or export the diff by converting it into a GitHub pull request or copying it for local testing.",
+   "url": null
+  },
+  {
+   "text": "Codex Cloud (Legacy) uses a two-phase runtime: the setup phase can access the network to install specified dependencies, then the agent phase runs offline by default unless internet access is enabled for that environment.",
+   "url": null
+  },
+  {
+   "text": "Codex reads AGENTS.md files before doing any work.",
+   "url": null
+  },
+  {
+   "text": "Codex cloud agents run in an isolated OpenAI-hosted container with network access disabled by default, which prevents interaction with the user's host system or data outside the designated workspace.",
+   "url": null
+  },
+  {
+   "text": "Disabling network access by default is intended to significantly reduce the risk of prompt injection, data exfiltration, and the agent connecting to malicious external resources.",
+   "url": null
+  },
+  {
+   "text": "Codex cloud originally launched with a strictly network-disabled sandbox; users then asked for the flexibility to choose the level of internet connectivity, for example to install or update dependencies missed during environment configuration.",
+   "url": null
+  },
+  {
+   "text": "Users decide per project which sites, if any, the Codex cloud agent may access, including a custom allowlist or denylist, or internet access at large.",
+   "url": null
+  },
+  {
+   "text": "OpenAI warns that enabling internet access can introduce prompt injection, leaked credentials, and use of code with license restrictions, and advises limiting access to trusted domains and safe HTTP methods.",
+   "url": null
+  },
+  {
+   "text": "An allowed domain in Agent Security does not override a restriction in the Codex Cloud environment's internet settings; the two apply separately.",
+   "url": null
+  },
+  {
+   "text": "With self-hosted sandboxes, OpenAI runs the agent harness while the customer runs `codex exec-server` in their environment, which executes shell commands, reads and writes files, and uses local MCP servers.",
+   "url": null
+  },
+  {
+   "text": "The self-hosted executor connects outbound over WebSocket (wss://codex-cloud-environments.chatgpt.com) after registering with api.openai.com using an environment ID and a restricted API key; all connections are outbound and it reconnects if dropped.",
+   "url": null
+  },
+  {
+   "text": "Automatic review with review: \"auto_review\" in self-hosted sandboxes applies a permission profile with a workspace-write baseline and restricted network access.",
+   "url": null
+  },
+  {
+   "text": "Internally, OpenAI does not run Codex with open-ended outbound access; its managed network policy allows expected destinations, blocks unwanted ones, and requires approval for unfamiliar domains.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's Auto-review mode sends the planned action and recent context to an auto-approval subagent that can approve low-risk actions, or high-risk ones with sufficient user authorization, instead of interrupting the user.",
+   "url": null
+  },
+  {
+   "text": "OpenAI uses rules so common benign engineering commands run outside the sandbox without approval while specific dangerous commands are blocked or require approval.",
+   "url": null
+  },
+  {
+   "text": "Codex supports OpenTelemetry log export for user prompts, tool approval decisions, tool execution results, MCP server usage, and network proxy allow/deny events, which OpenAI also uses to track internal adoption and tune rollout.",
+   "url": null
+  },
+  {
+   "text": "Through August 2025 the average OpenAI worker spent less than 10% of their tokens on Codex; by 2026 Codex accounted for more than 85% of the average worker's output tokens and 99.8% of weekly output tokens generated within OpenAI.",
+   "url": null
+  },
+  {
+   "text": "By May 2026, 80.6% of sampled OpenAI users made at least one Codex request estimated to exceed 30 minutes of human work, 70.2% exceeded one hour, and 25.6% exceeded eight hours.",
+   "url": null
+  },
+  {
+   "text": "On June 11, 2026, the median OpenAI employee had Codex turns running for 2.5 hours, while 99th-percentile users ran about 71 hours of agent turns per day, implying several concurrent agents.",
+   "url": null
+  },
+  {
+   "text": "99th-percentile OpenAI users increased cumulative daily Codex runtime by nearly 88% since April 7, 2026.",
+   "url": null
+  }
+ ],
+ "question_id": "Q04"
+}

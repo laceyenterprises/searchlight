@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:50.737464Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2026,
+   "page_chars_delivered": 18580,
+   "post_step": "fetched",
+   "published": null,
+   "text": "That is the migration story for OPA users: you are not abandoning policy-as-code; you are upgrading the policy context so OPA can evaluate delegated authority correctly.\n\nAgentic identity is not just a service account with a new name. It is a composite, short-lived identity bound to user delegation…",
+   "title": "OPA for Protecting AI Agents and Agentic Stacks",
+   "url": "https://www.permit.io/blog/opa-for-protecting-ai-agents-and-agentic-stacks"
+  },
+  {
+   "chars_delivered": 1535,
+   "page_chars_delivered": 5509,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The new frontier — agents acting on behalf of humans.\n\n   MCP Auth (OAuth 2.1) — Model Context Protocol getting proper auth. Scoped tokens, auto-discovery.\n\n   Token Exchange (RFC 8693) — Delegation pattern for agent-to-tool calls. Impersonation vs delegation matters.\n\n   A2A Protocol — Agent-to-Ag…",
+   "title": "Authorization Landscape : r/IdentityManagement",
+   "url": "https://www.reddit.com/r/IdentityManagement/comments/1u8r5qw/authorization_landscape"
+  },
+  {
+   "chars_delivered": 2148,
+   "page_chars_delivered": 19625,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## When should you pick which, or combine them?\n\nPick Cedar when the rules are mostly about the call itself: tool, arguments, amounts, environment, the identity in the token. That is most agent tool authorisation. If you are on AWS and routing tools through AgentCore Gateway, the decision is alread…",
+   "title": "Cedar vs Open Policy Agent vs OpenFGA: Choosing a Policy Engine for AI Agent Authorization — Devs Core",
+   "url": "https://devs-core.com/blog/cedar-vs-opa-vs-openfga-ai-agent-authorization"
+  },
+  {
+   "chars_delivered": 2102,
+   "published": null,
+   "text": "Cutting across both domains, Task-Based Authorization constrains what an agent can do at runtime. Agents start with zero permissions and receive narrowly scoped grants for each task, with optional expiration, turn limits, and agent binding — regardless of whether the agent is acting on first-party…",
+   "title": "Authorization for Agents - OpenFGA",
+   "url": "https://openfga.dev/docs/modeling/agents/overview"
+  },
+  {
+   "chars_delivered": 2009,
+   "published": null,
+   "text": "Cedar and Open Policy Agent (OPA) can both evaluate authorization decisions for agent systems, but they begin from different abstractions. Cedar is an authorization policy language centered on principals, actions, resources, entities, and schema. OPA is a general-purpose policy engine whose Rego la…",
+   "title": "Cedar vs OPA for AI Agent Authorization | Axec",
+   "url": "https://axec.dev/blog/cedar-vs-opa-agent-authorization"
+  },
+  {
+   "chars_delivered": 2303,
+   "published": null,
+   "text": "Andres provided insights into the Zanzibar-inspired model used by OpenFGA. This approach relies heavily on data relationships to define and enforce permissions:\n\n> \"In the Zanzibar approach, you define an authorization model—rules like ‘Only the owner of a document can delete it.’ This is the polic…",
+   "title": "Policy Engine Showdown - OPA vs. OpenFGA vs. Cedar",
+   "url": "https://www.permit.io/blog/policy-engine-showdown-opa-vs-openfga-vs-cedar"
+  },
+  {
+   "chars_delivered": 1495,
+   "published": null,
+   "text": "A policy mapper translates the Intent object into a set of fine-grained authorization tuples in the format understood by policy engines like Cedar, OPA, or OpenFGA. For each workflow, a pre-approved set of intent templates defines the canonical mapping between task types and their allowed action-re…",
+   "title": "Why Static Authorization Is Failing in the Age of AI Agents",
+   "url": "https://kenhuangus.substack.com/p/why-static-authorization-is-failing"
+  },
+  {
+   "chars_delivered": 2230,
+   "published": null,
+   "text": "### 3. Time‑bound and task‑bound privileges\n\nHigh‑risk permissions should not live forever. Use short‑lived credentials and task‑scoped access so elevated capabilities only exist for the duration of a specific workflow or session. When the task is done, the extra rights disappear automatically.\n\n##…",
+   "title": "Access Control for AI Agents: Managing Identity and Permissions in Production",
+   "url": "https://greennode.ai/blog/access-control-ai-agents-production"
+  },
+  {
+   "chars_delivered": 2189,
+   "published": null,
+   "text": "This is where fine-grained authorization systems come in, and while they solve a specific piece of the puzzle, they're not always an all-in-one solution.\n\nOpenFGA, an open-source authorization engine created by Auth0's FGA team and now a Cloud Native Computing Foundation (CNCF) project, implements…",
+   "title": "Why AI Agents Need Their Own Permission Model",
+   "url": "https://auth0.com/blog/why-ai-agents-need-their-own-permission-model"
+  },
+  {
+   "chars_delivered": 1962,
+   "published": null,
+   "text": "How do I authorize AI agents?\n\nGive each agent its own registered identity, then authorize every call it makes instead of granting broad access up front. With Agent Authority, the agent exchanges the delegating user's token for a narrowly scoped, short-lived token, and each tool call or API request…",
+   "title": "Real-Time Authorization for AI Agents | SecureAuth",
+   "url": "https://secureauth.com/capabilities/agents-authz"
+  }
+ ],
+ "latency_ms": 2712.1,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q15",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How do production agent platforms authorize agents to act on behalf of users and organizations? Cover policy engines (Cedar, OPA, OpenFGA / Zanzibar-style ReBAC) applied to agents, scoped short-lived credentials, agent identity standards, and approval gates for irreversible actions.",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q15-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 23291,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:48.025333Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

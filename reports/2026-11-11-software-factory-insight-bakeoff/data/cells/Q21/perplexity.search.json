@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:10.317677Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2931,
+   "published": "2025-06-13",
+   "text": "**TLDR; We ran simulations to show how advanced merge queues can be configured to speed up merge times or save CI costs, which becomes increasingly important as AI tools and agents increase dev productivity and expose new bottlenecks in CI.**\n...\n## Refresher: What is a merge queue?\nMerge queues ke…",
+   "title": "Merge fast or merge cheap: Fine-tuning merge queues to handle an increase in PRs from AI agents | Trunk",
+   "url": "https://www.trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "chars_delivered": 2364,
+   "published": "2026-09-23",
+   "text": "## Merge queues for agent-authored changes.\nBoth are wrong in a way that costs a quarter to discover: the constraint is the serialized path between \"approved\" and \"on main\", and the standard remedy for volume — batching PRs so one CI run clears several — gets arithmetically worse as agent share ris…",
+   "title": "Merge Queues for Agent-Authored Changes",
+   "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/"
+  },
+  {
+   "chars_delivered": 2147,
+   "published": "2023-11-07",
+   "text": "Instead of merging, you add reviewed pull requests to a \"merge queue\" of pull\nrequests that are tested against the main branch by copying it to a staging branch\nand merging into that.\nWhen the status of staging is determined (either pass or fail),\nbors reports the result back as a comment and merge…",
+   "title": "GitHub - leanprover-community/bors-ng: 👁 A merge bot for GitHub Pull Requests",
+   "url": "https://github.com/leanprover-community/bors-ng"
+  },
+  {
+   "chars_delivered": 894,
+   "published": "2022-11-14",
+   "text": "Bors takes care of preparing (merge) commits for testing on CI and of actually merging the commits into the\nmain branch if all CI tests pass.\n...\n## Auto builds\nThe merge queue is an automated system that processes approved pull requests and merges them into the base branch after\nensuring they pass…",
+   "title": "bors/docs/design.md at main · rust-lang/bors · GitHub",
+   "url": "https://github.com/rust-lang/bors/blob/main/docs/design.md"
+  },
+  {
+   "chars_delivered": 2060,
+   "published": "2026-05-19",
+   "text": "A GitHub merge queue eliminates the O(N^2) review and CI churn that occurs when landing multiple pull requests under strict branch protection.\nBy decoupling merge serialization from individual PR branch updates,\nspeculative merge testing validates ready PRs against moving base branches at O(N) cost…",
+   "title": "ai-config/shared/workflow/merge-queue.md at main · Morrison-Lab/ai-config",
+   "url": "https://github.com/Morrison-Lab/ai-config/blob/main/shared/workflow/merge-queue.md"
+  },
+  {
+   "chars_delivered": 1781,
+   "published": null,
+   "text": "Bors-NG implements a continuous-testing workflow where the main branch never breaks.\n...\nThis is similar to, but less efficient than, the process that bors automates.\nInstead of merging, you add reviewed pull requests to a \"merge queue\" of pull requests that are tested against the main branch by co…",
+   "title": "bors-ng/README.md at master · bors-ng/bors-ng",
+   "url": "https://github.com/bors-ng/bors-ng/blob/master/README.md"
+  },
+  {
+   "chars_delivered": 1283,
+   "published": null,
+   "text": "a busy branch and ensuring the branch is never broken by incompatible changes.\\n\\nThe merge queue provides the same benefits as the **Require branches to be up to date before merging** branch protection, but does not require a pull request author to update their pull request branch and wait for sta…",
+   "title": "GitHub Docs",
+   "url": "https://docs.github.com/api/article?pathname=/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue"
+  },
+  {
+   "chars_delivered": 1878,
+   "published": "2026-07-13",
+   "text": "On a recent Pragmatic Engineer episode he said it plainly: merge queues work for humans at a certain scale, but push that scale by 100x or 1,000x and getting “any semblance of cohesiveness onto the main branch quickly” becomes untenable.\n...\nAgents do not take coffee breaks.\nThey open pull requests…",
+   "title": "Merge Queues Were Built for Humans. AI Agents Need More.",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  },
+  {
+   "chars_delivered": 182,
+   "published": "2026-03-01",
+   "text": "- **Merge queue throughput enables AI-scale PR volume** - a 5-minute pipeline can process 12 PRs per hour per runner, supporting the 10-50 PRs per day that AI-assisted teams generate",
+   "title": "CI < 5 minutes",
+   "url": "https://visdom-maturity-matrix.virtuslab.com/guides/delivery/ci-5-minutes"
+  },
+  {
+   "chars_delivered": 2721,
+   "published": "2026-11-09",
+   "text": "A developer supervising three agents can open three pull requests in the time it used to take to open one; the reviewers on the other side did not triple.\n...\nQueues convert throughput problems into latency problems, then into merge conflicts, then into abandoned work.\n...\n- Agentic AI pull request…",
+   "title": "The AI Code Review Bottleneck - Merge Queue Pressure",
+   "url": "https://infragap.com/ai-code-review-bottleneck/"
+  }
+ ],
+ "latency_ms": 428.3,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q21",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How do merge queues and stacked-PR systems (GitHub merge queue, Graphite, Aviator, Mergify, Bors-style) handle very high PR volume from agents? What is known about throughput, CI cost and conflict rates when agents open hundreds of PRs a day?",
+    "merge queue AI agent PR volume throughput CI cost",
+    "Graphite Aviator Mergify stacked PR agents conflict rate",
+    "GitHub merge queue batching speculative builds Bors scaling"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 20845,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:09.889379Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

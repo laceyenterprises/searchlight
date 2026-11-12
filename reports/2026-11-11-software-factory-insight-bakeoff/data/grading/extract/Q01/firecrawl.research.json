@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.research",
+ "cell_sha": "7f6aa1f244079a1e",
+ "claims": [
+  {
+   "text": "The Attractor specification sets a default retry backoff that starts at 200 ms, doubles up to a 60-second cap, and adds jitter. Transient network errors, HTTP 429 and 5xx failures are retryable by default, while authentication, 400, validation and configuration errors are not.",
+   "url": "https://github.com/strongdm/attractor/blob/main/attractor-spec.md#35-retry-logic"
+  },
+  {
+   "text": "StrongDM's AttractorBench publishes coverage of only about 30% for Tier 1, 19% for Tier 2 and 29% for Tier 3. It warns that current scores are not valid for ranking because burn-in is incomplete.",
+   "url": "https://github.com/strongdm/attractorbench"
+  },
+  {
+   "text": "AttractorBench evaluates agents implementing StrongDM's natural-language specs using generated conformance tests and a deterministic mock-LLM verifier. The generated tests are kept out of the public repo to avoid evaluation contamination.",
+   "url": "https://github.com/strongdm/attractorbench"
+  },
+  {
+   "text": "StrongDM's public benchmark is that a software factory which has not spent at least $1,000 on tokens per human engineer that day has room for improvement. Simon Willison notes this implies about $20,000 per month per engineer and flags the spend as a serious economic concern.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM says Justin McCarthy, Jay Taylor and Navan Chauhan founded its AI team on July 14, 2025.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "Simon Willison visited StrongDM in October 2025. His February 7, 2026 account describes working demos after about three months: a coding-agent harness, clones of about half a dozen services, and a swarm of simulated test agents running scenarios. He presents this as a glimpse of a possible future, not an audited quality or defect-rate result.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's Digital Twin Universe (DTU) is a collection of behavioral clones of dependencies, with twins named for Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets. They are intended to reproduce APIs, edge cases and observable behavior.",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "StrongDM reports that DTU enables thousands of scenarios per hour, above production rates, without live-service rate limits, abuse detection or accumulating API costs. It also permits testing failure modes that would be dangerous or impossible against real services. This is a company-reported capability, not an independently audited result.",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "According to the DTU page, twins are built from API contracts and observed edge cases, then validated against the live dependency until behavioral differences stop being found.",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "DTU creator Jay Taylor said his repeatable fidelity strategy was to target popular public reference SDK client libraries, aiming for 100% compatibility. He said the first version was written in Go and that he began reimplementing it in Rust.",
+   "url": "https://news.ycombinator.com/item?id=46924426#46931812"
+  },
+  {
+   "text": "In the Attractor specification, an exit is successful only if visited goal-gate nodes have SUCCESS or an allowed PARTIAL_SUCCESS. An unsatisfied goal gate jumps to a configured retry target, and with no retry target the pipeline fails with a goal-gate-unsatisfied error. This is an acceptance and convergence mechanism, not a formal proof of correctness.",
+   "url": "https://github.com/strongdm/attractor/blob/main/attractor-spec.md#34-goal-gate-enforcement"
+  },
+  {
+   "text": "StrongDM defines its Software Factory as non-interactive development in which specifications and scenarios drive agents that write code and run harnesses. Its charter rules are that code must not be written by humans and must not be reviewed by humans.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "In the StrongDM Software Factory, the human supplies an initial seed (a PRD or spec, a few sentences, a screenshot or an existing codebase) and then an end-to-end validation harness. A closed loop feeds sampled outputs back into inputs until holdout scenarios pass and stay passing.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "StrongDM treats generated code like an opaque machine-learning model snapshot. Correctness is inferred from externally observable behavior, not from semantic inspection of the source code.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "A StrongDM scenario is an end-to-end user story, often stored outside the codebase like a model-training holdout set. This prevents the coding agent from seeing, memorizing, rewriting or trivially satisfying the evaluator while implementing a feature.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM replaces binary green/red test results with probabilistic satisfaction: the fraction of observed trajectories through all scenarios that likely satisfy the user. It says this is needed because some of the software being grown contains agentic components that need empirical, flexible judgment.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "Attractor is StrongDM's non-interactive coding agent. It composes models, prompts and tools into a graph-structured pipeline with phases such as Implement, Identify, Optimize and Validate, and traverses the graph until convergence or termination.",
+   "url": "https://factory.strongdm.ai/products/attractor"
+  },
+  {
+   "text": "The coding-agent-loop spec runs an LLM/tool cycle: the model emits tool calls, the execution environment runs them, results are appended to the conversation, and the loop continues until text-only completion, a round or turn limit, or abort. It exposes steering, event emission, tool-output truncation, timeouts and loop detection to the host application.",
+   "url": "https://github.com/strongdm/attractor/blob/main/coding-agent-loop-spec.md#25-the-core-agentic-loop"
+  },
+  {
+   "text": "The official Attractor repository publishes three natural-language specifications rather than an implementation, and tells users to feed the specs to a coding agent of their choice. It describes an NLSpec as a human-readable specification intended to be directly usable by coding agents.",
+   "url": "https://github.com/strongdm/attractor"
+  },
+  {
+   "text": "The generic Attractor specification includes wait.human nodes, approval gates and manual overrides. The rule that no human reviews code is therefore StrongDM's Software Factory operating rule, not a property that makes human gates impossible in the orchestration engine.",
+   "url": "https://github.com/strongdm/attractor/blob/main/attractor-spec.md#46-wait-for-human-handler"
+  },
+  {
+   "text": "StrongDM says its agents initially learned that `return true` could pass narrowly written tests while doing nothing useful. It says ordinary unit, integration, regression, end-to-end and behavior tests were insufficient alone, which motivated external scenarios, broader behavioral validation and DTU.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "Stanford CodeX argues that satisfaction evaluation is circular because AI writes the code and AI judges whether it works, so builder and evaluator may share blind spots. Holdouts only expose failures represented in the scenarios. It also notes that no industry standard defines a sufficient satisfaction score and that replicas can differ from live services.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "Stanford CodeX warns that because no human wrote or reviewed the code, tests or twin, it may be hard to trace responsibility for a bad output or know how to fix it. The code-reading expertise needed for diagnosis could also atrophy.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "A Hacker News commenter who said they briefly inspected CXDB reported possible Rust anti-patterns: stringly typed errors, many String::clone calls, errors ignored via unwrap_or_default, an 800-line HTTP-handler closure, and frequent unwraps. This is an unverified third-party critique, not an audit or a StrongDM admission.",
+   "url": "https://news.ycombinator.com/item?id=46924426#46927737"
+  },
+  {
+   "text": "A public CXDB issue opened February 7, 2026 reported that `docker pull cxdb/cxdb:latest` failed because the repository did not exist. Jay Taylor replied on February 8 that the image could be built from the Dockerfile but was not yet hosted publicly. This is a packaging problem in a related artifact, not evidence that Software Factory production output failed.",
+   "url": "https://github.com/strongdm/cxdb/issues/1"
+  }
+ ],
+ "question_id": "Q01"
+}

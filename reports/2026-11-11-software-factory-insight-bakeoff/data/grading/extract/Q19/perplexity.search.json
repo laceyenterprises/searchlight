@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "3e49a293a89308dc",
+ "claims": [
+  {
+   "text": "Nirmata reported about $29 token-only AI cost per merged PR on its own engineering organization, from 477 merged pull requests in one week using 30-day spend pro-rated.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Nirmata's $29 per merged PR figure is close to a $29 per merged PR figure that one other engineering team has published from its own token spend.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Waydev's worked example computes cost per merged PR as $200,000 divided by 19,200 merged PRs (8 per engineer per month), which equals $10.42.",
+   "url": "https://waydev.co/features/how-to-measure-the-roi-of-ai-coding-tools/"
+  },
+  {
+   "text": "Unblocked's illustrative worked example (not a customer result) gives a cost per merged PR of $500 with low context and $261 with high context, counting only PRs that survived the churn window.",
+   "url": "https://getunblocked.com/blog/cost-per-merged-pr/"
+  },
+  {
+   "text": "Unblocked's controlled test found that better context cut tokens 42%, ran 27% faster, and used 64% fewer tool calls on the same prompt and model.",
+   "url": "https://getunblocked.com/blog/cost-per-merged-pr/"
+  },
+  {
+   "text": "Unblocked defines cost per merged PR as fully-loaded AI cost (token spend, tool and seat spend, review time cost, rework cost) divided by PRs that merge and survive a churn window, e.g. two weeks without being reverted or substantially rewritten.",
+   "url": "https://getunblocked.com/blog/cost-per-merged-pr/"
+  },
+  {
+   "text": "Nirmata proposes 'AI cost per accepted outcome': attributed AI spend divided by PRs that merged and were still standing two weeks later, read against quality and review-load guards.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Nirmata distinguishes token-only cost per accepted outcome, managed weekly and moved by model choice, routing, context discipline and coaching, from fully loaded cost that adds engineers' loaded cost.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Jellyfish has reported AI spend at roughly 2.5% of the marginal cost of a merged change.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Anthropic's Claude Code docs state the average enterprise cost is around $13 per developer per active day and $150-250 per developer per month, below $30 per active day for 90% of users.",
+   "url": "https://getunblocked.com/answers/reduce-ai-coding-tool-spend-across-engineering-org/"
+  },
+  {
+   "text": "By Unblocked's arithmetic, 300 engineers at $150-250 per month is $45,000 to $75,000 a month on one tool.",
+   "url": "https://getunblocked.com/answers/reduce-ai-coding-tool-spend-across-engineering-org/"
+  },
+  {
+   "text": "An April 2026 study of coding agents on SWE-bench Verified found input tokens, not output tokens, drive overall cost, and runs on the same task can differ by up to 30x in total tokens.",
+   "url": "https://getunblocked.com/answers/reduce-ai-coding-tool-spend-across-engineering-org/"
+  },
+  {
+   "text": "Gartner estimates agentic models need 5-30 times more tokens per task than a chat interaction, and that inference savings will not be fully passed on.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Unblocked recommends per-user spend reports, enforced caps where tools allow them, centrally set default model and effort, and shared codebase context so agents do not rediscover the same codebase.",
+   "url": "https://getunblocked.com/answers/reduce-ai-coding-tool-spend-across-engineering-org/"
+  },
+  {
+   "text": "Model routing sends each request to the cheapest capable model by task class, repository, developer preference within policy, or automatic fallback; the guard is to watch PR survival on cheaper routes.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Nirmata recommends routing that exhausts included subscription plan capacity first, then overflows to pooled provider credits or metered access, to reduce spend without reducing usage.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "Nirmata argues cost attribution requires joining gateway-visible request data (tokens) with code-host data (PRs), and that routing all tools' model traffic through one gateway gives a single tool-agnostic unit; the FinOps Foundation recommends a proxy for attribution on tools billed to your own account.",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "text": "LinearB recommends attributing AI spend to the owning team rather than individual PRs, because cost per PR is too noisy per PR; blended team cost per merged PR is read monthly against the team's own baseline.",
+   "url": "https://linearb.io/library/ai-in-software-development/how-to-attribute-ai-spend-to-engineering-output"
+  },
+  {
+   "text": "LinearB says every usage key and agent account needs a named human owner (DRI); unowned spend sits in an unattributed bucket whose size is the first finding.",
+   "url": "https://linearb.io/library/ai-in-software-development/how-to-attribute-ai-spend-to-engineering-output"
+  },
+  {
+   "text": "Per LinearB CTO Yishai Beeri, human-led PRs yield in the high 80s to low 90s percent merged, while fully agentic flows fall to around 30%.",
+   "url": "https://linearb.io/library/ai-in-software-development/is-our-ai-coding-investment-paying-off"
+  },
+  {
+   "text": "An arXiv study (Sep 2025) found 83.8% of agent-assisted PRs eventually merged but only 54.9% merged unmodified.",
+   "url": "https://getunblocked.com/blog/cost-per-merged-pr/"
+  },
+  {
+   "text": "Faros AI (Jun 2025) found high-AI teams merged 98% more PRs but PR review time rose 91% and PR size climbed 154%, with no measurable org-level DORA gain.",
+   "url": "https://getunblocked.com/blog/cost-per-merged-pr/"
+  },
+  {
+   "text": "Dash0 computes cost from token counts using a maintained pricing catalog, and for flat-rate subscription users reports an estimated API-equivalent cost; cost per merged assisted PR needs a GitHub or GitLab integration.",
+   "url": "https://www.dash0.com/docs/dash0/darkplane/insights/track-cost"
+  },
+  {
+   "text": "DX's AI cost management report computes estimated cost per PR as total estimated cost divided by merged PRs (excluding bot-authored and deleted PRs), with spend estimated as credits consumed × cost per credit.",
+   "url": "https://docs.getdx.com/reports/ai-cost-management.md"
+  },
+  {
+   "text": "Apiiro prices its automated vulnerability fixes at on average $78 per vulnerability, benchmarked against human triage, fix and test hours.",
+   "url": "https://linearb.io/library/ai-in-software-development/how-to-attribute-ai-spend-to-engineering-output"
+  }
+ ],
+ "question_id": "Q19"
+}

@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:07.500629Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 955,
+   "page_chars_delivered": 4601,
+   "post_step": "fetched",
+   "published": null,
+   "text": "During cloud tasks, setup scripts are run with full internet access. After setup, control is passed to the agent. Due to elevated security and safety risks, Codex defaults internet access to **off** but allows enabling and customizing access to suit your needs.\n\n## Risks of agent internet access\n\n*…",
+   "title": "Agent internet access",
+   "url": "https://developers.openai.com/codex/cloud/internet-access"
+  },
+  {
+   "chars_delivered": 974,
+   "page_chars_delivered": 10453,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The sandbox is the boundary that lets Codex act autonomously without giving it\nunrestricted access to your machine.\n\n...\n\nThat environment defines what Codex can do on its own, such as which files it\ncan modify and whether commands can use the network. When a task stays inside\nthose boundaries, Cod…",
+   "title": "Sandbox – Codex | OpenAI Developers",
+   "url": "https://developers.openai.com/codex/concepts/sandboxing"
+  },
+  {
+   "chars_delivered": 982,
+   "page_chars_delivered": 4363,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Configure environments in [Codex settings](https://chatgpt.com/codex/settings/environments).\n\n## How Codex cloud tasks run\n\nHere's what happens when you submit a task:\n\n1. Codex creates a container and checks out your repo at the selected branch or commit SHA.\n2. Codex runs your setup script, plus…",
+   "title": "Cloud environments",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "chars_delivered": 952,
+   "published": "2015-05-16",
+   "text": "Configure environments in [Codex settings](https://chatgpt.com/codex/settings/environments) .\n\n## How Codex cloud tasks run\n\nHere’s what happens when you submit a task:\n\n1. Codex creates a container and checks out your repo at the selected branch or commit SHA.\n2. Codex runs your setup script, plus…",
+   "title": "Cloud environments",
+   "url": "https://developers.openai.com/codex/cloud/environments/"
+  },
+  {
+   "chars_delivered": 982,
+   "published": null,
+   "text": "Security teams need ways to govern how agents operate: what they can access, when human approval is required, which systems they can interact with, and what telemetry exists to explain their behavior.\n\n...\n\n### Sandboxing and approvals\n\nApprovals and sandboxing work together. The sandbox defines th…",
+   "title": "Running Codex safely at OpenAI | OpenAI",
+   "url": "https://openai.com/index/running-codex-safely"
+  },
+  {
+   "chars_delivered": 912,
+   "published": null,
+   "text": "* * *\n\nToday we’re launching a research preview of Codex: a cloud-based software engineering agent that can work on many tasks in parallel. Codex can perform tasks for you such as writing features, answering questions about your codebase, fixing bugs, and proposing pull requests for review; each ta…",
+   "title": "Introducing Codex | OpenAI",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "chars_delivered": 925,
+   "published": null,
+   "text": "When something failed, the fix was almost never “try harder.” Because the only way to make progress was to get Codex to do the work, human engineers always stepped into the task and asked: “what capability is missing, and how do we make it both legible and enforceable for the agent?”\n\nHumans intera…",
+   "title": "Harness engineering: leveraging Codex in an agent-first world | OpenAI",
+   "url": "https://openai.com/index/harness-engineering/"
+  },
+  {
+   "chars_delivered": 868,
+   "published": null,
+   "text": "* [Foundation (opens in a new window)](https://openaifoundation.org/)\n\nBuilding a safe, effective sandbox to enable Codex on Windows | OpenAI\n\nMay 13, 2026\n\n...\n\n* Balancing safety with actual usefulness\n\nWhen I joined the Codex engineering team in September 2025, Codex for Windows didn’t have a sa…",
+   "title": "Building a safe, effective sandbox to enable Codex on Windows | OpenAI",
+   "url": "https://openai.com/index/building-codex-windows-sandbox/"
+  },
+  {
+   "chars_delivered": 925,
+   "published": null,
+   "text": "A cloud environment brings together the repositories, tools, dependencies, and access settings Codex needs for your project. A published environment lets you reuse that setup for new tasks.\n\nEnvironments are created and published on desktop or web.\n\n...\n\n# Run a task and review the results\n\nChoose…",
+   "title": "Using Codex Cloud | OpenAI Help Center",
+   "url": "https://help.openai.com/en/articles/20001545-using-codex-cloud"
+  },
+  {
+   "chars_delivered": 990,
+   "published": null,
+   "text": "## Sandbox and approvals\n\nLocal computer access with Work Cloud has separate local and cloud execution policies:\n\n* **Cloud execution:** Work cloud containers use existing Work Cloud policies.\n\n...\n\nCodex uses different sandbox modes depending on where you run it:\n\n* **[Codex Cloud (Legacy)](https:…",
+   "title": "Agent approvals & security | ChatGPT Learn",
+   "url": "https://developers.openai.com/codex/agent-approvals-security"
+  }
+ ],
+ "latency_ms": 3072.4,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q04",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "How does OpenAI Codex cloud run agent tasks: sandbox containers, AGENTS.md, parallel tasks, review, and internet access policy? What has OpenAI published about how it uses Codex internally and the measured results? Rank first primary sources: OpenAI's own documentation (developers.openai.com Codex cloud docs, environments, internet access settings, AGENTS.md guide), the 'Introducing Codex' announcement, system cards, and OpenAI engineering posts or talks on internal Codex use, then credible reporting. Extract mechanisms (container setup scripts, sandbox isolation, network allowlists, parallel task execution, code review flow), names, dates, numbers, measured internal results (adoption, PR volume, review speed, productivity), and failure modes or limitations.",
+   "search_queries": [
+    "OpenAI Codex cloud sandbox internet access",
+    "OpenAI Codex AGENTS.md parallel tasks review",
+    "OpenAI internal Codex usage results engineers"
+   ],
+   "session_id": "sl-parallel.search-Q04-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11490,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:04.428193Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

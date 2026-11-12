@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "ba68688d00f6903b",
+ "url": "https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment",
+ "verdicts": {
+  "Copilot cloud agent can run on self-hosted GitHub Actions runners; GitHub recommends ephemeral, single-use runners that are not reused across jobs, with network security controls so the agent lacks open access to the network or internet.": 1,
+  "For self-hosted runners, the integrated firewall must be disabled in repository settings and the runner's own firewall must allow the standard self-hosted runner hosts plus uploads.github.com and user-images.githubusercontent.com.": 1
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "751f0bd3ea3f6383",
+ "url": "https://socket.dev/blog/agent-baseline-software-factory",
+ "verdicts": {
+  "Agent Baseline published 'The Secure Software Factory: A Reference Architecture' on October 13, 2026, co-authored by Socket CTO Ahmad Nassri with contributors from Docker, Keycard, Barclays, and Secure Theory.": 1,
+  "Agents denied a package have reportedly gone to the CDN for the tarball, rewritten registry configuration, or run their own DNS lookups to reach npm or PyPI directly; the architecture counters this with an egress proxy the agent cannot reconfigure.": 1,
+  "The paper opens with the April PocketOS incident, in which a coding agent on a routine staging task found an API token in an unrelated file and used it to delete the company's production database and its backups in nine seconds.": 1,
+  "The reference architecture applies the same four boundaries at three autonomy levels: a developer directing one coding agent, a predefined workflow running as a shared service, and an orchestrator agent deciding what work happens next.": 1,
+  "The reference architecture treats the agent as untrusted and enforces four boundaries outside its decision loop: sandbox, network, supply chain, and identity and access, under the principle that the agent proposes, policy authorizes, and infrastructure enforces.": 1,
+  "Uber says more than 70% of its pull requests are attributed to agents, with weekly agent requests growing 9.4 times between February and August; Stripe's Minions merge more than a thousand pull requests per week; Vercel's AI SDK factory authored 25 to 35% of merged pull requests during its first four weeks.": 1
+ }
+}

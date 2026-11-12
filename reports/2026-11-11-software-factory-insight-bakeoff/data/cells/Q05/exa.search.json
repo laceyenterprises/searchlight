@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:06.081714Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1587,
+   "page_chars_delivered": 10122,
+   "post_step": "fetched",
+   "published": "2025-10-28T16:08:15.000Z",
+   "text": "With Agent HQ what’s not changing is just as important as what is. You’re still working with the primitives you know—Git, pull requests, issues—and using your preferred compute, whether that’s GitHub Actions or self-hosted runners. You’re accessing agents through your existing paid Copilot subscrip…",
+   "title": "Introducing Agent HQ: Any agent, any way you work - The GitHub Blog",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "chars_delivered": 2103,
+   "page_chars_delivered": 9509,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Overview\n\nBy default, Copilot's access to the internet is limited by a firewall.\n\n> [!NOTE]\n> Copilot code review also supports firewall configuration, at both the organization and repository level, under its own section of the \"Internet access\" tab described below. This allows you to configure…",
+   "title": "Customizing or disabling the firewall for GitHub Copilot",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "chars_delivered": 2259,
+   "page_chars_delivered": 9267,
+   "post_step": "fetched",
+   "published": "2025-12-01T17:00:00.000Z",
+   "text": "We recently shipped Agent HQ’s mission control, a unified interface for managing GitHub Copilot coding agent tasks.\n\nNow, you can now assign tasks to Copilot across repos, pick a custom agent, watch real‑time session logs, steer mid-run (pause, refine, or restart), and jump straight into the result…",
+   "title": "How to orchestrate agents using mission control - The GitHub Blog",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "chars_delivered": 1177,
+   "published": "2025-11-17T16:28:01.000Z",
+   "text": "## Control Plane\n\nAgent HQ delivers a control plane that provides agent governance capabilities including the following:\n\nAccess control. Administrators configure the agents and models that are available throughout the organization. These can be specified per team (a logical grouping of GitHub user…",
+   "title": "GitHub Agent HQ Brings Agent Governance, Third-Party Support - Directions on Microsoft",
+   "url": "https://www.directionsonmicrosoft.com/reports/github-agent-hq-brings-agent-governance-third-party-support/"
+  },
+  {
+   "chars_delivered": 241,
+   "published": "2025-09-02T14:30:00.000Z",
+   "text": "HQ can only commit to designated branches. They run within sandboxed GitHub Actions environments with firewall protections. They operate under strict identity ... agent goes rogue, the firewall prevents it from accessing external networks or",
+   "title": "GitHub's Agent HQ aims to solve enterprises' biggest AI coding problem: Too many agents, no central control | VentureBeat",
+   "url": "https://develop.venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too"
+  },
+  {
+   "chars_delivered": 1124,
+   "published": "2025-11-25T16:00:00.000Z",
+   "text": "4. Preventing irreversible state changes\n\nAI can and will make mistakes. To prevent these mistakes from having downstream effects that cannot be fixed, we make sure that our agents are not able to initiate any irreversible state changes without a human in the loop.\n\nFor example, the Copilot coding…",
+   "title": "How GitHub's agentic security principles make our AI agents as secure as possible - The GitHub Blog",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-githubs-agentic-security-principles-make-our-ai-agents-as-secure-as-possible/"
+  },
+  {
+   "chars_delivered": 231,
+   "published": null,
+   "text": "prevention: By default, the cloud agent has a firewall enabled to prevent exfiltration of\n...\npotential vulnerabilities and errors), secret scanning (to ensure secrets aren't introduced), and dependency analysis (to check for known",
+   "title": "Application card: GitHub Copilot Agents",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/copilot/responsible-use/agents"
+  },
+  {
+   "chars_delivered": 240,
+   "published": "2025-10-28T23:46:20.000Z",
+   "text": "and governance of GitHub Copilot. This means they’ll run within ... and operate under strict identity controls, the company explained. Even if an agent goes rogue, the firewall will stop it from accessing external networks or stealing data.",
+   "title": "GitHub tackles vibe coding chaos with a control center for AI coding agents - SiliconANGLE",
+   "url": "https://siliconangle.com/2025/10/28/github-tackles-vibe-coding-chaos-control-center-ai-coding-agents/"
+  },
+  {
+   "chars_delivered": 1881,
+   "published": null,
+   "text": "#### Use ephemeral runners for agent execution\n\nUse GitHub-hosted runners for agent execution. Each job gets a fresh VM that is destroyed after the run, eliminating persistent state and credential leakage between sessions. If you require self-hosted runners, make sure they are ephemeral.\n\n...\n\n####…",
+   "title": "GitHub Learn",
+   "url": "https://learn.github.com/well-architected/library/governance/recommendations/governing-agents/"
+  },
+  {
+   "chars_delivered": 1866,
+   "published": null,
+   "text": "## (Optional) Configure your GitHub Actions environment\n\nAgent sessions on GitHub can run in a cloud sandbox or on GitHub Actions. Compute costs from both environments draw on the same monthly allowance.\n\n- A cloud sandbox is a faster, lightweight environment that allows users to resume sessions in…",
+   "title": "Building guardrails for GitHub Copilot cloud agent",
+   "url": "https://docs.github.com/en/copilot/tutorials/cloud-agent/build-guardrails"
+  }
+ ],
+ "latency_ms": 742.0,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q05",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How do the GitHub Copilot coding agent and GitHub Agent HQ / Mission Control orchestrate multiple vendors' coding agents? Cover the execution environment (Actions runners), firewall, review and merge flow, and governance controls.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17560,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:05.339683Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

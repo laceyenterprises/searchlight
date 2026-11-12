@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:54.783733Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 890,
+   "page_chars_delivered": 10522,
+   "post_step": "fetched",
+   "published": null,
+   "text": "With token management policies, you can do the following:\n\n- Calculate token usage for input, output, and cached tokens across all agent-to-model interactions.\n- Attribute token consumption and estimated cost to business-relevant groups, AI applications, and individual agent identities across model…",
+   "title": "Overview",
+   "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/policies/token-management-overview"
+  },
+  {
+   "chars_delivered": 941,
+   "page_chars_delivered": 15119,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Cost transparency · measured 2026-10-05 15:36 UTC+8 · n=169\n\n# What an AI coding agent costs per merged pull request\n\n**The measured median is $0.082 per merged delivery off-peak** , with a 90th percentile of $0.22. That comes from **169 merged deliveries** that Orbi Cloud recorded between **2026-0…",
+   "title": "AI coding agent cost per pull request, measured | Orbi",
+   "url": "https://orbi.build/cost/"
+  },
+  {
+   "chars_delivered": 957,
+   "page_chars_delivered": 15570,
+   "post_step": "fetched",
+   "published": null,
+   "text": "# A practical AI agent workflow: architecture, budgets and logging\n\nUpdated October 22, 2026 · first published October 22, 2026\n\n**A practical AI agent workflow needs a bounded sequence of steps, a shared budget ledger and a record of every billable attempt.** Start with one orchestrator and a smal…",
+   "title": "AI Agent Workflow Architecture: Budgets, Logs and Retries · FinOps LLM",
+   "url": "https://finopsllm.com/research/agent-workflow-architecture-cost-controls"
+  },
+  {
+   "chars_delivered": 949,
+   "published": "2026-10-16",
+   "text": "For cost per agent and per pull request, label every call with the agent as the feature and the team or repo as the customer, then divide spend by merged PRs. In the worked example below, a PR review costs $0.274, a merged PR $1.03, and an engineer about $67 a month.\n\n...\n\nFive calls make **$0.475…",
+   "title": "AI Coding Agent Costs per Engineer and per Pull Request",
+   "url": "https://llm-track.com/blog/ai-coding-agent-costs-per-engineer-per-pr"
+  },
+  {
+   "chars_delivered": 963,
+   "published": "2026-09-10",
+   "text": "That question shifts the focus from token optimization to agent economics. Measures such as cost per task and steps per task can provide a clearer view of efficiency than price per token alone.\n\n...\n\n* **Add runtime controls** that can pause an agent when spending or behavior exceeds defined limits…",
+   "title": "AI Agent Token Spend Management | IBM ",
+   "url": "https://www.ibm.com/think/insights/ai-agent-token-spend-management"
+  },
+  {
+   "chars_delivered": 855,
+   "published": null,
+   "text": "Account-level billing shows what an agent fleet costs, but it doesn't show where the specific costs come from. Granular tracking by agent, workflow, and reasoning phase provides trackable detail about your spending, which makes opaque costs into the input for targeted optimization. \n\n **Desired out…",
+   "title": "AGENTCOST05-BP01 Establish agent-level reasoning cost tracking and attribution",
+   "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentcost05-bp01.html"
+  },
+  {
+   "chars_delivered": 959,
+   "published": "2026-09-29",
+   "text": "Three mechanics turn a modest seat bill into a large one:\n\n1. **Agent runs multiply tokens.** Anthropic's docs say agent teams use \"approximately 7x more tokens than standard sessions when teammates run in plan mode\",\n\n...\n\n## What does cost per merged PR look like for a real team?\n\n**Cost per merg…",
+   "title": "AI Coding Tools Cost: Per Developer, Per Merged PR - Busfactor",
+   "url": "https://www.busfactor.tech/blog/ai-coding-tools-cost"
+  },
+  {
+   "chars_delivered": 911,
+   "published": "2026-06-26",
+   "text": "Deep Agents\n\nOpen Source\n\n# Prompt Caching with Deep Agents\n\nAlex Olsen\n\nJune 26, 2026\n\n5\n\nmin\n\n[Go back to blog](https://www.langchain.com/blog)\n\nCreate agents\n\nCreate agents\n\nShare\n\n  \n\nA powerful lever in running agents cost-efficiently at scale is **Prompt Caching** , a feature offered by model…",
+   "title": "Prompt Caching with Deep Agents",
+   "url": "https://www.langchain.com/blog/deep-agents-prompt-caching"
+  },
+  {
+   "chars_delivered": 959,
+   "published": null,
+   "text": "# Model invocation and token cost optimization\n<a name=\"agentcost02\"></a>\n\n Teams that right-size model selection to task complexity and optimize token consumption per invocation can improve their cost reductions without sacrificing agent decision quality. Foundation model costs can dominate agenti…",
+   "title": "Model invocation and token cost optimization",
+   "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentcost02.html"
+  },
+  {
+   "chars_delivered": 955,
+   "published": null,
+   "text": "Token usage is billed directly by your AI provider (e.g., Anthropic) to your account — AgenFleet tracks consumption so you can optimize it, but does not charge for tokens itself.\n\n...\n\nEvery interaction with an agent consumes **tokens** — the unit of measure for LLM usage. Costs are based on:\n\n...…",
+   "title": "Cost Management | AgenFleet Docs",
+   "url": "https://docs.agenfleet.ai/platform/cost-management/"
+  }
+ ],
+ "latency_ms": 2355.4,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q19",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "How do organizations govern token and compute cost for agent fleets: budgets per task or agent, model routing and cascades, prompt caching, and cost attribution? What figures have been published for the cost per merged PR or per completed agent task? Rank primary sources first: organizations' own engineering blog posts, documentation, conference talks, papers, filings, and code repositories, then credible reporting. Pull out mechanisms (per-task or per-agent budgets, routing and cascade rules, caching setups, tagging for cost attribution), concrete numbers (dollars per merged PR, per completed task, token counts, cache hit rates, percent savings), names, dates, measured results, and failure modes such as runaway loops or cost overruns.",
+   "search_queries": [
+    "agent fleet token cost governance budgets",
+    "cost per merged PR AI coding agent",
+    "LLM model routing cascade prompt caching savings agents"
+   ],
+   "session_id": "sl-parallel.search-Q19-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11785,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:52.428392Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "f6a2ac68cc40be26",
+ "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent",
+ "verdicts": {
+  "Copilot cloud agent's firewall setting 'Enable firewall' at organization level can be Enabled, Disabled, or 'Let repositories decide' (default); disabling the firewall lets Copilot connect to any host, increasing exfiltration risk.": 1,
+  "Organization custom allowlist items apply to all repositories, cannot be deleted at the repository level, and are combined with repository-level rules; entries can be domains (which include subdomains) or URLs (restricted to scheme, host and path prefix).": 1,
+  "Repository admins can change a firewall setting only if the corresponding organization-level setting is 'Let repositories decide' (or, for custom rules, 'Allow repository custom rules' is Enabled); otherwise the setting is locked.": 1,
+  "The firewall always allows access to hosts Copilot uses to interact with GitHub, and by default a recommended allowlist is also enabled so the agent can download dependencies.": 1,
+  "The firewall applies only to processes the agent starts via its Bash tool; it does not apply to MCP servers or processes started in configured Copilot setup steps.": 1,
+  "The firewall operates only within the GitHub Actions appliance environment, and GitHub states sophisticated attacks may bypass it, so it should not be considered a comprehensive security solution.": 0,
+  "The recommended allowlist covers common OS package repositories, common container registries (Docker Hub, Azure Container Registry, AWS Elastic Container Registry), package registries for languages such as C#, Dart, Go, Haskell, Java, JavaScript, Perl, PHP, Python, Ruby, Rust and Swift, common certificate authorities, and hosts used to download browsers for the Playwright MCP server.": 1,
+  "When the firewall blocks a request, Copilot adds a warning showing the blocked address and the command that attempted it, in the pull request body (first-time PR creation) or in a comment (when responding to a PR comment).": 1
+ }
+}

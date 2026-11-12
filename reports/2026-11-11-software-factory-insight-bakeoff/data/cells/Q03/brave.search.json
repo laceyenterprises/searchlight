@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:01.368884Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2144,
+   "published": null,
+   "text": "# Devin's Sandbox: What the Autonomous Engineer Threat Model Looks Like\n## What does Devin actually have access to when it works?\nA sandboxed cloud environment with its own shell, code editor, and web browser, plus whatever credentials the customer chooses to provision to it. The Devin desktop clie…",
+   "title": "Devin Cognition Autonomous Engineer Security",
+   "url": "https://safeguard.sh/resources/blog/devin-cognition-autonomous-engineer-blast-radius"
+  },
+  {
+   "chars_delivered": 6396,
+   "published": null,
+   "text": "# Cognition\nCognition is the maker of Devin, the first fully autonomous AI engineering agent designed to plan, execute, and validate multi-step software tasks. Unlike copilots that assist human programmers, Devin executes entire software projects and resolves 13.9% of real-world GitHub issues end-t…",
+   "title": "Report: Cognition Business Breakdown & Founding Story",
+   "url": "https://research.contrary.com/company/cognition"
+  },
+  {
+   "chars_delivered": 1877,
+   "published": null,
+   "text": "Cognition says Devin merges 67% of its PRs on defined tasks — up from 34%. Here's why that vendor-reported production number matters more to enterprise buyers than any SWE-bench score in 2026.\n\n# Devin's 67% PR Merge Rate: Why Vendor-Reported Production Metrics Are the New Procurement Axis\nCognitio…",
+   "title": "Devin's 67% PR Merge Rate: Why Vendor-Reported Production Metrics Are the New Procurement Axis",
+   "url": "https://agentmarketcap-1.onbex.co/blog/2026/07/13/cognition-devin-67-percent-pr-merge-rate-vendor-production-metric"
+  },
+  {
+   "chars_delivered": 2350,
+   "published": null,
+   "text": "# Case Study — Devin and the Replit Agent: Coding-Agent Incidents from the Architect's Seat\n## The systems in brief\n**Devin**, launched in public preview in 2024 by Cognition AI, is positioned as an autonomous software engineer. The agent accepts a natural-language task, plans, reads a codebase, wr…",
+   "title": "Case Study — Devin and the Replit Agent: Coding-Agent Incidents from the Architect's Seat",
+   "url": "https://www.compelframework.org/articles/casestudy-devin-and-replit-coding-agents-incidents"
+  },
+  {
+   "chars_delivered": 2383,
+   "published": null,
+   "text": "# What Is Devin AI? An Overview of Cognition's Autonomous Coder\nDevin AI, developed by Cognition, is an autonomous AI software engineer that operates inside a secure remote sandbox. By planning, executing, and debugging complex software development tasks end-to-end, Devin marks a departure from bas…",
+   "title": "What Is Devin AI? An Overview of Cognition's Autonomous Coder",
+   "url": "https://fast.io/resources/what-is-devin-ai/"
+  },
+  {
+   "chars_delivered": 2052,
+   "published": null,
+   "text": "# What Is Cognition AI? The Company Behind Devin\n## What Cognition AI is\nCognition AI is the company behind Devin, an autonomous AI software engineer designed to plan, write, test, and ship code inside existing engineering workflows. Official company materials position Cognition as an applied AI la…",
+   "title": "What Is Cognition AI? Company Behind Devin AI",
+   "url": "https://fast.io/resources/cognition-ai-company-overview/"
+  },
+  {
+   "chars_delivered": 1713,
+   "published": null,
+   "text": "# Devin AI Review 2026: Honest Assessment After Real-World Testing\n## What Devin AI Is (And What It Is Not)\nDevin is not a code autocomplete tool.  It is an **autonomous agent** that receives a task, plans a solution, writes code, runs tests, debugs failures, and delivers a pull request — without y…",
+   "title": "Devin AI Review 2026: Honest Assessment After Real-World Testing - EasyClaw",
+   "url": "https://easyclaw.com/blog/knowledge/devin-ai-review"
+  },
+  {
+   "chars_delivered": 9563,
+   "published": null,
+   "text": "# Devin\nDevin is an autonomous AI software engineer by Cognition AI, marketed as the first AI agent capable of completing end-to-end software engineering tasks independently. Devin works in a fully isolated cloud environment equipped with a shell, code editor, and browser. It can plan and execute c…",
+   "title": "Devin - Devin, Devin AI, Cognition Devin, Devin software engineer",
+   "url": "https://agents.4geeks.com/agent/devin-ai"
+  },
+  {
+   "chars_delivered": 1871,
+   "published": null,
+   "text": "# Is Cognition really worth $48B today?\n## Did buying Windsurf make Cognition a much bigger company?\nDevin was designed to execute engineering tasks autonomously, while Windsurf operated directly inside developers' everyday workflows.\n\nWith both products, Cognition could reach customers who wanted…",
+   "title": "Is Cognition really worth $48B today?",
+   "url": "https://newmarketpitch.com/blogs/news/ai-code-assistant-is-cognition-overvalued"
+  },
+  {
+   "chars_delivered": 1674,
+   "published": null,
+   "text": "# Windsurf\nWindsurf is an AI native IDE built on VS Code that integrates its Cascade agent directly into the coding experience. Originally launched as Codeium (a free Copilot alternative), the product rebranded in late 2024 and shifted from autocomplete tooling to a full agentic IDE where the AI un…",
+   "title": "Windsurf - Codegen",
+   "url": "https://codegen.com/ai-tools/windsurf/"
+  }
+ ],
+ "latency_ms": 1322.2,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q03",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How do Cognition's Devin and Windsurf run long autonomous coding sessions (sandbox, planning, sessions, knowledge, playbooks)? What do published customer case studies report about merge rates and failure modes?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 39242,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:00.046651Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

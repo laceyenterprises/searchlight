@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "e0287adceb4aa5a8",
+ "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf",
+ "verdicts": {
+  "Gartner estimates agentic models need 5-30 times more tokens per task than a chat interaction, and that inference savings will not be fully passed on.": 0,
+  "Jellyfish has reported AI spend at roughly 2.5% of the marginal cost of a merged change.": 0,
+  "Model routing sends each request to the cheapest capable model by task class, repository, developer preference within policy, or automatic fallback; the guard is to watch PR survival on cheaper routes.": 0,
+  "Nirmata argues cost attribution requires joining gateway-visible request data (tokens) with code-host data (PRs), and that routing all tools' model traffic through one gateway gives a single tool-agnostic unit; the FinOps Foundation recommends a proxy for attribution on tools billed to your own account.": 0,
+  "Nirmata distinguishes token-only cost per accepted outcome, managed weekly and moved by model choice, routing, context discipline and coaching, from fully loaded cost that adds engineers' loaded cost.": 0,
+  "Nirmata proposes 'AI cost per accepted outcome': attributed AI spend divided by PRs that merged and were still standing two weeks later, read against quality and review-load guards.": 0,
+  "Nirmata recommends routing that exhausts included subscription plan capacity first, then overflows to pooled provider credits or metered access, to reduce spend without reducing usage.": 0,
+  "Nirmata reported about $29 token-only AI cost per merged PR on its own engineering organization, from 477 merged pull requests in one week using 30-day spend pro-rated.": 0,
+  "Nirmata's $29 per merged PR figure is close to a $29 per merged PR figure that one other engineering team has published from its own token spend.": 0
+ }
+}

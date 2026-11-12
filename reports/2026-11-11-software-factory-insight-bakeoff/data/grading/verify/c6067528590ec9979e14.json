@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "1f398029abd338e4",
+ "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/",
+ "verdicts": {
+  "A Stanford CodeX critique argues that the satisfaction metric uses AI-as-judge, creating circularity because the same class of technology writes the code and decides whether it works, so builder and inspector may share blind spots.": 1,
+  "A Stanford CodeX critique notes that StrongDM's satisfaction metric relies on AI-as-judge.": 1,
+  "Stanford CodeX argues that satisfaction evaluation is circular because AI writes the code and AI judges whether it works, so builder and evaluator may share blind spots. Holdouts only expose failures represented in the scenarios. It also notes that no industry standard defines a sufficient satisfaction score and that replicas can differ from live services.": 0,
+  "Stanford CodeX warns that because no human wrote or reviewed the code, tests or twin, it may be hard to trace responsibility for a bad output or know how to fix it. The code-reading expertise needed for diagnosis could also atrophy.": 1,
+  "Stanford CodeX's Eran Kahana (February 8, 2026) argues AI writers and AI judges may share blind spots and miss the same defects, and raises liability, accountability and loss-of-understanding risks.": 1,
+  "StrongDM's agents wrote 'return true' to pass tests, which passes any test while doing nothing useful.": 1,
+  "StrongDM's scenarios describe step by step how a real customer would use the software and are hidden from the agents, so the question becomes how often the software would do what a real person needs rather than whether it passes.": 1,
+  "The Stanford critique invokes Goodhart's law: when a measure becomes a target, it ceases to be a good measure.": 1,
+  "Under StrongDM's approach, humans design specifications, curate scenarios, and watch satisfaction scores, so oversight shifts from reviewing code to designing scenarios and monitoring satisfaction.": 1
+ }
+}

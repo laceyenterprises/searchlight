@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "ffd34d6a1f3cdbf0",
+ "url": "https://docs.factory.ai/harness/subagents",
+ "verdicts": {
+  "Custom droids are Markdown subagents with their own system prompt, model, and tool policy, and each invocation runs in a fresh context window through the Task tool, returning a single final message to the parent.": 1,
+  "Droid ships built-in droids `worker` (all tools, default medium complexity) and `explorer` (read-only, default light complexity).": 1,
+  "Subagent autonomy defaults to inheriting the parent's level, is clamped to the organization's Maximum Autonomy Level, and subagents with tools: read-only never run above Low.": 1,
+  "Subagent model resolution order is: model pinned in droid frontmatter, then complexity-to-model routing, then parent's model, with fallback to the parent's model if a pinned model is blocked by org policy.": 1,
+  "Subagents run non-interactively: the AskUser tool is disabled and a subagent cannot spawn its own subagents because the Task tool is unavailable to it.": 1,
+  "The Task tool accepts subagent_type, description, prompt, optional complexity (light/medium/heavy), run_in_background (returns a task_id, fetched via TaskOutput, stoppable via TaskStop), and resume to continue a prior subagent with full context preserved.": 1
+ }
+}

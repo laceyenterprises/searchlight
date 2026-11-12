@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "c4de69e85c2cd789",
+ "url": "https://raw.githubusercontent.com/strongdm/attractor/main/attractor-spec.md",
+ "verdicts": {
+  "Attractor edge selection is deterministic with five priority steps: condition-matching edges, preferred-label match, suggested next IDs, highest weight, then a lexical tiebreak on target node ID.": 1,
+  "Attractor saves a checkpoint to {logs_root}/checkpoint.json after each node, and on resume the first node degrades from full to summary:high fidelity because in-memory LLM sessions cannot be serialized.": 1,
+  "Attractor's spec describes a DOT-based pipeline runner in which each Graphviz node is an AI task (LLM call, human review, conditional branch, parallel fan-out) and edges define flow.": 1,
+  "The generic Attractor spec supports human-in-the-loop nodes such as approval gates, code review and manual override, described as critical where automated judgment may not be sufficient.": 1
+ }
+}

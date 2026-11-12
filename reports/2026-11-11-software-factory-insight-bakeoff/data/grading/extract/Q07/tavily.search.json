@@ -1,0 +1,103 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "92695405d9087461",
+ "claims": [
+  {
+   "text": "Spotify reports a total time saving of 60–90% on migrations done with its background coding agent (Honk) compared with writing the code by hand.",
+   "url": null
+  },
+  {
+   "text": "Spotify's Fleet Management system runs source-to-source transformations as jobs in a containerized environment, which automatically open pull requests against the target repositories.",
+   "url": null
+  },
+  {
+   "text": "Spotify's Fleet Management worked well for bumping dependencies in build files (e.g., Maven POMs), updating configuration files such as deployment manifests, and simple refactors such as removing or replacing a deprecated method call.",
+   "url": null
+  },
+  {
+   "text": "Spotify's Honk agent migrations include language modernization (replacing Java value types with records), breaking-change upgrades (data pipelines to the newest Scio), UI component migrations (the new Backstage frontend system), and schema-conforming YAML/JSON config changes.",
+   "url": null
+  },
+  {
+   "text": "Spotify states that the ROI of an automated change continues to increase as it is scaled out to more codebases over time.",
+   "url": null
+  },
+  {
+   "text": "Spotify slotted LLM agents into its existing fleet automation system, which already handled repo targeting, opening PRs and managing reviews, giving it the lowest marginal investment among the adopters compared.",
+   "url": null
+  },
+  {
+   "text": "Migrations at Spotify that previously required about 20K lines of hand-coded AST transforms can now be defined in natural language.",
+   "url": null
+  },
+  {
+   "text": "Spotify exposes its background coding agent via MCP so tasks can be started from Slack and GitHub Enterprise; an interactive workflow agent gathers context, builds a prompt, and hands it to the coding agent, which produces a pull request.",
+   "url": null
+  },
+  {
+   "text": "Spotify splits roles across agents: workflow agents handle ambiguity and context-gathering, the coding agent executes with minimal context (prompt and code), and review agents verify output before merge.",
+   "url": null
+  },
+  {
+   "text": "Spotify's Honk uses a small, fixed tool set: a verify tool, a limited git tool, and allow-listed shell commands.",
+   "url": null
+  },
+  {
+   "text": "Spotify's verification loop combines deterministic verifiers (syntax, build, tests) with an LLM-as-a-judge to prevent scope creep; the judge caught roughly a quarter of problematic changes, and the agent course-corrected in half of those cases.",
+   "url": null
+  },
+  {
+   "text": "Spotify's agents run in containers with limited permissions, minimal binary access and virtually no access to surrounding systems; Spotify deliberately limited agent flexibility to make behavior more predictable.",
+   "url": null
+  },
+  {
+   "text": "At QCon London 2026, Spotify said the LLM judge had been removed because it was too rigid and blocked correct changes; as models improved, verification built into the prompt was sufficient.",
+   "url": null
+  },
+  {
+   "text": "Per a secondary analysis, about 50% of Spotify's PRs were automated before the AI agent arrived, and the agent extended automation beyond what deterministic transformations could do; API token cost is estimated at $0.75 to $2.50 per PR.",
+   "url": null
+  },
+  {
+   "text": "At QCon London 2026, Spotify engineers said Honk merged 1,000 pull requests every 10 days and that human review had become the bottleneck.",
+   "url": null
+  },
+  {
+   "text": "Ramp built its agent so it can verify its own work: it runs tests, queries Sentry and Datadog, toggles feature flags and takes screenshots.",
+   "url": null
+  },
+  {
+   "text": "Ramp reported 30% of merged PRs in its frontend and backend repos came from agents within months, and a single security sweep found and fixed about 100 vulnerabilities, including high-severity IDORs that pen testing had missed.",
+   "url": null
+  },
+  {
+   "text": "Ramp's Inspect went from about 30% of merged PRs (January 2026) to about half (February, per Modal) to 74% (October, per co-founder Karim Atiyeh), with 99% of engineering, design and product staff using it in the past month and 3.4x PRs per builder versus a year earlier.",
+   "url": null
+  },
+  {
+   "text": "Ramp runs a sandboxed VM per session integrated with Sentry, Datadog, LaunchDarkly, Braintrust, GitHub, Slack and Buildkite, rebuilds repository images every 30 minutes, and gives each session its own database.",
+   "url": null
+  },
+  {
+   "text": "Ramp opens each pull request with the requester's own GitHub token so nobody can approve their own change, and tracks the share of sessions that end in a merged PR as its key metric.",
+   "url": null
+  },
+  {
+   "text": "Shopify's River agent went from 6% to 61% of merged mobile pull requests, using a remote mobile dev environment where the agent attaches screenshots and recordings.",
+   "url": null
+  },
+  {
+   "text": "Uber built a central AI platform with specialized agents for code review, test generation, migrations and PR routing, with an MCP gateway that turns any internal endpoint into an MCP server via a config change.",
+   "url": null
+  },
+  {
+   "text": "Uber reports 92% of developers use agents monthly, its test generation agent ships 5,000+ unit tests per month, and AI compute costs are up 6x since 2024.",
+   "url": null
+  },
+  {
+   "text": "A Linear customer story reports Ramp Inspect now writes three out of every four merged PRs and that the engineering bottleneck has shifted toward code review.",
+   "url": null
+  }
+ ],
+ "question_id": "Q07"
+}

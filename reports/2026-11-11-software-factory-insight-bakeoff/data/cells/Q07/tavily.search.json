@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:18.971687Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1594,
+   "page_chars_delivered": 41789,
+   "post_step": "fetched",
+   "published": null,
+   "text": "01\n\n## Inspiration from adopters\n\nBackground agents are reshaping how engineering teams work, but it's still early. Different patterns are emerging, and no two companies are approaching it the same way. Six companies, including Stripe, Ramp, Spotify, Uber, Harvey, and OpenAI, have published detaile…",
+   "title": "An engineering leader's guide to background agents · Ona",
+   "url": "https://ona.com/guides/background-agents"
+  },
+  {
+   "chars_delivered": 1675,
+   "page_chars_delivered": 19295,
+   "post_step": "fetched",
+   "published": null,
+   "text": "CHARTShare of merged pull requests written by an internal coding agent. Source: Ramp Builders blog; Karim Atiyeh on X; Shopify Engineering.\n\nRamp's growth was fast. Inspect wrote about 30% of merged pull requests in January 2026. A Modal case study put it at about half in February. Ramp's co-founde…",
+   "title": "Background Coding Agents Need an Agent-First API Layer: What Ramp, Stripe, and Spotify Built | OpenNash Blog",
+   "url": "https://opennash.com/blog/background-coding-agents-agent-first-api-layer"
+  },
+  {
+   "chars_delivered": 1392,
+   "page_chars_delivered": 8159,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Spotify recently published a 3 part series of in-depth posts on how it uses AI Agents internally throughout its product development process. The full series of posts are definitely worth a read but the tl;dr is that the company built a “background coding agent” that plugs into their existing Fleet…",
+   "title": "Deep: How Spotify is using AI Agents to manage tech debt",
+   "url": "https://departmentofproduct.substack.com/p/deep-how-spotify-is-using-ai-agents"
+  },
+  {
+   "chars_delivered": 138,
+   "published": null,
+   "text": "... Ramp's Inspect. It consists of a ... internal background coding agents. Key facts side ... The README organizes architecture, packages",
+   "title": "Open-Inspect Background Agents — FollowAgents",
+   "url": "https://followagents.com/en/agents/background-agents"
+  },
+  {
+   "chars_delivered": 152,
+   "published": null,
+   "text": "In 2026, Stripe reported that its internal background coding agents ... Spotify Engineering reported more ... architecture, frameworks, memory, tool use",
+   "title": "Background Agents: AI That Works 24/7 While You Don't",
+   "url": "https://rerun.build/blog/background-agents"
+  },
+  {
+   "chars_delivered": 2376,
+   "published": null,
+   "text": "On a high level, Fleet Management has been a roaring success. It has allowed us to automate away countless hours of toil, vastly reducing the time to roll out fleet-wide changes. The system works by running these source-to-source transformations as jobs, in a containerized environment, which then a…",
+   "title": "1,500+ PRs Later: Spotify’s Journey with Our Background Coding Agent (Honk, Part 1) | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "chars_delivered": 2290,
+   "published": null,
+   "text": "That architecture matters more than the headline adoption number. Ramp is a fintech company, so a background agent that can touch code and internal systems cannot be evaluated only on how much code it writes. The useful question is: what infrastructure lets an agent work with near-local context whi…",
+   "title": "Ramp Inspect Architecture 2026: Background Coding Agents | Wavect",
+   "url": "https://wavect.io/blog/ramp-inspect-background-coding-agent-infrastructure-2026"
+  },
+  {
+   "chars_delivered": 2023,
+   "published": null,
+   "text": "## LLMOps Maturity and Lessons\n\nThis case study represents relatively mature LLMOps practices in several dimensions. The architecture demonstrates clear separation of concerns with agents handling focused tasks while surrounding infrastructure manages complexity. The verification loop approach prov…",
+   "title": "Spotify: Background Coding Agents with Strong Feedback Loops for Large-Scale Code Transformations - ZenML LLMOps Database",
+   "url": "https://www.zenml.io/llmops-database/background-coding-agents-with-strong-feedback-loops-for-large-scale-code-transformations"
+  },
+  {
+   "chars_delivered": 689,
+   "published": null,
+   "text": "On this page\n\n## Overview\n\nSpotify’s case study on background coding agents represents a sophisticated real-world deployment of LLMs for automated software maintenance at enterprise scale. This is the second installment in a series documenting Spotify’s journey with background coding agents that ex…",
+   "title": "Spotify: Context Engineering and Tool Design for Background Coding Agents at Scale - ZenML LLMOps Database",
+   "url": "https://www.zenml.io/llmops-database/context-engineering-and-tool-design-for-background-coding-agents-at-scale"
+  },
+  {
+   "chars_delivered": 2201,
+   "published": null,
+   "text": "An interesting turn: at QCon London 2026, Spotify revealed that the LLM judge was removed. It turned out to be too rigid — blocking correct changes. As models improved, the verification built into the prompt proved sufficient. This suggests the judge was a transitional architecture, not a permanent…",
+   "title": "Medium",
+   "url": "https://medium.com/@wasowski.jarek/spotify-honk-fleet-management-ai-coding-system-complete-guide-05cacd6a1d48"
+  }
+ ],
+ "latency_ms": 3693.3,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q07",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What have Ramp, Spotify (Honk / Fleet Management), Shopify, Uber, Airbnb or Meta published about their internal background coding agents or fleet-wide automated code migrations? Include architecture, verification approach and measured outcomes.",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q07-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 17855,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:15.278326Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

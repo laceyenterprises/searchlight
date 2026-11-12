@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "a3925f35429cba90",
+ "url": "https://easyclaw.com/blog/knowledge/devin-ai-review",
+ "verdicts": {
+  "Devin can introduce subtle vulnerabilities in auth, input validation and cryptographic code, so security-critical PRs should not be merged without expert human review.": 1,
+  "Devin's session sandbox is ephemeral: it clones the repo, plans step by step, runs tests and fixes failures until done or stuck, and users can observe and intervene in real time.": 1,
+  "Unusual deployment targets, custom build tooling or non-standard infrastructure often produce failed Devin sessions with unclear error loops.": 1
+ }
+}

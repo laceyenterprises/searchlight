@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "1c1e417adb88f28b",
+ "url": "https://vanja.io/ai-cost-management/",
+ "verdicts": {
+  "The guide recommends tracking cost per merged PR (paired with change size and rollback rate), cost per accepted task, retry-waste %, cache-read ratio, flagship-token share and escalation precision, with attribution by task, PR, and team tags.": 1,
+  "The guide says to order prompt context most-stable-first and put volatile content last because caching is a prefix game; one cache write plus one read costs 1.35× versus 2× for two uncached uses at 0.1× read and 1.25× write rates.": 1,
+  "Vanja Petreski's guide recommends per-task budget reservations (routine task $5, hard debug $25, migration $100) with thresholds at 50% (reassess), 80% (freeze new fan-out, require escalation) and 100% (checkpoint and pause).": 1
+ }
+}

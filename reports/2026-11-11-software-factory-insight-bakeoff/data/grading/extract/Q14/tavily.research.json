@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "7dfd51b7348ffa5b",
+ "claims": [
+  {
+   "text": "Amazon Bedrock AgentCore Runtime runs A2A servers on port 9000 (versus 8080 for HTTP and 8000 for MCP), mounted at `/` (versus `/invocations` and `/mcp`), with agent discovery through Agent Cards at `/.well-known/agent-card.json` and both SigV4 and OAuth 2.0 authentication.",
+   "url": null
+  },
+  {
+   "text": "Anthropic reports a five-server setup (GitHub 35 tools, Slack 11, Sentry 5, Grafana 5, Splunk 2) is 58 tools consuming about 55K tokens before the conversation starts, and it has seen tool definitions consume 134K tokens before optimisation.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's Tool Search Tool loads a ~500-token search tool upfront and discovers 3-5 relevant tools, cutting context use from ~77K to ~8.7K tokens (85%); MCP evaluation accuracy rose from 49% to 74% for Opus 4 and from 79.5% to 88.1% for Opus 4.5.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's code-execution-with-MCP approach, loading tool definitions from a filesystem rather than into context, cut token usage from 150,000 to 2,000, a 98.7% saving.",
+   "url": null
+  },
+  {
+   "text": "Cursor caps MCP tools at 40 in total regardless of installed servers, sending only the first 40, while GitHub Copilot supports a maximum of 128 enabled MCP tools.",
+   "url": null
+  },
+  {
+   "text": "LongFuncEval reports a 7% to 85% performance drop as the number of tools increases, 7% to 91% degradation as tool-response length grows, and 13% to 40% as multi-turn conversations lengthen.",
+   "url": null
+  },
+  {
+   "text": "Stacklok measured a 2,792-tool catalogue at 206,073 tokens if loaded upfront, versus 2,823 tokens per request with Anthropic's BM25-based Tool Search Tool and 3,296 with Stacklok's optimiser.",
+   "url": null
+  },
+  {
+   "text": "Permit.io states MCP clients must send the RFC 8707 `resource` parameter in both authorization and token requests regardless of authorization-server support, to prevent a token issued for Server A being replayed to Server B.",
+   "url": null
+  },
+  {
+   "text": "The MCP 2026-07-28 authorization revision deprecates Dynamic Client Registration (RFC 7591) in favour of Client ID Metadata Documents, requires clients to validate a present `iss` parameter against the recorded issuer before redeeming an authorization code, and requires client credentials be keyed by granting issuer.",
+   "url": null
+  },
+  {
+   "text": "Speakeasy explains that with Client ID Metadata Documents the client ID is an HTTPS URL on the client vendor's domain, so the identity is the same on every install and can be allowlisted, audited and revoked, unlike a DCR identity.",
+   "url": null
+  },
+  {
+   "text": "WorkOS reports the MCP Enterprise-Managed Authorization extension reached Stable in June 2026, with Okta as first supported IdP, Anthropic implementing it across Claude, Claude Code and Cowork, and Asana, Atlassian, Canva, Figma, Granola, Linear and Supabase accepting it at launch.",
+   "url": null
+  },
+  {
+   "text": "Solo.io argues MCP Authorization is a non-starter for enterprise because enterprises manage internal access through SSO federated with external vendors, which the MCP flow does not map onto.",
+   "url": null
+  },
+  {
+   "text": "A2A payloads such as JSON-RPC messages do not carry user or client identity; identity is established at the transport/HTTP layer, with the Agent Card declaring supported security schemes and credentials obtained out of band.",
+   "url": null
+  },
+  {
+   "text": "In April 2025 Invariant Labs showed a malicious MCP server co-present with a legitimate WhatsApp MCP server could instruct the agent to read message history and send it to an attacker-controlled number, with no user prompt.",
+   "url": null
+  },
+  {
+   "text": "On 26 May 2025 Invariant Labs showed a malicious GitHub Issue could hijack a user's agent via the GitHub MCP integration and coerce it into leaking data from private repositories.",
+   "url": null
+  },
+  {
+   "text": "CVE-2025-6514 in mcp-remote is an OS command injection triggered by a crafted `authorization_endpoint` response URL from an untrusted MCP server, CVSS 9.6, affecting versions 0.0.5 to 0.1.15 and fixed in 0.1.16.",
+   "url": null
+  },
+  {
+   "text": "Cursor vulnerabilities CVE-2025-54136 (MCPoison, CVSS 8.5) and CVE-2025-54135 (CurXecute, CVSS 7.2) were disclosed in early August 2025 and fixed in Cursor 1.3.9 and 1.3 respectively.",
+   "url": null
+  },
+  {
+   "text": "Asana's MCP server, launched 1 May 2025, had a bug identified 4 June 2025 that let MCP users retrieve data from other customers' workspaces; it was taken offline 5 June, restored 17 June, and about 1,000 customers were notified.",
+   "url": null
+  },
+  {
+   "text": "In July 2025 instructions planted in a Supabase support ticket made a Cursor agent read the `integration_tokens` table using the `service_role` credential, which bypasses row-level security, and write the contents into the ticket thread.",
+   "url": null
+  },
+  {
+   "text": "The rogue npm package postmark-mcp copied an official Postmark library and from version 1.0.16 (17 September 2025) secretly BCC'd email contents to an external domain, with 1,643 downloads before removal.",
+   "url": null
+  },
+  {
+   "text": "An evaluation of seven major MCP clients across four tool-poisoning attack vectors found attack success rates from 0% (Claude Desktop) to 100% (Cursor), with no standardized security across implementations.",
+   "url": null
+  },
+  {
+   "text": "The A2ABreak specification-level analysis identifies cross-client context injection via unprotected context identifiers, credential harvesting through multi-hop identity loss in delegation chains, and exfiltration via rogue agents advertising unattested capabilities, and flags that neither spec addresses how A2A-layer trust propagates into MCP tool invocations.",
+   "url": null
+  },
+  {
+   "text": "A registry is a curated catalogue but is not in the path of calls once a client holds a server address and token, whereas an MCP gateway proxies every call and can allow one tool on a server while blocking another and log which agent called which tool for which user; each alone leaves a gap.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare MCP server portals give employees one endpoint exposing only the internal and third-party MCP servers they are authorised to use, with Access identity, a curated tool catalog, logging and DLP, and Code Mode progressive tool disclosure enabled via `?codemode=search_and_execute`.",
+   "url": null
+  },
+  {
+   "text": "AWS Agent Registry reached general availability on 31 August 2026 as a private governed catalog for agents, tools, skills and MCP servers, exposed as an MCP server, manageable via CloudFormation, Terraform and CDK, and shareable across accounts with AWS RAM.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

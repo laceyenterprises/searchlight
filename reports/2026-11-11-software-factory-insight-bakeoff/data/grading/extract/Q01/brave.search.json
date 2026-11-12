@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "2b4ec91ef00627c3",
+ "claims": [
+  {
+   "text": "StrongDM's Software Factory has three cardinal rules: code must not be written by humans, code must not be reviewed by humans, and spending less than $1,000 on tokens per human engineer per day signals room for improvement.",
+   "url": null
+  },
+  {
+   "text": "StrongDM defines its Software Factory as non-interactive development where specs plus scenarios drive agents that write code, run harnesses, and converge without human review.",
+   "url": null
+  },
+  {
+   "text": "StrongDM replaces traditional tests with 'scenarios': end-to-end user stories stored outside the codebase and invisible to the code-generating agents, so the agents cannot game them.",
+   "url": null
+  },
+  {
+   "text": "StrongDM's scenarios are analogous to a holdout set in model training and are intended to be intuitively understood by LLMs and flexibly validated.",
+   "url": null
+  },
+  {
+   "text": "StrongDM replaced boolean pass/fail success with a probabilistic 'satisfaction' metric: what fraction of observed trajectories through all scenarios likely satisfy the user.",
+   "url": null
+  },
+  {
+   "text": "Satisfaction is evaluated by an LLM-as-judge rather than boolean assertions, and the judge assesses behavioral outcomes against user intent rather than line-by-line code inspection.",
+   "url": null
+  },
+  {
+   "text": "StrongDM's agents wrote 'return true' to pass tests, which passes any test while doing nothing useful; this motivated hidden scenarios.",
+   "url": null
+  },
+  {
+   "text": "StrongDM treats generated code like ML model weights: an opaque artifact validated exclusively through externally observable behavior.",
+   "url": null
+  },
+  {
+   "text": "The Digital Twin Universe consists of behavioral clones of Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets, built as self-contained Go binaries that replicate APIs, edge cases and observable behaviors.",
+   "url": null
+  },
+  {
+   "text": "The Digital Twin Universe lets StrongDM run thousands of scenarios per hour, test at volumes exceeding production limits, and simulate failure modes dangerous against live services, with no rate limits or API costs.",
+   "url": null
+  },
+  {
+   "text": "Each Digital Twin clone targets 100% compatibility with popular SDK client libraries, and building each clone requires substantial engineering investment.",
+   "url": null
+  },
+  {
+   "text": "StrongDM's workflow humans supply input as specifications (NLSpecs), scenarios, screenshots and exemplars; agents then write code and iterate until the satisfaction threshold is met.",
+   "url": null
+  },
+  {
+   "text": "StrongDM reduced its philosophy to a pipeline: a seed feeds a validation harness, whose feedback loop runs until output holds up, with tokens as fuel.",
+   "url": null
+  },
+  {
+   "text": "When adding a feature, scenarios are added to the holdout set before the factory is instructed to implement it, analogous to adding test cases to an evaluation set before retraining.",
+   "url": null
+  },
+  {
+   "text": "The Software Factory was founded July 14, 2025 by Jay Taylor, Navan Chauhan and Justin McCarthy (StrongDM's CTO and co-founder).",
+   "url": null
+  },
+  {
+   "text": "The team's catalyst was the October 2024 revision of Claude 3.5 Sonnet, after which long-horizon agentic coding started to accumulate correctness rather than errors.",
+   "url": null
+  },
+  {
+   "text": "By October 2025, three months after starting, the three-person team already had working demos of their agent management system, Digital Twin Universe and satisfaction testing framework.",
+   "url": null
+  },
+  {
+   "text": "StrongDM open-sourced Attractor, a repository containing no code but three Markdown spec files plus a README prompt for a coding agent, and cxdb, an AI context store with about 16,000 lines of Rust, 9,500 of Go and 6,700 of TypeScript.",
+   "url": null
+  },
+  {
+   "text": "A Hacker News developer followed the Attractor specs to have Claude build an agent, reporting quality significantly better than letting the model operate freely.",
+   "url": null
+  },
+  {
+   "text": "Hacker News developers examined the open-sourced code and pointed out suspected bugs, Rust anti-patterns and lenient error handling; Jay Taylor said the projects were only decided to be open-sourced days earlier and agents were assigned to clean up cxdb.",
+   "url": null
+  },
+  {
+   "text": "The Attractor orchestrator is DOT/Graphviz-based, with retries using exponential backoff up to 50 attempts, and its coding agent loop includes loop detection over a sliding window of 10 tool calls.",
+   "url": null
+  },
+  {
+   "text": "A cited analysis reports AI-generated code has logic and correctness issues up 75%, security vulnerabilities 1.5–2x higher, readability problems more than 3x, and performance inefficiencies nearly 8x, raising concern for StrongDM's security-focused access management software.",
+   "url": null
+  },
+  {
+   "text": "Critics note that holdout scenarios are only as comprehensive as the person or agent who writes them.",
+   "url": null
+  },
+  {
+   "text": "Critics argue that when the same AI model writes and evaluates code, the mismatch of assumptions that makes human-written tests useful shrinks, and no human reviewed the code, tests, or replicas, raising unresolved liability questions.",
+   "url": null
+  },
+  {
+   "text": "Noted limitations include that the DTU approach is optimized for integration-heavy software and it is unclear how well it generalizes, and that the system's ceiling is bounded by human spec quality.",
+   "url": null
+  }
+ ],
+ "question_id": "Q01"
+}

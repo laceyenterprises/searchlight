@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:47.914299Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2383,
+   "page_chars_delivered": 35490,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Title: MCP A2A Agent Coordination 2026: What Developers Should Expect in H2 | RockB\n# MCP A2A Agent Coordination 2026: What Developers Should Expect in H2. A developer guide to MCP and A2A agent coordination in 2026, including architecture, security, roadmap, and migration steps. * Why Are MCP and…",
+   "title": "MCP A2A Agent Coordination 2026: What Developers Should Expect in H2 | RockB",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "chars_delivered": 2352,
+   "page_chars_delivered": 23013,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Title: MuleSoft MCP and A2A in Production\n* How to Post to DZone. 4. MuleSoft MCP and A2A in Production: What 17 Recipes Reveal. MuleSoft MCP and A2A shipped in 2025. 17 recipes reveal the implementation ladder teams are missing. Be the first to like this post! Join the DZone community and get the…",
+   "title": "MuleSoft MCP and A2A in Production",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "chars_delivered": 2284,
+   "page_chars_delivered": 14128,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Each specialist agent is an MCP client internally, but an A2A peer externally. This composition is the production pattern that emerged through 2026 MCP Hits 97M DownloadsAI Agent Protocols 2026 Complete Guide.\n\n## Production Deployment Patterns\n\n### Pattern 1: Gateway-Backed MCP\n\nFor deployments wh…",
+   "title": "Building with the 2026 Agent Protocol Stack: MCP, A2A, and the Production Architecture",
+   "url": "https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production"
+  },
+  {
+   "chars_delivered": 2360,
+   "published": null,
+   "text": "The Capgemini 2026 research found that 23% of organizations have active AI agent pilots. The Anthropic 2026 State of AI Agents Report found that 46% of organizations identify integration as the #1 adoption barrier. The two protocols address exactly this barrier: MCP standardizes tool integration, A…",
+   "title": "MCP + A2A: The Two Protocols Behind Every Production Agentic AI System | IdeaBosque.com",
+   "url": "https://www.ideabosque.com/library/mcp-a2a-agentic-ai-protocol-stack"
+  },
+  {
+   "chars_delivered": 2010,
+   "published": null,
+   "text": "Yes. Most production enterprise AI systems use both. A2A handles coordination between specialized agents at the top layer, while each agent uses MCP to access external systems like CRMs, HRIS platforms, and databases at the bottom layer. This hybrid architecture separates concerns cleanly.\n\nStart w…",
+   "title": "MCP vs A2A: Architecture, Security, and When to Use Each | StackOne",
+   "url": "https://www.stackone.com/blog/mcp-vs-a2a-protocol"
+  },
+  {
+   "chars_delivered": 2389,
+   "published": null,
+   "text": "| This question has been bouncing around our team for 95 days. We run 5 agents that need both MCP (tool access) AND A2A (agent-to-agent communication). Here's what we learned in production: The Practical Distinction MCP = Tools, A2A = Agents  MCP solves: \"How does my agent call a tool (API, databas…",
+   "title": "How do A2A and MCP relate? Overlap or separate paths for Agent-to-Agent communication? · a2aproject/A2A · Discussion #955 · GitHub",
+   "url": "https://github.com/a2aproject/A2A/discussions/955"
+  },
+  {
+   "chars_delivered": 142,
+   "published": null,
+   "text": "MCP agents can't talk to A2A agents. This is not a production-ready solution. Discovery is the hardest part. Trust needs a neutral layer. I've",
+   "title": "I built a PoC to bridge MCP and A2A. Here's what I learned ...",
+   "url": "https://www.reddit.com/r/AI_Agents/comments/1xc7kz5/i_built_a_poc_to_bridge_mcp_and_a2a_heres_what_i"
+  },
+  {
+   "chars_delivered": 1369,
+   "published": null,
+   "text": "Most AI projects fail. Yours doesn’t have to.\n\nReserve your spot today and get a production-ready Agent Blueprint in just 3 weeks\n\nspots‍  \n‍available\n\nRegister for Your Agent Blueprint\n\nBlog\n\n# Agent Protocols Fail at the Seams\n\nMCP, A2A, and ACP simplify agent integration, but security ownership…",
+   "title": "Agent Protocols Fail at the Seams | Focused",
+   "url": "https://focused.io/lab/agent-protocols-fail-at-the-seams"
+  },
+  {
+   "chars_delivered": 2662,
+   "published": null,
+   "text": "Title: MCP vs A2A Protocol: Understanding AI Agent Communication Standards in 2026 | AI Agent Brief\nChatGPT vs Claude vs Gemini  AI Coding Assistants  AI Agent Platforms  AI Business Tools. # MCP vs A2A Protocol: Understanding AI Agent Communication Standards in 2026. Best AI Agent Platforms in 202…",
+   "title": "MCP vs A2A Protocol: Understanding AI Agent Communication Standards in 2026 | AI Agent Brief",
+   "url": "https://www.ai-agent-brief.com/compare/agents/mcp-vs-a2a"
+  },
+  {
+   "chars_delivered": 1560,
+   "published": null,
+   "text": "Sometimes, these systems are blended:\n\n Each agent in an A2A system might use MCP to call their own tools\n Or, a single MCP-powered agent might spin up temporary agents to handle subtasks (LangGraph, AutoGen)\n\nBut they solve different problems:\n\n MCP extends what a single agent can do\n A2A expands…",
+   "title": "MCP vs A2A: A Guide to AI Agent Communication Protocols",
+   "url": "https://auth0.com/blog/mcp-vs-a2a"
+  }
+ ],
+ "latency_ms": 11290.9,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q14",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How are MCP and A2A being used as extension seams for agent platforms in production? What are the known problems: tool-count limits, auth and authorization (OAuth for MCP), security incidents like prompt injection via tools, and gateway or registry patterns that address them?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q14-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 22849,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:36.623356Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

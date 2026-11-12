@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "3c565998c3820cd5",
+ "url": "https://arize.com/resources/agent-evals-from-traces/",
+ "verdicts": {
+  "Arize's example agent fails by drifting from the requested ticker, making unverifiable claims, giving a summary without an actionable conclusion, and claiming it saved a file when no file exists; the tutorial addresses the last with a state-based artifact eval.": 1,
+  "Arize's tutorial uses deterministic code checks for objective criteria and LLM judges for semantic criteria, and uses Agent-as-a-Judge when the evaluator must explore a trace dynamically across multiple steps.": 1,
+  "Arize's workflow validates automated judges against a human-labeled calibration set, measuring judge precision and recall, and saves passing and failing runs as regression datasets.": 1
+ }
+}

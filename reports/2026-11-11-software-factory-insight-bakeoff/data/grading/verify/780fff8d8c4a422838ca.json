@@ -1,0 +1,18 @@
+{
+ "capture": "captured",
+ "digest": "79592470e573aea9",
+ "url": "https://arxiv.org/abs/2610.02994",
+ "verdicts": {
+  "Combining Sentry with context evolution yields further gains over either alone.": 1,
+  "Controlled experiments in the Sentry paper show that exposing the full playbook to the agent lowers performance even when relevant lessons remain available on demand.": 1,
+  "In Sentry the full playbook never enters the agent's context; lessons are exposed only when a matching failure occurs.": 1,
+  "LLM agents often fail mid-task due to invalid tool calls, repeated actions, or poorly grounded reasoning.": 1,
+  "Lessons learned by Sentry transfer to held-out tasks.": 1,
+  "Runtime-intervention approaches act only when a failure occurs but do not learn from their repairs.": 1,
+  "Sentry is a failure-management layer that runs alongside an LLM agent; when it detects a failure it retrieves matching lessons from an external playbook to guide recovery.": 1,
+  "Sentry outperforms the strongest context-evolution baseline by 39% on the two benchmarks where both are evaluated.": 1,
+  "Sentry outperforms the strongest runtime-intervention baseline on every benchmark evaluated, by 37% on average.": 1,
+  "Sentry verifies, without access to task rewards, whether the agent recovered from a failure, and stores a new lesson only if the agent did recover.": 1,
+  "The Sentry paper reports that failure lessons kept in the agent's context misfire when their failure is absent, and that removing them from an evolving playbook improves performance.": 1
+ }
+}

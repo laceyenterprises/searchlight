@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "f523c35fa456bb6e",
+ "claims": [
+  {
+   "text": "Eon's production assistant (Eon Buzz, reported 26 August 2026) moved triage, semantic-layer and tenant-provided specialists behind A2A and needed approximately 400 lines of wrapper code beyond the SDK.",
+   "url": null
+  },
+  {
+   "text": "Eon's blocking A2A message/send calls failed through the gateway at a 60-second timeout although they worked locally; switching to message/stream with incremental task-status events fixed it.",
+   "url": null
+  },
+  {
+   "text": "In Eon's A2A deployment, content-free remote error events disappeared when the framework assembled context, leaving the orchestrator to answer without the specialist.",
+   "url": null
+  },
+  {
+   "text": "Eon's A2A conversations failed after roughly twenty minutes because the specialist accumulated history under context_id; Eon added an epoch counter to start fresh remote contexts.",
+   "url": null
+  },
+  {
+   "text": "Eon encoded app/user/session into the A2A context_id so the remote agent could use the caller's own token for catalog access; the authors warn this works only because they control both ends.",
+   "url": null
+  },
+  {
+   "text": "Anthropic reports 58 tools across five MCP servers consuming approximately 55,000 tokens before conversation starts, with tool definitions seen reaching 134,000 tokens.",
+   "url": null
+  },
+  {
+   "text": "Anthropic reports Tool Search reduced token usage by 85% and raised internal MCP-evaluation accuracy from 49% to 74% for Opus 4 and from 79.5% to 88.1% for Opus 4.5.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's code-execution-with-MCP design exposes MCP tools as files and runs tool-using code outside the model context, cutting an example from 150,000 to 2,000 tokens (98.7% reduction).",
+   "url": null
+  },
+  {
+   "text": "Block/Square exposes more than 30 APIs and 200 endpoints through just three MCP tools, separating discovery, planning and execution.",
+   "url": null
+  },
+  {
+   "text": "Grab reports 500+ services on its internal agent framework and 50+ registered remote MCP servers, with runtime tool discovery letting new servers extend agents without redeploying them.",
+   "url": null
+  },
+  {
+   "text": "Spotify reported 1,500+ agent-generated PRs merged into production via its Honk background coding agent, with 60–90% time savings on the migrations discussed.",
+   "url": null
+  },
+  {
+   "text": "Windsurf's Cascade documents a maximum of 100 tools accessible at one time, with per-tool enable/disable controls.",
+   "url": null
+  },
+  {
+   "text": "A April 2025 Cursor staff response distinguished a 40-tool warning/performance threshold from an 80-tool actual limit.",
+   "url": null
+  },
+  {
+   "text": "The MCP 28 July 2026 authorization spec requires clients to send the resource parameter in authorization and token requests, and servers to validate that access tokens were issued for them; PKCE is mandatory.",
+   "url": null
+  },
+  {
+   "text": "MCP security guidance prohibits token passthrough and describes a proxy confused-deputy attack combining a static upstream client ID, dynamically registered clients and a consent cookie, defended by per-client consent and exact redirect validation.",
+   "url": null
+  },
+  {
+   "text": "The July 2026 MCP spec deprecates Dynamic Client Registration for new implementations in favor of pre-registration or Client ID Metadata Documents (CIMD), keeping DCR as a fallback.",
+   "url": null
+  },
+  {
+   "text": "The MCP Enterprise-Managed Authorization extension was announced stable on 18 June 2026 and is being adopted by Anthropic, Microsoft and Okta, using identity-provider assertions to manage server access centrally.",
+   "url": null
+  },
+  {
+   "text": "Invariant Labs demonstrated tool poisoning (1 April 2025): malicious instructions in MCP tool descriptions visible to the model can induce unintended reads or exfiltration, plus rug pulls and cross-server shadowing; no production victim count was reported.",
+   "url": null
+  },
+  {
+   "text": "Invariant Labs showed in a controlled experiment (26 May 2025) that a malicious public GitHub issue could induce an agent to read private repositories and leak them in a public pull request, framed as an architectural trust/dataflow problem.",
+   "url": null
+  },
+  {
+   "text": "Asana's beta MCP server had a tenant-isolation bug identified 4 June 2025 that could expose another organization's data; the server was disabled 5–17 June and Asana reported no evidence of actual exploitation.",
+   "url": null
+  },
+  {
+   "text": "CVE-2025-6514 in mcp-remote (versions 0.0.5–0.1.15, fixed in 0.1.16) allowed command injection through an untrusted server's OAuth authorization_endpoint.",
+   "url": null
+  },
+  {
+   "text": "The impersonating postmark-mcp package built trust over fifteen versions, then added a backdoor in 1.0.16 that secretly BCC'd outbound email to an external address.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Gateway permits at most one REQUEST and one RESPONSE interceptor per gateway; request headers are withheld unless passRequestHeaders is enabled, and interceptors should be idempotent due to retries.",
+   "url": null
+  },
+  {
+   "text": "The official MCP Registry moderation policy describes a permissive service with minimal-to-no moderation, so a registry listing is not security certification.",
+   "url": null
+  },
+  {
+   "text": "Google's documentation states externally hosted A2A agents registered via that route do not traverse Agent Gateway, so Agent Gateway policies do not apply to that traffic.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

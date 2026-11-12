@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "41a56d6cd24ce3e1",
+ "url": "https://auth0.com/blog/mcp-vs-a2a/",
+ "verdicts": {
+  "A2A agents fall into two categories: client agents that initiate requests and coordinate tasks on behalf of the user, and remote/service agents that advertise specific capabilities and handle incoming requests.": 1,
+  "In A2A, agents publish Agent Cards, self-descriptions of what they can do, which protocols they speak and what requests they accept, and agents exchange JSON messages over HTTP, often mediated by an A2A server.": 1,
+  "MCP (Model Context Protocol), developed by Anthropic, is a structured way to let AI agents access tools, APIs, or external resources, connecting an MCP client (typically the LLM-powered agent) to local data sources and/or remote resource servers.": 1
+ }
+}

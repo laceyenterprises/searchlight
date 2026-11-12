@@ -1,0 +1,43 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "d1494137f0cc9f4d",
+ "claims": [
+  {
+   "text": "Factory Missions uses an orchestrator, a fresh worker session for each feature, and fresh validators injected at milestones; validators surface issues but do not fix them.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Factory's Missions orchestrator writes validation-contract.md, containing behavioral assertions such as VAL-AUTH-001, before features are implemented so that validation is not shaped by the implementation.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Factory's Slack-clone mission took 16.5 hours, with validation accounting for 37.2% of the time.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Factory's Slack-clone mission used 185 agent runs and 778.5M tokens, of which 744.9M were cache reads.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "In Factory's Slack-clone mission, milestones passing per validation round went 0/6, 1/6, 2/6, then 6/6.",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "In Factory's Slack-clone mission, fix features made up 34.4% of implementation work (21 of 61 features).",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "text": "Factory reports that 14% of Missions run longer than 24 hours.",
+   "url": "https://factory.ai/news/missions"
+  },
+  {
+   "text": "Factory says the Missions orchestrator still sometimes scopes work too broadly.",
+   "url": "https://factory.ai/news/missions"
+  },
+  {
+   "text": "Factory 2.0, dated June 15 2026, claims model independence via a router, sovereign deployment options, and continual learning, without providing benchmarks or implementation detail.",
+   "url": "https://factory.com/news/software-factory"
+  }
+ ],
+ "question_id": "Q02"
+}

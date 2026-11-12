@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:27.851791Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 4194,
+   "page_chars_delivered": 5792,
+   "post_step": "fetched",
+   "published": "2026-10-18T04:00:00.000Z",
+   "text": "This post is what we changed and what we measured. The one number we now manage is cost per merged PR: total model spend attributed to agent runs, divided by the agent-authored pull requests that actually landed. Over eight weeks it went from $31 to $9 while the merge rate of agent PRs stayed betwe…",
+   "title": "AI SDLC: Cost per Merged PR - Token Budgets for Coding Agents and the Four Numbers We Track | Lamplit Labs",
+   "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/"
+  },
+  {
+   "chars_delivered": 250,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-09-24T00:00:00.000Z",
+   "text": "35], but in a harness the request carries the cached conversation. Writing $C ... conversation prefix, $D$ for the new tokens a turn adds and $k$ for its tool steps, a warm ... k{+}1)C+Dk/2$ cached tokens, writes $D$ and produces its output (Appendix",
+   "title": "Control the Harness, Control the Cost Routing and Governing AI Coding Agents in the Enterprise",
+   "url": "https://arxiv.org/html/2609.28919v1"
+  },
+  {
+   "chars_delivered": 377,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-08-13T17:17:24.000Z",
+   "text": "| Policy | Guards | What goes wrong | What it does |\n| --- | --- | --- | --- |\n| cost_budget | the total | run spend reaches the cap | halt the run |\n| pre_call_worst_case | per-call | the next call’s worst case would not fit the budget | cap its output or halt |\n| cost_guard | per-call | spend cro…",
+   "title": "TokenOps: Real-time, run-scoped cost control for AI agents",
+   "url": "https://commandline.microsoft.com/tokenops-real-time-run-scoped-cost-control-ai-agents/"
+  },
+  {
+   "chars_delivered": 250,
+   "published": "2026-05-26T13:44:54.000Z",
+   "text": "token budgets per agent session. An implementation agent might get a 500K-token cap (enough for most features), while an architecture agent gets ... If an agent hits its cap, it pauses and alerts the developer rather than burning through more tokens.",
+   "title": "AI Coding FinOps: The Engineering Leader's Guide to Governing Agent Spend at Scale — amux",
+   "url": "https://amux.io/guides/ai-coding-finops/"
+  },
+  {
+   "chars_delivered": 5498,
+   "published": "2026-07-15T22:08:28.000Z",
+   "text": "Put all agent traffic behind one instrumented layer — a gateway or wrapper — and record, per request: provider, model, tier, billing channel, reasoning setting; input / output / cache-read / cache-write / reasoning token counts; estimated and invoiced cost; and the metadata that makes it *mean* som…",
+   "title": "The Cost Control Plane | Vanja Petreski",
+   "url": "https://vanja.io/ai-cost-management/"
+  },
+  {
+   "chars_delivered": 254,
+   "published": null,
+   "text": "generated for every line that ships.\n\nAvg. cost / merged PR\n\n$14.20\n\nAcross 312 merged PRs in the last 30 days — every agent session that planned or wrote the code, summed and divided.\n\n6 mo ago · $22.40▼ 37% · today $14.20\n\nGenerated : Production\n\n24: 1",
+   "title": "Token Accounting | Git AI",
+   "url": "https://usegitai.com/token-accounting"
+  },
+  {
+   "chars_delivered": 1690,
+   "published": "2026-07-21T00:00:00.000Z",
+   "text": "On the work side, DigiUsher tracked commit attestation, merged pull requests, and repository identity through the open git-ai standard, joining every measured agent session to the shipped code it actually produced. The result was a graded attribution model: allocated spend plus an honestly labeled…",
+   "title": "$52.55 Per Merged Pull Request: How One 1,000-Engineer Firm Priced Its Own AI Spend | DigiUsher",
+   "url": "https://www.digiusher.com/blog/dollar5255-per-merged-pull-request-how-one-1000-engineer-firm-priced-its-own-ai-spend/"
+  },
+  {
+   "chars_delivered": 222,
+   "published": null,
+   "text": "workflow don't need the top model. Industry framing: model\n**routing / cascades\n...\nroute the \"doer\" agents down a tier and keep the \"judge\"/\"synthesizer\"\n...\nthe routed slice · *axis: cost (not token-count)* · risk: low *",
+   "title": "PLAYBOOK.md",
+   "url": "https://github.com/Jott2121/agent-cost-attribution/blob/main/PLAYBOOK.md"
+  },
+  {
+   "chars_delivered": 255,
+   "published": "2026-10-10T03:10:14.000Z",
+   "text": "'s core 1.75.0 queries spans with filters and model cost, “every failed tool_call in the last hour”, and aggregates token and ... spender queries. Record model, tier, tokens by kind, dollars, run and tenant.\n- Per- ... 1.15.27 tracks per-run cost and time",
+   "title": "Subagent Fleets: Price the Run Before It Starts | CloudxOps",
+   "url": "https://cloudxops.ai/agent-run-budgets-model-tiering/"
+  },
+  {
+   "chars_delivered": 255,
+   "published": null,
+   "text": "Assign explicit budgets to every agent run: Every agent should operate within a token or dollar budget object, rather than relying solely on maximum iteration counts ... Loop-until-done patterns without budget ceilings are a common cause of runaway costs.",
+   "title": "A Practical Framework for Controlling AI Agents Token Cost",
+   "url": "https://www.aspiresys.com/WhitePapers/a-practical-framework-for-controlling-ai-agents-token-costs.pdf"
+  }
+ ],
+ "latency_ms": 938.8,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q19",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How do organizations govern token and compute cost for agent fleets: budgets per task or agent, model routing and cascades, prompt caching, and cost attribution? What figures have been published for the cost per merged PR or per completed agent task?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 19547,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:26.912993Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

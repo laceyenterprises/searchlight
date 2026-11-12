@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:03.047547Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1248,
+   "published": null,
+   "text": "# The 100 line AI agent that's actually useful\n`mini` is\n...\n- **Minimal**: Just 100 lines of python (+100 total for env, model, script) — no fancy dependencies!\n- **Performant:** Scores >74% on the SWE-bench verified benchmark; starts much faster than Claude Code\n...\nIn fact, the `mini` agent:\n- *…",
+   "title": "Overview - mini-SWE-agent documentation",
+   "url": "https://mini-swe-agent.com/"
+  },
+  {
+   "chars_delivered": 768,
+   "published": null,
+   "text": "tagline: \"Deliberately minimal baseline: a ~100-line loop, one bash tool, a fresh subprocess per command, and a linear history that is never compacted.\"\n...\nv2 made native tool calling (a single `bash` function) the default.\nv1 parsed commands from markdown code blocks and lives on the `v1` branch.…",
+   "title": "harness.yaml",
+   "url": "https://huggingface.co/spaces/ybelkada/harness-lens/raw/main/harnesses/mini-swe-agent/harness.yaml"
+  },
+  {
+   "chars_delivered": 1172,
+   "published": null,
+   "text": "# FAQ\n## General\nmini-SWE-agent should work on any system that has a bash shell or uses a container runtime (e.g., docker, singularity, apptainer, etc.) to emulate one.\n...\nYou should use `mini-swe-agent` if\n- You want a quick command line tool that works locally\n- You want an agent with a very sim…",
+   "title": "FAQ",
+   "url": "https://mini-swe-agent.com/v2/faq/"
+  },
+  {
+   "chars_delivered": 3449,
+   "published": null,
+   "text": "Based on our currently incorporated benchmarks, we perform an evaluation of agents over 15 challenging tasks, including software engineering (*e.g*., Swe-bench) and web browsing (*e.g*., WebArena), among others.\n...\nInspired by CodeAct (Wang et al., 2024a), OpenHands connects an agent with the envi…",
+   "title": "OpenHands: An Open Platform for - arXiv.org",
+   "url": "https://arxiv.org/html/2407.16741"
+  },
+  {
+   "chars_delivered": 857,
+   "published": "2025-06-28",
+   "text": "# The minimal AI software engineering agent\n- **Performant:** Scores >74% on the SWE-bench verified benchmark; starts much faster than Claude Code\n...\n- **Does not have any tools other than bash** — it doesn't even need to use the tool-calling interface of the LMs.\nThis means that you can run it wi…",
+   "title": "GitHub - SWE-agent/mini-swe-agent: The 100 line AI agent that solves GitHub issues or helps you in your command line. Radically simple, no huge configs, no giant monorepo—but scores >74% on SWE-bench verified!",
+   "url": "https://github.com/SWE-agent/Mini-SWE-Agent"
+  },
+  {
+   "chars_delivered": 3020,
+   "published": null,
+   "text": "To achieve flexibility, we design a *simple interface for implementing agents* that requires only a few lines of code in the default case, but is easily extensible to more complex full-featured agents with features such as custom tools, memory management, and more.\nFor security and reliability, it…",
+   "title": "The OpenHands Software Agent SDK: A Composable and Extensible Foundation for Production Agents",
+   "url": "https://arxiv.org/html/2511.03690"
+  },
+  {
+   "chars_delivered": 1483,
+   "published": null,
+   "text": "SWE-agent: a system that facilitates LM agents to autonomously use computers to solve software engineering tasks.\n...\nFrom this effort, we introduce SWE-agent, an agent composed of an LM and ACI, that can interact with a computer to solve challenging real-world software engineering problems, such a…",
+   "title": "SWE-agent: Agent-Computer Interfaces ... - papers.neurips.cc",
+   "url": "https://papers.neurips.cc/paper_files/paper/2024/file/5a7c947568c1b1328ccc5230172e1e7c-Paper-Conference.pdf"
+  },
+  {
+   "chars_delivered": 3311,
+   "published": "2025-06-28",
+   "text": "# The minimal AI software engineering agent\nWe now ask: **What if our agent was 100x simpler, and still worked nearly as well?\n...\n`mini` is\n- **Widely adopted**: Used by Meta, NVIDIA, Essential AI, IBM, Nebius, Anyscale, Princeton University, Stanford University, and many more.\n- **Minimal**: Just…",
+   "title": "mini-swe-agent/README.md at 04d809ceab9df28f9adaed044884180159172930 · SWE-agent/mini-swe-agent",
+   "url": "https://github.com/SWE-agent/mini-swe-agent/blob/04d809ce/README.md?plain=1"
+  },
+  {
+   "chars_delivered": 1080,
+   "published": "2026-06-11",
+   "text": "# The minimal AI software engineering agent\n- **Performant:** Scores >74% on the SWE-bench verified benchmark; starts much faster than Claude Code\n...\n- **Does not have any tools other than bash** — it doesn't even need to use the tool-calling interface of the LMs.\nThis means that you can run it wi…",
+   "title": "github.com › lingexin › mini-swe-agentGitHub - lingexin/mini-swe-agent",
+   "url": "https://github.com/lingexin/mini-swe-agent"
+  },
+  {
+   "chars_delivered": 1819,
+   "published": "2026-10-20",
+   "text": "|``` id: mini-swe-agent name: mini-SWE-agent vendor: SWE-agent team (Princeton & Stanford) tagline: \"Deliberately minimal baseline: a ~100-line loop, one bash tool, a fresh subprocess per command, and a linear history that is never compacted.\" repo: SWE-agent\n/mini-swe-agent homepage: https://mini-…",
+   "title": "harnesses/mini-swe-agent/harness.yaml · ybelkada/harness-lens at main",
+   "url": "https://huggingface.co/spaces/ybelkada/harness-lens/blame/main/harnesses/mini-swe-agent/harness.yaml"
+  }
+ ],
+ "latency_ms": 460.0,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q09",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What are the architectures and reported results of open-source autonomous coding agents and frameworks: OpenHands (All Hands), SWE-agent / mini-swe-agent, Block's goose, and Sourcegraph Amp? Focus on the agent-computer interface, sandboxing, and lessons from SWE-bench-style evaluation.",
+    "OpenHands architecture sandbox runtime SWE-bench results",
+    "SWE-agent agent-computer interface mini-swe-agent bash only",
+    "Block goose agent MCP architecture Sourcegraph Amp"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 20814,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:02.587540Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "fbb37a6f011b298d",
+ "url": "https://arxiv.org/abs/2610.32578",
+ "verdicts": {
+  "A single monthly LLM documentation audit found about half of known drift (Claude Sonnet 5.5 mean 50%) with at least 93% of its findings correct, so an LLM audit alone misses much drift.": 1,
+  "A six-week case study of one markdown repository edited by three AI agent tools logged 118 agent failures; stale documentation (drift) was the largest class at 48 of 118, though 35 of those were found on one audit day.": 1,
+  "Replaying five past failures in git clones on Sonnet 5.5, three of four finished failures did not occur with or without their fixes, and only the stale-count failure recurred (in all three unguarded runs), which a deterministic check stopped in every run; the author calls the results exploratory (one repo, three runs per condition).": 0,
+  "The author warns that harness-evolving tools add lessons faster than they retire them and recommends recording the motivating model version and a re-test date on each rule; a counterfactual git replay (30 headless sessions) took 10 minutes and about $3.55.": 0
+ }
+}

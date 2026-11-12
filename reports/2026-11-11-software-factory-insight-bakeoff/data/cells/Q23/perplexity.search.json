@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:11.561237Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1427,
+   "published": null,
+   "text": "ACE prevents collapse with structured, incremental updates that preserve detailed knowledge and scale with long-context models.\nAcross agent and domain-specific benchmarks, ACE optimizes contexts both offline (e.g., system prompts) and on-line (e.g., agent memory), consistently outperforming strong…",
+   "title": "[PDF] AGENTIC CONTEXT ENGINEERING: EVOLVING ... - OpenReview",
+   "url": "https://openreview.net/pdf/c078a05ea2608a36137fb68d4a7f8c7fdd12602a.pdf"
+  },
+  {
+   "chars_delivered": 1414,
+   "published": "2026-11-06",
+   "text": "The same idea can help agents organize their memory by reflecting on logs to fix mistakes or produce new notes and representations.\n...\nMemory can support a learning loop here.\nIf Claude gets a question wrong, it can record the failure, come up with theories about what went wrong, test those theori…",
+   "title": "The components of agent memory",
+   "url": "https://www.anthropic.com/research/components-of-agent-memory"
+  },
+  {
+   "chars_delivered": 1746,
+   "published": null,
+   "text": "Unlike a stateless large language model (LLM) call, which processes a single input and discards it immediately afterward, memory architectures let an agent recall past events, learn from mistakes, and build on tasks already in progress.\n...\nThis tier matters for tasks that need historical context,…",
+   "title": "Agent Memory Architectures - Klu.ai",
+   "url": "https://klu.ai/glossary/agent-memory-architectures"
+  },
+  {
+   "chars_delivered": 1101,
+   "published": null,
+   "text": "Within hours of running the evaluation pipeline, the LLM discovered it could game the scoring system.\nWhen asked to generate an improved prompt, it started embedding scoring criteria directly.\n...\nScoring responses based on sound metrics, generating improvements from the data, but ultimately buildi…",
+   "title": "www.inngest.com",
+   "url": "https://www.inngest.com/blog/build-self-learning-agent.md"
+  },
+  {
+   "chars_delivered": 3603,
+   "published": null,
+   "text": "We propose *Reflexion*, a novel framework to reinforce language agents not by updating weights, but instead through linguistic feedback.\nConcretely, Reflexion agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better deci…",
+   "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+   "url": "https://arxiv.org/html/2303.11366"
+  },
+  {
+   "chars_delivered": 210,
+   "published": "2026-05-05",
+   "text": "## 📚 All 30 Techniques\n### 🧩 Cognitive Architectures (Techniques 12-19)\n|16|Self-Reflection Memory|The agent looks back at its own actions.\nIt writes notes on what worked, and uses them next time.|✅ Notebook ·|",
+   "title": "README.md - Agent Memory Techniques",
+   "url": "https://github.com/NirDiamant/Agent_Memory_Techniques/blob/main/README.md"
+  },
+  {
+   "chars_delivered": 2528,
+   "published": null,
+   "text": "Have the agent write linguistic lessons from past failures and consult them in future episodes.\nAn agent solving programming-contest problems repeatedly trips over off-by-one in inclusive ranges.\nAfter each episode it writes a one-paragraph lesson keyed to 'range parsing' and stores it in long-term…",
+   "title": "Reflexion",
+   "url": "https://agentpatternscatalog.github.io/patterns/patterns/reflexion.html"
+  },
+  {
+   "chars_delivered": 2255,
+   "published": null,
+   "text": "LLM-based coding agents repeat the same classes of mistakes across sessions because they lack a mechanism to retain corrections from human review feedback.\nWe present a closed-loop framework in which every accepted review comment is codified as a persistent behavioral rule, progressively expanding…",
+   "title": "Self-Improving AI Coding Agents Through Accumulated Behavioral Rules: A Closed-Loop Framework",
+   "url": "https://arxiv.org/html/2607.13091"
+  },
+  {
+   "chars_delivered": 2376,
+   "published": "2026-02-28",
+   "text": "A production-tested framework for multi-agent orchestration where agents genuinely learn from their failures, evolve their own prompts, and govern themselves through academic self-evolution protocols.\n...\nBut when an agent fails a task on Monday, it will fail the exact same way on Tuesday.\nThere is…",
+   "title": "agent-evolution-kit/README.md at main · mahsumaktas ... - GitHub",
+   "url": "https://github.com/mahsumaktas/agent-evolution-kit/blob/main/README.md"
+  },
+  {
+   "chars_delivered": 3626,
+   "published": "2026-10-27",
+   "text": "> Structured delta entries that accumulate and refine agent strategies prevent the brevity bias and context collapse that erode knowledge during monolithic prompt rewrites.\n...\nEvolving playbooks suit agents that improve by learning from execution feedback.\nThe pattern fits when:\n- The domain gener…",
+   "title": "Evolving Playbooks: Incremental Context That Preserves Knowledge — AgentPatterns.ai",
+   "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/"
+  }
+ ],
+ "latency_ms": 546.0,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q23",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How do agent systems capture and reuse lessons from past failures: incident memory, playbooks, learned rules injected into prompts, and self-improving agents? What evidence is there that this reduces repeat failures, and what are the risks (prompt bloat, stale rules)?",
+    "agent memory learning from failures reflection playbook",
+    "self-improving agents learned rules prompt injection context bloat",
+    "agentic context engineering evolving playbook stale rules"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 22590,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:11.015223Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

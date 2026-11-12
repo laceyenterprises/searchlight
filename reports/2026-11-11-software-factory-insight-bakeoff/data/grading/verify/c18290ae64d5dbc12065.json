@@ -1,0 +1,21 @@
+{
+ "capture": "captured",
+ "digest": "73f3c6aee4ce2ded",
+ "url": "https://factory.com/news/opencompute",
+ "verdicts": {
+  "Each OpenCompute provider integration runs as a standalone gRPC driver; the contract defines a required Core conformance profile and optional Suspend, Snapshot, and Fork profiles, verified by black-box tests, and unsupported requests are rejected before durable state changes.": 1,
+  "Factory announced OpenCompute on October 14, 2026, a self-hosted orchestrator for agent sandboxes on the customer's choice of runtime, in private preview.": 1,
+  "Factory developed and evaluated OpenCompute drivers for AWS Lambda MicroVMs, Kubernetes, EC2, Agent Sandbox, Agent Substrate, and other experimental providers.": 1,
+  "Factory kicked off a Mission to build the initial OpenCompute driver for the customer's environment right before boarding the flight to the customer, and the driver was built by the time they landed.": 1,
+  "Factory plans to open-source OpenCompute, and the layer exposes its own API, CLI, and administration panel, with Factory as only one possible client.": 1,
+  "Factory said its first bespoke on-prem OpenCompute deployment took six weeks from prototype to first deployment and two days on site after the initial driver was built.": 1,
+  "Factory's OpenCompute private preview (2026-10-14) separates agent-sandbox fleet lifecycle from the underlying compute provider: a self-hosted service in the customer's environment connects outbound to Factory over TLS WebSockets, and a Go control plane records desired and observed state in local Postgres with a reconciler that retries provisioning.": 1,
+  "On enrollment, an OpenCompute deployment registers a public key with Factory and proves possession of the private key by signing a fresh challenge on connection; the private key can live in a supported cloud KMS.": 1,
+  "OpenCompute builds on Remote Control, introduced with Droid Computers in April 2026, which let customers register their own machines; OpenCompute addresses the gap that self-hosted machines lacked native provisioning, suspension, and resumption.": 1,
+  "OpenCompute computers launch from immutable Builds, with S3-compatible storage holding build artifacts and snapshot payloads.": 1,
+  "OpenCompute runs in the customer's environment and opens an outbound TLS-secured WebSocket connection to Factory, so no public endpoint or inbound firewall port is needed.": 1,
+  "OpenCompute uses standalone gRPC drivers for provider-specific operations, with required Core and optional Suspend/Snapshot/Fork conformance profiles and black-box tests that reject unsupported requests before durable state changes.": 1,
+  "OpenCompute's Go control plane records desired and observed computer state in a customer-hosted Postgres database, and a reconciler continuously drives computers toward the requested state, retrying recoverable failures and surviving control-plane restarts.": 1,
+  "OpenCompute's first customer deployment, into a bespoke on-premises environment with an in-house provider interface, came six weeks after the early prototype; the customer provisioned their first sandbox two days after Factory arrived on-site.": 1
+ }
+}

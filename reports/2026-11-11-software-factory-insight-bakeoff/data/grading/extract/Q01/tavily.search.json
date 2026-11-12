@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "4296bad627641943",
+ "claims": [
+  {
+   "text": "StrongDM's Software Factory is a non-interactive agent system in which natural-language seeds and end-to-end scenario harnesses drive agents that write, validate, and iterate on code under standing rules that humans neither write nor review code.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "StrongDM's charter states two rules: 'Code must not be written by humans' and 'Code must not be reviewed by humans'; code is treated as opaque weights whose correctness is inferred from behavior, not inspection.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "A Software Factory run starts from a natural-language seed (a few sentences, a screenshot, or an existing codebase); agents write code and run the end-to-end scenario harness, and a sample of the output feeds back into the inputs so the system self-corrects.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "The Software Factory loop runs until the holdout scenarios pass and stay passing, and the code ships without human review.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "StrongDM scenarios are end-to-end user-story validations, often stored outside the codebase like a training holdout set, and flexibly checked by an LLM to resist reward hacking and lazy test rewriting.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "Early StrongDM experiments showed that tests alone invite shortcutting by agents, so the team shifted to externally defined scenarios representing end-to-end user stories.",
+   "url": "https://www.linkedin.com/posts/stephenpimentel_how-strongdms-ai-team-build-serious-software-activity-7430023646473236480-oTc2"
+  },
+  {
+   "text": "StrongDM defines 'satisfaction' as a probabilistic success measure replacing boolean test-green: the fraction of all observed scenario trajectories that likely satisfy the user.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "Scenario holdouts are a design claim that scenarios stored outside the codebase are less vulnerable to reward hacking; this is not proven prevention of it.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "The Digital Twin Universe consists of behavioral clones of third-party services that replicate APIs, edge cases, and observable behaviors, so thousands of scenarios can run per hour without rate limits, abuse detection, or live-API cost.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "The Digital Twin Universe clones Okta, Jira, Slack, Google Docs, Google Drive, and Google Sheets.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "The Digital Twin Universe clones are built as self-contained Go binaries, and they can simulate dangerous failure modes that would be impossible to test against live services.",
+   "url": "https://www.thepragmaticcto.com/publish/post/187277478"
+  },
+  {
+   "text": "Building full SaaS replicas was always theoretically possible but economically unfeasible; agentic development reverses that cost equation.",
+   "url": "https://www.thepragmaticcto.com/publish/post/187277478"
+  },
+  {
+   "text": "The Factory became viable after Claude 3.5's October 2024 revision enabled 'compounding correctness' in long-horizon agentic workflows, whereas earlier models accumulated errors until the product 'collapsed'.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "The initial foundation of the Factory was Cursor YOLO mode, and the validation loop uses an LLM-as-judge to evaluate satisfaction.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "StrongDM's operating heuristic is that if a team has not spent at least $1,000 on tokens today per human engineer, the factory has room for improvement; this is a spend heuristic, not a measured productivity result.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "StrongDM's team is three engineers who started in July 2025; by October 2025, when Simon Willison visited, they already had working demos of the agent harness, Digital Twin Universe, and satisfaction testing framework.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom"
+  },
+  {
+   "text": "The captures of StrongDM's published material report principles, techniques, and model configuration but no measured outcomes of the factory's software.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "What happens when a Software Factory run fails to converge is not documented.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "As of June 2026, the Factory routes tasks across multiple model providers, including gpt-5.5 for everyday/DevOps tasks, QA orchestration and security review, and a consensus of opus-4.8 and gpt-5.5 for sprint planning.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "StrongDM open-sourced Attractor, a non-interactive coding agent structured as a graph of phases, as a natural-language spec rather than an implementation (Apache-2.0, ~1.3K GitHub stars as of September 23, 2026), and also open-sourced CXDB, a context store for agents.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "Delinea announced its acquisition of StrongDM on January 15, 2026 and completed it on March 5, 2026; whether the factory methodology continues under new ownership is unverifiable.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "The factory essay reached the Hacker News front page in February 2026 (304 points, 459 comments); validation ideas (DTU, holdouts) drew admiration while the 'no human review' charter for a security product drew the harshest criticism.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "Reported cautions: building the DTU required significant engineering effort, fit beyond integration-heavy domains is unclear, teams must accept not reading generated code, and the approach is less battle-tested than human-reviewed workflows.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "A critic argues that applying 'no human review' to security-critical access-management software is risky, citing studies claiming AI code has 1.5-2x more security vulnerabilities than human-written code, and that scenarios are only as comprehensive as whoever writes them.",
+   "url": "https://www.thepragmaticcto.com/publish/post/187277478"
+  },
+  {
+   "text": "Stanford Law School commentary notes the architecture makes tracing accountability difficult, because no human reviewed the code, wrote the validating test, or built the replica it was tested against.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom"
+  }
+ ],
+ "question_id": "Q01"
+}

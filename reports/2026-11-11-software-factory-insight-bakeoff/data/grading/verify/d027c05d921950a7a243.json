@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "d38fc938430514f3",
+ "url": "https://cadenya.com/other-content/retries-and-idempotency-for-agent-tool-calls",
+ "verdicts": {
+  "DBOS step retries are off by default; when turned on the default is 3 attempts with 1 second backoff doubling.": 1,
+  "Every retry engine runs tool calls at least once, so the only reliable way to avoid a duplicated side effect is an idempotency key that the receiving API checks.": 1,
+  "Inngest retries each step.run() with its own counter; default is 5 attempts (first try plus 4 retries) with exponential backoff and jitter.": 1,
+  "Restate retries a ctx.run block or the whole invocation by default 70 times with backoff starting at 50 ms, doubling, up to 60 seconds, after which the invocation pauses.": 1,
+  "Temporal has no built-in dedup key; the recommended idempotency key is the Workflow Run ID plus the Activity ID. Restate uses an Idempotency-Key header (24 hours), Inngest an event id or idempotency expression (24 hours), DBOS the workflow ID.": 1,
+  "Temporal recommends setting a Start-To-Close Timeout because the server does not detect failures when a Worker loses communication or crashes; the timeout is what forces Activity retries.": 1,
+  "Temporal's default Activity retry policy has no attempt limit (maximumAttempts 0 is evaluated as unlimited), starting at a 1 second interval, doubling, and capping at 100 seconds.": 0,
+  "With Restate and the Vercel AI SDK, each Restate invocation retry goes through the AI SDK's maxRetries attempts again (default 2), so the two retry layers multiply.": 1
+ }
+}

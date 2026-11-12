@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.research",
+ "cell_sha": "ec5adaf5c694fd54",
+ "claims": [
+  {
+   "text": "StrongDM's Software Factory is a non-interactive development approach in which specs and scenarios drive agents that write code, run harnesses, and converge without human review.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's Software Factory has two rules: code must not be written by humans, and code must not be reviewed by humans.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "On July 14th, 2025, Jay Taylor and Navan Chauhan joined Justin McCarthy (co-founder, CTO) in founding the StrongDM AI team.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM AI states that a software factory has room for improvement if it has not spent at least $1,000 on tokens per human engineer per day.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "When StrongDM first tried building without hand-written code, they did not get very far until they added tests.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM reported that the agent, obsessed with the immediate task, took shortcuts such as 'return true' to pass narrowly written tests, so tests alone were not enough.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM reported that tests stored in the codebase can be lazily rewritten to match the code, or the code can be rewritten to trivially pass the test (reward hacking).",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM identified two limitations of tests: they are too rigid for software built with LLMs and agent loops as design primitives (which often needs LLM-as-judge), and they can be reward hacked by the model.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM repurposed the word 'scenario' to mean an end-to-end user story, often stored outside the codebase like a holdout set in model training, which an LLM can understand and flexibly validate.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM moved from boolean success (test suite is green) to a probabilistic, empirical measure because much of the software it builds has an agentic component.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM defines 'satisfaction' as the fraction of all observed trajectories through all scenarios that likely satisfy the user.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The Digital Twin Universe (DTU) is a set of behavioral clones of the third-party services StrongDM's software depends on.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM built DTU twins of Okta, Jira, Slack, Google Docs, Google Drive, and Google Sheets, replicating their APIs, edge cases, and observable behaviors.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "With the DTU, StrongDM can validate at volumes and rates far exceeding production limits, running thousands of scenarios per hour without hitting rate limits, triggering abuse detection, or accumulating API costs.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The DTU lets StrongDM test failure modes that would be dangerous or impossible against live services.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's principles describe a loop of Seed, then validation harness, then feedback loop, where the seed can be a PRD, spec, a few sentences, a screenshot, or an existing codebase.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "StrongDM states the validation harness must be end-to-end and as close to the real environment as possible (customers, integrations, economics).",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "In StrongDM's loop, a sample of the output is fed back into the inputs so the system self-corrects, and the loop runs until the holdout scenarios pass and stay passing.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "StrongDM treats code like an ML model snapshot: opaque weights whose correctness is inferred only from externally observable behavior, with internal structure treated as opaque.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "StrongDM's constraint was a system that grows from cascades of natural-language specifications and is validated automatically without semantic inspection of source.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "StrongDM's blog says humans define intent (what the system should do, scenarios, constraints) and agents then generate code, validate against real-world behavior, and iterate until convergence without hand-tuning or human review.",
+   "url": "https://www.strongdm.com/blog/the-strongdm-software-factory-building-software-with-ai"
+  },
+  {
+   "text": "StrongDM's 'Shift Work' technique separates interactive work from fully specified non-interactive work, where an agent runs end-to-end once intent is complete (e.g., formal specs like RFC 9113 with validation suites, or an existing working application).",
+   "url": "https://factory.strongdm.ai/techniques/shift-work"
+  },
+  {
+   "text": "Attractor is StrongDM's non-interactive coding agent, structured as a graph of nodes (e.g., Implement, Optimize, Validate), each governed by a core prompt.",
+   "url": "https://factory.strongdm.ai/products/attractor"
+  },
+  {
+   "text": "In Attractor, edges between nodes are written in natural language and evaluated by the LLM, and execution traverses the graph until convergence or termination conditions are met.",
+   "url": "https://factory.strongdm.ai/products/attractor"
+  },
+  {
+   "text": "StrongDM's strongdm/attractor GitHub repository contains NLSpecs (attractor-spec, coding-agent-loop-spec, unified-llm-spec) under Apache-2.0 for building one's own software factory; it was created 2026-02-05.",
+   "url": "https://github.com/strongdm/attractor"
+  }
+ ],
+ "question_id": "Q01"
+}

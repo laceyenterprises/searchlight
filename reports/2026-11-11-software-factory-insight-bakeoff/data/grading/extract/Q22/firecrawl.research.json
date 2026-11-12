@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.research",
+ "cell_sha": "f4f6a72fc1185fc9",
+ "claims": [
+  {
+   "text": "Grupo Boticário says its proprietary reseller-journey agent ecosystem has hundreds of agents, including more than 30 for the reseller journey.",
+   "url": "https://openai.com/index/grupo-boticario/"
+  },
+  {
+   "text": "Since November 2025, Grupo Boticário's agents cover 100% of appchat and WhatsApp Enterprise conversations and autonomously resolve up to 80% of operational requests.",
+   "url": "https://openai.com/index/grupo-boticario/"
+  },
+  {
+   "text": "Grupo Boticário's AI initially handles/qualifies 90% of direct-sales leads and hands a lead to human support when the lead signals intent to complete an order.",
+   "url": "https://openai.com/index/grupo-boticario/"
+  },
+  {
+   "text": "Grupo Boticário's frontline business teams own prompts and run daily A/B tests, and dedicated agents validate the responses of other agents.",
+   "url": "https://openai.com/index/grupo-boticario/"
+  },
+  {
+   "text": "Grupo Boticário's platform is proprietary, built on OpenAI technology, combining foundation models, business rules, and generative and predictive AI.",
+   "url": "https://openai.com/index/grupo-boticario/"
+  },
+  {
+   "text": "LangChain's production GTM agent triggers on Salesforce leads, researches the account, drafts outreach and account-intelligence reports, and presents a Slack draft with sources and reasoning.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent requires explicit rep approval before anything is sent; the rep can send, edit or cancel in Slack.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent has a later 48-hour SLA that auto-sends silver-lead drafts if no decision is made, an exception to the approval rule.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent reports lead-to-qualified-opportunity conversion up 250% from December 2025 to March 2026, with 3x pipeline dollars.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent follow-up rose 97% for lower-intent leads and 18% for higher-intent leads, and reps reclaimed 40 hours per month each (1,320 hours total).",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent is built on LangChain Deep Agents and LangSmith, using Salesforce, Gong, LinkedIn/web research, BigQuery and Exa, constrained parallel subagents, and PostgreSQL per-rep style memory.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent quality control uses rule assertions on tool order and duplicates plus an LLM judge scoring tone, word count and formatting, with every send, edit and cancel traced.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "LangChain's GTM agent avoids outreach after a recent support ticket or teammate contact because a poorly timed email could damage relationships.",
+   "url": "https://www.langchain.com/blog/how-we-built-langchains-gtm-agent"
+  },
+  {
+   "text": "Brevo's Dust-Supabase agents have executed more than 2,500 production actions since June 2025, across referral-customer finder, personalized email generation and personalized landing-page workflows.",
+   "url": "https://dust.tt/customers/brevo-gtm-team-workflows-faster-email-personalization"
+  },
+  {
+   "text": "Brevo reports email personalization time fell 80%, from 30+ minutes to minutes per prospect, and that self-serve agents handle 30%+ of internal RevOps requests.",
+   "url": "https://dust.tt/customers/brevo-gtm-team-workflows-faster-email-personalization"
+  },
+  {
+   "text": "Brevo's prompt rules require agents to reference only data present in Supabase to prevent fabricated customer names or statistics.",
+   "url": "https://dust.tt/customers/brevo-gtm-team-workflows-faster-email-personalization"
+  },
+  {
+   "text": "Brevo's personalized landing-page flow runs end-to-end with no human in the loop.",
+   "url": "https://dust.tt/customers/brevo-gtm-team-workflows-faster-email-personalization"
+  },
+  {
+   "text": "Brevo's workflows were built by RevOps on the general commercial Dust platform and Supabase via MCP, without backend services or engineering tickets.",
+   "url": "https://dust.tt/customers/brevo-gtm-team-workflows-faster-email-personalization"
+  },
+  {
+   "text": "Alan runs three sequential Dust agents that turn Modjo interview recordings into customer-story drafts, check brand voice, and translate/localize them.",
+   "url": "https://dust.tt/customers/alan-marketing-customer-story-production-dust"
+  },
+  {
+   "text": "Alan reports content production time fell from two days to a few hours (about 80% faster), with manual review bottlenecks eliminated.",
+   "url": "https://dust.tt/customers/alan-marketing-customer-story-production-dust"
+  },
+  {
+   "text": "Alan's Brand Voice Guardian agent checks every content piece against Alan's standards, and a Translation & Grammar Agent preserves voice across European languages; the source does not specify a human sign-off before publication.",
+   "url": "https://dust.tt/customers/alan-marketing-customer-story-production-dust"
+  },
+  {
+   "text": "Brillio's Paystream on the ADAM platform uses six purpose-built agents on its own production NetSuite AP function across six legal entities, releasing 80% of manual invoice-processing effort.",
+   "url": "https://www.brillio.com/insights/resources/case-study/reducing-manual-ap-effort-by-80-with-agentic-ai/"
+  },
+  {
+   "text": "Brillio's AP system fails closed: no Vendor Bill is created under ambiguity, an Unprocessed queue records the fail reason, and ambiguous or failed validations plus credit-card/subcontractor invoices go to human review.",
+   "url": "https://www.brillio.com/insights/resources/case-study/reducing-manual-ap-effort-by-80-with-agentic-ai/"
+  },
+  {
+   "text": "Brillio's AP system has a validation rulebase of 40+ country/policy rules and an operations console with monitoring and pause controls.",
+   "url": "https://www.brillio.com/insights/resources/case-study/reducing-manual-ap-effort-by-80-with-agentic-ai/"
+  },
+  {
+   "text": "Genpact's AP deployment for an anonymized logistics provider processes nearly 3.5 million invoices annually using 21 pretrained prioritization agents plus domain-specific agents; touchless processing rose from 7% to up to 65%, extraction accuracy from 40% to 92%, and about $350m in duplicate invoices were identified.",
+   "url": "https://www.genpact.com/case-studies/powering-65-percent-touchless-accounts-payable-with-agentic-ai"
+  }
+ ],
+ "question_id": "Q22"
+}

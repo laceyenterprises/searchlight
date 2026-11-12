@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "d9dd746bf7b07493",
+ "url": "https://www.datadoghq.com/blog/bits-ai-sre",
+ "verdicts": {
+  "Bits Investigation generates multiple root cause hypotheses and classifies each as validated, invalidated, or inconclusive, using tools to check dashboards, logs, traces, recent changes and Kubernetes events.": 1,
+  "Bits Investigation learns from past alerts through memory, and engineers can correct or reinforce its conclusions to create a feedback loop.": 1,
+  "Bits Investigation posts findings with supporting evidence to Slack and is integrated with the Datadog mobile app, On-Call, and Case Management (synced with ServiceNow and Jira).": 1,
+  "Bits Investigation's preview 'recommended actions' suggest next steps and let engineers execute triage actions such as sending Slack summaries or creating Jira tickets with one click.": 1,
+  "Datadog's Bits Investigation launches automatically when an alert fires, without initial prompting, gathering context from the monitor message, linked Confluence runbooks, past investigations of the same monitor, and exploratory queries.": 1,
+  "In private preview, Bits Code proposes a fix as a pull request once Bits Investigation finds a code-related root cause, and engineers review and merge it.": 1
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "3283a30f36be7c06",
+ "url": "https://openfga.dev/docs/modeling/agents",
+ "verdicts": {
+  "For first-party authorization, OpenFGA's common pattern is to model agents as first-class principals in the authorization model so they participate in the same permission hierarchy as users; for example, an agent with project membership can read all issues in that project.": 1,
+  "For third-party systems that the organization does not control, OpenFGA models permissions around the tools and resources the agent can access, narrowing scope beyond what the external credential allows.": 1,
+  "OpenFGA Task-Based Authorization starts agents with zero permissions and gives them narrowly scoped grants per task, with optional expiration, turn limits, and agent binding, for both first-party and third-party resources.": 1,
+  "OpenFGA divides agent authorization into two domains: first-party (what the agent can do inside the organization's own application) and third-party (what the agent can do in external systems such as Slack, Jira, GitHub).": 1,
+  "OpenFGA documentation states that without fine-grained authorization, AI agents often operate with broad credentials and access more than they should; OpenFGA patterns are used to scope agent permissions precisely.": 1,
+  "OpenFGA documents agent patterns for RAG authorization (ensuring agents only retrieve documents the user is authorized to access) and for MCP servers (controlling which tools each user can access based on roles, group membership, and temporal grants).": 1
+ }
+}

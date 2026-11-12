@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "35374f55fefe8870",
+ "claims": [
+  {
+   "text": "AIOS decomposes agent queries into sub-execution units called AIOS syscalls to facilitate parallelism.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "In AIOS, an agent scheduler orchestrates syscall execution across modules, while the memory, storage and tool managers and the LLM core handle the dispatched syscalls.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "AIOS includes a context manager to handle context interruption and an access manager to verify agent operations and ensure kernel reliability.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS Access Manager exposes the syscalls add_privilege, check_access and ask_permission.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS Context Manager exposes the syscalls generate_response_with_interruption, load_context and clear_context.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS Storage Manager exposes syscalls including sto_mount, sto_write, sto_retrieve, sto_rollback and sto_share.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "AIOS isolates resources and LLM-specific services from agent applications into a kernel, and provides an AIOS SDK of APIs for using kernel functionality.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS Memory Manager handles transient agent interaction histories using an LRU-K eviction policy, swapping less frequently accessed data to persistent storage when memory limits are approached.",
+   "url": "https://www.alphaxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "The AIOS Storage Manager provides persistent data management with versioned file systems, thread-safe access controls, and semantic search through vector database integration.",
+   "url": "https://www.alphaxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "AIOS reports up to 2.1x faster execution when serving agents built by various agent frameworks.",
+   "url": "https://www.alphaxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "The AIOS paper builds directly on MemGPT, expanding its memory and context idea into a fuller OS architecture with scheduling, resource management and access control.",
+   "url": "https://www.alphaxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "AIOS has three layers: an application layer where agents are built with the AIOS SDK, a kernel layer split into an OS Kernel and an LLM Kernel, and a hardware layer. The LLM Kernel contains a scheduler, a context manager supporting snapshot and restoration of LLM state, memory and storage managers, and access control.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "AIOS was published at COLM 2025, supports agent frameworks including ReAct, AutoGen, Open Interpreter and MetaGPT, and has roughly 5,100 GitHub stars, 690 forks and about 27 contributors, which the author calls a research project rather than a production system with no known production workloads.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "AIOS addresses four problems of ad-hoc agent stacks: context fragmentation across long-running agents, scheduler unfairness when many agents share one model endpoint, missing isolation between concurrent agent sessions, and inconsistent tool I/O semantics.",
+   "url": "https://www.knowlee.ai/blog/aios-llm-agent-operating-system"
+  },
+  {
+   "text": "MemGPT creates a memory hierarchy inspired by operating systems in which agents actively manage what stays in immediate context (core memory) versus external layers (conversational memory, archival memory, external files) retrieved as needed, giving unlimited memory capacity within fixed context windows.",
+   "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory"
+  },
+  {
+   "text": "Letta implements MemGPT's ideas as a full agent runtime in which agents run inside Letta, which manages the agent loop, tool execution, state persistence and memory.",
+   "url": "https://vectorize.io/articles/mem0-vs-letta"
+  },
+  {
+   "text": "Letta's three memory tiers are core memory (a small block in the context window, like RAM, that the agent reads and writes directly), recall memory (searchable conversation history outside context, like a disk cache), and archival memory (long-term storage queried via tool calls).",
+   "url": "https://vectorize.io/articles/mem0-vs-letta"
+  },
+  {
+   "text": "Mem0 is a framework-agnostic memory layer bolted onto existing agent stacks, whereas Letta is a full runtime, so adopting Letta means adopting an entire agent platform.",
+   "url": "https://vectorize.io/articles/mem0-vs-letta"
+  },
+  {
+   "text": "Hermes Agent (Nous Research, February 2026, MIT license) is self-hosted with persistent memory in a ~/.hermes/ directory, SKILL.md skills it writes itself, parallel sub-agents with isolated conversations and terminals, and a built-in cron scheduler.",
+   "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system"
+  },
+  {
+   "text": "Claude Cowork runs in a lightweight Linux VM with a sandboxed filesystem and a three-tier permission model (no access by default, read/write after folder selection, explicit prompts for high-risk actions like permanent deletion), and loads Skills by reading metadata first before full instructions.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "Cowork's isolation and permissions address individual-agent safety but not multi-agent coordination or agents acting under indirect instruction through documents or emails; the author calls the trust layer the hardest part of agent-native OS design.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "The ChatGPT Apps SDK platform does not expose kernel-level primitives such as agent scheduling, shared memory between agents, or a process isolation model, making it closer to a browser with an app directory than an OS.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "Agno's AgentOS runs agents, teams and workflows as FastAPI APIs with shared memory and knowledge, uses MCP for tool access, and exposes itself as an MCP server so other agents can use its agents as tools.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "The author's lesson is that no surveyed system (Cowork, OpenAI, AIOS, OpenClaw, Agno) solves all four needs: context management, tool resolution, trust and safety, and inter-agent communication; each covers only a subset, so the field is fragmented.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "OpenClaw has minimal permissions beyond 'the machine is trusted', giving the agent shell, filesystem and browser access through a local Node.js gateway, and it grew past 140,000 GitHub stars by early February 2026.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  }
+ ],
+ "question_id": "Q13"
+}

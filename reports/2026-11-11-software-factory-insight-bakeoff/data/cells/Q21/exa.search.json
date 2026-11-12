@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:29.629585Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1872,
+   "page_chars_delivered": 8992,
+   "post_step": "fetched",
+   "published": "2025-06-13T12:48:36.000Z",
+   "text": "## SimMergeQueue™\n\nAt Trunk, we have a public repo that automates PR creation and submission to a merge queue. The simulation’s parameters are configured in .config/mq.toml, and a cron job is used to automate pull requests.\n\nWe ran 8 different scenarios to test the effects of batch size on the time…",
+   "title": "Merge fast or merge cheap: Fine-tuning merge queues to handle an increase in PRs from AI agents | Trunk",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "chars_delivered": 2877,
+   "page_chars_delivered": 7855,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The Graphite merge queue offers three optimizations that both speed up the merging process and reduce CI costs. You can use all merge queue optimizations at the same time. The optimizations are:\n\n1. Fast-forward merge (run CI on all PRs in a stack in parallel)\n2. Parallel CI (run CI in parallel on…",
+   "title": "Merge Queue Optimizations - Graphite",
+   "url": "https://graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "chars_delivered": 251,
+   "page_chars_delivered": 16511,
+   "post_step": "fetched",
+   "published": "2026-07-27T09:19:40.000Z",
+   "text": ". The median PR spends about seven minutes in it, and ninety percent are through within the hour, even on large teams where ... . Throughput sits around three merges per active day for a typical repo, and the busiest ten percent push thirteen or more.",
+   "title": "State of Merge Queues 2026 | Mergify",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "chars_delivered": 2730,
+   "published": null,
+   "text": "## Parallel checks\n\nParallel checks are how Mergify tests the queue speculatively: instead of\nvalidating one pull request at a time, it tests several queued pull requests\nahead of time so you ship faster. Mergify creates temporary batch PRs that\nrepresent cumulative merges (PR #1), (PR #1 + PR #2),…",
+   "title": "Performance",
+   "url": "https://docs.mergify.com/merge-queue/performance/"
+  },
+  {
+   "chars_delivered": 235,
+   "published": "2026-09-23T09:18:17.000Z",
+   "text": "reasons: the agent verified against the base commit it checked out rather than the tip that exists when the PR reaches the front, it edits files it has no local context for, and it opens PRs faster than the tree settles, so cross-agent",
+   "title": "Merge queues under agent load",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "chars_delivered": 1560,
+   "published": "2024-03-06T16:43:39.000Z",
+   "text": "## How we use merge queue today\n\nMerge queue has become the single entry point for shipping code changes at GitHub. It was designed and tested at scale, shipping 30,000+ pull requests with their associated 4.5 million CI runs, for `GitHub.com` before merge queue was made generally available.\n\nFor G…",
+   "title": "How GitHub uses merge queue to ship hundreds of changes every day - The GitHub Blog",
+   "url": "https://github.blog/engineering/engineering-principles/how-github-uses-merge-queue-to-ship-hundreds-of-changes-every-day/"
+  },
+  {
+   "chars_delivered": 234,
+   "published": "2026-07-13T00:00:00.000Z",
+   "text": "It batches. Ten passing changes do not need ten CI runs. The queue combines them into one validation, and when the batch is green the whole group lands. If something fails, it bisects to find the culprit instead of punishing the rest.",
+   "title": "Merge Queues Were Built for Humans. AI Agents Need More. | Mergify",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  },
+  {
+   "chars_delivered": 234,
+   "published": "2026-06-16T14:00:00.000Z",
+   "text": "Mergify rebases each PR onto the latest `main`, re-runs CI on the merged result, and only then writes the merge commit. That's why our median is 5 minutes — that's the cost of one extra CI run per merge, not network or GitHub latency.",
+   "title": "55 PRs/Day with an AI Agent Swarm: The CI Fleet",
+   "url": "https://inspiredbyfrustration.com/blog/ai-agent-swarm-ci-fleet"
+  },
+  {
+   "chars_delivered": 1223,
+   "published": null,
+   "text": "## Default Mode\n\nSequential mode is the default queue mode and is suitable for repositories that merge a relatively small number of\n\n...\n\nDefault mode can only merge one pull request in the time it takes to run the full suite of checks. For example, if the full suite of checks takes 30 minutes to r…",
+   "title": "",
+   "url": "https://docs.aviator.co/mergequeue/concepts/queue-modes"
+  },
+  {
+   "chars_delivered": 1584,
+   "published": "2026-10-16T00:00:00.000Z",
+   "text": "At Reason Machines, engineers work through coding agents. In six weeks, merges into our monorepo went from about 17 a day to over 600.\n\nAt that volume, the merge queue became our bottleneck. On October 12, 84 pull requests were waiting at once. The slowest 5% waited two and a half hours.\n\n...\n\nThey…",
+   "title": "Rethinking the merge queue",
+   "url": "https://larstalian.com/rethinking-the-merge-queue/"
+  }
+ ],
+ "latency_ms": 652.7,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q21",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How do merge queues and stacked-PR systems (GitHub merge queue, Graphite, Aviator, Mergify, Bors-style) handle very high PR volume from agents? What is known about throughput, CI cost and conflict rates when agents open hundreds of PRs a day?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17415,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:28.976823Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

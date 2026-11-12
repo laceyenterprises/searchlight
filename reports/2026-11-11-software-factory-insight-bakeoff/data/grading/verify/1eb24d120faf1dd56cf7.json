@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "83be1cb3b7a54ef2",
+ "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory/",
+ "verdicts": {
+  "Letta Filesystem gives an agent file tools (grep, search_files, open, close), and a simple GPT-4o mini agent using it scored 74.0% on LoCoMo, above Mem0's reported 68.5% for its top graph variant.": 1,
+  "Letta's explanation for the filesystem result is that agents are effective with tools likely in their training data, and iterative self-generated queries beat specialized memory tools designed for single-hop retrieval; agent capability to use a retrieval tool matters more than the retrieval mechanism.": 1,
+  "MemGPT introduced memory management for agents via a memory hierarchy inspired by a traditional OS: agents actively manage what stays in immediate context (core memory) versus external layers (conversational memory, archival memory, external files) retrieved as needed.": 1
+ }
+}

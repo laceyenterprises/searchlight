@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:53.784328Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2174,
+   "page_chars_delivered": 32036,
+   "post_step": "fetched",
+   "published": null,
+   "text": "| Platform | Cold start | Isolation | Persistence | SDK | Pricing model | GPU | Deployment |\n ---  ---  ---  --- |\n| E2B | 717ms create / 662ms resume (measured) | Firecracker microVM | Pause/resume, snapshot | Python-first, TS | Per-sec full duration, $150/mo floor | No | Managed, BYOC (enterprise…",
+   "title": "Comparing AI agent sandbox platforms: E2B, Modal, Daytona, and more - LogRocket Blog",
+   "url": "https://blog.logrocket.com/comparing-ai-agent-sandbox-platforms-e2b-modal-daytona-and-more"
+  },
+  {
+   "chars_delivered": 2141,
+   "page_chars_delivered": 34481,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Sandbox Architecture Comparison\n\n| Sandbox | Isolation layer | Cold start | GPU support | Self-hostable | Starting price |\n ---  ---  --- |\n| E2B (managed) | Firecracker microVM | 5-30ms (snapshot) | No (managed tier) | Yes (OSS) | $0.000014/sec |\n| E2B OSS (self-hosted) | Firecracker microVM |…",
+   "title": "AI Agent Code Execution Sandboxes on GPU Cloud: E2B, Daytona, and Firecracker Setup Guide (2026) | Spheron Blog",
+   "url": "https://www.spheron.network/blog/ai-agent-code-execution-sandbox-e2b-daytona-firecracker"
+  },
+  {
+   "chars_delivered": 2113,
+   "page_chars_delivered": 32055,
+   "post_step": "fetched",
+   "published": null,
+   "text": "| Option | Isolation | Start or resume | Session limit | Persistence |\n ---  --- \n| Control Plane | Dedicated Kata Containers microVM | Resume under 1 second | No arbitrary execution timeout | Persistent volume kept across suspend and resume; auto-sleep when idle |\n| E2B | Firecracker microVM | Abo…",
+   "title": "The Best Code Execution Sandboxes for AI Agents in 2026 (E2B Alternatives Compared) — Control Plane",
+   "url": "https://controlplane.com/blog/post/best-ai-agent-sandboxes-2026"
+  },
+  {
+   "chars_delivered": 1956,
+   "published": null,
+   "text": "| Daytona | Container by default; VM and Windows classes | under 90ms | Wall-clock vCPU + RAM | Disk only when stopped | None documented | Filesystem (containers), memory (VMs) | No (guides) |\n| Modal | gVisor (VM option) | Sub-second | Wall-clock, max(request, actual) | No pause state | 24h | Noth…",
+   "title": "AI Agent Sandboxes Compared: 15 Providers on Isolation, Persistence, Agent Tooling, and Cost (2026) | Upstash Blog",
+   "url": "https://upstash.com/blog/ai-agent-sandbox-providers-compared-2026"
+  },
+  {
+   "chars_delivered": 2086,
+   "published": null,
+   "text": "| Platform | Isolation | Resume/boot | Standby behavior | Pricing model | Compliance | Open source |\n ---  ---  --- \n| Blaxel | MicroVM | <25ms resume from standby | Indefinite standby at zero compute cost | Per-second; free credits to start | SOC 2 Type II, ISO 27001, HIPAA Business Associate Agre…",
+   "title": "Best Code Execution Sandboxes for AI Agents in 2026 | Blaxel",
+   "url": "https://blaxel.ai/blog/code-execution-sandboxes-for-ai-agents"
+  },
+  {
+   "chars_delivered": 2276,
+   "published": null,
+   "text": "## The Short Version\n\n A 1 vCPU / 2 GB sandbox runs $0.126/hour on AWS MicroVMs versus $0.083/hour on Daytona, the cheapest here (E2B matches that rate but adds a $150/month base fee).\n Suspended AWS VMs cost $0 compute, but AWS is the only provider that meters saved state: $0.08/GB-month snapshot…",
+   "title": "AWS Lambda MicroVMs Pricing: Real Costs vs Modal, Daytona, E2B",
+   "url": "https://murraycole.com/posts/aws-lambda-microvm-cost-comparison"
+  },
+  {
+   "chars_delivered": 2145,
+   "published": null,
+   "text": "| Provider | Isolation | What survives idle | Idle default | Session cap | Egress control | GPU |\n ---  ---  --- \n| E2B | Firecracker microVM | Killed by default; pause keeps filesystem and memory indefinitely | 5 min timeout | 1 h Hobby, 24 h Pro, resets on pause | Allow and deny lists, per-host t…",
+   "title": "Where to Run Agent Code: AI Agent Sandbox Providers Compared",
+   "url": "https://fly.io/learn/agent-sandbox-providers"
+  },
+  {
+   "chars_delivered": 2323,
+   "published": null,
+   "text": "| Platform | Isolation | Cost per hour (1 vCPU + 2 GiB) | Idle and persistence | Session limit |\n ---  --- \n| Daytona | Container by default; Linux VM class available | $0.083 | 15-min auto-stop; stopped bills disk only; archive after 7 days by default | None by default (time-to-live disabled) |\n|…",
+   "title": "Best Daytona Alternatives for AI Sandboxes in 2026 | Blaxel",
+   "url": "https://blaxel.ai/blog/daytona-dev-environment-pricing-alternatives"
+  },
+  {
+   "chars_delivered": 2230,
+   "published": null,
+   "text": "| Technology | Isolation level | Boot time | Security strength | Best for |\n ---  --- \n| Docker containers | Process (shared kernel) | Milliseconds | Process-level isolation | Trusted workloads |\n| gVisor | Syscall interception | Milliseconds | Interposed / syscall-level isolation | Multi-tenant Sa…",
+   "title": "How to sandbox AI agents in 2026: MicroVMs, gVisor & isolation strategies | Blog — Northflank",
+   "url": "https://northflank.com/blog/how-to-sandbox-ai-agents"
+  },
+  {
+   "chars_delivered": 1470,
+   "published": null,
+   "text": "### Leap0\n\nWebsite | Docs | GitHub\n\nCloud sandboxes for AI agents. Spin up Firecracker microVMs in ~100ms.\n\n Isolation: Firecracker microVMs with Jailer\n Key features: ~100ms cold start, any container image as template, checkpoint/restore snapshots, pause/resume, desktop (computer use), Git integra…",
+   "title": "GitHub - tizkovatereza/awesome-ai-sandboxes: A list of cloud sandbox providers for AI agents. Information sourced exclusively from official docs and landing pages. · GitHub",
+   "url": "https://github.com/tizkovatereza/awesome-ai-sandboxes"
+  }
+ ],
+ "latency_ms": 2938.4,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q16",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What sandboxing approaches are used for autonomous agents (Firecracker microVMs, gVisor, e2b, Modal, Daytona, Cloudflare, devcontainers)? Compare startup time, isolation strength, snapshot/resume, cost, and network egress control, with any published benchmarks.",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q16-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 24217,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:50.846049Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

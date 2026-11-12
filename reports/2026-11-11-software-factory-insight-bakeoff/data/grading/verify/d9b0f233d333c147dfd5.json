@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "17ddf13f9cd03ce1",
+ "url": "https://turion.ai/blog/temporal-vs-restate-vs-hatchet-vs-inngest-durable-execution-agents-2026/",
+ "verdicts": {
+  "Temporal Cloud enforces a 2 MB per-payload limit, a 4 MB event-history transaction limit, and 51,200 events / 50 MB history cap; the suggested workaround is the claim-check pattern of storing payloads in S3 and passing a reference through history.": 1,
+  "Temporal shipped a first-party OpenAI Agents SDK integration in April 2026 with an activity_as_tool helper that turns Activities into OpenAI-compatible tool schemas, so tool calls become durable Activities and the loop is a Workflow; Stripe, Snap and Coinbase are named as Temporal users.": 1
+ }
+}

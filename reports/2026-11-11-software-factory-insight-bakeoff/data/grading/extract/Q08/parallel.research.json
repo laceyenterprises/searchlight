@@ -1,0 +1,103 @@
+{
+ "arm_id": "parallel.research",
+ "cell_sha": "a9fc23fcc5febbc9",
+ "claims": [
+  {
+   "text": "Anthropic states that getting agents to make consistent progress across multiple context windows remains an open problem for long-running tasks spanning hours or days.",
+   "url": null
+  },
+  {
+   "text": "Anthropic identifies the core challenge of long-running agents as working in discrete sessions, where each new session begins with no memory of what came before.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's two-part solution for the Claude Agent SDK is an initializer agent that sets up the environment on the first run and a coding agent that makes incremental progress each session while leaving clear artifacts for the next session.",
+   "url": null
+  },
+  {
+   "text": "Anthropic found that even Opus 4.5 on the Claude Agent SDK, looped across multiple context windows, falls short of a production-quality web app when given only a high-level prompt such as 'build a clone of claude.ai'.",
+   "url": null
+  },
+  {
+   "text": "First failure mode: the agent tries to do too much at once (one-shotting the app), runs out of context mid-implementation, and leaves the next session with a half-implemented, undocumented feature.",
+   "url": null
+  },
+  {
+   "text": "Second failure mode: after some features are built, a later agent instance sees progress and declares the job done prematurely.",
+   "url": null
+  },
+  {
+   "text": "Third failure mode: Claude marks a feature as complete without proper testing.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent's session uses a specialized prompt to create an init.sh script, a claude-progress.txt file logging what agents have done, and an initial git commit showing the files added.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent is prompted to write a comprehensive feature requirements file expanding the user's prompt; in the claude.ai clone example this contained over 200 features, all initially marked 'failing'.",
+   "url": null
+  },
+  {
+   "text": "Each coding agent is asked to work on only one feature at a time, which Anthropic says was critical to curbing the tendency to do too much at once.",
+   "url": null
+  },
+  {
+   "text": "Anthropic found the best way to leave the environment clean was to ask the agent to commit progress to git with descriptive messages and write progress summaries to a progress file, which lets the agent revert bad changes and recover working states.",
+   "url": null
+  },
+  {
+   "text": "Each coding session begins by reading the git logs and progress files, then reading the features list and choosing the highest-priority feature not yet done.",
+   "url": null
+  },
+  {
+   "text": "Each coding session starts by running init.sh to launch the dev server and a basic end-to-end test (in the claude.ai clone, using the Puppeteer MCP to start a chat, send a message and receive a response) to detect a broken state before new work.",
+   "url": null
+  },
+  {
+   "text": "Without explicit prompting, Claude tested with unit tests or curl against a dev server but failed to recognize that a feature did not work end-to-end; prompting it to use browser automation and test as a human user greatly improved verification.",
+   "url": null
+  },
+  {
+   "text": "Anthropic instructs that features should only be marked 'passing' after careful testing.",
+   "url": null
+  },
+  {
+   "text": "Compaction does not always pass perfectly clear instructions to the next agent, which is why progress files and git history are used alongside it.",
+   "url": null
+  },
+  {
+   "text": "Compaction summarizes a conversation nearing the context window limit and reinitiates a new context window with the summary; Anthropic calls it the first lever in context engineering for long-term coherence.",
+   "url": null
+  },
+  {
+   "text": "In Claude Code, compaction preserves architectural decisions, unresolved bugs and implementation details while discarding redundant tool outputs, and continues with the compressed context plus the five most recently accessed files.",
+   "url": null
+  },
+  {
+   "text": "Overly aggressive compaction can lose subtle but critical context whose importance only becomes apparent later; Anthropic recommends tuning the compaction prompt on complex agent traces, maximizing recall first and then improving precision.",
+   "url": null
+  },
+  {
+   "text": "Tool result clearing is described as one of the safest, lightest-touch forms of compaction.",
+   "url": null
+  },
+  {
+   "text": "Structured note-taking (agentic memory) has the agent write notes persisted outside the context window, such as a NOTES.md or to-do list, and pull them back in later; it suits iterative development with clear milestones.",
+   "url": null
+  },
+  {
+   "text": "Sub-agent architectures let specialized subagents work with clean context windows, exploring with tens of thousands of tokens but returning condensed summaries of often 1,000-2,000 tokens to a lead agent.",
+   "url": null
+  },
+  {
+   "text": "Anthropic recommends server-side compaction over SDK compaction for most long-running conversations; the SDK compaction_control parameter is deprecated in the TypeScript and Ruby SDKs and removed in Python v1.0, where server-side compaction is used via the compact_20260112 edit in context_management.",
+   "url": null
+  },
+  {
+   "text": "Agent Skills are directories containing a SKILL.md with YAML frontmatter (name and description); only name and description are preloaded into the system prompt, and the body and linked files load progressively as needed, which Anthropic calls the core design principle of skills.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

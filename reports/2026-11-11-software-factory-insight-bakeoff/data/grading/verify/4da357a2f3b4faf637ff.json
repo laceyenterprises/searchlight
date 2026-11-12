@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "2d060aa1fc972e17",
+ "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin",
+ "verdicts": {
+  "A Cognition Playbook is like a custom system prompt for a repeated task, and should include the desired outcome, steps, postcondition specifications, advice correcting Devin's priors, forbidden actions, and required inputs from the person starting it.": 1,
+  "Cognition advises breaking large tasks into smaller isolated sessions, notes Devin has no phone for mobile testing, and says tasks needing extensive validation need verification mechanisms in place.": 1,
+  "Cognition gave Devin Datadog access and read-only database access so it can investigate bugs end to end and open a PR with a fix and regression test.": 1,
+  "Cognition merged 659 Devin PRs into its own codebase in one week (reported 2026-02-27), up from 154 in its best week in 2025.": 1,
+  "Cognition uses Playbooks for complex recurring work such as ingesting data into Redshift, running database migrations, and integrating with Stripe, Plaid, and Modal.": 1,
+  "Cognition's !triage-bug playbook fires when the Bug label is added to a Linear ticket, reads the report, searches code paths, checks git history, and posts root cause and suggested fix, using the Datadog MCP for logs.": 1,
+  "Devin Review's Autofix automatically fixes PRs when bugs are flagged and works on CI/lint issues until all checks pass; Cognition uses Devin Review on every PR because review became the bottleneck.": 1,
+  "Session Insights analyzes completed Devin sessions for issues like scope creep and communication gaps, and suggests improved prompts for new sessions.": 1
+ }
+}

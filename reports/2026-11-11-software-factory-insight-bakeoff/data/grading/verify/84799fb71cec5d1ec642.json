@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "36509ce45e09bcc1",
+ "url": "https://openai.com/business/guides-and-resources/how-openai-uses-codex",
+ "verdicts": {
+  "OpenAI's guide on how it uses Codex internally recommends keeping an AGENTS.md for persistent context (naming conventions, business logic, known quirks, dependencies), using the task queue as a lightweight backlog, using 'Best of N', and writing prompts like GitHub issues.": 1,
+  "OpenAI's internal-use guide says setting a startup script, environment variables, and internet access significantly reduces Codex's error rate.": 1
+ }
+}

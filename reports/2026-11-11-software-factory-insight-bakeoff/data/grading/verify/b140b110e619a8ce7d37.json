@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "06c50eb4b4135d16",
+ "url": "https://developer.nvidia.com/blog/agent-substrate-advancing-kubernetes-for-agents-at-scale/",
+ "verdicts": {
+  "Agent Substrate checkpoints idle actors (memory and filesystem, from a gVisor or microVM sandbox) and restores them onto any free worker without a new trip through the API server, scheduler or kubelet.": 1,
+  "NVIDIA's Agent Substrate, donated to the CNCF Sandbox, is an open-source zero-trust runtime for sandboxed agents that multiplexes many sessions over a small pool of worker Pods, claiming 10x higher density than standard containers.": 1
+ }
+}

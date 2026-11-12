@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "410e81fcf924675c",
+ "claims": [
+  {
+   "text": "Spotify reported that a dataset migration of two deprecated datasets with roughly 1,800 direct downstream pipelines produced 240 automated migration PRs and an estimated ten engineering weeks saved, using Backstage lineage and code search to identify affected repositories and Fleetshift to manage the changes.",
+   "url": null
+  },
+  {
+   "text": "Spotify's December 2025 Honk design exposes a verification tool to the agent; verifiers activate according to repository contents, run relevant checks, and return concise feedback, and a stop hook can prevent PR creation when required checks fail.",
+   "url": null
+  },
+  {
+   "text": "In Spotify's Honk, an LLM judge compares the diff to the original task and vetoes about a quarter of sessions for going off scope, after a stop hook triggers each check before a PR is opened.",
+   "url": null
+  },
+  {
+   "text": "Spotify's Honk grew out of Fleet Management; the deterministic Maven dependency updater had grown past 20,000 lines of corner cases, and Honk replaces the transformation script with a prompt while keeping targeting, PR creation, review and merge unchanged.",
+   "url": null
+  },
+  {
+   "text": "Spotify's Honk uses a custom internal CLI that delegates prompt execution to agents, runs formatting and linting via MCP, evaluates diffs using LLMs as a judge, and captures traces in MLflow.",
+   "url": null
+  },
+  {
+   "text": "Honk is a background coding agent that runs Claude using the Agent SDK in Kubernetes pods; Fleetshift handles target selection, scheduling and progress tracking, while Honk modifies code and can run builds in CI.",
+   "url": null
+  },
+  {
+   "text": "Spotify's Fleet Management system has merged more than 2.5 million automated maintenance pull requests, most automatically merged after safety checks.",
+   "url": null
+  },
+  {
+   "text": "Spotify reported that a Java migration across its backend services took three days, and that an automated dependency upgrade passed existing checks but failed in production.",
+   "url": null
+  },
+  {
+   "text": "Spotify says AI-assisted development more than doubled monthly merged changes; it reports no corresponding increase in rework and found no material direct contribution to incidents from AI-authored code, though change volume outpaced some verification controls.",
+   "url": null
+  },
+  {
+   "text": "In response, Spotify is strengthening safeguards, expanding rollback capacity, and scheduling automated changes during owning teams' working hours.",
+   "url": null
+  },
+  {
+   "text": "Spotify slotted LLM agents into its existing fleet automation, so migrations that previously needed 20K lines of hand-coded AST transforms can be defined in natural language; over 1,500 AI-generated PRs were merged with 60–90% time savings on migrations.",
+   "url": null
+  },
+  {
+   "text": "Around 1,000 merged Honk PRs in ten days were reported at a March 2026 QCon talk, versus three months previously.",
+   "url": null
+  },
+  {
+   "text": "Ramp's Inspect runs in sandboxed Modal virtual machines integrated with CI/CD, Sentry, Datadog, feature flags, Slack and GitHub, and agents verify work using the same tests and validation engineers use; it reached about 30% of merged PRs in frontend and backend repos without a mandate.",
+   "url": null
+  },
+  {
+   "text": "Ramp's Inspect restores each session from a Modal snapshot rebuilt every 30 minutes, and the sandbox includes Vite, Postgres and Temporal, plus integrations with Sentry, Datadog, LaunchDarkly, Buildkite, GitHub and Slack.",
+   "url": null
+  },
+  {
+   "text": "Ramp's Inspect uses Cloudflare Durable Objects for state management and offers a Slack bot, a web interface and a Chrome extension for editing visual React components.",
+   "url": null
+  },
+  {
+   "text": "As of February 2026, Inspect accounted for over half of merged PRs across Ramp's frontend and backend repositories, over 80% of Inspect itself was written by Inspect, and it uses OpenCode as its harness inside Modal Sandboxes.",
+   "url": null
+  },
+  {
+   "text": "A single Ramp security sweep found and fixed about 100 vulnerabilities, including high-severity IDORs that pen testing had missed.",
+   "url": null
+  },
+  {
+   "text": "Ramp's Chief Product Officer reported Inspect at 1M sessions and 75% of PRs, with Review Buddy automatically handling 93% of code reviews and Testo catching 425 bugs in 30 days.",
+   "url": null
+  },
+  {
+   "text": "Shopify's River, tagged in public Slack channels, co-authors one in eight merged PRs at Shopify: 3,536 PRs in 30 days.",
+   "url": null
+  },
+  {
+   "text": "Shopify's Aquifer platform stores sessions as an append-only Postgres-backed event log, and its Go agent loop runs outside the sandbox so it is not in the same blast radius as rm -rf.",
+   "url": null
+  },
+  {
+   "text": "Shopify's Dispatch security agent splits each app into parts, runs bug hunters in parallel, and verifies findings with deliberately different models; in six weeks it produced 300+ findings across 80+ apps, with a full scan costing $50 to $300.",
+   "url": null
+  },
+  {
+   "text": "Uber's uReview uses three comment generators, an expert evaluation of each comment, and filtering of low-value categories; 75% of comments were rated useful and over 65% were addressed.",
+   "url": null
+  },
+  {
+   "text": "Uber's uReview runs on over 90% of roughly 65,000 weekly diffs, decomposing review into generation, filtering, validation and deduplication.",
+   "url": null
+  },
+  {
+   "text": "Uber's CTO reported its internal background coding agent grew from under 1% to 8% of code changes in a few months, about 1,800 changes per week written entirely by AI, with engineers reviewing and approving.",
+   "url": null
+  },
+  {
+   "text": "Airbnb migrated about 3,500 test files to a new testing library via a loop of refactor, tests, lint and type check with errors fed back on failure; 97% was automated and it took 6 weeks versus a 1.5-year manual estimate.",
+   "url": null
+  }
+ ],
+ "question_id": "Q07"
+}

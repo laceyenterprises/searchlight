@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:31.724820Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 5147,
+   "published": null,
+   "text": "# GitHub Merge Queue vs Trunk vs Mergify vs Aviator\nYour coding agents doubled the pull requests and the integration path is now the constraint — but batching, the feature every queue product sells, gets worse as agent share rises, because agents raise the per-PR failure rate that batching multipli…",
+   "title": "Merge queues under agent load",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "chars_delivered": 3831,
+   "published": null,
+   "text": "# Merge Queue Throughput Benchmarking for Software Factories\n## The primary benchmark dataset and what it actually measures\nAutomated PRs, the kind opened by dependency-update bots, clear the queue in about 0.4 minutes on average. Human PRs take roughly 12 minutes. Blend the two together in a singl…",
+   "title": "Merge Queue Throughput Benchmarking for Software Factories · Fck Git",
+   "url": "https://fckgit.com/posts/merge-queue-throughput-benchmarking-for-software-factories"
+  },
+  {
+   "chars_delivered": 7366,
+   "published": null,
+   "text": "# AI writes code that breaks main half as often.\n1 in 20 private merges would have broken main 40+ devs: 1 in 8\n\n2.4×AI-assisted PRs break main LESS 1.9% vs 4.4%, within-repo\n\n200K+merges measured 477 teams · 90 days\n\nPull requests written with AI assistance broke main about half as often as ones w…",
+   "title": "State of Merge Queues 2026",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "chars_delivered": 2409,
+   "published": null,
+   "text": "# GitHub Targets Large Merge Problem with Stacked PRs\n#### Follow us on\nGitHub has launched a native stacked pull request workflow through a new CLI extension called gh-stack, closing a gap that third-party tools have filled for several years. It aims to resolve the problem where large pull request…",
+   "title": "GitHub Targets Large Merge Problem with Stacked PRs - InfoQ",
+   "url": "https://www.infoq.com/news/2026/04/github-stacked-prs/"
+  },
+  {
+   "chars_delivered": 2045,
+   "published": null,
+   "text": "A merge queue serializes pull requests before they land on main, retesting each on top of the queue so trunk stays green even under heavy merge volume.\n\n# Merge queue\n## Why does a merge queue matter?\nThe cost is queue latency. A PR that would previously merge in the time it took to press the butto…",
+   "title": "What is a merge queue? Meaning + example - deployment.to",
+   "url": "https://glossary.deployment.to/merge-queue/"
+  },
+  {
+   "chars_delivered": 1692,
+   "published": null,
+   "text": "# When to Outgrow GitHub’s Merge Queue\nThe teams we talk to who graduate from it usually report the same failure modes. PRs piling up faster than the queue can churn them. Hotfixes stuck behind feature work. The same flaky test failing four times in a row. CI bills creeping up because every PR runs…",
+   "title": "When to Outgrow GitHub's Merge Queue",
+   "url": "https://mergify.com/blog/when-to-outgrow-github-merge-queue"
+  },
+  {
+   "chars_delivered": 2828,
+   "published": null,
+   "text": "A merge queue's speed is capped by how often a queued change fails and how long CI takes, not by how many pipelines run at once. More pull requests from agents push it into long waits unless you cut one of those two. Tagged with ai, productivity, performance, devops.\n\nCover image for How Many Pull…",
+   "title": "How Many Pull Requests a Merge Queue Can Land in an Hour - DEV Community",
+   "url": "https://dev.to/theaicommit/how-many-pull-requests-a-merge-queue-can-land-in-an-hour-4ae2"
+  },
+  {
+   "chars_delivered": 2385,
+   "published": null,
+   "text": "# AI-assisted PRs break main half as often as human ones\nAI-assisted PRs break main half as often as human ones\n\nWe measured 153,000 merges across 160 engineering teams over 90 days. AI-assisted PRs broke main about half as often as non-AI ones, the broken-main rate scales 16x with team size, and p…",
+   "title": "AI-assisted PRs break main half as often as human ones",
+   "url": "https://mergify.com/blog/state-of-merge-queues-2026"
+  },
+  {
+   "chars_delivered": 2557,
+   "published": null,
+   "text": "# AI Agent Pull Requests on GitHub: Frequency, Structure, and Merge Conflict Rates\n###### Abstract.\nAdditionally, we replayed actual three way git merges on 747 unique co-active pairs (one per repository), and computed the percentage of textual conflict encountered during the merge operation to com…",
+   "title": "AI Agent Pull Requests on GitHub: Frequency, Structure, and Merge Conflict Rates",
+   "url": "https://arxiv.org/html/2607.04697v2"
+  },
+  {
+   "chars_delivered": 2031,
+   "published": null,
+   "text": "# chore(ci): enable the merge queue so parallel agent PRs stop serialising #943\n## Description\n### Problem\nWhen several agents work in parallel, each branches from the same commit on main. With \"require branches to be up to date before merging\" on, only one PR can be mergeable at a time: when the f…",
+   "title": "chore(ci): enable the merge queue so parallel agent PRs stop serialising · Issue #943 · willdady/platypus · GitHub",
+   "url": "https://github.com/willdady/platypus/issues/943"
+  }
+ ],
+ "latency_ms": 1410.9,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q21",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How do merge queues and stacked-PR systems (GitHub merge queue, Graphite, Aviator, Mergify, Bors-style) handle very high PR volume from agents? What is known about throughput, CI cost and conflict rates when agents open hundreds of PRs a day?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 39206,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:30.313877Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

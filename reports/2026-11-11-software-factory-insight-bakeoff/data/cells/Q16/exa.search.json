@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:19.969947Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2458,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-08-04T13:00:54.000Z",
+   "text": "## Cold start\n\nCold start is really two measurements that vendors often blur together: create-from-scratch and resume-from-standby. Create-from-scratch provisions a fresh sandbox. Resume-from-standby brings back a paused one. Those numbers can diverge, sometimes in opposite directions across platfo…",
+   "title": "Comparing AI agent sandbox platforms: E2B, Modal, Daytona, and more - LogRocket Blog",
+   "url": "https://blog.logrocket.com/comparing-ai-agent-sandbox-platforms-e2b-modal-daytona-and-more/"
+  },
+  {
+   "chars_delivered": 6159,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-10-02T00:00:00.000Z",
+   "text": "All prices are list prices, first checked on 2 October 2026 and re-checked on 10 November 2026 on each vendor’s own pricing page or docs. We didn’t run or benchmark any of these sandboxes, and every start-up time is the vendor’s claim unless we say otherwise.\n\n...\n\n| Product | How compute is billed…",
+   "title": "Where should your agent run code? 16 hosted sandboxes compared on price, network controls and SDK support - Dbggr",
+   "url": "https://dbggr.dev/articles/agent-sandboxes-compared/"
+  },
+  {
+   "chars_delivered": 251,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": null,
+   "text": "starts of 80 ms. Snapshots capture memory and filesystem state and ... sandboxes from one point in time. Pause and resume restore the same sandbox, while snapshots\n...\nreserves vCPU, RAM, and disk for each sandbox. Teams can instead choose a dedicated",
+   "title": "The 6 Best AI Agent Sandboxes for Isolated Code Execution",
+   "url": "https://www.langchain.com/resources/best-agent-sandboxes"
+  },
+  {
+   "chars_delivered": 2292,
+   "published": "2026-09-16T07:29:44.000Z",
+   "text": "## What are the actual isolation options?\n\nThree boundaries, in descending order of strength.\n\nIsolation technology and GPU availability as reported in vendor documentation, alongside median time to interactive as measured by MarkTechPost in August 2026. Vendor claims and third-party measurement ar…",
+   "title": "Agent sandboxes: vendors quote 25ms, benchmarks measure 0.27s to 5.06s",
+   "url": "https://readhandoff.com/agent-sandbox-isolation-compared/"
+  },
+  {
+   "chars_delivered": 250,
+   "published": null,
+   "text": "whose egress proxy swaps a placeholder for a fresh token, so the credential never ... the default.[16] Vercel takes a network policy up to deny-all.[5] ... .[11] Sprites make the policy read-only from inside, so the agent cannot rewrite its own rules",
+   "title": "Where to Run Agent Code: AI Agent Sandbox Providers Compared",
+   "url": "https://fly.io/learn/agent-sandbox-providers/"
+  },
+  {
+   "chars_delivered": 220,
+   "published": "2026-05-13T10:09:28.000Z",
+   "text": "| Configurable | Full GPU | Proprietary | Cloud (managed) |\n| Daytona | Container-based | ~5–15s ... Low | Network policies | GPU pass-through | Apache 2.0 | Any\n...\n| Low | Private networking | L40S GPUs | Proprietary |",
+   "title": "AI Agent Sandboxing in 2026: Docker, E2B, Firecracker, gVisor, Modal & Daytona Compared — amux",
+   "url": "https://amux.io/guides/ai-agent-sandboxing/"
+  },
+  {
+   "chars_delivered": 198,
+   "published": "2026-08-27T16:43:03.000Z",
+   "text": "The state of a running Linux environment is captured directly from RAM and persistent block devices; new sandboxes are restored from these snapshots in approximately 150 milliseconds.\n- State Model:",
+   "title": "AI Agent Sandboxes and Safe Code Execution Runtimes in Production: Comparing E2B, Modal, Daytona, and Docker/gVisor Architecture, Isolation Boundaries, Startup Latency, and Serving Economics | LLMs Blog",
+   "url": "https://www.llms.blog/posts/ai-agent-sandboxes-and-safe-code-execution-runtimes-in-production-comparing-e2b-modal-daytona-and-docker-gvisor-architecture-isolation-boundaries-startup-latency-and-serving-economics"
+  },
+  {
+   "chars_delivered": 203,
+   "published": "2026-06-13T13:29:28.000Z",
+   "text": "/A100/L40S/T4) |\n...\npolicy enforcement outside LLM loop; 8h execution window |\n| ... /sec allocation) | Pod snapshots for resume | Kubernetes API, Agent Substrate OSS | Via GKE GPU nodes | GKE pricing +",
+   "title": "Remote Tool Execution and Cloud Sandbox Platforms for AI Agents | Zylos Research",
+   "url": "https://zylos.ai/research/2026-06-13-remote-tool-execution-cloud-sandbox-platforms/"
+  },
+  {
+   "chars_delivered": 1090,
+   "published": null,
+   "text": "Measured probe (fixed task: A bounded CPU loop (fixed iteration count) run inside a warm sandbox; wall-clock isolates platform compute, not I/O.)\n\n| Provider | Provenance | Cold p50 | Cold p95 | Cold (mean±sd) | Warm reuse | Fixed task | Task cost | Note |\n| --- | --- | --- | --- | --- | --- | ---…",
+   "title": "Agent VM / sandbox comparison | qmu co.,Inc.",
+   "url": "https://qmu.co.jp/en/llm-foundation-research/agent-vm-comparison"
+  },
+  {
+   "chars_delivered": 246,
+   "published": "2026-09-19T15:13:55.000Z",
+   "text": "| Session shape |\n| --- | --- | --- | --- | --- | --- |\n| ... ) | Ephemeral, up to 24 h |\n| Modal | Syscall interception | ... user-space kernel | Sub-second to seconds | Yes (T4 to H100\n...\n| OCI/Docker (+Kata/Sysbox options) | Sub-90 ms | Yes (",
+   "title": "The Agent-Sandbox Market Crystallized Into Three Architectures. Here's the Bar for Building Your Own. | bex.co",
+   "url": "https://bex.co/blog/2026/09/19/e2b-modal-daytona-sandbox-market-isolation-bar"
+  }
+ ],
+ "latency_ms": 799.8,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q16",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What sandboxing approaches are used for autonomous agents (Firecracker microVMs, gVisor, e2b, Modal, Daytona, Cloudflare, devcontainers)? Compare startup time, isolation strength, snapshot/resume, cost, and network egress control, with any published benchmarks.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 18089,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:19.170112Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "be9776864f69504b",
+ "url": "https://docs.aviator.co/mergequeue/concepts/batching",
+ "verdicts": {
+  "Aviator states that increasing batch_size from 1 to 3 lets the queue merge 6 PRs instead of 2 in the same time it takes to run 2 CI cycles.": 1
+ }
+}

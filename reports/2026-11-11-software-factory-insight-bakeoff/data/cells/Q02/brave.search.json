@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:22:59.940856Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 8063,
+   "published": null,
+   "text": "# Factory AI: Multi-Agent Coding Platform Review 2026\n## Key Takeaways\nCoordinator-Droid Architecture: Factory ships a coordinator agent that decomposes work and dispatches to specialized droids — code, review, docs, test, and Knowledge — with explicit role boundaries rather than one generalist age…",
+   "title": "Factory AI: Multi-Agent Coding Platform Review 2026",
+   "url": "https://www.digitalapplied.com/blog/factory-ai-multi-agent-coding-platform-review"
+  },
+  {
+   "chars_delivered": 3512,
+   "published": null,
+   "text": "# Code Droid: A Technical Report\n## Code Droid\nIn order to perform complex software development tasks, AI systems require sophisticated multi-step reasoning capabilities. Droids take high-level problems and decompose them into smaller, manageable subtasks. They translate these subtasks into an acti…",
+   "title": "Code Droid: A Technical Report",
+   "url": "https://factory.ai/news/code-droid-technical-report"
+  },
+  {
+   "chars_delivered": 3869,
+   "published": null,
+   "text": "# Droid: The #1 Software Development Agent on Terminal-Bench\n## Terminal-Bench\nSome examples include modernizing a Fortran build process, configuring a git web server, training RL agents and text classifiers, resolving Conda environment dependency conflicts, and scrubbing a repo of secrets. Each ta…",
+   "title": "Droid: The #1 Software Development Agent on Terminal-Bench",
+   "url": "https://factory.ai/news/terminal-bench"
+  },
+  {
+   "chars_delivered": 6295,
+   "published": null,
+   "text": "# What is Factory AI? Droids, Missions, and the platform\nWhat you need to know\n\n- **Factory is the platform. Droid is the agent** that reads context, edits files, runs tools, and returns engineering work.\n- **Droids run locally and remotely.** The same product spans a desktop app, terminal, browser…",
+   "title": "What is Factory AI? Droids and Missions explained - Continuum",
+   "url": "https://continuumcode.ai/guides/what-is-factory-ai/"
+  },
+  {
+   "chars_delivered": 3262,
+   "published": null,
+   "text": "# Droid Agent Architecture\n## Agent Overview\nA Droid agent is an AI-powered development assistant that operates on behalf of a user or automation system. Each agent instance maintains conversational state, executes tools to interact with the codebase and external systems, and provides transparent r…",
+   "title": "Droid Agent Architecture",
+   "url": "https://deepwiki.com/factory-ai/factory/3.1-droid-agent-architecture"
+  },
+  {
+   "chars_delivered": 2514,
+   "published": null,
+   "text": "# What is a software factory? The architecture behind autonomous software delivery\n## The seven components\n### Software factory architecture\nSeven components move a scoped unit of intent to a validated change\n\nIntake\n\nTyped task\n\n2\n\nContext\n\nCode + docs\n\n3\n\nPlanning\n\nStep sequence\n\n4\n\nExecution\n\nEd…",
+   "title": "What is a software factory? The architecture behind autonomous software delivery",
+   "url": "https://factory.ai/articles/what-is-a-software-factory-architecture"
+  },
+  {
+   "chars_delivered": 6737,
+   "published": null,
+   "text": "# Droid 1.0: Building a Frontier Harness\n## Programmatic tool calling\nWe made PTC the default in Droid 1.0 for three reasons. First, it keeps the agent's context window clean, because all it receives is the output of its program. Ordinary tool outputs (raw files, search results, logs) stay inside t…",
+   "title": "Droid 1.0: Building a Frontier Harness",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "chars_delivered": 3705,
+   "published": null,
+   "text": "# Factory vs Devin: Droid workflows, privacy, and deployment\n## Factory vs Devin at a glance\n|  | Droid (Factory) | Devin (Cognition) |\n| --- | --- | --- |\n| Interactive work | Factory App, CLI, editor integrations | Devin CLI and Devin Desktop |\n| Delegated multi-step work | Missions with an appro…",
+   "title": "Factory vs Devin: Droid workflows, privacy, and deployment",
+   "url": "https://factory.com/articles/droid-vs-devin-enterprise-workflows"
+  },
+  {
+   "chars_delivered": 1937,
+   "published": null,
+   "text": "# Meet Factory Droid 1.0: A Model-Independent Coding Agent Harness Built on Script Mode\n## TL;DR\n- **Performance:** Highest pass rate of every harness Factory tested, on the same model, at lower cost.\n- **Best:** 65.2% on Terminal-Bench 4 with Claude Opus 5.5, at $4.73 per passed task (self-reporte…",
+   "title": "Meet Factory Droid 1.0: A Model-Independent Coding Agent Harness Built on Script Mode - MarkTechPost",
+   "url": "https://www.marktechpost.com/2026/10/31/factory-droid-1-0-frontier-harness/"
+  },
+  {
+   "chars_delivered": 2159,
+   "published": null,
+   "text": "# Factory Droid 1.0: Model-Independent Coding Agent Harness\n#### 💡 TL;DR\n- Factory launched Droid 1.0, a model-independent coding agent harness that replaces text-based agentic loops with programmatic script-mode tool calling.\n- On Terminal-Bench 4, Droid 1.0 achieved 65.2 percent accuracy using Cl…",
+   "title": "Factory Droid 1.0: Model-Independent Coding Agent Harness",
+   "url": "https://emergent.sh/news/factory-droid-1-0-model-independent-coding"
+  }
+ ],
+ "latency_ms": 1525.2,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q02",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What is the architecture of Factory.ai's Droids: execution environment, context and memory, how tasks are delegated, and how output is verified? What do engineering write-ups or benchmarks say about results?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 48992,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:22:58.415643Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

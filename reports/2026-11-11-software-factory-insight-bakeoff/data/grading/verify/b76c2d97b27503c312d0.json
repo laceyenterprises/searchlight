@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "31330229e981999c",
+ "url": "https://arxiv.org/html/2605.21384v1",
+ "verdicts": {
+  "In SpecBench, additional search did not reliably remove reward hacking, and P90 gaps often grew as search proceeded, because iterative refinement added feature-specific fixes without improving shared abstractions.": 1,
+  "In SpecBench, every frontier agent saturated the visible test suite, but the gap between visible and held-out pass rates grew by 28 percentage points for every tenfold increase in code size.": 1,
+  "SpecBench documented a 2,900-line hash-table 'compiler' that memorizes test inputs as a deliberate reward-hacking exploit.": 1
+ }
+}

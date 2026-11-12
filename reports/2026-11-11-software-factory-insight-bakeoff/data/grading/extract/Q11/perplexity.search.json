@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "316961670e4a1395",
+ "claims": [
+  {
+   "text": "In Airflow's common-ai provider, durable execution records each completed agent step in a journal kept per task instance, and an Airflow retry replays recorded steps instead of re-running them; only steps the failed attempt never finished run live.",
+   "url": null
+  },
+  {
+   "text": "In Airflow's AgentOperator, setting `durable=True` caches each LLM response and tool result as it completes, and the cache is deleted after successful completion.",
+   "url": null
+  },
+  {
+   "text": "Airflow durable execution only helps when the task has retries configured; without retries there is nothing to replay.",
+   "url": null
+  },
+  {
+   "text": "Airflow's durable cache stores, for each step, a fingerprint of the request: model, message history, settings and tools for LLM steps; tool name, arguments and call id for tool steps.",
+   "url": null
+  },
+  {
+   "text": "On Airflow >= 3.3 the durable execution cache is stored in the task state store, scoped to the task instance, with no configuration required.",
+   "url": null
+  },
+  {
+   "text": "Durable execution in Airflow caches return values, not side effects: a tool whose result was cached will not run again on retry, but a tool that fails before its result is cached will run again.",
+   "url": null
+  },
+  {
+   "text": "In Airflow durable execution, a tool that partially completed (e.g. sent an email then raised an exception) may repeat its side effect on retry; custom non-idempotent tools should check whether the operation already completed or use database constraints to prevent duplicate writes.",
+   "url": null
+  },
+  {
+   "text": "In Airflow durable execution, tool results must be JSON-serializable to be cached; a non-serializable result (e.g. BinaryContent from MCP tools) causes that step to be skipped with a warning and re-executed on retry.",
+   "url": null
+  },
+  {
+   "text": "In Airflow durable execution, a tool also reruns if the worker dies between the tool's side effect and the write of its result, so tools with side effects should be made idempotent.",
+   "url": null
+  },
+  {
+   "text": "Restate records every step of an agent's execution in a journal; after a crash it replays the journal, reuses results of completed steps, and retries the step in progress.",
+   "url": null
+  },
+  {
+   "text": "In Restate, a durable agent has three building blocks: a handler (an HTTP endpoint in a Restate service), LLM calls persisted so they are not re-fetched on recovery, and tool executions wrapped in durable steps.",
+   "url": null
+  },
+  {
+   "text": "In Restate, a step interrupted before its result was journaled runs again on retry even if its external side effect already happened; the recommended mitigation is passing an idempotency key to the external service.",
+   "url": null
+  },
+  {
+   "text": "Restate's `RestateAgent` wrapper for Pydantic AI saves every LLM response in the Restate Server and replays it during recovery, and `restate_context()` actions inside tools make tool execution durable and retried until success.",
+   "url": null
+  },
+  {
+   "text": "With Restate and Pydantic AI, batched model requests are not journaled, so recovery resubmits a request that was waiting on its batch in a new batch that is billed again.",
+   "url": null
+  },
+  {
+   "text": "Pydantic AI supports nine durable execution engines, including Temporal, DBOS, Prefect, Restate, AWS Lambda, Absurd, pgtask, Airflow and Azure Durable Task.",
+   "url": null
+  },
+  {
+   "text": "Pydantic AI's Temporal, DBOS, Prefect, Restate and AWS Lambda integrations are co-maintained by the Pydantic and vendor teams.",
+   "url": null
+  },
+  {
+   "text": "Pydantic AI raises a `UserError` if a second durable engine is attached to an agent, because each engine journals model requests and tool calls as its own durable units.",
+   "url": null
+  },
+  {
+   "text": "Temporal's documented agent design patterns include Approval, Saga, Long-Running Activity, Entity Workflow and Local Activities.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Approval pattern implements human-in-the-loop by blocking a Workflow until an external approval decision arrives, using Signals to capture approval data with metadata.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Saga pattern manages distributed transactions by pairing each step with a compensating action that undoes its effects if later steps fail.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Long-Running Activity pattern uses heartbeats to report progress and allow resumption after failures, with cancellation support.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Entity Workflow pattern gives each long-lived entity (user account, device, order) one Workflow per instance, with Signals and Updates driving state transitions.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Task Queue Priority and Fairness features let shared Workers run urgent work ahead of bulk work and keep one tenant from starving others.",
+   "url": null
+  },
+  {
+   "text": "Inngest's `waitForEvent` suspends a workflow entirely for human-in-the-loop approval, consuming no compute while waiting, with state persisted across deployments and scaling events; the approval event arrives via webhook, API call or UI action and is routed to the correct workflow instance.",
+   "url": null
+  },
+  {
+   "text": "Inngest makes each tool call a durable step with configurable backoff that retries until success or the retry budget is exhausted; for example, a rate limit on the 15th contact pauses the workflow and retries on the backoff schedule.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

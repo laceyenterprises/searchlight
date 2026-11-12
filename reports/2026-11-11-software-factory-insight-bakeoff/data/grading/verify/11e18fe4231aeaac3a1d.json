@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "9c60173fa2fa7397",
+ "url": "https://blog.langchain.com/customer-bertelsmann",
+ "verdicts": {
+  "Bertelsmann Content Search agents interface with vector databases (e.g. Qdrant) for semantic search, APIs for structured queries, graph databases for relationship lookups, and custom tools.": 1,
+  "Bertelsmann Content Search orchestrates searches across existing platforms and data sources rather than centralizing all data in one system.": 1,
+  "Bertelsmann Content Search sends routed queries to a central parallelized node that triggers domain agents: Publishing, Broadcasting, News and Web Intelligence.": 1,
+  "Bertelsmann Content Search synthesizes individual agent responses into a single answer, and users can chat directly with an individual agent to drill down.": 1,
+  "Bertelsmann Content Search uses a coordinator agent that analyzes each user question and routes it to the relevant agents.": 1,
+  "Bertelsmann's AI Hub says LangGraph offered reliability and predictability for production systems, and the LangChain ecosystem provided the observability and debugging needed to move from prototype to production.": 1,
+  "Bertelsmann's AI Hub team built its multi-agent Content Search system on LangGraph, a general agent framework, and took it from prototype to full production deployment.": 1,
+  "Bertelsmann's Content Search replaced searches across multiple systems that used to take hours with a process that now takes seconds.": 1,
+  "With LangGraph, individual Bertelsmann agents can be deployed as standalone APIs; for example, the news archive agent can be integrated directly into internal teams' systems.": 1
+ }
+}

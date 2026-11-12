@@ -1,0 +1,63 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "a3f884d1d08b3bdd",
+ "claims": [
+  {
+   "text": "Anthropic's long-running harness uses an initializer agent that writes init.sh, claude-progress.txt, an initial commit and a JSON feature list of 200+ features that all initially fail.",
+   "url": null
+  },
+  {
+   "text": "Anthropic chose JSON for the feature list because the model is less likely to inappropriately change or overwrite JSON than Markdown.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's multi-agent research system uses about 15x more tokens than chat.",
+   "url": null
+  },
+  {
+   "text": "Token usage explains 80% of the variance in BrowseComp performance in Anthropic's multi-agent research system.",
+   "url": null
+  },
+  {
+   "text": "Anthropic uses rainbow deployments in its multi-agent research system so that in-flight agents are not disrupted during updates.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's multi-agent research system resumes agents from checkpoints after errors.",
+   "url": null
+  },
+  {
+   "text": "In Anthropic's Managed Agents, the session is an append-only log kept outside both the harness and the sandbox.",
+   "url": null
+  },
+  {
+   "text": "In Anthropic's Managed Agents, a crashed harness is replaced by calling wake(sessionId).",
+   "url": null
+  },
+  {
+   "text": "Decoupling the harness from the container in Managed Agents cut p50 time-to-first-token by about 60% and p95 by over 90%.",
+   "url": null
+  },
+  {
+   "text": "Anthropic removed context resets from its long-running app harness with Opus 4.5.",
+   "url": null
+  },
+  {
+   "text": "Anthropic removed the sprint construct from its long-running app harness with Opus 4.6.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's full harness run cost $200 over 6 hours, versus a $9, 20-minute solo run whose core feature did not work.",
+   "url": null
+  },
+  {
+   "text": "Agent Skills use three-level progressive disclosure: metadata, the SKILL.md body, and linked files.",
+   "url": null
+  },
+  {
+   "text": "Anthropic published Agent Skills as an open standard.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "0db0e61dc0001c7b",
+ "url": "https://www.cloudzero.com/blog/ai-agent-cost",
+ "verdicts": {
+  "Anthropic reported that agents use about 4x more tokens than chat interactions and multi-agent systems about 15x more; early agents spawned 50 subagents for simple queries.": 1,
+  "Cache reads are priced near 10% of the input rate across the three major providers (5% on Anthropic's newest models), cache writes carry a 1.25x to 2x surcharge, and Google adds hourly storage rent; batch discounts of 50% apply to non-interactive agent tasks.": 1,
+  "CloudZero found one Hudl employee driving $600K a year in token spend across 40 models, 70% of that company's total AI costs, unnoticed by finance and engineering; it recommends attributable API keys per agent and per-task token logging keyed to who triggered the run.": 1,
+  "CloudZero recommends giving every agent a per-task budget and circuit breaker, so a runaway loop becomes a logged retry rather than an incident.": 1,
+  "CloudZero's worked example (12 calls, 36,000 input and 6,000 output tokens per task) gives $0.132 per task on Claude Sonnet 5, $0.33 on Opus 5, $0.066 on Haiku 4.5, and $0.014 on GPT-5.6 Luna, i.e. $13,200 per month at 100,000 tasks on Sonnet 5.": 1,
+  "In CloudZero's worked example, routing 8 of 12 steps from Sonnet 5 to Haiku 4.5 cuts task cost from $0.132 to about $0.088 (33%), and caching 2,000 of 3,000 input tokens per step cuts a Terra task from $0.144 to about $0.101 (30%).": 1
+ }
+}

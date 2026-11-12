@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "d8f37320feb3f7a6",
+ "claims": [
+  {
+   "text": "Birgitta Böckeler (Thoughtworks) defines spec-driven development (SDD) as writing a spec before writing code with AI, with the spec becoming the source of truth for both human and AI.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler distinguishes three implementation levels of SDD: spec-first (spec written first and used for the task at hand), spec-anchored (spec kept after the task for evolution and maintenance), and spec-as-source (only the spec is edited by humans, never the code).",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Kiro's workflow is Requirements → Design → Tasks, with each step represented by one markdown document inside Kiro's VS Code-based distribution.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "In Kiro, requirements are a list of user stories ('As a…' format) with acceptance criteria in GIVEN… WHEN… THEN… format; tasks trace back to requirement numbers and have UI elements to run tasks one by one and review changes per task.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Kiro's requirements use EARS (Easy Approach to Requirements Syntax) notation for acceptance criteria; the design step analyzes the existing codebase; tasks are dependency-sequenced, each mapped to the requirement it satisfies, with optional tests.",
+   "url": "https://builder.aws.com/content/3Eh9lgxjMNKtxCPXPSdQjqaVZfP/spec-driven-development-vs-vibe-coding-why-kiro-bets-on-writing-it-down"
+  },
+  {
+   "text": "Kiro's specs are version-controlled files (requirements.md, design, tasks) that the user reviews and approves at each stage before moving on.",
+   "url": "https://builder.aws.com/content/3Eh9lgxjMNKtxCPXPSdQjqaVZfP/spec-driven-development-vs-vibe-coding-why-kiro-bets-on-writing-it-down"
+  },
+  {
+   "text": "Kiro's memory-bank equivalent is called 'steering'; its default generated files are product.md, structure.md and tech.md.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Kiro steering files are stored in .kiro/steering/, and Kiro offers two modes, Vibe and Spec, that the user can switch between.",
+   "url": "https://builder.aws.com/content/3Eh9lgxjMNKtxCPXPSdQjqaVZfP/spec-driven-development-vs-vibe-coding-why-kiro-bets-on-writing-it-down"
+  },
+  {
+   "text": "Spec-kit is GitHub's SDD toolkit, distributed as a CLI that sets up workspaces for many coding assistants and is used via slash commands; its workflow is Constitution → Specify → Plan → Tasks.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Spec-kit's 'constitution' is a rules file of high-level 'immutable' principles applied to every change; the workflow uses bash scripts and templates to instantiate files, and checklists in the files track clarifications, constitution violations and research tasks, though AI interpretation gives no guarantee they are respected.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "GitHub's Spec Kit has four phases: Specify (user journeys and success criteria, not tech stack), Plan (stack, architecture, constraints), Tasks (small, independently implementable and testable chunks), and Implement; the developer verifies at each checkpoint before proceeding.",
+   "url": "https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/"
+  },
+  {
+   "text": "Spec Kit is installed with `uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME>` and driven by the /specify, /plan and /tasks commands, working with GitHub Copilot, Claude Code and Gemini CLI.",
+   "url": "https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/"
+  },
+  {
+   "text": "GitHub's stated rationale is that a vague prompt forces the model to guess thousands of unstated requirements, and claims specs give 'less guesswork, fewer surprises, and higher-quality code'; the post offers no quantitative evidence for this.",
+   "url": "https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/"
+  },
+  {
+   "text": "Spec-kit creates a branch for every spec, suggesting a spec lives for the lifetime of a change request rather than a feature, so Böckeler considers it spec-first rather than spec-anchored.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Tessl Framework (private beta) explicitly aspires to spec-anchored and spec-as-source, with a 1:1 mapping of spec to code file, generated code marked 'GENERATED FROM SPEC - DO NOT EDIT', and tags like @generate and @test.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler observed non-determinism when generating code repeatedly from the same Tessl spec, and found iterating to make the spec more specific increased repeatability.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler found Kiro's workflow was a 'sledgehammer to crack a nut' for a small bug, producing 4 user stories with 16 acceptance criteria.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler found spec-kit overkill for a 3-5 point story, producing many repetitive, verbose markdown files; she thought plain AI-assisted coding would have been faster and given her more control.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler saw agents ignore spec-kit instructions, e.g. treating research notes describing existing classes as a new specification and regenerating them as duplicates, and also over-following constitution articles.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler's evaluation was anecdotal and limited (tools used in September 2025, small trials), and she notes no usage reports from long-term real codebases; she compares spec-as-source to model-driven development, warning of inflexibility plus non-determinism.",
+   "url": "https://www.martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "AWS's Kiro post cites GitClear's analysis of 211 million changed lines (2020–2024): copy-pasted code exceeded refactored code in 2024, duplicated blocks rose roughly eightfold, and churn rose from 3.1% to 5.7%; this evidences problems of unstructured AI coding, not a measured benefit of SDD.",
+   "url": "https://builder.aws.com/content/3Eh9lgxjMNKtxCPXPSdQjqaVZfP/spec-driven-development-vs-vibe-coding-why-kiro-bets-on-writing-it-down"
+  },
+  {
+   "text": "Kiro reached general availability in November 2025 after more than 250,000 developers used the preview.",
+   "url": "https://builder.aws.com/content/3Eh9lgxjMNKtxCPXPSdQjqaVZfP/spec-driven-development-vs-vibe-coding-why-kiro-bets-on-writing-it-down"
+  },
+  {
+   "text": "The Spec Kit Agents paper evaluated 128 runs over 32 features in five repositories (FastAPI, Airflow, Dexter, Plausible Analytics, Strapi), with the Full workflow producing SPEC.md, PLAN.md and TASKS.md before implementation and Baseline skipping them.",
+   "url": "https://arxiv.org/html/2604.05278"
+  },
+  {
+   "text": "In that study, Baseline scored 3.46 and Full (with spec artifacts) 3.51 on a 1–5 LLM-as-judge composite (Claude Opus 4.6), so spec artifacts alone gave only a +0.05 difference, while context-grounding hooks raised Full to 3.66 (+0.15, Wilcoxon p<0.05).",
+   "url": "https://arxiv.org/html/2604.05278"
+  },
+  {
+   "text": "Spec Kit Agents' context-grounding hooks (read-only repo probing before each phase, validation after) kept 99.7–100% repository test compatibility and improved SWE-bench Lite by 1.7% to 58.2% Pass@1.",
+   "url": "https://arxiv.org/html/2604.05278"
+  }
+ ],
+ "question_id": "Q10"
+}

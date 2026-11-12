@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "f0aa120f3fa01ff4",
+ "url": "https://docs.letta.com/concepts/memgpt",
+ "verdicts": {
+  "A MemGPT agent's core memory is split into the agent's own persona and user information, both of which the agent can self-edit; the paper's 'working context' is called 'core memory' in the codebase.": 0,
+  "In MemGPT the \"OS\" managing memory is itself an LLM, which moves data in and out of the context window using designated memory-editing tools.": 0,
+  "MemGPT archival memory is by default backed by a vector database such as Chroma or pgvector, but because memory access is tool-driven it can be swapped for a traditional database or even a flat file.": 0,
+  "MemGPT divides LLM memory (its \"virtual context\") into in-context memory and out-of-context memory, analogous to virtual memory in computer systems.": 0,
+  "MemGPT supports multi-step reasoning via \"heartbeats\": when the LLM emits a tool call it can set request_heartbeat to true, and the system then continues execution in a loop so the LLM can think again.": 0,
+  "The MemGPT open source framework was renamed Letta, and the default Letta agent architecture is a MemGPT agent; Letta also supports other architectures (e.g., multiple logical threads such as conscious/subconscious, or task memory) and exposes agents as services over REST APIs.": 0
+ }
+}

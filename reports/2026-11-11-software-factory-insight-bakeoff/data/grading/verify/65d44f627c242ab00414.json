@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "9da77a6d57c0dd79",
+ "url": "https://baeseokjae.github.io/posts/github-copilot-coding-agent-guide-2026/",
+ "verdicts": {
+  "Agent mode in VS Code is available on all Copilot plans including Free, while the Copilot coding agent requires Copilot Pro+, Business, or Enterprise subscriptions.": 1,
+  "The Copilot coding agent applies built-in security checks (CodeQL analysis, secret scanning, dependency review) and produces PRs that pass through the same review workflow as human-authored code.": 1,
+  "The Copilot coding agent runs in a GitHub Actions runner for minutes or hours and opens a PR when done, making it asynchronous, unlike VS Code agent mode, which is synchronous and interactive.": 1,
+  "The GitHub Copilot coding agent is a cloud-based autonomous agent that accepts a GitHub Issue as input, works independently in a GitHub Actions-powered sandbox environment, and delivers a pull request for human review without developer interaction during execution.": 1
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "agent memory learning from failures reflection playbook",
+  "self-improving agents learned rules prompt injection context bloat",
+  "agentic context engineering evolving playbook stale rules"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How do agent systems capture and reuse lessons from past failures: incident memory, playbooks, learned rules injected into prompts, and self-improving agents? What evidence is there that this reduces repeat failures, and what are the risks (prompt bloat, stale rules)? Rank first primary sources: papers (e.g., Reflexion, Voyager, ExpeL, ACE agentic context engineering, Memento), engineering posts and docs from agent builders (Anthropic, OpenAI, LangChain, Cognition, Cursor) and credible reporting. Pull mechanisms (reflection memory, playbooks, rule files like CLAUDE.md, skills libraries), measured results (benchmark gains, repeat-failure reduction numbers), names, dates, and documented failure modes such as prompt bloat, context collapse, stale or conflicting rules, and memory poisoning.",
+ "question_id": "Q23",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

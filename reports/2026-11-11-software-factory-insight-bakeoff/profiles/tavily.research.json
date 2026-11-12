@@ -1,0 +1,67 @@
+{
+ "arm": "tavily",
+ "async": {
+  "interval_s": 10,
+  "poll_endpoint": "GET https://api.tavily.com/research/{request_id}?include_usage=true",
+  "timeout_s": 1200
+ },
+ "cost_model": "Dynamic: pro = 15-250 credits per request ($0.075-$2.00 at $0.005-$0.008/credit). Midpoint guess $1.00; read usage.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "input, model mini/pro/auto, output_schema, citation_format, output_length, domains",
+   "url": "https://docs.tavily.com/documentation/api-reference/endpoint/research"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "prompting, pro for complex multi-domain topics, report vs structured",
+   "url": "https://docs.tavily.com/documentation/best-practices/best-practices-research"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "research mini 4-110, pro 15-250 credits",
+   "url": "https://docs.tavily.com/documentation/api-credits"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "/research 20 RPM",
+   "url": "https://docs.tavily.com/documentation/rate-limits"
+  }
+ ],
+ "endpoint": "POST https://api.tavily.com/research",
+ "est_cost_usd_per_question": 1.0,
+ "freshness_overlay": {
+  "input_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+ },
+ "headers": {
+  "Authorization": "Bearer <TAVILY_API_KEY>"
+ },
+ "operation": "research",
+ "pace_seconds": 3.0,
+ "params": {
+  "citation_format": "numbered",
+  "input": "{{RESEARCH_BRIEF}}",
+  "model": "pro",
+  "output_length": "long",
+  "stream": false
+ },
+ "post_steps": [],
+ "query_transform": "research_brief",
+ "query_transform_notes": "Research best practices: clear goal, known context, desired output format, 'Include citations'; no contradictory constraints; state baseline knowledge.",
+ "rationale": {
+  "model": "'pro' = multi-agent research for complex topics and 'maximum accuracy'; our questions are multi-facet. 2026-09 used 'mini'; variant TAV-R-MINI pre-registered.",
+  "output_schema": "Omitted: a report is the documented shape for reading; judges grade claims from the report + sources."
+ },
+ "top_k": null,
+ "unverified": true,
+ "unverified_fields": {
+  "async.poll_endpoint": {
+   "note": "The /research reference read on 2026-11-11 does not describe polling; path is from our 2026-09 harness.",
+   "unverified": true
+  },
+  "output_length": {
+   "note": "'long' is a target, not a cap; effect on credits not documented.",
+   "unverified": true
+  }
+ }
+}

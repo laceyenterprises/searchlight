@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "985b09f704f86c3f",
+ "url": "https://addyo.substack.com/p/agentic-verification",
+ "verdicts": {
+  "Differential testing uses the old system as oracle by replaying random inputs or live traffic and checking that a replacement system's outputs match.": 1,
+  "Property-based testing generates hundreds or thousands of inputs to break a stated rule (tools: fast-check, Hypothesis, proptest) and shrinks failures to a minimal case, which is saved for regression testing.": 1
+ }
+}

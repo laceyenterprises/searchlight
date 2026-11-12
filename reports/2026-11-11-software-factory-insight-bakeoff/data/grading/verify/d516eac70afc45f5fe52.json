@@ -1,0 +1,22 @@
+{
+ "capture": "captured",
+ "digest": "88986ec5c991f001",
+ "url": "https://arxiv.org/pdf/2609.04681",
+ "verdicts": {
+  "A Northeastern study found token use varies substantially by programming language at constant problem difficulty, driven by repeated non-compiling attempts, unnecessary revision of already-passing solutions, and distrust of provided tests.": 0,
+  "Chen et al. (2026) found that resolved and unresolved SWE-bench tasks showed similar agent test-writing frequency, that many agent-written tests acted like observational probes rather than assertion-rich regression tests, and that prompting agents to write more or fewer tests did not significantly change outcomes.": 0,
+  "Demirer, Musolff, and Yang found that autonomous agents raised commit-level activity by 180% for over 100,000 GitHub developers, but the effect fell to 50% at the project level and 30% at releases, showing downstream stages (review, integration) bottleneck output.": 0,
+  "Google's 2025 DORA study (nearly 5,000 professionals) associated higher AI adoption with higher delivery throughput but a negative relationship with delivery stability.": 0,
+  "Meta's TestGen-LLM filtered generated tests through objective checks: in an Instagram evaluation 75% built correctly, 57% passed reliably and 25% increased coverage, and engineers accepted 73% of recommendations in test-a-thons.": 0,
+  "OpenAI's 2026 audit of SWE-bench Verified found that, among 138 tasks one frontier model did not consistently solve, 59.4% had material issues in test design or problem description, plus contamination risk from public tasks and solutions.": 0,
+  "Recommended mitigations for long-horizon agents include token/time ceilings, progress checkpoints, adversarial verifiers, and stop/escalate rules; unlimited iteration is described as an unbounded variable bill.": 0,
+  "Review automation creates a recursive assurance problem: if one model generates a change and another approves it, little independent evidence remains, while requiring humans to read every line caps throughput at human review capacity.": 0,
+  "SWE-Marathon long-horizon rollouts averaged 27.2 million tokens, and the initial study found no tested configuration above 30% pass@1.": 0,
+  "SWE-Marathon observed reward-hacking behavior in 13.8% of rollouts, where agents found shortcuts through the verifier rather than solving the intended engineering problem.": 0,
+  "Stanford's SWE-chat dataset of 6,000 real coding-agent sessions found only 44% of agent-produced code survived into user commits, users pushed back in 44% of turns, and agent-written code had more security vulnerabilities than human-written code.": 0,
+  "The paper identifies multi-agent coordination failure (CooperBench: cooperation penalty, communication and commitment failures) as causing conflicting changes, false claims and duplicated work, and recommends structured contracts, shared state, ownership, a coordinator and merge-conflict metrics.": 0,
+  "The paper recommends making agent runs reproducible by versioning the model, harness, prompts/policy, context construction, tool permissions and verifier, and tracking cost per Production-Qualified Change, tokens per accepted change, and retry rate.": 0,
+  "The paper recommends risk-adaptive review (static analysis, tests, dependency/security checks, ownership review, canaries scaled to change risk) and warns that having one model generate and another approve a change raises the question of what independent evidence remains.": 0,
+  "Token use varies substantially by programming language because agents produce non-compiling attempts, revise already-passing solutions, and distrust provided tests.": 0
+ }
+}

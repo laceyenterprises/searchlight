@@ -1,0 +1,445 @@
+{
+ "digest": "e2ce2b06cd0f44b8",
+ "values": {
+  "Q23-k1": {
+   "position": 26,
+   "reason": "A measured AppWorld gain of +14.3 pp scenario completion versus +3.6 pp task completion, showing benefits concentrate on consistency.",
+   "score": 2
+  },
+  "Q23-k10": {
+   "position": 78,
+   "reason": "Exploratory evidence that stale documentation was the largest failure class (48 of 118) is useful, but it is clustered on one day and comes from a single repository.",
+   "score": 2
+  },
+  "Q23-k100": {
+   "position": 77,
+   "reason": "A well-known description of the Reflexion mechanism, which is corroborating.",
+   "score": 1
+  },
+  "Q23-k101": {
+   "position": 20,
+   "reason": "An older Reflexion result with limited bearing on architecture.",
+   "score": 1
+  },
+  "Q23-k102": {
+   "position": 70,
+   "reason": "A specific component design including a Curator that retires rather than deletes lessons, a modestly new detail.",
+   "score": 2
+  },
+  "Q23-k103": {
+   "position": 68,
+   "reason": "A useful taxonomy of lesson-store risks, including same-model blind spots relevant to cross-model review, but it is largely general.",
+   "score": 2
+  },
+  "Q23-k104": {
+   "position": 19,
+   "reason": "A concrete set of metrics (repeat-failure rate, recall hit-rate, lesson rot, quality versus store size, blind-spot persistence) for instrumenting the ledger.",
+   "score": 2
+  },
+  "Q23-k105": {
+   "position": 56,
+   "reason": "A notable claim that read-memory-first plus explicit theory testing nearly doubled the score, but it is vague on benchmark and magnitude details.",
+   "score": 2
+  },
+  "Q23-k106": {
+   "position": 9,
+   "reason": "Token cost and the spread of an incorrect note into every later session are generic risks.",
+   "score": 1
+  },
+  "Q23-k107": {
+   "position": 28,
+   "reason": "A concrete reward-hacking failure in which the self-improving loop learned to game its judge within hours, relevant to the reader's autonomous review and merge loop.",
+   "score": 3
+  },
+  "Q23-k108": {
+   "position": 48,
+   "reason": "A comparable system design with weekly aggregation, cross-agent critique, and trust-gated memory writes with quarantine.",
+   "score": 2
+  },
+  "Q23-k109": {
+   "position": 62,
+   "reason": "An important caveat that the zero-recurrence evidence is observational with no A/B control, which tempers claims that rule injection prevents repeats.",
+   "score": 2
+  },
+  "Q23-k11": {
+   "position": 53,
+   "reason": "A measured large gain (38.0% to 58.7%) from filtering out harness, environment and flaky-judge failures argues for classifying failure causes before writing lessons to the hardening ledger.",
+   "score": 3
+  },
+  "Q23-k110": {
+   "position": 87,
+   "reason": "Quantifies rule-set growth in production (5 to 18 rules plus standards and a checklist), showing a concrete bloat trajectory relevant to ledger growth.",
+   "score": 2
+  },
+  "Q23-k112": {
+   "position": 1,
+   "reason": "A cap of 5 Reflector rounds is a minor implementation parameter.",
+   "score": 1
+  },
+  "Q23-k12": {
+   "position": 3,
+   "reason": "Gains concentrate on the hardest tasks (+28.5 pp scenario completion on Difficulty 3, none on Difficulty 2), which suggests where lesson injection pays off.",
+   "score": 3
+  },
+  "Q23-k13": {
+   "position": 10,
+   "reason": "A concrete case where aggregate-score validation passed a harmful learned rule, so the reader should validate rules per task rather than only on the aggregate.",
+   "score": 3
+  },
+  "Q23-k14": {
+   "position": 45,
+   "reason": "Names an error-reproduction feedback loop in which a bad stored lesson regenerates itself, a failure mode the postmortem pipeline needs to break.",
+   "score": 2
+  },
+  "Q23-k15": {
+   "position": 8,
+   "reason": "Anti-Persistence keeps raw trajectories but synthesizes guidance per task and discards it, and it achieved higher held-out success with the fewest LLM calls, which challenges persistent rule injection.",
+   "score": 3
+  },
+  "Q23-k16": {
+   "position": 32,
+   "reason": "Lessons written from model priors rather than observed transcripts gave no quality lift and raised anti-pattern violations from 1% to 7%, so lessons should be grounded in real incidents.",
+   "score": 3
+  },
+  "Q23-k17": {
+   "position": 13,
+   "reason": "A version-controlled rules file grew from 5 to 18 rules with zero recurrences across 74 post-rule session-exposures, which is directly analogous to scar memory, though the evidence is observational.",
+   "score": 3
+  },
+  "Q23-k18": {
+   "position": 71,
+   "reason": "A concrete design storing conditions, boundary, confidence and provenance per incident and gating reuse on whether those conditions still hold, which fits governed incident memory well.",
+   "score": 3
+  },
+  "Q23-k19": {
+   "position": 67,
+   "reason": "Names IBM's four components without measured results, which is a minor architectural outline.",
+   "score": 1
+  },
+  "Q23-k2": {
+   "position": 49,
+   "reason": "Measured pass^3 gains on prior mistakes (9.7% to 18.9%) support retrieving lessons after a mistake.",
+   "score": 2
+  },
+  "Q23-k20": {
+   "position": 15,
+   "reason": "A taxonomy of strategy, recovery and optimization tips that could extend a ledger focused only on failures.",
+   "score": 2
+  },
+  "Q23-k21": {
+   "position": 7,
+   "reason": "Linking each lesson to its source trajectory enables checking whether failures recur after deployment and auditing, which applies directly to the hardening ledger schema.",
+   "score": 2
+  },
+  "Q23-k24": {
+   "position": 40,
+   "reason": "Agents closely follow retrieved experiences, so a mismatched retrieval directly degrades performance, which argues for precise matching.",
+   "score": 2
+  },
+  "Q23-k25": {
+   "position": 85,
+   "reason": "A specific adapter-library design with task-similarity routing, which is novel but largely inapplicable to closed-model harnesses.",
+   "score": 1
+  },
+  "Q23-k26": {
+   "position": 46,
+   "reason": "A fixed rule to record only failures cost both Opus models much of the memory benefit, which directly challenges a failure-only scar memory design.",
+   "score": 3
+  },
+  "Q23-k3": {
+   "position": 82,
+   "reason": "A measured 10.3pp advantage of weight-encoded over in-context reflections is a significant data point for architecture choices, though it is hard to apply to hosted harnesses.",
+   "score": 2
+  },
+  "Q23-k33": {
+   "position": 18,
+   "reason": "Brevity bias in GEPA and MIPROv2 discards API quirks and error patterns, a specific reason to avoid compressing hardening rules into generic instructions.",
+   "score": 2
+  },
+  "Q23-k34": {
+   "position": 34,
+   "reason": "Measured gains for ACE over in-context learning, GEPA and Dynamic Cheatsheet, including label-free improvement from execution feedback alone.",
+   "score": 2
+  },
+  "Q23-k35": {
+   "position": 44,
+   "reason": "Efficiency numbers relative to GEPA and Dynamic Cheatsheet that matter little to the architecture.",
+   "score": 1
+  },
+  "Q23-k36": {
+   "position": 63,
+   "reason": "A specific failure mode where, without reliable labels or execution feedback, self-curated context degrades below baseline, which matters for domains like marketing that lack smoke tests.",
+   "score": 3
+  },
+  "Q23-k37": {
+   "position": 23,
+   "reason": "A specific trade-off in tuning embedding de-duplication: too aggressive brings back brevity bias, too loose lets the playbook bloat.",
+   "score": 2
+  },
+  "Q23-k38": {
+   "position": 59,
+   "reason": "Concrete limits on the evidence plus specific design flaws (monotonic counters without decay, no reconciliation of contradictory bullets) that the reader should avoid in their ledger.",
+   "score": 2
+  },
+  "Q23-k39": {
+   "position": 36,
+   "reason": "Inject only the top-k relevant items rather than the whole playbook, and gate updates with a verifier before merging, both of which apply directly to scar re-injection.",
+   "score": 2
+  },
+  "Q23-k4": {
+   "position": 0,
+   "reason": "Routing the first attempt to the unchanged base model and pulling lessons only after a mistake is a concrete alternative to always re-injecting scar memory, and it limits interference.",
+   "score": 3
+  },
+  "Q23-k40": {
+   "position": 75,
+   "reason": "A measured result that a single LLM audit catches only about 50% of drift, which argues for multiple or cross-model audits of documentation and rules.",
+   "score": 3
+  },
+  "Q23-k41": {
+   "position": 39,
+   "reason": "Lessons at subtask granularity (authentication, data retrieval, processing) are a useful design detail for ticket-level injection.",
+   "score": 2
+  },
+  "Q23-k46": {
+   "position": 69,
+   "reason": "A concrete lifecycle-state design (proposed/verified/rejected/superseded) plus version scoping that addresses a self-reinforcing error loop, directly applicable to the hardening ledger.",
+   "score": 3
+  },
+  "Q23-k47": {
+   "position": 30,
+   "reason": "Describes a retrieval design combining semantic similarity, metadata filters and priority ranking, which is somewhat useful.",
+   "score": 2
+  },
+  "Q23-k48": {
+   "position": 21,
+   "reason": "Concrete design: itemized bullets with IDs and helpful/harmful counters, plus deterministic non-LLM merging of delta updates.",
+   "score": 2
+  },
+  "Q23-k49": {
+   "position": 50,
+   "reason": "A concrete measured collapse (18,282 to 122 tokens, accuracy falling below the no-context baseline) directly warns against full LLM rewrites of the scar memory.",
+   "score": 3
+  },
+  "Q23-k50": {
+   "position": 14,
+   "reason": "An illustrative example of an optimization tip.",
+   "score": 0
+  },
+  "Q23-k51": {
+   "position": 54,
+   "reason": "A generic critique of rule-based systems and memory without causal analysis, with little actionable detail.",
+   "score": 1
+  },
+  "Q23-k52": {
+   "position": 4,
+   "reason": "Describes between-session reflection over transcripts, a mechanism already close to the reader's postmortem pipeline.",
+   "score": 1
+  },
+  "Q23-k54": {
+   "position": 43,
+   "reason": "A conceptual framing of a rule as a prediction.",
+   "score": 1
+  },
+  "Q23-k55": {
+   "position": 6,
+   "reason": "A concrete loop of recording the failure, theorizing, testing the theory, and writing a rule, though it is an example from a benchmark task.",
+   "score": 2
+  },
+  "Q23-k56": {
+   "position": 60,
+   "reason": "A definitional distinction between traces and memory that the reader's SEV-to-ledger design already embodies.",
+   "score": 1
+  },
+  "Q23-k57": {
+   "position": 64,
+   "reason": "A vendor product pipeline description with little new design content.",
+   "score": 0
+  },
+  "Q23-k58": {
+   "position": 74,
+   "reason": "Points to procedural memory (tool order, delegation) as the highest-yield lesson target, which is moderately useful for prioritization.",
+   "score": 1
+  },
+  "Q23-k59": {
+   "position": 29,
+   "reason": "Lists open challenges from a survey.",
+   "score": 0
+  },
+  "Q23-k6": {
+   "position": 79,
+   "reason": "A concrete finding that a prompt rule failed to change behavior while a lint check enforced the rule, which argues for converting scar lessons into mechanical checks where possible.",
+   "score": 3
+  },
+  "Q23-k60": {
+   "position": 27,
+   "reason": "Names a decision-attribution component without specifics.",
+   "score": 1
+  },
+  "Q23-k61": {
+   "position": 35,
+   "reason": "An anecdotal motivating example.",
+   "score": 0
+  },
+  "Q23-k62": {
+   "position": 38,
+   "reason": "Concrete write-gating fields and thresholds, though from a blog source.",
+   "score": 1
+  },
+  "Q23-k63": {
+   "position": 11,
+   "reason": "Generic blog warnings about stale information and storage cost.",
+   "score": 0
+  },
+  "Q23-k64": {
+   "position": 31,
+   "reason": "A shared memory store across agents can cause one agent to misread another's notes, which matters for a multi-tenant general platform.",
+   "score": 2
+  },
+  "Q23-k65": {
+   "position": 33,
+   "reason": "Generic claims about context rot and harness quality.",
+   "score": 1
+  },
+  "Q23-k66": {
+   "position": 80,
+   "reason": "A specific design detail of per-block character limits for bounding context, applicable to controlling prompt bloat.",
+   "score": 2
+  },
+  "Q23-k67": {
+   "position": 12,
+   "reason": "Contrasts structured learnings with vector-store facts, which mostly repeats k8.",
+   "score": 1
+  },
+  "Q23-k68": {
+   "position": 72,
+   "reason": "A motivational statement with no new information.",
+   "score": 0
+  },
+  "Q23-k69": {
+   "position": 37,
+   "reason": "An illustrative example of a recovery tip.",
+   "score": 0
+  },
+  "Q23-k7": {
+   "position": 24,
+   "reason": "Shows lessons accumulate faster than they are retired when no automated retirement exists, a concrete reason to build retirement into the ledger.",
+   "score": 2
+  },
+  "Q23-k70": {
+   "position": 17,
+   "reason": "Describes a failure-management layer that retrieves playbook lessons when a failure is detected, an architectural alternative to injecting lessons upfront.",
+   "score": 2
+  },
+  "Q23-k71": {
+   "position": 2,
+   "reason": "Points out that runtime-intervention approaches do not learn from their repairs, a design gap worth knowing but stated without specifics.",
+   "score": 1
+  },
+  "Q23-k72": {
+   "position": 61,
+   "reason": "A generic statement of common agent failure modes.",
+   "score": 0
+  },
+  "Q23-k73": {
+   "position": 47,
+   "reason": "Describes the limitation of selecting lessons once at task start, mostly setup for k18.",
+   "score": 1
+  },
+  "Q23-k74": {
+   "position": 55,
+   "reason": "Explains why conditional lessons kept in context misfire because the agent must judge applicability at every step, with a concrete example, which bears directly on prompt-injected scar rules.",
+   "score": 2
+  },
+  "Q23-k8": {
+   "position": 42,
+   "reason": "Tag each rule with the model version that motivated it and a re-test date, then replay the trigger task without the lesson after model upgrades, a concrete mechanism for stale rules across multiple harnesses.",
+   "score": 3
+  },
+  "Q23-k81": {
+   "position": 76,
+   "reason": "A specific gating design that stores a lesson only after verified recovery without task rewards, applicable to deciding when SEV lessons get admitted.",
+   "score": 2
+  },
+  "Q23-k83": {
+   "position": 57,
+   "reason": "A high-level description of ACE's generate/reflect/curate playbook concept, mostly framing.",
+   "score": 1
+  },
+  "Q23-k84": {
+   "position": 58,
+   "reason": "Headline aggregate gains with little design detail, which reads closer to marketing than architecture input.",
+   "score": 1
+  },
+  "Q23-k87": {
+   "position": 66,
+   "reason": "Generic prompt-engineering advice against laundry-list rules, which corroborates the bloat risk.",
+   "score": 1
+  },
+  "Q23-k88": {
+   "position": 52,
+   "reason": "A specific design choice where lessons are exposed only on a matching failure, rather than the full playbook being injected, challenges always re-injecting scar memory into worker prompts.",
+   "score": 3
+  },
+  "Q23-k89": {
+   "position": 86,
+   "reason": "Evidence that always-in-context failure lessons misfire and that removing them improves performance directly challenges re-injecting all scar memory into worker prompts.",
+   "score": 3
+  },
+  "Q23-k9": {
+   "position": 22,
+   "reason": "Rule files are advisory, so hard constraints belong in runtime hooks and rarely needed context in on-demand skills, which changes where scar lessons should live.",
+   "score": 3
+  },
+  "Q23-k90": {
+   "position": 83,
+   "reason": "A measured 37% average gain over runtime-intervention baselines supports trigger-based lesson injection.",
+   "score": 2
+  },
+  "Q23-k91": {
+   "position": 16,
+   "reason": "A 39% gain over the strongest context-evolution baseline supports triggering lessons on failure, though the benchmarks are not specified.",
+   "score": 2
+  },
+  "Q23-k92": {
+   "position": 81,
+   "reason": "A vague claim of combined gains without numbers.",
+   "score": 1
+  },
+  "Q23-k93": {
+   "position": 65,
+   "reason": "A bare transfer claim without numbers or detail.",
+   "score": 1
+  },
+  "Q23-k94": {
+   "position": 41,
+   "reason": "Benchmark positioning that largely overlaps k35 and k45.",
+   "score": 1
+  },
+  "Q23-k95": {
+   "position": 25,
+   "reason": "Game of 24 is a narrow puzzle result that does not transfer well.",
+   "score": 1
+  },
+  "Q23-k96": {
+   "position": 51,
+   "reason": "Names the brevity-bias/context-collapse failure mode and the delta-entry remedy, which is useful but largely duplicates k1 and k8.",
+   "score": 2
+  },
+  "Q23-k97": {
+   "position": 5,
+   "reason": "A specific failure mode that matters for business and marketing workloads with weak feedback, where the playbook fills with entries of unknown quality.",
+   "score": 3
+  },
+  "Q23-k98": {
+   "position": 84,
+   "reason": "A specific staleness mechanism where helpful/harmful counters decay too slowly in shifting domains, relevant to content and marketing workloads.",
+   "score": 2
+  },
+  "Q23-k99": {
+   "position": 73,
+   "reason": "A generic claim that poor reflection produces noise.",
+   "score": 1
+  }
+ }
+}

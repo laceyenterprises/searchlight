@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "d21c749eab09dcc6",
+ "url": "https://mergify.com/learn/merge-queue",
+ "verdicts": {
+  "A serial merge queue with a 30-minute pipeline adds one CI run of latency per PR, so a PR queued at 9:00 merges around 9:30.": 1,
+  "Mergify claims batches of 4 give roughly 25% as many CI runs at the cost of one extra bisection round on failure, with most teams cutting queue CI bills 50-75%; speculative checks waste CI when an early speculation fails and PRs behind it restart.": 1,
+  "Mergify claims batches of 4 mean roughly 25% as many CI runs, at the cost of one extra bisection round when a batch fails, and that most teams cut queue CI cost by 50 to 75% with batching alone.": 1,
+  "Mergify recommends two-step CI: lightweight checks (lint, unit tests, type check) on the PR and the full expensive suite (E2E, integration) only in the queue.": 1,
+  "Speculative checks in a merge queue run multiple PRs in parallel so per-PR latency drops toward the single-CI floor even at 50+ PRs a day, but waste CI when an early speculation fails and PRs behind it must restart.": 1,
+  "Two-step CI runs lightweight checks (lint, unit tests, type check) on the PR and the full expensive suite (E2E, integration, browser) only in the queue, so full CI cost is paid only for PRs about to land.": 1,
+  "When a PR fails in a merge queue, PRs behind it are automatically re-evaluated because they were being tested against a state that will never exist.": 1
+ }
+}

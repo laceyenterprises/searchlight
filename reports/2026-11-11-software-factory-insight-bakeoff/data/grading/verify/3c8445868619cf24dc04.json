@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "969943b4b079dcf8",
+ "url": "https://www.stratonext.ai/blog/software-factory",
+ "verdicts": {
+  "Stratonext's Local Software Factory (post dated 2026-09-23) defines pipelines as GitHub-Actions-inspired YAML in the repo, gives each request its own git worktree under ~/.sf/worktrees/, and caps failed test/review loops with max_passes before parking for a human.": 1,
+  "Stratonext's factory sets resume: false on the review step so the reviewer starts a fresh session, because a request only reaches done when a separate step (tests, a cold review, or a Jev judgment) says so.": 0
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "a67c1736d4bcb6f5",
+ "url": "https://vercel.com/i/ai-agent-evaluation-frameworks-production",
+ "verdicts": {
+  "Position bias across 21 LLM judges ranged from 0.002 (Gemini 2.5 Pro) to 0.192 (Qwen 3 8B), and same-verdict rates above 95% at temperature 0 fell to as low as 70% at temperature 1.": 1,
+  "Vercel advises starting with the cheapest check that can catch a failure (deterministic assertions, exact match, semantic similarity) and escalating to LLM-as-judge only for judgment calls.": 1
+ }
+}

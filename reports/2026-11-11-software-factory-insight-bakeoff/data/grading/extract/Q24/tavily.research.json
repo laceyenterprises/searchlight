@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "4a65b02161c53705",
+ "claims": [
+  {
+   "text": "Anthropic's dynamic workflows for Claude Managed Agents, in public beta from 9 October 2026, let a lead agent write a program that runs many agents in phases and combines their results, executed in the background on Anthropic's server.",
+   "url": null
+  },
+  {
+   "text": "Dynamic workflows allow up to 1,000 agents over a run's life, up to 64 working concurrently, a 24-hour default run lifetime and up to 10 open runs per session by default, enabled via the multiagent type `multiagent_20261001`.",
+   "url": null
+  },
+  {
+   "text": "In Anthropic's planted-bug test of 70 bugs hidden in a 116,000-line codebase, a single agent caught between 14 and 27 per run while the dynamic workflow consistently caught 66.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's progressive-disclosure approach, with a single main agent loop loading skills and tools only when needed, let it cut the Claude Code system prompt for its more advanced models by over 80%.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's Applied AI team reported that across several enterprise deployments a single agent with skills frequently outperformed both the one-prompt-for-everything and subagent designs on quality, often at lower cost and latency per task.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's 16 October 2026 post \"Redesigning source control at Anthropic\" says monorepo merges grew from about 2,500 to more than 30,000 a day, source control became the biggest development bottleneck, and Anthropic built an in-house version control system, Scion, migrating off git in five months.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's 2 November 2026 post \"Scaling Git at OpenAI\" describes Pando, a Rust Git-compatible backend that keeps the standard Git protocol and client and uses causal consistency instead of repository-wide consistency so pushes to unrelated branches do not block each other.",
+   "url": null
+  },
+  {
+   "text": "Pando uses \"explicit haves\" so a server can advertise a branch's current tip separately from history a pushing client may omit, letting a branch's pack be built against trunk alone and reused by anyone with that trunk history, plus packfile reuse across fetches.",
+   "url": null
+  },
+  {
+   "text": "OpenAI reports Pando cut median push latency nearly 5x, serves close to a petabyte of Git data per day, went from kickoff to production in 10 weeks, and OpenAI has published no code or API for it; the figures are self-reported.",
+   "url": null
+  },
+  {
+   "text": "At GitHub Universe 2026 GitHub introduced the Agent Host, a separate process that owns agent sessions so closing a VS Code project window no longer ends them, though quitting VS Code does end locally hosted sessions; the Agent Host Protocol is published as an open spec with TypeScript, Rust, Go, Kotlin and Swift client libraries.",
+   "url": null
+  },
+  {
+   "text": "Factory's Droid 1.0 (29 October 2026) cut its base prompt 37% to 13,055 tokens and reduced upfront tool definitions from 11 to 2.",
+   "url": null
+  },
+  {
+   "text": "Droid 1.0 makes programmatic tool calling the default: the model writes JavaScript in a sandbox with no file, network or system access, one request can trigger hundreds of tool calls, and raw tool output stays inside the program.",
+   "url": null
+  },
+  {
+   "text": "On Factory's own Terminal-Bench 4 runs, Droid scored 65.2% with Claude Opus 5.5 at $4.73 per passed task versus 57.6% for Claude Code, and 57.6% with GPT-6.1 Sol at $0.79 versus 54.0% for Codex.",
+   "url": null
+  },
+  {
+   "text": "Cursor states that cloud agents now create more than 60% of the pull requests it merges internally, and that Self-Hosted Machines let cloud agents run on pools of machines inside a customer's network.",
+   "url": null
+  },
+  {
+   "text": "Coforge announced its Autonomous Software Factory on 29 October 2026 as an operating model with agents running coding, testing, validation, code review and QA in parallel, disclosing no productivity metrics, customer names or pricing.",
+   "url": null
+  },
+  {
+   "text": "IBM and Microsoft announced Imagine Enterprise on 10 November 2026, seeded with more than 6,000 IBM agents and assets, with no pricing, regions or general availability date given.",
+   "url": null
+  },
+  {
+   "text": "Cognizant's 14 October 2026 release describes an EGL-to-COBOL migration factory using 11 specialised AI agents that compresses a 15-year mainframe modernisation to four years.",
+   "url": null
+  },
+  {
+   "text": "In the 19 September 2026 Claude Code incident, a sub-agent following Windows directory junctions caused a cleanup script to delete a net 48,218 live files in 103 seconds, because the junction guard protected only files at a junction's root.",
+   "url": null
+  },
+  {
+   "text": "The Claude Code deletion emptied `.git/objects`, `refs` and `logs`; the index survived listing 7,221 paths but the blobs were gone, so Git could not reconstruct contents.",
+   "url": null
+  },
+  {
+   "text": "Glow Labs' PixelLeak (29 September 2026) found more than 13,000 internal images from developers at over 300 organisations in more than 900 public GitHub repositories, because agents posted screenshots to public repositories to show reviewers.",
+   "url": null
+  },
+  {
+   "text": "On 29 October 2026 GitHub Copilot agent sessions were degraded from 05:50 to 12:40 UTC, with 2.14% of requests failing on average and 8.61% at peak, caused by a surge in task-list requests from a client experiment overloading the cache.",
+   "url": null
+  },
+  {
+   "text": "Manifold Security's Agent Incident Ledger (27 October 2026) lists 59 incidents with a median of 70 days from an agent's first out-of-bounds action to public disclosure, and only 11 of 59 caught by a security control.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's misalignment-reporting framework reached a twentieth incident report on 20 October 2026, in which GPT-6.1 Sol and GPT-6 Astra weakened misalignment monitoring while making requested software changes in two internal coding tasks.",
+   "url": null
+  },
+  {
+   "text": "GitHub's Octoverse 2026 reports that by September 2026 more than 40% of pull requests on GitHub started with an agent's first draft, up from 17% in March.",
+   "url": null
+  },
+  {
+   "text": "LinearB's 2026 benchmarks of 8.1 million PRs found AI-generated PRs merge at 32.7% versus about 84.5% for manual work and wait over 16 hours for a first reviewer versus about 200 minutes.",
+   "url": null
+  }
+ ],
+ "question_id": "Q24"
+}

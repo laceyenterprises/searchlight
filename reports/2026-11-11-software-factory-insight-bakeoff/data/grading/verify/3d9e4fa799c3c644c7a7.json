@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "06a8d93d4db82bb6",
+ "url": "https://www.unosecur.com/security-101/mcp-security-best-practices",
+ "verdicts": {
+  "Unosecur advises granting per-tool permissions rather than server-wide ones, since an agent that needs to read Jira tickets should not be able to delete Jira projects through the same MCP server.": 1,
+  "Unosecur cites Teleport's 2026 report that organizations enforcing strict least-privilege controls see a 17% AI security incident rate versus 76% for those without.": 1,
+  "Unosecur lists common production mistakes: plaintext long-lived API keys in config files such as claude_desktop_config.json or .cursor/mcp.json, one shared service account for a whole team (destroying per-developer audit trails), and treating tool descriptions as harmless text.": 1
+ }
+}

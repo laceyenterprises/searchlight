@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "0cbacdff82a109e2",
+ "url": "https://www.youtube.com/watch?v=YD4hxzKxiZ8",
+ "verdicts": {
+  "According to a video walkthrough, the Copilot coding agent spins up a new GitHub Actions run on a specific runner (for example an Ubuntu Linux runner), first creates a plan, then makes code changes and validates them through linting and builds.": 0,
+  "In the video walkthrough, external access from the runner requires firewall policies, and only the specifically allowed endpoints are reachable by the coding agent.": 0,
+  "In the video walkthrough, the person who assigned the issue to the coding agent cannot count as an approver: with a two-approver rule, their approval does not count and peer human approvals are required.": 0,
+  "The Actions runner used by the Copilot coding agent is torn down after execution completes and a new runner is used next time, so information pulled in a previous session is gone, which also limits prompt-injection persistence.": 0
+ }
+}

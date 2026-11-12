@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "4b98529a39925995",
+ "url": "https://arxiv.org/html/2605.15229v4",
+ "verdicts": {
+  "In PBT-Bench failure analysis, assume()-based exclusion of triggering inputs and generator ranges missing the trigger region each accounted for 31% of sampled failures; incorrect assertions dominated baseline-prompt failures at 59%.": 1,
+  "PBT-Bench contains 365 injected semantic bugs across 100 Python-library problems; the best single property-based-testing agent reached 83.4% bug recall, and aggregating all sixteen model/prompt configurations reached 99.5% coverage.": 1
+ }
+}

@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "bbe04b803426a4ca",
+ "url": "https://github.com/orgs/community/discussions/177903",
+ "verdicts": {
+  "By default Copilot coding agent provisions GitHub-hosted runners; to use ARC, a repository edits copilot-setup-steps.yml so that runs-on targets the ARC scale set name.": 1,
+  "Copilot coding agent can run its development environment on self-hosted GitHub Actions runners managed by Actions Runner Controller (ARC), allowing agent tasks to reach internal packages, private build tooling, or on-prem services (public preview).": 1,
+  "With self-hosted ARC runners, each task still uses an ephemeral workspace and the existing runner-level security policies (network ACLs, scanning, logging) apply automatically.": 1
+ }
+}

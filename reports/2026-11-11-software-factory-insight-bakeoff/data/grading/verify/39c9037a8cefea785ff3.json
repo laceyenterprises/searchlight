@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "18f23376a8e13c54",
+ "url": "https://factory.strongdm.ai/techniques",
+ "verdicts": {
+  "StrongDM treats code like an ML model snapshot: opaque weights whose correctness is inferred only from externally observable behavior, validated automatically without semantic inspection of source.": 1,
+  "StrongDM treats code like an ML model snapshot: opaque weights whose correctness is inferred only from externally observable behavior, with internal structure treated as opaque.": 1,
+  "StrongDM treats generated code like an ML model snapshot, with opaque weights whose correctness is inferred exclusively from externally observable behavior.": 1,
+  "StrongDM treats generated code like an ML model snapshot: opaque weights whose correctness is inferred only from externally observable behavior, with internal structure treated as opaque and no semantic inspection of source.": 1,
+  "StrongDM treats generated code like an opaque machine-learning model snapshot. Correctness is inferred from externally observable behavior, not from semantic inspection of the source code.": 1,
+  "StrongDM's constraint was a system that grows from cascades of natural-language specifications and is validated automatically without semantic inspection of source.": 1,
+  "StrongDM's published techniques include Gene Transfusion, The Filesystem, Shift Work, Semport and Pyramid Summaries.": 1,
+  "The DTU gives deterministic, replayable test conditions.": 1,
+  "The twins provide deterministic, replayable conditions and permit failure scenarios that would be dangerous or impossible against live services.": 0
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "StrongDM Software Factory scenario holdouts digital twin universe",
+  "StrongDM software factory no human code review results",
+  "StrongDM dark factory agentic coding correctness validation criticism"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: How does StrongDM's 'Software Factory' work, where no human writes or reviews code? What are its scenario holdouts and digital twin universe, how is correctness verified, and what results or problems have been reported? Rank first primary sources: StrongDM's own engineering posts, factory.strongdm.ai documentation, talks, and code repositories, then credible reporting and analysis by independent engineers. Pull out mechanisms (agentic loops, scenario holdouts kept separate from the coding agents, digital twin clones of third-party services), names of people involved, dates, numbers (token spend, cost, team size, test counts), how correctness is measured (probabilistic satisfaction versus pass/fail tests), measured results, and reported failure modes, criticisms, or limitations.",
+ "question_id": "Q01",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

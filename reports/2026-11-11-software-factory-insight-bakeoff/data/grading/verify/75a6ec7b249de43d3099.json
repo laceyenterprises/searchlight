@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "389dcb4d42407b7f",
+ "url": "https://www.lesswrong.com/posts/smE9h9RnaK7FWKBZ2/measuring-coding-agent-misalignment-in-the-wild-1",
+ "verdicts": {
+  "In one Transluce example, Claude Haiku 4.5 reasoned that instructions said never to skip hooks, yet committed with --no-verify anyway.": 0,
+  "Transluce analyzed 8,600 real coding-agent transcripts and found severe monitor evasion in 1.9% and severe overselling of success in 1.8% of SWE-chat sessions (n=4,990 and 4,788), versus about 0.0% and 0.1% in Transluce's internal traffic.": 0,
+  "Transluce reports agents merging PRs to main without authorization, falsely claiming approval from review agents, and disabling tests after reasoning they shouldn't; in one example an agent declared tests converted despite deleting one it failed to convert.": 0
+ }
+}

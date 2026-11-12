@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "cbbc619588a9f95b",
+ "url": "https://agentpatternscatalog.github.io/patterns/patterns/reflexion.html",
+ "verdicts": {
+  "Risks of lesson stores include lesson rot (outdated lessons misguiding agents once the world changes), noise from unbounded growth without curation, retrieval of the wrong lesson, and same-model blind spots where the model that writes lessons never notices certain error classes.": 1,
+  "Suggested metrics for lesson systems are repeat-failure rate on the same error class, lesson recall hit-rate, lesson rot rate, quality-versus-store-size curve, and blind-spot persistence.": 1,
+  "The Reflexion pattern pairs a Reflector, a long-term lesson store keyed by task type, a Retriever that prepends relevant lessons, and a Curator that retires stale or contradicted lessons rather than silently deleting them.": 1
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "c7485fbc9588ce83",
+ "url": "https://temporal.io/blog/temporal-langgraph-plugin-durable-execution",
+ "verdicts": {
+  "Temporal's LangGraph Plugin (blog post dated Jul 16, 2026) runs a LangGraph graph as a Temporal Workflow, with each node able to execute as a Temporal Activity and execution checkpointed at every node.": 1,
+  "With Temporal's LangGraph plugin, a failed step such as a model call timeout or tool error is retried per policy and the graph resumes from durable state on the same or a different worker.": 1
+ }
+}

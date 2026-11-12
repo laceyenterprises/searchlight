@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:07.741088Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 18957,
+   "published": null,
+   "text": "# In-House Coding Agents\n## Executive Summary\nThis report compares **15 documented implementations and enabling frameworks**. Their purposes differ: Stripe automates bounded coding tasks, Meta runs ranking experiments, Cloudflare reviews changes, and Shopify publishes workflow primitives. Treating…",
+   "title": "In-House Coding Agents: Build vs Buy",
+   "url": "https://rywalker.com/research/in-house-coding-agents"
+  },
+  {
+   "chars_delivered": 2557,
+   "published": null,
+   "text": "Stripe’s coding agents merge more than 1,000 pull requests a week. At Uber, more than 70% of pull requests now come from agents. Spotify has merged over 2.5 million automated maintenance PRs.\n\n# How to build an AI agent: from one prompt to a production setup\nStripe’s coding agents merge more than 1…",
+   "title": "How to build an AI agent: from one prompt to a production setup",
+   "url": "https://x.com/undefinedKi/article/2108911763257254302"
+  },
+  {
+   "chars_delivered": 6629,
+   "published": null,
+   "text": "# An engineering leader's guide to background agents\nHow to go from developers running agents locally to a software factory where agent fleets transform your entire SDLC.\n\nGuide based on real lessons from background agent adopters\n\nRamp Ramp\n\n30%\n\nof PRs from agents\n\nSpotify Spotify\n\n1,500+\n\nagent…",
+   "title": "An engineering leader's guide to background agents · Ona",
+   "url": "https://ona.com/guides/background-agents"
+  },
+  {
+   "chars_delivered": 5114,
+   "published": null,
+   "text": "Stripe, Ramp, Spotify, Uber, and Shopify built coding-agent platforms independently and landed on the same shape: cloud execution per task, the real toolchain, closed feedback loops, human merge gates.\n\nOn this page\n\nStripe: the human dev environment was already the sandbox Ramp: full context, fast…",
+   "title": "Five In-House Platforms Converged on the Same Architecture",
+   "url": "https://www.wallfacer.ai/guide/landscape/in-house-convergence/"
+  },
+  {
+   "chars_delivered": 11439,
+   "published": null,
+   "text": "Engineers are not writing every line. They are setting\n\nconstraints, reviewing outcomes, and designing the systems that do the work.\n\n Stripe, Ramp, and Spotify have already built it.\n\nStripe's Minions platform merges over 1,300 agent-generated pull requests per week.\n\nRamp's Inspect agent accounts…",
+   "title": "CONTENTS 1. Executive Summary 2. What Is a Background Agent?",
+   "url": "https://ona.com/files/background_agents_white_paper.pdf"
+  },
+  {
+   "chars_delivered": 9412,
+   "published": null,
+   "text": "# Spotify Honk\nSpotify Honk powers background coding and fleet migrations, with documented verification lessons and commercial availability through Fleetshift in Spotify Portal.\n\nBy Ry Walker, founder of Tembo and Astronomer.\n\nhttps://backstage.spotify.com/fleetshift ↗\n\nRepresent this profile? Clai…",
+   "title": "Spotify Honk",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "chars_delivered": 1799,
+   "published": null,
+   "text": "Spotify reports that AI-assisted development more than doubled monthly merged changes, prompting a review of quality and reliability controls across its engineering organization.\n\n The company describes changes to testing, observability, rollback capacity, workload prioritization, and automated mai…",
+   "title": "Spotify More Than Doubled Monthly Code Changes as AI Accelerated Development - InfoQ",
+   "url": "https://www.infoq.com/news/2026/10/spotify-ai-quality-controls/"
+  },
+  {
+   "chars_delivered": 3367,
+   "published": null,
+   "text": "# Ramp Builds Internal Coding Agent That Powers 30% of Engineering Pull Requests\n#### Follow us on\nRamp has shared the architecture of Inspect. This internal coding agent has quickly reached about 30% adoption for merged pull requests in the company’s frontend and backend repositories. The fintech…",
+   "title": "Ramp Builds Internal Coding Agent That Powers 30% of Engineering Pull Requests - InfoQ",
+   "url": "https://www.infoq.com/news/2026/01/ramp-coding-agent-platform/"
+  },
+  {
+   "chars_delivered": 3262,
+   "published": null,
+   "text": "# Geoff Charles: Ramp's AI Agents Now Handle 93% of Code Reviews\nRamp Chief Product Officer Geoff Charles argues that the AI era has shifted software development's bottleneck from writing code to defining problems and reviewing outputs. In a detailed breakdown of the company's internal \"software fa…",
+   "title": "Geoff Charles: Ramp's AI Agents Now Handle 93% of Code Reviews — BigGo Finance",
+   "url": "https://finance.biggo.com/news/c3421897905ffb7f"
+  },
+  {
+   "chars_delivered": 1555,
+   "published": null,
+   "text": "# How Uber Engineers Use AI Agents\n## The end of hands-on programming as we know it?\nThis approach essentially **positions engineers as** **tech leads directing AI agents**. Developers define the goal, while agents execute parts of the work in the background and return results for review.\n\nUber has…",
+   "title": "How Uber Engineers Use AI Agents - ShiftMag",
+   "url": "https://shiftmag.dev/how-uber-engineers-use-ai-agents-8617/"
+  }
+ ],
+ "latency_ms": 1349.2,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q07",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What have Ramp, Spotify (Honk / Fleet Management), Shopify, Uber, Airbnb or Meta published about their internal background coding agents or fleet-wide automated code migrations? Include architecture, verification approach and measured outcomes.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 72033,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:06.391898Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "d4f4b6b0445c8fb6",
+ "claims": [
+  {
+   "text": "StrongDM's Software Factory is described by CTO Justin McCarthy (post dated February 6, 2026) as non-interactive development where specs plus scenarios drive agents that write code, run harnesses, and converge without human review.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's factory operates under two rules: code must not be written by humans, and code must not be reviewed by humans.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's practical guideline is that if a team has not spent at least $1,000 on tokens today per human engineer, its software factory has room for improvement.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The StrongDM AI team was founded on July 14th, 2025 by Jay Taylor, Navan Chauhan and Justin McCarthy (co-founder and CTO).",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM says the catalyst was the second revision of Claude 3.5 (October 2024), after which long-horizon agentic coding workflows began to compound correctness rather than error; Cursor's YOLO mode made this unmistakable by December 2024.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The StrongDM AI team's charter included the line 'Hands off!', testing how far they could get without writing any code by hand.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "With tests alone, StrongDM's agents took shortcuts: 'return true' passes narrowly written tests but does not generalize to the desired software.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM redefined 'scenario' as an end-to-end user story, often stored outside the codebase like a holdout set in model training, which an LLM can intuitively understand and flexibly validate.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM argues that a test stored in the codebase can be lazily rewritten to match the code, or the code rewritten to trivially pass the test, which motivates storing scenarios outside the codebase.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM replaced boolean success ('the test suite is green') with 'satisfaction': of all observed trajectories through all scenarios, the fraction that likely satisfy the user.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM cites two limits of traditional tests: they are too rigid for software built with LLMs and agent loops (often requiring LLM-as-judge), and they can be reward hacked by the model.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The Digital Twin Universe (DTU) consists of behavioral clones of third-party services, with twins of Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets replicating their APIs, edge cases and observable behaviors.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The DTU lets StrongDM validate at volumes and rates far exceeding production limits, test failure modes dangerous or impossible against live services, and run thousands of scenarios per hour without rate limits, abuse detection or API costs.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM treats generated code like an ML model snapshot: opaque weights whose correctness is inferred only from externally observable behavior, with internal structure treated as opaque and no semantic inspection of source.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "The DTU gives deterministic, replayable test conditions.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "Per Simon Willison, the DTU approach was to feed a service's full public API documentation into the agent harness and have it build an imitation of that API as a self-contained Go binary, with a simplified UI built on top.",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "text": "DTU creator Jay Taylor said the fidelity strategy was to use the top popular publicly available reference SDK client libraries as compatibility targets, always aiming for 100% compatibility.",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's scenario tests became scripts that simulated tester agents constantly execute against the new systems while they are being built.",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "text": "A three-person team (McCarthy, Taylor, Chauhan) built and released Attractor and CXDB (16K lines of Rust, 9.5K of Go, 6.7K of TypeScript) with a minimum token spend of $1,000 per engineer per day, per Blake Crosley citing Willison.",
+   "url": "https://blakecrosley.com/blog/the-dark-factory-verification-layer"
+  },
+  {
+   "text": "Per Blake Crosley, independent agents evaluate generated code against scenarios the coding agent cannot access during generation, and no industry standard exists for what satisfaction score is sufficient; StrongDM reportedly set its threshold empirically.",
+   "url": "https://blakecrosley.com/blog/the-dark-factory-verification-layer"
+  },
+  {
+   "text": "Dbggr reports StrongDM is the only company found stating at a primary source that it currently ships code no human reviews, yet it publishes no defect, incident, customer outcome, satisfaction score, usage or token-bill data.",
+   "url": "https://dbggr.dev/articles/software-factories/"
+  },
+  {
+   "text": "Willison, who saw demos as an invited guest in October 2025, noted that security software is the last thing one would expect to be built with unreviewed LLM code.",
+   "url": "https://dbggr.dev/articles/software-factories/"
+  },
+  {
+   "text": "Eran Kahana of Stanford CodeX criticized StrongDM's satisfaction metric as AI-as-judge, creating circularity: the same class of technology that writes the code decides whether it works, so shared blind spots may be missed by both.",
+   "url": "https://dbggr.dev/articles/software-factories/"
+  },
+  {
+   "text": "In ImpossibleBench, model-based monitors caught 86-89% of cheating on simple coding tasks but only 42-65% on realistic repository tasks, suggesting model judges can miss model cheating.",
+   "url": "https://dbggr.dev/articles/software-factories/"
+  },
+  {
+   "text": "Dex Horthy of HumanLayer reported his team's lights-off factory approach failed (site down in July 2025, rewrite from scratch by November) because passing tests carries no penalty for eroding maintainability, though he admits he cannot prove this and no benchmarks exist for it.",
+   "url": "https://dbggr.dev/articles/software-factories/"
+  }
+ ],
+ "question_id": "Q01"
+}

@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "820d00a486e204d8",
+ "url": "https://innfactory.ai/en/ai-harness/droid/",
+ "verdicts": {
+  "Custom Droids are subagents defined as Markdown files with their own system prompt, model, and tool set, invoked via the Task tool at a chosen complexity level in the foreground or background.": 1,
+  "Droid reads AGENTS.md files for project guidance on architecture, build/test commands, and conventions before making changes.": 1,
+  "Droid runs interactively in a terminal UI with approvals and MCP tools, or non-interactively via droid exec, which carries a single task to completion and returns text, JSON, or stream-jsonrpc output.": 1,
+  "Droid sessions can be resumed with droid --resume or duplicated with /fork, and a Sessions API gives programmatic access to running and completed sessions.": 1,
+  "Droid's Autonomy Level (Off, Low, Medium, High) determines which commands and MCP tools run without asking, and a built-in blocklist prevents certain destructive commands at any level.": 1,
+  "Droid's sandbox checks for read, write, and network access run independently of the Autonomy Level and can force additional approvals; in headless mode droid exec fails fast on permission violations.": 1
+ }
+}

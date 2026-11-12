@@ -1,0 +1,16 @@
+{
+ "capture": "uncapturable",
+ "digest": "14c9468740b70d1c",
+ "url": "https://graphite.com/blog/the-first-stack-aware-merge-queue",
+ "verdicts": {
+  "Graphite added confidence scoring requiring at least 2 consecutive failures before evicting a PR, because flaky tests caused false-positive evictions of good PRs during bisection.": null,
+  "Graphite claims bisection can isolate a failing PR in a 32-PR batch with 5 CI runs instead of 32.": null,
+  "Graphite found GitHub API race conditions when rapidly creating and deleting branches for speculative draft PRs, causing phantom branches and stale CI runs, so it tracks exact SHAs and cleans up orphaned drafts older than 2 hours.": null,
+  "Graphite found that CI runs taking 10 minutes for single PRs took 45+ minutes for large batches, requiring timeouts that scale with bisection depth (log2 of stack count) and flaky-test retries.": null,
+  "Graphite reports 74% lower median time between merges at Ramp, 7 hours saved per engineer per week and 21% more code shipped at Asana, and projected 15-25% CI cost savings at Shopify (vendor-reported figures).": null,
+  "Graphite says a single queue processing 200+ PRs/day on a monorepo becomes a bottleneck, so it partitions queues by file pattern with per-partition concurrency limits.": null,
+  "Graphite says traditional PR-centric merge queues treat each PR in a stack independently, so a five-PR stack needs a fresh rebase and CI run per PR, and a failure at PR #3 forces eviction and re-testing of PRs #4 and #5.": null,
+  "Graphite uses N-sect (parallel draft PRs for all stacks) when there are 8 or fewer stacks or a historical failure rate above 30%, and bisect (binary search) for larger batches expecting few failures.": null,
+  "Graphite's stack-aware queue runs CI once on the top-most PR of a stack (which contains all changes), then fast-forward merges all PRs in the stack if it passes, instead of one CI run per PR.": null
+ }
+}

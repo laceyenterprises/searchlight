@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:04.217545Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 950,
+   "page_chars_delivered": 5098,
+   "post_step": "fetched",
+   "published": "2026-04-15",
+   "text": "* [Blog](https://cognition.com/blog)\n* [Get a Demo](https://cognition.com/demo)\n\n[Devin](https://devin.ai/)\n\n# Devin in Windsurf\n\nBy The Cognition Team 2026\\.04.15\n\nDevin in Windsurf\n\n...\n\nThe ceiling on a local agent is your attention.\n\nDevin is a cloud agent. It runs in its own infrastructure and…",
+   "title": "Devin in Windsurf | Cognition",
+   "url": "https://cognition.com/blog/devin-in-windsurf"
+  },
+  {
+   "chars_delivered": 967,
+   "page_chars_delivered": 7836,
+   "post_step": "fetched",
+   "published": "2025-01-14",
+   "text": "By The Crossmint Team 2025\\.01.14\n\n[Crossmint](https://www.crossmint.com/) provides developer tools that help companies bring their applications, projects, and agents onchain.\n\n...\n\nDuring our initial trial, Devin quickly became our #1 contributor by PR count (it merged 8 PRs, with the next contrib…",
+   "title": "Scaling Open Source Development of GOAT with Devin: A Crossmint Case Study",
+   "url": "https://cognition.com/blog/crossmint-devin"
+  },
+  {
+   "chars_delivered": 991,
+   "page_chars_delivered": 11344,
+   "post_step": "fetched",
+   "published": "2026-04-23",
+   "text": "* [Blog](https://cognition.ai/blog)\n* [Get a Demo](https://cognition.ai/demo)\n\n[Devin](https://devin.ai/)\n\n# What We Learned Building Cloud Agents\n\nBy The Cognition Team 2026\\.04.23\n\n...\n\n### **A shared kernel is a security threat**\n\nContainerized agents share a kernel, which means one compromised…",
+   "title": "What We Learned Building Cloud Agents | Cognition",
+   "url": "https://cognition.ai/blog/what-we-learned-building-cloud-agents"
+  },
+  {
+   "chars_delivered": 935,
+   "published": "2026-05-29",
+   "text": "From [validating our Slack integration](https://x.com/walden_yan/status/2012351454699532502?s=46) to testing complex Windsurf features, the team always has an army of Devins in test mode.\n\n...\n\nWe hit plenty of failure modes along the way that each taught us something about what it takes to make th…",
+   "title": "Verifying Agentic Development at Scale | Cognition",
+   "url": "https://cognition.com/blog/testing-development"
+  },
+  {
+   "chars_delivered": 944,
+   "published": null,
+   "text": "Users systematically under-specify tasks. They have context the agent doesn’t. The agent has to clarify, ask the right questions back, and infer intent correctly, because a wrong starting point means the entire trajectory goes off course.\n\n...\n\nBefore today’s frontier models, the primary failure mo…",
+   "title": "Cognition Claude Platform (API) case study | Claude by Anthropic",
+   "url": "https://claude.com/customers/cognition"
+  },
+  {
+   "chars_delivered": 961,
+   "published": "2025-11-14",
+   "text": "Eighteen months after launch, Devin’s gone from tackling small projects, to working in engineering teams at thousands of companies, including Goldman Sachs, Santander, and Nubank.\n\nDevin's now merged **hundreds of thousands of PRs** .\n\nAt this point, Devin's well past due for a performance review -…",
+   "title": "Devin's 2025 Performance Review: Learnings From 18 Months of Agents At Work",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "chars_delivered": 944,
+   "published": null,
+   "text": "Users systematically under-specify tasks. They have context the agent doesn’t. The agent has to clarify, ask the right questions back, and infer intent correctly, because a wrong starting point means the entire trajectory goes off course.\n\n...\n\nBefore today’s frontier models, the primary failure mo…",
+   "title": "Cognition Claude Platform (API) case study | Claude by Anthropic",
+   "url": "https://claude.com/customers/cognition?fcdaa149_sort_date=desc&lang=pt-br&wtime=%7Bseek_to_second_number%7D"
+  },
+  {
+   "chars_delivered": 948,
+   "published": "2026-02-27",
+   "text": "We use this constantly for scoping work before starting sessions. The workflow: use Ask Devin to explore the code and clarify a goal, then start a session directly from the search interface.\n\n...\n\nWe automated that entire triage step.\n\nWe set up a !triage-bug playbook that captures how our engineer…",
+   "title": "How Cognition Uses Devin to Build Devin | Cognition",
+   "url": "https://cognition.ai/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "chars_delivered": 936,
+   "published": null,
+   "text": "Cascade\n\n# Cascade Overview\n\nCopy page Copy page\n\nCascade is Devin Desktop’s agentic AI assistant with Code/Chat modes, tool calling, voice input, checkpoints, real-time awareness, and linter\n\n...\n\n# ​\n\nCascade Code / Cascade Chat\n\nCascade comes in two primary modes: **Code** and **Chat** . Code mo…",
+   "title": "Devin Desktop - Cascade",
+   "url": "https://docs.windsurf.com/windsurf/cascade/cascade"
+  },
+  {
+   "chars_delivered": 980,
+   "published": null,
+   "text": "> Onboard Devin with Knowledge: share tips, docs, and instructions Devin recalls across sessions, scoped to repos, your organization, or your enterprise.\n\n> [!WARNING]\n>\n> Knowledge is deprecated and will be removed in a future update. Existing Knowledge is being migrated to [Skills in Plugins](htt…",
+   "title": "Knowledge",
+   "url": "https://docs.devin.ai/product-guides/knowledge"
+  }
+ ],
+ "latency_ms": 2999.1,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q03",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "How do Cognition's Devin and Windsurf run long autonomous coding sessions (sandbox, planning, sessions, knowledge, playbooks)? What do published customer case studies report about merge rates and failure modes? Rank first primary sources: Cognition's own engineering blog posts, Devin and Windsurf documentation, talks, and credible reporting, plus customer case studies (e.g. Goldman Sachs, Nubank, Citi). Extract mechanisms (cloud sandbox/VM, planning, session management, Knowledge, Playbooks, Devin Wiki/Search, Cascade agent), numbers, names, dates, measured PR merge rates, and documented failure modes and limitations.",
+   "search_queries": [
+    "Cognition Devin PR merge rate case study",
+    "Devin playbooks knowledge sandbox long-running sessions docs",
+    "Cognition Devin Windsurf Cascade autonomous agent failure modes"
+   ],
+   "session_id": "sl-parallel.search-Q03-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11794,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:01.218424Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

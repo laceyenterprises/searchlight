@@ -1,0 +1,405 @@
+{
+ "digest": "888caa6c40747938",
+ "values": {
+  "Q06-k1": {
+   "position": 34,
+   "reason": "1,300+ fully agent-written merged PRs per week, with a growth trend, is the key measured scale result.",
+   "score": 3
+  },
+  "Q06-k100": {
+   "position": 57,
+   "reason": "A summary of the lint and two-round CI strategy already covered by k1 and k5.",
+   "score": 1
+  },
+  "Q06-k101": {
+   "position": 31,
+   "reason": "Isolating devboxes from production and the internet is a concrete sandbox security boundary.",
+   "score": 2
+  },
+  "Q06-k102": {
+   "position": 67,
+   "reason": "Lists the parallelizable, predictable and isolated requirements for the environment, which is fairly generic.",
+   "score": 1
+  },
+  "Q06-k103": {
+   "position": 3,
+   "reason": "Mandatory human review contrasts with the reader's autonomous merge, but k7 states this more usefully.",
+   "score": 1
+  },
+  "Q06-k104": {
+   "position": 21,
+   "reason": "This duplicates the invocation-surface findings.",
+   "score": 1
+  },
+  "Q06-k105": {
+   "position": 22,
+   "reason": "The tool count growth from 400 to about 500 is a minor metric.",
+   "score": 1
+  },
+  "Q06-k107": {
+   "position": 49,
+   "reason": "Homegrown libraries absent from training data motivate scoped rules, but this is mostly context.",
+   "score": 1
+  },
+  "Q06-k108": {
+   "position": 55,
+   "reason": "A 10-second spin-up to a warm multi-repo checkout ready to test is a measured result that could change how the reader provisions worker environments.",
+   "score": 3
+  },
+  "Q06-k109": {
+   "position": 40,
+   "reason": "The kinds of data Toolshed fetches are minor corroboration, with an older tool count.",
+   "score": 1
+  },
+  "Q06-k110": {
+   "position": 47,
+   "reason": "That agents struggle with conventions without guidance is a fairly generic claim.",
+   "score": 1
+  },
+  "Q06-k111": {
+   "position": 39,
+   "reason": "Payment volume and language stack are context, not design.",
+   "score": 1
+  },
+  "Q06-k112": {
+   "position": 58,
+   "reason": "States that worktrees would not scale at Stripe and isolated devboxes were chosen instead, which is a relevant architecture tradeoff but repeated in k23.",
+   "score": 2
+  },
+  "Q06-k115": {
+   "position": 41,
+   "reason": "Node labels and wide agent latitude are minor elaboration.",
+   "score": 1
+  },
+  "Q06-k116": {
+   "position": 10,
+   "reason": "This restates the deterministic/agentic token and reliability rationale already given in k3.",
+   "score": 1
+  },
+  "Q06-k117": {
+   "position": 59,
+   "reason": "A specific design rule that the system, not the agent, enforces lint, though it is implied by the blueprint findings.",
+   "score": 1
+  },
+  "Q06-k118": {
+   "position": 54,
+   "reason": "A measured sub-5-second local lint gate before CI is a concrete latency target that justifies shifting checks left.",
+   "score": 2
+  },
+  "Q06-k119": {
+   "position": 61,
+   "reason": "Duplicates the autofix-on-push detail stated in k1, k2 and k4.",
+   "score": 1
+  },
+  "Q06-k120": {
+   "position": 18,
+   "reason": "Routing non-autofixable failures back to an agent node for one local retry is a specific control-flow detail.",
+   "score": 2
+  },
+  "Q06-k121": {
+   "position": 74,
+   "reason": "The no-human-code North Star, with partial runs as useful starting points, is a soft framing claim.",
+   "score": 1
+  },
+  "Q06-k123": {
+   "position": 14,
+   "reason": "The build-in-house rationale is context with little architectural impact for the reader.",
+   "score": 1
+  },
+  "Q06-k128": {
+   "position": 52,
+   "reason": "Gives the specific reasoning against worktrees and containers, and notes that agents reuse a pre-existing one-devbox-per-task human pattern, which informs sandbox design.",
+   "score": 2
+  },
+  "Q06-k129": {
+   "position": 19,
+   "reason": "Using the Slack thread and its links as context is a minor input detail.",
+   "score": 1
+  },
+  "Q06-k131": {
+   "position": 44,
+   "reason": "Saying agents do better with fewer curated tools corroborates k29 and k37.",
+   "score": 1
+  },
+  "Q06-k134": {
+   "position": 6,
+   "reason": "Naming human review as the throughput bottleneck is a concrete failure mode that supports the reader's investment in autonomous review and merge.",
+   "score": 2
+  },
+  "Q06-k135": {
+   "position": 71,
+   "reason": "Notes skepticism about the absence of example PRs and the likely share of low-hanging-fruit work, a useful caveat on volume claims but minor.",
+   "score": 1
+  },
+  "Q06-k14": {
+   "position": 4,
+   "reason": "Narrowing success to well-defined small tasks puts the volume numbers in context and informs which work to dispatch.",
+   "score": 2
+  },
+  "Q06-k18": {
+   "position": 42,
+   "reason": "This duplicates the two-round CI cap in k28.",
+   "score": 1
+  },
+  "Q06-k19": {
+   "position": 64,
+   "reason": "Repeats the selective-test detail found in k4.",
+   "score": 1
+  },
+  "Q06-k21": {
+   "position": 29,
+   "reason": "This duplicates the warm-pool detail in k24 and k31.",
+   "score": 1
+  },
+  "Q06-k23": {
+   "position": 43,
+   "reason": "This is a high-level overview with one-shot framing and little specific detail.",
+   "score": 1
+  },
+  "Q06-k24": {
+   "position": 32,
+   "reason": "This duplicates the Goose fork fact.",
+   "score": 1
+  },
+  "Q06-k25": {
+   "position": 7,
+   "reason": "It specifies the exact handoff boundary (branch, CI, templated PR, human opens it), a useful design detail for comparing pipelines.",
+   "score": 2
+  },
+  "Q06-k26": {
+   "position": 69,
+   "reason": "Gives the rationale for capping CI at two rounds (diminishing returns against token, compute and time cost), which helps the reader set its own retry budgets.",
+   "score": 2
+  },
+  "Q06-k28": {
+   "position": 20,
+   "reason": "A sub-5-second heuristic lint selection on push is a specific fast-feedback design worth emulating.",
+   "score": 2
+  },
+  "Q06-k30": {
+   "position": 16,
+   "reason": "One devbox per task corroborates k16 and adds little.",
+   "score": 1
+  },
+  "Q06-k31": {
+   "position": 62,
+   "reason": "Specific isolation boundaries (QA environment, no real user data, no production access, no arbitrary egress) that enable full-permission agents are directly applicable to the reader's governed dispatch.",
+   "score": 3
+  },
+  "Q06-k33": {
+   "position": 76,
+   "reason": "The constraint that unattended harnesses cannot rely on interruptibility or human steering is a design consideration, though fairly expected.",
+   "score": 1
+  },
+  "Q06-k40": {
+   "position": 75,
+   "reason": "Blueprints as code-defined workflows mixing deterministic and agent-loop nodes is the core architectural pattern and relevant to generalizing the reader's platform.",
+   "score": 2
+  },
+  "Q06-k41": {
+   "position": 66,
+   "reason": "Names concrete agent nodes versus deterministic nodes in the state machine, a specific design detail that maps onto the reader's DAG of tickets.",
+   "score": 2
+  },
+  "Q06-k42": {
+   "position": 2,
+   "reason": "It gives a concrete cost and reliability rationale for hard-coding foreseeable steps, which bears on how build-pack DAG nodes are typed.",
+   "score": 2
+  },
+  "Q06-k43": {
+   "position": 26,
+   "reason": "Looping lint locally before push, with a caching daemon for sub-second fixes, is a specific technique to raise first-pass CI success.",
+   "score": 2
+  },
+  "Q06-k44": {
+   "position": 13,
+   "reason": "Over three million tests that cannot run locally explain the single full-CI iteration, a concrete local-versus-CI validation split.",
+   "score": 2
+  },
+  "Q06-k45": {
+   "position": 51,
+   "reason": "Restates the two-round CI escalation policy already captured in k1, so it only corroborates.",
+   "score": 1
+  },
+  "Q06-k46": {
+   "position": 70,
+   "reason": "Generic restatement of the quarantine-plus-permissions idea.",
+   "score": 1
+  },
+  "Q06-k47": {
+   "position": 0,
+   "reason": "This is a harness provenance detail that is repeated more fully in k26, so it adds little.",
+   "score": 1
+  },
+  "Q06-k48": {
+   "position": 45,
+   "reason": "Example node types duplicate other blueprint findings.",
+   "score": 1
+  },
+  "Q06-k49": {
+   "position": 28,
+   "reason": "Curated per-agent tool subsets from a large registry is a relevant design detail, though it overlaps k37 and k45.",
+   "score": 2
+  },
+  "Q06-k50": {
+   "position": 27,
+   "reason": "The hard cap of two CI rounds before human handoff is a specific, adoptable bound on agent retry loops.",
+   "score": 3
+  },
+  "Q06-k51": {
+   "position": 78,
+   "reason": "1,300+ merged PRs per week is the key measured volume figure the question asks for and benchmarks the reader's fleet.",
+   "score": 3
+  },
+  "Q06-k52": {
+   "position": 33,
+   "reason": "Over 1,000 fully minion-produced merged PRs per week is a concrete volume baseline, superseded by k35.",
+   "score": 2
+  },
+  "Q06-k53": {
+   "position": 35,
+   "reason": "Using blast-radius containment to justify full permissions with no confirmation prompts is a decisive design trade-off for unattended workers.",
+   "score": 3
+  },
+  "Q06-k70": {
+   "position": 9,
+   "reason": "Defining the devbox as an EC2 instance with code and services, shared with human SSH workflows, is a concrete sandbox design detail.",
+   "score": 2
+  },
+  "Q06-k71": {
+   "position": 30,
+   "reason": "This restates k24's warm-pool specifics.",
+   "score": 1
+  },
+  "Q06-k72": {
+   "position": 25,
+   "reason": "A harness forked for unattended use that drops interruptibility is a specific design choice for headless workers.",
+   "score": 2
+  },
+  "Q06-k73": {
+   "position": 5,
+   "reason": "Team-authored blueprints for LLM-assisted migrations are a concrete extensibility model relevant to a general-purpose platform.",
+   "score": 2
+  },
+  "Q06-k74": {
+   "position": 68,
+   "reason": "Deterministically running MCP tools on likely links to pre-hydrate context before the agent starts is a specific, novel design the reader could adopt.",
+   "score": 2
+  },
+  "Q06-k75": {
+   "position": 37,
+   "reason": "Scoping rules to subdirectories and file patterns because global rules overflow context bears directly on how the reader injects scar memory into prompts.",
+   "score": 3
+  },
+  "Q06-k76": {
+   "position": 36,
+   "reason": "A small task-relevant default tool subset largely corroborates k29.",
+   "score": 1
+  },
+  "Q06-k77": {
+   "position": 77,
+   "reason": "Mentions an internal security control framework for MCP tools without specifics, so it is mostly generic.",
+   "score": 1
+  },
+  "Q06-k78": {
+   "position": 46,
+   "reason": "Codebase scale and stack are context only.",
+   "score": 1
+  },
+  "Q06-k79": {
+   "position": 23,
+   "reason": "A 10-second warm-pool target with pre-cloned repos, warmed caches and running codegen is a concrete, measurable dispatch-latency design that could change the reader's worker provisioning.",
+   "score": 3
+  },
+  "Q06-k80": {
+   "position": 79,
+   "reason": "Cattle-not-pets devboxes at about one per task, with around six per engineer, is a useful operational detail but largely corroborating.",
+   "score": 1
+  },
+  "Q06-k81": {
+   "position": 17,
+   "reason": "Reusing pre-existing human dev infrastructure as the agent sandbox is a notable design insight for platform builders.",
+   "score": 2
+  },
+  "Q06-k82": {
+   "position": 72,
+   "reason": "Combines internet and production isolation with the worktree scaling point, mostly corroborating k9 and k13.",
+   "score": 1
+  },
+  "Q06-k83": {
+   "position": 48,
+   "reason": "Defining blueprints as code-based state machines interleaving node types is a concrete orchestration model comparable to the reader's DAGs.",
+   "score": 2
+  },
+  "Q06-k84": {
+   "position": 56,
+   "reason": "Explains why small decisions are encoded deterministically (token and CI cost, fewer model error opportunities), a principle that could reshape how the reader builds DAG steps.",
+   "score": 2
+  },
+  "Q06-k85": {
+   "position": 73,
+   "reason": "A background daemon that caches lint results so lint fixes can loop locally before pushing is a specific mechanism that enables the fast pre-CI gate.",
+   "score": 2
+  },
+  "Q06-k86": {
+   "position": 53,
+   "reason": "Selective test runs from a 3M+ battery plus auto-applied autofixes is a useful detail, but it largely overlaps other CI findings.",
+   "score": 1
+  },
+  "Q06-k87": {
+   "position": 50,
+   "reason": "Concrete bounded-retry CI policy (autofix, one agent repair, then hand back to a human) is a specific design that could reshape the reader's merge and repair loop.",
+   "score": 3
+  },
+  "Q06-k88": {
+   "position": 38,
+   "reason": "Capping CI rounds explicitly as a cost-versus-completeness trade-off clarifies how to set retry budgets.",
+   "score": 2
+  },
+  "Q06-k89": {
+   "position": 12,
+   "reason": "The list of invocation surfaces is minor.",
+   "score": 1
+  },
+  "Q06-k90": {
+   "position": 8,
+   "reason": "This mostly duplicates k8 and k7 on human review and follow-up instructions.",
+   "score": 1
+  },
+  "Q06-k91": {
+   "position": 60,
+   "reason": "Scale and codebase context (hundreds of millions of lines, Ruby with Sorbet) adds background but does not drive an architecture decision.",
+   "score": 1
+  },
+  "Q06-k93": {
+   "position": 1,
+   "reason": "Parallel use for on-call cleanup is a minor usage pattern, not an architecture driver.",
+   "score": 1
+  },
+  "Q06-k94": {
+   "position": 15,
+   "reason": "Naming parallelizability, predictability and isolation as the sandbox requirements gives a useful checklist for worker environments.",
+   "score": 2
+  },
+  "Q06-k95": {
+   "position": 65,
+   "reason": "Corroborates that quarantining enables full permissions, already covered more specifically in k13.",
+   "score": 1
+  },
+  "Q06-k96": {
+   "position": 11,
+   "reason": "Framing deterministic nodes as constraints the AI may not decide is a specific design principle for workflow nodes.",
+   "score": 2
+  },
+  "Q06-k97": {
+   "position": 24,
+   "reason": "Enforcing test validation in the harness rather than asking the model is a key reliability design principle.",
+   "score": 2
+  },
+  "Q06-k99": {
+   "position": 63,
+   "reason": "Confirms that test validation comes before human review and merge, which contrasts with the reader's autonomous merge but adds little new.",
+   "score": 1
+  }
+ }
+}

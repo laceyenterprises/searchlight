@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "574df161e5dfd637",
+ "claims": [
+  {
+   "text": "Spotify has merged more than 2.5 million automated maintenance PRs via Fleet Management, the vast majority auto-merged with no human in the loop.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify's Honk background coding agent runs Claude using the Agent SDK, wrapped inside Spotify's own harness and deployed in Kubernetes pods so many sessions can be scheduled concurrently.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Honk has access to a set of trusted tools, including the ability to run builds in Spotify's CI environment across multiple operating systems to verify its changes are correct.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify's most recent Java migration across its backend services took three days using Fleet Management and Honk.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify states that migrations that used to take hundreds of teams weeks or months can now be done by a single engineer in a few days.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify built Fleet Management (executed by a system called Fleetshift) after noticing its production codebase was growing seven times faster than the number of engineers, with migrations the top source of developer frustration.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Fleet Management's deterministic scripts hit breaking point on complex changes such as replacing API calls and refactoring usage patterns, which motivated using an LLM-based agent (Honk) for code modifications.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "In the Fleet Management integration, Fleetshift handles orchestration (identifying targets, scheduling changes, tracking progress) while Honk performs the actual code modifications.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify reports more than 99% of engineers use AI coding tools weekly, 94% report higher productivity, and pull request frequency rose 76%.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify says agent performance is measurably worse in its more fragmented codebases, and that consistent code (e.g., standardized backend services) lets Claude perform significantly better.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify uses Soundcheck and golden state standards combined with static analysis and linting as guardrails, so the agent gets immediate lint feedback and self-corrects when using non-optimal patterns.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify exposes Backstage capabilities (component ownership, documentation, contacting the owning team on Slack) to agents as MCPs and command-line tools.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Honk is available over Slack, and Honk v2 adds shared multiplayer agent sessions, team projects, and orchestration through Chirp.",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "In a Honk dataset-migration case study, Spotify needed to migrate about 1,800 direct downstream data pipelines in six months across three frameworks (BigQuery Runner, dbt, and Scala-based Scio), estimated at about 10 engineering weeks if done manually.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "Spotify rolled out 240 automated migration PRs via Fleetshift for the dataset migration, saving an estimated 10 engineering weeks.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "Spotify used Backstage endpoint lineage and Codesearch plugins to identify downstream consumers and target repositories for the dataset migration.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "At the time of the dataset migration, Honk had no access to Claude skills or custom configurability, a deliberate guardrail, so prompts had to be fully comprehensive since the agent could not use MCPs or read external docs.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "Spotify dropped Scio migrations in this effort because pipelines varied too much between teams to write a comprehensive prompt, while the more standardized dbt and BigQuery Runner pipelines worked.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "A context file generated by having Claude repurpose a human migration guide was insufficient and led Honk to make incorrect field-mapping assumptions; making mappings explicit in tables fixed this.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "Spotify instructed Honk to leave fields needing judgment calls unchanged and add comments linking to human migration guides for reviewers.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "BigQuery Runner and dbt repositories rarely had build-time unit tests, so Honk's verify-and-adjust loop was unavailable and owning teams had to manually test the automated PRs before merging.",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "Spotify identifies the most serious failure mode of background agents as a PR that passes CI but is functionally incorrect, because it erodes trust; failing to produce a PR is a minor annoyance.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify's Honk verification loops include an LLM judge that receives the proposed diff and the original prompt for evaluation.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Ramp's Inspect background coding agent runs each session in a Modal Sandbox with a full-stack dev environment (Postgres, Redis, Temporal, RabbitMQ) and integrates with Sentry, Datadog, LaunchDarkly and Temporal to verify its own work; it now writes over half of merged PRs at Ramp.",
+   "url": "https://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal"
+  },
+  {
+   "text": "Shopify's Helix migrates React Native screens to Swift/Kotlin in small checkpoints, each passing four gates in order: CLI behavior tests, a Gemini-based UI visual review against the reference app, two context-isolated adversarial code reviewer agents that must both approve, and engineer approval.",
+   "url": "https://shopify.engineering/helix"
+  }
+ ],
+ "question_id": "Q07"
+}

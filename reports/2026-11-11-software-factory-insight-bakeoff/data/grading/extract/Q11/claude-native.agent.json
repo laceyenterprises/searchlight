@@ -1,0 +1,39 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "8790a02391d7f236",
+ "claims": [
+  {
+   "text": "DBOS is a library whose only dependency is Postgres; it checkpoints each step and resumes workflows from the last completed step.",
+   "url": null
+  },
+  {
+   "text": "DBOS requires workflow functions to be deterministic and steps to be idempotent.",
+   "url": null
+  },
+  {
+   "text": "DBOS estimates about 1,000 workflows or steps per second per Postgres vCPU.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Agent Harness, announced Aug 20 2026, makes every agent a Temporal Workflow.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Agent Harness inserts a policy seam that can pause execution for human approval.",
+   "url": null
+  },
+  {
+   "text": "Temporal describes the Agent Harness as earlier than public preview.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK integration with Temporal's Python SDK became generally available on March 23 2026.",
+   "url": null
+  },
+  {
+   "text": "Ramp's Inspect background coding agent runs in Modal sandboxes whose full-stack environment includes Temporal.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

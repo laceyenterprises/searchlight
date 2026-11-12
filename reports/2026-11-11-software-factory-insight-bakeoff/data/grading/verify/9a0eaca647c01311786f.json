@@ -1,0 +1,26 @@
+{
+ "capture": "captured",
+ "digest": "759e2395c9d27609",
+ "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount",
+ "verdicts": {
+  "Augment Code recommends spend per merged change as the unit: total fleet spend (provider consumption and service fees) plus supervision hours at a loaded rate, divided by agent-attributed changes merged in the period; use spend per completed task for fleets that do not merge.": 1,
+  "Augment bills usage at the provider's public API list price plus a flat 40% service fee on model inference with no fee on compute; the Standard plan is $20/month with $20 usage included and Business is $100/month with $100 included, both pooling up to 50 seats.": 1,
+  "Augment recommends a pooled monthly platform ceiling owned by the VP Engineering with finance, spend tiers with manager sign-off on upgrades, and a cheaper default model for well-defined subagent tasks with manual override for frontier reasoning.": 1,
+  "Augment recommends against hard monthly token caps and token budgets for finance, preferring tiers, alerts before the ceiling, and manager sign-off, and warns that ranking engineers by token spend ('tokenmaxxing') rewards agent overhead.": 1,
+  "Augment recommends chargeback or showback by gate owner (the review lead holding a service's merge gate), and warns that ranking engineers by token consumption (a leaderboard, 'tokenmaxxing') rewards agent overhead rather than merged changes.": 1,
+  "Augment's Cosmos routes each conversational turn to a model through Prism at 20 to 30% lower cost per task while preserving frontier quality.": 1,
+  "Augment's budget model has three components: fleet spend (owned by the platform engineering lead), supervision hours (owned by the review/gate lead), and a platform ceiling of included allowance plus approved top-ups (owned by the VP Engineering with finance).": 1,
+  "Augment's recommended unit metric is spend per merged change: total fleet spend (provider consumption plus service fees) plus supervision hours costed at a loaded rate, divided by agent-attributed changes merged in the period; spend per completed task is used where no merge occurs.": 1,
+  "Between February and mid-August 2026, Uber's weekly active users across agentic tools grew 7x and weekly agent requests grew 9.4x, while total AI spend stayed relatively flat from April onward.": 1,
+  "Cosmos routes each conversational turn to a model through Prism at 20 to 30% lower cost per task while preserving frontier quality.": 1,
+  "Devin Enterprise bills in Agent Compute Units; Cognition flags sessions sized Large or Extra Large as unhealthy, starting above 10 ACUs on the standard scale and above 100 on the Enterprise scale.": 1,
+  "GitHub prices its Copilot cloud agent at $0.01 per AI credit (set by model and tokens consumed) plus Actions minutes, while legacy annual Pro/Pro+ subscribers consume one premium request per session.": 1,
+  "Holding one model constant from February to July, Uber's cost per 1,000 model requests fell almost 34% from its peak and cost per session fell 52% from its June peak (self-reported, one company and one monorepo environment).": 1,
+  "In an August 2025 internal survey, more than half of 132 Anthropic engineers and researchers said they can fully delegate only 0 to 20% of their work to Claude.": 1,
+  "Uber attributes more than 70% of its pull requests to local or cloud agents, and argues that optimizing a fleet of specialized managed agents with dedicated benchmarks is more cost-effective and scalable than optimizing individual terminal sessions.": 1,
+  "Uber nudges engineers in Slack at 50, 80, and 100% of expected spend, shows a live cost counter in each interactive tool's status line, uses one shared spend tier across interactive tools plus a separate tier for hosted fleet work, and requires manager approval for tier upgrades.": 1,
+  "Uber's engineering team decomposes agent spend into six multiplying terms: users, sessions per user, turns per session, requests per turn, tokens per request, and price per token.": 1,
+  "Uber's engineering team decomposes total agent spend into six multiplicative terms: users, sessions per user, turns per session, requests per turn, tokens per request, and price per token.": 1,
+  "Uber's session-analysis dashboard flags 16 distinct anti-patterns, each paired with a financial impact and a remediation, including multi-turn sessions run on a frontier model when a smaller one would do.": 1
+ }
+}

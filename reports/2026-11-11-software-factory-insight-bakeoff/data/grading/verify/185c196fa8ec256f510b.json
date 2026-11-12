@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "48fe608eb0c1605c",
+ "url": "https://alatirok.com/durable-execution-ai-agents-compared/",
+ "verdicts": {
+  "DBOS writes a workflow_status row as PENDING with inputs, stores each step output in an operation_outputs table, and on restart resumes PENDING workflows from the last completed step.": 1,
+  "DBOS's @DBOS.step() decorator takes retriesAllowed, intervalSeconds, and maxAttempts, making retry policy per-step and declarative.": 1
+ }
+}

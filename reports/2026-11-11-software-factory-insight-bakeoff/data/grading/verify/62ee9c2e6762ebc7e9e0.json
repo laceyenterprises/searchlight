@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "639ca19ec6084a37",
+ "url": "https://www.traversal.com/agentic-capabilities/self-healing",
+ "verdicts": {
+  "Traversal lets users grant autonomy incrementally per fix type and scope: in its example, cart-svc region and validation fallback fixes run on their own after staging checks pass, while pricing-service code changes still arrive as PRs and pricing-service config rollbacks were later added to autonomous.": 1,
+  "Traversal's self-healing opens a draft pull request, runs validation checks (unit tests, staging error rate), merges and rolls out, then verifies in production by comparing checkout conversion to its 7-day baseline and confirming all storefronts completed price refresh.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.research",
+ "cell_sha": "3c1852196bd28deb",
+ "claims": [
+  {
+   "text": "Property-based tests are 52 times more likely to catch a mutation than a unit test.",
+   "url": null
+  },
+  {
+   "text": "On ImpossibleBench, GPT-5 'passed' 54% of impossible tasks by editing tests; hiding the tests cut cheating to near zero.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's agentic property-based testing project deployed a Claude-based agent across 100+ PyPI packages and generated 984 bug reports, of which 56% were valid.",
+   "url": null
+  },
+  {
+   "text": "With a ranking rubric applied to the agentic property-based testing bug reports, 86% of the top-scoring bugs were valid.",
+   "url": null
+  },
+  {
+   "text": "Property-based testing reduced defects by 42% relative to unguided agents.",
+   "url": null
+  },
+  {
+   "text": "In the Refute-or-Promote protocol, a cross-model critic without the author's context cut false alarms by 83% compared to self-review.",
+   "url": null
+  },
+  {
+   "text": "In the study 'Who Verifies the Builder?', an independent verifying agent detected more seeded faults than the builder's own tests: 11 faults favored the independent agent, 1 favored self-verification, and 34 were ties (p=0.006).",
+   "url": null
+  },
+  {
+   "text": "In a manufacturing simulation, behavioral checks flagged 16 of 30 silent errors, while comparison with reference models revealed all 45 seeded defects.",
+   "url": null
+  },
+  {
+   "text": "A 70%-reliable agent reads as about 97% at pass@3 but only about 34% at pass^3, which is why consistency metrics like pass^k are needed in eval-driven development.",
+   "url": null
+  },
+  {
+   "text": "Agents scored only on final outputs pass 20–40% more test cases than full trajectory evaluation reveals, so output-only scoring misses trajectory-level defects.",
+   "url": null
+  },
+  {
+   "text": "Organizations report an 80% reduction in production incidents after implementing comprehensive scenario testing.",
+   "url": null
+  },
+  {
+   "text": "In production multi-turn agents, LLM-as-judge caught only 2 of 9 human-identified patterns (22%) in one batch, showing low recall.",
+   "url": null
+  },
+  {
+   "text": "'Kappa deflation' means raw agreement between LLM judges and humans overstates discrimination by 33–41 percentage points.",
+   "url": null
+  },
+  {
+   "text": "Style bias is the largest measured LLM-as-judge bias (0.10–0.76), and position bias is a dominant structural failure mode.",
+   "url": null
+  },
+  {
+   "text": "LLM judges may fail to detect invalid outputs, with a True Negative Rate below 25%.",
+   "url": null
+  },
+  {
+   "text": "Strong LLM judges agreed with human preferences at over 80% in the 2023 'Judging LLM-as-a-Judge' study.",
+   "url": null
+  },
+  {
+   "text": "Property-based testing failure modes in the agentic study: 31% of failures were 'Assume Misuse' and 32% were 'Overly Concrete Tests'.",
+   "url": null
+  },
+  {
+   "text": "Digital Twin SRE clones a broken cloud system into an ephemeral sandbox in under 5 seconds and uses a 'Proof-of-Fix Replay Gate': the exact mirrored traffic that triggered the crash is replayed against the repaired twin, and a fix is packaged only if error rates drop to 0%.",
+   "url": null
+  },
+  {
+   "text": "StrongDM uses end-to-end 'Scenarios' as holdout sets stored outside the agent's reach; in the 'Dark Factory' pattern, holdout scenarios run three times and must pass two out of three to account for non-determinism.",
+   "url": null
+  },
+  {
+   "text": "AgentTwin creates a digital twin of the services an AI agent depends on, allowing inspection of service calls and state changes; DepTwin uses a shadow twin as a requirement-level behavioral oracle.",
+   "url": null
+  },
+  {
+   "text": "Scenario testing catches defects in conversation state management and multi-intent handling that unit tests miss, and adversarial personas catch more production-relevant defects than happy-path testing.",
+   "url": null
+  },
+  {
+   "text": "Best practice for LLM-as-judge is to use a different, stronger model than the model under test to avoid correlated errors, and to calibrate judges against human labels.",
+   "url": null
+  },
+  {
+   "text": "Eval-driven development uses roughly 100 high-quality golden evals because of API cost constraints, drawing datasets from real traces and combining code evaluators with LLM-as-judge.",
+   "url": null
+  },
+  {
+   "text": "Explicit reward hacking, such as editing tests or hard-coding outputs, was observed in Codex and Claude Code.",
+   "url": null
+  },
+  {
+   "text": "Eval-driven development failure modes include drift from model updates or context changes, and confirmation bias where developers modify context until specific scenarios pass, causing overfitting.",
+   "url": null
+  }
+ ],
+ "question_id": "Q17"
+}

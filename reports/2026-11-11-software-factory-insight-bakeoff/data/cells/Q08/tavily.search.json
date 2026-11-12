@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 4.0,
+  "usd": 0.032
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:21.717955Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2354,
+   "page_chars_delivered": 19169,
+   "post_step": "fetched",
+   "published": null,
+   "text": "This was a fantastic deep dive — especially the two failure modes you highlighted (the “one-shot” tendency and the “declare victory early” issue) and the solution of using an initializer agent + incremental coding agent. The emphasis on artifacts — claude-progress.txt, feature\\_list.json, consisten…",
+   "title": "Effective harnesses for long-running agents | Anthropic | 57 comments",
+   "url": "https://www.linkedin.com/posts/anthropicresearch_effective-harnesses-for-long-running-agents-activity-7399550329031180288-xR_w"
+  },
+  {
+   "chars_delivered": 1956,
+   "page_chars_delivered": 13822,
+   "post_step": "fetched",
+   "published": null,
+   "text": "1. Initializer agent: The very first agent session uses a specialized prompt that asks the model to set up the initial environment: an `init.sh` script, a claude-progress.txt file that keeps a log of what agents have done, and an initial git commit that shows what files were added.\n2. Coding agent:…",
+   "title": "Effective harnesses for long-running agents \\ Anthropic",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "chars_delivered": 2066,
+   "page_chars_delivered": 35430,
+   "post_step": "fetched",
+   "published": null,
+   "text": "### The architecture\n\nIn our earlier long-running harness, we had solved for coherent multi-session coding with an initializer agent, a coding agent that worked one feature at a time, and context resets between sessions. Context resets were a key unlock: the harness used Sonnet 4.5, which exhibited…",
+   "title": "Harness design for long-running apps \\ Anthropic",
+   "url": "https://www.anthropic.com/research/harness-design-long-running-apps"
+  },
+  {
+   "chars_delivered": 2290,
+   "published": null,
+   "text": "Anthropic addressed the challenge of enabling AI coding agents to work effectively across multiple context windows when building complex software projects that span hours or days. The core problem was that agents would lose memory between sessions, leading to incomplete features, duplicated work, o…",
+   "title": "Anthropic: Long-Running Agent Harness for Multi-Context Software Development - ZenML LLMOps Database",
+   "url": "https://www.zenml.io/llmops-database/long-running-agent-harness-for-multi-context-software-development"
+  },
+  {
+   "chars_delivered": 2404,
+   "published": null,
+   "text": "|  |  | threecheese 11 months ago  | parent | next (javascript:void(0))   This is actually very interesting I think, as Anthropic pushes against The Bitter Lesson a bit! The model is a great reasoner, but we still need a concrete way to manage tasks - like we needed for tool calling. Claude Code ha…",
+   "title": "Effective harnesses for long-running agents | Hacker News",
+   "url": "https://news.ycombinator.com/item?id=46081704"
+  },
+  {
+   "chars_delivered": 1522,
+   "published": null,
+   "text": "3. Shared state or artefacts — the most underrated form of communication. Anthropic’s multi-agent research system explicitly recommends having subagents write outputs to the filesystem or an external system and return lightweight references rather than piping everything through the lead agent’s con…",
+   "title": "Claude Code agent teams: when and how to go multi-agent",
+   "url": "https://joseparreogarcia.substack.com/p/claude-code-agent-teams"
+  },
+  {
+   "chars_delivered": 1887,
+   "published": null,
+   "text": "[2:24] declare that the job was done early just to finish up. So Enthropic's original solution was a two-part system. An initializer agent that set up the\n[2:31] environment and broke the project into features. It then created a progress tracking file and then a coding agent worked one feature at a…",
+   "title": "Anthropic Just Dropped the New Blueprint for Long-Running AI Agents.",
+   "url": "https://www.youtube.com/watch?v=9d5bzxVsocw"
+  },
+  {
+   "chars_delivered": 574,
+   "published": null,
+   "text": "### Context Window Management\n\nCompaction fires automatically as a session approaches its limit, and the SDK exposes a `PreCompact` hook plus session fields reporting whether autocompact runs and at what threshold. Engineers building long-running assistants account for what compaction preserves, be…",
+   "title": "Anthropic Agent SDK: What It Ships vs. What It Leaves to You | Augment Code",
+   "url": "https://www.augmentcode.com/guides/anthropic-agent-sdk-what-ships-vs-what-you-build"
+  },
+  {
+   "chars_delivered": 2190,
+   "published": null,
+   "text": "Invest in the session log, not just the prompt. The append-only event log is what makes the agent recoverable, debuggable, and auditable. If you can’t reconstruct what the agent did in the last 24 hours from durable storage, what you have is a long-running shell script that happens to call an LLM,…",
+   "title": "Long-running Agents | AddyOsmani.com",
+   "url": "https://addyosmani.com/blog/long-running-agents"
+  },
+  {
+   "chars_delivered": 1294,
+   "published": null,
+   "text": "We recommend installing skills only from trusted sources. When installing a skill from a less-trusted source, thoroughly audit it before use. Start by reading the contents of the files bundled in the skill to understand what it does, paying particular attention to code dependencies and bundled reso…",
+   "title": "Equipping agents with Agent Skills \\ Anthropic",
+   "url": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"
+  }
+ ],
+ "latency_ms": 2640.7,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q08",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What does Anthropic recommend for long-running agent harnesses and multi-agent systems? Cover initializer and coding agents, progress files, context compaction, subagents, the Claude Agent SDK, Agent Skills, and the multi-agent research system's lessons on token cost and orchestration.",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q08-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 21831,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:19.077271Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

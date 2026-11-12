@@ -1,0 +1,103 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "faa167b2f667989d",
+ "claims": [
+  {
+   "text": "CareUp, a Dutch VR/AR healthcare-education platform, used the Agency Swarm framework to build a four-agent system (Social Media Manager, Content Writer, Image Generator, Facebook Manager) that automates Facebook ad creation and launch.",
+   "url": "https://agents.vrsen.ai/case-studies/7/"
+  },
+  {
+   "text": "CareUp's multi-agent Facebook ad workflow includes a human-in-the-loop review step in Notion so ads meet quality standards before launch.",
+   "url": "https://agents.vrsen.ai/case-studies/7/"
+  },
+  {
+   "text": "The CareUp multi-agent marketing solution achieved an 80–90% reduction in manual workload at approximately $1.02 per workflow.",
+   "url": "https://agents.vrsen.ai/case-studies/7/"
+  },
+  {
+   "text": "Preisser Solutions' MarCommand is a custom-coded multi-agent marketing engine in which a central orchestrator coordinates a Content Strategist, Copywriter, Designer, Paid Ads Manager, AEO Architect, Analyst and Quality Reviewer agent.",
+   "url": "https://preissersolutions.com/case-studies/marcommand-engine"
+  },
+  {
+   "text": "In MarCommand, a Quality Reviewer agent makes a final pass on every artifact for brand voice, factual accuracy and policy compliance, and the orchestrator routes human-approval checkpoints before publishing.",
+   "url": "https://preissersolutions.com/case-studies/marcommand-engine"
+  },
+  {
+   "text": "MarCommand is a demonstration product used to run Preisser Solutions' own marketing operations and serves as a reference architecture for custom client builds; humans handle strategy, brand judgment and exceptions.",
+   "url": "https://preissersolutions.com/case-studies/marcommand-engine"
+  },
+  {
+   "text": "Keenfolks describes a parallel multi-agent system for personalizing marketing assets across 42 markets, with Research, Content, Translation, Legal, Image Generation, Quality and Routing agents; brand and legal compliance are built into the workflow.",
+   "url": "https://www.thekeenfolks.com/blog-article/what-are-multi-agent-ai-systems"
+  },
+  {
+   "text": "Keenfolks reports that campaign cycles for the 42-market CPG scenario dropped from four to six weeks to hours; the Mars example (35 markets) is labelled a placeholder/optional snapshot, with the cycle cut from six weeks to under one week.",
+   "url": "https://www.thekeenfolks.com/blog-article/what-are-multi-agent-ai-systems"
+  },
+  {
+   "text": "Soba Labs built a multi-agent localisation pipeline for Freedman International in which each step's output is explicit, checkable and binding on later steps, using retrieval-augmented generation over client brand rules.",
+   "url": "https://sobalabs.ai/case-studies/freedman-campaign-localisation-pipeline/"
+  },
+  {
+   "text": "In Freedman certification runs, fresh jobs passed every step with quality assurance passing and multi-market, multi-format social deliverables sealed; blocking cultural risks were flagged for the producer and each risk was tied to a source.",
+   "url": "https://sobalabs.ai/case-studies/freedman-campaign-localisation-pipeline/"
+  },
+  {
+   "text": "Klarna reported Q1 2024 sales and marketing spending down 11%, outside marketing supplier spend down 25% (about $4 million a year), image production costs down $6 million, and AI used for 80% of copywriting.",
+   "url": "https://www.ai-first.company/evidence/cases/klarna-ai-marketing/"
+  },
+  {
+   "text": "Klarna cut image production time from 6 weeks to 7 days, including checks for brand, quality and legal compliance, with over 1,000 images made with AI in three months.",
+   "url": "https://www.ai-first.company/evidence/cases/klarna-ai-marketing/"
+  },
+  {
+   "text": "Klarna's AI marketing is reported as in production, with an estimated $10 million saved in 2024; since Oct 2025 it has used Google's Veo 2 and Gemini 2.5 Flash Image for lookbooks and a library of over 200 million images.",
+   "url": "https://imagine.ai/research/klarna"
+  },
+  {
+   "text": "A critical Signal article claims Klarna's AI-creative click-through rates were about 10% below the prior year's human campaign, and that AI creative underperforms human creative by 15–25% on brand-campaign recall and sentiment; these are third-party claims.",
+   "url": "https://www.readsignal.io/article/klarna-ai-marketing-experiment"
+  },
+  {
+   "text": "Klarna stopped expanding its customer-service bot for complex cases and began hiring human agents again.",
+   "url": "https://www.advisori.de/en/blog/klarna-record-sales-per-employee-thanks-to-ai-strategy-5-learnings-roadmap"
+  },
+  {
+   "text": "Salesforce's own Agentforce SDR agent worked over 43,000 leads and generated $1.7 million in new pipeline from dormant leads in its first year.",
+   "url": "https://www.salesforce.com/news/stories/first-year-agentforce-customer-zero/?bc=OTH"
+  },
+  {
+   "text": "Early on, Salesforce's SDR agent answered 'I don't know' 30% of the time when asked for lead details; data cleanup and iterative training reduced this to under 10%.",
+   "url": "https://www.salesforce.com/news/stories/first-year-agentforce-customer-zero/?bc=OTH"
+  },
+  {
+   "text": "ZenML's review notes Salesforce's agentic-enterprise account is promotional, lacks conversion metrics for agent-led lead outreach, and does not detail guardrails or handoff rates.",
+   "url": "https://www.zenml.io/llmops-database/building-an-agentic-enterprise-with-ai-agents-in-production"
+  },
+  {
+   "text": "SaaStr reports using Agentforce to build a sales agent that personalizes outreach to untouched leads, achieving a 72% open rate and closing $2.7 million in deals, with 20+ AI agents on one platform.",
+   "url": "https://www.salesforce.com/agentforce/customer-stories/?bc=OTH"
+  },
+  {
+   "text": "Salesforce's internal sales deployment reports an Engagement Agent that reached 100,000 leads, created 1,500 opportunities and is on track for $60 million in pipeline, plus 75% faster quote creation.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/?bc=OTH"
+  },
+  {
+   "text": "Belden runs a multi-agent Agentforce environment in production processing over 500,000 service cases annually for intake, analysis and routing, claiming 98% accuracy.",
+   "url": "https://www.salesforce.com/blog/powering-harmonious-scalable-growth-with-agentforce/?bc=OTH"
+  },
+  {
+   "text": "Microsoft's 'Ask Microsoft' web agent, built on Copilot Studio multi-agent orchestration with sub-agents grounded on specific parts of the site, reports up to 61% lower latency, up to 70% fewer human-handled chats, and 16% more Azure trial initiations.",
+   "url": "https://www.microsoft.com/en/customers/story/26166-microsoft-microsoft-copilot-studio/"
+  },
+  {
+   "text": "Atea's 'Kate' is a multi-agent orchestrator built in Copilot Studio that routes requests to over 35 sub-agents (CRM data, contracts, tenders, customer history) via MCP servers, but is still a pilot with about 100 users.",
+   "url": "https://enablement.microsoft.com/en-us/agent-transformation-stories/atea/"
+  },
+  {
+   "text": "Allianz's Project Nemo (Australia, 2025) uses seven specialized agents (planner, coverage, weather, fraud, payout, audit, cyber) for catastrophe claims, reporting an 80% cut in processing time, with human approval required at the final step for all claims.",
+   "url": null
+  }
+ ],
+ "question_id": "Q22"
+}

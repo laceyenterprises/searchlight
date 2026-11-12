@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "03a9c532a5d3a658",
+ "claims": [
+  {
+   "text": "AI SRE agents in the Vibranium Labs article follow a four-phase workflow: environmental graph construction, hypothesis generation tree, targeted telemetry probing, and graduated trust remediation.",
+   "url": null
+  },
+  {
+   "text": "In the graduated trust remediation phase, output ranges from a read-only root cause analysis, to a human-in-the-loop '/approve-rollback' prompt in Slack, to fully autonomous rollback for teams that have earned confidence in the agent.",
+   "url": null
+  },
+  {
+   "text": "In environmental graph construction, an AI SRE agent maps infrastructure topology (code commits, Kubernetes objects, cloud resources) into a dependency graph, increasingly via Model Context Protocol (MCP) servers rather than proprietary connectors.",
+   "url": null
+  },
+  {
+   "text": "In targeted telemetry probing, an AI SRE agent runs precise parallel queries against Datadog, New Relic or Prometheus to validate or reject each hypothesis; good agents query narrowly rather than dumping entire log streams into a context window.",
+   "url": null
+  },
+  {
+   "text": "Azure SRE Agent reached general availability on March 10, 2026; Microsoft reports 1,300+ agents deployed internally and 35,000+ incidents mitigated.",
+   "url": null
+  },
+  {
+   "text": "PagerDuty shipped its SRE Agent in the Spring 2026 release as a virtual responder that can be added directly to on-call schedules and escalation policies.",
+   "url": null
+  },
+  {
+   "text": "Vibranium Labs states that paging platforms (PagerDuty, incident.io) added AI to workflows that still wake a human first, while investigation agents (Resolve AI, Traversal, Cleric) diagnose but need a separate paging tool.",
+   "url": null
+  },
+  {
+   "text": "PagerDuty's SRE Agent can be connected to AI observability platforms such as Arize, which capture each agent interaction as a trace containing LLM calls, tool calls, retrievals and outputs.",
+   "url": null
+  },
+  {
+   "text": "For AI incidents, the PagerDuty SRE Agent checks current monitor status, filters the Arize project for offending traces, summarizes eval explanations and patterns, and checks recent code changes before producing a diagnosis and ranked next steps.",
+   "url": null
+  },
+  {
+   "text": "PagerDuty teams encode runbooks into the SRE Agent as skills (built with the create-pagerduty-skill command) and connect it to observability, code (GitHub) and documentation sources via connectors.",
+   "url": null
+  },
+  {
+   "text": "PagerDuty uses its platform primitives with the SRE Agent to classify whether an AI incident needs human escalation, run pre-approved remediation processes, and file follow-up tickets for the team owning the AI feature.",
+   "url": null
+  },
+  {
+   "text": "PagerDuty notes that monitors based on LLM-as-a-judge evals signal 'something might be broken' rather than 'something is broken', and a low-relevance alert may stem from an upstream service failure rather than AI quality drift.",
+   "url": null
+  },
+  {
+   "text": "Cleric is designed to be read-only: it observes, investigates and recommends, requiring human approval before any action, and won Gartner Cool Vendor 2025 in AI for SRE and Observability.",
+   "url": null
+  },
+  {
+   "text": "Cleric is reported to average about 5-minute diagnosis with linked evidence, and offers SSO/SAML, RBAC and audit logs and states it never trains on customer data.",
+   "url": null
+  },
+  {
+   "text": "Traversal claims 90%+ root cause accuracy with 2-4 minute diagnosis, is read-only by default, offers on-prem deployment, and gives recommendations plus health checks rather than auto-remediation.",
+   "url": null
+  },
+  {
+   "text": "DigitalOcean is reported to have saved 36,000 engineering hours annually using Traversal.",
+   "url": null
+  },
+  {
+   "text": "Resolve.ai targets auto-resolving 80% of production incidents without human intervention and was reported at a $1B valuation in December 2025.",
+   "url": null
+  },
+  {
+   "text": "Resolve AI is reported to have raised a $125M Series A at a $1B valuation in February 2026, led by Lightspeed.",
+   "url": null
+  },
+  {
+   "text": "AI SRE tools split by remediation stance into read-only investigators, human-approval-gated executors, and fully autonomous remediators, which carry different risk profiles.",
+   "url": null
+  },
+  {
+   "text": "Datadog claims Bits AI SRE investigations take about 3 to 4 minutes, Komodor claims up to 80% MTTR reduction, and Middleware claims 6x to 10x faster time-to-resolution; none are independently benchmarked.",
+   "url": null
+  },
+  {
+   "text": "CloudThinker's Resolve investigates using reads only and labels verdicts Verified, Inferred or Cause unproven (or Not Found), with every change routed through Auto Mode where users decide what runs autonomously versus awaiting approval.",
+   "url": null
+  },
+  {
+   "text": "CloudThinker's Resolve drops duplicate, rate-limited, snoozed and known-noise alerts, groups the rest into one incident per outage, writes incident memory afterwards, and can run a follow-up check to confirm a fix held.",
+   "url": null
+  },
+  {
+   "text": "Metoro, an eBPF observability tool for Kubernetes, verifies deploys and drafts rollback PRs; Cleric proposes fix PRs for user approval; Datadog Bits AI SRE investigates every alert as it fires.",
+   "url": null
+  },
+  {
+   "text": "incident.io describes an AI SRE agent that identifies likely cause, pulls metrics and drafts a fix awaiting human approval in a Slack channel after a Datadog alert, and also drafts post-mortems.",
+   "url": null
+  },
+  {
+   "text": "The CloudThinker comparison says traditional AIOps (correlation, anomaly detection, noise reduction) hands a person a shortlist, whereas an AI SRE triages, investigates root cause, proposes or runs the fix, and checks recovery.",
+   "url": null
+  }
+ ],
+ "question_id": "Q20"
+}

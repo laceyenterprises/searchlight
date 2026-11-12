@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "8202a5a26282ecfc",
+ "url": "https://learn.microsoft.com/en-us/entra/agent-id/agent-on-behalf-of-oauth-flow",
+ "verdicts": {
+  "Entra Agent ID supports the grant types client_credential, jwt-bearer, and refresh_token for agents; refresh tokens support asynchronous and background scenarios.": 1,
+  "Entra Agent ID's OBO flow uses two token exchanges: the blueprint presents its client credential (secret, certificate, or managed-identity FIC) with `fmi_path` naming the agent identity to get token T1, then the agent identity exchanges T1 plus the user's token Tc for a resource token.": 1,
+  "Entra agent identities can inherit delegated permissions from the parent blueprint when `InheritDelegatedPermissions` is enabled, which works only within tenant boundaries.": 1,
+  "Entra validates that the user token Tc has audience equal to the blueprint client ID (otherwise AADSTS50013) and that T1 is bound to the blueprint (azp) with its sub (the FMI path) resolving to the child agent identity performing the exchange.": 1,
+  "In Entra Agent ID, agent identity blueprints and child agent identities cannot initiate interactive /authorize flows; interactive consent on a child identity returns AADSTS82014, so delegated permissions must be preauthorized via inheritable permissions on the blueprint with admin consent.": 1
+ }
+}

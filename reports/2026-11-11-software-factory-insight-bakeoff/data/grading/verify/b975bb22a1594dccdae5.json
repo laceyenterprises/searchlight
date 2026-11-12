@@ -1,0 +1,23 @@
+{
+ "capture": "captured",
+ "digest": "c14703c217541011",
+ "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text",
+ "verdicts": {
+  "A multi-agent system with Claude Opus 4 as lead agent and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research eval.": 1,
+  "A tool-testing agent that rewrote flawed MCP tool descriptions after testing them dozens of times produced a 40% decrease in task completion time for future agents.": 1,
+  "Agents typically use about 4× more tokens than chat interactions, and multi-agent systems use about 15× more tokens than chats.": 1,
+  "Each subagent needs an objective, an output format, guidance on tools and sources, and clear task boundaries; vague instructions like 'research the semiconductor shortage' led to duplicated searches and misinterpreted tasks.": 1,
+  "Early agents made errors such as spawning 50 subagents for simple queries, searching endlessly for nonexistent sources, and distracting each other with excessive updates.": 1,
+  "Evaluation: starting with about 20 queries was enough to see large effects; a single LLM-judge call scoring 0.0-1.0 with a pass-fail grade was the most consistent and aligned with human judgements.": 1,
+  "For production reliability, Anthropic built systems that resume from where an agent was when errors occurred rather than restarting, combining deterministic safeguards like retry logic and regular checkpoints with the model adapting to tool failures.": 1,
+  "Human testers found that early agents chose SEO-optimized content farms over authoritative sources like academic PDFs; adding source quality heuristics to prompts fixed this.": 1,
+  "Multi-agent systems require tasks whose value is high enough to pay for the increased token cost; domains needing shared context or many inter-agent dependencies (such as most coding tasks) are a poor fit today.": 1,
+  "Parallelization (lead agent spinning up 3-5 subagents in parallel, and subagents using 3+ tools in parallel) cut research time by up to 90% for complex queries.": 1,
+  "Scaling rules embedded in prompts: simple fact-finding uses 1 agent with 3-10 tool calls, direct comparisons 2-4 subagents with 10-15 calls each, and complex research more than 10 subagents.": 1,
+  "Subagents facilitate compression by operating in parallel with their own context windows and condensing the most important tokens for the lead agent; each provides separation of concerns (distinct tools, prompts, trajectories).": 1,
+  "The LeadResearcher saves its plan to Memory because the context is truncated if it exceeds 200,000 tokens; a CitationAgent then processes documents and the report to attribute claims to sources.": 1,
+  "The Research system uses an orchestrator-worker pattern: a lead agent analyzes the query, develops a strategy, and spawns specialized subagents that search different aspects in parallel.": 1,
+  "Token usage alone explained 80% of the variance in BrowseComp performance; three factors (token usage, number of tool calls, model choice) together explained 95%.": 1,
+  "Upgrading to Claude Sonnet 4 was a larger performance gain than doubling the token budget on Claude Sonnet 3.7.": 1
+ }
+}

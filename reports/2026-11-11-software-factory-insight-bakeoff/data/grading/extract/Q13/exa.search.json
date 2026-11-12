@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "be9ccf92fe4f1f46",
+ "claims": [
+  {
+   "text": "AIOS separates agent applications from resources such as LLMs and tools into an application layer and a kernel layer (plus a hardware layer), so agents request resources via an SDK and system calls rather than manipulating them directly, which enforces isolation.",
+   "url": null
+  },
+  {
+   "text": "AIOS decomposes agent queries into categorized, thread-bound syscalls (LLM processing, memory access, storage operations, tool usage), which the scheduler dispatches to per-module queues based on their attributes.",
+   "url": null
+  },
+  {
+   "text": "AIOS centralizes all queues in the scheduler module rather than distributing them across processing modules, so that each module focuses solely on execution.",
+   "url": null
+  },
+  {
+   "text": "The AIOS scheduler implements two classic algorithms: First-In-First-Out (FIFO), which may increase waiting times for later requests, and Round Robin (RR), which cycles through calls in time slices; RR depends on the LLM context interrupt mechanism.",
+   "url": null
+  },
+  {
+   "text": "AIOS encapsulates each LLM instance (by model, cloud or local deployment, inference framework) as a 'core', analogous to a CPU core, with unified inference syscalls in a wrapper.",
+   "url": null
+  },
+  {
+   "text": "The AIOS context manager supports context switching by snapshotting and restoring LLM generation: a text-based approach for closed-source LLMs without logits access (saving decoded outputs) and a logits-based approach that preserves the beam-search intermediate tree for finer-grained restoration.",
+   "url": null
+  },
+  {
+   "text": "The AIOS context manager is triggered within the LLM core to handle context interruptions rather than being scheduled as a syscall.",
+   "url": null
+  },
+  {
+   "text": "The AIOS memory manager keeps agent interaction histories (conversation logs, tool-call results) in RAM by default and, when an agent's usage exceeds its block limit (e.g., 80% of allocation, configurable), evicts items to disk through the storage manager using an LRU-K policy.",
+   "url": null
+  },
+  {
+   "text": "The AIOS storage manager handles persistent data keyed by agent ID and is implemented with local files and a vector database such as chromadb.",
+   "url": null
+  },
+  {
+   "text": "The AIOS tool manager loads tools through a standardized interface with parameter validation before execution, and resolves parallel-access conflicts using a hashmap of live instance counts, skipping to the next queued request when a tool's parallel limit is hit.",
+   "url": null
+  },
+  {
+   "text": "The AIOS access manager assigns each agent to a privilege group via a hashmap of agent IDs, so agents can only access other agents' resources within a shared privilege domain, and it requires explicit user confirmation before irreversible operations such as deletion, overwrite or privilege modification.",
+   "url": null
+  },
+  {
+   "text": "AIOS argues that existing frameworks (e.g., Autogen, LangChain) handle concurrent LLM calls by trial and error, loading prompts into GPU memory until CUDA memory limits raise exceptions and force retries, and that without scheduling agents can monopolize the LLM by flooding it with requests.",
+   "url": null
+  },
+  {
+   "text": "AIOS reports up to 2.1x faster execution when serving agents built with various frameworks, and its SDK provides adapters that redirect core functions of frameworks such as Autogen, Open-Interpreter and MetaGPT to AIOS without modifying agent code.",
+   "url": null
+  },
+  {
+   "text": "MemGPT applies virtual-memory paging to LLMs: the context window acts as main memory and external storage (archival and recall databases) as disk, with the LLM moving data between them through function calls.",
+   "url": null
+  },
+  {
+   "text": "MemGPT's main context has three parts: read-only system instructions, a fixed-size read/write working context writable only via function calls, and a FIFO message queue whose first entry is a recursive summary of evicted messages.",
+   "url": null
+  },
+  {
+   "text": "The MemGPT queue manager inserts a 'memory pressure' warning when prompt tokens pass a warning threshold (e.g., 70% of the context window) so the LLM can save important data, and flushes the queue at the flush threshold (e.g., 100%), evicting a set amount (e.g., 50% of the window) and generating a new recursive summary.",
+   "url": null
+  },
+  {
+   "text": "In MemGPT, memory edits and retrieval are self-directed by the LLM through function calls; the parser validates arguments, and runtime errors (e.g., adding to a full main context) are fed back to the model, and retrieval is paginated to avoid overflowing the context.",
+   "url": null
+  },
+  {
+   "text": "MemGPT is event-driven: user messages, system alerts, user interactions and timed events trigger inference, and a request_heartbeat flag chains function calls, while omitting it yields control until the next event.",
+   "url": null
+  },
+  {
+   "text": "On the deep memory retrieval task, MemGPT raised accuracy from 32.1% to 92.5% with GPT-4, from 35.3% to 93.4% with GPT-4 Turbo, and from 38.7% to 66.9% with GPT-3.5 Turbo.",
+   "url": null
+  },
+  {
+   "text": "The Mnemoverse article says 'Agent OS' names six different things (LLM-as-kernel metaphor, academic kernels, memory-as-OS, commercial platforms, agentic features inside Windows-like OSes, and OS-operating agents) and proposes a test: name the resource the OS schedules, virtualizes, or isolates.",
+   "url": null
+  },
+  {
+   "text": "Karpathy's LLM OS framing treats the LLM as the kernel (context as RAM, embeddings as filesystem), whereas AIOS reverses this by treating the LLM as a scheduled resource beneath a kernel that manages agent requests.",
+   "url": null
+  },
+  {
+   "text": "MemGPT was posted on October 12, 2023, a month before Karpathy's November 11 LLM OS spec, and in September 2024 the self-editing design kept the name MemGPT while Letta became the framework and company name.",
+   "url": null
+  },
+  {
+   "text": "MemOS (July 2025) treats memory as a manageable system resource, with MemCube units that encapsulate memory content plus metadata such as provenance and versioning and can be composed, migrated and fused.",
+   "url": null
+  },
+  {
+   "text": "Microsoft's Windows Agent Workspace (previewed at Ignite on November 18, 2025) is described as a contained, policy-controlled, auditable environment where agents act with their own identity, giving agents an identity and isolation boundary.",
+   "url": null
+  },
+  {
+   "text": "A2A and MCP move information between agents and tools but do not define persistent shared memory with identity, schema, provenance, consistency and permissions, leaving a gap that teams fill with improvised shared backends.",
+   "url": null
+  }
+ ],
+ "question_id": "Q13"
+}

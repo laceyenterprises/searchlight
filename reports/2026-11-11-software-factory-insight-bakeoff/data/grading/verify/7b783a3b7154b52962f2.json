@@ -1,0 +1,14 @@
+{
+ "capture": "uncapturable",
+ "digest": "c51254ef1200adae",
+ "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents\\n[2",
+ "verdicts": {
+  "A minion run starts in a devbox, an isolated developer environment of the same type Stripe engineers write code on.": null,
+  "After a run, the minion pushes a branch and prepares a PR using Stripe's template; engineers can request review or give the minion further instructions.": null,
+  "Devboxes are isolated from production resources and the internet, so Stripe can run minions on them without human permission checks.": null,
+  "Minions can be invoked by tagging the Slack app in a thread (which supplies the thread and links as context), via CLI and web interfaces, or from internal docs, feature-flag, and ticketing tools.": null,
+  "Stripe describes Minions as fully unattended coding agents built to one-shot tasks, typically starting as a Slack message and ending as a pull request that passes CI and is ready for human review.": null,
+  "Stripe's Part 1 post (2026.2.09) claimed over a thousand merged pull requests per week were completely minion-produced, human-reviewed, and contained no human-written code.": null,
+  "The Minions agent loop runs on a fork of Block's coding agent Goose.": null
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "21a2173313579493",
+ "claims": [
+  {
+   "text": "Temporal Workflow history is bounded at 51,200 events or 50 MB, with warnings after 10,240 events or 10 MB, so long-lived agents need history management.",
+   "url": null
+  },
+  {
+   "text": "Temporal Continue-As-New passes state into a fresh execution with the same Workflow ID, a new Run ID and fresh history, and helps move long-lived work off old code versions.",
+   "url": null
+  },
+  {
+   "text": "Temporal Activity retries default to exponential backoff with a 1-second initial interval, coefficient 2, 100-second maximum interval and unlimited attempts.",
+   "url": null
+  },
+  {
+   "text": "Temporal Activities can complete an external write and crash before reporting completion, causing a retry; Temporal recommends idempotent Activities, and Run ID plus Activity ID is a documented key stable across retries.",
+   "url": null
+  },
+  {
+   "text": "In Temporal, deterministic agent coordination runs in a Workflow while nondeterministic LLM, tool and API calls run in Activities; recorded Activity results are reused on replay instead of regenerating model output.",
+   "url": null
+  },
+  {
+   "text": "Emergent reports over 1 billion Temporal Actions per month, with agentic app builds taking 10-30 minutes, Child Workflows orchestrating subagents, and builds recovering from node/pod failures and deployments.",
+   "url": null
+  },
+  {
+   "text": "Town reports 1.5 billion monthly Temporal Actions, up from roughly 150 million after launch; agents can wait 45 days for follow-up and unanswered email-send approvals expire after seven days.",
+   "url": null
+  },
+  {
+   "text": "Jota reports about 180 million Temporal Actions per month for its Jota 2.0 financial agent, which reached 100% of users and showed roughly 3x engagement versus the prior generation in A/B testing.",
+   "url": null
+  },
+  {
+   "text": "Sherlocks AI dispatches 10-15 specialized agents per incident on Temporal, with complex investigations taking 15-20 minutes; retries can lower reasoning settings or fall back to another model, and Signals let engineers add evidence or cancel subagents.",
+   "url": null
+  },
+  {
+   "text": "Replit says Restate now handles all its durable agent orchestration, replacing Temporal, and a promotional spike reached close to 25,000 durable actions per second per cell.",
+   "url": null
+  },
+  {
+   "text": "Restate's default inactivity timeout is one minute without new journal entries, after which it suspends and retries the invocation, so long LLM calls may require raising timeouts; Restate Context operations cannot be nested inside ctx.run.",
+   "url": null
+  },
+  {
+   "text": "Restate pins invocations and retries to the deployment version they started on and advises against handlers lasting days or months that would force retaining old deployments.",
+   "url": null
+  },
+  {
+   "text": "Aient runs its AI DevOps backend entirely on Restate with roughly 87 controller loops/services, and sessions lasting hours or days.",
+   "url": null
+  },
+  {
+   "text": "Inngest limits are 1,000 steps per function, 4 MiB per step result and 32 MiB total run state; maximum run duration is 30 days Free, 90 days Pro, 366 days Business.",
+   "url": null
+  },
+  {
+   "text": "Inngest steps get one initial attempt plus up to four retries by default, with per-step retry counts and non-retriable errors for permanent failures.",
+   "url": null
+  },
+  {
+   "text": "Inngest event deduplication has a 24-hour window and does not make external tool calls idempotent; a stable business-operation key or duplicate-safe write is needed.",
+   "url": null
+  },
+  {
+   "text": "Inngest reports its Insights AI query latency fell from 15-30 seconds to 3-6 seconds after enabling checkpointing, and that switching from GPT-4 to Claude raised success from about 50% to 90% in informal testing of 50 questions.",
+   "url": null
+  },
+  {
+   "text": "cubic reports a 51% reduction in false positives after moving its code-review system from one agent to a multi-agent design on Inngest, with idempotency addressing races between parallel agents.",
+   "url": null
+  },
+  {
+   "text": "Inngest step.waitForEvent() supports human approval with a timeout, and the function is suspended while waiting with no compute cost.",
+   "url": null
+  },
+  {
+   "text": "DBOS step retries are disabled by default; when enabled the defaults are three attempts, one-second initial delay and exponential backoff factor 2.",
+   "url": null
+  },
+  {
+   "text": "DBOS sleeping or receiving workflows remain in memory by default; suspension that frees memory and queue capacity is a DBOS Transact Enterprise feature.",
+   "url": null
+  },
+  {
+   "text": "DBOS steps are at-least-once, so interrupted external calls can run again, while DBOS transactions commit exactly once.",
+   "url": null
+  },
+  {
+   "text": "Goblins reports moving production workflows from Inngest to DBOS after an Inngest outage left a backlog it could not clear, with workflows taking 2-3 seconds directly versus over nine seconds on Inngest; this is customer/vendor-reported.",
+   "url": null
+  },
+  {
+   "text": "Dosu's AI ingestion pipeline on DBOS scaled to 20,000 workflows per hour, serving over 50,000 customers; the figure covers the ingestion pipeline, not agent sessions.",
+   "url": null
+  },
+  {
+   "text": "Cortex added an on-disk journal keyed by operation ID after a micro-VM vanished during git clone, combining DBOS at-least-once execution with application idempotency to get effectively-once effects.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

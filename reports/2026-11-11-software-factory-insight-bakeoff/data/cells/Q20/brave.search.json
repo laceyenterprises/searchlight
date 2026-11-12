@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:30.204990Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 7219,
+   "published": null,
+   "text": "#### Comparison Table: Top 10 AI SRE Agents at a Glance\n| No. | Platform | Core Architectural Approach | Integration Depth | Native Paging? | Best For |\n| --- | --- | --- | --- | --- | --- |\n| 1 | Vibe OnCall | Tier 0 multi-agent layer (Triage, Commander, Scribe, Router + more) that investigates be…",
+   "title": "Top 10 AI SRE Agents and Autonomous Remediation Platforms That Answer the Page Before You Do (2026)",
+   "url": "https://vibraniumlabs.ai/blog/top-ai-sre-agents"
+  },
+  {
+   "chars_delivered": 8566,
+   "published": null,
+   "text": "# The 8 Best AI SRE Tools in 2026\nBy Raman Varma, Founder & CEO\n\nThe AI SRE market moved fast: unicorn valuations, Gartner Cool Vendor lists, and every observability platform bolting on an AI agent. Underneath the noise, the category splits into three groups. **Read-only investigators** (Cleric, Tr…",
+   "title": "The 8 Best AI SRE Tools in 2026",
+   "url": "https://usekestrel.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "chars_delivered": 6098,
+   "published": null,
+   "text": "# Top 10 AI SRE Tools in 2026: A Comprehensive Comparison\n## The 10 Tools\n### Resolve AI logo Resolve AI\nResolve AI's key differentiator is autonomous remediation with a graduated trust model. For well-defined incident patterns, Resolve AI executes fixes without human intervention. Resolve AI build…",
+   "title": "Top 10 AI SRE Tools in 2026: A Comprehensive Comparison",
+   "url": "https://www.anyshift.io/blog/top-10-ai-sre-tools-2026-comparison"
+  },
+  {
+   "chars_delivered": 14476,
+   "published": null,
+   "text": "### How the platforms differ\n|  | Cleric  | Resolve  | Traversal  |\n| --- | --- | --- | --- |\n| Core approach  | Investigates production issues across the stack, captures how engineers solve them, and uses verified outcomes to get more precise over time. | Automates operational workflows and remedi…",
+   "title": "The State of AI SRE",
+   "url": "https://cleric.ai/resources/reports/the-state-of-ai-sre"
+  },
+  {
+   "chars_delivered": 5393,
+   "published": null,
+   "text": "# AI SRE in Incident Management: How AI Agents Handle On-Call\n## How AI Agents Operate During Production Incidents\n### Root Cause Investigation\nRoot cause investigation narrows a large search space through retrieval, ranking, and typed tool calls so engineers receive bounded hypotheses instead of u…",
+   "title": "AI SRE in Incident Management: How AI Agents Handle On-Call",
+   "url": "https://www.augmentcode.com/guides/ai-sre-incident-management"
+  },
+  {
+   "chars_delivered": 13238,
+   "published": null,
+   "text": "# Resolve AI Alternatives: 6 Autonomous SRE Platforms Compared\n#### Key Takeaways\n- **Resolve.ai — what it actually is** — Autonomy-first AI SRE platform founded by Splunk architects, focused on Fortune 500 production incident resolution. Public roadmap targets 80% autonomous resolution. Reached $1…",
+   "title": "Resolve AI Alternatives: 6 Autonomous SRE Platforms Compared",
+   "url": "https://wetheflywheel.com/en/comparisons/resolve-ai-alternatives/"
+  },
+  {
+   "chars_delivered": 2021,
+   "published": null,
+   "text": "How production platforms build diagnostic agents that inspect and troubleshoot other AI agents. Covers Datadog Bits AI, PagerDuty multi-agent ops, container inspection tools, system prompt design for diagnostics, permission scoping, conversational UX patterns, and three-tier self-healing escalation…",
+   "title": "AI Agent Diagnostic and Self-Healing Systems: Conversational Ops Agents for Production Monitoring",
+   "url": "https://zylos.ai/zh/research/2026-03-30-ai-ops-diagnostic-agents-conversational-monitoring/"
+  },
+  {
+   "chars_delivered": 4138,
+   "published": null,
+   "text": "# 9 Platforms with AI Root Cause Analysis: What to Look For\n## The Nine Criteria That Separate Causal RCA from Anomaly Lists\n### 6. Code and CI/CD Integration Depth\n| Platform | Deploy-level markers | Commit attribution | Code-diff analysis |\n| --- | --- | --- | --- |\n| Datadog | GA | GA (user-supp…",
+   "title": "9 Platforms with AI Root Cause Analysis: What to Look For",
+   "url": "https://www.augmentcode.com/tools/platforms-with-ai-root-cause-analysis"
+  },
+  {
+   "chars_delivered": 7081,
+   "published": null,
+   "text": "# AI in SRE: How Google is Engineering the Future of Reliable Operations\n### Governing AI in Production Operations (AI-Ops)\n#### The Safety Trifecta\n3. **Progressive Authorization:** AI agents are not granted full production access from day one. We release agents to lower levels of autonomy (human…",
+   "title": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "chars_delivered": 1352,
+   "published": null,
+   "text": "# Architecting Governed, Self-Evolving AI Agents on Google Cloud\n## The Emergence of Self-Evolving AI\n1. **Diagnose** distributed root causes across cache and database tiers in real time,\n2. **Self-patch** by synthesizing, verifying, and mounting executable mitigation tools into live server middlew…",
+   "title": "Architecting Governed, Self-Evolving AI Agents on Google Cloud - Google Developers Blog",
+   "url": "https://developers.googleblog.com/architecting-governed-self-evolving-ai-agents-on-gemini-agent-platform/"
+  }
+ ],
+ "latency_ms": 1481.9,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q20",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What AI SRE / self-healing systems exist (for example Resolve.ai, Cleric, Traversal, PagerDuty and Datadog agents, Meta's or Google's internal remediation)? How do they detect, diagnose, remediate and verify, and what autonomy levels and safety controls do they use?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 77628,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:28.723062Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

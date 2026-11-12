@@ -1,0 +1,63 @@
+{
+ "arm": "brave",
+ "async": null,
+ "cost_model": "Search plan: $5 per 1,000 requests (LLM Context bills like web search). $5 monthly free credit.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "params and ranges; 16384 tokens for complex research; keep other defaults",
+   "url": "https://api-dashboard.search.brave.com/documentation/services/llm-context"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "web search params; recommends LLM Context for agents",
+   "url": "https://api-dashboard.search.brave.com/documentation/services/web-search"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "Search plan $5/1k, 50 QPS; Answers plan $4/1k + $5/M tokens, 2 QPS",
+   "url": "https://brave.com/search/api/"
+  }
+ ],
+ "endpoint": "POST https://api.search.brave.com/res/v1/llm/context",
+ "est_cost_usd_per_question": 0.005,
+ "freshness_overlay": {
+  "freshness": "{{AFTER_DATE}}to{{RUN_DATE}}"
+ },
+ "headers": {
+  "Accept": "application/json",
+  "X-Subscription-Token": "<BRAVE_API_KEY>"
+ },
+ "operation": "search",
+ "pace_seconds": 0.1,
+ "params": {
+  "count": 20,
+  "country": "us",
+  "maximum_number_of_tokens": 16384,
+  "maximum_number_of_urls": 10,
+  "q": "{{QUERY}}",
+  "search_lang": "en"
+ },
+ "post_steps": [],
+ "query_transform": "verbatim",
+ "query_transform_notes": "LLM Context q accepts 1-600 chars, max 75 words; all questions fit (max 328 chars / 44 words). No query-style guidance in docs.",
+ "rationale": {
+  "context_threshold_mode": "Left at default: 'Keep the defaults for most queries; size the context with maximum_number_of_tokens only.'",
+  "count": "Default 20 candidates searched; only 10 URLs kept in context.",
+  "endpoint": "Brave's own docs: for agents/chatbots use LLM Context; Web Search results are for human consumption. Our 2026-09 adapter used /web/search with extra_snippets.",
+  "maximum_number_of_tokens": "Context Size Guidelines: 16384 for complex research.",
+  "maximum_number_of_urls": "Fixed top-k 10 (default 20)."
+ },
+ "top_k": 10,
+ "unverified": true,
+ "unverified_fields": {
+  "est_cost_usd_per_question": {
+   "note": "brave.com/search/api says the Search plan includes LLM Context; the dashboard pricing page rendered empty. Price-table entry (2026-09-27) also says LLM context bills per request.",
+   "unverified": true
+  },
+  "post_steps": {
+   "note": "Brave sells no page-fetch endpoint; page text arrives only as LLM Context snippets (up to maximum_number_of_tokens_per_url, default 4096).",
+   "unverified": true
+  }
+ }
+}

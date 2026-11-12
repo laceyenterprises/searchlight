@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "df5d7111854ce58c",
+ "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler",
+ "verdicts": {
+  "AIOS provides two scheduler implementations: FIFOScheduler (first-come, first-served, no time limit enforcement, no preemption) and RRScheduler (round-robin rotation with fixed time slices).": 1,
+  "In AIOS, the RRScheduler allows tasks to be suspended and resumed and adds a \"suspending\" status alongside \"executing\" and \"done\", while the FIFOScheduler only has \"executing\" and \"done\" statuses.": 1,
+  "In AIOS, the RRScheduler uses SimpleContextManager for context management, while the FIFOScheduler has no context management.": 1,
+  "The AIOS BaseScheduler is an abstract base class with abstract methods for processing LLM, Memory, Storage, and Tool requests, plus start/stop of the scheduler and its processing threads.": 1,
+  "The AIOS scheduler centralizes all request queues within the scheduler module instead of placing separate queues inside each processing module (e.g., LLM core(s) or memory manager), isolating request management from the individual modules.": 1,
+  "The AIOS scheduler serves different agents' queries at syscall-level granularity.": 1,
+  "The AIOS scheduler's request queue for each module includes both Queries (agent-to-kernel requests) and Messages (module-to-module requests).": 1
+ }
+}

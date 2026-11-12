@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "177ecd7685aba4c9",
+ "url": "https://www.anthropic.com/engineering/managed-agents",
+ "verdicts": {
+  "In Anthropic Managed Agents, MCP OAuth tokens are held in a vault and a proxy makes the call, so the harness is never made aware of any credentials.": 1
+ }
+}

@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:07.082759Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1369,
+   "published": "2026-10-27",
+   "text": "Give an agent a Linux sandbox for shell commands, language runtimes, package installation, and project files that last across turns.\nThe sandbox is a Container attached to the agent.\nThe agent gives the model a tool that runs commands in the sandbox.\n...\nCode Mode runs the code in a Dynamic Worker,…",
+   "title": "Sandbox · Cloudflare Agents docs",
+   "url": "https://developers.cloudflare.com/agents/tools/sandbox/"
+  },
+  {
+   "chars_delivered": 4055,
+   "published": "2026-09-09",
+   "text": "**Isolated code runners** execute a snippet or a command and return the result, then discard everything unless you snapshot it.\n...\nEvery provider draws its boundary with one of three tools.\nE2B makes each sandbox a Firecracker microVM rather than a container, booting its own kernel,^[7]^ and Verce…",
+   "title": "Where to Run Agent Code: AI Agent Sandbox Providers Compared",
+   "url": "https://fly.io/learn/agent-sandbox-providers/"
+  },
+  {
+   "chars_delivered": 455,
+   "published": "2026-10-22",
+   "text": "# Build a coding agent runner\nIn this tutorial, you will build a Worker that runs a coding agent on a GitHub repository in a Linux sandbox.\nYou send a prompt, the agent edits the repository inside the sandbox, and you read its changes as a diff.\n...\nClaude Code calls Anthropic models through AI Gat…",
+   "title": "Build a coding agent runner · Cloudflare Sandboxes docs",
+   "url": "https://developers.cloudflare.com/sandbox/get-started/build-a-coding-agent-runner/"
+  },
+  {
+   "chars_delivered": 894,
+   "published": null,
+   "text": "description: Sandbox SDK containers run isolated Linux environments with Python, Node.js, and common dev tools.\n...\nEach sandbox runs in an isolated Linux container with Python, Node.js, and common development tools pre-installed.\n...\n**Outbound connections** work:\n```bash\ncurl https://api.example.…",
+   "title": "Container runtime",
+   "url": "https://04ce0f9a.previews.developers.cloudflare.com/sandbox/concepts/containers/index.md"
+  },
+  {
+   "chars_delivered": 1530,
+   "published": "2026-04-07",
+   "text": "- E2B — Firecracker microVMs, ~150ms startup, free tier\n- Modal — GPU support, sub-second starts\n- Daytona — container-based, state management (pause/resume)\n- Fly Sprites — persistent Firecracker microVMs with 100GB NVMe per sprite\n**Protects against:** Full VM or container isolation.\nNo local sys…",
+   "title": "awesome-agent-sandboxes/README.md at main · msyvr/awesome-agent-sandboxes",
+   "url": "https://github.com/msyvr/awesome-agent-sandboxes/blob/main/README.md"
+  },
+  {
+   "chars_delivered": 3153,
+   "published": "2026-10-27",
+   "text": "|Provider and product|Isolation|Mechanism, as documented|\n|--|--|--|\n|**Cloudflare Workers**|`language_isolate`|V8 isolates, many per process, in a process sandbox with namespaces and seccomp|\n|**Cloudflare Containers and Sandbox SDK**|`microvm`|\"Each container instance runs in a Firecracker microV…",
+   "title": "syntaqx.com/content/books/hosting-and-cloud/sandboxes-and-microvms.md at main · syntaqx/syntaqx.com",
+   "url": "https://github.com/syntaqx/syntaqx.com/blob/main/content/books/hosting-and-cloud/sandboxes-and-microvms.md"
+  },
+  {
+   "chars_delivered": 2357,
+   "published": "2026-10-12",
+   "text": "Sprites, E2B, Modal and Daytona all give an AI agent an isolated machine to run code in, and they differ on four things that decide the bill and the blast radius: the isolation boundary under the code, what a sandbox costs while it sits idle, what survives between runs, and whether Docker or a GPU…",
+   "title": "Sprites vs E2B vs Modal vs Daytona: Agent Sandboxes ...",
+   "url": "https://fly.io/learn/sprites-vs-e2b-vs-modal-vs-daytona/"
+  },
+  {
+   "chars_delivered": 838,
+   "published": null,
+   "text": "### Run untrusted code in isolated environments. Give your AI agents, code interpreters, and developer tools a secure place to execute code, install packages, and interact with the filesystem.\n**Fully isolated**\nEach sandbox runs in its own secure container.\nExecute AI-generated or user-submitted c…",
+   "title": "Cloudflare Sandboxes - Secure Code Execution",
+   "url": "https://www.cloudflare.com/products/sandboxes/"
+  },
+  {
+   "chars_delivered": 129,
+   "published": null,
+   "text": "We break down Firecracker microVMs, gVisor, and Kata Containers — with code, benchmarks, and a decision framework for production.",
+   "title": "Posts tagged #gvisor.",
+   "url": "https://turion.ai/blog/tag/gvisor/"
+  },
+  {
+   "chars_delivered": 1943,
+   "published": "2026-04-27",
+   "text": "- **Managed default:** E2B runs Firecracker microVMs with 5-30ms snapshot cold starts at about $0.000014 per sandbox-second (2026), but its managed tier has no GPU.\n- **GPU inside the sandbox:** self-hosted E2B OSS or raw Firecracker on bare metal is the only route to GPU passthrough.\nDaytona's gVi…",
+   "title": "AI Agent Code Execution Sandboxes: E2B, Daytona, Firecracker...",
+   "url": "https://www.spheron.network/blog/ai-agent-code-execution-sandbox-e2b-daytona-firecracker/"
+  }
+ ],
+ "latency_ms": 440.6,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q16",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What sandboxing approaches are used for autonomous agents (Firecracker microVMs, gVisor, e2b, Modal, Daytona, Cloudflare, devcontainers)? Compare startup time, isolation strength, snapshot/resume, cost, and network egress control, with any published benchmarks.",
+    "AI agent sandbox Firecracker gVisor comparison benchmarks",
+    "E2B Modal Daytona sandbox cold start snapshot",
+    "Cloudflare sandbox devcontainers agent network egress isolation"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 19127,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:06.642087Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

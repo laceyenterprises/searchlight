@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "5c13c66fae4dcddf",
+ "url": "https://docs.mergify.com/merge-queue/performance",
+ "verdicts": {
+  "Mergify advises lowering batch size and parallelism for repositories with frequent flaky or failing PRs to limit wasted work, and sizing for peak load rather than averages.": 1,
+  "Mergify's RCV theorem states that a merge queue can optimize only two of reliability, cost and velocity at a time.": 1,
+  "Mergify's Two-step CI runs fast preliminary tests when a PR is created or updated to gate queue entry, and exhaustive pre-merge tests just before merge, to keep queue-time CI short.": 1,
+  "Mergify's example: with batch_size 3 and max_parallel_checks 2, given 7 queued PRs and a 10-minute CI pipeline, the first 6 PRs merge in 10 minutes instead of the hour required for sequential validation.": 1,
+  "Under Mergify's RCV framing, batch mode gives velocity plus low cost, but hidden failures inside a passing batch can land on main.": 1,
+  "Under Mergify's RCV framing, parallel speculative checks give reliability plus velocity but waste CI runs when a PR ahead in the queue fails.": 1,
+  "Under Mergify's RCV framing, sequential validation gives reliability plus low cost but caps throughput at one PR per CI run.": 1
+ }
+}

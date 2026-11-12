@@ -1,0 +1,19 @@
+{
+ "capture": "captured",
+ "digest": "e010e48c0f69cd56",
+ "url": "https://arxiv.org/html/2603.10600v1",
+ "verdicts": {
+  "Each learning in the trajectory-informed memory framework keeps provenance, a link to the source trajectory and outcome, so teams can check whether similar failures still occur after the learning is deployed and can audit the system's decisions.": 1,
+  "On complex AppWorld tasks, the IBM framework improved scenario goal completion by 28.5 percentage points, a 149% relative increase.": 1,
+  "On the AppWorld benchmark, the IBM framework achieved up to 14.3 percentage point gains in scenario goal completion on held-out tasks.": 1,
+  "The Decision Attribution Analyzer in the IBM framework identifies which decisions and reasoning steps led to failures, recoveries, or inefficiencies.": 1,
+  "The IBM Adaptive Memory Retrieval System injects relevant learnings into agent prompts based on multi-dimensional similarity.": 1,
+  "The IBM Contextual Learning Generator produces three types of guidance: strategy tips from successful patterns, recovery tips from failure handling, and optimization tips from inefficient but successful executions.": 1,
+  "The IBM Research framework for trajectory-informed memory generation has four components: a Trajectory Intelligence Extractor, a Decision Attribution Analyzer, a Contextual Learning Generator, and an Adaptive Memory Retrieval System.": 1,
+  "The IBM framework extracts structured learnings with provenance, in contrast to generic memory systems that store conversational facts in vector databases.": 1,
+  "The IBM paper criticizes rule-based systems as brittle because developers must manually anticipate patterns, and criticizes generic memory systems for lacking causal analysis of which decisions led to failures.": 1,
+  "The IBM paper gives a recovery-tip example: when checkout fails due to a missing payment method, verify that payment information is configured before retrying.": 1,
+  "The IBM paper gives an optimization-tip example: use a single amazon_empty_cart() call instead of looping amazon_remove_from_cart(item_id) to empty a cart.": 1,
+  "The IBM paper states that an agent that struggles with a particular API authentication flow today will struggle with the same flow tomorrow unless its prompts are manually updated.": 1
+ }
+}

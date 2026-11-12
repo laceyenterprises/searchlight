@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "437d2c93bf673ceb",
+ "url": "https://www.sankara.net/ai/effective-coding-agents/book/html/ch-11-reviewing-ai-generated-changes.html",
+ "verdicts": {
+  "A proposed reviewer-restatement control requires reviewers of medium- or high-risk PRs to restate the changed invariant and blast radius in their own words, re-derived from the diff, because approving without being able to do so is rubber-stamping.": 1,
+  "For act-mode, unattended, or high-risk agent work, the session transcript should be reviewed alongside the PR for scope drift, repeated tool loops without convergence, and late permission escalation.": 1
+ }
+}

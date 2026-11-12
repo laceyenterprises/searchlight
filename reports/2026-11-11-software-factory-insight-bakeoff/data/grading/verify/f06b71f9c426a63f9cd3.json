@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "c75d1a2ae8f74b0d",
+ "url": "https://dev.to/pwd9000/using-github-copilot-coding-agent-for-devops-automation-3f43",
+ "verdicts": {
+  "Pull requests from the Copilot coding agent are scanned by CodeQL, secret scanning, and dependency checks against the GitHub Advisory Database.": 1,
+  "The Copilot coding agent supports only Linux (Ubuntu x64) GitHub Actions runners, handles one repository and one pull request per task, and cannot sign commits without a ruleset bypass.": 1,
+  "The Copilot coding agent works inside an ephemeral GitHub Actions container that is destroyed after each session, set up using the repository's setup workflow.": 1,
+  "The person who triggered the Copilot coding agent cannot approve the resulting pull request, ensuring independent review.": 1
+ }
+}

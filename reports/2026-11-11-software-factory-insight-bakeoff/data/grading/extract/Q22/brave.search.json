@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "497bf479487cc1b6",
+ "claims": [
+  {
+   "text": "Klarna's AI assistant handled 2.3 million customer conversations in a single month, equivalent to the workload of 700 full-time human agents.",
+   "url": null
+  },
+  {
+   "text": "Klarna's multi-agent system reduced resolution time from 11 minutes to under 2, cut repeat inquiries by 25%, raised customer satisfaction scores by 47%, and lowered cost per service transaction from $0.32 to $0.19.",
+   "url": null
+  },
+  {
+   "text": "Klarna's AI assistant produced roughly $60 million in savings through late 2025.",
+   "url": null
+  },
+  {
+   "text": "Klarna's multi-agent system is built with LangGraph, a graph-based state-machine framework with 34.5 million monthly downloads, and uses a planner that routes work to cheap executors with explicit handoff contracts, designed to fail gracefully rather than cascade.",
+   "url": null
+  },
+  {
+   "text": "Fujitsu transformed its sales proposal process using specialized agents for data analysis, market research and document creation, each invoking specific APIs and tools, reducing proposal production time by 67%.",
+   "url": null
+  },
+  {
+   "text": "JM Family's BAQA Genie uses an orchestrator coordinating agents for requirements, story writing, coding, documentation and QA, cutting requirements and test design from weeks to days and saving up to 60% of QA time.",
+   "url": null
+  },
+  {
+   "text": "MIT's NANDA initiative found the biggest measurable returns from AI agents came from unglamorous back-office workflow automation rather than flashy sales tooling.",
+   "url": null
+  },
+  {
+   "text": "Back-office agents read incoming documents and requests, classify and triage them, draft the response or record update, route ambiguous cases to a person, and complete only routine, low-risk cases themselves.",
+   "url": null
+  },
+  {
+   "text": "In human-in-the-loop agent workflows, the agent drafts and pauses at a checkpoint before any consequential action; low-risk routine cases can run without a pause once the agent proves reliable, while high-consequence actions always wait for review.",
+   "url": null
+  },
+  {
+   "text": "In finance and compliance multi-agent systems, agents process invoices, cross-reference policies via an internal knowledge base, flag exceptions, and route payment approvals to human reviewers for irreversible actions.",
+   "url": null
+  },
+  {
+   "text": "In sales and revenue operations multi-agent systems, a planner agent scores leads, a personalization agent drafts outreach, and an analysis agent triggers campaigns automatically.",
+   "url": null
+  },
+  {
+   "text": "A LangGraph marketing pipeline example uses a Researcher Agent, a Copywriter Agent and a Brand Auditor Agent with a human approval gate, so the copywriter cannot publish until the auditor verifies product assertions match verified brand facts.",
+   "url": null
+  },
+  {
+   "text": "Brand guidelines, historical winning hooks and competitor positioning are stored in vector databases such as pgvector or Pinecone, which agents query to maintain tone continuity; Redis holds session context and PostgreSQL holds campaign records.",
+   "url": null
+  },
+  {
+   "text": "In a full-funnel campaign orchestration use case, a research agent analyzes support transcripts, a creative agent generates email cadences, social snippets and landing page variants, and once approved a distribution agent deploys assets across HubSpot, LinkedIn Ads and WordPress.",
+   "url": null
+  },
+  {
+   "text": "Gartner is cited as projecting that 80% of tangible enterprise ROI from agentic AI will come from specialized, domain-specific agents rather than general-purpose chat models.",
+   "url": null
+  },
+  {
+   "text": "Salesforce Agentforce is locked to Salesforce and Slack and risks lengthy implementation and vendor lock-in; HubSpot Breeze is locked to HubSpot Hubs; the n8n + LangGraph hybrid is vendor-agnostic but requires dedicated engineering upkeep.",
+   "url": null
+  },
+  {
+   "text": "One agency builds marketing agent systems on N8N, Relevance AI and Claude Code, with 25+ connectors including HubSpot, Salesforce, Clay, Apollo, Instantly, Smartlead, WordPress and Webflow.",
+   "url": null
+  },
+  {
+   "text": "The agency's B2B flow: on an intent signal a Research workflow builds an account profile, a Content workflow creates personalized messaging, and an SDR workflow executes outreach.",
+   "url": null
+  },
+  {
+   "text": "The agency describes three quality layers: brand voice and ICP configured in prompts, human-in-the-loop approval gates for sensitive actions, and feedback loops scoring outputs; it says agents handle 80% and humans approve the 20% that matters.",
+   "url": null
+  },
+  {
+   "text": "The agency states deployment takes 2-4 weeks, with agents autonomous with human oversight by week 4 and full optimization over 60-90 days.",
+   "url": null
+  },
+  {
+   "text": "Relevance AI is a low-code platform for multi-agent workforces supporting human approvals, escalations and structured handoffs, is model-agnostic, has 400+ agent templates, and enterprise plans add evaluations, tracing, RBAC, SSO and audit logs.",
+   "url": null
+  },
+  {
+   "text": "Copy.ai's creative decision-making agents choose among output variants based on brand rules stored in Infobase, and its GTM agents research an account, draft outreach, personalize against CRM data and push back to Salesforce or HubSpot.",
+   "url": null
+  },
+  {
+   "text": "Production marketing agents often require technical support for integrations, permissions, testing and governance, even though teams can prototype without engineers.",
+   "url": null
+  },
+  {
+   "text": "Profound's Aim agent scans AI search data to find visibility gaps, scopes them into projects and briefs, and deploys sub-agents to research top-cited pages and produce content, with a human kept in place for final approvals.",
+   "url": null
+  },
+  {
+   "text": "n8n, Zapier and Claude do not close the measurement loop on marketing results: n8n knows whether a workflow ran but not whether it worked, while Zapier agents ship with audit logs, managed credentials and admin controls.",
+   "url": null
+  }
+ ],
+ "question_id": "Q22"
+}

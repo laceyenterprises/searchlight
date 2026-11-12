@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "f0b3eaab3083d662",
+ "claims": [
+  {
+   "text": "On Inngest, each model call and each tool call in an agent loop runs in its own step.run(); when a step succeeds, Inngest saves its result as a checkpoint, and a failed step is retried while completed steps return their saved results instead of running again.",
+   "url": null
+  },
+  {
+   "text": "Inngest's step.waitForEvent() pauses an agent until a matching event arrives or a timeout passes (example: 24h timeout with an 'if' expression matching approvalId); the run is suspended, holding no worker and no connection.",
+   "url": null
+  },
+  {
+   "text": "Inngest recommends handling all three outcomes of an approval wait: approved, rejected, and no response (timed out); step.sleep() or step.sleepUntil() pause for a set time instead.",
+   "url": null
+  },
+  {
+   "text": "On Inngest, a tool can change an external system and then fail before its result is saved, so Inngest recommends idempotency keys for writes, sends, and payments.",
+   "url": null
+  },
+  {
+   "text": "Inngest retries each step on its own with backoff, with the count set by the function's `retries` option; a step that exhausts its retries throws, and the error can be caught and passed back to the model as a tool result so it can try another path.",
+   "url": null
+  },
+  {
+   "text": "Inngest recommends throwing a NonRetriableError for errors that won't succeed on retry, such as invalid input, and using a failure handler to notify someone or undo partial work after a failed run.",
+   "url": null
+  },
+  {
+   "text": "Inngest recommends capping the agent loop with an iteration limit and token-usage tracking so a stuck agent stops, and cancellation can stop a run from outside.",
+   "url": null
+  },
+  {
+   "text": "On Inngest, anything that changes between executions (random values, current time, API calls) must be kept inside steps so a resumed run replays the same decisions.",
+   "url": null
+  },
+  {
+   "text": "Inngest sub-agents are separate functions with their own retries: step.invoke() runs a sub-agent and waits for its result, while step.sendEvent() starts it and continues immediately; a failed sub-agent does not lose the parent's progress.",
+   "url": null
+  },
+  {
+   "text": "Inngest caps a run's state, which includes all step results, at 32 MiB, and recommends pruning older turns, summarizing in a step, returning references for large tool output, and isolating big subtasks in sub-agents.",
+   "url": null
+  },
+  {
+   "text": "Inngest's Sandbox feature (beta) runs model-written code in an isolated Linux VM with each call a durable step so a retry reuses the Sandbox; the agent loop itself runs in the app, and the user must destroy the Sandbox on success and in a failure handler.",
+   "url": null
+  },
+  {
+   "text": "Inngest recommends saving agent memory in a step as an upsert, because the step itself may retry, and loading it in a step so a resumed run uses the same history.",
+   "url": null
+  },
+  {
+   "text": "Restate persists agent steps (LLM calls, tools), automatically retries transient errors like rate limits and network failures, and suspends long-running agents when idle to save costs.",
+   "url": null
+  },
+  {
+   "text": "Restate integrates with the Vercel AI SDK and OpenAI SDK via a wrapper, e.g. wrapLanguageModel with durableCalls(restateContext, { maxRetryAttempts: 3 }) middleware.",
+   "url": null
+  },
+  {
+   "text": "Restate documents patterns for human approval with crash-proof timeouts, parallelization, sub-workflows, multi-agent orchestration, and compensation (automatically undoing previous actions when later steps fail).",
+   "url": null
+  },
+  {
+   "text": "Restate offers flow control to cap how many agent invocations run at once, putting a ceiling on LLM and API spend, and says it scales to millions of concurrent agent executions on FaaS or containers.",
+   "url": null
+  },
+  {
+   "text": "Restate's approach wraps LLM inference calls and tool invocations as durable steps, which also gives idempotency, the ability to detach/re-attach from agents, scheduled calls, and triggering agents from Kafka.",
+   "url": null
+  },
+  {
+   "text": "In Restate, human-in-the-loop is modeled by awaiting a durable promise; because progress is journaled, the agent can be shut down while waiting and restored when the promise completes, so serverless users pay for active work, not wait time.",
+   "url": null
+  },
+  {
+   "text": "Restate allows running agent code on FaaS (like Lambda) while moving long LLM inference calls to a container (like Fargate) that completes a durable promise with the result, so the agent can suspend even during inference.",
+   "url": null
+  },
+  {
+   "text": "The suspend/signal primitive for human-in-the-loop is named differently per platform: Temporal uses workflow.wait_condition with @workflow.signal, Inngest uses step.waitForEvent, Restate uses an awakeable, and LangGraph uses interrupt() with Command(resume=...).",
+   "url": null
+  },
+  {
+   "text": "Reactify Solutions advises that approval signals be idempotent (the same approval delivered twice must not double-resume), via a deduplication key on the signal, and that every human wait have a deadline and an escalation path, since a wait without an upper bound is a leak.",
+   "url": null
+  },
+  {
+   "text": "Reactify Solutions reports that OpenAI's Codex web agent runs on Temporal, with each conversation a workflow journaling LLM calls, tool calls and human approvals, and that Replit migrated its coding agent to Temporal and shipped Agent 3 on it.",
+   "url": null
+  },
+  {
+   "text": "Reactify Solutions says Cursor's long-running agentic features ship on a durable foundation where the agent loop is workflow code and the model call is an Activity, and that customer support agents calling CRM, billing and shipping systems are the largest production use on DBOS, Inngest and Restate.",
+   "url": null
+  },
+  {
+   "text": "Temporal states Gorgias runs AI agents for 15,000 brands on Temporal, using it for retries, sagas, and human-in-the-loop steps; ZoomInfo also uses it for AI, NVIDIA uses it for long-running GPU workflows, and OpenAI, Lovable, Replit, Cursor and Retool are named as builders on it.",
+   "url": null
+  },
+  {
+   "text": "Temporal's AI cookbook says that while an agent waits for approval on Signals and Updates with durable timers, 'the agent consumes no compute resources'.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

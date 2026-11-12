@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:14.234729Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2100,
+   "page_chars_delivered": 27154,
+   "post_step": "fetched",
+   "published": null,
+   "text": "### 2. Content and Marketing\n\nContent production is a natural fit for multi-agent systems because the process already has discrete stages: ideation, research, drafting, editing, formatting, distribution.\n\nA content workflow might look like this:\n\n1. Topic agent identifies trending keywords and cont…",
+   "title": "How to Build a Multi-Agent Workflow That Runs Your Business on Autopilot | MindStudio",
+   "url": "https://www.mindstudio.ai/blog/multi-agent-workflow-business-automation"
+  },
+  {
+   "chars_delivered": 2367,
+   "page_chars_delivered": 50374,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Zenphi is the orchestration layer that connects AI models (Claude, Gemini, OpenAI) to your marketing stack and runs them as governed, auditable workflows. Content gets written, reviewed, and published automatically. Customer insight reports reach 6,000 inboxes every month without an analyst compili…",
+   "title": "Marketing AI agents — 2× retention with Zenphi AI workflows",
+   "url": "https://zenphi.com/solutions/marketing-automation"
+  },
+  {
+   "chars_delivered": 2229,
+   "page_chars_delivered": 38371,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Role definitions give teams a way to evaluate ready-made agents. For content planning, try HubSpot’s campaign agent, which can turn a simple goal into a multichannel campaign plan. For sales, deal agent can turn meetings, calls, emails, and pipeline signals into recommended next steps, while keepin…",
+   "title": "Multi-agent AI systems — how this AI tech stack can power your marketing org",
+   "url": "https://blog.hubspot.com/marketing/multi-agent-system-ai"
+  },
+  {
+   "chars_delivered": 1897,
+   "published": null,
+   "text": "For content marketing specifically, MindStudio enables you to build agents that work together as a system. One agent handles research and briefing, another creates content, a third manages distribution, and a fourth tracks performance. They operate as an integrated content production system rather…",
+   "title": "15 Ways to Use AI Agents for Content Marketing | MindStudio",
+   "url": "https://www.mindstudio.ai/blog/ai-agents-content-marketing"
+  },
+  {
+   "chars_delivered": 2216,
+   "published": null,
+   "text": "Purpose-Built for Marketing: Unlike generic agent builders, Lyzr is designed with marketing use cases as a primary focus, offering pre-built templates and workflows for content strategy, SEO, campaign management, and more.\n True Multi-Agent Orchestration: Lyzr excels at creating collaborative “crew…",
+   "title": "The 20 Best AI Agent Platforms for Marketing Teams in 2026 - Lyzr.ai",
+   "url": "https://www.lyzr.ai/blog/20-best-ai-agent-platforms"
+  },
+  {
+   "chars_delivered": 2187,
+   "published": null,
+   "text": "## Building marketing agents with Mastra\n\nYou can build every pattern in this guide with Mastra, an open-source TypeScript framework for AI agents. It gives you agents, workflows, memory, and observability as first-class primitives, built on Vercel’s AI SDK and extended with the pieces production w…",
+   "title": "AI Agents for Marketing: 10 Best Platforms (2026)",
+   "url": "https://mastra.ai/articles/ai-agents-for-marketing"
+  },
+  {
+   "chars_delivered": 2014,
+   "published": null,
+   "text": "What you'll love\n\n Brand Kits and Knowledge Bases deliver real multi-brand governance, valuable for agencies running several clients from one seat\n Grids make large-scale library refreshes practical instead of punishing, with bulk execution across big batches\n Human review is built in by default as…",
+   "title": "6 Best AI Agents for Content Creation",
+   "url": "https://www.tryprofound.com/articles/best-ai-agents-for-content-creation"
+  },
+  {
+   "chars_delivered": 2154,
+   "published": null,
+   "text": "## Why multi-agent systems are more than just a trend\n\nClassic AI tools usually handle a single isolated task, like text generation or data analysis. Multi-agent systems, by contrast, work in parallel, coordinated with each other, and role-based. One agent handles research, another writes content,…",
+   "title": "Multi-agents: The next evolutionary stage of AI in marketing | valantic Blog",
+   "url": "https://www.valantic.com/en/blog/multi-agents-ai-in-marketing"
+  },
+  {
+   "chars_delivered": 2015,
+   "published": null,
+   "text": "Multi-agent systems will become the norm. Instead of isolated tools, you’ll run teams of specialized agents that coordinate and share context. Your content agent will inform your SEO agent, which will guide your campaign orchestration agent.\n\nThe agents will get better at reasoning and decision-mak…",
+   "title": "10 AI Agents Every Marketing Team Needs in 2026 | MindStudio",
+   "url": "https://www.mindstudio.ai/blog/ai-agents-for-marketing-teams"
+  },
+  {
+   "chars_delivered": 795,
+   "published": null,
+   "text": "These agents don’t work in isolation. They negotiate tasks, delegate responsibilities, and learn from each other, much like how different team members brainstorm, critique, and refine ideas in a live campaign room.\n\nUnlike single-point AI solutions, MAS brings parallelization where multiple special…",
+   "title": "Multi-Agent AI System In Marketing: Key Benefits and Examples",
+   "url": "https://clevertap.com/blog/multi-agent-ai-system"
+  }
+ ],
+ "latency_ms": 3744.4,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q22",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "Beyond coding, what multi-agent systems run marketing, content production, sales or back-office automation in production? Cover architecture, human approval points, brand and quality control, and measured results, and say which are built on general agent platforms rather than bespoke code.",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q22-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 23136,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:24:10.490302Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

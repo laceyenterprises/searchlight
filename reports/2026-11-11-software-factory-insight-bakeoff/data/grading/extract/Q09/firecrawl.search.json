@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "c46b673f9a2b29db",
+ "claims": [
+  {
+   "text": "SWE-agent introduced a custom agent-computer interface (ACI) that lets language model agents create and edit code files, navigate repositories, and execute tests and programs, on the premise that LM agents are a new category of end user needing purpose-built interfaces.",
+   "url": null
+  },
+  {
+   "text": "The SWE-agent NeurIPS 2024 paper reports pass@1 of 12.5% on SWE-bench and 87.7% on HumanEvalFix, exceeding the previous state of the art set by non-interactive language models.",
+   "url": null
+  },
+  {
+   "text": "NeurIPS 2024 reviewers of the SWE-agent paper raised concerns that the work over-focuses on SWE-bench, questioning the generalizability of the ACI, and said the ablation studies could be more exhaustive.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's toolset is minimal and text-first: ls, find_file, open, scroll, edit, submit, with a line-range linear edit format and the full trajectory kept in context.",
+   "url": null
+  },
+  {
+   "text": "OpenHands exposes a richer toolset (bash, file_edit, browse, jupyter, custom MCP) with str_replace and full-file-rewrite edits, an event-history memory with a condenser, and a Docker sandbox runtime.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent is described as leaving maximal agency to the language model and being governed by a single yaml configuration file.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent is now in maintenance-only mode; its developers say mini-swe-agent has superseded it and matches its performance while being much simpler.",
+   "url": null
+  },
+  {
+   "text": "On July 24 the mini-swe-agent project reported 65% on SWE-bench Verified in 100 lines of Python.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent 1.0 with Claude 3.7 was reported as state of the art on SWE-bench Verified (Feb 25) and SWE-bench full (Feb 28).",
+   "url": null
+  },
+  {
+   "text": "SWE-agent-LM-32b, trained with SWE-smith, was reported as open-weights state of the art on SWE-bench (May 2).",
+   "url": null
+  },
+  {
+   "text": "SWE-agent was built by researchers from Princeton University and Stanford University, and its sibling projects include SWE-ReX, SWE-smith, SWE-bench and sb-cli.",
+   "url": null
+  },
+  {
+   "text": "OpenHands sandboxes agent actions by running a runtime in a Docker environment; the agent sends messages called actions and receives feedback called observations from the environment.",
+   "url": null
+  },
+  {
+   "text": "OpenHands built a cloud remote runtime that runs many sandboxes in parallel; evaluation at 32x parallelism cut a SWE-bench Lite run from several days to several hours (a 30x or greater speedup).",
+   "url": null
+  },
+  {
+   "text": "The OpenHands team stated that fixing a single SWE-bench Lite example can take about 10 minutes, so the 300-instance dataset takes roughly two days serially, and per-agent environments need hundreds of gigabytes.",
+   "url": null
+  },
+  {
+   "text": "In OpenHands' SWE-bench Lite comparison, Claude 3.5 Sonnet was best at a 27% resolve rate with the default agent at about $0.3 per issue, while o1-mini performed somewhat worse than GPT-4o.",
+   "url": null
+  },
+  {
+   "text": "OpenHands' analysis suggested o1 sometimes overthought tasks, performing extra environment configuration when it could simply finish the task.",
+   "url": null
+  },
+  {
+   "text": "In the OpenHands study, DeepSeek-v2.5 cost about $0.003 per issue, and Llama 3.1 405B and DeepSeek-v2.5 were the strongest open models, with prompt caching from Anthropic and DeepSeek cited as greatly reducing agentic cost.",
+   "url": null
+  },
+  {
+   "text": "Nebius released 67,074 OpenHands (v0.54.0) trajectories generated with Qwen3-Coder-480B-A35B-Instruct across 1,823 Python repositories from SWE-rebench, with 3,792 resolved issues; trajectories whose patches failed to apply were filtered out.",
+   "url": null
+  },
+  {
+   "text": "Rejection fine-tuning on the OpenHands trajectories gave a 235B model 61.7% Pass@1 on SWE-bench Verified, versus 66.5% for Qwen3-Coder-480B-A35B-Instruct, and a 30B model reached 50.3%.",
+   "url": null
+  },
+  {
+   "text": "One comparison reports best SWE-bench Verified scores of about 77.6% for OpenHands with Opus 4.5 and about 72.0% for SWE-agent with Opus 4.5, with mini-SWE-agent at 76.8%; the source labels these figures best reported rather than controlled.",
+   "url": null
+  },
+  {
+   "text": "On the Vals.ai SWE-bench Verified leaderboard, Mini-SWE-agent is the harness for most top entries, led by Claude Opus 5 at 97.00% costing $1.29 per test.",
+   "url": null
+  },
+  {
+   "text": "Vals.ai lists Claude Opus 4.8 at 88.60% with Mini-SWE-agent versus 85.80% with Claude Code, and notes SWE-bench Verified is archived because performance has saturated.",
+   "url": null
+  },
+  {
+   "text": "SWE-EVO contains 48 tasks built from release notes of seven open-source Python projects, spanning an average of 21 files and test suites averaging 874 tests per instance.",
+   "url": null
+  },
+  {
+   "text": "On SWE-EVO, GPT-5.4 with OpenHands reached only 25%, versus 72.80% for GPT-5.2 on SWE-Bench Verified, indicating agents struggle with long-horizon multi-file reasoning.",
+   "url": null
+  },
+  {
+   "text": "Reported limitations of OpenHands include needing strong tests and well-scoped issues, struggling with ambiguous tasks and brittle environments, and being token-hungry and expensive on complex work.",
+   "url": null
+  }
+ ],
+ "question_id": "Q09"
+}

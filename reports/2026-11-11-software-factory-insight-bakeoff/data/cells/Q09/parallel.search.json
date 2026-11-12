@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:22.695469Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 985,
+   "page_chars_delivered": 8065,
+   "post_step": "fetched",
+   "published": "2024-05-06",
+   "text": "# Computer Science > Software Engineering\n\n**arXiv:2405.15793** (cs)\n\n[Submitted on 6 May 2024 ( [v1](https://arxiv.org/abs/2405.15793v1) ), last revised 11 Nov 2024 (this version, v3)]\n\n...\n\nof end users with their own needs and abilities, and would benefit from specially-built interfaces to the s…",
+   "title": "[2405.15793] SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+   "url": "https://arxiv.org/abs/2405.15793"
+  },
+  {
+   "chars_delivered": 965,
+   "page_chars_delivered": 10218,
+   "post_step": "fetched",
+   "published": null,
+   "text": "# Runtime Architecture\n\nThe OpenHands Docker Runtime is the core component that enables secure and flexible execution of AI agent's action.\nIt creates a sandboxed environment using Docker, where arbitrary code can be run safely without risking the host system.\n\n## Why do we need a sandboxed runtime…",
+   "title": "Runtime Architecture",
+   "url": "https://docs.openhands.dev/openhands/usage/architecture/runtime"
+  },
+  {
+   "chars_delivered": 860,
+   "page_chars_delivered": 323311,
+   "post_step": "fetched",
+   "published": "2024-11-14",
+   "text": "We investigate how interface design affects the performance of language model agents. As a result of this exploration, we introduce SWE-agent: a system that facilitates LM agents to autonomously use computers to solve software engineering tasks.\n\n...\n\nFrom this effort, we introduce SWE-agent, an ag…",
+   "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+   "url": "https://proceedings.neurips.cc/paper_files/paper/2024/file/5a7c947568c1b1328ccc5230172e1e7c-Paper-Conference.pdf"
+  },
+  {
+   "chars_delivered": 953,
+   "published": null,
+   "text": "# SWE-agent/mini-swe-agent\n\n- Page: GitHub repository\n- URL: https://github.com/SWE-agent/mini-swe-agent\n- Description: The 100 line AI agent that solves GitHub issues or helps you in your command line. Radically simple, no huge configs, no giant monorepo—but scores &gt;74% on SWE-bench verified!…",
+   "title": "GitHub - SWE-agent/mini-swe-agent: The 100 line AI agent that solves GitHub issues or helps you in your command line. Radically simple, no huge configs, no giant monorepo—but scores >74% on SWE-bench verified! · GitHub",
+   "url": "https://github.com/SWE-agent/mini-swe-agent?tab=readme-ov-file"
+  },
+  {
+   "chars_delivered": 971,
+   "published": null,
+   "text": "OpenHands supports multiple deployment configurations. This document describes the core components and how they interact.\n\n## Local/Docker Deployment\n\n...\n\n        ConvMgr[\"Conversation<br/>Manager\"]\n        Runtime[\"Runtime<br/>Manager\"]\n    end\n\n    subgraph Sandbox[\"Sandbox (Docker Container)\"]…",
+   "title": "OpenHands/openhands/architecture/system-architecture.md at 1.6.0 · OpenHands/OpenHands · GitHub",
+   "url": "https://github.com/OpenHands/OpenHands/blob/1.6.0/openhands/architecture/system-architecture.md"
+  },
+  {
+   "chars_delivered": 985,
+   "published": "2024-12-16",
+   "text": "[Advances in Neural Information Processing Systems 37 (NeurIPS 2024)](https://proceedings.neurips.cc/paper_files/paper/2024) Main Conference Track\n\n...\n\ncategory of end users with their own needs and abilities, and would benefit from specially built interfaces to the software they use. We investiga…",
+   "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+   "url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/5a7c947568c1b1328ccc5230172e1e7c-Abstract-Conference.html"
+  },
+  {
+   "chars_delivered": 943,
+   "published": null,
+   "text": "It runs locally on your machine by default, but can connect to multiple “agent backends”, e.g. running agents in Docker containers, on VMs, or within your company infrastructure.\n\n...\n\nAgent Canvas runs the open source OpenHands agent out-of-the-box, but can use third-party agents such as Claude Co…",
+   "title": "GitHub - OpenHands/OpenHands: 🙌 OpenHands: AI-Driven Development · GitHub",
+   "url": "https://github.com/OpenHands/OpenHands"
+  },
+  {
+   "chars_delivered": 867,
+   "published": "2026-05-06",
+   "text": "Not just one agent in one terminal. Agents prompted from\nanywhere, running everywhere.\n\nThat's the new Amp we're building.\n\nBut the terminal still matters and will matter. There will be moments where you\nwant the agent right next to you.\n\nSo we rebuilt the CLI first. It _is_ still Amp in your termi…",
+   "title": "Amp, Rebuilt - Amp",
+   "url": "https://ampcode.com/news/neo"
+  },
+  {
+   "chars_delivered": 990,
+   "published": "2026-05-13",
+   "text": "This outcome-only view treats a principled solution and a chaotic trial-and-error process as equivalent. We show that this equivalence is empirically false. We evaluate 2,614 OpenHands trajectories from eight model backends on 60 SWE-bench Verified tasks. Of these, 47 have enough passing trajectori…",
+   "title": "AgentLens: Revealing The Lucky Pass Problem in SWE-Agent Evaluation - Microsoft Research",
+   "url": "https://www.microsoft.com/en-us/research/publication/agentlens-revealing-the-lucky-pass-problem-in-swe-agent-evaluation/"
+  },
+  {
+   "chars_delivered": 995,
+   "published": null,
+   "text": "This is mini-swe-agent v2\n\nRead the [migration guide](https://mini-swe-agent.com/latest/advanced/v2_migration/) .\n\n...\n\nIn 2024, [SWE-bench](https://swebench.com/) & [SWE-agent](https://swe-agent.com/) helped kickstart the coding agent revolution.\n\nWe now ask: **What if our agent was 100x simpler,…",
+   "title": "Overview - mini-SWE-agent documentation",
+   "url": "https://mini-swe-agent.com/"
+  }
+ ],
+ "latency_ms": 3881.6,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q09",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: What are the architectures and reported results of open-source autonomous coding agents and frameworks: OpenHands (All Hands), SWE-agent / mini-swe-agent, Block's goose, and Sourcegraph Amp? Focus on the agent-computer interface, sandboxing, and lessons from SWE-bench-style evaluation. Rank first primary sources: the organisations' own engineering blog posts, documentation, talks, papers (e.g. OpenHands, SWE-agent ACI paper), GitHub repositories and READMEs, plus credible reporting. Extract mechanisms (agent loop, tool/action design, ACI, Docker or runtime sandboxing, MCP use), names, dates, measured results (SWE-bench Verified/Lite scores, cost, step counts), and failure modes or lessons from SWE-bench evaluation such as contamination, test leakage, and scaffold simplicity versus performance.",
+   "search_queries": [
+    "OpenHands architecture sandbox runtime SWE-bench results",
+    "SWE-agent agent-computer interface mini-swe-agent bash only",
+    "Block goose agent MCP architecture Sourcegraph Amp"
+   ],
+   "session_id": "sl-parallel.search-Q09-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 12167,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:18.813802Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

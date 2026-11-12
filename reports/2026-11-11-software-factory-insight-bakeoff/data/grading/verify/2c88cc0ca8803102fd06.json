@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "2ca2028827028d85",
+ "url": "https://www.restate.dev/use-cases/coralogix",
+ "verdicts": {
+  "Coralogix integrated the Vercel AI SDK with Restate to persist LLM responses and manage token updates in Postgres, streaming results to users via ElectricSQL.": 1,
+  "Coralogix uses Restate for Olly's agentic workflows and background jobs, including building semantic layers per customer and indexing code repositories, with pipelines resuming exactly where they left off after failures.": 1
+ }
+}

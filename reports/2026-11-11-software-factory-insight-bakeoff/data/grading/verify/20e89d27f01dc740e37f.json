@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "99daebaeedc86aac",
+ "url": "https://www.llms.blog/posts/durable-execution-engines-for-ai-agents-in-production-comparing-temporal-inngest-hatchet-and-restate",
+ "verdicts": {
+  "Inngest's step primitives are step.run(), step.sleep(), step.waitForEvent() and step.invoke(); each step boundary costs an HTTP roundtrip, adding roughly 15 ms to 50 ms of dispatch overhead per step.": 1,
+  "Temporal workflow history is capped at 50,000 events or 50 MB, so long-running reasoning loops should call workflow.continue_as_new() to archive history and reset the event log.": 1
+ }
+}

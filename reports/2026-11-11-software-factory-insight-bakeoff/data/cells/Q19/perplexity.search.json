@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:09.081334Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 846,
+   "published": "2026-11-10",
+   "text": "# Track Cost\nUnderstand AI coding spend by harness, model, effort, team, and repository, and what a merged assisted pull request costs.\nThe Cost tab makes spend visible at every level, which is the starting point for connecting spend to outcomes.\n## Spend and Where It Goes\n...\n- **Cost per merged a…",
+   "title": "Track Cost · Dash0",
+   "url": "https://www.dash0.com/docs/dash0/darkplane/insights/track-cost"
+  },
+  {
+   "chars_delivered": 1387,
+   "published": "2026-11-06",
+   "text": "Four things, in this order: get per-user spend reports, set enforced caps where each tool allows them, set the default model and effort centrally, then stop paying every engineer's agent to rediscover the same codebase.\n...\nAnthropic's Claude Code docs give a baseline.\n\"Across enterprise deployment…",
+   "title": "How to Reduce AI Coding Tool Spend Across an Engineering Org | Unblocked",
+   "url": "https://getunblocked.com/answers/reduce-ai-coding-tool-spend-across-engineering-org/"
+  },
+  {
+   "chars_delivered": 2266,
+   "published": "2026-09-23",
+   "text": "# Is our AI coding investment paying off?\n## Summary\n- Per LinearB CTO Yishai Beeri, human-led PRs yield in the high 80s to low 90s, while fully agentic flows fall to around 30%.\n- Cost per PR blends human and AI spend against merged output, giving finance one number to trend quarter over quarter.…",
+   "title": "Is our AI coding investment paying off?",
+   "url": "https://linearb.io/library/ai-in-software-development/is-our-ai-coding-investment-paying-off"
+  },
+  {
+   "chars_delivered": 2874,
+   "published": "2026-06-12",
+   "text": "The cost per merged PR divides fully-loaded AI cost (tokens, tools, review time, rework) by the PRs that merge and survive a churn window.\n...\nThe metric is your total fully-loaded AI cost over a period divided by the PRs that both merged and survived.\nSurvived means not reverted or substantially r…",
+   "title": "Cost per Merged PR: AI Coding Unit Economics - Unblocked",
+   "url": "https://getunblocked.com/blog/cost-per-merged-pr/"
+  },
+  {
+   "chars_delivered": 3544,
+   "published": null,
+   "text": "This paper proposes one management unit: AI cost per accepted outcome — attributed AI spend divided by pull requests that merged and were still standing two weeks later, read against guards for quality and review load.\nIt is unit economics, applied to a workforce in which part of the work is now do…",
+   "title": "M E A S U R E M E N T  M O D E L  A N D  R E F E R E N C E  A R C H I T E C T U R E",
+   "url": "https://nirmata.com/wp-content/uploads/2026/10/ai-roi-for-engineering.pdf"
+  },
+  {
+   "chars_delivered": 2263,
+   "published": "2026-10-14",
+   "text": "**The ROI of an AI coding tool is the value of the engineering capacity and delivery gains it produces, minus its full cost (licenses, tokens, infrastructure, training and the temporary productivity dip), divided by that cost.** Measure it per tool and per team against a pre-AI baseline, and track…",
+   "title": "How to measure the ROI of AI coding tools - Waydev",
+   "url": "https://waydev.co/features/how-to-measure-the-roi-of-ai-coding-tools/"
+  },
+  {
+   "chars_delivered": 619,
+   "published": "2026-09-15",
+   "text": "See, govern, and predict the cost of AI engineering.\n...\nFor GoGloby, the unit that matters is cost per shipped feature.\nThe AI Intelligence Layer joins your AI spend to your actual work, so every dollar is attributed to a story, PR, model call, team, and the shipped feature it supported.\n...\n### C…",
+   "title": "AI Cost Management and Engineering Visibility Solution | GoGloby",
+   "url": "https://gogloby.com/solutions/ai-engineering-visibility/"
+  },
+  {
+   "chars_delivered": 2593,
+   "published": "2026-11-03",
+   "text": "- Attribute AI spend to the team that owns the work, then to the pull requests that team merged.\n- Add AI cost to people cost, divide by merged PRs, and read each team against its own history.\n...\nAttribute AI spend the way you already attribute payroll: to the team that owns the work, then to what…",
+   "title": "How do you attribute AI spend to engineering output?",
+   "url": "https://linearb.io/library/ai-in-software-development/how-to-attribute-ai-spend-to-engineering-output"
+  },
+  {
+   "chars_delivered": 1096,
+   "published": "2026-08-04",
+   "text": "These metrics cover the cost of a unit of delivered work and the share of your capacity going to work that grows the business.\nThree of them do the job:\n- **Cost per merged pull request:** Total engineering cost for a period divided by merged pull requests, with AI license and consumption spend inc…",
+   "title": "The Most Crucial Metrics for AI Coding Tool Budget Justification",
+   "url": "https://jellyfish.co/library/ai-coding-tool-budget-justification-metrics/"
+  },
+  {
+   "chars_delivered": 1159,
+   "published": null,
+   "text": "The **AI cost management** report measures AI coding tool spend, token and credit usage, and AI-assisted output across your organization.\n...\n- **Evaluate AI investment against code output** - Compare estimated AI spend with merged PR volume and estimated cost per PR.\n...\n| Metric                |…",
+   "title": "docs.getdx.com",
+   "url": "https://docs.getdx.com/reports/ai-cost-management.md"
+  }
+ ],
+ "latency_ms": 475.9,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q19",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How do organizations govern token and compute cost for agent fleets: budgets per task or agent, model routing and cascades, prompt caching, and cost attribution? What figures have been published for the cost per merged PR or per completed agent task?",
+    "agent fleet token cost governance budgets",
+    "cost per merged PR AI coding agent",
+    "LLM model routing cascade prompt caching savings agents"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 21189,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:08.605382Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

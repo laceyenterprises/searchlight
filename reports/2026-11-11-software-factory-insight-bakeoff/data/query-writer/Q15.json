@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "AI agent authorization Cedar OPA OpenFGA policy engine",
+  "agent on-behalf-of delegation OAuth token exchange short-lived scoped credentials",
+  "agent identity standard SPIFFE OAuth workload identity agents"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How do production agent platforms authorize agents to act on behalf of users and organizations? Cover policy engines (Cedar, OPA, OpenFGA / Zanzibar-style ReBAC) applied to agents, scoped short-lived credentials, agent identity standards, and approval gates for irreversible actions. Rank first primary sources: official engineering blogs, documentation, conference talks, papers, standards drafts (IETF, OAuth, SPIFFE), and open-source code from the organisations building these platforms, then credible reporting. Pull out concrete mechanisms (token exchange, delegation, on-behalf-of flows), product and standard names, dates, measured latency or scale numbers, example policies, human-in-the-loop approval designs, and documented failure modes or security incidents.",
+ "question_id": "Q15",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

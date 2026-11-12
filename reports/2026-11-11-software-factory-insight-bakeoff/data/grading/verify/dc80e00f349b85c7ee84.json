@@ -1,0 +1,25 @@
+{
+ "capture": "captured",
+ "digest": "d350cc0060cf10a1",
+ "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail",
+ "verdicts": {
+  "Faros clustered about 4,000 failed rubric items from six models on 100 SWE-bench Pro tasks; the largest cluster, 247 failures, was agents misreading or over-literally applying instructions, chiefly the boilerplate 'DO NOT MODIFY: Tests, configuration files.'": 1,
+  "Faros clustered roughly 4,000 failed rubric items from six models run on the same 100 SWE-bench Pro tasks; the largest failure cluster, 247 failures, was agents misreading or over-literally applying task instructions.": 1,
+  "Faros found the top SWE-bench Pro failure cluster (247 failures across six models) was instruction conflict: the harness's 'DO NOT MODIFY: Tests' line made agents skip required test updates or write tests only in throwaway /tmp scripts, and the fix was a one-sentence prompt distinction between weakening existing tests and adding tests.": 1,
+  "Faros graded patches with a blinded LLM judge against per-task rubrics with file-change, spec-alignment, integrity (no weakened tests, no unrelated churn, no broken compatibility), and runtime categories.": 1,
+  "Faros suggests harness-level mitigations for unverified work: a mandatory git status review before submission, structured editing instead of sed, and a self-check pass on the final diff.": 1,
+  "Faros's rubric-based LLM judge has a noise floor: 167 items (13%) split exactly 3/3 across six models, and the results come from one harness and one run per model.": 1,
+  "File-change discipline (touching exactly the right files and nothing else) had the highest failure rate even for the best model, claude-opus-4-7, at 31.9%.": 1,
+  "Integrity failures (weakened tests, unrelated churn, broken compatibility) were nearly solved: even the weakest model avoided them about three times out of four, with small spread across models.": 1,
+  "On future-architect/vuls, agents interpreting \"do not modify tests\" as \"do not add tests\" caused 52 failures, the dominant failure mode for that repository; some agents wrote tests into throwaway scripts in /tmp where CI never sees them.": 0,
+  "On the runtime axis, the top failure cluster was unsafe automated text editing with sed-style search-and-replace that targeted wrong lines, overwrote files or silently failed, leaving half-modified implementations the agent never re-read.": 1,
+  "Only 2.2% of claude-opus-4-7's failures (10 of 458) were unique to it, versus 20.5% for gemini-flash-lite, so a model upgrade removes idiosyncratic failures but not task hardness.": 1,
+  "Overall rubric item success across six models was 64.5%, ranging from 52.6% (gemini-flash-lite) to 75.3% (claude-opus-4-7).": 1,
+  "Overall rubric item success was 64.5%, ranging from 52.6% (gemini-flash-lite) to 75.3% (claude-opus-4-7); 297 requirements were failed by all six models.": 1,
+  "The 'DO NOT MODIFY: Tests, configuration files' instruction exists to stop agents from deleting failing assertions to make tests pass, but agents applied it so literally they refused work the task explicitly required.": 1,
+  "The harness boilerplate \"DO NOT MODIFY: Tests, configuration files\" exists to stop agents from deleting failing assertions to make a patch pass, but it conflicted with rubrics that required adding or updating tests, so agents refused required test work.": 1,
+  "The second-largest failure cluster, 141 failures, was change hygiene: temporary debug scripts, helper files and unrelated edits swept into the final diff, often via a reflexive git add -A.": 1,
+  "The spread in item success between easiest and hardest repository (qutebrowser 77.6% vs tutao/tutanota 35.5%, 42.1 points) was about twice the 22.7-point spread between best and worst model.": 1,
+  "The test-modification instruction conflict was the top failure theme for both claude-haiku-4-5 (56 failures) and claude-opus-4-7 (63 failures), so a stronger model does not fix a contradictory prompt.": 1
+ }
+}

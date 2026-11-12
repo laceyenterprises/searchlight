@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "50148f1e82043f56",
+ "url": "https://theaiengineer.substack.com/p/inngest-vs-temporal-vs-dbos-vs-langgraph",
+ "verdicts": {
+  "DBOS is durable execution as a library that checkpoints into an existing Postgres database.": 1,
+  "Temporal workflow code must be deterministic (no Date.now(), random, or direct HTTP); every non-deterministic operation must move into an Activity, and the author estimates about two weeks to production versus an afternoon to attach a LangGraph checkpointer.": 1
+ }
+}

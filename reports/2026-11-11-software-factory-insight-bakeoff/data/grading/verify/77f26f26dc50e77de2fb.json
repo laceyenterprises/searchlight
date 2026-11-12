@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "97f067d74eca6a95",
+ "url": "https://traversaal.ai/blog/durable-execution-ai-agents-state-persistence-long-running-workflows",
+ "verdicts": {
+  "Naive retry of a 12-step pipeline that crashes at step 10 restarts from step 1, repeating pay-per-use API calls; LLM tool calls like book_flight() are not naturally idempotent, so a second call produces a second booking.": 1
+ }
+}

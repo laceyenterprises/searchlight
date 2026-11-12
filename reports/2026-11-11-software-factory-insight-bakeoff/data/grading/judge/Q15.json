@@ -1,0 +1,240 @@
+{
+ "digest": "6d7c7c9cbe930f02",
+ "values": {
+  "Q15-k12": {
+   "position": 4,
+   "reason": "Per-tool-call Cedar evaluation at a gateway, with a concrete GA date, is a specific enforcement-point design for tool calls.",
+   "score": 2
+  },
+  "Q15-k26": {
+   "position": 28,
+   "reason": "Short-lived, single-hop JWTs carrying an explicit actor chain across agent hops is a concrete production design directly applicable to multi-worker dispatch.",
+   "score": 3
+  },
+  "Q15-k27": {
+   "position": 45,
+   "reason": "A measured p99 under 40 ms for STS token exchange is a concrete latency number that informs whether per-hop exchange is affordable.",
+   "score": 3
+  },
+  "Q15-k28": {
+   "position": 0,
+   "reason": "Uber's explicit choice of SDK integration over a proxy for agent identity is a concrete architecture trade-off directly relevant to how Agent OS attaches identity to dispatched workers.",
+   "score": 2
+  },
+  "Q15-k29": {
+   "position": 8,
+   "reason": "Holding credentials in a vault with a proxy so the harness never sees them is a specific pattern that matters for multi-harness workers (Claude Code, Codex, Gemini).",
+   "score": 3
+  },
+  "Q15-k30": {
+   "position": 20,
+   "reason": "Concrete thresholds of 3 consecutive or 20 total classifier denials before escalation are a measured, directly reusable circuit-breaker design for worker governance.",
+   "score": 3
+  },
+  "Q15-k31": {
+   "position": 46,
+   "reason": "Gateway-only policy that cannot see inside the runtime is a concrete limitation showing the need for in-runtime enforcement as well.",
+   "score": 2
+  },
+  "Q15-k32": {
+   "position": 2,
+   "reason": "Filtering retrieved content by user permissions before the model sees it is a concrete pattern, but it overlaps with k44.",
+   "score": 1
+  },
+  "Q15-k33": {
+   "position": 13,
+   "reason": "Modeling agents as first-class principals in the same permission hierarchy is a useful but common design detail.",
+   "score": 2
+  },
+  "Q15-k34": {
+   "position": 6,
+   "reason": "The MCP spec names token passthrough as a confused-deputy anti-pattern and prescribes RFC 8693/8707 exchange, a specific standards-backed fact that should directly shape credential handling.",
+   "score": 3
+  },
+  "Q15-k35": {
+   "position": 37,
+   "reason": "Survey adoption percentages are market trivia that do not affect architecture.",
+   "score": 0
+  },
+  "Q15-k36": {
+   "position": 11,
+   "reason": "Replit's agent deleting a production database during a freeze and then misreporting rollback is a concrete failure mode that argues for deterministic HITL in an autonomous-merge and self-deploy system.",
+   "score": 3
+  },
+  "Q15-k37": {
+   "position": 25,
+   "reason": "A software-enforced gate with a structured checklist (intent, lineage, permission chain, blast radius, rollback) instead of a bare prompt is a concrete gate design for irreversible actions.",
+   "score": 2
+  },
+  "Q15-k38": {
+   "position": 34,
+   "reason": "Risk-rating tools and requiring approval above a threshold is a fairly generic recommendation.",
+   "score": 1
+  },
+  "Q15-k39": {
+   "position": 19,
+   "reason": "Per-action evaluation with once/task/always approval durations is a concrete approval-gate design to emulate.",
+   "score": 2
+  },
+  "Q15-k40": {
+   "position": 31,
+   "reason": "The 90-day expiry of 'always' approvals, scoped to the exact tool and target, is a specific bound on standing approvals.",
+   "score": 2
+  },
+  "Q15-k41": {
+   "position": 22,
+   "reason": "Deny-then-allow-then-refuse ordering, default deny, and binding the specific object into the decision to close confused-deputy bugs is a specific, actionable evaluation design.",
+   "score": 3
+  },
+  "Q15-k42": {
+   "position": 42,
+   "reason": "Per-run keys capped at 24 hours, edge injection, and re-resolution on every request for instant revocation is a concrete credential lifecycle design for worker runs.",
+   "score": 3
+  },
+  "Q15-k43": {
+   "position": 33,
+   "reason": "Agents never hold credentials, brokering happens at the connector, and the destination remains the final enforcement point; this is a solid design detail but overlaps k9 and k43.",
+   "score": 2
+  },
+  "Q15-k44": {
+   "position": 14,
+   "reason": "An explicit, revocable `can_act_on_behalf_of` relation instead of copying user permissions is a specific modeling choice.",
+   "score": 2
+  },
+  "Q15-k45": {
+   "position": 16,
+   "reason": "The concrete audit-log schema, with decision outcomes and the on-behalf-of person recorded even for refusals, could inform the session ledger's design.",
+   "score": 2
+  },
+  "Q15-k50": {
+   "position": 1,
+   "reason": "Scoping an agent to a workspace, document set or tool, and binding it to a task or session, is a useful but fairly expected design detail.",
+   "score": 2
+  },
+  "Q15-k51": {
+   "position": 5,
+   "reason": "The argument that agent delegation graphs make role-based models explode into per-resource roles could decide between ReBAC and RBAC for a multi-tenant platform.",
+   "score": 2
+  },
+  "Q15-k52": {
+   "position": 30,
+   "reason": "Cedar's forbid-overrides semantics is a specific property relevant to engine choice, though well documented.",
+   "score": 2
+  },
+  "Q15-k53": {
+   "position": 17,
+   "reason": "OPA's decoupling of decision from enforcement over JSON is well-known background.",
+   "score": 1
+  },
+  "Q15-k54": {
+   "position": 7,
+   "reason": "The concrete tuple example shows that deleting one delegation tuple cascades revocation, an actionable modeling detail.",
+   "score": 2
+  },
+  "Q15-k55": {
+   "position": 9,
+   "reason": "ReBAC's weakness on attribute conditions, and the resulting common pairing with OPA or Cedar, is a decision-relevant trade-off for choosing a policy stack.",
+   "score": 3
+  },
+  "Q15-k56": {
+   "position": 41,
+   "reason": "A list of open-source Zanzibar implementations is useful for selection but is common knowledge.",
+   "score": 1
+  },
+  "Q15-k57": {
+   "position": 24,
+   "reason": "The claim that agents often use broad credentials is generic marketing framing.",
+   "score": 0
+  },
+  "Q15-k58": {
+   "position": 3,
+   "reason": "A SPIFFE identity plus an auto-provisioned X.509 certificate per agent is a specific identity-standard choice that could shape how Agent OS identifies workers.",
+   "score": 2
+  },
+  "Q15-k60": {
+   "position": 18,
+   "reason": "Google's auth manager handling keys and tokens is a generic vendor feature description.",
+   "score": 1
+  },
+  "Q15-k61": {
+   "position": 29,
+   "reason": "Google's definition of delegated identity via 3LO is mostly terminology.",
+   "score": 1
+  },
+  "Q15-k62": {
+   "position": 26,
+   "reason": "The four-step Entra OBO flow is vendor-specific procedure of moderate value to a self-hosted platform.",
+   "score": 1
+  },
+  "Q15-k63": {
+   "position": 27,
+   "reason": "Blueprint-level inheritable preauthorized scopes is a template pattern worth noting, but it is Entra-specific.",
+   "score": 1
+  },
+  "Q15-k64": {
+   "position": 44,
+   "reason": "The response_type=none constraint on Entra redirect URIs is narrow vendor trivia.",
+   "score": 0
+  },
+  "Q15-k65": {
+   "position": 12,
+   "reason": "Avoiding client secrets in favor of federated credentials or certificates is a minor, Entra-specific best practice.",
+   "score": 1
+  },
+  "Q15-k66": {
+   "position": 39,
+   "reason": "The first-party versus third-party split is a useful framing but not a specific fact.",
+   "score": 1
+  },
+  "Q15-k67": {
+   "position": 35,
+   "reason": "The AADSTS82014 restriction on interactive consent is a narrow Entra gotcha that is only relevant if integrating Entra.",
+   "score": 1
+  },
+  "Q15-k68": {
+   "position": 40,
+   "reason": "The two-step Entra token exchange mechanics are vendor-specific detail.",
+   "score": 1
+  },
+  "Q15-k69": {
+   "position": 36,
+   "reason": "Entra's token audience and azp validation details are deep vendor specifics of low value to this reader.",
+   "score": 1
+  },
+  "Q15-k70": {
+   "position": 32,
+   "reason": "A list of Entra-supported grant types is vendor trivia.",
+   "score": 1
+  },
+  "Q15-k71": {
+   "position": 10,
+   "reason": "Entra permission inheritance being limited to tenant boundaries is a vendor-specific constraint of limited relevance to a self-hosted platform.",
+   "score": 1
+  },
+  "Q15-k72": {
+   "position": 15,
+   "reason": "The IETF draft's requirements for delegation, preserved principal context in audit, and the SPIFFE/WIMSE/Transaction Tokens stack identify an emerging standard to align with.",
+   "score": 3
+  },
+  "Q15-k73": {
+   "position": 23,
+   "reason": "Narrowing third-party scope beyond what the external credential allows is a useful design point but partly overlaps k40.",
+   "score": 1
+  },
+  "Q15-k74": {
+   "position": 38,
+   "reason": "Zero-default per-task grants with expiration, turn limits and agent binding map directly onto build-pack tickets and worker runs.",
+   "score": 3
+  },
+  "Q15-k75": {
+   "position": 43,
+   "reason": "RAG and MCP server authorization patterns are moderately useful but partly duplicate k3.",
+   "score": 1
+  },
+  "Q15-k76": {
+   "position": 21,
+   "reason": "The on-behalf-of versus as distinction is conceptually important but largely restates k15.",
+   "score": 1
+  }
+ }
+}

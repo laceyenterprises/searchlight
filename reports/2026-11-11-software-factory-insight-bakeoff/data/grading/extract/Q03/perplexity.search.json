@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "e26c2e735e86a4cd",
+ "claims": [
+  {
+   "text": "Cognition reports that 67% of Devin's PRs are now merged, versus 34% a year earlier, in its 2025 performance review.",
+   "url": null
+  },
+  {
+   "text": "Per the software-factory repo's Devin note, the 2025 review also cites vulnerability fixes at 20x (1.5 minutes versus 30) and migrations 10–14x faster than the human baseline.",
+   "url": null
+  },
+  {
+   "text": "Devin has merged hundreds of thousands of PRs, and is reported as 4x faster at problem solving and 2x more efficient in resource consumption over the past year.",
+   "url": null
+  },
+  {
+   "text": "Devin performs best on tasks with clear upfront requirements and verifiable outcomes that would take a junior engineer 4-8 hours.",
+   "url": null
+  },
+  {
+   "text": "Devin cannot independently tackle an ambiguous coding project end-to-end using its own judgement; it does best with clear requirements.",
+   "url": null
+  },
+  {
+   "text": "Human review is still necessary for Devin's PR reviews and unit tests because code quality is not straightforwardly verifiable. Humans check test logic after Devin's first pass.",
+   "url": null
+  },
+  {
+   "text": "For test generation, humans write a unit testing playbook spanning a few hundred repos, a fleet of Devins writes the tests, and code owners then check that all logic is covered.",
+   "url": null
+  },
+  {
+   "text": "Cognition attributes part of Devin's doubled PR merge rate to better understanding of large codebases.",
+   "url": null
+  },
+  {
+   "text": "Each Devin instance gets a sandbox with a shell, editor and browser; it plans, edits, tests and opens pull requests, and several sandboxes can run at once.",
+   "url": null
+  },
+  {
+   "text": "Devin 2.0 (April 2025) added an agent-native IDE, editable plans, codebase search, an auto-generated wiki and a review surface; a REST API lets other systems start Devin tasks.",
+   "url": null
+  },
+  {
+   "text": "Devin can break a large task into parallel workstreams delegated to managed Devin sessions, each running in its own isolated VM.",
+   "url": null
+  },
+  {
+   "text": "In orchestration, the coordinator session scopes the work, monitors progress, resolves conflicts and compiles results. It can message child sessions, put them to sleep or terminate them, and schedule messages to itself to check on long-running children.",
+   "url": null
+  },
+  {
+   "text": "Child sessions can be launched with specific prompts, skills, tags and ACU limits, and Devin can analyze past session outcomes to explain why a session succeeded or failed.",
+   "url": null
+  },
+  {
+   "text": "Devin can manage organization knowledge by deduplicating and merging entries, resolving conflicting guidance, and creating new knowledge from codebase patterns; this requires the Manage Knowledge permission.",
+   "url": null
+  },
+  {
+   "text": "Cognition's internal workflow uses Ask Devin to explore code and clarify a goal, then starts a session from that context with an automatically tailored prompt; Jira or Linear tickets tagged with Devin produce a generated session prompt the same way.",
+   "url": null
+  },
+  {
+   "text": "Cognition merged 659 Devin PRs into its own codebase in one week, up from 154 in its best week of 2025.",
+   "url": null
+  },
+  {
+   "text": "Devin autofixes PRs when Devin Review or a GitHub bot flags bugs, and works on CI/lint issues until all checks pass.",
+   "url": null
+  },
+  {
+   "text": "Session Insights analyzes completed sessions for issues (technical problems, communication gaps, scope creep), timeline and efficiency metrics, action items and improved prompt suggestions, from which new sessions can be launched.",
+   "url": null
+  },
+  {
+   "text": "A Devin playbook is a custom system prompt for a repeated task, shareable across an organization, and keeps a version history with a new version created on each save.",
+   "url": null
+  },
+  {
+   "text": "Cognition says a good playbook includes the desired outcome, required steps, postcondition specifications, advice correcting Devin's priors, forbidden actions, and required inputs from whoever starts it.",
+   "url": null
+  },
+  {
+   "text": "Playbooks are attached to a session via a macro, can be edited inline before starting and refined as Devin runs, and come at Organization, Enterprise and System levels.",
+   "url": null
+  },
+  {
+   "text": "Cognition reports a 3.5x increase in merged PRs per week after routing long-horizon work to Claude Sonnet 3.6.",
+   "url": null
+  },
+  {
+   "text": "The primary failure mode for autonomous agents before current frontier models was consistency: output quality degraded over long contexts and variance was too high to trust. A wrong starting inference sends the whole trajectory off course, so Cognition invests in trajectory monitoring to detect drift and steer back.",
+   "url": null
+  },
+  {
+   "text": "In Crossmint's GOAT open-source trial, Devin was the top contributor by PR count, merging 8 PRs versus 4 for the next contributor.",
+   "url": null
+  },
+  {
+   "text": "In the Crossmint Sui integration, Devin needed 3 rounds of feedback and got stuck in a loop by using an old version of Sui's standard library; the PR still merged with about an hour of human involvement versus days from scratch.",
+   "url": null
+  }
+ ],
+ "question_id": "Q03"
+}

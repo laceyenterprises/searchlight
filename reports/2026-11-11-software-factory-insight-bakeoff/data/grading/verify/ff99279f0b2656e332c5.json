@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "a51d5b1dd1a2bb48",
+ "url": "https://ar5iv.labs.arxiv.org/html/2607.21656",
+ "verdicts": {
+  "Claude Opus 4.7 reviewing Codex GPT-5.5 fixed 26 of its failures and regressed 5 of its successes (net +21); Codex GPT-5.5 reviewing Claude Opus 4.7 fixed only 3 failures and broke 13 successes (net -10), so the useful cross-model pairing is asymmetric.": 1,
+  "Codex GPT-5.5 reviewing Claude Opus 4.7 drafts lowered the pass rate from 91.4% to 82.8% (p_BH=.046), while Claude Opus 4.7 self-review left the 91.4% baseline unchanged.": 1,
+  "Codex GPT-5.5 self-review raised its own drafts' pass rate from 71.6% to 84.5% (p_BH=.022), less than cross-model review by Claude Opus 4.7.": 1,
+  "In a LiveCodeBench experiment with 116 hard and medium tasks, Claude Opus 4.7 reviewing Codex GPT-5.5 drafts (reviewer could not execute tests) raised the pass rate from 71.6% to 89.7% (p_BH=.001).": 1
+ }
+}

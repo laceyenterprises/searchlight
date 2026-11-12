@@ -1,0 +1,103 @@
+{
+ "arm_id": "firecrawl.research",
+ "cell_sha": "f1bbe3997d5007a7",
+ "claims": [
+  {
+   "text": "Droid 1.0 makes programmatic tool calling the default: the model writes a JavaScript Script that invokes tools, keeping raw files, search results and logs inside the program and returning only selected output to model context.",
+   "url": null
+  },
+  {
+   "text": "A Droid 1.0 Script can make hundreds of tool calls in one model request; independent calls run concurrently, printed output is capped, and full results are logged for later search.",
+   "url": null
+  },
+  {
+   "text": "Factory's Droid 1.0 write-up reports a production monitor showing 98% of input read from provider cache and 98.6% of requests strictly append-only over a seven-day production sample.",
+   "url": null
+  },
+  {
+   "text": "Droid 1.0 bounds autonomy in the loop: three no-output turns stop the agent, and three identical tool calls trigger a nudge while six stop the loop.",
+   "url": null
+  },
+  {
+   "text": "Factory's Droid 1.0 head-to-head on Terminal-Bench 4 (three trials per task) reports 65.2% for Droid with Claude Opus 5.5 at $4.73 per passed task and 57.6% with GPT-6.1 Sol at $0.79 per passed task.",
+   "url": null
+  },
+  {
+   "text": "In Factory's worked Script example, the same 15 tool calls completed in 41.6 seconds versus 56.8 seconds for direct tool calls, and model calls fell from 10 to 5.",
+   "url": null
+  },
+  {
+   "text": "Factory's Script mode can encode deterministic postconditions: in its example it moved 151 issues, re-read each, compared fields, stopped on the first unexpected change, and reported verified/failure counts.",
+   "url": null
+  },
+  {
+   "text": "Factory reported Code Droid at 19.27% on SWE-bench Full and 31.67% first-attempt pass rate on SWE-bench Lite, rising to 37.67% at pass@2 and 42.67% at pass@6.",
+   "url": null
+  },
+  {
+   "text": "Code Droid's codebase-understanding layer is HyperCode, a multi-resolution representation with explicit graph relationships and implicit latent-space similarities; ByteRank retrieves task-relevant information from it.",
+   "url": null
+  },
+  {
+   "text": "Factory's SWE-bench Lite failure analysis found 8% of tasks where the target file was absent from the analyzed-file list, 8% where it was analyzed but not in the top five, and 6% where it was top-priority but not selected for editing.",
+   "url": null
+  },
+  {
+   "text": "Code Droid's 2024 SWE-bench runs averaged 5–20 minutes per patch, generated up to three patches per task, averaged under 2 million tokens per patch, and reached up to 13 million tokens.",
+   "url": null
+  },
+  {
+   "text": "Code Droid selected among up to three candidate patches using existing and self-generated tests.",
+   "url": null
+  },
+  {
+   "text": "In September 2025 Factory reported 58.75% on Terminal-Bench Core v0.1.1, ranking first; single-model results were Opus 4.1 58.8%, GPT-5 52.5%, and Sonnet 4 50.5%.",
+   "url": null
+  },
+  {
+   "text": "Factory's harness uses a three-level prompt hierarchy: tool descriptions for capabilities, system prompts for high-level constraints, and injected system notifications for time-sensitive guidance and error recovery.",
+   "url": null
+  },
+  {
+   "text": "Factory reports minimalist tool schemas because complex schemas raise tool-call errors and cause cascading full-task failures.",
+   "url": null
+  },
+  {
+   "text": "Factory's Context Stack starts sessions with a generated repository overview, then uses semantic search and targeted filesystem tools to fetch only relevant files, line ranges, diffs or terminal output.",
+   "url": null
+  },
+  {
+   "text": "Factory describes hierarchical memory with user-level facts (preferences, commonly edited repositories) and organization-level knowledge (style guides, review checklists).",
+   "url": null
+  },
+  {
+   "text": "Missions decomposes a goal into milestones and features; each feature gets a fresh worker session and workers coordinate handoffs through Git.",
+   "url": null
+  },
+  {
+   "text": "Each Missions milestone ends with validation (tests, regression and integration checks, native computer-use QA), and failures cause the orchestrator to create follow-up work.",
+   "url": null
+  },
+  {
+   "text": "Factory reports serial execution with targeted parallelization worked better than broad parallelism, which causes conflicts, duplicated work and coordination drift.",
+   "url": null
+  },
+  {
+   "text": "Droid's OS-level sandbox uses Seatbelt on macOS and bubblewrap plus seccomp on Linux/WSL2, with network egress through an allowlisted filtering proxy; Factory cautions it is defense in depth, not a complete boundary.",
+   "url": null
+  },
+  {
+   "text": "Droid's agent loop executes on the machine where it runs (workstation, CI runner, VM or container); Factory Private runs sandboxes in the customer's VPC through OpenCompute.",
+   "url": null
+  },
+  {
+   "text": "Droid Control structures verification as capture, compose, verify; /verify reports CONFIRMED, REFUTED or INCONCLUSIVE with inline evidence.",
+   "url": null
+  },
+  {
+   "text": "A Vals snapshot of archived SWE-bench Verified lists GPT-5.5 with the Factory harness at 76.20%, $1.13 per test and 6m50s per test.",
+   "url": null
+  }
+ ],
+ "question_id": "Q02"
+}

@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "ee1881ea81d3786f",
+ "url": "https://agentpatterns.ai/tools/copilot/agent-mission-control/",
+ "verdicts": {
+  "Custom agents defined in .github/agents/ can be assigned to Mission Control tasks to give consistent specialized behavior, such as a security-reviewer agent.": 1,
+  "In March 2026, Enterprise AI Controls added session filters for admins by status (queued, in progress, completed, failed, idle, timed out, canceled), repository, and user.": 1,
+  "Mission Control lets users steer a running session through the chat panel, where Copilot adapts as soon as its current tool call completes, or by commenting on specific lines in the Files Changed view.": 1,
+  "Mission Control task entry points are github.com/copilot/agents, the /task command in github.com/copilot chat, the Issues page, and GitHub Mobile.": 1,
+  "Recommended Mission Control review flow: check session logs first, scan files changed for unexpected modifications, verify CI passes, request a Copilot self-review of edge cases, and batch similar PRs.": 1
+ }
+}

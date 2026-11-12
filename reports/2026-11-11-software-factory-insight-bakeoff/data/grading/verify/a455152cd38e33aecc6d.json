@@ -1,0 +1,18 @@
+{
+ "capture": "captured",
+ "digest": "576efbf0929c1b91",
+ "url": "https://blogs.lamplitlabs.com/posts/ai-sdlc-cost-per-merged-pr-coding-agent-token-budgets/",
+ "verdicts": {
+  "At Lamplit Labs, the budget cap fired on only 4% of runs by week 8; the retry cap and context guard did most of the cost reduction and the budget acts as a backstop.": 1,
+  "In one week of Lamplit Labs run logs, 6% of agent runs consumed 48% of tokens, and almost all of those runs ended with a PR closed without merging or no PR at all.": 1,
+  "Lamplit Labs added a context-size guard that truncates tool results over 12 KB to the first and last 4 KB, cutting per-pass input tokens on test-heavy tasks by roughly 60%.": 1,
+  "Lamplit Labs added a retry cap: after three failures of the same test command with the same failing test names, the runner refuses to run it again and tells the agent to change approach or stop.": 1,
+  "Lamplit Labs alerts when the 7-day cost per merged PR rises more than 30% over the 28-day value, and found per-agent budgets failed because docs and feature tasks needed different caps, so budgets belong in the task.": 1,
+  "Lamplit Labs defines cost per merged PR as total model spend attributed to agent runs divided by the agent-authored pull requests that actually landed.": 1,
+  "Lamplit Labs reduced cost per merged PR for coding agents from $31 to $9 over eight weeks while the merge rate of agent PRs stayed between 60% and 67%.": 1,
+  "Lamplit Labs set a per-task token budget declared in the task via .agents/budgets.yml: default 400k input and 60k output tokens, docs 150k/30k, bugfix 400k/60k, feature 900k/120k.": 1,
+  "Lamplit Labs' runner tells the agent at 80% of budget to open a PR with what it has or write a handoff note; about a third of near-cap runs now land a smaller PR instead of nothing.": 1,
+  "Lamplit Labs' waste ratio (share of spend in runs that did not merge) fell from 48% to 17%, and median passes per task fell from 7.8 to 3.4.": 1,
+  "Lamplit Labs' week-8 figures were 58 agent PRs opened, 39 merged (67%), $351 spend, $9 per merged PR, versus week 1 with 49 opened, 30 merged (61%), $930 spend, $31 per merged PR.": 1
+ }
+}

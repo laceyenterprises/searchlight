@@ -1,0 +1,465 @@
+{
+ "digest": "7d4121c3e6f797d7",
+ "values": {
+  "Q21-k1": {
+   "position": 86,
+   "reason": "Basic probability formula for batch pass rate, useful but elementary.",
+   "score": 2
+  },
+  "Q21-k10": {
+   "position": 29,
+   "reason": "Real usage data (94% single-PR merges, average batch about 4, failed batches about 5.8) is useful evidence that batching is rarely exercised in practice.",
+   "score": 2
+  },
+  "Q21-k101": {
+   "position": 68,
+   "reason": "Concrete throughput ceiling math for a serial queue versus real monorepo volume, which shows serial queues cannot handle agent-scale PR rates.",
+   "score": 3
+  },
+  "Q21-k102": {
+   "position": 43,
+   "reason": "The bisection-until-isolated behavior and the 128 parallel cap are a modest design detail.",
+   "score": 1
+  },
+  "Q21-k103": {
+   "position": 17,
+   "reason": "Swim lanes by non-overlapping files plus batching is a useful design concept, but it is restated elsewhere with more detail.",
+   "score": 1
+  },
+  "Q21-k104": {
+   "position": 69,
+   "reason": "Specific flake-handling design that avoids queue resets on probable flakes.",
+   "score": 2
+  },
+  "Q21-k105": {
+   "position": 62,
+   "reason": "Methodological caveat that the simulation lacked a max batch wait time, which identifies a design knob worth adding.",
+   "score": 2
+  },
+  "Q21-k11": {
+   "position": 21,
+   "reason": "This quantified result shows that at agent-typical failure rates, batching of 10 gives no CI savings, which directly changes batch strategy.",
+   "score": 3
+  },
+  "Q21-k12": {
+   "position": 88,
+   "reason": "Baseline queue-time and merge-volume statistics for typical repos, which are context but not decision-changing.",
+   "score": 1
+  },
+  "Q21-k13": {
+   "position": 87,
+   "reason": "Measured rise in green PRs breaking main as team size grows (0.77% to 12.5%), which shows that per-PR CI alone is insufficient at volume.",
+   "score": 3
+  },
+  "Q21-k14": {
+   "position": 23,
+   "reason": "Measured break-main rates by AI versus non-AI PRs, controlled for size and repo, are useful evidence but have limited direct architectural impact.",
+   "score": 2
+  },
+  "Q21-k15": {
+   "position": 2,
+   "reason": "Showing that 'require up to date' serializes non-conflicting sibling PRs, and that this dominated cost for a fast-CI project, is a specific failure mode for parallel agent PRs from one commit.",
+   "score": 3
+  },
+  "Q21-k16": {
+   "position": 13,
+   "reason": "Naming the lockfile as the main contention hotspot is a specific, actionable failure mode that argues for serialized or exclusive handling of shared generated files in the DAG-to-ticket planner.",
+   "score": 3
+  },
+  "Q21-k17": {
+   "position": 42,
+   "reason": "Quantified batch pass rates and CI cost per merge at different failure rates give actionable tuning data.",
+   "score": 3
+  },
+  "Q21-k18": {
+   "position": 53,
+   "reason": "Specific cost formula for bisection, 2·log2(b) extra runs, plus a queue-fairness detail that is useful for sizing batches.",
+   "score": 2
+  },
+  "Q21-k19": {
+   "position": 75,
+   "reason": "Structural causes of higher agent failure rates (stale base, missing context, PR rate outpacing settling), which point to concrete mitigations such as re-verifying against the tip.",
+   "score": 3
+  },
+  "Q21-k2": {
+   "position": 1,
+   "reason": "Large-scale measurement showing 79–95% of agent PRs are co-active means concurrency-aware merging is the default case, not an edge case.",
+   "score": 3
+  },
+  "Q21-k20": {
+   "position": 12,
+   "reason": "This is a minor configuration fact about GitHub's build concurrency limit of 1–100.",
+   "score": 1
+  },
+  "Q21-k21": {
+   "position": 9,
+   "reason": "It gives concrete config details (batch 1–128, {min,max} dynamic batching, draft-PR speculation capped by max_parallel_checks) that are useful when designing a queue, but they are vendor-specific.",
+   "score": 2
+  },
+  "Q21-k22": {
+   "position": 48,
+   "reason": "Cross-agent pairs conflict at roughly twice the rate of intra-agent pairs (41.7% vs 19.8%), which directly informs multi-harness dispatch and the ticket-assignment policy.",
+   "score": 3
+  },
+  "Q21-k23": {
+   "position": 78,
+   "reason": "Measured near-20% textual conflict rate for same-agent pairs, which argues for coordinating within a single agent's parallel work.",
+   "score": 3
+  },
+  "Q21-k26": {
+   "position": 74,
+   "reason": "Measured result that large batches made merges 54.9% slower, a key counterweight to the CI savings from batching.",
+   "score": 3
+  },
+  "Q21-k27": {
+   "position": 90,
+   "reason": "Specific speculative execution design that evicts a failed stack and restarts dependent runs.",
+   "score": 2
+  },
+  "Q21-k28": {
+   "position": 4,
+   "reason": "The cost behavior of parallel CI on failure is a useful nuance, but it is vendor-specific.",
+   "score": 1
+  },
+  "Q21-k29": {
+   "position": 81,
+   "reason": "Design detail of Graphite treating a stack as the atomic unit, with a choice to run CI on every PR or only the top PR.",
+   "score": 2
+  },
+  "Q21-k30": {
+   "position": 60,
+   "reason": "Concrete sizing heuristic for parallel CI concurrency based on peak PR rate and CI runtime.",
+   "score": 2
+  },
+  "Q21-k31": {
+   "position": 67,
+   "reason": "Design detail of two isolation strategies for failed batches (full parallel vs bisection) and their tradeoff.",
+   "score": 2
+  },
+  "Q21-k32": {
+   "position": 41,
+   "reason": "It describes the cumulative speculative PR mechanism, which mostly duplicates k10 and k44.",
+   "score": 1
+  },
+  "Q21-k33": {
+   "position": 63,
+   "reason": "Clear framework (reliability, cost, velocity: pick two) with concrete mode mappings for choosing a queue strategy, though partly vendor framing.",
+   "score": 2
+  },
+  "Q21-k34": {
+   "position": 66,
+   "reason": "Specific failure mode where a queue reset invalidates all later speculative PRs, which matters for wasted CI at high volume.",
+   "score": 2
+  },
+  "Q21-k35": {
+   "position": 57,
+   "reason": "Measured simulation result that batching to 16 cut CI time per PR by 77.5%, which quantifies the CI cost side of the batching tradeoff.",
+   "score": 3
+  },
+  "Q21-k36": {
+   "position": 28,
+   "reason": "This is a GitHub scale anecdote of limited relevance to agent PR volume.",
+   "score": 1
+  },
+  "Q21-k37": {
+   "position": 36,
+   "reason": "This is a human-scale GitHub anecdote not relevant to agent volume.",
+   "score": 0
+  },
+  "Q21-k38": {
+   "position": 20,
+   "reason": "Concrete growth numbers (17 to 600 merges a day, 84 waiting, p95 of 2.5h) give a realistic load profile for agent-driven merge volume.",
+   "score": 3
+  },
+  "Q21-k39": {
+   "position": 56,
+   "reason": "Measured latency breakdown showing queue overhead (readiness detection, branch creation, merge) exceeds CI time, pointing to where an autonomous merge pipeline should optimize.",
+   "score": 3
+  },
+  "Q21-k40": {
+   "position": 89,
+   "reason": "Methodology description of the simulation, which is trivia for this reader.",
+   "score": 0
+  },
+  "Q21-k41": {
+   "position": 30,
+   "reason": "This simulation result depends on a very low conflict rate that agents don't exhibit.",
+   "score": 1
+  },
+  "Q21-k42": {
+   "position": 49,
+   "reason": "The simulation is insensitive at very low conflict rates, which is irrelevant to agent conflict levels.",
+   "score": 1
+  },
+  "Q21-k43": {
+   "position": 82,
+   "reason": "Rejection latency growing with batch size corroborates other simulation findings.",
+   "score": 1
+  },
+  "Q21-k44": {
+   "position": 84,
+   "reason": "Real-world evidence that agent-authored PR volume broke a merge queue at Anthropic, though it gives no specific numbers.",
+   "score": 2
+  },
+  "Q21-k45": {
+   "position": 58,
+   "reason": "Specific constraint that parallel queues for unrelated PRs depend on build-graph awareness like Bazel, which is relevant to an affected-targets design.",
+   "score": 2
+  },
+  "Q21-k46": {
+   "position": 25,
+   "reason": "Reported p75 and p95 merge-time gains from parallel CI are specific, but they are vendor metrics.",
+   "score": 2
+  },
+  "Q21-k47": {
+   "position": 71,
+   "reason": "Measured prevalence of co-active agent PRs (79.4% of agent PRs) showing concurrency conflicts are the norm, not the edge case.",
+   "score": 3
+  },
+  "Q21-k48": {
+   "position": 18,
+   "reason": "This is an influential framing that treats the problem as release throughput, but it is opinion without data.",
+   "score": 1
+  },
+  "Q21-k49": {
+   "position": 46,
+   "reason": "This is a generic vendor statement on serial queue failure.",
+   "score": 1
+  },
+  "Q21-k5": {
+   "position": 3,
+   "reason": "Merge volume growing to 30k a day and the company abandoning merge queues is a striking data point suggesting queues may not scale at fleet volume.",
+   "score": 3
+  },
+  "Q21-k50": {
+   "position": 5,
+   "reason": "This is a feature list that summarizes design patterns covered more specifically elsewhere.",
+   "score": 1
+  },
+  "Q21-k51": {
+   "position": 72,
+   "reason": "Design gap where rebases change the SHA and discard reviews and test results, which matters for the reader's review bound to the PR head and suggests binding to a change identity instead.",
+   "score": 3
+  },
+  "Q21-k52": {
+   "position": 22,
+   "reason": "The CI savings figures are vendor claims, though the caveat about speculative waste is useful.",
+   "score": 1
+  },
+  "Q21-k53": {
+   "position": 77,
+   "reason": "Basic illustration of serial queue latency.",
+   "score": 1
+  },
+  "Q21-k54": {
+   "position": 15,
+   "reason": "This is a generic description of standard speculative-queue behavior.",
+   "score": 1
+  },
+  "Q21-k55": {
+   "position": 40,
+   "reason": "Native GA stacked PRs and the gh-stack CLI are a new platform capability relevant to stack-based agent workflows.",
+   "score": 2
+  },
+  "Q21-k56": {
+   "position": 80,
+   "reason": "Specific stacked-PR cost multiplier from rebase cascades, relevant to DAG-shaped PR stacks.",
+   "score": 2
+  },
+  "Q21-k57": {
+   "position": 85,
+   "reason": "Minor detail about GitHub merging a stack as a single group.",
+   "score": 1
+  },
+  "Q21-k58": {
+   "position": 55,
+   "reason": "Anecdotal report of a stacked-PR limitation in GitHub merge queue, a minor detail.",
+   "score": 1
+  },
+  "Q21-k59": {
+   "position": 6,
+   "reason": "This is a reproduced failure where GitHub merge queue breaks stacked PRs by rebasing and dequeuing upper branches, which is critical if build packs emit stacks.",
+   "score": 3
+  },
+  "Q21-k6": {
+   "position": 79,
+   "reason": "Concrete throughput cap of about 48 merges a day for a sequential queue with a 30-minute suite, though similar to k19.",
+   "score": 2
+  },
+  "Q21-k60": {
+   "position": 14,
+   "reason": "This is a reproduced failure where latest-push approval combined with a merge queue invalidates approval after a rebase and strands the upper PR, which directly affects review bound to the PR head.",
+   "score": 3
+  },
+  "Q21-k61": {
+   "position": 50,
+   "reason": "Measured result that cross-agent co-active PRs are rare (0.5%) tells the reader that conflict control should focus on same-agent parallel branches, which shapes how the DAG dispatcher serializes its tickets.",
+   "score": 3
+  },
+  "Q21-k62": {
+   "position": 52,
+   "reason": "Measured result that conflicts are mostly in source files (84.4%) and often structural (~42%), which informs ticket file-ownership partitioning and conflict-resolution design.",
+   "score": 3
+  },
+  "Q21-k63": {
+   "position": 76,
+   "reason": "Caveat that the textual-conflict measurements are lower bounds, which mainly corroborates other findings.",
+   "score": 1
+  },
+  "Q21-k64": {
+   "position": 59,
+   "reason": "Qualitative statement of the batching cost tradeoff that other findings already cover in more detail.",
+   "score": 1
+  },
+  "Q21-k65": {
+   "position": 27,
+   "reason": "This is an arithmetic illustration that assumes zero failures.",
+   "score": 1
+  },
+  "Q21-k66": {
+   "position": 65,
+   "reason": "Minor vendor detail about using five bare-metal CI slots.",
+   "score": 1
+  },
+  "Q21-k67": {
+   "position": 54,
+   "reason": "Fairly generic tuning advice to reduce batch size when PRs are flaky and to size for peak load.",
+   "score": 1
+  },
+  "Q21-k68": {
+   "position": 7,
+   "reason": "Two-step CI that gates queue entry with cheap checks is a concrete design pattern applicable to the reader's pipeline.",
+   "score": 2
+  },
+  "Q21-k69": {
+   "position": 37,
+   "reason": "This is a worked example of standard eviction behavior.",
+   "score": 1
+  },
+  "Q21-k7": {
+   "position": 33,
+   "reason": "This is a generic queueing-theory point.",
+   "score": 1
+  },
+  "Q21-k70": {
+   "position": 51,
+   "reason": "Generic statement that parallel testing costs extra CI resources, with no specific numbers.",
+   "score": 1
+  },
+  "Q21-k71": {
+   "position": 19,
+   "reason": "Jump-to-top forcing a full rebuild of in-flight PRs is a specific cost to weigh when designing priority or hotfix lanes, such as for SEV fixes.",
+   "score": 2
+  },
+  "Q21-k72": {
+   "position": 16,
+   "reason": "It is a simple illustrative arithmetic example of batching, not a measurement.",
+   "score": 1
+  },
+  "Q21-k73": {
+   "position": 8,
+   "reason": "This is an idealized vendor arithmetic example with no failures.",
+   "score": 1
+  },
+  "Q21-k74": {
+   "position": 0,
+   "reason": "This is an anecdotal report of a burst choking a single-PR queue; it illustrates the failure mode but gives no numbers.",
+   "score": 1
+  },
+  "Q21-k75": {
+   "position": 35,
+   "reason": "This adaptive batch-sizing design detail largely duplicates k10.",
+   "score": 1
+  },
+  "Q21-k76": {
+   "position": 31,
+   "reason": "This is a historical anecdote about the first size-2 batch.",
+   "score": 0
+  },
+  "Q21-k77": {
+   "position": 24,
+   "reason": "A vendor admitting dynamic batching did not raise throughput is a specific negative result that tempers expectations of batching.",
+   "score": 2
+  },
+  "Q21-k78": {
+   "position": 70,
+   "reason": "Insight that batching gets worse as agent share rises because agents raise the per-PR failure rate, which bears directly on queue mode choice for an agent fleet.",
+   "score": 3
+  },
+  "Q21-k79": {
+   "position": 61,
+   "reason": "Failure mode where many branches cut from the same base produce semantic conflicts that merge cleanly in text, which directly motivates queue validation against the current tip in a DAG-to-PRs system.",
+   "score": 3
+  },
+  "Q21-k8": {
+   "position": 10,
+   "reason": "Measured queue-time differences between bot and human PRs, plus Plaid's ~40s per-merge overhead, help in sizing the fixed per-merge cost of an autonomous merger.",
+   "score": 2
+  },
+  "Q21-k80": {
+   "position": 44,
+   "reason": "This is a generic principle already quantified in k22 and k43.",
+   "score": 1
+  },
+  "Q21-k81": {
+   "position": 26,
+   "reason": "Concrete mitigations (line limits, bounded staleness, exclusive paths for shared files) map directly onto build-pack ticket generation policy.",
+   "score": 3
+  },
+  "Q21-k82": {
+   "position": 47,
+   "reason": "This is a textbook complexity claim.",
+   "score": 1
+  },
+  "Q21-k83": {
+   "position": 73,
+   "reason": "Specific GitHub merge queue eviction and rebuild behavior.",
+   "score": 2
+  },
+  "Q21-k84": {
+   "position": 32,
+   "reason": "The O(E log N) bisection cost is a useful formal cost model for choosing a batching strategy.",
+   "score": 2
+  },
+  "Q21-k85": {
+   "position": 45,
+   "reason": "This is a minor detail of bors bisection.",
+   "score": 1
+  },
+  "Q21-k86": {
+   "position": 64,
+   "reason": "Specific bors-ng semantics where stacked PRs are atomic and never split by bisection, a useful design detail.",
+   "score": 2
+  },
+  "Q21-k87": {
+   "position": 39,
+   "reason": "Bors running a single build is a known minor design fact.",
+   "score": 1
+  },
+  "Q21-k88": {
+   "position": 34,
+   "reason": "Build-graph-derived lanes are a specific design that fits the reader's DAG-based build packs for parallel independent merges.",
+   "score": 2
+  },
+  "Q21-k89": {
+   "position": 83,
+   "reason": "Concrete metric set for operating a queue, including failure rate split by author type, which the reader's ledger could adopt.",
+   "score": 2
+  },
+  "Q21-k9": {
+   "position": 91,
+   "reason": "Vendor marketing claim of CI savings.",
+   "score": 0
+  },
+  "Q21-k90": {
+   "position": 38,
+   "reason": "A large dataset showing about 28% conflict rate in agentic PRs is a measured result that should shape conflict-avoidance in ticket decomposition.",
+   "score": 3
+  },
+  "Q21-k91": {
+   "position": 11,
+   "reason": "The 5.3x pickup-time figure concerns human review latency, which matters little to a fleet that does autonomous adversarial review.",
+   "score": 1
+  }
+ }
+}

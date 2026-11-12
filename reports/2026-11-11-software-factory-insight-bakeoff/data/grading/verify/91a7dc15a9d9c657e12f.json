@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "14df51356c1dca96",
+ "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/",
+ "verdicts": {
+  "A per-PR review cost of $0.12 versus $1.40 across agents reflects differing tool calls and context sizes rather than brokenness; cost per completed task should be charted over time to detect regressions.": 1,
+  "A small-to-large fallback cascade starts each request at the cheapest plausible tier and escalates on low confidence; it consumes tokens twice on escalated requests but cuts overall cost 60–85% where 70–85% of requests are handled by budget models.": 1,
+  "Attributing a whole session at the primary model's price overcharges by 30–60% for workflows that route heavily to cheaper models, so the ledger must record the model per inference call.": 1,
+  "GitHub Copilot (June 2026) moved to monthly AI Credits at $0.01/credit based on token usage with pooled budgets and admin controls at enterprise, cost-center and user levels; per-repository attribution is not native.": 1,
+  "Ignoring cache write costs under-attributes cost by 20–40% for sessions with long system prompts; cache write cost (1.25x) paid by one project's pipeline can leave a later project a windfall at 0.1x unless an amortization policy is set.": 1,
+  "Layered budget controls for autonomous agents include a per-iteration cap of typically 2,000–4,000 tokens and a per-run budget typically $5–$25 depending on task complexity.": 1,
+  "Recommended practice is a 90% model-downgrade threshold before the 100% hard cap, since hard stops leave tasks in inconsistent states; P95 rolling forecasts achieve ±8–12% accuracy.": 1
+ }
+}

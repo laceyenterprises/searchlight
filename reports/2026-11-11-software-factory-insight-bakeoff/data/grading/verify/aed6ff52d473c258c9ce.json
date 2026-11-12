@@ -1,0 +1,9 @@
+{
+ "capture": "uncapturable",
+ "digest": "2b724b711a638ccc",
+ "url": "https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf",
+ "verdicts": {
+  "MCP relies on OAuth 2.1 bearer tokens without specifying protocol-level token lifecycle management (refresh, revocation, reuse control), which can enable replay or session hijacking.": null,
+  "Some MCP orchestrators auto-resolve tool names from public registries or local modules, and clients often cannot specify unique tool identifiers or strict resolution policies, enabling tool name collisions that hijack execution.": null
+ }
+}

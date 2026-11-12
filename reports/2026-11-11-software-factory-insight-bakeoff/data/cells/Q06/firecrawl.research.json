@@ -1,0 +1,38 @@
+{
+ "arm_id": "firecrawl.research",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.0
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:29:47.296075Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [],
+ "latency_ms": 121972.6,
+ "notices": null,
+ "profile_sha256": "eae1a261624f2d7d61edbffbfd657801bf749f3f81af530163afec1dcf6f0c42",
+ "question_id": "Q06",
+ "request": {
+  "body": {
+   "effort": "high",
+   "maxCredits": 1000,
+   "model": "spark-2",
+   "prompt": "Research question: How does Stripe's 'Minions' system produce unattended pull requests at scale? Cover the devbox and sandbox model, the blueprint/workflow mix of deterministic and agentic steps, CI and review, and volume numbers.\n\nFind specific, verifiable facts that answer this question: how it works (mechanisms, components, design decisions), numbers and measured results, names, dates, and reported problems or failure modes. Prefer primary sources (the organisation's own engineering posts, documentation, talks, papers, filings, code) and credible independent reporting. Report every distinct finding as a short statement with the URL of the page that states it. Do not pad with generic background. If something is not publicly disclosed, say so plainly. Include citations."
+  },
+  "headers": {
+   "Authorization": "Bearer <FIRECRAWL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.firecrawl.dev/v2/agent"
+ },
+ "response": {
+  "chars": 13552,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:27:45.322852Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

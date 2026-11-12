@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "681639abe72d05e2",
+ "url": "https://docs.dbos.dev/python/tutorials/step-tutorial",
+ "verdicts": {
+  "DBOS retries every exception from a step until max_attempts is reached by default, and a should_retry filter can restrict retries to certain exceptions such as transient network errors rather than validation errors.": 1,
+  "DBOS steps can be configured to retry any exception a set number of times with exponential backoff, via arguments to the step decorator.": 1,
+  "If a DBOS step fails on all max_attempts attempts, it throws DBOSMaxStepRetriesExceeded to the calling workflow, and the workflow terminates if that exception is not caught.": 1
+ }
+}

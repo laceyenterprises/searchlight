@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:14.585916Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 11641,
+   "published": null,
+   "text": "# Durable AI agents in 2026: long-running workflows with Temporal, Inngest, DBOS, and Restate\n## Why durable execution became the rate-limiting layer\nDurable execution is the programming model that fixes the resume-from-where problem at the language level. Every step in the workflow — every LLM cal…",
+   "title": "Durable AI agents in 2026: long-running workflows with Temporal, Inngest, DBOS, and Restate",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "chars_delivered": 4214,
+   "published": null,
+   "text": "# Durable Execution Patterns for AI Agents: Building Fault-Tolerant Autonomous Systems\n## Framework Landscape (2026)\n### Temporal: The Enterprise Standard\nTemporal is the most mature durable execution platform, now backed by $300M in Series D funding led by Andreessen Horowitz. Every LLM call, tool…",
+   "title": "Durable Execution Patterns for AI Agents: Building Fault-Tolerant Autonomous Systems",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "chars_delivered": 8876,
+   "published": null,
+   "text": "## Why long-running agents need it#\nDurable execution answers all three with three primitives:\n\n- **Checkpoints** save progress somewhere that outlives the process.\n- **Retries** re-attempt only the unit that failed, not the whole run.\n- **Resumability** lets any worker pick the run up from saved s…",
+   "title": "Durable Execution for AI Agents: Checkpoints, Retries and Resume",
+   "url": "https://www.developersdigest.tech/blog/durable-execution-for-ai-agents"
+  },
+  {
+   "chars_delivered": 14620,
+   "published": null,
+   "text": "## The Engines Actually Shipping in 2026\n| Engine | Category | What You're Actually Buying | Durability Mechanism | Corporate Status (checked Sept 25, 2026) |\n| --- | --- | --- | --- | --- |\n| Temporal | Open-core / managed cloud | The most mature durable execution platform; official Generally Avai…",
+   "title": "Durable Execution for AI Agents: The 2026 Guide to Crash-Safe, Resumable Workflows",
+   "url": "https://frenchydigital.com/blog/ai-agent-durable-execution-2026"
+  },
+  {
+   "chars_delivered": 6509,
+   "published": null,
+   "text": "# How Do You Build Reliable AI Agent Workflows with Durable Execution?\n## How Durable Execution Works: Event History and State Persistence\nTemporal's patching API and workflow versioning primitives allow safe evolution of long-running workflow definitions without killing in-flight instances mid-exe…",
+   "title": "How Do You Build Reliable AI Agent Workflows with Durable Execution?",
+   "url": "https://www.belsoftsolutions.com/blog/durable-execution-ai-agents-enterprise-2026"
+  },
+  {
+   "chars_delivered": 4226,
+   "published": null,
+   "text": "### Making the loop durable\n```\n  from temporalio import workflow\n  \n  @workflow.defn\n  class Replenish:\n      @workflow.run\n      async def run(self, stock: StockLevel) -> ReplenishmentResult:\n          state = State(stock.sku, stock.on_hand, stock.safety_stock)\n          for turn in range(MAX_TUR…",
+   "title": "Long-horizon agents and durable execution",
+   "url": "https://martinfowler.com/articles/durable-execution-agents.html"
+  },
+  {
+   "chars_delivered": 6173,
+   "published": null,
+   "text": "## The short answer#\n- **Python, you already run Postgres, you want explicit control:** LangGraph with PostgresSaver and durability=\"sync\". Budget for idempotency keys on every side-effecting node, because the interrupted node re-runs from the top.\n- **TypeScript product team:** Mastra workflows fo…",
+   "title": "Durable AI Agent Frameworks Compared: One Run, Four Stacks",
+   "url": "https://www.developersdigest.tech/blog/durable-ai-agent-frameworks-compared-2026"
+  },
+  {
+   "chars_delivered": 7103,
+   "published": null,
+   "text": "# Durable Execution for AI Agents: Temporal vs Restate vs DBOS\n## How the durable execution engines actually work\nTemporal uses deterministic workflow replay. Your orchestration code is a workflow, every external effect is an activity, and Temporal records an event history of activity inputs and ou…",
+   "title": "Durable Execution for AI Agents: Temporal vs Restate vs DBOS",
+   "url": "https://alatirok.com/durable-execution-ai-agents-compared/"
+  },
+  {
+   "chars_delivered": 4380,
+   "published": null,
+   "text": "# Retries and idempotency for AI agent tool calls (2026)\nRetries October 8th, 2026\n\nBy Cadenya\n\nEvery retry engine runs a tool call *at least once*, so the only reliable way to avoid a side effect running twice is an idempotency key that the receiving API checks. Temporal, Restate, Inngest, DBOS, a…",
+   "title": "Retries and idempotency for AI agent tool calls (2026): retry policy, activity idempotency, idempotency keys, and at least once vs exactly once in durable execution — Cadenya",
+   "url": "https://cadenya.com/other-content/retries-and-idempotency-for-agent-tool-calls"
+  },
+  {
+   "chars_delivered": 998,
+   "published": null,
+   "text": "## Durable Agent\nTo make a run durable, call agent.run() inside a Temporal workflow executed on a worker; outside one, the agent runs as a normal, non-durable agent.\n\nAdd durable execution to any Agent by attaching the TemporalDurability capability. The agent stays a normal Agent everywhere — outsi…",
+   "title": "Durable Execution with Temporal",
+   "url": "https://pydantic.dev/docs/ai/capabilities/durable_execution/temporal/"
+  }
+ ],
+ "latency_ms": 1502.1,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q11",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How are durable-execution engines (Temporal, Restate, Inngest, DBOS) used to run AI agents reliably? What patterns do they recommend for retries, human-in-the-loop waits, long-running workflows, and idempotent tool calls, and which companies run agents on them in production?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 77276,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:13.083817Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

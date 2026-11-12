@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "e117f456ad342a7d",
+ "url": "https://builders.cortex.io/blog/introducing-engrams/",
+ "verdicts": {
+  "Cortex is experimenting with an autonomous end-to-end engrams agent that owns a Linear project and its Slack channel, opens PRs, answers thread questions, posts daily status updates, diagnoses and fixes CI failures, and spawns sub-agents that each run in their own microVM for individual tickets.": 1,
+  "Cortex's engrams bug-triage automation reproduces and diagnoses each new runtime error and either pushes a fix or files an issue with the root cause; repeat errors join the run already in flight (deduplication), and noise errors are reported as such without opening a PR.": 1,
+  "Cortex's engrams dependency-upgrade automation scans on a schedule for outdated dependencies and open CVEs, opens one pull request per upgrade, runs tests and fixes breakage, has the PR review automation review it before a human, and escalates to a human when a question (such as an under-tested runtime jump) needs a person.": 1,
+  "Cortex's engrams memory-hot-spot automation runs daily, queries Datadog profiles for the largest production allocation frames, rewrites the hot path in the owning service, and includes before and after numbers in the pull request.": 1,
+  "On 2026-09-24 Cortex (author Nikhil Unni) open-sourced `engrams`, a platform for running coding agents such as Claude Code, Codex, or a custom agent in the user's own cloud to automate parts of the SDLC, positioned as an open source alternative to Devin or Factory.": 1,
+  "engrams is version 0.x and its APIs are stated to be subject to change.": 1,
+  "engrams local development runs sessions under Apple's Virtualization framework on Apple Silicon Macs, or under Firecracker on Linux machines with /dev/kvm.": 1,
+  "engrams production deployment requires Intel nodes with nested virtualization: C3 on GKE, or m8i or *.metal on EKS.": 1,
+  "engrams supports OpenRouter, which Cortex uses to choose a model per workload to optimize cost.": 1
+ }
+}

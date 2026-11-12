@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:20.120452Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 13555,
+   "published": null,
+   "text": "# AI Agent Protocols: MCP, A2A, ACP, and the Interop Stack\n## A short history: from function calling to a protocol stack\n**2026, the stack settles.** By mid-2026 the layer cake is recognizable. MCP for tools. Vendor SDK for inference. A2A or ACP for agent-to-agent. OASF for identity. OAuth 2.1 + DC…",
+   "title": "AI Agent Protocols: MCP, A2A, ACP, and the Interop Stack - Blog",
+   "url": "https://blog.prompt20.com/posts/ai-agent-protocols/"
+  },
+  {
+   "chars_delivered": 8095,
+   "published": null,
+   "text": "# A2A vs MCP: How the Agent2Agent Protocol Works on the Wire\n## Key takeaways\n- A2A connects agents to other agents as peers that stay opaque to each other. MCP connects an agent to tools, resources and prompts. The A2A specification describes the two as complementary: a remote A2A agent may use MC…",
+   "title": "A2A vs MCP: How the Agent2Agent Protocol Works on the Wire",
+   "url": "https://safeguard.sh/resources/blog/a2a-vs-mcp-how-the-agent2agent-protocol-works-on-the-wire"
+  },
+  {
+   "chars_delivered": 6356,
+   "published": null,
+   "text": "# A2A, MCP, and the Standards Landscape\n### What MCP Does\nWhat MCP does not do is equally important. The current specification has no structured logging mandate, meaning there is no standard way to audit what an MCP-connected agent did, when, and why. Fine-grained authorization is left to implement…",
+   "title": "A2A, MCP, and the Standards Landscape — Arion Research LLC",
+   "url": "https://www.arionresearch.com/blog/a2a-mcp-and-the-standards-landscape"
+  },
+  {
+   "chars_delivered": 6589,
+   "published": null,
+   "text": "# MCP, A2A, and Where ACP Went\n## Threats when agents call agents\n- **Tool poisoning.** A malicious or compromised tool returns content crafted to manipulate the calling model. It is item #3 in the OWASP MCP Top 10, currently an incubator project, alongside rug pulls and tool shadowing.\n- **Prompt…",
+   "title": "MCP, A2A, and Where ACP Went - Zuplo",
+   "url": "https://zuplo.com/blog/agent-protocol-stack-mcp-a2a-acp-2026"
+  },
+  {
+   "chars_delivered": 7520,
+   "published": null,
+   "text": "# Agent protocols: A complete guide to MCP, A2A, and ACP\n## Foundational concepts: Model protocols vs agent protocols\n### Model Context Protocol (MCP): The universal adapter for tools\n“isError”: false\n\n}\n\n}\n\nTools also declare a structured inputSchema (JSON Schema) and optionally an outputSchema fo…",
+   "title": "AI Agent Protocols Explained: MCP & A2A for Multi-Agent Systems",
+   "url": "https://tyk.io/learning-center/agent-protocols-a-complete-guide-to-mcp-a2a-and-acp/"
+  },
+  {
+   "chars_delivered": 7419,
+   "published": null,
+   "text": "# A2A and MCP Agent Security: Identity, Delegation, and Audit Trails\nMCP gives an agent structured access to files, APIs, databases, and ticketing systems. A2A lets one agent send tasks, messages, and artifacts to another agent that may belong to a different team, vendor, or runtime. Those protocol…",
+   "title": "A2A and MCP Agent Security: Identity, Delegation, and Audit Trails - Rost Glukhov",
+   "url": "https://www.glukhov.org/llm-architecture/guardrails/a2a-mcp-agent-security"
+  },
+  {
+   "chars_delivered": 4502,
+   "published": null,
+   "text": "## MCP vs A2A: Detailed Comparison\n| Dimension  | MCP  | A2A  |\n| --- | --- | --- |\n| Purpose  | Give an agent access to tools, data and prompts  | Let independent agents discover, delegate to and collaborate with each other  |\n| Relationship between parties  | A caller and a capability  | Peers, o…",
+   "title": "MCP vs A2A: Differences and When to Use Each (2026)",
+   "url": "https://www.akoode.com/blog/mcp-vs-a2a"
+  },
+  {
+   "chars_delivered": 2478,
+   "published": null,
+   "text": "# Agentic MCP Security Best Practices Guide\n## Executive Summary\nReal-world incidents in 2025 included cross-tenant data exposure at Asana, prompt injection attacks against the GitHub MCP server, unauthenticated remote code execution in Anthropic’s own MCP Inspector developer tool, and multiple sup…",
+   "title": "Agentic MCP Security Best Practices Guide",
+   "url": "https://labs.cloudsecurityalliance.org/agentic/agentic-mcp-security-best-practices-v1/"
+  },
+  {
+   "chars_delivered": 2260,
+   "published": null,
+   "text": "# Securing MCP: A Control Plane for Agent Tool Execution\n## The MCP attack surface is real and growing\nThe OWASP MCP Top 10 outlines common risk categories for the ecosystem, and the surface area is expanding as implementations mature. For example, the NVD entries for CVE-2025-49596 and CVE-2025-66…",
+   "title": "Securing MCP: A Control Plane for Agent Tool Execution - Microsoft for Developers",
+   "url": "https://developer.microsoft.com/blog/securing-mcp-a-control-plane-for-agent-tool-execution/"
+  },
+  {
+   "chars_delivered": 2831,
+   "published": null,
+   "text": "# MCP Authentication and Authorization: A Security Implementation Guide\n## Authentication vs. Authorization: Why Both Fail Independently\nThe failure mode security teams underestimate is the authorization side. A team will invest significant effort in implementing OAuth 2.0 authentication. Rotating…",
+   "title": "MCP Authentication and Authorization: A Security Implementation Guide - Practical DevSecOps",
+   "url": "https://www.practical-devsecops.com/mcp-authentication-authorization-implementation/"
+  }
+ ],
+ "latency_ms": 1730.2,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q14",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How are MCP and A2A being used as extension seams for agent platforms in production? What are the known problems: tool-count limits, auth and authorization (OAuth for MCP), security incidents like prompt injection via tools, and gateway or registry patterns that address them?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 69701,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:18.390242Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

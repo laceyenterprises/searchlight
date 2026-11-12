@@ -1,0 +1,103 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "1654726cbffcf620",
+ "claims": [
+  {
+   "text": "Stripe reported over 1,000 merged pull requests per week that were entirely produced by Minions, human-reviewed, and contained no human-written code (Part 1, February 9, 2026).",
+   "url": null
+  },
+  {
+   "text": "Stripe's count of merged, human-reviewed, Minion-produced PRs containing no human-written code rose to over 1,300 per week (Part 2, February 19, 2026).",
+   "url": null
+  },
+  {
+   "text": "Mark Doyle of Stripe reported approximately 3,000 Minion PRs merged per week in a talk published May 26, 2026.",
+   "url": null
+  },
+  {
+   "text": "Doyle said about 65% of Minion PRs merged without code changes, while in the other 35% an engineer typically took over and changed something.",
+   "url": null
+  },
+  {
+   "text": "Doyle said falling back to the user after the autonomous loop is exhausted happened in less than 1% of cases.",
+   "url": null
+  },
+  {
+   "text": "Will Gaybrick said in an August interview with David George that about 7,000 PRs came from Minions the previous week, roughly 30% of PRs that week.",
+   "url": null
+  },
+  {
+   "text": "Patrick Collison said one Stripe engineer had more than 600 AI-written PRs merged in H1 with exactly one reverted; he also said incidents per unit time rose slightly while overall reliability was essentially unchanged.",
+   "url": null
+  },
+  {
+   "text": "Each Minion run starts in a devbox, an AWS EC2 instance containing source code and development services, the same standardized environment Stripe engineers use and treated as replaceable ('cattle, not pets').",
+   "url": null
+  },
+  {
+   "text": "Stripe keeps a warm pool of devboxes targeting readiness in 10 seconds, with repositories cloned, Bazel and type-checking caches warmed, and code-generation services running.",
+   "url": null
+  },
+  {
+   "text": "The devbox sandbox is a QA environment with no real user data, no production services, and no arbitrary network egress.",
+   "url": null
+  },
+  {
+   "text": "Inside the sandbox the agent runs with full permissions and no confirmation prompts, so a mistake's blast radius is limited to one devbox.",
+   "url": null
+  },
+  {
+   "text": "An internal security-control framework prevents destructive actions through MCP tools; its implementation is not described.",
+   "url": null
+  },
+  {
+   "text": "Stripe says git-worktree-based parallelization would not scale for its use case; separate environments keep parallel agents from interfering with each other's changes.",
+   "url": null
+  },
+  {
+   "text": "Stripe forked Block's goose in late 2024 and adapted it to its LLM infrastructure, prioritizing unattended execution over interactive features.",
+   "url": null
+  },
+  {
+   "text": "A blueprint is a workflow-as-code state machine mixing deterministic nodes and agent loops; 'Implement task' and 'Fix CI failures' are agentic, while 'Run configured linters' and 'Push changes' run plain code without an LLM.",
+   "url": null
+  },
+  {
+   "text": "Blueprint nodes can restrict tool access, change system prompts, or simplify context for a subtask, and teams can build specialized blueprints such as LLM-assisted migrations.",
+   "url": null
+  },
+  {
+   "text": "Rules are scoped to subdirectories or file patterns and attached during filesystem traversal rather than loaded globally, to avoid exhausting the context window; Stripe standardized on Cursor's rule format and syncs rules for Claude Code.",
+   "url": null
+  },
+  {
+   "text": "Toolshed, Stripe's centralized internal MCP server, held more than 400 tools in Part 1 and nearly 500 in Part 2; relevant tools are run deterministically over links before a run to prepopulate context.",
+   "url": null
+  },
+  {
+   "text": "Minions get a deliberately small curated subset of Toolshed tools, with optional additional thematic groups.",
+   "url": null
+  },
+  {
+   "text": "Doyle described an Analyze Prompt agent that gathers the Slack thread and referenced tickets/PRs, then a coding agent, an LLM judge comparing goal to diff, and a diagnostic agent, looping up to about ten times before falling back to the user.",
+   "url": null
+  },
+  {
+   "text": "Selected local lints run on each push in under five seconds, and Part 2 says a background daemon precomputing lint heuristics makes push-time lint fixes usually arrive in well under one second.",
+   "url": null
+  },
+  {
+   "text": "Stripe has over three million tests; CI runs only the relevant tests for a pushed branch.",
+   "url": null
+  },
+  {
+   "text": "The February standard blueprint allows at most two CI rounds: push, apply autofixes, give remaining failures to an agent for one repair attempt, push again, then return the branch to a human; retries are capped because of token, compute and time costs with diminishing returns.",
+   "url": null
+  },
+  {
+   "text": "The agent prepares a branch and PR using Stripe's template; the initiating engineer inspects and opens it and requests another engineer's review, while Minions are usually invoked by tagging a Slack app and can run several in parallel.",
+   "url": null
+  }
+ ],
+ "question_id": "Q06"
+}

@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "59d62741a3921365",
+ "url": "https://cognition.com/blog/linktree",
+ "verdicts": {
+  "Cognition shared a Playbook script using the Devin API to automatically spawn multiple Devins to implement a whole multi-repo feature, which Linktree adopted.": 1,
+  "Linktree advises concise, specific instructions without chit chat, and starting a new session on a sub-task when context gets too long.": 1,
+  "Linktree found Devin's success depends on the scope of the change and the amount of ambiguity Devin must overcome, and recommends using Devin for tasks an engineer could complete in a couple of hours.": 1,
+  "Linktree had Devin attempt a PHP cron job feature despite expecting it to struggle; the attempt served as a proof of concept that led to a design discussion and the team completing the change.": 1,
+  "Linktree reported that over one month Devin authored about 300 PRs and Linktree merged about 100 of them, mostly customer-reported bug fixes, small features, and prototypes of larger features.": 1,
+  "Linktree reports Devin struggles with many tasks but has a very good success rate at instrumenting analytics event tracking, which they operationalized with a continually refined prompt.": 1,
+  "Linktree used the knowledge feature to teach Devin which files to update in repos with many files, and ran five parallel Devins (one per repo/PR) to add new social platforms.": 1
+ }
+}

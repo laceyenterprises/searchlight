@@ -1,0 +1,23 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "e289d947caa81edc",
+ "claims": [
+  {
+   "text": "AIOS treats the LLM as a kernel-managed resource, with the operating-system kernel providing a scheduler, a context manager, a memory manager, a storage manager and access control.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "AIOS's context manager snapshots and restores the state of LLM generation, which enables context switching between agents' requests.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "Letta sleep-time agents, introduced in Letta 0.7.0 in April 2025, asynchronously edit in-context memory blocks while the primary agent is serving the user.",
+   "url": "https://letta.com/blog/sleep-time-compute"
+  },
+  {
+   "text": "Anthropic's post on components of agent memory credits the sleep-time compute idea from Letta and UC Berkeley as the source for its 'dreaming' consolidation.",
+   "url": "https://www.anthropic.com/engineering/components-of-agent-memory"
+  }
+ ],
+ "question_id": "Q13"
+}

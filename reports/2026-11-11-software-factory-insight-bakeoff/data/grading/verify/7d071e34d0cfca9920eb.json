@@ -1,0 +1,29 @@
+{
+ "capture": "captured",
+ "digest": "a6aeb6266cb8f6ec",
+ "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f",
+ "verdicts": {
+  "Anthropic CPO Mike Krieger said 90-95% of changes to Claude Code's codebase are written by Claude Code, and Anthropic's merge queue became a bottleneck that had to be completely re-architected because PR volume far exceeded its expectations.": 1,
+  "Anthropic's CPO Mike Krieger said Anthropic's merge queue became a bottleneck and had to be completely re-architected because agent-written code produced many more pull requests than expected.": 1,
+  "In Trunk's merge queue simulation, increasing batch size from 1 to 16 (logical conflict rate 0.1%) made PRs merge 54.9% slower, from 41m 56s to 1h 5m.": 1,
+  "In Trunk's simulation, a higher logical conflict rate (0.2% vs 0.1%) did not significantly change time to merge or CI time per PR.": 1,
+  "In Trunk's simulation, increasing batch size from 1 to 16 (logical conflict rate 0.1%) cut average CI time per PR by 77.5%, from 41m 28s to 9m 19s.": 1,
+  "In Trunk's simulation, the lowest peak CI concurrency occurred at batch size 16 with a 0.1% logical conflict rate, meaning fewer CI runners are needed.": 1,
+  "In Trunk's simulation, the time to reject PRs with logical conflicts or flaky tests increases with batch size because failing batches must be bisected.": 1,
+  "In the same Trunk simulation, CI time per PR fell 77.5% (from an average of 41m 28s to 9m 19s) when batch size rose from 1 to 16.": 1,
+  "Mike Krieger said 90-95% of changes to Claude Code's codebase are written by Claude Code, and that Anthropic's merge queue became a bottleneck and had to be completely re-architected because of the increase in PRs submitted.": 1,
+  "Time to reject PRs with logical conflicts or flaky tests grows with batch size in Trunk's simulation, because failing batches must be bisected.": 1,
+  "Trunk describes batching as saving CI cost by running fewer CI jobs, but when a batch fails it must be bisected and PRs retested, which slows CI and can increase total cost.": 1,
+  "Trunk notes parallel queues are only an option when a build system like Bazel is used in the repo.": 1,
+  "Trunk notes that parallel queues are only an option when a build system like Bazel is used in the repo.": 1,
+  "Trunk ran 8 simulation scenarios: batch sizes 1, 4, 8 and 16, each tested at a logical conflict rate of 1/1000 (0.1%) and 1/500 (0.2%).": 1,
+  "Trunk ran merge queue simulations with batch sizes of 1, 4, 8 and 16, with and without parallel queues, across 8 scenarios, using a public repo that automates PR creation via cron and is configured in .config/mq.toml.": 1,
+  "Trunk simulations of merge queue batch sizes 1, 4, 8 and 16 (parallel queues for batch sizes above 1) found that going from batch size 1 to 16 at a 0.1% logical conflict rate made PRs merge 54.9% slower, from 41m 56s to 1h 5m.": 1,
+  "Trunk states that batching saves CI cost but, when a batch fails, bisection and retesting to isolate the failure can slow CI and raise total costs.": 1,
+  "Trunk states that parallel queues, which test unrelated PRs simultaneously, are only an option when a build system like Bazel is used in the repo, and cost additional CI resources.": 1,
+  "Trunk states that testing in parallel can be combined with batching and requires available CI workers and money for additional CI resources.": 1,
+  "Trunk's SimMergeQueue ran 8 scenarios: batch sizes 1, 4, 8 and 16, each at logical conflict rates of 0.1% (1/1000) and 0.2% (1/500), with parallel queues for batch sizes above 1.": 1,
+  "Trunk's simulation found that a higher logical conflict rate (0.1% vs 0.2%) did not significantly affect time to merge or CI time per PR.": 1,
+  "Trunk's simulation held PRs until a batch was full and did not include a configurable maximum batch wait time, which can reduce average time to merge for larger batches.": 1
+ }
+}
