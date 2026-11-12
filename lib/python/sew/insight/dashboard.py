@@ -153,12 +153,12 @@ def digest_html(summary: Mapping[str, Any], top: int = 5) -> str:
     read = "".join(f"<li>{escape(c)}</li>" for c in caveats(summary))
     return ('<section class="digest" aria-label="The takeaway"><p class="eyebrow">At the top</p>'
             f'<ol class="finish">{lines}</ol>'
+            f'<div class="readfirst"><h2>Before you compare</h2><ul>{read}</ul></div>'
             '<div class="ranked"><h2>Ranked by useful findings per question</h2>'
             '<p class="lede">The value of every finding a service earned on its own cited page, averaged over the '
-            'questions it ran. The bar is its 95% range; where ranges overlap, the data cannot separate them.</p>'
-            f'<p class="keys">{kind_icon("search")} search hands back results {kind_icon("research")} research writes '
-            f'an answer</p><ol class="rank">{head}</ol>{more}</div>'
-            f'<div class="readfirst"><h2>Read this first</h2><ul>{read}</ul></div></section>')
+            'questions it ran. The bar is its 95% range; where ranges overlap, the test cannot separate them.</p>'
+            f'<p class="keys"><span>{kind_icon("search")} search hands back results</span> <span>'
+            f'{kind_icon("research")} research writes an answer</span></p><ol class="rank">{head}</ol>{more}</div></section>')
 
 
 def finish_item(x: Mapping[str, Any]) -> str:

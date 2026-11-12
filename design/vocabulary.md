@@ -18,7 +18,7 @@ Each glyph id names a symbol in [`glyphs/searchlight-glyphs.svg`](glyphs/searchl
 | Run | run | One task with one search setup, repeated three times. | Every run starts in a fresh, sealed workspace, so nothing carries over. The tasks, limits and instructions are the same for every setup. |
 | Blind grading | blind | The grader never sees which setup produced the answer. | Automatic checks run where a task has them. Otherwise an AI judge compares the answer with the saved source pages, without knowing the provider. |
 | 95% range | range | Where the true score most likely sits. | A score from a few dozen runs is a measurement, not a fact. The range shows how far it could move if the test ran again. |
-| Tie | tie | Two ranges overlap, so the data cannot separate them. | When ranges overlap, the results say so instead of naming a winner. One place higher on a list is not proof of being better. |
+| Tie | tie | Two ranges overlap, so the test cannot separate them. | When ranges overlap, the results say so instead of naming a winner. One place higher on a list is not proof of being better. |
 | No search | no-search | The control: the agent answers from memory alone. | It sets the floor. On recent events every agent scored 0% here, which is why search decides those jobs. |
 | Built-in search | built-in | The search the agent ships with. | The second control. Claude Code's built-in search could not open pages in the first runs; it was fixed and rerun on 2026-10-06. |
 | Gap closed | gap-closed | How far a setup got from the no-search score toward the score with the answer handed over. | 100% means it did as well as an agent given an excerpt containing the answer. Over 100% means it did better. |

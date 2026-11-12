@@ -14,8 +14,8 @@ from .data import esc
 WIDE, TALL = 960, 360
 # Type in each layout, in viewBox units. The wide layout shows from 900 px (a column of at least 860 px), so 16 is at
 # least 14.3 px on screen; the tall layout is drawn at 360 and shown 350 to 520 px wide.
-TYPE = {'wide': {'t': 17, 'b': 16, 'm': 15, 'e': 15, 'lh': 22, 'gap': 60},
-        'tall': {'t': 16, 'b': 15, 'm': 14, 'e': 15, 'lh': 21, 'gap': 52}}
+TYPE = {'wide': {'t': 17, 'b': 16, 'm': 15, 'e': 15, 'lh': 22, 'gap': 60, 'layout': 'wide'},
+        'tall': {'t': 16, 'b': 15, 'm': 14, 'e': 15, 'lh': 21, 'gap': 52, 'layout': 'tall'}}
 PAD, GLYPH = 14, 26
 
 
@@ -26,6 +26,7 @@ class Node:
     title: str
     body: list[str] = field(default_factory=list)
     kind: str = ''  # '' a step, 'st' a store, 'q' a decision
+    tall: list[str] | None = None  # a shorter body for the phone layout (the full one stays in the description)
 
 
 @dataclass
@@ -41,7 +42,7 @@ class Diagram:
 
 
 def _width(text: str, size: float, kind: str) -> float:
-    return len(text) * size * {'t': 0.56, 'b': 0.52, 'm': 0.6, 'e': 0.52}[kind]
+    return len(text) * size * {'t': 0.56, 'b': 0.56, 'm': 0.6, 'e': 0.52}[kind]
 
 
 def wrap(text: str, width: float, size: float, kind: str) -> list[str]:
@@ -76,7 +77,7 @@ def _lines(node: Node, w: float, t: dict) -> tuple[bool, list, list]:
     title_w = w - 2 * PAD - (0 if stacked else GLYPH + 10)
     title = [(x, title_kind) for x in wrap(node.title.lstrip('`'), title_w, t[title_kind], title_kind)]
     body = []
-    for text in node.body:
+    for text in node.tall if t['layout'] == 'tall' and node.tall is not None else node.body:
         kind = 'm' if text.startswith('`') else 'b'
         body += [(x, kind) for x in wrap(text.lstrip('`'), w - 2 * PAD, t[kind], kind)]
     return stacked, title, body
@@ -439,21 +440,22 @@ PIPELINE = Diagram(
           [('B', 392, 150, 2), ('D', 600, 160), ('R', 812, 136, 2)],
           [('J', 600, 160)],
           [('S', 812, 136)]],
-    tall=[[('T1', 44, 142), ('T2', 202, 142)], [('W', *C)], [('H', *C)], [('M', *C)], [('V', *C)], [('B', *C)],
-          [('D', 44, 142), ('J', 202, 142)], [('R', *C)], [('S', *C)]],
+    tall=[[('T1', 44, 146), ('T2', 204, 146)], [('W', *C)], [('H', *C)], [('M', *C)], [('V', *C)], [('B', *C)],
+          [('D', 44, 146), ('J', 204, 146)], [('R', *C)], [('S', *C)]],
 )
 
 ISOLATION = Diagram(
     'isolation', 'What each setup can touch',
     [Node('A', 'setup', 'Search setup contract'),
      Node('CC', 'agent', 'Claude Code spawn', ['`--strict-mcp-config', "`--tools: the setup's built-ins",
-                                               '`--allowedTools: the same set']),
-     Node('CX', 'agent', 'Codex spawn', ['`exec --sandbox read-only', '`--disable shell_tool, browser_use, apps, plugins, ...']),
+                                               '`--allowedTools: the same set'], tall=["only the setup's tools"]),
+     Node('CX', 'agent', 'Codex spawn', ['`exec --sandbox read-only', '`--disable shell_tool, browser_use, apps, plugins, ...'],
+          tall=['read-only, no shell']),
      Node('P1', 'provider', 'Search provider', ['one provider MCP server + ToolSearch + Read']),
-     Node('N1', 'built-in', 'Built-in search', ['WebSearch + WebFetch + Read']),
+     Node('N1', 'built-in', 'Built-in search', ['WebSearch + WebFetch + Read'], tall=['web search, fetch, read']),
      Node('F1', 'no-search', 'No search, floor, ceiling', ['no tools']),
      Node('P2', 'provider', 'Search provider', ['one provider MCP server']),
-     Node('N2', 'built-in', 'Built-in search', ['`codex --search']),
+     Node('N2', 'built-in', 'Built-in search', ['`codex --search'], tall=['`--search']),
      Node('F2', 'no-search', 'No search, floor, ceiling', ['no tools']),
      Node('AU', 'strict-credit', 'Setup audit', ['every observed tool call checked against the contract'])],
     [('A', 'CC', '', False, None), ('A', 'CX', '', False, None),

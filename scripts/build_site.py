@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 # The names below are the generator's public surface: the tests and scripts/render_social_card.py read them here.
 from searchlight_site import diagrams  # noqa: E402,F401
 from searchlight_site.components import (  # noqa: E402,F401
-    LEGEND, board_html, board_notes, board_says, digest, finding, measures_html, report_page_name, row_html,
+    LEGEND, board_html, board_notes, board_says, digest, finding, measures_html, memory_clause, report_page_name, row_html,
     site_map, track)
 from searchlight_site.data import (  # noqa: E402,F401
     ANALYTICS_NOTICE, ARM_LABEL, BEHAVIOR, BENCH_LABEL, EXAMPLES, GAP_PRIMARY, H2H, H2H_PROVIDERS, INSIGHT_SCHEMA,
@@ -356,8 +356,8 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
                         f'L {ax - 7:.1f} {cy0 + ch / 2 + 10:.1f}" fill="none" stroke="{P["beam"]}" stroke-width="3" '
                         f'stroke-linecap="round" stroke-linejoin="round"/>')
     y = cy0 + ch + 30
-    body.append(_text(M, y, 'Pass rates are shown with their 95% range. Where two ranges overlap, the data cannot '
-                      'tell them apart.' + (' Finding 5 counts verified items instead.' if h2h else ''), 14, P['ink2']))
+    body.append(_text(M, y, 'Pass rates are shown with their 95% range. Where two ranges overlap, the test cannot '
+                      'separate them.' + (' Finding 5 counts verified items instead.' if h2h else ''), 14, P['ink2']))
 
     # ---- findings
     y += 62
@@ -383,7 +383,7 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
          lambda yy: _gap_forests(gap_boards, right_x, yy, right_w, P)),
         ('On documented knowledge, memory does most of the work',
          f'In the bakeoff, answering from memory passed {nos["passes"]}/{nos["cells"]} ({nos["pass_pct"]:.0f}%). '
-         f'The best provider reached {best_wsb["pass_pct"]:.0f}%, within the margin of error, '
+         f'The best provider reached {best_wsb["pass_pct"]:.0f}%: {memory_clause(nos, best_wsb)}, '
          f'while tokens used per passing run rose from {tps[0]["tokens_per_success"]} ({tps[0]["label"]}) to as much as '
          f'{tps[-1]["tokens_per_success"]} ({tps[-1]["label"]}).',
          'Search pays off where training data runs out. On stable, well-documented questions it mostly adds '

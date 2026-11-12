@@ -48,6 +48,13 @@ def tie_clause(tied: int, others: int) -> str:
     return "no other setup's range reaches the leader's"
 
 
+def memory_clause(nos: dict, top: dict) -> str:
+    """How the best search setup's range sits against answering from memory, in the site's one tie wording."""
+    if nos['ci'][1] >= top['ci'][0]:
+        return 'the two ranges overlap, so the test cannot separate them'
+    return "its range sits above memory's"
+
+
 def tie_sentence(boards: list[dict]) -> str:
     """The tie clause across several boards, said once when it is the same for all of them."""
     clauses = [(harness_name(b)[0], tie_clause(*overlap(b))) for b in boards]
@@ -65,9 +72,8 @@ def board_says(board: dict) -> str:
     top = rows[0]
     nos = next((r for r in board['rows'] if r['arm'] == 'no-search'), None)
     if nos:
-        overlap_nos = nos['ci'][1] >= top['ci'][0]
         return (f'Answering from memory passed {_pct(nos["pass_pct"])}; the best search setup, {top["label"]}, reached '
-                f'{_pct(top["pass_pct"])}' + (', and their ranges overlap: search added little here.' if overlap_nos else '.'))
+                f'{_pct(top["pass_pct"])}: {memory_clause(nos, top)}.')
     clause = tie_clause(*overlap(board))
     return f'{top["label"]} passed most often: {top["passes"]} of {top["cells"]} runs. {clause[:1].upper()}{clause[1:]}.'
 

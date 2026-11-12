@@ -532,7 +532,7 @@ def test_boards_describe_interval_overlap_and_benchmark_token_coverage():
     results = site.build()['results.html']
     assert 'Tokens per success is complete' not in results
     # "How to read these results" lives on Learn; every other page links to it in one line.
-    assert 'the difference may be chance' in site.build()['learn.html'] and 'href="learn.html#read"' in results
+    assert 'When two ranges overlap, the test cannot separate them' in site.build()['learn.html'] and 'href="learn.html#read"' in results
 
 
 def test_boards_explain_the_pass_rule_in_plain_words():
@@ -922,6 +922,22 @@ def test_diagrams_keep_every_node_and_edge_and_fit_their_column():
     assert min(t[k] for t in d.TYPE.values() for k in ('t', 'b', 'm', 'e')) >= 14
     figure = d.figure('grading')
     assert figure.count('class="e') >= 2 * len(d.GRADING.messages)
+
+
+def test_diagram_text_stays_inside_its_card():
+    """Every wrapped line fits inside its card's padding, so no word, flag or path touches the border."""
+    from searchlight_site import diagrams as d
+    for diagram in d.DIAGRAMS.values():
+        for layout in ('wide', 'tall'):
+            t = d.TYPE[layout]
+            for row in getattr(diagram, layout):
+                for nid, _, w, *_ in row:
+                    stacked, title, body = d._lines(next(n for n in diagram.nodes if n.id == nid), w, t)
+                    title_room = w - 2 * d.PAD - (0 if stacked else d.GLYPH + 10)
+                    for text, kind in title:
+                        assert d._width(text, t[kind], kind) <= title_room, (diagram.name, layout, text)
+                    for text, kind in body:
+                        assert d._width(text, t[kind], kind) <= w - 2 * d.PAD, (diagram.name, layout, text)
 
 
 def test_one_glossary_lives_on_learn():

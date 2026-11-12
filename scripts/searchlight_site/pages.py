@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 from . import diagrams
-from .components import (LEGEND, tie_sentence, behavior_facts, behavior_tiles, bench_label, board_html, board_says, digest, dumbbell,
+from .components import (LEGEND, memory_clause, tie_sentence, behavior_facts, behavior_tiles, bench_label, board_html, board_says, digest, dumbbell,
                          filter_bar, filter_data, finding, latest_strip, localize_links, measures_html, note,
                          numbers_mean, report_date, report_page_name, reports_list, track, _floor_ceiling)
 from .data import (BEHAVIOR, EXAMPLES, GAP_PRIMARY, H2H, REPO_URL, WSB_PRIMARY, _catalog_prompt, _gap_range, esc,
@@ -49,7 +49,7 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict, studi
          f'{h["cc_top"]["label"]} led on Claude Code and {h["cx_top"]["label"]} on Codex. {tie_sentence(gap)}', 'finding-2'),
         (f'{nos["pass_pct"]:.0f}% vs {best["pass_pct"]:.0f}%', 'On well-known topics, memory does most of the work',
          f'Answering from memory passed {nos["pass_pct"]:.0f}%; the best provider reached {best["pass_pct"]:.0f}%, '
-         f'within the margin of error, using up to {h["token_ratio"]:.0f}× the tokens.', 'finding-3'),
+         f'{memory_clause(nos, best)}, using up to {h["token_ratio"]:.0f}× the tokens.', 'finding-3'),
         (f'{h["natural_pct"]:.0f}%', 'Agents still search with keywords',
          f'Only {h["natural_pct"]:.0f}% of searches read as plain questions. Runs did better when the original source '
          'showed up.', 'finding-4'),
@@ -138,7 +138,7 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, h2h: dict, b
                 'Choose on cost and fit, then test on your own agent.', GAP_PRIMARY),
         finding(3, 'On well-documented questions, memory does most of the work',
                 {'': f'Answering from memory passed {nos["pass_pct"]:.0f}%; the best provider reached '
-                     f'{best["pass_pct"]:.0f}%, within the margin of error, at up to {h["token_ratio"]:.0f}× the tokens '
+                     f'{best["pass_pct"]:.0f}%: {memory_clause(nos, best)}, at up to {h["token_ratio"]:.0f}× the tokens '
                      f'({tps[0]["tokens_per_success"]} to {tps[-1]["tokens_per_success"]} per pass).'},
                 LEGEND + f'<div class="boards">{board_html(wsb, top=3, notes=False, brief=True)}</div>',
                 'On stable questions, search mostly adds cost.',
@@ -344,7 +344,7 @@ def walkthrough(h: dict) -> list[tuple[str, list[str], str, str]]:
          'A brief passes with the right decision, 70% of the key facts and few unsupported claims.'),
         ('Rank it honestly', ['ranking', 'range', 'tie'],
          'Setups are ranked by how often their runs passed. Every pass rate shows its 95% range.',
-         'When ranges overlap, the results call it a tie instead of naming a winner.'),
+         'When ranges overlap, the test cannot separate them, so no winner is named.'),
     ]
 
 

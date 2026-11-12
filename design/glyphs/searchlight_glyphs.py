@@ -132,7 +132,7 @@ GLYPHS = [
      f'<path d="M3 5.5h18" {A}/><path d="M3 12h13M3 18.5h8"/>'),
     ("range", "reading", "95% range: where the true score most likely sits",
      f'<path d="M3.5 7v10M20.5 7v10M3.5 12h17"/><circle cx="14" cy="12" r="2.8" {AF}/>'),
-    ("tie", "reading", "Tie: two ranges overlap, so the data cannot separate them",
+    ("tie", "reading", "Tie: two ranges overlap, so the test cannot separate them",
      '<path d="M2.5 8h13M2.5 5.5v5M15.5 5.5v5M8.5 16h13M8.5 13.5v5M21.5 13.5v5"/>'
      f'<path d="M8.5 8h7M8.5 16h7" stroke-width="3" {A}/>'),
     ("tokens", "reading", "Tokens: the units AI models bill by",
