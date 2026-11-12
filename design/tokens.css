@@ -1,0 +1,80 @@
+/* Searchlight design tokens: the source of truth for colour, type, space and radius.
+   scripts/build_site.py inlines this file into every page and into the study dashboards.
+   Light values on :root; dark values under prefers-color-scheme or data-theme="dark", chosen for the dark ground. */
+:root {
+  /* Surfaces and ink */
+  --paper: #FFFFFF;
+  --soft: #F4F6F9;
+  --rule: #E3E7EC;
+  --ink: #111111;
+  --ink-2: #4F5761;
+  --muted: #5F6873;
+
+  /* Brand: Lacey blue, the one accent (links, the highlighted series, the beam, glyph accents) */
+  --blue: #007BFF;
+  --blue-ink: #0057B3;
+  --blue-soft: #EAF3FF;
+  --on-blue: #FFFFFF;
+
+  /* Signals: reserved for meaning, never decoration or a series colour */
+  --go: #00A86B;        /* verified, supported */
+  --go-ink: #007A4D;
+  --red: #E5202E;       /* unsupported, failed */
+  --red-ink: #B3121C;
+  --amber: #F5B700;     /* a caveat applies, imported, unverifiable */
+  --amber-ink: #8A5A00;
+  --amber-soft: #FFF6D9;
+
+  /* The night ground: the hero and the beam illustration, dark in both themes */
+  --night: #0C0F13;
+  --night-2: #161B22;
+  --night-rule: #262C35;
+  --night-fg: #F2F4F7;
+  --night-mute: #9AA3AF;
+
+  /* Glyph inputs (the sprite reads these) */
+  --sl-accent: var(--blue);
+  --sl-go: var(--go);
+  --sl-red: var(--red);
+  --sl-amber: var(--amber);
+
+  /* Data */
+  --viz-track: #EEF0F3;     /* the 0-100% track behind a bar */
+  --viz-interval: #9EC5F4;  /* a 95% range */
+  --viz-other: #B4BBC5;     /* a series that is not highlighted: controls, references */
+  --viz-ref: #3A414B;       /* reference marks: no search, the answer handed over */
+
+  /* Type */
+  --font-body: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Space (4 px base), radius, width */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 80px;
+  --radius-xs: 3px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 18px;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+    --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+    --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+    --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+    --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+    --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+  --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+  --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+  --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+  --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+  --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+  color-scheme: dark;
+}

@@ -1,0 +1,257 @@
+[
+  {
+    "id": "agent",
+    "group": "cast",
+    "meaning": "Agent: the AI coding agent doing the job (Claude Code, Codex)"
+  },
+  {
+    "id": "provider",
+    "group": "cast",
+    "meaning": "Search provider: the search service plugged into the agent"
+  },
+  {
+    "id": "setup",
+    "group": "cast",
+    "meaning": "Search setup: one way of giving the agent search; the only thing that changes between runs"
+  },
+  {
+    "id": "built-in",
+    "group": "cast",
+    "meaning": "Built-in search: the search the agent ships with"
+  },
+  {
+    "id": "no-search",
+    "group": "cast",
+    "meaning": "No search: the control run that answers from memory alone"
+  },
+  {
+    "id": "model",
+    "group": "cast",
+    "meaning": "Model: the AI model inside the agent, whose knowledge stops at a training cutoff"
+  },
+  {
+    "id": "brief",
+    "group": "job",
+    "meaning": "Brief: a short research report that ends in a decision and cites its sources"
+  },
+  {
+    "id": "code-fix",
+    "group": "job",
+    "meaning": "Code fix: change real code so its hidden tests pass"
+  },
+  {
+    "id": "cutoff",
+    "group": "job",
+    "meaning": "Training cutoff: the date the model's knowledge ends; Searchlight's jobs are about what came after"
+  },
+  {
+    "id": "query",
+    "group": "job",
+    "meaning": "Query: what the agent typed into search"
+  },
+  {
+    "id": "source",
+    "group": "job",
+    "meaning": "Source: the page a claim comes from"
+  },
+  {
+    "id": "results-list",
+    "group": "job",
+    "meaning": "Search setup: hands back a list of results for the agent to read"
+  },
+  {
+    "id": "answer",
+    "group": "job",
+    "meaning": "Research setup: hands back a written answer with its sources"
+  },
+  {
+    "id": "run",
+    "group": "fair",
+    "meaning": "Run: one task, one search setup, one repetition, graded once"
+  },
+  {
+    "id": "repeat",
+    "group": "fair",
+    "meaning": "Repeat: every task runs three times per setup"
+  },
+  {
+    "id": "sealed",
+    "group": "fair",
+    "meaning": "Sealed workspace: a fresh, isolated workspace for every run"
+  },
+  {
+    "id": "same-but-one",
+    "group": "fair",
+    "meaning": "Change one thing: the agent, model and instructions stay fixed; only the search setup changes"
+  },
+  {
+    "id": "blind",
+    "group": "fair",
+    "meaning": "Blind grading: the grader never sees which setup produced the answer"
+  },
+  {
+    "id": "judge",
+    "group": "fair",
+    "meaning": "Judge: an AI model that checks each answer against its sources"
+  },
+  {
+    "id": "pre-registered",
+    "group": "fair",
+    "meaning": "Pre-registered: the questions and scoring rules were fixed before any result was seen"
+  },
+  {
+    "id": "holdout",
+    "group": "fair",
+    "meaning": "Holdout: questions kept back from tuning, so a result cannot be fitted to them"
+  },
+  {
+    "id": "verified",
+    "group": "grading",
+    "meaning": "Verified: the claim was checked on the page it cites and holds up"
+  },
+  {
+    "id": "unsupported",
+    "group": "grading",
+    "meaning": "Unsupported: the cited page does not back the claim"
+  },
+  {
+    "id": "unverifiable",
+    "group": "grading",
+    "meaning": "Unverifiable: the cited page could not be read, so the claim was not credited"
+  },
+  {
+    "id": "strict-credit",
+    "group": "grading",
+    "meaning": "Strict credit: a provider earns a finding only if its own cited page supports it"
+  },
+  {
+    "id": "insight",
+    "group": "grading",
+    "meaning": "Insight: a verified finding that would change a decision, valued 1 to 3"
+  },
+  {
+    "id": "unique",
+    "group": "grading",
+    "meaning": "Unique: a finding only one provider earned"
+  },
+  {
+    "id": "overlap",
+    "group": "grading",
+    "meaning": "Overlap: findings two providers both earned"
+  },
+  {
+    "id": "gap-closed",
+    "group": "grading",
+    "meaning": "Gap closed: how far a setup got from the no-search score toward the answer-handed-over score"
+  },
+  {
+    "id": "ranking",
+    "group": "reading",
+    "meaning": "Ranking: setups in order of their score"
+  },
+  {
+    "id": "range",
+    "group": "reading",
+    "meaning": "95% range: where the true score most likely sits"
+  },
+  {
+    "id": "tie",
+    "group": "reading",
+    "meaning": "Tie: two ranges overlap, so the data cannot separate them"
+  },
+  {
+    "id": "tokens",
+    "group": "reading",
+    "meaning": "Tokens: the units AI models bill by"
+  },
+  {
+    "id": "cost",
+    "group": "reading",
+    "meaning": "Cost: what a run or a study spent, in dollars"
+  },
+  {
+    "id": "latency",
+    "group": "reading",
+    "meaning": "Latency: how long a provider took to answer"
+  },
+  {
+    "id": "caveat",
+    "group": "reading",
+    "meaning": "Caveat: a note on what a number does and does not show"
+  },
+  {
+    "id": "filter",
+    "group": "reading",
+    "meaning": "Filter: narrow the view to one agent, provider or benchmark"
+  },
+  {
+    "id": "benchmark",
+    "group": "publication",
+    "meaning": "Benchmark: a fixed set of jobs, run on every search setup"
+  },
+  {
+    "id": "study",
+    "group": "publication",
+    "meaning": "Study: one fixed set of questions sent to every search and research service"
+  },
+  {
+    "id": "report",
+    "group": "publication",
+    "meaning": "Report: the published record of a benchmark or study, with its data"
+  },
+  {
+    "id": "method",
+    "group": "publication",
+    "meaning": "Methodology: how the tests are built, run and graded"
+  },
+  {
+    "id": "walkthrough",
+    "group": "publication",
+    "meaning": "How it works: a test, one step at a time"
+  },
+  {
+    "id": "learn",
+    "group": "publication",
+    "meaning": "Learn: the ideas behind the numbers, one at a time"
+  },
+  {
+    "id": "open-source",
+    "group": "publication",
+    "meaning": "Open: the tasks, the code and the data are published"
+  },
+  {
+    "id": "contact",
+    "group": "publication",
+    "meaning": "Contact: questions, corrections and result challenges"
+  },
+  {
+    "id": "menu-open",
+    "group": "ui",
+    "meaning": "Menu: open the site map"
+  },
+  {
+    "id": "menu-close",
+    "group": "ui",
+    "meaning": "Close the menu"
+  },
+  {
+    "id": "beam",
+    "group": "beam",
+    "meaning": "Find: a search lights up the page that holds the answer"
+  },
+  {
+    "id": "logo-lamp",
+    "group": "logo",
+    "meaning": "Lamp and beam: the searchlight itself. A round lamp casts one wide Lacey blue beam up and to the right, toward what it finds."
+  },
+  {
+    "id": "logo-lens",
+    "group": "logo",
+    "meaning": "Lens and beam: the search lens, lit. The beam leaves the lens like light from a lamp."
+  },
+  {
+    "id": "logo-tile",
+    "group": "logo",
+    "meaning": "Tile: the lamp and beam on a solid ink tile, the boldest at favicon size."
+  }
+]

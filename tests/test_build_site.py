@@ -113,7 +113,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         for name, markup in files.items()
         if name.endswith(".html") and name != "social-card.html"
     }
-    assert set(pages) == {"index.html", "results.html", "methodology.html", "studies.html"}
+    # Every page carries the markup, including the per-report pages the build discovers.
+    assert set(pages) == {"index.html", "results.html", "methodology.html", "studies.html", "learn.html"} | {
+        site.report_page_name(name) for name in site.REPORTS}
     for name, markup in pages.items():
         head = markup.split("<head>", 1)[1].split("</head>", 1)[0]
         assert head.count(consent) == head.count(loader) == 1, name
@@ -346,7 +348,7 @@ def test_percentage_intervals_reject_malformed_numbers(cell):
 
 def test_zero_count_leaderboard_arm(leaderboard_reports):
     reports = leaderboard_reports
-    table = next(t for _, t in site.tables(reports[site.REPORTS[0]]['summary'])
+    table = next(t for _, t in site.tables(reports[site.WSB_PRIMARY]['summary'])
                  if t[0] == ['arm', 'pass', 'tokens/success'])
     arm = table[2][0].lower()
     table[2][1] = '0/0'
@@ -397,7 +399,13 @@ def test_page_has_apparatus_diagrams_and_resolved_links():
             'integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" '
             'crossorigin="anonymous"></script>') in methodology
     assert 'mermaid.min.js' not in files['index.html'] + results
-    assert 'href="#run-2026-10-05-agent-search-behavior"' in results
+    # Each report has its own page; the results page keeps the old #run- and #method- anchors on its index.
+    assert 'id="run-2026-10-05-agent-search-behavior"' in results
+    assert 'id="method-2026-10-05-agent-search-behavior"' in results
+    assert 'href="report-2026-10-05-agent-search-behavior.html"' in results
+    behavior_page = files['report-2026-10-05-agent-search-behavior.html']
+    assert 'id="run-2026-10-05-agent-search-behavior"' in behavior_page
+    assert 'id="method-2026-10-05-agent-search-behavior"' in behavior_page
     for html in files.values():
         assert not re.search(r'href="[^"#h][^"]*\.md"', html), 'relative markdown links must resolve'
     head, body = site.page(site.load_reports(), site.leaderboards(site.load_reports()), site.arm_configs(), 'preview')
@@ -428,16 +436,24 @@ def test_landing_page_is_plain_language_and_complete():
     assert 'href="results.html"' in html and 'href="methodology.html"' in html
 
 
+def _text(markup):
+    markup = re.sub(r'<(style|script)[^>]*>.*?</\1>', ' ', markup, flags=re.S)
+    return re.sub(r'<[^>]+>', ' ', markup)
+
+
 def test_results_use_plain_language_in_leaderboards_and_full_reports():
-    rendered = site.build()['results.html']
-    text = re.sub(r'<style[^>]*>.*?</style>', ' ', rendered, flags=re.S)
-    # The head-to-head's full report keeps its own words (a table cell, a search or research arm, its scripts).
-    text = re.sub(rf'<section id="run-{site.H2H}">.*?</section>', ' ', text, flags=re.S)
-    text = re.sub(r'<[^>]+>', ' ', text)
+    files = site.build()
+    text = _text(files['results.html'])
     assert not re.search(r'\b(?:arms?|cells?|harness(?:es)?)\b', text, re.I)
     assert '21 runs per setup' in text and '42 runs per setup' in text
     assert 'internal terms' not in text
-    assert 'tokens/run' in text
+    # The full reports moved to their own pages; every one but the head-to-head's uses the plain words.
+    for name in site.REPORTS:
+        if name == site.H2H:
+            continue  # the head-to-head's report keeps its own words (a table cell, a research arm, its scripts)
+        page = _text(files[site.report_page_name(name)])
+        assert not re.search(r'\b(?:arms?|cells?|harness(?:es)?)\b', page, re.I), name
+    assert 'tokens/run' in _text(files[site.report_page_name(site.WSB_PRIMARY)])
 
 
 def test_results_language_preserves_links_anchors_and_identifiers():
@@ -566,18 +582,18 @@ def test_head_to_head_transcribes_report_tables():
 
 
 def test_head_to_head_report_keeps_its_own_terms():
-    results = site.build()['results.html']
-    section = re.search(rf'<section id="run-{site.H2H}">.*?</section>', results, re.S).group()
+    files = site.build()
+    results, section = files['results.html'], files[site.report_page_name(site.H2H)]
     assert 'ground-truth cells' in section and 'a research arm' in section
-    assert '>code/harness.py</a>' in section and 'code/agent.py' not in results
+    assert '>code/harness.py</a>' in section and 'code/agent.py' not in section
     assert 'Correct values filling a fixed template' in results and 'Schema runs' not in results
 
 
 def test_head_to_head_appears_on_every_surface():
     files = site.build()
     results, methodology, landing = files['results.html'], files['methodology.html'], files['index.html']
-    assert 'id="head-to-head"' in results and f'href="#run-{site.H2H}"' in results
-    assert 'id="direct-api"' in methodology and f'results.html#method-{site.H2H}' in methodology
+    assert 'id="finding-5"' in results and f'href="{site.report_page_name(site.H2H)}"' in results
+    assert 'id="direct-api"' in methodology and f'{site.report_page_name(site.H2H)}#method-{site.H2H}' in methodology
     assert 'Search API head-to-head' in landing
     assert 'FINDING 5' in files['infographic.svg'] and 'not run' in files['infographic.svg']
     data = json.loads(files['leaderboard.json'])
@@ -649,43 +665,173 @@ def test_card_png_stamp_round_trips_and_detects_staleness(tmp_path):
     assert 'not a PNG' in site.card_problem(tmp_path, 'source')
 
 
-def test_header_and_phone_layout():
+def _page_names(files):
+    return [name for name in files if name.endswith('.html') and name != 'social-card.html'
+            and not name.startswith('study-')]
+
+
+def test_header_brand_menu_and_phone_layout():
+    # The v2 header replaced the old scrolling link row: a bar from 860 px and, below it, a menu that works
+    # without JavaScript (<details>), listing every page and every report and study.
     files = site.build()
-    for name in ('index.html', 'results.html', 'methodology.html'):
+    reports = [name for name in files if name.startswith('report-')]
+    for name in _page_names(files):
         header = re.search(r'<header class="top">.*?</header>', files[name], re.S).group(0)
-        nav = re.search(r'<nav class="nav"[^>]*>.*?</nav>', header, re.S).group(0)
-        assert site.REPO_URL not in nav, 'GitHub is its own header element, hidden on phones'
-        assert f'<a class="btn gh" href="{site.REPO_URL}">GitHub</a>' in header
-    # Include complete rule bodies, but stop at the media query's closing brace.
-    # A trailing query must not leak into the phone assertions.
-    css = site.CSS + '\n@media (min-width:1200px){.after-phone{color:red}}'
-    phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', css).group(1)
-    assert '.after-phone' not in phone
-    # A desktop rule must not satisfy a missing phone declaration.
-    header_rule = re.search(r'\.board thead\{[^{}]*\}', phone).group(0)
-    moved = css.replace(header_rule, '') + '\n' + header_rule
-    moved_phone = re.search(r'@media \(max-width:640px\)\{((?:[^{}]|\{[^{}]*\})*)\}', moved).group(1)
-    assert header_rule not in moved_phone
-    # Keep column headers available to screen readers while visually hiding them.
-    header_style = re.search(r'\.board thead\{([^{}]*)\}', phone).group(1)
-    for declaration in ('position:absolute', 'width:1px', 'height:1px', 'overflow:hidden',
-                        'clip:rect(0,0,0,0)'):
-        assert declaration in header_style
-    assert 'display:none' not in header_style and 'visibility:hidden' not in header_style
-    # The header stays pinned on phones: one row with the mark and the links.
-    assert 'position:static' not in phone and 'position:sticky' in re.search(r'\.top\{([^{}]*)\}', site.CSS).group(1)
-    for rule in ('.top .brand span,.top .gh{display:none}',
-                 '.board td.gap::before,.board td.tps::before{content:attr(data-label)', '.infographic svg{min-width:0}',
-                 '.diagram svg{min-width:600px'):
-        assert rule in phone, rule
-    assert 'white-space:nowrap' in re.search(r'\.pill\{([^{}]*)\}', site.CSS).group(1)
+        assert '<span class="word">Searchlight</span>' in header and f'href="#{site.LOGO_ID}"' in header
+        bar = re.search(r'<nav class="bar"[^>]*>.*?</nav>', header, re.S).group(0)
+        assert f'<a class="gh" href="{site.REPO_URL}">GitHub</a>' in bar
+        panel = re.search(r'<details class="menu">.*?</details>', header, re.S).group(0)
+        for href, _, _ in site.NAV:
+            assert f'href="{href}"' in bar and f'href="{href}"' in panel
+        for report in reports:
+            assert f'href="{report}"' in panel, (name, report)
+        assert header.count('aria-current="page"') == (2 if name in dict((h, 1) for h, _, _ in site.NAV) else
+                                                       1 if name.startswith('report-') else 0), name
+    css = site.CSS
+    assert 'position:sticky' in re.search(r'\.top\{([^{}]*)\}', css).group(1)
+    assert '@media (min-width:860px){.bar{display:flex}.menu{display:none}}' in css
+    # Phones: no text under 14 px in the site stylesheet.
+    sizes = [int(n) for n in re.findall(r'font(?:-size)?:[^;{}]*?(\d+)px', css)]
+    assert sizes and min(sizes) >= 14, sorted(sizes)[:5]
+    assert '@media (prefers-reduced-motion:reduce)' in css
+    assert '[hidden]{display:none!important}' in css
+
+
+def test_tokens_are_the_single_source_for_site_and_dashboards():
+    tokens = (site.ROOT / 'design' / 'tokens.css').read_text(encoding='utf-8')
+    assert site.CSS.startswith(tokens)
+    for name in ('--paper', '--ink', '--blue', '--blue-ink', '--soft', '--rule', '--muted', '--font-body', '--space-4'):
+        assert re.search(rf'{name}:', tokens), name
+    assert ':root[data-theme="dark"]' in tokens and 'prefers-color-scheme: dark' in tokens
+    template = (site.ROOT / 'lib/python/sew/insight/dashboard.html').read_text(encoding='utf-8')
+    block = re.search(r'/\* tokens: design/tokens.css[^*]*\*/\n(.*?)/\* end tokens \*/', template, re.S).group(1)
+    assert block == tokens, 'copy design/tokens.css into the dashboard template'
+    study = next((v for k, v in site.build().items() if k.startswith('study-')), None)
+    if study:
+        assert tokens in study and '--sl-accent' in study
+
+
+def _luminance(hex_color):
+    channels = [int(hex_color[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+    linear = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in channels]
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+
+def _contrast(a, b):
+    hi, lo = sorted((_luminance(a), _luminance(b)), reverse=True)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def test_text_tokens_meet_aa_contrast_in_both_themes():
+    tokens = (site.ROOT / 'design' / 'tokens.css').read_text(encoding='utf-8')
+    light = dict(re.findall(r'(--[\w-]+): (#[0-9A-Fa-f]{6})', tokens.split('@media')[0]))
+    dark = dict(light, **dict(re.findall(r'(--[\w-]+): (#[0-9A-Fa-f]{6})', tokens.split(':root[data-theme="dark"]')[1])))
+    for theme in (light, dark):
+        for ink in ('--ink', '--ink-2', '--muted', '--blue-ink', '--amber-ink'):
+            for ground in ('--paper', '--soft'):
+                assert _contrast(theme[ink], theme[ground]) >= 4.5, (ink, ground, theme[ink], theme[ground])
+        assert _contrast(theme['--on-blue'], theme['--blue-ink']) >= 4.5  # the primary button
+        assert _contrast(theme['--amber-ink'], theme['--amber-soft']) >= 4.5
+        assert _contrast(theme['--blue-ink'], theme['--blue-soft']) >= 4.5
+
+
+def test_every_glyph_a_page_uses_is_in_the_sprite():
+    ids = set(re.findall(r'<symbol id="([\w-]+)"', site.SPRITE))
+    for name, markup in site.build().items():
+        if name.endswith('.html') and not name.startswith('study-') and name != 'social-card.html':
+            used = set(re.findall(r'<use href="#([\w-]+)"', markup))
+            assert used and used <= ids, (name, used - ids)
+    index = json.loads((site.ROOT / 'design/glyphs/index.json').read_text(encoding='utf-8'))
+    assert {g['id'] for g in index} == ids
+    vocab = site.vocabulary()
+    assert all(row[1] in ids for row in vocab['Concepts']) and all(row[2] in ids for row in vocab['Report terms'])
+
+
+def test_logo_options_are_drawn_on_the_glyph_grid():
+    for logo_id, _, _ in site.glyphs.LOGOS:
+        svg = site.glyphs.logo_svg(logo_id)
+        assert svg.startswith('<svg') and 'viewBox="0 0 24 24"' in svg and '#007BFF' in svg
+        ET.fromstring(svg)
+    assert site.LOGO == site.glyphs.logo_svg(site.LOGO_ID)
+
+
+def test_overview_teaches_with_the_vocabulary_and_has_one_primary_action():
+    html = site.build()['index.html']
+    main = html.split('<main id="main">', 1)[1].split('</main>', 1)[0]
+    assert main.count('class="btn"') == 1 and 'href="results.html"' in main
+    concepts = site.vocabulary()['Concepts'][:8]
+    assert main.count('class="tile"') == len(concepts) == main.count('class="concept"')
+    for term, _, one, _ in concepts:
+        assert site.esc(one) in main, term
+
+
+def test_results_open_with_findings_and_rank_every_board():
+    files = site.build()
     results = files['results.html']
-    assert 'data-label="Gap closed"' in results and 'data-label="Tokens per pass"' in results
-    assert '<td class="setup">' in results and '<td class="notes">' in results
-    # The phone SVG minimum width relies on the base frame being scrollable.
-    diagram = re.search(r'\.diagram\{([^{}]*)\}', site.CSS).group(1)
-    assert 'overflow-x:auto' in diagram
-    assert 'Open the infographic full size' in files['results.html']
+    main = results.split('<main id="main">', 1)[1]
+    assert main.index('id="finding-1"') < main.index('id="leaderboard"')
+    reports = site.load_reports()
+    boards = site.leaderboards(reports) + site.more_boards(reports)
+    assert any(b['source'] == '2026-10-06-search-gap-replication' for b in boards)
+    data = json.loads(re.search(r'<script type="application/json" id="filter-data">(.*?)</script>', results, re.S).group(1))
+    assert len(data) == sum(len(b['rows']) for b in boards)
+    for row in data:
+        assert f'id="{row["id"]}"' in results, row['id']
+    for board in boards:
+        assert f'id="board-{board["id"]}"' in results
+        assert site.esc(site.board_says(board)) in results
+    # Filters are an enhancement: hidden without JavaScript, and every row is rendered on the server.
+    assert '<form class="filters js-only"' in results
+    # Caveats sit beside the number they qualify.
+    native = re.search(r'<li class="row ctl" id="r-gap-claude-code-native".*?</li>', results, re.S).group(0)
+    assert '<details class="note">' in native and 'Rerun' in native
+
+
+def test_every_report_and_study_is_two_taps_from_home():
+    files = site.build()
+    home = files['index.html']
+    for name in files:
+        if name.startswith(('report-', 'study-')):
+            # one tap opens the menu or scrolls to the list; the second opens the page
+            assert f'href="{name}"' in home, name
+
+
+def test_a_new_report_directory_appears_on_the_site_without_edits(tmp_path):
+    import shutil
+    for part in ('reports', 'config', 'catalogs'):
+        shutil.copytree(site.ROOT / part, tmp_path / part)
+    source = tmp_path / 'reports' / '2026-10-06-search-gap-replication'
+    new = tmp_path / 'reports' / '2026-12-01-search-gap-rerun'
+    shutil.copytree(source, new)
+    summary = json.loads((new / 'summary.json').read_text(encoding='utf-8'))
+    summary['blocks'][0]['markdown'] = summary['blocks'][0]['markdown'].replace(
+        '# GAP replication on Claude Code, 2026-10-06', '# December rerun of the gap bench, 2026-12-01', 1)
+    (new / 'summary.json').write_text(json.dumps(summary), encoding='utf-8')
+    files = site.build(tmp_path)
+    page = files['report-2026-12-01-search-gap-rerun.html']
+    assert 'December rerun of the gap bench' in page and 'class="board"' in page
+    assert 'id="board-gap-claude-code-2026-12-01"' in files['results.html']
+    assert 'href="report-2026-12-01-search-gap-rerun.html"' in files['index.html']
+    data = json.loads(files['leaderboard.json'])
+    assert 'reports/2026-12-01-search-gap-rerun/summary.json' in data['generated_from']
+    assert any(b['source'] == '2026-12-01-search-gap-rerun' for b in data['boards'])
+
+
+def test_an_unknown_benchmark_still_gets_a_page_with_a_digest(tmp_path):
+    import shutil
+    shutil.copytree(site.ROOT / 'reports', tmp_path / 'reports')
+    for part in ('config', 'catalogs'):
+        shutil.copytree(site.ROOT / part, tmp_path / part)
+    new = tmp_path / 'reports' / '2026-12-02-domain-search-bench'
+    new.mkdir()
+    (new / 'summary.json').write_text(json.dumps({'schema_version': 1, 'bench': 'DSB', 'blocks': [
+        {'markdown': '# Domain search bench, 2026-12-02\n\n## Results'},
+        {'table': [['Arm', 'Pass rate (Wilson 95% CI)'], ['---', '---'], ['Exa', '80% (60–92%)'],
+                   ['Brave', '70% (50–85%)']]}]}), encoding='utf-8')
+    (new / 'methodology.md').write_text('# Method\n\nFixture.', encoding='utf-8')
+    files = site.build(tmp_path)
+    page = files['report-2026-12-02-domain-search-bench.html']
+    assert 'Domain search bench' in page and 'Exa ranked first' in page and '80%' in page
 
 
 def test_only_the_header_uses_the_top_class():

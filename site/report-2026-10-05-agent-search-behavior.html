@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Google consent defaults: analytics storage denied in the EEA, UK, Switzerland and listed territories; no consent UI; ad storage off everywhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH','AX','GF','GP','MQ','RE','YT','MF','GI','JE','GG','IM']});</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TWQZV6F7');</script>
+<!-- End Google Tag Manager -->
+<meta name="description" content="Only 7% of searches about recent events read as plain questions, and Claude Code passed 85% of briefs when the original source showed up in its results, against 61% when it did not."><link rel="canonical" href="https://searchlightai.dev/report-2026-10-05-agent-search-behavior.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Searchlight"><meta property="og:title" content="How agents used search · Searchlight"><meta property="og:description" content="Only 7% of searches about recent events read as plain questions, and Claude Code passed 85% of briefs when the original source showed up in its results, against 61% when it did not."><meta property="og:url" content="https://searchlightai.dev/report-2026-10-05-agent-search-behavior.html"><meta property="og:image" content="https://searchlightai.dev/social-card.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="2400"><meta property="og:image:height" content="1260"><meta property="og:image:alt" content="Searchlight: an open benchmark of what web search does for AI coding agents."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How agents used search · Searchlight"><meta name="twitter:description" content="Only 7% of searches about recent events read as plain questions, and Claude Code passed 85% of briefs when the original source showed up in its results, against 61% when it did not."><meta name="twitter:image" content="https://searchlightai.dev/social-card.png"><meta name="twitter:image:alt" content="Searchlight: an open benchmark of what web search does for AI coding agents."><meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0C0F13" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/svg+xml" href="logo.svg">
+<title>How agents used search · Searchlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>/* Searchlight design tokens: the source of truth for colour, type, space and radius.
+   scripts/build_site.py inlines this file into every page and into the study dashboards.
+   Light values on :root; dark values under prefers-color-scheme or data-theme="dark", chosen for the dark ground. */
+:root {
+  /* Surfaces and ink */
+  --paper: #FFFFFF;
+  --soft: #F4F6F9;
+  --rule: #E3E7EC;
+  --ink: #111111;
+  --ink-2: #4F5761;
+  --muted: #5F6873;
+
+  /* Brand: Lacey blue, the one accent (links, the highlighted series, the beam, glyph accents) */
+  --blue: #007BFF;
+  --blue-ink: #0057B3;
+  --blue-soft: #EAF3FF;
+  --on-blue: #FFFFFF;
+
+  /* Signals: reserved for meaning, never decoration or a series colour */
+  --go: #00A86B;        /* verified, supported */
+  --go-ink: #007A4D;
+  --red: #E5202E;       /* unsupported, failed */
+  --red-ink: #B3121C;
+  --amber: #F5B700;     /* a caveat applies, imported, unverifiable */
+  --amber-ink: #8A5A00;
+  --amber-soft: #FFF6D9;
+
+  /* The night ground: the hero and the beam illustration, dark in both themes */
+  --night: #0C0F13;
+  --night-2: #161B22;
+  --night-rule: #262C35;
+  --night-fg: #F2F4F7;
+  --night-mute: #9AA3AF;
+
+  /* Glyph inputs (the sprite reads these) */
+  --sl-accent: var(--blue);
+  --sl-go: var(--go);
+  --sl-red: var(--red);
+  --sl-amber: var(--amber);
+
+  /* Data */
+  --viz-track: #EEF0F3;     /* the 0-100% track behind a bar */
+  --viz-interval: #9EC5F4;  /* a 95% range */
+  --viz-other: #B4BBC5;     /* a series that is not highlighted: controls, references */
+  --viz-ref: #3A414B;       /* reference marks: no search, the answer handed over */
+
+  /* Type */
+  --font-body: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Space (4 px base), radius, width */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 80px;
+  --radius-xs: 3px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 18px;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+    --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+    --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+    --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+    --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+    --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+  --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+  --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+  --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+  --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+  --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+  color-scheme: dark;
+}
+/* Searchlight site styles. Every colour, font, space and radius comes from design/tokens.css, which the
+   generator inlines ahead of this file. Phone first: nothing under 14 px, no horizontal page scroll. */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--font-body);-webkit-font-smoothing:antialiased;
+overflow-wrap:break-word}
+a{color:var(--blue-ink);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:var(--radius-sm)}
+.skip{position:absolute;left:-9999px;top:8px;z-index:20;background:var(--paper);color:var(--ink);padding:10px 14px;border-radius:var(--radius-md)}
+.skip:focus{left:16px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:20px}
+.g{width:24px;height:24px;flex:none;display:inline-block;vertical-align:middle}
+.g.s32{width:32px;height:32px}.g.s40{width:40px;height:40px}.g.s20{width:20px;height:20px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.js-only{display:none}html.js .js-only{display:revert}
+[hidden]{display:none!important}
+
+/* Header: the brand is generous; the bar shows from 860 px, the menu below that. */
+/* A solid ground: a backdrop filter would trap the fixed menu panel inside the header. */
+.top{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:68px}
+.brand{display:inline-flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;margin-right:auto}
+.brand .mark{width:40px;height:40px;flex:none}
+.brand .word{font-size:23px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.bar{display:none;align-items:center;gap:4px}
+.bar a{padding:9px 14px;border-radius:999px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500}
+.bar a:hover{background:var(--soft)}
+.bar a[aria-current=page]{background:var(--ink);color:var(--paper);font-weight:600}
+.bar a.gh{border:1.5px solid var(--rule);margin-left:8px}
+.menu{position:relative}
+.menu summary{list-style:none;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:14px;
+border:1.5px solid var(--rule);cursor:pointer;color:var(--ink)}
+.menu summary::-webkit-details-marker{display:none}
+.menu summary .g{width:26px;height:26px}
+.menu .close{display:none}.menu[open] .open{display:none}.menu[open] .close{display:block}
+.panel{position:fixed;left:0;right:0;top:68px;bottom:0;overflow-y:auto;background:var(--paper);padding:4px 20px 32px;
+border-top:1px solid var(--rule)}
+.panel a{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid var(--rule);color:var(--ink);
+text-decoration:none;font-size:19px;font-weight:500}
+.panel a .g{width:28px;height:28px;color:var(--ink)}
+.panel a[aria-current=page]{font-weight:700}.panel a[aria-current=page] .g{color:var(--blue)}
+.panel .sub{margin:22px 0 4px;font:500 14px/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel .sub+a,.panel a.small{font-size:17px;min-height:52px}
+@media (min-width:860px){.bar{display:flex}.menu{display:none}}
+
+/* Type */
+h1,h2,h3{margin:0;line-height:1.1;text-wrap:balance;font-family:var(--font-display)}
+h1{font-size:clamp(36px,6.2vw,60px);font-weight:700;letter-spacing:-.035em}
+h2{font-size:clamp(27px,3.6vw,38px);font-weight:700;letter-spacing:-.03em}
+h3{font-size:21px;font-weight:650;letter-spacing:-.015em;line-height:1.25}
+p{margin:0}
+.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 14px;font:500 14px/1.3 var(--font-mono);letter-spacing:.08em;
+text-transform:uppercase;color:var(--blue-ink)}
+.lede{font-size:clamp(18px,1.7vw,21px);line-height:1.5;color:var(--ink-2);max-width:62ch;margin-top:18px}
+.muted{color:var(--muted)}.small{font-size:15px}
+.num{font-variant-numeric:tabular-nums}
+section.band{padding-block:clamp(48px,7vw,88px)}
+section.band.soft{background:var(--soft)}
+.head{margin-bottom:28px}
+.head p{color:var(--ink-2);margin-top:10px;max-width:64ch}
+.head p.eyebrow{color:var(--blue-ink);margin:0}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:28px 0 0;font-size:15px;color:var(--muted)}
+.crumbs a{color:var(--ink-2)}
+.pagehead{padding-block:36px 8px}
+
+/* Buttons: one primary per screen */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;
+font-size:17px;font-weight:600;text-decoration:none;border:0;cursor:pointer;background:var(--blue-ink);color:var(--on-blue)}
+.btn:hover{filter:brightness(1.07)}
+.btn.quiet{background:transparent;color:var(--ink);border:1.5px solid var(--rule)}
+.more{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--blue-ink);text-decoration:none;min-height:44px}
+.more:hover{text-decoration:underline}
+.more::after{content:"\2192"}
+
+/* Hero: one question, one picture, one action */
+.hero{margin-top:20px;background:var(--night);color:var(--night-fg);border-radius:var(--radius-xl);padding:clamp(28px,5vw,64px);
+display:grid;gap:28px;align-items:center;overflow:hidden}
+.hero .eyebrow{color:var(--night-mute)}
+.hero h1{max-width:15ch}
+.hero .answer{margin-top:20px;font-size:clamp(18px,1.8vw,22px);line-height:1.5;color:var(--night-fg);max-width:40ch}
+.hero .answer b{color:#7DBBFF;font-weight:700}
+.hero .btn{margin-top:28px;background:#3D9BFF;color:#06111F}
+.beamart{width:100%;max-width:420px;justify-self:center}
+@media (min-width:900px){.hero{grid-template-columns:1.25fr 1fr}}
+
+/* Big number */
+.big{font-size:clamp(40px,6vw,64px);font-weight:750;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.big.blue{color:var(--blue-ink)}
+
+/* Findings list on the overview */
+.takeaways{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule)}
+.takeaways li{border-bottom:1px solid var(--rule)}
+.takeaways a{display:grid;grid-template-columns:240px minmax(0,1fr);gap:4px 28px;align-items:center;padding:22px 0;color:var(--ink);text-decoration:none}
+.takeaways .k{grid-column:1;grid-row:1/3;font-size:clamp(28px,4vw,40px);font-weight:750;letter-spacing:-.03em;color:var(--blue-ink);
+font-variant-numeric:tabular-nums;white-space:nowrap}
+.takeaways .t{grid-column:2;font-weight:650;font-size:19px;line-height:1.3}
+.takeaways .d{grid-column:2;color:var(--ink-2);font-size:16px}
+.takeaways a:hover .t{text-decoration:underline}
+@media (max-width:620px){.takeaways a{grid-template-columns:1fr}.takeaways .k,.takeaways .t,.takeaways .d{grid-column:1;grid-row:auto}}
+
+/* Concept tiles: learn in 60 seconds */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:760px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:104px;padding:16px;border:1.5px solid var(--rule);
+border-radius:var(--radius-lg);background:var(--paper);color:var(--ink);text-decoration:none;font-weight:650;font-size:17px;line-height:1.25}
+.tile .g{width:32px;height:32px}
+.tile:hover{border-color:var(--ink-2)}
+.tile[aria-selected=true]{border-color:var(--blue);background:var(--blue-soft)}
+.concepts{margin-top:14px;display:grid;gap:10px}
+.concept{background:var(--soft);border-radius:var(--radius-lg);padding:22px}
+.band.soft .concept,.band.soft .tile{background:var(--paper)}
+.concept h3{display:flex;align-items:center;gap:12px}
+.concept p{margin-top:8px;color:var(--ink-2);max-width:68ch}
+.concept p.one{color:var(--ink);font-weight:500}
+html.js .concept[hidden]{display:none}
+
+/* How to read these results */
+.readme{display:grid;grid-template-columns:minmax(0,1fr);gap:14px 18px;padding:22px;border:1px solid var(--rule);
+border-radius:var(--radius-lg);background:var(--paper)}
+.readme .g{width:32px;height:32px;color:var(--ink)}
+.readme h3{margin-bottom:6px}
+.readme p{color:var(--ink-2)}
+.readme ul{margin:10px 0 0;padding-left:20px;color:var(--ink-2)}
+.readme li{margin:4px 0}
+.readme .links{display:flex;flex-wrap:wrap;gap:4px 24px;margin-top:10px}
+
+@media (min-width:620px){.readme{grid-template-columns:auto minmax(0,1fr)}}
+/* Cards */
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius-lg);padding:22px;display:flex;flex-direction:column;gap:10px}
+.band.soft .card{border-color:transparent}
+.card .eyebrow{margin:0}
+.card p{color:var(--ink-2)}
+.card .foot{margin-top:auto;padding-top:8px}
+.card details{font-size:16px}
+.card blockquote{margin:10px 0 0;padding:14px 16px;border-radius:var(--radius-md);background:var(--soft);color:var(--ink);font-size:16px}
+.band.soft .card blockquote{background:var(--soft)}
+
+/* Reports list */
+.reports{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.reports li{border-bottom:1px solid var(--rule)}
+.reports a.row-link{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 16px;align-items:center;padding:18px 0;
+color:var(--ink);text-decoration:none}
+.reports .g{width:32px;height:32px;grid-row:span 3;align-self:start;color:var(--ink)}
+.reports .t{font-weight:650;font-size:18px;line-height:1.3}
+.reports .d{grid-column:2;color:var(--ink-2);font-size:16px}
+.reports .when{grid-row:1;grid-column:3;font:500 14px/1.3 var(--font-mono);color:var(--muted);white-space:nowrap}
+.reports a.row-link:hover .t{text-decoration:underline}
+@media (max-width:620px){.reports .when{grid-column:2;grid-row:auto}}
+
+/* Findings on the results page */
+.finding{padding-block:clamp(36px,5vw,56px);border-top:1px solid var(--rule)}
+.finding:first-of-type{border-top:0}
+.finding>.head{display:grid;gap:10px;max-width:760px}
+.finding .so{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:16px 18px;border-radius:var(--radius-md);
+background:var(--blue-soft);color:var(--ink);max-width:760px}
+.finding .so .g{color:var(--blue-ink);margin-top:1px}
+
+/* Filter bar */
+.filters{background:var(--paper);border-block:1px solid var(--rule);padding:12px 0;margin-top:8px}
+.filters label.wide{grid-column:1/-1}
+.filters .wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.filters label{display:flex;flex-direction:column;gap:4px;font:500 14px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.filters select{font:600 16px/1.2 var(--font-body);color:var(--ink);background:var(--paper);border:1.5px solid var(--rule);
+border-radius:var(--radius-md);padding:10px 12px;min-height:46px;width:100%;letter-spacing:0;text-transform:none}
+.filters .count{grid-column:1/-1;font-size:15px;color:var(--muted)}
+@media (min-width:860px){.filters{position:sticky;top:68px;z-index:5}.filters .wrap{grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.6fr) minmax(0,1fr) auto;align-items:end}
+.filters label.wide{grid-column:auto}.filters .count{grid-column:auto;padding-bottom:12px}}
+.empty{padding:24px;border:1.5px dashed var(--rule);border-radius:var(--radius-lg);color:var(--muted);margin-top:16px}
+
+/* Boards: ranked rows with a big number, a 95% range and n */
+.boards{display:grid;gap:20px;margin-top:24px}
+@media (min-width:1000px){.boards.two{grid-template-columns:1fr 1fr}}
+.board{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px 20px 8px;background:var(--paper);min-width:0;container-type:inline-size}
+.board>header h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.board>header .model{font:500 15px/1.3 var(--font-mono);color:var(--muted)}
+.board>header p{margin-top:6px;color:var(--ink-2);font-size:16px}
+.board .says{margin-top:12px;font-weight:550;color:var(--ink)}
+.scale{display:grid;grid-template-columns:28px minmax(0,1fr) 96px;gap:0 14px;margin-top:16px;padding-bottom:6px;border-bottom:1px solid var(--rule);
+font:500 14px/1.2 var(--font-mono);color:var(--muted)}
+.scale .ticks{grid-column:2;display:flex;justify-content:space-between}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:28px minmax(0,1fr) 96px;grid-template-areas:"rk nm pc" "rk tr nn";gap:6px 14px;align-items:center;
+padding:14px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:0}
+.row .rk{grid-area:rk;align-self:start;font:600 15px/1.9 var(--font-mono);color:var(--muted);text-align:right}
+.row .nm{grid-area:nm;min-width:0;font-weight:650;font-size:18px;line-height:1.3}
+.row .nm small{display:block;font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
+.row .pc{grid-area:pc;text-align:right;font-size:30px;font-weight:750;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.row .tr{grid-area:tr}
+.row .nn{grid-area:nn;align-self:center;text-align:right;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.3}
+.row .nn b{display:block;color:var(--ink-2);font-weight:500}
+.row.ctl .pc{color:var(--ink-2)}
+.row.ctl .nm{font-weight:500;color:var(--ink-2)}
+.chip{display:inline-flex;align-items:center;gap:6px;font:600 14px/1.2 var(--font-body);border-radius:999px;padding:3px 10px;
+background:var(--blue-soft);color:var(--blue-ink);vertical-align:2px;margin-left:6px;white-space:nowrap}
+.chip.ctl{background:var(--soft);color:var(--ink-2)}
+.row .tr{display:block;min-width:0}
+.track{display:block;position:relative;height:14px;border-radius:7px;background:var(--viz-track)}
+.track>span{display:block}
+.track .ci{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--viz-interval)}
+.track .dot{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--paper)}
+.track .lb{position:absolute;top:-5px;bottom:-5px;border-left:2px dashed var(--ink-2);opacity:.55}
+.row.ctl .track .ci{background:var(--viz-other);opacity:.55}
+.row.ctl .track .dot{background:var(--viz-ref)}
+.track .tick{position:absolute;top:-6px;bottom:-6px;width:0;border-left:3px solid var(--viz-ref)}
+.board>.bfoot{padding:8px 0 8px;margin-top:4px}
+@media (max-width:620px){
+.board{padding:16px 16px 6px}
+.row,.scale{grid-template-columns:22px minmax(0,1fr) minmax(84px,auto);gap:6px 10px}
+.row .nn{white-space:nowrap}
+.row .pc{font-size:28px}
+}
+
+/* Notes: a caveat sits beside the number it qualifies */
+.notes{display:flex;flex-wrap:wrap;gap:0 10px;align-items:flex-start}
+.notes details.note[open]{flex-basis:100%}
+details.note{display:inline;font-size:15px}
+details.note>summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;font:600 14px/1.2 var(--font-body);
+color:var(--amber-ink);background:var(--amber-soft);border-radius:999px;padding:3px 10px 3px 6px;margin-top:6px}
+details.note>summary::-webkit-details-marker{display:none}
+details.note>summary .g{width:18px;height:18px}
+details.note[open]>summary{margin-bottom:6px}
+details.note>div{display:block;font-weight:400;font-size:15px;line-height:1.45;color:var(--ink-2);padding:10px 12px;border-left:3px solid var(--amber);
+background:var(--soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0;max-width:60ch}
+details.more-info{margin-top:8px}
+details.more-info>summary{cursor:pointer;font-weight:600;color:var(--blue-ink);min-height:44px;display:flex;align-items:center;gap:8px}
+details.more-info>summary::marker{color:var(--muted)}
+details.more-info p{margin:8px 0;color:var(--ink-2);font-size:16px}
+
+/* Dumbbell: no search, with search, answer handed over */
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px;font-size:15px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;flex:none}
+.legend .k-dot{width:14px;height:14px;border-radius:50%;background:var(--viz-ref)}
+.legend .k-bar{width:26px;height:14px;border-radius:7px;background:var(--blue)}
+.legend .k-tick{width:0;height:20px;border-left:3px solid var(--viz-ref)}
+.legend .k-ci{width:26px;height:14px;border-radius:7px;background:var(--viz-interval)}
+.dumb .track .span{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--blue)}
+.dumb .track .dot{background:var(--viz-ref)}
+.dumb .row .pc{font-size:26px}
+.dumb .row,.dumb .scale{grid-template-columns:minmax(0,1fr) 128px;grid-template-areas:"nm pc" "tr nn"}
+.dumb .scale .ticks{grid-column:1}
+@media (max-width:620px){.dumb .row,.dumb .scale{grid-template-columns:minmax(0,1fr) 112px}}
+
+/* Stat tiles */
+.stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin-top:24px}
+.stat{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;gap:10px}
+.stat .big{font-size:clamp(36px,4.6vw,48px);color:var(--blue-ink)}
+.stat p{color:var(--ink-2);font-size:16px}
+
+/* Bars for counts (no interval published) */
+.measures{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));margin-top:24px}
+.measure{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:18px}
+.measure h3{font-size:17px}
+.measure .of{font-weight:400;color:var(--muted);font-size:15px}
+.bars{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.bars li{display:grid;grid-template-columns:92px minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:16px}
+.bars .bt{height:14px;border-radius:7px;background:var(--viz-track);position:relative;overflow:hidden}
+.bars .bt i{position:absolute;inset:0 auto 0 0;border-radius:7px;background:var(--viz-other)}
+.bars li.lead .bt i{background:var(--blue)}
+.bars li.lead{font-weight:650}
+.bars .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:650}
+.bars .na{font-size:14px;color:var(--muted);text-align:right;white-space:nowrap}
+
+/* Walkthrough: how a test works */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
+@media (min-width:1000px){.steps.strip{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.step{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:22px;background:var(--paper);display:grid;gap:10px;align-content:start}
+.step .n{font:500 14px/1.2 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue-ink)}
+.step .pic{display:flex;align-items:center;justify-content:center;gap:18px;min-height:120px;color:var(--ink);background:var(--soft);
+border-radius:var(--radius-md)}
+.step .pic .g{width:48px;height:48px}
+@media (min-width:760px){.steps.paged .step{grid-template-columns:minmax(220px,320px) minmax(0,1fr);column-gap:32px;padding:28px}
+.steps.paged .step>*{grid-column:2}.steps.paged .step .pic{grid-column:1;grid-row:1/6;min-height:220px}
+.steps.paged .step .pic .g{width:64px;height:64px}}
+.step .pic .arrow{width:24px;height:24px;color:var(--muted)}
+.step p{color:var(--ink-2)}
+.step p.notice{color:var(--ink);font-size:16px;border-top:1px solid var(--rule);padding-top:10px}
+.stepper{display:none;gap:12px;align-items:center;justify-content:flex-end;margin-top:16px}
+.btn:disabled{opacity:.4;cursor:default;filter:none}
+html.js .stepper{display:flex}
+html.js .steps.paged .step[hidden]{display:none}
+.stepper .pos{font:500 14px/1.2 var(--font-mono);color:var(--muted);margin-right:auto}
+
+/* Honest range explorer */
+.explorer{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:22px;display:grid;gap:16px;background:var(--paper)}
+.explorer .ctl{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.explorer button{width:48px;height:48px;border-radius:12px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);font-size:22px;cursor:pointer}
+.explorer .val{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums;min-width:4ch;text-align:center}
+.explorer .track{height:18px;border-radius:9px}
+.explorer .track .dot{width:18px;height:18px;margin:-9px 0 0 -9px}
+.explorer .axis{display:flex;justify-content:space-between;font:500 14px/1 var(--font-mono);color:var(--muted)}
+
+/* Glossary */
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.term{display:grid;align-content:start;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:18px;border-radius:var(--radius-lg);background:var(--soft)}
+.term .g{width:32px;height:32px;grid-row:span 2}
+.term b{font-size:17px}
+.term p{color:var(--ink-2);font-size:16px}
+.term .alias{font:500 14px/1.4 var(--font-mono);color:var(--muted)}
+
+/* Long text: reports and methodology */
+
+.doc h2{margin-top:56px;margin-bottom:12px}
+.doc h3{margin:32px 0 10px}
+.doc h4{margin:24px 0 8px;font-size:18px}
+.doc h5,.doc h6{margin:20px 0 6px;font-size:17px}
+.doc p,.doc li{max-width:72ch;color:var(--ink-2)}
+.doc p{margin:12px 0}
+.doc ul{padding-left:22px}
+.doc li{margin:6px 0}
+details.full{border:1px solid var(--rule);border-radius:var(--radius-lg);margin:16px 0;background:var(--paper)}
+details.full>summary{cursor:pointer;display:flex;align-items:center;gap:12px;padding:18px 20px;font-size:18px;font-weight:650;list-style:none}
+details.full>summary::-webkit-details-marker{display:none}
+details.full>summary::after{content:"+";margin-left:auto;font-size:24px;font-weight:400;color:var(--muted)}
+details.full[open]>summary::after{content:"\2212"}
+details.full>.body{padding:0 20px 20px;border-top:1px solid var(--rule)}
+blockquote.note{margin:16px 0;padding:12px 16px;border-left:3px solid var(--amber);background:var(--soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+blockquote.note p{margin:6px 0}
+.tablewrap{overflow-x:auto;margin:14px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:14px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+code{font-family:var(--font-mono);font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+pre{font-family:var(--font-mono);font-size:14px;background:var(--soft);border-radius:var(--radius-md);padding:16px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0}
+.diagram{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px;margin:14px 0;background:var(--paper)}
+.diagram svg{min-width:560px}
+pre.mermaid{background:none;padding:0;margin:0;font-size:.85rem;text-align:center}
+.files{font-size:15px;color:var(--muted);margin-top:12px}
+
+/* Footer */
+main>:last-child:not(.band){padding-bottom:72px}
+.foot{margin-top:0;border-top:1px solid var(--rule);background:var(--soft);padding-block:40px 32px;font-size:16px;color:var(--ink-2)}
+.foot .brand .mark{width:32px;height:32px}.foot .brand .word{font-size:19px}
+.foot-grid{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));margin-top:20px}
+.foot h4{margin:0 0 8px;font:500 14px/1.3 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.foot p{margin:0 0 6px}
+.foot a{color:var(--ink)}
+.foot-base{margin-top:32px;padding-top:18px;border-top:1px solid var(--rule);font-size:15px}
+.foot-base p{margin-top:8px}
+
+/* Wide boards: one row per setup */
+@container (min-width:620px){
+.row,.scale{grid-template-columns:28px minmax(150px,210px) minmax(0,1fr) 84px 92px;grid-template-areas:"rk nm tr pc nn"}
+.scale .ticks{grid-column:3}
+.row .rk{align-self:center;line-height:1.3}
+.dumb .row,.dumb .scale{grid-template-columns:minmax(150px,210px) minmax(0,1fr) 112px 120px;grid-template-areas:"nm tr pc nn"}
+.dumb .scale .ticks{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head><body>
+<script>document.documentElement.classList.add("js")</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="agent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M6 10l3 2.5L6 15"/><path d="M11 15h6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="provider" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M6.5 9.5h11v4a5.5 5.5 0 0 1-11 0zM12 19v3"/><path d="M9 3v6.5M15 3v6.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="setup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M6 9h4M14 9h4M6 15h12"/><circle cx="12" cy="9" r="2" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="built-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="4" width="19" height="16" rx="2"/><circle cx="11" cy="11.5" r="3.5" style="stroke:var(--sl-accent, currentColor)"/><path d="M13.6 14.1l3 3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="no-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.18 15.18L20.18 20.18" /><path d="M3.5 3.5l17 17" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="model" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9.5 2.5V6M14.5 2.5V6M9.5 18v3.5M14.5 18v3.5M2.5 9.5H6M2.5 14.5H6M18 9.5h3.5M18 14.5h3.5"/><rect x="9.5" y="9.5" width="5" height="5" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="brief" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8 7.5h8M8 11h8M8 14.5h4"/><path d="M13 17.5l1.6 1.6 3-3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="code-fix" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 6.5L2.5 12 8 17.5M16 6.5l5.5 5.5-5.5 5.5"/><path d="M13.5 4l-3 16" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="cutoff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M2.5 18h19M5 18v-3M9 18v-3"/><path d="M13 3.5v17" style="stroke:var(--sl-accent, currentColor)"/><circle cx="18" cy="10" r="2.2" fill="currentColor" stroke="none"/></symbol>
+<symbol id="query" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M6 12h6"/><circle cx="16.5" cy="12" r="2" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5 2.5h10l4 4v15H5z"/><path d="M15 2.5v4h4"/><path d="M8.5 12h7" style="stroke:var(--sl-accent, currentColor)"/><path d="M8.5 16h7"/></symbol>
+<symbol id="results-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 6h13.5M8 12h13.5M8 18h13.5"/><path d="M2.5 6h3" style="stroke:var(--sl-accent, currentColor)"/><path d="M2.5 12h3M2.5 18h3"/></symbol>
+<symbol id="answer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 4.5h18v11.5h-9.5L7 20.5V16H3z"/><path d="M7 8.5h10"/><path d="M7 12h6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="run" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M10 8l5.5 4-5.5 4z" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="2.5" width="13" height="13" rx="1.5"/><path d="M19 6v13H6"/><path d="M15.5 9.5v6h-6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="sealed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 2.5l8.5 4.5v10L12 21.5 3.5 17V7z"/><path d="M3.5 7L12 11.5 20.5 7M12 11.5v10"/><path d="M12 11.5l8.5-4.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="same-but-one" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="3" width="5" height="18" rx="1"/><rect x="9.5" y="3" width="5" height="18" rx="1"/><rect x="16.5" y="3" width="5" height="18" rx="1" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="blind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M2 12c2.6-4.3 6-6.5 10-6.5s7.4 2.2 10 6.5c-2.6 4.3-6 6.5-10 6.5S4.6 16.3 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 20L20 4" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="judge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 3v18M7 21h10M4 6.5h16"/><path d="M4 6.5L1.5 13a3 3 0 0 0 5 0zM20 6.5L17.5 13a3 3 0 0 0 5 0z"/><circle cx="12" cy="4" r="1.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="pre-registered" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="4.5" y="3" width="11" height="15" rx="1.5"/><path d="M7.5 7.5h5M7.5 11h5"/><rect x="13" y="14" width="8" height="7" rx="1" style="stroke:var(--sl-accent, currentColor)"/><path d="M14.5 14v-2a2.5 2.5 0 0 1 5 0v2" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="holdout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="5" width="13" height="15" rx="1.5"/><path d="M6 2.5h12.5a3 3 0 0 1 3 3v9"/><path d="M6 12.5h6" style="stroke:var(--sl-accent, currentColor)"/><path d="M6 16h4"/></symbol>
+<symbol id="verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M7.5 12.3l3 3 6-6.3" style="stroke:var(--sl-go, #00A86B)"/></symbol>
+<symbol id="unsupported" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" style="stroke:var(--sl-red, #E5202E)"/></symbol>
+<symbol id="unverifiable" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7v.5M12 16.5v1.5" style="stroke:var(--sl-amber, #F5B700)"/></symbol>
+<symbol id="strict-credit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5 2.5h10l4 4v15H5z"/><path d="M15 2.5v4h4"/><path d="M8.5 14l2.5 2.5 4.5-5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="insight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 2.5l2.4 6.1 6.6.5-5 4.3 1.6 6.4L12 16.3l-5.6 3.5L8 13.4 3 9.1l6.6-.5z"/><circle cx="12" cy="12" r="1.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="unique" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="5" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="19" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="5" cy="13" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="13" r="1.8" fill="currentColor" stroke="none"/><path d="M19 9.5l3.5 3.5-3.5 3.5-3.5-3.5z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="5" cy="20" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="20" r="1.8" fill="currentColor" stroke="none"/><circle cx="19" cy="20" r="1.8" fill="currentColor" stroke="none"/></symbol>
+<symbol id="overlap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="9" cy="12" r="6.5"/><circle cx="15" cy="12" r="6.5"/><path d="M12 6.2a6.5 6.5 0 0 1 0 11.6 6.5 6.5 0 0 1 0-11.6z" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="gap-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 20.5h18M3 3.5h18"/><rect x="8" y="3.5" width="8" height="17"/><rect x="8" y="9" width="8" height="11.5" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="ranking" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 5.5h18" style="stroke:var(--sl-accent, currentColor)"/><path d="M3 12h13M3 18.5h8"/></symbol>
+<symbol id="range" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3.5 7v10M20.5 7v10M3.5 12h17"/><circle cx="14" cy="12" r="2.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="tie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M2.5 8h13M2.5 5.5v5M15.5 5.5v5M8.5 16h13M8.5 13.5v5M21.5 13.5v5"/><path d="M8.5 8h7M8.5 16h7" stroke-width="3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="tokens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="8" width="5" height="8" rx="1"/><rect x="16.5" y="8" width="5" height="8" rx="1"/><rect x="9.5" y="8" width="5" height="8" rx="1" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="cost" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M15 8.5h-4a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9"/><path d="M12 5.5v3M12 16.5v3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="latency" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="13.5" r="7.5"/><path d="M9.5 2.5h5M12 2.5V6M18.2 6.8l1.6-1.6"/><path d="M12 13.5l3.2-3.6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="caveat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 3L22 20.5H2z"/><path d="M12 9.5v5.5M12 17v1.5" style="stroke:var(--sl-amber, #F5B700)"/></symbol>
+<symbol id="filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 4.5h18l-7 8v6l-4 2v-8z"/><path d="M6.5 8.5h11" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="benchmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 17v-4M12 17V8"/><path d="M17 17V5.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="study" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M9 2.5h6M10 2.5v6.5L4 19a1.6 1.6 0 0 0 1.4 2.5h13.2A1.6 1.6 0 0 0 20 19l-6-10V2.5"/><path d="M6.5 15h11" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5 2.5h10l4 4v15H5z"/><path d="M15 2.5v4h4"/><path d="M8.5 17v-3M12 17v-6"/><path d="M15.5 17V9.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="method" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 6.5C10 5 7 4.5 3 4.5v14c4 0 7 .5 9 2 2-1.5 5-2 9-2v-14c-4 0-7 .5-9 2zM12 6.5v14"/><path d="M15.5 5.6v5.9l1.5-1.5 1.5 1.5V5.2" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="walkthrough" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="4" cy="19" r="1.8"/><circle cx="9" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M5.2 17.6L8 13.4M10.6 12h2.8"/><path d="M16.2 10.6L19.5 5.5" style="stroke:var(--sl-accent, currentColor)"/><circle cx="20" cy="4.5" r="1.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="learn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M9 17.5h6M9.5 21h5M9 17.5c0-2.5-3.5-4-3.5-8a6.5 6.5 0 0 1 13 0c0 4-3.5 5.5-3.5 8"/><path d="M10.5 10.5L12 13l1.5-2.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="open-source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 7L3 12l5 5M16 7l5 5-5 5"/><path d="M10.5 12h3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="contact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 4.5h18v11.5h-9.5L7 20.5V16H3z"/><path d="M7 10.5h.5M11.75 10.5h.5M16.5 10.5h.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="menu-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 6.5h18M3 12h18M3 17.5h18"/></symbol>
+<symbol id="menu-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></symbol>
+<symbol id="beam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 16.5a3.5 3.5 0 1 0 7 0 3.5 3.5 0 1 0-7 0z"/><path d="M8.5 13.5L15 3.5l6.5 6.5-11 4.3z" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="logo-lamp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M7 17L12.81 1.03A17 17 0 0 1 22.97 11.19z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="7" cy="17" r="6" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="2.2" stroke="none" style="fill:var(--paper, #FFFFFF)"/></symbol>
+<symbol id="logo-lens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8.5 15.5L13.97 .46A16 16 0 0 1 23.54 10.03z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="8.5" cy="15.5" r="5" stroke-width="2.6" style="fill:var(--paper, #FFFFFF)"/><path d="M4.9 19.1L1.5 22.5" stroke-width="2.6"/></symbol>
+<symbol id="logo-tile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="1" y="1" width="22" height="22" rx="5" fill="currentColor" stroke="none"/><path d="M6 18L10.4 1.58A17 17 0 0 1 22.42 13.6z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="6" cy="18" r="3.2" stroke="none" style="fill:var(--paper, #FFFFFF)"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="index.html" aria-label="Searchlight home"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><nav class="bar" aria-label="Site"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="studies.html">Studies</a><a href="learn.html">Learn</a><a href="methodology.html">Methodology</a><a class="gh" href="https://github.com/laceyenterprises/searchlight">GitHub</a></nav><details class="menu"><summary aria-label="Menu"><svg class="g open" aria-hidden="true" focusable="false"><use href="#menu-open"/></svg><svg class="g close" aria-hidden="true" focusable="false"><use href="#menu-close"/></svg></summary><nav class="panel" aria-label="Site menu"><a href="index.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#beam"/></svg>Overview</a><a href="results.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#ranking"/></svg>Results</a><a href="studies.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Studies</a><a href="learn.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#learn"/></svg>Learn</a><a href="methodology.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#method"/></svg>Methodology</a><p class="sub">Reports and studies</p><a class="small" href="study-2026-11-11-software-factory-insight-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Leading software factories and agent-platform architectures</a><a class="small" href="report-2026-10-06-search-gap-replication.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench replication</a><a class="small" href="report-2026-10-05-agent-search-behavior.html" aria-current="page"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>How agents used search</a><a class="small" href="report-2026-10-03-search-gap-bench.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench</a><a class="small" href="report-2026-09-29-web-search-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Web search bakeoff</a><a class="small" href="report-2026-09-26-search-api-head-to-head.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search API head-to-head</a><a class="small" href="https://github.com/laceyenterprises/searchlight"><svg class="g" aria-hidden="true" focusable="false"><use href="#open-source"/></svg>Source on GitHub</a></nav></details></div></header>
+<main id="main">
+<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results</a><span aria-hidden="true">›</span><span>How agents used search</span></nav><p class="eyebrow" style="margin-top:20px"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search behavior · 2026-10-05</p><h1>How agents used search</h1><p class="lede">Only 7% of searches about recent events read as plain questions, and Claude Code passed 85% of briefs when the original source showed up in its results, against 61% when it did not.</p></div><div class="wrap"><div class="stats"><div class="stat"><div class="big">7%</div><p>of searches about recent events read as plain questions. The rest were keyword strings.</p></div><div class="stat"><div class="big">36 of 55</div><p>Exa bakeoff runs that opened pages from memory without searching (Firecrawl 35 of 55, Tavily 34 of 54, Parallel 30 of 55).</p></div><div class="stat"><div class="big">85% vs 61%</div><p>Claude Code pass rate with the original source in its results (94 of 111) and without it (20 of 33).</p></div></div><div style="margin-top:28px"><aside class="readme" aria-label="How to read these results"><svg class="g s32" aria-hidden="true" focusable="false"><use href="#method"/></svg><div><h3>How to read these results</h3><p>A narrow measurement: a fixed set of jobs on the agents and settings named, not a ranking of any provider or product as a whole. Different jobs, agents or settings can give a different order.</p><p class="links"><a class="more" href="learn.html">Learn the ideas</a><a class="more" href="methodology.html">Read the method</a></p></div></aside></div></div><div class="wrap doc" style="margin-top:32px"><details class="full" id="run-2026-10-05-agent-search-behavior"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>The full report</summary><div class="body"><h3 id="2026-10-05-agent-search-behavior-how-agents-used-search-query-style-fetch-from-memory-and-primary-source-retrieval-2026-10-05">How agents used search: query style, fetch-from-memory and primary-source retrieval (2026-10-05)</h3>
+<p>This report analyses the stored transcripts of the two published batteries, the <a href="report-2026-09-29-web-search-bakeoff.html">web search bakeoff</a> and the <a href="report-2026-10-03-search-gap-bench.html">search gap bench</a>. No agent was rerun. It asks how agents used the search tools they were given, rather than which provider scored best. Every number below comes from <code>scripts/analyze_search_behavior.py</code>, whose classification rules are listed in <a href="report-2026-10-05-agent-search-behavior.html#method-2026-10-05-agent-search-behavior">methodology</a>. The analysis covers 974 search queries from the GAP battery (both agents) and 655 from the bakeoff (Claude Code).</p>
+<h4 id="2026-10-05-agent-search-behavior-headline">Headline</h4>
+<ul><li><strong>Agents write keyword queries whatever the engine asks for.</strong> Of 974 GAP search queries, 7.3% read as natural language. In the bakeoff the figure is 6.0%. Exa's tool asks for a description of the ideal page rather than keywords; its queries were natural language in 3% (Claude Code) and 2% (codex) of GAP calls. Because the automatic rule can miss descriptive phrasing, all 111 Exa queries from both batteries were also read by hand (<a href="#2026-10-05-agent-search-behavior-appendix-every-exa-query">appendix</a>): none is phrased as a description of a page. The closest are a headline-like phrase used three times ("Python 4.0 release date announced by Python Steering Council") and a page title.
+</li><li><strong>The two agents express constraints differently.</strong> On the six provider setups, codex put <code>site:</code> into 31% to 67% of its queries, even where a structured domain filter existed. Claude Code wrote <code>site:</code> only on Firecrawl (6%) and otherwise used structured domain filters where a tool offered one (Perplexity <code>search_domain_filter</code>, Tavily <code>include_domains</code>, WebSearch <code>allowed_domains</code>).
+</li><li><strong>Agents often fetch remembered URLs instead of searching.</strong> In the bakeoff, Claude Code fetched pages without any search in 36 of 55 Exa runs, 35 of 55 Firecrawl runs, 34 of 54 Tavily runs and 30 of 55 Parallel runs. Those provider setups therefore measured page fetching as much as search. On post-cutoff GAP tasks the same habit failed: Claude Code's Exa runs that only fetched passed 1/3, against 14/18 for its Exa runs that searched.
+</li><li><strong>Retrieving the primary source mattered most on Claude Code.</strong> Pooled over provider and native setups, Claude Code passed 94/111 runs (85%) when the task's primary source appeared in search results and 20/33 (61%) when it did not. Codex surfaced the primary source in most searched runs, so the comparison is thin there (95/116 against 8/10). Two setups passed without the primary page: Parallel (6/7) and Firecrawl (9/9) on Claude Code, which indicates their results carried the facts from other pages.
+</li></ul>
+<p>These are observations about agent behavior with each vendor's MCP server at its pinned version and default settings. They are not measurements of the vendors' APIs.</p>
+<h4 id="2026-10-05-agent-search-behavior-what-each-search-tool-asks-for">What each search tool asks for</h4>
+<p>Descriptions are quoted from the pinned MCP server packages and, for Parallel's hosted server, from its published documentation.</p>
+<div class="tablewrap"><table><thead><tr><th>Setup</th><th>Search interface the agent saw</th><th>What the tool tells the agent about queries</th></tr></thead><tbody><tr><td>Exa</td><td><code>web_search_exa(query, numResults)</code></td><td>"describe the ideal page, not keywords"; <code>query</code> is a "semantically rich description of the ideal page, not just keywords"</td></tr><tr><td>Parallel</td><td><code>web_search(objective, search_queries, …)</code></td><td>a natural-language <code>objective</code> plus "concise, related keyword queries of 3–6 words each"</td></tr><tr><td>Perplexity</td><td><code>perplexity_search(query, …)</code> plus <code>ask</code>, <code>research</code>, <code>reason</code></td><td>"Supports recency filters, domain restrictions, and a lower-latency fast search mode"</td></tr><tr><td>Tavily</td><td><code>tavily_search(query, search_depth, …)</code></td><td><code>query</code> is described only as "Search query"</td></tr><tr><td>Firecrawl</td><td><code>firecrawl_search(query, …)</code></td><td>"Query operators, domain filters, <code>categories</code> … are described on their parameters"</td></tr><tr><td>Brave</td><td><code>brave_web_search(query, …)</code></td><td>lists when to use the tool; no guidance on query phrasing</td></tr><tr><td>native (Claude Code)</td><td><code>WebSearch(query, allowed_domains, …)</code></td><td>agent built-in</td></tr><tr><td>native (codex)</td><td>built-in web search</td><td>agent built-in; no parameters exposed to the transcript</td></tr></tbody></table></div>
+<h4 id="2026-10-05-agent-search-behavior-query-style-gap-battery">Query style (GAP battery)</h4>
+<p>Parallel's <code>search_queries</code> are keyword queries by design; its natural-language part is the separate <code>objective</code> field, which is counted as a structured parameter and not as a query. Perplexity's user messages count as queries alongside its <code>query</code> inputs; system and assistant messages are excluded. Codex native search reports its query lists in the transcript; page views are counted as fetches.</p>
+<div class="tablewrap"><table><thead><tr><th>Agent</th><th>Setup</th><th class="num">Queries</th><th class="num">Natural language</th><th class="num">Contains a year</th><th class="num">Quoted phrase</th><th class="num"><code>site:</code></th><th class="num">Median words</th><th>Structured parameters passed (calls)</th></tr></thead><tbody><tr><td>claude-code</td><td>native</td><td class="num">101</td><td class="num">7%</td><td class="num">43%</td><td class="num">39%</td><td class="num">0%</td><td class="num">11</td><td><code>allowed_domains</code> ×11</td></tr><tr><td>claude-code</td><td>Brave</td><td class="num">72</td><td class="num">17%</td><td class="num">44%</td><td class="num">18%</td><td class="num">0%</td><td class="num">8</td><td><code>count</code> ×23, <code>extra_snippets</code> ×21, <code>maximum_number_of_tokens</code> ×18, <code>freshness</code> ×1, <code>maximum_number_of_urls</code> ×1</td></tr><tr><td>claude-code</td><td>Tavily</td><td class="num">38</td><td class="num">13%</td><td class="num">45%</td><td class="num">18%</td><td class="num">0%</td><td class="num">9</td><td><code>max_results</code> ×38, <code>include_domains</code> ×19, <code>search_depth</code> ×17, <code>include_raw_content</code> ×1, <code>start_date</code> ×1</td></tr><tr><td>claude-code</td><td>Exa</td><td class="num">38</td><td class="num">3%</td><td class="num">58%</td><td class="num">0%</td><td class="num">0%</td><td class="num">10</td><td><code>numResults</code> ×38</td></tr><tr><td>claude-code</td><td>Parallel</td><td class="num">94</td><td class="num">5%</td><td class="num">24%</td><td class="num">2%</td><td class="num">0%</td><td class="num">6</td><td><code>model_name</code> ×27, <code>objective</code> ×27, <code>session_id</code> ×27</td></tr><tr><td>claude-code</td><td>Firecrawl</td><td class="num">34</td><td class="num">0%</td><td class="num">59%</td><td class="num">9%</td><td class="num">6%</td><td class="num">7</td><td><code>limit</code> ×34, <code>sources</code> ×34, <code>includeDomains</code> ×3</td></tr><tr><td>claude-code</td><td>Perplexity</td><td class="num">70</td><td class="num">20%</td><td class="num">36%</td><td class="num">10%</td><td class="num">0%</td><td class="num">9</td><td><code>max_results</code> ×60, <code>search_domain_filter</code> ×42, <code>max_tokens_per_page</code> ×5, <code>messages</code> ×5, <code>search_context_size</code> ×3, <code>search_recency_filter</code> ×2, <code>search_type</code> ×1</td></tr><tr><td>codex</td><td>native</td><td class="num">48</td><td class="num">0%</td><td class="num">50%</td><td class="num">33%</td><td class="num">10%</td><td class="num">8</td><td>none</td></tr><tr><td>codex</td><td>Brave</td><td class="num">114</td><td class="num">2%</td><td class="num">52%</td><td class="num">26%</td><td class="num">46%</td><td class="num">8</td><td><code>maximum_number_of_tokens</code> ×30, <code>count</code> ×15, <code>maximum_number_of_urls</code> ×13, <code>extra_snippets</code> ×7, <code>url</code> ×3</td></tr><tr><td>codex</td><td>Tavily</td><td class="num">130</td><td class="num">6%</td><td class="num">50%</td><td class="num">59%</td><td class="num">67%</td><td class="num">8</td><td><code>max_results</code> ×123, <code>search_depth</code> ×26, <code>include_raw_content</code> ×25, <code>end_date</code> ×3, <code>include_domains</code> ×3</td></tr><tr><td>codex</td><td>Exa</td><td class="num">52</td><td class="num">2%</td><td class="num">60%</td><td class="num">35%</td><td class="num">58%</td><td class="num">10</td><td><code>numResults</code> ×10</td></tr><tr><td>codex</td><td>Parallel</td><td class="num">62</td><td class="num">6%</td><td class="num">39%</td><td class="num">27%</td><td class="num">48%</td><td class="num">7</td><td><code>objective</code> ×28, <code>session_id</code> ×10, <code>max_results</code> ×3, <code>max_chars_per_result</code> ×1</td></tr><tr><td>codex</td><td>Firecrawl</td><td class="num">42</td><td class="num">2%</td><td class="num">74%</td><td class="num">26%</td><td class="num">31%</td><td class="num">8</td><td><code>limit</code> ×33, <code>sources</code> ×10</td></tr><tr><td>codex</td><td>Perplexity</td><td class="num">79</td><td class="num">14%</td><td class="num">71%</td><td class="num">33%</td><td class="num">42%</td><td class="num">10</td><td><code>max_results</code> ×20, <code>messages</code> ×18, <code>max_tokens_per_page</code> ×16</td></tr></tbody></table></div>
+<h4 id="2026-10-05-agent-search-behavior-query-style-web-search-bakeoff-claude-code">Query style (web search bakeoff, Claude Code)</h4>
+<div class="tablewrap"><table><thead><tr><th>Setup</th><th class="num">Runs</th><th class="num">Queries</th><th class="num">Natural language</th><th class="num">Contains a year</th><th class="num">Quoted phrase</th><th class="num"><code>site:</code></th><th class="num">Median words</th><th>Structured parameters passed (calls)</th></tr></thead><tbody><tr><td>native</td><td class="num">54</td><td class="num">137</td><td class="num">2%</td><td class="num">34%</td><td class="num">9%</td><td class="num">4%</td><td class="num">7</td><td><code>allowed_domains</code> ×36</td></tr><tr><td>Brave</td><td class="num">54</td><td class="num">199</td><td class="num">4%</td><td class="num">7%</td><td class="num">11%</td><td class="num">6%</td><td class="num">6</td><td><code>count</code> ×85, <code>maximum_number_of_tokens</code> ×80, <code>freshness</code> ×17, <code>goggles</code> ×16, <code>extra_snippets</code> ×11, <code>maximum_number_of_urls</code> ×9, <code>maximum_number_of_tokens_per_url</code> ×3</td></tr><tr><td>Tavily</td><td class="num">54</td><td class="num">25</td><td class="num">0%</td><td class="num">32%</td><td class="num">12%</td><td class="num">0%</td><td class="num">10</td><td><code>max_results</code> ×18, <code>include_domains</code> ×10, <code>search_depth</code> ×4, <code>time_range</code> ×2, <code>start_date</code> ×1</td></tr><tr><td>Exa</td><td class="num">55</td><td class="num">21</td><td class="num">0%</td><td class="num">19%</td><td class="num">5%</td><td class="num">0%</td><td class="num">10</td><td><code>numResults</code> ×21</td></tr><tr><td>Parallel</td><td class="num">55</td><td class="num">77</td><td class="num">0%</td><td class="num">20%</td><td class="num">0%</td><td class="num">1%</td><td class="num">5</td><td><code>model_name</code> ×22, <code>objective</code> ×22, <code>session_id</code> ×22</td></tr><tr><td>Firecrawl</td><td class="num">55</td><td class="num">20</td><td class="num">0%</td><td class="num">25%</td><td class="num">15%</td><td class="num">5%</td><td class="num">7</td><td><code>limit</code> ×20, <code>sources</code> ×20</td></tr><tr><td>Perplexity</td><td class="num">55</td><td class="num">176</td><td class="num">16%</td><td class="num">13%</td><td class="num">10%</td><td class="num">0%</td><td class="num">8</td><td><code>max_results</code> ×154, <code>search_domain_filter</code> ×115, <code>max_tokens_per_page</code> ×21, <code>search_type</code> ×21, <code>messages</code> ×13, <code>search_context_size</code> ×13, <code>search_recency_filter</code> ×5</td></tr></tbody></table></div>
+<h4 id="2026-10-05-agent-search-behavior-searching-versus-fetching-from-memory-web-search-bakeoff-claude-code">Searching versus fetching from memory (web search bakeoff, Claude Code)</h4>
+<p>A run is "fetched without searching" when it made at least one fetch call and no search call. Brave's and Perplexity's servers expose no page-fetch tool, so their agents had to search or answer from memory. Every setup has a handful of runs with no provider call: answers given from memory and runs that ended before any tool call.</p>
+<div class="tablewrap"><table><thead><tr><th>Setup</th><th class="num">Runs</th><th>Fetch tool in the setup</th><th class="num">Fetched without searching</th><th class="num">No provider call</th><th class="num">Calls refused by the agent</th></tr></thead><tbody><tr><td>native</td><td class="num">54</td><td>WebFetch (mostly refused; see below)</td><td class="num">12</td><td class="num">6</td><td class="num">110</td></tr><tr><td>Brave</td><td class="num">54</td><td>no</td><td class="num">0</td><td class="num">7</td><td class="num">0</td></tr><tr><td>Tavily</td><td class="num">54</td><td>yes (<code>tavily_extract</code>)</td><td class="num">34</td><td class="num">6</td><td class="num">0</td></tr><tr><td>Exa</td><td class="num">55</td><td>yes (<code>web_fetch_exa</code>)</td><td class="num">36</td><td class="num">6</td><td class="num">0</td></tr><tr><td>Parallel</td><td class="num">55</td><td>yes (<code>web_fetch</code>)</td><td class="num">30</td><td class="num">6</td><td class="num">0</td></tr><tr><td>Firecrawl</td><td class="num">55</td><td>yes (<code>firecrawl_scrape</code>)</td><td class="num">35</td><td class="num">6</td><td class="num">0</td></tr><tr><td>Perplexity</td><td class="num">55</td><td>no</td><td class="num">0</td><td class="num">7</td><td class="num">0</td></tr></tbody></table></div>
+<p>On the bakeoff's stable-knowledge tasks, fetching a remembered URL is efficient: those tasks passed in every setup, including no-search. It means the bakeoff's provider setups with a fetch tool mostly measured that fetch path. The GAP battery, whose answers post-date the models, shows the cost of the same habit on new information.</p>
+<h4 id="2026-10-05-agent-search-behavior-harness-refusals-the-claude-code-native-arm">Agent refusals: the Claude Code native setup</h4>
+<p>Claude Code's native setup exposed WebSearch and WebFetch through <code>--tools</code> but pre-approved only WebSearch through <code>--allowedTools</code>. Headless Claude Code refuses a tool that is exposed but not pre-approved ("Claude requested permissions to use WebFetch, but you haven't granted it yet"). In the GAP battery every native WebFetch call was refused (50 calls in 21 of 21 runs); in the bakeoff, 110 calls in 40 of 54 runs. No provider setup and no codex setup had a refused call. The Claude Code native results in both batteries therefore understate that agent's web tools. The setup configuration is fixed and covered by a regression test. The fetch counts in this report include refused attempts. The setup was rerun with fetching working; see <a href="#2026-10-05-agent-search-behavior-native-rerun-2026-10-06">Native rerun (2026-10-06)</a>.</p>
+<h4 id="2026-10-05-agent-search-behavior-primary-source-retrieval-gap-battery">Primary-source retrieval (GAP battery)</h4>
+<p>Each GAP brief has one primary-source URL (the catalog oracle). A run surfaced it when that URL appeared among the URLs of returned search results, excluding search inputs. Unknown coverage is excluded from both pass-rate groups. Recomputing against returned evidence leaves the historical source counts unchanged; no searched run has unknown coverage. Facts can also come from secondary pages, so surfacing is a proxy for retrieval, not a requirement for passing.</p>
+<div class="tablewrap"><table><thead><tr><th>Agent</th><th>Setup</th><th class="num">Runs that searched</th><th class="num">Unknown coverage</th><th class="num">Primary source surfaced</th><th class="num">Pass when surfaced</th><th class="num">Pass when not surfaced</th></tr></thead><tbody><tr><td>claude-code</td><td>native</td><td class="num">21</td><td class="num">0</td><td class="num">18/21</td><td class="num">13/18</td><td class="num">0/3</td></tr><tr><td>claude-code</td><td>Brave</td><td class="num">21</td><td class="num">0</td><td class="num">18/21</td><td class="num">15/18</td><td class="num">2/3</td></tr><tr><td>claude-code</td><td>Tavily</td><td class="num">21</td><td class="num">0</td><td class="num">16/21</td><td class="num">13/16</td><td class="num">2/5</td></tr><tr><td>claude-code</td><td>Exa</td><td class="num">18</td><td class="num">0</td><td class="num">14/18</td><td class="num">13/14</td><td class="num">1/4</td></tr><tr><td>claude-code</td><td>Parallel</td><td class="num">21</td><td class="num">0</td><td class="num">14/21</td><td class="num">14/14</td><td class="num">6/7</td></tr><tr><td>claude-code</td><td>Firecrawl</td><td class="num">21</td><td class="num">0</td><td class="num">12/21</td><td class="num">10/12</td><td class="num">9/9</td></tr><tr><td>claude-code</td><td>Perplexity</td><td class="num">21</td><td class="num">0</td><td class="num">19/21</td><td class="num">16/19</td><td class="num">0/2</td></tr><tr><td>codex</td><td>native</td><td class="num">18</td><td class="num">0</td><td class="num">17/18</td><td class="num">13/17</td><td class="num">1/1</td></tr><tr><td>codex</td><td>Brave</td><td class="num">18</td><td class="num">0</td><td class="num">16/18</td><td class="num">15/16</td><td class="num">2/2</td></tr><tr><td>codex</td><td>Tavily</td><td class="num">18</td><td class="num">0</td><td class="num">16/18</td><td class="num">14/16</td><td class="num">2/2</td></tr><tr><td>codex</td><td>Exa</td><td class="num">18</td><td class="num">0</td><td class="num">17/18</td><td class="num">14/17</td><td class="num">0/1</td></tr><tr><td>codex</td><td>Parallel</td><td class="num">18</td><td class="num">0</td><td class="num">17/18</td><td class="num">12/17</td><td class="num">1/1</td></tr><tr><td>codex</td><td>Firecrawl</td><td class="num">18</td><td class="num">0</td><td class="num">15/18</td><td class="num">14/15</td><td class="num">2/3</td></tr><tr><td>codex</td><td>Perplexity</td><td class="num">18</td><td class="num">0</td><td class="num">18/18</td><td class="num">13/18</td><td class="num">—</td></tr></tbody></table></div>
+<h4 id="2026-10-05-agent-search-behavior-native-rerun-2026-10-06">Native rerun (2026-10-06)</h4>
+<p>The Claude Code native setup was rerun on both batteries with WebFetch pre-approved: the 21 GAP runs and all 54 bakeoff runs, on the same tasks, repetitions and model. No call was refused. The tables above keep the original runs, because they document the refusal; the GAP and bakeoff reports use the rerun for their native rows.</p>
+<p>With page fetching available, the agent searched far less and read pages instead. On GAP it issued 45 queries instead of 101, and it fetched 126 pages. On the bakeoff it issued 19 queries instead of 137, and 36 of its 54 runs fetched remembered pages without searching at all.</p>
+<div class="tablewrap"><table><thead><tr><th>Battery</th><th class="num">Runs</th><th class="num">Queries (original)</th><th class="num">Fetch calls</th><th class="num">Refused calls (original)</th><th class="num">Fetched without searching</th><th class="num">Primary source surfaced</th><th class="num">Pass when surfaced</th><th class="num">Pass when not surfaced</th></tr></thead><tbody><tr><td>GAP</td><td class="num">21</td><td class="num">45 (101)</td><td class="num">126</td><td class="num">0 (50)</td><td class="num">0</td><td class="num">17/21</td><td class="num">15/17</td><td class="num">1/4</td></tr><tr><td>Bakeoff</td><td class="num">54</td><td class="num">19 (137)</td><td class="num">426</td><td class="num">0 (110)</td><td class="num">36</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr></tbody></table></div>
+<p>The rerun's GAP queries read as natural language in 2.2% of cases (original 7%), with a median of 8 words (original 11). The rerun's run bundles are private, like the originals.</p>
+<h4 id="2026-10-05-agent-search-behavior-limits">Limits</h4>
+<ul><li>Run counts per setup are small (18 to 21 in GAP, 54 to 55 in the bakeoff). Per-setup percentages move by about five points per run.
+</li><li>The natural-language rule is a heuristic, stated in <a href="report-2026-10-05-agent-search-behavior.html#method-2026-10-05-agent-search-behavior">methodology</a>; readers can rerun the script with their own rule.
+</li><li>Each vendor was used through its MCP server at the pinned version and default settings. Other interfaces of the same vendor (direct API, other tools, other modes) were not tested.
+</li><li>The two agents ran different task subsets in GAP (7 tasks for Claude Code, 6 for codex), so cross-agent differences mix agent behavior with task mix.
+</li></ul>
+<h4 id="2026-10-05-agent-search-behavior-appendix-every-exa-query">Appendix: every Exa query</h4>
+<p>Every query sent to <code>web_search_exa</code> in both batteries, in transcript order, so readers can judge the phrasing directly. Other setups' queries are summarised above but not reproduced.</p>
+<div class="tablewrap"><table><thead><tr><th>Battery</th><th>Agent</th><th>Query</th></tr></thead><tbody><tr><td>GAP</td><td>claude-code</td><td>Copilot Billing Preview app deprecated usage report</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Copilot premium request budgets per user cap and usage report CSV export docs</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub docs AI usage page billing settings group filter export AI credits Copilot limitations</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Copilot Billing Preview app deprecated usage-based billing budgets</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub docs Copilot premium requests usage report export CSV billing 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub docs AI usage page billing settings group filter export AI credits usage report limitations</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Copilot Billing Preview app deprecated usage report</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub docs set budget for individual Copilot premium requests user-level budget</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub docs AI usage page billing settings group filter export AI credits Copilot usage report limitations</td></tr><tr><td>GAP</td><td>claude-code</td><td>github.blog changelog 2026-08-04 Retiring the Copilot Billing Preview app</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Classroom deprecation sunset announcement 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>Classroom 50 CS50 foundation GitHub Classroom alternative import autograding LTI</td></tr><tr><td>GAP</td><td>claude-code</td><td>Codio GitHub Classroom migration partner</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Classroom sunset deprecation announcement 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>Classroom 50 CS50 open source GitHub Classroom replacement import migration</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Classroom deprecation sunset announcement 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Models deprecation retirement changelog 2026 BYOK inference</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Models deprecation retirement changelog 2026 BYOK paid usage</td></tr><tr><td>GAP</td><td>claude-code</td><td>Azure AI Inference beta SDK deprecated retirement August 26 2026 migrate to OpenAI v1 API</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Models deprecation retirement changelog 2026 BYOK</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub secret scanning npm token revocation credential types 2026 changelog</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub changelog npm granular access tokens publish and manage package access 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub secret scanning npm token revocation credential types in scope 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub changelog npm granular access tokens bypass 2FA publish manage package access 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub changelog npm granular access tokens bypass 2FA publish package access management 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub secret scanning npm token revocation credential types 2026 changelog</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub changelog npm staged publishing generally available npm stage publish 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>Python 3.10 security release tarfile extraction filter bypass CVE-2025-4517</td></tr><tr><td>GAP</td><td>claude-code</td><td>CPython tarfile data filter vulnerability 2026 CVE security-announce</td></tr><tr><td>GAP</td><td>claude-code</td><td>Python 3.10 security release tarfile extraction filter bypass fix</td></tr><tr><td>GAP</td><td>claude-code</td><td>CVE-2026-4360 tarfile extract filter hardlinks Python fixed version</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub docs converting a user into an organization warning cannot sign in personal account</td></tr><tr><td>GAP</td><td>claude-code</td><td>GitHub Enterprise Server docs promoting or demoting site administrator converting user to organization</td></tr><tr><td>GAP</td><td>claude-code</td><td>python.org release metadata API authentication vulnerability security advisory 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>python.org release metadata vulnerability unauthenticated API modify release files 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>python.org release API authentication bypass DEVCORE Splitline CVE advisory exploitation</td></tr><tr><td>GAP</td><td>claude-code</td><td>python.org release metadata vulnerability unauthenticated modify release files advisory 2026</td></tr><tr><td>GAP</td><td>claude-code</td><td>Python Software Foundation security incident python.org downloads release API authentication</td></tr><tr><td>GAP</td><td>codex</td><td>GitHub Classroom sunset July 2026 September 2026 partner repositories</td></tr><tr><td>GAP</td><td>codex</td><td>GitHub Classroom retirement September 1 2026 repositories partner</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.com/orgs/community/discussions/205975 "September 4"</td></tr><tr><td>GAP</td><td>codex</td><td>GitHub Classroom sunset September 2026 repositories partner retirement</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.com/orgs/community/discussions GitHub Classroom "September 4" "2026"</td></tr><tr><td>GAP</td><td>codex</td><td>GitHub Models inference BYOK retirement July August 2026 paid existing usage</td></tr><tr><td>GAP</td><td>codex</td><td>GitHub Models retiring July August 2026 paid inference BYOK July 10</td></tr><tr><td>GAP</td><td>codex</td><td>GitHub Models retirement July August 2026 paid inference BYOK existing usage</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com converting user into organization January 2026 transfer repositories personal account enterprise server</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog 2026 January converting user organization disabled January 2026</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com converting a user into an organization January 2026 transfer repositories</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog 2026 January converting personal accounts organizations January 20</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com converting user into organization January 2026 transfer repositories personal account GHES</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog 2026 January 20 convert account organization transfer personal account</td></tr><tr><td>GAP</td><td>codex</td><td>GitHub Copilot Billing Preview app retired individual budgets usage export billing reports</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com Copilot AI usage page reports limitations billing API user level budgets export usage credits</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "AI usage" "report" "does not" billing usage reports</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "Setting up budgets" "user-level" "Budgets and alerts"</td></tr><tr><td>GAP</td><td>codex</td><td>"Copilot Billing Preview" budgets export usage</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com AI usage user-level budgets billing reports Copilot AI credits</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "AI usage" "does not" reports billing</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "Viewing your usage" "AI" "report" billing</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "Automating usage reporting" "AI"</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com Copilot usage metrics billing data coverage IDE chat github CLI</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "Setting" "user-level budgets" "Budgets"</td></tr><tr><td>GAP</td><td>codex</td><td>Copilot Billing Preview app individual budgets export raw usage finance billing dashboard</td></tr><tr><td>GAP</td><td>codex</td><td>site.github.blog/changelog 2026-08-04 retiring copilot billing preview</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com AI usage page billing reports user-level budgets coverage limitations Copilot</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "AI usage" "does not" reports billing</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "AI usage" "coverage"</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com "Viewing your usage of metered products" "AI usage"</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog "user-level budgets" 2026</td></tr><tr><td>GAP</td><td>codex</td><td>site:docs.github.com copilot usage metrics "billing" "coverage"</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog billing CSV usage reports API 2026</td></tr><tr><td>GAP</td><td>codex</td><td>npm token security granular tokens package access management July 2026 August 2026 GitHub credentials</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog/2026 staged publishing npm May 22 trusted publishing tokens approve</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog/ "2026-05-22" "npm"</td></tr><tr><td>GAP</td><td>codex</td><td>npm token security granular tokens package access github August 2026 publishing tokens</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog npm December 9 2025 classic tokens revoked staged publishing July 2026</td></tr><tr><td>GAP</td><td>codex</td><td>npm token security August 2026 package access granular tokens GitHub credentials</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.blog/changelog npm staged publishing 2026 July 2FA</td></tr><tr><td>GAP</td><td>codex</td><td>python.org release metadata vulnerability unsigned downloads API incident 2026 2025</td></tr><tr><td>GAP</td><td>codex</td><td>site.python.org Sigstore verify Python releases identity PEP 761</td></tr><tr><td>GAP</td><td>codex</td><td>site.blog.python.org/2026/06/mitigated-api-bypass "Timeline" "30" "June"</td></tr><tr><td>GAP</td><td>codex</td><td>"python/pythondotorg" "3014" "merged" "June"</td></tr><tr><td>GAP</td><td>codex</td><td>python.org release metadata vulnerability authentication 2026 2025 security incident</td></tr><tr><td>GAP</td><td>codex</td><td>site:blog.python.org/2026/06/mitigated-api-bypass "Remediations" "Timeline"</td></tr><tr><td>GAP</td><td>codex</td><td>site:github.com/python/pythondotorg/issues/3010 OR site:github.com/python/pythondotorg/issues/3011</td></tr><tr><td>GAP</td><td>codex</td><td>python.org release metadata security incident authentication bypass before June 30 2026 Trail of Bits</td></tr><tr><td>GAP</td><td>codex</td><td>python.org release metadata vulnerability authentication 2026 2025 API incident</td></tr><tr><td>GAP</td><td>codex</td><td>site.python.org security incident release metadata 2026 2025 downloads authentication</td></tr><tr><td>GAP</td><td>codex</td><td>Python Windows code signing certificates revoked August 2025 update investigation June 2026</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Python 4.0 release date announced by Python Steering Council</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>webpack md4 OpenSSL 3 Node 17 hash wasm md4 fix output.hashFunction xxhash64 sokra comment</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>grype offline air-gapped vulnerability database import GRYPE_DB_AUTO_UPDATE false</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>cargo audit --no-fetch --db local advisory database path offline</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Dependency-Track air-gapped offline vulnerability mirror configuration NVD OSV feeds URL</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Python 4.0 release date announced by Python Steering Council</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Python 4.0 release date announced by Python Steering Council</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Node.js documentation --openssl-legacy-provider option "Enable OpenSSL 3.0 legacy provider"</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>aws.amazon.com data transfer out to internet US East (N. Virginia) first 10 TB per GB price same availability zone free</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>grype air-gapped offline database import GRYPE_DB_AUTO_UPDATE false documentation</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Dependency-Track air-gapped offline NVD mirror configuration documentation</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Safety CLI 3 requires account login API key vulnerability database commercial license</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>AWS EC2 on-demand pricing data transfer out to internet US East (N. Virginia) first 10 TB per month per GB; data transfer same availability zone free</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Stripe annual letter 2025 total payment volume private company revenue</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Stripe revenue estimate UK Companies House filing Stripe Payments Europe accounts net revenue</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Stripe annual letter 2025 total payment volume private company revenue</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Stripe revenue estimate net revenue report private company does not disclose financials</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Stripe Irish entity accounts filed Companies Registration Office revenue $5.1bn pre-tax profit 2024</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Stripe annual letter 2025 total payment volume private company revenue estimate</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Grype offline air-gapped vulnerability database GRYPE_DB_AUTO_UPDATE false grype db import</td></tr><tr><td>bakeoff</td><td>claude-code</td><td>Dependency-Track air-gapped offline mirror NVD OSV internal mirror documentation</td></tr></tbody></table></div></div></details><details class="full" id="method-2026-10-05-agent-search-behavior"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#method"/></svg>How this was run</summary><div class="body"><h3 id="2026-10-05-agent-search-behavior-method-agent-search-behavior-methodology">Agent search behavior: methodology</h3>
+<p>The analysis reads the stored transcripts of the <a href="report-2026-09-29-web-search-bakeoff.html">web search bakeoff</a> (Claude Code, eight setups, 18 tasks, three repetitions) and the <a href="report-2026-10-03-search-gap-bench.html">search gap bench</a> (Claude Code and codex, brief tasks, three repetitions per admitted task). It runs no agent and changes no grade. Pass and fail come from each run's recorded evaluation.</p>
+<p><code>scripts/analyze_search_behavior.py</code> extracts every completed provider tool call from a transcript:</p>
+<ul><li>codex MCP tool calls, and codex built-in <code>web_search</code> items;
+</li><li>Claude Code <code>tool_use</code> and <code>tool_result</code> pairs, including vendor MCP tools, WebSearch and WebFetch.
+</li></ul>
+<h4 id="2026-10-05-agent-search-behavior-method-classification-rules">Classification rules</h4>
+<ul><li><strong>Search call:</strong> a call to a search tool (<code>web_search_exa</code>, <code>brave_web_search</code>, <code>tavily_search</code>, Parallel <code>web_search</code>, <code>firecrawl_search</code>, the Perplexity search tools, Claude Code WebSearch, and codex built-in <code>search</code> actions).
+</li><li><strong>Query:</strong> each entry of a multi-query call (Parallel <code>search_queries</code>, codex built-in query lists) counts as one query. Each user message in Perplexity's conversational inputs also counts as one query; system and assistant messages are excluded. Parallel's <code>objective</code> is counted as a structured parameter when <code>search_queries</code> is present, not as another query.
+</li><li><strong>Fetch call:</strong> a page-retrieval tool call (<code>web_fetch_exa</code>, <code>tavily_extract</code>, <code>firecrawl_scrape</code>, Parallel <code>web_fetch</code>, Claude Code WebFetch, and codex built-in <code>open_page</code>, <code>find_in_page</code> and other page views).
+</li><li><strong>Natural-language query:</strong> ends with "?", starts with an interrogative or auxiliary verb, or contains at least two function words from a fixed list (the, a, an, is, are, was, were, does, do, did, how, what, which, why, when, where, who, that, this, of, to, for, with, will, should, can, about, on, from, by, as, be, has, have).
+</li><li><strong>Contains a year:</strong> a token from 2000 to 2099. <strong>Quoted phrase:</strong> contains a double quote. <strong><code>site:</code>:</strong> contains <code>site:</code>.
+</li><li><strong>Fetched without searching:</strong> the run made at least one fetch call and no search call.
+</li><li><strong>Primary source surfaced (GAP only):</strong> the task's catalog oracle <code>source_url</code>, normalised (scheme, query, fragment and trailing slash removed), appears among the URLs in any returned search result of the run, never in the search input. It is measured only over runs that searched. A run is unknown when any search lacks exposed results and no observed result contains the primary source. Unknown runs are excluded from both surfaced and not-surfaced pass-rate denominators. Recomputing against returned evidence leaves the historical source counts unchanged; no searched run has unknown coverage.
+</li></ul>
+<p>The rules are deliberately simple so they can be audited. The natural-language rule undercounts descriptive keyword-free phrases and overcounts keyword strings that happen to contain function words. Readers can substitute their own rule in the script and rerun it.</p>
+<h4 id="2026-10-05-agent-search-behavior-method-scope">Scope</h4>
+<p>Pooled figures cover the provider and native setups. Reference setups (no-search, floor and ceiling) make no search calls and are excluded from query statistics. GAP run counts differ by agent because calibration admitted seven brief tasks for Claude Code and six for codex.</p>
+<p>See <a href="report-2026-10-05-agent-search-behavior.html">the report</a>, <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-10-05-agent-search-behavior/summary.json">summary data</a> and <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-10-05-agent-search-behavior/reproduce.md">reproduction</a>. Calibration does not apply: <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-10-05-agent-search-behavior/calibration.json">calibration record</a>.</p></div></details><p class="files">Files: <a href="https://github.com/laceyenterprises/searchlight/tree/main/reports/2026-10-05-agent-search-behavior">reports/2026-10-05-agent-search-behavior/</a></p></div>
+</main>
+<footer class="foot"><div class="wrap"><a class="brand" href="index.html"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><div class="foot-grid"><div><h4>What this is</h4><p>An open benchmark of what web search does for AI agents doing real work.</p><p>A narrow measurement: a fixed set of jobs on the agents and settings named, not a ranking of any provider or product as a whole.</p></div><div><h4>Explore</h4><p><a href="index.html">Overview</a></p><p><a href="results.html">Results</a></p><p><a href="studies.html">Studies</a></p><p><a href="learn.html">Learn</a></p><p><a href="methodology.html">Methodology</a></p></div><div><h4>Source</h4><p><a href="https://github.com/laceyenterprises/searchlight">Searchlight on GitHub</a></p><p><a href="https://github.com/laceyenterprises/searchlight/tree/main/reports">Raw report data</a></p><p>Code, tasks and results: <a href="https://github.com/laceyenterprises/searchlight/blob/main/LICENSE">Apache License 2.0</a>.</p></div><div><h4>Questions</h4><p><a href="https://github.com/laceyenterprises/searchlight/issues/new">Open an issue on GitHub</a>. If you run a search service we tested and our setup misrepresents it, tell us: corrections are rerun and published beside the original.</p></div></div><div class="foot-base"><span>A <a href="https://www.laceyenterprises.com">Lacey Enterprises</a> project · © 2026 Lacey Enterprises LLC</span><p class="analytics-disclosure">Google Tag Manager loads on every page; analytics cookies are disabled for visitors in the EEA, the UK, Switzerland and listed territories. No consent opt-in is offered.</p></div></div></footer>
+<script>/* Searchlight site: small, dependency-free enhancements. Every page reads in full without this script. */
+(function () {
+  "use strict";
+  var $ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // Menu: Escape closes it.
+  $("details.menu").forEach(function (menu) {
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.open) { menu.open = false; menu.querySelector("summary").focus(); }
+    });
+  });
+
+  // Concept tiles: one explanation at a time.
+  $(".tiles[role=tablist]").forEach(function (list) {
+    var tiles = $("[data-concept]", list);
+    function pick(tile, focus) {
+      tiles.forEach(function (t) {
+        var on = t === tile;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(t.getAttribute("data-concept"));
+        if (panel) panel.hidden = !on;
+      });
+      if (focus) tile.focus();
+    }
+    tiles.forEach(function (t, i) {
+      t.addEventListener("click", function (e) { e.preventDefault(); pick(t); });
+      t.addEventListener("keydown", function (e) {
+        var d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+        if (d) { e.preventDefault(); pick(tiles[(i + d + tiles.length) % tiles.length], true); }
+      });
+    });
+    if (tiles.length) pick(tiles[0]);
+  });
+
+  // Step-by-step walkthrough.
+  $("[data-stepper]").forEach(function (list) {
+    var steps = $(".step", list), ctl = list.nextElementSibling, at = 0;
+    if (!ctl || !steps.length) return;
+    var pos = ctl.querySelector(".pos"), back = ctl.querySelector('[data-step="-1"]'), next = ctl.querySelector('[data-step="1"]');
+    function show(i, focus) {
+      at = (i + steps.length) % steps.length;
+      steps.forEach(function (s, j) { s.hidden = j !== at; });
+      pos.textContent = "Step " + (at + 1) + " of " + steps.length;
+      back.disabled = at === 0;
+      next.textContent = at === steps.length - 1 ? "Start again" : "Next";
+      if (focus) { var h = steps[at].querySelector("h3"); h.setAttribute("tabindex", "-1"); h.focus(); }
+    }
+    back.addEventListener("click", function () { show(at - 1, true); });
+    next.addEventListener("click", function () { show(at + 1, true); });
+    var hash = /^#step-(\d+)$/.exec(location.hash);
+    show(hash ? +hash[1] - 1 : 0);
+  });
+
+  // Honest range explorer: Wilson's 95% interval for k passes in n runs.
+  function wilson(k, n) {
+    if (!n) return [0, 0];
+    var z = 1.959964, p = k / n, d = 1 + z * z / n, c = (p + z * z / (2 * n)) / d,
+      h = z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d;
+    return [Math.max(0, c - h) * 100, Math.min(1, c + h) * 100];
+  }
+  $("[data-explorer]").forEach(function (box) {
+    var k = +box.getAttribute("data-k"), n = +box.getAttribute("data-n");
+    var v = function (name) { return box.querySelector('[data-v="' + name + '"]'); };
+    var ci = box.querySelector(".track .ci"), dot = box.querySelector(".track .dot"), tr = box.querySelector(".track");
+    function draw() {
+      var r = wilson(k, n), pct = n ? 100 * k / n : 0;
+      v("k").textContent = k; v("n").textContent = n; v("pct").textContent = Math.round(pct) + "%";
+      v("range").textContent = Math.round(r[0]) + "% to " + Math.round(r[1]) + "%";
+      v("say").textContent = r[1] - r[0] > 30 ? "That is wide: with so few runs, the score could move a lot."
+        : r[1] - r[0] > 15 ? "Run the same test again and the score could land anywhere in that range."
+        : "That is tight: enough runs to separate setups a few points apart.";
+      ci.style.left = r[0].toFixed(1) + "%"; ci.style.width = Math.max(0.6, r[1] - r[0]).toFixed(1) + "%";
+      dot.style.left = pct.toFixed(1) + "%";
+      tr.setAttribute("aria-label", "95% range " + Math.round(r[0]) + " to " + Math.round(r[1]) + "%");
+    }
+    box.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-d]"); if (!b) return;
+      var d = b.getAttribute("data-d").split(","), step = +d[1];
+      if (d[0] === "k") k = Math.min(n, Math.max(0, k + step));
+      else { n = Math.min(500, Math.max(1, n + step)); k = Math.min(k, n); }
+      draw();
+    });
+    draw();
+  });
+
+  // Filters: agent, benchmark, provider, search or research, and order. They act on the rows the JSON lists and on
+  // any element marked data-f; a group (a board, a finding) hides when nothing inside it matches.
+  $("form[data-filters]").forEach(function (form) {
+    var json = document.getElementById("filter-data"), facets = {};
+    if (json) JSON.parse(json.textContent).forEach(function (r) { facets[r.id] = r; });
+    var keys = ["agent", "bench", "provider", "kind"];
+    var items = Object.keys(facets).map(function (id) { return document.getElementById(id); }).filter(Boolean)
+      .concat($("[data-f]"));
+    var groups = $("[data-f-group]").sort(function (a, b) { return depth(b) - depth(a); });
+    var empty = document.getElementById("filter-empty"), out = form.querySelector(".count");
+    function depth(el) { var d = 0; while ((el = el.parentElement)) d++; return d; }
+    function facet(el, key) {
+      var f = facets[el.id];
+      if (f) return f[key];
+      if (key === "provider" && el.hasAttribute("data-providers")) return el.getAttribute("data-providers").split(" ");
+      return el.getAttribute("data-" + key);
+    }
+    function match(el, want) {
+      return keys.every(function (key) {
+        if (!want[key]) return true;
+        var have = facet(el, key);
+        if (have == null || have === "") return true;
+        return Array.isArray(have) ? have.indexOf(want[key]) >= 0 : have === want[key];
+      });
+    }
+    function apply() {
+      var want = {}, shown = 0;
+      keys.concat(["sort"]).forEach(function (key) { var s = form.elements[key]; want[key] = s ? s.value : ""; });
+      items.forEach(function (el) { var on = match(el, want); el.hidden = !on; if (on) shown++; });
+      $("ol[data-limit]").forEach(function (ol) {
+        var limit = +ol.getAttribute("data-limit"), seen = 0;
+        $("[data-f]", ol).forEach(function (li) { if (!li.hidden && ++seen > limit) li.hidden = true; });
+      });
+      groups.forEach(function (gr) {
+        var inner = $("[data-f], .row[id]", gr);
+        gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return !el.hidden; }));
+      });
+      $("ol.rows").forEach(function (ol) {
+        var lis = $(":scope > li", ol), by = want.sort === "label" ? "data-sort-label" : "data-rank";
+        if (!lis.length || !lis[0].hasAttribute(by)) return;
+        lis.sort(function (a, b) {
+          var x = a.getAttribute(by), y = b.getAttribute(by);
+          return by === "data-rank" ? x - y : x.localeCompare(y);
+        }).forEach(function (li) { ol.appendChild(li); });
+      });
+      shown = items.filter(function (el) { return !el.hidden; }).length;
+      if (out) out.textContent = "Showing " + shown + " of " + items.length;
+      if (empty) empty.hidden = groups.some(function (gr) { return !gr.hidden && !gr.parentElement.closest("[data-f-group]"); });
+      try {
+        var q = new URLSearchParams();
+        keys.concat(["sort"]).forEach(function (key) { if (want[key] && !(key === "sort" && want[key] === "rank")) q.set(key, want[key]); });
+        history.replaceState(null, "", (q.toString() ? "?" + q : location.pathname) + location.hash);
+      } catch (e) { /* file:// or sandboxed: filters still work */ }
+    }
+    var start = new URLSearchParams(location.search);
+    keys.concat(["sort"]).forEach(function (key) {
+      var s = form.elements[key];
+      if (s && start.get(key) && $("option", s).some(function (o) { return o.value === start.get(key); })) s.value = start.get(key);
+    });
+    form.addEventListener("change", apply);
+    form.addEventListener("submit", function (e) { e.preventDefault(); });
+    apply();
+  });
+})();
+</script>
+</body></html>

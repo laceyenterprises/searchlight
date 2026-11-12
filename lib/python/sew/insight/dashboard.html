@@ -5,13 +5,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insight bake-off</title>
 <style>
-:root{--bg:#f7f7f5;--panel:#fff;--ink:#1b1d21;--muted:#61656d;--line:#e3e3df;--accent:#2f5bd3;--accent-soft:rgba(47,91,211,.12);
---good:#1f7a4d;--bad:#b3261e;--warn:#8a5a00;--chip:#eef0f4;--mark:#ffe58a;--radius:10px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
---sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111316;--panel:#191c20;--ink:#e8e9ec;--muted:#9aa0aa;--line:#2b2f36;
---accent:#7ea2ff;--accent-soft:rgba(126,162,255,.16);--good:#5fd39a;--bad:#ff8a80;--warn:#f2c14e;--chip:#23272e;--mark:#6b5a12;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#111316;--panel:#191c20;--ink:#e8e9ec;--muted:#9aa0aa;--line:#2b2f36;--accent:#7ea2ff;--accent-soft:rgba(126,162,255,.16);
---good:#5fd39a;--bad:#ff8a80;--warn:#f2c14e;--chip:#23272e;--mark:#6b5a12;color-scheme:dark}
+/* tokens: design/tokens.css, copied verbatim so the dashboard stays one offline file */
+/* Searchlight design tokens: the source of truth for colour, type, space and radius.
+   scripts/build_site.py inlines this file into every page and into the study dashboards.
+   Light values on :root; dark values under prefers-color-scheme or data-theme="dark", chosen for the dark ground. */
+:root {
+  /* Surfaces and ink */
+  --paper: #FFFFFF;
+  --soft: #F4F6F9;
+  --rule: #E3E7EC;
+  --ink: #111111;
+  --ink-2: #4F5761;
+  --muted: #5F6873;
+
+  /* Brand: Lacey blue, the one accent (links, the highlighted series, the beam, glyph accents) */
+  --blue: #007BFF;
+  --blue-ink: #0057B3;
+  --blue-soft: #EAF3FF;
+  --on-blue: #FFFFFF;
+
+  /* Signals: reserved for meaning, never decoration or a series colour */
+  --go: #00A86B;        /* verified, supported */
+  --go-ink: #007A4D;
+  --red: #E5202E;       /* unsupported, failed */
+  --red-ink: #B3121C;
+  --amber: #F5B700;     /* a caveat applies, imported, unverifiable */
+  --amber-ink: #8A5A00;
+  --amber-soft: #FFF6D9;
+
+  /* The night ground: the hero and the beam illustration, dark in both themes */
+  --night: #0C0F13;
+  --night-2: #161B22;
+  --night-rule: #262C35;
+  --night-fg: #F2F4F7;
+  --night-mute: #9AA3AF;
+
+  /* Glyph inputs (the sprite reads these) */
+  --sl-accent: var(--blue);
+  --sl-go: var(--go);
+  --sl-red: var(--red);
+  --sl-amber: var(--amber);
+
+  /* Data */
+  --viz-track: #EEF0F3;     /* the 0-100% track behind a bar */
+  --viz-interval: #9EC5F4;  /* a 95% range */
+  --viz-other: #B4BBC5;     /* a series that is not highlighted: controls, references */
+  --viz-ref: #3A414B;       /* reference marks: no search, the answer handed over */
+
+  /* Type */
+  --font-body: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Space (4 px base), radius, width */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 80px;
+  --radius-xs: 3px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 18px;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+    --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+    --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+    --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+    --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+    --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+  --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+  --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+  --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+  --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+  --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+  color-scheme: dark;
+}
+/* end tokens */
+:root{--bg:var(--soft);--panel:var(--paper);--line:var(--rule);--accent:var(--blue);--accent-soft:var(--blue-soft);--good:var(--go-ink);--bad:var(--red-ink);--warn:var(--amber-ink);--chip:var(--viz-track);--mark:var(--amber-soft);--radius:var(--radius-lg);--mono:var(--font-mono);--sans:var(--font-body)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
 a{color:var(--accent);text-underline-offset:2px}
@@ -52,7 +128,7 @@ tbody th{color:var(--ink);font-size:14px;font-weight:600}
 .chart{max-width:720px}
 .ci{display:block;font-size:11.5px;color:var(--muted)}
 .value{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:22px;border-radius:6px;font-weight:650;font-size:13px;border:1px solid var(--line)}
-.v3{background:var(--accent);color:#fff;border-color:var(--accent)}.v2{background:var(--accent-soft)}.v0{color:var(--muted)}
+.v3{background:var(--accent);color:var(--on-blue);border-color:var(--accent)}.v2{background:var(--accent-soft)}.v0{color:var(--muted)}
 .list{list-style:none;margin:0;padding:0}
 .item{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
 .item:last-child{border-bottom:0}.item .meta{grid-column:2;font-size:13px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
@@ -74,6 +150,20 @@ svg text{fill:var(--ink);font-size:12px}svg .axis{stroke:var(--line)}svg .pt{fil
 .krow .track b{position:absolute;inset:0 auto 0 0;background:var(--accent-soft)}
 footer{padding:24px 0 40px;font-size:13px;color:var(--muted)}footer li{margin:2px 0}
 .empty{color:var(--muted);padding:16px 0}
+.digest{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:4px 0 16px}
+.digest .eyebrow{margin:0 0 8px;font:500 13px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue-ink)}
+.digest .say{font-size:19px;line-height:1.45;font-weight:600;margin:0;max-width:70ch}
+.rank{list-style:none;margin:14px 0 0;padding:0}
+.rank li{display:grid;grid-template-columns:24px minmax(0,1fr) 84px;grid-template-areas:"r n v" "r t q";gap:4px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.rank .r{grid-area:r;align-self:start;font:600 14px/1.8 var(--mono);color:var(--muted);text-align:right}
+.rank .n{grid-area:n;font-weight:600;font-size:16px;min-width:0}
+.rank .v{grid-area:v;text-align:right;font-size:24px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.rank .t{grid-area:t;position:relative;height:12px;border-radius:6px;background:var(--viz-track)}
+.rank .t b{position:absolute;top:0;bottom:0;border-radius:6px;background:var(--viz-interval)}
+.rank .t i{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--panel)}
+.rank .q{grid-area:q;text-align:right;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rank .kind{display:inline-block;margin-left:6px;font-size:12px;font-weight:600;border-radius:999px;padding:1px 8px;background:var(--chip);color:var(--muted)}
+.digest .how{margin:12px 0 0;font-size:14px;color:var(--muted)}
 @media (max-width:640px){header{padding-top:16px}h1{font-size:19px}.krow{grid-template-columns:22px 1fr 60px;grid-template-areas:"i n p" "i t t"}
 th,td{padding:7px 8px}.hide-sm{display:none}.filters .arms{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1 1 100%;min-width:0;order:2}.chip{flex:none}.bar .track{display:none}.bar{min-width:0}.scroll tbody th[scope=row],.scroll thead th:first-child{position:sticky;left:0;background:var(--panel);z-index:1}}
 </style>
@@ -85,6 +175,7 @@ th,td{padding:7px 8px}.hide-sm{display:none}.filters .arms{display:flex;flex-wra
   <div><h1 id="title"></h1><p id="meta" class="muted small"></p><p id="sponsor" class="small"></p></div>
   <button id="theme" class="ghost" type="button" aria-label="Switch light or dark theme">Theme</button>
 </header>
+<!--__DIGEST__-->
 <nav role="tablist" aria-label="Views" id="tabs"></nav>
 <div class="filters" role="group" aria-label="Filter arms"><span class="small muted">Arms</span><span id="chips" class="arms"></span>
   <button id="allarms" class="ghost small" type="button">Show all</button></div>

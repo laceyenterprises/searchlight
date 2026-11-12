@@ -11,6 +11,9 @@ on:
       - 'config/provider-arm-tools.yaml'
       - 'scripts/build_site.py'
       - 'scripts/check_reports.py'
+      - 'scripts/site_assets/**'
+      - 'design/**'
+      - 'lib/python/sew/insight/dashboard.*'
   workflow_dispatch:
 
 permissions:

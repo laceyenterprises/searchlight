@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('check_reports', ROOT / 'scripts/check_reports.py')
 reports = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(reports)
+# Reports are discovered in date order; tests that need one kind name it.
+WSB, GAP = '2026-09-29-web-search-bakeoff', '2026-10-03-search-gap-bench'
 
 
 def test_published_reports_pass():
@@ -30,7 +32,7 @@ def publication(tmp_path):
 
 
 def test_numeric_drift_rejected(publication):
-    path = publication / 'reports' / reports.REPORTS[1] / 'REPORT.md'
+    path = publication / 'reports' / GAP / 'REPORT.md'
     path.write_text(path.read_text().replace('94%', '99%'))
     assert any('differs from summary' in error for error in reports.check(publication))
 
@@ -46,7 +48,7 @@ def test_replication_numeric_drift_rejected(publication):
 
 
 def test_render_check_rejects_line_ending_drift(publication):
-    path = publication / 'reports' / reports.REPORTS[1] / 'REPORT.md'
+    path = publication / 'reports' / GAP / 'REPORT.md'
     path.write_bytes(path.read_bytes().replace(b'\n', b'\r\n'))
     assert any('differs from summary' in error for error in reports.check(publication))
 
@@ -93,7 +95,7 @@ def test_catalog_drift_rejected(publication):
 
 
 def test_calibration_drift_rejected(publication):
-    path = publication / 'reports' / reports.REPORTS[1] / 'calibration.json'
+    path = publication / 'reports' / GAP / 'calibration.json'
     data = json.loads(path.read_text())
     data['harnesses']['codex']['tasks'][0]['floor_passes'] = 1
     path.write_text(json.dumps(data))
@@ -157,12 +159,12 @@ def _add_oss_harness(directory, *, summary_column=True):
 
 
 def test_three_harness_calibration_with_an_oss_model_passes(publication):
-    _add_oss_harness(publication / 'reports' / reports.REPORTS[1])
+    _add_oss_harness(publication / 'reports' / GAP)
     assert reports.check(publication) == []
 
 
 def test_three_harness_calibration_checks_every_column(publication):
-    directory = publication / 'reports' / reports.REPORTS[1]
+    directory = publication / 'reports' / GAP
     _add_oss_harness(directory)
     path = directory / 'calibration.json'
     data = json.loads(path.read_text())
@@ -174,9 +176,9 @@ def test_three_harness_calibration_checks_every_column(publication):
 
 
 def test_calibrated_harness_without_a_summary_column_is_rejected(publication):
-    _add_oss_harness(publication / 'reports' / reports.REPORTS[1], summary_column=False)
+    _add_oss_harness(publication / 'reports' / GAP, summary_column=False)
     errors = reports.check(publication)
-    assert errors == [f'{reports.REPORTS[1]}: calibration harnesses do not match summary columns']
+    assert errors == [f'{GAP}: calibration harnesses do not match summary columns']
 
 
 def test_every_calibrated_report_is_checked(publication):
@@ -194,7 +196,7 @@ def test_reproduction_suite_covers_wsb_matrix():
     import yaml
     from sew.schema import load_suite_manifest
 
-    directory = ROOT / 'reports' / reports.REPORTS[0]
+    directory = ROOT / 'reports' / WSB
     suite = load_suite_manifest(directory)
     catalog = yaml.safe_load((ROOT / 'catalogs/production/tasks.yaml').read_text())
     assert set(suite['tasks']) == {task['id'] for task in catalog['tasks']}
@@ -232,7 +234,7 @@ def test_head_to_head_monitors_record_rebuilds_from_published_raw(tmp_path):
 def test_gap_reproduction_restricts_calibration_to_all_briefs():
     import re
     import yaml
-    path = ROOT / 'reports' / reports.REPORTS[1] / 'reproduce.md'
+    path = ROOT / 'reports' / GAP / 'reproduce.md'
     selected = re.findall(r'--task (gap-[\w-]+)', path.read_text())
     catalog = yaml.safe_load((ROOT / 'catalogs/gap/tasks.yaml').read_text())
     assert set(selected) == {task['id'] for task in catalog['tasks'] if task['id'].startswith('gap-brief-')}
@@ -241,7 +243,7 @@ def test_gap_reproduction_restricts_calibration_to_all_briefs():
 
 @pytest.mark.parametrize('digest', [None, '13f44a72'])
 def test_missing_or_abbreviated_historical_hash_rejected(publication, digest):
-    path = publication / 'reports' / reports.REPORTS[1] / 'summary.json'
+    path = publication / 'reports' / GAP / 'summary.json'
     data = json.loads(path.read_text())
     data['catalog']['historical']['battery'] = digest
     path.write_text(json.dumps(data))
@@ -335,7 +337,7 @@ def test_public_url_paths_are_allowed(publication, url):
 @pytest.mark.parametrize('harness,col', [('claude-code', 2), ('codex', 3)])
 @pytest.mark.parametrize('floor,ceiling,admitted', [(2, 5, True), (0, 2, True), (0, 5, False)])
 def test_consistently_transcribed_invalid_admission_rejected(publication, harness, col, floor, ceiling, admitted):
-    directory = publication / 'reports' / reports.REPORTS[1]
+    directory = publication / 'reports' / GAP
     path = directory / 'calibration.json'
     calibration = json.loads(path.read_text())
     record = calibration['harnesses'][harness]['tasks'][0]
@@ -353,7 +355,7 @@ def test_consistently_transcribed_invalid_admission_rejected(publication, harnes
 
 
 def test_calibration_catalog_identity_must_match_battery(publication):
-    path = publication / 'reports' / reports.REPORTS[1] / 'calibration.json'
+    path = publication / 'reports' / GAP / 'calibration.json'
     calibration = json.loads(path.read_text())
     calibration['catalog_sha256'] = '0' * 64
     path.write_text(json.dumps(calibration))
@@ -368,3 +370,24 @@ def test_quoted_third_party_text_is_not_an_internal_identifier(publication, text
     path = publication / 'reports' / 'README.md'
     path.write_text(path.read_text() + '\n' + text + '\n')
     assert not any('internal identifier' in error for error in reports.check(publication))
+
+
+def test_reports_and_studies_are_discovered_by_their_summary_schema(publication):
+    assert reports.discover(publication) == reports.REPORTS and GAP in reports.REPORTS and WSB in reports.REPORTS
+    assert reports.discover(publication, 'insight') == ('2026-11-11-software-factory-insight-bakeoff',)
+    new = publication / 'reports' / '2026-12-01-new-gap-run'
+    shutil.copytree(publication / 'reports' / GAP, new)
+    assert '2026-12-01-new-gap-run' in reports.discover(publication)
+    assert reports.check(publication) == []
+    # A new report is checked like every other: damage it and the gate names it.
+    (new / 'REPORT.md').write_text((new / 'REPORT.md').read_text() + '\ndrift\n')
+    assert any(e.startswith('2026-12-01-new-gap-run: REPORT.md differs') for e in reports.check(publication))
+
+
+def test_study_dashboards_must_match_their_summary(publication):
+    study = publication / 'reports' / '2026-11-11-software-factory-insight-bakeoff'
+    page = study / 'dashboard.html'
+    page.write_text(page.read_text().replace('The takeaway', 'A takeaway', 1))
+    assert any('dashboard.html differs' in e for e in reports.check(publication))
+    (study / 'REPORT.md').unlink()
+    assert any(e.endswith('missing REPORT.md') and 'insight' in e for e in reports.check(publication))

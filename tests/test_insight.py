@@ -479,7 +479,8 @@ def test_dashboard_is_self_contained(tmp_path):
     assert not re.search(r"<(link|img|iframe)\b|\bsrc=|@import|fetch\(|XMLHttpRequest", shell)
     for view in ("Leaderboard", "Unique", "Overlap", "Best k", "Cost", "Questions", "Claims", "Files"):
         assert f'label:"{view}"' in shell
-    assert "prefers-color-scheme:dark" in shell and 'role="tablist"' in shell and "aria-sort" in shell
+    assert re.search(r"prefers-color-scheme:\s*dark", shell) and 'role="tablist"' in shell and "aria-sort" in shell
+    assert 'class="digest"' in shell and 'class="say"' in shell  # the takeaway reads without JavaScript
     assert "<" not in data.group(1)  # JSON must escape < as \u003c to prevent script breakout.
 
 
