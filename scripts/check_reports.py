@@ -14,9 +14,10 @@ REPORTS = ('2026-09-29-web-search-bakeoff', '2026-10-03-search-gap-bench', '2026
 FORBIDDEN = re.compile(
     r'op://' r'|(?<![\w/:])(?:/Users/|/home/|/private/|/Volumes/|[A-Z]:\\Users\\)'
     r'|file://[^\s)\"]*/(?:Users|home|private|Volumes)/'
-    r'|\bHQ_ROOT\b|https?://[^\s)\"]*/agent-os(?:/|\b)'
+    r'|\bHQ_ROOT\b|https?://[^\s)\"]*/agent-os(?:/|(?=[\s)\"]|$))'
     r'|\b(?:LRQ[-_:]|lrq[-_:])\S+|\b(?:run_id|run-id|suite-run-id)\s*[:=]'
-    r'|\.internal\b'
+    # Placeholder hosts in quoted third-party docs (artifacts.company.internal) are not ours.
+    r'|(?<!\bcompany)(?<!\bexample)\.internal\b'
     r'|\b(?:wsb|gap)[-_][\w-]*\d{8}T\d{4,6}Z\b', re.I
 )
 

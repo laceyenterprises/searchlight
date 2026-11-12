@@ -358,3 +358,13 @@ def test_calibration_catalog_identity_must_match_battery(publication):
     calibration['catalog_sha256'] = '0' * 64
     path.write_text(json.dumps(calibration))
     assert any('calibration catalog hash differs' in error for error in reports.check(publication))
+
+
+@pytest.mark.parametrize('text', [
+    'https://jacar.es/en/agent-os-the-concept-shaping-the-new-stack',
+    'internal domains such as artifacts.company.internal and packages.example.internal',
+])
+def test_quoted_third_party_text_is_not_an_internal_identifier(publication, text):
+    path = publication / 'reports' / 'README.md'
+    path.write_text(path.read_text() + '\n' + text + '\n')
+    assert not any('internal identifier' in error for error in reports.check(publication))
