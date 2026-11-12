@@ -1191,6 +1191,38 @@
       "status: str",
       "status=run['status']"
     ],
+    "insight/catalog.py": [
+      "status = _endpoint(spec['poll_endpoint'])"
+    ],
+    "insight/run.py": [
+      "counts[record['status']] = counts.get(record['status'], 0) + 1",
+      "got.status_code < 300",
+      "got.status_code < 500",
+      "got.status_code >= 300",
+      "read_json(path).get('status') in COMPLETE",
+      "response.status_code >= 500",
+      "response.status_code not in RETRY_CODES",
+      "status = 'timeout' if error == 'poll_timeout' else 'failed' if error else 'ok'",
+      "status = classify_http_status(response.status_code) if response is not None else error",
+      "status == 'ok'",
+      "status: 'error'",
+      "status: 'skipped_cap'",
+      "status: 'unavailable'",
+      "status=status"
+    ],
+    "insight/importer.py": [
+      "status: 'ok'"
+    ],
+    "insight/report.py": [
+      "c.get('status') == 'ok'",
+      "cells.get((q, a), {}).get('status') != 'ok'"
+    ],
+    "insight/grade.py": [
+      "page['status'] == 'captured'",
+      "read_json(p).get('status') == 'ok'",
+      "status: 'captured' if text.strip() else 'empty'",
+      "status: 'uncapturable'"
+    ],
     "gap/runner.py": [
       "entry.get('status') == 'provider_unavailable'",
       "outcome = grader(task, directory, root, wheelhouse, judges or [])",

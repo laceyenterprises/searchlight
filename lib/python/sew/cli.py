@@ -10,6 +10,7 @@ from pathlib import Path
 
 from . import broker_auth
 from . import harnesses as harness_registry
+from .harnesses.claude_code import SPEC as CLAUDE_CODE_SPEC
 from .host import HostUnavailable
 from .agent_lane import AGENT_ARMS, CONTROL_ARM, TIERS, AgentLaneError
 from .agent_lane import run_lane as run_agent_lane
@@ -643,7 +644,7 @@ def _agent(args: argparse.Namespace) -> int:
 def _claude_provider_auth(args, harnesses):
     selected = broker_auth.auth_source(args.harness_auth)
     if args.claude_broker_provider and (
-        selected != "broker" or any(h != "claude-code" for h in harnesses)
+        selected != "broker" or any(h != CLAUDE_CODE_SPEC.id for h in harnesses)
     ):
         raise SchemaError("--claude-broker-provider requires broker auth and claude-code harnesses")
     return selected
