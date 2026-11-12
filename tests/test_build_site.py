@@ -998,4 +998,8 @@ def test_readme_art_stands_alone_and_every_reference_resolves():
         refs = re.findall(r'docs/readme/([\w-]+\.svg)|\.\./readme/([\w-]+\.svg)', (site.ROOT / readme).read_text())
         assert refs, readme
         assert all((a or b) in art for a, b in refs), readme
+        # GitHub keeps a <picture> only when it opens its own line or sits whole on one line; wrapped in an inline
+        # tag such as <a>, the sources fall out and the image shows unthemed.
+        text = (site.ROOT / readme).read_text()
+        assert not re.search(r'<a\b[^>]*>\s*<picture', text), readme
 
