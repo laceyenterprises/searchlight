@@ -104,7 +104,23 @@ weekly cost in the model. Full PR clone proofs remain the largest per-merge cost
   tests, sandbox provisioning and fixture battery), while keeping installation,
   doctor, lint, report integrity, site currency and publication gates. The exact
   allowlist is `docs/**/*.md` and `reports/**/*.{md,json,yaml,yml,png}`, including
-  immediate children of those directories. Root Markdown, `site/`, config,
+  immediate children of those directories, with these full-suite exclusions:
+  - `docs/architecture/**`: `test_actual_states_edges_writers_and_index` checks
+    the generated state-machine index.
+  - Report paths containing a `code` or `data` directory component:
+    `test_head_to_head_sets_match_their_manifest` checks the published code sets,
+    and `test_head_to_head_monitors_record_rebuilds_from_published_raw` rebuilds
+    from published raw data.
+  - Report files named `reproduce.md` or `suite.yaml`:
+    `test_gap_reproduction_restricts_calibration_to_all_briefs` checks calibration
+    instructions, and `test_reproduction_suite_covers_wsb_matrix` checks the
+    reproduction manifest.
+
+  These inputs have suite-only integrity checks beyond the always-on report
+  and site publication checks. The rules match directory components and file
+  names; new suite-only report/doc inputs must be checked against this allowlist
+  when their tests are added.
+  Root Markdown, `site/`, config,
   catalogs, fixtures, tests, scripts, workflow and package changes all run the
   full suite. Unknown suffixes anywhere run it. Mixed changes run it.
   Empty/failed diffs run it. `git diff --no-renames` includes both sides of

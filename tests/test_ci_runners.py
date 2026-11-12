@@ -220,6 +220,21 @@ def test_main_uses_existing_smoke_without_entering_clone_suite(tmp_path):
         ([], False),
         (["docs/guide.md", "reports/example/summary.json"], True),
         (["reports/example/REPORT.md", "reports/example/card.png"], True),
+        (["reports/2026-09-26-search-api-head-to-head/code/sets/S1.json"], False),
+        (
+            ["reports/2026-09-26-search-api-head-to-head/code/stage_c/sets/SV.json"],
+            False,
+        ),
+        (
+            [
+                "reports/2026-09-26-search-api-head-to-head/data/stage-b/runs/SM/runs_m01.json"
+            ],
+            False,
+        ),
+        (["reports/2026-10-03-search-gap-bench/reproduce.md"], False),
+        (["reports/2026-09-29-web-search-bakeoff/suite.yaml"], False),
+        (["docs/architecture/STATE-MACHINES.md"], False),
+        (["docs/guide.md", "reports/2026-09-29-web-search-bakeoff/suite.yaml"], False),
         (["docs/changes/SLCI-02.md", "lib/python/sew/cli.py"], False),
         (["docs/example.py"], False),
         (["reports/example/test.py"], False),
