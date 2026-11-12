@@ -100,7 +100,9 @@ var ARMS={};D.arms.forEach(function(a){ARMS[a.arm_id]=a});
 var on={};D.ranked.forEach(function(a){on[a]=true});
 var main=document.getElementById("main");
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-function href(u){if(!u)return null;u=String(u);if(/^https?:\/\//i.test(u))return u;if(!/^[a-z][\w+.-]*:/i.test(u))return u;return null}
+// A hosted copy sets data-raw-base on <html> so relative raw-data links resolve to the published bundle.
+var RAW_BASE=document.documentElement.getAttribute("data-raw-base")||"";
+function href(u){if(!u)return null;u=String(u);if(/^https?:\/\//i.test(u))return u;if(!/^[a-z][\w+.-]*:/i.test(u))return RAW_BASE&&u.charAt(0)!=="#"?RAW_BASE+u.replace(/^\.\//,""):u;return null}
 function a(text,u,cls){if(u&&String(u).indexOf("local-only:")===0)return '<span class="muted small" title="'+esc(u.slice(11))+'">'+esc(text)+' (local only)</span>';
   var h=href(u);return h?'<a'+(cls?' class="'+cls+'"':'')+' href="'+esc(h)+'"'+(/^https?:/i.test(h)?' rel="noopener noreferrer" target="_blank"':'')+'>'+esc(text)+'</a>':'<span class="muted">'+esc(text)+'</span>'}
 function money(v){return v==null?"n/a":"$"+(v<0.1?v.toFixed(4):v.toFixed(2))}
