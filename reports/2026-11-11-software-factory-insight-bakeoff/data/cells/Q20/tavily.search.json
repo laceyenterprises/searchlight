@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:07.528051Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1590,
+   "page_chars_delivered": 16469,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Overview: The Rise of AI SRE Agents\n\nThe AI SRE market exploded in late 2025, with Resolve.ai achieving $1B unicorn status just weeks after launching. Unlike traditional AIOps tools that correlate alerts, these new AI SRE agents actively investigate incidents—forming hypotheses, querying systems…",
+   "title": "Cleric vs Resolve.ai vs Traversal (2026): AI SRE Tools Compared",
+   "url": "https://wetheflywheel.com/en/comparisons/cleric-vs-resolve-ai-vs-traversal"
+  },
+  {
+   "chars_delivered": 2261,
+   "page_chars_delivered": 27984,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The landscape sorts into three lanes, and keeping them straight is the whole game:\n\n Pure autonomous SRE agents. Purpose-built to investigate and, in some cases, remediate on their own. Flawless, Cleric, Resolve.ai, and Komodor live here.\n Observability-platform add-ons. An AI investigator built in…",
+   "title": "8 Best AI SRE Tools for Incident Response | Zentor Blog",
+   "url": "https://zentor.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "chars_delivered": 1919,
+   "page_chars_delivered": 13388,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## What Is a Self-Healing AI System?\n\nA self-healing AI system is an autonomous network of intelligent agents that can detect problems, diagnose their root causes, implement fixes, and continuously learn from each incident without human intervention. Unlike basic automation recovery that follows pr…",
+   "title": "Self-Healing AI Systems: How Autonomous Agents Detect, Diagnose, and Fix Themselves — Arion Research LLC",
+   "url": "https://www.arionresearch.com/blog/xh820vl36xy0pn9x1ril7d5nsx1wk9"
+  },
+  {
+   "chars_delivered": 1530,
+   "published": null,
+   "text": "### Understanding Self-Healing AI Systems\n\nSelf-healing AI systems are a class of autonomous agents designed to maintain and restore system functionality when disruptions occur. These AI-driven systems proactively monitor operations, identify anomalies, and take corrective actions to mitigate or el…",
+   "title": "Self-Healing AI Systems: How Autonomous AI Agents Detect",
+   "url": "https://aithority.com/machine-learning/self-healing-ai-systems-how-autonomous-ai-agents-detect-prevent-and-fix-operational-failures"
+  },
+  {
+   "chars_delivered": 1823,
+   "published": null,
+   "text": "They begin at Level 2 Autonomy, where they investigate, propose, and stage mitigations, but require explicit human approval to execute them. They only advance to Level 3 or Level 4 (High/Full Autonomy) for specific, well-bounded scenarios after demonstrating sustained, statistically significant suc…",
+   "title": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations"
+  },
+  {
+   "chars_delivered": 1200,
+   "published": null,
+   "text": "The level of autonomy is configurable and should follow a graduated, human-in-the-loop trust model. Most teams start with the AI SRE in an advisory capacity, presenting recommendations that require human approval. As the system demonstrates consistent accuracy on specific types of incidents, teams…",
+   "title": "What is an AI SRE?",
+   "url": "https://resolve.ai/glossary/what-is-ai-sre"
+  },
+  {
+   "chars_delivered": 1694,
+   "published": null,
+   "text": "### Definition and Characteristics of self-healing systems\n\nA self-healing system is one that can autonomously detect anomalies, diagnose root causes and execute corrective actions without active human intervention. The concept of self-healing is inspired from nature, where biological organisms can…",
+   "title": "Self-Healing Systems using AI based Auto-Remediation Strategies",
+   "url": "https://www.infosys.com/iki/techcompass/self-healing-systems.html"
+  },
+  {
+   "chars_delivered": 2033,
+   "published": null,
+   "text": "| Tool | Category | RCA | Auto-remediation | Verifies fixes | Beyond incidents | Deployment |\n ---  ---  --- \n| CloudThinker | Frontier Investigation Agents | Yes | Yes, graduated autonomy | Yes (DARV loop) | Cost, security, code review, daily ops | SaaS + sovereign options |\n| Resolve AI | Autonom…",
+   "title": "The 10 Best AI SRE Tools in 2026, Compared | CloudThinker",
+   "url": "https://www.cloudthinker.io/blogs/best-ai-sre-tools-2026"
+  },
+  {
+   "chars_delivered": 138,
+   "published": null,
+   "text": "An AI SRE agent is an autonomous multi-agent system that intercepts alerts at the detection layer, formulates and tests failure hypotheses",
+   "title": "Top 10 AI SRE Agents and Autonomous Remediation ...",
+   "url": "https://vibraniumlabs.ai/blog/top-ai-sre-agents"
+  },
+  {
+   "chars_delivered": 1922,
+   "published": null,
+   "text": "This investigation happens in minutes rather than the hours it might take a human to context-switch, gather data, and form hypotheses.\n\n### Automated Remediation\n\nOnce the root cause is identified, AI SREs can execute remediation actions:\n\n Rolling back a faulty deployment\n Scaling up resources to…",
+   "title": "What is an AI SRE",
+   "url": "https://metoro.io/knowledge-base/what-is-an-ai-sre"
+  }
+ ],
+ "latency_ms": 4278.4,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q20",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What AI SRE / self-healing systems exist (for example Resolve.ai, Cleric, Traversal, PagerDuty and Datadog agents, Meta's or Google's internal remediation)? How do they detect, diagnose, remediate and verify, and what autonomy levels and safety controls do they use?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q20-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 18982,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:24:03.249684Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

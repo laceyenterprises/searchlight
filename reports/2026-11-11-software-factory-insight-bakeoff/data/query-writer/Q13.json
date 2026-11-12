@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "AIOS LLM agent operating system scheduler",
+  "Letta MemGPT virtual context memory management",
+  "agent operating system isolation tool access sandboxing"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "What 'operating system for agents' designs exist (AIOS, Letta/MemGPT, others)? How do they handle scheduling, memory management, context switching, tool access and isolation between agents, and what has been learned from them? Rank first primary sources: the AIOS paper and GitHub repo (Rutgers/AGI Research), the MemGPT paper, Letta's docs and engineering blog posts, other agent-OS project docs, talks, and credible reporting or surveys. Extract mechanisms (schedulers such as FIFO and round robin, virtual context paging, memory tiers, context snapshot and restore, tool managers, access control and sandboxing), names, dates, measured results (throughput, latency, benchmark numbers), and failure modes and lessons learned.",
+ "question_id": "Q13",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

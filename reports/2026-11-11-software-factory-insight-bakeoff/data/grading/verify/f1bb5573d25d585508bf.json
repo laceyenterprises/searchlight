@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "b845b7d234b3b94a",
+ "url": "https://github.com/strongdm/attractor/blob/main/coding-agent-loop-spec.md",
+ "verdicts": {
+  "The Coding Agent Loop spec filters sensitive environment-variable names by default but calls this 'a safety default, not a security boundary,' since agents can still read variables via shell commands.": 1
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "0e83b25e9de4dfdc",
+ "url": "https://docs.factory.com/environments/run-droids",
+ "verdicts": {
+  "Factory cloud sessions create a Computer from an Environment's successful snapshot, and each launch creates its own instance, so parallel agents do not share working-tree changes.": 1,
+  "Shared delegation is configured in Settings → Delegations, where an agent profile with Dynamic compute uses exactly one organization Environment that must be Ready before work is delegated.": 1
+ }
+}

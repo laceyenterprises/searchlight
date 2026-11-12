@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "8524d94215b1d777",
+ "claims": [
+  {
+   "text": "Spheron reports E2B managed sandboxes (Firecracker microVM) have 5-30ms cold starts from snapshots at about $0.000014 per sandbox-second.",
+   "url": null
+  },
+  {
+   "text": "Spheron lists Daytona as Docker + gVisor with 200-500ms cold start and limited GPU support (no MIG).",
+   "url": null
+  },
+  {
+   "text": "Spheron lists Modal Sandboxes as gVisor (runsc) with 100-300ms cold start, GPU support (T4/A10G), not self-hostable, at $0.0001/sec compute.",
+   "url": null
+  },
+  {
+   "text": "Spheron states that for CPU-only sandboxes, self-hosting beats managed E2B above roughly 11,000 sandbox-hours/month, about 15 sandboxes running nonstop.",
+   "url": null
+  },
+  {
+   "text": "Spheron states Firecracker snapshot-restore lets a sandbox be paused with memory and filesystem state preserved and resumed in 5-30ms, versus 200-500ms for full re-initialization each turn.",
+   "url": null
+  },
+  {
+   "text": "Spheron states gVisor's user-space kernel blocks direct PCIe GPU passthrough, while Firecracker supports VFIO device passthrough to the microVM; managed E2B has no GPU.",
+   "url": null
+  },
+  {
+   "text": "Spheron reports one H100 SXM5 split into 7 MIG slices handles about 200 concurrent sandboxes, with H100 spot at $2.20/hr as of 11 Nov 2026.",
+   "url": null
+  },
+  {
+   "text": "Firecracker boots in ~125ms with less than 5 MiB overhead per VM and up to 150 VMs per second per host.",
+   "url": null
+  },
+  {
+   "text": "Firecracker boots in ~125ms with ~5MB memory overhead and powers AWS Lambda, E2B, and Vercel Sandbox.",
+   "url": null
+  },
+  {
+   "text": "Kata Containers boots in ~200ms and can orchestrate Firecracker, Cloud Hypervisor, or QEMU while appearing to Kubernetes as a normal container.",
+   "url": null
+  },
+  {
+   "text": "gVisor's Sentry process handles syscalls in user space; it adds roughly 10-30% overhead on I/O-heavy workloads, has fast startup, and is stronger than containers but weaker than VMs.",
+   "url": null
+  },
+  {
+   "text": "gVisor is used by Google Agent Sandbox on GKE and by Modal; not all syscalls are perfectly emulated, causing compatibility issues with some Linux software.",
+   "url": null
+  },
+  {
+   "text": "Blaxel reports <25ms resume from standby with indefinite standby at zero compute cost; E2B resume from pause takes about 1 second.",
+   "url": null
+  },
+  {
+   "text": "Blaxel's table lists Cloudflare Sandboxes at 1-3s cold start, with state cleared on sleep (backup/restore APIs), billed by active CPU per 10ms with Workers Paid at $5/month.",
+   "url": null
+  },
+  {
+   "text": "Blaxel's table lists Daytona with sub-90ms creation (a vendor claim), Sysbox runtime isolation without hardware virtualization, 15-minute default auto-stop, and auto-archive after 7 days stopped.",
+   "url": null
+  },
+  {
+   "text": "Blaxel's table says Modal keeps memory snapshots 7 days and filesystem snapshots 30 days by default, and lists E2B Pro at $150/month and Modal Team at $250/month.",
+   "url": null
+  },
+  {
+   "text": "E2B egress rules can be changed for IP addresses, CIDR ranges, and domains without restarting a sandbox, and secret injection keeps credential values outside the sandbox.",
+   "url": null
+  },
+  {
+   "text": "E2B blocks sandbox traffic to private and link-local addresses, including the cloud metadata service.",
+   "url": null
+  },
+  {
+   "text": "E2B memory-preserving pause keeps files and memory intact, paused sandboxes are kept indefinitely, and snapshot-based forking creates up to 20 copies per call.",
+   "url": null
+  },
+  {
+   "text": "Modal sandboxes use gVisor by default with a VM runtime option (GPU sandboxes gVisor only); allowlists control incoming and outgoing traffic, domain allowlists are in beta; snapshots restore into a new sandbox rather than resuming in place.",
+   "url": null
+  },
+  {
+   "text": "Modal sandbox sessions default to 5 minutes with a 24-hour maximum; Daytona sessions have no time cap, up to 8 GPUs per sandbox, and VM fork, pause/resume and memory snapshots.",
+   "url": null
+  },
+  {
+   "text": "Modal sandbox networking denies incoming connections by default; Cloudflare container filesystem snapshots do not restore processes.",
+   "url": null
+  },
+  {
+   "text": "Northflank cloud uses microVMs for CPU workloads and gVisor for GPU workloads; CodeSandbox uses Firecracker-based VMs with hibernation and VM snapshot/restore.",
+   "url": null
+  },
+  {
+   "text": "Nirvana's comparison states vendor startup numbers are not a matched benchmark and that it is a documentation comparison, not a new benchmark.",
+   "url": null
+  },
+  {
+   "text": "The ComputeSDK Sandbox Leaderboard publishes live time-to-interactive benchmarks (median, P95, P99 startup and success rates) with raw data on GitHub.",
+   "url": null
+  }
+ ],
+ "question_id": "Q16"
+}

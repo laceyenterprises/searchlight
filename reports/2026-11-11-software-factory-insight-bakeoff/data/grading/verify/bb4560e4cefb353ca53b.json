@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "3c25f2df9f5b2fee",
+ "url": "https://arinco.com.au/blog/welcome-home-agents-how-github-copilot-agent-hq-is-transforming-development-workflows",
+ "verdicts": {
+  "Arinco lists branch-protection rules for agent PRs: CI is required before modifications to agent PRs, status checks must pass before human review, draft PRs block GitHub Actions workflows by default, and approval is required from someone other than the task requester.": 1,
+  "Built-in protections for the Copilot coding agent listed by Arinco include sandboxed execution, read-only repository access, branch naming restricted to copilot/* only, and branch protection compliance.": 1,
+  "The Arinco/Azure with AJ post shows a custom firewall configuration for enterprises with a recommended allowlist enabled plus a custom allowlist of internal domains such as artifacts.company.internal and packages.company.internal.": 1
+ }
+}

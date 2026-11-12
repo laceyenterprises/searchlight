@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "2cdb3ec09cf5b024",
+ "url": "https://www.agentpatterns.ai/context-engineering/evolving-playbooks/",
+ "verdicts": {
+  "ACE reached +10.6% task completion on AppWorld, matching IBM CUGA (60.3%) with a smaller open-source model (DeepSeek-V3.1), and cut adaptation latency by 82.3% versus GEPA.": 1,
+  "ACE's Reflector runs up to 5 rounds to distill lessons from successes and errors using execution feedback.": 1,
+  "Evolving playbooks fail in low-feedback environments, because the Reflector cannot distinguish useful strategies from noise and the playbook fills with entries of unknown quality.": 1,
+  "In ACE, the Curator turns reflections into delta entries, each a single strategy, concept or failure mode with a unique ID and helpful/harmful counters, and merges them with deterministic non-LLM logic using semantic embedding deduplication and ID-based updates.": 1,
+  "In rapidly shifting domains stale strategies persist, since helpful/harmful counters need enough samples to decay outdated entries.": 1,
+  "Monolithic prompt rewrites cause brevity bias and context collapse, in which context shrinks and edge-case handling disappears across rewrite cycles; incremental delta entries are meant to prevent this.": 1,
+  "Poor reflection that captures surface correlations rather than causal insights produces noisy contexts that degrade performance.": 1,
+  "The predecessor Dynamic Cheatsheet raised GPT-4o from 10% to 99% on Game of 24 by reusing discovered solution strategies.": 1
+ }
+}

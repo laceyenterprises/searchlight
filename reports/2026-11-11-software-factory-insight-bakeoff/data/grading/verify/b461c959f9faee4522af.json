@@ -1,0 +1,17 @@
+{
+ "capture": "captured",
+ "digest": "a66e01edbccd4595",
+ "url": "https://alignment.openai.com/scaling-code-verification",
+ "verdicts": {
+  "As of October 2025, OpenAI's Codex code reviewer handles more than 100k external PRs per day.": 1,
+  "In OpenAI's controlled study, a reviewer at a small fraction of the generator's token spend caught a large share of previously identified high-severity issues; extra inference budget mostly improved calibration and reduced false alarms.": 1,
+  "OpenAI argues that training-time verifiers (reward models) should be over-sensitive and may use task-specific information, while deployed reviewers must prioritize precision and user trust, so a single verifier should not serve both roles.": 1,
+  "OpenAI deliberately accepted modestly reduced recall in exchange for high precision and developer trust in its code reviewer, optimizing signal-to-noise first.": 1,
+  "OpenAI found that giving a GPT-5 reviewer repository access and code execution made it a stronger reviewer, catching more critical issues with fewer false alarms than a diff-only reviewer; dedicated code-review training improved results further.": 1,
+  "OpenAI observed that reviewer recall on known bugs was consistently higher for human-written code than for Codex-generated code, and that performance dropped more rapidly with lower thinking budget on model-generated code.": 1,
+  "OpenAI reports that Codex code review comments on 36% of PRs generated entirely by Codex cloud, and 46% of those comments result in the author making a code change, versus 53% for comments on human-generated PRs.": 1,
+  "OpenAI reports that authors address reviewer comments with a code change in 52.7% of cases, and over 80% of comment reactions are positive.": 1,
+  "OpenAI warns that over-reliance is a risk: teams may treat a clean automated review as a guarantee of safety rather than one defense layer.": 1,
+  "OpenAI's recall evaluation is limited because its test set contains only issues humans already identified, so it cannot validate new findings the reviewer makes with more time.": 1
+ }
+}

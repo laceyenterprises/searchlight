@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "ea1e6fa22300a36e",
+ "url": "https://rywalker.com/research/stripe-minions",
+ "verdicts": {
+  "Every minion PR requires human review before merge.": 1,
+  "InfoQ reports minions perform best on well-defined tasks such as configuration adjustments, dependency upgrades, and minor refactoring, so the weekly PR count does not imply every PR is a large feature change.": 1,
+  "Local lint is reported to finish in under 5 seconds, before any CI push.": 1,
+  "Minion devboxes are isolated from production and the internet for security.": 1,
+  "Minions run at most two CI rounds before handing the result to a human, even if failures remain.": 1,
+  "Ry Walker's research notes Stripe has not published example minion PRs, no success-rate figures are disclosed, and the approach depends on heavy codebase and developer-experience investment.": 0,
+  "The CI strategy is a local lint step taking under 5 seconds, then at most 2 CI rounds, with fixes auto-applied.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.research",
+ "cell_sha": "c6bab5bc9cfbe1bd",
+ "claims": [
+  {
+   "text": "WPP Production reports 95% faster strategy creation, 1,000 times more creative versions for hyper-targeted adaptation, and an average 17% lift in campaign engagement from its shaping performance model.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "WPP Production demonstrated a full-funnel, multi-audience strategy for a fictional fragrance brand built in under three minutes, with messaging shaped to audience values, funnel stage and platform.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "Salesforce's Agentforce Engagement Agent has reached 100,000 leads, created 1,500 opportunities that might otherwise have been left behind, and is on track to generate $60 million in pipeline.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  },
+  {
+   "text": "Since launch, Agentforce has made quote creation at Salesforce 75% faster and reduced clicks in the quoting process by 87%.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  },
+  {
+   "text": "Salesforce reports that executive briefs, which used to take over an hour, can now be generated 98% faster with Agentforce.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  },
+  {
+   "text": "Salesforce reports that win rates among account executives have increased 10% with Agentforce Sales Coach, and that managers save hours of coaching time.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  },
+  {
+   "text": "Salesforce reports that Agentforce and Data 360 helped sellers create 4,500+ opportunities and build quotes 75% faster.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  },
+  {
+   "text": "Bertelsmann's Content Search replaced searches across multiple systems that used to take hours with a process that now takes seconds.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "Bertelsmann's AI Hub team built its multi-agent Content Search system on LangGraph, a general agent framework, and took it from prototype to full production deployment.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "Bertelsmann Content Search uses a coordinator agent that analyzes each user question and routes it to the relevant agents.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "Bertelsmann Content Search sends routed queries to a central parallelized node that triggers domain agents: Publishing, Broadcasting, News and Web Intelligence.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "Bertelsmann Content Search agents interface with vector databases (e.g. Qdrant) for semantic search, APIs for structured queries, graph databases for relationship lookups, and custom tools.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "Bertelsmann Content Search synthesizes individual agent responses into a single answer, and users can chat directly with an individual agent to drill down.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "Bertelsmann Content Search orchestrates searches across existing platforms and data sources rather than centralizing all data in one system.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "With LangGraph, individual Bertelsmann agents can be deployed as standalone APIs; for example, the news archive agent can be integrated directly into internal teams' systems.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "Bertelsmann's AI Hub says LangGraph offered reliability and predictability for production systems, and the LangChain ecosystem provided the observability and debugging needed to move from prototype to production.",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "text": "WPP Production's agentic workflow uses a master orchestrator agent that pulls on specialist agents, coordinating tasks dynamically rather than sequentially.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "WPP Production's workflow includes human check-in points, such as an email to the strategist saying the strategy is ready for review.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "WPP Production trains its agents on the brand's DNA, guidelines and tone of voice to keep creative output consistent.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "WPP Production uses pre-flight agents that assess and predict how well creative will perform before it is launched.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "WPP Production uses synthetic-persona focus groups to test strategy; one test flagged that a thumbs-up icon can be read as rude in Turkey.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "WPP Production says human strategists and creators supply the originality, cultural nuance and emotional understanding that AI lacks.",
+   "url": "https://www.wpp.com/en/insights/shaping-performance-inside-wpp-productions-ai-model-for-relevance-at-scale"
+  },
+  {
+   "text": "Salesforce's Engagement Agent sends outbound introduction emails, answers multitouch product questions, books meetings on calendars, handles opt-out requests, and hands leads to an SDR when they are ready.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  },
+  {
+   "text": "Salesforce's Agentforce uses retrieval-augmented generation through Data 360 over pricing pages, product specifications, messaging guidelines and internal sales articles, and has built-in guardrails preventing it from surfacing unauthorized deal information.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  },
+  {
+   "text": "Salesforce's Agentforce auto-logs the actions it takes on a lead so SDRs can review them, and its quoting is powered by the Atlas Reasoning Engine pulling live data from Agentforce Revenue Management and Agentforce Sales.",
+   "url": "https://www.salesforce.com/customer-stories/agentforce-for-sales/"
+  }
+ ],
+ "question_id": "Q22"
+}

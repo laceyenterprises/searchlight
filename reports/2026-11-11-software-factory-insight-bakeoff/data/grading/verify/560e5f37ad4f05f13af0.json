@@ -1,0 +1,21 @@
+{
+ "capture": "captured",
+ "digest": "0b216a24c2d3b6dc",
+ "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1",
+ "verdicts": {
+  "As of Nov 2025, Spotify's agents had generated more than 1,500 PRs merged into production, covering Java value types to records, Scio data pipeline upgrades, Backstage frontend migrations, and YAML/JSON config changes.": 1,
+  "Since mid-2024, around half of Spotify's pull requests have been automated by Fleet Management, which runs source-to-source transformations as containerized jobs that automatically open PRs.": 1,
+  "Since mid-2024, around half of Spotify's pull requests have been automated by Fleet Management.": 1,
+  "Spotify began investigating AI agents inside Fleet Management in February (2025), replacing deterministic migration scripts with an agent that takes instructions from a natural-language prompt, while keeping the repository targeting, PR opening, review and merging infrastructure unchanged.": 1,
+  "Spotify built a small internal CLI rather than adopting an off-the-shelf coding agent; it delegates prompt execution to an agent, runs custom formatting and linting via local MCP, and evaluates diffs.": 1,
+  "Spotify built a small internal CLI that delegates prompts to an agent, runs formatting/linting via local MCP, evaluates diffs with an LLM judge, uploads logs to GCP, and captures traces in MLflow, which lets it swap agents and LLMs easily.": 1,
+  "Spotify exposed its background coding agent via MCP so engineers can start tasks from Slack and GitHub Enterprise; an interactive agent gathers information and produces a prompt that is handed to the coding agent.": 1,
+  "Spotify replaced deterministic migration scripts with an agent driven by a prompt, while keeping the rest of Fleet Management unchanged: targeting repositories, opening PRs, getting reviews, and merging.": 1,
+  "Spotify reported a total time saving of 60–90% for agent-driven migrations compared to writing the code by hand.": 1,
+  "Spotify reported more than 1,500 merged AI-generated pull requests from its background coding agent (Honk) as of November 2025.": 1,
+  "Spotify reports 1,500+ agent-generated PRs merged into production and 60-90% time savings on migrations.": 1,
+  "Spotify's Fleet Management framework applies small code-transformation snippets across thousands of repositories, running them as jobs in a containerized environment that automatically opens pull requests against target repositories.": 1,
+  "Spotify's automated Maven dependency updater transformation script grew to over 20,000 lines of code because of corner cases, illustrating the difficulty of defining complex AST- or regex-based transformations.": 1,
+  "Spotify's automated Maven dependency updater transformation script grew to over 20,000 lines of code to handle corner cases, illustrating the limits of deterministic AST/regex-based transformations.": 1
+ }
+}

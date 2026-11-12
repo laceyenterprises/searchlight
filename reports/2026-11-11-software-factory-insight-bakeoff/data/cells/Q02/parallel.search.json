@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:01.007985Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 867,
+   "page_chars_delivered": 10901,
+   "post_step": "fetched",
+   "published": "2026-04-10",
+   "text": "Agent sessions work well for focused tasks, but most real projects are too broad and complex for a single context window to hold.\n\n...\n\n2. Models seek coherence: they integrate what's in their context into a unified worldview and reason forward from it.\n3.\n\n...\n\n* **The orchestrator** plans and dec…",
+   "title": "How Missions Work | Factory.ai",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "chars_delivered": 960,
+   "page_chars_delivered": 21015,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Define specialized subagents with their own system prompt, model, and tool policy that Droid delegates focused tasks to in a fresh context window.\n\nA custom droid is a reusable subagent defined in Markdown. Each droid carries its own system prompt, model preference, and tool policy, so Droid can ha…",
+   "title": "Custom droids (subagents)",
+   "url": "https://docs.factory.ai/harness/subagents"
+  },
+  {
+   "chars_delivered": 980,
+   "page_chars_delivered": 28333,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Non-Interactive\n\nSingle run execution that writes to stdout/stderr for CI/CD integration\n\nSecure by Default\n\nRead-only by default with explicit opt-in for mutations via autonomy levels\n\nComposable\n\nDesigned for shell scripting, parallel execution, and pipeline integration\n\nClean Output\n\nStructured…",
+   "title": "Droid Exec (Headless)",
+   "url": "https://docs.factory.ai/droid-exec/overview"
+  },
+  {
+   "chars_delivered": 953,
+   "published": null,
+   "text": "Single run execution that writes to stdout/stderr for CI/CD integration\n\n## Secure by Default\n\nRead-only by default with explicit opt-in for mutations via autonomy levels\n\n## Composable\n\nDesigned for shell scripting, parallel execution, and pipeline integration\n\n## Clean Output\n\nStructured output f…",
+   "title": "Droid Exec (Headless) - Factory Documentation",
+   "url": "https://docs.factory.ai/cli/droid-exec/overview"
+  },
+  {
+   "chars_delivered": 972,
+   "published": "2026-07-08",
+   "text": "### Software factory architecture\n\nSeven components move a scoped unit of intent to a validated change\n\nScoped intent enters\n\n1\n\nIntake\n\nTyped task\n\n2\n\nContext\n\nCode + docs\n\n3\n\nPlanning\n\n...\n\nIntake surfaces include pull request descriptions, Linear issues, Slack threads, and CLI invocations. The o…",
+   "title": "The architecture of a software factory",
+   "url": "https://factory.ai/articles/what-is-a-software-factory-architecture"
+  },
+  {
+   "chars_delivered": 988,
+   "published": "2026-05-20",
+   "text": "Droid's context engine now loads internal tool schemas, MCP tool schemas, skills, and plugin instructions only when a task needs them.\n\n...\n\nOver the past five days, among measured Droid turns in sessions that triggered MCP tools, it cut estimated input tokens by **15\\.1% on average** and reached a…",
+   "title": "Deferred Context Engine | Factory",
+   "url": "https://factory.com/news/deferred-context-engine"
+  },
+  {
+   "chars_delivered": 927,
+   "published": "2025-09-25",
+   "text": "## Terminal-Bench\n\n[Terminal‑Bench](https://www.tbench.ai/) is an open benchmark that measures AI agents' ability to complete complex end‑to‑end tasks in a terminal environment. The Core set (v0.1.1) has 80 human‑verified, Dockerized tasks spanning coding, build/test and dependency management, data…",
+   "title": "Droid: The #1 Software Development Agent on Terminal-Bench | Factory.ai",
+   "url": "https://factory.ai/news/terminal-bench"
+  },
+  {
+   "chars_delivered": 924,
+   "published": null,
+   "text": "#### Background\n\n[SWE-bench](https://www.swebench.com/) is a benchmark designed to test an AI system’s ability to solve real-world software engineering tasks.\n\n...\n\nCode Droid did not have any access to hints, internet results, test patches or the oracle patches. To confirm the purity of our result…",
+   "title": "Code Droid: A Technical Report | Factory.ai",
+   "url": "https://factory.ai/news/code-droid-technical-report"
+  },
+  {
+   "chars_delivered": 941,
+   "published": null,
+   "text": "2. Droid Computers\n\n# Droid Computers\n\nCopy page\n\nPersistent compute environments hosted and managed by Factory for Droid.\n\nDroid Computers are persistent compute environments hosted and managed by Factory that Droid can connect to and work on across sessions. They **retain state** : installed pack…",
+   "title": "Droid Computers",
+   "url": "https://docs.factory.ai/droid-computers/overview"
+  },
+  {
+   "chars_delivered": 876,
+   "published": "2025-08-25",
+   "text": "This architecture treats context as a scarce, high-value resource, carefully allocating and curating it with the same rigor one might apply to managing CPU time or memory.\n\n...\n\nHuman developers don't write code in isolation. They require many sources of context to create software that integrates w…",
+   "title": "The Context Window Problem: Scaling Agents Beyond Token Limits | Factory.ai",
+   "url": "https://factory.ai/news/context-window-problem"
+  }
+ ],
+ "latency_ms": 2591.3,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q02",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "What is the architecture of Factory.ai's Droids: execution environment, context and memory, how tasks are delegated, and how output is verified? What do engineering write-ups or benchmarks say about results? Rank first primary sources: Factory.ai's own engineering blog posts, official docs (docs.factory.ai), talks, and technical papers, followed by credible reporting and independent benchmark write-ups (e.g. Terminal-Bench, SWE-bench results). Pull out mechanisms (sandbox or local execution environment, Droid Exec, context and memory handling, codebase and organizational context, integrations, task delegation between Droids and subagents, human-in-the-loop controls, verification via tests, linting, and code review), plus names, dates, measured results and numbers, and any reported failure modes or limitations.",
+   "search_queries": [
+    "Factory.ai Droids architecture engineering blog",
+    "Factory AI Droid context memory delegation verification",
+    "Factory Droids Terminal-Bench SWE-bench benchmark results"
+   ],
+   "session_id": "sl-parallel.search-Q02-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11453,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:22:58.416664Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -156,12 +156,12 @@ def score(run_dir: Path, *, set_root: Path | None = None,
         cells[(doc["question_id"], doc["arm_id"])] = doc
     claims = load_claims(run_dir)
     support = supported_claims(run_dir, claims)
-    by_id = {c["id"]: c for qc in claims.values() for c in qc}
+    by_id = {(qid, c["id"]): c for qid, qc in claims.items() for c in qc}
 
     def verdict(c: Mapping[str, Any]) -> str:
         if not c.get("url"):
             return "uncited"
-        return {1: "supported", 0: "unsupported", None: "unverifiable"}[support.get(c["id"])]
+        return {1: "supported", 0: "unsupported", None: "unverifiable"}[support.get((c["question_id"], c["id"]))]
 
     def claim_view(c: Mapping[str, Any], qid: str) -> dict[str, Any]:
         key = _verify_key(c["url"]) if c.get("url") else None
@@ -181,8 +181,8 @@ def score(run_dir: Path, *, set_root: Path | None = None,
         values = read_json(jpath)["values"] if jpath.is_file() else {}
         views = []
         for cl in read_json(cpath)["clusters"] if cpath.is_file() else []:
-            members = [by_id[m] for m in cl["members"] if m in by_id]
-            credited = sorted({m["arm_id"] for m in members if support.get(m["id"]) == 1})
+            members = [by_id[(qid, m)] for m in cl["members"] if (qid, m) in by_id]
+            credited = sorted({m["arm_id"] for m in members if support.get((qid, m["id"])) == 1})
             judged = values.get(cl["id"], {}) if credited else {}
             view = {"id": cl["id"], "value": judged.get("score"), "reason": judged.get("reason"),
                     "credited": credited, "found_by": sorted({m["arm_id"] for m in members}),
@@ -215,6 +215,8 @@ def score(run_dir: Path, *, set_root: Path | None = None,
     ledger = read_json(ledger_path) if ledger_path.is_file() else {"spent": {}}
     sponsor = set_doc.get("sponsor")
     arm_rows, metrics = [], {}
+    # A set may run some arms on a subset of questions; score each arm on the questions it ran.
+    ran = {a: [q for q in qids if (q, a) in cells] for a in arms}
     for arm in arms:
         entry = manifest["profiles"][arm]
         profile, imported = entry.get("profile", {}), bool(entry.get("imported"))
@@ -223,7 +225,7 @@ def score(run_dir: Path, *, set_root: Path | None = None,
         own = [c for qc in claims.values() for c in qc if c["arm_id"] == arm]
         verdicts = [verdict(c) for c in own]
         counts = {k: verdicts.count(k) for k in ("supported", "unsupported", "uncited", "unverifiable")}
-        counts.update(claims=len(own), cells=len(arm_cells), cells_ok=len(ok),
+        counts.update(claims=len(own), cells=len(arm_cells), cells_ok=len(ok), questions_run=len(ran[arm]),
                       questions_with_insight=sum(1 for q in qids if per_q[arm][q]["weighted"]))
         checked = counts["supported"] + counts["unsupported"] + counts["uncited"]
         cost_known = not (imported and entry.get("cost_basis") == "unknown")
@@ -238,9 +240,9 @@ def score(run_dir: Path, *, set_root: Path | None = None,
                                               for c in own if c.get("url")))
 
         def boot(name: str) -> dict[str, Any]:
-            vector = [per_q[arm][q][name] for q in qids]
+            vector = [per_q[arm][q][name] for q in ran[arm]]
             lo, hi = bootstrap_ci(vector, _seed(grading["seed"], arm, name))
-            return {"value": sum(vector), "n": len(qids), "ci95": [lo, hi], "links": insight_links}
+            return {"value": sum(vector), "n": len(vector), "ci95": [lo, hi], "links": insight_links}
 
         def plain(value: Any, n: int, source: list[str], ci: list[float] | None = None) -> dict[str, Any]:
             return {"value": value, "n": n, "ci95": ci, "links": source}
@@ -248,6 +250,8 @@ def score(run_dir: Path, *, set_root: Path | None = None,
         m = {name: boot(name) for name in ("insights", "weighted", "unique_insights", "unique_weighted")}
         lo, hi = wilson(counts["unsupported"] + counts["uncited"], checked)
         m.update(
+            weighted_per_question=plain(round(m["weighted"]["value"] / len(ran[arm]), 2) if ran[arm] else None,
+                                        len(ran[arm]), insight_links),
             share_of_pool=plain(round(m["weighted"]["value"] / pooled, 4) if pooled else None,
                                 len(insights), insight_links),
             unsupported_rate=plain(round((counts["unsupported"] + counts["uncited"]) / checked, 4)
@@ -302,10 +306,11 @@ def score(run_dir: Path, *, set_root: Path | None = None,
     tests = []
     for other in ranked[1:]:
         leader = ranked[0]
-        diffs = [per_q[leader][q]["weighted"] - per_q[other][q]["weighted"] for q in qids]
+        shared = [q for q in ran[leader] if q in ran[other]]  # compare only where both ran
+        diffs = [per_q[leader][q]["weighted"] - per_q[other][q]["weighted"] for q in shared]
         wins, losses = sum(d > 0 for d in diffs), sum(d < 0 for d in diffs)
         lo, hi = bootstrap_ci(diffs, _seed(grading["seed"], leader, other))
-        tests.append({"leader": leader, "other": other, "n_questions": len(qids), "ahead": wins,
+        tests.append({"leader": leader, "other": other, "n_questions": len(shared), "ahead": wins,
                       "behind": losses, "p_sign": round(sign_test(wins, losses), 4),
                       "ci95_total_diff": [lo, hi]})
     for test, adj in zip(tests, holm([t["p_sign"] for t in tests])):
@@ -320,13 +325,18 @@ def score(run_dir: Path, *, set_root: Path | None = None,
                  "source_sha256": manifest["profiles"][r["arm_id"]].get("source_sha256")}
                 for r in arm_rows if r["imported"]]
     off_day = sorted(f"{q}/{a}" for (q, a), c in cells.items() if c.get("date") and c["date"] != manifest["run_date"])
-    incomplete = sorted(f"{q}/{a}" for q in qids for a in arms if cells.get((q, a), {}).get("status") != "ok")
+    incomplete = sorted(f"{q}/{a}" for q in qids for a in arms if (q, a) in cells and cells[(q, a)].get("status") != "ok")
+    subset = sorted(a for a in arms if len(ran[a]) < len(qids))
     unverified = sum(len(r["unverified"]) for r in arm_rows)
-    caveats = [f"One run on one day: every figure has n = {len(qids)} questions; treat small gaps as noise.",
+    caveats = [f"One run on one day: n = {len(qids)} questions at most; treat small gaps as noise.",
                "The extractor and judges are models; verdicts and values were not checked by hand.",
                "Strict credit: an arm earns a finding only if its own cited page supports it."]
     if unverified:
         caveats.append(f"{unverified} profile fields are unverified against vendor docs; see the profile table.")
+    if subset:
+        caveats.append(f"{len(subset)} arms ran on a subset of questions ({', '.join(f'{a}: {len(ran[a])}' for a in subset)}). "
+                       "Their totals cover only those questions; compare per question, and the significance "
+                       "tests use only questions both arms ran.")
     if incomplete:
         caveats.append(f"{len(incomplete)} cells did not return ok and earn nothing.")
     if off_day:
@@ -416,14 +426,15 @@ def render(summary: Mapping[str, Any], *, base: str = "") -> str:
         "", "## Arms", "",
         "Insight counts and weighted scores carry 95% question-bootstrap intervals; the unsupported rate "
         "carries a Wilson interval.", "",
-        "| Arm | Insights | Weighted | Unique | Share | Cost | Per insight | Per unique | p50 latency "
-        "| Unsupported | Cells ok |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
+        "| Arm | Qs | Insights | Weighted | Weighted / Q | Unique | Share | Cost | Per insight | Per unique "
+        "| p50 latency | Unsupported | Cells ok |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for arm in summary["ranked"]:
         m, row = metrics[arm], arms[arm]
         latency = m["latency_p50_ms"]["value"]
         lines.append(
-            f"| {name(arm)} | {_ci(m['insights'])} | {_ci(m['weighted'])} | {_ci(m['unique_insights'])} "
+            f"| {name(arm)} | {row['counts']['questions_run']} | {_ci(m['insights'])} | {_ci(m['weighted'])} "
+            f"| {m['weighted_per_question']['value']} | {_ci(m['unique_insights'])} "
             f"| {_pct(m['share_of_pool']['value'])} | {_money(m['cost_usd']['value'])} "
             f"| {_money(m['cost_per_insight']['value'])} | {_money(m['cost_per_unique_insight']['value'])} "
             f"| {'n/a' if latency is None else f'{latency / 1000:.1f} s'} "

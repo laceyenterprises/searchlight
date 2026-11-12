@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "e553a197531d8f55",
+ "url": "https://www.zenml.io/blog/inngest-alternatives",
+ "verdicts": {
+  "In Inngest, an agent that picks tool calls at runtime needs each call in its own durable step; grouping several calls in one step makes them share a recovery boundary, and the Pro plan ($99/month) includes 1 million executions and 100 concurrent steps.": 1,
+  "Restate deduplicates requests using the Idempotency-Key header and stores completed responses for 24 hours by default, returning them when the same key is invoked again.": 1,
+  "Without an explicit idempotency key, Restate's controlled idempotent sharding protects only retries of the same in-flight request, not separate requests sent later.": 1,
+  "ZenML recommends modeling agent sessions as Restate Virtual Objects keyed by a session, customer, or task ID: requests for the same key run one at a time while different keys run in parallel.": 1
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "63f95b6cb0a02fc9",
+ "url": "https://docs.factory.com/enterprise/privacy-and-data-flows",
+ "verdicts": {
+  "Droid's agent loop and runtime execute on the machine where it runs (workstation, CI runner, VM or container), file reads and writes stay local, and file contents leave only as part of LLM requests to the configured model endpoints.": 1,
+  "In the Factory Private deployment, Droid sandboxes run in the customer's VPC through OpenCompute while Factory runs the control plane by default.": 1
+ }
+}

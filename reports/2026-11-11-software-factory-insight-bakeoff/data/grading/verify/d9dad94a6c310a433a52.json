@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "7ae1b4d3b514904a",
+ "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost",
+ "verdicts": {
+  "A 2026 study of eight frontier models on SWE-bench Verified found agentic coding tasks consumed roughly 1,000 times more tokens than code reasoning and chat, and a LeanOps audit of 30 engineering teams attributed 62% of the agent bill to re-sent context.": 1,
+  "A LeanOps audit of 30 engineering teams attributed 62% of the agent bill to re-sent context (vendor data), and reported a 20-fold spread between its 10th- and 90th-percentile developers on the same tools.": 1,
+  "Context accumulation mitigations listed are prompt caching, tighter session boundaries, context pruning and model routing, and diagnosing them requires attribution of spend by agent, team, model and use case plus cost per completed task, loop length and retry count.": 1,
+  "In a naive agent loop where each step adds 1,000 new tokens, a 20-step workflow consumes 210,000 cumulative input tokens rather than 20,000, per an Augment Code analysis.": 1,
+  "In the 2026 eight-model SWE-bench Verified study, agentic coding averaged 4.17 million tokens per task, versus 3,390 for code chat and 1,190 for code reasoning.": 1,
+  "Prompt caching of stable context (system instructions, tool definitions, codebase summaries) is offered by Anthropic, OpenAI and Google Cloud and reduces the price of reused input, but does not cover new file contents and tool results that grow during the loop.": 1,
+  "The 2026 study found an average input-to-output token ratio of about 154:1 for agentic coding tasks, with input tokens dominating even when token caching was enabled.": 1,
+  "Vantage notes that an agent session with twice as many turns can cost three to four times as much because later turns carry more accumulated context.": 1
+ }
+}

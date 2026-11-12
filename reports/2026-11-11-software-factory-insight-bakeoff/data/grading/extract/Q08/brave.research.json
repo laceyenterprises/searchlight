@@ -1,0 +1,103 @@
+{
+ "arm_id": "brave.research",
+ "cell_sha": "8a2b775d08f5332e",
+ "claims": [
+  {
+   "text": "Anthropic's initializer agent runs in the first session of a long-running harness and writes an init.sh script, a claude-progress.txt file, an initial git commit, and a feature_list.json file.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's coding agent reads the progress notes and git commit logs at the start of each later session to get up to speed, makes incremental progress, and leaves structured updates for the next session.",
+   "url": null
+  },
+  {
+   "text": "The feature_list.json file holds end-to-end feature descriptions, all initially marked as failing, and the coding agent reads it to pick a single feature to work on, which mitigates the failure mode where Claude declares victory too early.",
+   "url": null
+  },
+  {
+   "text": "Running a basic test on the development server at the start of each session, using init.sh, mitigates the failure mode where the agent leaves the environment with bugs.",
+   "url": null
+  },
+  {
+   "text": "Writing an init.sh script mitigates the failure mode where the agent spends time figuring out how to run the app.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent also creates a detailed plan of action saved to an external artifact such as a TODO.md file.",
+   "url": null
+  },
+  {
+   "text": "Naive long-horizon implementations suffer from 'context anxiety', where models wrap up work prematurely as they approach context limits.",
+   "url": null
+  },
+  {
+   "text": "Clearing context and starting fresh with a structured handoff (a context reset) addresses context anxiety and resets the model's focus.",
+   "url": null
+  },
+  {
+   "text": "Claude Code implements compaction by passing the message history to the model to summarize and compress the most critical details.",
+   "url": null
+  },
+  {
+   "text": "With API compaction enabled, the API detects when input tokens reach a specified trigger threshold, generates a summary, creates a compaction block, and continues the response with the compacted context.",
+   "url": null
+  },
+  {
+   "text": "Claude Code uses a 5-stage compression pipeline: Tool Result Budget, History Snip, Microcompact, Context Collapse, and Autocompact.",
+   "url": null
+  },
+  {
+   "text": "Overly aggressive compaction can lose subtle but critical context.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's multi-agent research system uses an orchestrator-worker architecture in which a lead agent analyzes the query and spawns specialized subagents in parallel.",
+   "url": null
+  },
+  {
+   "text": "Parallelizing subagents and tool calls cut research time by up to 90% on complex queries.",
+   "url": null
+  },
+  {
+   "text": "Token usage alone explains 80% of the performance variance on the BrowseComp evaluation.",
+   "url": null
+  },
+  {
+   "text": "Agents typically use about 4x the tokens of a chat interaction, and multi-agent systems use about 15x the tokens of a chat.",
+   "url": null
+  },
+  {
+   "text": "A multi-agent system with Claude Opus 4 as lead and Claude Sonnet 4 as subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research eval.",
+   "url": null
+  },
+  {
+   "text": "Delegation to a subagent must include an objective, an output format, tool guidance, and task boundaries; early versions with vague instructions led to misinterpretation or duplicated work.",
+   "url": null
+  },
+  {
+   "text": "Effort scaling guidance: simple fact-finding uses 1 agent with 3-10 tool calls, direct comparisons use 2-4 subagents with 10-15 calls each, and complex research may use over 10 subagents.",
+   "url": null
+  },
+  {
+   "text": "Subagents write their output to a filesystem or external system and pass lightweight references to the coordinator, which minimizes the 'game of telephone' effect.",
+   "url": null
+  },
+  {
+   "text": "The Claude Agent SDK is Claude Code packaged as a library, shipping built-in tools, the agent loop, context management, hooks, subagents, permissions, and sessions.",
+   "url": null
+  },
+  {
+   "text": "Anthropic introduced Agent Skills on October 16, 2025 and published them as an open standard on December 18, 2025; a skill is a directory containing a SKILL.md file, and unlike subagents, skills cannot be defined programmatically in the SDK and must be filesystem artifacts.",
+   "url": null
+  },
+  {
+   "text": "Skills use progressive disclosure: Level 1 metadata (~100 tokens per skill) is always loaded, Level 2 instructions (under 5k tokens) load when the skill triggers, and Level 3+ resources load as needed, with scripts run rather than read so only their output enters context.",
+   "url": null
+  },
+  {
+   "text": "A subagent is a separate context window, whereas a skill is packaged procedural knowledge; skills do not create a new model or silently grant tool access.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

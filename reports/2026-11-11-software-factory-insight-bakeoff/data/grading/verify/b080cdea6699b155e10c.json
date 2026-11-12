@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "0a058fbfe921b269",
+ "url": "https://aios.readthedocs.io/en/latest/aios_developer/scheduler/fifo.html",
+ "verdicts": {
+  "The AIOS FIFOScheduler is implemented with Python threads and queues, using separate threads such as a memory syscall processor and a storage syscall processor; its queue timeout is 1 second versus 0.05 seconds in the round robin scheduler.": 1
+ }
+}

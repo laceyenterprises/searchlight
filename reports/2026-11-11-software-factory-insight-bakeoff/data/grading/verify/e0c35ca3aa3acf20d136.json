@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "9b7e2ab5c365b6b1",
+ "url": "https://mutagent.io/blog/self-improving-software-factory/",
+ "verdicts": {
+  "Mutagent named an open problem with its self-improving factory loop: amplification, where a bad mutation to the review agent degrades every later iteration, including the review of the next mutation, and guardrails to contain this are not yet solved.": 1,
+  "On 2026-09-30 Mutagent described how its software factory Architech (multi-agent, parallel workers, built on Pi) built its agent factory Helix (Spec, Build, Evaluate, Diagnose, Optimize, Ship), and then Helix was pointed at Architech to optimize its architect, orchestrator and review agents.": 1
+ }
+}

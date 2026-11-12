@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "c34cf619c8219831",
+ "url": "https://finopsllm.com/research/agent-workflow-architecture-cost-controls",
+ "verdicts": {
+  "FinOps LLM recommends atomically reserving each attempt against both the workflow and owner daily budgets before dispatch, retaining reservations for timed-out calls until usage is reconciled, and stopping before dispatch if a price is unknown.": 1,
+  "FinOps LLM's illustrative policy template sets max workflow cost $0.20, max attempt reservation $0.05, daily owner budget $50, max 6 model attempts, 4 tool attempts, 0 subagents, and a 120-second deadline, with an economy default model and a premium fallback requiring a new reservation.": 1,
+  "In FinOps LLM's synthetic ledger a workflow costs $0.031 (assumed $2 input/$10 output per million tokens); with 100 attempted workflows and 90 passing, cost per successful task is $3.10/90, about $0.0344.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "b708cbae85aa1466",
+ "claims": [
+  {
+   "text": "Anthropic measured five MCP servers at 58 tools and about 55,000 tokens of tool definitions before any work started (Anthropic, 24 Nov 2025).",
+   "url": null
+  },
+  {
+   "text": "Tool-count guidance by vendor: OpenAI recommends fewer than 20 functions at the start of a turn, Google recommends 10 to 20 active tools, Anthropic says selection accuracy degrades past 30 to 50 tools, and Microsoft 365 Copilot warns quality may degrade beyond 10 functions.",
+   "url": null
+  },
+  {
+   "text": "Every vendor's answer to tool-count limits is tool search, where tools are marked for deferred loading and the model searches for the ones it needs.",
+   "url": null
+  },
+  {
+   "text": "The MCP specification 2026-07-28 is stateless: no initialize handshake and no Mcp-Session-Id header; each request carries protocol version, client capabilities and client identity in _meta, and a mandatory server/discover call advertises server support.",
+   "url": null
+  },
+  {
+   "text": "In MCP 2026-07-28, each POST carries Mcp-Method and Mcp-Name headers so gateways can route without parsing the body.",
+   "url": null
+  },
+  {
+   "text": "MCP 2026-07-28 deprecated dynamic client registration, roots, sampling, logging and HTTP+SSE, and moved tasks into an extension, with a 12-month deprecation policy.",
+   "url": null
+  },
+  {
+   "text": "MCP 2025-06-18 made the server an OAuth resource server with protected resource metadata and required resource indicators; 2025-11-25 recommended Client ID Metadata Documents for client registration.",
+   "url": null
+  },
+  {
+   "text": "Invariant Labs described tool poisoning, rug pulls (descriptions changed after approval) and cross-server shadowing on 1 Apr 2025; the recommended mitigation is pinning tool lists and treating descriptions and annotations such as readOnlyHint as untrusted input.",
+   "url": null
+  },
+  {
+   "text": "On 26 May 2025 Invariant Labs showed a malicious public GitHub issue steering an agent using the official GitHub MCP server into leaking private repository data via a public pull request; no server patch fixes it because the danger comes from combining private data, untrusted input and an outbound channel.",
+   "url": null
+  },
+  {
+   "text": "CVE-2025-6514 (mcp-remote, CVSS 9.6) allowed a malicious server to execute commands on Windows, and CVE-2025-49596 (MCP Inspector, CVSS 9.4) let a web page drive an unauthenticated local proxy.",
+   "url": null
+  },
+  {
+   "text": "The impostor npm package postmark-mcp 1.0.16 copied every email to an attacker before removal, and Asana's own MCP server exposed data across about 1,000 customers in mid-2025.",
+   "url": null
+  },
+  {
+   "text": "The MCP spec forbids token passthrough; the official TypeScript and Python SDKs shipped fixes in October 2026 for bearer authentication that accepted tokens issued for other services.",
+   "url": null
+  },
+  {
+   "text": "A Copilot Studio agent shared with maker-provided credentials lets anyone using it act with the maker's access.",
+   "url": null
+  },
+  {
+   "text": "The official MCP Registry has been in preview since 8 Sep 2025, stores metadata only, lists no private servers, and its docs warn data resets may occur before general availability; enterprises are expected to run private sub-registries.",
+   "url": null
+  },
+  {
+   "text": "Private registry options include Azure API Center, AWS Agent Registry (GA 31 Aug 2026) and Google Agent Registry (GA 18 Jun 2026); gateways include Azure API Management, AgentCore Gateway and Google Agent Gateway.",
+   "url": null
+  },
+  {
+   "text": "Pinned tool lists are available via Anthropic's mcp-client-2026-09-15 header and a static mcpToolSchema on AgentCore Gateway.",
+   "url": null
+  },
+  {
+   "text": "Block said in June 2025 it had built more than 60 internal MCP servers with one risk level per tool and OAuth with minimal scopes.",
+   "url": null
+  },
+  {
+   "text": "Stripe's remote MCP server uses OAuth or scoped agent API keys, organisation-wide on/off switches and dashboard confirmation for sensitive actions, and full-access keys stop working on it after 30 Nov 2026.",
+   "url": null
+  },
+  {
+   "text": "MCP and A2A are now under the Agentic AI Foundation (MCP since 9 Dec 2025, A2A since 27 Aug 2026); A2A reached version 1.0.0 on 12 Mar 2026.",
+   "url": null
+  },
+  {
+   "text": "Client-to-gateway and gateway-to-upstream are two separate OAuth trust relationships; the gateway is the resource server for the client and the OAuth client toward the upstream, and the MCP spec forbids forwarding a client token to an upstream API.",
+   "url": null
+  },
+  {
+   "text": "For the gateway-to-MCP-server hop, token pass-through kills audit and on-behalf-of; the recommended pattern is RFC 8693 token exchange with a nested act claim, with mTLS underneath.",
+   "url": null
+  },
+  {
+   "text": "Tool-level authorization should move out of each MCP server and into the gateway, where policy can see mcp.tool.name and tool arguments via CEL rules.",
+   "url": null
+  },
+  {
+   "text": "In agentgateway, promptGuard attached to an MCP backend is accepted but does nothing; tool output re-enters the model as a role: tool message that built-in request regex skips, so a request webhook on the LLM route is needed to mask or reject tainted tool output.",
+   "url": null
+  },
+  {
+   "text": "A gateway can store a definition_hash (sha256 of tool name, description and schema) per registered tool and block or re-request approval when the live definition changes, defending against rug pulls.",
+   "url": null
+  },
+  {
+   "text": "The open-source MCP Gateway & Registry uses an nginx data plane and a FastAPI registry control plane, brokers per-user OAuth (3LO/OBO) egress tokens so they never live on laptops, and offers virtual MCP servers aggregating tools with per-tool access control.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

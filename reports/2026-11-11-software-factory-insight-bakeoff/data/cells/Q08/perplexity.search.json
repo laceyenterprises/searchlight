@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:02.483281Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 5579,
+   "published": "2025-11-26",
+   "text": "# Effective harnesses for long-running agents\n...\nWe developed a two-fold solution to enable the Claude Agent SDK to work effectively across many context windows: an **initializer agent** that sets up the environment on the first run, and a **coding agent** that is tasked with making incremental pr…",
+   "title": "Effective harnesses for long-running agents",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "chars_delivered": 6541,
+   "published": "2025-06-13",
+   "text": "# How we built our multi-agent research system\nThe journey of this multi-agent system from prototype to production taught us critical lessons about system architecture, tool design, and prompt engineering.\n...\n## Benefits of a multi-agent system\nSubagents facilitate compression by operating in para…",
+   "title": "How we built our multi-agent research system",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "chars_delivered": 269,
+   "published": "2026-11-09",
+   "text": "# Create custom subagents\n## Work with subagents\n### Manage subagent context\n#### Auto-compaction\nSubagents support automatic compaction.\nCompaction triggers as the subagent’s own context window fills, and `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` applies to subagents as well.",
+   "title": "Create custom subagents - Claude Code Docs",
+   "url": "https://code.claude.com/docs/en/sub-agents"
+  },
+  {
+   "chars_delivered": 384,
+   "published": "2026-10-21",
+   "text": "Define and invoke subagents to isolate context, run tasks in parallel, and apply specialized instructions in your Claude Agent SDK applications.\nSubagents are separate agent instances that your main agent can spawn to handle focused subtasks.\nUse them to isolate context, run multiple analyses in pa…",
+   "title": "Subagents in the SDK - Claude Code Docs",
+   "url": "https://code.claude.com/docs/en/agent-sdk/sub-agents"
+  },
+  {
+   "chars_delivered": 1330,
+   "published": "2025-09-29",
+   "text": "The Claude Agent SDK is a collection of tools that helps developers build powerful agents on top of Claude Code.\n...\nLast year, we shared lessons in building effective agents alongside our customers.\n...\n### Subagents\nClaude Agent SDK supports subagents by default.\nSubagents are useful for two main…",
+   "title": "Building agents with the Claude Agent SDK | Claude by Anthropic",
+   "url": "https://claude.com/resources/articles/building-agents-with-the-claude-agent-sdk"
+  },
+  {
+   "chars_delivered": 1092,
+   "published": "2026-11-06",
+   "text": "These five types cover the full agent loop lifecycle.\n...\nWhen the context window approaches its limit, the SDK automatically compacts the conversation: it summarizes older history to free space, keeping your most recent exchanges and key decisions intact.\n...\n### Keep context efficient\nA few strat…",
+   "title": "How the agent loop works - Claude Code Docs",
+   "url": "https://code.claude.com/docs/en/agent-sdk/agent-loop"
+  },
+  {
+   "chars_delivered": 205,
+   "published": "2026-10-23",
+   "text": "Agent Skills extend Claude with specialized capabilities that Claude invokes when relevant.\nSkills are packaged as `SKILL.md` files containing instructions, descriptions, and optional supporting resources.",
+   "title": "Extend agents with skills - Claude Code Docs",
+   "url": "https://code.claude.com/docs/en/agent-sdk/skills"
+  },
+  {
+   "chars_delivered": 1857,
+   "published": null,
+   "text": "These five types cover the full agent loop lifecycle.\n...\nThe budget cap covers [subagents](https://code.claude.com/docs/en/agent-sdk/subagents.md): their spend counts toward the total.\n...\nThe context window is the total amount of information available to Claude during a session.\nIt does not reset…",
+   "title": "How the agent loop works",
+   "url": "https://code.claude.com/docs/en/agent-sdk/agent-loop.md"
+  },
+  {
+   "chars_delivered": 844,
+   "published": null,
+   "text": "Subagents are specialized AI assistants that handle specific types of tasks.\nUse one when a side task would flood your main conversation with search results, logs, or file contents you won't reference again: the subagent does that work in its own context and returns only the summary.\n...\nUse the `s…",
+   "title": "Create custom subagents",
+   "url": "https://code.claude.com/docs/en/sub-agents.md"
+  },
+  {
+   "chars_delivered": 2959,
+   "published": "2025-09-29",
+   "text": "One of the most common failure modes we see is bloated tool sets that cover too much functionality or lead to ambiguous decision points about which tool to use.\n...\nLong-horizon tasks require agents to maintain coherence, context, and goal-directed behavior over sequences of actions where the token…",
+   "title": "Effective context engineering for AI agents",
+   "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+  }
+ ],
+ "latency_ms": 496.1,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q08",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What does Anthropic recommend for long-running agent harnesses and multi-agent systems? Cover initializer and coding agents, progress files, context compaction, subagents, the Claude Agent SDK, Agent Skills, and the multi-agent research system's lessons on token cost and orchestration.",
+    "Anthropic effective harnesses long-running agents initializer coding agent",
+    "Anthropic multi-agent research system orchestrator subagents token cost",
+    "Claude Agent SDK subagents context compaction Agent Skills"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 23387,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:01.987146Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

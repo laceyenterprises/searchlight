@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:00.769614Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 3607,
+   "published": null,
+   "text": "## About customizing Copilot coding agent's development environment\nWhile working on an issue, Copilot has access to its own ephemeral development environment, powered by GitHub Actions, where it can explore your code, make changes, execute automated tests and linters and more.\nYou can customize Co…",
+   "title": "Customizing Copilot coding agent's development environment - GitHub Enterprise Cloud Docs",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "chars_delivered": 1130,
+   "published": null,
+   "text": "1. Configure network security controls for your GitHub Actions runners to ensure that Copilot cloud agent does not have open access to your network or the public internet.\nYou must configure your firewall to allow connections to the standard hosts required for GitHub Actions self-hosted runners, pl…",
+   "title": "Configure the development environment for agents on GitHub ...",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment"
+  },
+  {
+   "chars_delivered": 2555,
+   "published": null,
+   "text": "Firewall configuration is managed from the \"Internet access\" settings tab, which covers both Copilot cloud agent and Copilot code review.\n...\nBy default, Copilot's access to the internet is limited by a firewall.\n...\nCopilot code review also supports firewall configuration, at both the organization…",
+   "title": "Customizing or disabling the firewall for GitHub Copilot",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "chars_delivered": 967,
+   "published": "2026-05-23",
+   "text": "# Copilot Java setup guide\nThe GitHub Copilot coding agent runs in an ephemeral GitHub Actions environment.\nBy default it uses whatever JDK is pre-installed on the runner.\nTo ensure it uses a specific version (such as Java 25), you must provide a `copilot-setup-steps.yml` workflow that runs before…",
+   "title": "ai-toolkit/github-copilot-coding-agent/skills/github-copilot ...",
+   "url": "https://github.com/teggr/ai-toolkit/blob/main/github-copilot-coding-agent/skills/github-copilot-coding-agent/docs/docs.md"
+  },
+  {
+   "chars_delivered": 2110,
+   "published": "2025-10-28",
+   "text": "**That’s why we’re making agents native to the GitHub flow.**\n...\n**Over the coming months, coding agents from Anthropic, OpenAI, Google, Cognition, xAI, and more will become available directly within GitHub as part of your paid GitHub Copilot subscription**.\n...\nThis starts with a **mission contro…",
+   "title": "Introducing Agent HQ: Any agent, any way you work",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "chars_delivered": 2340,
+   "published": null,
+   "text": "> Firewall configuration is managed from the \"Internet access\" settings tab, which covers both Copilot cloud agent and Copilot code review.\nPrevious configurations saved as Actions variables will be maintained on that page.\n...\nBy default, Copilot's access to the internet is limited by a firewall.…",
+   "title": "GitHub Docs",
+   "url": "https://docs.github.com/api/article/body?pathname=/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "chars_delivered": 2036,
+   "published": "2025-12-01",
+   "text": "We recently shipped Agent HQ’s mission control, a unified interface for managing GitHub Copilot coding agent tasks.\nNow, you can now assign tasks to Copilot across repos, pick a custom agent, watch real‑time session logs, steer mid-run (pause, refine, or restart), and jump straight into the resulti…",
+   "title": "How to orchestrate agents using mission control",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "chars_delivered": 1193,
+   "published": null,
+   "text": "1. Configure network security controls for your GitHub Actions runners to ensure that Copilot cloud agent does not have open access to your network or the public internet.\nYou must configure your firewall to allow connections to the standard hosts required for GitHub Actions self-hosted runners, pl…",
+   "title": "Configure the development environment - GitHub Docs",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment"
+  },
+  {
+   "chars_delivered": 1275,
+   "published": "2025-10-28",
+   "text": "GitHub is giving developers access to third-party AI coding agents with the launch of a new “Agent HQ.”\nInstead of just using GitHub Copilot, developers will get to try OpenAI’s Codex, Anthropic’s Claude, Google’s Jules, xAI, and Cognition’s Devin within GitHub in the coming months.\nDevelopers with…",
+   "title": "GitHub is launching a hub for multiple AI coding agents",
+   "url": "https://www.theverge.com/news/808032/github-ai-agent-hq-coding-openai-anthropic"
+  },
+  {
+   "chars_delivered": 1732,
+   "published": "2026-04-13",
+   "text": "Set non-negotiable controls at the enterprise level — audit log streaming and model restrictions for compliance — so every organization inherits a governance floor it can build on.\n...\nThe cloud agent's built-in protections provide a baseline, but they are not sufficient on their own.\nLayer additio…",
+   "title": "GitHub Learn: Your Personalized Learning Experience",
+   "url": "https://learn.github.com/well-architected/governance/recommendations/governing-agents"
+  }
+ ],
+ "latency_ms": 482.5,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q05",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How do the GitHub Copilot coding agent and GitHub Agent HQ / Mission Control orchestrate multiple vendors' coding agents? Cover the execution environment (Actions runners), firewall, review and merge flow, and governance controls.",
+    "GitHub Agent HQ Mission Control multiple coding agents",
+    "Copilot coding agent Actions runner firewall allowlist",
+    "GitHub Agent HQ governance controls third-party agents pull request review"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 21929,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:00.287126Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

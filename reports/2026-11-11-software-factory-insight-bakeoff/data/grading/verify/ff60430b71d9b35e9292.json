@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "216bf375f8540fe0",
+ "url": "https://docs.github.com/en/copilot/concepts/agents/about-third-party-coding-agents",
+ "verdicts": {
+  "Third-party agents can be started from the Agents tab, by assigning issues, by mentioning @AGENT_NAME in a pull request comment, from GitHub Mobile, or from Visual Studio Code.": 1,
+  "Third-party agents consume GitHub Actions minutes and AI credits; they must be enabled via account, organization or enterprise policies, and enabling a partner agent installs a GitHub App (e.g. 'anthropic code agent', 'openai code agent') whose actions appear in the audit log.": 1,
+  "Third-party coding agents (Anthropic Claude and OpenAI Codex, in public preview) work alongside Copilot cloud agent: they are assigned an issue or prompt, create a pull request, request a review from the user, and iterate on PR comments.": 1,
+  "Third-party coding agents are subject to the same security protections, mitigations and limitations as Copilot cloud agent, and GitHub scans their generated code with CodeQL, secret scanning, and Advisory Database checks for new dependencies, without requiring a GitHub Advanced Security license.": 1
+ }
+}

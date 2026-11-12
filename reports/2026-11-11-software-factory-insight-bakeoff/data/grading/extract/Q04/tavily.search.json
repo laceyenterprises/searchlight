@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "f66cbf6e22fdd95a",
+ "claims": [
+  {
+   "text": "OpenAI launched Codex on May 16, 2025 as a research preview: a cloud-based software engineering agent that can work on many tasks in parallel, powered by codex-1.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "codex-1 is a version of OpenAI o3 optimized for software engineering, trained with reinforcement learning on real-world coding tasks to mirror human style and PR preferences, follow instructions precisely, and iteratively run tests until a passing result.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "Each Codex task runs in its own cloud sandbox environment preloaded with the user's repository, processed independently in a separate isolated environment.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "Inside the sandbox Codex can read and edit files and run commands including test harnesses, linters, and type checkers.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "Codex task completion typically takes between 1 and 30 minutes depending on complexity, and progress can be monitored in real time.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "After finishing, Codex commits its changes in its environment and provides verifiable evidence via citations of terminal logs and test outputs; the user can request revisions, open a GitHub pull request, or integrate changes locally.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "AGENTS.md files placed in a repository are text files, akin to README.md, that tell Codex how to navigate the codebase, which commands to run for testing, and how to follow project practices.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "OpenAI states codex-1 shows strong performance on coding evaluations and internal benchmarks even without AGENTS.md files or custom scaffolding.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "The codex-1 system message tells the agent to run all tests mentioned in AGENTS.md, but users can ask Codex to skip them if short on time; it also says AGENTS.md files can appear anywhere in the container filesystem (e.g. /, ~, inside Git repos).",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "At launch, internet access was disabled during task execution, limiting the agent to code provided via GitHub repositories and dependencies pre-installed via a user-configured setup script; it could not access external websites, APIs, or other services.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "On June 3, 2025 OpenAI added Codex for ChatGPT Plus users and enabled users to give Codex internet access during task execution.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "codex-1 was evaluated on SWE-Bench Verified at a maximum context length of 192k tokens and medium reasoning effort, with 23 samples excluded because they were not runnable on OpenAI's internal infrastructure.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "OpenAI engineers most often use Codex to offload repetitive, well-scoped tasks such as refactoring, renaming, and writing tests, and also for triaging on-call issues, planning daily tasks, and background work.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "OpenAI recommends assigning well-scoped tasks to multiple agents simultaneously, based on learnings from early testers.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "The launch post says users must still manually review and validate all agent-generated code; Codex explicitly communicates uncertainty or test failures.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "As a research preview, Codex lacked image inputs for frontend work and the ability to course-correct the agent mid-task; delegating to a remote agent takes longer than interactive editing.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "codex-mini-latest (a smaller o4-mini-based codex-1 version for Codex CLI) was priced at $1.50 per 1M input tokens and $6 per 1M output tokens with a 75% prompt caching discount.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "Current Codex cloud internet presets are Package managers, Custom domains only, or All (unrestricted), behind OpenAI's proxy; internet is restricted by default.",
+   "url": "https://www.agent37.com/blog/codex-cloud"
+  },
+  {
+   "text": "Since the September 29 relaunch, a cloud environment is created once (Codex checks out selected repos, installs dependencies, and records an install script plus an editable start skill), then tasks run in isolated parallel workspaces; a task's saved VM state is recoverable for up to seven days.",
+   "url": "https://www.agent37.com/blog/codex-cloud"
+  },
+  {
+   "text": "The legacy Codex Cloud architecture still powers code review and the GitHub, GitLab (beta), and Linear integrations.",
+   "url": "https://www.agent37.com/blog/codex-cloud"
+  },
+  {
+   "text": "OpenAI's guide on how it uses Codex internally recommends keeping an AGENTS.md for persistent context (naming conventions, business logic, known quirks, dependencies), using the task queue as a lightweight backlog, using 'Best of N', and writing prompts like GitHub issues.",
+   "url": "https://openai.com/business/guides-and-resources/how-openai-uses-codex"
+  },
+  {
+   "text": "OpenAI's internal-use guide says setting a startup script, environment variables, and internet access significantly reduces Codex's error rate.",
+   "url": "https://openai.com/business/guides-and-resources/how-openai-uses-codex"
+  },
+  {
+   "text": "A third-party guide reports OpenAI has said teams cut manual review time by around 60% when Codex pre-screens pull requests; this is a secondary-source claim, not from the OpenAI launch post.",
+   "url": "https://bhavishyapandit9.substack.com/p/everything-about-codex-the-complete"
+  },
+  {
+   "text": "The guide says the Codex prompt stacks environment context, AGENTS.md contents, sandbox permission rules, and tool definitions with static content first for prompt caching, with cached prefix tokens costing roughly a tenth of fresh input tokens; changing AGENTS.md mid-session invalidates the largest cached prefix.",
+   "url": "https://bhavishyapandit9.substack.com/p/everything-about-codex-the-complete"
+  },
+  {
+   "text": "The guide says Codex was launched without general internet access for security, with optional network access added later under user control, and risky actions can pause for human approval depending on the configured mode.",
+   "url": "https://bhavishyapandit9.substack.com/p/everything-about-codex-the-complete"
+  }
+ ],
+ "question_id": "Q04"
+}

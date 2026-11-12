@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "AI agent sandbox Firecracker gVisor comparison benchmarks",
+  "E2B Modal Daytona sandbox cold start snapshot",
+  "Cloudflare sandbox devcontainers agent network egress isolation"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: What sandboxing approaches are used for autonomous agents (Firecracker microVMs, gVisor, e2b, Modal, Daytona, Cloudflare, devcontainers)? Compare startup time, isolation strength, snapshot/resume, cost, and network egress control, with any published benchmarks. Pages that should rank first are primary sources: the organisations' own engineering blog posts, documentation, talks, papers, and source code (Firecracker, gVisor, E2B, Modal, Daytona, Cloudflare Sandbox/Containers, devcontainers spec), plus credible independent benchmarks and reporting. Pull out mechanisms (microVM vs user-space kernel vs container), cold start and resume numbers in milliseconds, isolation and security model, snapshot/restore features, pricing per vCPU-second, network egress policy options, measured results, dates, and known failure modes or limitations.",
+ "question_id": "Q16",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

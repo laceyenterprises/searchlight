@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "Anthropic effective harnesses long-running agents initializer coding agent",
+  "Anthropic multi-agent research system orchestrator subagents token cost",
+  "Claude Agent SDK subagents context compaction Agent Skills"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "What does Anthropic recommend for long-running agent harnesses and multi-agent systems? Cover initializer and coding agents, progress files, context compaction, subagents, the Claude Agent SDK, Agent Skills, and the multi-agent research system's lessons on token cost and orchestration. Rank first the primary sources: Anthropic's own engineering blog posts (e.g. effective harnesses for long-running agents, how we built our multi-agent research system, building agents with the Claude Agent SDK, equipping agents with Agent Skills), Anthropic docs, and talks. Pull out mechanisms (initializer agent vs coding agent, progress files, feature lists, git commits, compaction, subagent context isolation, orchestrator-worker pattern), numbers (token usage multiples versus chat, performance gains over single-agent), names, dates, and failure modes and lessons learned.",
+ "question_id": "Q08",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

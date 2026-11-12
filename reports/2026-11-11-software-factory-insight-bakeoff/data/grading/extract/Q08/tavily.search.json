@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "0afb7c2a636089a0",
+ "claims": [
+  {
+   "text": "Anthropic's solution for the Claude Agent SDK across many context windows is two-fold: an initializer agent that sets up the environment on the first run, and a coding agent that makes incremental progress in every session while leaving clear artifacts for the next session.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent's specialized first-session prompt asks the model to create an init.sh script, a claude-progress.txt file logging what agents have done, and an initial git commit showing the files added.",
+   "url": null
+  },
+  {
+   "text": "Each subsequent coding-agent session is asked to make incremental progress and then leave structured updates.",
+   "url": null
+  },
+  {
+   "text": "The initializer and coding agents differ only in their initial user prompts; the system prompt, tool set, and overall harness are identical.",
+   "url": null
+  },
+  {
+   "text": "Compaction alone is not sufficient: even Opus 4.5 on the Claude Agent SDK looping across multiple context windows fell short of a production-quality claude.ai clone when given only a high-level prompt.",
+   "url": null
+  },
+  {
+   "text": "One observed failure mode is that the agent tries to one-shot the app, runs out of context mid-implementation, and leaves the next session a half-implemented, undocumented feature; this happens even with compaction, which doesn't always pass clear instructions to the next agent.",
+   "url": null
+  },
+  {
+   "text": "A second observed failure mode is that after some features were built, a later agent instance saw the progress made and declared the whole job done.",
+   "url": null
+  },
+  {
+   "text": "For the claude.ai clone, the initializer wrote a feature list of over 200 features, all initially marked as failing (\"passes\": false), so coding agents had a clear outline of full functionality.",
+   "url": null
+  },
+  {
+   "text": "Coding agents are prompted to edit the feature list only by changing the passes field, with strongly worded instructions such as \"It is unacceptable to remove or edit tests because this could lead to missing or buggy functionality.\"",
+   "url": null
+  },
+  {
+   "text": "Anthropic used JSON for the feature list because the model is less likely to inappropriately change or overwrite JSON files than Markdown files.",
+   "url": null
+  },
+  {
+   "text": "Coding agents are asked to work on only one feature at a time, which was critical to curbing the tendency to do too much at once.",
+   "url": null
+  },
+  {
+   "text": "To keep the environment clean, the model is asked to commit progress to git with descriptive commit messages and write progress summaries in a progress file, allowing it to use git to revert bad changes and recover working states.",
+   "url": null
+  },
+  {
+   "text": "Claude tended to mark features complete without end-to-end testing, using unit tests or curl against a dev server; prompting it to use browser automation (Puppeteer MCP) and test like a human user dramatically improved results.",
+   "url": null
+  },
+  {
+   "text": "Claude can't see browser-native alert modals through the Puppeteer MCP, so features relying on those modals tended to be buggier.",
+   "url": null
+  },
+  {
+   "text": "At session start each coding agent runs pwd, reads git logs and progress files, reads the feature list to pick the highest-priority unfinished feature, and runs a basic end-to-end test via init.sh before implementing anything new.",
+   "url": null
+  },
+  {
+   "text": "Open question: it is unclear whether a single general-purpose coding agent performs best or whether specialized agents (testing, QA, code cleanup) in a multi-agent architecture would do better.",
+   "url": null
+  },
+  {
+   "text": "Context resets (clearing the window and starting a fresh agent with a structured handoff) differ from compaction, which summarizes earlier conversation in place; compaction preserves continuity but doesn't give a clean slate, so context anxiety can persist.",
+   "url": null
+  },
+  {
+   "text": "Claude Sonnet 4.5 exhibited \"context anxiety\" (wrapping up prematurely near its perceived context limit) strongly enough that compaction alone was insufficient and context resets became essential; resets add orchestration complexity, token overhead, and latency.",
+   "url": null
+  },
+  {
+   "text": "Opus 4.5 largely removed context anxiety, so the later harness dropped context resets and ran as one continuous session using the Claude Agent SDK's automatic compaction.",
+   "url": null
+  },
+  {
+   "text": "Agents tend to confidently praise their own work even when it is mediocre; separating the generator from a standalone, skeptical evaluator is more tractable than making a generator self-critical.",
+   "url": null
+  },
+  {
+   "text": "The three-agent harness (planner, generator, evaluator) had the generator and evaluator negotiate a sprint contract defining \"done\" before each sprint, communicating through files, with the evaluator using the Playwright MCP and hard pass/fail thresholds per criterion.",
+   "url": null
+  },
+  {
+   "text": "In the retro game maker comparison, the solo run took 20 minutes and cost $9, while the full harness took 6 hours and cost $200 (over 20x more), but produced noticeably better and working output.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's multi-agent research system recommends having subagents write outputs to the filesystem or an external system and return lightweight references rather than routing everything through the lead agent's context.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's guidance on building effective agents says to find the simplest solution possible and only increase complexity when needed; most systems should start with one well-configured agent.",
+   "url": null
+  },
+  {
+   "text": "For Agent Skills, Anthropic recommends starting with evaluation to find capability gaps and building skills incrementally, and splitting an unwieldy SKILL.md into separate referenced files, since keeping mutually exclusive contexts in separate paths reduces token usage.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

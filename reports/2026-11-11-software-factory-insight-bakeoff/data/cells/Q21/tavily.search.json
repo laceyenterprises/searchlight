@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:10.387976Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2395,
+   "page_chars_delivered": 239875,
+   "post_step": "fetched",
+   "published": null,
+   "text": "| |  |  |  |  ---  |  |  | jefftk on July 13, 2023  | root | parent | next (javascript:void(0))   > Merge queues run CI for groups of PRs. If the group passes, all the PRs in the group land simultaneously. If it does not, the group is discarded while other group permutations are still running in pa…",
+   "title": "GitHub merge queue is generally available | Hacker News",
+   "url": "https://news.ycombinator.com/item?id=36707239"
+  },
+  {
+   "chars_delivered": 1974,
+   "page_chars_delivered": 22091,
+   "post_step": "fetched",
+   "published": null,
+   "text": "await evictPRsAndDependents(failingPRs);\n\n}\n\n};\n\n```\n\nThe key insight is in that `runSpeculativeCI` call. Instead of running CI on each PR individually, we create a speculative merge branch that contains all the changes, then run CI once. This cuts CI costs dramatically while giving us complete con…",
+   "title": "How we built the first stack-aware merge queue (and why it matters)",
+   "url": "https://graphite.com/blog/the-first-stack-aware-merge-queue"
+  },
+  {
+   "chars_delivered": 1930,
+   "page_chars_delivered": 10792,
+   "post_step": "fetched",
+   "published": null,
+   "text": "> “And we really rapidly became bottlenecked on other things like our merge queue, which is the get in line to get your change accepted by the system that then deploys into production. We had to completely re-architect it because so much more code was being written and so many more pull requests we…",
+   "title": "Merge fast or merge cheap: Fine-tuning merge queues to handle an increase in PRs from AI agents | Trunk",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "chars_delivered": 2033,
+   "published": null,
+   "text": "Batching groups multiple PRs into a single CI run. Batches of 4 mean roughly 25% as many CI runs, at the cost of one extra bisection round when a batch fails. Most teams cut their queue CI bill by 50 to 75% with this alone.\n Speculative checks run multiple PRs in parallel instead of one at a time.…",
+   "title": "What Is a Merge Queue? | Mergify",
+   "url": "https://mergify.com/learn/merge-queue"
+  },
+  {
+   "chars_delivered": 721,
+   "published": null,
+   "text": "At scale, GitHub's built-in merge queue is too slow for organizations with hundreds of engineers all trying to merge simultaneously; that's where tools like Aviator MergeQueue come in. Two concepts become critical: swim lanes, which allow PRs touching non-overlapping files to merge in parallel, and…",
+   "title": "How Merge Queues Keep Main Green at Scale | Aviator",
+   "url": "https://www.aviator.co/podcast/merge-queue-jon-block"
+  },
+  {
+   "chars_delivered": 1662,
+   "published": null,
+   "text": "## Batching as a Throughput Optimization Strategy\n\nBatching is a technique that combines multiple pull requests (PRs) into a single CI run. Instead of testing each PR individually, batching groups several PRs together to be tested at once. This cuts down on the total number of CI runs, which is esp…",
+   "title": "Merge Queues for Large Monorepos - Aviator Blog",
+   "url": "https://www.aviator.co/blog/merge-queues-for-large-monorepos"
+  },
+  {
+   "chars_delivered": 589,
+   "published": null,
+   "text": "## About merge queues\n\nA merge queue helps increase velocity by automating pull request merges into a busy branch and ensuring the branch is never broken by incompatible changes.\n\nThe merge queue provides the same benefits as the Require branches to be up to date before merging branch protection, b…",
+   "title": "Managing a merge queue - GitHub Docs",
+   "url": "https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue"
+  },
+  {
+   "chars_delivered": 1931,
+   "published": null,
+   "text": "## What agents change\n\nAgents do not take coffee breaks. They open pull requests continuously, in parallel, across every corner of the repository at once. Hashimoto calls 10x the conservative case and 100x to 1,000x the one you reach if you believe the hype. Either way the constraint moves. It is n…",
+   "title": "Merge Queues Were Built for Humans. AI Agents Need More. | Mergify",
+   "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents"
+  },
+  {
+   "chars_delivered": 143,
+   "published": null,
+   "text": "We used a merge queue but that queue got super deep and became a bottleneck in itself. Wouldn't stacking PRs exacerbate the issue since we then",
+   "title": "Github struggling under high PR throughput? : r/devops",
+   "url": "https://www.reddit.com/r/devops/comments/1wjtf3u/github_struggling_under_high_pr_throughput"
+  },
+  {
+   "chars_delivered": 2313,
+   "published": null,
+   "text": "## Mergify vs GitHub merge queue\n\nMergify is the one with the most knobs. It runs queue CI on draft PRs, with parallel checks (speculative runs, up to 128 per its docs), and batches that, on failure, split into at least two parts and keep splitting until a single PR fails on its own and gets remove…",
+   "title": "GitHub Merge Queue Alternatives: Trunk, Mergify, Aviator | Pyor",
+   "url": "https://pyor.review/blog/github-merge-queue-alternatives"
+  }
+ ],
+ "latency_ms": 2750.5,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q21",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How do merge queues and stacked-PR systems (GitHub merge queue, Graphite, Aviator, Mergify, Bors-style) handle very high PR volume from agents? What is known about throughput, CI cost and conflict rates when agents open hundreds of PRs a day?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q21-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 18663,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:24:07.637490Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

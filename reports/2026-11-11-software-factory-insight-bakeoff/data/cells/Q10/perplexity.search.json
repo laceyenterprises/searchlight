@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:03.590119Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1518,
+   "published": "2026-08-04",
+   "text": "Feature Specs provide a structured approach to building new features, guiding you through requirements gathering, technical design, and implementation planning.\n...\nStart with the behavior of the system you want to create, captured as requirements, then generate technical design and implementation…",
+   "title": "Feature Specs - Specs - Features - Docs - Kiro",
+   "url": "https://kiro.dev/docs/specs/feature-specs/"
+  },
+  {
+   "chars_delivered": 591,
+   "published": "2026-10-21",
+   "text": "# Your first project\n## Build features with specs\nSpecs transform high-level feature ideas into detailed implementation plans through three phases:\n1. **Requirements** - User stories with acceptance criteria\n2. **Design** - Technical architecture and implementation approach\n3. **Tasks** - Discrete,…",
+   "title": "Your first project - Get Started - Docs - Kiro",
+   "url": "https://kiro.dev/docs/getting-started/first-project/"
+  },
+  {
+   "chars_delivered": 3891,
+   "published": "2026-08-05",
+   "text": "|title|Kiro spec format|\n|--|--|\n|description|The exact on-disk shape of a Kiro spec — the .kiro/specs three-file layout, EARS requirements grammar, design and task conventions, and what a lens can reliably parse.|\nKiro (Amazon's spec-driven IDE, kiro.dev) writes each feature's spec as three Markdo…",
+   "title": "Rennet/docs/developing/reference/spec-formats/kiro ... - GitHub",
+   "url": "https://github.com/rbutera/Rennet/blob/main/docs/developing/reference/spec-formats/kiro.md"
+  },
+  {
+   "chars_delivered": 1830,
+   "published": "2026-08-11",
+   "text": "# Using specifications for complex work\n#### Review requirements\nKiro will expand your initial ask into a detailed set of\nrequirements based on user stories.\nIn most cases these\nuser stories, and the resulting requirements, will help\nexpand vague asks and highlight edge cases that you might\nnot hav…",
+   "title": "Using specifications for complex work - Learn by playing ...",
+   "url": "https://kiro.dev/docs/guides/learn-by-playing/05-using-specs-for-complex-work/"
+  },
+  {
+   "chars_delivered": 2452,
+   "published": "2026-10-15",
+   "text": "Specs or specifications are structured artifacts that formalize the development process for features and bug fixes in your application.\nThey provide a systematic approach to transform high-level ideas into detailed implementation plans with clear tracking and accountability.\n...\nWith Kiro's specs,…",
+   "title": "Specs - Features - Docs",
+   "url": "https://kiro.dev/docs/specs/"
+  },
+  {
+   "chars_delivered": 2459,
+   "published": "2026-09-25",
+   "text": "Feature Specs support two workflows: Requirements-First and Design-First.\n**Choose Requirements-First when:**\n- You know the behavior of the system you want to build\n- Architecture is flexible and can be designed to meet needs\n- Building product features driven by customer feedback\n- Starting witho…",
+   "title": "Best practices - Specs - Features - Docs",
+   "url": "https://kiro.dev/docs/specs/best-practices/"
+  },
+  {
+   "chars_delivered": 1811,
+   "published": "2026-09-25",
+   "text": "The Requirements-First workflow is the traditional approach to Feature Specs, starting with what the system should do before determining how to build it.\n...\nFrom the Kiro panel or command palette, create a new Feature Spec.\nWhen prompted, select **Requirements-First** workflow.\n### 2. Requirements…",
+   "title": "Requirements-First - Feature Specs - Specs - Features - Docs",
+   "url": "https://kiro.dev/docs/specs/feature-specs/requirements-first/"
+  },
+  {
+   "chars_delivered": 1004,
+   "published": "2026-07-13",
+   "text": "Specs turn a high-level idea into an implementation plan through **three phases**:\n1. **Requirements** — user stories with acceptance criteria in **EARS notation**.\n2. **Design** — technical architecture and approach.\n3. **Tasks** — discrete, trackable implementation steps.\n...\n3. **Follow the guid…",
+   "title": "github.com › zzenonn › kiro-referencekiro-reference/docs/02-your-first-project.md at main ... - GitHub",
+   "url": "https://github.com/zzenonn/kiro-reference/blob/main/docs/02-your-first-project.md"
+  },
+  {
+   "chars_delivered": 1215,
+   "published": "2026-08-04",
+   "text": "# Quick Spec\nQuick Spec is a session mode that auto-generates requirements, design, and tasks in a single pass.\nInstead of approving each phase before the next begins, you answer clarifying questions up front and land directly on an actionable task list.\n...\n## How it works\n2. Kiro asks a set of cl…",
+   "title": "Quick Spec - Specs - Features - Docs",
+   "url": "https://kiro.dev/docs/specs/quick-spec/"
+  },
+  {
+   "chars_delivered": 2147,
+   "published": null,
+   "text": "Spec-driven development (SDD) tools claim that writing specifications before implementa-tion reduces defects, prevents rework, and improves code quality.\n...\nSpecification quality predicts neither defects (p = 0.164) nor rework\n(p = 0.860), and specifications do not constrain the scope of AI-tagged…",
+   "title": "Specification Artifacts in Open-Source Pull Request Workflows Do Not Reduce Defects: An Empirical Test of Spec-Driven Development Claims",
+   "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol394-esem2026/LIPIcs.ESEM.2026.84/LIPIcs.ESEM.2026.84.pdf"
+  }
+ ],
+ "latency_ms": 439.4,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q10",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What is spec-driven development as implemented by Amazon Kiro, GitHub Spec Kit and similar tools? How are specs, plans and tasks structured, and what evidence is there that it improves agent output quality?",
+    "spec-driven development Kiro GitHub Spec Kit",
+    "Kiro specs requirements design tasks EARS",
+    "spec-driven development AI agents evidence effectiveness evaluation"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 21816,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:03.150682Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "5ed347525ebf48db",
+ "url": "https://arxiv.org/pdf/2603.10600v1",
+ "verdicts": {
+  "On complex multi-step tasks, the trajectory-informed memory framework improved SGC by 28.5 percentage points, a 149% relative increase.": 0,
+  "Retrieval supports cosine similarity (a fast vector lookup with no LLM call) or LLM-guided selection (richer reasoning at the cost of an extra LLM call). Tips are filtered by a similarity threshold of 0.5 to 0.7 and then capped at the top k of 5 to 10 to prevent prompt bloat.": 0,
+  "Retrieved tips are injected as a 'guidelines' section after the task context and before the standard agent instructions, formatted with priority, category, actionable content, purpose, implementation steps and trigger condition.": 0,
+  "The Contextual Learning Generator produces three tip types: strategy tips from successful patterns, recovery tips from failure handling, and optimization tips from inefficient but successful executions.": 0,
+  "The trajectory-informed memory framework has four components: a Trajectory Intelligence Extractor, a Decision Attribution Analyzer, a Contextual Learning Generator, and an Adaptive Memory Retrieval System.": 0,
+  "The trajectory-informed memory framework on the AppWorld benchmark improved scenario goal completion (SGC) by up to 14.3 percentage points on held-out tasks, from 50.0% to 64.3%.": 0,
+  "Xiong et al. identified an 'experience-following property' in which agents closely follow retrieved experiences, so mismatched retrieval directly degrades performance. They also identified error propagation and misaligned experience replay as failure modes, and found that combining selective addition with selective deletion yields a 10% absolute performance gain over naive accumulation.": 0
+ }
+}

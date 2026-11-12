@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "LangGraph CrewAI OpenAI Agents SDK comparison multi-agent",
+  "Microsoft Agent Framework AutoGen Semantic Kernel architecture",
+  "Google ADK Agent Engine vs Bedrock AgentCore"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Compare the general-purpose agent platforms: LangGraph Platform, CrewAI, Microsoft Agent Framework (AutoGen + Semantic Kernel), OpenAI Agents SDK, Google ADK / Vertex Agent Engine, and AWS Bedrock AgentCore. Cover runtime, state and memory, deployment, identity and auth, observability, and how multi-agent systems are composed. Pages that should rank first are primary sources: official documentation, vendor engineering blogs, GitHub repositories and READMEs, conference talks, and architecture docs from LangChain, CrewAI, Microsoft, OpenAI, Google Cloud, and AWS, followed by credible independent comparisons and reporting. Pull out mechanisms (durable execution, checkpointing, memory stores, session handling), deployment options, identity and auth models (OAuth, IAM, workload identity), tracing and observability integrations (OpenTelemetry), multi-agent composition patterns (handoffs, graphs, crews, group chat, agent-to-agent protocols), plus names, release dates, numbers, benchmarks, and known limitations or failure modes.",
+ "question_id": "Q12",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

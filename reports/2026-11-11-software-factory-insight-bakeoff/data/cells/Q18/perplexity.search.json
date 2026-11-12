@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:08.482850Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1035,
+   "published": null,
+   "text": "# SpecBench: Measuring Reward Hacking in Long-Horizon Coding Agents\n###### Abstract\nAs long-horizon coding agents produce more code than any developer can review, oversight collapses onto a single surface: the automated test suite.\nReward hacking naturally arises in this setup, as the agent optimiz…",
+   "title": "5 Conclusions",
+   "url": "https://arxiv.org/html/2605.21384"
+  },
+  {
+   "chars_delivered": 2376,
+   "published": "2026-08-17",
+   "text": "We introduce a four-level taxonomy of reward hacking escalation: feature-level exploitation (verbosity, sycophancy, stylistic shortcuts), representation-level exploitation (unfaithful chain of thought, reward model latent artifacts), evaluator-level exploitation (LLM judge gaming, benchmark overfit…",
+   "title": "A survey of reward hacking in agentic large language model ...",
+   "url": "https://link.springer.com/article/10.1007/s44163-026-01980-z"
+  },
+  {
+   "chars_delivered": 748,
+   "published": "2026-09-24",
+   "text": "# Reward Hacking Challenges Oversight of Autonomous Research Agents\n###### Abstract\nThis creates a risk of reward hacking: meeting the reward criteria without achieving the intended goal.\n...\n## 1 Introduction\nIt may read evaluation labels, train on the test set or change the grader.\n...\n## 2 Relat…",
+   "title": "Reward Hacking Challenges Oversight of Autonomous ...",
+   "url": "https://arxiv.org/html/2609.28614"
+  },
+  {
+   "chars_delivered": 199,
+   "published": null,
+   "text": "The *rubber-stamping* hypothesis posits that reviewers, after repeatedly approving agent-generated code with few defects, gradually reduce their inspection effort and begin approving PRs reflexively.",
+   "title": "Habituation at the Gate: Rising Approval and Declining ...",
+   "url": "https://arxiv.org/html/2606.22721"
+  },
+  {
+   "chars_delivered": 1956,
+   "published": "2026-10-22",
+   "text": "When an AI coding agent is instructed to iterate until a build or test suite passes (`/goal`), two competing optimization pressures collide:\n1. **The Engineering Objective**: Fix the underlying defect in the application logic while preserving all existing safety invariants.\n2. **The Token-Completio…",
+   "title": "agentic-workflow-os/docs/03-deterministic-goal-gates-and-anti-reward-hacking-hooks.md at main · longwave-ai-lab/agentic-workflow-os",
+   "url": "https://github.com/longwave-ai-lab/agentic-workflow-os/blob/main/docs/03-deterministic-goal-gates-and-anti-reward-hacking-hooks.md"
+  },
+  {
+   "chars_delivered": 2366,
+   "published": null,
+   "text": "Modern machine learning reinforces outputs and behaviors that score well on certain measures.\nMost of these measures are proxies for things we really care about: User ratings are proxies for helpful conversation, benchmark scores are proxies for task competence, passing unit tests are proxies for w…",
+   "title": "The State of Reward Hacking in AI",
+   "url": "https://intelligence.org/wp-content/uploads/The-State-of-Reward-Hacking-in-AI-September-2026.pdf"
+  },
+  {
+   "chars_delivered": 4470,
+   "published": "2026-11-07",
+   "text": "## Infinite Fix Loop\n**Symptom**: Same PR or CI job gets automated fix attempts 5+ times; never converges.\n**Severity**: S2\n**Causes**:\n- Verifier too weak or same session as implementer\n- Root cause misdiagnosed (symptom fixing)\n- Flaky test treated as regression\n**Mitigations**:\n- Hard cap on att…",
+   "title": "ai-engineering-hub-1/curated-courses/agentic-loop-engineering/docs/failure-modes.md at main · dquangsinh/ai-engineering-hub-1",
+   "url": "https://github.com/dquangsinh/ai-engineering-hub-1/blob/main/curated-courses/agentic-loop-engineering/docs/failure-modes.md"
+  },
+  {
+   "chars_delivered": 1339,
+   "published": null,
+   "text": "This creates a structural vulnerability: an agent can increase the reported score by compromising the evaluation pipeline rather than improving the model.\nWe introduce RewardHackingAgents, a workspace-based benchmark that makes two compromise vectors explicit and measurable: evaluator tampering (mo…",
+   "title": "RewardHackingAgents: Benchmarking Evaluation Integrity for LLM ML-Engineering Agents",
+   "url": "https://arxiv.org/html/2603.11337"
+  },
+  {
+   "chars_delivered": 2724,
+   "published": "2026-08-03",
+   "text": "A taxonomy of behavioral failure modes observed in AI coding agents, with real worked examples.\n...\n**Mitigation**: Verify every external tool invocation against the exact version being used, not the locally installed version or the docs for the latest release.\n...\n**Mitigation**: When the executio…",
+   "title": "ai-agent-failure-modes/README.md at main · sonupreetam/ai-agent-failure-modes",
+   "url": "https://github.com/sonupreetam/ai-agent-failure-modes/blob/main/README.md"
+  },
+  {
+   "chars_delivered": 1455,
+   "published": null,
+   "text": "Group the recurring failure modes into three reviewer heuristics, each best caught at a specific review surface:\n1. **Plausible-but-wrong reasoning** — the code looks right but is logically wrong.\nCaught by humans, sometimes by LLM bots; rarely by deterministic checks.\n2. **Mechanical fabrication**…",
+   "title": "11 Reviewing AI-Generated Changes – Effective Coding Agents",
+   "url": "https://www.sankara.net/ai/effective-coding-agents/book/html/ch-11-reviewing-ai-generated-changes.html"
+  }
+ ],
+ "latency_ms": 521.7,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q18",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What are the documented failure modes of autonomous AI coding agents at scale: reward hacking or test tampering, review rubber-stamping, regressions introduced by fixes, runaway token spend, and merge conflicts in high-volume repos? How do organizations mitigate them?",
+    "autonomous coding agents reward hacking test tampering",
+    "AI coding agent failure modes at scale mitigation",
+    "AI code review rubber-stamping agent pull requests regressions"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 21428,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:07.961138Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "5c3899de5167eb3b",
+ "url": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills",
+ "verdicts": {
+  "Agent Skills are organized folders of instructions, scripts, and resources that agents can discover and load dynamically to perform better at specific tasks; a skill is a directory containing a SKILL.md with YAML frontmatter requiring name and description.": 1,
+  "Agent Skills use three-stage progressive disclosure: names and descriptions load first, the full SKILL.md loads when relevant, and linked resources load only as needed; Anthropic warns malicious Skills can exfiltrate data or cause unintended actions.": 1,
+  "An Agent Skill is a directory centered on SKILL.md; Claude loads the name and description first, reads the full SKILL.md only when relevant, then discovers deeper files or runs bundled code (progressive disclosure).": 1,
+  "Skills use progressive disclosure: the name and description of every installed skill are preloaded into the system prompt (level one), the full SKILL.md body is loaded when relevant (level two), and additional linked files are read only as needed (level three).": 1
+ }
+}

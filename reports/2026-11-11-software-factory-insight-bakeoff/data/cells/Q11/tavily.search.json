@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:30.370227Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2363,
+   "page_chars_delivered": 30450,
+   "post_step": "fetched",
+   "published": null,
+   "text": "FAQ / 05\n\n## Frequently Asked Questions\n\nTemporal suits multi-day agentic workflows where replay history must survive server restarts. Inngest is better for event-driven pipelines that fire on webhooks or queue messages. Restate fits per-session stateful agents where exactly-once semantics on tool…",
+   "title": "AI Agent Workflow Orchestration: Temporal vs Inngest vs Restate | Spheron",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud"
+  },
+  {
+   "chars_delivered": 2167,
+   "page_chars_delivered": 16702,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Durable execution, a programming model that guarantees code completion despite failures, has crossed into the early majority in 2025 with new offerings from AWS, Cloudflare, and Vercel, driven primarily by AI Agent infrastructure needs.\n AI Agents introduce multiple points of failure (orchestration…",
+   "title": "Durable Execution: The Key to Harnessing AI Agents in Production - Inngest Blog",
+   "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents"
+  },
+  {
+   "chars_delivered": 2099,
+   "page_chars_delivered": 11578,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## Durable execution for long-running agents\n\nMicrosoft describes two shapes of durable agent. In one, code sets the order of steps and calls the model at certain points. In the other, the model decides which tools to call and when the task is done. Both benefit, because each finished model call an…",
+   "title": "What is durable execution? Reliable long-running workflows | Decagon",
+   "url": "https://decagon.ai/glossary/what-is-durable-execution"
+  },
+  {
+   "chars_delivered": 2180,
+   "published": null,
+   "text": "### Inngest, Hatchet, DBOS, Cloudflare, AWS, and Azure\n\nInngest emphasizes step memoization rather than full deterministic replay. Each `step.run` result is persisted; if the function re-executes, completed steps are skipped and stored results are injected. It also provides durable sleeps, event wa…",
+   "title": "Durable Execution for AI Agent Runtimes: Checkpointing, Replay, and Recovery | Zylos Research",
+   "url": "https://zylos.ai/research/2026-04-24-durable-execution-agent-runtimes"
+  },
+  {
+   "chars_delivered": 1959,
+   "published": null,
+   "text": "| Feature | ToolLoopAgent | WorkflowAgent |\n --- \n| Execution | In-memory | Durable workflow |\n| Process restart recovery | No automatic recovery | Supported by runtime |\n| Tool retries | Application-managed | Per-step retry support |\n| Long approval waits | Requires custom handling | Durable suspe…",
+   "title": "Durable Execution for AI Agents: State, Checkpointing, Retries and Human-in-the-Loop - DEV Community",
+   "url": "https://dev.to/serifcolakel/durable-execution-for-ai-agents-state-checkpointing-retries-and-human-in-the-loop-99f"
+  },
+  {
+   "chars_delivered": 2165,
+   "published": null,
+   "text": "Exactly-once semantics close that gap. Durable execution engines assign each activity an idempotency key tied to its position in the workflow history. If the process restarts mid-step, any step already recorded is skipped rather than re-executed. Inference.sh's agent runtime guidance covers this de…",
+   "title": "Durable Execution for AI Agents: Why Long-Running Workflows Need State Persistence, Not Just Retry Logic",
+   "url": "https://blog.traversaal.ai/durable-execution-ai-agents-state-persistence-long-running-workflows"
+  },
+  {
+   "chars_delivered": 2298,
+   "published": null,
+   "text": "## What is durable execution?\n\nA durable function is application code that Inngest coordinates as a run which survives failures and can wait indefinitely. A run has its own input, steps, and trace. Inngest stores each completed step's result. When work resumes after a retry or wait, functions resum…",
+   "title": "Durable Execution for Workflows & Agents - Inngest Docs",
+   "url": "https://www.inngest.com/docs/durable-execution"
+  },
+  {
+   "chars_delivered": 2116,
+   "published": null,
+   "text": "### Why is replay not a safe provider retry?\n\nReplay runs your code again when the result was never recorded. If that code sends a new provider request, the provider performs a new action. The workflow engine did what it promised. The duplicate is in the request, not in the replay.\n\n### Temporal or…",
+   "title": "Best Durable Execution Platforms for AI Agents | Swytchcode",
+   "url": "https://www.swytchcode.com/content/best-durable-execution-platforms"
+  },
+  {
+   "chars_delivered": 1762,
+   "published": null,
+   "text": "👍 The good:\n\n Zero new infrastructure. The checkpointer writes to a database you already run, and your team calls the same LangGraph API they use for everything else.\n The same saved state that survives a crash also drives human-in-the-loop. You interrupt a graph, show a human the pending action, a…",
+   "title": "Inngest vs Temporal vs DBOS vs LangGraph for Agents",
+   "url": "https://theaiengineer.substack.com/p/inngest-vs-temporal-vs-dbos-vs-langgraph"
+  },
+  {
+   "chars_delivered": 2137,
+   "published": null,
+   "text": "The Pro plan, at $99 per month, includes 1 million executions and 100 concurrent steps. On the surface, these numbers look generous, until a highly autonomous agent enters the chat and makes a dozen tool calls for a simple request.\n\n### 2. Agent Loops Must Fit Inngest’s Step-Based Execution Model…",
+   "title": "8 Inngest Alternatives for Durable AI Agents - ZenML Blog",
+   "url": "https://www.zenml.io/blog/inngest-alternatives"
+  }
+ ],
+ "latency_ms": 2857.0,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q11",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How are durable-execution engines (Temporal, Restate, Inngest, DBOS) used to run AI agents reliably? What patterns do they recommend for retries, human-in-the-loop waits, long-running workflows, and idempotent tool calls, and which companies run agents on them in production?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q11-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 24557,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:27.513147Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

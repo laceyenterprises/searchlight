@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "77abd8f7a0c7b483",
+ "url": "https://docs.dbos.dev/python/tutorials/workflow-tutorial",
+ "verdicts": {
+  "DBOS says non-deterministic operations such as database access, third-party API calls, random numbers, or local time should not be done directly in a workflow function.": 1,
+  "DBOS steps are tried at least once but never re-executed after they complete.": 1,
+  "In DBOS, an assigned workflow ID acts as an idempotency key: a workflow called multiple times with the same ID executes only once, which helps with side effects like payments or emails.": 1
+ }
+}

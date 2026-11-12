@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "bbb26414215c4f17",
+ "claims": [
+  {
+   "text": "Factory's Droid scored 58.75% (reported as 58.8%) on Terminal-Bench, placing first among all agents on the leaderboard as of the September 25, 2025 write-up.",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Factory agents occupy three of the top five Terminal-Bench positions: Droid with Opus 4.1 (no thinking) at 58.8%, GPT-5 (medium reasoning) at 52.5%, and Sonnet 4 (no thinking) at 50.5%.",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Droid with Opus (58.8%) and Sonnet (50.5%) beats Claude Code with Opus (43.2%) on Terminal-Bench, and Droid with GPT-5 (52.5%) beats Codex CLI (42.8%).",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Factory states that Droid with Sonnet outperforms all other agents using Opus on Terminal-Bench, and that agent framework can yield greater improvement than model selection.",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Terminal-Bench Core (v0.1.1) consists of 80 human-verified, Dockerized, time-boxed tasks; a task counts as resolved only when all post-run tests pass, and the benchmark reports task-resolution rate.",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Factory uses a three-tier prompting hierarchy: tool descriptions, system prompts, and system notifications (contextually injected user-level messages with time-sensitive guidance).",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Factory designed system notifications because agentic models (notably Sonnet 3.7 and o3) show recency bias, prioritizing recent context over system-level instructions for low-level details over long trajectories; notifications enable rapid error recovery and task-specific adjustments.",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Factory uses a modular architecture that shares core components while allowing model-specific adaptations, because providers' models differ, e.g. FIND_AND_REPLACE vs V4A diff file-editing formats and relative vs absolute path preferences.",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Factory reports that tool reliability was the primary bottleneck for end-to-end task completion and adopted minimalist tool design principles.",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "text": "Factory's platform targets enterprise organizations with 5,000-10,000+ engineers and aims to let droids take tasks from project-management tickets to mergeable pull requests.",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "Factory's planning approach uses subtask decomposition, e.g. separate plan steps for frontend, backend, tests, and feature-flag rollout.",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "Factory applies model predictive control to droids, continuously updating plans from environmental feedback during execution.",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "Factory uses explicit plan templates for certain task types, acknowledging a trade-off between rigidity (less creativity) and structure (more reliability).",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "Factory's droids ground themselves in the environment via AI-computer interfaces to existing development tools, observability systems, and knowledge bases.",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "The ZenML write-up notes the source is essentially a product pitch, so claims of 5-20x productivity gains and 50%+ task delegation targets need independent validation.",
+   "url": "https://www.zenml.io/llmops-database/ai-agent-driven-software-development-platform-for-enterprise-engineering-teams"
+  },
+  {
+   "text": "Factory integrates with Linear, Jira, Slack, GitHub, Sentry, and PagerDuty, plus memory and web search; in the demo only search is enabled initially and the Droid can request additional tools as it works.",
+   "url": "https://latent.space/reading/ai-coding-factory/"
+  },
+  {
+   "text": "In Factory's demo, a Droid searches the repository, summarizes findings, proposes a plan, and asks clarifying questions before execution, with an activity log and changing context panel during execution.",
+   "url": "https://latent.space/reading/ai-coding-factory/"
+  },
+  {
+   "text": "Factory's founders bet on the harness (integrations, information, execution, and feedback surrounding the model) rather than on model capability alone, and they leverage code's verifiability for feedback.",
+   "url": "https://latent.space/reading/ai-coding-factory/"
+  },
+  {
+   "text": "Factory's Missions feature has an orchestrator that breaks projects into milestones, spawns fresh worker sessions so no single agent is overloaded with context, and validates at every checkpoint.",
+   "url": "https://www.youtube.com/watch?v=SwKIJSOSH0w"
+  },
+  {
+   "text": "Per the video description, the median Factory mission runs about 2 hours and 14% of missions run longer than a full day.",
+   "url": "https://www.youtube.com/watch?v=SwKIJSOSH0w"
+  },
+  {
+   "text": "Missions use multi-model orchestration with different models in different roles, and a skill system that learns patterns from a specific codebase; the reviewer noted worker skills are created automatically and validation contract assertions are used.",
+   "url": "https://www.youtube.com/watch?v=SwKIJSOSH0w"
+  },
+  {
+   "text": "A community guide recommends a Delegator (general purpose agent) that only reads, plans, delegates, and reviews structured reports and never writes code, with roles, tools, dependencies, and validation defined in AGENTS.md and custom Droids under ./factory/droids/.",
+   "url": "https://medium.com/@silas_27632/how-to-make-droids-code-for-hours-using-test-driven-development-and-smart-orchestration-in-factory-a-40838d66e048"
+  },
+  {
+   "text": "The community guide describes a four-phase spec, test, implementation, verification flow, where sub-agent Droids do the work and the Delegator verifies outputs, with the run stopping when tests pass.",
+   "url": "https://medium.com/@silas_27632/how-to-make-droids-code-for-hours-using-test-driven-development-and-smart-orchestration-in-factory-a-40838d66e048"
+  },
+  {
+   "text": "A review cites a 63.1% Terminal Bench score for Factory (December 2025) and notes that code quality still varies and requires solid review practices.",
+   "url": "https://fritz.ai/factory-ai-review/"
+  },
+  {
+   "text": "An independent review states it verified only public pages and docs, with no signed-in tests or coding benchmark, and that Factory's case is coordinating work rather than public proof of better code.",
+   "url": "https://omidsaffari.com/blog/factory-ai"
+  }
+ ],
+ "question_id": "Q02"
+}

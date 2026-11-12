@@ -1,0 +1,425 @@
+{
+ "digest": "523c2b7692ea3f49",
+ "values": {
+  "Q20-k1": {
+   "position": 83,
+   "reason": "A defined L0-L4 autonomy taxonomy across named stages is a reusable framework for structuring Agent OS autonomy tiers.",
+   "score": 2
+  },
+  "Q20-k10": {
+   "position": 73,
+   "reason": "Five minutes to root cause on average is a measured figure, but the read-only point duplicates k13.",
+   "score": 1
+  },
+  "Q20-k106": {
+   "position": 48,
+   "reason": "A concrete 95% confidence threshold for autonomy, with human review before merge, is a specific gating parameter Agent OS could compare against its autonomous merge.",
+   "score": 2
+  },
+  "Q20-k11": {
+   "position": 80,
+   "reason": "Graduated-trust autonomous fixes backed by a knowledge graph is a vague vendor claim that largely corroborates others.",
+   "score": 1
+  },
+  "Q20-k117": {
+   "position": 52,
+   "reason": "A launch date and product names are trivia with no architectural bearing.",
+   "score": 0
+  },
+  "Q20-k118": {
+   "position": 4,
+   "reason": "Restricting remediation to pre-approved automations is a clear safety design, though one commonly seen.",
+   "score": 2
+  },
+  "Q20-k119": {
+   "position": 28,
+   "reason": "Vendor claim with no design content.",
+   "score": 0
+  },
+  "Q20-k12": {
+   "position": 29,
+   "reason": "Mostly restates the starting-at-L2 default already covered by other findings.",
+   "score": 1
+  },
+  "Q20-k120": {
+   "position": 62,
+   "reason": "A read-only default with explicit authorization to act is a standard safety posture already implied by other findings.",
+   "score": 1
+  },
+  "Q20-k121": {
+   "position": 24,
+   "reason": "Vendor-reported metrics with no architectural implication.",
+   "score": 0
+  },
+  "Q20-k122": {
+   "position": 2,
+   "reason": "Generic human-in-the-loop marketing.",
+   "score": 0
+  },
+  "Q20-k123": {
+   "position": 6,
+   "reason": "A lifecycle list plus vendor-reported metrics, mostly marketing.",
+   "score": 0
+  },
+  "Q20-k124": {
+   "position": 77,
+   "reason": "An open-source reference implementation with an explicit seven-stage cycle is useful to inspect, but its noncommercial license limits reuse.",
+   "score": 2
+  },
+  "Q20-k125": {
+   "position": 12,
+   "reason": "Notes that one vendor recommends rather than executes, which is minor corroboration of the human-in-the-loop default.",
+   "score": 1
+  },
+  "Q20-k127": {
+   "position": 22,
+   "reason": "A graduated trust model described generically, which corroborates more specific findings.",
+   "score": 1
+  },
+  "Q20-k128": {
+   "position": 37,
+   "reason": "A generic list of remediation actions.",
+   "score": 0
+  },
+  "Q20-k129": {
+   "position": 32,
+   "reason": "Requiring independent multi-agent consensus before corrective action parallels Agent OS's cross-model review and could extend it to remediation, though the source is generic.",
+   "score": 2
+  },
+  "Q20-k13": {
+   "position": 26,
+   "reason": "An aspirational 80% goal plus generic safety terms, mostly marketing.",
+   "score": 0
+  },
+  "Q20-k130": {
+   "position": 46,
+   "reason": "Scoping autonomy to routine, predictable incidents is a general principle.",
+   "score": 1
+  },
+  "Q20-k131": {
+   "position": 72,
+   "reason": "Tying L2+ autonomy to holding ops cost flat under a 4x velocity increase is a strategic rationale rather than a design detail.",
+   "score": 1
+  },
+  "Q20-k132": {
+   "position": 61,
+   "reason": "This names a Progressive Authorization framework and Safety Trifecta without specifics, so it mostly corroborates other findings.",
+   "score": 1
+  },
+  "Q20-k14": {
+   "position": 60,
+   "reason": "Parallel hypothesis investigation with approval-gated writes is a common pattern and only corroborates other findings.",
+   "score": 1
+  },
+  "Q20-k15": {
+   "position": 40,
+   "reason": "A causal search engine traversing 10+ hops over a world model is a specific diagnosis design, but it is aimed at infra observability.",
+   "score": 2
+  },
+  "Q20-k16": {
+   "position": 45,
+   "reason": "Placing an agent on on-call rotations and escalation policies like a human is a useful integration pattern, but it largely duplicates k44.",
+   "score": 1
+  },
+  "Q20-k17": {
+   "position": 65,
+   "reason": "Three-tier escalation with restart-loop oscillation detection against a cooldown window is a concrete failure-mode control applicable to worker self-healing.",
+   "score": 2
+  },
+  "Q20-k19": {
+   "position": 74,
+   "reason": "Promoting autonomy only after statistically significant success against golden data is a specific promotion criterion that Agent OS could use for autonomous merge and deploy.",
+   "score": 3
+  },
+  "Q20-k2": {
+   "position": 57,
+   "reason": "A measured 42% RCA accuracy, plus suppressing low-confidence answers, is a real number and failure-mode mitigation that should calibrate expectations and confidence gating.",
+   "score": 3
+  },
+  "Q20-k20": {
+   "position": 9,
+   "reason": "Shows how autonomy is split by incident severity in practice (L2 for critical, L3 for minor), which maps directly onto how Agent OS could gate autonomous merge or deploy by risk class.",
+   "score": 2
+  },
+  "Q20-k21": {
+   "position": 56,
+   "reason": "Storing every execution trace and judging it with an LLM against golden data at scale is a concrete eval architecture that maps onto Agent OS's Postgres session ledger.",
+   "score": 2
+  },
+  "Q20-k22": {
+   "position": 31,
+   "reason": "Nightly evals on a rolling set of recent real incidents, combining LLM-as-judge on reasoning with deterministic scoring of the final outcome, is a concrete eval architecture Agent OS could adopt.",
+   "score": 3
+  },
+  "Q20-k23": {
+   "position": 66,
+   "reason": "A central Mitigation Safety Verification Service gating all agent actions is a specific architectural choke-point that Agent OS could adopt.",
+   "score": 3
+  },
+  "Q20-k24": {
+   "position": 34,
+   "reason": "A curated, dynamically filtered tool registry that turns agent requests into verifiable execution plans is a strong pattern for a general agent platform's action layer.",
+   "score": 3
+  },
+  "Q20-k25": {
+   "position": 13,
+   "reason": "A two-stage design (cheap deterministic narrowing via ownership and code graph, then an LLM ranker) is a specific pattern Agent OS could use to attribute SEVs to the PRs that caused them.",
+   "score": 3
+  },
+  "Q20-k3": {
+   "position": 42,
+   "reason": "Predicting diff risk at PR time to gate merges applies directly to Agent OS's autonomous merge decision.",
+   "score": 3
+  },
+  "Q20-k32": {
+   "position": 5,
+   "reason": "Mandating a declarative dry_run mode on every agent-facing API, to predict outcome and blast radius before mutation, is a specific requirement that would change Agent OS's tool and action design.",
+   "score": 3
+  },
+  "Q20-k33": {
+   "position": 8,
+   "reason": "Routing all actions through a deterministic control plane that checks capacity and enforces global rate limits regardless of whether the caller is human or agent is a key architectural pattern for Agent OS's governed dispatch.",
+   "score": 3
+  },
+  "Q20-k34": {
+   "position": 10,
+   "reason": "Component names are mostly trivia, though they confirm that the guardrail control plane is a separate system from the agent.",
+   "score": 1
+  },
+  "Q20-k35": {
+   "position": 15,
+   "reason": "A tiered Bronze/Silver/Gold eval dataset scheme, with Silver calibrated against Gold and Gold built by stratified sampling, is a concrete design for evaluating Agent OS's reviewers and workers.",
+   "score": 3
+  },
+  "Q20-k36": {
+   "position": 68,
+   "reason": "Scoring mitigations correct only on exact parameter matches is a specific, strict eval criterion that changes how agent correctness should be measured.",
+   "score": 3
+  },
+  "Q20-k37": {
+   "position": 53,
+   "reason": "Collecting ground-truth labels inline at mitigation time, where the SRE accepts, modifies or rejects them, is a concrete eval-data pipeline design that could change how Agent OS builds its postmortem and hardening ledger.",
+   "score": 3
+  },
+  "Q20-k38": {
+   "position": 64,
+   "reason": "Using LLM clustering of support tickets to catch outages that telemetry misses is a specific detection idea, relevant to non-infra agent platforms such as marketing and content.",
+   "score": 2
+  },
+  "Q20-k39": {
+   "position": 82,
+   "reason": "This stage list and parallel-hypothesis description is a standard pipeline that corroborates other findings.",
+   "score": 1
+  },
+  "Q20-k4": {
+   "position": 20,
+   "reason": "A verdict plus evidence-and-decision history is moderately useful corroboration of auditable triage.",
+   "score": 1
+  },
+  "Q20-k40": {
+   "position": 19,
+   "reason": "Defines L2 as explicit human plan approval before actuation, which corroborates other findings without being new.",
+   "score": 1
+  },
+  "Q20-k41": {
+   "position": 76,
+   "reason": "Approval by default, with a user opt-in to autonomy and evidence shown before execution, is a common pattern that corroborates others.",
+   "score": 1
+  },
+  "Q20-k42": {
+   "position": 39,
+   "reason": "An illustrative example with a confidence score and an approval gate, minor.",
+   "score": 1
+  },
+  "Q20-k43": {
+   "position": 70,
+   "reason": "Per-team agent profiles scoping integrations and actions, plus prompt-injection testing, are relevant to a multi-tenant agent platform but are early-access claims.",
+   "score": 2
+  },
+  "Q20-k44": {
+   "position": 43,
+   "reason": "An agent as a virtual responder that attempts a fix before escalating, then writes postmortems and updates runbooks, closely mirrors and could extend Agent OS's SEV loop.",
+   "score": 2
+  },
+  "Q20-k45": {
+   "position": 11,
+   "reason": "A concrete closed-loop pattern (draft PR, staging checks, merge, then production verification against a 7-day business-metric baseline) that could extend Agent OS's smoke-test-only self-deploy verification.",
+   "score": 3
+  },
+  "Q20-k46": {
+   "position": 41,
+   "reason": "Granting autonomy per fix type and per service scope, with promotion over time, is a concrete permission model Agent OS could apply to autonomous merge by change class.",
+   "score": 3
+  },
+  "Q20-k47": {
+   "position": 69,
+   "reason": "This gives a specific definition of L3 bounded autonomy relying on technical guardrails, useful for designing autonomy tiers but overlapping with k34 and k25.",
+   "score": 2
+  },
+  "Q20-k48": {
+   "position": 17,
+   "reason": "Specifies the promotion gates between levels (precision and reliability for L2 to L3, multi-step resolution for L3 to L4), giving Agent OS explicit criteria for widening autonomy.",
+   "score": 2
+  },
+  "Q20-k49": {
+   "position": 38,
+   "reason": "Names the governance framework's three pillars, which is a high-level summary.",
+   "score": 1
+  },
+  "Q20-k5": {
+   "position": 50,
+   "reason": "Exposing runbook retrieval as a governed tool call rather than freeform commands is a concrete design pattern Agent OS could apply to scar-memory and playbook access.",
+   "score": 2
+  },
+  "Q20-k50": {
+   "position": 71,
+   "reason": "Context-dependent risk scoring of each proposed action (deploys, error budget, time of day) is a concrete design that could change Agent OS's governed dispatch and merge gating.",
+   "score": 3
+  },
+  "Q20-k51": {
+   "position": 79,
+   "reason": "Distinct, strongly authenticated agent identities with on-demand least-privilege access is a concrete requirement that bears on multi-harness worker credentials.",
+   "score": 2
+  },
+  "Q20-k52": {
+   "position": 27,
+   "reason": "Agent-specific rate limits, circuit breakers against runaway loops, and interruptibility are concrete controls Agent OS's autonomous merge and deploy path needs.",
+   "score": 3
+  },
+  "Q20-k6": {
+   "position": 63,
+   "reason": "Gating autonomy by per-problem-class accuracy scores is a specific mechanism that could change how Agent OS grants autonomous merge and deploy rights per task type.",
+   "score": 3
+  },
+  "Q20-k64": {
+   "position": 0,
+   "reason": "Vendor-reported speed figures are unverified marketing and wouldn't change Agent OS's architecture.",
+   "score": 0
+  },
+  "Q20-k7": {
+   "position": 33,
+   "reason": "Post-hoc verification signals (alert recurrence, downstream stabilization, human override) are specific outcome labels Agent OS could log to grade its own fixes.",
+   "score": 3
+  },
+  "Q20-k76": {
+   "position": 59,
+   "reason": "Using topology and dependency data to establish domain and intent before forming hypotheses is a useful but fairly generic design detail.",
+   "score": 1
+  },
+  "Q20-k77": {
+   "position": 47,
+   "reason": "Tagging historical incidents with risk categories that agents consult before mitigating is a specific enhancement to Agent OS's scar memory injection.",
+   "score": 2
+  },
+  "Q20-k78": {
+   "position": 54,
+   "reason": "Agents that refine playbooks from incident usage parallel Agent OS's scar memory and suggest automated playbook evolution, but the detail is thin.",
+   "score": 2
+  },
+  "Q20-k79": {
+   "position": 1,
+   "reason": "The Google tech stack is trivia for a multi-harness self-hosted platform.",
+   "score": 0
+  },
+  "Q20-k8": {
+   "position": 58,
+   "reason": "Reinforcing only decision traces that led to verified outcomes is a specific learning-loop design relevant to scar memory, though it is described loosely.",
+   "score": 2
+  },
+  "Q20-k80": {
+   "position": 23,
+   "reason": "Auto-launching an investigation on alert, seeded with linked runbooks and past investigations of the same monitor, is a concrete pattern for Agent OS's SEV intake and scar memory retrieval.",
+   "score": 2
+  },
+  "Q20-k81": {
+   "position": 3,
+   "reason": "Generating multiple hypotheses, each explicitly labeled validated, invalidated or inconclusive, is a specific diagnosis structure Agent OS could adopt for SEV investigation.",
+   "score": 2
+  },
+  "Q20-k82": {
+   "position": 35,
+   "reason": "Engineer correction and reinforcement feeding memory is similar to Agent OS's existing scar memory.",
+   "score": 1
+  },
+  "Q20-k83": {
+   "position": 49,
+   "reason": "Integration surface details are minor for this reader.",
+   "score": 0
+  },
+  "Q20-k84": {
+   "position": 75,
+   "reason": "Proposing fixes as PRs for human merge is a pattern Agent OS already exceeds with autonomous merge.",
+   "score": 1
+  },
+  "Q20-k85": {
+   "position": 7,
+   "reason": "One-click low-risk triage actions are a minor design detail.",
+   "score": 1
+  },
+  "Q20-k86": {
+   "position": 67,
+   "reason": "This detailed autonomy-table mapping refines k34 but largely duplicates k20 and k34.",
+   "score": 1
+  },
+  "Q20-k89": {
+   "position": 55,
+   "reason": "A 14-day post-change verification window with named signals (alert recurrence, downstream stability, metric recovery, overrides) is a specific design that could reshape Agent OS's smoke-test-only verification.",
+   "score": 3
+  },
+  "Q20-k9": {
+   "position": 51,
+   "reason": "Contrasting open-loop verification with closed-loop autonomous remediation identifies a specific failure mode that bears directly on how Agent OS verifies self-deploys.",
+   "score": 2
+  },
+  "Q20-k90": {
+   "position": 78,
+   "reason": "Context-weighted multi-signal verification, on the premise that no single signal is conclusive, is a specific design insight for post-deploy verification.",
+   "score": 2
+  },
+  "Q20-k91": {
+   "position": 25,
+   "reason": "Using verification results to record where the agent has been reliable, and routing to human review on that basis, is a specific design Agent OS could apply to per-domain autonomy.",
+   "score": 2
+  },
+  "Q20-k92": {
+   "position": 30,
+   "reason": "Calibrating investigation strategies by replaying and self-playing against past incidents, then keeping only those that diagnose correctly, could turn Agent OS's postmortem corpus into a test harness for scar memory.",
+   "score": 3
+  },
+  "Q20-k93": {
+   "position": 36,
+   "reason": "Progressive Authorization restates the graduated-autonomy concept already covered elsewhere.",
+   "score": 1
+  },
+  "Q20-k94": {
+   "position": 21,
+   "reason": "Vague reference to guardrails with no specifics.",
+   "score": 0
+  },
+  "Q20-k95": {
+   "position": 81,
+   "reason": "Requiring a strong agent identity with roles is generic and duplicates k30.",
+   "score": 0
+  },
+  "Q20-k96": {
+   "position": 18,
+   "reason": "Logging the options an agent considered and rejected is a specific audit requirement Agent OS could add to its session ledger.",
+   "score": 2
+  },
+  "Q20-k97": {
+   "position": 16,
+   "reason": "Requiring backup paths and continuity plans for when the agent itself fails is a useful but fairly general principle.",
+   "score": 1
+  },
+  "Q20-k98": {
+   "position": 44,
+   "reason": "A generic statement about needing consistent controls.",
+   "score": 0
+  },
+  "Q20-k99": {
+   "position": 14,
+   "reason": "A detection pipeline design detail (signal-collection agents feeding a forecasting model, then an alert-grouping agent), useful but infra-specific.",
+   "score": 2
+  }
+ }
+}

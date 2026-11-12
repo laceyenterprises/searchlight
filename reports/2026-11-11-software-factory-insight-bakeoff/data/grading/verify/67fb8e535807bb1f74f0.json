@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "d072e1b2e060c762",
+ "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-components-to-agent",
+ "verdicts": {
+  "In Copilot Studio, MCP access relies on Power Platform connectors, so a data policy regulating those connectors also regulates access to the MCP server and its tools.": 1,
+  "In Microsoft Copilot Studio, each MCP server is added to an agent as a tool; all of its tools are on by default and an administrator can turn off 'Allow all' to disable individual tools, after which new server tools are off by default.": 1
+ }
+}

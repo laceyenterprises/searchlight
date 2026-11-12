@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "b1c1a85b673c6bce",
+ "claims": [
+  {
+   "text": "AIOS splits the system into an application layer and a kernel layer, with the AIOS kernel isolating resources and LLM-specific services from agent applications.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "The AIOS kernel provides scheduling, context management, memory management, storage management, and access control services for runtime agents.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "In the AIOS kernel, agent queries are decomposed into sub execution units called AIOS syscalls to facilitate parallelism.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS enforces isolation by preventing agents from directly manipulating resources, which also relieves agents of resource management.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS encapsulates LLMs as 'cores', akin to CPU cores, through a unified interface that integrates diverse LLM endpoints.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS centralizes all request queues in the scheduler module rather than distributing them across processing modules, so each module focuses only on execution.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS implements two classic scheduling algorithms: First-In-First-Out (FIFO), which processes calls in arrival order but may increase waiting times for later requests, and Round Robin (RR), which cycles through calls in time slices.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS's Round Robin scheduling depends on a context interrupt mechanism for LLM inference.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "The AIOS context manager supports task interruption and resumption through snapshot and restoration, to stop long-running LLM inference syscalls from monopolizing resources.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "The AIOS context manager has two approaches: text-based (for closed-source LLMs without logits access, saving decoded outputs) and logits-based (preserving the intermediate search tree structure for finer-grained state restoration).",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS has a memory manager for runtime agent data, a storage manager for persistent storage, a tool manager that loads tools and resolves call conflicts, and an access manager that implements access control and user intervention protocols.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS schedulers derive from a BaseScheduler class, so FIFO, Round Robin and priority-based schedulers can be added without modifying existing implementations.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "The AIOS SimpleContextManager enables preemptive multitasking by preserving LLM states across generation phases, with time-aware interruption.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS reports up to 2.1x faster execution when serving agents built by various agent frameworks.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "In an AIOS ablation (ReAct agents, HumanEval, Llama-3.1-8b), FIFO gave the shortest overall execution time, and RR ranked second in overall execution and average waiting time because context switching adds overhead.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "In the same ablation, Round Robin performed better than FIFO on p90 agent waiting time because its fairer scheduling reduces the chance that later tasks wait longer.",
+   "url": "https://arxiv.org/html/2403.16971"
+  },
+  {
+   "text": "AIOS docs describe the AIOS kernel as an abstraction on top of the OS kernel, with the AIOS SDK (Cerebrum) layered above it for developing and deploying agents.",
+   "url": "https://docs.aios.foundation/aios-docs"
+  },
+  {
+   "text": "AIOS docs describe a goal of letting different users' or developers' personal AIOS kernels coexist on one physical machine through virtualization, requiring scheduling and resource allocation across the virtual machines.",
+   "url": "https://docs.aios.foundation/aios-docs"
+  },
+  {
+   "text": "For computer-use agents, AIOS redesigns the Tool Manager to include a VM (Virtual Machine) Controller and an MCP Server, creating a sandboxed environment for safe interaction with computer systems.",
+   "url": "https://github.com/agiresearch/AIOS"
+  },
+  {
+   "text": "The AIOS repository includes an experimental Rust rewrite (aios-rs) with trait definitions and placeholder implementations for context, memory, storage, tool, scheduler and LLM, which is not yet feature-parity.",
+   "url": "https://github.com/agiresearch/AIOS"
+  },
+  {
+   "text": "Letta (MemGPT) treats the context window as the agent's RAM and uses three memory tiers: core memory (always in context), archival memory (vector-database long-term store), and recall memory (full conversation history).",
+   "url": "https://github.com/brandongilchrist/agent_memory_techniques/blob/main/all_techniques/26_letta_memgpt_patterns/README.md"
+  },
+  {
+   "text": "In Letta/MemGPT the agent manages its own memory through function calls, using tools to edit core memory, search recall or archival memory, and insert archival entries.",
+   "url": "https://github.com/brandongilchrist/agent_memory_techniques/blob/main/all_techniques/26_letta_memgpt_patterns/README.md"
+  },
+  {
+   "text": "Letta uses a heartbeat mechanism (request_heartbeat=true) so the agent can chain multiple tool calls in one turn without waiting for user input, and memory-pressure signals prompt it to summarize or archive when the context nears capacity.",
+   "url": "https://github.com/brandongilchrist/agent_memory_techniques/blob/main/all_techniques/26_letta_memgpt_patterns/README.md"
+  },
+  {
+   "text": "Sandboxes isolate agent code execution from the host, but do not protect against context injection: an attacker controlling part of the agent's input can instruct it to run arbitrary commands inside the sandbox.",
+   "url": "https://docs.langchain.com/oss/javascript/deepagents/sandboxes"
+  },
+  {
+   "text": "OS-level agent sandboxing restricts file system and network access using Seatbelt on macOS, bubblewrap plus socat on Linux/WSL2, and Microsoft MXC process containers on Windows, and covers child processes but not built-in non-process tools.",
+   "url": "https://code.visualstudio.com/docs/agents/concepts/trust-and-safety"
+  }
+ ],
+ "question_id": "Q13"
+}

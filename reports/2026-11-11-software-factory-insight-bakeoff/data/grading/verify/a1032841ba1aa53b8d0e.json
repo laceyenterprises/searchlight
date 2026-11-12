@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "3908563ba8e51e6e",
+ "url": "https://factory.strongdm.ai/principles",
+ "verdicts": {
+  "Feedback evidence can include use traces, screen capture, conversation transcripts, incident replays, adversarial use, agentic simulation, surveys and customer interviews.": 1,
+  "In StrongDM's loop, a sample of the output is fed back into the inputs so the system self-corrects, and the loop runs until the holdout scenarios pass and stay passing.": 1,
+  "In the StrongDM Software Factory, the human supplies an initial seed (a PRD or spec, a few sentences, a screenshot or an existing codebase) and then an end-to-end validation harness. A closed loop feeds sampled outputs back into inputs until holdout scenarios pass and stay passing.": 1,
+  "StrongDM states the validation harness must be end-to-end and as close to the real environment as possible (customers, integrations, economics).": 1,
+  "StrongDM's loop of seed, end-to-end validation harness and feedback runs until the holdout scenarios pass and stay passing.": 1,
+  "StrongDM's loop-completion principle is that the loop runs until the holdout scenarios pass and stay passing.": 1,
+  "StrongDM's principles describe a loop of Seed, then validation harness, then feedback loop, where the seed can be a PRD, spec, a few sentences, a screenshot, or an existing codebase.": 1,
+  "The starting 'seed' can be a PRD/spec, a few sentences, a screenshot or an existing codebase.": 1,
+  "The stated stopping rule is that holdout scenarios 'pass (and stay passing)'; the harness is end-to-end and approximates customers, integrations and economics, with output samples fed back into inputs.": 1
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "f659157d3c5e5401",
+ "url": "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment",
+ "verdicts": {
+  "Self-hosted runner networks must allow hosts including uploads.github.com, user-images.githubusercontent.com, and the api.individual/business/enterprise.githubcopilot.com host matching the users' Copilot plan.": 1,
+  "When Copilot cloud agent runs on self-hosted runners, its integrated firewall must be disabled because it is incompatible, and use is blocked unless it is disabled; network controls on the runners should be configured instead.": 1
+ }
+}

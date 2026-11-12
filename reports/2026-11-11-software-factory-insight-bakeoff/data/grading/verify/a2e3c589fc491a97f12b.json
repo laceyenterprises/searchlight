@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "26e439f260d62e22",
+ "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall",
+ "verdicts": {
+  "A recommended allowlist is enabled by default and covers common OS package repositories, container registries, language package registries, certificate authorities, and hosts for downloading browsers for the Playwright MCP server.": 1,
+  "Firewall configuration is managed from the 'Internet access' settings tab, which covers both Copilot cloud agent and Copilot code review.": 1,
+  "Organization owners can set Enable firewall, Recommended allowlist (each Enabled, Disabled, or Let repositories decide, the default) and Allow repository custom rules (Enabled by default or Disabled) at the organization level.": 1,
+  "The firewall only applies to processes the agent starts via its Bash tool; it does not apply directly to MCP server processes or processes started in configured Copilot setup steps.": 1,
+  "The firewall only operates within the environment where Copilot runs (a GitHub Actions runner or a cloud sandbox) and not to processes outside it.": 1,
+  "The firewall operates only within the environment where Copilot runs, which is either a GitHub Actions runner or a cloud sandbox.": 1
+ }
+}

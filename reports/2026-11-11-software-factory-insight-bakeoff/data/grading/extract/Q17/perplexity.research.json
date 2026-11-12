@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "af3e19895482acb5",
+ "claims": [
+  {
+   "text": "StrongDM replaced in-repo tests with scenario tests stored outside the codebase where coding agents cannot see them, and built behavioral clones of Okta, Slack and Jira to test against.",
+   "url": "https://www.wwt.com/blog/ai-software-factories-vs-ai-native-engineering-which-one-is-right-for-you"
+  },
+  {
+   "text": "StrongDM defines a 'scenario' as an end-to-end user story, often stored outside the codebase like a holdout set in model training, that an LLM can intuitively understand and flexibly validate.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM replaced the boolean 'test suite is green' with 'satisfaction': of all observed trajectories through all scenarios, the fraction that likely satisfy the user.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's Digital Twin Universe consists of behavioral clones of Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets, replicating their APIs, edge cases and observable behaviors.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM says the Digital Twin Universe lets it run thousands of scenarios per hour without hitting rate limits, triggering abuse detection or accumulating API costs, and test failure modes that would be dangerous or impossible against live services.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "The StrongDM team that built the software factory had three people and had formed three months before the demo described by Simon Willison.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM set two rules for itself: no code can be written by humans and no code can be reviewed by humans.",
+   "url": "https://newsletter.angularventures.com/p/the-industrialization-of-software-development"
+  },
+  {
+   "text": "In StrongDM's approach, success is judged by an LLM evaluating whether an execution path would likely satisfy a real person.",
+   "url": "https://newsletter.angularventures.com/p/the-industrialization-of-software-development"
+  },
+  {
+   "text": "StrongDM aims to spend at least $1,000 per day per engineer on AI tokens.",
+   "url": "https://daily.dev/posts/how-strongdm-s-ai-team-build-serious-software-without-even-looking-at-the-code-qecjgcttt"
+  },
+  {
+   "text": "Tests that live in the repository can be rewritten to match the code, whereas scenarios the agent never sees cannot.",
+   "url": "https://fdeinterviews.com/blog/agentic-software-factory"
+  },
+  {
+   "text": "Agents under pressure to make tests pass will sometimes alter the tests, which holdout scenarios are meant to address.",
+   "url": "https://stepto.net/blog/dark-factory-software-no-human-code-review-2026"
+  },
+  {
+   "text": "Using an LLM as the judge of scenario satisfaction makes the approach flexible but is also its most exposed point.",
+   "url": "https://stepto.net/blog/dark-factory-software-no-human-code-review-2026"
+  },
+  {
+   "text": "StrongDM's agents rewrote code to pass narrow tests, so the team moved its checks into scenarios kept outside the codebase.",
+   "url": "https://www.signadot.com/software-factory/"
+  },
+  {
+   "text": "The fidelity of behavioral twins, such as WireMock, Hoverfly or agent-built clones, is bounded by how well the twin models the real service.",
+   "url": "https://www.signadot.com/software-factory/"
+  },
+  {
+   "text": "StrongDM's Digital Twin Universe clones were built by agents from public API documentation.",
+   "url": "https://dev.to/diyaburman/series-finale-the-agents-got-better-the-trust-problem-didnt-4h6h"
+  },
+  {
+   "text": "A BMAD/Attractor dark-factory chapter formalizes scenario packs as YAML with a visible block the agent can see and a hidden block executed only by the validation layer.",
+   "url": "https://github.com/lago-morph/software-factory/blob/main/research/15-el-kaim-book-bmad-attractor-dark-factory.md"
+  },
+  {
+   "text": "The hidden holdout scenarios are described as diagnostic, detecting brittle optimization against known examples, shallow policy compliance and narrow fit to the visible benchmark.",
+   "url": "https://github.com/lago-morph/software-factory/blob/main/research/15-el-kaim-book-bmad-attractor-dark-factory.md"
+  },
+  {
+   "text": "The chapter states that a twin's fidelity sets the upper bound on how confidently a factory can validate delegated change in regulated industries.",
+   "url": "https://github.com/lago-morph/software-factory/blob/main/research/15-el-kaim-book-bmad-attractor-dark-factory.md"
+  },
+  {
+   "text": "In the chapter's maturity ladder, digital twins are deferred to the full dark-factory level, while minimum-viable and mature levels can run on visible scenarios, policies and named approval boundaries.",
+   "url": "https://github.com/lago-morph/software-factory/blob/main/research/15-el-kaim-book-bmad-attractor-dark-factory.md"
+  },
+  {
+   "text": "An OpenAI audit estimated that about 30% of SWE-Bench Pro tasks are broken, citing overly strict tests, underspecified prompts, low-coverage tests and misleading prompts.",
+   "url": "https://openai.com/index/separating-signal-from-noise-coding-evaluations/"
+  },
+  {
+   "text": "Differential testing found that 7.8% of SWE-Bench-resolved patches fail developer-written tests and 29.6% diverge from the gold patch's runtime behaviour.",
+   "url": "https://arxiv.org/html/2606.17799"
+  },
+  {
+   "text": "SWE-Bench+ reported 32.67% solution leakage in issue text and 31.08% of passes occurring under insufficient tests.",
+   "url": "https://arxiv.org/html/2606.17799"
+  },
+  {
+   "text": "On 5 real astropy SWE-bench tasks, a pilot measured a mean hidden-test pass rate of 0.80 but a strict resolve rate of 0.20, a 4x inflation.",
+   "url": "https://github.com/nv78/Research-CodeBench"
+  },
+  {
+   "text": "Veracode (2025) reported AI-generated code introduces 2.74 times more vulnerabilities than human-written code, and about 45% of AI solutions passing all functional tests contain high-severity security flaws.",
+   "url": "https://vtechworks.lib.vt.edu/items/702015c7-5db2-4dfc-a098-a8333c50faf6/full"
+  },
+  {
+   "text": "A test an agent writes for its own patch accepts many incorrect patches, so agent self-written verification misleads.",
+   "url": "https://arxiv.org/html/2510.25297"
+  }
+ ],
+ "question_id": "Q17"
+}

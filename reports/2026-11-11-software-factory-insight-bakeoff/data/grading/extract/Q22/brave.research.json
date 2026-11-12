@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.research",
+ "cell_sha": "bb100a0a840fa6a8",
+ "claims": [
+  {
+   "text": "BattleBridge, a senior-living marketing system, runs 10 autonomous AI agents across 3 production servers with 46 registered skills.",
+   "url": null
+  },
+  {
+   "text": "BattleBridge's system is built in-house on LangChain, using LangGraph for stateful orchestration and LangSmith for observability.",
+   "url": null
+  },
+  {
+   "text": "BattleBridge's agents cover SEO, Content, CRM and Analytics: Analytics identifies gaps, SEO researches keywords, Content creates pages, and CRM develops capture strategies.",
+   "url": null
+  },
+  {
+   "text": "BattleBridge reports that humans intervened on fewer than 0.3% of total actions over 8 months.",
+   "url": null
+  },
+  {
+   "text": "BattleBridge quality control consists of pre-execution validation, real-time monitoring with automatic rollback, and human oversight when confidence scores fall below thresholds.",
+   "url": null
+  },
+  {
+   "text": "BattleBridge's Content Generation Agent wrote 2,847 pieces of content, and its quality scores improved 23% as it learned from performance data.",
+   "url": null
+  },
+  {
+   "text": "Fountain City's content-marketing multi-agent system is built on OpenClaw (open-source orchestration) and n8n, with 25+ modules, and is delivered as a managed service rather than SaaS.",
+   "url": null
+  },
+  {
+   "text": "Fountain City uses human-in-the-loop gates for sensitive actions such as publishing content.",
+   "url": null
+  },
+  {
+   "text": "Fountain City's hallucination controls are research agents that source data, writing agents that use placeholder tags for unconfirmed information, and a self-review agent that checks statistics against sources.",
+   "url": null
+  },
+  {
+   "text": "Fountain City sets per-task timeouts of 10 minutes maximum and uses structured handoff protocols.",
+   "url": null
+  },
+  {
+   "text": "Fountain City produces 10+ new blog posts or pages per week and 10–40 page edits daily, with human review averaging 0–10 minutes per article.",
+   "url": null
+  },
+  {
+   "text": "Albert.ai is a proprietary autonomous paid-media platform, not built on a general open-source agent framework. It integrates by API into Google, Meta and Bing ad accounts and runs four phases: Plan, Build, Optimize, Report.",
+   "url": null
+  },
+  {
+   "text": "With Albert.ai, humans keep direction (KPIs, strategy, brand judgment) while the AI handles execution (bids, budgets, creative selection), and brand safety filters block content that violates guidelines.",
+   "url": null
+  },
+  {
+   "text": "Albert.ai results reported: Cosabella saw 336% ROAS and a 155% revenue increase in the opening months, and Harley-Davidson NYC attributed 40% of motorcycle sales to Albert, with sales rising from 2 to 15 per week.",
+   "url": null
+  },
+  {
+   "text": "Albert.ai results reported: a global insurance firm's ROAS rose 130% in the first month and conversions rose 227% year over year, and Crabtree & Evelyn improved ROAS 30% in under two months with flat media spend.",
+   "url": null
+  },
+  {
+   "text": "Salesforce Agentforce runs on the Atlas Reasoning Engine, which combines LLM flexibility with rules-based execution via Agent Script, and uses Subagents, Actions and Guardrails.",
+   "url": null
+  },
+  {
+   "text": "Agentforce governance includes human approval for budget changes above a threshold, and guardrails that stop agents updating opportunity stages without grounding-data verification.",
+   "url": null
+  },
+  {
+   "text": "Salesforce's internal Agentforce SDR agent worked more than 43,000 leads and generated $1.7M in new pipeline. It initially answered \"I don't know\" to 30% of requests, which fell below 10% after a year of fixes.",
+   "url": null
+  },
+  {
+   "text": "Agentforce customer results reported: Live Nation achieved 95% case deflection, Pandora's agent handles 45,000 conversations a month and deflects 60% of cases, and Wiley reported 213% ROI.",
+   "url": null
+  },
+  {
+   "text": "Agentforce failure data reported: 77% of B2B implementations fail to deliver value within six months, hallucination rates range from 3% to 27% depending on configuration, and true TCO is about $13,600 per user.",
+   "url": null
+  },
+  {
+   "text": "Moody's credit memo automation uses roughly 80 sub-agents across multiple models (Claude, Gemini, OpenAI), with separate agents for entity verification, financial data extraction, peer analysis and risk assessment, and cuts memo generation from 40 hours to 2–3 minutes.",
+   "url": null
+  },
+  {
+   "text": "Ramp's expense system uses a Supervisor Agent that routes line items to a Policy-Check Agent, receipts to a Data-Extraction Agent, and the package to an Approval Agent. When confidence is low it defers to a human, and its policy agent catches 7x more out-of-policy spend at 99% accuracy on in-policy determinations.",
+   "url": null
+  },
+  {
+   "text": "JPMorgan Chase's LAW system uses multiple specialized agents to process custody and fund-services contracts, reports 92.9% accuracy, and surfaces only exceptions for human judgment.",
+   "url": null
+  },
+  {
+   "text": "Multi-agent failure modes reported: silent context truncation across handoffs (a healthcare tech company saw 40% of complex queries fail silently, cutting CSAT by 18 points), error summaries treated as task completion, cascading errors across agents, and runaway token costs (a $0.03 query became $0.47).",
+   "url": null
+  },
+  {
+   "text": "Narrow single-workflow deployments are reported to deliver on time 65% of the time with median schedule slip under 2 months. Production deployments often settle on a hybrid pattern where the agent drafts and a human approves or sends.",
+   "url": null
+  }
+ ],
+ "question_id": "Q22"
+}

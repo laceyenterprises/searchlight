@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "1f192bd95b1e13b9",
+ "url": "https://ar5iv.labs.arxiv.org/html/2610.28667",
+ "verdicts": {
+  "In a pre-registered study on three stateful services, a verifier in a fresh context detected more of 46 seeded faults than the builder's own tests (Holm-corrected p=0.006), at the price of rare false oracles.": 1,
+  "In the same study, a verifier from another provider did not add fault detection beyond the fresh-context verifier.": 1,
+  "The builder's programs in that study were correct but its own tests missed subtle interactions; the only evaluation gap observed came from hidden tests exceeding the specification, not from the builder.": 1,
+  "The proposed assurance framework runs a specification-first verification phase designed without access to the implementation, then an implementation-aware phase using mutation analysis, property-based testing, fuzzing, and metamorphic or differential relations.": 1
+ }
+}

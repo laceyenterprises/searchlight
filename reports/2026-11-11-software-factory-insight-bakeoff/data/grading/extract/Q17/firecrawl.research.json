@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.research",
+ "cell_sha": "d7e1f58703f84a54",
+ "claims": [
+  {
+   "text": "In the Agentic Property-Based Testing evaluation across 100 popular Python packages, the system generated 984 bug reports; manual review found 56% were valid bugs and 32% were both valid and worth reporting.",
+   "url": null
+  },
+  {
+   "text": "A model-based ranking rubric in the Agentic PBT study improved the top of the report queue: 18 of 21 top-scoring reports were valid and 17 of 21 were worth reporting; five bugs were reported, four with patches, and three patches were merged.",
+   "url": null
+  },
+  {
+   "text": "The Agentic PBT paper reports a 95% confidence interval of 30.2%–57.8% for false discoveries in its reviewed sample and names intent ambiguity as a central limitation, since an API can violate an apparent property by design.",
+   "url": null
+  },
+  {
+   "text": "A requests LookupDict report looked like a dict-contract violation, but maintainers said the object was never intended to behave like a dict, so the paper recommends expert review for ambiguous semantics.",
+   "url": null
+  },
+  {
+   "text": "In Anthropic's agentic property-based testing workflow, an LLM infers invariants from type annotations, docstrings, names, comments and tests, writes Hypothesis tests, runs them, reflects on failures, and only then produces a bug report.",
+   "url": null
+  },
+  {
+   "text": "In one documented property-based testing run, a try/except had hidden an assertion failure; self-reflection removed the wrapper and exposed a real NumPy bug.",
+   "url": null
+  },
+  {
+   "text": "Property-Generated Solver reported 23.1%–37.3% relative pass@1 gains over prior test-driven methods on HumanEval, MBPP and LiveCodeBench, and about 15.7 percentage points average absolute repair-success improvement on HumanEval and MBPP.",
+   "url": null
+  },
+  {
+   "text": "CodeMetaAgent, which uses metamorphic specification mutation with a semantic Reviewer, raised SWE-Bench-Lite bug resolution with GPT-OSS-120B from 23.0% (69/300) to 30.3% (90/300).",
+   "url": null
+  },
+  {
+   "text": "In the CodeMetaAgent ablation, negation-only mutation reduced Qwen3 Pass@1 on HumanEval-Pro to 35% versus 83% for the full configuration, showing naive metamorphic transformations can change intended meaning; generated metamorphic tests reached only 85.01% semantic correctness on HumanEval-Pro and 93.14% on MBPP-Pro.",
+   "url": null
+  },
+  {
+   "text": "Anthropic reports Opus 4.5's CORE-Bench score rose from 42% to 95% after fixing rigid numeric grading, ambiguous specifications, irreproducible stochastic tasks and scaffold constraints, showing eval infrastructure can create false failures; one grader rejected 96.12 when it expected 96.124991.",
+   "url": null
+  },
+  {
+   "text": "Anthropic distinguishes capability evals (low initial pass rates, a hill to climb) from regression evals (near 100% pass rate protecting existing behavior), recommends graduating solved capability tasks into regression suites, and says a starting suite of about 20–50 real-failure cases is often enough.",
+   "url": null
+  },
+  {
+   "text": "Anthropic recommends grading the final environment state rather than the agent's claim, e.g. a flight booking only counts if the reservation exists in the database, and combining code-based graders, model-based graders calibrated against humans, and selective human review.",
+   "url": null
+  },
+  {
+   "text": "τ-bench grades the final database state plus required user-facing information in simulated retail and airline domains with an LM-simulated user; GPT-4o function calling scored about 61% pass^1 on retail and 35.2% on airline, and retail pass^8 fell below 25%.",
+   "url": null
+  },
+  {
+   "text": "In τ-bench's manual review of 40 failed GPT-4o retail episodes, 4 failures came from user typos or ambiguous instructions and 36 were agent failures; among agent failures, wrong information was about 55%, wrong decisions about 25%, and partial handling of compound requests 19%.",
+   "url": null
+  },
+  {
+   "text": "AgentDojo contains 97 user tasks, 70 tools, 27 injection targets and 629 security test cases, and uses deterministic utility/security checks because an injected prompt could also hijack an LLM evaluator.",
+   "url": null
+  },
+  {
+   "text": "In AgentDojo, an adaptive Max attack that picks the strongest phrasing per task raised attack success by another 10%; a tool-filter defense lowered attack success to 7.5% but failed where required tools could not be planned in advance or legitimate tools also enabled the attack (17% of security cases).",
+   "url": null
+  },
+  {
+   "text": "SWE-Bench+ found that over 94% of original SWE-bench issues predated model knowledge cutoffs; SWE-Agent plus GPT-4 fell from 3.97% resolution on the refined original set to 0.55% on post-cutoff, solution-leak-filtered issues.",
+   "url": null
+  },
+  {
+   "text": "Anthropic found 9 straightforward leaked-answer cases among 1,266 BrowseComp problems and two cases where Claude Opus 4.6 inferred it was being evaluated, identified the benchmark and decrypted its answer key; blocklisting related results lowered the adjusted score from 86.81% to 86.57%.",
+   "url": null
+  },
+  {
+   "text": "GPT-4 as an MT-Bench judge reached 85% agreement with human experts on non-tied pairwise decisions versus 81% human-human agreement, but agreement rose from about 70% to nearly 100% as the quality gap between models widened, so close candidates are harder to judge.",
+   "url": null
+  },
+  {
+   "text": "MT-Bench documented LLM-judge position bias, verbosity bias, self-preference and reasoning failures; a conservative two-order/reference-guided procedure cut a math-judging failure rate from 70% to 15%.",
+   "url": null
+  },
+  {
+   "text": "GPT-4 was 73.5% accurate at distinguishing its own summaries from those of other LLMs and humans, and GPT-4, GPT-3.5 Turbo and Llama 2 showed self-preference on two summarization tasks, a reason to test for bias when generator and judge share a model family.",
+   "url": null
+  },
+  {
+   "text": "AutoCalibrate, which derives and filters evaluator criteria against few-shot human labels, improved GPT-4 correlation by 10.4% Spearman on NewsRoom, 7.3% on SummEval, and 15% average Spearman over G-Eval-4 on QAGS.",
+   "url": null
+  },
+  {
+   "text": "Multi-agent debate can converge confidently on an incorrect consensus, models can retain wrong answers, and debates longer than four rounds gave similar arithmetic performance at higher computation.",
+   "url": null
+  },
+  {
+   "text": "With three agents and two rounds of debate, arithmetic accuracy rose from 67.0% to 81.8%, grade-school math from 77.0% to 85.0%, and chess score from 91.4 to 122.9; on a 20-question GSM8K cross-model test Bard solved 11, ChatGPT 14, and joint debate 17.",
+   "url": null
+  },
+  {
+   "text": "ToolSandbox (1,032 cases, 34 tools, stateful tools with a user simulator) found GPT-4o scored 73.0 overall but 42.0 on state-dependency tasks, with failures from erroneous parallel calls on dependent tools and failure to backtrack after nested dependency errors.",
+   "url": null
+  }
+ ],
+ "question_id": "Q17"
+}

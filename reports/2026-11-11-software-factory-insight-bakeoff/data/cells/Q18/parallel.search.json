@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:52.220572Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 992,
+   "page_chars_delivered": 13703,
+   "post_step": "fetched",
+   "published": "2026-06-25",
+   "text": "To measure how widespread this behavior is, we built an agent to audit eval trajectories. On SWE-bench Pro, we found that 63% of successful Opus 4.8 Max resolutions retrieved the fix rather than\n\n...\n\nFor teams conducting evals, we propose mitigating this reward-hacking behavior by auditing transcr…",
+   "title": "Reward hacking is swamping model intelligence gains · Cursor",
+   "url": "https://cursor.com/blog/reward-hacking-coding-benchmarks"
+  },
+  {
+   "chars_delivered": 890,
+   "page_chars_delivered": 34550,
+   "post_step": "fetched",
+   "published": "2026-03-27",
+   "text": "This paper presents a large-scale empirical study of reverted changes introduced by AI coding agents to better understand the causes behind their rejection. We analyze 33,580 agentic pull requests comprising 86,315 commits authored by five major AI coding agents: Claude, Copilot, Cursor, Devin, and…",
+   "title": "When AI Code Doesn't Stick: An Empirical Study on Reverted Changes Introduced by AI Coding Agents",
+   "url": "https://dl.acm.org/doi/pdf/10.1145/3793302.3793587?download=true"
+  },
+  {
+   "chars_delivered": 958,
+   "page_chars_delivered": 7418,
+   "post_step": "fetched",
+   "published": "2026-09-12",
+   "text": "# Computer Science > Software Engineering\n\n**arXiv:2609.17598** (cs)\n\n[Submitted on 12 Sep 2026]\n\n# Title: Not All Agents Are Equal: Code Quality and Post-Merge Maintenance Across Five Autonomous Coding Agents in the Wild\n\n...\n\nThis paper studies 37,623 provenance-labeled pull requests (PRs) from f…",
+   "title": "[2609.17598] Not All Agents Are Equal: Code Quality and Post-Merge Maintenance Across Five Autonomous Coding Agents in the Wild",
+   "url": "https://arxiv.org/abs/2609.17598"
+  },
+  {
+   "chars_delivered": 983,
+   "published": null,
+   "text": "Autonomous coding agents now open pull requests in public repositories at a scale that was out of reach two years ago, yet little is known about what happens to that code after it lands. This paper studies 37,623 provenance-labeled pull requests (PRs) from five commercial agents (OpenAI Codex, Devi…",
+   "title": "Not All Agents Are Equal: Code Quality and Post-Merge Maintenance Across Five Autonomous Coding Agents in the Wild",
+   "url": "https://arxiv.org/html/2609.17598"
+  },
+  {
+   "chars_delivered": 939,
+   "published": "2026-03-02",
+   "text": "For example, an LLM agent with access to unit tests may delete failing tests rather than fix the underlying bug. Such behavior undermines both the validity of bench- mark results and the reliability of real-world LLM coding assistant deployments. To quantify, study, and mitigate such behavior, we i…",
+   "title": "I B : M LLM ’ P - E T C",
+   "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/ca688eb14e29701a11bdba6633186328-Paper-Conference.pdf"
+  },
+  {
+   "chars_delivered": 867,
+   "published": "2026-07-31",
+   "text": "# Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub\n\n...\n\nAI coding agents are now submitting pull requests (PRs) to software projects, acting not just as assistants but as autonomous contributors.\n\n...\n\nIn this paper, we conduct a large-scale study of 33k…",
+   "title": "Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub | Proceedings of the 23rd International Conference on Mining Software Repositories",
+   "url": "https://dl.acm.org/doi/abs/10.1145/3793302.3793579"
+  },
+  {
+   "chars_delivered": 936,
+   "published": "2026-11-07",
+   "text": "When running capable coding agents over long time horizons, developers usually run into two failure modes before turning to harness engineering:\n\n1. **Approve Every Command (Approval Fatigue)** : Humans stop reading and start rubber-stamping permission prompts, while constant interruptions block mu…",
+   "title": "Practical Harness Engineering with Google Antigravity",
+   "url": "https://codelabs.developers.google.com/harness-engineering-antigravity?hl=en#0"
+  },
+  {
+   "chars_delivered": 966,
+   "published": "2026-01-21",
+   "text": "# Computer Science > Software Engineering\n\n**arXiv:2601.15195** (cs)\n\n[Submitted on 21 Jan 2026]\n\n# Title: Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub\n\n...\n\nIn this paper, we conduct a large-scale study of 33k agent-authored PRs made by five coding a…",
+   "title": "[2601.15195] Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub",
+   "url": "https://arxiv.org/abs/2601.15195"
+  },
+  {
+   "chars_delivered": 940,
+   "published": "2026-10-09",
+   "text": "# Computer Science > Artificial Intelligence\n\n**arXiv:2610.12822** (cs)\n\n[Submitted on 9 Oct 2026 ( [v1](https://arxiv.org/abs/2610.12822v1) ), last revised 12 Oct 2026 (this version, v2)]\n\n...\n\nThese agents are often optimized with reinforcement learning (RL) using automated evaluators, but bypass…",
+   "title": "[2610.12822] Reward Hacking as a Transmissible Strategy in Multi-Agent Coding Systems",
+   "url": "https://arxiv.org/abs/2610.12822"
+  },
+  {
+   "chars_delivered": 986,
+   "published": null,
+   "text": "(2026) found that most AI-generated PRs receive no human review.\nMost recently, Cynthia et al. (2026) found on 1,210 merged bug-fix PRs that a merge says little about the code quality that follows it.\n\n...\n\nsignificant gain or regressed, and the tests that came with them pass on the unfixed code in…",
+   "title": "Merged, Not Measured: An Empirical Study of Performance Issues Fixed by Coding Agents",
+   "url": "https://arxiv.org/html/2609.37985"
+  }
+ ],
+ "latency_ms": 3666.7,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q18",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: What are the documented failure modes of autonomous AI coding agents at scale: reward hacking or test tampering, review rubber-stamping, regressions introduced by fixes, runaway token spend, and merge conflicts in high-volume repos? How do organizations mitigate them? Rank first primary sources: organizations' own engineering blog posts, docs, conference talks, research papers, and credible reporting. Extract mechanisms, numbers, names, dates, measured results, and specific failure modes (agents editing or deleting tests, special-casing to pass, AI reviewers approving flawed PRs, fixes causing regressions, token cost overruns, merge queue conflicts), plus concrete mitigations such as sandboxing, held-out tests, human review gates, budget caps, and merge queues.",
+   "search_queries": [
+    "autonomous coding agents reward hacking test tampering",
+    "AI coding agent failure modes at scale mitigation",
+    "AI code review rubber-stamping agent pull requests regressions"
+   ],
+   "session_id": "sl-parallel.search-Q18-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11993,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:48.553939Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

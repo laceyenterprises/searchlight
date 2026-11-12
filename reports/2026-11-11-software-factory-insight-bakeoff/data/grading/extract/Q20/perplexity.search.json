@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "98f68825085046fa",
+ "claims": [
+  {
+   "text": "Cleric uses graduated autonomy by problem type: accuracy scores per problem class determine where the agent acts independently and where it escalates.",
+   "url": null
+  },
+  {
+   "text": "Cleric's Verification Engine triangulates sparse environmental signals after the fact: whether the alert recurred, whether downstream services stabilized, whether metrics recovered, and whether the engineer overrode the recommendation.",
+   "url": null
+  },
+  {
+   "text": "Cleric's accuracy scores update with every verified outcome, making it a closed-loop system; on problem types where accuracy is proven it can handle detection, diagnosis, resolution and verification end to end.",
+   "url": null
+  },
+  {
+   "text": "Resolve is designed for autonomous remediation against pre-defined workflows from the start, and its verification is open-loop: workflow execution is observable but there is no system-level measurement of whether diagnoses were correct.",
+   "url": null
+  },
+  {
+   "text": "Traversal performs investigation and analysis only, with no remediation; it models causal structure by building a dependency graph of the system and analyzing how signals propagate through it.",
+   "url": null
+  },
+  {
+   "text": "Traversal's verification is open-loop: it surfaces causal hypotheses with supporting telemetry but has no automated mechanism to verify that the inferred chain matched the true root cause.",
+   "url": null
+  },
+  {
+   "text": "Resolve AI is cloud-hosted SaaS with an optional in-cluster Satellite that redacts sensitive data before it leaves the customer's environment.",
+   "url": null
+  },
+  {
+   "text": "Resolve AI access is read-only by default and write actions need human approval, though admins can set some GitHub Actions workflow tools to run automatically.",
+   "url": null
+  },
+  {
+   "text": "Resolve AI starts on monitor alerts, tests hypotheses in parallel against Datadog telemetry, and proposes mitigations and fix pull requests.",
+   "url": null
+  },
+  {
+   "text": "Traversal's platform covers Alert Intelligence, Incident RCA, Self-healing, Code Resilience and Production Support, and each diagnosis arrives with its reasoning chain: hypotheses evaluated, hypotheses ruled out, and supporting evidence.",
+   "url": null
+  },
+  {
+   "text": "Resolve AI states a goal of 80% autonomous resolution and executes fixes without human intervention for well-defined incident patterns under a graduated trust model; it builds a knowledge graph of code commits, infrastructure topology and incident histories.",
+   "url": null
+  },
+  {
+   "text": "Cleric takes a safety-first, read-only investigation stance, delivers findings in Slack with evidence links and confidence scores, and learns from engineer feedback.",
+   "url": null
+  },
+  {
+   "text": "Cleric's action surface is deliberately scoped: it runs defined runbook actions and read-only diagnostics but does not execute arbitrary mitigations, and the bound is meant to be enforced by the tool rather than by policy alone.",
+   "url": null
+  },
+  {
+   "text": "An evidence trail for an AI SRE is the auditable record of queries run, spans and log lines cited, model and prompt used, hypothesis, mitigation suggested or executed, outcome and confidence.",
+   "url": null
+  },
+  {
+   "text": "Datadog's Bits AI SRE, launched in Limited Availability at DASH, investigates alerts 24/7 by analyzing runbooks and telemetry, validates its own findings, and delivers a conclusion to collaboration tools before on-call responders log in; it supports HIPAA workloads and RBAC.",
+   "url": null
+  },
+  {
+   "text": "Datadog's Bits AI suite includes Bits Investigation for alert triage and RCA, Bits Code for generating fixes and opening PRs, and a Bits Agent Builder for custom agents; these agents see only what Datadog sees.",
+   "url": null
+  },
+  {
+   "text": "PagerDuty's SRE Agent triages alerts, runs diagnostics and executes runbooks as a virtual responder in the on-call roster, can suggest remediation before a human is paged, and has 700+ integrations.",
+   "url": null
+  },
+  {
+   "text": "Middleware OpsAI traces errors to the exact line of code via GitHub MCP and either opens a PR with a fix or auto-applies the fix for Kubernetes.",
+   "url": null
+  },
+  {
+   "text": "The IDC 2026 AIOps MarketScape noted New Relic's SRE Agent offers human-in-the-loop controls, approval gates and example workflows for automated rollbacks.",
+   "url": null
+  },
+  {
+   "text": "Auto-execution of remediation is rare and usually limited to well-understood actions like rolling back a recent deployment; evidence from real incidents suggests over-reliance on automation can double recovery times when it fails and humans are pulled in cold.",
+   "url": null
+  },
+  {
+   "text": "A 2026 buyer's guide describes a trust-gradient model: AI-assisted investigation, then human-approved remediation, then bounded autonomous execution.",
+   "url": null
+  },
+  {
+   "text": "Google's SRE framework defines L3 High Autonomy as independently detecting, deciding and acting without human approval for bounded actions in well-defined scenarios, and L4 Full Autonomy as devising multi-step action sequences, monitoring intervention impact, trying alternative mitigations and initiating rollbacks.",
+   "url": null
+  },
+  {
+   "text": "Google's AI Operator is a first-responder agent that runs RCA and selects a mitigation; it operates at L2 (human SRE accepts suggestions for critical operations) and L3 (autonomous execution for minor incidents).",
+   "url": null
+  },
+  {
+   "text": "Google routes agent mitigations through an Actuation Agent acting as a safety gateway, which runs pre-flight validations including mandatory dry-runs, justification checks that the action targets an open incident, and concurrent action checks.",
+   "url": null
+  },
+  {
+   "text": "Google's safety controls include distinct, strongly authenticated agent identities with on-demand least-privilege access, agent-specific rate limits and circuit breakers, interruptible actions, real-time risk evaluation (deployments, error budget, active incidents, time of day), and logging of signals, hypotheses, reasons and confidence.",
+   "url": null
+  }
+ ],
+ "question_id": "Q20"
+}

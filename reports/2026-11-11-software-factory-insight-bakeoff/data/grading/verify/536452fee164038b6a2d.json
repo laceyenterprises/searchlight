@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "0c9f0c34fa2eae2a",
+ "url": "https://cloud.ibm.com/docs/pattern-multiagent-orchestration-architecture?topic=pattern-multiagent-orchestration-architecture-white-paper&locale=pt-BR",
+ "verdicts": {
+  "IBM's guidance says human-escalation thresholds should be risk-calibrated, such as financial transactions above a limit, irreversible actions or low-confidence decisions.": 1,
+  "IBM's reference architecture uses watsonx Orchestrate as the orchestration plane with MCP for tool integration, A2A for agent collaboration and watsonx.governance, including supervisor/sub-agent hierarchies and a HITL gate pattern with state persisted at the checkpoint.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "bd00e8f94790d58d",
+ "claims": [
+  {
+   "text": "Attractor's spec describes a DOT-based pipeline runner in which each Graphviz node is an AI task (LLM call, human review, conditional branch, parallel fan-out) and edges define flow.",
+   "url": "https://raw.githubusercontent.com/strongdm/attractor/main/attractor-spec.md"
+  },
+  {
+   "text": "Attractor edge selection is deterministic with five priority steps: condition-matching edges, preferred-label match, suggested next IDs, highest weight, then a lexical tiebreak on target node ID.",
+   "url": "https://raw.githubusercontent.com/strongdm/attractor/main/attractor-spec.md"
+  },
+  {
+   "text": "Attractor saves a checkpoint to {logs_root}/checkpoint.json after each node, and on resume the first node degrades from full to summary:high fidelity because in-memory LLM sessions cannot be serialized.",
+   "url": "https://raw.githubusercontent.com/strongdm/attractor/main/attractor-spec.md"
+  },
+  {
+   "text": "The generic Attractor spec supports human-in-the-loop nodes such as approval gates, code review and manual override, described as critical where automated judgment may not be sufficient.",
+   "url": "https://raw.githubusercontent.com/strongdm/attractor/main/attractor-spec.md"
+  },
+  {
+   "text": "The Attractor coding-agent loop spec defaults to a 10-second command timeout, a 10-minute maximum, loop detection over a 10-call window of identical calls, and max_subagent_depth of 1; it explicitly puts MCP, sandboxing, compaction and approval gates out of scope.",
+   "url": "https://raw.githubusercontent.com/strongdm/attractor/main/coding-agent-loop-spec.md"
+  },
+  {
+   "text": "The public strongdm/attractor repository contains no code, only three markdown spec files plus a README telling users to feed them to a coding agent; it had 1.3k stars, 195 forks and 15 commits.",
+   "url": "https://github.com/strongdm/attractor"
+  },
+  {
+   "text": "CXDB, StrongDM's released AI Context Store that keeps conversation histories and tool outputs in an immutable DAG, comprises 16,000 lines of Rust, 9,500 of Go and 6,700 of TypeScript.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "text": "The Software Factory's three rules are: code must not be written by humans, code must not be reviewed by humans, and if you haven't spent at least $1,000 on tokens per human engineer that day, the factory has room for improvement.",
+   "url": "https://www.thepragmaticcto.com/p/the-software-factory-when-no-human"
+  },
+  {
+   "text": "The Software Factory was founded on 14 July 2025 by Jay Taylor, Navan Chauhan and Justin McCarthy, with the team citing the October 2024 Claude Sonnet 3.5 revision as the catalyst enabling long-horizon agentic coding that compounds correctness.",
+   "url": "https://www.thepragmaticcto.com/p/the-software-factory-when-no-human"
+  },
+  {
+   "text": "StrongDM replaced the word 'test' with 'scenario': end-to-end user stories often stored outside the codebase, like a holdout set in model training, so code-generating agents cannot game them.",
+   "url": "https://simonw.substack.com/p/how-strongdms-ai-team-build-serious"
+  },
+  {
+   "text": "StrongDM measures success probabilistically as 'satisfaction': of all observed trajectories through all scenarios, what fraction likely satisfy the user.",
+   "url": "https://simonw.substack.com/p/how-strongdms-ai-team-build-serious"
+  },
+  {
+   "text": "The Digital Twin Universe is a set of behavioural clones of third-party services (Okta, Jira, Slack, Google Docs, Drive and Sheets) that lets the team run thousands of scenarios per hour without rate limits, abuse detection or API costs, and test failure modes dangerous against live services.",
+   "url": "https://simonw.substack.com/p/how-strongdms-ai-team-build-serious"
+  },
+  {
+   "text": "Jay Taylor says he built the Digital Twin Universe starting in August 2025 using popular public reference SDK client libraries as compatibility targets with a goal of 100% compatibility, and is partly reimplementing it in Rust from Go; it has not been open-sourced.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "Humans in the factory write specs and roadmaps, decide what to build, and curate scenarios; Chauhan says he contributes 'taste and deciding what to do next', does not read the code, and interrogates a coding agent to keep a mental model.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "Simon Willison said the demos showed more work than he would expect from a team that size and looked like way more than a 2x or 4x gain, but cautioned that measuring software productivity is notoriously hard.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "Willison cautioned that the factory is the AI research lab's approach and not (yet) reflective of how StrongDM builds its core product.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "No measured outcomes of the factory's software have been reported, and what happens when a run fails to converge is not documented.",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "text": "Hacker News critics noted zero published benchmarks, defect rates, cost comparisons or production outcomes, and argued agent-written scenarios are still agent-written tests with shared blind spots between generator and discriminator agents.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "A commenter found likely Rust anti-patterns in CXDB (stringly typed StoreError, excessive String::clone, errors swallowed via unwrap_or_default, an 800-line closure, widespread unwrap); Taylor's plan for agent 'purification passes' drew the retort that it sounds like human code review.",
+   "url": "https://news.ycombinator.com/item?id=46924426"
+  },
+  {
+   "text": "Stanford Law's Eran Kahana notes that agents wrote 'return true' to pass tests, and argues no industry standard defines a sufficient satisfaction score and no audit methodology covers agent-built software tested against replicas.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom"
+  },
+  {
+   "text": "The Pragmatic CTO argues that in a dark factory the audit trail is a conversation between LLMs, making incident response and regulated-industry compliance a non-starter, especially for security software.",
+   "url": "https://www.thepragmaticcto.com/p/the-software-factory-when-no-human"
+  },
+  {
+   "text": "Ry Walker's analysis calls scenario holdouts a design claim that validation stored outside the codebase is less vulnerable to reward hacking, not proven prevention.",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "text": "Addy Osmani argues a dark factory takes on 'comprehension debt' as fast as it can, with the tests green the whole way.",
+   "url": "https://addyo.substack.com/p/software-factories-light-and-dark"
+  },
+  {
+   "text": "StrongDM's Weather Report, updated roughly monthly since February 2026, routes models by role; the September 28, 2026 edition assigns architecture, security review and copy to opus-5.5, QA orchestration to gpt-5.6-sol, and hard CS/math problems to gpt-6-astra.",
+   "url": "https://factory.strongdm.ai/weather-report"
+  },
+  {
+   "text": "Delinea announced an agreement to acquire StrongDM on 15 January 2026 and completed it on 5 March 2026; Chauhan says the deal predated the February essay, and Willison says it was about the core business, not the AI lab work.",
+   "url": "https://delinea.com/news/delinea-acquires-strongdm-to-secure-ai-with-continuous-authorization"
+  }
+ ],
+ "question_id": "Q01"
+}

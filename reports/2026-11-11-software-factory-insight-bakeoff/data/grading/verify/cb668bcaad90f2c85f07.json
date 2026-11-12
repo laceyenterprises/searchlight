@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "fc956d1c9cbbe7cd",
+ "url": "https://www.inngest.com/docs/durable-execution/guides-and-advanced/error-handling/retries",
+ "verdicts": {
+  "An Inngest retry can call an external API again when the first call succeeded but its response was lost, so the same idempotency key should be used for every attempt of an operation.": 1,
+  "In Inngest, an error thrown outside a named step can also cause a function retry.": 1,
+  "In the Inngest retries example, event.data.invoiceId can identify a single ledger write if the ledger enforces uniqueness.": 1,
+  "Inngest recommends throwing a standard error for transient failures such as a temporary network error, RetryAfterError when a rate-limited API supplies a retry time, and NonRetriableError for permanent invalid input.": 1,
+  "Inngest retries failed work after a service timeout and reuses the results of completed steps; if step load-invoice succeeds and record-invoice fails, the saved first result is reused while the second step is retried.": 1,
+  "Inngest uses backoff with jitter by default for retries.": 1
+ }
+}

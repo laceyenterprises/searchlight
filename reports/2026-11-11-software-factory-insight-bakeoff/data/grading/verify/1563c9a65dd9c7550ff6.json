@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "12795fa0acf1775b",
+ "url": "https://factory.ai/news/code-droid-technical-report",
+ "verdicts": {
+  "Code Droid took 5 to 20 minutes on average per patch, up to 136 minutes at the extreme, and produced up to three patches per task before selecting the most promising one; token use averaged under 2 million per patch and reached 13 million.": 1,
+  "Code Droid uses HyperCode to build a multi-resolution representation of a codebase (explicit graph and implicit latent-similarity relationships) and ByteRank as the retrieval algorithm over it.": 1,
+  "Each Code Droid runs in a sandboxed environment isolated from main development environments, with audit trails and version-control integrations so actions are traceable and reversible, and it logs the reasoning behind its actions.": 1,
+  "Factory's Code Droid technical report claimed 19.27% on SWE-bench Full and 31.67% on SWE-bench Lite (300 problems) pass rate on first attempt.": 1,
+  "In SWE-bench, Code Droid received only the problem statement as a ticket, without hints or the test patch, and ran until it produced a patch without human help.": 1
+ }
+}

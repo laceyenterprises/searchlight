@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "f219a390a45c5ad4",
+ "url": "https://github.com/CraigKettleman/anthropic-engineering-cn/blob/main/articles/effective-harnesses-for-long-running-agents.md",
+ "verdicts": {
+  "All features in the initializer's feature list were initially marked as failing so later coding agents have a clear outline of what full functionality looks like.": 1,
+  "The key insight of the long-running harness is finding a way for agents to quickly understand the state of work when starting with a fresh context window, accomplished with the claude-progress.txt file alongside git history.": 1
+ }
+}

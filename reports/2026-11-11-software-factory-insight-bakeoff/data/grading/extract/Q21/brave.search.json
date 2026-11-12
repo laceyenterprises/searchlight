@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "a53d73206c72f64c",
+ "claims": [
+  {
+   "text": "If each PR independently fails in the merge queue with probability p, a batch of b PRs passes with probability (1−p)^b, and without bisection one failure discards the whole batch.",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "text": "At a 20% per-PR queue-failure rate (described as typical for agent-authored, unrebased PRs), a batch of 10 passes only 10.7% of the time and costs about 0.93 CI runs per merged PR, roughly the unbatched baseline.",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "text": "At a 5% per-PR queue-failure rate a batch of 10 passes 59.9% of the time (0.17 CI runs per merge); at 10% it passes 34.9% of the time (0.29 CI runs per merge).",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "text": "Isolating one culprit in a failed batch of b via bisection costs roughly 2·log2(b) extra CI runs instead of re-running everything, and innocent PRs do not return to the end of the line.",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "text": "Agent-authored changes fail in the queue more often because the agent verified against the base commit it checked out rather than the tip at queue time, edits files with no local context, and opens PRs faster than the tree settles, making cross-agent conflicts ordinary.",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "text": "GitHub merge queue has a build-concurrency setting between 1 and 100 that caps how many merge_group webhooks dispatch at once.",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "text": "Mergify batch size can be a fixed integer from 1 to 128 or a {min, max} object for dynamic batching that grows toward max to drain a backlog; speculative parallel checks use temporary draft PRs combining queued changes with the base branch, capped by max_parallel_checks.",
+   "url": "https://menuagentic.com/blogs/github-merge-queue-vs-trunk-vs-mergify-vs-aviator/"
+  },
+  {
+   "text": "In a merge replay of 747 unique co-active PR pairs (one per repository) from AI agent PRs on GitHub, the textual conflict rate was 41.7% for cross-agent pairs versus 19.8% for intra-agent pairs, with non-overlapping 95% confidence intervals.",
+   "url": "https://arxiv.org/html/2607.04697v2"
+  },
+  {
+   "text": "Intra-agent pairs make up 99.5% of all co-activity among agent PRs, so the overall textual conflict rate is dominated by the nearly 20% rate for same-agent pairs.",
+   "url": "https://arxiv.org/html/2607.04697v2"
+  },
+  {
+   "text": "With a same-day window (k=0) the study found 580,913 co-active PR pairs across 1,129 repositories, and 79.4% of agent PRs were co-active with another PR; with a 7-day window 95.0% of PRs were co-active and 53.4% of repositories had co-activity.",
+   "url": "https://arxiv.org/html/2607.04697v2"
+  },
+  {
+   "text": "Queue throughput is capped at roughly 1/(p × T) PRs per hour, where p is the share of queued PRs that fail and T is CI time, regardless of how many pipelines run in parallel.",
+   "url": "https://dev.to/theaicommit/how-many-pull-requests-a-merge-queue-can-land-in-an-hour-4ae2"
+  },
+  {
+   "text": "In the modeled example, a queue with 20 pipelines and 8 PRs per hour has a 34-minute mean wait, and tripling arrivals to 24 per hour pushes the wait past 100 minutes.",
+   "url": "https://dev.to/theaicommit/how-many-pull-requests-a-merge-queue-can-land-in-an-hour-4ae2"
+  },
+  {
+   "text": "Anthropic's merges grew from about 2,500 a day in May 2026 to over 30,000 a day by September, and the company stopped using a merge queue.",
+   "url": "https://dev.to/theaicommit/how-many-pull-requests-a-merge-queue-can-land-in-an-hour-4ae2"
+  },
+  {
+   "text": "A 30-minute CI suite on a serial queue caps output at around 48 PRs a day.",
+   "url": "https://fckgit.com/posts/merge-queue-throughput-benchmarking-for-software-factories"
+  },
+  {
+   "text": "Bursty agent PR arrivals push queue utilization toward the steep part of the queueing curve, where small load increases produce disproportionate increases in wait time.",
+   "url": "https://fckgit.com/posts/merge-queue-throughput-benchmarking-for-software-factories"
+  },
+  {
+   "text": "Dependency-bot PRs clear the merge queue in about 0.4 minutes on average versus roughly 12 minutes for human PRs; Plaid measured queue overhead at about 40 seconds per merge before CI.",
+   "url": "https://fckgit.com/posts/merge-queue-throughput-benchmarking-for-software-factories"
+  },
+  {
+   "text": "A serial GitHub merge queue with a 30-minute suite merges about two PRs an hour, and at 20 to 30 PRs a day the backlog grows faster than it drains.",
+   "url": "https://mergify.com/blog/when-to-outgrow-github-merge-queue"
+  },
+  {
+   "text": "Mergify claims most teams see a 60-80% reduction in queue-related CI minutes in the first month on their highest-traffic repos from batching with bisect-on-failure.",
+   "url": "https://mergify.com/blog/when-to-outgrow-github-merge-queue"
+  },
+  {
+   "text": "In Mergify's data (153,000 merges, about 160 organizations, 90 days), 94% of private merges go through the queue one PR at a time; batched merges average four PRs per batch with a maximum of sixteen.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "Median queue time is about 7 minutes, 90% of PRs clear within an hour, and the median repo merges about 3 PRs per active day, with the top 10% merging 13 or more.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "The broken-main rate for green PRs rises about 16x with team size, from 0.8% (about 1 in 130) at 2–5 engineers to 12.5% (1 in 8) at 40+ engineers.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "AI-assisted PRs broke main 1.9% of the time versus 4.4% for non-AI PRs, holding within PR-size bands and within the same repositories; autonomous agent-authored PRs were only a few hundred of 153,000 merges.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "On private repos, failed batches bundle about six PRs on average, so one bad change can stall five good ones.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "With 'require branches to be up to date' enabled, parallel agent PRs from the same commit must each be resynced and have CI rerun sequentially even when they don't conflict; a project with 2–3 minute CI found this serialisation the dominant cost, and the GitHub merge queue's speculative validation and batching removes it.",
+   "url": "https://github.com/willdady/platypus/issues/943"
+  },
+  {
+   "text": "A merge queue cannot resolve genuine textual conflicts; pnpm-lock.yaml was identified as the main contention hotspot for parallel agents.",
+   "url": "https://github.com/willdady/platypus/issues/943"
+  }
+ ],
+ "question_id": "Q21"
+}

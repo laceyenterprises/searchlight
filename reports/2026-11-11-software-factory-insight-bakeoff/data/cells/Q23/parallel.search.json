@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:05.594048Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 957,
+   "page_chars_delivered": 7827,
+   "post_step": "fetched",
+   "published": "2026-10-02",
+   "text": "Failure lessons are conditional: kept in the agent's context, they misfire when their failure is absent, and removing them from an evolving playbook improves performance. Runtime interventions, in contrast, act only when a failure occurs but do not learn from their repairs. We argue that failure kn…",
+   "title": "[2610.02994] Sentry: Learning to Recover from LLM Agent Failures at Test Time",
+   "url": "https://arxiv.org/abs/2610.02994"
+  },
+  {
+   "chars_delivered": 1000,
+   "page_chars_delivered": 6112,
+   "post_step": "fetched",
+   "published": "2026-10-02",
+   "text": "* cs.LG\n* cs.AI\n* cs.CL\n* action\n\n## Abstract\n\nLLM agents often fail mid-task due to invalid tool calls, repeated actions, or poorly grounded reasoning, and learning from these failures is a path to\n\n...\n\nFailure lessons are conditional: kept in the agent's context, they misfire when their failure…",
+   "title": "Sentry: Learning to Recover from LLM Agent Failures at Test Time | Robotics Center Research",
+   "url": "https://www.roboticscenter.ai/research/papers/sentry-learning-to-recover-from-llm-agent-failures-at-test-time-2610"
+  },
+  {
+   "chars_delivered": 904,
+   "page_chars_delivered": 113020,
+   "post_step": "fetched",
+   "published": "2026-03-02",
+   "text": "A key limitation, however, is their failure to learn from the accumulated interaction history, forcing them to discard valuable insights and repeat past errors.\n\n...\n\nThis enables agents to continuously evolve and achieve higher accumulative success rates than the “No Memory” baseline on the WebAre…",
+   "title": "R B : S A S -E R M",
+   "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/980ea04d23d1f6908964eba2a74afe45-Paper-Conference.pdf"
+  },
+  {
+   "chars_delivered": 924,
+   "published": null,
+   "text": "Kept permanently in context they misfire when their failure is absent, and removing them from an evolving playbook improves performance.\n\n02\n\nSentry. When a failure is detected mid-trajectory, Sentry retrieves matching lessons to guide recovery, checks without access to task reward whether the agen…",
+   "title": "Sentry: Learning to Recover from LLM Agent Failures at Test Time | DAIR.AI Academy | DAIR.AI Academy",
+   "url": "https://academy.dair.ai/papers/sentry-learning-to-recover-from-llm-agent-failures-at-test-time-2610.02994"
+  },
+  {
+   "chars_delivered": 984,
+   "published": null,
+   "text": "Failure lessons are conditional: kept in the agent’s context, they misfire when their failure is absent, and removing them from an evolving playbook improves performance.\n\n...\n\nTwo lines of work let agents learn from failures, and each gets only half the problem right. Context-evolution methods dis…",
+   "title": "Sentry: Learning to Recover from LLM Agent Failures at Test Time",
+   "url": "https://arxiv.org/html/2610.02994v1"
+  },
+  {
+   "chars_delivered": 816,
+   "published": "2026-03-02",
+   "text": "Published as a conference paper at ICLR 2026\n\n### AGENTIC CONTEXT ENGINEERING: EVOLVING CON- TEXTS FOR SELF-IMPROVING LANGUAGE MODELS\n\n...\n\nAcross agent and domain-specific benchmarks, ACE optimizes contexts both offline ( _e.g.,_ system prompts) and on- line ( _e.g.,_ agent memory), consistently o…",
+   "title": "A C E : E C - S -I L M",
+   "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/8a94ff6f922d995d7d3f4ebf4143e442-Paper-Conference.pdf"
+  },
+  {
+   "chars_delivered": 970,
+   "published": null,
+   "text": "We introduce **Experiential Reflective Learn- ing** (ERL), a simple self-improvement framework that enables rapid environment adaptation through experiential learning.\n\n...\n\nOn the Gaia2 benchmark, ERL improves success rate by 7.8% over a ReAct baseline, with large gains in task completion reliabil…",
+   "title": "Experiential Reflective Learning for Self-Improving LLM Agents",
+   "url": "https://arxiv.org/pdf/2603.24639"
+  },
+  {
+   "chars_delivered": 979,
+   "published": "2025-09-29",
+   "text": "context engineering In contrast to the discrete task of writing a prompt, context engineering is iterative and the curation phase happens each time we decide what to pass to the model.\n\n...\n\nAt one extreme, we see engineers hardcoding complex, brittle logic in their prompts to elicit exact agentic…",
+   "title": "Effective context engineering for AI agents \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents"
+  },
+  {
+   "chars_delivered": 987,
+   "published": "2025-10-05",
+   "text": "* Jay Rainton ,\n* Chen Wu ,\n* Mengmeng Ji ,\n* Hanchen Li ,\n* Urmish Thakker ,\n* James Zou ,\n* K. Olukotun\n\n**_ICLR 2026_** | October 2025\n\n...\n\nBuilding on the adaptive memory introduced by Dynamic Cheatsheet, we introduce ACE (Agentic Context Engineering), a framework that treats contexts as evolv…",
+   "title": "Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models - Microsoft Research",
+   "url": "https://www.microsoft.com/en-us/research/publication/agentic-context-engineering-evolving-contexts-for-self-improving-language-models"
+  },
+  {
+   "chars_delivered": 940,
+   "published": "2025-10-06",
+   "text": "# Computer Science > Machine Learning\n\n**arXiv:2510.04618** (cs)\n\n[Submitted on 6 Oct 2025 ( [v1](https://arxiv.org/abs/2510.04618v1) ), last revised 29 Mar 2026 (this version, v3)]\n\n...\n\nWe introduce ACE (Agentic Context Engineering), a framework that treats contexts as evolving playbooks that acc…",
+   "title": "[2510.04618] Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models",
+   "url": "https://arxiv.org/abs/2510.04618"
+  }
+ ],
+ "latency_ms": 2977.4,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q23",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "How do agent systems capture and reuse lessons from past failures: incident memory, playbooks, learned rules injected into prompts, and self-improving agents? What evidence is there that this reduces repeat failures, and what are the risks (prompt bloat, stale rules)? Rank first primary sources: papers (e.g., Reflexion, Voyager, ExpeL, ACE agentic context engineering, Memento), engineering posts and docs from agent builders (Anthropic, OpenAI, LangChain, Cognition, Cursor) and credible reporting. Pull mechanisms (reflection memory, playbooks, rule files like CLAUDE.md, skills libraries), measured results (benchmark gains, repeat-failure reduction numbers), names, dates, and documented failure modes such as prompt bloat, context collapse, stale or conflicting rules, and memory poisoning.",
+   "search_queries": [
+    "agent memory learning from failures reflection playbook",
+    "self-improving agents learned rules prompt injection context bloat",
+    "agentic context engineering evolving playbook stale rules"
+   ],
+   "session_id": "sl-parallel.search-Q23-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11999,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:24:02.616703Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

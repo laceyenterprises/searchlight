@@ -1,0 +1,17 @@
+{
+ "capture": "captured",
+ "digest": "fd6df7554dc359c8",
+ "url": "https://internal-agents.com/agents/strongdm-software-factory",
+ "verdicts": {
+  "A Software Factory run starts from a natural-language seed (a few sentences, a screenshot, or an existing codebase); agents write code and run the end-to-end scenario harness, and a sample of the output feeds back into the inputs so the system self-corrects.": 1,
+  "As of June 2026, the Factory routes tasks across multiple model providers, including gpt-5.5 for everyday/DevOps tasks, QA orchestration and security review, and a consensus of opus-4.8 and gpt-5.5 for sprint planning.": 1,
+  "No measured outcomes of the factory's software have been reported, and what happens when a run fails to converge is not documented.": 1,
+  "StrongDM defines 'satisfaction' as a probabilistic success measure replacing boolean test-green: the fraction of all observed scenario trajectories that likely satisfy the user.": 1,
+  "StrongDM scenarios are end-to-end user-story validations, often stored outside the codebase like a training holdout set, and flexibly checked by an LLM to resist reward hacking and lazy test rewriting.": 1,
+  "StrongDM's Software Factory is a non-interactive agent system in which natural-language seeds and end-to-end scenario harnesses drive agents that write, validate, and iterate on code under standing rules that humans neither write nor review code.": 1,
+  "The Digital Twin Universe consists of behavioral clones of third-party services that replicate APIs, edge cases, and observable behaviors, so thousands of scenarios can run per hour without rate limits, abuse detection, or live-API cost.": 1,
+  "The Software Factory loop runs until the holdout scenarios pass and stay passing, and the code ships without human review.": 1,
+  "The captures of StrongDM's published material report principles, techniques, and model configuration but no measured outcomes of the factory's software.": 1,
+  "What happens when a Software Factory run fails to converge is not documented.": 1
+ }
+}

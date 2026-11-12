@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "2f2f6f5ba1417931",
+ "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/",
+ "verdicts": {
+  "Blueprints are workflow templates in which each node is either an agentic step (an LLM coding loop) or a deterministic step that enforces constraints the AI is not allowed to decide for itself.": 1,
+  "Each minion PR is validated against a subset of Stripe's battery of over 3 million tests before a human engineer reviews and merges it.": 1,
+  "Minions access nearly 500 MCP tools through Toolshed, Stripe's internal tool server; Part 1 cited more than 400.": 1,
+  "Minions are invoked via Slack, a CLI, web interfaces, and internal platform integrations.": 1,
+  "The test-validation step in a Blueprint is a gate the harness enforces regardless of what the model decides, rather than a request made to the model.": 1
+ }
+}

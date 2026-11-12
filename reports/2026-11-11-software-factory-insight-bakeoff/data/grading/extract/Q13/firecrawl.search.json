@@ -1,0 +1,103 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "b06e7c7921ac00ca",
+ "claims": [
+  {
+   "text": "The AIOS paper (arXiv:2403.16971, Rutgers University) proposes an AIOS kernel that isolates resources and LLM-specific services from agent applications, providing scheduling, context management, memory management, storage management and access control for runtime agents.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS paper includes an AIOS SDK, a suite of APIs for using the functionality provided by the AIOS kernel.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS paper reports up to 2.1x faster execution when serving agents built by various agent frameworks.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS paper argues that unrestricted agent access to LLM or tool resources can cause inefficient or potentially harmful resource allocation, and that the absence of scheduling and resource management in current agent designs hinders concurrent processing and limits system efficiency.",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "text": "The AIOS kernel sits as an abstraction layer above the regular OS kernel and provides an LLM core, a scheduler, a context manager, a memory manager (short-term state), a storage manager (persistence) and a tool manager (external calls).",
+   "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system"
+  },
+  {
+   "text": "In AIOS, agents talk to the kernel through an SDK, and the kernel turns their requests into a chain of scheduled \"syscalls\" dispatched to the right module.",
+   "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system"
+  },
+  {
+   "text": "The AIOS authors' motivation was that LLM agent frameworks each reinvented ad hoc context management, memory storage, tool calling and scheduling, and shared no resources between agents.",
+   "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system"
+  },
+  {
+   "text": "One mapping of OS concepts to agent OS equivalents: CPU scheduler to agent loop and task scheduler, RAM to context window management, filesystem to persistent memory store, applications to skills and tools, processes to parallel sub-agents, cron to proactive scheduled tasks, device drivers to tool and data connectors (MCP), system calls to the agent SDK.",
+   "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system"
+  },
+  {
+   "text": "MemGPT introduced memory management for agents via a memory hierarchy inspired by a traditional OS: agents actively manage what stays in immediate context (core memory) versus external layers (conversational memory, archival memory, external files) retrieved as needed.",
+   "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory/"
+  },
+  {
+   "text": "MemGPT uses an analogy to virtual memory: as an OS fetches data from disk into physical memory when it is accessed, an LLM agent acting as the operating system decides which information belongs in the context window and fetches it from the appropriate source.",
+   "url": "https://www.youtube.com/watch?v=RQ5HzSAx27I"
+  },
+  {
+   "text": "Letta memory blocks are in-context units, each with a label, a description, a value (the tokens placed in context) and a character limit, and they are editable via APIs and pinned to the agent's context window.",
+   "url": "https://www.letta.com/blog/agent-memory/"
+  },
+  {
+   "text": "Letta memory blocks can be rewritten by the agent itself via tools or by other agents specialized in memory management, such as sleep-time agents.",
+   "url": "https://www.letta.com/blog/agent-memory/"
+  },
+  {
+   "text": "Letta's memory components are the message buffer (a single perpetual thread per agent), core memory (in-context blocks), recall memory (searchable full conversation history saved automatically to disk) and archival memory (explicitly stored, indexed knowledge in external databases such as vector or graph databases).",
+   "url": "https://www.letta.com/blog/agent-memory/"
+  },
+  {
+   "text": "For context eviction, Letta guidance is to evict only a portion (e.g., 70%) of messages when the context window is full, and evicted messages are recursively summarized together with existing summaries so older messages have progressively less influence.",
+   "url": "https://www.letta.com/blog/agent-memory/"
+  },
+  {
+   "text": "Letta maps its memory tiers to computer architecture: core memory is like RAM, recall memory like a disk cache, and archival memory like cold storage.",
+   "url": "https://vectorize.io/articles/mem0-vs-letta"
+  },
+  {
+   "text": "In Letta, agents run inside the platform, which manages the agent loop, tool execution and state persistence, whereas Mem0 is a pluggable framework-agnostic memory layer exposing add() and search().",
+   "url": "https://vectorize.io/articles/mem0-vs-letta"
+  },
+  {
+   "text": "Letta agents self-edit memory, so memory quality depends on the model's judgment (if the model fails to save something it is lost) and every memory operation costs inference tokens; Mem0's passive extraction is more predictable and token-efficient but cannot judge what matters in context.",
+   "url": "https://vectorize.io/articles/mem0-vs-letta"
+  },
+  {
+   "text": "Letta Filesystem gives an agent file tools (grep, search_files, open, close), and a simple GPT-4o mini agent using it scored 74.0% on LoCoMo, above Mem0's reported 68.5% for its top graph variant.",
+   "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory/"
+  },
+  {
+   "text": "Letta's explanation for the filesystem result is that agents are effective with tools likely in their training data, and iterative self-generated queries beat specialized memory tools designed for single-hop retrieval; agent capability to use a retrieval tool matters more than the retrieval mechanism.",
+   "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory/"
+  },
+  {
+   "text": "An agent-native OS needs, beyond traditional OS features, kernel-level context management (snapshotting, restoration, multi-turn state), tool resolution treated as a scheduling problem, and a user-centric, task-aware trust and safety layer rather than file-centric Unix permissions.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "The Medium author (Marc Bara, Mar 3, 2026) concludes that the agent-native OS exists only in fragments, with kernel designs in papers, runtimes in products and economies in whitepapers, and no single project holding all layers.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "Hermes Agent (Nous Research, February 2026, MIT License) is a self-hosted agent OS with persistent memory in ~/.hermes/, reusable SKILL.md skills, parallel sub-agents each with an isolated conversation and terminal, a built-in cron-style scheduler, and a gateway to Telegram, Discord, Slack, WhatsApp, Signal and the CLI.",
+   "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system"
+  },
+  {
+   "text": "One Agent Operating System design separates a reasoning plane that proposes, a policy plane that decides, and an execution plane that enforces, with brokered tool calls and audit records of decision lineage.",
+   "url": "https://assist-software.net/blog/what-agent-operating-system-and-why-do-developers-need-one"
+  },
+  {
+   "text": "Letta agents are given tools to track context memory usage, edit memory, and move information between the context window and external memory.",
+   "url": "https://www.linkedin.com/posts/andrewyng_new-short-course-llms-as-operating-systems-activity-7260353293229436928-XR6w"
+  }
+ ],
+ "question_id": "Q13"
+}

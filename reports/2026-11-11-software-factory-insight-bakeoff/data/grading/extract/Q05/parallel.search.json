@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "8f2348e98c20d185",
+ "claims": [
+  {
+   "text": "GitHub Copilot cloud agent includes a built-in agent firewall that controls Copilot's internet access and helps protect against prompt injection and data exfiltration.",
+   "url": "https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent"
+  },
+  {
+   "text": "As of April 3, 2026, organization admins can manage the Copilot cloud agent firewall across all repositories; previously it was configured only at the repository level by repository admins.",
+   "url": "https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent"
+  },
+  {
+   "text": "Organization admins can turn the Copilot cloud agent firewall on or off across all repositories, or allow each repository to decide.",
+   "url": "https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent"
+  },
+  {
+   "text": "Organization admins can turn the recommended allowlist on or off across all repositories, or allow each repository to decide.",
+   "url": "https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent"
+  },
+  {
+   "text": "Organization admins can add entries to an organization-wide custom allowlist covering all repositories, for example to allow access to an internal package registry.",
+   "url": "https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent"
+  },
+  {
+   "text": "Organization admins can control whether repository admins may add their own custom allowlist entries; by default all firewall settings let each repository decide, preserving existing behavior.",
+   "url": "https://github.blog/changelog/2026-04-03-organization-firewall-settings-for-copilot-cloud-agent"
+  },
+  {
+   "text": "Copilot cloud agent's firewall setting 'Enable firewall' at organization level can be Enabled, Disabled, or 'Let repositories decide' (default); disabling the firewall lets Copilot connect to any host, increasing exfiltration risk.",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "The firewall always allows access to hosts Copilot uses to interact with GitHub, and by default a recommended allowlist is also enabled so the agent can download dependencies.",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "The recommended allowlist covers common OS package repositories, common container registries (Docker Hub, Azure Container Registry, AWS Elastic Container Registry), package registries for languages such as C#, Dart, Go, Haskell, Java, JavaScript, Perl, PHP, Python, Ruby, Rust and Swift, common certificate authorities, and hosts used to download browsers for the Playwright MCP server.",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "When the firewall blocks a request, Copilot adds a warning showing the blocked address and the command that attempted it, in the pull request body (first-time PR creation) or in a comment (when responding to a PR comment).",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "The firewall applies only to processes the agent starts via its Bash tool; it does not apply to MCP servers or processes started in configured Copilot setup steps.",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "The firewall operates only within the GitHub Actions appliance environment, and GitHub states sophisticated attacks may bypass it, so it should not be considered a comprehensive security solution.",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "Organization custom allowlist items apply to all repositories, cannot be deleted at the repository level, and are combined with repository-level rules; entries can be domains (which include subdomains) or URLs (restricted to scheme, host and path prefix).",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "Repository admins can change a firewall setting only if the corresponding organization-level setting is 'Let repositories decide' (or, for custom rules, 'Allow repository custom rules' is Enabled); otherwise the setting is locked.",
+   "url": "https://docs.github.com/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "Firewall configuration is managed from an 'Internet access' settings tab covering both Copilot cloud agent and Copilot code review, allowing code review firewall rules to be configured independently of the cloud agent.",
+   "url": "https://docs.github.com/copilot/how-tos/agents/copilot-coding-agent/customizing-or-disabling-the-firewall-for-copilot-coding-agent"
+  },
+  {
+   "text": "The firewall operates only within the environment where Copilot runs, which is either a GitHub Actions runner or a cloud sandbox.",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "text": "Copilot cloud agent works autonomously in an ephemeral development environment powered by GitHub Actions, where it can explore code, make changes, and run automated tests and linters.",
+   "url": "https://docs.github.com/copilot/concepts/agents/coding-agent/about-coding-agent"
+  },
+  {
+   "text": "Copilot cloud agent can research a repository, create a plan, and make code changes on a branch before a pull request is opened; it automates branch creation, commit messages and pushing, and tasks are assigned via GitHub issues or Copilot Chat prompts.",
+   "url": "https://docs.github.com/copilot/concepts/agents/coding-agent/about-coding-agent"
+  },
+  {
+   "text": "Copilot cloud agent can run on self-hosted GitHub Actions runners; GitHub recommends ephemeral, single-use runners that are not reused across jobs, with network security controls so the agent lacks open access to the network or internet.",
+   "url": "https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment"
+  },
+  {
+   "text": "For self-hosted runners, the integrated firewall must be disabled in repository settings and the runner's own firewall must allow the standard self-hosted runner hosts plus uploads.github.com and user-images.githubusercontent.com.",
+   "url": "https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment"
+  },
+  {
+   "text": "Third-party coding agents (Anthropic Claude and OpenAI Codex, in public preview) work alongside Copilot cloud agent: they are assigned an issue or prompt, create a pull request, request a review from the user, and iterate on PR comments.",
+   "url": "https://docs.github.com/en/copilot/concepts/agents/about-third-party-coding-agents"
+  },
+  {
+   "text": "Third-party agents can be started from the Agents tab, by assigning issues, by mentioning @AGENT_NAME in a pull request comment, from GitHub Mobile, or from Visual Studio Code.",
+   "url": "https://docs.github.com/en/copilot/concepts/agents/about-third-party-coding-agents"
+  },
+  {
+   "text": "Third-party coding agents are subject to the same security protections, mitigations and limitations as Copilot cloud agent, and GitHub scans their generated code with CodeQL, secret scanning, and Advisory Database checks for new dependencies, without requiring a GitHub Advanced Security license.",
+   "url": "https://docs.github.com/en/copilot/concepts/agents/about-third-party-coding-agents"
+  },
+  {
+   "text": "Third-party agents consume GitHub Actions minutes and AI credits; they must be enabled via account, organization or enterprise policies, and enabling a partner agent installs a GitHub App (e.g. 'anthropic code agent', 'openai code agent') whose actions appear in the audit log.",
+   "url": "https://docs.github.com/en/copilot/concepts/agents/about-third-party-coding-agents"
+  },
+  {
+   "text": "GitHub Agent HQ, announced at Universe 2025, provides mission control to assign, steer and track multiple agents in parallel from any device, backed by agentic code review and a control plane to govern AI access; agents from Anthropic, OpenAI, Google, Cognition and xAI are planned as part of paid Copilot subscriptions.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents"
+  }
+ ],
+ "question_id": "Q05"
+}

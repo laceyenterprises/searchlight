@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "0a4612e6c2775ea1",
+ "url": "https://safeguard.sh/resources/blog/devin-cognition-autonomous-engineer-blast-radius",
+ "verdicts": {
+  "Devin has two human checkpoints: a Planning Checkpoint requiring approval of the plan before code is written, and a Pull Request Checkpoint requiring approval of the diff before merge.": 1,
+  "Devin reads issue descriptions, PR comments, docs and web pages while planning, so planted text in those sources creates prompt-injection risk that the Planning Checkpoint may not catch when manipulations are subtle.": 1,
+  "Devin runs in a sandboxed cloud environment with its own shell, code editor and browser, and the sandbox is per-task and isolated, with no shared state between tasks.": 1
+ }
+}

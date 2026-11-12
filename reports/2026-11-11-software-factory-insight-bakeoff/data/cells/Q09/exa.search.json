@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:11.110501Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 9212,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2024-11-11T00:00:00.000Z",
+   "text": "Ultimately, a well-designed ACI should help the LM agent understand the state of the application given previous changes, manage history to avoid unnecessary context from prior observations, and provide actions that models can use efficiently and reliably. The ACI specifies both the commands availab…",
+   "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+   "url": "https://arxiv.org/html/2405.15793"
+  },
+  {
+   "chars_delivered": 216,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-07-15T00:00:00.000Z",
+   "text": "SWE-Agent [2] introduced the Agent-Computer Interface (ACI), providing LLMs\n...\n.\n\nOpenHands’s loop—since the mid-2026 restructuring, in the software-agent-sdk repository rather than the application repo—is an event-",
+   "title": "Harness Engineering:Anatomy, Architecture, and Evolution of Coding AgentsA Source-Code Study of Eleven Systems",
+   "url": "https://arxiv.org/html/2609.00006"
+  },
+  {
+   "chars_delivered": 219,
+   "page_chars_delivered": 5169,
+   "post_step": "fetched",
+   "published": null,
+   "text": "element of OpenHands is sandboxing, where we allow the agent to write, run, and test code within an environment that is cordoned ... is running on – but at the same time the agent should be able to use actions available",
+   "title": "Evaluation of LLMs as Coding Agents on SWE-Bench (at 30x Speed!)",
+   "url": "https://www.openhands.dev/blog/evaluation-of-llms-as-coding-agents-on-swe-bench-at-30x-speed"
+  },
+  {
+   "chars_delivered": 243,
+   "published": "2026-03-19T11:55:34.000Z",
+   "text": "Sequential loop (SWE-agent, OpenHands, Codex CLI, Gemini CLI, Cline, OpenCode, mini-swe-agent). The standard approach:\n...\n|\n| --- | --- |\n| Aider | 0 |\n| Agentless | 0 (default) / 1 (Anthropic path) |\n| ... bash) |\n| SWE-agent | 3 (default) /",
+   "title": "Inside 13 Coding Agents: Control Loops, Tools, and Tradeoffs | Ben Rombaut",
+   "url": "https://www.benrombaut.ca/blog/coding-agent-architectures/"
+  },
+  {
+   "chars_delivered": 252,
+   "published": null,
+   "text": "Based on our new agent, CodeAct 2.1 (powered by the new Claude Sonnet 3.5), we achieved:\n\n- 🥇 53% resolve rate on SWE-Bench Verified\n- 🥇 41.7% resolve rate on SWE-Bench Lite\n...\n:\n\n- Switched to use function calling, a method used by language models to",
+   "title": "OpenHands CodeAct 2.1: An Open, State-of-the-Art Software Development Agent",
+   "url": "https://www.openhands.dev/blog/openhands-codeact-21-an-open-state-of-the-art-software-development-agent"
+  },
+  {
+   "chars_delivered": 209,
+   "published": null,
+   "text": "use an additional LLM that can perform certain actions, such as viewing, searching or editing files. To create the right context for ... a grid search to select the best ACI configuration. Given this analysis,",
+   "title": "Coding agent frameworks",
+   "url": "https://www.giete.ma/blog/coding-agent-frameworks"
+  },
+  {
+   "chars_delivered": 228,
+   "published": null,
+   "text": "No OS-enforced isolation on the default local path. Every subject defaults to host execution with prompt-level authority; OS enforcement exists only ... a container is explicitly chosen. Permission prompts, allow/deny rules, and",
+   "title": "SteveVitali/coding-agent-harness-study",
+   "url": "https://github.com/SteveVitali/coding-agent-harness-study"
+  },
+  {
+   "chars_delivered": 253,
+   "published": "2025-11-02T00:00:00.000Z",
+   "text": ", agents achieve moderate overall performance, with OpenHands showing the most balanced results in software development, GPTswarm achieving the highest detection accuracy in vulnerability analysis, and only a subset of agents repairing about half of the",
+   "title": "A Comprehensive Empirical Evaluation of Agent Frameworks on Code-centric Software Engineering Tasks",
+   "url": "https://arxiv.org/html/2511.00872"
+  },
+  {
+   "chars_delivered": 215,
+   "published": "2025-11-05T00:00:00.000Z",
+   "text": "can switch to a sandboxed environment when additional safety or resource control is required.\n...\nThe agent core is decoupled from applications so that downstream systems (CLI, Web UI, GitHub App) use it as a shared",
+   "title": "The OpenHands Software Agent SDK: A Composable and Extensible Foundation for Production Agents",
+   "url": "https://arxiv.org/html/2511.03690v1"
+  },
+  {
+   "chars_delivered": 2783,
+   "published": "2025-04-18T00:00:00.000Z",
+   "text": "### 2.2 Agent Runtime: How Execution of Actions Results in Observations\n\nAgent Runtime provides a general environment that equips the agent with an action space comparable to that of human software developers, enabling OpenHands agents to tackle a wide range of software development and web-based ta…",
+   "title": "OpenHands: An Open Platform for AI Software Developers as Generalist Agents",
+   "url": "https://arxiv.org/html/2407.16741"
+  }
+ ],
+ "latency_ms": 1364.3,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q09",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What are the architectures and reported results of open-source autonomous coding agents and frameworks: OpenHands (All Hands), SWE-agent / mini-swe-agent, Block's goose, and Sourcegraph Amp? Focus on the agent-computer interface, sandboxing, and lessons from SWE-bench-style evaluation.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 27231,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:09.746223Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

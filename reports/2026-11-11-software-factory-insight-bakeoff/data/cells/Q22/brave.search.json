@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:33.405056Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 18896,
+   "published": null,
+   "text": "# AI Agents for Marketing: Architecture & Enterprise Workflows\nBuild autonomous marketing pipelines with AI agents. Explore multi-agent architectures, Salesforce Agentforce, HubSpot Breeze, n8n, and guardrails.\n\nAI Agents Marketing Automation MarTech LangGraph Enterprise AI\n\nShare:\n\n> - AI agents f…",
+   "title": "AI Agents for Marketing: Architecture & Enterprise Workflows",
+   "url": "https://aiagentskit.com/blog/ai-agents-for-marketing/"
+  },
+  {
+   "chars_delivered": 4307,
+   "published": null,
+   "text": "Deploy AI agents that execute marketing tasks autonomously. Built on Claude, N8N, and Relevance AI. Multi-agent systems for ABM, SEO, content, and lead gen.\n\n# Your Marketing Team Just Got AI-Powered Agents\n## Multi-Agent Architecture\n### AI Orchestration Layer\nBuilt on N8N, Relevance AI, and Claud…",
+   "title": "AI Agents for Marketing",
+   "url": "https://thesmarketers.com/ai-agents/"
+  },
+  {
+   "chars_delivered": 12195,
+   "published": null,
+   "text": "## The 9 best AI agents for marketing\n| Platform | Agents included | Marketing use case(s) | Best for | Pricing |\n| --- | --- | --- | --- | --- |\n| 1. Supermetrics AI | Dashboard Agent, Insights Agent, Connector Agent | Cross-channel analysis, reporting, anomaly detection, and budget recommendation…",
+   "title": "The 9 best AI agents for marketing [2026 Guide]",
+   "url": "https://supermetrics.com/blog/ai-agents-for-marketing"
+  },
+  {
+   "chars_delivered": 14122,
+   "published": null,
+   "text": "# The 7 best agentic marketing platforms in 2026\n| Platform | Best for | What its agents do | Where the loop closes |\n| --- | --- | --- | --- |\n| Profound | SEO, AEO, and content teams working on AI search visibility | Surface AI visibility gaps from real prompt data, scope them into briefed projec…",
+   "title": "The 7 best agentic marketing platforms in 2026",
+   "url": "https://www.tryprofound.com/articles/best-agentic-marketing-platforms"
+  },
+  {
+   "chars_delivered": 5907,
+   "published": null,
+   "text": "# AI agents for business: what they automate, where they fail\n## What AI agents can reliably automate today\nYou get the best results when a task has a repeating shape: high volume, a clear pattern, reading plus light judgment, and a human who can catch a bad output before it does damage. Interestin…",
+   "title": "AI Agents for Business: What They Automate",
+   "url": "https://mastra.ai/articles/ai-agents-for-business"
+  },
+  {
+   "chars_delivered": 3085,
+   "published": null,
+   "text": "# Agents That Build Other Agents: The Next Shift in Marketing Automation\nAgents That Build Other Agents: The Next Shift in Marketing Automation\n\nPosted 3/31/26\n\n6 min read\n\nManual agent setup is giving way to systems where one AI designs and deploys another. Already visible in platforms like Claude…",
+   "title": "Agents That Build Other Agents: The Next Shift in Marketing Automation - MTM Blog",
+   "url": "https://www.mtm.video/blog/agents-that-build-other-agents/"
+  },
+  {
+   "chars_delivered": 646,
+   "published": null,
+   "text": "# The Complete Guide to Multi-Agent Architecture for Production AI Teams\n## What These Systems Actually Look Like in Production: Use Cases by Function?\n- **Sales and Revenue Operations:** A planner agent scores leads, a personalization agent drafts outreach, and an analysis agent triggers campaigns…",
+   "title": "Multi Agent Architecture: Patterns, Use Cases & Production Reality",
+   "url": "https://www.truefoundry.com/blog/multi-agent-architecture"
+  },
+  {
+   "chars_delivered": 668,
+   "published": null,
+   "text": "# Where do multi agent systems actually outperform a single agent?\n## shyam8497\nTwemp is a hierarchical multi-agent AI platform for production incident response.\nIncident Commander coordinates 4 sub-orchestrators and 12 specialist agents.\nAgents handle triage, investigation, planning, communication…",
+   "title": "r/AI_Agents on Reddit: Where do multi agent systems actually outperform a single agent?",
+   "url": "https://www.reddit.com/r/AI_Agents/comments/1uyweaf/where_do_multi_agent_systems_actually_outperform/"
+  },
+  {
+   "chars_delivered": 1749,
+   "published": null,
+   "text": "# The Multi-Agent Trap\nKlarna's AI assistant has handled 2.3 million customer conversations in a single month. That's the workload of 700 full-time human agents. Resolution time dropped from 11 minutes to under 2. Repeat inquiries fell 25%. Customer satisfaction scores climbed 47%. Cost per service…",
+   "title": "The Multi-Agent Trap",
+   "url": "https://towardsdatascience.com/the-multi-agent-trap/"
+  },
+  {
+   "chars_delivered": 934,
+   "published": null,
+   "text": "# Agent Factory: The new era of agentic AI—common use cases and design patterns\n## Patterns of agentic AI: Building blocks for enterprise automation\n### 1. Tool use pattern—from advisor to operator\n**Fujitsu** transformed its sales proposal process using specialized agents for data analysis, market…",
+   "title": "Agent Factory: The new era of agentic AI—common use cases and design patterns",
+   "url": "https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/"
+  }
+ ],
+ "latency_ms": 1573.5,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q22",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "Beyond coding, what multi-agent systems run marketing, content production, sales or back-office automation in production? Cover architecture, human approval points, brand and quality control, and measured results, and say which are built on general agent platforms rather than bespoke code.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 69968,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:31.831542Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

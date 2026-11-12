@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "cc981a9912c2fcbe",
+ "url": "https://www.inngest.com/docs/patterns/durable/reliably-run-critical-workflows?ref=patterns",
+ "verdicts": {
+  "In Inngest, data returned from each step is persisted and automatically available to subsequent steps.": 1,
+  "Inngest docs say Step Functions require defining workflows in a JSON DSL, and Temporal requires running its own server infrastructure and learning a framework-specific programming model.": 1,
+  "Inngest's `step.run()` makes each call independently executed and retried; if an LLM call in step 3 of a document pipeline times out, only that step is retried without re-running validation or the first LLM call.": 1,
+  "Inngest's pattern guidance is to break long-running jobs into discrete steps that each run independently, throw their own errors, retry on their own, and pass data to the next step, so a failure in an evaluation LLM call does not force re-running and re-paying for the first LLM call.": 1
+ }
+}

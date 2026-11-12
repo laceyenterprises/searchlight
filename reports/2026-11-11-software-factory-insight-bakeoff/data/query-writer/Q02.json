@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "Factory.ai Droids architecture engineering blog",
+  "Factory AI Droid context memory delegation verification",
+  "Factory Droids Terminal-Bench SWE-bench benchmark results"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "What is the architecture of Factory.ai's Droids: execution environment, context and memory, how tasks are delegated, and how output is verified? What do engineering write-ups or benchmarks say about results? Rank first primary sources: Factory.ai's own engineering blog posts, official docs (docs.factory.ai), talks, and technical papers, followed by credible reporting and independent benchmark write-ups (e.g. Terminal-Bench, SWE-bench results). Pull out mechanisms (sandbox or local execution environment, Droid Exec, context and memory handling, codebase and organizational context, integrations, task delegation between Droids and subagents, human-in-the-loop controls, verification via tests, linting, and code review), plus names, dates, measured results and numbers, and any reported failure modes or limitations.",
+ "question_id": "Q02",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "9aee17023fdf6dd8",
+ "claims": [
+  {
+   "text": "LangGraph Platform deployment is LangSmith Deployment: managed Cloud on Plus and above, or a standalone Agent Server run on Docker or Kubernetes with the user's own Postgres and Redis and a LANGGRAPH_CLOUD_LICENSE_KEY.",
+   "url": null
+  },
+  {
+   "text": "LangGraph has the most complete open-source durability design among the compared frameworks: checkpointer, per-node retries and interrupts are all first-class.",
+   "url": null
+  },
+  {
+   "text": "LangGraph persists state through checkpointers (in-memory, SQLite, Postgres) and offers time-travel debugging.",
+   "url": null
+  },
+  {
+   "text": "LangGraph observability is the most granular of LangGraph, CrewAI and the OpenAI Agents SDK, with LangGraph Studio for visual debugging.",
+   "url": null
+  },
+  {
+   "text": "LangGraph models a workflow as a graph of nodes and edges with shared state; cycles, branching, checkpointer persistence and human approvals via interrupt() are built in.",
+   "url": null
+  },
+  {
+   "text": "In LangGraph, nodes and edges are defined on a StateGraph, and a node can redirect the run with Command(goto=...).",
+   "url": null
+  },
+  {
+   "text": "LangGraph composes multi-agent systems as an explicit state machine where agents are nodes, giving high control-flow visibility.",
+   "url": null
+  },
+  {
+   "text": "LangGraph is MIT-licensed and supports Python and TypeScript; its managed hosting is LangSmith Deployment.",
+   "url": null
+  },
+  {
+   "text": "CrewAI is Python-only (3.10 to 3.13), MIT-licensed, with no official JavaScript SDK.",
+   "url": null
+  },
+  {
+   "text": "CrewAI has two models: Crews, where role-based agents work through tasks sequentially or under a manager agent, and Flows, an event-driven pipeline built from @start(), @listen() and @router().",
+   "url": null
+  },
+  {
+   "text": "CrewAI has built-in short-term, long-term and entity memory.",
+   "url": null
+  },
+  {
+   "text": "CrewAI added enterprise observability in version 0.105, and its human-in-the-loop support is less granular than LangGraph's.",
+   "url": null
+  },
+  {
+   "text": "CrewAI is a standalone framework that does not depend on LangChain; its managed hosting is the CrewAI platform.",
+   "url": null
+  },
+  {
+   "text": "CrewAI is a product suite whose declarative model can be hard to step outside of; Flows mitigate this for production control flow.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK is deliberately small: agents, tools, handoffs (exposed to the model as transfer_to_<agent> tools), guardrails, sessions and tracing, with no graph or workflow engine.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK has minimal state persistence (bring your own datastore) and first-party tracing in the OpenAI dashboard.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK supports Python and TypeScript under MIT, works with other providers' models via LiteLLM and Any-LLM adapters, and adds Sandbox Agents with resumable sessions plus realtime and voice agents.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework is the direct successor to Semantic Kernel and AutoGen, created by the same teams, combining AutoGen's agent abstractions with Semantic Kernel's session-based state management, type safety, middleware and telemetry.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework adds graph-based workflows that give explicit control over multi-agent execution paths, plus state management for long-running and human-in-the-loop scenarios.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework provides an agent session for state management, context providers for agent memory, middleware for intercepting agent actions, and MCP clients for tool integration.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework uses checkpoints for persistence and Microsoft Foundry as its managed hosting.",
+   "url": null
+  },
+  {
+   "text": "Google ADK supports Python, TypeScript, Go, Java and Kotlin under Apache 2.0, with prebuilt sequential, parallel and loop workflow patterns and direct A2A protocol support.",
+   "url": null
+  },
+  {
+   "text": "Google ADK agents can be deployed to Agent Runtime (formerly Vertex AI Agent Engine), Cloud Run, GKE or own infrastructure, and use sessions and memory for persistence.",
+   "url": null
+  },
+  {
+   "text": "AWS Bedrock AgentCore consists of Runtime, Memory, Gateway, Browser, Code Interpreter, Identity, Policy, Observability and Evaluations services.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Runtime is a serverless runtime that deploys agents from any framework (CrewAI, LangGraph, LlamaIndex, Google ADK, OpenAI Agents SDK, Strands), any protocol (MCP, A2A) and any model, via direct code upload or container deployment.",
+   "url": null
+  }
+ ],
+ "question_id": "Q12"
+}

@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "7c3fdf597bb50f4d",
+ "url": "https://www.requesty.ai/blog/the-rise-of-the-agent-operating-system",
+ "verdicts": {
+  "Hermes Agent (Nous Research, February 2026, MIT License) is a self-hosted agent OS with persistent memory in ~/.hermes/, reusable SKILL.md skills, parallel sub-agents each with an isolated conversation and terminal, a built-in cron-style scheduler, and a gateway to Telegram, Discord, Slack, WhatsApp, Signal and the CLI.": 1,
+  "Hermes Agent (Nous Research, February 2026, MIT license) is self-hosted with persistent memory in a ~/.hermes/ directory, SKILL.md skills it writes itself, parallel sub-agents with isolated conversations and terminals, and a built-in cron scheduler.": 1,
+  "In AIOS, agents talk to the kernel through an SDK, and the kernel turns their requests into a chain of scheduled \"syscalls\" dispatched to the right module.": 1,
+  "One mapping of OS concepts to agent OS equivalents: CPU scheduler to agent loop and task scheduler, RAM to context window management, filesystem to persistent memory store, applications to skills and tools, processes to parallel sub-agents, cron to proactive scheduled tasks, device drivers to tool and data connectors (MCP), system calls to the agent SDK.": 1,
+  "The AIOS authors' motivation was that LLM agent frameworks each reinvented ad hoc context management, memory storage, tool calling and scheduling, and shared no resources between agents.": 1,
+  "The AIOS kernel sits as an abstraction layer above the regular OS kernel and provides an LLM core, a scheduler, a context manager, a memory manager (short-term state), a storage manager (persistence) and a tool manager (external calls).": 1
+ }
+}

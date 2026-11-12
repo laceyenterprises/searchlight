@@ -1,0 +1,24 @@
+{
+ "capture": "captured",
+ "digest": "50e8a8f0fefabbe1",
+ "url": "https://factory.com/news/missions-architecture",
+ "verdicts": {
+  "Factory Missions uses an orchestrator, a fresh worker session for each feature, and fresh validators injected at milestones; validators surface issues but do not fix them.": 1,
+  "Factory's Missions orchestrator writes validation-contract.md, containing behavioral assertions such as VAL-AUTH-001, before features are implemented so that validation is not shaped by the implementation.": 1,
+  "Factory's Slack-clone mission ran 16.5 hours with 185 total runs (1 orchestration, 63 worker, 27 validator runs), consuming 778.5M tokens, with validation taking 37.2% of runtime.": 1,
+  "Factory's Slack-clone mission took 16.5 hours, with validation accounting for 37.2% of the time.": 1,
+  "Factory's Slack-clone mission used 185 agent runs and 778.5M tokens, of which 744.9M were cache reads.": 1,
+  "Factory's rationale for separate validators is that an agent that implemented something is worse at objectively evaluating its own work than a fresh reviewer, because its prior reasoning biases it toward confirming what it did.": 1,
+  "In Factory's Missions, a programmatic runner takes the feature list and spawns a fresh-context worker for each feature in order; each worker receives its feature spec, writes tests first, then implements.": 1,
+  "In Factory's Missions, the orchestrator writes a validation contract (a finite checklist of testable behavioral assertions defining completion and correctness) before defining any features, so the contract is not influenced by the planned implementation.": 1,
+  "In Factory's Slack-clone mission, fix features made up 34.4% of implementation work (21 of 61 features).": 1,
+  "In Factory's Slack-clone mission, milestones passing per validation round went 0/6, 1/6, 2/6, then 6/6.": 1,
+  "In Missions, the orchestrator creates fix features for gaps found by validators, and the milestone re-validates until validation passes; if implementation or validation is blocked, the orchestrator halts the mission and returns control to the user.": 1,
+  "In the Slack-clone mission every milestone converged in 2-4 validation rounds; validators surfaced 81 issues (65 blocking), and the orchestrator generated 21 fix features, 34.4% of 61 implementation features.": 1,
+  "In the Slack-clone mission, median trajectory length was 51 assistant turns for implementation (p90 123) and 30 for validation (p90 37).": 1,
+  "Missions externalizes state in shared artifacts (validation contract, feature list, research notes, operational guidelines, an evolving knowledge base; files include validation-contract.md, features.json, services.yaml, AGENTS.md) so no single agent holds the full picture in context.": 1,
+  "Missions groups features into milestones; when all features in a milestone finish, the runner triggers validation with fresh agents: scrutiny validators review each worker's implementation and trajectory, and user-testing validators exercise the system as a black box against the validation contract.": 1,
+  "Missions separates roles: the orchestrator plans and decomposes the work, workers implement features, and validators evaluate completed work; validators do not implement fixes but surface issues to the orchestrator, which creates fix features for future workers.": 1,
+  "The Slack-clone mission produced 38.8k lines of code (52.5% tests) with 89.25% statement coverage across six milestones.": 1
+ }
+}

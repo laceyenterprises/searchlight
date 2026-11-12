@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "3b97d4462d392098",
+ "claims": [
+  {
+   "text": "Every Amazon Bedrock AgentCore runtime session is stateful and runs in its own Firecracker microVM with a dedicated filesystem and shell, so one user's session cannot bleed into another's.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Runtime assumes an IAM role the customer controls, can require JWTs from the customer's identity provider on inbound requests, and can reach private resources through VPC networking.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Gateway can apply Cedar policies that gate a tool call by who is asking, which tool, under what condition, and with which arguments.",
+   "url": null
+  },
+  {
+   "text": "For SaaS tokens, AgentCore can run the three-legged OAuth flow, store the result in an encrypted Token Vault bound to a specific user-and-agent pair, and inject it into the outbound call so the raw secret never enters the prompt or model context.",
+   "url": null
+  },
+  {
+   "text": "AgentCore treats invocation input as trusted and does not sanitize input, filter content blocks, or enforce behavioral limits, so validation of untrusted users' input is the customer's responsibility.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Identity assigns unique, verifiable identities to agents, enabling fine-grained access control and secure interactions with enterprise systems.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Gateway converts APIs, Lambda functions, and existing services into Model Context Protocol (MCP)-compatible tools that agents can discover through a single secure endpoint.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Memory is a managed memory system that maintains both immediate (short-term) and long-term knowledge so agents can retain context across interactions.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Runtime is a secure, serverless environment for hosting agents and tools, compatible with CrewAI, LangGraph, LlamaIndex, and Strands Agents and with any foundation model inside or outside Bedrock.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Observability provides tracing, real-time dashboards and standardized telemetry that visualize an agent's entire execution path for debugging and auditing.",
+   "url": null
+  },
+  {
+   "text": "The AgentCore harness, generally available since 17 June 2026, lets users declare the model, tools, skills and instructions while AgentCore handles environment, compute, memory, identity, networking and observability; AWS recommends it in place of Bedrock Agents Classic.",
+   "url": null
+  },
+  {
+   "text": "AWS's own comparison says routing-mode multi-agent is \"not straightforward today\" on the AgentCore harness and that full multi-agent collaboration \"requires custom framework code\".",
+   "url": null
+  },
+  {
+   "text": "LangGraph uses a graph of nodes and edges, with checkpointers keyed by thread_id and interrupts for approval.",
+   "url": null
+  },
+  {
+   "text": "LangGraph is documented as hostable on Foundry hosted agents and AgentCore Runtime.",
+   "url": null
+  },
+  {
+   "text": "LangGraph is a low-level orchestration runtime where shared state determines what each node reads, writes and does next; conditional edges handle branches and human-in-the-loop interrupts can pause the graph until a person approves or modifies the next action.",
+   "url": null
+  },
+  {
+   "text": "With LangGraph, the team must still design state schemas, reducers, retry behavior, tool contracts and termination conditions.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework 1.0 shipped for .NET and Python on 3 April 2026; it supports graph workflows plus sequential, concurrent, handoff, group chat and Magentic patterns, with checkpointing, pause and resume.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework's Durable Extension was in preview at 1.0 and enables hosting on Azure Functions; Foundry hosted agents also host it.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework combines AutoGen's conversational multi-agent abstractions with Semantic Kernel's session-based state management, middleware, telemetry and type safety, and adds graph-based workflows with type-safe routing.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework emits OpenTelemetry GenAI spans for agent, model and tool calls, with sensitive data off by default; the OpenTelemetry GenAI conventions were still in Development status.",
+   "url": null
+  },
+  {
+   "text": "When deployed through Azure AI Foundry, Microsoft Agent Framework agents can opt into task-adherence guardrails, PII protection and prompt-injection defenses.",
+   "url": null
+  },
+  {
+   "text": "CrewAI provides Crews (role-based agents running tasks sequentially, via a hierarchical manager, or a hybrid) and Flows (stateful workflows with events, routers and steps).",
+   "url": null
+  },
+  {
+   "text": "CrewAI Flows have built-in persistence via `@persist`, backed by SQLite by default.",
+   "url": null
+  },
+  {
+   "text": "CrewAI is documented as hostable on AgentCore Runtime, and CrewAI AMP offers managed deployment and a no-code studio.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents SDK provides agents, handoffs, agents as tools, guardrails, sessions, human in the loop and sandbox agents; it was still on 0.x releases (Python 0.24.0 on 15 Oct 2026) and is paired with Temporal for durability in long runs.",
+   "url": null
+  }
+ ],
+ "question_id": "Q12"
+}

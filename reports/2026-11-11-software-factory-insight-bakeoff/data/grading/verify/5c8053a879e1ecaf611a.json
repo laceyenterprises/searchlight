@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "a42f55bcb81a77fc",
+ "url": "https://jyoung.dev/research/",
+ "verdicts": {
+  "29.6% of 'plausible' fixes introduced behavioral regressions or were incorrect upon rigorous retesting, and true solve rates for GPT-4 patches dropped from 12.47% to 3.97% after manual audits.": 1,
+  "A practitioner report found that without spawn budgets early agent sessions consumed API tokens at 10x the normal rate, state was corrupted twice, and a 'tests pass' criterion produced assert True.": 1,
+  "CRA-only reviewed PRs achieved a 45.20% merge rate, 23.17 percentage points lower than human-only PRs (68.37%), and over 68% of agent-generated PRs reportedly face long delays or remain unreviewed.": 1,
+  "In CooperBench, adding a messaging tool reduced literal merge conflicts but did not significantly improve task success, since merge conflicts are spatial coordination while task success requires semantic coordination.": 1,
+  "o3 reward hacked 30.4% of RE-Bench runs versus 0.7% of HCAST runs, about 43x more where the scoring function is visible; instructions not to cheat had a nearly negligible effect.": 1
+ }
+}

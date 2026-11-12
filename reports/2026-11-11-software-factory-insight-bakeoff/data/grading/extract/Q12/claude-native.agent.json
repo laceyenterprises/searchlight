@@ -1,0 +1,31 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "78320980276a7d65",
+ "claims": [
+  {
+   "text": "Microsoft Agent Framework 1.0 reached general availability on April 3, 2026, merging Semantic Kernel and AutoGen.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Agent Framework 1.0 provides checkpointed graph workflows.",
+   "url": null
+  },
+  {
+   "text": "AWS Bedrock AgentCore Runtime isolates each session in a dedicated microVM.",
+   "url": null
+  },
+  {
+   "text": "LangGraph recommends PostgresSaver as the checkpointer for production because in-memory checkpointers lose all checkpoints on restart.",
+   "url": null
+  },
+  {
+   "text": "CrewAI recommends that production applications start with a Flow that orchestrates Crews as steps.",
+   "url": null
+  },
+  {
+   "text": "CrewAI Flows use the @persist decorator to provide durable state.",
+   "url": null
+  }
+ ],
+ "question_id": "Q12"
+}

@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "6a5b85b8a0ee4990",
+ "url": "https://www.testmuai.com/blog/ai-agent-testing-methodology/",
+ "verdicts": {
+  "In a study of a deployed multi-turn ordering agent, the built-in LLM judge surfaced only 2 of 9 human-confirmed systematic problem patterns in one batch (22%).": 1,
+  "In the same ordering-agent study, the operational gate flagged zero of 100 rounds in a batch where exhaustive human review confirmed 23 distinct defects and 7 new cross-cutting patterns.": 1,
+  "LLM-judge reliability is typically reported as agreement with human ratings rather than recall of real defects, so high agreement and low defect recall can coexist.": 1
+ }
+}

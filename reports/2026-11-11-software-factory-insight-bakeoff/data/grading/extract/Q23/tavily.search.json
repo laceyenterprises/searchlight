@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "79ea3b68fae5de25",
+ "claims": [
+  {
+   "text": "A closed-loop framework for LLM coding agents codifies every accepted human review comment as a persistent behavioral rule in a version-controlled instruction file, so the agent progressively self-detects more error classes.",
+   "url": null
+  },
+  {
+   "text": "The closed-loop coding-agent framework combines an accumulating rule set in a version-controlled instruction file, a self-review checklist executed before code submission, and automated validation of rule-set integrity as it grows.",
+   "url": null
+  },
+  {
+   "text": "In deployment across a 35+ service microservices platform, the rule set grew from 5 to 18 behavioral rules, 15+ language-specific standards, and a 15-item self-review checklist, all derived from real review feedback.",
+   "url": null
+  },
+  {
+   "text": "The framework's memory content is derived exclusively from accepted review outcomes, and each new rule is traceable to a specific accepted comment.",
+   "url": null
+  },
+  {
+   "text": "The framework converts point corrections into class-level constraints, but it prevents only known failure modes, not all possible failures, and does not prove semantic correctness.",
+   "url": null
+  },
+  {
+   "text": "In one 16-agent reference system, tokens per query grew from 4K to 12K in three weeks from accumulated context (prompt bloat), tripling latency and cost.",
+   "url": null
+  },
+  {
+   "text": "In the same reference system, a context optimizer (dedupe, semantic chunking, relevance scoring, query-type assembly, priority loading) yielded 50-60% fewer tokens in the author's own testing.",
+   "url": null
+  },
+  {
+   "text": "Reflective memory in the reference system triggers a reflection when the same error occurs 3 or more times, stores an insight, and later records an effectiveness score for the fix.",
+   "url": null
+  },
+  {
+   "text": "The reflection agent in the reference system iterates up to 3 times, stopping early if quality reaches 0.9; the author reports diminishing returns beyond 3 iterations.",
+   "url": null
+  },
+  {
+   "text": "In the reference system, a meta-prompt agent combines reflective-memory error signals with procedural-memory workflow gaps to rewrite a specialist agent's prompt without human intervention, and tracks which prompt versions perform best.",
+   "url": null
+  },
+  {
+   "text": "The author of the reference system reports that the same misclassification recurred across three weeks, with each failure looking isolated, because no structured memory existed to reveal the pattern; these results are self-reported from the author's own testing, not independent evaluation.",
+   "url": null
+  },
+  {
+   "text": "Procedural memory in the reference system records tool sequences, success/failure and response time in PostgreSQL, and recommends workflows ranked by historical success rate; the author reports it found the best tool sequence per query type after 200 test cases.",
+   "url": null
+  },
+  {
+   "text": "Explicit procedural memory (system prompt rules, playbooks, skills, validated runbooks) should be written through a deliberate promotion step with validation rather than a fully automatic write path.",
+   "url": null
+  },
+  {
+   "text": "A suggested two-tier design keeps agent-written candidate procedures in a `candidates/` area and promotes them to a live `playbooks/` area only through a validation gate, preventing silent self-modification of the agent's operating rules.",
+   "url": null
+  },
+  {
+   "text": "Procedural memory should be loaded just-in-time rather than by stuffing every rule into every prompt, and it needs versioning and deprecation rather than deletion.",
+   "url": null
+  },
+  {
+   "text": "LangChain's LangMem treats procedural memory as prompt rules that are updated over time based on feedback.",
+   "url": null
+  },
+  {
+   "text": "Episodic memory should expire on a TTL and semantic memory needs staleness checks because facts change; stale tool outputs in long contexts can actively mislead an agent.",
+   "url": null
+  },
+  {
+   "text": "Arize's guide says a memory system that never forgets compounds old mistakes more often than useful knowledge, so memory records need versioning, freshness rules and deletion rules.",
+   "url": null
+  },
+  {
+   "text": "Arize lists the main regression risks of prompt changes as instruction conflicts and prompt bloat, and of memory changes as wrong or outdated context becoming persistent.",
+   "url": null
+  },
+  {
+   "text": "Arize recommends validating a candidate change against the same dataset and evaluator versions as the baseline, including unrelated canary cases so a targeted fix cannot hide a broader regression, and keeping a rollback artifact.",
+   "url": null
+  },
+  {
+   "text": "Arize advises automating narrow, clearly measured changes more aggressively than permissions, safety policy, spend controls or model weights.",
+   "url": null
+  },
+  {
+   "text": "Reflection becomes a validated improvement only after an independent comparison shows the saved lesson helps; automatic proposal and automatic promotion are different autonomy levels.",
+   "url": null
+  },
+  {
+   "text": "The Fragility study re-evaluated memory-based self-improvement methods Agent Workflow Memory and ReasoningBank using repeated runs across WebArena (812 tasks), VisualWebArena (910 tasks) and SCUBA (267 tasks) to separate signal from noise.",
+   "url": null
+  },
+  {
+   "text": "The ACE paper (Zhang et al., 2025) treats context as a playbook grown through small incremental edits and names 'context collapse', where repeated rewriting erodes detail.",
+   "url": null
+  },
+  {
+   "text": "Persistent notes such as AGENTS.md only help if they are actually injected into future prompts; some tools do not auto-load files like progress.txt, so teams should verify the notes are included.",
+   "url": null
+  }
+ ],
+ "question_id": "Q23"
+}

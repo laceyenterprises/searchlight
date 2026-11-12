@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:09.328026Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 5017,
+   "published": null,
+   "text": "# Effective harnesses for long-running agents\nWe developed a two-fold solution to enable the Claude Agent SDK to work effectively across many context windows: an **initializer agent** that sets up the environment on the first run, and a **coding agent** that is tasked with making incremental progre…",
+   "title": "Effective harnesses for long-running agents \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "chars_delivered": 132,
+   "published": null,
+   "text": "How an initializer agent and an incremental coding agent help the Claude Agent SDK make steady progress across many context windows.",
+   "title": "Effective harnesses for long-running agents \\ Anthropic",
+   "url": "https://anthropic.com/research/effective-harnesses-for-long-running-agents?amp=&amp="
+  },
+  {
+   "chars_delivered": 9532,
+   "published": null,
+   "text": "# What We Can Learn from Anthropic to Build Our Own Agent\n## The Six Pillars\n| # | Article | Core Theme | Key Takeaway |\n| --- | --- | --- | --- |\n| 1 | Building Effective AI Agents | Architecture patterns | Start simple; use composable patterns instead of complex frameworks |\n| 2 | Effective Conte…",
+   "title": "What We Can Learn from Anthropic to Build Our Own Agent",
+   "url": "https://ericfu1120.github.io/posts/learn-from-anthropic-to-build-agent/"
+  },
+  {
+   "chars_delivered": 4494,
+   "published": null,
+   "text": "# Effective Harnesses for Long-Running Agents\n## The Long-Running Agent Problem\nThe Claude Agent SDK is a powerful, general-purpose agent harness adept at coding and other tasks that require the model to use tools to gather context, plan, and execute. It has context management capabilities such as…",
+   "title": "anthropic_engineering_md/anthropic_engineering_blog/Effective Harnesses for Long-Running Agents.md at main · chyornyy/anthropic_engineering_md · GitHub",
+   "url": "https://github.com/chyornyy/anthropic_engineering_md/blob/main/anthropic_engineering_blog/Effective%20Harnesses%20for%20Long-Running%20Agents.md"
+  },
+  {
+   "chars_delivered": 10450,
+   "published": null,
+   "text": "# The Anatomy of an Agent Harness\n## The 12 Components of a Production Harness\n### 4. Context Management\n- ****Compaction****: summarizing conversation history when approaching limits (Claude Code preserves architectural decisions and unresolved bugs while discarding redundant tool outputs)\n- ****O…",
+   "title": "Akshay 🚀 on X: \"The Anatomy of an Agent Harness\" / X",
+   "url": "https://x.com/akshay_pachaar/status/2041146899319971922"
+  },
+  {
+   "chars_delivered": 11075,
+   "published": null,
+   "text": "# Claude Code agent teams: when and how to go multi-agent\n### 4 patterns, 8 failure modes, and a decision framework from real multi-agent usage.\nThe most useful conclusion from some months of real multi-agent usage is not very glamorous: most systems should start with 1 well-configured agent, good…",
+   "title": "Claude Code agent teams: when and how to go multi-agent",
+   "url": "https://joseparreogarcia.substack.com/p/claude-code-agent-teams"
+  },
+  {
+   "chars_delivered": 6090,
+   "published": null,
+   "text": "# How we built our multi-agent research system\n## Benefits of a multi-agent system\nThe essence of search is compression: distilling insights from a vast corpus. Subagents facilitate compression by operating in parallel with their own context windows, exploring different aspects of the question simu…",
+   "title": "How we built our multi-agent research system \\ Anthropic",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system"
+  },
+  {
+   "chars_delivered": 1928,
+   "published": null,
+   "text": "# Long-running Agents\n## Anthropic: harnesses, then the brain/hands/session split\nThe first is “Effective harnesses for long-running agents”, which lays out a two-agent harness for autonomous full-stack development. An **initializer agent** runs once at the start of a project to set up the environm…",
+   "title": "Long-running Agents - by Addy Osmani - Elevate",
+   "url": "https://addyo.substack.com/p/long-running-agents"
+  },
+  {
+   "chars_delivered": 1716,
+   "published": null,
+   "text": "# How the agent loop works\n## The context window\n### Automatic compaction\nWhen the context window approaches its limit, the SDK automatically compacts the conversation: it summarizes older history to free space, keeping your most recent exchanges and key decisions intact. The SDK emits a message wi…",
+   "title": "How the agent loop works - Claude Code Docs",
+   "url": "https://code.claude.com/docs/en/agent-sdk/agent-loop"
+  },
+  {
+   "chars_delivered": 7107,
+   "published": null,
+   "text": "Skills vs subagents: Anthropic now advises folding most subagents into one agent with skills. What it found, and when a subagent still pays off.\n\nSkip to content\n\nInter-office memo\n\n**To**: Everyone who builds with AI agents\n**From**: Mo, Chief Executive\n**Date**: October 25, 2026, 9:21 AM CDT\n**Re…",
+   "title": "Anthropic says it’s time to stop using subagents — Enjoy Agentic Industries",
+   "url": "https://enjoy.dev/blog/skills-vs-subagents/"
+  }
+ ],
+ "latency_ms": 1479.7,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q08",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What does Anthropic recommend for long-running agent harnesses and multi-agent systems? Cover initializer and coding agents, progress files, context compaction, subagents, the Claude Agent SDK, Agent Skills, and the multi-agent research system's lessons on token cost and orchestration.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 66267,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:07.848275Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

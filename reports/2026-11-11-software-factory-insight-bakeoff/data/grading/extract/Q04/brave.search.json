@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "5108fbbc08f70411",
+ "claims": [
+  {
+   "text": "OpenAI launched Codex as a research preview: a cloud-based software engineering agent that can work on many tasks in parallel, with each task running in its own cloud sandbox environment preloaded with the user's repository.",
+   "url": null
+  },
+  {
+   "text": "Codex can write features, answer questions about a codebase, fix bugs, and propose pull requests for review.",
+   "url": null
+  },
+  {
+   "text": "AGENTS.md files placed in a repository are text files, akin to README.md, that tell Codex how to navigate the codebase, which commands to run for testing, and how to follow project practices.",
+   "url": null
+  },
+  {
+   "text": "The codex-1 system message states that the scope of an AGENTS.md file is the entire directory tree rooted at its folder, and that more deeply nested AGENTS.md files take precedence in case of conflicts.",
+   "url": null
+  },
+  {
+   "text": "The codex-1 system message states that direct system, developer, or user instructions in a prompt take precedence over AGENTS.md instructions.",
+   "url": null
+  },
+  {
+   "text": "The codex-1 system message instructs the agent to run all programmatic checks specified in AGENTS.md after all code changes are made, even for simple changes such as documentation.",
+   "url": null
+  },
+  {
+   "text": "The codex-1 system message tells the agent not to create new branches, to commit changes with git, to leave the worktree clean, and not to amend existing commits; only committed code is evaluated.",
+   "url": null
+  },
+  {
+   "text": "After completing a task, Codex commits its changes in its environment and provides citations of terminal logs and test outputs; users can review results, request revisions, open a GitHub pull request, or integrate changes locally.",
+   "url": null
+  },
+  {
+   "text": "At launch, internet access was disabled during task execution, limiting the agent to code provided via GitHub repositories and dependencies pre-installed through a user-configured setup script.",
+   "url": null
+  },
+  {
+   "text": "On June 3, 2025, Codex became available to ChatGPT Plus users and gained the option to give Codex internet access during task execution.",
+   "url": null
+  },
+  {
+   "text": "A Codex cloud task starts by creating a container and checking out the repo at the selected branch or commit SHA, then running the setup script plus an optional maintenance script when a cached container is resumed.",
+   "url": null
+  },
+  {
+   "text": "Setup scripts run with internet access, while agent internet access is off by default and can be set to limited or unrestricted.",
+   "url": null
+  },
+  {
+   "text": "All outbound internet traffic from Codex cloud environments passes through an HTTP/HTTPS network proxy for security and abuse prevention.",
+   "url": null
+  },
+  {
+   "text": "The Codex agent runs in a default container image called universal, pre-installed with common languages, packages, and tools.",
+   "url": null
+  },
+  {
+   "text": "When the agent finishes, it shows its answer and a diff of changed files, and the user can open a PR or ask follow-up questions.",
+   "url": null
+  },
+  {
+   "text": "Secrets configured for Codex cloud (legacy) environments are available only during setup and are removed before the agent phase starts.",
+   "url": null
+  },
+  {
+   "text": "The Codex system card addendum says the container has network access during the setup phase of cloning the repo and installing dependencies, but none while codex-1 is in control.",
+   "url": null
+  },
+  {
+   "text": "The system card says network sandboxing prevents exposure to online prompt injection, data exfiltration to external endpoints, and remote data corruption or deletion, leaving prompt injection vectors confined to the connected GitHub repository, its dependencies, and the user-configured environment.",
+   "url": null
+  },
+  {
+   "text": "The system card's June 3, 2025 update lets users decide per project which sites the agent may access, including custom allowlists or denylists, and warns of risks such as prompt injection, leaked credentials, and code with license restrictions.",
+   "url": null
+  },
+  {
+   "text": "The June 3, 2025 changelog states internet access is off by default, and Plus, Pro, and Business users can enable it for specific environments with granular control over domains and HTTP methods.",
+   "url": null
+  },
+  {
+   "text": "An example Codex cloud internet configuration allows domains pypi.org, npmjs.com, and github.com with methods GET, HEAD, and OPTIONS; setup scripts can still use the internet even when agent internet is off.",
+   "url": null
+  },
+  {
+   "text": "Codex tasks take from 1 to 30 minutes depending on complexity, and users can see progress in real time.",
+   "url": null
+  },
+  {
+   "text": "Per this report, codex-1, an optimized version of OpenAI o3 for software engineering, achieved about 80% accuracy in four tries on SWE-Bench Verified and 75% on OpenAI's internal SWE task benchmark.",
+   "url": null
+  },
+  {
+   "text": "OpenAI published a 12-page PDF in May 2026 on internal Codex use, covering seven workflows and six best practices, with engineer quotes from Security, Product Engineering, Frontend, API, Infrastructure, and Performance Engineering, and no adoption percentages or benchmark charts.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's internal best practices include setting up the environment with a startup script, environment variables, and internet access (said to significantly reduce Codex's error rate), using the task queue as a lightweight backlog, and maintaining an AGENTS.md with conventions, business logic, and quirks Codex cannot infer from code.",
+   "url": null
+  }
+ ],
+ "question_id": "Q04"
+}

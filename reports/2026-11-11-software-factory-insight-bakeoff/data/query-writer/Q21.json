@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "merge queue AI agent PR volume throughput CI cost",
+  "Graphite Aviator Mergify stacked PR agents conflict rate",
+  "GitHub merge queue batching speculative builds Bors scaling"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How do merge queues and stacked-PR systems (GitHub merge queue, Graphite, Aviator, Mergify, Bors-style) handle very high PR volume from agents? What is known about throughput, CI cost and conflict rates when agents open hundreds of PRs a day? Pages that should rank first are primary sources: the vendors' and organisations' own engineering blog posts, documentation, conference talks, papers and open-source code (GitHub, Graphite, Aviator, Mergify, Bors/Bors-NG, Uber SubmitQueue, Zuul), plus credible reporting. Pull out mechanisms (batching, speculative or parallel queues, optimistic merging, bisection on failure, stacked-PR rebasing), concrete numbers (throughput, queue wait times, CI cost, flakiness, conflict and failure rates), names, dates, measured results, and failure modes when AI agents generate high PR volume.",
+ "question_id": "Q21",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "7f369ba040346958",
+ "url": "https://code.visualstudio.com/docs/agents/concepts/trust-and-safety",
+ "verdicts": {
+  "OS-level agent sandboxing restricts file system and network access using Seatbelt on macOS, bubblewrap plus socat on Linux/WSL2, and Microsoft MXC process containers on Windows, and covers child processes but not built-in non-process tools.": 0
+ }
+}

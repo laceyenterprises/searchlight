@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:05.948851Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2318,
+   "published": "2026-07-30",
+   "text": "The Model Context Protocol (MCP) allows AI applications to connect to external tools, APIs, databases, files, and workflows through standardized MCP servers.\nWhile this makes AI systems more capable, it also introduces security risks including prompt injection, tool poisoning, credential misuse, un…",
+   "title": "MCP Security: Risks, Real Incidents & Controls (2026) - Checkmarx",
+   "url": "https://checkmarx.com/learn/mcp-security-risks-real-world-incidents-and-security-controls/"
+  },
+  {
+   "chars_delivered": 699,
+   "published": "2026-01-25",
+   "text": "Connect MCP servers and REST APIs behind it, and the agent sees a compact meta-surface of 9 to 17 tools instead of every backend definition.\n...\n| |Without gateway|With gateway|\n...\n|**Practical tool limit**|20 to 50 tools under context pressure|Unlimited, discovered on demand|\n...\nThe gateway expo…",
+   "title": "MikkoParkkola/mcp-gateway: Unlimited MCP servers, tools ...",
+   "url": "https://github.com/MikkoParkkola/mcp-gateway"
+  },
+  {
+   "chars_delivered": 2874,
+   "published": "2025-05-05",
+   "text": "- **Tool poisoning at scale** — MCPTox benchmark (August 2025) tested 20 LLM agents across 45+ real-world MCP servers with 353 tools.\no1-mini achieved a 72.8% attack success rate; Claude 3.7 Sonnet had the highest refusal rate but still under 3%.\nMore capable models are often *more* susceptible bec…",
+   "title": "AISVS/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md at 8906b2be8341abbf4dc43411374681fb81e6ddc6 · OWASP/AISVS",
+   "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md"
+  },
+  {
+   "chars_delivered": 1376,
+   "published": "2025-06-01",
+   "text": "It combines classic AppSec controls (auth, input validation, least privilege) with agent-specific defenses against tool poisoning and prompt injection.\n...\n**Tool poisoning** is an attack where an MCP server embeds hidden instructions in a tool’s metadata: its name, description, or parameter schema…",
+   "title": "MCP Security Best Practices: 2026 Checklist for MCP Servers",
+   "url": "https://corgea.com/learn/mcp-security-best-practices"
+  },
+  {
+   "chars_delivered": 2395,
+   "published": null,
+   "text": "MCP servers rely on bearer tokens, as defined in OAuth 2.1, without specifying protocol-level token lifecycle management (i.e., refresh, revocation, and reuse control).\n...\nThese gaps can lead to message replay or unauthorized reuse of valid sessions.\nIn the event of session hijacking, a malicious…",
+   "title": "Model Context Protocol (MCP)",
+   "url": "https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf"
+  },
+  {
+   "chars_delivered": 1856,
+   "published": null,
+   "text": "**Executive Definition:** Because MCP servers can be published by anyone and consumed by an AI agent that then acts on the results, MCP introduces a distinct attack surface: a malicious or compromised server can return tool results containing hidden instructions that the underlying model treats as…",
+   "title": "mcp-and-agent-interoperability.md",
+   "url": "https://erikcaldwell.com/field-guide/mcp-and-agent-interoperability.md"
+  },
+  {
+   "chars_delivered": 2048,
+   "published": null,
+   "text": "The protocol specifies communication mechanisms, but does not enforce authentication, authorization, or access control policies.\n...\nIf not, prompt injection attacks could manipulate the agent into performing unauthorized actions such as deleting records or exfiltrating sensitive information [14].…",
+   "title": "Securing the Model Context Protocol (MCP): Risks, Controls, and ...",
+   "url": "https://arxiv.org/html/2511.20920v1"
+  },
+  {
+   "chars_delivered": 1612,
+   "published": null,
+   "text": "MCP,\nthe\nAgent-to-Agent\nProtocol (A2A) provides a JSON-RPC-based framework\nthat\nfacilitates\nnegotiation,\ndelegation,\nand\ntask\ncoordination\nbetween\nautonomous\nagents\nwith\nenterprise-grade\n...\nEffective mitigation in both protocols includes delegating authentication to hardened identity providers,\nim…",
+   "title": "Model Context Protocol (MCP) and Agent-to-Agent (A2A)",
+   "url": "https://deniskim1.com/papers/cisc_s_25/cisc_s_25_paper.pdf"
+  },
+  {
+   "chars_delivered": 1692,
+   "published": "2026-11-10",
+   "text": "## Choosing the right architecture: agents, MCPs, skills, and plugins\n- **Model Context Protocol (MCP) connectors:** The foundational data and tool pipe for exposing external APIs, search, and CRUD operations to Gemini as callable tools registered in Agent Registry in Gemini platform.\n...\n- **AI ag…",
+   "title": "Inside the Gemini factory accelerating partner solutions | Google Cloud Blog",
+   "url": "https://cloud.google.com/blog/topics/partners/inside-the-gemini-factory-accelerating-partner-solutions"
+  },
+  {
+   "chars_delivered": 2057,
+   "published": "2026-10-21",
+   "text": "|How do other agents and apps reach a factory?|Through an **MCP server that starts and reads sessions** (GitHub, Devin, Notion), with **MCP Tasks** as the poll-or-block shape; outbound through **signed, id-only webhooks** fetched on notify (Managed Agents); every product forces a **human-bound iden…",
+   "title": "ai-native-ref/docs/superpowers/specs/2026-10-21-v3-landscape-research.md at main · Smana/ai-native-ref",
+   "url": "https://github.com/Smana/ai-native-ref/blob/main/docs/superpowers/specs/2026-10-21-v3-landscape-research.md"
+  }
+ ],
+ "latency_ms": 459.2,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q14",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How are MCP and A2A being used as extension seams for agent platforms in production? What are the known problems: tool-count limits, auth and authorization (OAuth for MCP), security incidents like prompt injection via tools, and gateway or registry patterns that address them?",
+    "MCP A2A production agent platform extension architecture",
+    "MCP OAuth authorization security tool poisoning prompt injection incidents",
+    "MCP gateway registry tool count limit context"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 21687,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:05.489603Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

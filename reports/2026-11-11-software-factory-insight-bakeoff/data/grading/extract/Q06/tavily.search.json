@@ -1,0 +1,103 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "2f58fc879b66ce9e",
+ "claims": [
+  {
+   "text": "Stripe Minions produce over 1,300 merged pull requests per week as of February 2026, up from 1,000+ at first disclosure, with humans reviewing the code but writing none of it.",
+   "url": null
+  },
+  {
+   "text": "InfoQ reports Stripe engineers said Minions now produce over 1,300 pull requests per week, up from 1,000 in earlier trials, and all changes are human-reviewed but contain no human-written code.",
+   "url": null
+  },
+  {
+   "text": "Minions run on pre-warmed 'devboxes', standardized AWS EC2 instances that provision in about 10 seconds.",
+   "url": null
+  },
+  {
+   "text": "Minion devboxes are identical to the environments human engineers use, but are isolated from production and the internet (no production access, no internet).",
+   "url": null
+  },
+  {
+   "text": "Stripe's devboxes are cloud machines pre-loaded with the entire codebase, tools, and services; they spin up in ten seconds because Stripe proactively provisions and warms a pool of them, cloning repositories, warming caches, and starting background services ahead of time.",
+   "url": null
+  },
+  {
+   "text": "Engineers already used one devbox per task, and a single engineer might have half a dozen running at once; agents slot into this same pattern.",
+   "url": null
+  },
+  {
+   "text": "An unattended agent needs isolation (mistakes can't touch production), parallelism (multiple agents on separate tasks), and predictability (every agent starts from a clean, consistent state), and Stripe's devboxes already provided all three.",
+   "url": null
+  },
+  {
+   "text": "Stripe describes Minion devboxes as 'cattle, not pets': ephemeral, reproducible, disposable environments, so the agent gets a clean environment every time and accumulates no state from prior runs.",
+   "url": null
+  },
+  {
+   "text": "Per a video walkthrough, because each devbox is sandboxed with no internet or production access, no human permission checks are needed; the isolation acts as the permission, and independent devboxes allow parallelization without git worktree conflicts.",
+   "url": null
+  },
+  {
+   "text": "A video walkthrough says Stripe found that git worktrees and containers on a developer's laptop make permissioning hard to get right at scale, so every Minion run uses an isolated cloud AWS EC2 instance.",
+   "url": null
+  },
+  {
+   "text": "A blueprint is a sequence of nodes where some nodes run deterministic code and others run an agentic loop, alternating rigid and creative steps.",
+   "url": null
+  },
+  {
+   "text": "In blueprints, the 'implement the feature' and 'fix CI failures' steps get the full agentic loop with tools and freedom, while 'run linters' and 'push the branch' steps are hardcoded.",
+   "url": null
+  },
+  {
+   "text": "In the described pipeline, the agent writes code, a hardcoded step always runs the linter, the agent fixes lint issues, then a hardcoded git commit occurs and the agent continues.",
+   "url": null
+  },
+  {
+   "text": "Blueprints are workflows defined in code that specify how a task is divided into subtasks handled either by deterministic routines or by the agent; Stripe engineers describe them as agent skills interwoven with code.",
+   "url": null
+  },
+  {
+   "text": "Minions are built on a fork of Block's open-source Goose agent, tailored for unattended runs, with a Toolshed MCP server providing nearly 500 internal tools.",
+   "url": null
+  },
+  {
+   "text": "The CI strategy is local lint (under 5 seconds), at most 2 CI rounds, and auto-applied fixes, after which the result goes to a human even if failures remain.",
+   "url": null
+  },
+  {
+   "text": "After an implementation step the harness does not ask the model to judge correctness; it runs a selected subset of Stripe's more than 3 million tests, feeds failure output back to the agent, and produces a pull request if tests pass within at most two CI rounds.",
+   "url": null
+  },
+  {
+   "text": "Reliability is reinforced through CI/CD pipelines, automated tests, and static analysis before human review, and engineers noted Minions perform best on well-defined tasks such as configuration adjustments, dependency upgrades, and minor refactoring.",
+   "url": null
+  },
+  {
+   "text": "Minions do not merge; the agents write code and open the pull request, and humans must still review everything, which is flagged as a potential human review bottleneck.",
+   "url": null
+  },
+  {
+   "text": "Minions can be invoked via Slack (the primary interface), CLI, web UI, or internal tool integrations.",
+   "url": null
+  },
+  {
+   "text": "One documented trigger is a Slack emoji reaction on a message describing the desired change, which starts a run without an engineer monitoring it.",
+   "url": null
+  },
+  {
+   "text": "The code managed by Minions supports more than $1 trillion in annual payment volume at Stripe, per InfoQ.",
+   "url": null
+  },
+  {
+   "text": "Stripe has not published example PRs, so outsiders cannot judge whether the 1,300/week figure represents substantive changes or low-stakes mechanical work.",
+   "url": null
+  },
+  {
+   "text": "One secondary source claims about 70% of Minions' roughly 1,300 weekly PRs were merged without any human modification, and dates the disclosure to early 2025, which conflicts with the February 2026 dating in other sources.",
+   "url": null
+  }
+ ],
+ "question_id": "Q06"
+}

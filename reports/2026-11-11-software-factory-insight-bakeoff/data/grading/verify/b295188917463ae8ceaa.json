@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "4fa6ecb647c49a93",
+ "url": "https://deploymentsafety.openai.com/gpt-5-3-codex/agent-sandbox",
+ "verdicts": {
+  "In Codex cloud, the agent runs in an isolated container hosted by OpenAI with network access disabled by default, preventing interaction with the user's host system or data outside its workspace.": 1,
+  "Network access is configurable per project, including custom allowlists or denylists of sites, and OpenAI warns that enabling internet access can introduce prompt injection, leaked credentials, or license-restricted code, advising limiting access to trusted domains and safe HTTP methods.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "a15263a82b659ffa",
+ "claims": [
+  {
+   "text": "Kiro's feature spec produces three files: requirements.md (user stories with acceptance criteria in EARS notation), design.md and tasks.md.",
+   "url": null
+  },
+  {
+   "text": "Kiro builds a dependency graph from tasks.md and runs independent tasks in parallel, in waves.",
+   "url": null
+  },
+  {
+   "text": "Kiro uses bugfix.md in place of the requirements file for a bugfix spec, and a quick spec writes all three files in one pass without the approval steps.",
+   "url": null
+  },
+  {
+   "text": "Kiro stores its spec files in .kiro/specs/ and requires approval of each file before moving on to the next.",
+   "url": null
+  },
+  {
+   "text": "Kiro's steering documents are split into three files, product.md, structure.md and tech.md, in .kiro/steering/, which agents reference on every action.",
+   "url": null
+  },
+  {
+   "text": "Kiro's EARS notation turns vague prompts into testable statements such as 'The system shall POST to the customer endpoint within 500ms WHEN an event is created'.",
+   "url": null
+  },
+  {
+   "text": "GitHub Spec Kit's workflow runs as agent commands: constitution, specify, plan, tasks, implement, and converge, which assesses the implementation against the spec, plan and tasks and adds the missing work.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit's /speckit.clarify asks up to five targeted questions about underspecified areas and writes the answers into spec.md.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit's /speckit.plan generates plan.md, research.md, data-model.md and contracts/ under a specs/[branch-name]/ folder, and /speckit.tasks writes a dependency-ordered tasks.md in phases: Setup, Foundational, one per user story, then Polish.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit's spec template includes prioritized user stories with Given/When/Then scenarios, functional requirements such as 'FR-001: System MUST ...', success criteria, and [NEEDS CLARIFICATION] markers.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit stores each feature in specs/NNN-feature/ with spec.md, plan.md and tasks.md, while OpenSpec uses openspec/changes/name/ with proposal.md, specs/, design.md and tasks.md.",
+   "url": null
+  },
+  {
+   "text": "OpenSpec's unit of work is one change (a proposal plus edits to the project's specs), applied with /opsx:apply and archived with /opsx:archive, which merges the change into openspec/specs/.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit's methodology document describes the constitution (memory/constitution.md) as nine articles, including a test-first article.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit and similar tools place human review at each phase before proceeding, and tasks are meant to be small, validated increments that each deliver a testable piece of functionality.",
+   "url": null
+  },
+  {
+   "text": "SDD is described at three levels: spec-first (spec set aside after the task), spec-anchored (spec kept and updated), and spec-as-source (only the spec is edited; code is regenerated, still experimental due to non-determinism).",
+   "url": null
+  },
+  {
+   "text": "SpecMine, a corpus released by the authors, contains 470,795 spec files from 73,030 public GitHub repositories, almost all first committed in 2025 or later.",
+   "url": null
+  },
+  {
+   "text": "Kiro keeps one living spec per feature, OpenSpec keeps both a living spec and an accumulated change record, and Spec Kit leaves the choice to the team.",
+   "url": null
+  },
+  {
+   "text": "A practitioner study found that the evidence for SDD benefits comes largely from tool vendors, and that practitioners reported more reliable agent behavior alongside greater planning and review costs.",
+   "url": null
+  },
+  {
+   "text": "Practitioners in the study often included implementation detail in specs, used SDD selectively and mainly for new features, and reported that this detail may help agents while making specs prone to decay ('spec rot').",
+   "url": null
+  },
+  {
+   "text": "Nascent empirical studies cited in one paper suggest human-refined specs improve LLM-generated code quality, with controlled studies showing error reductions of up to 50%.",
+   "url": null
+  },
+  {
+   "text": "A blog post claims early adopters of spec-driven workflows report 3-10x higher first-pass success rates from AI agents on non-trivial tasks, without describing the methodology.",
+   "url": null
+  },
+  {
+   "text": "An AWS builder-community write-up reports a Kiro three-phase spec workflow with a 9-agent topology rearchitected a prototype stack in a single day with over 80% test coverage and green CI, using specs as the shared source of truth.",
+   "url": null
+  },
+  {
+   "text": "Birgitta Böckeler's trials found Kiro turned a small bug into four user stories with sixteen acceptance criteria ('a sledgehammer to crack a nut'), and Spec Kit produced many repetitive markdown files.",
+   "url": null
+  },
+  {
+   "text": "In Böckeler's trials, agents still ignored the spec in places and in one run regenerated classes that the research step had already documented as existing.",
+   "url": null
+  },
+  {
+   "text": "Failure modes of SDD include over-specification, heavy review load and drift between spec and code, and validation should use evidence the implementing agent cannot redefine, such as protected tests.",
+   "url": null
+  }
+ ],
+ "question_id": "Q10"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "2b72e2c1538a3bfc",
+ "claims": [
+  {
+   "text": "MCP (Model Context Protocol), developed by Anthropic, is a structured way to let AI agents access tools, APIs, or external resources, connecting an MCP client (typically the LLM-powered agent) to local data sources and/or remote resource servers.",
+   "url": "https://auth0.com/blog/mcp-vs-a2a/"
+  },
+  {
+   "text": "A2A agents fall into two categories: client agents that initiate requests and coordinate tasks on behalf of the user, and remote/service agents that advertise specific capabilities and handle incoming requests.",
+   "url": "https://auth0.com/blog/mcp-vs-a2a/"
+  },
+  {
+   "text": "In A2A, agents publish Agent Cards, self-descriptions of what they can do, which protocols they speak and what requests they accept, and agents exchange JSON messages over HTTP, often mediated by an A2A server.",
+   "url": "https://auth0.com/blog/mcp-vs-a2a/"
+  },
+  {
+   "text": "A2A was open-sourced by Google in April 2025 with about 50 partners and donated to the Linux Foundation in June 2025.",
+   "url": "https://futureagi.com/blog/mcp-vs-a2a-2025/"
+  },
+  {
+   "text": "OpenAI added MCP support to the Agents SDK in March 2025, Google announced MCP support for Gemini models in April 2025, and Microsoft shipped MCP in Windows Copilot, Visual Studio Code and the Azure AI stack across 2025.",
+   "url": "https://futureagi.com/blog/mcp-vs-a2a-2025/"
+  },
+  {
+   "text": "As of May 2026 the current MCP spec version is 2025-06-18 and A2A is at 0.3.x, with a 1.0 A2A spec stabilization underway.",
+   "url": "https://futureagi.com/blog/mcp-vs-a2a-2025/"
+  },
+  {
+   "text": "Future AGI names prompt injection through tool outputs (MCP) and impersonation through forged Agent Cards (A2A) as the top production risks.",
+   "url": "https://futureagi.com/blog/mcp-vs-a2a-2025/"
+  },
+  {
+   "text": "Future AGI recommends routing every MCP and A2A call through a single gateway (its Agent Command Center) that provides allowlists, OAuth, guardrails and tracing.",
+   "url": "https://futureagi.com/blog/mcp-vs-a2a-2025/"
+  },
+  {
+   "text": "MCP and A2A are similar RPC-style client/server protocols over HTTP that do not specify protocol-specific security; MCP's attempt at an authorization framework has been a bumpy ride.",
+   "url": "https://www.solo.io/blog/deep-dive-mcp-and-a2a-attack-vectors-for-ai-agents"
+  },
+  {
+   "text": "Agents use natural-language context to decide when and how to invoke remote tools, so poisoning that context can manipulate the model into executing malicious code, divulging sensitive information or exfiltrating data, unlike deterministic API calls chosen by developer code.",
+   "url": "https://www.solo.io/blog/deep-dive-mcp-and-a2a-attack-vectors-for-ai-agents"
+  },
+  {
+   "text": "Solo.io lists four attack classes against MCP and A2A agents: naming attacks, context poisoning/indirect prompt injection, shadowing attacks and rug pulls.",
+   "url": "https://www.solo.io/blog/deep-dive-mcp-and-a2a-attack-vectors-for-ai-agents"
+  },
+  {
+   "text": "In MCP naming attacks, an attacker registers a server with a name nearly identical to a legitimate one (e.g. finance-tool-mcp.company.com versus finance-tools-mcp.company.com), and agents that rely on server and tool names and descriptions can confuse them.",
+   "url": "https://www.solo.io/blog/deep-dive-mcp-and-a2a-attack-vectors-for-ai-agents"
+  },
+  {
+   "text": "The MCP confused deputy problem arises when an MCP server acting for a user holds more permissions than the user, so an LLM manipulated through tool descriptions, user inputs or file data can make the server perform unauthorized actions such as deleting a file.",
+   "url": "https://www.apideck.com/blog/understanding-the-security-landscape-of-mcp"
+  },
+  {
+   "text": "Tool poisoning embeds malicious instructions in tool definitions that are invisible to users but interpreted by the model, and can be hidden in any part of the tool definition, not just the description; it can be used to exfiltrate data, read SSH keys or run unauthorized commands.",
+   "url": "https://www.apideck.com/blog/understanding-the-security-landscape-of-mcp"
+  },
+  {
+   "text": "MCP supply-chain risks include malicious servers, typosquatted server names, and the lack of a universal mandatory security review for MCP servers, which leaves vetting to users and organizations.",
+   "url": "https://www.apideck.com/blog/understanding-the-security-landscape-of-mcp"
+  },
+  {
+   "text": "Apideck's 2025 article cites exploits seen in GitHub and Supabase MCP integrations, and notes a new OAuth 2.0-based security spec is meant to address MCP threats.",
+   "url": "https://www.apideck.com/blog/understanding-the-security-landscape-of-mcp"
+  },
+  {
+   "text": "Unosecur lists common production mistakes: plaintext long-lived API keys in config files such as claude_desktop_config.json or .cursor/mcp.json, one shared service account for a whole team (destroying per-developer audit trails), and treating tool descriptions as harmless text.",
+   "url": "https://www.unosecur.com/security-101/mcp-security-best-practices"
+  },
+  {
+   "text": "Unosecur advises granting per-tool permissions rather than server-wide ones, since an agent that needs to read Jira tickets should not be able to delete Jira projects through the same MCP server.",
+   "url": "https://www.unosecur.com/security-101/mcp-security-best-practices"
+  },
+  {
+   "text": "Unosecur cites Teleport's 2026 report that organizations enforcing strict least-privilege controls see a 17% AI security incident rate versus 76% for those without.",
+   "url": "https://www.unosecur.com/security-101/mcp-security-best-practices"
+  },
+  {
+   "text": "In the MCP OAuth model each agent acts as an OAuth client, the application's API is the resource server, and its authorization server issues scoped, time-limited, revocable tokens so the agent never handles the user's password or API key.",
+   "url": "https://stytch.com/blog/agent-to-agent-oauth-guide/"
+  },
+  {
+   "text": "The Stytch agent OAuth flow is: discover authorization server metadata (/.well-known/openid-configuration), optionally self-register via Dynamic Client Registration, obtain user consent for scopes, exchange the auth code for a short-lived access token, and validate signature, expiry and scope on every bearer-token call.",
+   "url": "https://stytch.com/blog/agent-to-agent-oauth-guide/"
+  },
+  {
+   "text": "With agent-to-agent OAuth a compromised agent's impact is limited to its own scopes and tokens can be revoked individually, whereas embedded agent-as-client access reuses the user's session and carries the user's full privileges.",
+   "url": "https://stytch.com/blog/agent-to-agent-oauth-guide/"
+  },
+  {
+   "text": "A Reddit architecture discussion argues MCP servers should not be interlinked with the application and should not know or enforce application or authorization logic.",
+   "url": "https://www.reddit.com/r/softwarearchitecture/comments/1ru4htu/how_oauth_works_in_mcp_servers_when_ai_agents/"
+  },
+  {
+   "text": "A 2026 arXiv paper (Anbiaee et al.) offers a qualitative risk framework with twelve protocol-level risks across MCP, A2A, Agora and ANP, and an MCP case study quantifying wrong-provider tool execution under multi-server composition due to missing mandatory validation/attestation of executable components.",
+   "url": "https://arxiv.org/html/2602.11327v1"
+  },
+  {
+   "text": "StackOne positions MCP as the standard for agent-to-tool access and A2A for agent discovery and delegation to other agents, and offers a Tool Gateway MCP with prompt injection guard, PII redaction, tool policies and tool discovery.",
+   "url": "https://www.stackone.com/blog/mcp-vs-a2a-protocol/"
+  }
+ ],
+ "question_id": "Q14"
+}

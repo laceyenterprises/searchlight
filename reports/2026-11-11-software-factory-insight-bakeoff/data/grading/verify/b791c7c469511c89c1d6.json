@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "49f068300cc7dafc",
+ "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment",
+ "verdicts": {
+  "Copilot coding agent is only compatible with Ubuntu x86 Linux runners; Windows, macOS and other operating systems are not supported.": 0,
+  "Copilot's environment can be pre-configured with tools or dependencies by creating a GitHub Actions workflow file at `.github/workflows/copilot-setup-steps.yml` in the repository, which runs before the agent starts.": 1,
+  "Copilot's internet access is limited by a firewall by default, and the default rules allow hosts Copilot uses to interact with GitHub or download dependencies.": 0,
+  "GitHub Copilot coding agent works in its own ephemeral development environment powered by GitHub Actions, where it can explore code, make changes, and run automated tests and linters.": 0,
+  "Setting the `COPILOT_AGENT_FIREWALL_ALLOW_LIST` Actions variable replaces the default allowlist entirely, and setting `COPILOT_AGENT_FIREWALL_ENABLED` to `false` disables the firewall.": 0,
+  "The `COPILOT_AGENT_FIREWALL_ALLOW_LIST_ADDITIONS` Actions variable adds allowed hosts as a comma-separated list; a domain entry also allows its subdomains, while a URL entry restricts traffic to the specified scheme, host, and path and descendant paths.": 0,
+  "To use a larger GitHub-hosted runner for Copilot coding agent, a `copilot-setup-steps.yml` file sets `runs-on` to the label and/or group of the larger runner, after the larger runners are configured and the repository is allowed to access them.": 0,
+  "When the firewall blocks a request from Copilot, a warning is added to the pull request body (if responding to an issue assignment) or to a comment (if responding to a comment).": 0
+ }
+}

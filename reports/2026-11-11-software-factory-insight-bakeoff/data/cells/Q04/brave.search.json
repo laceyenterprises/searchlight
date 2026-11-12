@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:03.445250Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 7071,
+   "published": null,
+   "text": "# Introducing Codex\n## This launch post is outdated.\n***Update on June 3, 2025:*** *Codex is now available to ChatGPT Plus users. We’re also enabling users to provide Codex with internet access during task execution. Please refer to the* *changelog*(opens in a new window) *and* *docs*(opens in a ne…",
+   "title": "Introducing Codex",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "chars_delivered": 18952,
+   "published": null,
+   "text": "````\n# Codex — full documentation\n\n> Single-file Markdown export of ChatGPT docs for Codex across the CLI, IDE, cloud, and SDK.\n\nCurated index: https://learn.chatgpt.com/docs/llms.txt\n\n# Administration\n\n---\n\n# Agent approvals & security\n\nCodex helps protect your code and data and reduces the risk o…",
+   "title": "Codex — full documentation",
+   "url": "https://developers.openai.com/codex/llms-full.txt"
+  },
+  {
+   "chars_delivered": 8749,
+   "published": null,
+   "text": "Users can ask Codex to perform coding tasks or to answer questions about a codebase. Each\n\nagent runs in its own cloud container with no internet access. The container is preloaded with\n\nthe user’s code and a development environment defined by the user, including any dependencies,\n\nconfiguration, o…",
+   "title": "Addendum to o3 and o4-mini system card: Codex OpenAI May 16, 2025",
+   "url": "https://cdn.openai.com/pdf/8df7697b-c1b2-4222-be00-1fd3298f351d/codex_system_card.pdf"
+  },
+  {
+   "chars_delivered": 2182,
+   "published": null,
+   "text": "# Codex Cloud (Legacy)\n## How Codex cloud chats run\nWhen you submit a task:\n\n1. Codex creates a container and checks out your repo at the selected branch or commit SHA.\n2. Codex runs your setup script, plus an optional maintenance script when a cached container is resumed.\n3. Codex applies your int…",
+   "title": "Codex Cloud (Legacy)",
+   "url": "https://developers.openai.com/codex/cloud/environments"
+  },
+  {
+   "chars_delivered": 7079,
+   "published": null,
+   "text": "# What Is OpenAI Codex? Cloud and CLI Coding Agents Explained\n## // In plain English\nCodex ships in two forms that target different workflows. **Codex cloud** (the web experience at chatgpt.com/codex) runs tasks asynchronously in OpenAI-managed sandboxes — you can queue several tasks, close your la…",
+   "title": "What Is OpenAI Codex? A Beginner's Guide",
+   "url": "https://ai-tldr.dev/learn/ai-coding-tools/coding-agents-assistants/what-is-openai-codex/"
+  },
+  {
+   "chars_delivered": 8785,
+   "published": null,
+   "text": "# Codex CLI Guide 2026: Setup, Sandbox, AGENTS.md & MCP\n## Release Highlights: What Changed Recently\n### v0.163.0 (October 15, 2026)\n/daemon can restart a managed background server, warning about work the restart could interrupt and reconnecting afterwards (#53173). Codex runs independent read-only…",
+   "title": "Codex CLI Guide 2026: Setup, Sandbox, AGENTS.md & MCP",
+   "url": "https://blakecrosley.com/guides/codex"
+  },
+  {
+   "chars_delivered": 3666,
+   "published": null,
+   "text": "Codex also has the ability to follow instructions precisely and run tests iteratively until it gets a passing result. Users can access Codex from the ChatGPT sidebar and assign coding tasks by entering a prompt and clicking the “Code” button, or use the “Ask” button if they have a question about th…",
+   "title": "OpenAI releases Codex, an AI coding agent that can run multiple tasks in parallel on a cloud-based platform - GIGAZINE",
+   "url": "https://gigazine.net/gsc_news/en/20250519-openai-ai-agent-codex/"
+  },
+  {
+   "chars_delivered": 3523,
+   "published": null,
+   "text": "OpenAI's own engineers use Codex as a parallel worker, not autocomplete. The company's PDF reveals 7 workflows, 6 best practices, and how teams across Security, Infrastructure, and Frontend actually prompt it.\n\n# How OpenAI Actually Uses Codex Internally: 7 Workflows and the Rules That Make Them Wo…",
+   "title": "How OpenAI Uses Codex: 7 Internal Workflows Revealed",
+   "url": "https://agentriot.com/news/ai-tools/how-openai-actually-uses-codex-internally-7-workflows-and-the-rules-that-make-them-work"
+  },
+  {
+   "chars_delivered": 9179,
+   "published": null,
+   "text": "# OpenAI Codex: From 2021 Code Model to a 2025 Autonomous Coding Agent\n## — Overview and Capabilities\nCrucially, each assigned task runs *end-to-end* in a **secure cloud sandbox environment preloaded with your repository**. This means Codex not only generates code, but can actually *execute code, r…",
+   "title": "OpenAI Codex: From 2021 Code Model to a 2025 Autonomous Coding Agent",
+   "url": "https://medium.com/@aliazimidarmian/openai-codex-from-2021-code-model-to-a-2025-autonomous-coding-agent-85ef0c48730a"
+  },
+  {
+   "chars_delivered": 874,
+   "published": null,
+   "text": "# ChatGPT & Codex changelog\n## February 2026\n- 2026-02-02 Introducing the Codex app Codex app Codex app showing a project sidebar, thread list, and review pane Codex app showing a project sidebar, thread list, and review pane The Codex app for macOS is a desktop interface for running agent threads…",
+   "title": "ChatGPT & Codex changelog",
+   "url": "https://developers.openai.com/codex/changelog/"
+  }
+ ],
+ "latency_ms": 1966.4,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q04",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How does OpenAI Codex cloud run agent tasks: sandbox containers, AGENTS.md, parallel tasks, review, and internet access policy? What has OpenAI published about how it uses Codex internally and the measured results?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 78425,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:01.478788Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

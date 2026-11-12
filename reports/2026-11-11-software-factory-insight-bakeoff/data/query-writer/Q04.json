@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "OpenAI Codex cloud sandbox internet access",
+  "OpenAI Codex AGENTS.md parallel tasks review",
+  "OpenAI internal Codex usage results engineers"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How does OpenAI Codex cloud run agent tasks: sandbox containers, AGENTS.md, parallel tasks, review, and internet access policy? What has OpenAI published about how it uses Codex internally and the measured results? Rank first primary sources: OpenAI's own documentation (developers.openai.com Codex cloud docs, environments, internet access settings, AGENTS.md guide), the 'Introducing Codex' announcement, system cards, and OpenAI engineering posts or talks on internal Codex use, then credible reporting. Extract mechanisms (container setup scripts, sandbox isolation, network allowlists, parallel task execution, code review flow), names, dates, numbers, measured internal results (adoption, PR volume, review speed, productivity), and failure modes or limitations.",
+ "question_id": "Q04",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

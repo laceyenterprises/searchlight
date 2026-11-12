@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.research",
+ "cell_sha": "f8c8f2dadfff664d",
+ "claims": [
+  {
+   "text": "Stripe reported that over 1,300 pull requests merged each week are completely minion-produced, up from 1,000 as of Part 1; they are human-reviewed but contain no human-written code.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe's Part 1 post (dated 2026-02-09) reported over a thousand pull requests merged each week that are completely minion-produced, human-reviewed, and contain no human-written code.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "text": "InfoQ's 2026-03-20 report said Stripe's Minions produce over 1,300 pull requests per week, up from 1,000 in earlier trials.",
+   "url": "https://www.infoq.com/news/2026/03/stripe-autonomous-coding-agents"
+  },
+  {
+   "text": "A Stripe devbox is an AWS EC2 instance that contains Stripe's source code and runs services under development; Minions run on the same standard developer environment that Stripe engineers use.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe aims for a devbox to be ready within 10 seconds by proactively provisioning and warming a pool of devboxes.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Devbox warm-up includes cloning large git repositories, warming Bazel and type-checking caches, and starting code generation services; a ready box has a recent copy of master across Stripe's main repos.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Devboxes are 'cattle, not pets': standardized and easy to replace, and many engineers use one devbox per task, sometimes about half a dozen at once.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe's devboxes run in its QA environment, so Minions have no access to real user data, Stripe's production services, or arbitrary network egress.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Because mistakes are confined to the limited blast radius of one devbox, Stripe runs Minions with full permissions and no confirmation prompts.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe has an internal security control framework to ensure Minions cannot use their MCP tools to perform destructive actions.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Blueprints are workflows defined in code that direct a Minion run; each node runs either deterministic code or an agent loop, so the Minion blueprint resembles a state machine mixing deterministic and free-flowing agent nodes.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "The Minion blueprint's agent nodes include 'Implement task' and 'Fix CI failures', while deterministic nodes such as 'Run configured linters' and 'Push changes' invoke no LLM and just run code.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe says deterministic code for predictable steps, such as always linting at the end of a run, saves tokens and CI costs at scale and gives the agent less opportunity to get things wrong.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe has over three million tests, which provide feedback to Minions; it is infeasible to run all of them locally, so the standard blueprint includes one iteration against the full CI suite.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "A local executable uses heuristics to select and automatically run lints on each git push, taking less than five seconds.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "text": "After a Minion pushes, CI runs and auto-applies autofixes for failing tests; failures with no autofix go back to a blueprint agent node for one more local fix attempt.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe limits Minions to at most two rounds of CI; after the second push and CI run, the branch is sent back to its human operator for manual scrutiny.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Stripe limits CI rounds because CI runs cost tokens, compute and time, and it sees diminishing marginal returns from indefinitely many full CI loops.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "A typical Minion run starts in a Slack message and ends in a pull request that passes CI and is ready for human review, with no interaction in between.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "text": "A Minion creates a branch, pushes it to CI, and prepares a pull request following Stripe's PR template; the engineer then requests review from another Stripe engineer, or gives the Minion further instructions.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "text": "Stripe forked Block's coding agent goose in late 2024 and customized it to work within Stripe's LLM infrastructure.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "Minions use MCP via Toolshed, Stripe's central internal MCP server hosting more than 400 tools, to gather internal documentation, ticket details, build statuses and Sourcegraph code intelligence; agents get curated subsets.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "text": "Engineers noted Minions perform best on well-defined tasks such as configuration adjustments, dependency upgrades, and minor refactoring.",
+   "url": "https://www.infoq.com/news/2026/03/stripe-autonomous-coding-agents"
+  },
+  {
+   "text": "Stripe notes that in a large codebase an agent without guidance may struggle to follow best practices or use the proper libraries even with good linters.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2?read=1"
+  },
+  {
+   "text": "The code Minions work on supports more than $1 trillion in annual payment volume at Stripe, with a backend mostly in Ruby (not Rails) with Sorbet typing.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  }
+ ],
+ "question_id": "Q06"
+}

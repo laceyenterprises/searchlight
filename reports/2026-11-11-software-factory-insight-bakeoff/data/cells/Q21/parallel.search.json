@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:59.639062Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 983,
+   "page_chars_delivered": 13037,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Parallel CI (run CI in parallel on multiple stacks simultaneously, and merge them as CI passes)\n3. Batching (run CI and merge batches of stacks at a time, instead of one-by-one)\n\n...\n\nParallel CI uses speculative execution, similar to branch prediction, to run CI for multiple enqueued stacks at the…",
+   "title": "Merge Queue Optimizations - Graphite",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "chars_delivered": 887,
+   "page_chars_delivered": 13771,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Using a merge queue is particularly useful on branches that have a relatively high number of pull requests merging each day from many different users.\n\nOnce a pull request has passed all required branch protection checks, a user with write access to the repository can add the pull request to the qu…",
+   "title": "Managing a merge queue",
+   "url": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue"
+  },
+  {
+   "chars_delivered": 981,
+   "page_chars_delivered": 7400,
+   "post_step": "fetched",
+   "published": null,
+   "text": "health metrics and optimization strategies for fast-moving teams.\n:::\n\n## Parallel checks\n\nParallel checks are how Mergify tests the queue **speculatively**: instead of\nvalidating one pull request at a time, it tests several queued pull requests\nahead of time so you ship faster. Mergify creates tem…",
+   "title": "Performance",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "chars_delivered": 933,
+   "published": null,
+   "text": "# Merge Queue\n\nLearn how Graphite’s merge queue can help your team merge stacks faster and reduce merge conflicts.\n\nA merge queue prevents semantic merge conflicts by automating the rebase process during merge and ensures that the `trunk` branch stays “green”—helping development teams move faster w…",
+   "title": "Merge Queue - Graphite",
+   "url": "https://www.graphite.com/docs/graphite-merge-queue"
+  },
+  {
+   "chars_delivered": 911,
+   "published": null,
+   "text": "Batching works alongside Parallel mode to scale the throughput of PRs merged, by merging more PRs per CI run.\n\nBatching works alongside Parallel mode to increase the throughput of PRs merged, by merging more PRs per CI run.\n\n## How it works\n\n### Config Settings\n\nThere are two settings to set in you…",
+   "title": "Batching",
+   "url": "https://docs.aviator.co/mergequeue/concepts/batching"
+  },
+  {
+   "chars_delivered": 975,
+   "published": null,
+   "text": "[← Back to merge queue guide](https://mergify.com/learn/merge-queue) Merge queue feature\n\n# Batching\n\nTesting each PR with its own CI run means one full pipeline per PR. With ten PRs in the queue, that is ten pipelines. Batching combines several PRs into a single CI run, dramatically cutting cost a…",
+   "title": "Batching in a Merge Queue | Mergify",
+   "url": "https://mergify.com/learn/merge-queue/batching"
+  },
+  {
+   "chars_delivered": 881,
+   "published": null,
+   "text": "# Merge Queue Batches\n\nIncrease your merge queue throughput and decrease your CI usage.\n\n* * *\n\nBatch merging lets you combine and merge multiple pull requests at once,\n\n...\n\nto be processed as usual (see Handling Batch Failures ).\n\nThis feature is especially useful for large-scale projects with ma…",
+   "title": "Merge Queue Batches",
+   "url": "https://docs.mergify.com/merge-queue/batches"
+  },
+  {
+   "chars_delivered": 881,
+   "published": "2026-07-06",
+   "text": "How we made our merge queue lower its own quality bar (only when it's drowning)\n\nOur merge queue tested every PR alone, which choked the morning a burst of agent PRs landed faster than CI could clear them.\n\n...\n\nWe run parallel speculative checks, so we’ve already bought reliability and velocity an…",
+   "title": "How we made our merge queue lower its own quality bar (only when it's drowning) | Mergify",
+   "url": "https://mergify.com/blog/dynamic-merge-queue-batch-size"
+  },
+  {
+   "chars_delivered": 978,
+   "published": "2025-06-13",
+   "text": "**TLDR; We ran simulations to show how advanced merge queues can be configured to speed up merge times or save CI costs, which becomes increasingly important as AI tools and agents increase dev productivity and expose new bottlenecks in CI.**\n\n...\n\nAdvanced merge queues have different settings and…",
+   "title": "Merge fast or merge cheap: Fine-tuning merge queues to handle an increase in PRs from AI agents | Trunk",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "chars_delivered": 927,
+   "published": "2025-06-02",
+   "text": "But here's the paradox: the moment your team adopts stacked development (breaking large features into chains of dependent PRs), these tools become your bottleneck instead of your salvation.\n\n...\n\n1. **PR #1 enters the queue** : Runs CI, merges successfully\n2.\n\n...\n\n4. **And so on...**\n\nEach PR requ…",
+   "title": "How we built the first stack-aware merge queue (and why it matters)",
+   "url": "https://graphite.com/blog/the-first-stack-aware-merge-queue"
+  }
+ ],
+ "latency_ms": 2359.4,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q21",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "How do merge queues and stacked-PR systems (GitHub merge queue, Graphite, Aviator, Mergify, Bors-style) handle very high PR volume from agents? What is known about throughput, CI cost and conflict rates when agents open hundreds of PRs a day? Pages that should rank first are primary sources: the vendors' and organisations' own engineering blog posts, documentation, conference talks, papers and open-source code (GitHub, Graphite, Aviator, Mergify, Bors/Bors-NG, Uber SubmitQueue, Zuul), plus credible reporting. Pull out mechanisms (batching, speculative or parallel queues, optimistic merging, bisection on failure, stacked-PR rebasing), concrete numbers (throughput, queue wait times, CI cost, flakiness, conflict and failure rates), names, dates, measured results, and failure modes when AI agents generate high PR volume.",
+   "search_queries": [
+    "merge queue AI agent PR volume throughput CI cost",
+    "Graphite Aviator Mergify stacked PR agents conflict rate",
+    "GitHub merge queue batching speculative builds Bors scaling"
+   ],
+   "session_id": "sl-parallel.search-Q21-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11565,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:57.279757Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

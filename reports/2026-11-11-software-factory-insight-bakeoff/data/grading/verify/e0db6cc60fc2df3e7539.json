@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "6b0b97bc2eaf49ef",
+ "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale",
+ "verdicts": {
+  "Airbnb advises that for agentic systems evaluating only the final output is insufficient, because a correct final answer can mask a broken reasoning path, wrong tool parameters or an inefficient trajectory; traces can be reconstructed by tree traversal to check that the right subagents and tools were invoked.": 1,
+  "Airbnb advises that if subject-matter experts disagree on a label, teams should stop and resolve human disagreement before automating evaluation.": 1,
+  "Airbnb layers evaluation as programmatic checks first (fast, catch obvious failures), then LLM-as-judge for nuanced quality, then human evaluation to validate edge cases and calibrate the stack.": 1,
+  "Airbnb recommends calibrating an LLM-as-judge on a golden dataset of 50-100 examples that must include bad examples, targeting agreement in the high 80s to 90s percent (measured e.g. with Cohen's kappa or Krippendorff's alpha) before trusting it at scale.": 1,
+  "Airbnb states that 3-5 well-calibrated LLM-as-judge evaluators, each targeting one correctness dimension, beat 20-30 noisy ones.": 1,
+  "Airbnb's production monitoring example samples 5% of live de-identified traffic daily, runs programmatic checks and virtual judges, and surfaces flagged outputs for weekly human PM review.": 1,
+  "In Airbnb's example of 100 prototype outputs read manually, 15 responses contained policy details not in the source documents (faithfulness), 8 were too verbose, 5 refused valid questions, and 3 had broken JSON.": 1,
+  "In Airbnb's walkthrough, a faithfulness LLM judge initially agreed with the PM's labels 78% of the time because it penalized accurate paraphrases as unfaithful; updating the rubric and adding few-shot examples raised agreement to 88%.": 1
+ }
+}

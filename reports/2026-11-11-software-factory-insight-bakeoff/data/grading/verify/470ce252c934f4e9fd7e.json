@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "011bc71fe218714f",
+ "url": "https://vectorize.io/articles/mem0-vs-letta",
+ "verdicts": {
+  "In Letta, agents run inside the platform, which manages the agent loop, tool execution and state persistence, whereas Mem0 is a pluggable framework-agnostic memory layer exposing add() and search().": 1,
+  "Letta agents self-edit memory, so memory quality depends on the model's judgment (if the model fails to save something it is lost) and every memory operation costs inference tokens; Mem0's passive extraction is more predictable and token-efficient but cannot judge what matters in context.": 1,
+  "Letta implements MemGPT's ideas as a full agent runtime in which agents run inside Letta, which manages the agent loop, tool execution, state persistence and memory.": 1,
+  "Letta maps its memory tiers to computer architecture: core memory is like RAM, recall memory like a disk cache, and archival memory like cold storage.": 1,
+  "Letta's three memory tiers are core memory (a small block in the context window, like RAM, that the agent reads and writes directly), recall memory (searchable conversation history outside context, like a disk cache), and archival memory (long-term storage queried via tool calls).": 1,
+  "Mem0 is a framework-agnostic memory layer bolted onto existing agent stacks, whereas Letta is a full runtime, so adopting Letta means adopting an entire agent platform.": 1
+ }
+}

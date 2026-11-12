@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "327e47165906bf01",
+ "url": "https://github.com/dquangsinh/ai-engineering-hub-1/blob/main/curated-courses/agentic-loop-engineering/docs/failure-modes.md",
+ "verdicts": {
+  "\"Verifier theater\" is when an agent verifier approves changes but tests fail in CI or review finds obvious bugs; causes include vague verifier prompts, not running tests, and sharing the implementer's model and context.": 1,
+  "A comprehension debt spiral, where velocity rises but no one can explain recent changes and review becomes rubber-stamping, is mitigated by mandatory human review of non-trivial PRs, a weekly loop digest, and capping auto-merge to truly trivial paths.": 1,
+  "An infinite fix loop (the same PR or CI job receiving 5+ automated fix attempts without converging) is mitigated by a hard cap of about 3 attempts followed by human escalation, quarantining flaky tests instead of changing code, and recording the attempt count in a state file.": 1,
+  "Mitigations for verifier theater include requiring the verifier to run test and lint commands and report output, instructing it to find reasons to reject, and using a stronger model as verifier for unattended loops.": 1,
+  "Parallel collision, where two sub-agents edit the same files and cause merge conflicts or corrupted state, is mitigated by worktree isolation for all code-editing sub-agents and a lock or queue in state.": 1,
+  "Token burn arises from sub-minute cadences with heavy sub-agents, no early exit on an empty watchlist, and retrying the whole pipeline on transient API errors; mitigations include a cheap triage-only pass first, deleting the scheduler when nothing is watched, and a daily token budget that pauses the loop.": 1
+ }
+}

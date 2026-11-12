@@ -1,0 +1,51 @@
+{
+ "arm_id": "brave.research",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "note": "re-costed 2026-11-11 from the streamed <usage> X-Request-Total-Cost; the run recorded the $0.50 estimate",
+  "usd": 0.069965
+ },
+ "cost_recorded_at_run": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.5
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:15:40.415987Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [],
+ "latency_ms": 21683.0,
+ "notices": null,
+ "profile_sha256": "738c73636138122dcc67d6c1370b9f1550ab3168750a7c21770cd8e02d67c46e",
+ "question_id": "Q01",
+ "request": {
+  "body": {
+   "country": "us",
+   "enable_research": true,
+   "language": "en",
+   "messages": [
+    {
+     "content": "Research question: How does StrongDM's 'Software Factory' work, where no human writes or reviews code? What are its scenario holdouts and digital twin universe, how is correctness verified, and what results or problems have been reported?\n\nFind specific, verifiable facts that answer this question: how it works (mechanisms, components, design decisions), numbers and measured results, names, dates, and reported problems or failure modes. Prefer primary sources (the organisation's own engineering posts, documentation, talks, papers, filings, code) and credible independent reporting. Report every distinct finding as a short statement with the URL of the page that states it. Do not pad with generic background. If something is not publicly disclosed, say so plainly. Include citations.",
+     "role": "user"
+    }
+   ],
+   "model": "brave",
+   "stream": true
+  },
+  "headers": {
+   "x-subscription-token": "<BRAVE_ANSWERS_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/chat/completions"
+ },
+ "response": {
+  "chars": 7663,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:15:18.732808Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

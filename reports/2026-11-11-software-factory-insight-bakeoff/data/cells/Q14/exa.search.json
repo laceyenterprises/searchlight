@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:17.871014Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2538,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Tool count is the first thing that goes wrong. OpenAI’s guidance is fewer than 20 functions at the start of a turn, Google’s is 10 to 20 active tools, Anthropic says selection accuracy degrades past 30 to 50, and Microsoft 365 Copilot warns that quality may degrade beyond 10 functions. Anthropic me…",
+   "title": "Tools, MCP and A2A: How Enterprise AI Agents Call Systems | QueryNow®",
+   "url": "https://www.querynow.com/ai-agents/mcp"
+  },
+  {
+   "chars_delivered": 252,
+   "page_chars_delivered": 13166,
+   "post_step": "fetched",
+   "published": "2026-07-13T08:49:15.000Z",
+   "text": "the original signed or retrieved metadata. Registration should capture owner, environment, data classification, allowed tenants, authentication method, schema version, support contact, risk tier and expiry. Verify endpoint control before publication. A",
+   "title": "Designing an Enterprise Agent Protocol Gateway for MCP, A2A, and Internal APIs | Edilec",
+   "url": "https://edilec.com/blog/ai-11002/enterprise-agent-protocol-gateway-architecture/"
+  },
+  {
+   "chars_delivered": 252,
+   "page_chars_delivered": 18792,
+   "post_step": "fetched",
+   "published": null,
+   "text": ") with fine-grained scopes.\n- Dynamic tool discovery: agents\n...\nnever live on a user's laptop.\n- Security scanning + fail- ... gate: every registered server, agent, and skill is scanned; unsafe items are held for review.\n- External-registry federation",
+   "title": "agentic-community/mcp-gateway-registry",
+   "url": "https://github.com/agentic-community/mcp-gateway-registry/"
+  },
+  {
+   "chars_delivered": 1168,
+   "published": "2026-11-03T00:03:00.000Z",
+   "text": "There are two separate trust relationships, and mixing them up is the classic mistake:\n\n- Client to gateway. The agent proves it may use this toolset on behalf of this user. The gateway is the resource server.\n- Gateway to upstream. The platform proves to GitHub, Google or a remote MCP server that…",
+   "title": "Designing an MCP Tool Platform: Registry, Gateway, Sandboxes and Credentials at Scale | Roundz Blog",
+   "url": "https://roundz.ai/blog/system-design-mcp-tool-platform"
+  },
+  {
+   "chars_delivered": 5614,
+   "published": null,
+   "text": "## Q1 How do we handle authn & authz across MCP Gateway, MCP Server and tools, and which standards fit?\n\n There isn't one auth boundary: there are three hops and each one is handled differently. There is also a fourth hop, the tool's call to its own backing API, which varies too much to standardise…",
+   "title": "Securing MCP and agentic systems: Common customer questions, by Tom O'Rourke",
+   "url": "https://www.masterthemesh.com/solo/securing-mcp-agentic-systems/"
+  },
+  {
+   "chars_delivered": 247,
+   "published": "2026-08-12T10:21:00.000Z",
+   "text": "resource |\n| No token passthrough | The MCP server or gateway should not blindly forward upstream tokens to downstream systems |\n| Per-tool\n...\n| Prompt and response inspection | Tool inputs and outputs should be inspected when prompt injection or",
+   "title": "Protocol-Layer Security for MCP, A2A, and Agent Gateways - Digital Thought Disruption",
+   "url": "https://digitalthoughtdisruption.com/2026/08/12/protocol-layer-security-mcp-a2a-agent-gateways-2/"
+  },
+  {
+   "chars_delivered": 1612,
+   "published": "2026-10-07T03:54:37.000Z",
+   "text": "Any surface where text enters a model’s context and gets treated as instruction is the same exposure, whether that text comes from a human typing into a chat box, a document an agent retrieves, or another agent’s A2A message. OWASP’s Top 10 for LLM Applications ranks prompt injection first for this…",
+   "title": "Securing A2A's Two Attack Surfaces: Ingress vs. Egress - Trust3 Labs",
+   "url": "https://labs.trust3.ai/engineering/your-ai-gateway-covers-half-of-a2a/"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "| The gateway SHALL support OAuth 2.0/2.1 authorization code flow with PKCE |\n| FR-012\n...\n| The gateway SHALL support Basic Auth for development/testing scenarios |\n| FR-014 | The gateway SHALL support OIDC and SAML integration with enterprise identity",
+   "title": "modules/harness/mcp-hub/mcp_gateway_requirements.md",
+   "url": "https://github.com/awslabs/agentic-developer-platform/blob/main/modules/harness/mcp-hub/mcp_gateway_requirements.md"
+  },
+  {
+   "chars_delivered": 250,
+   "published": null,
+   "text": "The security boundary of MCP must be concretely implemented. stdio is suitable for local development and sidecar scenarios but in Kubernetes ... but must handle TLS, authentication, request size limits, timeouts, and retries. Regardless of transport,",
+   "title": "Chapter 29 Agent Protocols and Standards - Enterprise Agent Platform Engineering",
+   "url": "https://datagallery-lab.github.io/enterprise_agent_platform/en/part05-agent-capabilities/en/ch29-agent/"
+  },
+  {
+   "chars_delivered": 1047,
+   "published": null,
+   "text": "server: https://erp.acme.example/mcp          # audience for tokens\ndefinition_hash: sha256:9f1c…                 # pinned tool name+description+schema\nscopes_required: [invoice.approve]\nside_effects: write-irreversible              # read | write-reversible | write-irreversible | external-communic…",
+   "title": "14 — Agent identity: user × agent, sub-agents, A2A, registries and gateways - System Design Notes",
+   "url": "https://harut8.github.io/system-design/identity/14-agent-identity-delegation-registries-and-gateways/"
+  }
+ ],
+ "latency_ms": 827.3,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q14",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How are MCP and A2A being used as extension seams for agent platforms in production? What are the known problems: tool-count limits, auth and authorization (OAuth for MCP), security incidents like prompt injection via tools, and gateway or registry patterns that address them?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17777,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:17.043731Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

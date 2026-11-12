@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "38ce3219c54a4c29",
+ "claims": [
+  {
+   "text": "An OOPSLA 2025 empirical evaluation of Python projects using mutation testing found each property-based test caught about 50 times as many mutations as the average unit test (odds ratio 52 after controlling for coverage), and only 15% of mutations were found by both kinds of test.",
+   "url": null
+  },
+  {
+   "text": "In a study of 16 HumanEval problems where standard solutions failed extended tests, Claude-4-sonnet-generated property-based tests and example-based tests each detected bugs in 11 of 16 cases (68.75%), and combining them detected 13 of 16 (81.25%).",
+   "url": null
+  },
+  {
+   "text": "In the Property-Generated Solver paper, property-based-testing feedback raised repair success on initially failed LiveCodeBench problems to 75.9%, versus 46.6% when feedback came from public tests.",
+   "url": null
+  },
+  {
+   "text": "Four LLM calls at 95% individual stability yield roughly 81% system-level stability, so unit-level property tests miss failures that emerge from multi-step composition.",
+   "url": null
+  },
+  {
+   "text": "GPT-4 as a judge matched human preferences with over 80% agreement, but Claude-v1 favoured the first position 75% of the time, and GPT-4 and Claude-v1 favoured their own outputs by 10% and 25% higher win rates respectively.",
+   "url": null
+  },
+  {
+   "text": "On JudgeBench, which uses harder reasoning, knowledge, math and coding pairs, vanilla GPT-4o scored 50.86% as a judge, close to random guessing.",
+   "url": null
+  },
+  {
+   "text": "A benchmark of 54 LLM judges against 1,994 expert-annotated samples found 36 passed a correlation screen of r ≥ 0.80 but only 27 reached Tier 1 human-like agreement, so correlation alone is insufficient.",
+   "url": null
+  },
+  {
+   "text": "Airbnb's faithfulness LLM judge agreed with a product manager only 78% of the time because it penalised accurate paraphrases; rubric changes and few-shot examples raised agreement to 88%.",
+   "url": null
+  },
+  {
+   "text": "In a 900-session experiment with 30 artifacts and 150 planted errors, cross-model review did not differ significantly in F1 from same-model review in a fresh session, though the two found partly different errors (Jaccard 41.2%).",
+   "url": null
+  },
+  {
+   "text": "In the same cross-model experiment, the best cross-model condition (GPT-5.4 reviewer, 32.3% F1) was not significantly better than cross-context review (28.6%; adjusted p = 1.00), and 14 cross-model sessions failed.",
+   "url": null
+  },
+  {
+   "text": "A practitioner brief concludes cross-model review should be used as a challenge rather than an approval, and that architectural changes, public API shifts, migrations and sensitive security logic should stay in the human-review lane.",
+   "url": null
+  },
+  {
+   "text": "On Macroscope's own 118-bug benchmark, bug catch rates were Macroscope 48.3%, CodeRabbit 45.8%, Cursor Bugbot 42.4%, Greptile 23.6% and Graphite Diamond 18.3%.",
+   "url": null
+  },
+  {
+   "text": "Greptile's own comparison on 50 open-source pull requests claims it catches over 50% more bugs than CodeRabbit, which conflicts with the vendor-run Macroscope benchmark.",
+   "url": null
+  },
+  {
+   "text": "Google's AutoCommenter initially placed 80% of comments on lines the author had not modified, and its useful-comment ratio plateaued at 54% by developer feedback and 60% by independent raters before suppressing non-actionable rules raised it to 66% and 74%.",
+   "url": null
+  },
+  {
+   "text": "Meta's TestGen-LLM produced test cases of which 75% built correctly, 57% passed reliably and 25% increased coverage, and 73% of its recommendations were accepted for production.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's April 2026 Claude Code postmortem found a verbosity limit passed internal testing yet caused a 3% quality drop, because the eval suite was too narrow to detect it.",
+   "url": null
+  },
+  {
+   "text": "Opus 4.5 scored 42% on CORE-Bench until grading bugs (such as penalising '96.12' when expecting '96.124991…') were fixed, after which its score rose to 95%.",
+   "url": null
+  },
+  {
+   "text": "In τ-bench, GPT-4o with function calling succeeded on under 50% of tasks, with pass^8 below 25% in retail, showing strong inconsistency across repeated trials.",
+   "url": null
+  },
+  {
+   "text": "In τ²-bench, GPT-4.1's pass^1 dropped from 74% (retail) and 56% (airline) to 34% on telecom with dual control, and user-simulator error rates were 40% in retail and 47% in airline.",
+   "url": null
+  },
+  {
+   "text": "SPADE's assertion synthesis reduced assertion count by 14% and false failure rate by 21% versus baselines across nine real LLM pipelines.",
+   "url": null
+  },
+  {
+   "text": "In a comparison of assertion generators, EvalGen reached 0.73 defect recall versus SPADE's 0.49 on a product task.",
+   "url": null
+  },
+  {
+   "text": "Traversaal lists signals of eval overfitting: eval scores diverging from production reliability, every sprint closing with 'fixed failing evals', engineers predicting which cases fail next, and holdout performance being unknown or worse than the active suite.",
+   "url": null
+  },
+  {
+   "text": "Parasoft claims its Virtualize service virtualization yields 33% more defects found in QA and test and a 74% decrease in the critical defect escape ratio (vendor-reported).",
+   "url": null
+  },
+  {
+   "text": "Keploy's vendor comparison claims traffic-recorded tests and mocks reach 90% coverage from the first recording and 94% of production paths, versus 16% for manually written tests.",
+   "url": null
+  },
+  {
+   "text": "Multi-agent debate improved accuracy in the cited study from 66% to 74% on biography generation, 64% to 71% on MMLU, 67% to 82% on arithmetic and 74% to 100% on chess move optimality.",
+   "url": null
+  }
+ ],
+ "question_id": "Q17"
+}

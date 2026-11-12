@@ -1,0 +1,965 @@
+{
+ "digest": "6f88bb6fa311ff7c",
+ "values": {
+  "Q22-k10": {
+   "position": 106,
+   "reason": "Specific production outcomes (43k leads, $1.7M pipeline from dormant leads, 1.4M conversations, ~$100M support cost) give scale benchmarks, though self-reported and without architecture detail.",
+   "score": 2
+  },
+  "Q22-k100": {
+   "position": 45,
+   "reason": "Places a single human approval gate before the channel fan-out with an explicit-approve-only rule, a precise and adoptable design.",
+   "score": 3
+  },
+  "Q22-k101": {
+   "position": 9,
+   "reason": "The fan-out of channel adapter agents publishing in parallel is a concrete design detail for a publishing stage.",
+   "score": 2
+  },
+  "Q22-k102": {
+   "position": 183,
+   "reason": "A concrete reliability mechanism, schema-gated job advancement backed by a large test suite, that maps to DAG ticket transitions.",
+   "score": 2
+  },
+  "Q22-k103": {
+   "position": 87,
+   "reason": "Tenant-scoped brand configuration resolved at runtime, so the same agents serve multiple brands without code changes, is directly relevant to building a multi-tenant general platform.",
+   "score": 3
+  },
+  "Q22-k104": {
+   "position": 47,
+   "reason": "Modest measured results with limited metrics.",
+   "score": 1
+  },
+  "Q22-k105": {
+   "position": 48,
+   "reason": "An agent-count claim with no design or results.",
+   "score": 0
+  },
+  "Q22-k106": {
+   "position": 37,
+   "reason": "Measured follow-up and time-saving results for a sales agent, without architecture detail.",
+   "score": 1
+  },
+  "Q22-k107": {
+   "position": 184,
+   "reason": "A specific suppression rule based on recent customer contact, a useful guardrail design detail for outbound agents.",
+   "score": 2
+  },
+  "Q22-k108": {
+   "position": 144,
+   "reason": "Specific production volume (2,500+ actions since June 2025) across named workflows on Dust plus Supabase gives a scale data point for a general-platform build.",
+   "score": 2
+  },
+  "Q22-k109": {
+   "position": 11,
+   "reason": "Measured personalization and RevOps self-serve rates are corroborating results without architecture detail.",
+   "score": 1
+  },
+  "Q22-k110": {
+   "position": 61,
+   "reason": "A grounding rule restricting agents to a single data source to prevent fabricated entities is a small but concrete guardrail.",
+   "score": 2
+  },
+  "Q22-k111": {
+   "position": 120,
+   "reason": "A production flow running fully end-to-end without humans is a notable counterexample for where approval gates can be dropped (low-risk personalized pages).",
+   "score": 2
+  },
+  "Q22-k112": {
+   "position": 152,
+   "reason": "This shows non-engineers building production workflows on a general platform via MCP, which bears on the platform-vs-bespoke question and on Agent OS's authoring surface.",
+   "score": 2
+  },
+  "Q22-k113": {
+   "position": 70,
+   "reason": "A sequential draft, brand-check, and localize chain on a general platform (Dust) answers the platform-vs-bespoke question, though the pattern is simple.",
+   "score": 2
+  },
+  "Q22-k114": {
+   "position": 154,
+   "reason": "A specific production coverage and autonomous-resolution figure, though it gives little architectural detail.",
+   "score": 1
+  },
+  "Q22-k115": {
+   "position": 5,
+   "reason": "Gives a time-saving metric with no architecture context, so it only corroborates.",
+   "score": 1
+  },
+  "Q22-k116": {
+   "position": 158,
+   "reason": "A specific brand-voice and translation agent design, with a notable gap: no stated human sign-off.",
+   "score": 2
+  },
+  "Q22-k117": {
+   "position": 77,
+   "reason": "A production back-office deployment with a measured effort reduction, but the architecture detail is thin.",
+   "score": 1
+  },
+  "Q22-k118": {
+   "position": 162,
+   "reason": "A specific fail-closed design: no write under ambiguity, an unprocessed queue with recorded reasons, and category-based human routing, a pattern that maps directly onto governed dispatch.",
+   "score": 3
+  },
+  "Q22-k119": {
+   "position": 148,
+   "reason": "Validation rulebase plus an operations console with pause controls is a concrete control-plane pattern for back-office agents.",
+   "score": 2
+  },
+  "Q22-k120": {
+   "position": 40,
+   "reason": "Strong measured back-office results (touchless rate, extraction accuracy, duplicates found) from a multi-agent accounts-payable deployment.",
+   "score": 3
+  },
+  "Q22-k121": {
+   "position": 23,
+   "reason": "Defines a concrete intent-based handoff trigger from agent to human for a sales flow.",
+   "score": 2
+  },
+  "Q22-k122": {
+   "position": 147,
+   "reason": "Business teams owning prompts with daily A/B tests and validator agents checking other agents is a specific governance and QC design relevant to cross-model review.",
+   "score": 2
+  },
+  "Q22-k123": {
+   "position": 64,
+   "reason": "Saying the platform is proprietary and built on OpenAI is vague and offers no design insight.",
+   "score": 0
+  },
+  "Q22-k124": {
+   "position": 121,
+   "reason": "Delivering drafts into Slack with sources and reasoning attached is a specific review-UX detail, though partly overlapping k14.",
+   "score": 2
+  },
+  "Q22-k128": {
+   "position": 58,
+   "reason": "A generic research-write-distribute-analyze loop described by a vendor.",
+   "score": 1
+  },
+  "Q22-k129": {
+   "position": 128,
+   "reason": "List of evaluation criteria from a vendor comparison is generic.",
+   "score": 0
+  },
+  "Q22-k130": {
+   "position": 103,
+   "reason": "Self-serving vendor ranking with pricing; marketing, not an architecture insight.",
+   "score": 0
+  },
+  "Q22-k131": {
+   "position": 146,
+   "reason": "Rule-based vs goal-based contrast is generic framing.",
+   "score": 0
+  },
+  "Q22-k132": {
+   "position": 101,
+   "reason": "Survey percentages of business functions deploying agents via a vendor citation are market-sizing trivia, not architecture-relevant.",
+   "score": 0
+  },
+  "Q22-k133": {
+   "position": 63,
+   "reason": "A production adoption survey figure that is not architecture-relevant.",
+   "score": 1
+  },
+  "Q22-k134": {
+   "position": 12,
+   "reason": "An analyst market projection that is generic and would not change the design.",
+   "score": 0
+  },
+  "Q22-k135": {
+   "position": 50,
+   "reason": "Survey shares of common agent tasks are generic market data and would not change an architecture decision.",
+   "score": 1
+  },
+  "Q22-k136": {
+   "position": 166,
+   "reason": "A generic stage and role taxonomy with a list of frameworks.",
+   "score": 1
+  },
+  "Q22-k138": {
+   "position": 17,
+   "reason": "Lists generic components (coordination protocol, HITL, audit logs, cost control) with little specificity.",
+   "score": 1
+  },
+  "Q22-k139": {
+   "position": 60,
+   "reason": "An analyst abandonment prediction with generic causes is not specific.",
+   "score": 1
+  },
+  "Q22-k140": {
+   "position": 74,
+   "reason": "An analyst forecast that is trivia for this decision.",
+   "score": 0
+  },
+  "Q22-k141": {
+   "position": 100,
+   "reason": "Usage-distribution statistic showing agentic activity is mostly coding with risk mostly low/reversible; context only, no design implication for non-coding systems.",
+   "score": 1
+  },
+  "Q22-k142": {
+   "position": 104,
+   "reason": "Measured trust-calibration data (auto-approve 20%→40% with more interrupts as experience grows) directly informs designing graduated autonomy and interrupt controls rather than a static approval mode.",
+   "score": 3
+  },
+  "Q22-k147": {
+   "position": 75,
+   "reason": "A vendor claim about variation volume with no design detail.",
+   "score": 1
+  },
+  "Q22-k149": {
+   "position": 151,
+   "reason": "A generic vendor illustration of agents chaining to each other, with no specific design or result.",
+   "score": 0
+  },
+  "Q22-k150": {
+   "position": 10,
+   "reason": "A vendor claim about natural-language interfaces over legacy systems, with no multi-agent or measured detail.",
+   "score": 0
+  },
+  "Q22-k151": {
+   "position": 88,
+   "reason": "Promotional multiplier claims with no methodology.",
+   "score": 1
+  },
+  "Q22-k152": {
+   "position": 140,
+   "reason": "Coordinator agent routing questions to relevant agents is a standard orchestration pattern.",
+   "score": 1
+  },
+  "Q22-k153": {
+   "position": 182,
+   "reason": "Parallel fan-out to domain agents is a standard routing pattern.",
+   "score": 1
+  },
+  "Q22-k154": {
+   "position": 1,
+   "reason": "Lists the tool backends agents use (vector DB, APIs, graph DB), which is a modest design detail but fairly generic.",
+   "score": 1
+  },
+  "Q22-k155": {
+   "position": 33,
+   "reason": "Synthesizing agent answers while letting users drill down into one agent is a minor UX design detail.",
+   "score": 1
+  },
+  "Q22-k156": {
+   "position": 143,
+   "reason": "Federated search across existing sources rather than centralizing data is a meaningful integration-architecture choice for a general platform.",
+   "score": 2
+  },
+  "Q22-k157": {
+   "position": 189,
+   "reason": "Deploying individual agents as standalone APIs is a minor but relevant composability detail.",
+   "score": 1
+  },
+  "Q22-k158": {
+   "position": 56,
+   "reason": "This is a customer testimonial about reliability and observability with no specific detail.",
+   "score": 0
+  },
+  "Q22-k159": {
+   "position": 31,
+   "reason": "Describes dynamic orchestration by a master agent, which is fairly generic.",
+   "score": 1
+  },
+  "Q22-k160": {
+   "position": 81,
+   "reason": "An email notification to a strategist is a generic check-in.",
+   "score": 1
+  },
+  "Q22-k161": {
+   "position": 25,
+   "reason": "Training agents on brand DNA is a generic marketing claim.",
+   "score": 0
+  },
+  "Q22-k162": {
+   "position": 114,
+   "reason": "Demo on a fictional brand built in three minutes is a showcase, not a production result.",
+   "score": 0
+  },
+  "Q22-k163": {
+   "position": 133,
+   "reason": "Pre-flight predictive scoring of creative is a design idea but lacks any accuracy or outcome data.",
+   "score": 1
+  },
+  "Q22-k164": {
+   "position": 124,
+   "reason": "Synthetic-persona focus groups as a pre-launch check is an interesting QC pattern, but the Turkey thumbs-up example is anecdotal trivia.",
+   "score": 1
+  },
+  "Q22-k165": {
+   "position": 157,
+   "reason": "A generic marketing claim about human creativity.",
+   "score": 0
+  },
+  "Q22-k166": {
+   "position": 175,
+   "reason": "A specific scope of agent actions with an SDR handoff, a moderate design detail.",
+   "score": 1
+  },
+  "Q22-k167": {
+   "position": 105,
+   "reason": "Concrete design detail: RAG over a governed data layer of pricing/spec/messaging sources plus guardrails blocking unauthorized deal info, relevant to grounding and data-access policy for sales agents.",
+   "score": 2
+  },
+  "Q22-k168": {
+   "position": 27,
+   "reason": "Auto-logging agent actions for SDR review is a modest audit design detail on a general platform.",
+   "score": 1
+  },
+  "Q22-k169": {
+   "position": 117,
+   "reason": "Additional Salesforce internal sales metrics (100k leads, 1,500 opps, $60M projected) largely corroborate k7 with projections.",
+   "score": 1
+  },
+  "Q22-k170": {
+   "position": 130,
+   "reason": "Quote-creation speed and click reduction metrics corroborate k18 with little architectural relevance.",
+   "score": 1
+  },
+  "Q22-k171": {
+   "position": 102,
+   "reason": "Unverified vendor marketing claim of '98% faster' briefs with no baseline method or design detail.",
+   "score": 0
+  },
+  "Q22-k172": {
+   "position": 86,
+   "reason": "A vendor-promotional win-rate claim with no method.",
+   "score": 0
+  },
+  "Q22-k173": {
+   "position": 43,
+   "reason": "Vendor metrics with no design detail.",
+   "score": 1
+  },
+  "Q22-k174": {
+   "position": 38,
+   "reason": "Restates the hours-to-seconds result already given in k23.",
+   "score": 0
+  },
+  "Q22-k175": {
+   "position": 136,
+   "reason": "Confirms a production multi-agent system built on a general framework (LangGraph), relevant to the platform-vs-bespoke question but with little detail.",
+   "score": 1
+  },
+  "Q22-k201": {
+   "position": 145,
+   "reason": "Four-agent role decomposition for ad creation and launch on a general framework is a concrete architecture example.",
+   "score": 2
+  },
+  "Q22-k202": {
+   "position": 16,
+   "reason": "Shows that blocking risks are surfaced to a human with source attribution, but the certification-run evidence is thin.",
+   "score": 1
+  },
+  "Q22-k203": {
+   "position": 97,
+   "reason": "Cost figures that are business outcomes rather than architecture insight.",
+   "score": 1
+  },
+  "Q22-k204": {
+   "position": 96,
+   "reason": "A cycle-time reduction that includes compliance checks is a measured result but has little architecture content.",
+   "score": 1
+  },
+  "Q22-k205": {
+   "position": 65,
+   "reason": "Cost savings and model names are mostly reported marketing outcomes with little architectural content.",
+   "score": 1
+  },
+  "Q22-k206": {
+   "position": 191,
+   "reason": "A third-party measured underperformance of AI creative (CTR −10%, recall −15–25%) is a material failure-mode signal, though contested.",
+   "score": 2
+  },
+  "Q22-k207": {
+   "position": 49,
+   "reason": "A notable reversal from a bot back to human agents for complex cases, a failure signal that bears on where to keep humans.",
+   "score": 2
+  },
+  "Q22-k208": {
+   "position": 98,
+   "reason": "A critical note flagging missing metrics and guardrails in a vendor account helps calibrate trust in that source.",
+   "score": 1
+  },
+  "Q22-k209": {
+   "position": 94,
+   "reason": "Vendor-reported open rate and deal figures with little detail, though it is a general-platform example.",
+   "score": 1
+  },
+  "Q22-k210": {
+   "position": 168,
+   "reason": "A human review step in Notion before ad launch corroborates the pre-publish gate pattern.",
+   "score": 1
+  },
+  "Q22-k211": {
+   "position": 185,
+   "reason": "Production scale and an accuracy claim on a commercial platform, but with little architectural detail.",
+   "score": 1
+  },
+  "Q22-k212": {
+   "position": 34,
+   "reason": "Measured latency, deflection and conversion results from a general-platform multi-agent deployment with sub-agents grounded on specific site sections.",
+   "score": 2
+  },
+  "Q22-k213": {
+   "position": 83,
+   "reason": "MCP-based routing to more than 35 sub-agents in Copilot Studio is a concrete general-platform example, honestly flagged as a pilot.",
+   "score": 2
+  },
+  "Q22-k214": {
+   "position": 2,
+   "reason": "A specific production pattern (seven agents, a human authorises payout after an audit summary) with a measured 80% result that tells the reader where to put the approval gate.",
+   "score": 3
+  },
+  "Q22-k215": {
+   "position": 110,
+   "reason": "Measured per-workflow unit cost (~$1.02) and 80–90% manual-workload reduction for a multi-agent ad pipeline is a concrete cost benchmark for a content factory.",
+   "score": 3
+  },
+  "Q22-k216": {
+   "position": 8,
+   "reason": "Specifies an orchestrator plus named specialist roles, including a Quality Reviewer, which is a useful template for a marketing role set.",
+   "score": 2
+  },
+  "Q22-k217": {
+   "position": 95,
+   "reason": "A final quality-reviewer agent plus orchestrated human checkpoints is a fairly generic pattern.",
+   "score": 1
+  },
+  "Q22-k218": {
+   "position": 179,
+   "reason": "A demonstration product with a generic split of human roles.",
+   "score": 0
+  },
+  "Q22-k219": {
+   "position": 59,
+   "reason": "The named parallel agent roles across 42 markets with legal and brand agents inline give a concrete localization topology, though no results are reported.",
+   "score": 2
+  },
+  "Q22-k220": {
+   "position": 169,
+   "reason": "Cycle-time claims where one example is explicitly a placeholder, so the evidential value is low.",
+   "score": 1
+  },
+  "Q22-k221": {
+   "position": 24,
+   "reason": "Binding, checkable per-step outputs plus RAG over brand rules form a strong design pattern for brand-controlled pipelines.",
+   "score": 3
+  },
+  "Q22-k222": {
+   "position": 150,
+   "reason": "An 11-month longitudinal comparison of curated versus autonomous operation is directly relevant to deciding autonomy levels, although the finding gives no measured outcome.",
+   "score": 2
+  },
+  "Q22-k223": {
+   "position": 78,
+   "reason": "A specific control, data, and observability plane split for a production sales system is a useful reference architecture.",
+   "score": 2
+  },
+  "Q22-k224": {
+   "position": 62,
+   "reason": "A single gateway for all LLM calls, eval-gated graph shipping against golden datasets, and a four-field provenance record on every decision map directly onto Agent OS's deploy gates and ledger design.",
+   "score": 3
+  },
+  "Q22-k225": {
+   "position": 69,
+   "reason": "An unattended three-agent pipeline with a single human gate on the outbound send and draft-first outreach is a concrete placement of approval points.",
+   "score": 2
+  },
+  "Q22-k226": {
+   "position": 85,
+   "reason": "A specific numeric eval threshold applied to every prompt path is a concrete gating parameter Agent OS could adopt.",
+   "score": 2
+  },
+  "Q22-k227": {
+   "position": 172,
+   "reason": "Kappa of 0.13 between human reviewers and an automated quality gate is a key failure mode for automated review, relevant to relying on cross-model adversarial review outside code.",
+   "score": 3
+  },
+  "Q22-k228": {
+   "position": 134,
+   "reason": "Inbox gateway that triages and routes to one dedicated agent per customer is a specific tenancy/routing pattern for business automation.",
+   "score": 2
+  },
+  "Q22-k229": {
+   "position": 165,
+   "reason": "A specific per-agent and per-customer config split, CLI tool access, and sandboxed per-case sessions, which maps onto harness configuration and session-ledger design.",
+   "score": 2
+  },
+  "Q22-k230": {
+   "position": 93,
+   "reason": "Draft-in-inbox rather than auto-send is a common, minor pattern.",
+   "score": 1
+  },
+  "Q22-k231": {
+   "position": 32,
+   "reason": "Describes framework layering but offers little evidence from production marketing use.",
+   "score": 1
+  },
+  "Q22-k232": {
+   "position": 139,
+   "reason": "Notes the absence of scale, accuracy and edit-rate data, a caveat on evidence quality rather than a design insight.",
+   "score": 1
+  },
+  "Q22-k233": {
+   "position": 26,
+   "reason": "Assembling messages from atomic content components through sequential decisions is a specific design for brand-safe personalization.",
+   "score": 2
+  },
+  "Q22-k234": {
+   "position": 51,
+   "reason": "A three-layer split of data, fine-tuned signal extraction, and orchestrated specialists is a concrete sales architecture, but the pattern is fairly common.",
+   "score": 2
+  },
+  "Q22-k235": {
+   "position": 174,
+   "reason": "A maturity taxonomy useful for framing autonomy levels, but the operator-ratio claim is marketing.",
+   "score": 1
+  },
+  "Q22-k236": {
+   "position": 190,
+   "reason": "A reference architecture combining MCP, A2A, governance, and a HITL gate with state persisted at the checkpoint, relevant to the platform protocol choices.",
+   "score": 2
+  },
+  "Q22-k237": {
+   "position": 28,
+   "reason": "Risk-calibrated escalation criteria (transaction limits, irreversibility, low confidence) could shape the gate policy, though they are common guidance.",
+   "score": 2
+  },
+  "Q22-k238": {
+   "position": 54,
+   "reason": "Approval gates on high-risk steps are already familiar, and a vendor-cited speed benchmark is weak evidence.",
+   "score": 1
+  },
+  "Q22-k239": {
+   "position": 46,
+   "reason": "A runnable reference covering bounded retries, approvals, tenant isolation and recovery, useful but not production evidence.",
+   "score": 2
+  },
+  "Q22-k240": {
+   "position": 80,
+   "reason": "Measured effect sizes with error bars from a personalization study are rigorous, but they do not bear on architecture.",
+   "score": 1
+  },
+  "Q22-k241": {
+   "position": 90,
+   "reason": "Lift that persisted for 7 months after human optimization stopped is a notable measured durability result for autonomous operation.",
+   "score": 2
+  },
+  "Q22-k242": {
+   "position": 141,
+   "reason": "Measured 12–26% lift degradation when moving to fully autonomous operation is a key quantified failure mode arguing for retaining human involvement in marketing loops.",
+   "score": 3
+  },
+  "Q22-k243": {
+   "position": 186,
+   "reason": "A standard supervisor and sub-agent content system, largely corroborating.",
+   "score": 1
+  },
+  "Q22-k244": {
+   "position": 122,
+   "reason": "Pending-queue review against brand standards before one-click publish is a common HITL pattern, minor confirmation.",
+   "score": 1
+  },
+  "Q22-k246": {
+   "position": 178,
+   "reason": "A vendor case study with self-reported metrics, so it corroborates rather than decides.",
+   "score": 1
+  },
+  "Q22-k247": {
+   "position": 115,
+   "reason": "Empirical finding that 68% of production agents run ≤10 steps before human intervention is a strong constraint on how long autonomous chains should be designed to run.",
+   "score": 3
+  },
+  "Q22-k249": {
+   "position": 35,
+   "reason": "Mostly marketing figures about the number of models and integrations.",
+   "score": 0
+  },
+  "Q22-k250": {
+   "position": 138,
+   "reason": "Vendor claim of 85–92% straight-through processing for AP is a quantitative benchmark, but unverified and back-office specific.",
+   "score": 1
+  },
+  "Q22-k253": {
+   "position": 92,
+   "reason": "Graduating from per-step human approval to shared autonomy, with logged reasoning, is a specific trust-ramp design pattern for governed dispatch.",
+   "score": 2
+  },
+  "Q22-k254": {
+   "position": 29,
+   "reason": "Composition failures, unbounded tool-loop costs and a measured 40-60% saving from tiered model selection would directly affect dispatch and budget design.",
+   "score": 3
+  },
+  "Q22-k255": {
+   "position": 167,
+   "reason": "Vendor scale and self-use marketing claims with a weak metric.",
+   "score": 1
+  },
+  "Q22-k256": {
+   "position": 4,
+   "reason": "A useful failure signal (330+ projects but no company-wide return) that argues for measuring outcomes, though it gives no architecture detail.",
+   "score": 1
+  },
+  "Q22-k257": {
+   "position": 39,
+   "reason": "Shows that most production agents use prompting rather than weight tuning and rely on human evaluation, which supports investing in evaluation and approval tooling over fine-tuning.",
+   "score": 2
+  },
+  "Q22-k258": {
+   "position": 171,
+   "reason": "A measured gap in reply rates (0.5–1.5% autonomous versus 4–8% human-in-the-loop) plus churn figures, strong evidence for approval gates in outbound.",
+   "score": 3
+  },
+  "Q22-k259": {
+   "position": 163,
+   "reason": "A measured failure mode for autonomous SDR products, where contract survival is far below reported ARR, warning against full autonomy in outbound sales.",
+   "score": 3
+  },
+  "Q22-k260": {
+   "position": 20,
+   "reason": "A cancellation-rate prediction and an agent-washing warning that are market context, not architecture.",
+   "score": 1
+  },
+  "Q22-k261": {
+   "position": 53,
+   "reason": "The gap between production adoption and governance maturity is a vague statistic, and the registry mention is vendor positioning.",
+   "score": 1
+  },
+  "Q22-k262": {
+   "position": 44,
+   "reason": "A pre-send hallucination supervisor plus the warning that deflection metrics can hide customer harm, which matters for choosing metrics.",
+   "score": 2
+  },
+  "Q22-k263": {
+   "position": 84,
+   "reason": "Sequential specialist agents with a measured 30% straight-through-processing lift and risk-based routing to humans is a measured back-office result with clear human-gate design.",
+   "score": 2
+  },
+  "Q22-k264": {
+   "position": 91,
+   "reason": "A newsroom pipeline with sourcing from verified sources, fact-checking, and legal review agents plus a human editor gate is concrete, though still in testing.",
+   "score": 2
+  },
+  "Q22-k265": {
+   "position": 14,
+   "reason": "A concrete QA layer that checks generated content against source imagery and separates fact-fidelity from brand judgment, which could shape the quality-control design.",
+   "score": 3
+  },
+  "Q22-k266": {
+   "position": 41,
+   "reason": "Vendor-reported results with vague 'hundreds of agents' framing.",
+   "score": 1
+  },
+  "Q22-k269": {
+   "position": 129,
+   "reason": "Specific production volume (6,000 personalized reports/month from 12 months of usage data) shows a batch-generation workload shape worth supporting.",
+   "score": 2
+  },
+  "Q22-k270": {
+   "position": 79,
+   "reason": "Configurable human-in-the-loop modes, including confidence-threshold review gates with escalation, is a concrete design option for a general platform.",
+   "score": 2
+  },
+  "Q22-k271": {
+   "position": 108,
+   "reason": "Describes a no-code multi-model orchestration platform with 100+ connectors and NL-to-workflow generation, a useful competitor reference point but largely positioning.",
+   "score": 1
+  },
+  "Q22-k272": {
+   "position": 125,
+   "reason": "Competitor positioning on Zapier/Make/n8n limits is self-serving, but flags approval loops, per-task pricing and non-developer ownership as real platform requirements.",
+   "score": 1
+  },
+  "Q22-k273": {
+   "position": 119,
+   "reason": "Scheduled competitive-gap agent that always ends at a human approval step before publishing is a concrete trigger-plus-mandatory-gate pattern for content workflows.",
+   "score": 2
+  },
+  "Q22-k275": {
+   "position": 82,
+   "reason": "A citation-measurement feedback loop is a minor design detail.",
+   "score": 1
+  },
+  "Q22-k276": {
+   "position": 36,
+   "reason": "Concrete approval criteria plus a retry limit and escalation to the campaign owner, which is directly usable policy.",
+   "score": 2
+  },
+  "Q22-k277": {
+   "position": 149,
+   "reason": "Per-field choice of which CRM updates auto-apply versus require rep review is a specific granular-autonomy design for action governance.",
+   "score": 2
+  },
+  "Q22-k278": {
+   "position": 156,
+   "reason": "A measured result showing multi-agent coordination helps parallel tasks but hurts sequential ones by 39–70%, which directly informs when DAG fan-out should be used.",
+   "score": 3
+  },
+  "Q22-k279": {
+   "position": 107,
+   "reason": "Role decomposition (strategy/content/performance agents) with a named approval owner per agent is a concrete pattern for mapping human accountability onto agent roles.",
+   "score": 2
+  },
+  "Q22-k280": {
+   "position": 161,
+   "reason": "A vendor claim of 2× retention with no methodology, so it is weak evidence.",
+   "score": 1
+  },
+  "Q22-k281": {
+   "position": 118,
+   "reason": "Observation that prepackaged multi-agent systems target large enterprises is generic market framing.",
+   "score": 1
+  },
+  "Q22-k282": {
+   "position": 137,
+   "reason": "Recommends evals for brand voice, grounding and tone alongside approval gates in a framework, useful but largely generic guidance.",
+   "score": 1
+  },
+  "Q22-k283": {
+   "position": 67,
+   "reason": "Product positioning of competitors is useful market context but not an architecture fact.",
+   "score": 1
+  },
+  "Q22-k284": {
+   "position": 19,
+   "reason": "A concrete threshold (20-30 manual runs) before removing human checkpoints, plus named failure modes, which could inform a graduated-autonomy policy.",
+   "score": 2
+  },
+  "Q22-k285": {
+   "position": 177,
+   "reason": "A concrete pipeline that writes back to the CRM and creates rep tasks, a typical pattern with moderate novelty.",
+   "score": 1
+  },
+  "Q22-k286": {
+   "position": 170,
+   "reason": "A general recommendation of human editing over full automation without measured data.",
+   "score": 1
+  },
+  "Q22-k287": {
+   "position": 66,
+   "reason": "A time-saved claim from a vendor with no methodology.",
+   "score": 1
+  },
+  "Q22-k288": {
+   "position": 123,
+   "reason": "Concrete pipeline (RSS trigger, Claude for copy, Gemini for image, manager approval, auto-publish to Webflow) shows multi-model routing by modality with a single publish gate.",
+   "score": 2
+  },
+  "Q22-k289": {
+   "position": 109,
+   "reason": "Specific approval-gate design where reviewer feedback becomes a regeneration prompt in a loop until approval, a reusable human-in-the-loop primitive analogous to review-fix cycles.",
+   "score": 2
+  },
+  "Q22-k290": {
+   "position": 142,
+   "reason": "Weekly scheduled competitive-intel agent producing a Google Doc briefing is a concrete but simple workflow example.",
+   "score": 1
+  },
+  "Q22-k291": {
+   "position": 111,
+   "reason": "Listing three running agent categories corroborates production use but carries no design or result detail.",
+   "score": 1
+  },
+  "Q22-k292": {
+   "position": 15,
+   "reason": "Architecturally enforced approval gates on publish, send and CRM actions are a design principle the reader can adopt directly.",
+   "score": 2
+  },
+  "Q22-k293": {
+   "position": 55,
+   "reason": "Logging the model, input, output, routing decision, approver identity, and timestamp for each step, with the trail persisted in the customer's tenant, is a specific audit schema relevant to the Postgres ledger.",
+   "score": 2
+  },
+  "Q22-k55": {
+   "position": 21,
+   "reason": "A specific recurring workflow that joins ad data with warehouse pipeline data and accepts change requests, a useful scheduled-agent pattern.",
+   "score": 2
+  },
+  "Q22-k56": {
+   "position": 42,
+   "reason": "A concrete failure mode in which an SLA-based auto-send erodes a no-send-without-approval rule, directly relevant to approval-gate design.",
+   "score": 3
+  },
+  "Q22-k57": {
+   "position": 71,
+   "reason": "Pre-draft context checks, CI that combines deterministic assertions with an LLM judge, and rep edits turned into per-rep style memories in Postgres closely mirror and extend Agent OS's review and scar-memory mechanisms.",
+   "score": 3
+  },
+  "Q22-k58": {
+   "position": 116,
+   "reason": "Specific measured outcomes (250% conversion, 3x pipeline, 40 hrs/rep/month) with an honest non-causal caveat give a concrete benchmark for a GTM agent on a general platform.",
+   "score": 2
+  },
+  "Q22-k59": {
+   "position": 176,
+   "reason": "A detailed architecture: a deterministic flow controlling LLM agents, with three validation layers including hallucination checks against sources, directly applicable to content QA.",
+   "score": 3
+  },
+  "Q22-k60": {
+   "position": 173,
+   "reason": "Mainly flags missing metrics and a misattributed figure, which is useful caution but minor.",
+   "score": 1
+  },
+  "Q22-k61": {
+   "position": 181,
+   "reason": "A specific supervisor-routed agent roster on a general framework plus a data platform, a moderate design detail.",
+   "score": 1
+  },
+  "Q22-k62": {
+   "position": 126,
+   "reason": "Detailed control stack (interrupt-anywhere approvals, brand-voice config, toxicity/PII/off-policy filters, tracing and groundedness/safety evals) is a concrete brand/quality-control architecture template.",
+   "score": 3
+  },
+  "Q22-k63": {
+   "position": 112,
+   "reason": "Notes minutes-vs-days speedup but explicitly no lift or labor metrics and execution still on roadmap, a useful caveat that approval-stage drafting is what ships first.",
+   "score": 1
+  },
+  "Q22-k65": {
+   "position": 131,
+   "reason": "Measured turnaround reduction for review responses with an explicit gap on human sign-off is a useful result, though modest in design impact.",
+   "score": 2
+  },
+  "Q22-k66": {
+   "position": 187,
+   "reason": "A clear general-platform example with a per-request isolated sandbox and checkpoint, and hard safeguards in code rather than model judgment, which directly informs the governance design.",
+   "score": 3
+  },
+  "Q22-k67": {
+   "position": 0,
+   "reason": "A concrete validator design (claim extraction into fact tables, checks against authoritative sources, writer revision loop) that maps directly onto the reader's adversarial review and could shape a content-QA stage.",
+   "score": 3
+  },
+  "Q22-k68": {
+   "position": 18,
+   "reason": "Measured cost-per-piece and volume plus the documented absence of human sign-off are directly relevant to designing a content factory.",
+   "score": 3
+  },
+  "Q22-k69": {
+   "position": 13,
+   "reason": "Per-task model routing on a commercial platform is a specific design detail, and the unpublished test definition and missing approval gate are useful caveats.",
+   "score": 2
+  },
+  "Q22-k70": {
+   "position": 7,
+   "reason": "Describes a decomposition-to-specialist-agents design with measured token volume, time and cost reductions, which is relevant for an analytics workload pack.",
+   "score": 2
+  },
+  "Q22-k72": {
+   "position": 22,
+   "reason": "A production LangGraph routing system over existing data silos, but without benchmarks.",
+   "score": 2
+  },
+  "Q22-k73": {
+   "position": 52,
+   "reason": "Identity-scoped approvers, before/after diff approval cards, and deterministic code that executes and then verifies on the platform form a specific approval-gate design Agent OS could adopt for outward-facing actions.",
+   "score": 3
+  },
+  "Q22-k74": {
+   "position": 89,
+   "reason": "Specific before/after outcomes, explicitly caveated as not a controlled study, offer a reasonably honest measured result.",
+   "score": 2
+  },
+  "Q22-k75": {
+   "position": 132,
+   "reason": "Measured 40x cost and 13x latency reduction from moving calculations to code and removing model calls is a decisive architecture lesson for deterministic steps.",
+   "score": 3
+  },
+  "Q22-k76": {
+   "position": 76,
+   "reason": "A concrete failure mode, where shared output paths and completion flags let one subagent suppress another's report, directly informs worker isolation and state design.",
+   "score": 3
+  },
+  "Q22-k77": {
+   "position": 135,
+   "reason": "Concrete failure mode (agent looping on render verification, burning tokens) and fix (restricting tools and defining completion) maps directly to worker termination and tool-scoping design.",
+   "score": 3
+  },
+  "Q22-k78": {
+   "position": 155,
+   "reason": "Two concrete failure modes: refuse to fabricate joins and report provenance instead, and chat UIs are a poor fit for bulk edits, which could change the interface design.",
+   "score": 3
+  },
+  "Q22-k79": {
+   "position": 113,
+   "reason": "Concrete architecture on a general agent framework: isolated subagents with constrained tools, structured output contracts and a virtual filesystem for large tool results, directly applicable to worker dispatch design.",
+   "score": 3
+  },
+  "Q22-k80": {
+   "position": 3,
+   "reason": "The single-role-per-agent principle is a design detail, though a fairly common one.",
+   "score": 1
+  },
+  "Q22-k81": {
+   "position": 30,
+   "reason": "An analytics-to-strategy feedback loop with a hypothesis generator is a specific closed-loop design idea.",
+   "score": 2
+  },
+  "Q22-k82": {
+   "position": 188,
+   "reason": "A sequential pipeline with least-privilege data access per role, a useful but common design detail.",
+   "score": 2
+  },
+  "Q22-k83": {
+   "position": 164,
+   "reason": "A concrete scheduled strategist agent that synthesizes live data into a weekly brief gated by human approval, a cadence-plus-approval pattern.",
+   "score": 2
+  },
+  "Q22-k84": {
+   "position": 57,
+   "reason": "Agents coordinating only through shared Markdown artifacts rather than direct calls, which provides both the audit trail and blast-radius containment, is a distinctive coordination and security pattern.",
+   "score": 3
+  },
+  "Q22-k85": {
+   "position": 127,
+   "reason": "Tiered model routing (expensive model only for strategist and lead-qualifier, cheap for content/publish/FAQ) is a specific cost-control design applicable to dispatch policy.",
+   "score": 2
+  },
+  "Q22-k86": {
+   "position": 153,
+   "reason": "A concrete approval design: a human gate on outbound publish and send via a chat channel, plus tiered auto-reply versus escalation by lead value.",
+   "score": 2
+  },
+  "Q22-k87": {
+   "position": 160,
+   "reason": "Concrete but small-agency, self-reported results that mostly corroborate.",
+   "score": 1
+  },
+  "Q22-k88": {
+   "position": 159,
+   "reason": "A detailed end-to-end campaign pipeline that marks the exact human approval points (brief choice, supervised localization, leadership sign-off), useful as a reference workflow.",
+   "score": 3
+  },
+  "Q22-k89": {
+   "position": 72,
+   "reason": "A vendor-reported speedup with no architectural detail.",
+   "score": 1
+  },
+  "Q22-k90": {
+   "position": 180,
+   "reason": "A concrete four-criterion review rubric for agents and an organizational pod structure, useful for evaluation design.",
+   "score": 2
+  },
+  "Q22-k91": {
+   "position": 73,
+   "reason": "An explicit eight-stage pipeline with its fan-out points and human gate placed after the quality gate is a specific DAG design reference.",
+   "score": 2
+  },
+  "Q22-k97": {
+   "position": 6,
+   "reason": "Reports a human-to-agent ratio and outcome metrics, but says nothing about architecture or approval points.",
+   "score": 1
+  },
+  "Q22-k98": {
+   "position": 99,
+   "reason": "Parallel analysts followed by a reviewer and an aggregator into a single shared plan is a specific fan-out/fan-in design detail.",
+   "score": 2
+  },
+  "Q22-k99": {
+   "position": 68,
+   "reason": "Four sequential checks that must all pass, including fact-checking against the research output and checking that the persuasion brief is reflected, form a concrete content-QA gate analogous to adversarial review.",
+   "score": 3
+  }
+ }
+}

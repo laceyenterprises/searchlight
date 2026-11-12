@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "cd87df62a284b716",
+ "url": "https://zylos.ai/research/2026-03-14-policy-engines-ai-agent-governance/",
+ "verdicts": {
+  "A Zanzibar-style agent delegation can be written as tuples such as `agent:session-abc#delegate@user:alice` and `tool:calendar-write#invoke@agent:session-abc`; deleting the delegation tuple immediately removes all downstream permissions.": 1,
+  "Cedar is an AWS-developed open-source policy language and engine that powers Amazon Verified Permissions and entered the CNCF sandbox in 2025; it uses PERMIT/FORBID policies with explicit deny-overrides, so any matching FORBID denies the request regardless of PERMIT policies.": 1,
+  "OPA is a CNCF-graduated general-purpose policy engine that decouples decision from enforcement; applications send structured JSON input over a local HTTP API or in-process Go library and receive a structured decision.": 1,
+  "Open-source Zanzibar implementations include SpiceDB (AuthZed), OpenFGA (Auth0/Okta), and Ory Keto.": 1,
+  "Zanzibar/ReBAC excels at multi-hop delegation, fine-grained resource-level permissions, and real-time revocation, but struggles with attribute-based conditions and complex conditional logic, so production systems often pair ReBAC with OPA or Cedar for attribute conditions.": 1
+ }
+}

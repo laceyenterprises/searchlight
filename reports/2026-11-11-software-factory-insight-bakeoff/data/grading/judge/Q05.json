@@ -1,0 +1,350 @@
+{
+ "digest": "03cd13da92a953cf",
+ "values": {
+  "Q05-k1": {
+   "position": 49,
+   "reason": "This is a marketing-level announcement summary and vendor roadmap.",
+   "score": 0
+  },
+  "Q05-k11": {
+   "position": 11,
+   "reason": "Additive, non-deletable org allowlists with distinct domain vs URL-prefix matching semantics are a precise egress-policy design.",
+   "score": 2
+  },
+  "Q05-k12": {
+   "position": 33,
+   "reason": "AI-review approvals counting toward required approvals being off by default is a specific policy relevant to the reader's autonomous merge gating.",
+   "score": 2
+  },
+  "Q05-k13": {
+   "position": 41,
+   "reason": "Audit events for firewall/MCP config changes and signed commits linked to session logs give a specific provenance design for the reader's ledger.",
+   "score": 2
+  },
+  "Q05-k14": {
+   "position": 45,
+   "reason": "This is a single-source claim with specific ledger fields (actor, model, issue, tokens, PR) and non-overridable branch enforcement that may inform the reader's schema, though it is less authoritative.",
+   "score": 1
+  },
+  "Q05-k15": {
+   "position": 51,
+   "reason": "Source-controlled AGENTS.md agent configs with tools and guardrails, plus full MCP support for external services, are specific design details relevant to making the platform general-purpose and governing worker behavior.",
+   "score": 2
+  },
+  "Q05-k16": {
+   "position": 7,
+   "reason": "Per-step agent recommendation with cross-vendor handoff is a design detail comparable to the reader's DAG ticket routing.",
+   "score": 2
+  },
+  "Q05-k17": {
+   "position": 47,
+   "reason": "This is a generic announcement statement.",
+   "score": 0
+  },
+  "Q05-k2": {
+   "position": 24,
+   "reason": "Hard limits of Ubuntu x64 only, one repo and one PR per task, and no commit signing without bypass are specific constraints useful for comparison.",
+   "score": 2
+  },
+  "Q05-k21": {
+   "position": 54,
+   "reason": "This is a basic description of the ephemeral Actions-powered environment that is largely implied by the question.",
+   "score": 1
+  },
+  "Q05-k22": {
+   "position": 42,
+   "reason": "ARC self-hosted runners for reaching internal resources is a relevant execution-environment option.",
+   "score": 2
+  },
+  "Q05-k23": {
+   "position": 23,
+   "reason": "The default-on egress firewall is a basic fact.",
+   "score": 1
+  },
+  "Q05-k3": {
+   "position": 4,
+   "reason": "Restricting push rights to agent-created branches or an explicitly targeted PR branch is a concrete blast-radius control that could shape the reader's worker permissions.",
+   "score": 3
+  },
+  "Q05-k30": {
+   "position": 17,
+   "reason": "Cross-repo assignment, repo-sourced custom agents, live logs and pause/restart are concrete orchestration features, though mostly expected.",
+   "score": 1
+  },
+  "Q05-k31": {
+   "position": 63,
+   "reason": "Advice to partition parallel agent work to avoid merge conflicts is generic and already implied by the reader's spec-to-DAG ticket decomposition.",
+   "score": 0
+  },
+  "Q05-k32": {
+   "position": 38,
+   "reason": "This is a generic review best-practice checklist.",
+   "score": 1
+  },
+  "Q05-k33": {
+   "position": 48,
+   "reason": "Surfacing blocked egress with the offending command in the PR body or comment is a specific feedback-loop design the reader could adopt.",
+   "score": 2
+  },
+  "Q05-k34": {
+   "position": 30,
+   "reason": "The allowlist category list is useful as a reference but minor.",
+   "score": 1
+  },
+  "Q05-k35": {
+   "position": 15,
+   "reason": "The firewall covers only Bash-tool processes and excludes MCP servers and setup steps, a key gap that could change where the reader enforces egress.",
+   "score": 3
+  },
+  "Q05-k4": {
+   "position": 21,
+   "reason": "The agent being structurally unable to mark PRs ready, approve or merge is a hard design choice that directly contrasts with the reader's autonomous merge.",
+   "score": 3
+  },
+  "Q05-k41": {
+   "position": 12,
+   "reason": "This is a basic description of issue-in, PR-out in an Actions sandbox that the reader already does.",
+   "score": 1
+  },
+  "Q05-k42": {
+   "position": 18,
+   "reason": "This is IDE UI detail with little architectural relevance.",
+   "score": 1
+  },
+  "Q05-k43": {
+   "position": 32,
+   "reason": "Preview deployments for review are a generic practice.",
+   "score": 0
+  },
+  "Q05-k44": {
+   "position": 2,
+   "reason": "This is a generic product description with no actionable design detail.",
+   "score": 0
+  },
+  "Q05-k45": {
+   "position": 1,
+   "reason": "Using the issue Assignees field as the vendor-selection surface on top of the existing issue/PR model is a specific dispatch design detail.",
+   "score": 2
+  },
+  "Q05-k46": {
+   "position": 8,
+   "reason": "This is pricing and surface availability, which is marketing-level.",
+   "score": 0
+  },
+  "Q05-k47": {
+   "position": 5,
+   "reason": "Assigning one issue to several agents and comparing their PRs is a specific workflow, though the reader likely already does cross-model work.",
+   "score": 1
+  },
+  "Q05-k48": {
+   "position": 34,
+   "reason": "This lists UI entry points, which is trivia.",
+   "score": 0
+  },
+  "Q05-k49": {
+   "position": 0,
+   "reason": "Steering applied at tool-call boundaries plus line-level PR comments is a concrete mid-run intervention design the reader could adopt for its dispatch loop.",
+   "score": 2
+  },
+  "Q05-k5": {
+   "position": 16,
+   "reason": "Barring the triggering person from approving forces independent review, a specific control that contrasts with the reader's autonomous merge.",
+   "score": 2
+  },
+  "Q05-k50": {
+   "position": 62,
+   "reason": "The async-runner versus synchronous IDE-mode distinction is well known and adds little for a reader already running async dispatch.",
+   "score": 1
+  },
+  "Q05-k51": {
+   "position": 28,
+   "reason": "Repo-defined specialized agents in .github/agents is a minor detail related to the reader's build packs.",
+   "score": 1
+  },
+  "Q05-k52": {
+   "position": 46,
+   "reason": "The session state taxonomy (queued through canceled) is a concrete detail for the reader's ledger status model.",
+   "score": 1
+  },
+  "Q05-k53": {
+   "position": 59,
+   "reason": "A concrete list of intervention signals (repeated failing fetches, unexpected diff files, scope creep, circular behavior) could feed automated stuck-agent detection in the session ledger, though the signals are fairly commonsense.",
+   "score": 2
+  },
+  "Q05-k54": {
+   "position": 65,
+   "reason": "This shows how multi-vendor orchestration works in practice (Copilot proxies all model calls for Codex, with one unified sessions view), which bears directly on the reader's multi-harness dispatch design.",
+   "score": 2
+  },
+  "Q05-k55": {
+   "position": 44,
+   "reason": "This is plan and pricing trivia.",
+   "score": 0
+  },
+  "Q05-k56": {
+   "position": 25,
+   "reason": "This is a generic description of agent-as-repo-member with MCP.",
+   "score": 0
+  },
+  "Q05-k57": {
+   "position": 31,
+   "reason": "This is a minor handoff detail.",
+   "score": 1
+  },
+  "Q05-k58": {
+   "position": 61,
+   "reason": "The comment-driven PR iteration loop is a basic description of agent behavior that the reader's adversarial review loop already covers.",
+   "score": 1
+  },
+  "Q05-k59": {
+   "position": 67,
+   "reason": "Counting a whole agent session as one premium request is a specific pricing fact that could inform session-granularity cost accounting, but it is peripheral.",
+   "score": 1
+  },
+  "Q05-k6": {
+   "position": 20,
+   "reason": "Running CodeQL, secret scanning and dependency review on agent PRs is a concrete gate set the reader could add, but it is fairly standard.",
+   "score": 1
+  },
+  "Q05-k60": {
+   "position": 3,
+   "reason": "The org-to-repo setting inheritance ('Let repositories decide' or else locked) is a specific hierarchical policy pattern relevant to a multi-tenant platform.",
+   "score": 2
+  },
+  "Q05-k61": {
+   "position": 55,
+   "reason": "Having separate firewall rules for the code-review agent versus the coding agent is a specific detail suggesting per-role egress policy, which the reader's cross-model review could adopt.",
+   "score": 2
+  },
+  "Q05-k63": {
+   "position": 53,
+   "reason": "The recommendation for ephemeral single-use self-hosted runners with network egress controls is a concrete isolation design that could change how the reader sandboxes self-hosted workers.",
+   "score": 3
+  },
+  "Q05-k64": {
+   "position": 56,
+   "reason": "The fact that the integrated firewall must be disabled on self-hosted runners, shifting egress control to the operator, with exact required hosts listed, is a concrete operational constraint that affects architecture.",
+   "score": 3
+  },
+  "Q05-k65": {
+   "position": 22,
+   "reason": "This describes the third-party agent lifecycle loop (assign, PR, request review, iterate on comments), which corroborates the reader's existing design.",
+   "score": 1
+  },
+  "Q05-k66": {
+   "position": 40,
+   "reason": "This lists entry points with minor value.",
+   "score": 0
+  },
+  "Q05-k67": {
+   "position": 36,
+   "reason": "Third-party agents get identical sandbox protections and scanning, with no extra license, which shows uniform vendor-neutral governance.",
+   "score": 2
+  },
+  "Q05-k68": {
+   "position": 26,
+   "reason": "Each partner agent is installed as its own GitHub App with an audit-log identity and dual billing, a concrete per-vendor identity pattern.",
+   "score": 2
+  },
+  "Q05-k69": {
+   "position": 35,
+   "reason": "This is mostly redundant with k12.",
+   "score": 1
+  },
+  "Q05-k7": {
+   "position": 6,
+   "reason": "The self-review-before-human step corroborates the reader's existing adversarial review, and the control-plane list is generic.",
+   "score": 1
+  },
+  "Q05-k70": {
+   "position": 10,
+   "reason": "Codex-specific npm egress requirements are a concrete detail for configuring firewalls per harness.",
+   "score": 1
+  },
+  "Q05-k71": {
+   "position": 64,
+   "reason": "A repo-level copilot-setup-steps.yml that runs before the agent is a specific, reusable pattern for per-repo environment provisioning that the reader could mirror in build packs.",
+   "score": 2
+  },
+  "Q05-k73": {
+   "position": 57,
+   "reason": "Defaulting to the runner's pre-installed JDK is a narrow language-specific detail that mostly restates the setup-steps mechanism.",
+   "score": 1
+  },
+  "Q05-k76": {
+   "position": 58,
+   "reason": "A recommended allowlist plus custom internal-domain allowlist is a specific firewall policy pattern, but the example domains add little beyond the general concept.",
+   "score": 2
+  },
+  "Q05-k77": {
+   "position": 68,
+   "reason": "Scoped tokens and sandboxed, firewalled runners are relevant isolation controls, but the secondary source and marketing-style phrasing make this mostly corroborating.",
+   "score": 1
+  },
+  "Q05-k78": {
+   "position": 27,
+   "reason": "This is a secondary source listing protections that largely repeat other findings.",
+   "score": 1
+  },
+  "Q05-k79": {
+   "position": 50,
+   "reason": "Concrete branch-protection rules for agent PRs, especially requiring approval from someone other than the task requester, give a specific separation-of-duties design detail relevant to the reader's autonomous merge governance.",
+   "score": 2
+  },
+  "Q05-k8": {
+   "position": 19,
+   "reason": "Per-agent identity and branch-level CI gating are relevant concepts, but they are vaguely described.",
+   "score": 1
+  },
+  "Q05-k81": {
+   "position": 43,
+   "reason": "Signed commits linked to the session log, with the initiator as co-author, are a specific attribution model, partly overlapping with k42.",
+   "score": 2
+  },
+  "Q05-k82": {
+   "position": 66,
+   "reason": "Saying agent output flows through the normal PR controls is a generic claim the reader's design already embodies.",
+   "score": 0
+  },
+  "Q05-k83": {
+   "position": 9,
+   "reason": "Steering is unsupported for third-party agents and each steering message is billed, which is a concrete capability asymmetry and cost fact relevant to multi-harness design.",
+   "score": 2
+  },
+  "Q05-k84": {
+   "position": 13,
+   "reason": "Default session visibility to anyone with repo access is a minor but specific access-model detail.",
+   "score": 1
+  },
+  "Q05-k85": {
+   "position": 14,
+   "reason": "Concrete governance metrics (agent PRs, merges, median time to merge) plus budgets give a useful template for the reader's ledger dashboards.",
+   "score": 2
+  },
+  "Q05-k86": {
+   "position": 60,
+   "reason": "Billing via AI Credits plus Actions minutes, gated by an enabled budget, is a specific governance and cost-control detail but minor for architecture.",
+   "score": 1
+  },
+  "Q05-k87": {
+   "position": 52,
+   "reason": "Push Protection blocking secrets in AI-generated code, and its coverage by repo type, is a specific guardrail the reader may lack in autonomous merge, though it is an existing GitHub feature.",
+   "score": 2
+  },
+  "Q05-k9": {
+   "position": 39,
+   "reason": "Separate default-on and default-off policies, with an MCP registry-only restriction, are a specific tool-supply governance detail.",
+   "score": 2
+  },
+  "Q05-k90": {
+   "position": 37,
+   "reason": "Ephemeral workspaces on self-hosted runners that inherit runner-level network ACLs is a concrete execution-isolation pattern relevant to self-hosting.",
+   "score": 2
+  },
+  "Q05-k91": {
+   "position": 29,
+   "reason": "The documented observability gap (no process-to-network attribution) is a failure mode that argues for runtime monitoring in the reader's fleet.",
+   "score": 3
+  }
+ }
+}

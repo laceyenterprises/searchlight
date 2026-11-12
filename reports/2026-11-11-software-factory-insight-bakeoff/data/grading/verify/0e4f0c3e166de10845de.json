@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "fde493eb235091e7",
+ "url": "https://www.pagerduty.com/platform/ai-agents/sre/",
+ "verdicts": {
+  "In PagerDuty's example, Paige identified a payments-api v2.4.1 deployment as root cause with 91% confidence and proposed reverting to the last stable version, awaiting approval.": 1,
+  "PagerDuty plans per-team agent profiles and permissions (Early Access) to define which integrations and actions Paige can access, and states its releases are tested against prompt injection.": 1,
+  "PagerDuty's Paige can be added to an escalation policy or as a virtual responder, can attempt a fix before escalating, and after incidents writes post-incident reviews, updates runbooks and stores shared agent memory.": 1,
+  "PagerDuty's Paige waits for human approval before every remediation unless the user decides Paige can act independently, and shows the recommendation, reasoning and evidence before execution.": 1,
+  "PagerDuty's SRE agent Paige runs detect, triage, diagnose, remediate and learn stages; in diagnosis it tests multiple hypotheses in parallel against logs, metrics and code, and it pulls change events, runbooks and observability data as context.": 1
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "8b59a94f1e22b9f1",
+ "claims": [
+  {
+   "text": "StrongDM's factory charter states 'Code must not be written by humans' and 'Code must not be reviewed by humans'.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's practical benchmark is that if a team has not spent at least $1,000 on tokens today per human engineer, its software factory has room for improvement.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "Simon Willison notes the $1,000/day token figure amounts to about $20,000/month per engineer.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM defines a 'scenario' as an end-to-end user story often stored outside the codebase so coding agents cannot see it, making it holdout-like.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM replaced boolean green-test success with 'satisfaction', the fraction of observed trajectories through all scenarios that likely satisfy the user.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's loop-completion principle is that the loop runs until the holdout scenarios pass and stay passing.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "StrongDM's Digital Twin Universe clones Okta, Jira, Slack, Google Docs, Drive and Sheets.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "In the Digital Twin Universe, agents build each twin as a self-contained Go binary from public API docs.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's Attractor coding agent repo contains no code, only three markdown spec files.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's CXDB stores conversation histories and tool outputs in an immutable DAG and comprises roughly 16k lines of Rust, 9.5k lines of Go and 6.7k lines of TypeScript.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "Simon Willison flags the risk that coding agents write cheating tests, such as tests that simply assert true.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's published techniques include Gene Transfusion, The Filesystem, Shift Work, Semport and Pyramid Summaries.",
+   "url": "https://factory.strongdm.ai/techniques"
+  }
+ ],
+ "question_id": "Q01"
+}

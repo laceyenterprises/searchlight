@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "50478e34d08ad408",
+ "claims": [
+  {
+   "text": "A multi-agent system with Claude Opus 4 as lead agent and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research eval.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Token usage alone explained 80% of the variance in BrowseComp performance; three factors (token usage, number of tool calls, model choice) together explained 95%.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Agents typically use about 4× more tokens than chat interactions, and multi-agent systems use about 15× more tokens than chats.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Multi-agent systems typically consume 3 to 10 times more tokens than single-agent approaches for equivalent tasks.",
+   "url": "https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them"
+  },
+  {
+   "text": "Multi-agent systems require tasks whose value is high enough to pay for the increased token cost; domains needing shared context or many inter-agent dependencies (such as most coding tasks) are a poor fit today.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Upgrading to Claude Sonnet 4 was a larger performance gain than doubling the token budget on Claude Sonnet 3.7.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "The Research system uses an orchestrator-worker pattern: a lead agent analyzes the query, develops a strategy, and spawns specialized subagents that search different aspects in parallel.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "The LeadResearcher saves its plan to Memory because the context is truncated if it exceeds 200,000 tokens; a CitationAgent then processes documents and the report to attribute claims to sources.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Subagents facilitate compression by operating in parallel with their own context windows and condensing the most important tokens for the lead agent; each provides separation of concerns (distinct tools, prompts, trajectories).",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Each subagent needs an objective, an output format, guidance on tools and sources, and clear task boundaries; vague instructions like 'research the semiconductor shortage' led to duplicated searches and misinterpreted tasks.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Early agents made errors such as spawning 50 subagents for simple queries, searching endlessly for nonexistent sources, and distracting each other with excessive updates.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Scaling rules embedded in prompts: simple fact-finding uses 1 agent with 3-10 tool calls, direct comparisons 2-4 subagents with 10-15 calls each, and complex research more than 10 subagents.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Parallelization (lead agent spinning up 3-5 subagents in parallel, and subagents using 3+ tools in parallel) cut research time by up to 90% for complex queries.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "A tool-testing agent that rewrote flawed MCP tool descriptions after testing them dozens of times produced a 40% decrease in task completion time for future agents.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Evaluation: starting with about 20 queries was enough to see large effects; a single LLM-judge call scoring 0.0-1.0 with a pass-fail grade was the most consistent and aligned with human judgements.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Human testers found that early agents chose SEO-optimized content farms over authoritative sources like academic PDFs; adding source quality heuristics to prompts fixed this.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "For production reliability, Anthropic built systems that resume from where an agent was when errors occurred rather than restarting, combining deterministic safeguards like retry logic and regular checkpoints with the model adapting to tool failures.",
+   "url": "https://www.anthropic.com/engineering/multi-agent-research-system?trk=public_post_comment-text"
+  },
+  {
+   "text": "Long-running agents work in discrete sessions with no memory of prior sessions; Anthropic's solution for the Claude Agent SDK is an initializer agent that sets up the environment on the first run and a coding agent that makes incremental progress each session and leaves clear artifacts.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "The initializer agent writes an init.sh script, a claude-progress.txt log of what agents have done, and an initial git commit showing the files added.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Compaction alone isn't sufficient: even Opus 4.5 on the Claude Agent SDK looping across context windows failed to build a production-quality claude.ai clone from a high-level prompt, and compaction doesn't always pass clear instructions to the next agent.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Two observed failure patterns: the agent tried to one-shot the app and ran out of context mid-feature, and a later agent saw existing progress and declared the job done.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "The initializer wrote a feature list of over 200 features in JSON, all initially marked failing with a passes field; coding agents may only change passes, and JSON was chosen because the model is less likely to inappropriately overwrite it than Markdown.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Coding agents work on one feature at a time, commit to git with descriptive messages, and write progress summaries, which lets them revert bad changes and recover working states.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Claude tended to mark features complete without end-to-end testing until explicitly prompted to use browser automation (Puppeteer MCP); a limitation is that Claude can't see browser-native alert modals through Puppeteer MCP.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Each coding session starts by running pwd, reading git logs and progress files, reading the feature list to choose the highest-priority unfinished feature, and running init.sh plus a basic end-to-end test before new work.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  }
+ ],
+ "question_id": "Q08"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "1246ac1fb2e07e9a",
+ "claims": [
+  {
+   "text": "On November 5, 2026, Google Cloud announced the donation of Agent Substrate, gVisor, and OpenRL to the CNCF, following their acceptance into the CNCF Sandbox the previous month.",
+   "url": null
+  },
+  {
+   "text": "Agent Substrate reached its 1.0 milestone and became generally available as Agent Substrate on GKE.",
+   "url": null
+  },
+  {
+   "text": "Agent Substrate decouples stateful agent sessions and identities from active compute, snapshotting idle agents to storage and restoring them in under 500 milliseconds.",
+   "url": null
+  },
+  {
+   "text": "Agent Substrate is claimed to run millions of sandboxes at 10x container density.",
+   "url": null
+  },
+  {
+   "text": "OpenRL orchestrates self-hosted reinforcement-learning post-training loops in plain Python on Kubernetes, across millions of parallel sandboxed rollouts.",
+   "url": null
+  },
+  {
+   "text": "Public development of Agent Substrate started in May 2026, and the project has grown to more than 100 contributors; gVisor is on a path toward CNCF Incubation.",
+   "url": null
+  },
+  {
+   "text": "Tessl, a New York AI-native software development firm, launched an open standards platform for building software factories, reported on November 6 and 8, 2026.",
+   "url": null
+  },
+  {
+   "text": "Mastra Factory, an open-source factory server connecting GitHub, Linear, and Slack to a configurable board (intake, triage, planning, build, review, done), has been in beta since September 2026 and installs with `npm create factory`.",
+   "url": null
+  },
+  {
+   "text": "According to Mastra's September 2026 beta announcement, its factory writes 25-35% of Mastra's PRs and closes 50-60% of its issues.",
+   "url": null
+  },
+  {
+   "text": "Overalls, Geoffrey Huntley's self-hosted platform of persistent Firecracker microVMs (formerly loom) with Claude Code and Codex preinstalled, is a research preview launching November 2026.",
+   "url": null
+  },
+  {
+   "text": "OpenAI AgentKit / Agent Builder is shutting down in November 2026.",
+   "url": null
+  },
+  {
+   "text": "LeadDev's September 2026 article by Chris Kelly describes three factory production lines (PR to merge, ticket to PR, alert to resolution), with a case study of 728 PRs in two weeks.",
+   "url": null
+  },
+  {
+   "text": "Dex Horthy argued at AI Engineer World's Fair (July 2026) that lights-off software factories fail because models cannot yet judge codebase maintainability, and recommended heavier upfront planning with humans still reading the code.",
+   "url": null
+  },
+  {
+   "text": "A September 2026 Dev Interrupted roundtable covered who owns PRs, measuring cost per effective merged PR and rework, and incident response as the last frontier for software factories.",
+   "url": null
+  },
+  {
+   "text": "Steve Yegge's August 2026 'Fences, not Sandboxes' describes Wheelhouse, a software factory that grew its own constitutional governance in place of technical sandboxes.",
+   "url": null
+  },
+  {
+   "text": "A four-layer software-factory architecture (compute, dev environment, harness, orchestration) was presented in the August 2026 'ai that works' podcast by Vaibhav Gupta and Dex Horthy.",
+   "url": null
+  },
+  {
+   "text": "Stripe's homegrown coding agents were reported to merge over a thousand PRs a week with humans still reviewing.",
+   "url": null
+  },
+  {
+   "text": "Zalando open-sourced an identity broker letting AI agents act for users without holding their provider tokens, using a delegation-chain design and user-agent permission intersection model.",
+   "url": null
+  },
+  {
+   "text": "A Danish team's software factory write-up concluded that context and measurable standards matter far more than code generation.",
+   "url": null
+  },
+  {
+   "text": "NVIDIA released an agent sandbox runtime with kernel-level enforcement, credentials injected only for approved endpoints, and formal verification of policy changes.",
+   "url": null
+  },
+  {
+   "text": "Anthropic built a new source control system called Scion after Git could not keep up with merges on its monorepo (roughly 30,000 merges in September).",
+   "url": null
+  },
+  {
+   "text": "The Pi agent reached version 1.0.0 with MCP support, and a variant, Pi Durable, was designed for long-running tasks.",
+   "url": null
+  },
+  {
+   "text": "DeepSeek released an open-source harness (dsh) in public preview in which everything is a plug-in.",
+   "url": null
+  },
+  {
+   "text": "On November 4, 2026, NVIDIA published its Factory Operations Blueprint (FOX), a reference architecture for a factory manager agent using Nemotron, the NemoClaw harness, and OpenShell, coordinating Visual Inspection, Fleet Management, and Root Cause Analysis agents.",
+   "url": null
+  },
+  {
+   "text": "On November 3, 2026, PagerDuty introduced Paige, an SRE agent that writes each incident resolution back into shared memory and drafts post-incident reviews.",
+   "url": null
+  }
+ ],
+ "question_id": "Q24"
+}

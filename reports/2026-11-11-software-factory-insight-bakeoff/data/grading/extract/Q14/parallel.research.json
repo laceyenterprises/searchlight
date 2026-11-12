@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.research",
+ "cell_sha": "82ed0e436f3c2916",
+ "claims": [
+  {
+   "text": "The A2A protocol is an open standard for communication between AI agents, enabling agents built with different frameworks, vendors, or organizations to work together.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "A2A complements MCP: A2A standardizes communication among agents across organizations and frameworks, while MCP connects models to data and external resources.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "MCP tools are typically stateless and perform specific, predefined functions such as a calculator or a database query.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "A2A supports complex, multi-turn interactions in which agents reason, plan, delegate tasks, negotiate, or ask for clarification, rather than interacting like tools.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "A2A crosses the boundary between agents, whereas MCP stays within one agent, connecting it to APIs and enterprise applications.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "In the A2A flow, a client fetches the server's Agent Card (e.g., at /.well-known/agent-card.json) to learn its capabilities and endpoint.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "In A2A authentication, the client reads the Agent Card's security schemes and, for an openIdConnect scheme, obtains a JWT token via the authorizationUrl and tokenUrl.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "A2A clients send messages with either SendMessage (single request/response) or SendStreamingMessage (a stream of task updates).",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "A2A natively supports long-running operations, handling streaming with Server-Sent Events (SSE) and asynchronous execution.",
+   "url": "https://a2a-protocol.org/latest/topics/what-is-a2a"
+  },
+  {
+   "text": "OpenAI's Responses API supports remote MCP servers via the 'mcp' tool type, over either Streamable HTTP or HTTP/SSE transports.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "OpenAI warns that some MCP servers expose dozens of tools, and exposing many tools to the model can result in high cost and latency; the allowed_tools parameter imports only a subset.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "By default, OpenAI requests approval before any data is shared with a remote MCP server or connector; this creates an mcp_approval_request output item, and each approval applies to a single tool call.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "The require_approval parameter can be set to 'never' to skip approvals for all tools on a server, or to an object listing only the tools that skip approval.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "OpenAI warns that a malicious remote MCP server can exfiltrate sensitive data from anything that enters the model's context, and advises using only trusted servers.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "OpenAI recommends using require_approval and allowed_tools to ensure sensitive actions always go through an approval flow, and recommends reviewing or logging all data shared with a remote MCP server.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "For OpenAI's MCP tool, OAuth access tokens are passed in the authorization field, and OAuth client registration and authorization must be handled separately by the application.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "OpenAI's Secure MCP Tunnel (tunnel_id) connects private, on-premises, or firewalled MCP servers to supported OpenAI products without exposing them to the public internet.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "OpenAI's built-in connectors (e.g., Gmail, Google Drive, SharePoint) carry a risk of sending sensitive data to OpenAI or giving models read access to sensitive data in those services.",
+   "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp"
+  },
+  {
+   "text": "In Microsoft Copilot Studio, each MCP server is added to an agent as a tool; all of its tools are on by default and an administrator can turn off 'Allow all' to disable individual tools, after which new server tools are off by default.",
+   "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-components-to-agent"
+  },
+  {
+   "text": "In Copilot Studio, MCP access relies on Power Platform connectors, so a data policy regulating those connectors also regulates access to the MCP server and its tools.",
+   "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/mcp-add-components-to-agent"
+  },
+  {
+   "text": "Microsoft Foundry Agent Service accepts only remote MCP server endpoints; local MCP servers must be self-hosted, e.g., on Azure Container Apps or Azure Functions.",
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/model-context-protocol"
+  },
+  {
+   "text": "Foundry Toolbox gives agents a single MCP-compatible endpoint so tools can be added, removed, or reconfigured without changing agent code, and it works with runtimes such as Microsoft Agent Framework and LangGraph.",
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/model-context-protocol"
+  },
+  {
+   "text": "Foundry supports MCP auth types including no auth, custom-keys headers (e.g., GitHub PAT), OAuth (Foundry-managed or bring-your-own app), user Entra token, project managed identity, and agentic identity.",
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/model-context-protocol"
+  },
+  {
+   "text": "Foundry non-streaming MCP tool calls time out after 100 seconds; longer operations require background mode with a supported model, and long-running MCP tasks support is in preview.",
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/model-context-protocol"
+  },
+  {
+   "text": "Foundry private MCP server connectivity requires Standard Agent Setup with private networking (BYO VNet); basic agent setup does not support private MCP endpoints.",
+   "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/model-context-protocol"
+  }
+ ],
+ "question_id": "Q14"
+}

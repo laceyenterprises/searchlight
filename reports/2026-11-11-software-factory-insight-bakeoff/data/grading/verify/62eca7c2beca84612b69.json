@@ -1,0 +1,18 @@
+{
+ "capture": "captured",
+ "digest": "069470e76d73b66f",
+ "url": "https://github.com/OWASP/AISVS/blob/8906b2be8341abbf4dc43411374681fb81e6ddc6/1.0/research/chapters/C10-MCP-Security/C10-MCP-Security.md",
+ "verdicts": {
+  "Between January and February 2026, 30+ CVEs were filed targeting MCP infrastructure, 43% of them exec/shell injection.": 1,
+  "CVE-2025-53773 (CVSS 7.8): prompt injection in source files manipulates GitHub Copilot into enabling 'YOLO mode' (auto-approve all tools), achieving full RCE including MCP server injection.": 1,
+  "CVE-2025-6514 (CVSS 9.6, JFrog, July 2025) affected mcp-remote 0.0.5-0.1.15: a malicious or man-in-the-middle remote MCP server could return a crafted OAuth authorization_endpoint URL that caused local OS command execution when the proxy opened the browser.": 1,
+  "CVE-2026-32211 (CVSS 9.1, disclosed April 3, 2026): the @azure-devops/mcp server lacked authentication on its local listener, letting any process or browser-reachable origin enumerate Azure DevOps data via MCP tool calls.": 1,
+  "Check Point Research showed (CVE-2025-59536, CVSS 8.7; CVE-2026-21852, CVSS 5.3) that malicious .mcp.json files in untrusted repositories could run arbitrary shell commands on tool initialization and exfiltrate Anthropic API keys before any user trust decision.": 1,
+  "Incidents such as a Square OAuth bypass, the Azure DevOps MCP missing-auth CVE, and CVE-2026-52870 (Python SDK Tasks missing per-session authorization, fixed in 1.27.2) show that authentication and transport isolation do not replace tool-, argument-, and object-level authorization.": 1,
+  "More capable models are often more susceptible to tool poisoning because the attacks exploit superior instruction-following.": 1,
+  "Solo.io agentgateway and Cloudflare Access with MCP Server Portals add gateway-level OAuth 2.1 enforcement, RBAC, and DLP; AWS IAM context keys (April 2026) distinguish agent from human callers.": 1,
+  "The MCPTox benchmark (August 2025) tested 20 LLM agents across 45+ real-world MCP servers with 353 tools; o1-mini had a 72.8% attack success rate, and Claude 3.7 Sonnet had the highest refusal rate but still under 3%.": 1,
+  "The OWASP AISVS MCP chapter describes the MCP auth requirements as OAuth 2.1 + PKCE (S256) mandatory, RFC 8707 Resource Indicators required, step-up authorization, and token passthrough explicitly forbidden.": 1,
+  "The SANDWORM_MODE npm worm (Socket, February 20, 2026) planted a rogue MCP server under ~/.dev-utils/ via an McpInject module, registering innocuous-sounding tools whose descriptions carried prompt injection to steal SSH keys, AWS credentials, npm tokens and .env files, spread via 19 typosquatted packages.": 1
+ }
+}

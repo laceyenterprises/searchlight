@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "3e2ddb34e8e49d55",
+ "url": "https://www.linkedin.com/posts/birgittaboeckeler_i-tried-to-make-sense-of-spec-driven-development-activity-7384214295590502401-xeIi",
+ "verdicts": {
+  "A commenter who tried Spec Kit questioned how to be sure generated code respects the specification, arguing specs should be tied to automated tests, and another reported that SDD frameworks often overinflate the task.": 0,
+  "Birgitta Boeckeler found that Kiro, Spec Kit and Tessl have no shared definition of a 'spec' or how it differs from an instruction file or prompt, so 'spec-driven' means different things across tools.": 1,
+  "Kiro is classified as 'spec-first': it uses three markdown files for requirements, design and tasks, and specs are usually discarded once the job is done.": 0,
+  "Spec Kit is classified as 'spec-anchored': it adds a constitution file defining team rules alongside detailed spec, plan and task files, though in practice specs often live only for a branch.": 0,
+  "Tessl is classified as 'spec-as-source': the spec is the only editable artifact and generated code files are marked as generated from the spec; Boeckeler found it still produced slightly different code on each run due to non-determinism.": 0
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "09154965f97dfebd",
+ "claims": [
+  {
+   "text": "Anthropic's long-running harness uses a two-part solution for the Claude Agent SDK across many context windows: an initializer agent that sets up the environment on the first run, and a coding agent that makes incremental progress in every session while leaving clear artifacts for the next session.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent's prompt asks the model to set up an init.sh script, a claude-progress.txt file logging what agents have done, and an initial git commit showing which files were added.",
+   "url": null
+  },
+  {
+   "text": "Anthropic found the best way to keep the environment clean after each code change was to ask the model to commit progress to git with descriptive commit messages and write progress summaries to a progress file, which lets the model use git to revert bad changes and recover working states.",
+   "url": null
+  },
+  {
+   "text": "Compaction alone is not sufficient: Opus 4.5 running on the Claude Agent SDK in a loop across multiple context windows falls short of building a production-quality web app from a high-level prompt such as 'build a clone of claude.ai'.",
+   "url": null
+  },
+  {
+   "text": "To stop the agent from one-shotting the app or declaring the project complete prematurely, the initializer agent writes a comprehensive feature requirements file; in the claude.ai clone example it contained over 200 features, all initially marked 'failing'.",
+   "url": null
+  },
+  {
+   "text": "The key insight of the harness is letting agents quickly understand the state of work when starting with a fresh context window, achieved with claude-progress.txt alongside the git history.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent writes an init.sh script that runs the development server, saving Claude tokens each session because it does not have to figure out how to run the app; the coding agent runs a basic end-to-end test before implementing a new feature.",
+   "url": null
+  },
+  {
+   "text": "Anthropic states it is still unclear whether a single general-purpose coding agent or a multi-agent architecture (e.g., testing, QA, or code cleanup agents) performs best across the software development lifecycle.",
+   "url": null
+  },
+  {
+   "text": "In the harness failure-mode table, a coding agent that marks features done prematurely is addressed by having it self-verify and only mark features 'passing' after careful end-to-end testing; the feature_list.json starts with every entry as \"passes\": false.",
+   "url": null
+  },
+  {
+   "text": "A coding agent session starts by running pwd, reading the git log and progress file, and running init.sh to verify basic functionality, then picks one feature, tests it end-to-end with browser automation, commits to git, and updates the progress file.",
+   "url": null
+  },
+  {
+   "text": "The harness uses JSON for the feature list because models are less likely to inappropriately modify JSON than Markdown.",
+   "url": null
+  },
+  {
+   "text": "Without explicit prompting, agents tend to declare features complete after writing code without verifying them end-to-end as a real user would.",
+   "url": null
+  },
+  {
+   "text": "Anthropic noted summarization-style compaction was not enough for very long jobs; some harnesses do full context resets, tearing down the session and rebuilding it from a structured handoff file.",
+   "url": null
+  },
+  {
+   "text": "The Claude Agent SDK automatically compacts the conversation when the context window nears its limit, summarizing older history and emitting a system message with subtype 'compact_boundary'; early-conversation instructions may not be preserved.",
+   "url": null
+  },
+  {
+   "text": "For long-running agents in the Agent SDK, subagents return only their final response so the main context grows by a summary rather than the subtask transcript; tools should be scoped via the AgentDefinition tools field, and effort can be set to 'low' for routine tasks.",
+   "url": null
+  },
+  {
+   "text": "In Anthropic's multi-agent research system, token usage alone explained 80% of performance variance on BrowseComp, and token usage, number of tool calls, and model choice together explained 95%.",
+   "url": null
+  },
+  {
+   "text": "Agents typically use about 4x more tokens than chat interactions, and multi-agent systems use about 15x more tokens than chats, so they require tasks valuable enough to justify the cost.",
+   "url": null
+  },
+  {
+   "text": "A multi-agent system with Claude Opus 4 as lead and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research eval, especially on breadth-first queries.",
+   "url": null
+  },
+  {
+   "text": "Domains where all agents must share the same context or have many inter-agent dependencies are not a good fit for multi-agent systems today.",
+   "url": null
+  },
+  {
+   "text": "The LeadResearcher saves its plan to Memory because the context is truncated if it exceeds 200,000 tokens.",
+   "url": null
+  },
+  {
+   "text": "Early research agents made errors such as spawning 50 subagents for simple queries, searching endlessly for nonexistent sources, and distracting each other with excessive updates; prompt engineering was the primary lever for fixing this.",
+   "url": null
+  },
+  {
+   "text": "The orchestrator must give each subagent an objective, an output format, guidance on tools and sources, and clear task boundaries; otherwise agents duplicate work or leave gaps.",
+   "url": null
+  },
+  {
+   "text": "Subagents should write outputs to external systems such as a filesystem and pass lightweight references back to the coordinator, avoiding the 'game of telephone' information loss and reducing token overhead.",
+   "url": null
+  },
+  {
+   "text": "On October 22, 2026, Anthropic advised folding most subagents into one main agent that loads skills and tools progressively; subagents still fit when context bloat degrades performance, when tasks run in parallel with disposable fresh contexts, or when tool selection degrades beyond roughly 30-50 tool definitions.",
+   "url": null
+  },
+  {
+   "text": "A skill's body loads only when used, but every skill's description is in context every turn; Anthropic advises keeping SKILL.md under 500 lines and validating folding subagents into skills with a small eval of about 10 golden examples.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

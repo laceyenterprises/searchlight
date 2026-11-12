@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:23.322859Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 6591,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Abstract Deploying LLM-based analytics agents in enterprise settings re quires evaluation frameworks that can reliably detect failures across complex, multi-tool workflows. We present a three-phase compar ative study of three evaluation frameworks, each representing a distinct evaluation paradigm (…",
+   "title": "Comparative Analysis of Agent Evaluation Frameworks: Stability, Detection, and Discovery in Enterprise Analytics Agents",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "chars_delivered": 253,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-10-08T00:00:00.000Z",
+   "text": "weaker assurance guarantees than one whose intermediate steps are themselves verifiable. This matters most when intermediate tool calls produce external side effects, including database writes, API calls that trigger downstream processes, and escalation",
+   "title": "Beyond Component Testing: Validating Agentic AI Systems",
+   "url": "https://arxiv.org/html/2607.29405v2"
+  },
+  {
+   "chars_delivered": 232,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2025-03-27T00:00:00.000Z",
+   "text": ") evaluations, enabling adaptive runtime adjustments and systematic iterative refinement of pipelines, artifacts, system architecture\n...\nthe granularity needed to diagnose specific issues in the agent’s decision-making processes or",
+   "title": "Evaluation-Driven Development of LLM Agents: A Process Model and Reference Architecture",
+   "url": "https://arxiv.org/html/2411.13768v2"
+  },
+  {
+   "chars_delivered": 252,
+   "published": "2026-06-10T00:00:00.000Z",
+   "text": "pre-resolution, intent signals, routing, decomposition, escalation, safety, ... , no-LLM “pure” mode. The full pure suite (238 baseline cases across 23 slices; 225 cases run in $2.39$ s, ... ms/case) executes in CI on every change against a locked per-",
+   "title": "Layer-Isolated Evaluation: Gating the Deterministic Scaffold of a Production LLM Agent with a No-LLM, Regression-Locked Test Harness",
+   "url": "https://arxiv.org/html/2606.11686"
+  },
+  {
+   "chars_delivered": 233,
+   "published": "2025-06-23T00:00:00.000Z",
+   "text": "code. Extensive experimental results on multiple code generation benchmarks demonstrate that Property-Generated Solver achieves substantial pass@1 improvements, ranging from 23.1% to 37.3% relative gains over established TDD methods.",
+   "title": "Use Property-Based Testing to Bridge LLM Code Generation and Validation",
+   "url": "https://arxiv.org/html/2506.18315v1"
+  },
+  {
+   "chars_delivered": 2326,
+   "published": "2026-04-26T00:00:00.000Z",
+   "text": "| Method | FDRec$\\uparrow$ | FPR$\\downarrow$ | HA ($\\kappa$)$\\uparrow$ | RCA$\\uparrow$ |\n| --- | --- | --- | --- | --- |\n| E2E Only | .41 [.35,.47] | .08 [.05,.12] | .52 [.45,.58] | N/A |\n| Flat Step | .67 [.61,.73] | .15 [.11,.20] | .71 [.65,.76] | .38 [.30,.46] |\n| Rule-Based | .58 [.52,.64] | .0…",
+   "title": "AgentEval: DAG-Structured Step-Level Evaluation for Agentic Workflows with Error Propagation Tracking",
+   "url": "https://arxiv.org/html/2604.23581"
+  },
+  {
+   "chars_delivered": 239,
+   "published": null,
+   "text": "treating test availability, test validity, feedback use, and evaluation independence as separate properties. Test passing alone does not establish behavioral equivalence, effective feedback, or process adherence; aggregate improvements can",
+   "title": "Test-Driven Approaches to Software Engineering with Large Language Models: A Survey of Phases, Tasks, and Agent Skills",
+   "url": "https://arxiv.org/pdf/2609.12012"
+  },
+  {
+   "chars_delivered": 3082,
+   "published": null,
+   "text": "Combining evaluators: do not guess when you can determine¶\n\nEvaluators fall into four categories:\n\n1. Code evaluators: Schema, sets, numbers, state machines, permissions, parameters, and reference integrity;\n2. Domain evaluators: business rules, calculation results, and reconciliation against syste…",
+   "title": "Chapter 08: Quality Engineering: Golden Datasets, Layered Evaluation, and Continuous Regression - Production-Grade Multi-Agent Systems",
+   "url": "https://datapro-lgtm.github.io/production-grade-multi-agent-systems/en/chapters/08-multi-agent-evaluation-golden-dataset-and-continuous-regression/"
+  },
+  {
+   "chars_delivered": 220,
+   "published": null,
+   "text": "The LLM-as-judge approach uses a separate LLM, called the judge, to check the system’s response against reference data ... does the answer match the tool data?), relevance (does it answer the question?), and completeness",
+   "title": "Evaluating and Testing Multi‐Agent ﻿AI﻿ Systems",
+   "url": "https://catalogimages.wiley.com/images/db/pdf/9781394418497.c10.pdf"
+  },
+  {
+   "chars_delivered": 249,
+   "published": "2026-10-15T19:00:00.000Z",
+   "text": "LLM judge uses a model to grade outputs that are difficult to check with code, like whether an answer is supported by the\n...\n- Compare the judge with human scores. Have someone on your team grade a sample of runs and check where the judge disagrees",
+   "title": "The Most Common Questions About Agent Evals, Answered",
+   "url": "https://www.langchain.com/blog/common-questions-about-agent-evals"
+  }
+ ],
+ "latency_ms": 3142.6,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q17",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How do teams verify autonomous agent output without human code review: eval-driven development, scenario or holdout tests, property-based tests, LLM-as-judge, cross-model review, and digital twins of external services? What evidence exists on how well each catches defects?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 30003,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:20.180209Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

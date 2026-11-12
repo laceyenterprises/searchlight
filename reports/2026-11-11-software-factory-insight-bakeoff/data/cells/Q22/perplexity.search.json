@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:10.906289Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 4182,
+   "published": "2026-06-24",
+   "text": "A multi-step lead qualification agent earns its autonomy by sequencing work no human queued: it decomposes an inbound signal into an ordered plan, grades each step against real data, and stops at a human-approval interrupt before anything ships.\n...\nOn the fleet's autonomy ladder this capability si…",
+   "title": "Blog | Vadim's blog",
+   "url": "https://vadim.blog/page/8/"
+  },
+  {
+   "chars_delivered": 2550,
+   "published": null,
+   "text": "# Sustained Impact of Agentic Personalisation in Marketing\nA Longitudinal Case Study\n...\n###### Abstract.\nThis paper presents a longitudinal case study analysing a real-world consumer application that leverages agentic infrastructure to personalise marketing messaging for a large-scale user base ov…",
+   "title": "Sustained Impact of Agentic Personalisation in Marketing",
+   "url": "https://arxiv.org/html/2604.08621"
+  },
+  {
+   "chars_delivered": 151,
+   "published": null,
+   "text": "### Experience\nBuild multi-agent architectures with APIs, MCP, JSON, structured outputs, retrieval, human approval controls, and production safeguards.",
+   "title": "Zachary Guzman | LinkedIn",
+   "url": "https://www.linkedin.com/in/zachary-guzman"
+  },
+  {
+   "chars_delivered": 1659,
+   "published": "2026-06-22",
+   "text": "Agentic sales automation uses autonomous AI agents that research, decide, act, and self-correct toward a revenue goal, unlike rule-based traditional automation that breaks when reality changes.\nA multi-agent architecture has three layers: a commoditised data layer, a fine-tuned intelligence layer,…",
+   "title": "Agentic Sales Automation Explained: Multi-Agent Architecture, Workflows, Agent Roles, And Outcome Benchmarks",
+   "url": "https://oliv.ai/blog/agentic-sales-automation"
+  },
+  {
+   "chars_delivered": 2118,
+   "published": "2026-01-02",
+   "text": "# AI Content Automation: 95% Workflow Efficiency for Publishers\nAutomated 95% of manual tasks and reduced production time from days to minutes.\n...\nContent production was a bottleneck.\nIt took an average of 48 to 72 hours to move a single piece from ideation to WordPress.\nManual SEO optimization wa…",
+   "title": "How Multi-Agent AI Cut Content Production Time by 98% | EnDevSols Case Study",
+   "url": "https://endevsols.com/use-cases/ai-content-automation-publishing-case-study"
+  },
+  {
+   "chars_delivered": 1615,
+   "published": "2026-09-29",
+   "text": "# Multi-agent orchestration reference architecture\nThis paper outlines design patterns, implementation approaches, and governance controls for building enterprise-grade multi-agent systems on IBM Cloud.\nIt explains how watsonx Orchestrate, open protocols such as MCP and A2A, and watsonx.governance…",
+   "title": "Multi-agent orchestration reference architecture",
+   "url": "https://cloud.ibm.com/docs/pattern-multiagent-orchestration-architecture?topic=pattern-multiagent-orchestration-architecture-white-paper&locale=pt-BR"
+  },
+  {
+   "chars_delivered": 4886,
+   "published": null,
+   "text": "Summary\nTavon, a small European company building agents for organizations, developed a production-grade sales automation system using the Pi agent framework and OpenClaw.\nThe system automates the processing of requests for proposals (RFPs) by monitoring email inboxes, routing messages to customer-s…",
+   "title": "Building Production Coding Agents with Pi Framework for ...",
+   "url": "https://www.zenml.io/llmops-database/building-production-coding-agents-with-pi-framework-for-sales-process-automation"
+  },
+  {
+   "chars_delivered": 1269,
+   "published": "2026-04-27",
+   "text": "# AgentForge — Hierarchical Multi-Agent System with RAG, ReAct, and Production-Grade Eval\n>\nA reference implementation of a **production-style hierarchical multi-agent system** built on LangGraph, demonstrating ReAct reasoning, RAG with chunking optimization, LLM-as-Judge evaluation, conversation-I…",
+   "title": "YeehomZhu/agentforge: Hierarchical multi-agent system with RAG ...",
+   "url": "https://github.com/YeehomZhu/agentforge"
+  },
+  {
+   "chars_delivered": 666,
+   "published": "2026-04-19",
+   "text": "Design documentation for coordinating specialist AI agents through routing, structured handoffs and controlled execution.\n...\n|Resource|What it shows|\n|--|--|\n|Sales workflow|Responsibilities across sales, research and execution|\n|Handoff and recovery|Concrete task payloads, bounded retries and hum…",
+   "title": "github.com · Poochaman · multi-agent-orchestrationPoochaman/multi-agent-orchestration - GitHub",
+   "url": "https://github.com/Poochaman/multi-agent-orchestration"
+  },
+  {
+   "chars_delivered": 985,
+   "published": "2024-10-22",
+   "text": "LangGraph is a low-level orchestration framework and runtime for building long-running, stateful agents.\nIt’s developed by the same team that put together the LangChain ecosystem.\n...\nA published benchmark comparing agentic orchestration frameworks ran the same five agent workflow 100 times and mea…",
+   "title": "LangGraph in Production: Latency, Replay, and Scale",
+   "url": "https://aerospike.com/blog/langgraph-production-latency-replay-scale/"
+  }
+ ],
+ "latency_ms": 477.9,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q22",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "Beyond coding, what multi-agent systems run marketing, content production, sales or back-office automation in production? Cover architecture, human approval points, brand and quality control, and measured results, and say which are built on general agent platforms rather than bespoke code.",
+    "multi-agent system marketing content production case study results",
+    "multi-agent sales automation production human approval architecture",
+    "multi-agent back-office automation production Agentforce LangGraph measured results"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 22655,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:10.428336Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

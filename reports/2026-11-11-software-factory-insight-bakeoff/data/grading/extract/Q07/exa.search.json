@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "d7e09e6f0108a856",
+ "claims": [
+  {
+   "text": "Spotify identifies three failure modes for background coding agents across thousands of components: no PR produced (minor), a PR that fails CI (frustrating), and a PR that passes CI but is functionally incorrect (most serious, as it erodes trust and is hard to spot in review).",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify's verification loop consists of independent verifiers that are not exposed directly to the agent; each activates automatically based on component contents, e.g., a Maven verifier activates if a pom.xml is in the codebase root.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify exposes its verifiers to the agent through a Model Context Protocol (MCP) tool, so the agent is unaware of the underlying build system verifier.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify's verifiers reduce context-window noise by using regular expressions to extract only the most relevant error messages on failure and returning a very short success message otherwise.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify runs all relevant verifiers before the agent opens a PR; with Claude Code this is done via the stop hook, and if a verifier fails the PR is not opened and the user sees an error message.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify added an LLM-as-judge on top of deterministic verifiers because agents were too ambitious, e.g., refactoring code or disabling flaky tests outside the prompt. The judge receives the proposed diff and the original prompt and runs after all other verifiers.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify's internal metrics show that, across thousands of agent sessions, the judge vetoes about a quarter of them, and the agent course-corrects about half the time after a veto; the most common trigger is the agent going outside the prompt's instructions. Spotify had not yet invested in evals for the judge.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify's agent runs in a sandboxed container with limited permissions, few binaries, and virtually no access to surrounding systems; pushing code, Slack interaction, and prompt authoring are handled by surrounding infrastructure rather than the agent.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Spotify's verifiers only run on Linux x86 at the time of Part 3; iOS needs macOS hosts and some backends need ARM64. Planned future work includes an outer loop acting on CI checks in GitHub PRs and structured evals.",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "text": "Since mid-2024, around half of Spotify's pull requests have been automated by Fleet Management, which runs source-to-source transformations as containerized jobs that automatically open PRs.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify's automated Maven dependency updater transformation script grew to over 20,000 lines of code to handle corner cases, illustrating the limits of deterministic AST/regex-based transformations.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify replaced deterministic migration scripts with an agent driven by a prompt, while keeping the rest of Fleet Management unchanged: targeting repositories, opening PRs, getting reviews, and merging.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify built a small internal CLI that delegates prompts to an agent, runs formatting/linting via local MCP, evaluates diffs with an LLM judge, uploads logs to GCP, and captures traces in MLflow, which lets it swap agents and LLMs easily.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "As of Nov 2025, Spotify's agents had generated more than 1,500 PRs merged into production, covering Java value types to records, Scio data pipeline upgrades, Backstage frontend migrations, and YAML/JSON config changes.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify reported a total time saving of 60–90% for agent-driven migrations compared to writing the code by hand.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify exposed its background coding agent via MCP so engineers can start tasks from Slack and GitHub Enterprise; an interactive agent gathers information and produces a prompt that is handed to the coding agent.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify has merged more than 2.5 million automated maintenance PRs through Fleet Management (executed by Fleetshift), the vast majority auto-merged with no human in the loop.",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Honk runs Claude via the Agent SDK inside Spotify's own harness, deployed in Kubernetes pods for concurrent sessions, with trusted tools including running builds in CI across multiple operating systems to verify changes.",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify's most recent Java migration across backend services took three days, and Spotify says a migration that used to take hundreds of teams weeks or months can now be done by a single engineer in a few days.",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify reports that agent performance is measurably worse in more fragmented codebases and better when code is consistent; lint and golden-state standards give Claude immediate feedback on patterns.",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "Spotify reports more than 99% of engineers use AI coding tools weekly and a 76% increase in PR frequency, which creates a review bottleneck.",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "text": "In Spotify's dataset migrations, Honk had no access to Claude skills, custom configurability, or MCPs at runtime, a deliberate guardrail, so prompts and context files had to be comprehensive.",
+   "url": "https://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "For dbt and BigQuery Runner migrations, a context file generated by having Claude repurpose a human migration guide was insufficiently comprehensive; making all mappings explicit in tables produced solid performance across most target repositories.",
+   "url": "https://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "BigQuery Runner and dbt repositories rarely had build-time unit tests, so Honk's verify-and-adjust loop was unavailable and owning teams had to manually test; Spotify still rolled out 240 automated migration PRs using Fleetshift.",
+   "url": "https://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "text": "Per a ZenML summary, Spotify's agent reached 1,000 merged PRs in ten days as a general-purpose agent, versus three months as a migration tool, creating a new PR review bottleneck.",
+   "url": "https://www.zenml.io/llmops-database/fleet-wide-autonomous-code-migrations-with-ai-coding-agents"
+  }
+ ],
+ "question_id": "Q07"
+}

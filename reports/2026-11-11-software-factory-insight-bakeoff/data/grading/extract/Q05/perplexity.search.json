@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "56fb07d68b4133bf",
+ "claims": [
+  {
+   "text": "GitHub Copilot coding agent works in its own ephemeral development environment powered by GitHub Actions, where it can explore code, make changes, and run automated tests and linters.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "Copilot's environment can be pre-configured with tools or dependencies by creating a GitHub Actions workflow file at `.github/workflows/copilot-setup-steps.yml` in the repository, which runs before the agent starts.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "To use a larger GitHub-hosted runner for Copilot coding agent, a `copilot-setup-steps.yml` file sets `runs-on` to the label and/or group of the larger runner, after the larger runners are configured and the repository is allowed to access them.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "Copilot coding agent is only compatible with Ubuntu x86 Linux runners; Windows, macOS and other operating systems are not supported.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "By default the Copilot coding agent uses whatever JDK is pre-installed on the runner, so a specific Java version requires a `copilot-setup-steps.yml` workflow.",
+   "url": "https://github.com/teggr/ai-toolkit/blob/main/github-copilot-coding-agent/skills/github-copilot-coding-agent/docs/docs.md"
+  },
+  {
+   "text": "Copilot's internet access is limited by a firewall by default, and the default rules allow hosts Copilot uses to interact with GitHub or download dependencies.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "When the firewall blocks a request from Copilot, a warning is added to the pull request body (if responding to an issue assignment) or to a comment (if responding to a comment).",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "The `COPILOT_AGENT_FIREWALL_ALLOW_LIST_ADDITIONS` Actions variable adds allowed hosts as a comma-separated list; a domain entry also allows its subdomains, while a URL entry restricts traffic to the specified scheme, host, and path and descendant paths.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "Setting the `COPILOT_AGENT_FIREWALL_ALLOW_LIST` Actions variable replaces the default allowlist entirely, and setting `COPILOT_AGENT_FIREWALL_ENABLED` to `false` disables the firewall.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/early-access/copilot/coding-agent/customizing-copilot-coding-agents-development-environment"
+  },
+  {
+   "text": "Firewall configuration is managed from the 'Internet access' settings tab, which covers both Copilot cloud agent and Copilot code review.",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "text": "A recommended allowlist is enabled by default and covers common OS package repositories, container registries, language package registries, certificate authorities, and hosts for downloading browsers for the Playwright MCP server.",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "text": "The firewall only applies to processes the agent starts via its Bash tool; it does not apply directly to MCP server processes or processes started in configured Copilot setup steps.",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "text": "The firewall only operates within the environment where Copilot runs (a GitHub Actions runner or a cloud sandbox) and not to processes outside it.",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "text": "Organization owners can set Enable firewall, Recommended allowlist (each Enabled, Disabled, or Let repositories decide, the default) and Allow repository custom rules (Enabled by default or Disabled) at the organization level.",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-the-firewall"
+  },
+  {
+   "text": "When Copilot cloud agent runs on self-hosted runners, its integrated firewall must be disabled because it is incompatible, and use is blocked unless it is disabled; network controls on the runners should be configured instead.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment"
+  },
+  {
+   "text": "Self-hosted runner networks must allow hosts including uploads.github.com, user-images.githubusercontent.com, and the api.individual/business/enterprise.githubcopilot.com host matching the users' Copilot plan.",
+   "url": "https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment"
+  },
+  {
+   "text": "If the OpenAI Codex third-party coding agent is used, the runner network must also allow npmjs.org, npmjs.com, registry.npmjs.com, registry.npmjs.org, and skimdb.npmjs.com.",
+   "url": "https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/customize-the-agent-environment"
+  },
+  {
+   "text": "GitHub announced that coding agents from Anthropic, OpenAI, Google, Cognition, xAI and others will become available within GitHub as part of a paid Copilot subscription.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "Agent HQ keeps Git, pull requests and issues as primitives and lets users run on their preferred compute, either GitHub Actions or self-hosted runners.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "Mission control is a single command center across GitHub, VS Code, mobile and the CLI for assigning, steering and tracking multiple agents in parallel.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "Mission control lets users assign tasks across multiple repos from one place, pick a custom agent (using agents.md files from the selected repo), watch real-time session logs, and pause, refine or restart an agent mid-run.",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "text": "Agents working in parallel on the same repo can create merge conflicts if they touch the same files, so work should be partitioned.",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "text": "Recommended review in mission control covers session logs, files changed, and checks (unit tests, Playwright, CI/CD) before merging.",
+   "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/"
+  },
+  {
+   "text": "Agent HQ adds branch controls giving granular oversight over when to run CI and other checks on agent-created code, and identity features to control which agent builds a task and manage access and policies like any other developer.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "A code review step was added to the Copilot coding agent's workflow so Copilot gets a first-line review and addresses problems before the user sees the code; enterprise admins use a control plane for security policies, audit logging, allowed agents, model access, and usage metrics.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  }
+ ],
+ "question_id": "Q05"
+}

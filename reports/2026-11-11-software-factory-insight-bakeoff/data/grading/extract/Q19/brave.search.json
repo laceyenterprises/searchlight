@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "2febde8f3f80ac6a",
+ "claims": [
+  {
+   "text": "Sonar research engineer Antonio Aversa published an instrumented trace of one ordinary 800-line pull request: 512 model round-trips, 106,000 fresh input tokens, 3.1 million cache-write tokens, 152.8 million cache-read tokens, and 289,000 output tokens, roughly 156 million tokens billed for about $41.",
+   "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget"
+  },
+  {
+   "text": "In the Sonar trace, about 98% of billed token volume (152.8M of 156M) was cache re-reads of context re-sent on each of the 512 turns.",
+   "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget"
+  },
+  {
+   "text": "Sonar's median cost is $52 per PR (one repository's number); at that rate a 25-engineer team shipping 40 PRs a week is a six-figure line item that no seat count predicts.",
+   "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget"
+  },
+  {
+   "text": "Martin Alderson's modelling from published price cards finds five times the agent turns costs nine to seventeen times as much, and cutting turns by 10% reduces cost per agent run by around 16%, because the cache-read term grows quadratically with turns.",
+   "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget"
+  },
+  {
+   "text": "Anthropic prompt caching bills cache reads at 0.1x base input price, 5-minute cache writes at 1.25x and 1-hour writes at 2x, with the read charged on every request that uses the cached content.",
+   "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget"
+  },
+  {
+   "text": "Artificial Analysis measured Fable 5.1 at $3.76 per Intelligence Index task versus $3.14 for Fable 5 (20% more per task), because the newer model emits about 1.7 times as many output tokens.",
+   "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget"
+  },
+  {
+   "text": "Augment Code recommends spend per merged change as the unit: total fleet spend (provider consumption and service fees) plus supervision hours at a loaded rate, divided by agent-attributed changes merged in the period; use spend per completed task for fleets that do not merge.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Cosmos routes each conversational turn to a model through Prism at 20 to 30% lower cost per task while preserving frontier quality.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Uber's engineering team decomposes agent spend into six multiplying terms: users, sessions per user, turns per session, requests per turn, tokens per request, and price per token.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Augment recommends chargeback or showback by gate owner (the review lead holding a service's merge gate), and warns that ranking engineers by token consumption (a leaderboard, 'tokenmaxxing') rewards agent overhead rather than merged changes.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Augment recommends a pooled monthly platform ceiling owned by the VP Engineering with finance, spend tiers with manager sign-off on upgrades, and a cheaper default model for well-defined subagent tasks with manual override for frontier reasoning.",
+   "url": "https://www.augmentcode.com/guides/budgeting-ai-agents-vs-headcount"
+  },
+  {
+   "text": "Layered budget controls for autonomous agents include a per-iteration cap of typically 2,000–4,000 tokens and a per-run budget typically $5–$25 depending on task complexity.",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "text": "A small-to-large fallback cascade starts each request at the cheapest plausible tier and escalates on low confidence; it consumes tokens twice on escalated requests but cuts overall cost 60–85% where 70–85% of requests are handled by budget models.",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "text": "A per-PR review cost of $0.12 versus $1.40 across agents reflects differing tool calls and context sizes rather than brokenness; cost per completed task should be charted over time to detect regressions.",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "text": "Attributing a whole session at the primary model's price overcharges by 30–60% for workflows that route heavily to cheaper models, so the ledger must record the model per inference call.",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "text": "Ignoring cache write costs under-attributes cost by 20–40% for sessions with long system prompts; cache write cost (1.25x) paid by one project's pipeline can leave a later project a windfall at 0.1x unless an amortization policy is set.",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "text": "Recommended practice is a 90% model-downgrade threshold before the 100% hard cap, since hard stops leave tasks in inconsistent states; P95 rolling forecasts achieve ±8–12% accuracy.",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "text": "GitHub Copilot (June 2026) moved to monthly AI Credits at $0.01/credit based on token usage with pooled budgets and admin controls at enterprise, cost-center and user levels; per-repository attribution is not native.",
+   "url": "https://zylos.ai/research/2026-05-18-ai-agent-token-attribution-cost-allocation/"
+  },
+  {
+   "text": "Organizations with tiered model architectures achieved a median blended cost of about $2.31 per million tokens versus roughly $18.40 for routing everything to frontier models, an eight-fold gap.",
+   "url": "https://gainam.com/insights/ai-agent-cost-optimization"
+  },
+  {
+   "text": "Semantic caching typically saves about 30–50% on repetitive workloads, and an LLM gateway enforces hard spend caps at virtual-key, team and organization level plus rate-based circuit breakers.",
+   "url": "https://gainam.com/insights/ai-agent-cost-optimization"
+  },
+  {
+   "text": "On Claude Sonnet 4.6, cache reads cost $0.30 per million tokens versus $3.00 standard; break-even is 2.3 reuses of the cached prefix within the one-hour TTL.",
+   "url": "https://www.cockroachlabs.com/blog/agentic-ai-costs-at-scale/"
+  },
+  {
+   "text": "Timestamps in a system prompt break caching: one team with a 60,000-token RAG prefix got a 1% discount instead of 90%, and OpenClaw issue #19534 showed a 170,000-token context reprocessed each request at roughly 10x expected cost.",
+   "url": "https://www.cockroachlabs.com/blog/agentic-ai-costs-at-scale/"
+  },
+  {
+   "text": "Monthly API costs per engineer ran $500–$2,000, and agentic workflows consume 5 to 30 times more tokens per task than a chatbot query.",
+   "url": "https://www.cockroachlabs.com/blog/agentic-ai-costs-at-scale/"
+  },
+  {
+   "text": "In CloudZero's worked example, routing 8 of 12 steps from Sonnet 5 to Haiku 4.5 cuts a task from $0.132 to about $0.088, a 33% reduction.",
+   "url": "https://www.cloudzero.com/blog/ai-agent-cost/"
+  },
+  {
+   "text": "A Gartner note reported by The Register says nine in ten agent workflow steps are routine and open-weight models can run them at as little as a twentieth of the cost, but Gartner estimates the realistic saving at five to six times per task.",
+   "url": "https://www.querynow.com/blog/budget-ai-agents-cost-per-finished-task-usage-billing-693815"
+  }
+ ],
+ "question_id": "Q19"
+}

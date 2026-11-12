@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:15:20.735055Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 3469,
+   "page_chars_delivered": 5832,
+   "post_step": "fetched",
+   "published": null,
+   "text": "February 6th, 2026 · Justin McCarthy\n\nWe built a Software Factory: non-interactive development where specs + scenarios drive agents that write code, run harnesses, and converge without human review.\n\nThe narrative form is included below. If you'd prefer to work from first principles, I offer a few…",
+   "title": "StrongDM Software Factory",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "chars_delivered": 659,
+   "page_chars_delivered": 699,
+   "post_step": "fetched",
+   "published": null,
+   "text": "### Digital Twin Universe (DTU)\n\nClone the externally observable behaviors of critical third-party dependencies. Validate at volumes and rates far exceeding production limits, with deterministic, replayable test conditions.\n\n## The Validation Constraint\n\nGiven zero hand-written code and zero tradit…",
+   "title": "Techniques | StrongDM Software Factory",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "chars_delivered": 252,
+   "page_chars_delivered": 18098,
+   "post_step": "fetched",
+   "published": "2026-04-14T07:10:40.000Z",
+   "text": "make scenario-based testing work at scale, StrongDM built a Digital Twin Universe: behavioral clones of Okta, Jira, Slack, Google Docs, Drive, and Sheets ... The agents run against the twins, not against mocked endpoints. The behavioral fidelity of the",
+   "title": "Dark Factory Verification: When No Human Reads the Code",
+   "url": "https://blakecrosley.com/blog/the-dark-factory-verification-layer"
+  },
+  {
+   "chars_delivered": 254,
+   "published": "2026-02-08T19:09:52.000Z",
+   "text": "Okta, Jira, Slack, Google Docs, Google Drive, and Google Sheets, mimicking their interfaces, edge cases, and behaviors. Against these replicas, ... run thousands of test scenarios per hour. No rate limits. No API costs. No risk of breaking real services.",
+   "title": "Built by Agents, Tested by Agents, Trusted by Whom? - CodeX - Stanford Law School",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "chars_delivered": 253,
+   "published": "2026-02-13T10:50:04.000Z",
+   "text": "Why DTU matters: Testing against real APIs has limits — rate limits, API costs, abuse detection. DTU enables testing at volumes ... , testing failure modes that would be dangerous against live services, and running thousands of scenarios per hour — high",
+   "title": "StrongDM Software Factory | Ry Walker Research | Ry Walker",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "chars_delivered": 247,
+   "published": "2026-06-15T00:00:00.000Z",
+   "text": "of truth outside the codebase. A scenario is an ... stores each scenario apart and validates it with an LLM, a large\n...\nThe fakes have no rate limits and no production risk. Any factory whose product calls third-party APIs can reuse this pattern.",
+   "title": "The holdout set: how to trust code no human reviews — The Dark Factory · river.io",
+   "url": "https://www.river.io/blog/posts/2026-06-15-the-holdout-set-how-to-trust-code-no-human-reviews.html"
+  },
+  {
+   "chars_delivered": 6881,
+   "published": "2026-11-09T00:00:00.000Z",
+   "text": "StrongDM is the only company found that says, at a primary source, that it currently ships code no human reviews, and it publishes no defect, incident or customer outcome data.\n\n...\n\n- The evidence is throughput, not quality. Nearly every headline number counts output, such as pull requests merged.…",
+   "title": "Software factories and dark factories: what's real, what's hype - Dbggr",
+   "url": "https://dbggr.dev/articles/software-factories/"
+  },
+  {
+   "chars_delivered": 249,
+   "published": "2026-02-19T00:00:00.000Z",
+   "text": "Okta, Slack, Jira, etc.) that allow massive scenario-based testing without rate limits, flaky live dependencies, or “we can’t simulate that outage.”\n\nA key pattern here is holdout scenarios:\n\n- Coding agents don’t get to see the user scenarios.\n- An",
+   "title": "The Dark Factory: 5 Lessons from Grown Software - Notes | Thomas Klok Rohde",
+   "url": "https://thomasrohde.github.io/readme-pages/notes/2026-02-19-dark-factory-grown-software/"
+  },
+  {
+   "chars_delivered": 990,
+   "published": "2026-02-07T00:00:00.000Z",
+   "text": "As I understood it the trick was effectively to dump the full public API documentation of one of those services into their agent harness and have it build an imitation of that API, as a self-contained Go binary. They could then have it build a simplified UI over the top to help complete the simulat…",
+   "title": "How StrongDM’s AI team build serious software without even looking at the code",
+   "url": "https://simonwillison.net/2026/feb/7/software-factory/"
+  },
+  {
+   "chars_delivered": 256,
+   "published": "2026-03-09T10:03:08.000Z",
+   "text": "“Convergence” means agents run against a Digital Twin Universe — independent clones of production SaaS (Slack, Okta) without rate limits. Swarms of simulated test agents execute scenarios continuously. They don’t check pass/fail. They measure probabilistic",
+   "title": "They eliminated coding, not developers - by Pierre Tomasina",
+   "url": "https://dev3o.substack.com/p/they-eliminated-coding-not-developers"
+  }
+ ],
+ "latency_ms": 1999.8,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q01",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How does StrongDM's 'Software Factory' work, where no human writes or reviews code? What are its scenario holdouts and digital twin universe, how is correctness verified, and what results or problems have been reported?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17920,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:15:18.735243Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

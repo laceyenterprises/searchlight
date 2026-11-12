@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:25.307576Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 11145,
+   "published": null,
+   "text": "# Who Verifies the Builder? Toward Independent Assurance for Agent-Produced Software\n###### Abstract\nWe then propose a framework that separates building from verifying, introduces a Verification Contract stating what must be demonstrated before release, and organizes verification in two phases: a s…",
+   "title": "Who Verifies the Builder? Toward Independent Assurance for Agent-Produced Software",
+   "url": "https://arxiv.org/html/2610.28667"
+  },
+  {
+   "chars_delivered": 15488,
+   "published": null,
+   "text": "# Chapter 8: Agent Evaluation for LLMs: How to Test Tools, Trajectories, and LLM-as-Judge\n## 1) What is Agent Evaluation?\n### 1.1) Evaluating Agents That Use Retrieval\n**Faithfulness score:** proportion of claims in the response that are directly supported by retrieved context. Evaluate with an LLM…",
+   "title": "Chapter 8: Agent Evaluation for LLMs: How to Test Tools, Trajectories, and LLM-as-Judge",
+   "url": "https://medium.com/@vinodkrane/chapter-8-agent-evaluation-for-llms-how-to-test-tools-trajectories-and-llm-as-judge-788f6f3e0d52"
+  },
+  {
+   "chars_delivered": 5000,
+   "published": null,
+   "text": "# Agent Evals: How Serious Teams Test AI Systems in 2026\n#### Key Takeaways\n- Agent evals measure four things: **task success** (was the answer right), **trajectory** (were the steps sound), **LLM-as-judge** (softer quality scored by a model), and **regression suites** (did this change break someth…",
+   "title": "Agent Evals: How Teams Test AI 2026",
+   "url": "https://precisionaiacademy.com/insights/agent-evals-how-teams-test-2026"
+  },
+  {
+   "chars_delivered": 3062,
+   "published": null,
+   "text": "# Agentic Verification\n### The bottleneck has moved from writing code to knowing it’s correct.\nTests are part of that.** Here are some of the ones I think are worth investing in. - Write end-to-end tests that simulate real user flows and act as the ground truth - Use property-based testing to speci…",
+   "title": "Agentic Verification - by Addy Osmani - Elevate",
+   "url": "https://addyo.substack.com/p/agentic-verification"
+  },
+  {
+   "chars_delivered": 8556,
+   "published": null,
+   "text": "# AI Agent Testing: Manual vs LLM-as-a-Judge vs Simulation\n- **Manual transcript review**: A reviewer reads whole conversations and decides what went wrong. It is the only method that finds failure patterns nobody thought to write a rule for, and the only source of ground truth for calibrating the…",
+   "title": "AI Agent Testing: Manual vs LLM-as-a-Judge vs Simulation",
+   "url": "https://www.testmuai.com/blog/ai-agent-testing-methodology/"
+  },
+  {
+   "chars_delivered": 12031,
+   "published": null,
+   "text": "# Human-on-the-Bridge: Scalable Evaluation for AI Agents\n###### Abstract\nAI agents must be evaluated as behavioral systems, not as isolated response generators. They reason across turns, call tools, preserve context, follow policies, and act under uncertainty. Existing methods provide useful but fr…",
+   "title": "Human-on-the-Bridge: Scalable Evaluation for AI Agents",
+   "url": "https://arxiv.org/html/2606.16871v1"
+  },
+  {
+   "chars_delivered": 1813,
+   "published": null,
+   "text": "# AI agent evaluation frameworks: how Vercel approaches evals in production\n## Copy link to heading Start with the cheapest check that can catch the failure, then escalate\n| Check type  | Cost to run  | Determinism  | Where it's the right tool  |\n| --- | --- | --- | --- |\n| Deterministic assertion…",
+   "title": "AI agent evaluation frameworks for production - Vercel",
+   "url": "https://vercel.com/i/ai-agent-evaluation-frameworks-production"
+  },
+  {
+   "chars_delivered": 3744,
+   "published": null,
+   "text": "# How Arize tests AI agents with traces, evals, and CI/CD\n## LLM-as-Judge: why we stopped writing assertions\nThis is where LLM-based evals come in. Our approach: **use an LLM to evaluate whether the output meets the expectation.** The evaluator is simple: it takes the expected result and the actual…",
+   "title": "How Arize tests AI agents with traces, evals, and CI/CD",
+   "url": "https://arize.com/blog/why-testing-ai-agents-is-non-negotiable/"
+  },
+  {
+   "chars_delivered": 1292,
+   "published": null,
+   "text": "# A methodical approach to agent evaluation: Building a robust quality gate\n### Define your tests: Methods for evaluation\nOnce human experts identify and document specific failure modes, you can build scalable, automated tests using an LLM to score agent performance. LLM-as-a-judge processes are us…",
+   "title": "A methodical approach to agent evaluation",
+   "url": "https://cloud.google.com/blog/topics/developers-practitioners/a-methodical-approach-to-agent-evaluation"
+  },
+  {
+   "chars_delivered": 2954,
+   "published": null,
+   "text": "# What Is a Software Factory? How AI Agents Ship Code\n## The software factory model\n| Property | What it requires |\n| --- | --- |\n| Standardized inputs | Every task has scope, context, acceptance criteria, an owner, and a target environment |\n| Shared tooling | Humans and agents use the same reposi…",
+   "title": "What Is a Software Factory? How AI Agents Ship Code",
+   "url": "https://murraycole.com/posts/software-factory"
+  }
+ ],
+ "latency_ms": 1818.0,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q17",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How do teams verify autonomous agent output without human code review: eval-driven development, scenario or holdout tests, property-based tests, LLM-as-judge, cross-model review, and digital twins of external services? What evidence exists on how well each catches defects?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 73322,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:23.489524Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

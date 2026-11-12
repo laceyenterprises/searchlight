@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "7bf031874e0792bc",
+ "claims": [
+  {
+   "text": "The Copilot coding agent can only create pull requests; it cannot commit directly to a default branch, so it cannot initiate irreversible state changes without a human in the loop.",
+   "url": null
+  },
+  {
+   "text": "Pull requests created by the Copilot coding agent do not run CI automatically; a human user must validate the code and manually run GitHub Actions.",
+   "url": null
+  },
+  {
+   "text": "By default, GitHub Actions workflows are blocked from running in pull requests that Copilot creates until someone with write access approves them; repository administrators can disable this setting.",
+   "url": null
+  },
+  {
+   "text": "Pull requests created by the Copilot coding agent are co-committed by the user who initiated the action and are generated under the Copilot identity to show they are AI-generated.",
+   "url": null
+  },
+  {
+   "text": "Agent HQ mission control adds branch controls that give granular oversight over when to run CI and other checks for agent-created code.",
+   "url": null
+  },
+  {
+   "text": "Agent HQ adds identity features to control which agent is building a task and to manage access and policies for agents as for any other developer on the team.",
+   "url": null
+  },
+  {
+   "text": "Agent HQ keeps Git, pull requests and issues as primitives and lets users run agents on their preferred compute, either GitHub Actions or self-hosted runners, via an existing paid Copilot subscription.",
+   "url": null
+  },
+  {
+   "text": "GitHub announced at Universe on October 28, 2025 that coding agents from Anthropic, OpenAI, Google, Cognition and xAI would become available on GitHub over the coming months as part of a paid Copilot subscription.",
+   "url": null
+  },
+  {
+   "text": "Mission control is a consistent interface across GitHub, VS Code, mobile and the CLI for assigning work to a fleet of agents in parallel and tracking their progress.",
+   "url": null
+  },
+  {
+   "text": "Copilot Pro+ users could start using OpenAI Codex in VS Code Insiders as the first partner agent, from the week of the announcement.",
+   "url": null
+  },
+  {
+   "text": "Mission control lets users assign tasks to Copilot across repositories, pick a custom agent, watch real-time session logs, steer mid-run (pause, refine or restart), and jump to the resulting pull requests.",
+   "url": null
+  },
+  {
+   "text": "Agents working in parallel on the same repository can create merge conflicts if they touch the same files, so work should be partitioned; tasks with dependencies or unfamiliar territory should stay sequential.",
+   "url": null
+  },
+  {
+   "text": "The recommended review of agent pull requests covers session logs (intent and reasoning), files changed (unexpected, shared or critical files), and checks (tests and CI); failing checks should be investigated rather than just restarting the agent.",
+   "url": null
+  },
+  {
+   "text": "Mission control custom agents use agents.md files from the selected repository to give an agent a persona and pre-written context.",
+   "url": null
+  },
+  {
+   "text": "A code review step was added to the Copilot coding agent's workflow so Copilot gets a first-line review and addresses problems before the human sees the code.",
+   "url": null
+  },
+  {
+   "text": "By default, Copilot's internet access is limited by a firewall to manage data exfiltration risk from unexpected behavior or malicious instructions.",
+   "url": null
+  },
+  {
+   "text": "When the firewall blocks a Copilot request, a warning showing the blocked address and the command that tried it is added to the pull request body (new PRs) or a comment (existing PRs).",
+   "url": null
+  },
+  {
+   "text": "The firewall's recommended allowlist, enabled by default, covers OS package repositories, container registries, language package registries, certificate authorities, and hosts for downloading Playwright MCP server browsers.",
+   "url": null
+  },
+  {
+   "text": "The firewall applies only to processes started by the agent via its Bash tool, not directly to MCP server processes or Copilot setup-step processes, and only within the agent's environment (a GitHub Actions runner or a cloud sandbox); sophisticated attacks may bypass it.",
+   "url": null
+  },
+  {
+   "text": "Organization owners can set Enable firewall and Recommended allowlist to Enabled, Disabled or Let repositories decide (default), and can disable repository custom allowlist rules; org and repo allowlist rules are combined and repos cannot delete org entries.",
+   "url": null
+  },
+  {
+   "text": "Custom allowlist entries can be domains (which also allow subdomains) or URLs (restricted to scheme, host and path with descendants), and Copilot code review has firewall settings separate from the cloud agent.",
+   "url": null
+  },
+  {
+   "text": "Agent sessions can run in a faster cloud sandbox or on GitHub Actions, which offers more control over secrets, variables, setup steps, self-hosted runners and private networking; both draw on the same monthly compute allowance.",
+   "url": null
+  },
+  {
+   "text": "GitHub recommends GitHub-hosted runners so each Copilot cloud agent session runs on a fresh VM, ephemeral self-hosted runners otherwise, and lets organization owners restrict the agent to a specific runner label; Actions secrets and variables are not accessible to Copilot.",
+   "url": null
+  },
+  {
+   "text": "The Agent HQ control plane provides access control for agents and models per team and per repository, logging of session activity (model, user, tasks, duration), file and line changes and reasoning, policies on task types and libraries, and custom agent management including administrator approval.",
+   "url": null
+  },
+  {
+   "text": "GitHub's governance guidance says the person who triggered the agent is the first-line reviewer and co-author, the PR approver shares responsibility for the merged result, and agent-generated code should be reviewed with the same rigor as human-authored code.",
+   "url": null
+  }
+ ],
+ "question_id": "Q05"
+}

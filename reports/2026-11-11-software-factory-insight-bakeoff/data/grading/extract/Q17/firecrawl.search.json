@@ -1,0 +1,103 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "7eabca79f63629ce",
+ "claims": [
+  {
+   "text": "Eval-driven development (EDD) treats evaluations as the working specification for LLM applications: quality criteria are defined before a prompt is modified or a model swapped, and every change is tested against them before reaching production.",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "text": "Braintrust states that EDD differs from TDD because TDD tests return pass/fail on exact match, while EDD scores outputs across multiple quality dimensions (e.g., a response can be factually accurate but too long).",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "text": "Braintrust lists four properties of EDD: evals as specifications, dataset and run lineage (each run tied to a dataset version, prompt version and model configuration), judge calibration, and regression gates.",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "text": "Braintrust states that LLM-as-a-judge scorers need regular calibration against human ratings; without it, scoring drift inflates or deflates results over time and scores stop reflecting actual quality.",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "text": "Braintrust describes regression gates in which a prompt change that drops accuracy beyond a defined threshold on the golden dataset is automatically blocked from staging or production.",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "text": "Braintrust argues that if an eval correctly captures what 'good' means, optimizing against it is sufficient, which shifts the hard problem to calibrating the eval, a bounded problem that gets easier as production examples are added to datasets and compared to human annotations.",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "text": "Fiddler describes automating the EDD inner loop (run, analyze, fix, re-run) with an OpenCode coding agent that iterates autonomously, reverts regressions via git, and stops when scores plateau or converge.",
+   "url": "https://www.fiddler.ai/blog/automating-eval-driven-development-agentic-applications"
+  },
+  {
+   "text": "Fiddler states that modular agent design is a prerequisite for EDD: if an agent does everything in one prompt and one tool loop, there is nothing to eval in isolation, whereas discrete nodes make each step independently testable.",
+   "url": "https://www.fiddler.ai/blog/automating-eval-driven-development-agentic-applications"
+  },
+  {
+   "text": "Fiddler states that running an agent a few times locally and eyeballing the results tells almost nothing about behavior across hundreds of real inputs, since the same input (e.g., a generated database query) can produce a different output on every invocation.",
+   "url": "https://www.fiddler.ai/blog/automating-eval-driven-development-agentic-applications"
+  },
+  {
+   "text": "LangChain's EDD process has three steps: define what good looks like, write the eval before building, then make the change and compare experiments.",
+   "url": "https://www.langchain.com/blog/what-is-eval-driven-development"
+  },
+  {
+   "text": "LangChain recommends that an EDD spec state when the behavior should happen, what the agent should do, what it should not do, and which existing behaviors must keep working, and be definitive enough to score pass or fail.",
+   "url": "https://www.langchain.com/blog/what-is-eval-driven-development"
+  },
+  {
+   "text": "LangChain notes that a change fixing one case may break another, so changes should be judged by comparing experiments, and that failures found in CI and production should be turned into new dataset examples.",
+   "url": "https://www.langchain.com/blog/what-is-eval-driven-development"
+  },
+  {
+   "text": "LangChain describes agents as non-deterministic in three ways: outputs vary, more than one answer can be correct, and the agent chooses its own steps (it may call an unneeded tool or skip a needed one and still reach a correct answer).",
+   "url": "https://www.langchain.com/blog/what-is-eval-driven-development"
+  },
+  {
+   "text": "Arize's tutorial uses deterministic code checks for objective criteria and LLM judges for semantic criteria, and uses Agent-as-a-Judge when the evaluator must explore a trace dynamically across multiple steps.",
+   "url": "https://arize.com/resources/agent-evals-from-traces/"
+  },
+  {
+   "text": "Arize's example agent fails by drifting from the requested ticker, making unverifiable claims, giving a summary without an actionable conclusion, and claiming it saved a file when no file exists; the tutorial addresses the last with a state-based artifact eval.",
+   "url": "https://arize.com/resources/agent-evals-from-traces/"
+  },
+  {
+   "text": "Arize's workflow validates automated judges against a human-labeled calibration set, measuring judge precision and recall, and saves passing and failing runs as regression datasets.",
+   "url": "https://arize.com/resources/agent-evals-from-traces/"
+  },
+  {
+   "text": "The EDDOps paper (a multivocal literature review) argues that TDD and BDD assume stable specifications, executable oracles and mostly pre-deployment testing, which does not fit LLM agents that are non-deterministic, pursue under-specified goals and keep adapting after deployment.",
+   "url": "https://arxiv.org/html/2411.13768v3"
+  },
+  {
+   "text": "The EDDOps paper says existing benchmarks focus on model-level behavior, static datasets and aggregate scores, giving limited visibility into intermediate artifacts and long-horizon workflows and rarely connecting to runtime observability.",
+   "url": "https://arxiv.org/html/2411.13768v3"
+  },
+  {
+   "text": "The EDDOps approach unifies offline (development-time) and online (runtime) evaluation in a closed feedback loop, with evaluation evidence driving both runtime adaptation and governed redevelopment.",
+   "url": "https://arxiv.org/html/2411.13768v3"
+  },
+  {
+   "text": "Hamel Husain (via The Pragmatic Engineer) recommends code-based evals for deterministic failures and LLM-as-judge for subjective cases, and validating the judge against human expertise using True Positive Rate and True Negative Rate.",
+   "url": "https://newsletter.pragmaticengineer.com/p/evals"
+  },
+  {
+   "text": "Husain advises partitioning data so an LLM judge does not memorize answers, and measuring how well the judge generalizes to unfamiliar data.",
+   "url": "https://newsletter.pragmaticengineer.com/p/evals"
+  },
+  {
+   "text": "Husain describes a 'vibes-based development' trap at NurtureBoss, where the team changed a prompt, tested a few inputs and shipped if it looked good, and recommends error analysis as the core workflow for diagnosing failures.",
+   "url": "https://newsletter.pragmaticengineer.com/p/evals"
+  },
+  {
+   "text": "Adnan Masood's article warns that EDD requires investment in datasets, graders, trace infrastructure and human calibration, otherwise teams can optimize to weak proxies, over-trust LLM judges, or game benchmarks.",
+   "url": "https://medium.com/@adnanmasood/eval-driven-development-the-missing-discipline-in-the-agentic-ai-lifecycle-5acaea1a49f9"
+  },
+  {
+   "text": "UiPath engineers say tool-call evaluation matters because LLM-judging an output alone does not reveal how the agent reached it, and that their evaluation layer offers more than 11 out-of-the-box evaluators mixing deterministic graders and LLM judges.",
+   "url": "https://www.youtube.com/watch?v=8KxJKKeib94"
+  }
+ ],
+ "question_id": "Q17"
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "ab3bdfe9c21b6251",
+ "url": "https://larstalian.com/rethinking-the-merge-queue/",
+ "verdicts": {
+  "Reason Machines' merges went from about 17 to over 600 per day in six weeks with coding agents; on October 12, 84 PRs waited at once and the slowest 5% waited 2.5 hours.": 1,
+  "With Mergify tuned to test up to 12 PRs in parallel, the median merge took 3.4 minutes with only 79 seconds being CI; 37 seconds went to detecting readiness, 26 seconds to creating the test branch and draft PR, and about 30 seconds to merging.": 1
+ }
+}

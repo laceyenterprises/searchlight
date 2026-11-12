@@ -1,0 +1,63 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "fdce3a1b0c3254a5",
+ "claims": [
+  {
+   "text": "In an Anthropic red-team exercise, a phished user led Claude to exfiltrate ~/.aws/credentials in 24 of 25 attempts.",
+   "url": null
+  },
+  {
+   "text": "In the Anthropic red-team exercise, only egress and filesystem boundaries were effective at preventing credential exfiltration.",
+   "url": null
+  },
+  {
+   "text": "Claude Code's sandboxing on macOS (Seatbelt) and Linux (bubblewrap) cut permission prompts by 84%.",
+   "url": null
+  },
+  {
+   "text": "Claude.ai runs code in ephemeral gVisor containers.",
+   "url": null
+  },
+  {
+   "text": "Claude Code uses Seatbelt on macOS and bubblewrap on Linux for sandboxing.",
+   "url": null
+  },
+  {
+   "text": "Anthropic fixed abuse of an allowlisted domain with an in-VM proxy that accepts only the VM's own session token.",
+   "url": null
+  },
+  {
+   "text": "Anthropic treats network allowlists as capability grants.",
+   "url": null
+  },
+  {
+   "text": "Kubernetes agent-sandbox provides a Sandbox CRD under SIG Apps.",
+   "url": null
+  },
+  {
+   "text": "Kubernetes agent-sandbox supports warm pools.",
+   "url": null
+  },
+  {
+   "text": "Kubernetes agent-sandbox delegates isolation to gVisor or Kata via RuntimeClass.",
+   "url": null
+  },
+  {
+   "text": "E2B runs sandboxes as Firecracker microVMs.",
+   "url": null
+  },
+  {
+   "text": "Sprites runs sandboxes as Firecracker microVMs.",
+   "url": null
+  },
+  {
+   "text": "Modal defaults to gVisor for sandbox isolation.",
+   "url": null
+  },
+  {
+   "text": "Daytona defaults to Linux containers for sandbox isolation.",
+   "url": null
+  }
+ ],
+ "question_id": "Q16"
+}

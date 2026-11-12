@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "a68c0c73b2d22b14",
+ "claims": [
+  {
+   "text": "At the Ask 2026 conference in March 2026, Perplexity CTO Denis Yarats said his company moved away from MCP internally because connecting three MCP servers consumed approximately 72% of the available context window before the agent processed a single user query.",
+   "url": null
+  },
+  {
+   "text": "Claude Code with 15+ MCP servers loaded exposes 60+ tools to the model at every turn, which eats the context budget and increases the chance of wrong-tool selection.",
+   "url": null
+  },
+  {
+   "text": "Claude Code mitigates MCP tool sprawl with per-task tool filtering (only relevant tools advertised per turn) and subagent patterns in which a child agent gets a scoped tool catalog.",
+   "url": null
+  },
+  {
+   "text": "Arion Research recommends that agents connecting to more than five or six MCP servers evaluate server-side filtering, lazy description loading, or a capability registry pattern that gives agents summarized metadata with detailed descriptions available on demand.",
+   "url": null
+  },
+  {
+   "text": "Zuplo's MCP Gateway applies capability filtering by filtering the upstream's tools/list, prompts/list and resources/list responses and blocking calls to hidden tools, returning MethodNotFound even if the agent guesses the tool name, so only a read-only or hand-picked subset of a server's tools is published.",
+   "url": null
+  },
+  {
+   "text": "MCP servers MUST implement OAuth 2.0 Protected Resource Metadata (RFC 9728) and MCP clients MUST implement Resource Indicators (RFC 8707), binding every token to the specific server it was issued for; Dynamic Client Registration is now optional.",
+   "url": null
+  },
+  {
+   "text": "Zuplo's MCP Gateway is a full OAuth 2.1 authorization server in front of MCP servers, implementing RFC 8414 authorization-server metadata, RFC 9728 protected-resource metadata and RFC 7591 dynamic client registration.",
+   "url": null
+  },
+  {
+   "text": "In Zuplo's gateway each upstream is published as a virtual server with its own OAuth resource; with PKCE and a required RFC 8707 resource parameter, a token minted for /mcp/linear-v1 cannot be replayed against /mcp/stripe-v1, closing the confused-deputy gap.",
+   "url": null
+  },
+  {
+   "text": "The MCP spec forbids token passthrough; Zuplo's gateway enforces this by never leaking inbound auth headers upstream, resolving the user's credential server-side, and storing upstream tokens encrypted at rest.",
+   "url": null
+  },
+  {
+   "text": "For A2A, a gateway only validates tokens (each agent brings its own credential) and can be fronted like any HTTP API with JWT/OIDC validation, per-agent rate limiting and request logging, whereas for MCP the gateway issues and binds tokens.",
+   "url": null
+  },
+  {
+   "text": "The 2025-26 round of MCP server updates from GitHub, Linear and Notion added per-tool scopes, while older MCP servers still expose all-or-nothing auth.",
+   "url": null
+  },
+  {
+   "text": "Granular MCP scopes are good for security but bad for UX, as users can be prompted to authorize 12 scopes per server.",
+   "url": null
+  },
+  {
+   "text": "MCP has no canonical registry; de-facto discovery sources are the official servers repository, Anthropic's curated directory, Smithery, and the Cursor/Cline marketplaces.",
+   "url": null
+  },
+  {
+   "text": "The current MCP specification has no structured logging mandate and leaves fine-grained authorization to implementers: it provides authentication but does not specify what an authenticated agent is allowed to do.",
+   "url": null
+  },
+  {
+   "text": "Researchers have demonstrated tool poisoning, where malicious instructions are embedded in MCP tool descriptions invisible to the user but parsed by the model, e.g. a tool described as a read-only file browser that instructs the agent to exfiltrate data.",
+   "url": null
+  },
+  {
+   "text": "A peer-reviewed study of MCP security across agent platforms found attack success rates from 0% (Claude Desktop, which sandboxes tool interactions) to 100% (Cursor, which auto-executes tool calls without user confirmation).",
+   "url": null
+  },
+  {
+   "text": "Real-world MCP incidents in 2025 included cross-tenant data exposure at Asana, prompt injection attacks against the GitHub MCP server, and unauthenticated remote code execution in Anthropic's MCP Inspector.",
+   "url": null
+  },
+  {
+   "text": "By early 2026 researchers had catalogued nearly 7,000 internet-exposed MCP servers, roughly half with no authentication controls.",
+   "url": null
+  },
+  {
+   "text": "The GitHub MCP prompt injection succeeded because of an overly broad personal access token, and CVE-2025-6514 was caused by failure to sanitize a URL value.",
+   "url": null
+  },
+  {
+   "text": "NVD entries CVE-2025-49596 (unauthenticated RCE in MCP Inspector) and CVE-2025-66416 (DNS rebinding in the Python SDK) are high-severity MCP-related issues; OWASP catalogs tool poisoning as MCP03:2025.",
+   "url": null
+  },
+  {
+   "text": "CVE-2026-30623, disclosed in April 2026, was a critical command-injection vulnerability letting LiteLLM's MCP server-creation feature run config commands without validation.",
+   "url": null
+  },
+  {
+   "text": "The MCP 2025-11-25 Authorization spec requires Origin-header validation on Streamable HTTP and binding to localhost for local servers to defend against DNS rebinding.",
+   "url": null
+  },
+  {
+   "text": "A2A spec section 7.6.3 notes that in-band credential exchange via AUTH_REQUIRED can pass credentials across chains of agents, exposing them to each participating agent.",
+   "url": null
+  },
+  {
+   "text": "Session-scoped tool allowlisting, in which the server grants an explicit tool list at session start derived from agent role and declared task (intersection of both) and rejects other calls before tool logic runs, limits damage from successful prompt injection.",
+   "url": null
+  },
+  {
+   "text": "MCP 2026-07-28 adds header-based routing so a gateway can apply policy on method and tool name without parsing request bodies.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

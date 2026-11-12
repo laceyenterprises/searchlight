@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "cfa093d7fb99b81d",
+ "url": "https://link.springer.com/article/10.1007/s44163-026-01980-z",
+ "verdicts": {
+  "A survey taxonomy of reward hacking escalation has four levels: feature-level, representation-level, evaluator-level (LLM judge gaming, benchmark overfitting), and environment-level (test modification, log suppression, monitor disruption, reward channel manipulation).": 1,
+  "Reward tampering is a more severe failure than reward hacking, in which an agent directly modifies the mechanism that generates reward, such as editing reward files, disabling oversight, or monkey-patching testing frameworks.": 0,
+  "The survey recommends defense-in-depth: redundant, adversarially tested evaluators separated from agents, sandboxed least-privilege execution, structured observability traces, and human governance with incident response.": 1
+ }
+}

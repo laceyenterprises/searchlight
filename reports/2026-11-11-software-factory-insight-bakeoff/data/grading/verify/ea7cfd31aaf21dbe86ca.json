@@ -1,0 +1,29 @@
+{
+ "capture": "captured",
+ "digest": "8750c3456214f396",
+ "url": "https://www.anthropic.com/research/multi-agent-research-system",
+ "verdicts": {
+  "A tool-testing agent that repeatedly exercised a flawed MCP tool and rewrote its description reduced task completion time by 40%.": 1,
+  "Agents use about 4x the tokens of chat, and multi-agent systems use about 15x the tokens of chat, so Anthropic recommends multi-agent systems only for tasks valuable enough to justify the extra cost.": 1,
+  "Anthropic recommends durable execution, resume-from-failure, retries, regular checkpoints, production tracing and artifact handoffs; synchronous subagent execution simplifies coordination but creates bottlenecks.": 1,
+  "Anthropic reports that ordinary agents typically use about 4x the tokens of chat interactions, while multi-agent systems use about 15x.": 1,
+  "Anthropic says multi-agent systems fit breadth-first, parallelizable tasks exceeding one context window, while tasks requiring shared context or many dependencies, including many coding tasks, are poor fits today.": 1,
+  "Anthropic says tasks with tightly shared context or many dependencies, including most coding work, are poorer fits for multi-agent systems than breadth-first research.": 1,
+  "Anthropic used rainbow deployments, running old and new versions simultaneously while gradually shifting traffic, so updates do not interrupt agents mid-run.": 1,
+  "Anthropic's BrowseComp analysis found token usage alone explained 80% of performance variance, while token usage, tool-call count, and model choice together explained 95%.": 1,
+  "Anthropic's Research system uses an orchestrator-worker pattern: a LeadResearcher plans, spawns parallel subagents, synthesizes findings, decides whether more research is needed, and passes results to a CitationAgent.": 1,
+  "Anthropic's example effort budgets are one agent with 3-10 tool calls for simple fact-finding, 2-4 subagents with 10-15 calls each for comparisons, and more than 10 subagents for complex research.": 1,
+  "Anthropic's multi-agent research system with a Claude Opus 4 lead agent and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research evaluation.": 1,
+  "Each subagent delegation should specify an objective, output format, tool/source guidance and clear boundaries; vague instructions caused duplicated searches and gaps.": 1,
+  "Early Research agents sometimes spawned 50 subagents for simple questions, searched endlessly for nonexistent sources, and over-relied on SEO content farms until source-quality prompting was added.": 1,
+  "Early versions of the research system sometimes spawned 50 subagents for simple questions, searched endlessly for nonexistent sources, and continued after having sufficient information; Anthropic added scaling rules and stopping guidance.": 0,
+  "In Anthropic's BrowseComp analysis, token usage alone explained 80% of performance variance, and token usage, tool-call count and model choice together explained 95%.": 1,
+  "Launching 3-5 subagents in parallel with subagents calling 3 or more tools in parallel reduced research time by up to 90%.": 1,
+  "On Anthropic's internal research evaluation, a multi-agent system with Claude Opus 4 as lead and Claude Sonnet 4 subagents outperformed a single Claude Opus 4 agent by 90.2%.": 1,
+  "Parallelism (3-5 concurrent subagents, each making three or more parallel tool calls) reduced research time by up to 90% on complex queries.": 1,
+  "The research system uses an orchestrator-worker architecture in which a LeadResearcher plans and delegates to subagents, and a CitationAgent later identifies citation locations; the lead saves its plan to external memory because context beyond 200,000 tokens would be truncated.": 1,
+  "The research system's lead agent waits for each batch of subagents to finish, creating a slowest-worker bottleneck; asynchronous execution was identified as an opportunity but brings coordination, state-consistency and error-propagation challenges.": 1,
+  "The research system's prompt guidelines set effort budgets: one agent with 3-10 tool calls for simple fact-finding, 2-4 subagents with 10-15 calls each for comparisons, and more than 10 subagents for complex research.": 1,
+  "Vague delegation instructions caused duplicate searches, gaps and mismatched scopes; for example, one subagent researched the 2021 chip crisis while others duplicated 2025 supply-chain research. Delegations should specify objective, output format, tool guidance and boundaries.": 1
+ }
+}

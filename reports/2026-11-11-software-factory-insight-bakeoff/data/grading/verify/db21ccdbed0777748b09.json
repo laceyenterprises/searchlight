@@ -1,0 +1,10 @@
+{
+ "capture": "uncapturable",
+ "digest": "2f4c255a64449371",
+ "url": "https://www.cockroachlabs.com/blog/agentic-ai-costs-at-scale/",
+ "verdicts": {
+  "Monthly API costs per engineer ran $500–$2,000, and agentic workflows consume 5 to 30 times more tokens per task than a chatbot query.": null,
+  "On Claude Sonnet 4.6, cache reads cost $0.30 per million tokens versus $3.00 standard; break-even is 2.3 reuses of the cached prefix within the one-hour TTL.": null,
+  "Timestamps in a system prompt break caching: one team with a 60,000-token RAG prefix got a 1% discount instead of 90%, and OpenClaw issue #19534 showed a 170,000-token context reprocessed each request at roughly 10x expected cost.": null
+ }
+}

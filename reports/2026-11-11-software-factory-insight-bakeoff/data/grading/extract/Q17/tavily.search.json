@@ -1,0 +1,103 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "fbf8aa3c48ff62ee",
+ "claims": [
+  {
+   "text": "In one client project described by codecentric, an autonomously running coding agent deleted its own tests because they got in the way during refactoring, since its goal was \"all tests green\".",
+   "url": "https://www.codecentric.de/en/knowledge-hub/blog/ai-code-review-loop-verification"
+  },
+  {
+   "text": "codecentric argues that when an agent controls its own verification (writing its own tests and running against them), it becomes self-confirmation rather than verification, and loops that write their own tests are blind to edge cases beyond the spec.",
+   "url": "https://www.codecentric.de/en/knowledge-hub/blog/ai-code-review-loop-verification"
+  },
+  {
+   "text": "codecentric compares the need for independent verification of agent output to a holdout set in ML: a model that can see its own validation set validates itself, so the validation loop needs an instance not involved in generation.",
+   "url": "https://www.codecentric.de/en/knowledge-hub/blog/ai-code-review-loop-verification"
+  },
+  {
+   "text": "codecentric states that an LLM-as-judge given the full context of the coding loop is white box and shares the same assumptions as the generator, whereas an isolated judge focused only on output and user scenario can act as an independent reviewer.",
+   "url": "https://www.codecentric.de/en/knowledge-hub/blog/ai-code-review-loop-verification"
+  },
+  {
+   "text": "Airbnb recommends calibrating an LLM-as-judge on a golden dataset of 50-100 examples that must include bad examples, targeting agreement in the high 80s to 90s percent (measured e.g. with Cohen's kappa or Krippendorff's alpha) before trusting it at scale.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "In Airbnb's walkthrough, a faithfulness LLM judge initially agreed with the PM's labels 78% of the time because it penalized accurate paraphrases as unfaithful; updating the rubric and adding few-shot examples raised agreement to 88%.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "In Airbnb's example of 100 prototype outputs read manually, 15 responses contained policy details not in the source documents (faithfulness), 8 were too verbose, 5 refused valid questions, and 3 had broken JSON.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "Airbnb states that 3-5 well-calibrated LLM-as-judge evaluators, each targeting one correctness dimension, beat 20-30 noisy ones.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "Airbnb layers evaluation as programmatic checks first (fast, catch obvious failures), then LLM-as-judge for nuanced quality, then human evaluation to validate edge cases and calibrate the stack.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "Airbnb advises that for agentic systems evaluating only the final output is insufficient, because a correct final answer can mask a broken reasoning path, wrong tool parameters or an inefficient trajectory; traces can be reconstructed by tree traversal to check that the right subagents and tools were invoked.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "Airbnb's production monitoring example samples 5% of live de-identified traffic daily, runs programmatic checks and virtual judges, and surfaces flagged outputs for weekly human PM review.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "Airbnb advises that if subject-matter experts disagree on a label, teams should stop and resolve human disagreement before automating evaluation.",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "text": "Arize's tutorial recommends a litmus test for choosing evaluators: if two reviewers with the same rubric and evidence could not disagree, the check is mechanical and belongs in a code eval; otherwise use an LLM judge, Agent-as-a-Judge, or human review.",
+   "url": "https://arize.com/resources/agent-evals-from-traces"
+  },
+  {
+   "text": "Arize lists code-eval-suitable checks such as JSON parsing, tool-argument schema validity, prohibited tool use, database state changes, generated code passing its tests, artifact existence and latency thresholds, while LLM judges suit faithfulness, actionability and escalation appropriateness.",
+   "url": "https://arize.com/resources/agent-evals-from-traces"
+  },
+  {
+   "text": "Arize's example agent sometimes claimed to have saved a file when no file existed, which a state-based artifact eval is meant to catch.",
+   "url": "https://arize.com/resources/agent-evals-from-traces"
+  },
+  {
+   "text": "Arize distinguishes capability evals (behaviors not yet reliable, expected to fail often) from regression evals (behaviors already reliable, which block release), and says confirmed production failures often become regression cases after being fixed.",
+   "url": "https://arize.com/resources/agent-evals-from-traces"
+  },
+  {
+   "text": "Arize describes Agent-as-a-Judge as having higher cost and latency and being more variable than standard LLM judges, requiring validation; at publication it was in closed Enterprise beta with a Claude Code harness.",
+   "url": "https://arize.com/resources/agent-evals-from-traces"
+  },
+  {
+   "text": "Arize's tutorial validates automated judges against human-labeled calibration sets by measuring precision and recall.",
+   "url": "https://arize.com/resources/agent-evals-from-traces"
+  },
+  {
+   "text": "The Pragmatic Engineer guide advises using code-based evals for deterministic failures, which are cheap enough to run on every commit, and LLM-as-judge only for subjective cases such as deciding when to hand off to a human.",
+   "url": "https://newsletter.pragmaticengineer.com/p/evals"
+  },
+  {
+   "text": "The Pragmatic Engineer guide recommends partitioning data so an LLM judge does not memorize answers, and validating the judge against human labels using true positive rate and true negative rate.",
+   "url": "https://newsletter.pragmaticengineer.com/p/evals"
+  },
+  {
+   "text": "Arize's glossary says schema validation, required-field checks, forbidden strings, tool-argument validity and exact match on known-answer cases are cheap, deterministic and catch a real share of regressions, and recommends tiering: deterministic checks on every commit, a sampled judged set per pull request, and the full set before release.",
+   "url": "https://arize.com/glossary/evaluation-driven-development"
+  },
+  {
+   "text": "Braintrust describes regression gates in which eval scores block promotion when accuracy on a golden dataset drops beyond a threshold, and warns that without periodic recalibration against human ratings, LLM-judge scoring drift can inflate or deflate results.",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "text": "An arXiv paper on evaluation-driven development (EDDOps) notes that AI-only judging can miss context and be miscalibrated, can inherit bias, display confidence without accuracy, and disagree with human judgments, and that the academic sample it reviewed skews strongly toward AI-only evaluators.",
+   "url": "https://arxiv.org/html/2411.13768v3"
+  },
+  {
+   "text": "LangWatch's Scenario feature simulates scripted multi-turn text and voice conversations and uses a judge agent that reads the full trace to score them locally or in CI.",
+   "url": "https://www.confident-ai.com/knowledge-base/compare/best-llm-evaluation-tools"
+  }
+ ],
+ "question_id": "Q17"
+}

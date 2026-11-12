@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:04.170863Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2430,
+   "published": null,
+   "text": "fails mid-run (network error, timeout, transient API failure), a plain retry\nre-executes every LLM call and tool call from scratch – repeating work that\nalready succeeded and incurring additional cost.\nSetting `durable=True` caches each LLM response and tool result as it\ncompletes.\nOn retry, comple…",
+   "title": "AgentOperator & @task.agent¶",
+   "url": "https://airflow.apache.org/docs/apache-airflow-providers-common-ai/0.9.0/operators/agent.html"
+  },
+  {
+   "chars_delivered": 2230,
+   "published": null,
+   "text": "# Durable AI\nTemporal gives AI applications and agents Durable Execution: a Workflow resumes automatically after a crash, a\nnetwork timeout, or a multi-day wait for a human to approve a step.\nTemporal shows up in four recurring types of AI\nsystem:\n**Agents.** Long-running, stateful agent loops that…",
+   "title": "Durable AI | Temporal Documentation",
+   "url": "https://docs.temporal.io/ai"
+  },
+  {
+   "chars_delivered": 1785,
+   "published": null,
+   "text": "# Durable execution ¶\nAn agent task makes several model calls and tool calls.\nWhen it fails partway (a\nnetwork error, a timeout, a provider outage), a plain Airflow retry runs every one of\nthem again: the model calls are paid for twice and the tools’ side effects happen\ntwice.\nWith durable executio…",
+   "title": "Durable execution — apache-airflow-providers-common-ai ...",
+   "url": "https://airflow.apache.org/docs/apache-airflow-providers-common-ai/stable/durable_execution.html"
+  },
+  {
+   "chars_delivered": 1600,
+   "published": null,
+   "text": "# Durable Execution\nPydantic AI agents run durably, surviving crashes and restarts, on Temporal, DBOS, Prefect, Restate, AWS Lambda, Absurd, pgtask and Apache Airflow.\nUse durable execution in production when a run in flight has to survive its process stopping, through a deploy, a crash or a transi…",
+   "title": "Durable Execution | Pydantic Docs",
+   "url": "https://pydantic.dev/docs/ai/capabilities/durable_execution/overview/"
+  },
+  {
+   "chars_delivered": 1793,
+   "published": null,
+   "text": "# Durable Execution with Restate\n## Durable Execution\nRestate makes your agent **durable** by recording every step of its execution in a journal.\nIf your process crashes mid-execution, Restate replays the journal, reuses the recorded results of completed steps, and retries the step that was in prog…",
+   "title": "Durable Execution with Restate | Pydantic Docs",
+   "url": "https://pydantic.dev/docs/ai/capabilities/durable_execution/restate/"
+  },
+  {
+   "chars_delivered": 3414,
+   "published": "2026-02-19",
+   "text": "# Durable Execution: The Key to Harnessing AI Agents in Production\n### Key Takeaways\n...\n- AI Agents introduce multiple points of failure (orchestration, probabilistic LLM behavior, tool calling, human-in-the-loop) that traditional retry logic cannot handle; durable execution provides automatic sta…",
+   "title": "Durable Execution: The Key to Harnessing AI Agents in ...",
+   "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents"
+  },
+  {
+   "chars_delivered": 1322,
+   "published": "2026-10-26",
+   "text": "`agent-effects` is a Rust library for reliable AI agent tool calls and\nside-effect execution.\nIt combines idempotency keys, durable execution,\nsafe retries and crash recovery for payments, emails, cloud resources and\ntickets initiated by LLM agents or other autonomous applications.\nThe runtime reco…",
+   "title": "crates.io: Rust Package Registry",
+   "url": "https://crates.io/crates/agent-effects/0.2.0"
+  },
+  {
+   "chars_delivered": 595,
+   "published": null,
+   "text": "Pydantic A\nI introduces native Temporal support for building production-ready AI agents with durable execution.\n## Summary\nThe integration combines Pydantic's type safety and observability with Temporal's fault-tolerant workflow orchestration, enabling agents that survive API failures, handle long-…",
+   "title": "Here's how to build durable AI agents with Pydantic and Temporal",
+   "url": "https://daily.dev/posts/here-s-how-to-build-durable-ai-agents-with-pydantic-and-temporal-w9mzhcgdy"
+  },
+  {
+   "chars_delivered": 1433,
+   "published": null,
+   "text": "Restate makes your agent **durable** by recording every step of its execution in a journal.\nIf your process crashes mid-execution, Restate replays the journal, reuses the recorded results of completed steps, and retries the step that was in progress.\nYour agent runs in a regular HTTP handler inside…",
+   "title": "pydantic.dev · docs · aipydantic.dev",
+   "url": "https://pydantic.dev/docs/ai/capabilities/durable_execution/restate/index.md"
+  },
+  {
+   "chars_delivered": 2465,
+   "published": "2026-05-14",
+   "text": "The agent resumes from iteration 18.\nIterations 1-17 are already persisted — their LLM outputs, tool results, and state are all in durable storage.\nZero tokens wasted.\nZero duplicate tool calls.\nThe agent picks up exactly where it left off.\n...\nEvery LLM call in a Conductor workflow is persisted at…",
+   "title": "Token efficiency with durable execution | Orkes Docs",
+   "url": "https://orkes.io/content/ai-cookbook/token-efficiency.html"
+  }
+ ],
+ "latency_ms": 473.0,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q11",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How are durable-execution engines (Temporal, Restate, Inngest, DBOS) used to run AI agents reliably? What patterns do they recommend for retries, human-in-the-loop waits, long-running workflows, and idempotent tool calls, and which companies run agents on them in production?",
+    "Temporal durable execution AI agents production",
+    "Restate DBOS Inngest durable agents human-in-the-loop",
+    "durable execution LLM agent idempotent tool calls retries"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 21451,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:03.697868Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

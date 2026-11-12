@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "a49f07381ab87906",
+ "url": "https://arxiv.org/html/2607.13091",
+ "verdicts": {
+  "A closed-loop framework for LLM coding agents codifies every accepted human review comment that identifies a generalizable error class as a persistent behavioral rule in a version-controlled instruction file, loaded in all subsequent sessions.": 1,
+  "In a single-deployment coding-agent study, 9 tracked error classes had zero recurrences across 74 post-rule session exposures, but the authors stress this is observational rather than a controlled experiment and does not establish a permanent guarantee.": 1,
+  "In production across 35+ microservices over 11 recorded sessions, the review-rule set grew from 5 initial rules to 18 behavioral rules, 15+ code standards and a 15-item self-review checklist.": 1,
+  "In the closed-loop review-rule framework, across 9 tracked error classes and 74 cumulative post-rule session exposures, no recurrences were observed.": 1,
+  "The authors of the review-rule framework describe the zero-recurrence result as observational within a single four-week deployment, with no A/B control, single-team scope and a single primary language, so it is not a statistical guarantee.": 1
+ }
+}

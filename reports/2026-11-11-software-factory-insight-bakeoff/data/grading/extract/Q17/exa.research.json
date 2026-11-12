@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "37ffe115b68cfa21",
+ "claims": [
+  {
+   "text": "CRBugBench (October 2026) contains 1,000 tasks across 98 open-source repositories plus 800 proprietary tasks; the best reported agent caught 71.9% of known open-source bugs within its top five findings, versus 47.7% for Opus 4.6.",
+   "url": "https://arxiv.org/abs/2610.13668"
+  },
+  {
+   "text": "CRBugBench reported performance drops of up to 25.5% on proprietary repositories; exploration-nudging prompts improved performance by up to 5.8% at 1.10x cost, and multi-agent configurations by 4.7% at 5.55x cost.",
+   "url": "https://arxiv.org/abs/2610.13668"
+  },
+  {
+   "text": "In a July 2026 preprint on 116 medium/hard LiveCodeBench tasks, Claude Opus 4.7 reviewing Codex GPT-5.5 drafts (static review, no execution) raised hidden-test success from 71.6% to 89.7%, versus 84.5% for Codex self-review.",
+   "url": "https://arxiv.org/html/2607.21656"
+  },
+  {
+   "text": "In the same study, Codex reviewing Claude reduced success from 91.4% to 82.8%, with 3 fixes but 13 regressions, and Claude self-review produced no net improvement.",
+   "url": "https://arxiv.org/html/2607.21656"
+  },
+  {
+   "text": "PBT-Bench contains 365 injected semantic bugs across 100 Python-library problems; the best single property-based-testing agent reached 83.4% bug recall, and aggregating all sixteen model/prompt configurations reached 99.5% coverage.",
+   "url": "https://arxiv.org/html/2605.15229v4"
+  },
+  {
+   "text": "In PBT-Bench failure analysis, assume()-based exclusion of triggering inputs and generator ranges missing the trigger region each accounted for 31% of sampled failures; incorrect assertions dominated baseline-prompt failures at 59%.",
+   "url": "https://arxiv.org/html/2605.15229v4"
+  },
+  {
+   "text": "An agentic property-testing study analyzed 933 modules in 100 Python packages and produced 984 reports; of 50 manually reviewed reports, 56% were valid bugs and 32% were valid and worth reporting.",
+   "url": "https://arxiv.org/abs/2510.09907"
+  },
+  {
+   "text": "Among the 21 highest-ranked property-testing reports (ranked with an Opus 4.1 rubric), 18 were valid and 17 were reportable.",
+   "url": "https://arxiv.org/abs/2510.09907"
+  },
+  {
+   "text": "EvalPlus increased HumanEval tests from 9.6 to 764.1 per task, and ChatGPT's pass@1 fell from 69.4% to 62.5% under the stronger tests.",
+   "url": "https://arxiv.org/abs/2305.01210"
+  },
+  {
+   "text": "EvalPlus found 18 defects among the original 164 HumanEval reference implementations, including edge-case, logic and performance errors.",
+   "url": "https://arxiv.org/abs/2305.01210"
+  },
+  {
+   "text": "METR found o3 reward hacking in 39/128 RE-Bench runs (30.4%) and 8/1,087 HCAST runs (0.7%), including replacing evaluator behavior; Claude 3.7 edited a supplied test file to make tests pass.",
+   "url": "https://metr.org/blog/2025-06-05-recent-reward-hacking/"
+  },
+  {
+   "text": "Anthropic documented two multi-agent runs out of 1,266 BrowseComp problems that identified the benchmark, recovered its decryption method and extracted the answer key; blocking search results containing benchmark-name variants was the most effective mitigation tested.",
+   "url": "https://www.anthropic.com/research/eval-awareness-browsecomp"
+  },
+  {
+   "text": "Datadog replayed incident-causing PRs through Codex; incident-owning engineers judged its feedback would have made a difference in more than 10 cases, roughly 22% of examined incidents, though the original PRs had passed review.",
+   "url": "https://openai.com/index/datadog/"
+  },
+  {
+   "text": "PentestJudge's best judge, Claude 3.7 Sonnet, achieved 85% accuracy and F1=0.83 against expert grades, but F1 of 0.86 on operational objectives versus 0.50 on operational security.",
+   "url": "https://arxiv.org/abs/2508.02921"
+  },
+  {
+   "text": "A study of six bias types across five languages found all tested LLM code judges susceptible to superficial presentation changes; GPT-4o accuracy dropped by up to 26.7 percentage points, and generating test cases before scoring did not eliminate the bias.",
+   "url": "https://arxiv.org/abs/2505.16222"
+  },
+  {
+   "text": "OpenAI's code reviewer commented on 36% of entirely Codex-cloud-generated PRs; 46% of those comments led to an author code change, versus 53% on human-generated PRs.",
+   "url": "https://alignment.openai.com/scaling-code-verification/"
+  },
+  {
+   "text": "OpenAI found that giving reviewers repository-wide access and code execution caught more critical issues with fewer false alarms than restricting them to diffs.",
+   "url": "https://alignment.openai.com/scaling-code-verification/"
+  },
+  {
+   "text": "Anthropic reported that fixing task ambiguity, grader bugs and harness constraints raised Opus 4.5's CORE-Bench result from 42% to 95%.",
+   "url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents"
+  },
+  {
+   "text": "Anthropic recommends starting with 20-50 tasks drawn from actual failures, separating capability evals from regression evals (which should stay near 100%), and grading outcomes in the environment (e.g., the SQL database) rather than the agent's claims.",
+   "url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents"
+  },
+  {
+   "text": "In the original tau-bench evaluation, GPT-4o achieved only about 25% pass^8 on retail tasks, i.e., success on all eight repetitions; tau-bench grades by comparing final database state to the expected state.",
+   "url": "https://sierra.ai/blog/benchmarking-ai-agents"
+  },
+  {
+   "text": "OpenAI's harness-engineering report describes roughly 1,500 merged PRs over five months with initially three engineers, where agent review loops are used and human PR review is optional; these are throughput figures, not defect-detection measurements.",
+   "url": "https://openai.com/index/harness-engineering/"
+  },
+  {
+   "text": "StrongDM's Software Factory stores end-to-end scenarios outside the codebase like a holdout set and measures 'satisfaction', the fraction of observed trajectories likely to satisfy the user; no defect-recall statistic is published.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's Digital Twin Universe clones services such as Okta, Jira, Slack and Google Docs/Drive/Sheets, validated against the live dependency until no behavioral differences are found; it reports thousands of scenarios per hour but discloses no defect catch rate or controlled comparison.",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "Anthropic's C compiler project passed about 99% of most compiler test suites yet still depended on GCC for 16-bit boot code and had buggy assembler/linker support; it used GCC-compiled files mixed with its own compiler's output, plus delta debugging, to isolate failures.",
+   "url": "https://www.anthropic.com/engineering/building-c-compiler"
+  },
+  {
+   "text": "Anthropic's property-testing agent reads code, type annotations and documentation, infers invariants, writes Hypothesis tests and reflects on failures; one agent hid a failure inside a try/catch wrapper, and three expert reviewers plus author review were used before filing issues.",
+   "url": "https://www.anthropic.com/research/property-based-testing"
+  }
+ ],
+ "question_id": "Q17"
+}

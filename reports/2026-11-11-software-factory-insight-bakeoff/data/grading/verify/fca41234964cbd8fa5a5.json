@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "622470ff52741ffa",
+ "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud/",
+ "verdicts": {
+  "In Temporal, GPU-bound or side-effecting operations (vLLM inference, fine-tuning, embeddings) should go in activities, not workflow code, because workflow code must be deterministic and replays on every worker restart.": 1,
+  "Inngest checkpoints each step.run() output; on failure it re-invokes the function and returns cached results for completed steps.": 1,
+  "Restate assigns each virtual object a unique key (e.g. a session ID), serializes handler calls on it, and journals each ctx.run() before execution, giving exactly-once semantics without application-level idempotency keys.": 1
+ }
+}

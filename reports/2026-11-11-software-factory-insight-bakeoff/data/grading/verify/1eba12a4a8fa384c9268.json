@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "6e9757cf10ecf9cb",
+ "url": "https://www.anthropic.com/engineering/building-c-compiler",
+ "verdicts": {
+  "Anthropic's C compiler project passed about 99% of most compiler test suites yet still depended on GCC for 16-bit boot code and had buggy assembler/linker support; it used GCC-compiled files mixed with its own compiler's output, plus delta debugging, to isolate failures.": 1
+ }
+}

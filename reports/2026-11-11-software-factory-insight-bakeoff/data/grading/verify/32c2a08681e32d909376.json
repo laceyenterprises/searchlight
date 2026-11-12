@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "6ce9e1a23c2d8802",
+ "url": "https://mergify.com/blog/merge-queues-and-ai-coding-agents",
+ "verdicts": {
+  "Mergify says a serial single-lane queue fails under agent load because each PR waits behind serial CI runs and must be rebased repeatedly as others land ahead of it.": 1,
+  "Mergify says the rebase changes the SHA but not the change, and that making the change (not the SHA) first-class so rebases do not discard valid reviews or test results is unfinished work that agent churn makes urgent.": 1,
+  "Mergify's agent-oriented queue uses speculative parallel lanes, batching with bisection, scope-aware queues for independent monorepo parts, and two-step CI with cheap checks per push and the expensive suite only in the queue.": 1,
+  "Mergify's proposed agent-scale design combines speculative parallel testing, batching with bisect-on-failure, and scope-aware queues that test batches touching independent parts of a monorepo concurrently as a directed graph.": 1,
+  "Mitchell Hashimoto said merge queues work for humans but become untenable at 100x to 1,000x the churn from AI agents, framing the problem as a release/throughput problem rather than an AI review problem.": 1
+ }
+}

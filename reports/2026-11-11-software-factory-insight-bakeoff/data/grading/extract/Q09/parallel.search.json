@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "aaae07386c83870e",
+ "claims": [
+  {
+   "text": "SWE-agent with GPT-4 Turbo resolved 12.47% (286/2,294) of the full SWE-bench test set and 18.00% (54/300) of SWE-bench Lite.",
+   "url": null
+  },
+  {
+   "text": "The previous best SWE-bench resolve rate before SWE-agent was 3.8%, achieved by a non-interactive, retrieval-augmented system.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's agent-computer interface (ACI) is an abstraction layer between the LM agent and the computer that defines the commands available to the LM and how environment feedback is formatted and returned.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's ablation on SWE-bench Lite showed it solves 10.7 percentage points more instances than a baseline agent using only the default Linux shell; the paper reports a 64% relative increase over Shell-only, both with GPT-4 Turbo.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's ACI design principles are: simple actions, compact and efficient actions, informative but concise environment feedback, and guardrails that mitigate error propagation and hasten recovery.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's search commands (find_file, search_file, search_dir) return at most 50 results per query; if a search exceeds that number, results are not shown and the agent is told to write a more specific query.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's file viewer shows a window of at most 100 lines, moved with scroll_down, scroll_up and goto, and displays the file path, total line count, lines omitted above and below, and line numbers.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's edit command takes a start line, end line and replacement text, replaces that line range in the open file, and the file viewer then automatically displays the updated content.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent integrates a code linter into the edit command; invalid edits are discarded and the agent is asked to try the edit again, with a snippet of the file before and after the error shown.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent collapses all observations older than the last 5 into a single line each, and omits all past error messages except the first, to keep context concise.",
+   "url": null
+  },
+  {
+   "text": "When a command produces no output, SWE-agent returns the explicit message \"Your command ran successfully and did not produce any output\" to make the result clear to the LM.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent with Claude 3 Opus solved 10.5% of SWE-bench tasks, showing the ACI designed for GPT-4 Turbo is portable to a different LM.",
+   "url": null
+  },
+  {
+   "text": "Compared to the RAG baseline on SWE-bench Lite, SWE-agent is 8-13x more costly but yields a 6.7-fold improvement in % Resolved.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent runs with a per-instance budget of $4; if a run exceeds it, existing edits are submitted automatically.",
+   "url": null
+  },
+  {
+   "text": "The SWE-agent authors found Llama 3 and DeepSeek Coder performed subpar in the agent setting, partly because context windows such as Llama 3's 8k were too small.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's execution environment and the SWE-bench evaluation framework both run in Docker sandboxed environments.",
+   "url": null
+  },
+  {
+   "text": "OpenHands' Docker Runtime uses a client-server architecture: the backend builds an 'OH runtime image' from a user-provided base image, launches a container, and runs an ActionExecutor inside it that initializes a bash shell, browser and plugins.",
+   "url": null
+  },
+  {
+   "text": "The OpenHands backend communicates with the action execution server in the sandbox over a REST API, sending actions and receiving observations, while the Agent and EventStream are spawned by the backend.",
+   "url": null
+  },
+  {
+   "text": "OpenHands tags runtime images with three hash-based tags (versioned, lock, source) so identical source and Dockerfile reproduce the same image and rebuilds can reuse existing layers; the lock tag hashes the base image name, pyproject.toml and poetry.lock.",
+   "url": null
+  },
+  {
+   "text": "OpenHands runtime plugins (e.g., Jupyter, VS Code, Agent Skills) are Python classes initialized when the action execution server starts, and OpenHands supports bind mounts, named volumes, and copy-on-write overlay mounts for sandbox volumes.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent is about 100 lines of Python for the agent class, uses no tools other than bash (not even the LMs' tool-calling interface), and keeps a completely linear history where each step appends to the messages passed to the LM.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent scores over 74% on SWE-bench Verified, and is evaluated on the SWE-bench (bash only) leaderboard that compares different LMs using the mini scaffold.",
+   "url": null
+  },
+  {
+   "text": "In an evaluation of 2,614 OpenHands trajectories from eight model backends on 60 SWE-bench Verified tasks, 10.7% of passing trajectories in a 1,815-trajectory subset were 'Lucky Passes' exhibiting regression cycles, blind retries, missing verification or disordered exploration.",
+   "url": null
+  },
+  {
+   "text": "Lucky Pass rates across the eight model backends ranged from 0.5% to 23.2%, and some models shifted by as many as five rank positions when ranked by process quality score instead of pass rate.",
+   "url": null
+  },
+  {
+   "text": "Amp's rebuilt CLI runs on a new architecture described as remote-controllable, compaction-first, plugin-powered, and faster, and threads started in the CLI can be remote controlled from ampcode.com.",
+   "url": null
+  }
+ ],
+ "question_id": "Q09"
+}

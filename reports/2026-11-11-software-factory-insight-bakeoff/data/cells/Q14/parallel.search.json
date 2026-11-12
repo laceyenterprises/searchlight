@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:37.548945Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 910,
+   "page_chars_delivered": 40766,
+   "post_step": "fetched",
+   "published": "2026-05-19",
+   "text": "### MCP implementations frequently (and often only optionally) rely on OAuth-style bearer tokens or session IDs for access authorization [7], but as stated in their standard documentation:\n\n•\n\n### Authorization in MCP is optional (not every implementation uses it)\n\nU/OO/6030316-26 | PP-26-1834 | Ma…",
+   "title": "Model Context Protocol (MCP): Security Design Considerations for AI-Driven Automation",
+   "url": "https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf"
+  },
+  {
+   "chars_delivered": 932,
+   "page_chars_delivered": 26300,
+   "post_step": "fetched",
+   "published": null,
+   "text": "While MCP standardizes the connection between models and external resources, A2A complements it by enabling autonomous, multi-turn collaboration between independent AI agents.\n\n...\n\nTo enable governed, production-grade agentic access, SAP recommends following approaches:\n\n* **Agent Gateway** , usin…",
+   "title": "A2A and MCP for AI Agent Interoperability at SAP | SAP Architecture Center",
+   "url": "https://architecture.learning.sap.com/docs/ref-arch/76ec36"
+  },
+  {
+   "chars_delivered": 904,
+   "page_chars_delivered": 35854,
+   "post_step": "fetched",
+   "published": null,
+   "text": "However, MCP introduces a fundamentally new attack surface: AI agents dynamically executing tools based on natural language, with access to sensitive systems.\n\n...\n\nInput and Output Validation ¶\n\n* Validate all inputs to MCP server tools — treat them as untrusted (they originate from LLM output inf…",
+   "title": "MCP Security - OWASP Cheat Sheet Series",
+   "url": "https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html"
+  },
+  {
+   "chars_delivered": 903,
+   "published": null,
+   "text": "# The MCP Registry\n\n> [!NOTE]\n>\n> The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability.\n\n...\n\nThe MCP Registry is the official centralized metadata repository for publicly accessible MCP servers, backed by major trusted contributors to the…",
+   "title": "The MCP Registry",
+   "url": "https://modelcontextprotocol.io/registry/about"
+  },
+  {
+   "chars_delivered": 851,
+   "published": null,
+   "text": "This document should be read alongside the MCP Authorization specification and [OAuth 2.0 security\n\n...\n\n### ​\n\nConfused Deputy Problem\n\nAttackers can exploit MCP proxy servers that connect to third-party APIs, creating “ [confused deputy](https://en.wikipedia.org/wiki/Confused_deputy_problem) ” vu…",
+   "title": "Security Best Practices - Model Context Protocol",
+   "url": "https://modelcontextprotocol.io/specification/draft/basic/security_best_practices"
+  },
+  {
+   "chars_delivered": 912,
+   "published": null,
+   "text": "MCP Registry dashboard displaying a list of verified MCP servers with details like tools, agents, and service\n\n...\n\nEach server handler is tool-aware and downstream-aware, allowing it to correctly route and execute MCP requests at runtime.\n\n#### Security\n\nMCP Gateway provides built-in authorization…",
+   "title": "Designing MCP Gateway Uber's MCP Management Platform",
+   "url": "https://www.uber.com/us/en/blog/designing-mcp-gateway"
+  },
+  {
+   "chars_delivered": 910,
+   "published": "2026-06-30",
+   "text": "In this post, Microsoft Incident Response walks through an attack pattern that targets the fastest growing part of the agentic AI supply chain: Model Context Protocol (MCP) tools. The post provides a practical playbook for detecting, containing, and preventing this class of attack using Microsoft s…",
+   "title": "Securing AI agents: When AI tools move from reading to acting | Microsoft Security Blog",
+   "url": "https://www.microsoft.com/en-us/security/blog/2026/06/30/securing-ai-agents-ai-tools-move-from-reading-acting"
+  },
+  {
+   "chars_delivered": 910,
+   "published": null,
+   "text": "- **Enterprise Ready:** Address authentication, authorization, security, privacy, tracing, and monitoring by aligning with established enterprise practices.\n\n...\n\n#### 3.6.3 Tooling support\n\nTooling libraries and SDKs that implement the A2A protocol MUST provide mechanisms to help clients manage pr…",
+   "title": "A2A/docs/specification.md at main · a2aproject/A2A · GitHub",
+   "url": "https://github.com/a2aproject/A2A/blob/main/docs/specification.md"
+  },
+  {
+   "chars_delivered": 965,
+   "published": null,
+   "text": "* MCP proxy server allows MCP clients to **dynamically register** (each\n  getting their own client\\_id)\n* The third-party authorization server sets a **consent cookie** after\n  the first authorization\n* MCP proxy server does not implement proper per-client consent before\n  forwarding to third-party…",
+   "title": "Security Best Practices",
+   "url": "https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices"
+  },
+  {
+   "chars_delivered": 945,
+   "published": null,
+   "text": "forwarding to third-party authorization\n\n#### Architecture and Attack Flows\n\n##### Normal OAuth proxy usage (preserves user consent)\n\n```mermaid theme={null}\nsequenceDiagram\n```\n\n...\n\n* Maintain a registry of approved `client_id` values per user\n* Check this registry **before** initiating the third…",
+   "title": "Security Best Practices",
+   "url": "https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices"
+  }
+ ],
+ "latency_ms": 2909.4,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q14",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: How are MCP and A2A being used as extension seams for agent platforms in production? What are the known problems: tool-count limits, auth and authorization (OAuth for MCP), security incidents like prompt injection via tools, and gateway or registry patterns that address them? Rank first primary sources: engineering posts, official docs and specs (MCP, A2A), conference talks, papers, security advisories and vendor incident write-ups, plus credible reporting. Pull mechanisms, numbers (tool-count limits, context token costs), names, dates, measured results, failure modes (tool poisoning, prompt injection, confused deputy, token passthrough), and gateway, registry and proxy patterns with named implementations.",
+   "search_queries": [
+    "MCP A2A production agent platform extension architecture",
+    "MCP OAuth authorization security tool poisoning prompt injection incidents",
+    "MCP gateway registry tool count limit context"
+   ],
+   "session_id": "sl-parallel.search-Q14-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11603,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:34.639529Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

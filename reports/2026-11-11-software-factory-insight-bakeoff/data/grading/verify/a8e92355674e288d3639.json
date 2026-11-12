@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "ca8d8fec7fd3acc5",
+ "url": "https://github.com/a2aproject/A2A/discussions/955",
+ "verdicts": {
+  "A team running 5 agents with 10 MCP tools each faced 50 possible tool invocations and used a coordinator agent that delegates to specialists via A2A-style delegation rather than calling MCP tools directly.": 1,
+  "Registering agents as MCP tools (the 'meta-tool' pattern) simplified the mental model but lost state tracking, multi-step workflow handling, and capability negotiation.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "beff41f82733ab87",
+ "claims": [
+  {
+   "text": "BCG describes a consumer goods company that used an AI agent to optimize global marketing campaigns; the project previously required six analysts per week and now requires a single employee working with the agent, delivering results in under an hour.",
+   "url": "https://www.bcg.com/capabilities/artificial-intelligence/ai-agents"
+  },
+  {
+   "text": "In BCG's consumer goods marketing example, the agent weekly gathers and joins marketing data via connected data pipelines, then analyzes campaign performance against expectations, receiving business context from an operator when necessary.",
+   "url": "https://www.bcg.com/capabilities/artificial-intelligence/ai-agents"
+  },
+  {
+   "text": "In BCG's consumer goods marketing example, the agent writes a standardized report proposing optimizations, and an operator stress tests and refines the recommendations as needed.",
+   "url": "https://www.bcg.com/capabilities/artificial-intelligence/ai-agents"
+  },
+  {
+   "text": "In BCG's consumer goods marketing example, the agent updates media buying platforms with its recommendations only when given human approval, which is the explicit human approval point.",
+   "url": "https://www.bcg.com/capabilities/artificial-intelligence/ai-agents"
+  },
+  {
+   "text": "BCG states a client case in which AI agents cut timelines in medical writing for a global pharmaceutical company.",
+   "url": "https://www.bcg.com/capabilities/artificial-intelligence/ai-agents"
+  },
+  {
+   "text": "Google Cloud reports that brands such as WPP and Authentic Brands Group use gen media models (Veo 3 and Imagen 4) to turn a single hypothesis into hundreds or thousands of personalized creative variations in hours.",
+   "url": "https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders"
+  },
+  {
+   "text": "Google Cloud's list of 1,302 customer use cases is organized into 11 industry groups and six agent types: Customer, Employee, Creative, Code, Data, and others.",
+   "url": "https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders"
+  },
+  {
+   "text": "Google Cloud describes supply chain agents communicating with compliance agents, which then trigger financial forecasting agents, autonomously, as an example of agentic teams orchestrating workflows.",
+   "url": "https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders"
+  },
+  {
+   "text": "Google Cloud says organizations use Gemini to build natural language interfaces on top of legacy systems such as 40-year-old SAP instances, mainframes and COBOL codebases, letting non-technical staff query siloed data.",
+   "url": "https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders"
+  },
+  {
+   "text": "Google Cloud states its customer agent solutions are built with tools such as Gemini Enterprise and Gemini CLI, which are general agent platforms rather than bespoke code.",
+   "url": "https://cloud.google.com/transform/101-real-world-generative-ai-use-cases-from-industry-leaders"
+  },
+  {
+   "text": "Lyzr describes multi-agent marketing orchestration in which one agent researches keywords, another writes the article, a third distributes it on social media, and a fourth analyzes performance and feeds insights back to improve the next cycle.",
+   "url": "https://www.lyzr.ai/blog/20-best-ai-agent-platforms/"
+  },
+  {
+   "text": "Lyzr's marketing platform comparison evaluates platforms on marketing-specific agents, multi-agent orchestration, no-code agent builders, CRM and marketing integrations (Salesforce, HubSpot, Google Analytics), SOC 2 and GDPR compliance, and pricing.",
+   "url": "https://www.lyzr.ai/blog/20-best-ai-agent-platforms/"
+  },
+  {
+   "text": "Lyzr's ranking lists Lyzr first, Jasper AI second (high-volume on-brand content, from $49/month), and Copy.ai third (automating go-to-market work).",
+   "url": "https://www.lyzr.ai/blog/20-best-ai-agent-platforms/"
+  },
+  {
+   "text": "Lyzr contrasts traditional rule-based marketing automation (if-this-then-that) with goal-based agents given objectives such as increasing blog traffic by 15% in a quarter.",
+   "url": "https://www.lyzr.ai/blog/20-best-ai-agent-platforms/"
+  },
+  {
+   "text": "PwC data cited by Firecrawl shows customer service and support (57%), sales and marketing (54%), and IT/cybersecurity (53%) as the three dominant business functions deploying agents.",
+   "url": "https://www.firecrawl.dev/blog/ai-agents"
+  },
+  {
+   "text": "LangChain's 2025 State of Agent Engineering survey found 57.3% of developers already have agents running in production.",
+   "url": "https://www.firecrawl.dev/blog/ai-agents"
+  },
+  {
+   "text": "Gartner projects 40% of enterprise apps will feature task-specific agents by the end of 2026, up from under 5% in 2025.",
+   "url": "https://www.firecrawl.dev/blog/ai-agents"
+  },
+  {
+   "text": "LangChain's survey reports research and summarizing as the most common individual agent task at 58%, followed by personal productivity at 53.5% and customer service at 45.8%.",
+   "url": "https://www.firecrawl.dev/blog/ai-agents"
+  },
+  {
+   "text": "MEV describes agentic workflows as staged systems (perceive, reason, act, validate, report) with agent roles such as extractor, auditor, planner and executor, built on LangGraph, LangChain, CrewAI, AutoGen and observability tools Langfuse and Arize.",
+   "url": "https://www.boldare.com/blog/multi-agent-ai-system-development-service/"
+  },
+  {
+   "text": "Boldare's multi-agent systems use ACP-based coordination between agents, human-in-the-loop checkpoints at consequential decisions, structured audit logging, and cost-control architecture.",
+   "url": "https://www.boldare.com/blog/multi-agent-ai-system-development-service/"
+  },
+  {
+   "text": "Boldare cites an analyst prediction that up to 60% of current AI agent projects will be abandoned, largely due to poor data readiness and architecture not designed to scale past a demo.",
+   "url": "https://www.boldare.com/blog/multi-agent-ai-system-development-service/"
+  },
+  {
+   "text": "IDC projects enterprises will run more than one billion AI agents by 2029.",
+   "url": "https://www.boldare.com/blog/multi-agent-ai-system-development-service/"
+  },
+  {
+   "text": "Anthropic's analysis of millions of Claude Code and API interactions found software engineering accounted for nearly 50% of agentic activity, with emerging use in healthcare, finance and cybersecurity, and most API agent actions low-risk and reversible.",
+   "url": "https://www.anthropic.com/research/measuring-agent-autonomy"
+  },
+  {
+   "text": "Anthropic found that among new Claude Code users roughly 20% of sessions use full auto-approve, rising to over 40% as users gain experience, while experienced users also interrupt more often.",
+   "url": "https://www.anthropic.com/research/measuring-agent-autonomy"
+  },
+  {
+   "text": "A Reddit r/AI_Agents post suggests that multi-agent designs where an orchestrator spawns many agents that all talk to each other mostly burn resources, questioning such architectures in production.",
+   "url": "https://www.reddit.com/r/AI_Agents/comments/1x2qpdj/multiagent_in_production_what_does_it_look_like/"
+  }
+ ],
+ "question_id": "Q22"
+}

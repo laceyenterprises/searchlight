@@ -1,0 +1,23 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "7f0120466d1bcc3b",
+ "claims": [
+  {
+   "text": "Anthropic's merged code changes grew from about 2,500 per day in May 2026 to over 30,000 per day by September 2026.",
+   "url": null
+  },
+  {
+   "text": "Anthropic could not replicate a global repository lock on the merge queue at agent scale, and relies on post-merge and pre-deploy automated testing.",
+   "url": null
+  },
+  {
+   "text": "A 30-minute merge-group CI run caps a strictly serial merge queue at about 2 PRs per hour.",
+   "url": null
+  },
+  {
+   "text": "Graphite's merge queue is stack-aware, landing PR stacks as a unit in dependency order.",
+   "url": null
+  }
+ ],
+ "question_id": "Q21"
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "f3611b52343699d1",
+ "url": "https://www.developersdigest.tech/blog/durable-ai-agent-frameworks-compared-2026",
+ "verdicts": {
+  "On a Temporal crash, completed activities are replayed from history, but the in-flight activity is restarted from the beginning, so a tool like issue_refund still needs an idempotency key.": 1,
+  "Pydantic AI docs warn Temporal's default RetryPolicy.maximum_attempts of 0 means unbounded re-execution of model requests, and recommend disabling the provider client's own retries (e.g. max_retries=0) to avoid retry multiplication.": 1
+ }
+}

@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:31.566019Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 976,
+   "page_chars_delivered": 41520,
+   "post_step": "fetched",
+   "published": null,
+   "text": "|**Google ADK** |Agent development kit |LLM agents, workflow agents, graph workflows, and dynamic workflows |Google Cloud, Gemini, multimodal, MCP, and A2A-oriented systems |\n\n...\n\n|**Amazon Bedrock AgentCore** |Managed agent platform |Runs and governs agents built with other SDKs and frameworks |T…",
+   "title": "AI agent frameworks compared: LangGraph, CrewAI, AutoGen, and more",
+   "url": "https://arize.com/guides/ai-agent-handbook/agent-frameworks"
+  },
+  {
+   "chars_delivered": 846,
+   "page_chars_delivered": 11233,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Amazon Bedrock AgentCore is an agentic platform for building, deploying, and operating highly effective agents securely at scale using any framework and foundation model.\n\n...\n\nAgentCore services work together or independently with any open-source framework such as CrewAI, LangGraph, LlamaIndex, an…",
+   "title": "Overview - Amazon Bedrock AgentCore",
+   "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/"
+  },
+  {
+   "chars_delivered": 950,
+   "page_chars_delivered": 5904,
+   "post_step": "fetched",
+   "published": null,
+   "text": "# LangGraph overview\n\n> Low-level orchestration framework and runtime for long-running, stateful agents\n\nLangGraph is a low-level orchestration framework and runtime for long-running, stateful agents. You define workflows as graphs of shared state, nodes, and edges, and can mix deterministic steps…",
+   "title": "LangGraph overview",
+   "url": "https://docs.langchain.com/oss/python/langgraph/overview"
+  },
+  {
+   "chars_delivered": 994,
+   "published": "2026-10-28",
+   "text": "us/agent-framework/concepts/harness)** |An opinionated agent with batteries-included capabilities for long, multi-step tasks — planning and todo tracking, context compaction, file access and memory, don't-ask-again tool approval, and observability. |\n|**[Workflows](https://learn.microsoft.com/en-us…",
+   "title": "Microsoft Agent Framework Overview | Microsoft Learn",
+   "url": "https://learn.microsoft.com/en-us/agent-framework/overview"
+  },
+  {
+   "chars_delivered": 832,
+   "published": "2026-09-22",
+   "text": "Microsoft Agent Framework is the convergence of AutoGen and Semantic Kernel into a single supported framework. It inherits AutoGen's event-driven, actor-model core along with Semantic Kernel's enterprise plumbing.\n\n...\n\nGoogle's Agent Development Kit launched in April 2025 and reached 2.0 for Pytho…",
+   "title": "Top Agent Frameworks To Use in 2026: A Comparison | Splunk",
+   "url": "https://www.splunk.com/en_us/blog/learn/agent-frameworks.html"
+  },
+  {
+   "chars_delivered": 926,
+   "published": null,
+   "text": "The following table compares the maturity levels (strongest, strong, adequate, or weak) of each framework across key technical dimensions.\n\n...\n\n| Framework | AWS integration | Autonomous multi-agent support | Autonomous workflow complexity | Multimodal capabilities | Foundation model selection | L…",
+   "title": "Comparing agentic AI frameworks",
+   "url": "https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-frameworks/comparing-agentic-ai-frameworks.html"
+  },
+  {
+   "chars_delivered": 959,
+   "published": "2026-06-06",
+   "text": "This guide compares seven frameworks: LangChain, CrewAI, Microsoft Agent Framework, LlamaIndex Workflows, Google ADK, OpenAI Agents SDK, and Mastra.\n\n## TL;DR\n\n...\n\n* Choose **OpenAI Agents SDK** if you need tightly scoped assistants and clean multi-agent delegation with minimal abstraction.\n\n...…",
+   "title": "The best AI agent frameworks in 2026",
+   "url": "http://www.langchain.com/resources/ai-agent-frameworks"
+  },
+  {
+   "chars_delivered": 944,
+   "published": "2026-05-11",
+   "text": "*\n\n# Framework Showdown: LangGraph vs CrewAI vs Google ADK vs Managed Agents\n\nMay 11, 2026 • 7 min read\n\n...\n\n* **LangGraph** bet on **state machines as the right abstraction** — primitives for nodes, edges, reducers, checkpointers; control flow you write yourself.\n* **CrewAI** bet on **roles and c…",
+   "title": "Framework Showdown: LangGraph vs CrewAI vs Google ADK vs Managed Agents | Bharat Bhavnasi",
+   "url": "https://bvsbharat.com/posts/2026/agents-arch/19-framework-comparison"
+  },
+  {
+   "chars_delivered": 946,
+   "published": null,
+   "text": "Amazon Bedrock AgentCore is an agentic platform for building, deploying, and operating highly effective agents securely at scale using any framework and foundation model. With AgentCore, you can enable agents to take actions across tools and data with the right permissions and governance, run agent…",
+   "title": "Overview - Amazon Bedrock AgentCore",
+   "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/what-is-agentcore.html"
+  },
+  {
+   "chars_delivered": 896,
+   "published": null,
+   "text": "AgentCore works with custom frameworks and any open-source framework, including CrewAI, LangGraph, LlamaIndex, Google ADK, OpenAI Agents SDK, and [Strands Agents](https://strandsagents.com/) .\n\n#### What open source protocols does AgentCore support?\n\nAgentCore supports Model Context Protocol (MCP)…",
+   "title": "Amazon Bedrock AgentCore FAQs - AWS",
+   "url": "https://aws.amazon.com/bedrock/agentcore/faqs/"
+  }
+ ],
+ "latency_ms": 2706.8,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q12",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Compare the general-purpose agent platforms: LangGraph Platform, CrewAI, Microsoft Agent Framework (AutoGen + Semantic Kernel), OpenAI Agents SDK, Google ADK / Vertex Agent Engine, and AWS Bedrock AgentCore. Cover runtime, state and memory, deployment, identity and auth, observability, and how multi-agent systems are composed. Pages that should rank first are primary sources: official documentation, vendor engineering blogs, GitHub repositories and READMEs, conference talks, and architecture docs from LangChain, CrewAI, Microsoft, OpenAI, Google Cloud, and AWS, followed by credible independent comparisons and reporting. Pull out mechanisms (durable execution, checkpointing, memory stores, session handling), deployment options, identity and auth models (OAuth, IAM, workload identity), tracing and observability integrations (OpenTelemetry), multi-agent composition patterns (handoffs, graphs, crews, group chat, agent-to-agent protocols), plus names, release dates, numbers, benchmarks, and known limitations or failure modes.",
+   "search_queries": [
+    "LangGraph CrewAI OpenAI Agents SDK comparison multi-agent",
+    "Microsoft Agent Framework AutoGen Semantic Kernel architecture",
+    "Google ADK Agent Engine vs Bedrock AgentCore"
+   ],
+   "session_id": "sl-parallel.search-Q12-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11840,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:28.859159Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

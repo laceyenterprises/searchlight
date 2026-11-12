@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "912d89464e2c41e3",
+ "url": "https://www.solo.io/blog/building-real-time-ai-cost-controls-with-agentgateway",
+ "verdicts": {
+  "In the Solo.io example, an organization with a $10,000 monthly AI budget gives an evaluation job a $500 allocation; when it is exhausted the gateway rejects the next provider request while a production support agent charged to a different budget is unaffected.": 1,
+  "The agentgateway reference implementation enforces dollar-denominated budgets at the gateway via External Processing: it validates the caller and overwrites trusted identity headers, reserves estimated budget before the LLM request leaves, settles the reservation with provider-reported token usage, then alerts and forecasts.": 1,
+  "The agentgateway reference implementation supports hierarchical budgets, pre-request reservations, actual-cost settlement, forecasting, approvals, rate limits and a management UI; Solo Enterprise for agentgateway natively provides request and token rate limiting and LLM cost-tracking metrics.": 1
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "9fdd159622399d77",
+ "url": "https://www.marktechpost.com/2026/10/31/factory-droid-1-0-frontier-harness/",
+ "verdicts": {
+  "A Droid CI sweep covered 5,384 jobs across 547 runs in 2 requests.": 1,
+  "Droid 1.0 has bounded autonomy: 3 identical tool calls trigger a nudge and 6 stop the loop, and compaction summaries hold 16,000 tokens, up from 8,000.": 1,
+  "Droid 1.0 scored 65.2% on Terminal-Bench 4 with Claude Opus 5.5 at $4.73 per passed task (self-reported); with GPT-6.1 Sol it takes 10% longer per passed task than Codex.": 1,
+  "In Droid's Script tool, raw files, search results, and logs stay inside the program, only printed output returns to the model, and independent calls run concurrently.": 1,
+  "In a Droid Linear cleanup task, 151 issues were moved and verified in 312 tool calls using 2 requests and about 61,000 tokens, versus about 36 requests and 3.1M tokens when models direct calls.": 1,
+  "Most Droid changes came from an internal Agent Factory loop in which agents read failures and propose changes, tested on every affected model family, with engineers reviewing and merging.": 1,
+  "On Claude Opus 5.5, Script mode cuts Droid's cost by 15% versus direct tool calling.": 1,
+  "On Terminal-Bench 4 (self-reported), Droid scored 65.2% with Claude Opus 5.5 versus Cursor and OpenCode 62.1%, Devin 59.6%, and Claude Code 57.6%, at up to 24% lower cost; the best result cost $4.73 per passed task.": 1,
+  "With GPT-6.1 Sol on Terminal-Bench 4, Droid scored 57.6% at $0.79 per passed task versus Codex 54.0%, OpenCode 51.0%, and Devin 45.0%.": 1
+ }
+}

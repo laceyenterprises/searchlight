@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:15.800882Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 975,
+   "page_chars_delivered": 13787,
+   "post_step": "fetched",
+   "published": "2026-06-03",
+   "text": "That idea became Fleet Management, and the underlying system we built to execute it is called [Fleetshift](https://backstage.spotify.com/fleetshift) .\n\n...\n\nTo date, we’ve merged more than 2.5 million automated maintenance PRs, the vast majority auto-merged with no human in the loop.\n\n...\n\n## Meet…",
+   "title": "Coding Is No Longer the Constraint: Scaling Developer Experience to Teams and Agents at Spotify | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "chars_delivered": 980,
+   "page_chars_delivered": 14022,
+   "post_step": "fetched",
+   "published": "2026-09-21",
+   "text": "We built Helix to help LLMs rebuild the Shopify app in Swift and Kotlin, using small checkpoints and strict quality gates to keep the code shippable.\n\n...\n\nHelix is a set of tools and skills that help LLMs migrate features and screens from the React Native app while following a highly opinionated a…",
+   "title": "Helix: The internal tool powering our Shopify app's native migration (2026) - Shopify",
+   "url": "https://shopify.engineering/helix"
+  },
+  {
+   "chars_delivered": 910,
+   "page_chars_delivered": 13431,
+   "post_step": "fetched",
+   "published": "2026-04-22",
+   "text": "In this blog post, we give a case study of how one team at Spotify used Honk with our Backstage and Fleet Management platforms to ease the pain of migrating thousands of dataset consumers onto new dataset versions — saving an estimated 10 engineering weeks in the process.\n\n...\n\nWe estimated that it…",
+   "title": "Background Coding Agents: Supercharging Downstream Consumer Dataset Migrations (Honk, Part 4) | Spotify Engineering",
+   "url": "http://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "chars_delivered": 920,
+   "published": "2026-06-03",
+   "text": "To date, we’ve merged more than 2.5 million automated maintenance PRs, the vast majority auto-merged with no human in the loop.\n\n...\n\n## Meet Honk, our background coding agent\n\nFleet Management worked beautifully for simple changes, but complex code modifications — replacing API calls, refactoring…",
+   "title": "Coding Is No Longer the Constraint: Scaling Developer Experience to Teams and Agents at Spotify | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint?utm_source=tldrdevops"
+  },
+  {
+   "chars_delivered": 975,
+   "published": "2025-11-06",
+   "text": "This post explores how we have evolved our Fleet Management platform with background coding agents and what more than 1,500 merged AI-generated pull requests have taught us about the future of large-scale software maintenance.\n\n## Automating toil using Fleet Management\n\nFleet Management is a powerf…",
+   "title": "1,500+ PRs Later: Spotify’s Journey with Our Background Coding Agent (Honk, Part 1) | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "chars_delivered": 936,
+   "published": null,
+   "text": "More than 70% of pull requests are attributed to local or cloud agents. Engineers have built over 3,600 agent skills across the software development life cycle, and executed more than 30K agent skill executions per day.\n\nAt the AI Engineer 2026 conference, we shared [our vision](https://youtu.be/17…",
+   "title": "Running a Software Factory Efficiently at Uber Scale",
+   "url": "https://www.uber.com/us/en/blog/efficient-software-factory?uclick_id"
+  },
+  {
+   "chars_delivered": 954,
+   "published": "2026-02-19",
+   "text": "# How Ramp built a full context background coding agent on Modal\n\nRamp uses Modal to power [Ramp Inspect](https://builders.ramp.com/post/why-we-built-our-background-agent) , an internal background coding agent that now writes [over half](https://x.com/rahulgs/status/2020984194038628832?s=20) of all…",
+   "title": "How Ramp built a full context background coding agent on Modal",
+   "url": "https://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal"
+  },
+  {
+   "chars_delivered": 936,
+   "published": null,
+   "text": "More than 70% of pull requests are attributed to local or cloud agents. Engineers have built over 3,600 agent skills across the software development life cycle, and executed more than 30K agent skill executions per day.\n\nAt the AI Engineer 2026 conference, we shared [our vision](https://youtu.be/17…",
+   "title": "Running a Software Factory Efficiently at Uber Scale",
+   "url": "https://www.uber.com/blog/efficient-software-factory"
+  },
+  {
+   "chars_delivered": 978,
+   "published": null,
+   "text": "At the AI Engineer 2026 conference, we shared [our vision](https://youtu.be/17-YSUHo6Lk?si=EbqFAc2UwHX_3wSc) for the Software Factory and the building blocks and managed agents we are building across the lifecycle. As we progress on that vision, a growing share of sessions aren’t initiated by human…",
+   "title": "Running a Software Factory Efficiently at Uber Scale",
+   "url": "https://www.uber.com/us/en/blog/efficient-software-factory/"
+  },
+  {
+   "chars_delivered": 995,
+   "published": "2025-12-09",
+   "text": "👉What environment does an agent, running without direct human supervision, need to produce correct and reliable results as often as possible?\n\n## How things fail\n\nOn a high level, when we run agentic code changes across thousands of different [software\n\n...\n\n**The background agent fails to produce…",
+   "title": "Background Coding Agents: Predictable Results Through Strong Feedback Loops (Honk, Part 3) | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  }
+ ],
+ "latency_ms": 2697.5,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q07",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "What have Ramp, Spotify (Honk / Fleet Management), Shopify, Uber, Airbnb or Meta published about their internal background coding agents or fleet-wide automated code migrations? Include architecture, verification approach and measured outcomes. Rank first primary sources: the organisations' own engineering blog posts, docs, talks, papers and code, then credible reporting. Pull out mechanisms (agent architecture, sandboxes, orchestration, PR workflow), verification methods (tests, CI, LLM judges, human review), numbers, names, dates, measured results (PRs merged, time saved, migration success rates) and failure modes.",
+   "search_queries": [
+    "Spotify Honk background coding agent Fleet Management",
+    "Ramp Uber Airbnb background coding agent engineering blog",
+    "Meta Shopify automated code migration LLM agents fleet-wide"
+   ],
+   "session_id": "sl-parallel.search-Q07-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 12354,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:13.103348Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

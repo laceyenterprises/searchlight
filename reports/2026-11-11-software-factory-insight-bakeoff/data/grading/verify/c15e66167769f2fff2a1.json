@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "2c508d93cfb94dac",
+ "url": "https://agent-atlas.blackarcindustrial.com/papers/agentic-context-engineering/",
+ "verdicts": {
+  "ACE (Agentic Context Engineering) stores context as a playbook of itemized bullets, each with an ID and helpful/harmful counters, and uses three roles: a Generator that solves tasks, a Reflector that extracts lessons, and a Curator that forms small delta updates merged by deterministic non-LLM logic.": 1,
+  "ACE reduced adaptation latency by 82.3% and rollouts by 75.1% versus GEPA offline on AppWorld, and reduced latency by 91.5% and token cost by 83.6% versus Dynamic Cheatsheet online on FiNER.": 1,
+  "ACE's evidence is limited: two task families (agents and financial XBRL), mostly one base model (DeepSeek-V3.1), and the same model for all three roles; the review also notes its helpful/harmful counters are monotonic without recency decay and contradictory bullets are not reconciled.": 1,
+  "ACE's grow-and-refine step appends new bullets, updates counters in place, and prunes semantically redundant bullets via embedding de-duplication; the review notes that overly aggressive de-dup reintroduces brevity bias while loose de-dup lets the playbook bloat.": 1,
+  "In an ACE AppWorld example, an LLM full rewrite shrank the context from 18,282 tokens (66.7% accuracy) to 122 tokens (57.1% accuracy), below the 63.7% no-adaptive-context baseline; this is the 'context collapse' failure mode.": 1,
+  "On AppWorld with DeepSeek-V3.1, offline ReAct+ACE averaged 59.4% versus 46.0% for in-context learning and 46.4% for GEPA, and online ACE averaged 66.0% versus 52.3% for Dynamic Cheatsheet; ACE also gained 14.8% over the ReAct baseline using only execution feedback, without labels.": 1,
+  "Prompt optimizers such as GEPA and MIPROv2 tend toward short, generic instructions ('brevity bias'), discarding API quirks and error patterns that matter for tool-using agents.": 1,
+  "The ACE review suggests injecting only the top-k relevant bullets per query because the paper feeds the whole playbook, and suggests gating deltas with a verifier before merging to avoid label-free degradation.": 1,
+  "Without reliable labels or execution feedback, ACE (and Dynamic Cheatsheet) can pollute their own context with spurious lessons and degrade below baseline.": 1
+ }
+}

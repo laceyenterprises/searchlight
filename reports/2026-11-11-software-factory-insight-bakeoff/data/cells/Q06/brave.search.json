@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:06.279552Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 3798,
+   "published": null,
+   "text": "# Minions: Stripe’s one-shot, end-to-end coding agents—Part 2\nAs a recap of Part 1 in this blog miniseries, minions are a homegrown unattended agentic coding flow at Stripe. Over 1,300 Stripe pull requests (up from 1,000 as of Part 1) merged each week are completely minion-produced, human-reviewed,…",
+   "title": "Minions: Stripe’s one-shot, end-to-end coding agents—Part 2",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "chars_delivered": 3988,
+   "published": null,
+   "text": "# Minions: Stripe’s one-shot, end-to-end coding agents\nMinions are Stripe’s homegrown coding agents. They’re fully unattended and built to one-shot tasks. Over a thousand pull requests merged each week at Stripe are completely minion-produced, and while they’re human-reviewed, they contain no human…",
+   "title": "Minions: Stripe’s one-shot, end-to-end coding agents",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "chars_delivered": 5741,
+   "published": null,
+   "text": "# How Stripe’s Minions Ship 1,300 PRs a Week\n## npx workos: An AI Agent That Writes Auth Directly Into Your Codebase (Sponsored)\nEvery week, Stripe merges over 1,300 pull requests that contain zero human-written code. Not a single line. These PRs are produced by “Minions,” Stripe’s internal coding…",
+   "title": "How Stripe’s Minions Ship 1,300 PRs a Week",
+   "url": "https://blog.bytebytego.com/p/how-stripes-minions-ship-1300-prs"
+  },
+  {
+   "chars_delivered": 11586,
+   "published": null,
+   "text": "# Stripe Minions Explained: How Stripe Ships 1,000+ Agent-Written PRs Per Week\nStripe has documented a large-scale internal AI coding agent system, merging over 1,300 pull requests per week with zero human-written code. The system, called Minions, represents a shift from AI-assisted coding to fully…",
+   "title": "Stripe Minions Explained: How Stripe Ships 1,000+ Agent-Written PRs Per Week",
+   "url": "https://www.mintive.com/blog/stripe-minions-explained"
+  },
+  {
+   "chars_delivered": 5459,
+   "published": null,
+   "text": "# Stripe's AI 'Minions' Now Ship 1,300 Pull Requests Per Week With Zero Human-Written Code\nStripe reveals its autonomous coding agents, called Minions, now generate over 1,300 merged pull requests weekly - all reviewed by humans but written entirely by AI.\n\nStripe just published the second installm…",
+   "title": "Stripe's AI 'Minions' Now Ship 1,300 Pull Requests Per Week With Zero Human-Written Code",
+   "url": "https://awesomeagents.ai/news/stripe-minions-coding-agents-1300-prs/"
+  },
+  {
+   "chars_delivered": 14307,
+   "published": null,
+   "text": "Stripe ships 1,300 AI-generated pull requests every week, validated against over 3 million tests, with zero human-written code. The architecture is not a magic prompt. It is a harness with deterministic nodes that cannot be skipped, argued out of, or forgotten.\n\nDotzlaw Consulting\n\nHome\n\nServices…",
+   "title": "Stripe Minions and the Hybrid Secret: Deterministic Rails Around AI - Dotzlaw Consulting",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/"
+  },
+  {
+   "chars_delivered": 6721,
+   "published": null,
+   "text": "Stripe built homegrown unattended coding agents called Minions that one-shot entire tasks from Slack message to merged pull request. Over a thousand PRs per week at Stripe are fully mi... You'll learn: Why Stripe built custom unattended coding agents instead of using off-the-shelf tools intermediat…",
+   "title": "Minions: Stripe’s one-shot, end-to-end coding agents",
+   "url": "https://www.engineering.fyi/article/minions-stripe-s-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "chars_delivered": 6201,
+   "published": null,
+   "text": "# 💼 How Stripe's Minions turn a Slack message into a pull request\n> - Stripe runs \"Minions\": unattended coding agents. An engineer posts a task in Slack, and a pull request (PR) comes back later. Stripe reportedly merges 1,300+ of these PRs per week, and humans review every one.\n> - The model is no…",
+   "title": "ai-daily-study-notes/lessons/2026-10-09-stripe-minions-unattended-coding-agents.md at main · Simran308/ai-daily-study-notes · GitHub",
+   "url": "https://github.com/Simran308/ai-daily-study-notes/blob/main/lessons/2026-10-09-stripe-minions-unattended-coding-agents.md"
+  },
+  {
+   "chars_delivered": 4168,
+   "published": null,
+   "text": "Stripe’s Minions agent generates 1,300+ PRs per week with zero human effort. Implementation details of the four components: Devbox, Blueprints, Toolshed, and a fork of goose.\n\n# Inside the Architecture of Stripe’s AI Coding Agent “Minions”\nStripe has published the second part of its article on the…",
+   "title": "Inside the Architecture of Stripe’s AI Coding Agent “Minions”",
+   "url": "https://lilting.ch/en/articles/stripe-minions-agent-architecture"
+  },
+  {
+   "chars_delivered": 2361,
+   "published": null,
+   "text": "# Stripe Minions\n## What they do\nStripe Minions are one-shot coding agents. A run takes a disposable devbox from a warm pool, calls a curated slice of internal tools, and opens a pull request. In the sandbox notes, a \"devbox\" is a standardized AWS EC2 instance preloaded with the source tree and war…",
+   "title": "software-factory/docs/practitioners/stripe-minions.md at main · Chipagosfinest/software-factory · GitHub",
+   "url": "https://github.com/Chipagosfinest/software-factory/blob/main/docs/practitioners/stripe-minions.md"
+  }
+ ],
+ "latency_ms": 1234.5,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q06",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How does Stripe's 'Minions' system produce unattended pull requests at scale? Cover the devbox and sandbox model, the blueprint/workflow mix of deterministic and agentic steps, CI and review, and volume numbers.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 73299,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:05.044992Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "11a4c12588645b41",
+ "url": "https://developers.openai.com/codex/cloud/internet-access",
+ "verdicts": {
+  "Agent internet access in Codex cloud is configured per environment: Off blocks all access; On allows access that can be limited by a domain allowlist and HTTP methods.": 1,
+  "Codex cloud network requests can be restricted to only GET, HEAD, and OPTIONS, blocking POST, PUT, PATCH, DELETE and other methods.": 1,
+  "Codex cloud setup scripts run with full internet access, after which control passes to the agent, and agent internet access defaults to off.": 0,
+  "OpenAI warns that enabling agent internet access risks prompt injection, exfiltration of code or secrets, malware or vulnerabilities, and license-restricted content; its example is a GitHub issue with hidden instructions to run a curl POST that leaks the last commit message.": 1,
+  "The Codex domain allowlist presets are None (empty), Common dependencies (a preset list of package-management and source-control domains), and All (unrestricted); extra domains can be added to None or Common dependencies.": 1,
+  "The Common dependencies allowlist includes domains such as github.com, npmjs.org, pypi.org, crates.io, rubygems.org, maven.org, golang.org, docker.io and nuget.org.": 1
+ }
+}

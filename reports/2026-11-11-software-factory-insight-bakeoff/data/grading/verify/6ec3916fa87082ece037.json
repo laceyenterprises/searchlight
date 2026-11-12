@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "d25bd84fad6f210e",
+ "url": "https://raw.githubusercontent.com/strongdm/attractor/main/coding-agent-loop-spec.md",
+ "verdicts": {
+  "The Attractor coding-agent loop spec defaults to a 10-second command timeout, a 10-minute maximum, loop detection over a 10-call window of identical calls, and max_subagent_depth of 1; it explicitly puts MCP, sandboxing, compaction and approval gates out of scope.": 1
+ }
+}

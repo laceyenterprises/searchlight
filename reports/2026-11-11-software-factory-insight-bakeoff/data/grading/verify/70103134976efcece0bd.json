@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "7444124e37184be4",
+ "url": "https://www.context.ai/trust-center/identity",
+ "verdicts": {
+  "Context evaluates each decision in the order deny, then allow, then refuse, with default denial, and binds the specific resource into the decision (principal, action, object) to close confused-deputy bugs.": 1,
+  "Context issues one key per agent run, revokes it when the run ends (24 hours at most), injects credentials at the edge so the sandbox holds no standing secret, and re-resolves the key on every request so revoked keys are refused on the next call.": 1,
+  "Context's audit log records each request and decision with actor, outcome (Asked, Allowed, Blocked, Granted, Recorded, Expired, Revoked) and the person the agent acted for, including refused requests, and exports up to 1,000 rows as CSV.": 1,
+  "Context's authorization is evaluated per action rather than per session; a preset decides which actions wait for the requester's approval, and an approval lasts once, for the task, or always.": 1,
+  "In Context, agents do not hold credentials; credentials are brokered to the connector at runtime using either delegated user identity or a scoped service identity, never written into prompts, and the destination system remains the final enforcement point.": 1,
+  "In Context, an 'always' approval expires after 90 days and covers only the exact tool and target it was given for.": 1
+ }
+}

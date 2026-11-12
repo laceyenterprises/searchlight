@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "2ef63682849f804b",
+ "claims": [
+  {
+   "text": "StrongDM's Software Factory is non-interactive development in which specs plus scenarios drive agents that write code, run harnesses, and converge without human review.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's stated rules are that code must not be written by humans and that code must not be reviewed by humans.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's practical guideline is that a software factory has room for improvement if it has not spent at least $1,000 on tokens per human engineer that day.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The StrongDM AI team was founded on July 14th, 2025 by Justin McCarthy (co-founder and CTO), Jay Taylor and Navan Chauhan.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM cites the October 2024 second revision of Claude 3.5 as the catalyst: long-horizon agentic coding workflows began to compound correctness rather than error.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The team's charter included the line 'Hands off!', and its early experiment of writing no code by hand failed until tests were added.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "Agents given only tests took shortcuts such as 'return true', which passes narrowly written tests but does not generalize to the software wanted.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM argues a test stored in the codebase can be lazily rewritten to match the code, or the code rewritten to trivially pass the test, so tests were insufficient.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM repurposed 'scenario' to mean an end-to-end user story, often stored outside the codebase like a holdout set in model training, which an LLM can intuitively understand and flexibly validate.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "Because much of the software StrongDM grows has an agentic component, it replaced boolean success (test suite green) with 'satisfaction': the fraction of observed trajectories through all scenarios that likely satisfy the user.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM names two limits of conventional tests: they are too rigid (LLM-as-judge was often needed) and they can be reward hacked by the model.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The Digital Twin Universe (DTU) consists of behavioral clones of third-party services, with twins of Okta, Jira, Slack, Google Docs, Google Drive and Google Sheets replicating their APIs, edge cases and observable behaviors.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "With the DTU, StrongDM can run thousands of scenarios per hour without hitting rate limits, triggering abuse detection or accumulating API costs, and can test failure modes that would be dangerous or impossible against live services.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM argues high-fidelity SaaS clones were always possible but never economically feasible until agents made them routine.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM lists four DTU benefits: high-volume validation, testing dangerous failure modes, avoiding abuse detection, and determinism (replayable, controlled test conditions).",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "StrongDM builds DTU test doubles from API contracts and observed edge cases, then validates them against the live dependency until no more behavioral differences are found.",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "text": "Simon Willison reports that the DTU clones were built by feeding a service's full public API documentation into the agent harness and having it build an imitation as a self-contained Go binary, with a simplified UI on top.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "text": "Jay Taylor said the DTU's fidelity strategy was to use the most popular public reference SDK client libraries as compatibility targets, with the goal of 100% compatibility.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "text": "The software StrongDM demonstrated manages user permissions across connected services, which Willison found notable because it is security software built with unreviewed LLM code.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "text": "Willison compares holdout scenarios, which are evaluated but not visible to the coding agents, to aggressive testing by an external QA team.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "text": "Willison flags the $1,000/day per engineer figure as roughly $20,000/month per engineer, which he says makes the approach a business-model question and less interesting if the cost is real.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "text": "StrongDM released Attractor, a non-interactive coding agent whose repo contains only three markdown spec files and no code, and cxdb, an AI context store holding conversation histories and tool outputs in an immutable DAG.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "text": "StrongDM treats code like an ML model snapshot: opaque weights whose correctness is inferred only from externally observable behavior, validated automatically without semantic inspection of source.",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "text": "StrongDM's loop of seed, end-to-end validation harness and feedback runs until the holdout scenarios pass and stay passing.",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "text": "Willison saw StrongDM's working demos in October 2025, when the three-person team was three months old, with the agent harness, DTU clones of about six services and a swarm of simulated test agents running scenarios.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  }
+ ],
+ "question_id": "Q01"
+}

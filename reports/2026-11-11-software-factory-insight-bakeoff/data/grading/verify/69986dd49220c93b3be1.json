@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "db313ac687bd98ff",
+ "url": "https://pyor.review/blog/github-merge-queue-alternatives",
+ "verdicts": {
+  "Aviator's docs state that its default sequential queue mode with a 30-minute test suite caps at about 48 merges a day; Aviator also offers parallel mode and a no-queue mode.": 1,
+  "Mergify runs queue CI on draft PRs with speculative parallel checks (up to 128 per its docs), and failed batches split into at least two parts and keep splitting until the single failing PR is removed.": 1
+ }
+}

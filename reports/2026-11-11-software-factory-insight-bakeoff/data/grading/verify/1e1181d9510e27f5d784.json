@@ -1,0 +1,10 @@
+{
+ "capture": "uncapturable",
+ "digest": "b5e897e80e4b1c39",
+ "url": "https://factory.com/news/missions-architecture\\n[66",
+ "verdicts": {
+  "A single Factory Missions run that built a Slack clone took 16.5 hours: 0.38 h orchestration (2.3%), 9.98 h implementation (60.5%), 6.14 h validation (37.2%). It used 185 agent runs (63 workers and 27 validators across 82 subagents) and 778.5M tokens, and produced 38.8k lines of code, 52.5% of them tests, at 89.25% statement coverage.": null,
+  "Missions uses an orchestrator, workers and validators. The orchestrator writes a validation contract (a finite checklist of testable behavioral assertions) before defining features, so the contract is not contaminated by the planned implementation. Workers start with fresh context and write tests before code.": null,
+  "Missions validation has two kinds of validators: scrutiny validators review each worker's implementation and trajectory, and user-testing validators exercise the system as a black box against the contract. Validators do not fix issues; the orchestrator creates fix features that run before the milestone is re-validated.": null
+ }
+}

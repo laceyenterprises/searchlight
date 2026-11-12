@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "52626a54399a3e7f",
+ "url": "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/model-context-protocol",
+ "verdicts": {
+  "Foundry Toolbox gives agents a single MCP-compatible endpoint so tools can be added, removed, or reconfigured without changing agent code, and it works with runtimes such as Microsoft Agent Framework and LangGraph.": 1,
+  "Foundry non-streaming MCP tool calls time out after 100 seconds; longer operations require background mode with a supported model, and long-running MCP tasks support is in preview.": 1,
+  "Foundry private MCP server connectivity requires Standard Agent Setup with private networking (BYO VNet); basic agent setup does not support private MCP endpoints.": 1,
+  "Foundry supports MCP auth types including no auth, custom-keys headers (e.g., GitHub PAT), OAuth (Foundry-managed or bring-your-own app), user Entra token, project managed identity, and agentic identity.": 1,
+  "Microsoft Foundry Agent Service accepts only remote MCP server endpoints; local MCP servers must be self-hosted, e.g., on Azure Container Apps or Azure Functions.": 1
+ }
+}

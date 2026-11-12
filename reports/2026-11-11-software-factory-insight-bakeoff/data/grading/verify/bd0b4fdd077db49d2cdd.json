@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "51171209ccf9eef6",
+ "url": "https://docs.dbos.dev/ai/hitl",
+ "verdicts": {
+  "DBOS agents can publish status with DBOS.set_event (e.g. 'working', 'pending_approval', 'denied') and external code can read it with DBOS.get_event, letting a frontend show what an agent is doing.": 1,
+  "DBOS's workflow introspection API (list_workflows with status PENDING) combined with get_event can be used to build an 'inbox' of all agents currently waiting for human input.": 1,
+  "DBOS.recv, called inside a workflow, durably waits for a message with a timeout (e.g. `DBOS.recv(timeout_seconds=TIMEOUT)`), allowing an agent to wait hours or days for human input.": 1,
+  "DBOS.send persists messages to the database, so if `send` completes successfully the destination workflow is guaranteed to receive it; it can be called from an HTTP endpoint to deliver human responses to an agent.": 1,
+  "In DBOS, the workflow's progress is checkpointed and both the deadline and the notification are stored in the database, so a waiting agent recovers and keeps waiting after server restarts or code upgrades until the notification arrives or the deadline is reached.": 1
+ }
+}

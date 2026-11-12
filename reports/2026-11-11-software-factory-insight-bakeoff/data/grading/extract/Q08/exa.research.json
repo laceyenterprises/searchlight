@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "9cf06af7c3b941f1",
+ "claims": [
+  {
+   "text": "Anthropic's multi-agent research system with a Claude Opus 4 lead agent and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research evaluation.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "In Anthropic's BrowseComp analysis, token usage alone explained 80% of performance variance, and token usage, tool-call count and model choice together explained 95%.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "Agents use about 4x the tokens of chat, and multi-agent systems use about 15x the tokens of chat, so Anthropic recommends multi-agent systems only for tasks valuable enough to justify the extra cost.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "Parallelism (3-5 concurrent subagents, each making three or more parallel tool calls) reduced research time by up to 90% on complex queries.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "Early versions of the research system sometimes spawned 50 subagents for simple questions, searched endlessly for nonexistent sources, and continued after having sufficient information; Anthropic added scaling rules and stopping guidance.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "The research system's prompt guidelines set effort budgets: one agent with 3-10 tool calls for simple fact-finding, 2-4 subagents with 10-15 calls each for comparisons, and more than 10 subagents for complex research.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "Vague delegation instructions caused duplicate searches, gaps and mismatched scopes; for example, one subagent researched the 2021 chip crisis while others duplicated 2025 supply-chain research. Delegations should specify objective, output format, tool guidance and boundaries.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "The research system uses an orchestrator-worker architecture in which a LeadResearcher plans and delegates to subagents, and a CitationAgent later identifies citation locations; the lead saves its plan to external memory because context beyond 200,000 tokens would be truncated.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "A tool-testing agent that repeatedly exercised a flawed MCP tool and rewrote its description reduced task completion time by 40%.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "The research system's lead agent waits for each batch of subagents to finish, creating a slowest-worker bottleneck; asynchronous execution was identified as an opportunity but brings coordination, state-consistency and error-propagation challenges.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "Anthropic used rainbow deployments, running old and new versions simultaneously while gradually shifting traffic, so updates do not interrupt agents mid-run.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "Anthropic says tasks with tightly shared context or many dependencies, including most coding work, are poorer fits for multi-agent systems than breadth-first research.",
+   "url": "https://www.anthropic.com/research/multi-agent-research-system"
+  },
+  {
+   "text": "In the long-running harness design, an initializer session creates init.sh, claude-progress.txt and an initial git commit, and subsequent coding agents make incremental progress and leave structured handoffs.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "In the Claude.ai-clone example, the initializer produced more than 200 features as a JSON list initially marked failing; coding agents were instructed to change only the passes status, because models were less likely to inappropriately overwrite JSON than Markdown.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Agents were told to implement one feature at a time because attempting the whole application exhausted context mid-implementation and left half-finished work.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Unit tests and curl checks were insufficient to detect broken user workflows; explicit instructions to use browser automation via Puppeteer MCP substantially improved failure detection.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Each coding session begins by checking the working directory, reading progress notes, git history and the feature list, starting the dev server and running a basic end-to-end test, and ends with a descriptive commit and progress update.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Anthropic's September 2025 compaction implementation summarized architectural decisions, unresolved bugs and implementation details, then continued with the summary plus the five most recently accessed files; it recommends tuning for recall first, then precision.",
+   "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+  },
+  {
+   "text": "Subagents can explore using tens of thousands of tokens while returning a distilled summary of often 1,000-2,000 tokens to the parent agent.",
+   "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+  },
+  {
+   "text": "Sonnet 4.5 showed 'context anxiety', wrapping up prematurely near its perceived context limit, so context resets were needed; Opus 4.5 largely removed this, allowing continuous sessions with automatic compaction.",
+   "url": "https://www.anthropic.com/research/harness-design-long-running-apps"
+  },
+  {
+   "text": "In a later planner/generator/evaluator harness, one application ran 20 minutes for $9 solo versus 6 hours for $200 with the full harness, and a DAW experiment with Opus 4.6 cost $124.70 and took 3 hours 50 minutes.",
+   "url": "https://www.anthropic.com/research/harness-design-long-running-apps"
+  },
+  {
+   "text": "Anthropic recommends removing harness components one at a time and inspecting the effects, since a radical simplification failed to reproduce earlier quality and obscured which components were load-bearing.",
+   "url": "https://www.anthropic.com/research/harness-design-long-running-apps"
+  },
+  {
+   "text": "A non-fork subagent starts fresh without the parent's conversation, tool results or system prompt, so delegations must include relevant context, and only its final message returns to the parent.",
+   "url": "https://code.claude.com/docs/en/agent-sdk/subagents"
+  },
+  {
+   "text": "Agent Skills use three-stage progressive disclosure: names and descriptions load first, the full SKILL.md loads when relevant, and linked resources load only as needed; Anthropic warns malicious Skills can exfiltrate data or cause unintended actions.",
+   "url": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"
+  },
+  {
+   "text": "On October 22, 2026, Anthropic announced donating Agent Skills to the Agentic AI Foundation, reporting more than 70 integrating platforms, 1 million published Skills and nearly 280 million installations.",
+   "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation"
+  }
+ ],
+ "question_id": "Q08"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "bd3a0ced124965ec",
+ "claims": [
+  {
+   "text": "Factory's Missions system breaks large work into focused units handled by fresh agents with narrowly scoped goals, shared state, and explicit validation, because a single agent's context window cannot hold most real projects.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "Factory's design rationale is that agents are highly reactive to their context: a trajectory is append-only, models seek coherence, and irrelevant or adversarial accumulated context degrades performance.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "In Missions the orchestrator plans and decomposes the user's goal, delegates all investigation and implementation to subagents and workers, and does not drive validation directly; the system injects validators at milestones.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "Missions workers complete well-specified features with clear success criteria and write tests before code, but an independent validator, not the worker, makes the final judgment on correctness.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "Missions validators do not implement fixes; they surface issues to the orchestrator, which creates fix features that future workers implement.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "At the mission level the orchestrator writes a validation contract (behavioral assertions defining success) before defining any features, so the contract is not influenced by the planned implementation.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "Missions state is externalized into shared artifacts: validation-contract.md, features.json, services.yaml, AGENTS.md, research notes, operational guidelines, and an evolving knowledge base.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "A programmatic runner spawns one fresh-context worker per feature in order; when all features in a milestone are complete, the runner triggers validation with fresh agents.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "Missions uses two validator types: scrutiny validators review each worker's implementation and trajectory and encode knowledge updates into shared state, and user-testing validators exercise the system as a black box against the validation contract.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "After validation, the orchestrator creates targeted fix features that run before the milestone re-validates, looping until validation passes; if implementation or validation is blocked, the orchestrator halts the mission and returns control to the user.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "Missions allows model choice per role: broad planning and judgment for the orchestrator, reliable and cost-efficient execution for workers, and thoroughness and skepticism for validators.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "A Slack-clone mission ran 16.5 hours: orchestration 2.3%, implementation 60.5%, validation 37.2% of runtime, with 185 total agent runs (63 workers, 27 validators).",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "The Slack-clone mission used 778.5M tokens (744.9M cache read) and produced 38.8k lines of code, 52.5% of them tests, with 89.25% statement coverage.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "In the Slack-clone mission every milestone converged in 2-4 validation rounds; validators surfaced 81 issues (65 blocking) and the orchestrator created 21 fix features, 34.4% of 61 implementation features.",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "In the Slack-clone mission median trajectory length was 51 turns for implementation (p90 123) and 30 turns for validation (p90 37).",
+   "url": "https://factory.ai/news/missions-architecture"
+  },
+  {
+   "text": "Custom droids are Markdown subagents with their own system prompt, model, and tool policy, and each invocation runs in a fresh context window through the Task tool, returning a single final message to the parent.",
+   "url": "https://docs.factory.ai/harness/subagents"
+  },
+  {
+   "text": "Subagents run non-interactively: the AskUser tool is disabled and a subagent cannot spawn its own subagents because the Task tool is unavailable to it.",
+   "url": "https://docs.factory.ai/harness/subagents"
+  },
+  {
+   "text": "Droid ships built-in droids `worker` (all tools, default medium complexity) and `explorer` (read-only, default light complexity).",
+   "url": "https://docs.factory.ai/harness/subagents"
+  },
+  {
+   "text": "The Task tool accepts subagent_type, description, prompt, optional complexity (light/medium/heavy), run_in_background (returns a task_id, fetched via TaskOutput, stoppable via TaskStop), and resume to continue a prior subagent with full context preserved.",
+   "url": "https://docs.factory.ai/harness/subagents"
+  },
+  {
+   "text": "Subagent autonomy defaults to inheriting the parent's level, is clamped to the organization's Maximum Autonomy Level, and subagents with tools: read-only never run above Low.",
+   "url": "https://docs.factory.ai/harness/subagents"
+  },
+  {
+   "text": "Subagent model resolution order is: model pinned in droid frontmatter, then complexity-to-model routing, then parent's model, with fallback to the parent's model if a pinned model is blocked by org policy.",
+   "url": "https://docs.factory.ai/harness/subagents"
+  },
+  {
+   "text": "`droid exec` is a one-shot headless mode that is read-only by default, with edits and commands opt-in via --auto low/medium/high, and it exits non-zero at the first action exceeding the autonomy level.",
+   "url": "https://docs.factory.ai/droid-exec/overview"
+  },
+  {
+   "text": "`droid exec --worktree` runs a task in an isolated git worktree on its own branch to fan out parallel jobs; clean worktrees are auto-removed on exit and dirty ones preserved.",
+   "url": "https://docs.factory.ai/droid-exec/overview"
+  },
+  {
+   "text": "Factory's Deferred Context Engine loads tool schemas, MCP schemas, skills, and plugin instructions only when needed, cutting estimated input tokens 15.1% on average (39.4% p90) in MCP-triggering sessions and 50.8% on average for sessions with 100+ deferred tools.",
+   "url": "https://factory.com/news/deferred-context-engine"
+  },
+  {
+   "text": "Factory's Code Droid technical report claimed 19.27% on SWE-bench Full and 31.67% on SWE-bench Lite (300 problems) pass rate on first attempt.",
+   "url": "https://factory.ai/news/code-droid-technical-report"
+  }
+ ],
+ "question_id": "Q02"
+}

@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "9b7ed667753410bc",
+ "url": "https://a2a-protocol.org/latest/topics/what-is-a2a",
+ "verdicts": {
+  "A2A clients send messages with either SendMessage (single request/response) or SendStreamingMessage (a stream of task updates).": 1,
+  "A2A complements MCP: A2A standardizes communication among agents across organizations and frameworks, while MCP connects models to data and external resources.": 1,
+  "A2A crosses the boundary between agents, whereas MCP stays within one agent, connecting it to APIs and enterprise applications.": 1,
+  "A2A natively supports long-running operations, handling streaming with Server-Sent Events (SSE) and asynchronous execution.": 1,
+  "A2A supports complex, multi-turn interactions in which agents reason, plan, delegate tasks, negotiate, or ask for clarification, rather than interacting like tools.": 1,
+  "In A2A authentication, the client reads the Agent Card's security schemes and, for an openIdConnect scheme, obtains a JWT token via the authorizationUrl and tokenUrl.": 1,
+  "In the A2A flow, a client fetches the server's Agent Card (e.g., at /.well-known/agent-card.json) to learn its capabilities and endpoint.": 1,
+  "MCP tools are typically stateless and perform specific, predefined functions such as a calculator or a database query.": 1,
+  "The A2A protocol is an open standard for communication between AI agents, enabling agents built with different frameworks, vendors, or organizations to work together.": 1
+ }
+}

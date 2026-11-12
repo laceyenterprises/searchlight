@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "b4f0b9bfa7fe25f2",
+ "claims": [
+  {
+   "text": "Snowflake OAuth token exchange trades a user's credential for a short-lived Snowflake access token that is limited by a privilege ceiling and labeled with the AI agent acting for the user.",
+   "url": null
+  },
+  {
+   "text": "Snowflake's token exchange request to the /oauth/token endpoint includes the user's credential, a Restricted Session Scope (RSS) that bounds the agent, and the agent's identity.",
+   "url": null
+  },
+  {
+   "text": "Snowflake validates the user's credential and checks that the requested role is granted to the user, then validates the RSS, creates a session bound to the RSS and agent identity, and issues an access token linked to that session.",
+   "url": null
+  },
+  {
+   "text": "In Snowflake, every session the agent opens runs as the user, inside the RSS ceiling, and is attributed to the agent, so access is never broader than the user's grants and no separate service user or role-grant change is needed.",
+   "url": null
+  },
+  {
+   "text": "The IETF draft AI Agent Authentication and Authorization names the WIMSE identifier as the primary identifier for agents and builds on WIMSE and OAuth 2.0 specifications.",
+   "url": null
+  },
+  {
+   "text": "A SPIFFE identifier is a URI of the form spiffe://<trust-domain>/<path> that uniquely identifies a workload within a trust domain; SPIFFE defines JWT-SVID, X.509-SVID and WIT-SVID credential profiles.",
+   "url": null
+  },
+  {
+   "text": "The IETF draft says agent credentials SHOULD be short-lived and MUST include an explicit expiration time after which they are no longer accepted.",
+   "url": null
+  },
+  {
+   "text": "The IETF draft says an agent acting for a user SHOULD obtain its access token using the OAuth Authorization Code Grant, while agents acting on their own behalf can use the Client Credentials Grant or the JWT Authorization Grant.",
+   "url": null
+  },
+  {
+   "text": "The IETF draft says an agent may use OpenID CIBA to trigger an out-of-band user approval (e.g., a push notification to an authenticator app) without exposing credentials to the agent.",
+   "url": null
+  },
+  {
+   "text": "The IETF draft says user confirmation does not by itself constitute authorization and MUST be bound to a verifiable grant from the authorization server; the agent SHOULD translate confirmation into an OAuth authorization event such as CIBA step-up.",
+   "url": null
+  },
+  {
+   "text": "The IETF draft says an agent MAY exchange its primary credentials through OAuth 2.0 Token Exchange, Transaction Tokens or Workload Identity Federation.",
+   "url": null
+  },
+  {
+   "text": "Cerbos recommends replacing static keys with short-lived, scoped credentials tied to a unique identity per agent, established via SPIFFE/SPIRE for infrastructure workloads or OAuth2 client credentials for external services.",
+   "url": null
+  },
+  {
+   "text": "Cerbos describes modeling delegation with RFC 8693 token exchange, where the minted token names the agent as actor and the user as subject ('Agent X is acting on behalf of User Y'), and is short-lived and tightly scoped.",
+   "url": null
+  },
+  {
+   "text": "Token exchange lets each hop narrow the scope and audience of a token; Cerbos advises enforcing policy close to the action, via agent-side checks or service-side policy decision points (PDPs) that evaluate each request.",
+   "url": null
+  },
+  {
+   "text": "The Agent Trust Profile draft states that existing credentials show a token is valid but not which agent is acting, for whom, under what delegated authority, within what constraints, or whether that authority is still current.",
+   "url": null
+  },
+  {
+   "text": "The Agent Trust Profile defines agent lifecycle states pending, active, suspended, revoked and retired, and only active agents may be authorized.",
+   "url": null
+  },
+  {
+   "text": "The Agent Trust Profile requires verifiers to report the owner principal as separate evidence and not conflate agent and principal.",
+   "url": null
+  },
+  {
+   "text": "In the Agent Trust Profile, authority is checked first and is default-deny, then policy narrows; rule precedence is deny > require_approval > allow, and evaluation MUST be deterministic.",
+   "url": null
+  },
+  {
+   "text": "The Agent Trust Profile policy conditions include amount_lte, amount_gt, currency_in, region_in, requires_attestation, missing_attestation, delegation_depth_lte, delegation_depth_gt and time_window.",
+   "url": null
+  },
+  {
+   "text": "In the Agent Trust Profile, human approval is a signed object (agent-trust-approval+jwt) bound to the decision's request hash, and a short-lived attestation (agent-trust-attestation+jwt) is issued from an ALLOW or approved REQUIRE_APPROVAL decision.",
+   "url": null
+  },
+  {
+   "text": "In the Agent Trust Profile, revoking any link of a delegation chain invalidates every descendant at verification time, and short-lived credentials plus an indexed status lookup are recommended.",
+   "url": null
+  },
+  {
+   "text": "Google Cloud Agent Identity gives each agent a unique SPIFFE-based identity mapped to its hosting resource URI; unlike service accounts, these identities are not shared by default, cannot be impersonated, and do not allow long-lived keys.",
+   "url": null
+  },
+  {
+   "text": "Google's Agent Identity auth manager manages auth providers for API keys, OAuth client credentials and delegated end-user OAuth tokens, using 3-legged OAuth for user consent when acting for a specific user.",
+   "url": null
+  },
+  {
+   "text": "Google pairs Agent Identity with Agent Registry, which catalogs tools and destinations, and Agent Gateway, which enforces access policies and inspects traffic.",
+   "url": null
+  },
+  {
+   "text": "Amazon Bedrock AgentCore supports on-behalf-of token exchange in which the agent swaps the inbound user token for an audience-scoped token binding both user and agent identity, using RFC 8693 or the RFC 7523 JWT authorization grant, so downstream services decide on both identities without another consent flow.",
+   "url": null
+  }
+ ],
+ "question_id": "Q15"
+}

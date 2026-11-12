@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "0621678da4758a3e",
+ "url": "https://www.solo.io/blog/deep-dive-mcp-and-a2a-attack-vectors-for-ai-agents",
+ "verdicts": {
+  "Agents use natural-language context to decide when and how to invoke remote tools, so poisoning that context can manipulate the model into executing malicious code, divulging sensitive information or exfiltrating data, unlike deterministic API calls chosen by developer code.": 1,
+  "In MCP naming attacks, an attacker registers a server with a name nearly identical to a legitimate one (e.g. finance-tool-mcp.company.com versus finance-tools-mcp.company.com), and agents that rely on server and tool names and descriptions can confuse them.": 1,
+  "MCP and A2A are similar RPC-style client/server protocols over HTTP that do not specify protocol-specific security; MCP's attempt at an authorization framework has been a bumpy ride.": 1,
+  "Solo.io lists four attack classes against MCP and A2A agents: naming attacks, context poisoning/indirect prompt injection, shadowing attacks and rug pulls.": 1
+ }
+}

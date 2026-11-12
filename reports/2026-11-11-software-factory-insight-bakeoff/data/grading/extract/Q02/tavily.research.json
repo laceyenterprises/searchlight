@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "88c5130ff30456d1",
+ "claims": [
+  {
+   "text": "Factory's Missions architecture uses three roles (orchestrator, workers, validators); the orchestrator plans, decomposes and steers but delegates all investigation and implementation to avoid accumulating granular context.",
+   "url": null
+  },
+  {
+   "text": "In Missions, the orchestrator writes a validation contract, a finite checklist of testable behavioral assertions, before defining any features so the contract is not contaminated by the planned implementation.",
+   "url": null
+  },
+  {
+   "text": "Missions scrutiny validators review each worker's implementation and trajectory, while user-testing validators exercise the system as a black box against the validation contract; validators surface issues to the orchestrator rather than fixing them.",
+   "url": null
+  },
+  {
+   "text": "A single Missions run that built a Slack clone took 16.5 hours (2.3% orchestration, 60.5% implementation, 37.2% validation), used 185 agent runs and 778.5M tokens, and produced 38.8k lines of code, 52.5% of them tests, at 89.25% statement coverage.",
+   "url": null
+  },
+  {
+   "text": "Missions execution is serial, with parallelism allowed only for read-only work such as codebase search, API research and code review, because parallel agents conflict, duplicate work and make inconsistent architectural decisions.",
+   "url": null
+  },
+  {
+   "text": "Custom droids (subagents) are Markdown files in .factory/droids/ that run in a fresh context window per invocation via the Task tool, with complexity tiers (light/medium/heavy), background execution returning a task_id, and a resume option; built-ins include worker and read-only explorer.",
+   "url": null
+  },
+  {
+   "text": "Factory's context stack layers repository overviews, semantic search, targeted file-system reads, enterprise integrations (e.g. Sentry, Notion, Google Docs) and hierarchical User Memory and Org Memory, motivated by Chroma's Context Rot finding that performance degrades as input length grows.",
+   "url": null
+  },
+  {
+   "text": "In Factory's December 2025 compression study over 36,611 messages, Factory's structured summarization scored 3.70 overall versus Anthropic 3.44 and OpenAI 3.35, with artifact tracking the weakest dimension at 2.45.",
+   "url": null
+  },
+  {
+   "text": "Droid 1.0 made programmatic 'script mode' the default, where the model writes JavaScript run in a sandbox that calls tools; the base prompt shrank 37% to 13,055 tokens and only two tool definitions ship up front, down from 11.",
+   "url": null
+  },
+  {
+   "text": "Factory's illustrative case of moving and verifying 151 Linear issues took 312 tool calls and now needs 2 requests and 61K tokens, versus about 36 requests and 3.1M input tokens before.",
+   "url": null
+  },
+  {
+   "text": "Factory Environments are reusable sandbox definitions built into portable images ahead of time, rebuilt every few hours and validated, with only successful builds promoted so Droids never start from a faulty environment.",
+   "url": null
+  },
+  {
+   "text": "Droid Computers are persistent managed or bring-your-own machines that retain filesystem, credentials, services and process memory across sessions; managed ones are 4 CPU, 8GB RAM and auto-pause when idle.",
+   "url": null
+  },
+  {
+   "text": "OpenCompute is a self-hosted orchestrator in private preview that connects outbound to Factory over TLS WebSocket, using a Go control plane with Postgres state, a reconciler, immutable Builds and gRPC provider drivers, so Droid sandboxes can run in a customer's VPC.",
+   "url": null
+  },
+  {
+   "text": "An independent sandbox analysis found the Droid CLI has no built-in OS-level isolation, its project-directory write restriction is enforced by the agent rather than the OS, and hooks and MCP stdio servers run with the user's credentials.",
+   "url": null
+  },
+  {
+   "text": "Droid's autonomy levels (Off, Low, Medium, High) set the highest-risk action allowed without approval; Missions orchestration requires High autonomy or --skip-permissions-unsafe.",
+   "url": null
+  },
+  {
+   "text": "Code Droid scored 19.27% on SWE-bench Full and 31.67% pass@1 on SWE-bench Lite in June 2024, with token use up to 13 million per patch.",
+   "url": null
+  },
+  {
+   "text": "In Code Droid's SWE-bench failure analysis, 8% of tasks never had the target file in the analysed set, another 8% had it outside the top-5 ranking, and 6% had it top-ranked but not selected for editing.",
+   "url": null
+  },
+  {
+   "text": "In September 2025 Factory reported Droid at 58.75% on Terminal-Bench Core, first place, with Droid+Opus 4.1 at 58.8% versus Claude Code+Opus at 43.2% and Droid+GPT-5 at 52.5% versus Codex CLI at 42.8%.",
+   "url": null
+  },
+  {
+   "text": "On Snorkel's independent Terminal-Bench 2.0 leaderboard, Droid with GPT-5.3-Codex ranks 10th at 77.3% ±2.2, against a top score of 84.7%.",
+   "url": null
+  },
+  {
+   "text": "On Terminal-Bench 4 (Droid 1.0, October 2026), Droid scored 65.2% with Claude Opus 5.5 versus Cursor and OpenCode 62.1%, Devin 59.6% and Claude Code 57.6%.",
+   "url": null
+  },
+  {
+   "text": "The Terminal-Bench 4 head-to-head numbers for Droid 1.0 are all self-reported by Factory.",
+   "url": null
+  },
+  {
+   "text": "Vals AI's independent SWE-bench Verified listing places 'GPT 5.5 / Factory' at 76.20%, ranked 41st, well below the 97.00% top entry.",
+   "url": null
+  },
+  {
+   "text": "Factory Router reportedly retains 99% of Claude Opus 4.7's pass rate at 20% lower cost per session on Terminal-Bench 2, while the most aggressive routing dropped pass rate to 81% at 56% of Opus cost.",
+   "url": null
+  },
+  {
+   "text": "Factory's Droid Review automation triggers on PR open, synchronize, reopen and ready-for-review, skips drafts, posts inline comments on bugs such as null dereferences, race conditions and injection, and approves when no issues are found, deliberately skipping style opinions.",
+   "url": null
+  },
+  {
+   "text": "Factory reports Droid reviewed 99.5% of mergeable pull requests with engineers resolving 81% of its comments.",
+   "url": null
+  }
+ ],
+ "question_id": "Q02"
+}

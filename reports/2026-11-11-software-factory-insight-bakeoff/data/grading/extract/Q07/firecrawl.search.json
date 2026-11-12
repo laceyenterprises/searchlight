@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "b4d2ee56c3fdb332",
+ "claims": [
+  {
+   "text": "Spotify's Fleet Management framework applies small code-transformation snippets across thousands of repositories, running them as jobs in a containerized environment that automatically opens pull requests against target repositories.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Since mid-2024, around half of Spotify's pull requests have been automated by Fleet Management.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify's automated Maven dependency updater transformation script grew to over 20,000 lines of code because of corner cases, illustrating the difficulty of defining complex AST- or regex-based transformations.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify began investigating AI agents inside Fleet Management in February (2025), replacing deterministic migration scripts with an agent that takes instructions from a natural-language prompt, while keeping the repository targeting, PR opening, review and merging infrastructure unchanged.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify built a small internal CLI rather than adopting an off-the-shelf coding agent; it delegates prompt execution to an agent, runs custom formatting and linting via local MCP, and evaluates diffs.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify reported more than 1,500 merged AI-generated pull requests from its background coding agent (Honk) as of November 2025.",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "text": "Spotify's background agent CLI also integrates GCP logs and MLflow traces, and is designed so agents or models can be replaced without rebuilding the surrounding workflow.",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "text": "Spotify's December 2025 design exposes verification as a tool: verifiers activate based on repository contents, run relevant checks and return concise feedback, and a stop hook can prevent PR creation when required checks fail.",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "text": "The agent has limited permissions; surrounding infrastructure handles pushing code and interacting with people.",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "text": "A later QCon account describes moving full validation to existing CI via a separate verification service, because permissions, Docker and OS differences made the agent's own runtime a poor substitute for CI; the agent can still run cheaper checks locally first.",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "text": "Spotify's December post identifies a CI-passing but incorrect change as the most serious failure mode, and describes an LLM judge that compares the diff with the request.",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "text": "A Spotify dataset migration exposed limits of automation: repositories lacking tests needed repository owners to test changes manually, and some needed ambiguous field mappings.",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "text": "Spotify markets Honk-powered migrations externally as Fleetshift in Spotify Portal, with demo-led access; the migration results are company-reported case studies.",
+   "url": "https://rywalker.com/research/spotify-honk"
+  },
+  {
+   "text": "Spotify describes Honk's verification loop as wrapping each coding task in linting, compiling and testing, feeding errors back to the agent to self-correct within a set number of iterations.",
+   "url": "https://backstage.spotify.com/how-spotify-built-honk"
+  },
+  {
+   "text": "Spotify's Backstage Software Catalog tracks ownership, dependencies and component metadata across thousands of repositories, providing structured context for agents.",
+   "url": "https://backstage.spotify.com/how-spotify-built-honk"
+  },
+  {
+   "text": "Honk runs Claude Code in a sandboxed Kubernetes Job with three tools (verify, Git, Bash allowlist), with ten turns and three retries before a PR, per a critical third-party summary.",
+   "url": "https://www.ninetwothree.co/blog/honk-spotify-ai-infrastructure"
+  },
+  {
+   "text": "Fleet Management processed 652,000 automated PRs in 2024, per Splunk's recap of Spotify's PlatEngDay data; Anthropic's customer page reports 650+ monthly Honk PRs.",
+   "url": "https://www.ninetwothree.co/blog/honk-spotify-ai-infrastructure"
+  },
+  {
+   "text": "Spotify's blog admits limitations: no code search or documentation tools exposed to the agent, verifiers only on Linux x86 (macOS and iOS planned), and the team is 'still flying mostly by intuition' on prompt engineering.",
+   "url": "https://www.ninetwothree.co/blog/honk-spotify-ai-infrastructure"
+  },
+  {
+   "text": "At its May 21, 2026 Investor Day, Spotify said 99% of engineers use AI weekly and 73% of code contributions are AI-assisted; the critic notes these metrics are undefined and Honk mainly handles migrations and dependency updates, not features.",
+   "url": "https://www.ninetwothree.co/blog/honk-spotify-ai-infrastructure"
+  },
+  {
+   "text": "A secondary account says the Git tool excludes push and origin changes and that prompts describing the desired end state worked better than generic prompts or overly specific step-by-step instructions.",
+   "url": "https://grindengineer.substack.com/p/how-spotify-uses-ai-agents-to-rewrite-its-entire-codebase"
+  },
+  {
+   "text": "A secondary account claims Honk ships about 1,000 PRs every 10 days and that migrations like Java version updates that took nearly 12 months now finish in under a week; it also describes a three-agent planning/coding/review pipeline, which is not corroborated by Spotify's own posts here.",
+   "url": "https://grindengineer.substack.com/p/how-spotify-uses-ai-agents-to-rewrite-its-entire-codebase"
+  },
+  {
+   "text": "Spotify engineers describe failure modes such as agents 'fixing' tests by deleting them, and use an LLM-as-judge to flag suspicious diffs before they land.",
+   "url": "https://open.spotify.com/episode/7tCsLykUtW0rTYhM0vBR6E"
+  },
+  {
+   "text": "Per an Ona summary of the May 2026 Background Agents Summit, Ramp reported about 30% of PRs coming from agents and Uber about 92% monthly agent adoption, while Stripe, Ramp and Uber built interfaces to run multiple agents in parallel with engineers reviewing output.",
+   "url": "https://ona.com/guides/background-agents"
+  },
+  {
+   "text": "Spotify differs from Stripe, Ramp and Uber by slotting agents into existing fleet automation for large-scale code migrations across thousands of repos.",
+   "url": "https://ona.com/guides/background-agents"
+  },
+  {
+   "text": "Spotify's backend monorepo is about 20 million lines with around 4,500 production deployments a day, and Honk is built on the Claude Agent SDK; the presenter argues verification (tests, CI, static analysis, automated UAT) is the hard problem.",
+   "url": "https://www.youtube.com/watch?v=21WagQYg1Ew"
+  }
+ ],
+ "question_id": "Q07"
+}

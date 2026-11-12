@@ -1,0 +1,103 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "09936612d4230232",
+ "claims": [
+  {
+   "text": "Replit's Agent 3, OpenAI's Codex web agent, and long-running automation at Cursor are stated to run on Temporal.",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "text": "Durable execution journals every workflow step (LLM call, tool invocation, external API request) before it runs and records the result when it returns; after a crash the next worker replays the journal to reconstruct state up to the last completed step.",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "text": "Four guarantees named for durable execution: persistence of state across crashes, exactly-once execution of side-effects, suspend/resume across arbitrary delays without holding a running thread, and deterministic replay.",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "text": "A checkpointer (e.g. LangGraph's PostgresSaver, DynamoDBSaver, Redis checkpointer) is not durable execution: the developer still owns retry, resume and side-effect deduplication, whereas durable execution makes the runtime own them.",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "text": "The recommended architecture keeps the ReAct-style outer loop deterministic in workflow code and pushes every LLM call, tool execution and external HTTP request into an Activity/Step whose result is recorded on first run and looked up on replay.",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "text": "Workflow code cannot read the system clock directly (use workflow.now()), cannot generate random numbers directly (use workflow.uuid4()), and cannot rely on changing global state; anything non-deterministic belongs in an Activity.",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "text": "Andreessen Horowitz led a $300M Series D into Temporal on the AI agent thesis; AWS Durable Functions, Cloudflare Workflows GA and the Vercel Workflow DevKit launched around the same time.",
+   "url": "https://www.reactify-solutions.com/articles/durable-ai-agents-2026"
+  },
+  {
+   "text": "Temporal raised $300M at a $5B valuation on February 17, 2026, with 9.1 trillion lifetime action executions on its cloud, 1.86 trillion from AI-native companies.",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "text": "Temporal's notable customers listed are OpenAI, Snap, Netflix and JPMorgan Chase; Temporal integrated with the OpenAI Agents SDK in September 2025, and Pydantic AI ships a first-class Temporal integration.",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "text": "DBOS persists application data and execution state in Postgres or SQLite and runs in-process as a library with no new infrastructure; a DBOSAgent wrapper makes Pydantic AI agents durable, and it gives exactly-once execution via transactional semantics.",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "text": "Inngest offers step.ai.infer (proxies long-running LLM requests to reduce serverless compute cost), step.ai.wrap (adds retries and telemetry to any AI SDK call) and AgentKit; it has a $20M Series A and production users include Day.ai and Browser Use.",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "text": "Restate Cloud opened publicly in 2025 with usage-based pricing; production use cases include AI workflows, crypto trading and banking infrastructure, and it suits edge/serverless deployments better than Temporal.",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "text": "Microsoft's Azure Durable Task Extension (public preview, late 2025) supports multi-day human-in-the-loop pauses, scale-to-zero and orchestration versioning for the Microsoft Agent Framework.",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "text": "Journal-based replay (Temporal, Restate) re-executes the workflow function from the start, returns cached results for steps already in the journal, and continues from the first unjournaled step; it requires deterministic workflows, so LLM calls must be wrapped as activity steps.",
+   "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/"
+  },
+  {
+   "text": "Naive retry of a 12-step pipeline that crashes at step 10 restarts from step 1, repeating pay-per-use API calls; LLM tool calls like book_flight() are not naturally idempotent, so a second call produces a second booking.",
+   "url": "https://traversaal.ai/blog/durable-execution-ai-agents-state-persistence-long-running-workflows"
+  },
+  {
+   "text": "Inngest's human-in-the-loop pattern maps to durable execution's suspend/resume primitives, letting workflows pause for hours or days awaiting approval without losing state.",
+   "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents"
+  },
+  {
+   "text": "Compounding reliability: five steps at 99% each give about 95% overall success, and ten steps about 90%.",
+   "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents"
+  },
+  {
+   "text": "Restate assigns each virtual object a unique key (e.g. a session ID), serializes handler calls on it, and journals each ctx.run() before execution, giving exactly-once semantics without application-level idempotency keys.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud/"
+  },
+  {
+   "text": "Inngest checkpoints each step.run() output; on failure it re-invokes the function and returns cached results for completed steps.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud/"
+  },
+  {
+   "text": "In Temporal, GPU-bound or side-effecting operations (vLLM inference, fine-tuning, embeddings) should go in activities, not workflow code, because workflow code must be deterministic and replays on every worker restart.",
+   "url": "https://www.spheron.network/blog/ai-agent-workflow-orchestration-temporal-inngest-restate-gpu-cloud/"
+  },
+  {
+   "text": "Temporal workflow history is capped at 50,000 events or 50 MB, so long-running reasoning loops should call workflow.continue_as_new() to archive history and reset the event log.",
+   "url": "https://www.llms.blog/posts/durable-execution-engines-for-ai-agents-in-production-comparing-temporal-inngest-hatchet-and-restate"
+  },
+  {
+   "text": "Inngest's step primitives are step.run(), step.sleep(), step.waitForEvent() and step.invoke(); each step boundary costs an HTTP roundtrip, adding roughly 15 ms to 50 ms of dispatch overhead per step.",
+   "url": "https://www.llms.blog/posts/durable-execution-engines-for-ai-agents-in-production-comparing-temporal-inngest-hatchet-and-restate"
+  },
+  {
+   "text": "Temporal Cloud enforces a 2 MB per-payload limit, a 4 MB event-history transaction limit, and 51,200 events / 50 MB history cap; the suggested workaround is the claim-check pattern of storing payloads in S3 and passing a reference through history.",
+   "url": "https://turion.ai/blog/temporal-vs-restate-vs-hatchet-vs-inngest-durable-execution-agents-2026/"
+  },
+  {
+   "text": "Temporal shipped a first-party OpenAI Agents SDK integration in April 2026 with an activity_as_tool helper that turns Activities into OpenAI-compatible tool schemas, so tool calls become durable Activities and the loop is a Workflow; Stripe, Snap and Coinbase are named as Temporal users.",
+   "url": "https://turion.ai/blog/temporal-vs-restate-vs-hatchet-vs-inngest-durable-execution-agents-2026/"
+  }
+ ],
+ "question_id": "Q11"
+}

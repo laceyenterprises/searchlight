@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "b974543e79b91442",
+ "claims": [
+  {
+   "text": "StrongDM defines its Software Factory as non-interactive development where specs and scenarios drive agents that write code, run harnesses, and converge without human review.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM states two rules for its factory: code must not be written by humans, and code must not be reviewed by humans.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's guideline is that if a team has not spent at least $1,000 on tokens today per human engineer, its software factory has room for improvement.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM repurposed the word 'scenario' to mean an end-to-end user story, often stored outside the codebase like a holdout set in model training, which an LLM can flexibly validate.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM defines 'satisfaction' as the fraction of all observed trajectories through all scenarios that likely satisfy the user, replacing the boolean 'test suite is green'.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM moved to a probabilistic measure of success because much of the software it builds has an agentic component.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM says tests are too rigid, since evaluating success often required LLM-as-judge, and that tests can be reward hacked by the model.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "The Digital Twin Universe (DTU) is a set of behavioral clones of third-party services, with twins of Okta, Jira, Slack, Google Docs, Google Drive, and Google Sheets that replicate their APIs, edge cases, and observable behaviors.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "With the DTU, StrongDM can run thousands of scenarios per hour without hitting rate limits, triggering abuse detection, or accumulating API costs, and can test failure modes that would be dangerous or impossible against live services.",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "text": "StrongDM's software factory page is dated February 6, 2026 and was written by co-founder and CTO Justin McCarthy.",
+   "url": "https://futureagi.com/blog/ai-software-factory/"
+  },
+  {
+   "text": "The StrongDM factory team is three engineers, formed in July 2025.",
+   "url": "https://www.signadot.com/software-factory/"
+  },
+  {
+   "text": "StrongDM's agents rewrote code to pass narrow tests, so the team moved its checks into scenarios kept outside the codebase, like a holdout set in model training.",
+   "url": "https://www.signadot.com/software-factory/"
+  },
+  {
+   "text": "Service-virtualization twins such as StrongDM's are fast and cheap, but their fidelity is bounded by how well the twin models the real service.",
+   "url": "https://www.signadot.com/software-factory/"
+  },
+  {
+   "text": "A swarm of agent testers simulating end users reportedly cost StrongDM about $10,000 a day in tokens.",
+   "url": "https://github.com/lago-morph/software-factory/blob/main/research/05-simon-willison.md"
+  },
+  {
+   "text": "The factory loop is: spec, agent writes code, test agents run scenarios in the DTU, satisfaction is scored, then spec and scenarios are edited based on misses and the cycle repeats.",
+   "url": "https://github.com/lago-morph/software-factory/blob/main/research/05-simon-willison.md"
+  },
+  {
+   "text": "StrongDM treats source code like ML model weights: opaque artifacts whose correctness is inferred only from externally observable behavior.",
+   "url": "https://rundatarun.io/p/your-data-science-team-is-stuck-at"
+  },
+  {
+   "text": "StrongDM's open-source Attractor implements the loop of holdout scenarios, running against twins, measuring satisfaction (a 0.0-1.0 metric), and having agents rewrite code until the target is met; twins are defined in YAML.",
+   "url": "https://github.com/amolstrongdm/attractor"
+  },
+  {
+   "text": "Scenarios are kept outside the codebase so they cannot be edited to match the code the way an in-repo test can.",
+   "url": "https://github.com/Chipagosfinest/software-factory/blob/main/docs/practitioners/strongdm-software-factory.md"
+  },
+  {
+   "text": "A Stanford CodeX critique notes that StrongDM's satisfaction metric relies on AI-as-judge.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "Under StrongDM's approach, humans design specifications, curate scenarios, and watch satisfaction scores, so oversight shifts from reviewing code to designing scenarios and monitoring satisfaction.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "Because the twins can simulate outages, StrongDM can test failure modes such as Okta going down for 10 minutes that cannot be tested in production.",
+   "url": "https://newsletter.angularventures.com/p/the-industrialization-of-software-development"
+  },
+  {
+   "text": "Dex Horthy of HumanLayer responds to StrongDM's approach by restoring human code review and making it cheaper through earlier planning (product review, then architecture review).",
+   "url": "https://ai.engineer/talks/Ib5GBkD555M-why-software-factories-fail.md"
+  },
+  {
+   "text": "HumanLayer reports it tried a no-human-review dark factory in 2025 and gave up.",
+   "url": null
+  },
+  {
+   "text": "StrongDM is the only company found that says at a primary source that it ships code no human reviews, and it publishes no defect, incident, or customer outcome data.",
+   "url": null
+  },
+  {
+   "text": "Reported evidence for software factories is mostly throughput (such as pull requests merged) rather than quality, none of it has been independently audited, and no long-term study of a no-human-review codebase was found.",
+   "url": null
+  }
+ ],
+ "question_id": "Q01"
+}

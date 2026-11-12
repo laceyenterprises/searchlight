@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "e4aaccc650db1603",
+ "url": "https://github.com/github/gh-stack/discussions/172",
+ "verdicts": {
+  "A reproduction with merge queue and latest-push approval enabled showed the bottom PR merged, GitHub rebased the upper PR and invalidated its approval, and the upper PR was never queued.": 1,
+  "A user reported that with required GitHub Merge Queue, clicking 'Merge stack' on a stacked PR appeared to enqueue only the bottom PR, with upper PRs left to be merged manually after the lower one landed.": 1,
+  "In a five-PR stack reproduction (ALLGREEN, build concurrency 5, max merge size 3), all five PRs were queued in order and the bottom PR squash-merged, but GitHub then rebased and force-pushed the remaining four branches and removed their queue entries instead of continuing the stack.": 1
+ }
+}

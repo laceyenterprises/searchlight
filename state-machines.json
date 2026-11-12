@@ -1215,7 +1215,7 @@
     ],
     "insight/report.py": [
       "c.get('status') == 'ok'",
-      "cells.get((q, a), {}).get('status') != 'ok'"
+      "cells[q, a].get('status') != 'ok'"
     ],
     "insight/grade.py": [
       "page['status'] == 'captured'",

@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "062bb07475f3fae3",
+ "url": "https://temporal.io/blog/durable-execution-meets-ai-why-temporal-is-the-perfect-foundation-for-ai",
+ "verdicts": {
+  "In Temporal, Activities automatically retry LLM requests that fail due to network glitches or rate limiting, so developers don't write the retry logic themselves.": 1,
+  "Temporal records a full Event History when executing a Workflow, which underpins its durability.": 1,
+  "Temporal supports human-in-the-loop agents through Signals & Updates and Queries.": 1
+ }
+}

@@ -1,0 +1,735 @@
+{
+ "digest": "18e7e100351eb338",
+ "values": {
+  "Q17-k11": {
+   "position": 61,
+   "reason": "Holdout scenarios stored outside the repo so agents can't see them is a specific architectural choice that directly counters test gaming in autonomous merge.",
+   "score": 3
+  },
+  "Q17-k119": {
+   "position": 96,
+   "reason": "This is a definition of EDD.",
+   "score": 0
+  },
+  "Q17-k120": {
+   "position": 93,
+   "reason": "The three-step EDD process is generic.",
+   "score": 0
+  },
+  "Q17-k121": {
+   "position": 26,
+   "reason": "A specific spec template (when, do, don't, must-keep-working, pass/fail) usable in the build-pack spec stage.",
+   "score": 2
+  },
+  "Q17-k122": {
+   "position": 128,
+   "reason": "Turning CI and production failures into dataset examples corroborates the reader's existing scar-memory approach.",
+   "score": 1
+  },
+  "Q17-k123": {
+   "position": 91,
+   "reason": "The three forms of agent nondeterminism are a generic framing.",
+   "score": 0
+  },
+  "Q17-k124": {
+   "position": 82,
+   "reason": "Agent-as-a-Judge for exploring traces across steps is a modest design detail on top of the standard deterministic-versus-LLM split.",
+   "score": 1
+  },
+  "Q17-k125": {
+   "position": 40,
+   "reason": "Concrete agent failure modes, including a false file-saved claim fixed by a state-based artifact eval, relevant to business-automation agents.",
+   "score": 2
+  },
+  "Q17-k126": {
+   "position": 32,
+   "reason": "A concrete judge-calibration workflow using precision and recall on a human-labelled set, applicable to gating judges.",
+   "score": 2
+  },
+  "Q17-k127": {
+   "position": 107,
+   "reason": "A conceptual argument that TDD/BDD assumptions break for agents; relevant framing, but not a measured result.",
+   "score": 1
+  },
+  "Q17-k128": {
+   "position": 97,
+   "reason": "A critique of benchmarks' limited visibility into workflows is generic.",
+   "score": 0
+  },
+  "Q17-k129": {
+   "position": 92,
+   "reason": "A closed offline and online evaluation loop is a conceptual framing the reader's SEV-to-hardening loop already approximates.",
+   "score": 1
+  },
+  "Q17-k130": {
+   "position": 125,
+   "reason": "Multi-dimensional scoring versus pass/fail is a common EDD framing.",
+   "score": 1
+  },
+  "Q17-k131": {
+   "position": 144,
+   "reason": "A specific recommendation to validate judges with TPR/TNR rather than raw agreement, useful but largely overlaps with k1.",
+   "score": 1
+  },
+  "Q17-k132": {
+   "position": 122,
+   "reason": "Vibes-based development and an error-analysis recommendation are mostly generic.",
+   "score": 1
+  },
+  "Q17-k135": {
+   "position": 68,
+   "reason": "Dataset, prompt and model-config lineage per run is a specific design detail that fits the Postgres ledger, though the rest is generic.",
+   "score": 2
+  },
+  "Q17-k136": {
+   "position": 8,
+   "reason": "Specific regression-gate mechanics plus a warning about LLM-judge drift without recalibration against human ratings, relevant to autonomous merge gating.",
+   "score": 2
+  },
+  "Q17-k137": {
+   "position": 66,
+   "reason": "This is a vendor framing that shifts the problem to calibration, with no evidence behind it.",
+   "score": 0
+  },
+  "Q17-k138": {
+   "position": 14,
+   "reason": "A concrete autonomous EDD loop design with git revert and plateau stopping criteria, a moderately useful new pattern.",
+   "score": 2
+  },
+  "Q17-k139": {
+   "position": 50,
+   "reason": "Modularity as a prerequisite for per-node evals is a sound but fairly generic design principle the reader's DAG/ticket structure already embodies.",
+   "score": 1
+  },
+  "Q17-k140": {
+   "position": 53,
+   "reason": "Nondeterminism making local spot-checks uninformative is a generic, widely known claim.",
+   "score": 0
+  },
+  "Q17-k141": {
+   "position": 3,
+   "reason": "A generic claim that deterministic grading suits coding agents, which the reader already does with smoke tests.",
+   "score": 0
+  },
+  "Q17-k142": {
+   "position": 59,
+   "reason": "Grading outcomes over trajectories is a specific grader-design rule, though k13 and k26 cut against it for compliance-critical steps.",
+   "score": 2
+  },
+  "Q17-k143": {
+   "position": 111,
+   "reason": "Partial-credit grading is a minor design detail, more relevant to benchmarking than to merge gating.",
+   "score": 1
+  },
+  "Q17-k144": {
+   "position": 109,
+   "reason": "Generic advice to make graders hack-resistant.",
+   "score": 1
+  },
+  "Q17-k145": {
+   "position": 6,
+   "reason": "A specific failure mode, agents exploiting leftover git history across trials, that directly mandates clean isolated worker environments.",
+   "score": 3
+  },
+  "Q17-k146": {
+   "position": 49,
+   "reason": "Concrete examples of backend-state verification rather than surface confirmation, a useful pattern for automation eval design.",
+   "score": 2
+  },
+  "Q17-k147": {
+   "position": 71,
+   "reason": "A real report of agents gaming narrow tests with 'return true' is a concrete failure mode, though it largely duplicates k12.",
+   "score": 2
+  },
+  "Q17-k148": {
+   "position": 28,
+   "reason": "Common knowledge about the SWE-bench grading method.",
+   "score": 0
+  },
+  "Q17-k149": {
+   "position": 103,
+   "reason": "Corroborates that LLM-containing software resists rigid tests, which is relevant to the general-platform ambition but is a qualitative claim.",
+   "score": 1
+  },
+  "Q17-k150": {
+   "position": 117,
+   "reason": "Quantifies how often benchmark specs and tests are flawed (38.3% underspecified, 61.1% unfair tests), which bears on trusting spec-to-test pipelines but is benchmark-centric.",
+   "score": 2
+  },
+  "Q17-k151": {
+   "position": 39,
+   "reason": "Benchmark-history trivia about SWE-bench score shifts that is tangential to the reader's verification architecture.",
+   "score": 1
+  },
+  "Q17-k153": {
+   "position": 85,
+   "reason": "Benchmark progress figures are trivia for this question.",
+   "score": 0
+  },
+  "Q17-k154": {
+   "position": 64,
+   "reason": "This is an example of misconfigured eval tasks penalizing correct behavior, a useful caution but mostly benchmark trivia.",
+   "score": 1
+  },
+  "Q17-k155": {
+   "position": 104,
+   "reason": "Grading transcripts and tool-call behavior, not just outcomes, is a specific design detail relevant to evaluating non-code agent workflows like marketing or automation.",
+   "score": 2
+  },
+  "Q17-k156": {
+   "position": 63,
+   "reason": "Preferring deterministic graders, then LLM, then human is standard, generic guidance.",
+   "score": 1
+  },
+  "Q17-k157": {
+   "position": 70,
+   "reason": "An 'Unknown' option and one isolated judge per rubric dimension are specific judge-design details.",
+   "score": 2
+  },
+  "Q17-k158": {
+   "position": 45,
+   "reason": "A design principle separating over-sensitive training verifiers from precision-focused deployed reviewers, relevant if review signals feed back into the fleet.",
+   "score": 2
+  },
+  "Q17-k159": {
+   "position": 22,
+   "reason": "A controlled result that a top cross-model reviewer was not significantly better than a fresh-session same-model reviewer, which challenges the assumed value of cross-model review.",
+   "score": 3
+  },
+  "Q17-k160": {
+   "position": 72,
+   "reason": "The measured comparison of a mixed same-model/cross-model review pair against two same-model reviews, with a capability confound, directly informs how review slots are configured.",
+   "score": 3
+  },
+  "Q17-k161": {
+   "position": 37,
+   "reason": "Measured evidence that even union cross-model review caught only 56.7% of planted errors, which bounds what adversarial review can deliver.",
+   "score": 3
+  },
+  "Q17-k162": {
+   "position": 38,
+   "reason": "Untested point estimates on withholding requirements that are only suggestive for reviewer context design.",
+   "score": 1
+  },
+  "Q17-k163": {
+   "position": 140,
+   "reason": "Shows a same-model fresh session adds only ~1.5pp, not significant, which argues that model diversity, not just fresh context, drives review gains.",
+   "score": 3
+  },
+  "Q17-k164": {
+   "position": 98,
+   "reason": "Lower finding overlap across models than within a model gives weak descriptive support for reviewer diversity.",
+   "score": 1
+  },
+  "Q17-k165": {
+   "position": 142,
+   "reason": "Quantifies a model-bias false-positive class (9.4%) in cross-model review, which is useful for designing reviewer noise filters.",
+   "score": 2
+  },
+  "Q17-k166": {
+   "position": 31,
+   "reason": "Evidence that self-correction degrades without external feedback and that evaluators miss over half of quality drops, quantifying the limits of judges.",
+   "score": 2
+  },
+  "Q17-k167": {
+   "position": 2,
+   "reason": "Adoption and acceptance metrics for review comments are a minor signal and do not measure defect catch rates.",
+   "score": 1
+  },
+  "Q17-k171": {
+   "position": 123,
+   "reason": "Recommends LLM-judge as triage rather than a replacement for review, a cautionary note relevant to autonomous merge but qualitative.",
+   "score": 1
+  },
+  "Q17-k172": {
+   "position": 101,
+   "reason": "Measured gap (87.3% vs 62.1%) showing automated review is much weaker on subtle logic errors, which informs where cross-model review needs supplementing with execution-based checks.",
+   "score": 3
+  },
+  "Q17-k173": {
+   "position": 133,
+   "reason": "A scale figure (100k PRs/day) is trivia for the decision.",
+   "score": 0
+  },
+  "Q17-k174": {
+   "position": 124,
+   "reason": "A design choice to favor precision over recall for developer trust is a useful tuning principle for an autonomous reviewer.",
+   "score": 2
+  },
+  "Q17-k175": {
+   "position": 121,
+   "reason": "Shows a cheap reviewer catches most high-severity issues and extra budget mainly reduces false alarms, which informs reviewer cost allocation.",
+   "score": 3
+  },
+  "Q17-k176": {
+   "position": 69,
+   "reason": "Reviewer recall being lower on model-generated code, and degrading faster with lower thinking budget, argues for higher reasoning budgets on adversarial review.",
+   "score": 3
+  },
+  "Q17-k177": {
+   "position": 20,
+   "reason": "A methodological limitation on recall measurement, a minor caveat on reviewer evidence.",
+   "score": 1
+  },
+  "Q17-k178": {
+   "position": 21,
+   "reason": "A generic warning about over-reliance on clean reviews.",
+   "score": 1
+  },
+  "Q17-k179": {
+   "position": 99,
+   "reason": "Repo tests can be rewritten while unseen scenarios cannot, which restates k12.",
+   "score": 1
+  },
+  "Q17-k180": {
+   "position": 42,
+   "reason": "A known failure mode, agents altering tests, that justifies holdout scenarios stored outside the agent's reach.",
+   "score": 2
+  },
+  "Q17-k181": {
+   "position": 108,
+   "reason": "A generic statement that the LLM judge is the weak point, with no specifics.",
+   "score": 0
+  },
+  "Q17-k182": {
+   "position": 119,
+   "reason": "A generic statement that twin fidelity is bounded by the model of the service.",
+   "score": 1
+  },
+  "Q17-k183": {
+   "position": 115,
+   "reason": "A specific recipe for building digital twins (API docs to agent to Go binary, with SDK clients as compatibility targets) that the reader could replicate for external service dependencies.",
+   "score": 2
+  },
+  "Q17-k184": {
+   "position": 51,
+   "reason": "A concrete scenario-pack format with visible and hidden blocks is a specific design detail the reader could adopt directly for build packs.",
+   "score": 2
+  },
+  "Q17-k185": {
+   "position": 19,
+   "reason": "Describes what holdout scenarios diagnose, which is somewhat useful but qualitative.",
+   "score": 1
+  },
+  "Q17-k186": {
+   "position": 76,
+   "reason": "A twin's fidelity bounding validation confidence is a reasonable principle, but it is qualitative.",
+   "score": 1
+  },
+  "Q17-k187": {
+   "position": 4,
+   "reason": "A maturity-ladder design detail that suggests digital twins can be deferred in favour of visible scenarios and approval boundaries, which helps with prioritisation.",
+   "score": 2
+  },
+  "Q17-k188": {
+   "position": 134,
+   "reason": "Estimates that about 30% of SWE-Bench Pro tasks are broken, a further caution on benchmark and test reliability that mostly corroborates k18.",
+   "score": 1
+  },
+  "Q17-k189": {
+   "position": 16,
+   "reason": "Measured evidence that test-passing patches often still fail developer tests or diverge behaviourally, showing test-pass gates are insufficient for autonomous merge.",
+   "score": 3
+  },
+  "Q17-k190": {
+   "position": 65,
+   "reason": "The measured rates of solution leakage and insufficient-test passes show how test-based verification overstates correctness, which supports stronger hidden tests.",
+   "score": 2
+  },
+  "Q17-k191": {
+   "position": 110,
+   "reason": "A measured 4x inflation between mean hidden-test pass rate and strict resolve rate, which warns that the reader's merge gates should use strict all-pass criteria rather than averages; the small sample limits weight.",
+   "score": 3
+  },
+  "Q17-k194": {
+   "position": 138,
+   "reason": "Team size and age are trivia.",
+   "score": 0
+  },
+  "Q17-k195": {
+   "position": 86,
+   "reason": "StrongDM's no-human-code and no-human-review rules are a policy anecdote with little design detail.",
+   "score": 1
+  },
+  "Q17-k196": {
+   "position": 73,
+   "reason": "Judging success by an LLM's sense of satisfying a real person is a vague criterion with little design detail.",
+   "score": 1
+  },
+  "Q17-k197": {
+   "position": 114,
+   "reason": "A token-spend target is trivia for verification architecture.",
+   "score": 0
+  },
+  "Q17-k198": {
+   "position": 67,
+   "reason": "A cross-provider verifier adding nothing beyond a fresh-context verifier directly challenges the value of cross-model review as configured.",
+   "score": 3
+  },
+  "Q17-k199": {
+   "position": 79,
+   "reason": "Builder self-tests missed subtle interactions while hidden tests found the gap, a supporting result for independent verification.",
+   "score": 2
+  },
+  "Q17-k203": {
+   "position": 120,
+   "reason": "A detailed zero-human-review CI gate design (vacuity witnesses, mutation runner requiring proof breakage, independent critic test vectors) that maps directly onto the reader's autonomous merge pipeline.",
+   "score": 3
+  },
+  "Q17-k204": {
+   "position": 36,
+   "reason": "An unvalidated estimate with only a proxy measurement, of minor value.",
+   "score": 1
+  },
+  "Q17-k205": {
+   "position": 57,
+   "reason": "The 40-60% catch-rate figure is uncited blog material and the recommendations are generic.",
+   "score": 0
+  },
+  "Q17-k207": {
+   "position": 15,
+   "reason": "A vendor claim without quantitative evidence that restates the independence principle.",
+   "score": 0
+  },
+  "Q17-k208": {
+   "position": 129,
+   "reason": "Important failure mode: cross-model review in one direction significantly lowered pass rates, so reviewer pairing direction matters and review can harm output.",
+   "score": 3
+  },
+  "Q17-k209": {
+   "position": 81,
+   "reason": "The strongly asymmetric net effect of cross-model review between Claude and Codex directly determines which model should review which in the adversarial review pairing.",
+   "score": 3
+  },
+  "Q17-k23": {
+   "position": 132,
+   "reason": "A statistically significant result that a fresh-context independent verifier catches more seeded faults than the builder's own tests supports separate verifier workers.",
+   "score": 3
+  },
+  "Q17-k230": {
+   "position": 106,
+   "reason": "Concrete failure mode (judge penalizing accurate paraphrases) and a measured fix (78% to 88% via rubric and few-shot) that informs judge-tuning practice.",
+   "score": 2
+  },
+  "Q17-k231": {
+   "position": 78,
+   "reason": "An agent deleting its own tests to reach 'all green' is a specific failure mode that argues for protecting test files from builder edits.",
+   "score": 2
+  },
+  "Q17-k232": {
+   "position": 75,
+   "reason": "Verifying the subagent and tool trajectory by trace tree traversal is a specific technique, partly overlapping k13.",
+   "score": 2
+  },
+  "Q17-k233": {
+   "position": 29,
+   "reason": "A concrete production monitoring design (5% daily sample, programmatic checks plus judges, weekly human review) relevant to non-code agent platforms.",
+   "score": 2
+  },
+  "Q17-k234": {
+   "position": 46,
+   "reason": "Sensible but generic advice to resolve human label disagreement first.",
+   "score": 1
+  },
+  "Q17-k235": {
+   "position": 33,
+   "reason": "A clear decision rule for routing checks to code evals versus judges, useful in platform design.",
+   "score": 2
+  },
+  "Q17-k236": {
+   "position": 88,
+   "reason": "A concrete list of checks suited to code evals versus LLM judges is useful for general business-agent platforms, but it is mostly standard.",
+   "score": 2
+  },
+  "Q17-k237": {
+   "position": 55,
+   "reason": "Splitting capability and regression evals, and promoting fixed production failures to regression cases, maps onto the scar-memory ledger as a specific design detail.",
+   "score": 2
+  },
+  "Q17-k238": {
+   "position": 30,
+   "reason": "Mostly product status, with a minor note on Agent-as-a-Judge cost and variance.",
+   "score": 1
+  },
+  "Q17-k239": {
+   "position": 56,
+   "reason": "The self-confirmation argument supports separating test authorship from the builder, but it is an argument rather than evidence.",
+   "score": 1
+  },
+  "Q17-k240": {
+   "position": 18,
+   "reason": "A concrete tiering scheme (deterministic checks per commit, sampled judge per PR, full set before release) that maps directly to the pipeline gates.",
+   "score": 2
+  },
+  "Q17-k241": {
+   "position": 52,
+   "reason": "This lists known LLM-judge weaknesses and notes the literature skews toward AI-only evaluation, which corroborates but adds no measured result.",
+   "score": 1
+  },
+  "Q17-k242": {
+   "position": 135,
+   "reason": "A product feature description of scenario simulation with a judge agent, mostly marketing, though relevant to multi-turn agent evaluation.",
+   "score": 1
+  },
+  "Q17-k243": {
+   "position": 27,
+   "reason": "A holdout analogy that restates the independence principle without new evidence.",
+   "score": 1
+  },
+  "Q17-k244": {
+   "position": 12,
+   "reason": "A design detail favouring an isolated judge over a full-context one to avoid shared assumptions, relevant to how the adversarial reviewer receives context.",
+   "score": 2
+  },
+  "Q17-k245": {
+   "position": 100,
+   "reason": "Gives a concrete calibration protocol (50-100 golden examples including bad ones, high-80s/90s agreement target, kappa/alpha) the reader can adopt directly as a gate before trusting its judges.",
+   "score": 2
+  },
+  "Q17-k246": {
+   "position": 43,
+   "reason": "A concrete failure-mode distribution from manual reading that is useful for content-factory eval design but specific to one prototype.",
+   "score": 1
+  },
+  "Q17-k247": {
+   "position": 131,
+   "reason": "A specific guideline that 3-5 focused, calibrated judges beat 20-30 noisy ones affects judge architecture.",
+   "score": 2
+  },
+  "Q17-k248": {
+   "position": 102,
+   "reason": "Layered programmatic, then LLM-judge, then human ordering is a useful but fairly common design pattern.",
+   "score": 1
+  },
+  "Q17-k26": {
+   "position": 127,
+   "reason": "A specific loop design (surviving mutants fed back to strengthen tests, fault-class-targeted mutants) applicable to the hardening-ledger and test generation.",
+   "score": 2
+  },
+  "Q17-k27": {
+   "position": 87,
+   "reason": "An operational gate that flagged zero of 100 rounds while humans found 23 defects is a striking measured gate failure that argues against automated gates alone.",
+   "score": 3
+  },
+  "Q17-k28": {
+   "position": 84,
+   "reason": "Judge agreement with humans not implying defect recall is a key metric caveat that should change how review and judge quality is measured.",
+   "score": 3
+  },
+  "Q17-k29": {
+   "position": 23,
+   "reason": "Measured evidence that eval harnesses themselves are heavily flawed, implying test suites need their own verification.",
+   "score": 2
+  },
+  "Q17-k30": {
+   "position": 95,
+   "reason": "This lists known judge biases with advice against using a judge as the sole gate, which corroborates other findings without new evidence.",
+   "score": 1
+  },
+  "Q17-k31": {
+   "position": 58,
+   "reason": "Measured position-bias spread across judges and a drop in verdict stability at higher temperature would inform judge model choice and temperature settings.",
+   "score": 3
+  },
+  "Q17-k32": {
+   "position": 143,
+   "reason": "High LLM-judge error rates and low expert agreement in specialized domains matter for expanding to marketing and business domains, though sourcing is vague.",
+   "score": 2
+  },
+  "Q17-k33": {
+   "position": 5,
+   "reason": "A generic definition of evaluation-driven development with no specific design or evidence.",
+   "score": 0
+  },
+  "Q17-k34": {
+   "position": 137,
+   "reason": "A generic description of property-based testing tools and shrinking.",
+   "score": 1
+  },
+  "Q17-k35": {
+   "position": 141,
+   "reason": "Strengthens k33 for third-party-model-written code, though the narrower subset adds limited new decision value.",
+   "score": 2
+  },
+  "Q17-k36": {
+   "position": 60,
+   "reason": "Differential testing with the old system as oracle is a concrete technique relevant to self-deploy, but it is a well-known method.",
+   "score": 1
+  },
+  "Q17-k37": {
+   "position": 62,
+   "reason": "A documented failure mode where agents falsely claim tool calls and skip compliance calls, invisible to final-answer scoring, argues for trace and ledger-based auditing in the session ledger.",
+   "score": 3
+  },
+  "Q17-k38": {
+   "position": 80,
+   "reason": "Escalating from cheap deterministic checks to LLM judges is generic guidance.",
+   "score": 1
+  },
+  "Q17-k39": {
+   "position": 9,
+   "reason": "A notable existence proof of a no-human-review shop that uses externally stored scenarios and digital twins, a useful architectural reference.",
+   "score": 2
+  },
+  "Q17-k4": {
+   "position": 54,
+   "reason": "A measured 22% recall of the built-in LLM judge on real deployed-agent defect patterns directly challenges relying on LLM judging as a gate.",
+   "score": 3
+  },
+  "Q17-k40": {
+   "position": 13,
+   "reason": "Specifies the twin validation method and explicitly notes no measured defect catch rate, which tempers investment in digital twins.",
+   "score": 2
+  },
+  "Q17-k41": {
+   "position": 1,
+   "reason": "A throughput figure noting that humans still review the PRs, which corroborates the landscape but carries no defect-detection evidence.",
+   "score": 1
+  },
+  "Q17-k42": {
+   "position": 89,
+   "reason": "A same-model verifier significantly outperforming an other-provider verifier contradicts the assumption behind cross-model review, though with a capability confound.",
+   "score": 3
+  },
+  "Q17-k43": {
+   "position": 11,
+   "reason": "A concrete per-unit token cost for independent verification that informs budget trade-offs in review dispatch.",
+   "score": 2
+  },
+  "Q17-k44": {
+   "position": 77,
+   "reason": "Measured invalid-test and false-oracle rates for verifier-generated tests help size the noise from spec-first verifier tests.",
+   "score": 2
+  },
+  "Q17-k45": {
+   "position": 7,
+   "reason": "A concrete two-phase verifier design (spec-only blind phase, then mutation/PBT/fuzzing) that could restructure the reader's review stage.",
+   "score": 2
+  },
+  "Q17-k46": {
+   "position": 90,
+   "reason": "Model-based tests over forbidden state transitions is a specific technique for stateful business-automation workflows.",
+   "score": 2
+  },
+  "Q17-k47": {
+   "position": 113,
+   "reason": "An important caveat that seeded faults may not represent real agent faults and hidden tests can exceed the spec, which affects how the reader interprets mutation-based gates.",
+   "score": 2
+  },
+  "Q17-k48": {
+   "position": 118,
+   "reason": "The finding that the visible-vs-held-out gap grows with code size argues for holdout tests the worker cannot see, especially for larger build packs.",
+   "score": 3
+  },
+  "Q17-k49": {
+   "position": 94,
+   "reason": "Starting with 20-50 tasks from real failures and grading environment state rather than agent claims are concrete, actionable details.",
+   "score": 2
+  },
+  "Q17-k50": {
+   "position": 10,
+   "reason": "The pass^k metric and its worked example show how flaky per-trial success compounds, which matters for autonomous merge reliability thresholds.",
+   "score": 2
+  },
+  "Q17-k55": {
+   "position": 17,
+   "reason": "A recent benchmark with quantified bug-catch rates for code-review agents, useful for choosing reviewer models.",
+   "score": 2
+  },
+  "Q17-k58": {
+   "position": 74,
+   "reason": "Agents locating and decrypting a benchmark answer key, with a tested mitigation, is a concrete holdout-leakage failure mode relevant to protecting hidden scenarios.",
+   "score": 2
+  },
+  "Q17-k59": {
+   "position": 136,
+   "reason": "An incident-replay evaluation method with a measured ~22% would-have-helped rate maps directly onto the reader's SEV/postmortem ledger for validating the reviewer.",
+   "score": 3
+  },
+  "Q17-k62": {
+   "position": 130,
+   "reason": "Production metrics on reviewer comment rate and actionability on agent-generated PRs give a useful benchmark for the reader's review stage.",
+   "score": 2
+  },
+  "Q17-k63": {
+   "position": 0,
+   "reason": "A concrete comparison showing that a reviewer with repo access and code execution beats a diff-only reviewer, which directly informs how the cross-model review worker should be provisioned.",
+   "score": 3
+  },
+  "Q17-k64": {
+   "position": 112,
+   "reason": "Concrete grader failure modes (rigid numeric matching, ambiguous specs, stochastic tasks) that understated a model's score, relevant to smoke-test and eval grader design.",
+   "score": 2
+  },
+  "Q17-k66": {
+   "position": 48,
+   "reason": "A measured result showing low pass^8 reliability and state-based grading, informative for business-automation agents.",
+   "score": 2
+  },
+  "Q17-k67": {
+   "position": 25,
+   "reason": "Throughput figures with optional human review that are explicitly not defect measurements, so only corroborating.",
+   "score": 1
+  },
+  "Q17-k68": {
+   "position": 145,
+   "reason": "Shows ~99% test-suite pass rates can coexist with major gaps, and describes using a reference oracle plus delta debugging to isolate failures, an applicable verification technique.",
+   "score": 2
+  },
+  "Q17-k69": {
+   "position": 83,
+   "reason": "An agentic property-testing pipeline, including the failure mode of hiding failures in try/catch, gives specific design and risk detail.",
+   "score": 2
+  },
+  "Q17-k70": {
+   "position": 116,
+   "reason": "Measured cross-model static review gain (71.6% to 89.7%) beating self-review (84.5%) directly validates the reader's cross-model adversarial review design.",
+   "score": 3
+  },
+  "Q17-k71": {
+   "position": 41,
+   "reason": "A measured result that cross-model review caused 13 regressions against 3 fixes, a critical warning for review-bound autonomous merge.",
+   "score": 3
+  },
+  "Q17-k72": {
+   "position": 105,
+   "reason": "Measured result that single PBT agents reach 83.4% bug recall while ensembling 16 configurations hits 99.5%, which directly argues for multi-model, multi-prompt diversity in verification.",
+   "score": 3
+  },
+  "Q17-k73": {
+   "position": 44,
+   "reason": "Specific failure modes of agent-written property-based tests (assume() exclusions, generator ranges, incorrect assertions) that inform how to verify generated PBTs.",
+   "score": 2
+  },
+  "Q17-k88": {
+   "position": 139,
+   "reason": "Measured step-level DAG judging recall (0.89 vs 0.41 end-to-end) strongly argues for step-level evaluation over the reader's spec-to-DAG pipelines and agent workflows.",
+   "score": 3
+  },
+  "Q17-k89": {
+   "position": 34,
+   "reason": "A measured finding that most step failures propagate from upstream and that DAG-aware evaluation helps more on longer workflows, directly relevant to DAG build packs.",
+   "score": 3
+  },
+  "Q17-k90": {
+   "position": 126,
+   "reason": "Measured 23-37% relative pass@1 gains of PBT over TDD methods support adding property-based tests to build packs.",
+   "score": 2
+  },
+  "Q17-k91": {
+   "position": 24,
+   "reason": "Concrete evidence that a fast deterministic no-LLM scaffold regression harness can run on every change, a practical design pattern.",
+   "score": 2
+  },
+  "Q17-k92": {
+   "position": 35,
+   "reason": "A specific rule that zero-tolerance security checks must stay deterministic regardless of judge agreement, plus known judge biases, which affects gate design.",
+   "score": 2
+  },
+  "Q17-k93": {
+   "position": 47,
+   "reason": "A literature-mapping count with no effectiveness evidence.",
+   "score": 0
+  }
+ }
+}

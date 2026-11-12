@@ -1,0 +1,43 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "fabf365cdfc27391",
+ "claims": [
+  {
+   "text": "Anthropic's C compiler project used 16 agents, about 2,000 sessions, 2B input tokens and 140M output tokens, costing just under $20,000.",
+   "url": null
+  },
+  {
+   "text": "Uber reduced cost per 1,000 requests by about 34% from its peak.",
+   "url": null
+  },
+  {
+   "text": "Uber reduced cost per session by 52% with the model held constant.",
+   "url": null
+  },
+  {
+   "text": "Uber moved interactive sessions to a 1-hour prompt-cache TTL.",
+   "url": null
+  },
+  {
+   "text": "Uber keeps a 5-minute prompt-cache TTL for subagents.",
+   "url": null
+  },
+  {
+   "text": "Uber compacts context at 400K tokens even on models with a 1M-token context window.",
+   "url": null
+  },
+  {
+   "text": "Uber's session dashboard flags 16 anti-patterns.",
+   "url": null
+  },
+  {
+   "text": "Uber sends spend alerts at 50%, 80% and 100% thresholds.",
+   "url": null
+  },
+  {
+   "text": "Uber models agent spend as users x sessions per user x turns per session x requests per turn x tokens per request x price per token.",
+   "url": null
+  }
+ ],
+ "question_id": "Q19"
+}

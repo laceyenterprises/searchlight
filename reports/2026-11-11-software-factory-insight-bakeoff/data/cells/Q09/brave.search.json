@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:11.033142Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 10665,
+   "published": null,
+   "text": "# Harness Engineering: Anatomy, Architecture, and Evolution of Coding Agents A Source-Code Study of Eleven Systems\n## 2 What Is a Harness?\n### 2.4 The Minimal Harness\nThe corpus contains an existence proof at the floor: Mini-SWE-Agent implements all seven subsystems in roughly 100 lines—a while loo…",
+   "title": "Harness Engineering:Anatomy, Architecture, and Evolution of Coding AgentsA Source-Code Study of Eleven Systems",
+   "url": "https://arxiv.org/html/2609.00006v1"
+  },
+  {
+   "chars_delivered": 6921,
+   "published": null,
+   "text": "# Inside the Scaffold: A Source-Code Taxonomy of Coding Agent Architectures\n## 3 Methodology\n### 3.1 Agent Selection\n| Agent | Category | Language | Stars | Origin |\n| --- | --- | --- | --- | --- |\n| OpenHands (Wang et al., 2025) | SWE-bench | Python | 70k | All Hands AI |\n| SWE-agent (Yang et al.,…",
+   "title": "Inside the Scaffold: A Source-Code Taxonomy of Coding Agent Architectures",
+   "url": "https://arxiv.org/html/2604.03515v2"
+  },
+  {
+   "chars_delivered": 8634,
+   "published": null,
+   "text": "*be used to achieve high performance across a diverse set of tasks?* Our answer is\n\nOpenHands-Versa, a generalist agent built with a modest number of general tools:\n\ncode editing and execution, web search, as well as multimodal web browsing and\n\nfile access. Importantly, OpenHands-Versa demonstrate…",
+   "title": "Coding Agents with Multimodal Browsing are Generalist ...",
+   "url": "https://arxiv.org/pdf/2506.03011"
+  },
+  {
+   "chars_delivered": 7447,
+   "published": null,
+   "text": "## Benchmark Comparison\n### SWE-bench Performance\n| Agent Configuration | SWE-bench Verified | SWE-bench Lite |\n| --- | --- | --- |\n| OpenHands + Claude 4.5 Extended Thinking | 72% | - |\n| OpenHands + Critic Model (5 attempts) | 66.4% | - |\n| OpenHands CodeAct 2.1 + Claude 3.5 Sonnet | 53% | 41.7%…",
+   "title": "OpenHands vs SWE-Agent (2026): SWE-bench Scores Compared",
+   "url": "https://localaimaster.com/blog/openhands-vs-swe-agent"
+  },
+  {
+   "chars_delivered": 8884,
+   "published": null,
+   "text": "# OpenHands\nOpenHands was published as a conference paper at the International Conference on Learning Representations in 2025 and has achieved state-of-the-art results on the SWE-bench Verified benchmark, reaching a 68.4 percent resolution rate using Claude Opus 4.6. The platform's model-agnostic d…",
+   "title": "OpenHands - Learn AI - Miraheze",
+   "url": "https://ai.miraheze.org/wiki/OpenHands"
+  },
+  {
+   "chars_delivered": 1455,
+   "published": null,
+   "text": "## Key Takeaways\n- OpenHands (MIT) runs agents inside a sandboxed Docker environment and pairs with Claude Opus 4.6 for a 68.4% SWE-bench Verified result, close to proprietary scaffolds.\n\n## Which Open Source Agents Live Inside Your IDE?\n### 6. OpenHands\nOn the benchmark side, the open-source OpenH…",
+   "title": "9 Open-Source AI Coding Agents Worth Self-Hosting - Security Boulevard",
+   "url": "https://securityboulevard.com/2026/06/9-open-source-ai-coding-agents-worth-self-hosting/"
+  },
+  {
+   "chars_delivered": 5005,
+   "published": null,
+   "text": "# Mini-SWE-agent\n**mini-SWE-agent** is an open-source autonomous coding agent developed by researchers at Princeton University and Stanford University, designed to solve software engineering tasks such as resolving GitHub issues and assisting developers at the command line. The project, created by…",
+   "title": "Mini-SWE-agent - Learn AI - Miraheze",
+   "url": "https://ai.miraheze.org/wiki/Mini-SWE-agent"
+  },
+  {
+   "chars_delivered": 6544,
+   "published": null,
+   "text": "*general tools?* We propose OpenHands-Versa,\n\na single-agent system with a modest number\n\nof general tools like code execution, search engine, web browser and multimodal file viewer,\n\nfor three practical domains: software engineering, deep research, and web browsing. Notably, OpenHands-Versa demons…",
+   "title": "Coding Agents with Multimodal Browsing are Generalist ...",
+   "url": "https://aclanthology.org/2026.findings-eacl.318.pdf"
+  },
+  {
+   "chars_delivered": 5340,
+   "published": null,
+   "text": "software engineering, we posit that LM agents represent a new category of end\n\nusers with their own needs and abilities, and would benefit from specially-built\n\ninterfaces to the software they use. We investigate how interface design affects the\n\nperformance of language model agents. As a result of…",
+   "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+   "url": "https://proceedings.neurips.cc/paper_files/paper/2024/file/5a7c947568c1b1328ccc5230172e1e7c-Paper-Conference.pdf"
+  },
+  {
+   "chars_delivered": 2980,
+   "published": null,
+   "text": "# OpenHands\n## What OpenHands actually does in April 2026\nThe architecture centers on an event-stream model. Each action (write file, run bash, click browser element) is logged as a structured event the agent can replay or reference. Docker isolation means the agent operates in a clean, ephemeral e…",
+   "title": "OpenHands: Open-Source AI Coding Agent",
+   "url": "https://vantaige.io/ai-tool/openhands"
+  }
+ ],
+ "latency_ms": 1602.0,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q09",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What are the architectures and reported results of open-source autonomous coding agents and frameworks: OpenHands (All Hands), SWE-agent / mini-swe-agent, Block's goose, and Sourcegraph Amp? Focus on the agent-computer interface, sandboxing, and lessons from SWE-bench-style evaluation.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 74632,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:09.431080Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

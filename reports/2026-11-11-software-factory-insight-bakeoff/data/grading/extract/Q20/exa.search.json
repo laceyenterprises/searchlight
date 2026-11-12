@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "7e11a279b90ebd5d",
+ "claims": [
+  {
+   "text": "Google SRE defines five AI autonomy levels: L0 Manual, L1 Assisted, L2 Partial, L3 High, and L4 Full, based on whether automation or humans handle Monitor, Investigate, Mitigate, Actuate, and Self Direct.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "At Google SRE autonomy level L2 (Partial), the system can monitor, investigate and actuate, but a human must explicitly approve any plan before actuation.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "At Google SRE autonomy level L3 (High), the AI agent can detect, decide and act without human approval for bounded, well-defined scenarios, with humans often notified and safety relying heavily on technical controls and guardrails.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "At Google SRE autonomy level L4 (Full), a system devises and executes action sequences, monitors the impact of its interventions, adapts strategy (alternative mitigations or rollbacks), and manages the incident until the system is confirmed stable.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "The transition from Google's L2 to L3 is described as a critical step gated by trust and robust safety controls, requiring demonstrated high precision and reliability; the transition from L3 to L4 is gated by the ability to perform Multi-Step Resolution.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google SRE's AI-Ops governance model, the 'Safety Trifecta', consists of Transparency, Real-time Risk Evaluation, and Progressive Authorization.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's Real-time Risk Evaluation assesses every agent-proposed action against production context such as ongoing deployments, error budget status, active incidents and time of day; draining a cell may be low-risk normally but high-risk during a regional peak.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google requires agent identities to be distinct from human users, strongly authenticated, and granted access only on-demand with necessary permissions (no ambient access, least privilege).",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google requires agent-specific rate limits and automated circuit breakers to prevent runaway loops, and requires any agent action to be highly interruptible.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google requires any system or API intended for agent interaction to support a declarative dry_run=true mode so the outcome and blast radius can be predicted before production state is mutated.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's zero-trust, safe-by-default actuation requires agents to route actions such as draining a cell through a delegated control plane that deterministically verifies available capacity and enforces global rate limits, regardless of whether the caller is an agent or a human.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's paper names its autonomous mitigation agent 'AI Operator', its execution guardrail control plane 'Actus', and its incident-trajectory analysis and evaluation system 'IRM Analyzer'.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google evaluates agents with datasets graded Bronze (heuristic autolabelers), Silver (programmatic, calibrated against Gold) and Gold (human-expert verified), using stratified sampling of incidents for manual review to create Gold data.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google runs Nightly Evaluations on its Everest platform against a rolling dataset of recent real incidents, combining LLM-as-a-Judge grading of reasoning and tool calls with strict deterministic scoring of the final mitigation.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google scores a mitigation as correct only if the agent's output deterministically matches the exact parameters of the Golden data (e.g., the specific binary and version), not a vague suggestion to 'rollback'.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google collects Golden labels inside the incident workflow: when an oncaller declares an incident mitigated, the system suggests the exact mitigations applied and the SRE accepts, modifies or rejects them.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's Detectr is a Gemini-powered platform for incident detection, and Google notes LLMs can cluster customer feedback from support tickets and forums in near real-time to identify emerging outages missed by telemetry-based monitoring.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's agents begin at Level 2 autonomy, where they investigate, propose and stage mitigations but need explicit human approval to execute, and advance to Level 3 or 4 only later.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "PagerDuty's SRE agent Paige runs detect, triage, diagnose, remediate and learn stages; in diagnosis it tests multiple hypotheses in parallel against logs, metrics and code, and it pulls change events, runbooks and observability data as context.",
+   "url": "https://www.pagerduty.com/platform/ai-agents/sre/"
+  },
+  {
+   "text": "PagerDuty's Paige waits for human approval before every remediation unless the user decides Paige can act independently, and shows the recommendation, reasoning and evidence before execution.",
+   "url": "https://www.pagerduty.com/platform/ai-agents/sre/"
+  },
+  {
+   "text": "In PagerDuty's example, Paige identified a payments-api v2.4.1 deployment as root cause with 91% confidence and proposed reverting to the last stable version, awaiting approval.",
+   "url": "https://www.pagerduty.com/platform/ai-agents/sre/"
+  },
+  {
+   "text": "PagerDuty plans per-team agent profiles and permissions (Early Access) to define which integrations and actions Paige can access, and states its releases are tested against prompt injection.",
+   "url": "https://www.pagerduty.com/platform/ai-agents/sre/"
+  },
+  {
+   "text": "PagerDuty's Paige can be added to an escalation policy or as a virtual responder, can attempt a fix before escalating, and after incidents writes post-incident reviews, updates runbooks and stores shared agent memory.",
+   "url": "https://www.pagerduty.com/platform/ai-agents/sre/"
+  },
+  {
+   "text": "Traversal's self-healing opens a draft pull request, runs validation checks (unit tests, staging error rate), merges and rolls out, then verifies in production by comparing checkout conversion to its 7-day baseline and confirming all storefronts completed price refresh.",
+   "url": "https://www.traversal.com/agentic-capabilities/self-healing"
+  },
+  {
+   "text": "Traversal lets users grant autonomy incrementally per fix type and scope: in its example, cart-svc region and validation fallback fixes run on their own after staging checks pass, while pricing-service code changes still arrive as PRs and pricing-service config rollbacks were later added to autonomous.",
+   "url": "https://www.traversal.com/agentic-capabilities/self-healing"
+  }
+ ],
+ "question_id": "Q20"
+}

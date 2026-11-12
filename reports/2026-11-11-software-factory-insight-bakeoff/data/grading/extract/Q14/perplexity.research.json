@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "491c699b72170f86",
+ "claims": [
+  {
+   "text": "OpenAI's Agents API lets an MCP server publish tool definitions and run tool calls; the Agents API discovers the tools, calls the server, and returns results to the agent without the application handling each call.",
+   "url": null
+  },
+  {
+   "text": "For an HTTP MCP server added to agent.tools in the OpenAI Agents API, the server must be reachable from OpenAI; servers on a private network or installed software in the environment use a session environment.type of self_hosted or openai_hosted.",
+   "url": null
+  },
+  {
+   "text": "OpenAI offers Secure MCP Tunnel to connect private, on-premises, or firewalled MCP servers to supported OpenAI products without exposing the server to the public internet; the Responses API mcp tool type uses server_url for a remote server or tunnel_id for a local one through the tunnel.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's Agents SDK guidance is to use hosted MCP for public remote servers that fit the platform trust model, and local or private MCP (stdio or streamable HTTP) when the application runtime should own connectivity, filtering, or approvals.",
+   "url": null
+  },
+  {
+   "text": "The OpenAI Agents Python SDK supports hosted MCP tools (HostedMCPTool), Streamable HTTP servers (MCPServerStreamableHttp), and HTTP with SSE servers (MCPServerSse), and points to the official MCP Registry for finding published servers.",
+   "url": null
+  },
+  {
+   "text": "Hosted MCP in the OpenAI Agents SDK also supports OpenAI connectors: a connector_id and an access token replace the server_url, and the Responses API handles authentication.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's tool_search, which loads deferred tool definitions at runtime, is supported only on gpt-5.4 and later models.",
+   "url": null
+  },
+  {
+   "text": "OpenAI's Agents API uses tool search to load relevant tool definitions as needed, reducing token usage and cost while preserving the model's cache, and programmatic tool calling to run calls in parallel, chain operations, and filter results in code.",
+   "url": null
+  },
+  {
+   "text": "As of Anthropic's December 2025 announcement donating MCP to the Agentic AI Foundation, there were more than 10,000 active public MCP servers and MCP had been adopted by ChatGPT, Cursor, Gemini, Microsoft Copilot, and Visual Studio Code.",
+   "url": null
+  },
+  {
+   "text": "MCP has an official community-driven Registry for discovering MCP servers; the November 25, 2025 spec release added asynchronous operations, statelessness, server identity, and official extensions.",
+   "url": null
+  },
+  {
+   "text": "Anthropic reported that Claude's directory has over 75 connectors powered by MCP, and that MCP has 97M+ monthly SDK downloads across Python and TypeScript.",
+   "url": null
+  },
+  {
+   "text": "At the Agentic AI Foundation's October 22, 2026 event, the foundation accepted four contributed projects (Agent Skills, Open Responses, OpenEnv, OpenSandbox), bringing it to 10 hosted projects alongside MCP, and reported 305 member organizations.",
+   "url": null
+  },
+  {
+   "text": "The AAIF reported that 89% of surveyed members run MCP in production and 81% have deployed agentic AI; Anthropic reported MCP tool calls in Claude crossing 2 billion.",
+   "url": null
+  },
+  {
+   "text": "Newer MCP capabilities cited include tasks, server-initiated events, elicitation that guarantees a human confirms an action, and skills served over MCP and bound to a user's identity and authorization.",
+   "url": null
+  },
+  {
+   "text": "Block built an internal MCP-based agent called Goose that orchestrates workflows across internal systems, and Cloudflare built an internally governed MCP platform that lets teams expose internal resources to agents with governance built at the protocol layer.",
+   "url": null
+  },
+  {
+   "text": "At MCP's November 2024 launch, Anthropic said Block and Apollo had integrated MCP and that Zed, Replit, Codeium, and Sourcegraph were working with it, and released pre-built servers for Google Drive, Slack, GitHub, Git, Postgres, and Puppeteer.",
+   "url": null
+  },
+  {
+   "text": "Claude Code's tool search withholds tool definitions from context and loads up to five relevant tools per search by default, supports catalogs up to 10,000 tools, and adds one extra round-trip per search.",
+   "url": null
+  },
+  {
+   "text": "Per Claude Code documentation, 50 tools can use 10-20K tokens of context, and tool selection accuracy degrades with more than 30-50 tools loaded at once.",
+   "url": null
+  },
+  {
+   "text": "In Claude Code with tool search, only tool names and server instructions load at session start; there is no fixed per-server tool cap, and the practical limit is the context window budget.",
+   "url": null
+  },
+  {
+   "text": "Claude Code's ENABLE_TOOL_SEARCH=auto mode loads tools upfront until their definitions reach 10% of the context window, at which point tool search turns on.",
+   "url": null
+  },
+  {
+   "text": "Tool search is not supported on Microsoft Foundry deployments hosted on Azure, which reject it server-side, so Claude Code loads MCP tools upfront there.",
+   "url": null
+  },
+  {
+   "text": "A 1,932-run measurement (October 2026) with 5 to 100 tools across Claude Code (Opus 5.5), Codex CLI (GPT-6.1-sol), and Antigravity (Gemini 3.1 Pro) found every run correct, so accuracy did not degrade on current top models; cost varied with how the client loads tools.",
+   "url": null
+  },
+  {
+   "text": "Speakeasy benchmark data reported perfect completion at 10 tools, 19 of 20 correct at 20 tools for large models, and complete failure for both large and small models at 107 tools.",
+   "url": null
+  },
+  {
+   "text": "GitHub Copilot cut its tools from 40 to 13, gaining a 2 to 5 percentage point accuracy improvement and a 400 ms latency reduction.",
+   "url": null
+  },
+  {
+   "text": "Connecting an agent to 50+ MCP tools can consume 30,000 to 60,000 tokens in tool metadata, about 25 to 30% of a 200K context window.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

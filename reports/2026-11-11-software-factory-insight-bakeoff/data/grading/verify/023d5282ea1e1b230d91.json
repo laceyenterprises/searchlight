@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "36fb0dc2242935e8",
+ "url": "https://aws.amazon.com/blogs/machine-learning/5-production-challenges-in-multi-agent-systems-and-how-deep-insight-solved-them/",
+ "verdicts": {
+  "AWS reported selective prompt caching can cut repeated input-token costs by up to 90%, and an LG Electronics system using the same pattern reduced an analysis from three days to 30 minutes (288x); AWS also warned container isolation alone does not stop prompt injection in uploaded data.": 0,
+  "AWS's Deep Insight reference system uses eight specialized agents (Coordinator, Planner, Plan Reviewer, Supervisor, Coder, Validator, Reporter, Tracker), with a Strands Graph defining order and human-in-the-loop branching and role-specific models (Haiku for routing, Opus for planning, Sonnet for execution).": 1
+ }
+}

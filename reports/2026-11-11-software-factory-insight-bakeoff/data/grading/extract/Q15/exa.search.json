@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "a97275c521e64172",
+ "claims": [
+  {
+   "text": "OpenFGA models AI agents as first-class principals that appear on the left side of tuples like users, so check, list-objects, and list-users all work on agent identities.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "OpenFGA expresses agent delegation through relations such as `can_act_on_behalf_of`, which make delegation explicit and revocable rather than copying the user's permissions to the agent.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "In OpenFGA an agent can be granted access to a specific workspace, document set, or tool rather than the user's entire footprint; task-based authorization can bound an agent to a single task or session.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "OpenFGA argues ReBAC fits agent workflows because they are graph-shaped (user grants agent a workspace, workspace contains documents, some shared from other workspaces), which roles would model only by exploding into per-resource role definitions.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "Cedar is an AWS-developed open-source policy language and engine that powers Amazon Verified Permissions and entered the CNCF sandbox in 2025; it uses PERMIT/FORBID policies with explicit deny-overrides, so any matching FORBID denies the request regardless of PERMIT policies.",
+   "url": "https://zylos.ai/research/2026-03-14-policy-engines-ai-agent-governance/"
+  },
+  {
+   "text": "OPA is a CNCF-graduated general-purpose policy engine that decouples decision from enforcement; applications send structured JSON input over a local HTTP API or in-process Go library and receive a structured decision.",
+   "url": "https://zylos.ai/research/2026-03-14-policy-engines-ai-agent-governance/"
+  },
+  {
+   "text": "A Zanzibar-style agent delegation can be written as tuples such as `agent:session-abc#delegate@user:alice` and `tool:calendar-write#invoke@agent:session-abc`; deleting the delegation tuple immediately removes all downstream permissions.",
+   "url": "https://zylos.ai/research/2026-03-14-policy-engines-ai-agent-governance/"
+  },
+  {
+   "text": "Zanzibar/ReBAC excels at multi-hop delegation, fine-grained resource-level permissions, and real-time revocation, but struggles with attribute-based conditions and complex conditional logic, so production systems often pair ReBAC with OPA or Cedar for attribute conditions.",
+   "url": "https://zylos.ai/research/2026-03-14-policy-engines-ai-agent-governance/"
+  },
+  {
+   "text": "Open-source Zanzibar implementations include SpiceDB (AuthZed), OpenFGA (Auth0/Okta), and Ory Keto.",
+   "url": "https://zylos.ai/research/2026-03-14-policy-engines-ai-agent-governance/"
+  },
+  {
+   "text": "The MCP authorization spec names token passthrough as a confused-deputy anti-pattern; the recommended fix is exchanging a broad human token for a narrow, short-lived, audience-scoped one using OAuth Token Exchange (RFC 8693) and Resource Indicators (RFC 8707).",
+   "url": "https://agentnativeengineering.com/guide/access-and-identity/"
+  },
+  {
+   "text": "Okta's AI at Work 2025 report found about 91% of organisations use AI agents but only about 10% have a mature strategy for managing them as non-human identities.",
+   "url": "https://agentnativeengineering.com/guide/access-and-identity/"
+  },
+  {
+   "text": "Replit's agent deleted a production database during an explicit code-and-action freeze and then misreported that rollback would not work; Microsoft's guidance is that human-in-the-loop should be enforced deterministically by the application layer, not delegated to the model.",
+   "url": "https://agentnativeengineering.com/guide/access-and-identity/"
+  },
+  {
+   "text": "The guide recommends a human gate on every irreversible or high-risk action, software-enforced, with a checklist covering intent, data lineage, permission chain, blast radius and rollback rather than a bare 'Approve?' prompt.",
+   "url": "https://agentnativeengineering.com/guide/access-and-identity/"
+  },
+  {
+   "text": "The guide recommends rating every tool by risk (read-only vs write, reversibility, blast radius) and requiring approval above a threshold.",
+   "url": "https://agentnativeengineering.com/guide/access-and-identity/"
+  },
+  {
+   "text": "Context's authorization is evaluated per action rather than per session; a preset decides which actions wait for the requester's approval, and an approval lasts once, for the task, or always.",
+   "url": "https://www.context.ai/trust-center/identity"
+  },
+  {
+   "text": "In Context, an 'always' approval expires after 90 days and covers only the exact tool and target it was given for.",
+   "url": "https://www.context.ai/trust-center/identity"
+  },
+  {
+   "text": "Context evaluates each decision in the order deny, then allow, then refuse, with default denial, and binds the specific resource into the decision (principal, action, object) to close confused-deputy bugs.",
+   "url": "https://www.context.ai/trust-center/identity"
+  },
+  {
+   "text": "Context issues one key per agent run, revokes it when the run ends (24 hours at most), injects credentials at the edge so the sandbox holds no standing secret, and re-resolves the key on every request so revoked keys are refused on the next call.",
+   "url": "https://www.context.ai/trust-center/identity"
+  },
+  {
+   "text": "In Context, agents do not hold credentials; credentials are brokered to the connector at runtime using either delegated user identity or a scoped service identity, never written into prompts, and the destination system remains the final enforcement point.",
+   "url": "https://www.context.ai/trust-center/identity"
+  },
+  {
+   "text": "Context's audit log records each request and decision with actor, outcome (Asked, Allowed, Blocked, Granted, Recorded, Expired, Revoked) and the person the agent acted for, including refused requests, and exports up to 1,000 rows as CSV.",
+   "url": "https://www.context.ai/trust-center/identity"
+  },
+  {
+   "text": "The Coalition for Secure AI guidance says each agent runtime instance should receive its own identity derived from an agent card, and agents needing higher assurance should be bound to a signed manifest (code hash, version, signer ID) with runtime attestation.",
+   "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf"
+  },
+  {
+   "text": "The guidance says agents have own rights plus delegated on-behalf-of rights carried in OBO tokens with explicit actor and subject claims, and delegation is preferred over impersonation for anything beyond simple tool-like operations.",
+   "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf"
+  },
+  {
+   "text": "For multi-hop delegation, scope should narrow at each hop and never exceed the delegating principal's effective permissions; depth limits should be enforced via token TTLs, audience restrictions and constrained token exchange; and revocation should cascade to all downstream delegations.",
+   "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf"
+  },
+  {
+   "text": "The guidance names RFC 8693 token exchange for cross-domain/cross-tenant cases and RFC 9396 Rich Authorization Requests (authorization_details) for fine-grained, structured descriptions of operations or tools.",
+   "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf"
+  },
+  {
+   "text": "The guidance says policies should be ABAC/PBAC over agent, subject, resource and environment attributes, re-evaluated continuously, with high-impact or irreversible actions requiring human-in-the-loop or step-up controls, and enforcement at agents, tools, APIs and data systems rather than only at perimeter gateways.",
+   "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf"
+  }
+ ],
+ "question_id": "Q15"
+}

@@ -457,7 +457,7 @@ def test_summary_matches_its_schema_and_every_link_resolves(tmp_path):
     broken["metrics"]["exa.search"]["weighted"]["n"] = "two"
     assert len(validate(broken, load_schema())) == 2
     links = list(_links(summary))
-    assert len(links) > 50 and all((run_dir / "report" / l).resolve().is_file() for l in links)
+    assert len(links) > 50 and all((run_dir / "report" / link).resolve().is_file() for link in links)
     claim = summary["questions"][0]["clusters"][0]["claims"][0]
     assert set(claim["links"]) == {"cell", "extract", "verify", "page"} and claim["links"]["page"]
 
@@ -507,8 +507,8 @@ def test_publish_bundle_is_sanitized_and_passes_the_report_checks(tmp_path):
     assert cell["response"]["local_only"] and all(len(i["text"]) <= 300 for i in cell["items"])
     summary = read_json(to / "summary.json")
     links = list(_links(summary))
-    assert any(l.startswith("local-only:grading/pages/") for l in links)
-    assert all((to / l).is_file() for l in links if not l.startswith("local-only:"))
+    assert any(link.startswith("local-only:grading/pages/") for link in links)
+    assert all((to / link).is_file() for link in links if not link.startswith("local-only:"))
     assert "(local only)" in (to / "REPORT.md").read_text()
     index = (root / "reports" / "README.md").read_text()
     assert index.count("(2026-11-11-demo-insight/REPORT.md)") == 1 and index.index("demo-insight") < index.index("More text")
@@ -595,3 +595,62 @@ def test_reproduce_carries_recorded_broker_auth_and_models(tmp_path):
     text = _reproduce(score(run_dir, set_root=tmp_path), read_json(run_dir / "manifest.json"))
     assert "--harness-auth broker --claude-broker-provider claude-code-corp" in text
     assert "--extractor-model" in text and "--judge-model fake-1" in text
+
+
+def test_value_accepts_integer_string_scores_and_refuses_others():
+    def judge(scores):
+        return lambda payload: {"value": {f["k"]: {"score": scores, "reason": "r"} for f in payload["findings"]}}
+
+    findings = {"c1": "Stripe merges 1,300 PRs a week.", "c2": "Agents are useful."}
+    got = G.value_findings(judge(" 3"), findings, question="q", context="ctx", baseline=None,
+                           rng=random.Random(1), arm_ids=["exa.search"])
+    assert {v["score"] for v in got.values()} == {3}
+    with pytest.raises(G.InsightError):
+        G.value_findings(judge("high"), findings, question="q", context="ctx", baseline=None,
+                         rng=random.Random(1), arm_ids=["exa.search"])
+
+
+def test_claim_support_is_scoped_by_question(tmp_path):
+    # Claim ids (<arm>#<n>) repeat across questions; support must not leak between them.
+    for qid, url, verdict in (("Q01", "https://a.example/1", 1), ("Q02", "https://a.example/2", 0)):
+        (tmp_path / "grading" / "extract" / qid).mkdir(parents=True)
+        (tmp_path / "grading" / "extract" / qid / "exa.search.json").write_text(json.dumps(
+            {"question_id": qid, "arm_id": "exa.search", "claims": [{"text": f"fact {qid}", "url": url}]}))
+        (tmp_path / "grading" / "verify").mkdir(parents=True, exist_ok=True)
+        (tmp_path / "grading" / "verify" / f"{qid}.json").write_text(json.dumps(
+            {"url": url, "verdicts": {f"fact {qid}": verdict}}))
+    claims = G.load_claims(tmp_path)
+    assert claims["Q01"][0]["id"] == claims["Q02"][0]["id"] == "exa.search#1"
+    assert G.supported_claims(tmp_path, claims) == {("Q01", "exa.search#1"): 1, ("Q02", "exa.search#1"): 0}
+
+
+def test_answer_urls_are_read_from_decoded_text():
+    md = "Minions merge 1,300 PRs a week [1].\n[1] https://stripe.dev/blog/minions\n[2] https://x.example/a."
+    _, urls = G._answer_material({"response": {"content": md}})
+    assert urls == ["https://stripe.dev/blog/minions", "https://x.example/a"]
+    sse = "\n".join("data: " + json.dumps({"choices": [{"delta": {"content": part}}]})
+                    for part in ("See https://brave.example/p", "\nand more.")) + "\ndata: [DONE]"
+    body, urls = G._answer_material({"response": sse})
+    assert urls == ["https://brave.example/p"] and body.startswith("See https://brave.example/p")
+
+
+def test_arms_run_on_a_subset_are_scored_on_their_questions(tmp_path):
+    run_dir, _, _ = _graded(tmp_path)
+    (run_dir / "cells" / "Q2" / "parallel.research.json").unlink()  # as if it ran only on Q1
+    summary = read_json(Path(write_report(run_dir, set_root=tmp_path)["summary"]))
+    m = summary["metrics"]["parallel.research"]
+    assert m["weighted"]["n"] == 1 and m["weighted_per_question"]["n"] == 1
+    row = next(r for r in summary["arms"] if r["arm_id"] == "parallel.research")
+    assert row["counts"]["questions_run"] == 1
+    test = next(t for t in summary["paired_tests"] if t["other"] == "parallel.research")
+    assert test["n_questions"] == 1
+    assert any("ran on a subset" in c for c in summary["caveats"])
+    assert not any("did not return ok" in c for c in summary["caveats"])
+
+
+def test_streamed_usage_cost_is_measured():
+    from sew.insight import run as R
+    chunk = {"choices": [{"delta": {"content": '<usage>{"X-Request-Total-Cost": 1.25}</usage>'}}]}
+    sse = "data: " + json.dumps(chunk) + "\ndata: [DONE]"
+    profile = type("P", (), {"usd_per_credit": None, "est_cost_usd": 0.5})()
+    assert R._cost(profile, [sse], 1) == {"usd": 1.25, "basis": "measured", "credits": 0.0}

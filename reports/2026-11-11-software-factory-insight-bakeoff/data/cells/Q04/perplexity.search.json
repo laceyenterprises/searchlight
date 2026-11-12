@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:00.176028Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2475,
+   "published": "2026-05-08",
+   "text": "# Running Codex safely at OpenAI\nIn practice, that means managed configuration, constrained execution, network policies, and agent-native logs.\n## Controlling how Codex operates\n### Sandboxing and approvals\nApprovals and sandboxing work together.\nThe sandbox defines the technical execution boundary…",
+   "title": "Running Codex safely at OpenAI",
+   "url": "https://openai.com/index/running-codex-safely/"
+  },
+  {
+   "chars_delivered": 1069,
+   "published": "2025-05-16",
+   "text": "# Addendum to OpenAI o3 and o4-mini system card: Codex\nCodex is a cloud-based coding agent.\nCodex is powered by codex-1, a version of OpenAI o3 optimized for software engineering.\n...\nUsers can ask Codex to perform coding tasks or to answer questions about a codebase.\nEach agent runs in its own clo…",
+   "title": "Addendum to o3 and o4-mini system card: Codex | OpenAI",
+   "url": "https://openai.com/index/o3-o4-mini-codex-system-card-addendum/"
+  },
+  {
+   "chars_delivered": 1839,
+   "published": null,
+   "text": "Codex agents are intended to operate within isolated, secure environments to minimize potential risks during task execution.\nThe sandbox method is determined by the interface, and differs between using Codex locally or in the cloud.\nWhen using Codex in the cloud, the agent runs with access to an is…",
+   "title": "GPT-5.3-Codex System Card - cdn.openai.com",
+   "url": "https://cdn.openai.com/pdf/23eca107-a9b1-4d2c-b156-7deb4fbc697c/GPT-5-3-Codex-System-Card-02.pdf"
+  },
+  {
+   "chars_delivered": 2356,
+   "published": "2026-06-25",
+   "text": "# How agents are transforming work\nThrough August 2025, the average OpenAI worker spent less than 10% of their tokens on Codex.\n...\nBy May 2026, 80.6% of sampled individual users made at least one Codex request estimated to exceed 30 minutes of human work, 70.2% made one estimated to exceed one hou…",
+   "title": "How agents are transforming work",
+   "url": "https://openai.com/index/how-agents-are-transforming-work/"
+  },
+  {
+   "chars_delivered": 2017,
+   "published": null,
+   "text": "We analyze usage data from OpenAI’s Codex tool to present large-scale evidence of how agentic AI technology, which can take actions on a user’s behalf, changes how people work.\nWe use an automated, privacy-protecting pipeline to contrast usage across three populations: external personal-account use…",
+   "title": "THE SHIFT TO AGENTIC AI: EVIDENCE FROM CODEX",
+   "url": "https://cdn.openai.com/pdf/5d1e1489-21c0-43e4-9d42-f87efdbf0082/the-shift-to-agentic-ai-evidence-from-codex.pdf"
+  },
+  {
+   "chars_delivered": 2362,
+   "published": null,
+   "text": "Codex agents are intended to operate within isolated, secure environments to minimize potential risks during task execution. The sandbox method is determined by the interface, and differs between using Codex locally or in the cloud.\nWhen using Codex in the cloud, the agent runs with access to an is…",
+   "title": "GPT-5.1-Codex-Max System Card - cdn.openai.com",
+   "url": "https://cdn.openai.com/pdf/2a7d98b1-57e5-4147-8d0e-683894d782ae/5p1_codex_max_card_03.pdf"
+  },
+  {
+   "chars_delivered": 1841,
+   "published": null,
+   "text": "# Self-hosted sandboxes\nThe environment can be a laptop, a container, or a remote sandbox.\n...\n## How the connection works\nOpenAI runs the [agent harness](https://developers.openai.com/api/docs/guides/agents-api/architecture#the-pieces).\nYou run `codex exec-server`, the executor, inside your enviro…",
+   "title": "developers.openai.com",
+   "url": "https://developers.openai.com/api/docs/guides/agents-api/environments/self-hosted.md"
+  },
+  {
+   "chars_delivered": 1641,
+   "published": "2025-12-18",
+   "text": "Codex agents are intended to operate within isolated, secure\nenvironments to minimize potential risks during task execution.\nThe\nsandbox method is determined by the interface, and differs between using\nCodex locally or in the cloud.\nWhen using Codex in the cloud, the agent runs with access to an\nis…",
+   "title": "Addendum to GPT-5.2 System Card: GPT-5.2-Codex",
+   "url": "https://deploymentsafety.openai.com/gpt-5-2-codex/agent-sandbox"
+  },
+  {
+   "chars_delivered": 2215,
+   "published": null,
+   "text": "By default, the agent runs with network access turned off.\nLocally, Codex uses an OS-enforced sandbox that limits what it can touch (typically to the current workspace), plus an approval policy that controls when it must stop and ask you before acting.\n...\n- **[Codex Cloud (Legacy)](https://learn.c…",
+   "title": "llms-full.txt",
+   "url": "https://learn.chatgpt.com/docs/llms-full.txt"
+  },
+  {
+   "chars_delivered": 2234,
+   "published": null,
+   "text": "Codex agents are intended to operate within isolated, secure environments to minimize potential risks during task execution.\nThe sandbox method is determined by the interface, and differs between using Codex locally or in the cloud.\nWhen using Codex in the cloud, the agent runs with access to an is…",
+   "title": "Addendum to GPT-5 system card: GPT-5-Codex - cdn.openai.com",
+   "url": "https://cdn.openai.com/pdf/97cc5669-7a25-4e63-b15f-5fd5bdc4d149/gpt-5-codex-system-card.pdf"
+  }
+ ],
+ "latency_ms": 490.4,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q04",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How does OpenAI Codex cloud run agent tasks: sandbox containers, AGENTS.md, parallel tasks, review, and internet access policy? What has OpenAI published about how it uses Codex internally and the measured results?",
+    "OpenAI Codex cloud sandbox internet access",
+    "OpenAI Codex AGENTS.md parallel tasks review",
+    "OpenAI internal Codex usage results engineers"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 22412,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:22:59.685652Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

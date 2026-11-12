@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "83050b9cbacf0b77",
+ "claims": [
+  {
+   "text": "At Linktree, as of February 2025, Devin authored approximately 300 pull requests over one month, of which about 100 were successfully merged (roughly a one-third merge rate).",
+   "url": null
+  },
+  {
+   "text": "Linktree's Devin contributions included bug fixes, small features, and initial implementations of more complex functionality, such as end-to-end integration of RedNote and Lemon8 across backend systems, URL handling, and UI components.",
+   "url": null
+  },
+  {
+   "text": "Cognition's Listen Labs case study reports that user research doubled the percentage of users who progressed from landing page to merging a PR with Devin (2x activation rate), with onboarding improvements shipped in a two-week sprint.",
+   "url": null
+  },
+  {
+   "text": "Devin operates in a cloud-based sandbox with its own Linux shell, code editor, browser, and standard developer tools.",
+   "url": null
+  },
+  {
+   "text": "When given a task via chat, the web platform, or Slack, Devin formulates a step-by-step plan, executes code, runs tests, debugs, and updates its plan as needed, streaming updates and accepting user corrections.",
+   "url": null
+  },
+  {
+   "text": "Cloud Devin has an Ask mode for planning together with the user and an Agent mode for autonomous execution.",
+   "url": null
+  },
+  {
+   "text": "Devin 2.0 added an interactive planning step where users can review and edit Devin's plan before coding starts, which reduces wasted ACUs on misunderstood requirements.",
+   "url": null
+  },
+  {
+   "text": "Repositories must be indexed before the first Devin session so Devin understands the codebase.",
+   "url": null
+  },
+  {
+   "text": "Devin automatically looks for an AGENTS.md file with setup commands, code standards, test requirements, and development workflow before starting work.",
+   "url": null
+  },
+  {
+   "text": "Devin's Knowledge stores project- or organization-wide guidance that is retrieved automatically only when relevant, rather than loaded fully into every context.",
+   "url": null
+  },
+  {
+   "text": "Devin Playbooks bundle reusable procedures for recurring tasks, and scheduled sessions plus playbooks support recurring quality checks.",
+   "url": null
+  },
+  {
+   "text": "The Devin CLI does not yet support Knowledge, Playbooks, or Secrets from a Devin account, according to the documentation.",
+   "url": null
+  },
+  {
+   "text": "The Devin CLI sandbox restricts write access to granted paths and refuses to start rather than run unsandboxed if sandbox resolution fails.",
+   "url": null
+  },
+  {
+   "text": "The Devin CLI can define custom subagents as Markdown files under agents/, running in the foreground or background.",
+   "url": null
+  },
+  {
+   "text": "A cloud Devin agent runs in its own infrastructure and environment for minutes or hours, opens PRs, runs tests, and QAs its own work using computer vision.",
+   "url": null
+  },
+  {
+   "text": "In Windsurf 2.0, a user plans locally in Windsurf, sends the plan to Devin with one click, Devin spins up its own machine, and the resulting PR is reviewed inside Windsurf.",
+   "url": null
+  },
+  {
+   "text": "Idlen claims Devin runs 4-12 hour sessions without human intervention (a secondary-source claim, not a Cognition publication).",
+   "url": null
+  },
+  {
+   "text": "Cognition says every Devin session is fully observable, with a timeline of every command and file touched, and that its orchestration layer runs thousands of agents concurrently.",
+   "url": null
+  },
+  {
+   "text": "Devin performs best on well-scoped, verifiable tasks (bug fixes, tests, dependency updates, boilerplate) and struggles with ambiguous requirements, large architectural decisions, and tasks needing mid-task human judgment.",
+   "url": null
+  },
+  {
+   "text": "A key Devin failure mode is cost unpredictability: an unclear brief can make a 3-hour task cost far more than expected, with 1 ACU being about 15 minutes of work at $2.25 on Core.",
+   "url": null
+  },
+  {
+   "text": "Troubleshooting guidance for Devin: if a PR fails CI, comment with the failure details so an active session can fix it, or start a new session for closed ones.",
+   "url": null
+  },
+  {
+   "text": "When Devin appears stuck or going in circles, the guidance is to intervene via chat with more specific guidance or break the task into smaller steps.",
+   "url": null
+  },
+  {
+   "text": "Large codebases and complex tasks consume more ACUs than expected; the guidance is to give clear scope boundaries such as specific files or functions.",
+   "url": null
+  },
+  {
+   "text": "Enterprise teams reportedly told analysts that Devin resolves security vulnerabilities in 1.5 minutes per issue versus 30 minutes for a human (a vendor-adjacent claim about well-structured tasks).",
+   "url": null
+  },
+  {
+   "text": "A Devin Desktop review notes that current documentation does not establish the defect rate of code produced by agent sessions or how accurately agents use shared context on difficult tasks.",
+   "url": null
+  }
+ ],
+ "question_id": "Q03"
+}

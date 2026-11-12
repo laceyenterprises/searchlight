@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "e4bc1da5cb9eadbe",
+ "url": "https://www.inngest.com/blog/durable-execution-key-to-harnessing-ai-agents",
+ "verdicts": {
+  "Compounding reliability: five steps at 99% each give about 95% overall success, and ten steps about 90%.": 1,
+  "Inngest step.run accepts per-step retry options, e.g., retries: 5 with exponential backoff from 1s to a 5m maximum; if the API rate-limits on the 15th contact, the first 14 enrichments are not re-run.": 1,
+  "Inngest's human-in-the-loop pattern maps to durable execution's suspend/resume primitives, letting workflows pause for hours or days awaiting approval without losing state.": 1,
+  "Inngest's step.run() persists each step result; if a workflow fails at the analysis step it resumes there, and the planning and search steps are not re-executed, so each LLM call is paid for once.": 1,
+  "Inngest's step.waitForEvent() suspends a workflow for human approval (the example uses a 7-day timeout, matched on data.draftId) without consuming compute while waiting.": 1
+ }
+}

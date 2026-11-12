@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:15:21.446859Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 927,
+   "page_chars_delivered": 7500,
+   "post_step": "fetched",
+   "published": null,
+   "text": "February 6th, 2026 · Justin McCarthy\n\nWe built a **Software Factory** : non-interactive development where specs + scenarios drive agents that write code, run harnesses, and converge without human\n\n...\n\nWe repurposed the word **scenario** to represent an end-to-end \"user story\", often stored outside…",
+   "title": "StrongDM Software Factory",
+   "url": "https://factory.strongdm.ai/"
+  },
+  {
+   "chars_delivered": 943,
+   "page_chars_delivered": 2316,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Behavioral clones of the third-party services our software depends on.\n\nWe built twins of Okta, Jira, Slack, Google Docs, Google Drive, and Google Sheets, replicating their APIs, edge cases, and observable behaviors.\n\nWith the DTU, we can validate at volumes and rates far exceeding production limit…",
+   "title": "Digital Twin Users | StrongDM Software Factory",
+   "url": "https://factory.strongdm.ai/techniques/dtu"
+  },
+  {
+   "chars_delivered": 973,
+   "page_chars_delivered": 13493,
+   "post_step": "fetched",
+   "published": null,
+   "text": "> We built a **Software Factory** : non-interactive development where specs + scenarios drive agents that write code, run harnesses, and converge without human review. [...]\n\n...\n\n> \n> \n\nI think the most interesting of these, without a doubt, is \"Code **must not be** reviewed by humans\".\n\n...\n\n> \n>…",
+   "title": "How StrongDM’s AI team build serious software without even looking at the code",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory"
+  },
+  {
+   "chars_delivered": 985,
+   "published": null,
+   "text": "Patterns we return to frequently while building with the Software Factory\n\n[### Digital Twin Universe (DTU) Clone the externally observable behaviors of critical third-party dependencies. Validate at volumes and rates far exceeding production limits, with deterministic, replayable test conditions.]…",
+   "title": "Techniques | StrongDM Software Factory",
+   "url": "https://factory.strongdm.ai/techniques"
+  },
+  {
+   "chars_delivered": 990,
+   "published": null,
+   "text": "[Products](https://factory.strongdm.ai/products) [Weather Report](https://factory.strongdm.ai/weather-report)\n\nCore Philosophy\n\n# The Principles\n\nSeed → Validation harness → Feedback loop. Tokens are the fuel.\n\nEntry Point\n\n## Seed\n\nEvery piece of software needs an initial seed. Historically, you m…",
+   "title": "The Principles | StrongDM Software Factory",
+   "url": "https://factory.strongdm.ai/principles"
+  },
+  {
+   "chars_delivered": 890,
+   "published": "2026-02-19",
+   "text": "[StrongDM Team](https://www.strongdm.com/blog/author/strongdm-team)\n\nUniversal Privileged Access Authorization (UPAA)\n\n[StrongDM](https://www.strongdm.com/)\n\nLast updated on:\n\nFebruary 19, 2026\n\n...\n\nHumans define intent: what the system should do, the scenarios it needs to handle, the constraints…",
+   "title": "The StrongDM Software Factory: Building Software with AI",
+   "url": "https://www.strongdm.com/blog/the-strongdm-software-factory-building-software-with-ai"
+  },
+  {
+   "chars_delivered": 901,
+   "published": "2026-02-07",
+   "text": "* [](https://www.linkedin.com/in/weylandjoyner)\n\n# Digital Twin Universe(s)\n\nsoftware\n\nagents\n\nAuthor\n\nWeyland Joyner\n\nPublished\n\nFebruary 7, 2026\n\n[StrongDM](https://factory.strongdm.ai/) introduces the idea of a [Digital Twin Universe](https://factory.strongdm.ai/techniques/dtu) to validate end-t…",
+   "title": "Digital Twin Universe(s) – Weyland Joyner",
+   "url": "https://weylandjoyner.com/posts/digital-twin-universes/index.html"
+  },
+  {
+   "chars_delivered": 933,
+   "published": "2026-02-08",
+   "text": "On February 6, 2026, StrongDM’s AI team published a manifesto. Three engineers described a “Software Factory” where coding agents write, test, and ship production software. No human writes code. No human reviews code. The humans design specifications, curate test scenarios, and watch the scores. Th…",
+   "title": "Built by Agents, Tested by Agents, Trusted by Whom? - CodeX - Stanford Law School",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom"
+  },
+  {
+   "chars_delivered": 934,
+   "published": null,
+   "text": "[Articles](https://www.pelayoarbues.com/literature-notes/articles/)\n\n❯\n\nSoftware Factories and the Agentic Moment\n\n# Software Factories and the Agentic Moment\n\nMar 12, 2026 4 min read\n\nrw-book-cover\n\n...\n\n* We built a **Software Factory** : non-interactive development where specs + scenarios drive…",
+   "title": "Software Factories and the Agentic Moment",
+   "url": "https://www.pelayoarbues.com/literature-notes/articles/software-factories-and-the-agentic-moment"
+  },
+  {
+   "chars_delivered": 852,
+   "published": null,
+   "text": "Source: [Simon Willison's Weblog](https://simonwillison.net/) | Published: 2026-03-28\n\nAI software factory pattern, scenario testing with holdout sets, digital twin universe for API simulation, non-human code review in AI development, token cost economics per engineer\n\n7th February 2026\n\nLast week…",
+   "title": "How StrongDM’s AI team build serious software without even looking at the code - Simon Willison's Weblog",
+   "url": "https://readpipe.org/posts/373a72ba-799b-4678-a739-5508a4f98a69"
+  }
+ ],
+ "latency_ms": 2710.7,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q01",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: How does StrongDM's 'Software Factory' work, where no human writes or reviews code? What are its scenario holdouts and digital twin universe, how is correctness verified, and what results or problems have been reported? Rank first primary sources: StrongDM's own engineering posts, factory.strongdm.ai documentation, talks, and code repositories, then credible reporting and analysis by independent engineers. Pull out mechanisms (agentic loops, scenario holdouts kept separate from the coding agents, digital twin clones of third-party services), names of people involved, dates, numbers (token spend, cost, team size, test counts), how correctness is measured (probabilistic satisfaction versus pass/fail tests), measured results, and reported failure modes, criticisms, or limitations.",
+   "search_queries": [
+    "StrongDM Software Factory scenario holdouts digital twin universe",
+    "StrongDM software factory no human code review results",
+    "StrongDM dark factory agentic coding correctness validation criticism"
+   ],
+   "session_id": "sl-parallel.search-Q01-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11757,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:15:18.736138Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

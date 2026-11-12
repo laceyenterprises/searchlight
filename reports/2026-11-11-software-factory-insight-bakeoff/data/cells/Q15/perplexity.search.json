@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:06.528951Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1219,
+   "published": null,
+   "text": "OAuth token exchange lets an application trade a user’s credential for a short-lived Snowflake\naccess token.\nThat token is limited by a privilege ceiling and labeled with the AI agent that acts\nfor the user.\nYou can give an agent only the access a task needs, without creating a separate\nservice use…",
+   "title": "OAuth token exchange for agent delegation",
+   "url": "https://docs.snowflake.com/en/user-guide/oauth-token-exchange"
+  },
+  {
+   "chars_delivered": 3585,
+   "published": "2026-06-01",
+   "text": "It leverages existing standards such as the Workload Identity in Multi-System Environments (WIMSE) architecture and OAuth 2.0 family of specifications.\n...\nIf the AI Agent is acting on behalf of a User or System, the User or System needs to delegate authority to the AI Agent, and the User or System…",
+   "title": "AI Agent Authentication and Authorization - ietf.org",
+   "url": "https://www.ietf.org/archive/id/draft-klrc-aiagent-auth-02.html"
+  },
+  {
+   "chars_delivered": 2240,
+   "published": "2026-01-09",
+   "text": "# MCP and Zero Trust: Securing AI agents with identity and policy\n## Why AI agents need identities, and more than a hardcoded API key\nBut the real goal should be to **move away from static keys** entirely in favor of short-lived, scoped credentials tied to a real identity.\nIn a Zero Trust model, **…",
+   "title": "MCP and Zero Trust: Securing AI Agents With Identity and ...",
+   "url": "https://www.cerbos.dev/blog/mcp-and-zero-trust-securing-ai-agents-with-identity-and-policy"
+  },
+  {
+   "chars_delivered": 4192,
+   "published": null,
+   "text": "Autonomous AI agents act on behalf of people and organizations across\nsystem and organizational boundaries.\nExisting credentials establish\nthat a token is valid; they do not express which agent is acting, for\nwhom, under what delegated authority, within which constraints, and\nwhether that authority…",
+   "title": "The Agent Trust Profile: Verifiable Authority for ...",
+   "url": "https://datatracker.ietf.org/doc/draft-mnki-agent-trust-profile/"
+  },
+  {
+   "chars_delivered": 1853,
+   "published": null,
+   "text": "Agent Identity provides a strongly attested, cryptographic identity for each agent that is based on the SPIFFE standard.\nWith Agent Identity, your agent can securely authenticate to MCP servers, cloud resources, endpoints, and other agents, acting either on its own behalf or on behalf of an end use…",
+   "title": "Security And Governance",
+   "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/agent-identity-overview"
+  },
+  {
+   "chars_delivered": 1112,
+   "published": null,
+   "text": "The OAuth 2.0 authorization code grant flow enables agents to access user-specific data with explicit user consent.\nThis pattern is essential when agents need to access personal data or perform actions on behalf of specific users.\nThe flow includes a user consent step where the resource owner (user…",
+   "title": "Supported authentication patterns - Amazon Bedrock AgentCore",
+   "url": "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/common-use-cases.html"
+  },
+  {
+   "chars_delivered": 1329,
+   "published": null,
+   "text": "Agentic identity separates the people, software actors, workloads, OAuth clients, and target services involved when an AI agent acts on behalf of someone else.\nA user token alone hides which agent performed an action, while a workload identity alone does not carry user consent or permission to a sp…",
+   "title": "Agentic identity guides | Arcjet Learning Center",
+   "url": "https://arcjet.com/learn/ai-security/agentic-identity"
+  },
+  {
+   "chars_delivered": 1404,
+   "published": "2026-07-28",
+   "text": "This document specifies the Credential Delegation Protocol: a profile of OAuth 2.0 Token Exchange (RFC 8693), Demonstrating Proof-of-Possession (RFC 9449), Rich Authorization Requests (RFC 9396), and Client-Initiated Backchannel Authentication (OpenID Connect CIBA) that enables human users to deleg…",
+   "title": "Credential Delegation Protocol for AI Agents in Multi-System ...",
+   "url": "https://www.ietf.org/archive/id/draft-sweeney-wimse-credential-delegation-00.html"
+  },
+  {
+   "chars_delivered": 1191,
+   "published": null,
+   "text": "Delegation across services can travel through OAuth token exchange, defined in Request for Comments (RFC) 8693.\nThe common thread is short-lived, scoped, verifiable credentials in place of static API keys.\nA leaked long-lived key hands an attacker everything the agent can reach.\nA short-lived, narr…",
+   "title": "How to Secure AI Agents While Identity Standards Evolve",
+   "url": "https://www.pingidentity.com/en-us/docs/blogs/ai-agent-standards-security"
+  },
+  {
+   "chars_delivered": 1602,
+   "published": "2026-08-27",
+   "text": "For organizations to have confidence in transactions, agents need to be treated like first-class entities with their own unique identifiers, credentials, and associated entitlements that are bound to and by the identity of the user or system operating the agent.\n...\nFor enterprise deployments, prot…",
+   "title": "Back to the Future: Why Agentic AI Needs a Strong Identity ...",
+   "url": "https://www.nist.gov/blogs/cybersecurity-insights/back-future-why-agentic-ai-needs-strong-identity-foundation"
+  }
+ ],
+ "latency_ms": 468.1,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q15",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "How do production agent platforms authorize agents to act on behalf of users and organizations? Cover policy engines (Cedar, OPA, OpenFGA / Zanzibar-style ReBAC) applied to agents, scoped short-lived credentials, agent identity standards, and approval gates for irreversible actions.",
+    "AI agent authorization Cedar OPA OpenFGA policy engine",
+    "agent on-behalf-of delegation OAuth token exchange short-lived scoped credentials",
+    "agent identity standard SPIFFE OAuth workload identity agents"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 22253,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:06.060849Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,103 @@
+{
+ "arm_id": "brave.research",
+ "cell_sha": "41efd851d317268f",
+ "claims": [
+  {
+   "text": "Factory example: moving and verifying 151 Linear issues took 312 tool calls. Direct tool calls needed about 36 requests and 3.1M input tokens, while a Script needed 2 requests and 61K tokens.",
+   "url": null
+  },
+  {
+   "text": "Failure-mode analysis on SWE-Bench Lite attributed 78% of failures to patch generation errors (wrong logic or syntax), 8% to retrieval misses (target file not included), 8% to ranking failures (target file buried outside the top 5), and 6% to decision-making flaws (target file in the top 5 but not edited).",
+   "url": null
+  },
+  {
+   "text": "Droid's median time to first paint fell from 1,839 ms to 488 ms because Droid ships precompiled code.",
+   "url": null
+  },
+  {
+   "text": "On Claude Opus 5.5, Droid takes 26% less time per passed task than Claude Code and uses 17% fewer tokens.",
+   "url": null
+  },
+  {
+   "text": "Droid 1.0 achieves 65.2% on Terminal-Bench 4 with Opus 5.5.",
+   "url": null
+  },
+  {
+   "text": "In September 2025, Droid with Opus 4.1 achieved 58.75% task resolution on the 80-task Terminal-Bench set.",
+   "url": null
+  },
+  {
+   "text": "In a unit-test fix, Script mode used 5 model calls and finished in 41.6 seconds, compared to 10 calls and 56.8 seconds for direct tool calls.",
+   "url": null
+  },
+  {
+   "text": "Droid 1.0, released October 29, 2026, makes Programmatic Tool Calling (PTC) the default, letting the model write JavaScript programs that execute up to hundreds of tool calls in a single request.",
+   "url": null
+  },
+  {
+   "text": "The PTC script runs in a sandbox with no file, network, or system access of its own.",
+   "url": null
+  },
+  {
+   "text": "Running multiple Droid sessions shares the daemon's process, adding about 20 MB per session instead of 350 MB.",
+   "url": null
+  },
+  {
+   "text": "HyperCode cut the time from feature prompt to implementation plan by over 50% in hackathon benchmarks.",
+   "url": null
+  },
+  {
+   "text": "HyperCode constructs a multi-resolution representation of an engineering system, combining explicit graph relationships with implicit latent-space similarity.",
+   "url": null
+  },
+  {
+   "text": "ByteRank is the retrieval algorithm that uses HyperCode insights to retrieve the information relevant to a given task.",
+   "url": null
+  },
+  {
+   "text": "Droid's core components are the Agent Router, Task Planner, Context Manager, Session State, and Tool Router.",
+   "url": null
+  },
+  {
+   "text": "Droid's context awareness draws on AGENTS.md (project conventions), File Context (recently accessed files), a Search Index (semantic and text search), and Session State (conversation history).",
+   "url": null
+  },
+  {
+   "text": "Missions use a three-agent architecture of Orchestrator, Workers, and Validators to avoid context degradation over long runs. The Orchestrator plans, decomposes goals, and delegates investigation and implementation to workers.",
+   "url": null
+  },
+  {
+   "text": "Mission state is distributed across shared artifacts: a validation contract, feature list, research notes, operational guidelines, and knowledge base. Workers use a shared filesystem, with .factory/library/ for shared knowledge and .factory/skills/ for worker skills.",
+   "url": null
+  },
+  {
+   "text": "Validators are injected at milestones in a Mission to surface gaps.",
+   "url": null
+  },
+  {
+   "text": "Custom droids are reusable subagents defined in Markdown with YAML frontmatter holding the system prompt, model preference, and tool policy. Droid delegates focused tasks to them via the Task tool in a fresh context window.",
+   "url": null
+  },
+  {
+   "text": "Security Review is a two-pass process: it generates candidate issues, then validates reachability, exploitability, and existing controls before reporting.",
+   "url": null
+  },
+  {
+   "text": "Droid Shield 2.0 uses learned secret detection with two models: a 'downgrade model' for pattern hits and a 'risk model' for secret-looking lines. Droid Shield scans git commit and git push diffs for secrets and blocks the operation if any are detected.",
+   "url": null
+  },
+  {
+   "text": "Command policies use three lists: an Allowlist (low risk, runs without approval), a Denylist (requires explicit confirmation), and a Blocklist (never runs, no approval possible).",
+   "url": null
+  },
+  {
+   "text": "Bounded autonomy: three identical tool calls trigger a nudge, and six stop the loop.",
+   "url": null
+  },
+  {
+   "text": "Users report that Droid Shield can be overly aggressive, flagging 'secret adjacent' items such as variable names. Users also report that Droid sometimes claims a build succeeded when compilation actually failed, requiring manual verification.",
+   "url": null
+  }
+ ],
+ "question_id": "Q02"
+}

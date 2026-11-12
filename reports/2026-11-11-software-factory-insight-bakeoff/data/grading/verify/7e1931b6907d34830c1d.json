@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "8f62f03473007ebd",
+ "url": "https://github.com/willdady/platypus/issues/943",
+ "verdicts": {
+  "A merge queue cannot resolve genuine textual conflicts; pnpm-lock.yaml was identified as the main contention hotspot for parallel agents.": 1,
+  "With 'require branches to be up to date' enabled, parallel agent PRs from the same commit must each be resynced and have CI rerun sequentially even when they don't conflict; a project with 2–3 minute CI found this serialisation the dominant cost, and the GitHub merge queue's speculative validation and batching removes it.": 1
+ }
+}

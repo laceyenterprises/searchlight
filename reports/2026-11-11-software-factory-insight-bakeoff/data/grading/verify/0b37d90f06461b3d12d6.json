@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "a5ea96fc294e2043",
+ "url": "https://github.com/strongdm/attractor/blob/main/attractor-spec.md#35-retry-logic",
+ "verdicts": {
+  "The Attractor specification sets a default retry backoff that starts at 200 ms, doubles up to a 60-second cap, and adds jitter. Transient network errors, HTTP 429 and 5xx failures are retryable by default, while authentication, 400, validation and configuration errors are not.": 1
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "94cbaeacfdfcdd43",
+ "url": "https://www.apideck.com/blog/understanding-the-security-landscape-of-mcp",
+ "verdicts": {
+  "Apideck's 2025 article cites exploits seen in GitHub and Supabase MCP integrations, and notes a new OAuth 2.0-based security spec is meant to address MCP threats.": 1,
+  "MCP supply-chain risks include malicious servers, typosquatted server names, and the lack of a universal mandatory security review for MCP servers, which leaves vetting to users and organizations.": 1,
+  "The MCP confused deputy problem arises when an MCP server acting for a user holds more permissions than the user, so an LLM manipulated through tool descriptions, user inputs or file data can make the server perform unauthorized actions such as deleting a file.": 1,
+  "Tool poisoning embeds malicious instructions in tool definitions that are invisible to users but interpreted by the model, and can be hidden in any part of the tool definition, not just the description; it can be used to exfiltrate data, read SSH keys or run unauthorized commands.": 1
+ }
+}

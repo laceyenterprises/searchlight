@@ -1,0 +1,99 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "99e2c7288bc8bea3",
+ "claims": [
+  {
+   "text": "A 2026 study (arXiv:2604.22750) of eight frontier LLMs on SWE-bench Verified found agentic coding tasks consume about 1000× more tokens than code reasoning and code chat, with input tokens rather than output tokens driving overall cost.",
+   "url": "https://arxiv.org/html/2604.22750v3"
+  },
+  {
+   "text": "In the 2026 eight-model SWE-bench Verified study, agentic coding averaged 4.17 million tokens per task, versus 3,390 for code chat and 1,190 for code reasoning.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "text": "Runs on the same SWE-bench Verified task can differ by up to 30× in total tokens, and higher token usage does not translate into higher accuracy; accuracy often peaks at intermediate cost and saturates at higher costs.",
+   "url": "https://arxiv.org/html/2604.22750v3"
+  },
+  {
+   "text": "The 2026 study found an average input-to-output token ratio of about 154:1 for agentic coding tasks, with input tokens dominating even when token caching was enabled.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "text": "Kimi-K2 and Claude-Sonnet-4.5 consumed on average over 1.5 million more tokens than GPT-5 on the same SWE-bench Verified tasks.",
+   "url": "https://arxiv.org/html/2604.22750v3"
+  },
+  {
+   "text": "Frontier models fail to accurately predict their own token usage before execution (correlations up to 0.39) and systematically underestimate real token costs, limiting up-front per-task budget estimation.",
+   "url": "https://arxiv.org/html/2604.22750v3"
+  },
+  {
+   "text": "A LeanOps audit of 30 engineering teams attributed 62% of the agent bill to re-sent context (vendor data), and reported a 20-fold spread between its 10th- and 90th-percentile developers on the same tools.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "text": "In a naive agent loop where each step adds 1,000 new tokens, a 20-step workflow consumes 210,000 cumulative input tokens rather than 20,000, per an Augment Code analysis.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "text": "Anthropic measured that agents typically use about 4× as many tokens as chat interactions and its multi-agent research system uses about 15× as many tokens as chat.",
+   "url": "https://www.augmentcode.com/guides/multi-agent-cost-compounding"
+  },
+  {
+   "text": "Prompt caching of stable context (system instructions, tool definitions, codebase summaries) is offered by Anthropic, OpenAI and Google Cloud and reduces the price of reused input, but does not cover new file contents and tool results that grow during the loop.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "text": "Context accumulation mitigations listed are prompt caching, tighter session boundaries, context pruning and model routing, and diagnosing them requires attribution of spend by agent, team, model and use case plus cost per completed task, loop length and retry count.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  },
+  {
+   "text": "The agentgateway reference implementation enforces dollar-denominated budgets at the gateway via External Processing: it validates the caller and overwrites trusted identity headers, reserves estimated budget before the LLM request leaves, settles the reservation with provider-reported token usage, then alerts and forecasts.",
+   "url": "https://www.solo.io/blog/building-real-time-ai-cost-controls-with-agentgateway"
+  },
+  {
+   "text": "In the Solo.io example, an organization with a $10,000 monthly AI budget gives an evaluation job a $500 allocation; when it is exhausted the gateway rejects the next provider request while a production support agent charged to a different budget is unaffected.",
+   "url": "https://www.solo.io/blog/building-real-time-ai-cost-controls-with-agentgateway"
+  },
+  {
+   "text": "The agentgateway reference implementation supports hierarchical budgets, pre-request reservations, actual-cost settlement, forecasting, approvals, rate limits and a management UI; Solo Enterprise for agentgateway natively provides request and token rate limiting and LLM cost-tracking metrics.",
+   "url": "https://www.solo.io/blog/building-real-time-ai-cost-controls-with-agentgateway"
+  },
+  {
+   "text": "Datagrid recommends model routing via fallback chains that try a cost-effective model first and escalate to a more powerful one if the response fails quality thresholds, plus compressing context handed between agents.",
+   "url": "https://datagrid.com/blog/8-strategies-cut-ai-agent-costs"
+  },
+  {
+   "text": "Output tokens usually cost 3–5× more per token than input tokens; the author claims most teams leave 60–90% of spend on the table because nobody owns agent cost.",
+   "url": "https://pub.towardsai.net/the-economics-of-agents-token-accounting-caching-and-routing-a53cbdef11bb"
+  },
+  {
+   "text": "Splunk recommends budgeting for outcomes: the FinOps Foundation example maps a $50,000 monthly AI bill to 200,000 resolved customer queries at $0.25 per query, down from $0.40 the prior quarter.",
+   "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html"
+  },
+  {
+   "text": "Splunk advises measuring cost and quality together, routing tasks to cheaper models when they meet required quality, and measuring savings from caching, routing, compression and batching.",
+   "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html"
+  },
+  {
+   "text": "Uber deployed Claude Code to roughly 5,000 engineers and reportedly burned its 2026 AI budget in four months before introducing monthly AI coding limits.",
+   "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html"
+  },
+  {
+   "text": "A team spending $60,000 a month at 5% monthly growth crosses $100,000 by month 12 and approaches $200,000 by month 24, even as per-token prices fall.",
+   "url": "https://www.splunk.com/en_us/blog/artificial-intelligence/stop-budgeting-for-tokens-start-budgeting-for-outcomes.html"
+  },
+  {
+   "text": "Production consensus controls for agents include explicit termination conditions and hard step and budget limits, a lesson from AutoGPT/BabyAGI-style agents that burned unbounded API budget because nothing capped spend.",
+   "url": "https://www.coreweave.com/blog/agentic-workflows-in-production-mechanisms-trade-offs-costs-and-design-patterns"
+  },
+  {
+   "text": "Multi-agent cost compounding arises from repeated context transfer, orchestration overhead, verification layers, retries and coordination, so budgets of three times single-agent cost can come in at five to fifteen times higher.",
+   "url": "https://www.augmentcode.com/guides/multi-agent-cost-compounding"
+  },
+  {
+   "text": "Vantage notes that an agent session with twice as many turns can cost three to four times as much because later turns carry more accumulated context.",
+   "url": "https://larridin.com/blog/ai-agent-context-accumulation-cost"
+  }
+ ],
+ "question_id": "Q19"
+}

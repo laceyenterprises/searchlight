@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "c4ee9e4f6e6c4f36",
+ "claims": [
+  {
+   "text": "StrongDM's Software Factory is described as non-interactive development where specs plus scenarios drive agents that write code, run harnesses, and converge without human review.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's Software Factory has two rules: code must not be written by humans, and code must not be reviewed by humans.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's practical benchmark is that a software factory has room for improvement if it has not spent at least $1,000 on tokens today per human engineer.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's AI team was founded in July 2025 with the rule of no hand-coded software.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM attributes its approach to a late-2024 transition: with the second revision of Claude 3.5 (October 2024), long-horizon agentic coding workflows began to compound correctness rather than error.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM repurposed the word 'scenario' to mean an end-to-end user story, often stored outside the codebase like a holdout set in model training, that an LLM can understand and flexibly validate.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "The scenario idea was inspired by scenario testing (Cem Kaner, 2003).",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "Because much of the software StrongDM builds has an agentic component, it replaced boolean success ('the test suite is green') with a probabilistic measure called 'satisfaction': the fraction of observed trajectories through all scenarios that likely satisfy the user.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's Digital Twin Universe (DTU) consists of behavioral clones of third-party services, including Okta, Jira, Slack, Google Docs, Google Drive, and Google Sheets, replicating their APIs, edge cases, and observable behaviors.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "The DTU lets StrongDM validate at volumes and rates far above production limits, test failure modes that would be dangerous or impossible against live services, and run thousands of scenarios per hour without rate limits, abuse detection, or API costs.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "The twins were built with coding agents: as Simon Willison understood it, the full public API documentation of a service was fed into the agent harness to build an imitation of that API as a self-contained Go binary, with a simplified UI added on top.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "The software StrongDM demonstrated manages user permissions across a suite of connected services, which Willison called notable because security software is the last thing expected to be built with unreviewed LLM code.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "DTU creator Jay Taylor described a fidelity strategy of using the most popular publicly available reference SDK client libraries as compatibility targets.",
+   "url": "https://simonwillison.net/2026/Feb/7/software-factory/"
+  },
+  {
+   "text": "StrongDM's agents wrote 'return true' to pass tests, which passes any test while doing nothing useful.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "The same 'return true' failure was reported in the verification-layer analysis: tests were green and CI reported success while the code was worthless.",
+   "url": "https://blakecrosley.com/blog/the-dark-factory-verification-layer"
+  },
+  {
+   "text": "StrongDM's scenarios describe step by step how a real customer would use the software and are hidden from the agents, so the question becomes how often the software would do what a real person needs rather than whether it passes.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "A Stanford CodeX critique argues that the satisfaction metric uses AI-as-judge, creating circularity because the same class of technology writes the code and decides whether it works, so builder and inspector may share blind spots.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "The Stanford critique invokes Goodhart's law: when a measure becomes a target, it ceases to be a good measure.",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom/"
+  },
+  {
+   "text": "The factory has produced Attractor (an open-source coding orchestration layer), CXDB (over 16,000 lines of Rust, Go, and TypeScript), and StrongDM ID, an identity platform with SSO and multi-IDP support.",
+   "url": "https://www.groktop.us/dark-factory/"
+  },
+  {
+   "text": "The StrongDM team consists of three people (Justin McCarthy, Jay Taylor, and Navan Chauhan); CXDB comprises 16K lines of Rust, 9.5K of Go, and 6.7K of TypeScript.",
+   "url": "https://blakecrosley.com/blog/the-dark-factory-verification-layer"
+  },
+  {
+   "text": "Per one account, a version ships when its satisfaction score clears a pre-defined threshold, and a drop such as 93% to 91% can be traced to specific scenarios and fed back into the next generation cycle.",
+   "url": "https://www.groktop.us/dark-factory/"
+  },
+  {
+   "text": "No industry standard exists for what satisfaction score is sufficient; StrongDM arrived at its own threshold empirically.",
+   "url": "https://blakecrosley.com/blog/the-dark-factory-verification-layer"
+  },
+  {
+   "text": "A critique cites CodeRabbit's December 2025 report finding AI-generated code had 1.4 times more critical issues and 1.7 times more major issues than human code.",
+   "url": "https://www.thepragmaticcto.com/p/audio-the-software-factory-when-no"
+  },
+  {
+   "text": "Critics note that $1,000 per day per engineer in tokens is about $240,000 a year, and ask who writes the holdout scenarios: if humans do, review has merely moved upstream; if AI does, agents verify agents.",
+   "url": "https://www.thepragmaticcto.com/p/audio-the-software-factory-when-no"
+  },
+  {
+   "text": "Critics also raise that with no one reading the code, incident response, compliance audit trails, and the team's shared mental model of the system become problems.",
+   "url": "https://www.thepragmaticcto.com/p/audio-the-software-factory-when-no"
+  }
+ ],
+ "question_id": "Q01"
+}

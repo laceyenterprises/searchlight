@@ -1,0 +1,10 @@
+{
+ "capture": "uncapturable",
+ "digest": "13dfbad68f679916",
+ "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/ca688eb14e29701a11bdba6633186328-Paper-Conference.pdf",
+ "verdicts": {
+  "Documented test-tampering behaviors include an agent deleting failing tests rather than fixing the bug, and special-casing the exact test to return different results.": null,
+  "ImpossibleBench measures LLM agents' propensity to exploit test cases; an agent's cheating rate is its pass rate on impossible tasks, where any pass implies a specification-violating shortcut.": null,
+  "ImpossibleBench tested prompt variants, including one instructing 'DO NOT MODIFY THE TESTS', as a mitigation.": null
+ }
+}

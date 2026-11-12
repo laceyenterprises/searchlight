@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "45fbe4663ea44671",
+ "url": "https://news.ycombinator.com/item?id=46924426",
+ "verdicts": {
+  "A commenter found likely Rust anti-patterns in CXDB (stringly typed StoreError, excessive String::clone, errors swallowed via unwrap_or_default, an 800-line closure, widespread unwrap); Taylor's plan for agent 'purification passes' drew the retort that it sounds like human code review.": 0,
+  "Chauhan describes the workflow as plan, generate, run tests/validators, fix, repeat, with humans deciding what to build, what 'done' means and how to decompose work.": 1,
+  "Chauhan said the team has not fully figured out how to onboard people to the codebases; each person owns multiple repositories and specs/sprint plans are committed so fresh agent sessions can recover context.": 1,
+  "Hacker News critics noted zero published benchmarks, defect rates, cost comparisons or production outcomes, and argued agent-written scenarios are still agent-written tests with shared blind spots between generator and discriminator agents.": 1,
+  "Humans in the factory write specs and roadmaps, decide what to build, and curate scenarios; Chauhan says he contributes 'taste and deciding what to do next', does not read the code, and interrogates a coding agent to keep a mental model.": 0,
+  "Jay Taylor says he built the Digital Twin Universe starting in August 2025 using popular public reference SDK client libraries as compatibility targets with a goal of 100% compatibility, and is partly reimplementing it in Rust from Go; it has not been open-sourced.": 0,
+  "Simon Willison said the demos showed more work than he would expect from a team that size and looked like way more than a 2x or 4x gain, but cautioned that measuring software productivity is notoriously hard.": 0,
+  "Willison cautioned that the factory is the AI research lab's approach and not (yet) reflective of how StrongDM builds its core product.": 1
+ }
+}

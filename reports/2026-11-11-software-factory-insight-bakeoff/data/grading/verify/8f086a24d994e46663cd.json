@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "bc4dee3bb1f6ab5b",
+ "url": "https://developers.openai.com/api/docs/guides/tools-connectors-mcp",
+ "verdicts": {
+  "By default, OpenAI requests approval before any data is shared with a remote MCP server or connector; this creates an mcp_approval_request output item, and each approval applies to a single tool call.": 1,
+  "For OpenAI's MCP tool, OAuth access tokens are passed in the authorization field, and OAuth client registration and authorization must be handled separately by the application.": 1,
+  "OpenAI recommends using require_approval and allowed_tools to ensure sensitive actions always go through an approval flow, and recommends reviewing or logging all data shared with a remote MCP server.": 1,
+  "OpenAI warns that a malicious remote MCP server can exfiltrate sensitive data from anything that enters the model's context, and advises using only trusted servers.": 1,
+  "OpenAI warns that some MCP servers expose dozens of tools, and exposing many tools to the model can result in high cost and latency; the allowed_tools parameter imports only a subset.": 1,
+  "OpenAI's Responses API supports remote MCP servers via the 'mcp' tool type, over either Streamable HTTP or HTTP/SSE transports.": 1,
+  "OpenAI's Secure MCP Tunnel (tunnel_id) connects private, on-premises, or firewalled MCP servers to supported OpenAI products without exposing them to the public internet.": 1,
+  "OpenAI's built-in connectors (e.g., Gmail, Google Drive, SharePoint) carry a risk of sending sensitive data to OpenAI or giving models read access to sensitive data in those services.": 1,
+  "The require_approval parameter can be set to 'never' to skip approvals for all tools on a server, or to an object listing only the tools that skip approval.": 1
+ }
+}

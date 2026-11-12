@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "96516095d78199a9",
+ "claims": [
+  {
+   "text": "In Trunk's merge queue simulation, increasing batch size from 1 to 16 (logical conflict rate 0.1%) made PRs merge 54.9% slower, from 41m 56s to 1h 5m.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "In Trunk's simulation, increasing batch size from 1 to 16 (logical conflict rate 0.1%) cut average CI time per PR by 77.5%, from 41m 28s to 9m 19s.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Trunk's SimMergeQueue ran 8 scenarios: batch sizes 1, 4, 8 and 16, each at logical conflict rates of 0.1% (1/1000) and 0.2% (1/500), with parallel queues for batch sizes above 1.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "In Trunk's simulation, the lowest peak CI concurrency occurred at batch size 16 with a 0.1% logical conflict rate, meaning fewer CI runners are needed.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "In Trunk's simulation, a higher logical conflict rate (0.2% vs 0.1%) did not significantly change time to merge or CI time per PR.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Time to reject PRs with logical conflicts or flaky tests grows with batch size in Trunk's simulation, because failing batches must be bisected.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Anthropic's CPO Mike Krieger said Anthropic's merge queue became a bottleneck and had to be completely re-architected because agent-written code produced many more pull requests than expected.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Trunk notes parallel queues are only an option when a build system like Bazel is used in the repo.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Graphite reports Parallel CI customers saw 1.5x faster merges overall (33% decrease at p95, 26% at p75), and up to 2.5x faster for heavy stacked-PR users (60% decrease at p95, 34% at p75).",
+   "url": "https://graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite's Parallel CI uses speculative execution: for stacks A, B, C it tests A, A←B and A←B←C simultaneously; if a stack fails it is evicted and the dependent speculative runs are canceled and restarted.",
+   "url": "https://graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite's parallel CI only generates extra CI runs when CI fails in the queue, so flaky tests raise cost because the failing PR is evicted and all subsequent speculative runs restart.",
+   "url": "https://graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite's merge queue treats a stack as the atomic unit; a failure in any PR fails the whole stack. Parallel CI can run on every PR in the stack (strongest guarantee) or only the topmost PR (fewer CI runs).",
+   "url": "https://graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite recommends setting parallel CI concurrency to match peak PR volume times CI duration, e.g. 3 concurrent runs for 30-minute CI and 3 PRs per 30 minutes at peak.",
+   "url": "https://graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite's batching (private beta) handles failures either by full parallel isolation (default, faster identification) or bisection (fewer CI runs).",
+   "url": "https://graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Mergify's parallel checks build temporary batch PRs representing cumulative merges (PR1, PR1+PR2, ...), run CI on them in parallel, and on failure remove the culprit PR; concurrency is set via merge_queue.max_parallel_checks.",
+   "url": "https://docs.mergify.com/merge-queue/performance/"
+  },
+  {
+   "text": "Mergify's 'RCV theorem' states a merge queue can optimize only two of reliability, cost and velocity: parallel checks give reliability+velocity with wasted CI on failures, sequential gives reliability+cost with throughput capped at one PR per CI run, batch mode gives velocity+cost but hidden failures can reach main.",
+   "url": "https://docs.mergify.com/merge-queue/performance/"
+  },
+  {
+   "text": "Aviator's default sequential mode merges one PR per full CI suite duration; with 30-minute CI the maximum is 48 PRs per day.",
+   "url": "https://docs.aviator.co/mergequeue/concepts/queue-modes"
+  },
+  {
+   "text": "Aviator's parallel mode creates bot PRs containing each PR plus all PRs ahead in the queue; if an earlier bot PR fails, a queue reset forces revalidation of all subsequent PRs, potentially wasting CI.",
+   "url": "https://docs.aviator.co/mergequeue/concepts/queue-modes"
+  },
+  {
+   "text": "Mergify's analysis of 200,000+ merges across 477 teams found the rate of green PRs breaking main rose from 0.77% at 2–5 engineers to 12.5% (1 in 8) at 40+ engineers.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "Mergify found AI-assisted PRs broke main 1.9% of the time versus 4.4% for non-AI PRs, holding within repos and PR-size bands; the finding is observational and AI is detected only via commit signatures.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "Mergify reports 94% of private merges still go one PR at a time; batches average about four PRs, and failed private batches bundle about 5.8 PRs. Autonomous agent-authored PRs were only a few hundred of 153,000 merges.",
+   "url": "https://mergify.com/reports/state-of-merge-queues-2026"
+  },
+  {
+   "text": "GitHub's merge queue shipped 30,000+ PRs with 4.5 million CI runs for GitHub.com before general availability, and now lets GitHub deploy 30+ changes at once versus a 15 limit with the old trains system.",
+   "url": "https://github.blog/engineering/engineering-principles/how-github-uses-merge-queue-to-ship-hundreds-of-changes-every-day/"
+  },
+  {
+   "text": "At GitHub, over 500 engineers merge 2,500 PRs per month into the monorepo via merge queue, and average wait time to ship fell by 33%.",
+   "url": "https://github.blog/engineering/engineering-principles/how-github-uses-merge-queue-to-ship-hundreds-of-changes-every-day/"
+  },
+  {
+   "text": "Reason Machines' merges went from about 17 to over 600 per day in six weeks with coding agents; on October 12, 84 PRs waited at once and the slowest 5% waited 2.5 hours.",
+   "url": "https://larstalian.com/rethinking-the-merge-queue/"
+  },
+  {
+   "text": "With Mergify tuned to test up to 12 PRs in parallel, the median merge took 3.4 minutes with only 79 seconds being CI; 37 seconds went to detecting readiness, 26 seconds to creating the test branch and draft PR, and about 30 seconds to merging.",
+   "url": "https://larstalian.com/rethinking-the-merge-queue/"
+  }
+ ],
+ "question_id": "Q21"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "f31db228a774bd7c",
+ "claims": [
+  {
+   "text": "Linktree reported that over one month Devin authored about 300 PRs and Linktree merged about 100 of them, mostly customer-reported bug fixes, small features, and prototypes of larger features.",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "text": "Cognition reports that 67% of Devin's PRs are now merged, versus 34% the previous year.",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "text": "Cognition reports Devin is 4x faster at problem solving and 2x more efficient in resource consumption than a year earlier.",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "text": "The Citation Group merged 271 Devin PRs in the first three months, at an 80% success rate, after senior engineer review.",
+   "url": "https://devin.ai/customers/thecitationgroup"
+  },
+  {
+   "text": "Cognition merged 659 Devin PRs into its own codebase in one week (reported 2026-02-27), up from 154 in its best week in 2025.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "At Citation, unstructured prompts often produced inconsistent results, while tasks scoped in Jira with clear requirements and documentation pulled into Devin sessions generated PRs that passed review.",
+   "url": "https://devin.ai/customers/thecitationgroup"
+  },
+  {
+   "text": "Citation identified three critical practices: Jira ticket scoping with clear acceptance criteria, Devin search-to-session to pull documentation and architectural context into a session, and Markdown specification files for structured inputs.",
+   "url": "https://devin.ai/customers/thecitationgroup"
+  },
+  {
+   "text": "Linktree found Devin's success depends on the scope of the change and the amount of ambiguity Devin must overcome, and recommends using Devin for tasks an engineer could complete in a couple of hours.",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "text": "Linktree reports Devin struggles with many tasks but has a very good success rate at instrumenting analytics event tracking, which they operationalized with a continually refined prompt.",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "text": "Linktree used the knowledge feature to teach Devin which files to update in repos with many files, and ran five parallel Devins (one per repo/PR) to add new social platforms.",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "text": "Cognition shared a Playbook script using the Devin API to automatically spawn multiple Devins to implement a whole multi-repo feature, which Linktree adopted.",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "text": "Linktree advises concise, specific instructions without chit chat, and starting a new session on a sub-task when context gets too long.",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "text": "Linktree had Devin attempt a PHP cron job feature despite expecting it to struggle; the attempt served as a proof of concept that led to a design discussion and the team completing the change.",
+   "url": "https://cognition.com/blog/linktree"
+  },
+  {
+   "text": "A Cognition Playbook is like a custom system prompt for a repeated task, and should include the desired outcome, steps, postcondition specifications, advice correcting Devin's priors, forbidden actions, and required inputs from the person starting it.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Cognition uses Playbooks for complex recurring work such as ingesting data into Redshift, running database migrations, and integrating with Stripe, Plaid, and Modal.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Cognition's !triage-bug playbook fires when the Bug label is added to a Linear ticket, reads the report, searches code paths, checks git history, and posts root cause and suggested fix, using the Datadog MCP for logs.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Cognition gave Devin Datadog access and read-only database access so it can investigate bugs end to end and open a PR with a fix and regression test.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Devin Review's Autofix automatically fixes PRs when bugs are flagged and works on CI/lint issues until all checks pass; Cognition uses Devin Review on every PR because review became the bottleneck.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Session Insights analyzes completed Devin sessions for issues like scope creep and communication gaps, and suggests improved prompts for new sessions.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Cognition advises breaking large tasks into smaller isolated sessions, notes Devin has no phone for mobile testing, and says tasks needing extensive validation need verification mechanisms in place.",
+   "url": "https://cognition.com/blog/how-cognition-uses-devin-to-build-devin"
+  },
+  {
+   "text": "Devin does best with clear requirements, cannot independently handle ambiguous projects end to end, and needs human review when outcomes are not straightforwardly verifiable.",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "text": "Devin handles upfront scoping well but performs worse when requirements change or are added mid-task, which puts more responsibility on engineers to scope work up front.",
+   "url": "https://cognition.com/blog/devin-annual-performance-review-2025"
+  },
+  {
+   "text": "With Claude Sonnet 4.5, Cognition observed 'context anxiety': the model took shortcuts or left tasks incomplete when it believed it neared its context limit, even with room left; Cognition countered with reminders at both the start and end of prompts and by enabling the 1M token beta while capping usage at 200k.",
+   "url": "https://cognition.com/blog/devin-sonnet-4-5-lessons-and-challenges"
+  },
+  {
+   "text": "Cognition found that relying on Sonnet 4.5's self-written notes without its own compaction and summarization systems caused performance degradation and knowledge gaps, because the notes sometimes paraphrased the task and omitted details.",
+   "url": "https://cognition.com/blog/devin-sonnet-4-5-lessons-and-challenges"
+  },
+  {
+   "text": "In Devin's testing mode, early versions went off track by over-testing unrelated parts, getting lost in setup, or missing the PR's core behavior; Cognition now has Devin write a code-grounded test plan first and annotate expected behavior before each action, and remaining failure modes include screenshot timing misses and over-reliance on executing JavaScript instead of clicking through the UI.",
+   "url": "https://www.linkedin.com/pulse/verifying-agentic-development-scale-ido-pesok-meohc"
+  }
+ ],
+ "question_id": "Q03"
+}

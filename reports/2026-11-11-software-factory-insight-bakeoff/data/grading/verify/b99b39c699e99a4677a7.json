@@ -1,0 +1,13 @@
+{
+ "capture": "uncapturable",
+ "digest": "90d3d736e93d3177",
+ "url": "https://proceedings.iclr.cc/paper_files/paper/2026/file/980ea04d23d1f6908964eba2a74afe45-Paper-Conference.pdf",
+ "verdicts": {
+  "ReasoningBank consolidates new memory items into the bank with a simple addition operation, with no pruning of stale items described in the main text.": null,
+  "ReasoningBank distills generalizable reasoning strategies from both successful and failed experiences, which the agent itself judges (via LLM-as-a-judge) without ground-truth labels.": null,
+  "ReasoningBank memory items have three fields: a title, a one-sentence description, and content with distilled reasoning steps or operational insights.": null,
+  "ReasoningBank reports up to 20% relative improvement in effectiveness and up to 16% fewer interaction steps than baselines on WebArena, Mind2Web and SWE-Bench-Verified.": null,
+  "ReasoningBank retrieves the top-k relevant memory items by embedding-based similarity search and injects them into the agent's system instruction.": null,
+  "ReasoningBank's authors say prior memory approaches store raw trajectories or only successful routines, leaving lessons from failures underexplored; raw trajectories are described as too lengthy and noisy to apply directly.": null
+ }
+}

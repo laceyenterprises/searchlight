@@ -1,0 +1,19 @@
+{
+ "capture": "captured",
+ "digest": "81d6711573fb292d",
+ "url": "https://raw.githubusercontent.com/steel-experiments/internal-agents-map/main/archive/sources/stripe-minions-source-2/content.md",
+ "verdicts": {
+  "A Stripe devbox is an AWS EC2 instance containing Stripe's source code and running services under development, and most human-written Stripe code is already produced in an IDE remotely connected to a devbox over SSH.": 1,
+  "After a push, CI auto-applies autofixes for failing tests, and failures without autofixes go back to an agent node for one more local repair attempt.": 1,
+  "Devboxes run in Stripe's QA environment, so minions have no access to real user data, Stripe's production services, or arbitrary network egress, which lets the agent run with full permissions and no confirmation prompts.": 1,
+  "Individual Stripe teams can build custom blueprints, for example to encode LLM-assisted migrations that a fully deterministic codemod cannot handle.": 1,
+  "Part 2 of Stripe's Minions blog series (2026.2.19) restated the volume as over 1,300 Stripe pull requests merged each week, up from 1,000 as of Part 1.": 0,
+  "Stripe says Toolshed has nearly 500 MCP tools, and that agents perform best with a smaller, curated set of tools.": 1,
+  "Stripe says git worktrees and containers are hard to combine with giving agents full developer-shell power, and engineers already ran one devbox per task (possibly half a dozen at once), so agents slot into the same pattern; the devboxes predate LLM agents.": 1,
+  "Stripe shifts feedback left: pre-push hooks fix common lint issues, and the local lint selector runs in under five seconds per git push, with minions running a subset of linters as a deterministic blueprint node before pushing.": 0,
+  "Stripe targets a ten-second devbox spin-up by proactively provisioning and warming a pool of devboxes: cloning large git repositories, warming Bazel and type-checking caches, and starting code-generation services.": 1,
+  "Stripe's orchestration primitive is the blueprint: a workflow defined in code where each node runs either deterministic code or an agent loop focused on a task.": 1,
+  "Stripe's rationale for deterministic nodes is that coding small foreseeable decisions (e.g., always lint at the end of a run) saves tokens and CI costs at scale and gives the agent less opportunity to err.": 1,
+  "The minion blueprint has agent nodes such as 'Implement task' and 'Fix CI failures' and deterministic nodes such as 'Run configured linters' and 'Push changes' that invoke no LLM, forming a state machine mixing the two.": 1
+ }
+}

@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "7e1a30a5e9b300ed",
+ "url": "https://github.blog/ai-and-ml/github-copilot/how-to-orchestrate-agents-using-mission-control/",
+ "verdicts": {
+  "Agents working in parallel on the same repo can create merge conflicts if they touch the same files, so work should be partitioned.": 1,
+  "Agents working in parallel on the same repo can create merge conflicts if they touch the same files, so work should be partitioned; dependent or exploratory tasks should stay sequential.": 1,
+  "Mission Control lets users assign tasks to Copilot across repos, pick a custom agent, watch real-time session logs, steer mid-run (pause, refine, or restart), and jump to the resulting pull requests.": 1,
+  "Mission control lets users assign tasks across multiple repos from one place, pick a custom agent (using agents.md files from the selected repo), watch real-time session logs, and pause, refine or restart an agent mid-run.": 1,
+  "Recommended review in mission control covers session logs, files changed, and checks (unit tests, Playwright, CI/CD) before merging.": 1,
+  "Signals that an agent needs intervention include repeated failing tests or fetches, unexpected files in the diff, scope creep, misread intent in the session log, and circular behavior.": 1
+ }
+}

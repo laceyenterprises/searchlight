@@ -1,0 +1,18 @@
+{
+ "capture": "uncapturable",
+ "digest": "55d5e53e95aed938",
+ "url": "https://www.deployhq.com/guides/devin",
+ "verdicts": {
+  "Devin can respond to review comments and push fixes only while its session is active.": null,
+  "Devin has read/write access to code, PRs, issues and workflows on GitHub, read-only access to deployments and security advisories, and cannot create new repositories.": null,
+  "Devin is reported to boost test coverage from 50-60% to 80-90% by writing missing tests.": null,
+  "Devin is reported to complete vulnerability remediation in an average of 1.5 minutes versus 30 minutes for a human developer.": null,
+  "Devin is reported to handle framework migrations (e.g., Angular to React, .NET Framework to .NET Core) 10-14x faster than manual effort.": null,
+  "Devin looks for a custom PR template at .github/PULL_REQUEST_TEMPLATE/devin_pr_template.md before falling back to the standard template.": null,
+  "Devin spins up its own cloud environment with a terminal, code editor, and browser, then works autonomously, delivering results as a pull request on GitHub.": null,
+  "Devin's PR merge rate improved from 34% to 67% over 2025, which the DeployHQ guide notes means roughly one-third of PRs still need significant rework.": null,
+  "Devin's workflow is: plan (shows the plan), code in its cloud IDE, run the test suite and fix failures, then push a feature branch and open a PR.": null,
+  "Every Devin terminal command, file edit, and browser action is recorded in a full replay timeline, and users can intervene with chat messages to redirect it.": null,
+  "One ACU (Agent Compute Unit) is roughly 15 minutes of active Devin work, covering VM time, model inference and networking; the Teams plan's 250 ACUs equal about 62 hours of agent work per month.": null
+ }
+}

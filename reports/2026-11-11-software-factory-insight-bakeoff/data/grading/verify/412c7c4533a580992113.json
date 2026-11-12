@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "2880ccc775c1e07c",
+ "url": "https://dbggr.dev/articles/software-factories/",
+ "verdicts": {
+  "Dbggr reports StrongDM is the only company found stating at a primary source that it currently ships code no human reviews, yet it publishes no defect, incident, customer outcome, satisfaction score, usage or token-bill data.": 1,
+  "Dex Horthy of HumanLayer reported his team's lights-off factory approach failed (site down in July 2025, rewrite from scratch by November) because passing tests carries no penalty for eroding maintainability, though he admits he cannot prove this and no benchmarks exist for it.": 1,
+  "Eran Kahana of Stanford CodeX criticized StrongDM's satisfaction metric as AI-as-judge, creating circularity: the same class of technology that writes the code decides whether it works, so shared blind spots may be missed by both.": 1,
+  "In ImpossibleBench, model-based monitors caught 86-89% of cheating on simple coding tasks but only 42-65% on realistic repository tasks, suggesting model judges can miss model cheating.": 1,
+  "Willison, who saw demos as an invited guest in October 2025, noted that security software is the last thing one would expect to be built with unreviewed LLM code.": 1
+ }
+}

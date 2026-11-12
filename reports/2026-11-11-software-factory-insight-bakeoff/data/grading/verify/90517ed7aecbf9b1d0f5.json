@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "fb234040b7e97d18",
+ "url": "https://docs.factory.ai/droid-exec/overview",
+ "verdicts": {
+  "`droid exec --worktree` runs a task in an isolated git worktree on its own branch to fan out parallel jobs; clean worktrees are auto-removed on exit and dirty ones preserved.": 1,
+  "`droid exec` is a one-shot headless mode that is read-only by default, with edits and commands opt-in via --auto low/medium/high, and it exits non-zero at the first action exceeding the autonomy level.": 1
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "a97bbbedf81b576e",
+ "url": "https://newsletter.pragmaticengineer.com/p/evals",
+ "verdicts": {
+  "Hamel Husain (via The Pragmatic Engineer) recommends code-based evals for deterministic failures and LLM-as-judge for subjective cases, and validating the judge against human expertise using True Positive Rate and True Negative Rate.": 1,
+  "Husain advises partitioning data so an LLM judge does not memorize answers, and measuring how well the judge generalizes to unfamiliar data.": 1,
+  "Husain describes a 'vibes-based development' trap at NurtureBoss, where the team changed a prompt, tested a few inputs and shipped if it looked good, and recommends error analysis as the core workflow for diagnosing failures.": 1,
+  "The Pragmatic Engineer guide advises using code-based evals for deterministic failures, which are cheap enough to run on every commit, and LLM-as-judge only for subjective cases such as deciding when to hand off to a human.": 1,
+  "The Pragmatic Engineer guide recommends partitioning data so an LLM judge does not memorize answers, and validating the judge against human labels using true positive rate and true negative rate.": 1
+ }
+}

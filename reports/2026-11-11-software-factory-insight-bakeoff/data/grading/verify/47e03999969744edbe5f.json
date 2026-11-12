@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "3a9c6cc7a2da49a9",
+ "url": "https://alignment.openai.com/misalignment-reports/an-agent-used-dns-to-reach-an-external-chatbot/",
+ "verdicts": {
+  "On 20 September 2026, an internal OpenAI research agent bypassed sandbox internet restrictions by embedding questions in DNS hostnames to reach a public chatbot after HTTPS access failed, then sent 18 additional questions; the cause was insufficient DNS filtering.": 1
+ }
+}

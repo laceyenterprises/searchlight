@@ -1,0 +1,535 @@
+{
+ "digest": "6ccbc5a1759c1353",
+ "values": {
+  "Q02-k1": {
+   "position": 43,
+   "reason": "Measured ~50x token reduction for a bulk business-automation task via scripting is directly relevant to the reader's non-coding platform ambitions.",
+   "score": 3
+  },
+  "Q02-k10": {
+   "position": 10,
+   "reason": "Task tool interface with complexity tiers, background task IDs, stop and resume-with-context is a specific subagent API design detail.",
+   "score": 2
+  },
+  "Q02-k100": {
+   "position": 57,
+   "reason": "Per-launch instances from environment snapshots with no shared working-tree changes is a specific isolation design detail relevant to parallel worker dispatch.",
+   "score": 2
+  },
+  "Q02-k105": {
+   "position": 52,
+   "reason": "Per-role model selection (orchestrator/worker/validator) is a useful but fairly expected design detail that the reader's multi-harness dispatch partially covers.",
+   "score": 2
+  },
+  "Q02-k106": {
+   "position": 88,
+   "reason": "Disabling user-asking and recursive spawning in subagents is a specific containment rule useful for fleet governance.",
+   "score": 2
+  },
+  "Q02-k107": {
+   "position": 104,
+   "reason": "New specific detail on built-in role types with tool scoping (read-only explorer vs. all-tools worker) and default complexity tiers, relevant to governed dispatch and permission profiles.",
+   "score": 2
+  },
+  "Q02-k108": {
+   "position": 103,
+   "reason": "Specific design rationale (append-only trajectories, coherence-seeking, and degradation from accumulated irrelevant or adversarial context) that bears on whether the reader should keep re-injecting scar memory and long histories into worker prompts.",
+   "score": 2
+  },
+  "Q02-k109": {
+   "position": 60,
+   "reason": "Subagent autonomy inheritance clamped to an org maximum and read-only subagents capped at Low is a concrete governance rule applicable to dispatch policy.",
+   "score": 2
+  },
+  "Q02-k110": {
+   "position": 30,
+   "reason": "Explicit model resolution order with org-policy fallback is a specific governance design detail applicable to governed dispatch.",
+   "score": 2
+  },
+  "Q02-k111": {
+   "position": 91,
+   "reason": "Worktree-per-job with auto-removal of clean and preservation of dirty worktrees is a concrete, adoptable fan-out detail.",
+   "score": 2
+  },
+  "Q02-k112": {
+   "position": 84,
+   "reason": "Workers writing tests first with an independent validator judging correctness corroborates the reader's existing adversarial review design.",
+   "score": 1
+  },
+  "Q02-k113": {
+   "position": 40,
+   "reason": "Product configuration UI detail with little architectural relevance.",
+   "score": 0
+  },
+  "Q02-k114": {
+   "position": 51,
+   "reason": "Specific character caps for startup vs per-call instruction loading and nested-directory discovery are concrete design details for prompt-injection of guidance like scar memory.",
+   "score": 2
+  },
+  "Q02-k115": {
+   "position": 79,
+   "reason": "Coordinator plus role-scoped sub-agents and a compaction engine largely corroborate other findings without mechanism detail.",
+   "score": 1
+  },
+  "Q02-k116": {
+   "position": 98,
+   "reason": "Large quality gains at roughly 11x wall time quantify the system-vs-single tradeoff, though heavy caveats limit confidence.",
+   "score": 2
+  },
+  "Q02-k117": {
+   "position": 27,
+   "reason": "Measured Legacy-Bench results with a small harness edge and COBOL as the dominant unsolved category are concrete data for model/harness routing and scope limits.",
+   "score": 2
+  },
+  "Q02-k118": {
+   "position": 11,
+   "reason": "Documented failure mode of agents declaring success despite failing hidden tests argues for verification the worker cannot see, affecting review design.",
+   "score": 3
+  },
+  "Q02-k119": {
+   "position": 95,
+   "reason": "Rerunning infra-failed trials is a minor methodology note.",
+   "score": 1
+  },
+  "Q02-k120": {
+   "position": 47,
+   "reason": "Reading AGENTS.md is a common convention.",
+   "score": 0
+  },
+  "Q02-k121": {
+   "position": 8,
+   "reason": "Session resume/fork and a Sessions API are a minor design detail the reader's Postgres ledger likely already covers.",
+   "score": 1
+  },
+  "Q02-k122": {
+   "position": 42,
+   "reason": "Generic description of an agent workflow that the reader's pipeline already covers.",
+   "score": 1
+  },
+  "Q02-k123": {
+   "position": 62,
+   "reason": "Dependency-driven parallel ticket assignment is already what the reader's spec->DAG->tickets pipeline does.",
+   "score": 0
+  },
+  "Q02-k124": {
+   "position": 100,
+   "reason": "Generic description of Missions as long-horizon multi-agent workflows with no specific mechanism, measurement, or failure mode.",
+   "score": 0
+  },
+  "Q02-k125": {
+   "position": 63,
+   "reason": "Autonomy tiers with a hard destructive-command blocklist are a common pattern and only modestly new.",
+   "score": 1
+  },
+  "Q02-k126": {
+   "position": 54,
+   "reason": "Sandbox read/write/network checks being orthogonal to autonomy level, with fail-fast in headless, is a specific layered-permission design detail.",
+   "score": 2
+  },
+  "Q02-k127": {
+   "position": 9,
+   "reason": "Kernel-enforced sandbox and managed cloud sandboxes are fairly standard isolation features with little new detail.",
+   "score": 1
+  },
+  "Q02-k128": {
+   "position": 21,
+   "reason": "Model onboarding pipeline with behavioral assertions, live environments and daily benchmarks is a specific process detail useful for a multi-harness fleet.",
+   "score": 2
+  },
+  "Q02-k129": {
+   "position": 24,
+   "reason": "Methodological detail on benchmark trials and vendor-published caveat is useful context for interpreting results but minor.",
+   "score": 1
+  },
+  "Q02-k130": {
+   "position": 105,
+   "reason": "Interactive vs. headless exec modes with JSON/stream-jsonrpc output is a minor interface detail that corroborates the reader's existing multi-harness dispatch pattern.",
+   "score": 1
+  },
+  "Q02-k141": {
+   "position": 83,
+   "reason": "Local vs remote execution modes are a generic product distinction.",
+   "score": 1
+  },
+  "Q02-k142": {
+   "position": 64,
+   "reason": "Org/user-level memory retaining decisions and run-books is a generic claim without mechanism detail.",
+   "score": 1
+  },
+  "Q02-k143": {
+   "position": 73,
+   "reason": "Browser UI with tabs and activity log is product trivia irrelevant to architecture.",
+   "score": 0
+  },
+  "Q02-k144": {
+   "position": 48,
+   "reason": "Second-hand anecdotal migration claim without verifiable methodology.",
+   "score": 1
+  },
+  "Q02-k145": {
+   "position": 55,
+   "reason": "Benchmark-choice commentary is mostly context and not actionable for the reader's architecture.",
+   "score": 1
+  },
+  "Q02-k146": {
+   "position": 56,
+   "reason": "CI/CD headless use and enterprise security features are largely marketing/compliance details with little architectural impact.",
+   "score": 1
+  },
+  "Q02-k148": {
+   "position": 34,
+   "reason": "Reasoning logs and a named secret-safeguard product are marketing-level claims.",
+   "score": 0
+  },
+  "Q02-k149": {
+   "position": 92,
+   "reason": "Existence of a proprietary benchmark without results is trivia.",
+   "score": 0
+  },
+  "Q02-k15": {
+   "position": 3,
+   "reason": "Concrete loop-detection thresholds (3 nudge, 6 stop) and compaction budget sizes are specific, adoptable guardrail parameters for a worker runtime.",
+   "score": 3
+  },
+  "Q02-k150": {
+   "position": 76,
+   "reason": "Customer-reported percentage improvements are marketing claims without methodology.",
+   "score": 0
+  },
+  "Q02-k151": {
+   "position": 94,
+   "reason": "Legacy benchmark and compliance certifications are marketing/trivia for this reader.",
+   "score": 0
+  },
+  "Q02-k152": {
+   "position": 82,
+   "reason": "Barring the reviewer from writing code reinforces separation of duties the reader already has via cross-model review.",
+   "score": 1
+  },
+  "Q02-k153": {
+   "position": 16,
+   "reason": "Parallel isolated sessions per service converging on review is a plausible but generic illustrative example.",
+   "score": 1
+  },
+  "Q02-k154": {
+   "position": 22,
+   "reason": "Mirroring the project toolchain in sandboxes is standard practice with little new detail.",
+   "score": 1
+  },
+  "Q02-k155": {
+   "position": 49,
+   "reason": "Ticket integration fields pulled into context and status posted back is a minor integration detail.",
+   "score": 1
+  },
+  "Q02-k156": {
+   "position": 2,
+   "reason": "Third-party advice to keep human merge authority directly challenges the reader's autonomous-merge design, though it is opinion rather than measured evidence.",
+   "score": 2
+  },
+  "Q02-k18": {
+   "position": 97,
+   "reason": "A same-model head-to-head showing harness gains in pass rate, time, and tokens is a measured result relevant to the reader's harness-selection decisions.",
+   "score": 3
+  },
+  "Q02-k19": {
+   "position": 5,
+   "reason": "Vendor benchmark showing harness choice swings scores more than model choice is a measured result relevant to multi-harness dispatch, though self-reported.",
+   "score": 2
+  },
+  "Q02-k2": {
+   "position": 35,
+   "reason": "Measured memory reduction from 350 MB per-process sessions to ~20 MB shared-daemon sessions is a concrete data point for fleet runtime architecture.",
+   "score": 2
+  },
+  "Q02-k20": {
+   "position": 33,
+   "reason": "Measured halving of model calls and ~27% wall-time reduction via script tool corroborates the batched-execution approach.",
+   "score": 2
+  },
+  "Q02-k21": {
+   "position": 50,
+   "reason": "Programmatic tool calling with sandboxed scripts that keep raw tool outputs out of context is a concrete execution-model choice that could reshape how Agent OS workers handle tool I/O and token budgets.",
+   "score": 3
+  },
+  "Q02-k22": {
+   "position": 67,
+   "reason": "Presenting bootstrap system info as shell output to avoid redundant commands is a specific, cheap prompt-design trick worth adopting.",
+   "score": 2
+  },
+  "Q02-k23": {
+   "position": 65,
+   "reason": "Opt-in background execution with command filtering and process tracking for cleanup is a specific but minor operational design detail.",
+   "score": 2
+  },
+  "Q02-k24": {
+   "position": 102,
+   "reason": "Specific benchmark methodology detail (five runs per model, non-interactive, permissions skipped in a sandbox) that helps interpret results but is mostly corroborating.",
+   "score": 1
+  },
+  "Q02-k25": {
+   "position": 4,
+   "reason": "Exploratory directions and generic memory desiderata (durable, scoped, searchable) are not specific or measured.",
+   "score": 1
+  },
+  "Q02-k26": {
+   "position": 37,
+   "reason": "SWE-bench setup detail is minor benchmark methodology.",
+   "score": 1
+  },
+  "Q02-k27": {
+   "position": 80,
+   "reason": "Per-patch time and token figures and best-of-three patch selection are measured data useful for sampling and cost decisions.",
+   "score": 2
+  },
+  "Q02-k28": {
+   "position": 13,
+   "reason": "Sandboxing with audit trails and reasoning logs is generic and largely marketing-level.",
+   "score": 0
+  },
+  "Q02-k29": {
+   "position": 58,
+   "reason": "Third-party description of role-scoped droids with typed handoffs largely corroborates other findings and the reader's own design.",
+   "score": 1
+  },
+  "Q02-k30": {
+   "position": 72,
+   "reason": "A dedicated knowledge-index droid queried by downstream agents is a specific design alternative to re-reading the repo each run.",
+   "score": 2
+  },
+  "Q02-k31": {
+   "position": 14,
+   "reason": "Plan-before-edit approval mode and concrete managed machine specs plus relay-registered customer machines are moderately specific design details.",
+   "score": 1
+  },
+  "Q02-k33": {
+   "position": 41,
+   "reason": "Human-approved plan before work starts is a common pattern with little new detail.",
+   "score": 1
+  },
+  "Q02-k34": {
+   "position": 28,
+   "reason": "Measured script-batched tool execution keeping under 0.1% of results in context with 2 requests versus 59-187 is a result that could change tool-execution architecture.",
+   "score": 3
+  },
+  "Q02-k35": {
+   "position": 59,
+   "reason": "The 5-minute script wait cap, background continuation, and model wake-up on completion are specific async-execution design details.",
+   "score": 2
+  },
+  "Q02-k36": {
+   "position": 17,
+   "reason": "Agents mining benchmark failures and session friction to propose hypothesis-tested harness changes per model family, with human ship decisions, is a specific self-improvement loop design relevant to the hardening ledger.",
+   "score": 2
+  },
+  "Q02-k37": {
+   "position": 32,
+   "reason": "Writing the validation contract before defining features so it is not biased by implementation is a specific ordering choice that could change the reader's spec-to-DAG pipeline.",
+   "score": 3
+  },
+  "Q02-k38": {
+   "position": 7,
+   "reason": "Measured run composition, token consumption and 37.2% of runtime in validation give concrete cost data for budgeting an orchestrator/worker/validator pipeline.",
+   "score": 3
+  },
+  "Q02-k39": {
+   "position": 23,
+   "reason": "Measured validation progression 0/6 to 6/6 over four rounds shows first-pass work rarely passes and multiple fix rounds must be budgeted.",
+   "score": 3
+  },
+  "Q02-k4": {
+   "position": 1,
+   "reason": "HyperCode multi-resolution graph plus latent-similarity retrieval is a specific codebase-context design detail the reader could adopt for worker context.",
+   "score": 2
+  },
+  "Q02-k40": {
+   "position": 70,
+   "reason": "Measured validation convergence (2-4 rounds, 81 issues, 65 blocking, 34.4% fix features) gives concrete numbers for budgeting review/fix loops in the reader's pipeline.",
+   "score": 3
+  },
+  "Q02-k41": {
+   "position": 77,
+   "reason": "Mission duration distribution and 12x token multiplier are measured results that inform capacity, cost, and ledger design for long-running jobs.",
+   "score": 3
+  },
+  "Q02-k42": {
+   "position": 78,
+   "reason": "Orchestrator over-broad scoping is an admitted failure mode, useful but stated without detail.",
+   "score": 2
+  },
+  "Q02-k43": {
+   "position": 25,
+   "reason": "Unsubstantiated product claims without benchmarks or implementation detail are marketing.",
+   "score": 0
+  },
+  "Q02-k44": {
+   "position": 15,
+   "reason": "Clarifies local execution with data leaving only via LLM calls, a useful but fairly standard data-boundary detail.",
+   "score": 1
+  },
+  "Q02-k45": {
+   "position": 53,
+   "reason": "Read-only-by-default headless mode with tiered opt-in autonomy and fail-fast non-zero exit is a concrete governance pattern applicable to unattended worker dispatch.",
+   "score": 2
+  },
+  "Q02-k49": {
+   "position": 36,
+   "reason": "Measured 15-51% input token savings from deferred loading of tool/MCP schemas is a result that could change how the platform loads tools for general-purpose agents.",
+   "score": 3
+  },
+  "Q02-k56": {
+   "position": 38,
+   "reason": "Median and p90 trajectory lengths for implementation versus validation are useful for sizing budgets and timeouts.",
+   "score": 2
+  },
+  "Q02-k57": {
+   "position": 71,
+   "reason": "A measured 15% cost reduction concentrated in scripts with 6+ tool calls is a quantified result that could justify adopting programmatic tool calling.",
+   "score": 3
+  },
+  "Q02-k58": {
+   "position": 12,
+   "reason": "Milestone-triggered validation with fresh agents split into scrutiny and black-box user-testing validators is a specific verification architecture detail.",
+   "score": 2
+  },
+  "Q02-k59": {
+   "position": 81,
+   "reason": "Appending newly discovered tools at the end to preserve prompt cache, with a measured 100% reuse, is a specific, actionable cost optimization.",
+   "score": 3
+  },
+  "Q02-k60": {
+   "position": 45,
+   "reason": "Per-command risk classification, pre-model secret scanning and OpenTelemetry logging are specific governance details the reader could adopt.",
+   "score": 2
+  },
+  "Q02-k61": {
+   "position": 19,
+   "reason": "Per-role model assignment with a different vendor for validation and computer-use black-box testing is a specific design detail supporting cross-model review.",
+   "score": 2
+  },
+  "Q02-k62": {
+   "position": 44,
+   "reason": "Measured 36% vs 90% parity for single agent versus orchestrator/validator with hidden instrument at ~14x cost quantifies the value and cost of multi-agent verification.",
+   "score": 3
+  },
+  "Q02-k63": {
+   "position": 18,
+   "reason": "Rationale for fresh validators is a known principle the reader already embodies with cross-model adversarial review.",
+   "score": 1
+  },
+  "Q02-k65": {
+   "position": 6,
+   "reason": "Three-tier prompting with contextually injected time-sensitive system notifications is a specific design detail applicable to scar-memory re-injection.",
+   "score": 2
+  },
+  "Q02-k68": {
+   "position": 101,
+   "reason": "Concrete design detail: decomposing projects into features assigned to worker sessions with git as the handoff and coordination substrate, which is directly comparable to the reader's build-pack DAG-to-PR pipeline.",
+   "score": 2
+  },
+  "Q02-k7": {
+   "position": 89,
+   "reason": "Orchestrator that delegates everything and system-injected validators at milestones is a specific separation design detail.",
+   "score": 2
+  },
+  "Q02-k74": {
+   "position": 29,
+   "reason": "Target market and ticket-to-PR aim are generic positioning.",
+   "score": 0
+  },
+  "Q02-k75": {
+   "position": 31,
+   "reason": "Subtask decomposition and continuous replanning from feedback are fairly generic planning concepts.",
+   "score": 1
+  },
+  "Q02-k76": {
+   "position": 0,
+   "reason": "Plan templates trading rigidity for reliability is a general observation without specifics on which task types or measured effect.",
+   "score": 1
+  },
+  "Q02-k77": {
+   "position": 99,
+   "reason": "Emphasis on environmental grounding and enterprise targeting is mostly positioning.",
+   "score": 1
+  },
+  "Q02-k78": {
+   "position": 39,
+   "reason": "Notes that productivity claims are unvalidated, a minor caveat rather than design insight.",
+   "score": 1
+  },
+  "Q02-k79": {
+   "position": 96,
+   "reason": "Starting with minimal tools and letting the agent request more is a modest design detail amid an integration list.",
+   "score": 1
+  },
+  "Q02-k8": {
+   "position": 74,
+   "reason": "Externalizing mission state into named shared artifacts (validation contract, features.json, services.yaml) is a concrete design pattern for long-running multi-agent coordination.",
+   "score": 3
+  },
+  "Q02-k80": {
+   "position": 86,
+   "reason": "Demo workflow of search, plan, and clarifying questions is generic.",
+   "score": 0
+  },
+  "Q02-k81": {
+   "position": 90,
+   "reason": "Harness-over-model framing is a generic philosophy statement.",
+   "score": 0
+  },
+  "Q02-k83": {
+   "position": 20,
+   "reason": "Community-guide delegator pattern and config layout are minor and not authoritative.",
+   "score": 1
+  },
+  "Q02-k84": {
+   "position": 87,
+   "reason": "Community spec-test-implement-verify flow mirrors the reader's existing pipeline.",
+   "score": 0
+  },
+  "Q02-k85": {
+   "position": 61,
+   "reason": "A single cited benchmark score plus a generic caveat about code quality is minor corroboration.",
+   "score": 1
+  },
+  "Q02-k86": {
+   "position": 66,
+   "reason": "Notes that an independent review lacks code-quality evidence, which is a useful caveat but minor.",
+   "score": 1
+  },
+  "Q02-k87": {
+   "position": 46,
+   "reason": "Vendor claim that harness beats model selection is corroborating and self-reported.",
+   "score": 1
+  },
+  "Q02-k88": {
+   "position": 75,
+   "reason": "Benchmark definition details are background, not architectural insight.",
+   "score": 1
+  },
+  "Q02-k89": {
+   "position": 68,
+   "reason": "The observed recency-bias failure mode over long trajectories and the system-notification mitigation could change how Agent OS injects scar memory and instructions mid-run.",
+   "score": 3
+  },
+  "Q02-k9": {
+   "position": 26,
+   "reason": "Validators that only surface issues so the orchestrator creates fix features is a specific role-separation rule that could change how the reader routes review findings.",
+   "score": 2
+  },
+  "Q02-k90": {
+   "position": 85,
+   "reason": "Model-specific adaptations like edit-diff format and path conventions are concrete details relevant to the reader's multi-harness dispatch.",
+   "score": 2
+  },
+  "Q02-k91": {
+   "position": 93,
+   "reason": "Identifying tool reliability as the primary completion bottleneck is a failure-mode finding that could redirect engineering priorities.",
+   "score": 2
+  },
+  "Q02-k98": {
+   "position": 69,
+   "reason": "Persistent environments across sessions are a moderately useful but common design detail.",
+   "score": 1
+  }
+ }
+}

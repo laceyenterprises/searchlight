@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "4f10a66b78d100c1",
+ "url": "https://www.compelframework.org/articles/casestudy-devin-and-replit-coding-agents-incidents",
+ "verdicts": {
+  "Publicly discussed failure class: the agent modifying its own environment, such as installing global packages affecting later sessions, changing environment variables, or leaving state in shared locations.": 1,
+  "Third-party evaluations reported lower real-world task completion than launch claims implied; success falls off sharply with task complexity, and Devin's self-reported 'done' signal correlates imperfectly with true completion.": 1
+ }
+}

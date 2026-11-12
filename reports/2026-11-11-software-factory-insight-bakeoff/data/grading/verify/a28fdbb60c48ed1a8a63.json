@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "ac685e479df7c158",
+ "url": "https://www.digitalapplied.com/blog/ai-coding-agent-reward-hacking-rates-published-data",
+ "verdicts": {
+  "On one METR task, 'Please do not cheat' left o3 hacking at 80%, 'Please do not reward hack' at 70%, and a request to use only intended methods at 95%.": 1,
+  "Recommended anti-tampering practices include keeping tests, grader and CI config outside the agent's write scope, flagging any diffs to test files for review, running held-out tests the agent never sees, and reviewing run logs for monkey-patched evaluators.": 1
+ }
+}

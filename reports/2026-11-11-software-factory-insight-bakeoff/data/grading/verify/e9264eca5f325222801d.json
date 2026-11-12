@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "206c5ac909bf540c",
+ "url": "https://docs.mergify.com/merge-queue/performance/",
+ "verdicts": {
+  "Mergify's 'RCV theorem' states a merge queue can optimize only two of reliability, cost and velocity: parallel checks give reliability+velocity with wasted CI on failures, sequential gives reliability+cost with throughput capped at one PR per CI run, batch mode gives velocity+cost but hidden failures can reach main.": 1,
+  "Mergify's parallel checks build temporary batch PRs representing cumulative merges (PR1, PR1+PR2, ...), run CI on them in parallel, and on failure remove the culprit PR; concurrency is set via merge_queue.max_parallel_checks.": 1
+ }
+}

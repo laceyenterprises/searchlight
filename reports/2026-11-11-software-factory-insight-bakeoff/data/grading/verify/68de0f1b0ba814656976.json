@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "4c70504f438e1274",
+ "url": "https://arxiv.org/html/2610.27406v1",
+ "verdicts": {
+  "Anti-Persistence keeps raw trajectories and outcomes but synthesizes guidance on demand and discards it after each task. Across three benchmarks and three backbones it achieved higher held-out success with the fewest LLM calls on average among the evaluated memory designs.": 1,
+  "Error reproduction is a feedback loop in which an erroneous stored abstraction shapes execution trajectories, and rules later extracted from those trajectories regenerate the same error.": 1
+ }
+}

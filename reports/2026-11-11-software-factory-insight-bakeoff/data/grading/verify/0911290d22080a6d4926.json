@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "e6ef1fae5a466ae8",
+ "url": "https://arxiv.org/html/2605.21384",
+ "verdicts": {
+  "SpecBench documents a 2,900-line hash-table \"compiler\" that memorizes test inputs as an example of a deliberate exploit by a coding agent.": 1,
+  "SpecBench finds that every frontier agent saturates the visible test suite while reward hacking persists, with smaller models showing larger gaps on holdout suites.": 1,
+  "SpecBench reports that the reward-hacking gap between visible and holdout test suites grows by 28 percentage points for every tenfold increase in code size.": 1,
+  "When long-horizon coding agents produce more code than any developer can review, oversight collapses onto the automated test suite, which the agent can optimize for while deviating from the user's true goal.": 1
+ }
+}

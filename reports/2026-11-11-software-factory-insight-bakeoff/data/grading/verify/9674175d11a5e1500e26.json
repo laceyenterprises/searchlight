@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "8064084706051f15",
+ "url": "https://www.anthropic.com/research/harness-design-long-running-apps",
+ "verdicts": {
+  "A later Anthropic harness-design article says context resets, which clear the context window entirely and start a fresh agent with a structured handoff of prior state and next steps, address problems seen with naive long-running implementations.": 1,
+  "Anthropic recommends removing harness components one at a time and inspecting the effects, since a radical simplification failed to reproduce earlier quality and obscured which components were load-bearing.": 1,
+  "Anthropic says Sonnet 4.5 showed context anxiety strongly enough that compaction alone was insufficient, while Opus 4.5 largely removed the behavior, allowing a continuous session with automatic compaction and no resets.": 1,
+  "Before each sprint, the generator and evaluator negotiated a file-based contract defining what done meant and how it would be verified; the evaluator failed the sprint if any criterion fell below a hard threshold.": 1,
+  "For models showing context anxiety, Anthropic recommends a clean context reset with a structured handoff; this prevents premature wrap-up but adds orchestration complexity, token overhead and latency.": 1,
+  "In Anthropic's Opus 4.5 comparison, a solo harness ran for 20 minutes and cost $9, while the full planner/generator/evaluator harness ran for 6 hours and cost $200, over 20 times more, with visibly better output.": 1,
+  "In a later planner/generator/evaluator harness, one application ran 20 minutes for $9 solo versus 6 hours for $200 with the full harness, and a DAW experiment with Opus 4.6 cost $124.70 and took 3 hours 50 minutes.": 1,
+  "Sonnet 4.5 showed 'context anxiety', wrapping up prematurely near its perceived context limit, so context resets were needed; Opus 4.5 largely removed this, allowing continuous sessions with automatic compaction.": 1,
+  "The later full-stack harness used three agents: a planner expanding a 1-4 sentence prompt into a product spec, a generator implementing one feature at a time, and an evaluator using Playwright MCP against the live UI, API endpoints and database state.": 1
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "1eed25bfe7bd17c0",
+ "url": "https://traccia.ai/blog/ai-agent-failure-modes/",
+ "verdicts": {
+  "In July 2025, Gemini CLI ran a mkdir that silently failed and then issued move commands into the missing directory, losing the user's files.": 1,
+  "In July 2025, a Replit AI coding agent ran destructive commands against a production database during an explicit code freeze and then told the user a rollback would not work.": 1,
+  "Over-eager completion is a documented failure mode in which an agent takes a destructive shortcut to finish a task, such as deleting a failing test to make it pass or resetting a database after an empty query result.": 1,
+  "Traccia identifies signals of over-eager completion in traces: destructive calls shortly after an error, tool calls outside task scope, and retries escalating from retry to reset to delete.": 1,
+  "Traccia recommends mitigating destructive actions with deterministic policies that deny named high-risk tools or dangerous shell commands (such as rm -rf or DROP TABLE) before the call executes, in Block mode scoped to production.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "82a6bc540e40be01",
+ "claims": [
+  {
+   "text": "In the Amazon KDD 2026 study of two retail supply-chain analytics agents, the trace-based LLM-judge framework Strands Evals achieved F1=0.896 (precision 88.2%, recall 90.9%, FPR 10.3%) on 72 ground-truth test cases.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "In the same study, the text-only LLM-judge framework PromptFoo achieved recall 87.9% but precision 60.4%, F1 0.716 and FPR 48.7%, about 5x more false alarms than the trace-based judge.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "The deterministic-heuristics framework Agenta flagged every case as a failure in the aggregate detection results (recall 100%, FPR 100%, precision 45.8%, F1 0.629), so its pass/fail decisions were not meaningful for open-ended responses.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "Of 72 labeled test cases, 33 (46%) had at least one failing dimension; SQL correctness accounted for 28 failures, tool correctness 9, accuracy 6, intent 4, and groundedness 2.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "For tool-correctness failures (9 cases), the trace-based judge detected 89% versus 11% for the text-only judge, an 8x difference, because detecting a missing tool call requires seeing the execution trajectory.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "On groundedness, the trace-based judge had 0% false positive rate versus 52% for the text-only judge, because text-only frameworks see tool result metadata rather than the data the agent actually references.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "On SQL correctness (28 failures), both LLM-based frameworks achieved about 89% recall when the query text was injected; Agenta's regex checks reached 92.9% recall on agent_a but 0% on agent_b, where errors such as a missing string in the partition key are semantic.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "Nine failures initially labeled 'pass' by the human reviewer were reclassified as failures after LLM-judge flagging: 5 SQL partition errors on agent_a and 4 calculation-interpretation mistakes on agent_b; all were syntactically valid but semantically wrong.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "The paper reports that ad-hoc manual spot-checking missed 9 of 72 ground-truth failures (12.5%) that were syntactically valid but semantically wrong.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "The SQL judge, given the full query text from the trace and a rubric of correct partition patterns, scored the agent_a partition_level='top' queries at 0.20–0.30 (fail) across 5 cases, which the human then confirmed.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "A systematic SQL generation bug that silently returned zero rows for a class of queries persisted through manual spot-checking because the generated SQL was syntactically valid, and was found by automated evaluation.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "Judge stability: 35 of 36 framework/judge-model configurations (97%) met the within-case std threshold of ≤0.15; average decision consistency was 100% for Agenta, 92% for PromptFoo and 82% for Strands.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "The single unstable configuration (Qwen3 32B on the style metric in Strands) had std 0.207 and 20% decision consistency, yet was stable (0.011) in PromptFoo, so stability depends on the framework/model pair.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "Among judge models, Claude Haiku was most stable (0.029 average within-case std), then Sonnet 4.6 (0.035), then Qwen3 32B (0.072); PromptFoo faithfulness decision consistency was only 67% for Sonnet and 68% for Qwen3 because scores cluster near the 0.5 threshold.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "The authors conclude that 82–92% decision consistency makes LLM judges unreliable for automated CI/CD gating on individual cases, but suitable for iterative development where aggregate signal across many cases matters.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "Phase 3 discovery: generated tests surfaced 24 novel failures with zero overlap between functional testing (Strands ExperimentGenerator, 9 novel failures, 6.1% false discovery rate) and security red-teaming (PromptFoo, 15 novel failures, 20.8% false discovery rate).",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "Novel functional failures included a SUBSTR negative-index SQL bug affecting 6 cases (High severity), plus retry storms and schema fabrication; novel security findings included schema metadata leakage (10 cases), storage path exposure (5), and system prompt disclosure (4).",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "ExperimentGenerator's novel-failure rate was 40% on agent_a, which had a hidden systematic bug, versus 5.9% on agent_b, whose failures were already characterized; security findings were 4x higher on agent_b, which has the more complex schema.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "The study used frozen execution traces in a research setting, with ground-truth labels from one primary domain expert per agent plus cross-review on ambiguous cases, not a live production deployment.",
+   "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf"
+  },
+  {
+   "text": "AgentEval, a DAG-structured step-level judge, reached failure-detection recall 0.89 on 150 human-annotated cases versus 0.41 for end-to-end-only evaluation and 0.67 for flat step-level evaluation, at FPR 0.07 versus 0.08 and 0.15.",
+   "url": "https://arxiv.org/html/2604.23581"
+  },
+  {
+   "text": "In the AgentEval study, 63% of step-level failures across 450 test cases were propagated from upstream errors rather than locally caused, and the DAG advantage over flat evaluation grew from +15 pp for workflows of ≤3 steps to +28 pp for ≥6 steps.",
+   "url": "https://arxiv.org/html/2604.23581"
+  },
+  {
+   "text": "Property-Generated Solver, which uses property-based testing, reported 23.1% to 37.3% relative pass@1 gains over established TDD methods on multiple code generation benchmarks.",
+   "url": "https://arxiv.org/html/2506.18315v1"
+  },
+  {
+   "text": "A no-LLM, regression-locked deterministic test harness for a production LLM agent's scaffold runs 238 baseline cases across 23 slices, with 225 cases executing in 2.39 s, in CI on every change.",
+   "url": "https://arxiv.org/html/2606.11686"
+  },
+  {
+   "text": "LLM judges are affected by candidate-answer order, verbosity, self-preference, prompt and model version; for zero-tolerance security rules a judge cannot replace deterministic controls even when aggregate agreement is high, and judges should be calibrated against expert-labeled sets before gating.",
+   "url": "https://datapro-lgtm.github.io/production-grade-multi-agent-systems/en/chapters/08-multi-agent-evaluation-golden-dataset-and-continuous-regression/"
+  },
+  {
+   "text": "A systematic mapping of 262 papers found literature concentrated on behavioral evaluation (105 papers) and thinnest on temporal validity (14 papers); it counts papers rather than appraising detection effectiveness.",
+   "url": "https://arxiv.org/html/2607.29405v2"
+  }
+ ],
+ "question_id": "Q17"
+}

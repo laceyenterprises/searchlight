@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "2f25738f58065220",
+ "url": "https://graphite.com/docs/merge-queue-optimizations",
+ "verdicts": {
+  "Graphite recommends setting parallel CI concurrency to match peak PR volume times CI duration, e.g. 3 concurrent runs for 30-minute CI and 3 PRs per 30 minutes at peak.": 1,
+  "Graphite reports Parallel CI customers saw 1.5x faster merges overall (33% decrease at p95, 26% at p75), and up to 2.5x faster for heavy stacked-PR users (60% decrease at p95, 34% at p75).": 1,
+  "Graphite's Parallel CI uses speculative execution: for stacks A, B, C it tests A, A←B and A←B←C simultaneously; if a stack fails it is evicted and the dependent speculative runs are canceled and restarted.": 1,
+  "Graphite's batching (private beta) handles failures either by full parallel isolation (default, faster identification) or bisection (fewer CI runs).": 1,
+  "Graphite's merge queue treats a stack as the atomic unit; a failure in any PR fails the whole stack. Parallel CI can run on every PR in the stack (strongest guarantee) or only the topmost PR (fewer CI runs).": 1,
+  "Graphite's parallel CI only generates extra CI runs when CI fails in the queue, so flaky tests raise cost because the failing PR is evicted and all subsequent speculative runs restart.": 1
+ }
+}

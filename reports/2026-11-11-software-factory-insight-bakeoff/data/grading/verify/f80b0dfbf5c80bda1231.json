@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "ec7db2587b5778b1",
+ "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/",
+ "verdicts": {
+  "By default a cloud session can only reach a recommended allowlist of package registries; an org owner can set Enable firewall to enforced, let repositories decide, or allow repository custom rules, and org entries cannot be removed at repo level.": 1,
+  "Cloud sessions are governed by a separate 'Copilot in the cloud' policy that is enabled by default, while the 'MCP servers in Copilot' policy is off by default and supports an optional registry URL and a 'Registry only' restriction.": 1,
+  "Copilot code review can be allowed to submit approvals that count toward required approvals, which is off by default; a ruleset requiring a PR with at least one approval on main is what subjects the agent to review.": 1,
+  "The cloud agent can only push to a copilot/ branch it created, or to the branch of a PR it was explicitly pointed at.": 1,
+  "The cloud agent opens draft PRs and cannot mark them ready, approve them, or merge them.": 1,
+  "The cloud agent writes enterprise audit log events for firewall and MCP configuration changes per repo, and every commit it makes is signed and linked to its session log.": 1
+ }
+}

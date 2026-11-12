@@ -1,0 +1,109 @@
+{
+ "arm": "exa",
+ "async": null,
+ "cost_model": "auto search $7/1k requests (<=10 results; Exa 3.0 post: Auto 'uses more compute across the retrieval stack, including candidate generation, highlights, and ranking'; Dynamic Highlights GA 'at no additional charge') + /contents text $1/1k pages x3 = ~$0.010. Upper bound if highlights bill per page: ~$0.020. Response costDollars.total is authoritative.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "type choice, natural-language query, highlights default, search-then-contents, filters, deprecated params",
+   "url": "https://exa.ai/docs/search/best-practices.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "all /search params, type enum, numResults 1-100, contents.highlights, maxAgeHours",
+   "url": "https://docs.exa.ai/reference/search"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "highlights sized by relevance; 500 chars of highlights matched 8k chars of text on SimpleQA",
+   "url": "https://exa.ai/docs/search/highlights.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "/contents urls, text.maxCharacters, verbosity",
+   "url": "https://exa.ai/docs/reference/get-contents.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "search/contents prices",
+   "url": "https://exa.ai/pricing"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "10 QPS /search, 100 QPS /contents",
+   "url": "https://exa.ai/docs/admin/billing.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "2026-10-19 lite + recommended types lite/auto/deep, legacy fast/instant/deep-reasoning, warnings/notices; 2026-08-28 dynamic highlights",
+   "url": "https://docs.exa.ai/changelog"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "Exa 3.0: larger embedding model, Lite $4/1k vs Auto $7/1k on same index, Dynamic Highlights GA at no extra charge, AA Search Index run used auto + dynamic highlights",
+   "url": "https://exa.ai/blog/exa-3"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "dynamic: true in contents.highlights; shared budget across the result set",
+   "url": "https://exa.ai/blog/dynamic-highlights"
+  }
+ ],
+ "endpoint": "POST https://api.exa.ai/search",
+ "est_cost_usd_per_question": 0.01,
+ "exa_version": "Exa 3.0 (launched 2026-10-19)",
+ "freshness_overlay": {
+  "startPublishedDate": "{{AFTER_DATE}}T00:00:00.000Z"
+ },
+ "headers": {
+  "Exa-Beta": "dynamic-highlights-2026-08-28",
+  "x-api-key": "<EXA_API_KEY>"
+ },
+ "operation": "search",
+ "pace_seconds": 0.2,
+ "params": {
+  "contents": {
+   "highlights": {
+    "dynamic": true
+   }
+  },
+  "numResults": 10,
+  "query": "{{QUERY}}",
+  "type": "auto"
+ },
+ "post_steps": [
+  {
+   "endpoint": "POST https://api.exa.ai/contents",
+   "op": "fetch",
+   "params": {
+    "text": {
+     "maxCharacters": 20000
+    },
+    "urls": "{{TOP_K_URLS}}"
+   },
+   "top_k": 3,
+   "why": "Search Best Practices: 'To get more context from a few pages, search with highlights first, then call the Contents API for those URLs.'"
+  }
+ ],
+ "query_transform": "verbatim",
+ "query_transform_notes": "Exa: 'Describe the pages you want rather than listing keywords.' Questions are 154-328 chars, natural language; no rewrite. No site: operators (use includeDomains). objective is optional and documented for agent tool use; omitted in the primary profile so the query is the only steer (variant EXA-S-OBJ adds a shared objective).",
+ "rationale": {
+  "contents.highlights": "Exa 3.0 headline configuration (auto + dynamic highlights is what Exa submitted to the Artificial Analysis index). The Highlights page says to use Dynamic 'when several results feed the same agent or context window', which is exactly a 10-result pack for one extractor. One shared budget across results cuts duplicate excerpts.",
+  "maxAgeHours": "Omitted: default is cache-if-available-else-live. Exa says use publication-date filters, not maxAgeHours, for recency.",
+  "numResults": "Fixed top-k 10 across arms; 10 is also the price break.",
+  "post_steps": "Top-3 full text gives the extractor enough page text to verify claims; the two-step pattern is Exa's own recommendation.",
+  "type": "Exa 3.0 recommended types are lite, auto, deep. 'auto' is the documented choice for ranked pages when the application does its own reasoning (our extractor); it gets more compute than lite on the same index. 'deep' is for synthesis/structured output; 'lite' serves cache only. 'fast'/'instant'/'deep-reasoning' are legacy; 'neural' is gone."
+ },
+ "top_k": 10,
+ "unverified": true,
+ "unverified_fields": {
+  "contents.highlights.dynamic": {
+   "note": "Conflict: the Exa 3.0 launch post (2026-10-19) says Dynamic Highlights is generally available; the API reference read 2026-11-11 still marks it beta (x-exa-lifecycle: beta) and says requests setting dynamic without the Exa-Beta: dynamic-highlights-2026-08-28 header are rejected. We send the header. Not compatible with highlights.maxCharacters. Fallback variant EXA-S-STD = highlights: true.",
+   "unverified": true
+  },
+  "est_cost_usd_per_question": {
+   "note": "Pricing page bills /contents per page per content type; neither it nor the /search reference says whether highlights inside /search bill separately. Read costDollars.",
+   "unverified": true
+  }
+ }
+}

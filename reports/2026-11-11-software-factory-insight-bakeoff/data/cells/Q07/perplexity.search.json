@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:01.884873Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 3205,
+   "published": "2025-11-06",
+   "text": "# 1,500+ PRs Later: Spotify’s Journey with Our Background Coding Agent (Honk, Part 1)\n*This is part 1 in our series about Spotify's journey with background coding agents (internal codename: “Honk”) and the future of large-scale software maintenance.\n...\nThis post explores how we have evolved our Fl…",
+   "title": "Spotify's Journey with Our Background Coding Agent (Honk ...",
+   "url": "https://engineering.atspotify.com/2025/11/spotifys-background-coding-agent-part-1"
+  },
+  {
+   "chars_delivered": 1810,
+   "published": "2026-06-03",
+   "text": "Today, more than 99% of our engineers use AI coding tools every week, 94% report that AI has made them more productive, and we’re seeing a 76% increase in pull request frequency, with the vast majority of PRs authored by a developer working alongside an AI agent.\n...\nInstead of asking hundreds of t…",
+   "title": "Coding Is No Longer the Constraint: Scaling Developer ...",
+   "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint"
+  },
+  {
+   "chars_delivered": 3061,
+   "published": "2026-04-22",
+   "text": "*This is part 4 in our series about Spotify's journey with background coding agents (internal codename: “Honk”) and the future of large-scale software maintenance.\n...\nIn this blog post, we give a case study of how one team at Spotify used Honk with our Backstage and Fleet Management platforms to e…",
+   "title": "Background Coding Agents: Supercharging Downstream ...",
+   "url": "https://engineering.atspotify.com/2026/4/background-coding-agents-dataset-migrations-honk-part-4"
+  },
+  {
+   "chars_delivered": 2597,
+   "published": "2025-12-09",
+   "text": "*This is part 3 in our series about Spotify's journey with background coding agents (internal codename: “Honk”) and the future of large-scale software maintenance.\n...\nIn Part 2, we explored how we enabled our Fleet Management system to use agents to rewrite our software automatically.\nWe also expl…",
+   "title": "Background Coding Agents: Predictable Results Through ...",
+   "url": "https://engineering.atspotify.com/2025/12/feedback-loops-background-coding-agents-part-3"
+  },
+  {
+   "chars_delivered": 402,
+   "published": null,
+   "text": "# Coding is no longer the constraint: Scaling devex to teams and agents at Spotify\nNiklas Gustavsson, Chief Architect & VP of Engineering, shares how Spotify built Honk, a background coding agent running on the Agent SDK, plugged it into their Fleetshift migration platform and Backstage software ca…",
+   "title": "Coding is no longer the constraint: Scaling devex to teams ...",
+   "url": "https://claude.com/code-with-claude/session/ldn-coding-is-no-longer-the-constraint-scaling-devex-to-teams-and-agents-at-spotify"
+  },
+  {
+   "chars_delivered": 2201,
+   "published": null,
+   "text": "# How Spotify Built Honk: From Backstage to Agentic Coding at Scale\nMeet Honk — our autonomous background coding agent that’s making headlines and transforming how our engineers ship code.\nNow when our developers want to build a new feature, they can just Honk for it.\nPowered by Claude Code, Honk’s…",
+   "title": "How Spotify Built Honk | AI Coding Agent Webinar",
+   "url": "https://backstage.spotify.com/how-spotify-built-honk"
+  },
+  {
+   "chars_delivered": 1618,
+   "published": null,
+   "text": "We integrated our background coding agent (aka Honk) into our Fleet Management tools so you can easily make code changes to thousands of repos at once.\n...\nFleetshift uses Spotify’s background coding agent Honk to intelligently make code changes.\n...\nFleetshift gives you three ways to kick off flee…",
+   "title": "Fleetshift for Portal | Spotify for Backstage",
+   "url": "https://backstage.spotify.com/fleetshift"
+  },
+  {
+   "chars_delivered": 2294,
+   "published": "2025-11-24",
+   "text": "*This is part 2 in our series about Spotify's journey with background coding agents (internal codename: “Honk”) and the future of large-scale software maintenance.\n...\nIn Part 1, we introduced how Spotify uses a background coding agent to extend Spotify’s Fleet Management system.\nIt can edit code,…",
+   "title": "Background Coding Agents: Context Engineering (Honk, Part 2)",
+   "url": "https://engineering.atspotify.com/2025/11/context-engineering-background-coding-agents-part-2"
+  },
+  {
+   "chars_delivered": 771,
+   "published": "2026-06-10",
+   "text": "## Tag archive: Platform\n#### Background Coding Agents: Supercharging Downstream Consumer Dataset Migrations (Honk, Part 4)\nHow we used Honk, Backstage, and Fleet Management to ease the pain of migrating thousands of datasets.\n...\n#### Background Coding Agents: Predictable Results Through Strong Fe…",
+   "title": "Platform Archives | Spotify Engineering",
+   "url": "https://engineering.atspotify.com/tag/platform"
+  },
+  {
+   "chars_delivered": 2300,
+   "published": "2026-02-19",
+   "text": "Ramp uses Modal to power Ramp Inspect, an internal background coding agent that now writes over half of all merged pull requests at Ramp.\nLeveraging Modal Sandboxes, Ramp spins up full development environments in seconds, giving every builder at the company access to what is effectively unlimited p…",
+   "title": "How Ramp built a full context background coding agent on ...",
+   "url": "https://modal.com/blog/how-ramp-built-a-full-context-background-coding-agent-on-modal"
+  }
+ ],
+ "latency_ms": 446.1,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q07",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What have Ramp, Spotify (Honk / Fleet Management), Shopify, Uber, Airbnb or Meta published about their internal background coding agents or fleet-wide automated code migrations? Include architecture, verification approach and measured outcomes.",
+    "Spotify Honk background coding agent Fleet Management",
+    "Ramp Uber Airbnb background coding agent engineering blog",
+    "Meta Shopify automated code migration LLM agents fleet-wide"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 23062,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:01.438759Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

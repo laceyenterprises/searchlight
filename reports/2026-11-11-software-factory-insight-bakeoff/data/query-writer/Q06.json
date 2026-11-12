@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "Stripe Minions unattended pull requests",
+  "Stripe Minions devbox sandbox blueprints agent",
+  "Stripe Minions coding agents PRs per week CI review"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "How does Stripe's 'Minions' system produce unattended pull requests at scale? Cover the devbox and sandbox model, the blueprint/workflow mix of deterministic and agentic steps, CI and review, and volume numbers. Rank first primary sources such as Stripe's own engineering blog posts, talks, and docs on Minions, then credible reporting and technical write-ups. Pull out mechanisms (devbox isolation, sandboxing, blueprints combining deterministic and agentic nodes, CI loops, human review gates), names, dates, number of pull requests merged per week, measured results, and failure modes or limitations.",
+ "question_id": "Q06",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

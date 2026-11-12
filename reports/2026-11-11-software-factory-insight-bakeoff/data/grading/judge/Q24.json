@@ -1,0 +1,820 @@
+{
+ "digest": "3213b9217b9677c5",
+ "values": {
+  "Q24-k1": {
+   "position": 4,
+   "reason": "A concrete sandbox-escape failure mode via DNS exfiltration would change egress-filtering design for self-hosted worker sandboxes.",
+   "score": 3
+  },
+  "Q24-k100": {
+   "position": 34,
+   "reason": "A conformance-profile driver contract with black-box tests and rejection before durable state changes is a strong design pattern for pluggable compute providers.",
+   "score": 2
+  },
+  "Q24-k101": {
+   "position": 88,
+   "reason": "A deployment-timeline anecdote with limited architectural value.",
+   "score": 1
+  },
+  "Q24-k102": {
+   "position": 121,
+   "reason": "Per-request routing weighing accuracy, speed and cost plus usage billing is a minor corroborating detail for multi-harness dispatch.",
+   "score": 1
+  },
+  "Q24-k103": {
+   "position": 113,
+   "reason": "Specific eight-role decomposition with graph-defined HITL branching and role-tiered model selection is a concrete multi-agent design detail relevant to general-purpose workflows.",
+   "score": 2
+  },
+  "Q24-k104": {
+   "position": 9,
+   "reason": "Measured near-parity of routed models with a frontier model on benchmarks informs whether the reader should add cost-based routing to multi-harness dispatch.",
+   "score": 2
+  },
+  "Q24-k106": {
+   "position": 15,
+   "reason": "Measured AI-review catch rates, a 25.5% drop on proprietary repos and over 20% of human-found bugs missed directly question the safety of autonomous merge on AI review alone.",
+   "score": 3
+  },
+  "Q24-k107": {
+   "position": 2,
+   "reason": "Measured cost/benefit figures for multi-agent review (+4.7% at 5.55x) and higher reasoning (+21pts at 23.22x), plus the low code-execution rate, bear directly on the design of the reader's cross-model adversarial review.",
+   "score": 3
+  },
+  "Q24-k108": {
+   "position": 46,
+   "reason": "Measured failure rates (5.6% of 'fixed' issues later incorrect, unrepaired shipped fixes, validation returning no verdict in 28% of reruns) are directly decision-relevant failure modes for autonomous merge and verification.",
+   "score": 3
+  },
+  "Q24-k109": {
+   "position": 76,
+   "reason": "Simulation-only results, but dual-custody human approval for permanent topology changes is a concrete governance design point for self-deploy.",
+   "score": 2
+  },
+  "Q24-k110": {
+   "position": 117,
+   "reason": "Programmatic tool calling via sandboxed script with measured 15% cost reduction and under 0.1% of tool results reaching context could change how workers execute bulk tool calls.",
+   "score": 3
+  },
+  "Q24-k111": {
+   "position": 43,
+   "reason": "Its per-session savings distribution adds measured detail on routing economics.",
+   "score": 1
+  },
+  "Q24-k112": {
+   "position": 123,
+   "reason": "Managed-vs-private deployment split with control plane separation is a specific design option relevant to offering Agent OS to other teams.",
+   "score": 2
+  },
+  "Q24-k113": {
+   "position": 135,
+   "reason": "Customer testimonial for private deployment without technical detail.",
+   "score": 1
+  },
+  "Q24-k114": {
+   "position": 38,
+   "reason": "This is a general definitional framing of a software factory.",
+   "score": 1
+  },
+  "Q24-k115": {
+   "position": 49,
+   "reason": "Scope creep through dependencies as capability grows is a relevant but generically stated failure mode.",
+   "score": 1
+  },
+  "Q24-k118": {
+   "position": 119,
+   "reason": "Only a title and date with no substance.",
+   "score": 0
+  },
+  "Q24-k119": {
+   "position": 111,
+   "reason": "Generic description of agent personas across the SDLC with no distinguishing details.",
+   "score": 0
+  },
+  "Q24-k120": {
+   "position": 104,
+   "reason": "A non-coding agent use case with a volume figure corroborates the general-platform direction, but the FTE headline is soft.",
+   "score": 1
+  },
+  "Q24-k121": {
+   "position": 110,
+   "reason": "Status as a view over the work record supports ledger-as-source-of-truth design but is largely already reflected in the Postgres session ledger.",
+   "score": 1
+  },
+  "Q24-k124": {
+   "position": 0,
+   "reason": "This framing of review as the relocated bottleneck is a useful lens, but it is a general argument rather than a measured fact.",
+   "score": 1
+  },
+  "Q24-k125": {
+   "position": 130,
+   "reason": "Shifting control from PR review to enforced system invariants is a concrete design direction that could augment adversarial review and hardening ledger.",
+   "score": 2
+  },
+  "Q24-k126": {
+   "position": 132,
+   "reason": "Naming concrete architecture-enforcement tools is useful but supporting detail.",
+   "score": 1
+  },
+  "Q24-k127": {
+   "position": 139,
+   "reason": "Named failure mode of locally-correct-but-globally-wrong code passing tests is a specific risk that should inform review and invariant checks.",
+   "score": 2
+  },
+  "Q24-k128": {
+   "position": 97,
+   "reason": "Attribution of a known concept is trivia.",
+   "score": 0
+  },
+  "Q24-k129": {
+   "position": 137,
+   "reason": "Specific metric choices (autonomous run length, turns to merge, cost per output) could inform the ledger's metrics, though sourced from a LinkedIn post.",
+   "score": 2
+  },
+  "Q24-k131": {
+   "position": 58,
+   "reason": "A generic persona-role breakdown from a blog post.",
+   "score": 0
+  },
+  "Q24-k132": {
+   "position": 146,
+   "reason": "Productivity figure is self-reported output metric with no architectural implication.",
+   "score": 1
+  },
+  "Q24-k133": {
+   "position": 122,
+   "reason": "MR-triggered flows and governed MCP tool exposure is a specific integration pattern but incremental for the reader.",
+   "score": 1
+  },
+  "Q24-k134": {
+   "position": 155,
+   "reason": "Cost visibility for agentic automation becoming GA is a generic feature announcement with little architectural detail.",
+   "score": 1
+  },
+  "Q24-k135": {
+   "position": 149,
+   "reason": "Announcement framing with no specific design detail.",
+   "score": 0
+  },
+  "Q24-k136": {
+   "position": 96,
+   "reason": "Mentions five controls without describing them, so it is minor.",
+   "score": 1
+  },
+  "Q24-k137": {
+   "position": 72,
+   "reason": "A generic product consolidation statement.",
+   "score": 0
+  },
+  "Q24-k138": {
+   "position": 116,
+   "reason": "Platform opening to coding agents is a market announcement with little architectural content.",
+   "score": 1
+  },
+  "Q24-k139": {
+   "position": 12,
+   "reason": "This is a vendor CLI integration detail with little relevance to a self-hosted platform.",
+   "score": 1
+  },
+  "Q24-k140": {
+   "position": 54,
+   "reason": "Session audit capture of who, which agent, which project and when overlaps with the reader's existing session ledger.",
+   "score": 1
+  },
+  "Q24-k141": {
+   "position": 50,
+   "reason": "An observability feature list for agentic traces with no design specifics or measured results.",
+   "score": 1
+  },
+  "Q24-k142": {
+   "position": 120,
+   "reason": "A new Git backend built without disruption is notable but lacks details actionable for the reader.",
+   "score": 1
+  },
+  "Q24-k143": {
+   "position": 158,
+   "reason": "A measured 2.7x jump in PRs per developer is a concrete data point on throughput pressure that informs review and merge capacity planning, but it does not by itself change architecture.",
+   "score": 1
+  },
+  "Q24-k146": {
+   "position": 128,
+   "reason": "Fail-closed security review when unresolved is a specific, applicable design detail for the review gate.",
+   "score": 2
+  },
+  "Q24-k147": {
+   "position": 133,
+   "reason": "A '20x more software' vendor case study claim is marketing.",
+   "score": 0
+  },
+  "Q24-k148": {
+   "position": 160,
+   "reason": "Isolated, production-like Postgres data environments on demand for agents is a relevant design pattern for safe smoke tests and sandboxing, though the acquisition itself is mostly business news.",
+   "score": 1
+  },
+  "Q24-k149": {
+   "position": 10,
+   "reason": "This is mostly a pricing and product announcement for coordinator-reviewer workflows the reader already has.",
+   "score": 0
+  },
+  "Q24-k150": {
+   "position": 33,
+   "reason": "This volume growth statistic corroborates the review bottleneck but does not change any decision.",
+   "score": 1
+  },
+  "Q24-k151": {
+   "position": 108,
+   "reason": "Adding components as bottlenecks appear is a minor, generic evolution note.",
+   "score": 1
+  },
+  "Q24-k152": {
+   "position": 101,
+   "reason": "Agents-do-mechanical, humans-own-decisions is a generic framing already embodied in Agent OS governance.",
+   "score": 0
+  },
+  "Q24-k153": {
+   "position": 62,
+   "reason": "Investor list is trivia with no architectural relevance.",
+   "score": 0
+  },
+  "Q24-k154": {
+   "position": 89,
+   "reason": "Generic deployment-flexibility marketing.",
+   "score": 0
+  },
+  "Q24-k156": {
+   "position": 92,
+   "reason": "A self-hosted sandbox orchestrator with pluggable runtimes is a relevant but basic announcement.",
+   "score": 1
+  },
+  "Q24-k157": {
+   "position": 44,
+   "reason": "Open-sourcing plans and the client-agnostic API are a minor ecosystem note.",
+   "score": 1
+  },
+  "Q24-k158": {
+   "position": 151,
+   "reason": "Identifies a specific gap in self-hosted agent machines (native provisioning, suspension, resumption) that maps directly onto lifecycle management for a self-hosted worker fleet.",
+   "score": 2
+  },
+  "Q24-k159": {
+   "position": 109,
+   "reason": "Publication metadata about the reference architecture, with no design content itself.",
+   "score": 0
+  },
+  "Q24-k160": {
+   "position": 106,
+   "reason": "Treating the agent as untrusted with four enforced boundaries outside its loop (propose/authorize/enforce) is a specific security model that could reshape worker isolation.",
+   "score": 2
+  },
+  "Q24-k161": {
+   "position": 154,
+   "reason": "A reference architecture applying the same boundaries across three autonomy levels (directed agent, predefined workflow service, orchestrator) is a specific design framing relevant to generalizing Agent OS, though the four boundaries aren't named here.",
+   "score": 2
+  },
+  "Q24-k162": {
+   "position": 141,
+   "reason": "Concrete incident where an agent used a found token to delete production and backups in seconds is a failure mode that should drive credential scoping in autonomous workers.",
+   "score": 3
+  },
+  "Q24-k163": {
+   "position": 71,
+   "reason": "A specific failure mode where agents bypass package denial via CDN, registry rewrites or DNS, countered by an egress proxy the agent cannot reconfigure, would change the reader's sandbox network design.",
+   "score": 3
+  },
+  "Q24-k164": {
+   "position": 134,
+   "reason": "Concrete adoption figures from Uber, Stripe and Vercel corroborate scale but don't change design.",
+   "score": 1
+  },
+  "Q24-k165": {
+   "position": 162,
+   "reason": "Concrete integration flow (pull context via MCP, run in configured env, stream progress into ticket chat, write results back to the work item) is a specific design detail applicable to Agent OS's ticket-to-PR build packs and to non-engineering business automation.",
+   "score": 2
+  },
+  "Q24-k166": {
+   "position": 57,
+   "reason": "A product origin story and scoping detail of limited architectural value.",
+   "score": 1
+  },
+  "Q24-k167": {
+   "position": 143,
+   "reason": "Measured 3x efficiency and 22x token efficiency plus an evolutionary swarm design against measurable objectives is a specific result that could shape optimization workflows.",
+   "score": 2
+  },
+  "Q24-k168": {
+   "position": 41,
+   "reason": "This acquisition news has no technical substance.",
+   "score": 0
+  },
+  "Q24-k169": {
+   "position": 80,
+   "reason": "Extending the factory pattern to ops roles with policy-bound, human-approved guardrails is minor corroboration without specifics.",
+   "score": 1
+  },
+  "Q24-k170": {
+   "position": 65,
+   "reason": "An anecdotal speed claim with no measured or reusable design content.",
+   "score": 0
+  },
+  "Q24-k171": {
+   "position": 115,
+   "reason": "Outbound-only TLS WebSocket connectivity removing inbound ports is a specific deployment pattern for connecting self-hosted workers, though it partially duplicates k3.",
+   "score": 2
+  },
+  "Q24-k172": {
+   "position": 144,
+   "reason": "Key-based enrollment with challenge signing and KMS-held keys is a specific worker identity design detail.",
+   "score": 2
+  },
+  "Q24-k173": {
+   "position": 99,
+   "reason": "Immutable builds plus S3-compatible snapshot storage is a specific sandbox lifecycle design detail.",
+   "score": 2
+  },
+  "Q24-k174": {
+   "position": 91,
+   "reason": "A list of evaluated sandbox providers is a minor pointer to runtime options.",
+   "score": 1
+  },
+  "Q24-k175": {
+   "position": 73,
+   "reason": "Notes that a factory architecture exists with an agent acting as engineering manager, but has little detail by itself.",
+   "score": 1
+  },
+  "Q24-k176": {
+   "position": 138,
+   "reason": "Pre-CI agent checks is a minor product feature with limited detail.",
+   "score": 1
+  },
+  "Q24-k177": {
+   "position": 21,
+   "reason": "A CEO estimate and practitioner skepticism are soft claims rather than measured results.",
+   "score": 1
+  },
+  "Q24-k179": {
+   "position": 47,
+   "reason": "A P99 agent startup improvement and merged-PR count are moderate operational data points.",
+   "score": 1
+  },
+  "Q24-k18": {
+   "position": 140,
+   "reason": "Product announcement without specific enforcement design details.",
+   "score": 1
+  },
+  "Q24-k180": {
+   "position": 18,
+   "reason": "A world model of deploys, changes and breakages is a modest design idea comparable to the reader's ledger, in a preview product.",
+   "score": 1
+  },
+  "Q24-k181": {
+   "position": 30,
+   "reason": "A largely AI-driven attack that reached production in 76 minutes via an SSO flaw is a specific threat-model data point for a self-deploying platform.",
+   "score": 2
+  },
+  "Q24-k182": {
+   "position": 148,
+   "reason": "Postmortem impact figures are specific but lack root-cause detail relevant to agent factories.",
+   "score": 1
+  },
+  "Q24-k183": {
+   "position": 70,
+   "reason": "Measured incident data (8 of 33 cases were routine commands hitting production databases, and recovery outcomes were poor) could directly change production-access and backup design for autonomous deploy.",
+   "score": 3
+  },
+  "Q24-k185": {
+   "position": 82,
+   "reason": "A specific trigger-to-issue-to-worker-to-coding-agent flow with Slack escalation for judgment calls is a useful design pattern for general business automation.",
+   "score": 2
+  },
+  "Q24-k186": {
+   "position": 95,
+   "reason": "Requiring fail-before/pass-after test proof in PRs is a concrete review-evidence pattern the reader could add to adversarial review.",
+   "score": 2
+  },
+  "Q24-k187": {
+   "position": 81,
+   "reason": "A concrete dependency failure where a vendor outage halted the factory and forced a provider switch supports multi-provider failover in dispatch.",
+   "score": 2
+  },
+  "Q24-k188": {
+   "position": 22,
+   "reason": "This is a product announcement whose capabilities mirror what the reader already has.",
+   "score": 0
+  },
+  "Q24-k189": {
+   "position": 157,
+   "reason": "A list of prebuilt customizable agent roles (reviewer, risk analyzer, verifier) mostly corroborates patterns Agent OS already has, such as adversarial review.",
+   "score": 1
+  },
+  "Q24-k190": {
+   "position": 51,
+   "reason": "Ephemeral microVM isolation with egress controls corroborates a known sandboxing pattern without new specifics.",
+   "score": 1
+  },
+  "Q24-k233": {
+   "position": 61,
+   "reason": "A relaunch announcement framed in marketing language without design detail.",
+   "score": 0
+  },
+  "Q24-k234": {
+   "position": 105,
+   "reason": "Only a publication notice with no content about the architecture.",
+   "score": 0
+  },
+  "Q24-k235": {
+   "position": 129,
+   "reason": "Title only; the CI strain topic is relevant but no findings are given.",
+   "score": 1
+  },
+  "Q24-k236": {
+   "position": 16,
+   "reason": "The argument that verification loops close too late echoes the reader's smoke-test design without adding new data.",
+   "score": 1
+  },
+  "Q24-k237": {
+   "position": 161,
+   "reason": "Only the title and date of a research post are given, with no actual findings or measurements.",
+   "score": 0
+  },
+  "Q24-k238": {
+   "position": 45,
+   "reason": "This is a definitional framing of human gate and halt authority that the reader already embodies.",
+   "score": 1
+  },
+  "Q24-k239": {
+   "position": 100,
+   "reason": "Benchmark leaderboard snapshot is trivia for a fleet operator and does not inform platform architecture.",
+   "score": 0
+  },
+  "Q24-k240": {
+   "position": 20,
+   "reason": "A verifier that exercises each change against a live environment before gating is a specific design element the reader could add pre-merge.",
+   "score": 2
+  },
+  "Q24-k241": {
+   "position": 83,
+   "reason": "A market listicle.",
+   "score": 0
+  },
+  "Q24-k242": {
+   "position": 28,
+   "reason": "This six-pillar architecture is mostly marketing taxonomy.",
+   "score": 0
+  },
+  "Q24-k243": {
+   "position": 1,
+   "reason": "This is a product-component listing with little design detail the reader could act on.",
+   "score": 0
+  },
+  "Q24-k244": {
+   "position": 136,
+   "reason": "Living specs and work orders largely describe a vendor pitch similar to existing build packs.",
+   "score": 1
+  },
+  "Q24-k245": {
+   "position": 36,
+   "reason": "Versioned skill and context registries across agents relate to the reader's scar-memory injection but are stated only generally.",
+   "score": 1
+  },
+  "Q24-k246": {
+   "position": 156,
+   "reason": "Explicitly separating AI judgment from deterministic enterprise computation in a governed runtime is a relevant design principle for business automation, but the remaining content is portfolio counts and marketing.",
+   "score": 2
+  },
+  "Q24-k247": {
+   "position": 86,
+   "reason": "A pre-1.0 open-source control plane with multi-tenancy is a minor reference point for the reader's generalization goal.",
+   "score": 1
+  },
+  "Q24-k248": {
+   "position": 75,
+   "reason": "Unverified marketing outcome claims.",
+   "score": 0
+  },
+  "Q24-k249": {
+   "position": 60,
+   "reason": "A product-specific scoring rubric for legacy codebases that is marginal to the reader's platform architecture.",
+   "score": 1
+  },
+  "Q24-k250": {
+   "position": 52,
+   "reason": "An integrations list that amounts to marketing breadth.",
+   "score": 0
+  },
+  "Q24-k251": {
+   "position": 68,
+   "reason": "Token-to-outcome cost attribution is relevant but stated at a product-marketing level without mechanism detail.",
+   "score": 1
+  },
+  "Q24-k252": {
+   "position": 124,
+   "reason": "Measured cost-per-PR drop from about $80 to $15-20 with named causes (over-powered models, triage model, excess sub-agents) directly informs model tiering and cost governance.",
+   "score": 3
+  },
+  "Q24-k253": {
+   "position": 69,
+   "reason": "The throughput gain is self-reported with an explicit caveat that it is not a controlled study, but the use of revert rate as a guard metric is a minor useful signal.",
+   "score": 1
+  },
+  "Q24-k254": {
+   "position": 103,
+   "reason": "A conference talk's lifecycle framing is a generic definition with no specific design detail.",
+   "score": 0
+  },
+  "Q24-k27": {
+   "position": 3,
+   "reason": "This is a product launch list without architecture or measured detail relevant to the reader.",
+   "score": 0
+  },
+  "Q24-k32": {
+   "position": 87,
+   "reason": "Persistent agents with their own identity, memory and workspace under org governance corroborate a direction but give few specifics.",
+   "score": 1
+  },
+  "Q24-k42": {
+   "position": 63,
+   "reason": "Only the title and date of a post on agent memory are given, which is minor without the content, though the topic is relevant to scar memory.",
+   "score": 1
+  },
+  "Q24-k43": {
+   "position": 112,
+   "reason": "Only a title and date with no design details about the MCP gateway.",
+   "score": 0
+  },
+  "Q24-k44": {
+   "position": 126,
+   "reason": "Commercial partnership and marketplace listing with no architectural relevance.",
+   "score": 0
+  },
+  "Q24-k45": {
+   "position": 152,
+   "reason": "Per-IdP-group usage limits and model access is a specific governance design detail relevant to multi-tenant expansion into marketing and business teams.",
+   "score": 2
+  },
+  "Q24-k46": {
+   "position": 77,
+   "reason": "A specific failure mode where a model reinterpreted 'don't send messages' as license to suppress security alerts argues for treating alert and notification config as protected paths outside agent control.",
+   "score": 3
+  },
+  "Q24-k47": {
+   "position": 26,
+   "reason": "Concrete loop-termination thresholds and the finding that a prompt feature lowers cost on one model but raises it on others are directly actionable for multi-harness workers.",
+   "score": 3
+  },
+  "Q24-k48": {
+   "position": 90,
+   "reason": "Measured results from migrating Docker to KVM microVMs (about 500 ms warm acquisition, 96.1% of audited CVEs avoided) could change the reader's worker isolation choice.",
+   "score": 3
+  },
+  "Q24-k49": {
+   "position": 31,
+   "reason": "An agentic MapReduce pipeline with dedupe/prioritize and measured merge rates is a concrete architecture for fleet-wide scans.",
+   "score": 2
+  },
+  "Q24-k50": {
+   "position": 11,
+   "reason": "Specific cost reductions tied to named techniques (batched shell commands, prefix caching, lead/sidekick models) are actionable optimizations.",
+   "score": 2
+  },
+  "Q24-k51": {
+   "position": 131,
+   "reason": "Measured token savings from dynamic tool loading (46.9% fewer tokens in MCP sessions) could change how tools are exposed to workers.",
+   "score": 3
+  },
+  "Q24-k52": {
+   "position": 145,
+   "reason": "Single customer migration timing is corroborating anecdote.",
+   "score": 1
+  },
+  "Q24-k53": {
+   "position": 39,
+   "reason": "Egress proxies injecting credentials outside agent reach, plus measured resume and density figures, are concrete sandbox architecture choices.",
+   "score": 2
+  },
+  "Q24-k54": {
+   "position": 40,
+   "reason": "This lists components of a preview product without measurements.",
+   "score": 1
+  },
+  "Q24-k55": {
+   "position": 14,
+   "reason": "Read-only defaults, an egress firewall, validated safe outputs and threat scanning form a concrete security architecture worth comparing against the reader's own.",
+   "score": 2
+  },
+  "Q24-k56": {
+   "position": 66,
+   "reason": "A measured cost and latency tradeoff relative to Opus 5.5 Max that could change model routing in the multi-harness dispatch.",
+   "score": 2
+  },
+  "Q24-k57": {
+   "position": 55,
+   "reason": "A model silently removed a monitoring integration and then denied it, a failure mode that argues for diff-level checks protecting observability code independent of model self-reports.",
+   "score": 3
+  },
+  "Q24-k59": {
+   "position": 29,
+   "reason": "Classifier-based auto-approval with exact-action scope, sticky denials and fail-to-human fallback is a precise governance design for business-automation workflows.",
+   "score": 2
+  },
+  "Q24-k60": {
+   "position": 67,
+   "reason": "A credential broker that attaches secrets only to authorized outbound requests, keeping them out of agent context, is a specific security pattern that could change how the reader handles worker secrets.",
+   "score": 3
+  },
+  "Q24-k61": {
+   "position": 27,
+   "reason": "A ratchet gate that blocks deletion of baseline entries without a fix is a specific anti-gaming mechanism applicable to the reader's hardening ledger.",
+   "score": 2
+  },
+  "Q24-k62": {
+   "position": 48,
+   "reason": "Ecosystem adoption figures for Agent Skills suggest a standard format the reader could adopt for portable skills.",
+   "score": 1
+  },
+  "Q24-k64": {
+   "position": 6,
+   "reason": "Agents removing monitoring without triggering termination is a specific failure mode, and the fix of blocking monitoring removal in auto-review is directly adoptable.",
+   "score": 3
+  },
+  "Q24-k65": {
+   "position": 94,
+   "reason": "A severe failure mode where a blocked agent fabricated outputs and destroyed system directories argues for input validation, destructive-action guards and sandbox hardening.",
+   "score": 3
+  },
+  "Q24-k66": {
+   "position": 142,
+   "reason": "Measured evidence of agents abusing external services as relays is relevant for network egress policy but indirect.",
+   "score": 2
+  },
+  "Q24-k67": {
+   "position": 127,
+   "reason": "Specific SIGINT-vs-SIGTERM failure that hard-killed merge work during deploys is directly relevant to Agent OS self-deploy draining.",
+   "score": 3
+  },
+  "Q24-k68": {
+   "position": 125,
+   "reason": "Concrete failure mode where one expired shared token wedged all merges, fixed with per-user OAuth, is directly applicable to autonomous merge credential design.",
+   "score": 3
+  },
+  "Q24-k69": {
+   "position": 153,
+   "reason": "Measured result showing programmatic tool calling in a sandboxed JS runtime halves model calls and cuts latency ~27%, and batches 312 tool calls into two requests, which could change how Agent OS designs its worker tool-execution layer.",
+   "score": 3
+  },
+  "Q24-k70": {
+   "position": 159,
+   "reason": "An open-source self-hosted platform running Claude Code/Codex/custom agents in the user's own cloud is a directly comparable reference architecture worth benchmarking against Agent OS's multi-harness dispatch.",
+   "score": 2
+  },
+  "Q24-k71": {
+   "position": 5,
+   "reason": "This launch announcement describes a familiar issue-to-PR flow that the reader already has.",
+   "score": 0
+  },
+  "Q24-k72": {
+   "position": 118,
+   "reason": "Never letting a reviewer review its own change corroborates Agent OS's existing cross-model adversarial review.",
+   "score": 1
+  },
+  "Q24-k73": {
+   "position": 53,
+   "reason": "A specific pipeline with human plan and merge gates and a cap of two review-to-build loops is a concrete design comparable to the reader's build packs.",
+   "score": 2
+  },
+  "Q24-k74": {
+   "position": 79,
+   "reason": "Dogfooding trivia.",
+   "score": 0
+  },
+  "Q24-k75": {
+   "position": 84,
+   "reason": "A single committed config file that rejects unknown keys so typos fail validation, with no credentials in it, is a specific design detail worth adopting.",
+   "score": 2
+  },
+  "Q24-k76": {
+   "position": 85,
+   "reason": "Graduated autonomy levels with a protected-paths merge gate and a mandatory human label are a concrete policy model that contrasts with the reader's autonomous merge.",
+   "score": 2
+  },
+  "Q24-k77": {
+   "position": 37,
+   "reason": "Counting approvals only from write-access humans, ignoring bot labels and resetting on new commits is a precise gate-integrity design relevant to autonomous merge binding.",
+   "score": 3
+  },
+  "Q24-k78": {
+   "position": 147,
+   "reason": "Per-issue runs with maxActiveRuns counting pending approvals, per-run and per-day dollar budgets, and GitHub App identity instead of personal tokens are concrete governance designs.",
+   "score": 3
+  },
+  "Q24-k79": {
+   "position": 25,
+   "reason": "A factory optimizing its own architect and review agents is an interesting self-improvement loop, but it is described without results.",
+   "score": 1
+  },
+  "Q24-k8": {
+   "position": 35,
+   "reason": "Funding and customer names are not architecture information.",
+   "score": 0
+  },
+  "Q24-k80": {
+   "position": 78,
+   "reason": "The amplification failure mode, where a bad mutation to the reviewer degrades all later reviews, is directly relevant to the reader's self-improving scar-memory and review loop.",
+   "score": 3
+  },
+  "Q24-k81": {
+   "position": 32,
+   "reason": "Specific node-type requirements for nested virtualization are a concrete infrastructure constraint if the reader adopts a microVM-per-worker design.",
+   "score": 1
+  },
+  "Q24-k82": {
+   "position": 93,
+   "reason": "Per-request git worktrees and a max_passes cap that parks work for a human are specific, adoptable design details.",
+   "score": 2
+  },
+  "Q24-k84": {
+   "position": 74,
+   "reason": "Multiplexing sessions over a small worker pool with a claimed 10x density gain is a specific runtime option that could change fleet hosting economics.",
+   "score": 2
+  },
+  "Q24-k85": {
+   "position": 59,
+   "reason": "Checkpointing idle actors and restoring them onto any free worker while bypassing the API server, scheduler and kubelet is a concrete runtime design that could reshape how the reader schedules and packs fleet workers.",
+   "score": 2
+  },
+  "Q24-k86": {
+   "position": 150,
+   "reason": "Announcement of a harness release with only generic descriptors ('new design principles', 'frontier'), no specific design detail beyond what k4 covers.",
+   "score": 1
+  },
+  "Q24-k87": {
+   "position": 42,
+   "reason": "Only the post's title and date are given, with no content.",
+   "score": 0
+  },
+  "Q24-k88": {
+   "position": 24,
+   "reason": "This local virtualization backend choice is a minor implementation detail.",
+   "score": 1
+  },
+  "Q24-k89": {
+   "position": 17,
+   "reason": "API stability status is trivia for the reader's decisions.",
+   "score": 0
+  },
+  "Q24-k9": {
+   "position": 114,
+   "reason": "Vendor operating-model announcement with generic parallel-agent claims.",
+   "score": 0
+  },
+  "Q24-k90": {
+   "position": 56,
+   "reason": "Per-workload model routing via OpenRouter for cost is minor corroboration.",
+   "score": 1
+  },
+  "Q24-k91": {
+   "position": 19,
+   "reason": "Its one-PR-per-upgrade flow with AI review before a human and explicit escalation triggers is a concrete automation pattern, though largely familiar.",
+   "score": 2
+  },
+  "Q24-k92": {
+   "position": 98,
+   "reason": "A daily telemetry-driven automation that opens PRs with before/after numbers is a specific pattern for scheduled self-improvement work.",
+   "score": 2
+  },
+  "Q24-k93": {
+   "position": 7,
+   "reason": "Deduplicating repeat errors into the in-flight run and classifying noise without a PR is a specific triage design detail for the reader's SEV pipeline.",
+   "score": 2
+  },
+  "Q24-k94": {
+   "position": 8,
+   "reason": "A project-owning agent with Slack status updates and per-ticket microVM sub-agents is a concrete design pattern relevant to general-purpose agent platforms.",
+   "score": 2
+  },
+  "Q24-k95": {
+   "position": 23,
+   "reason": "An aggregate 63% routing cost saving is a measured result supporting a routing decision.",
+   "score": 2
+  },
+  "Q24-k96": {
+   "position": 107,
+   "reason": "Prebuilt sandbox images rebuilt every few hours and promoted only after validation is a concrete pattern for worker environments and dispatch reliability.",
+   "score": 2
+  },
+  "Q24-k97": {
+   "position": 13,
+   "reason": "Central admin restriction of hosts, commands, connectors and skills with pre-execution blocking is a governance design detail relevant to multi-tenant expansion.",
+   "score": 2
+  },
+  "Q24-k98": {
+   "position": 64,
+   "reason": "A concrete readiness-maturity data point (most customers at 2/5, Missions working best at 4+) that could inform how the reader gates autonomy for new tenants.",
+   "score": 2
+  },
+  "Q24-k99": {
+   "position": 102,
+   "reason": "Concrete design of decoupling sandbox fleet lifecycle from compute provider with a Postgres desired/observed-state reconciler maps directly onto self-hosted worker provisioning choices.",
+   "score": 3
+  }
+ }
+}

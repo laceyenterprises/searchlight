@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "144eb571d05a22c5",
+ "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html",
+ "verdicts": {
+  "Birgitta Böckeler (Thoughtworks) defines spec-driven development (SDD) as writing a spec before writing code with AI, with the spec becoming the source of truth for both human and AI.": 1,
+  "Böckeler defines a spec as a structured, behavior-oriented artifact (or set of artifacts) in natural language that expresses software functionality and guides AI coding agents; she distinguishes specs from general context documents (rules files, product/codebase descriptions) that some tools call a 'memory bank'.": 1,
+  "Böckeler distinguishes three levels of SDD: spec-first (spec written first and used for the task at hand), spec-anchored (spec kept after the task to evolve and maintain the feature), and spec-as-source (only the spec is edited by humans, never the code).": 1,
+  "Böckeler found all SDD approaches she examined are spec-first, but not all aim to be spec-anchored or spec-as-source, and the long-term spec maintenance strategy is often left vague.": 1,
+  "Böckeler reports that evaluating SDD tools realistically is time-consuming, and that two of the three tools she tried were harder to introduce into an existing codebase, making brownfield usefulness hard to judge.": 1,
+  "Spec Kit instantiates files and prompts per workflow step (specify, plan, tasks) via a bash script and templates, using checklists within files to track clarifications, constitution violations and research tasks; these act as a definition of done but are interpreted by AI, so adherence is not guaranteed.": 1
+ }
+}

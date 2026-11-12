@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "77044d66dac5556d",
+ "claims": [
+  {
+   "text": "In a small pilot published by Nitin Garg on InfoQ, five experienced reviewers checking two banking services found about as many requirement deviations with the spec as without it (recall 0.525 vs 0.518), so specs did not help reviewers find more defects.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "In the same pilot, reviewers with the spec traced 81% of their findings to a specific requirement versus none without it, but review took longer (48 minutes vs 27).",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "On a banking task with twenty invariants, a staged spec-then-generate approach raised a weaker model's pass rate from 23.8% to 45%, while a strong model gained only about two points.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "For simple single-function tasks, asking the model to reason first scored 95%, writing a spec first scored 92%, and generating code directly scored 59%.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "The re:cinq page states that most published evidence for spec-driven development is anecdotal, and the pilot's author presents the InfoQ results as a small-sample signal needing confirmation.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "An arXiv practitioner paper states that nascent empirical studies suggest human-refined specs improve LLM-generated code quality, with controlled studies showing error reductions of up to 50%.",
+   "url": "https://arxiv.org/html/2602.00180v1"
+  },
+  {
+   "text": "Faros AI's 2025 study of more than 10,000 developers found review time up 91% in teams with high AI adoption, suggesting faster generation can shift the bottleneck to review; organisation-level speed gains from SDD are unproven.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Odevo's claimed gain (about eight years' work in 11 months with a third of the people, roughly 26x output per engineer) is the team's own before-and-after estimate, not a controlled measurement, from greenfield work.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Prezi's workshop with four teams using Spec Kit produced a working app in four hours and a UI library migration in minutes, but participants hit token limits and doubted the process would hold beyond prototypes.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Birgitta Boeckeler found that Kiro, Spec Kit and Tessl have no shared definition of a 'spec' or how it differs from an instruction file or prompt, so 'spec-driven' means different things across tools.",
+   "url": "https://www.linkedin.com/posts/birgittaboeckeler_i-tried-to-make-sense-of-spec-driven-development-activity-7384214295590502401-xeIi"
+  },
+  {
+   "text": "Kiro is classified as 'spec-first': it uses three markdown files for requirements, design and tasks, and specs are usually discarded once the job is done.",
+   "url": "https://www.linkedin.com/posts/birgittaboeckeler_i-tried-to-make-sense-of-spec-driven-development-activity-7384214295590502401-xeIi"
+  },
+  {
+   "text": "Spec Kit is classified as 'spec-anchored': it adds a constitution file defining team rules alongside detailed spec, plan and task files, though in practice specs often live only for a branch.",
+   "url": "https://www.linkedin.com/posts/birgittaboeckeler_i-tried-to-make-sense-of-spec-driven-development-activity-7384214295590502401-xeIi"
+  },
+  {
+   "text": "Tessl is classified as 'spec-as-source': the spec is the only editable artifact and generated code files are marked as generated from the spec; Boeckeler found it still produced slightly different code on each run due to non-determinism.",
+   "url": "https://www.linkedin.com/posts/birgittaboeckeler_i-tried-to-make-sense-of-spec-driven-development-activity-7384214295590502401-xeIi"
+  },
+  {
+   "text": "Kiro's workflow uses requirements.md in EARS notation (\"WHEN … THE SYSTEM SHALL …\"), design.md, and a task list; it supports requirements-first or design-first and separate bugfix specs, plus steering files for standing rules.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Spec Kit's commands are /speckit.constitution, /speckit.specify, /speckit.clarify, /speckit.plan, /speckit.tasks, /speckit.implement, plus /speckit.analyze, /speckit.checklist and /speckit.converge for consistency checks.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Spec Kit is MIT-licensed, works with 30+ agents, generates many Markdown files to review, and by default its sequential spec numbers collide when several people add specs in parallel.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "OpenSpec keeps a specs/ folder describing current behaviour and a changes/ folder holding proposals, designs, tasks and delta specs; archiving merges the deltas, and it is designed for existing codebases.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Boeckeler's Kiro trial turned one small bug into four user stories with sixteen acceptance criteria, showing the workflow can be heavy for small changes.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "In one trial the BMAD Method's persona-based version spent three hours producing 312 spec files for a simple retro-board app.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "The re:cinq page lists seven spec elements: outcome and users, scope and non-goals, constraints, decisions already made, acceptance criteria, verification, and open questions.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "The re:cinq page recommends keeping specs short enough to review in one sitting, citing Liu et al. (2023) that model performance drops when relevant information sits in the middle of a long input.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Spec Kit instantiates files and prompts per workflow step (specify, plan, tasks) via a bash script and templates, using checklists within files to track clarifications, constitution violations and research tasks; these act as a definition of done but are interpreted by AI, so adherence is not guaranteed.",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "The arXiv paper describes a four-phase SDD workflow (Specify, Plan, Implement, Validate), where the spec states what/behavior and acceptance criteria without implementation detail, the plan states architecture, data models, interfaces and technology constraints, and implementation proceeds in small reviewable tasks.",
+   "url": "https://arxiv.org/html/2602.00180v1"
+  },
+  {
+   "text": "One reviewer adding a feature to an existing Node.js app with Spec Kit took about 90 minutes from prompt to spec, plan and task breakdown, then 35 minutes of agent execution, with review time being the real cost because Spec Kit produces substantial markdown and code in a single push.",
+   "url": "https://www.augmentcode.com/tools/best-spec-driven-development-tools"
+  },
+  {
+   "text": "A commenter who tried Spec Kit questioned how to be sure generated code respects the specification, arguing specs should be tied to automated tests, and another reported that SDD frameworks often overinflate the task.",
+   "url": "https://www.linkedin.com/posts/birgittaboeckeler_i-tried-to-make-sense-of-spec-driven-development-activity-7384214295590502401-xeIi"
+  }
+ ],
+ "question_id": "Q10"
+}

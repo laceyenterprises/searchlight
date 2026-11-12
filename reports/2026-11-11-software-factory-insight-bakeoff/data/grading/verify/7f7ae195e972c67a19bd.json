@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "6a38fc4edfa6f23e",
+ "url": "https://www.beri.net/article/coding-agent-cache-read-context-tax-tokens-per-pr-turn-budget",
+ "verdicts": {
+  "Anthropic prompt caching bills cache reads at 0.1x base input price, 5-minute cache writes at 1.25x and 1-hour writes at 2x, with the read charged on every request that uses the cached content.": 1,
+  "Artificial Analysis measured Fable 5.1 at $3.76 per Intelligence Index task versus $3.14 for Fable 5 (20% more per task), because the newer model emits about 1.7 times as many output tokens.": 1,
+  "In the Sonar trace, about 98% of billed token volume (152.8M of 156M) was cache re-reads of context re-sent on each of the 512 turns.": 1,
+  "Martin Alderson's modelling from published price cards finds five times the agent turns costs nine to seventeen times as much, and cutting turns by 10% reduces cost per agent run by around 16%, because the cache-read term grows quadratically with turns.": 1,
+  "Sonar research engineer Antonio Aversa published an instrumented trace of one ordinary 800-line pull request: 512 model round-trips, 106,000 fresh input tokens, 3.1 million cache-write tokens, 152.8 million cache-read tokens, and 289,000 output tokens, roughly 156 million tokens billed for about $41.": 1,
+  "Sonar's median cost is $52 per PR (one repository's number); at that rate a 25-engineer team shipping 40 PRs a week is a six-figure line item that no seat count predicts.": 1
+ }
+}

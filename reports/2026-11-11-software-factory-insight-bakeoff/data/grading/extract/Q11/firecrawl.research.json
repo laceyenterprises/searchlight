@@ -1,0 +1,103 @@
+{
+ "arm_id": "firecrawl.research",
+ "cell_sha": "96c2d6d96a686093",
+ "claims": [
+  {
+   "text": "Temporal runs an AI agent loop as a Workflow recorded in Event History, with model calls and tool operations executed as Activities, so a Workflow can resume on another Worker after a Worker failure.",
+   "url": null
+  },
+  {
+   "text": "Temporal recommends putting nondeterministic model and tool work in Activities and keeping Workflow code deterministic; completed Activity results are replayed from history without issuing a new API call.",
+   "url": null
+  },
+  {
+   "text": "In Temporal, if a Worker dies while an Activity is in flight, the Activity retries from the start, and Temporal's guidance is to make tool calls idempotent or protect them with an idempotency key or deduplication guard to avoid duplicate charges or double-bookings.",
+   "url": null
+  },
+  {
+   "text": "For human approval, Temporal models the human as an asynchronous tool: the agent parks on a durable Signal, and a durable Timer can branch to escalation (e.g., after four hours) or auto-rejection (e.g., after a day).",
+   "url": null
+  },
+  {
+   "text": "For indefinitely looping agents, Temporal recommends Continue-as-New, which starts a fresh Workflow Execution carrying live state so Event History does not grow without bound.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Pi coding-agent example records an intent before an external effect and then the outcome; a record containing only the claim is reported as an unknown tool outcome rather than assumed success or failure.",
+   "url": null
+  },
+  {
+   "text": "Inngest models every model call and tool call as a step, checkpoints each completed step, retries only the failed step, and reuses saved results after a crash, deploy, or multi-day wait.",
+   "url": null
+  },
+  {
+   "text": "Inngest recommends per-step backoff with a retry budget, NonRetriableError for permanent failures, and passing an exhausted tool error back to the model so it can choose another path.",
+   "url": null
+  },
+  {
+   "text": "Inngest uses step.waitForEvent() for human approval, suspending the run until a matching event or timeout without holding a worker or connection.",
+   "url": null
+  },
+  {
+   "text": "Inngest recommends idempotency keys for writes, sends, and payments because a tool can change an external system and fail before its result is saved.",
+   "url": null
+  },
+  {
+   "text": "Inngest limits run state to 32 MiB and each step result to 4 MiB, and recommends compacting agent history and storing large documents externally, returning references from steps.",
+   "url": null
+  },
+  {
+   "text": "Inngest supports sub-agent delegation via step.invoke() (waits for the result) or step.sendEvent() (starts independent work while the parent continues).",
+   "url": null
+  },
+  {
+   "text": "Restate journals intermediate step inputs and results, retries from the last completed step after a crash, and recommends wrapping LLM inference and tool calls in durable steps independent of the agent SDK (shown with Vercel AI SDK and OpenAI Agents SDK).",
+   "url": null
+  },
+  {
+   "text": "Restate warns that parallel tool calls are not supported out of the box because replay would be nondeterministic, and recommends promise combinators or wrapping the parallel logic in one tool.",
+   "url": null
+  },
+  {
+   "text": "Restate recommends Virtual Objects keyed by user or session ID for multi-turn sessions, providing durable state, one logical instance per key, queued interactions, and concurrency control.",
+   "url": null
+  },
+  {
+   "text": "Restate durable promises/awakeables support human-in-the-loop: create a promise and callback ID, request review, suspend, and resolve the promise via Restate's HTTP API when the human responds.",
+   "url": null
+  },
+  {
+   "text": "DBOS is a Postgres-backed library that checkpoints workflow inputs and step outputs and, on recovery, re-executes the workflow while returning checkpointed step outputs instead of rerunning those steps; steps should be idempotent because an uncheckpointed step retries after a crash.",
+   "url": null
+  },
+  {
+   "text": "DBOS human-in-the-loop uses DBOS.recv with a timeout and DBOS.send from an HTTP endpoint, with the deadline and notification stored in Postgres so restarts or upgrades during multi-day waits do not lose the wait.",
+   "url": null
+  },
+  {
+   "text": "DBOS reports about 1,000 workflows or steps per Postgres vCPU, 20,000 per second on one 16-vCPU Postgres server, and linear scaling past 1 million per second through sharding.",
+   "url": null
+  },
+  {
+   "text": "DBOS warns that breaking changes to workflow step order can make in-progress workflows unrecoverable and recommends patching or versioning workflows.",
+   "url": null
+  },
+  {
+   "text": "Emergent runs agent builds of 10–30 minutes with dozens of LLM calls and hundreds of tool executions on Temporal, reporting over 1 billion Temporal Actions per month and using Child Workflows to isolate subagents.",
+   "url": null
+  },
+  {
+   "text": "Replit moved its coding-agent execution from Temporal to Restate, citing lower latency and cost, Virtual Objects, Durable Coroutines, and bring-your-own-cloud deployment.",
+   "url": null
+  },
+  {
+   "text": "Goblins switched from Inngest to DBOS, reporting that 2–3 second local workflows took over 9 seconds on Inngest versus about 1 ms Postgres step writes on DBOS, a 3x improvement, after an Inngest outage created a queue backlog.",
+   "url": null
+  },
+  {
+   "text": "cubic's multi-agent code-review system on Inngest reduced false positives by 51% compared with its initial single-agent product.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

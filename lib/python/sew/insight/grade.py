@@ -74,6 +74,7 @@ BRANDS = {
 }
 _WORD = re.compile(r"[a-z0-9][a-z0-9.+-]*")
 _URL = re.compile(r"https?://[^\s\"'<>\]\)}]+")
+_TRACE = re.compile(r"<(queries|analyzing|thinking|progress)>.*?</\1>", re.S)
 
 
 def _sha(value: Any) -> str:
@@ -117,6 +118,8 @@ def _binary_map(key: str, labels: Sequence[str]) -> Callable[[Any], dict[str, in
     def check(reply: Any) -> dict[str, int]:
         got = reply[key]
         out = {label: got[label] for label in labels}
+        out = {k: int(v.strip()) if isinstance(v, str) and v.strip() in ("0", "1") else v
+               for k, v in out.items()}
         if any(v not in (0, 1) or isinstance(v, bool) for v in out.values()):
             raise InsightError(f"{key} values must be 0 or 1")
         return out
@@ -143,11 +146,47 @@ def _drop_warnings(value: Any) -> Any:
     return value
 
 
+def _sse_text(body: str) -> str | None:
+    """Reassemble a chat-completions SSE stream into its content; None if it is not one."""
+    parts, seen = [], False
+    for line in body.splitlines():
+        if not line.startswith("data: ") or line.strip() == "data: [DONE]":
+            continue
+        try:
+            chunk = json.loads(line[6:])
+        except ValueError:
+            continue
+        for choice in chunk.get("choices") or []:
+            seen = True
+            parts.append(str((choice.get("delta") or choice.get("message") or {}).get("content") or ""))
+    return "".join(parts) if seen else None
+
+
+def _strings(value: Any) -> Iterable[str]:
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, Mapping):
+        for v in value.values():
+            yield from _strings(v)
+    elif isinstance(value, list):
+        for v in value:
+            yield from _strings(v)
+
+
 def _answer_material(record: Mapping[str, Any]) -> tuple[str, list[str]]:
-    response = record.get("response")
-    body = response if isinstance(response, str) else json.dumps(
-        _drop_warnings(response), ensure_ascii=False, default=str)
-    urls = list(dict.fromkeys(u.rstrip(".,;:") for u in _URL.findall(body)))[:80]
+    # URLs are read from decoded text: a regex over JSON-escaped text keeps "\n[2" on the URL.
+    response = _drop_warnings(record.get("response"))
+    if isinstance(response, str):
+        sse = _sse_text(response)
+        # Streamed research agents interleave trace blocks before the answer. The extractor reads
+        # the answer; candidate sources come from the whole stream, as for every other arm, and
+        # strict page verification still decides credit.
+        text = response if sse is None else sse
+        body = text if sse is None else _TRACE.sub("", sse)
+    else:
+        body = json.dumps(response, ensure_ascii=False, default=str)
+        text = "\n".join(_strings(response))
+    urls = list(dict.fromkeys(u.rstrip(".,;:") for u in _URL.findall(text)))[:80]
     return body[:ANSWER_CHARS], urls
 
 
@@ -329,6 +368,9 @@ def value_findings(
             out = {}
             for lab in labels:
                 score, reason = reply["value"][lab]["score"], reply["value"][lab]["reason"]
+                # The contract shows "<0-3>", so judges often answer "3"; accept integer strings.
+                if isinstance(score, str) and score.strip() in ("0", "1", "2", "3"):
+                    score = int(score.strip())
                 if isinstance(score, bool) or score not in (0, 1, 2, 3) or not str(reason).strip():
                     raise InsightError(f"value for {lab} must be 0-3 with a reason")
                 out[lab] = {"score": int(score), "reason": str(reason).strip()[:400]}
@@ -367,12 +409,16 @@ def _request_identity(model: Model) -> dict[str, Any]:
 
 
 def load_claims(run_dir: Path) -> dict[str, list[dict[str, Any]]]:
-    """Extracted claims per question, each with a stable id ``<arm_id>#<n>``."""
+    """Extracted claims per question, each with a stable id ``<arm_id>#<n>``.
+
+    Ids are unique only within a question; anything keyed across questions must use
+    ``(question_id, id)``.
+    """
     out: dict[str, list[dict[str, Any]]] = {}
     for path in sorted((run_dir / "grading" / "extract").glob("*/*.json")):
         doc = read_json(path)
         out.setdefault(doc["question_id"], []).extend(
-            {"id": f"{doc['arm_id']}#{n + 1}", "arm_id": doc["arm_id"], **c}
+            {"id": f"{doc['arm_id']}#{n + 1}", "arm_id": doc["arm_id"], "question_id": doc["question_id"], **c}
             for n, c in enumerate(doc["claims"])
         )
     return out
@@ -515,7 +561,7 @@ def grade_run(
                 return
             texts = {}
             for cl in read_json(path)["clusters"]:
-                ok = [c["text"] for c in claims[qid] if c["id"] in cl["members"] and support.get(c["id"]) == 1]
+                ok = [c["text"] for c in claims[qid] if c["id"] in cl["members"] and support.get((qid, c["id"])) == 1]
                 if ok:
                     texts[cl["id"]] = sorted(ok, key=lambda t: (-len(t), t))[0]
             out = gdir / "judge" / f"{qid}.json"
@@ -539,15 +585,17 @@ def grade_run(
     return summary
 
 
-def supported_claims(run_dir: Path, claims: Mapping[str, list[Mapping[str, Any]]]) -> dict[str, int | None]:
-    """claim id -> 1 supported, 0 unsupported, None unverifiable; uncited claims are absent."""
+def supported_claims(
+    run_dir: Path, claims: Mapping[str, list[Mapping[str, Any]]]
+) -> dict[tuple[str, str], int | None]:
+    """(question id, claim id) -> 1 supported, 0 unsupported, None unverifiable; uncited claims are absent."""
     verdicts: dict[tuple[str, str], int | None] = {}
     for path in (run_dir / "grading" / "verify").glob("*.json"):
         doc = read_json(path)
         for text, verdict in doc["verdicts"].items():
             verdicts[(doc["url"], text)] = verdict
-    return {c["id"]: verdicts.get((c["url"], c["text"]))
-            for qclaims in claims.values() for c in qclaims if c.get("url")}
+    return {(qid, c["id"]): verdicts.get((c["url"], c["text"]))
+            for qid, qclaims in claims.items() for c in qclaims if c.get("url")}
 
 
 def _default_capture(url: str) -> str:

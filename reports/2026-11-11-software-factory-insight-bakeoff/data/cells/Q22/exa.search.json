@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:30.993628Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 254,
+   "page_chars_delivered": 17222,
+   "post_step": "fetched",
+   "published": null,
+   "text": "models, your company knowledge and your integrations. People approve at every step that matters. One governed workflow covers strategy, research, content, localization, campaign production, SEO/GEO, quality assurance, publishing and performance analysis.",
+   "title": "draft & goal",
+   "url": "https://linkedin.com/company/draft-goal"
+  },
+  {
+   "chars_delivered": 2030,
+   "page_chars_delivered": 5494,
+   "post_step": "fetched",
+   "published": "2026-10-02T21:01:38.000Z",
+   "text": "For example, we agentified our integrated marketing campaign workflow. The process begins when a marketing owner defines objectives and uploads key information into a central intelligence layer. Grounded in this data, the AI agent scans calendars and budgets to flag redundancies and find opportunit…",
+   "title": "How Cloud integrated agentic workflows - Think with Google US",
+   "url": "https://business.google.com/us/think/ai-excellence/cloud-agentic-workflow-integration/"
+  },
+  {
+   "chars_delivered": 3667,
+   "page_chars_delivered": 8393,
+   "post_step": "fetched",
+   "published": "2026-05-16T03:54:02.000Z",
+   "text": "## The System \n\n MaxReach is a 30-agent content production platform. Each agent has exactly one defined role. No agent does two jobs. \n\n### Research and Strategy Layer\n\n The pipeline starts with input: a topic brief, a keyword, or a voice note recorded in Telegram. Audio inputs route through transc…",
+   "title": "30 AI Agents Run an Entire Content Pipeline | Case Study | Glivera",
+   "url": "https://glivera.com/case-studies/maxreach-30-agent-content-pipeline/"
+  },
+  {
+   "chars_delivered": 255,
+   "published": null,
+   "text": "quality gates, canonical publishing and distribution, technical website readiness and verification and repeatable visual asset delivery. People keep strategy, claims, approvals and exceptions. ... : search data, packaging, channel publishing, and routing.",
+   "title": "Platform — 14 AI Agents, One Marketer in Command · Humanswith.ai",
+   "url": "https://humanswith.ai/platform/"
+  },
+  {
+   "chars_delivered": 1969,
+   "published": null,
+   "text": "This is a set of specialized AI agents that plan, write, review, and publish marketing content together. One agent plans the work, a few others actually write and design it, and one exists purely to catch mistakes before anything goes out. All of it runs against real performance data, so the whole…",
+   "title": "MERIDIAN: multi-agent AI content marketing engine",
+   "url": "https://gruntflow.io/solutions/meridian/"
+  },
+  {
+   "chars_delivered": 3813,
+   "published": null,
+   "text": "## The Opuslon solution\n\nOpuslon designed an orchestrated multi-agent system: three specialized AI agents working in sequence, each receiving the previous agent's output.\n\nEach agent has limited access to the data it needs (CRM, analytics, client drive) per its role — no agent accesses the full sys…",
+   "title": "Wasel.ma — Multi-Agent System for a Marketing Agency | Opuslon",
+   "url": "https://opuslon.com/en/cas-clients/wasel-ma"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "search and AI-visibility data, drafts on brand,\n...\nBoth are powered by Wyse, our always-on agent. Wyse reads your brand, scores intent, writes in your voice, and never executes without human approval. Confirm before execute is a default, not a setting.",
+   "title": "wysera",
+   "url": "https://linkedin.com/company/wysera"
+  },
+  {
+   "chars_delivered": 251,
+   "published": null,
+   "text": ", research, content drafting, SEO, AEO, and GEO optimization, content auditing, content refreshes, customer story development, publishing, and\n...\nplatform accelerates research and drafting, while expert review remains a required part of the workflow.",
+   "title": "AI Integration Case Study: Scaling Eminnt's Tech | tkxel",
+   "url": "https://tkxel.com/our-customers/eminnt/eminnt-detail/"
+  },
+  {
+   "chars_delivered": 301,
+   "published": "2026-06-03T14:09:26.000Z",
+   "text": "The numbers, just for this one event:\n\n- 614 good meetings booked.\n- ~$85K average ticket size. That’s a high-ROI agent. They didn’t all close, or we’d have $60M in sponsors here instead of $10M, but the efficiency is real.\n- ~2.25 million sessions on the annual site.\n- ~402,000 interactions handle…",
+   "title": "The Agents #006: We Run SaaStr AI on 3 Humans and 21+ AI Agents. Here’s Every Agent, Agent by Agent, With the Numbers. | SaaStrAI",
+   "url": "https://www.saastr.com/the-agents-episode-06-we-run-saastr-on-3-humans-and-21-ai-agents-heres-every-agent-agent-by-agent-with-the-numbers/"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "Every piece of content your team produces follows a pattern: someone spots an opportunity, a writer drafts a post, an editor reviews it, someone uploads it ... RSS feed monitors tracked topics and competitors; when a relevant signal fires, Claude drafts",
+   "title": "Marketing AI agents — 2× retention with Zenphi AI workflows",
+   "url": "https://zenphi.com/solutions/marketing-automation/"
+  }
+ ],
+ "latency_ms": 1154.3,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q22",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "Beyond coding, what multi-agent systems run marketing, content production, sales or back-office automation in production? Cover architecture, human approval points, brand and quality control, and measured results, and say which are built on general agent platforms rather than bespoke code.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 21275,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:29.839294Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

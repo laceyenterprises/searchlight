@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.search",
+ "cell_sha": "8899433c8540416a",
+ "claims": [
+  {
+   "text": "Codex cloud was launched on May 16, 2025 as a research preview: a cloud-based software engineering agent that works on many tasks in parallel, powered by codex-1, a version of OpenAI o3 optimized for software engineering.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "codex-1 was trained with reinforcement learning on real-world coding tasks across a variety of environments to mirror human style and PR preferences, follow instructions precisely, and iteratively run tests until it gets a passing result.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "Each Codex cloud task runs independently in its own isolated cloud sandbox environment preloaded with the user's repository.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "In its sandbox, Codex can read and edit files and run commands including test harnesses, linters, and type checkers.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "Codex tasks typically take between 1 and 30 minutes depending on complexity, and users can monitor progress in real time.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "When a task completes, Codex commits its changes in its environment and cites terminal logs and test outputs so users can trace each step; users can then review, request revisions, open a GitHub pull request, or integrate changes locally.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "AGENTS.md files placed in a repository are text files, akin to README.md, that tell Codex how to navigate the codebase, which commands to run for testing, and how to follow project practices.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "The codex-1 system message states that an AGENTS.md file's scope is the directory tree rooted at its folder, more deeply nested AGENTS.md files take precedence on conflicts, and direct system/developer/user prompt instructions take precedence over AGENTS.md.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "The codex-1 system message requires the agent to run all programmatic checks specified in AGENTS.md after its code changes, even for simple changes such as documentation, and to leave the git worktree clean with changes committed (no new branches, no amending existing commits).",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "At launch, internet access was disabled during task execution, limiting the agent to code provided via GitHub repositories and dependencies pre-installed by the user's setup script.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "On June 3, 2025, OpenAI updated Codex to let users give it internet access during task execution, and made Codex available to ChatGPT Plus users.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "OpenAI recommends assigning well-scoped tasks to multiple agents simultaneously, based on learnings from early testers.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "At launch, Codex lacked image inputs for frontend work and the ability to course-correct the agent mid-task.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "The SWE-Bench Verified evaluation of codex-1 excluded 23 samples not runnable on OpenAI's infrastructure and used a 192k-token maximum context length and medium reasoning effort.",
+   "url": "https://openai.com/index/introducing-codex/"
+  },
+  {
+   "text": "In the Codex system card addendum, the container is preloaded with the user's code and a user-defined development environment; after setup, internet access is disabled and the model trajectory begins.",
+   "url": "https://cdn.openai.com/pdf/8df7697b-c1b2-4222-be00-1fd3298f351d/codex_system_card.pdf"
+  },
+  {
+   "text": "In Codex cloud, the agent runs in an isolated container hosted by OpenAI with network access disabled by default, preventing interaction with the user's host system or data outside its workspace.",
+   "url": "https://deploymentsafety.openai.com/gpt-5-3-codex/agent-sandbox"
+  },
+  {
+   "text": "Network access is configurable per project, including custom allowlists or denylists of sites, and OpenAI warns that enabling internet access can introduce prompt injection, leaked credentials, or license-restricted code, advising limiting access to trusted domains and safe HTTP methods.",
+   "url": "https://deploymentsafety.openai.com/gpt-5-3-codex/agent-sandbox"
+  },
+  {
+   "text": "OpenAI's internal Codex deployment uses a managed network policy that allows expected destinations, blocks unwanted ones, and requires approval for unfamiliar domains, rather than open-ended outbound access.",
+   "url": "https://openai.com/index/running-codex-safely/"
+  },
+  {
+   "text": "OpenAI's internal config sets web search to cached mode only, enables a network proxy, denies domains like pastebin.com, and allows domains like *.openai.com and login.microsoftonline.com.",
+   "url": "https://openai.com/index/running-codex-safely/"
+  },
+  {
+   "text": "OpenAI's internal Auto-review mode sends planned actions and recent context to an auto-approval subagent that can approve low-risk actions, or high-risk ones with sufficient user authorization, instead of interrupting the user.",
+   "url": "https://openai.com/index/running-codex-safely/"
+  },
+  {
+   "text": "OpenAI engineers recommend starting large changes in Ask mode to produce a plan, then switching to Code mode, and say Codex works best on well-scoped tasks that take about an hour or a few hundred lines of code.",
+   "url": "https://openai.com/business/learn/how-openai-uses-codex/"
+  },
+  {
+   "text": "OpenAI teams report that setting a startup script, environment variables, and internet access significantly reduces Codex's error rate, and they use the Best-of-N feature to generate multiple responses to one task and pick or combine the best.",
+   "url": "https://openai.com/business/learn/how-openai-uses-codex/"
+  },
+  {
+   "text": "An OpenAI team built an internal beta product over five months with zero manually written code, estimating about 1/10th the time of hand-writing; it reached roughly a million lines of code and about 1,500 merged PRs, averaging 3.5 PRs per engineer per day with three engineers.",
+   "url": "https://openai.com/index/harness-engineering/"
+  },
+  {
+   "text": "The harness-engineering team found a single large AGENTS.md failed (crowds out context, rots, hard to verify), so they use a roughly 100-line AGENTS.md as a table of contents pointing to a structured docs/ directory.",
+   "url": "https://openai.com/index/harness-engineering/"
+  },
+  {
+   "text": "Codex code review commented on 36% of PRs entirely generated by Codex cloud, and 46% of those comments led to a code change, versus 53% for comments on human-generated PRs; overall authors address reviewer comments with code changes in 52.7% of cases, and as of October 2025 the system handled over 100k external PRs per day with over 80% positive comment reactions.",
+   "url": "https://alignment.openai.com/scaling-code-verification/"
+  }
+ ],
+ "question_id": "Q04"
+}

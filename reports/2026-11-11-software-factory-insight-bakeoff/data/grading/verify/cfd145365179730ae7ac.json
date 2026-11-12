@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "802b5a0b3f903000",
+ "url": "https://engineering.atspotify.com/2026/6/code-with-claude-coding-is-no-longer-the-constraint",
+ "verdicts": {
+  "Honk runs Claude via the Agent SDK inside Spotify's own harness, deployed in Kubernetes pods for concurrent sessions, with trusted tools including running builds in CI across multiple operating systems to verify changes.": 1,
+  "Spotify has merged more than 2.5 million automated maintenance PRs through Fleet Management (executed by Fleetshift), the vast majority auto-merged with no human in the loop.": 1,
+  "Spotify reports more than 99% of engineers use AI coding tools weekly and a 76% increase in PR frequency, which creates a review bottleneck.": 1,
+  "Spotify reports that agent performance is measurably worse in more fragmented codebases and better when code is consistent; lint and golden-state standards give Claude immediate feedback on patterns.": 1,
+  "Spotify's most recent Java migration across backend services took three days, and Spotify says a migration that used to take hundreds of teams weeks or months can now be done by a single engineer in a few days.": 1
+ }
+}

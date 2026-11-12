@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "a5832440627afb1a",
+ "claims": [
+  {
+   "text": "GitHub's Agent HQ announcement states that developers keep working with Git, pull requests and issues, and can use their preferred compute, whether GitHub Actions or self-hosted runners.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents"
+  },
+  {
+   "text": "Copilot cloud agent works asynchronously in an ephemeral development environment powered by GitHub Actions, where it can inspect the repository, edit files, and run tests and linters before pushing changes.",
+   "url": "https://www.therundown.ai/tools/agent-hq"
+  },
+  {
+   "text": "According to a video walkthrough, the Copilot coding agent spins up a new GitHub Actions run on a specific runner (for example an Ubuntu Linux runner), first creates a plan, then makes code changes and validates them through linting and builds.",
+   "url": "https://www.youtube.com/watch?v=YD4hxzKxiZ8"
+  },
+  {
+   "text": "The Actions runner used by the Copilot coding agent is torn down after execution completes and a new runner is used next time, so information pulled in a previous session is gone, which also limits prompt-injection persistence.",
+   "url": "https://www.youtube.com/watch?v=YD4hxzKxiZ8"
+  },
+  {
+   "text": "Copilot coding agent can run its development environment on self-hosted GitHub Actions runners managed by Actions Runner Controller (ARC), allowing agent tasks to reach internal packages, private build tooling, or on-prem services (public preview).",
+   "url": "https://github.com/orgs/community/discussions/177903"
+  },
+  {
+   "text": "By default Copilot coding agent provisions GitHub-hosted runners; to use ARC, a repository edits copilot-setup-steps.yml so that runs-on targets the ARC scale set name.",
+   "url": "https://github.com/orgs/community/discussions/177903"
+  },
+  {
+   "text": "With self-hosted ARC runners, each task still uses an ephemeral workspace and the existing runner-level security policies (network ACLs, scanning, logging) apply automatically.",
+   "url": "https://github.com/orgs/community/discussions/177903"
+  },
+  {
+   "text": "Copilot's agent firewall controls internet access for the Copilot coding agent in GitHub Actions and is enabled by default, limiting the agent's ability to make arbitrary network connections.",
+   "url": "https://www.stepsecurity.io/blog/securing-github-copilot-in-github-actions-with-harden-runner"
+  },
+  {
+   "text": "StepSecurity notes that the Copilot firewall gives no visibility into what the agent does (spawned processes, which process made a network call, endpoints contacted, GitHub APIs invoked), and that standard Actions logs are insufficient to answer these questions; it recommends Harden-Runner for runtime monitoring.",
+   "url": "https://www.stepsecurity.io/blog/securing-github-copilot-in-github-actions-with-harden-runner"
+  },
+  {
+   "text": "In the video walkthrough, external access from the runner requires firewall policies, and only the specifically allowed endpoints are reachable by the coding agent.",
+   "url": "https://www.youtube.com/watch?v=YD4hxzKxiZ8"
+  },
+  {
+   "text": "The Arinco/Azure with AJ post shows a custom firewall configuration for enterprises with a recommended allowlist enabled plus a custom allowlist of internal domains such as artifacts.company.internal and packages.company.internal.",
+   "url": "https://arinco.com.au/blog/welcome-home-agents-how-github-copilot-agent-hq-is-transforming-development-workflows"
+  },
+  {
+   "text": "Digital Applied states Mission Control agents run under locked-down GitHub tokens with limited scopes inside sandboxed GitHub Actions environments, protected by firewalls that prevent external network access or data exfiltration.",
+   "url": "https://www.digitalapplied.com/blog/github-agent-hq-multi-agent-platform"
+  },
+  {
+   "text": "Built-in protections for the Copilot coding agent listed by Arinco include sandboxed execution, read-only repository access, branch naming restricted to copilot/* only, and branch protection compliance.",
+   "url": "https://arinco.com.au/blog/welcome-home-agents-how-github-copilot-agent-hq-is-transforming-development-workflows"
+  },
+  {
+   "text": "Arinco lists branch-protection rules for agent PRs: CI is required before modifications to agent PRs, status checks must pass before human review, draft PRs block GitHub Actions workflows by default, and approval is required from someone other than the task requester.",
+   "url": "https://arinco.com.au/blog/welcome-home-agents-how-github-copilot-agent-hq-is-transforming-development-workflows"
+  },
+  {
+   "text": "In the video walkthrough, the person who assigned the issue to the coding agent cannot count as an approver: with a two-approver rule, their approval does not count and peer human approvals are required.",
+   "url": "https://www.youtube.com/watch?v=YD4hxzKxiZ8"
+  },
+  {
+   "text": "GitHub's mission control adds branch controls giving granular oversight of when to run CI and other checks for agent-created code, plus one-click merge conflict resolution, improved file navigation, and better code commenting.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents"
+  },
+  {
+   "text": "GitHub's Agent HQ announcement adds identity features to control which agent is building a task and to manage access and policies for it just like any other developer on the team.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents"
+  },
+  {
+   "text": "Mission control is a single command center to assign, steer, and track the work of multiple agents, and appears in VS Code as a single view of agents running in VS Code, the Copilot CLI, or on GitHub.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents"
+  },
+  {
+   "text": "Copilot-authored commits are signed and link back to the session log, with the task initiator recorded as co-author.",
+   "url": "https://www.therundown.ai/tools/agent-hq"
+  },
+  {
+   "text": "Agent output moves through the normal pull-request workflow of diffs, checks, branch protection, comments, approvals and merge controls, and GitHub offers agentic code review.",
+   "url": "https://www.therundown.ai/tools/agent-hq"
+  },
+  {
+   "text": "Steering with follow-up instructions is supported for Copilot cloud-agent sessions but, per current documentation, not for third-party coding agents, and each steering message consumes AI Credits.",
+   "url": "https://www.therundown.ai/tools/agent-hq"
+  },
+  {
+   "text": "Copilot cloud-agent sessions are visible by default to people who can access the repository.",
+   "url": "https://www.therundown.ai/tools/agent-hq"
+  },
+  {
+   "text": "The enterprise control plane manages which agents, models, MCP servers, permissions and policies developers can use, with budgets, logs and usage metrics such as agent-created PRs, merges and median time to merge.",
+   "url": "https://www.therundown.ai/tools/agent-hq"
+  },
+  {
+   "text": "Agent work consumes GitHub AI Credits and Copilot cloud-agent tasks can also consume GitHub Actions minutes; additional usage requires an enabled budget.",
+   "url": "https://www.therundown.ai/tools/agent-hq"
+  },
+  {
+   "text": "Digital Applied reports Push Protection automatically blocks secrets in AI-generated responses and code, covering public repositories and private repositories with GitHub Advanced Security.",
+   "url": "https://www.digitalapplied.com/blog/github-agent-hq-multi-agent-platform"
+  }
+ ],
+ "question_id": "Q05"
+}

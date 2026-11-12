@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "157860a112d0f3c2",
+ "url": "https://github.com/Morrison-Lab/ai-config/blob/main/shared/workflow/merge-queue.md",
+ "verdicts": {
+  "GitHub merge queue cuts review and CI cost from O(N^2) to O(N) runs, and to O(N/K) with batching of size K.": 1,
+  "GitHub merge queue evicts a failing PR and rebuilds speculative branches for later PRs without it, re-running checks automatically.": 1
+ }
+}

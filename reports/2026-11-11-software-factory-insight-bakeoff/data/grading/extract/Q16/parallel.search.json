@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "e5e9e749ea7422ea",
+ "claims": [
+  {
+   "text": "In ComputeSDK's independent Burst TTI Benchmark (100 sandboxes launched concurrently, time-to-interactive measured from the client), Cloudflare Containers' median startup fell from 4.049 seconds under the previous scheduling path to 648 milliseconds under the new durable_object scheduling policy (6.2x faster).",
+   "url": null
+  },
+  {
+   "text": "In the same ComputeSDK Burst TTI Benchmark, Cloudflare Containers' 95th percentile startup fell from 5.839 seconds to 910 milliseconds (6.4x faster), and the 99th percentile fell from 6.717 seconds to 1129 milliseconds (5.9x faster).",
+   "url": null
+  },
+  {
+   "text": "In Cloudflare's own preliminary burst test, a single account started 100,000 Containers in 5.387 seconds across six locations.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare's new Containers runtime restores a prepared virtual machine that is not yet assigned instead of booting a new VM from scratch, and it reuses networking and filesystem setup and batches repeated operations.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare's scheduler under the durable_object policy looks for capacity on the same machine as the Durable Object first, then widens the search within the same location, and favors hosts that already hold the Container's image or snapshot locally.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare Containers now support native filesystem snapshots in public beta, via ctx.container.snapshotContainer(); snapshots are immutable and reusable, so many Containers can start independently from the same snapshot.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare distributes and prepares its cloudflare/debian-trixie system image (Debian Trixie Slim with Node.js 24.20.0 LTS) across eligible Containers hosts before requests arrive, so startups do not have to download or unpack the base image.",
+   "url": null
+  },
+  {
+   "text": "Under Cloudflare's durable_object scheduling policy, application code chooses each sandbox's image and instance type at runtime in ctx.container.start(), replacing the previous model where each image/instance combination needed its own Containers application and wrangler deploy.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare Containers let the Durable Object attach an Outbound Request Handler to its Container to inject credentials, enforce policies, or record activity, and the Durable Object can stop the Container while idle so no Linux compute is paid for.",
+   "url": null
+  },
+  {
+   "text": "A Cloudflare agent sandbox runs in its own virtual machine and cannot read the agent's storage, environment variables, or bindings; it reaches the Internet only when allowed.",
+   "url": null
+  },
+  {
+   "text": "Setting enableInternet: true on a Cloudflare Container allows every destination, so model-written commands can send anything they can read to any server; with enableInternet: false the sandbox starts with no Internet access.",
+   "url": null
+  },
+  {
+   "text": "Files in a Cloudflare sandbox last only while the container runs; once it stops, the next command starts a fresh container from the image and earlier files are gone unless a snapshot was saved and restored.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare Containers require the Workers Paid plan.",
+   "url": null
+  },
+  {
+   "text": "With enableInternet false on Cloudflare Sandbox, only explicitly allowed traffic (via allowedHosts or outbound handlers) can leave; only ports 80, 443, and DNS are available, and DNS queries use Cloudflare's DNS servers.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare outbound handlers are programmable egress proxies running on the same machine as the sandbox with access to all Workers bindings, and the injected secret is never passed into the sandbox; changes to outbound handlers can apply to a live sandbox without restart.",
+   "url": null
+  },
+  {
+   "text": "LogRocket's own measurement of E2B: 717ms to create and 662ms to resume from pause (Firecracker microVM), the fastest and most consistent of the five platforms tested.",
+   "url": null
+  },
+  {
+   "text": "LogRocket measured Daytona at 742ms create and 1254ms resume, Modal at 2437ms create and 2347ms snapshot boot, Blaxel at 2824ms create and 1924ms resume, and Vercel at 1852ms create and 3333ms resume.",
+   "url": null
+  },
+  {
+   "text": "Modal has no in-place resume; its 2347ms figure is snapshot-boot time, and Modal's snapshot_filesystem() returns a reusable image from which many sandboxes can be forked.",
+   "url": null
+  },
+  {
+   "text": "E2B and Vercel use Firecracker microVMs, Modal uses gVisor, Daytona uses Docker containers by default with Kata/Sysbox opt-in, and Cloudflare's Worker Loader uses V8 isolates while its Sandbox SDK is container-based.",
+   "url": null
+  },
+  {
+   "text": "gVisor's user-space kernel (the Sentry) intercepts and re-implements syscalls so applications do not call the host kernel directly; LogRocket ranks it one tier below hardware microVMs and above shared-kernel containers.",
+   "url": null
+  },
+  {
+   "text": "AWS AgentCore, which runs on Firecracker, had its 'Sandbox' mode still permit outbound DNS A and AAAA queries; researchers built a DNS command-and-control channel and used an over-broad IAM role to read S3 buckets, and AWS remediated DNS tunneling on April 15, 2026.",
+   "url": null
+  },
+  {
+   "text": "E2B and Daytona bill CPU and memory for the full sandbox lifetime at $0.0504/vCPU-hr and $0.0162/GiB-hr per second, while Vercel bills CPU at $0.128/vCPU-hr for active time only, Cloudflare bills active CPU at $0.072/vCPU-hr plus a $5/month base, and Modal, Blaxel, and Fly Sprites charge no compute when idle.",
+   "url": null
+  },
+  {
+   "text": "E2B pause/resume preserves memory and filesystem state and reconnects to the same sandbox ID, with billing stopping while paused.",
+   "url": null
+  },
+  {
+   "text": "E2B sandboxes can run continuously for up to 24 hours (Pro) or 1 hour (Hobby); pausing resets the runtime window and preserves full state indefinitely.",
+   "url": null
+  },
+  {
+   "text": "E2B snapshots capture filesystem and memory by default (filesystem-only mode is optional), the original sandbox briefly pauses then keeps running, and one snapshot can spawn many new sandboxes, unlike one-to-one pause/resume.",
+   "url": null
+  }
+ ],
+ "question_id": "Q16"
+}

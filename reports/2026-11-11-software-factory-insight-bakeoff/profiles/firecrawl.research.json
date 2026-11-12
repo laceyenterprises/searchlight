@@ -1,0 +1,62 @@
+{
+ "arm": "firecrawl",
+ "async": {
+  "interval_s": 30,
+  "on_credit_stop": "do not continue the threadId; score what returned (frozen budget)",
+  "poll_endpoint": "GET https://api.firecrawl.dev/v2/agent/{jobId}",
+  "timeout_s": 1800
+ },
+ "cost_model": "Dynamic credits; docs say most runs use 'a few hundred credits'; capped by maxCredits 1000. At $0.001-$0.005/credit = $0.30-$5.00 at the cap. 5 free runs/day.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "prompt, model spark-2, effort, maxCredits default 2500, polling, replaces /extract",
+   "url": "https://docs.firecrawl.dev/features/agent"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "Standard 100 agent/min",
+   "url": "https://docs.firecrawl.dev/rate-limits.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "agent dynamic billing, 5 free daily runs",
+   "url": "https://docs.firecrawl.dev/billing.md"
+  }
+ ],
+ "endpoint": "POST https://api.firecrawl.dev/v2/agent",
+ "est_cost_usd_per_question": 1.5,
+ "freshness_overlay": {
+  "prompt_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+ },
+ "headers": {
+  "Authorization": "Bearer <FIRECRAWL_API_KEY>"
+ },
+ "operation": "research",
+ "pace_seconds": 0.6,
+ "params": {
+  "effort": "high",
+  "maxCredits": 1000,
+  "model": "spark-2",
+  "prompt": "{{RESEARCH_BRIEF}}"
+ },
+ "post_steps": [],
+ "query_transform": "research_brief",
+ "query_transform_notes": "Agent docs: specific prompts (<=10,000 chars) use fewer credits. No schema: our research output is prose claims with sources; Agent accepts schema optionally.",
+ "rationale": {
+  "effort": "'high' for deep research questions (thoroughness over cost); unverified semantics.",
+  "model": "spark-2 is the only routed model (spark-1 names route to it)."
+ },
+ "top_k": null,
+ "unverified": true,
+ "unverified_fields": {
+  "effort": {
+   "note": "Docs list low/medium/high (spark-2 only) without describing what each changes or recommending one for research.",
+   "unverified": true
+  },
+  "maxCredits": {
+   "note": "Our cap, not a vendor recommendation; 2026-09 used 100, below the documented typical run.",
+   "unverified": true
+  }
+ }
+}

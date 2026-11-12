@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "ef0a00f6338156cd",
+ "claims": [
+  {
+   "text": "Amazon Bedrock AgentCore Policy evaluates Cedar policies at the AgentCore Gateway before any tool call reaches the tool, and denies by default.",
+   "url": null
+  },
+  {
+   "text": "Amazon Bedrock AgentCore Policy became generally available on 3 March 2026 and evaluates each agent-to-tool request in Cedar with conditions on the principal, the tool and the tool's input parameters; a request is allowed only when a permit applies and no forbid overrides it.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Policy does not apply to tool calls that bypass the gateway.",
+   "url": null
+  },
+  {
+   "text": "One implementation guide documents AgentCore Policy limits of a 400 KB Cedar schema across all tools on a policy engine and no floating-point numbers or regular expressions; if the gateway's role lacks GetPolicyEngine, LOG_ONLY mode can fail silently.",
+   "url": null
+  },
+  {
+   "text": "AgentCore temporal policies can permit an action only if a matching approval succeeded earlier in the session (e.g., SellShares only if ApproveSale returned approved for the same stock and share count within the hour), with limits of 25 temporal policies per engine and a 24-hour maximum window; the session ID is caller-supplied, so a count-based limit covers only that session.",
+   "url": null
+  },
+  {
+   "text": "In Cedar, if no permit matches the answer is deny, any matching forbid beats every permit, and policy order never matters.",
+   "url": null
+  },
+  {
+   "text": "AWS's gateway uses Cedar partial evaluation to hide tools from the agent's tool list when they would always be denied.",
+   "url": null
+  },
+  {
+   "text": "OpenFGA is modelled on Google's Zanzibar, stores relationship tuples, and can enforce a $100 refund limit through CEL conditions, but a missing parameter returns an error rather than a deny, so the gateway must treat errors as \"no\".",
+   "url": null
+  },
+  {
+   "text": "OpenFGA has no forbid; its exclusion operator (but not) is the tool for \"never\" rules.",
+   "url": null
+  },
+  {
+   "text": "An approval does not get consumed by Cedar, OPA or OpenFGA; \"approved once\" is single-use only if the tool service enforces it in the same transaction as the write.",
+   "url": null
+  },
+  {
+   "text": "A suggested combination is for OpenFGA to answer whether an order is in a tenant the agent may act for and pass a boolean into the Cedar or OPA context, which checks amount, approval and environment; this means running two systems, justified only when the relationship graph is too big to pass in.",
+   "url": null
+  },
+  {
+   "text": "OpenFGA Conditions attach predicates to relations so numeric limits, time-bounded grants and contextual attributes are evaluated in the same check as the relationship; persisted tuple context takes precedence over request context.",
+   "url": null
+  },
+  {
+   "text": "In the OpenFGA example, with agent_limit 50 stored in the tuple and refund_amount 75 supplied at check time, the condition refund_amount <= agent_limit is false, so the runtime triggers a human approval flow instead of requesting a refund-capable token.",
+   "url": null
+  },
+  {
+   "text": "Auth0's Token Vault stores OAuth tokens for connected services and gives the agent a just-in-time access token scoped to a task, implementing OAuth 2.0 Token Exchange (RFC 8693).",
+   "url": null
+  },
+  {
+   "text": "Auth0 implements asynchronous approval with Client-Initiated Backchannel Authentication (CIBA), an OpenID Foundation standard that requests user approval out-of-band on a separate trusted device; most production systems use bespoke flows, internal policy engines or workflow systems like Temporal.",
+   "url": null
+  },
+  {
+   "text": "Capability tokens are derived per task from a longer-lived user session via RFC 8693 token exchange, and an IETF draft on Transaction Tokens for Agents is formalizing this pattern.",
+   "url": null
+  },
+  {
+   "text": "When agent A spawns agent B, the token passed to B is derived at the authorization server with scopes equal to or narrower than A's, so a parent cannot grant a child capabilities it does not hold.",
+   "url": null
+  },
+  {
+   "text": "AgentCore Identity's on-behalf-of exchange swaps the user's inbound token for a downstream one via RFC 8693 or the RFC 7523 JWT grant, and the exchanged token carries both the agent's identity and the original caller's identity.",
+   "url": null
+  },
+  {
+   "text": "Aembit's MCP Identity Gateway obtains credentials per request and caches them for 60 seconds without persisting them to disk, so the agent never holds standing credentials.",
+   "url": null
+  },
+  {
+   "text": "Each agent request carries three identities: sub (the user), azp (the initiating client) and act (the agent, per RFC 8693); dropping act breaks attribution, dropping sub breaks user-scoped access control, and dropping azp prevents revoking a compromised client without revoking everyone.",
+   "url": null
+  },
+  {
+   "text": "The Coalition for Secure AI guidance says each agent runtime instance SHOULD get its own identity derived from an agent card, agent identities MUST have baseline permissions distinct from the users they act for, and delegation chains MUST remain visible in credentials and logs.",
+   "url": null
+  },
+  {
+   "text": "The guidance says policies SHOULD be ABAC/PBAC and re-evaluated continuously, high-impact or irreversible actions SHOULD require human-in-the-loop or step-up controls, and enforcement gateways for high-capability agents MUST be fail-closed with a safe degradation path.",
+   "url": null
+  },
+  {
+   "text": "The Permit.io OPA pattern computes effective permission as the intersection of agent role scope, user delegation scope, delegation chain validity (starting at the user, no expired hops) and parent-agent scope limits, with default allow false.",
+   "url": null
+  },
+  {
+   "text": "Approval gates should cover only irreversible or externally visible actions and approve the exact transaction using Rich Authorization Requests (RFC 9396) authorization_details; an approval rate above 90% suggests the gate is misplaced.",
+   "url": null
+  },
+  {
+   "text": "Human approvals for destructive actions should be bound to the specific change, given by a different identity than the agent, expire quickly, and be enforced in the platform or policy rather than only in agent instructions.",
+   "url": null
+  }
+ ],
+ "question_id": "Q15"
+}

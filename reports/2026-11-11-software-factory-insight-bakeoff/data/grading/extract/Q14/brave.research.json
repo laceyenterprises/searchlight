@@ -1,0 +1,103 @@
+{
+ "arm_id": "brave.research",
+ "cell_sha": "4ec7339bb2aa58af",
+ "claims": [
+  {
+   "text": "A three-server MCP setup (GitHub, Playwright, IDE) consumed 143,000 of a 200,000-token context window (72%) with tool definitions before reading a user message.",
+   "url": null
+  },
+  {
+   "text": "GitHub Copilot cut its tool count from 40 to 13, gaining a 400-millisecond latency reduction and a 2 to 5 percentage point accuracy improvement.",
+   "url": null
+  },
+  {
+   "text": "Dynamic progressive tool loading in MCP cuts schema tokens to under 2.5K from 410K.",
+   "url": null
+  },
+  {
+   "text": "MCP tool definitions consume 200-500 tokens per tool on average, and GitHub's official MCP server alone consumes roughly 26,000 to 55,000 tokens depending on the measurement source.",
+   "url": null
+  },
+  {
+   "text": "Claude Desktop performance degrades at 30-50 active tool schemas, and industry consensus puts a practical ceiling at 5 to 7 connected MCP servers.",
+   "url": null
+  },
+  {
+   "text": "Block's Finance Copilot, built on MCP, answered 40 leadership questions, cutting time from 7.6 hours to under 1 hour with 100% accuracy on governed metrics.",
+   "url": null
+  },
+  {
+   "text": "Block's internal \"Block Data MCP\" workflow reached 1,812 quarterly unique users in Q1 2026.",
+   "url": null
+  },
+  {
+   "text": "Eon uses A2A 0.3 for a multi-agent assistant over business data, with 3 remote specialists and about 20 function calls, enabling independent deploys and tenant additions without code changes.",
+   "url": null
+  },
+  {
+   "text": "Huawei uses A2A in production for its HarmonyOS assistant to hand tasks to in-app agents.",
+   "url": null
+  },
+  {
+   "text": "Elastic demonstrates a hybrid pattern in which a Reporter Agent delegates research via A2A and an Archive Agent uses MCP to access Elasticsearch tools.",
+   "url": null
+  },
+  {
+   "text": "MCP authorization in 2026 requires servers to implement OAuth 2.0 Protected Resource Metadata (RFC 9728) and clients to implement Resource Indicators (RFC 8707) to bind tokens to specific servers.",
+   "url": null
+  },
+  {
+   "text": "For MCP, gateways mint and bind credentials, whereas for A2A, gateways only validate credentials that agents already carry.",
+   "url": null
+  },
+  {
+   "text": "A2A requires clients to authenticate with a scheme declared in the Agent Card but does not decide which callers may invoke which agent; authorization is separate.",
+   "url": null
+  },
+  {
+   "text": "Astrix's analysis found 53% of 5,200 MCP servers rely on insecure long-lived static secrets, while only 8.5% use OAuth.",
+   "url": null
+  },
+  {
+   "text": "By early 2026 about 7,000 internet-exposed MCP servers existed, roughly 50% without authentication controls; a July 2025 scan found 1,862 publicly accessible MCP servers responding to unauthenticated requests.",
+   "url": null
+  },
+  {
+   "text": "CVE-2025-6514 was an unauthenticated RCE in Anthropic's MCP Inspector, caused by failure to sanitize the authorization_endpoint URL.",
+   "url": null
+  },
+  {
+   "text": "A peer-reviewed study found MCP attack success rates from 0% in Claude Desktop (which sandboxes tools) to 100% in Cursor (which auto-executes tool calls without confirmation).",
+   "url": null
+  },
+  {
+   "text": "The MCPTox benchmark showed that malicious instructions embedded in tool descriptions can manipulate agent behavior with high success rates across 45 real-world MCP servers.",
+   "url": null
+  },
+  {
+   "text": "2025 incidents included cross-tenant data exposure at Asana from an access control misconfiguration, and prompt injection against a GitHub MCP server via an overly broad personal access token.",
+   "url": null
+  },
+  {
+   "text": "AWS AgentCore Gateway (GA Mar 3, 2026) uses Cedar policies with default-deny, intercepts all tools/list and tools/call requests, omits denied actions from tool lists, and supports Lambda interceptors that check DynamoDB allowed tools and filter sensitive information by user permissions.",
+   "url": null
+  },
+  {
+   "text": "Google Agent Registry requires manual registration of external MCP servers with a toolspec.json file (max 10 KB), and IAM Unified Access Policies authorize each tool at execution time outside the model reasoning loop; the Gateway uses IAP CEL policies to block destructive tools and unregistered URLs.",
+   "url": null
+  },
+  {
+   "text": "Microsoft Foundry Toolbox aggregates MCP servers into one endpoint and enforces allowed_tools and require_approval policies at the runtime layer, because the MCP endpoint itself does not block tools/call; it also applies RAI guardrails to screen tool inputs and outputs for prompt injection.",
+   "url": null
+  },
+  {
+   "text": "Production gateway validation pipelines check server trust, tool eligibility (RBAC/ABAC), schema shape, sanitization of instruction-like patterns, and runtime re-validation; tool list pinning prevents servers from changing tool definitions mid-conversation.",
+   "url": null
+  },
+  {
+   "text": "Most production teams converge on an allowlist model where new MCP servers enter the registry only after review.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

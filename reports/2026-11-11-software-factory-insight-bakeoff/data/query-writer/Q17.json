@@ -1,0 +1,14 @@
+{
+ "keyword_queries": [
+  "verifying autonomous coding agent output without human code review",
+  "holdout scenario tests digital twin agent validation",
+  "LLM-as-judge cross-model code review defect detection rate"
+ ],
+ "model": {
+  "harness": "claude-code",
+  "model": "claude-sonnet-5-5"
+ },
+ "objective": "Question: How do teams verify autonomous agent output without human code review: eval-driven development, scenario or holdout tests, property-based tests, LLM-as-judge, cross-model review, and digital twins of external services? What evidence exists on how well each catches defects? Rank first primary sources: engineering blog posts, docs, talks, and papers from organisations running autonomous coding agents, plus benchmark and academic studies, and credible reporting. Pull out mechanisms, numbers, names, dates, measured defect-detection or false-positive rates, and failure modes such as judge bias, reward hacking, test overfitting, and twin fidelity gaps.",
+ "question_id": "Q17",
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f"
+}

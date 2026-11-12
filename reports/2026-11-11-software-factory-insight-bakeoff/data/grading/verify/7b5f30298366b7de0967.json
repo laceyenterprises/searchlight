@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "e53f3484a680adde",
+ "url": "https://temporal.io/blog/we-built-a-durable-agent-debugs-durable-agents",
+ "verdicts": {
+  "Kelet AI runs a durable agent on Temporal that diagnoses thousands of sessions per day, with activities that are idempotent and signals that carry an idempotency key so a worker restart re-delivering a signal does not double-process a session.": 1,
+  "Kelet AI's pipeline receives new sessions via Temporal Signals with no polling or cron jobs, and every Workflow resumes from where it stopped after worker restarts.": 1
+ }
+}

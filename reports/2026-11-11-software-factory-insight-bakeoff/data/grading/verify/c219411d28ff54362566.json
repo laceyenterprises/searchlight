@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "06ef5f010721407b",
+ "url": "https://www.gumloop.com/engineering/software-factory",
+ "verdicts": {
+  "A Cursor outage on September 17, 2026 stopped Gumloop Factory work, and on September 29 the agent sandbox line moved to Devin.": 1,
+  "As of October 28, 2026, Gumloop's Factory made agents start 5x faster at P99 (from 24.9 seconds to 4.5 seconds) and merged 571 agent-written PRs in six weeks.": 1,
+  "Gumloop's coding agent opens a pull request with proof, such as a test that fails before the fix and passes after it, and an engineer reviews and merges it.": 1,
+  "Gumloop's engineering blog described its Software Factory, in which a Gumloop agent acts as engineering manager and coding agents do the work, with data as of October 28, 2026.": 1,
+  "In Gumloop's Factory, a trigger (daily schedule reading production telemetry, or a person pinging the agent) opens a Linear issue that starts a Gumloop worker agent, which reads engineering skills and conventions, hands the job to a coding agent, and asks the line owner in Slack when a judgment call is needed.": 1
+ }
+}

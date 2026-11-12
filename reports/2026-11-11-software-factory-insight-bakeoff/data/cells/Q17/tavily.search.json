@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:56.814360Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2199,
+   "page_chars_delivered": 20472,
+   "post_step": "fetched",
+   "published": null,
+   "text": "| Dimension | Traditional LLM testing | Eval-driven development |\n --- \n| Test definition | Manual test cases written after development | Eval specs defined before changes, updated continuously |\n| Pass criteria | Binary pass/fail on exact matches | Scored on multiple quality dimensions with config…",
+   "title": "What is eval-driven development: How to ship high-quality agents without guessing - Articles - Braintrust",
+   "url": "https://www.braintrust.dev/articles/eval-driven-development"
+  },
+  {
+   "chars_delivered": 2098,
+   "page_chars_delivered": 13693,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## 2. The three evaluation methods\n\nEvery evaluation you run will use one or a combination of these three methods.\n\n```\nLayer 1: Programmatic checks (fast, low resource — catches obvious failures)  \n  \n ↓  \n  \nLayer 2: LLM-as-a-Judge (nuanced - catches quality issues)  \n  \n ↓  \n  \nLayer 3: Human ev…",
+   "title": "Eval-driven development: Lessons from evaluating GenAI at scale | Airbnb Engineering & Data Science",
+   "url": "https://airbnb.tech/ai-ml/eval-driven-development-lessons-from-evaluating-genai-at-scale"
+  },
+  {
+   "chars_delivered": 2174,
+   "page_chars_delivered": 73300,
+   "post_step": "fetched",
+   "published": null,
+   "text": "## 14. Start with one trace and one eval\n\nYou do not need a large evaluation platform before the first useful step.\n\nA practical first session looks like this:\n\n1. Read traces for 15 minutes.\n2. Write down one observable definition of success.\n3. Choose one frequent or severe failure.\n4. Add one co…",
+   "title": "How to build agent evals from traces: A developer tutorial | Arize AI",
+   "url": "https://arize.com/resources/agent-evals-from-traces"
+  },
+  {
+   "chars_delivered": 1106,
+   "published": null,
+   "text": "### Can I practice this without an LLM judge?\n\nYes, and it is worth starting there. Schema validation, required-field checks, forbidden strings, tool-argument validity, and exact match on cases with a known answer are cheap, deterministic, and catch a real share of regressions. Add judges when you…",
+   "title": "What Is Evaluation-Driven Development | Arize AI",
+   "url": "https://arize.com/glossary/evaluation-driven-development"
+  },
+  {
+   "chars_delivered": 2188,
+   "published": null,
+   "text": "An LLM evaluation pipeline is an automated system that runs test cases through an AI agent, scores the outputs using defined evaluators (such as LLM-as-judge), and returns quantitative results. It replaces manual output review with repeatable, measurable scoring across every input in your test data…",
+   "title": "Automating Eval-Driven Development Workflow for Agentic Applications | Fiddler AI Blog",
+   "url": "https://www.fiddler.ai/blog/automating-eval-driven-development-agentic-applications"
+  },
+  {
+   "chars_delivered": 1484,
+   "published": null,
+   "text": "The human review of AI-generated code happens in every team that works with Claude, Cursor or similar tools. Usually without a formal process step, often without anyone calling it that. No tool solves it automatically. But it happens, and it does not scale.\n\nAI code review is not a replacement for…",
+   "title": "AI Code Review: Why Loops Without Tests Are Dangerous",
+   "url": "https://www.codecentric.de/en/knowledge-hub/blog/ai-code-review-loop-verification"
+  },
+  {
+   "chars_delivered": 2239,
+   "published": null,
+   "text": "1. Vibe-check development trap. An agent appears to work well, but as soon as it is modified, it can’t be established that it’s working correctly.\n2. Core workflow: error analysis. Error analysis has been a key part of machine learning for decades and is useful for building LLM applications.\n3. Bui…",
+   "title": "A pragmatic guide to LLM evals for devs",
+   "url": "https://newsletter.pragmaticengineer.com/p/evals"
+  },
+  {
+   "chars_delivered": 2073,
+   "published": null,
+   "text": "This is where human-in-the-loop annotations come in: divide the work across your team, annotate how 100 or so of your AI's outputs actually perform, and then figure out which combination of metrics has the highest alignment rate to those human judgments. But that's a story for another day.\n\n## Type…",
+   "title": "Eval Driven Development: What it is, how to do it right, and real examples to learn from | DeepEval - The LLM Evaluation Framework",
+   "url": "https://deepeval.com/blog/eval-driven-development"
+  },
+  {
+   "chars_delivered": 2014,
+   "published": null,
+   "text": "| Aspect | TDD | BDD | EDDOps |\n ---  --- |\n| Scope | Pre-deployment (offline)\\ | Pre-deployment (offline)\\ | Entire lifecycle (offline and online) |\n| Requirements | Static, explicit | Stakeholder-defined scenarios | Evolving, context-driven |\n| Approach | Unit tests, binary assertions | Acceptanc…",
+   "title": "Evaluation-Driven Development and Operations of LLM Agents: A Process Model and Reference Architecture",
+   "url": "https://arxiv.org/html/2411.13768v3"
+  },
+  {
+   "chars_delivered": 2182,
+   "published": null,
+   "text": "Simulation-based agent testing (Scenario) for scripted multi-turn text and voice tests, scored by a trace-reading judge locally and in CI\n LLM-as-a-judge, custom code, and workflow evaluators over single outputs or whole conversations, offline and online\n Built-in runtime guardrails for PII and pro…",
+   "title": "Top 9 LLM Evaluation Tools in 2026 - Confident AI",
+   "url": "https://www.confident-ai.com/knowledge-base/compare/best-llm-evaluation-tools"
+  }
+ ],
+ "latency_ms": 2917.1,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q17",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How do teams verify autonomous agent output without human code review: eval-driven development, scenario or holdout tests, property-based tests, LLM-as-judge, cross-model review, and digital twins of external services? What evidence exists on how well each catches defects?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q17-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 23020,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:53.897301Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

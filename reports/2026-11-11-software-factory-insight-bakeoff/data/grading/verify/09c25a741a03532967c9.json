@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "0a5357b0f94b569f",
+ "url": "https://arxiv.org/html/2411.13768v3",
+ "verdicts": {
+  "An arXiv paper on evaluation-driven development (EDDOps) notes that AI-only judging can miss context and be miscalibrated, can inherit bias, display confidence without accuracy, and disagree with human judgments, and that the academic sample it reviewed skews strongly toward AI-only evaluators.": 1,
+  "The EDDOps approach unifies offline (development-time) and online (runtime) evaluation in a closed feedback loop, with evaluation evidence driving both runtime adaptation and governed redevelopment.": 1,
+  "The EDDOps paper (a multivocal literature review) argues that TDD and BDD assume stable specifications, executable oracles and mostly pre-deployment testing, which does not fit LLM agents that are non-deterministic, pursue under-specified goals and keep adapting after deployment.": 1,
+  "The EDDOps paper says existing benchmarks focus on model-level behavior, static datasets and aggregate scores, giving limited visibility into intermediate artifacts and long-horizon workflows and rarely connecting to runtime observability.": 1
+ }
+}

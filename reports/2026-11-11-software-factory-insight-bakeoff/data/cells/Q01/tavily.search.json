@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 3.0,
+  "usd": 0.024
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:15:26.616603Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 1595,
+   "page_chars_delivered": 36733,
+   "post_step": "fetched",
+   "published": null,
+   "text": "StrongDM eliminates human code writing and review by using coding agents validated through scenario based testing and large scale simulation. The company built a non-interactive Software Factory in which specifications and scenarios drive agents that generate code, execute harnesses, and iterate un…",
+   "title": "StrongDM's AI-Driven Code Generation and Testing | Stephen Pimentel posted on the topic | LinkedIn",
+   "url": "https://www.linkedin.com/posts/stephenpimentel_how-strongdms-ai-team-build-serious-software-activity-7430023646473236480-oTc2"
+  },
+  {
+   "chars_delivered": 2329,
+   "page_chars_delivered": 24797,
+   "post_step": "fetched",
+   "published": null,
+   "text": "purpose\n:   Reported\n\nworkflow\n:   Reported\n\nhuman involvement\n:   Reported: The standing rules exclude humans from writing or reviewing code; what happens when a run fails to converge is not documented, and the unknown attention-boundary judgment stays in research details.\n\nimplementation\n:   Repo…",
+   "title": "Software Factory at StrongDM · Internal Agents Map",
+   "url": "https://internal-agents.com/agents/strongdm-software-factory"
+  },
+  {
+   "chars_delivered": 2245,
+   "page_chars_delivered": 22452,
+   "post_step": "fetched",
+   "published": null,
+   "text": "FAQ\n\nWhat is StrongDM Software Factory?\n\nA non-interactive development system where specs and scenarios drive coding agents that write, test, and converge code without any human review or intervention.\n\nWhat is the Digital Twin Universe?\n\nBehavioral clones of third-party services (Okta, Jira, Slack…",
+   "title": "StrongDM Software Factory | Ry Walker Research",
+   "url": "https://rywalker.com/research/strongdm-factory"
+  },
+  {
+   "chars_delivered": 1600,
+   "published": null,
+   "text": "|  | | I built this over the weekend after reading about StrongDM's software factory (their writeup: , Simon Willison's deep dive: , Dan Shapiro's Five Levels:  OctopusGarden is an open-source implementation of the pattern StrongDM described: holdout scenarios, probabilistic satisfaction scoring vi…",
+   "title": "Show HN: OctopusGarden – An autonomous software factory (specs in, code out) | Hacker News",
+   "url": "https://news.ycombinator.com/item?id=47226107"
+  },
+  {
+   "chars_delivered": 2241,
+   "published": null,
+   "text": "Back to Case Studies \n\n# StrongDM Software Factory\n\nASDM Level 6: Autonomous Coding & Review\n\nHow StrongDM's Software Factory removes humans from coding and code review, replacing review with scenario-based validation and Digital Twin testing.\n\nASDM Level 6 StrongDM Infrastructure Software February…",
+   "title": "StrongDM Software Factory | ProductBuildersHQ",
+   "url": "https://productbuildershq.com/case-studies/strongdm-software-factory"
+  },
+  {
+   "chars_delivered": 1497,
+   "published": null,
+   "text": "Image 1: Sls logo\n\n# Built by Agents, Tested by Agents, Trusted by Whom?\n\n    February 8, 2026 \n   By\n       Eran Kahana\n\n   Subscribe\n   Share on Twitter\n   Share on Facebook\n\nOn February 6, 2026, StrongDM’s AI team published a manifesto. Three engineers described a “Software Factory” where coding…",
+   "title": "Built by Agents, Tested by Agents, Trusted by Whom? | Stanford Law School",
+   "url": "https://law.stanford.edu/2026/02/08/built-by-agents-tested-by-agents-trusted-by-whom"
+  },
+  {
+   "chars_delivered": 2142,
+   "published": null,
+   "text": "Now apply that to StrongDM's context. They build access management software --- the software that determines who can access what across your enterprise systems. Applying \"no human review\" to security-critical software means trusting AI agents to get security right, when every major study shows AI c…",
+   "title": "The Software Factory: When No Human Writes or Reviews the Code",
+   "url": "https://www.thepragmaticcto.com/publish/post/187277478"
+  },
+  {
+   "chars_delivered": 2142,
+   "published": null,
+   "text": "Now apply that to StrongDM's context. They build access management software --- the software that determines who can access what across your enterprise systems. Applying \"no human review\" to security-critical software means trusting AI agents to get security right, when every major study shows AI c…",
+   "title": "The Software Factory: When No Human Writes or Reviews the Code",
+   "url": "https://www.thepragmaticcto.com/p/the-software-factory-when-no-human"
+  },
+  {
+   "chars_delivered": 1167,
+   "published": null,
+   "text": "A few weeks ago, a three-person team at StrongDM, a security software company focusing on access control, announced they had built a Software Factory — a way of working with AI agents that relied entirely on the AI to write, test, and ship production software without human involvement. The process…",
+   "title": "StrongDM's AI-Driven Software Factory Revolutionizes Access Control | Neeraj Singh posted on the topic | LinkedIn",
+   "url": "https://www.linkedin.com/posts/neerajsingh0101_the-shape-of-the-thing-activity-7438669770981482497-Iibl"
+  },
+  {
+   "chars_delivered": 2037,
+   "published": null,
+   "text": "StrongDM's position is that AI code is opaque and should be validated purely through observable behavior: no human reading the code, no human review in the merge path at all. Their dark-factory build takes this literally: code is neither written nor reviewed by humans, and quality is enforced entir…",
+   "title": "What Is a Software Factory? How AI Agents Ship Code",
+   "url": "https://murraycole.com/posts/software-factory"
+  }
+ ],
+ "latency_ms": 7879.0,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q01",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "How does StrongDM's 'Software Factory' work, where no human writes or reviews code? What are its scenario holdouts and digital twin universe, how is correctness verified, and what results or problems have been reported?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q01-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 22304,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:15:18.737514Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "aeb76fb460448992",
+ "claims": [
+  {
+   "text": "The trajectory-informed memory framework on the AppWorld benchmark improved scenario goal completion (SGC) by up to 14.3 percentage points on held-out tasks, from 50.0% to 64.3%.",
+   "url": "https://arxiv.org/pdf/2603.10600v1"
+  },
+  {
+   "text": "On complex multi-step tasks, the trajectory-informed memory framework improved SGC by 28.5 percentage points, a 149% relative increase.",
+   "url": "https://arxiv.org/pdf/2603.10600v1"
+  },
+  {
+   "text": "The trajectory-informed memory framework has four components: a Trajectory Intelligence Extractor, a Decision Attribution Analyzer, a Contextual Learning Generator, and an Adaptive Memory Retrieval System.",
+   "url": "https://arxiv.org/pdf/2603.10600v1"
+  },
+  {
+   "text": "The Contextual Learning Generator produces three tip types: strategy tips from successful patterns, recovery tips from failure handling, and optimization tips from inefficient but successful executions.",
+   "url": "https://arxiv.org/pdf/2603.10600v1"
+  },
+  {
+   "text": "Each learning in the trajectory-informed memory framework keeps provenance, a link to the source trajectory and outcome, so teams can check whether similar failures still occur after the learning is deployed and can audit the system's decisions.",
+   "url": "https://arxiv.org/html/2603.10600v1"
+  },
+  {
+   "text": "Retrieved tips are injected as a 'guidelines' section after the task context and before the standard agent instructions, formatted with priority, category, actionable content, purpose, implementation steps and trigger condition.",
+   "url": "https://arxiv.org/pdf/2603.10600v1"
+  },
+  {
+   "text": "Retrieval supports cosine similarity (a fast vector lookup with no LLM call) or LLM-guided selection (richer reasoning at the cost of an extra LLM call). Tips are filtered by a similarity threshold of 0.5 to 0.7 and then capped at the top k of 5 to 10 to prevent prompt bloat.",
+   "url": "https://arxiv.org/pdf/2603.10600v1"
+  },
+  {
+   "text": "Xiong et al. identified an 'experience-following property' in which agents closely follow retrieved experiences, so mismatched retrieval directly degrades performance. They also identified error propagation and misaligned experience replay as failure modes, and found that combining selective addition with selective deletion yields a 10% absolute performance gain over naive accumulation.",
+   "url": "https://arxiv.org/pdf/2603.10600v1"
+  },
+  {
+   "text": "Self-Direction distills a lesson from a failed trajectory into a separate low-rank adapter (about 0.02% of base-model parameters) kept in a persistent library, with the base model and earlier adapters frozen. A router picks adapters by similarity between the current task description and the descriptions of previously seen tasks.",
+   "url": "https://arxiv.org/html/2610.31846"
+  },
+  {
+   "text": "On 185 prior mistakes across GAIA, Terminal-Bench 2.1 and Claw-Eval, Self-Direction raised pass^3 from 9.7% to 18.9%. On Claw-Eval pass^3 rose from 51.6% to 64.6%.",
+   "url": "https://arxiv.org/html/2610.31846"
+  },
+  {
+   "text": "On GAIA, encoding failure reflections in model weights gave 10.3 percentage points higher task success than loading the same reflections into context.",
+   "url": "https://arxiv.org/html/2610.31846"
+  },
+  {
+   "text": "Self-Direction routes every first attempt to the unchanged base model and retrieves adapters only after a mistake, limiting interference with existing capabilities.",
+   "url": "https://arxiv.org/html/2610.31846"
+  },
+  {
+   "text": "In a counterfactual replay of five past failures in one repository, three of the four replayable behavioural failures did not recur on Sonnet 5.5 even without their fix. Only the stale-count failure recurred without its pre-commit check (3 of 3 runs), and the check stopped it in every run.",
+   "url": "https://arxiv.org/html/2610.32578v1"
+  },
+  {
+   "text": "A written prompt rule on run-time estimates did not change Sonnet 4.5's overestimates. An em-dash lint check rejected an em-dash an older-model agent drafted.",
+   "url": "https://arxiv.org/html/2610.32578v1"
+  },
+  {
+   "text": "The studied harness had no automated way to retire old lessons, and rules were pruned only once, in a manual simplification pass. The author concludes that tools that evolve harnesses add lessons faster than they retire them.",
+   "url": "https://arxiv.org/html/2610.32578v1"
+  },
+  {
+   "text": "The author recommends that each rule record the model version that motivated it and a re-test date. When the base model is upgraded, the stored trigger task should be replayed without the lesson to archive obsolete prompt rules, and new lessons should be checked for false positives before going live.",
+   "url": "https://arxiv.org/html/2610.32578v1"
+  },
+  {
+   "text": "Vendor guides describe prompt rule files as advisory rather than guaranteed enforcement, recommend runtime hooks for hard constraints and on-demand skills to keep always-loaded context small, and the literature catalogues configuration smells such as rule bloat and contradictory directives.",
+   "url": "https://arxiv.org/html/2610.32578v1"
+  },
+  {
+   "text": "The replay results come from one repository with three runs per condition and are reported as exploratory. Stale documentation was the largest failure class (48 of 118 failures), although 35 of those were found on a single audit day.",
+   "url": "https://arxiv.org/html/2610.32578v1"
+  },
+  {
+   "text": "GEPA-Curator, which skips failures caused by the harness, environment or a flaky judge, raised AppWorld success from 38.0% (plain GEPA) to 58.7% with the same actor model.",
+   "url": "https://learnagentic.substack.com/p/your-prompt-optimizer-learns-from"
+  },
+  {
+   "text": "A prompt rule learned from failures on impossible tasks ('Global code search is often limited or disabled') pushed the agent toward exhaustive exploration. Validation gating did not catch this harmful edit, because aggregate-score validation can pass a rule that fixes one noisy task and breaks another.",
+   "url": "https://learnagentic.substack.com/p/your-prompt-optimizer-learns-from"
+  },
+  {
+   "text": "Error reproduction is a feedback loop in which an erroneous stored abstraction shapes execution trajectories, and rules later extracted from those trajectories regenerate the same error.",
+   "url": "https://arxiv.org/html/2610.27406v1"
+  },
+  {
+   "text": "Anti-Persistence keeps raw trajectories and outcomes but synthesizes guidance on demand and discards it after each task. Across three benchmarks and three backbones it achieved higher held-out success with the fewest LLM calls on average among the evaluated memory designs.",
+   "url": "https://arxiv.org/html/2610.27406v1"
+  },
+  {
+   "text": "In one study, injecting 'cold-priors' skill text (written from the proposer model's own priors rather than from observed transcripts) produced no significant quality lift and raised K2's anti-pattern violation rate from 1% to 7%.",
+   "url": "https://www.chasewhughes.com/writing/self-recursive-improvement"
+  },
+  {
+   "text": "A closed-loop framework codified every accepted review comment as a persistent rule in a version-controlled instruction file, growing from 5 to 18 behavioral rules plus a 15-item self-review checklist. Across 9 tracked error classes and 74 post-rule session-exposures it saw zero recurrences, but the authors call this observational, not controlled, evidence.",
+   "url": "https://arxiv.org/html/2607.13091v1"
+  },
+  {
+   "text": "CASCADE stores each incident with its conditions, outcome, operational boundary, confidence and provenance. It treats similarity as evidence, not permission: a past recovery (for example one that worked at about 45% spare capacity) is not reused automatically when a condition is no longer satisfied (38% spare capacity), and low-confidence or contradicted knowledge requires approval or is blocked.",
+   "url": "https://dev.to/manidhar_bheempadu_3bf365/when-ai-agent-memory-learns-what-not-to-reuse-f9b"
+  }
+ ],
+ "question_id": "Q23"
+}

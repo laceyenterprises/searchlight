@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "c37106c0e8ff5365",
+ "url": "https://learn.microsoft.com/en-us/entra/agent-id/interactive-agent-authentication-authorization-flow",
+ "verdicts": {
+  "A redirect URI on an Entra agent identity blueprint supports only `response_type=none`, so consent requests record consent and return no tokens; admin consent can be granted tenant-wide so users need not consent again.": 1,
+  "In Microsoft Entra Agent ID, inheritable permissions configured on an agent identity blueprint preauthorize delegated scopes and application roles that agent identities created from the blueprint inherit without interactive consent prompts.": 1,
+  "Microsoft Entra Agent ID's interactive-agent flow has four steps: grant permissions via inheritable permissions or consent, authenticate the user and get an access token, validate the token and extract user claims, and acquire downstream tokens via the On-Behalf-Of (OBO) flow.": 1,
+  "Microsoft warns that client secrets shouldn't be used as credentials for agent identity blueprints in production, recommending federated identity credentials (FIC) with managed identities or client certificates.": 1
+ }
+}

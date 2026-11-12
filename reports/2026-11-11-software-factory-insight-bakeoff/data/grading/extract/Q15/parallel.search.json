@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "9508c361a909ecd8",
+ "claims": [
+  {
+   "text": "OpenFGA documentation states that without fine-grained authorization, AI agents often operate with broad credentials and access more than they should; OpenFGA patterns are used to scope agent permissions precisely.",
+   "url": "https://openfga.dev/docs/modeling/agents"
+  },
+  {
+   "text": "OpenFGA divides agent authorization into two domains: first-party (what the agent can do inside the organization's own application) and third-party (what the agent can do in external systems such as Slack, Jira, GitHub).",
+   "url": "https://openfga.dev/docs/modeling/agents"
+  },
+  {
+   "text": "For first-party authorization, OpenFGA's common pattern is to model agents as first-class principals in the authorization model so they participate in the same permission hierarchy as users; for example, an agent with project membership can read all issues in that project.",
+   "url": "https://openfga.dev/docs/modeling/agents"
+  },
+  {
+   "text": "For third-party systems that the organization does not control, OpenFGA models permissions around the tools and resources the agent can access, narrowing scope beyond what the external credential allows.",
+   "url": "https://openfga.dev/docs/modeling/agents"
+  },
+  {
+   "text": "OpenFGA Task-Based Authorization starts agents with zero permissions and gives them narrowly scoped grants per task, with optional expiration, turn limits, and agent binding, for both first-party and third-party resources.",
+   "url": "https://openfga.dev/docs/modeling/agents"
+  },
+  {
+   "text": "OpenFGA documents agent patterns for RAG authorization (ensuring agents only retrieve documents the user is authorized to access) and for MCP servers (controlling which tools each user can access based on roles, group membership, and temporal grants).",
+   "url": "https://openfga.dev/docs/modeling/agents"
+  },
+  {
+   "text": "OpenFGA distinguishes acting 'on behalf of' a user from acting 'as' the user: a well-modeled agent has its own identity, inherits only the permissions it needs, and can be revoked independently of the user it serves.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "In OpenFGA, agents appear on the left side of tuples like users do, so check, list-objects, and list-users all work on agent identities.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "OpenFGA expresses delegation with relations such as `can_act_on_behalf_of`, making delegation explicit and revocable rather than copying user permissions.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "OpenFGA scope for an agent can be bounded to a specific workspace, document set, or tool rather than the user's entire footprint.",
+   "url": "https://openfga.dev/docs/use-cases/ai-agent-authorization"
+  },
+  {
+   "text": "Google Cloud Agent Identity provides each agent a strongly attested, cryptographic identity based on the SPIFFE standard.",
+   "url": "https://docs.cloud.google.com/iam/docs/agent-identity-overview"
+  },
+  {
+   "text": "Google Cloud agent identities are not shared by multiple workloads, unlike service accounts.",
+   "url": "https://docs.cloud.google.com/iam/docs/agent-identity-overview"
+  },
+  {
+   "text": "Google Cloud's Agent Identity auth manager creates and manages auth providers, the configurations used to acquire, manage, and secure API keys, OAuth client IDs, OAuth client secrets, and delegated end-user OAuth tokens.",
+   "url": "https://docs.cloud.google.com/iam/docs/agent-identity-overview"
+  },
+  {
+   "text": "Google Cloud Agent Identity gives each deployed agent a cryptographically attested SPIFFE identity and an auto-provisioned X.509 certificate, representing the agent acting on its own authority.",
+   "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/agent-identity-overview"
+  },
+  {
+   "text": "Google Cloud defines a 'delegated identity' as the combined authority context when an agent acts for the initiating human user using scoped 3-legged OAuth (3LO); user-delegated authority via 3LO is used for external tools such as a user's Jira tasks or GitHub repositories.",
+   "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/agent-identity-overview"
+  },
+  {
+   "text": "Microsoft Entra Agent ID's interactive-agent flow has four steps: grant permissions via inheritable permissions or consent, authenticate the user and get an access token, validate the token and extract user claims, and acquire downstream tokens via the On-Behalf-Of (OBO) flow.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/interactive-agent-authentication-authorization-flow"
+  },
+  {
+   "text": "In Microsoft Entra Agent ID, inheritable permissions configured on an agent identity blueprint preauthorize delegated scopes and application roles that agent identities created from the blueprint inherit without interactive consent prompts.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/interactive-agent-authentication-authorization-flow"
+  },
+  {
+   "text": "A redirect URI on an Entra agent identity blueprint supports only `response_type=none`, so consent requests record consent and return no tokens; admin consent can be granted tenant-wide so users need not consent again.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/interactive-agent-authentication-authorization-flow"
+  },
+  {
+   "text": "Microsoft warns that client secrets shouldn't be used as credentials for agent identity blueprints in production, recommending federated identity credentials (FIC) with managed identities or client certificates.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/interactive-agent-authentication-authorization-flow"
+  },
+  {
+   "text": "In Entra Agent ID, agent identity blueprints and child agent identities cannot initiate interactive /authorize flows; interactive consent on a child identity returns AADSTS82014, so delegated permissions must be preauthorized via inheritable permissions on the blueprint with admin consent.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/agent-on-behalf-of-oauth-flow"
+  },
+  {
+   "text": "Entra Agent ID's OBO flow uses two token exchanges: the blueprint presents its client credential (secret, certificate, or managed-identity FIC) with `fmi_path` naming the agent identity to get token T1, then the agent identity exchanges T1 plus the user's token Tc for a resource token.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/agent-on-behalf-of-oauth-flow"
+  },
+  {
+   "text": "Entra validates that the user token Tc has audience equal to the blueprint client ID (otherwise AADSTS50013) and that T1 is bound to the blueprint (azp) with its sub (the FMI path) resolving to the child agent identity performing the exchange.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/agent-on-behalf-of-oauth-flow"
+  },
+  {
+   "text": "Entra Agent ID supports the grant types client_credential, jwt-bearer, and refresh_token for agents; refresh tokens support asynchronous and background scenarios.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/agent-on-behalf-of-oauth-flow"
+  },
+  {
+   "text": "Entra agent identities can inherit delegated permissions from the parent blueprint when `InheritDelegatedPermissions` is enabled, which works only within tenant boundaries.",
+   "url": "https://learn.microsoft.com/en-us/entra/agent-id/agent-on-behalf-of-oauth-flow"
+  },
+  {
+   "text": "IETF draft draft-klrc-aiagent-auth says that when an agent acts for a user or system, that principal must delegate authority to the agent, and the user/system context is preserved as input to authorization decisions and recorded in audit trails; the draft builds on SPIFFE, WIMSE, OAuth and OpenID SSF, and allows agents to exchange credentials via OAuth 2.0 Token Exchange or Transaction Tokens.",
+   "url": "https://www.ietf.org/archive/id/draft-klrc-aiagent-auth-03.html"
+  }
+ ],
+ "question_id": "Q15"
+}

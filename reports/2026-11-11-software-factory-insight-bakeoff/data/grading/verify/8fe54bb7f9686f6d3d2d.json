@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "35f53931577a4da7",
+ "url": "https://rywalker.com/research/spotify-honk",
+ "verdicts": {
+  "A Spotify dataset migration exposed limits of automation: repositories lacking tests needed repository owners to test changes manually, and some needed ambiguous field mappings.": 1,
+  "A later QCon account describes moving full validation to existing CI via a separate verification service, because permissions, Docker and OS differences made the agent's own runtime a poor substitute for CI; the agent can still run cheaper checks locally first.": 1,
+  "Spotify markets Honk-powered migrations externally as Fleetshift in Spotify Portal, with demo-led access; the migration results are company-reported case studies.": 1,
+  "Spotify's December 2025 design exposes verification as a tool: verifiers activate based on repository contents, run relevant checks and return concise feedback, and a stop hook can prevent PR creation when required checks fail.": 1,
+  "Spotify's December post identifies a CI-passing but incorrect change as the most serious failure mode, and describes an LLM judge that compares the diff with the request.": 1,
+  "Spotify's background agent CLI also integrates GCP logs and MLflow traces, and is designed so agents or models can be replaced without rebuilding the surrounding workflow.": 1,
+  "The agent has limited permissions; surrounding infrastructure handles pushing code and interacting with people.": 1
+ }
+}

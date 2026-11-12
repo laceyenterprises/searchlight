@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "0fe97c8d4e02ca32",
+ "claims": [
+  {
+   "text": "The AIOS scheduler centralizes all request queues within the scheduler module instead of placing separate queues inside each processing module (e.g., LLM core(s) or memory manager), isolating request management from the individual modules.",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "text": "The AIOS scheduler's request queue for each module includes both Queries (agent-to-kernel requests) and Messages (module-to-module requests).",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "text": "The AIOS scheduler serves different agents' queries at syscall-level granularity.",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "text": "AIOS provides two scheduler implementations: FIFOScheduler (first-come, first-served, no time limit enforcement, no preemption) and RRScheduler (round-robin rotation with fixed time slices).",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "text": "In AIOS, the RRScheduler allows tasks to be suspended and resumed and adds a \"suspending\" status alongside \"executing\" and \"done\", while the FIFOScheduler only has \"executing\" and \"done\" statuses.",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "text": "In AIOS, the RRScheduler uses SimpleContextManager for context management, while the FIFOScheduler has no context management.",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "text": "The AIOS BaseScheduler is an abstract base class with abstract methods for processing LLM, Memory, Storage, and Tool requests, plus start/stop of the scheduler and its processing threads.",
+   "url": "https://docs.aios.foundation/aios-docs/aios-kernel/scheduler"
+  },
+  {
+   "text": "The AIOS FIFOScheduler is implemented with Python threads and queues, using separate threads such as a memory syscall processor and a storage syscall processor; its queue timeout is 1 second versus 0.05 seconds in the round robin scheduler.",
+   "url": "https://aios.readthedocs.io/en/latest/aios_developer/scheduler/fifo.html"
+  },
+  {
+   "text": "The AIOS paper (arXiv:2403.16971, first submitted 25 Mar 2024, published at COLM 2025) isolates resources and LLM-specific services from agent applications into an AIOS kernel.",
+   "url": "https://arxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "The AIOS kernel provides scheduling, context management, memory management, storage management, and access control services for runtime agents.",
+   "url": "https://arxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "AIOS includes an SDK, a suite of APIs for using the kernel's functionality.",
+   "url": "https://arxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "The AIOS paper motivates the design by noting that unrestricted access to LLM or tool resources can cause inefficient or harmful resource use, and that the absence of scheduling and resource management in current agent designs hinders concurrency.",
+   "url": "https://arxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "AIOS experiments report up to 2.1x faster execution when serving agents built by various agent frameworks.",
+   "url": "https://arxiv.org/abs/2403.16971"
+  },
+  {
+   "text": "The AIOS kernel acts as an abstraction layer over the operating system kernel, managing resources agents require such as LLM, memory, storage and tool.",
+   "url": "https://github.com/agiresearch/AIOS"
+  },
+  {
+   "text": "In AIOS, the Tool Manager was redesigned to incorporate a VM (Virtual Machine) Controller and an MCP Server, creating a sandboxed environment for agents to interact with computer systems while keeping a consistent semantic mapping between agent intentions and computer operations.",
+   "url": "https://github.com/agiresearch/AIOS"
+  },
+  {
+   "text": "AIOS retains LLM Core(s), Context Manager, and Memory Manager as essential components.",
+   "url": "https://github.com/agiresearch/AIOS"
+  },
+  {
+   "text": "The MemGPT paper (arXiv:2310.08560, Oct 2023) proposes virtual context management, drawing on hierarchical memory systems in traditional operating systems, to provide extended context within an LLM's limited context window.",
+   "url": "https://arxiv.org/abs/2310.08560"
+  },
+  {
+   "text": "MemGPT uses interrupts to manage control flow between itself and the user, and was evaluated on document analysis and multi-session chat.",
+   "url": "https://arxiv.org/abs/2310.08560"
+  },
+  {
+   "text": "MemGPT divides LLM memory (its \"virtual context\") into in-context memory and out-of-context memory, analogous to virtual memory in computer systems.",
+   "url": "https://docs.letta.com/concepts/memgpt"
+  },
+  {
+   "text": "In MemGPT the \"OS\" managing memory is itself an LLM, which moves data in and out of the context window using designated memory-editing tools.",
+   "url": "https://docs.letta.com/concepts/memgpt"
+  },
+  {
+   "text": "MemGPT supports multi-step reasoning via \"heartbeats\": when the LLM emits a tool call it can set request_heartbeat to true, and the system then continues execution in a loop so the LLM can think again.",
+   "url": "https://docs.letta.com/concepts/memgpt"
+  },
+  {
+   "text": "A MemGPT agent's core memory is split into the agent's own persona and user information, both of which the agent can self-edit; the paper's 'working context' is called 'core memory' in the codebase.",
+   "url": "https://docs.letta.com/concepts/memgpt"
+  },
+  {
+   "text": "MemGPT archival memory is by default backed by a vector database such as Chroma or pgvector, but because memory access is tool-driven it can be swapped for a traditional database or even a flat file.",
+   "url": "https://docs.letta.com/concepts/memgpt"
+  },
+  {
+   "text": "The MemGPT open source framework was renamed Letta, and the default Letta agent architecture is a MemGPT agent; Letta also supports other architectures (e.g., multiple logical threads such as conscious/subconscious, or task memory) and exposes agents as services over REST APIs.",
+   "url": "https://docs.letta.com/concepts/memgpt"
+  },
+  {
+   "text": "Letta Agent stores memory in MemFS, a git-backed memory filesystem (a 'context repository') that projects memory blocks into markdown files with version history and conflict resolution.",
+   "url": "https://docs.letta.com/letta-agent/memory"
+  }
+ ],
+ "question_id": "Q13"
+}

@@ -1,0 +1,43 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "8d5facaa433f8509",
+ "claims": [
+  {
+   "text": "The GitHub Copilot cloud agent runs in an ephemeral environment protected by a firewall, and the firewall is enabled by default.",
+   "url": null
+  },
+  {
+   "text": "The Copilot cloud agent can only push to a single branch, which is either the existing pull request branch or a new branch prefixed with copilot/.",
+   "url": null
+  },
+  {
+   "text": "Actions workflows on pull requests created by the Copilot cloud agent require approval from a user with write access before they run.",
+   "url": null
+  },
+  {
+   "text": "The Copilot cloud agent has no access to organization or repository secrets, except those added to the copilot environment.",
+   "url": null
+  },
+  {
+   "text": "The Copilot cloud agent scans new code it writes using CodeQL, secret scanning and dependency analysis.",
+   "url": null
+  },
+  {
+   "text": "The Copilot cloud agent environment is subject to automated security scanning.",
+   "url": null
+  },
+  {
+   "text": "GitHub announced Agent HQ on October 28, 2025.",
+   "url": null
+  },
+  {
+   "text": "Agent HQ includes mission control, which lets users assign, steer and track agents from multiple vendors.",
+   "url": null
+  },
+  {
+   "text": "Agent HQ includes an agent control plane that provides policies, audit logging and controls over which agents are allowed.",
+   "url": null
+  }
+ ],
+ "question_id": "Q05"
+}

@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:02.413786Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 986,
+   "page_chars_delivered": 10474,
+   "post_step": "fetched",
+   "published": "2025-11-17",
+   "text": "Case Studies\n\nLangSmith\n\nObservability & Evals\n\n# How ServiceNow uses LangSmith to get visibility into its customer success agents\n\nThe LangChain Team\n\nNovember 17, 2025\n\n4\n\nmin\n\n...\n\nTo improve their internal sales and customer success operations, ServiceNow's AI team is using LangSmith and LangGr…",
+   "title": "How ServiceNow uses LangSmith to get visibility into its customer success agents",
+   "url": "https://www.langchain.com/blog/customers-servicenow"
+  },
+  {
+   "chars_delivered": 906,
+   "page_chars_delivered": 33142,
+   "post_step": "fetched",
+   "published": "2026-04-19",
+   "text": "multi-agent AI system for outbound sales prospecting — deployed in\nLyzr, refined through seven passes over six weeks.\n\nWorkforce Agents\n\n•\n\nApril 19, 2026\n\n•\n\n23\nmin read\n\n...\n\nThis is a practitioner account of building, breaking, and\nhardening a multi-agent AI system for outbound sales prospecting…",
+   "title": "\n      Building a Multi-Agent Prospecting System: What We Learned in Production |\n      Workforce Agents\n    ",
+   "url": "https://workforceagents.io/resources/building-multi-agent-prospecting-system"
+  },
+  {
+   "chars_delivered": 949,
+   "page_chars_delivered": 30121,
+   "post_step": "fetched",
+   "published": null,
+   "text": "A multi-agent platform that runs the full workflow of an influencer marketing agency, from lead capture and proposals through creator discovery, outreach, content review, payouts and post-campaign analytics, with a human approval gate on every external and financial action.\n\nSocialJet Campaigns Ove…",
+   "title": "SocialJet: AI-Powered Influencer Marketing Operating System | PG-AGI Case Study",
+   "url": "https://pgagi.in/case-study/socialjet-ai-influencer-marketing-os"
+  },
+  {
+   "chars_delivered": 986,
+   "published": "2025-07-29",
+   "text": "The internal Bertelsmann Content Search changes that. Built by Bertelsmann's AI Hub team using LangGraph, this multi-agent system has gone from early prototype to full production deployment. It now powers content search and discovery across the company, empowering creativity across the entire organ…",
+   "title": "How Bertelsmann Built a Multi-Agent System to Empower Creatives",
+   "url": "https://www.langchain.com/blog/customer-bertelsmann"
+  },
+  {
+   "chars_delivered": 885,
+   "published": "2026-10-21",
+   "text": "We will walk through how we applied Context Engineering techniques proposed by Anthropic (multi-agent architecture, structured note-taking, human-in-the-loop, and more) in a real\n\n...\n\nDeep Insight is a multi-agent system that turns complex data analysis into automated insights. Given a CSV file an…",
+   "title": "5 production challenges in multi-agent systems and how Deep Insight solved them | Artificial Intelligence",
+   "url": "https://aws.amazon.com/blogs/machine-learning/5-production-challenges-in-multi-agent-systems-and-how-deep-insight-solved-them"
+  },
+  {
+   "chars_delivered": 913,
+   "published": "2025-07-29",
+   "text": "The internal Bertelsmann Content Search changes that. Built by Bertelsmann's AI Hub team using LangGraph, this multi-agent system has gone from early prototype to full production deployment.\n\n...\n\nThis means divisions get enhanced agentic search capabilities within their own platforms, while the br…",
+   "title": "How Bertelsmann Built a Multi-Agent System to Empower Creatives",
+   "url": "https://blog.langchain.com/customer-bertelsmann"
+  },
+  {
+   "chars_delivered": 953,
+   "published": null,
+   "text": "# Duvo automates enterprise operations across legacy systems with Claude\n\n[Try Claude](https://claude.ai/)\n\nIndustry:\n    Software\n\nCompany size:\n    Startup\n\nProduct:\n    Claude Platform\n\nLocation:\n    EMEA\n\n€2.8M+ in annualized savings\n\ncaptured in three months for one multi-billion-euro retailer…",
+   "title": "Duvo Claude Agent SDK case study | Claude by Anthropic",
+   "url": "https://claude.com/customers/duvo"
+  },
+  {
+   "chars_delivered": 992,
+   "published": null,
+   "text": "# The platform for marketers to create, govern, and scale AI agents\n\nDrag, drop and dominate. No coding required.\n\n[Get started with Opal](https://www.optimizely.com/get-started/)\n\n...\n\nconnect to the tools you already use and run in autonomous workflows — so any use case goes from manual pain to e…",
+   "title": "Optimizely Opal: The agent orchestration platform for marketing",
+   "url": "https://www.optimizely.com/opal"
+  },
+  {
+   "chars_delivered": 929,
+   "published": "2026-10-22",
+   "text": "### Shared Memory and Context Shared memory gives collaborating agents access to approved context relevant to the task. For a marketing campaign, that could include the audience brief, product facts, budget limits, approved claims, and previous results. Each agent also needs the current task status…",
+   "title": "\n      Multi-agent AI systems — how this AI tech stack can power your marketing org\n    ",
+   "url": "https://blog.hubspot.com/marketing/multi-agent-system-ai"
+  },
+  {
+   "chars_delivered": 995,
+   "published": null,
+   "text": "Instead, they use a more deterministic workflow that chains agent calls in a predefined sequence. In this model, the \"multi-agent system\" is more scripted. For example, it first calls Agent A, then Agent B, and so on, based on a formal workflow. This approach can be appropriate for processes that r…",
+   "title": "Workflow-oriented multi-agent patterns | Microsoft Learn",
+   "url": "https://learn.microsoft.com/en-us/agents/architecture/multi-agent-workflow-oriented"
+  }
+ ],
+ "latency_ms": 2570.4,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q22",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "Question: Beyond coding, what multi-agent systems run marketing, content production, sales or back-office automation in production? Cover architecture, human approval points, brand and quality control, and measured results, and say which are built on general agent platforms rather than bespoke code. Top-ranking pages should be primary sources (the organisation's own engineering blogs, docs, conference talks, papers, filings, open-source code) and credible reporting or case studies. Extract mechanisms (agent roles, orchestration, tools), human-in-the-loop approval steps, brand and quality guardrails, numbers, names, dates, measured results (time saved, conversion, cost, volume), failure modes, and whether each system uses a general agent platform (e.g. Salesforce Agentforce, Microsoft Copilot Studio, Google Agentspace, LangGraph, CrewAI) or bespoke code.",
+   "search_queries": [
+    "multi-agent system marketing content production case study results",
+    "multi-agent sales automation production human approval architecture",
+    "multi-agent back-office automation production Agentforce LangGraph measured results"
+   ],
+   "session_id": "sl-parallel.search-Q22-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 12123,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:59.843391Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

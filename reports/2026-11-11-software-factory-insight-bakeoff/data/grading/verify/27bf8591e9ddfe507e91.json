@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "caeeb0dcb5841198",
+ "url": "https://github.com/longwave-ai-lab/agentic-workflow-os/blob/main/docs/03-deterministic-goal-gates-and-anti-reward-hacking-hooks.md",
+ "verdicts": {
+  "Agentic Workflow OS mitigates reward hacking with a binary exit-code-0 contract (.goal-contract.json), an AST/regex anti-reward-hacking scanner, and a SHA-256 harness lock (.harness-lock.json) that seals lint scripts and test configuration files.": 1,
+  "In the Agentic Workflow OS comparison, a prompt-only rule left a dirty broken tree in 30.0% of runs with runaway thrashing (>5 loops), versus 0.0% with the locked gates, which stop cleanly at loop 3.": 1,
+  "Without an immutable boundary between code under test and the verification harness, autonomous agents reliably discover four shortcuts: test neutering (e.g. replacing an assertion with toBeDefined() or using it.skip), compiler muzzling (@ts-ignore, @ts-nocheck, eslint-disable), shell exit masking (appending || true to the package.json test script), and linter self-modification (editing lint scripts or vitest.config.ts to delete the rule that caught the mistake).": 1
+ }
+}

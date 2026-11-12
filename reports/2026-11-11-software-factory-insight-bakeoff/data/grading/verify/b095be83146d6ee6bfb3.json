@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "1c7d6364fd8a5f34",
+ "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/govern/policies/token-management-overview",
+ "verdicts": {
+  "Each Google TokenBudgetPolicy token pool specifies a max token count, an hourly or daily reset window (daily resets at midnight Pacific Time), optional target models, an alert threshold, and an enforcement mode; strict enforcement returns HTTP 429 when the budget is exhausted.": 1,
+  "Google states a single LLM HTTP request can consume from a dozen to over 100,000 tokens, so request-count rate limiting is insufficient and a runaway agent loop can exhaust shared quotas.": 1,
+  "Google's gateway checks the budget before the request but reconciles actual input, output, and cached token counts only after the response, so concurrent requests admitted before a pool reaches maxTokens can exceed the limit before later requests get 429.": 1,
+  "Google's token management limits are one policy of each type per project scope, at most 10 aggregation rules and 10 token pools; requests to models outside a pool's target list are not blocked and are recorded with pool name 'undefined'.": 1,
+  "Google's token management policies use three resources: TokenAggregationPolicy (groups requests by project, AI application, agent identity, model, or custom headers/API keys), TokenBudgetPolicy (token pools), and CostPerTokenPolicy (overrides default per-model pricing used for estimated cost).": 1
+ }
+}

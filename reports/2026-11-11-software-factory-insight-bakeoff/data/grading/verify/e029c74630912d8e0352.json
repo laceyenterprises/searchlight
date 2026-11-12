@@ -1,0 +1,12 @@
+{
+ "capture": "uncapturable",
+ "digest": "cc0084a67e1f1503",
+ "url": "https://venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too",
+ "verdicts": {
+  "According to Rodriguez, even if an agent goes rogue, the firewall prevents it from accessing external networks or exfiltrating data unless those protections are explicitly disabled.": null,
+  "Agent HQ compartmentalizes agent access at the branch level, unlike standalone tools where agents typically receive broad permissions across entire repositories.": null,
+  "Agent HQ keeps GitHub's core primitives: teams still use their preferred compute, either GitHub Actions or self-hosted runners.": null,
+  "Agent HQ lets agents from vendors including Anthropic, OpenAI, Google, Cognition and xAI operate within GitHub's security perimeter, using the same identity controls, branch permissions and audit logging that enterprises use for human developers.": null,
+  "Agents operating through Agent HQ run within sandboxed GitHub Actions environments with firewall protections.": null
+ }
+}

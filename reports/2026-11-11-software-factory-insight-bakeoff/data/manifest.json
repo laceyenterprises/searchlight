@@ -1,0 +1,1132 @@
+{
+ "bench": {
+  "item_chars": 6000,
+  "page_chars": 20000
+ },
+ "created_at": "2026-11-11T17:15:14.612882Z",
+ "extractor_model": "claude-sonnet-5-5",
+ "profiles": {
+  "brave.research": {
+   "profile": {
+    "arm": "brave",
+    "async": {
+     "interval_s": null,
+     "poll_endpoint": null,
+     "stream": "SSE; keep <answer>, <blindspots>, <usage>; log <progress>",
+     "timeout_s": 330
+    },
+    "cost_model": "searches x $4/1k + input tokens x $5/M + output tokens x $5/M (Answers plan). Research defaults allow up to 20 queries ($0.08) plus large input contexts; read the <usage> tag.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "endpoint, enable_research, stream required, pricing, 2 rps, research for thoroughness",
+      "url": "https://api-dashboard.search.brave.com/documentation/services/answers"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "research_* params, constraints, response tags, >=300 s client timeout",
+      "url": "https://raw.githubusercontent.com/brave/brave-search-skills/main/skills/answers/SKILL.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "research_maximum_number_of_queries 1-50 default 20; results per query default 30",
+      "url": "https://api-dashboard.search.brave.com/api-reference/summarizer/answers"
+     }
+    ],
+    "endpoint": "POST https://api.search.brave.com/res/v1/chat/completions",
+    "est_cost_usd_per_question": 0.5,
+    "freshness_overlay": {
+     "messages[0].content_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+    },
+    "headers": {
+     "x-subscription-token": "<BRAVE_ANSWERS_KEY>"
+    },
+    "operation": "research",
+    "pace_seconds": 0.5,
+    "params": {
+     "country": "us",
+     "enable_research": true,
+     "language": "en",
+     "messages": [
+      {
+       "content": "{{RESEARCH_BRIEF}}",
+       "role": "user"
+      }
+     ],
+     "model": "brave",
+     "stream": true
+    },
+    "post_steps": [],
+    "query_transform": "research_brief",
+    "query_transform_notes": "Exactly one user message (Brave skill). No query-writing guidance published.",
+    "rationale": {
+     "enable_research": "Docs: research mode when thoroughness matters more than speed (background tasks).",
+     "research_* params": "Vendor defaults; no tuning beyond docs."
+    },
+    "top_k": null,
+    "unverified": true,
+    "unverified_fields": {
+     "enable_citations": {
+      "note": "Not set: research mode cannot be combined with enable_citations (SKILL.md). Whether research <answer> carries URLs inline is not documented; record what comes back.",
+      "unverified": true
+     },
+     "est_cost_usd_per_question": {
+      "note": "No published per-research-run figure; token volume of research mode not documented. Estimate only.",
+      "unverified": true
+     },
+     "research_* defaults": {
+      "note": "Vendor defaults are left in force. Official reference: max queries 20 (1-50), results per query default 30 (changelog 2026-08-21); the brave-search-skills SKILL.md still says 60. Iterations 4 (1-5) and seconds 180 (1-300) come from SKILL.md only.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "738c73636138122dcc67d6c1370b9f1550ab3168750a7c21770cd8e02d67c46e",
+   "unverified": [
+    "enable_citations",
+    "est_cost_usd_per_question",
+    "research_* defaults"
+   ]
+  },
+  "brave.search": {
+   "profile": {
+    "arm": "brave",
+    "async": null,
+    "cost_model": "Search plan: $5 per 1,000 requests (LLM Context bills like web search). $5 monthly free credit.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "params and ranges; 16384 tokens for complex research; keep other defaults",
+      "url": "https://api-dashboard.search.brave.com/documentation/services/llm-context"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "web search params; recommends LLM Context for agents",
+      "url": "https://api-dashboard.search.brave.com/documentation/services/web-search"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Search plan $5/1k, 50 QPS; Answers plan $4/1k + $5/M tokens, 2 QPS",
+      "url": "https://brave.com/search/api/"
+     }
+    ],
+    "endpoint": "POST https://api.search.brave.com/res/v1/llm/context",
+    "est_cost_usd_per_question": 0.005,
+    "freshness_overlay": {
+     "freshness": "{{AFTER_DATE}}to{{RUN_DATE}}"
+    },
+    "headers": {
+     "Accept": "application/json",
+     "X-Subscription-Token": "<BRAVE_API_KEY>"
+    },
+    "operation": "search",
+    "pace_seconds": 0.1,
+    "params": {
+     "count": 20,
+     "country": "us",
+     "maximum_number_of_tokens": 16384,
+     "maximum_number_of_urls": 10,
+     "q": "{{QUERY}}",
+     "search_lang": "en"
+    },
+    "post_steps": [],
+    "query_transform": "verbatim",
+    "query_transform_notes": "LLM Context q accepts 1-600 chars, max 75 words; all questions fit (max 328 chars / 44 words). No query-style guidance in docs.",
+    "rationale": {
+     "context_threshold_mode": "Left at default: 'Keep the defaults for most queries; size the context with maximum_number_of_tokens only.'",
+     "count": "Default 20 candidates searched; only 10 URLs kept in context.",
+     "endpoint": "Brave's own docs: for agents/chatbots use LLM Context; Web Search results are for human consumption. Our 2026-09 adapter used /web/search with extra_snippets.",
+     "maximum_number_of_tokens": "Context Size Guidelines: 16384 for complex research.",
+     "maximum_number_of_urls": "Fixed top-k 10 (default 20)."
+    },
+    "top_k": 10,
+    "unverified": true,
+    "unverified_fields": {
+     "est_cost_usd_per_question": {
+      "note": "brave.com/search/api says the Search plan includes LLM Context; the dashboard pricing page rendered empty. Price-table entry (2026-09-27) also says LLM context bills per request.",
+      "unverified": true
+     },
+     "post_steps": {
+      "note": "Brave sells no page-fetch endpoint; page text arrives only as LLM Context snippets (up to maximum_number_of_tokens_per_url, default 4096).",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+   "unverified": [
+    "est_cost_usd_per_question",
+    "post_steps"
+   ]
+  },
+  "claude-native.agent": {
+   "cost_basis": "unknown",
+   "imported": true,
+   "imported_at": "2026-11-11T18:01:28.038039Z",
+   "label": "Claude Code native WebSearch/WebFetch (Opus 5.5 research agent)",
+   "note": "freeform research brief mapped to questions afterwards; not posed each question verbatim; 49 WebSearch + 48 WebFetch calls; cost not metered",
+   "profile": {
+    "arm": "claude-native",
+    "imported": true,
+    "kind": "answer",
+    "operation": "agent"
+   },
+   "reported_usd": null,
+   "sha256": "99802aeff03b5105fc91385c5d60ba3e1fcd2e219660fc7d5852402a66c81bd4",
+   "source_file": "A8-claims-by-question.jsonl",
+   "source_sha256": "99802aeff03b5105fc91385c5d60ba3e1fcd2e219660fc7d5852402a66c81bd4",
+   "unverified": []
+  },
+  "exa.research": {
+   "profile": {
+    "arm": "exa",
+    "async": {
+     "interval_s": 10,
+     "on_timeout": "POST https://api.exa.ai/agent/runs/{id}/stop (keeps results gathered so far)",
+     "poll_endpoint": "GET https://api.exa.ai/agent/runs/{id}",
+     "terminal_states": [
+      "completed",
+      "failed",
+      "cancelled"
+     ],
+     "timeout_s": 1800
+    },
+    "cost_model": "Fixed effort 'high' = $0.50/request (pricing page). Fixed efforts are not metered by ACU; budget.maxCostDollars only caps contact enrichment for fixed efforts.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "POST /agent/runs fields, effort enum, polling, output.text/grounding, prices per effort",
+      "url": "https://exa.ai/docs/agent/quickstart.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "query as task spec, effort guidance, no outputSchema for prose, persist run id",
+      "url": "https://exa.ai/docs/agent/best-practices.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "minimal $0.012, low $0.025, medium $0.10, high $0.50, xhigh $1.00, auto/ultra metered",
+      "url": "https://exa.ai/pricing"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "/agent/runs 5 QPS, 50 active runs; POST counts as 2 requests; polling free",
+      "url": "https://exa.ai/docs/admin/billing.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "2026-09-24 Agent Ultra, /stop endpoint",
+      "url": "https://docs.exa.ai/changelog"
+     }
+    ],
+    "endpoint": "POST https://api.exa.ai/agent/runs",
+    "est_cost_usd_per_question": 0.5,
+    "exa_version": "Exa 3.0 era. 3.0 added no new research/agent product; Agent (2026-06-16) and ultra + /stop (2026-09-24) predate it. Whether Agent's internal searches use the 3.0 retrieval stack is not stated.",
+    "freshness_overlay": {
+     "query_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+    },
+    "headers": {
+     "x-api-key": "<EXA_API_KEY>"
+    },
+    "operation": "research",
+    "pace_seconds": 0.4,
+    "params": {
+     "effort": "high",
+     "query": "{{RESEARCH_BRIEF}}"
+    },
+    "post_steps": [],
+    "query_transform": "research_brief",
+    "query_transform_notes": "Exa Agent best practices: treat query as a task spec (entity, scope, evidence bar, fields to return). No outputSchema: 'If a prose answer is enough, omit it and read output.text'; citations come back in output.grounding.",
+    "rationale": {
+     "effort": "'high' is the most thorough fixed (predictable-price) effort below xhigh. Docs: use fixed effort for predictable per-request cost; xhigh/ultra when completeness matters more than cost. Variant EXA-R-XHIGH ($1.00) pre-registered.",
+     "outputSchema": "Omitted; prose + output.grounding is the documented shape when downstream reads text."
+    },
+    "top_k": null,
+    "unverified": true,
+    "unverified_fields": {
+     "async.timeout_s": {
+      "note": "Docs give no latency figures for effort levels ('high: slower, more thorough'). 30 min is our ceiling; record actual durations.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "78fce0030d8ab53cf3a98d52cfa3b2ee6cf93905a4f6b12e51194002c8103fb1",
+   "unverified": [
+    "async.timeout_s"
+   ]
+  },
+  "exa.search": {
+   "profile": {
+    "arm": "exa",
+    "async": null,
+    "cost_model": "auto search $7/1k requests (<=10 results; Exa 3.0 post: Auto 'uses more compute across the retrieval stack, including candidate generation, highlights, and ranking'; Dynamic Highlights GA 'at no additional charge') + /contents text $1/1k pages x3 = ~$0.010. Upper bound if highlights bill per page: ~$0.020. Response costDollars.total is authoritative.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "type choice, natural-language query, highlights default, search-then-contents, filters, deprecated params",
+      "url": "https://exa.ai/docs/search/best-practices.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "all /search params, type enum, numResults 1-100, contents.highlights, maxAgeHours",
+      "url": "https://docs.exa.ai/reference/search"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "highlights sized by relevance; 500 chars of highlights matched 8k chars of text on SimpleQA",
+      "url": "https://exa.ai/docs/search/highlights.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "/contents urls, text.maxCharacters, verbosity",
+      "url": "https://exa.ai/docs/reference/get-contents.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "search/contents prices",
+      "url": "https://exa.ai/pricing"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "10 QPS /search, 100 QPS /contents",
+      "url": "https://exa.ai/docs/admin/billing.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "2026-10-19 lite + recommended types lite/auto/deep, legacy fast/instant/deep-reasoning, warnings/notices; 2026-08-28 dynamic highlights",
+      "url": "https://docs.exa.ai/changelog"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Exa 3.0: larger embedding model, Lite $4/1k vs Auto $7/1k on same index, Dynamic Highlights GA at no extra charge, AA Search Index run used auto + dynamic highlights",
+      "url": "https://exa.ai/blog/exa-3"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "dynamic: true in contents.highlights; shared budget across the result set",
+      "url": "https://exa.ai/blog/dynamic-highlights"
+     }
+    ],
+    "endpoint": "POST https://api.exa.ai/search",
+    "est_cost_usd_per_question": 0.01,
+    "exa_version": "Exa 3.0 (launched 2026-10-19)",
+    "freshness_overlay": {
+     "startPublishedDate": "{{AFTER_DATE}}T00:00:00.000Z"
+    },
+    "headers": {
+     "Exa-Beta": "dynamic-highlights-2026-08-28",
+     "x-api-key": "<EXA_API_KEY>"
+    },
+    "operation": "search",
+    "pace_seconds": 0.2,
+    "params": {
+     "contents": {
+      "highlights": {
+       "dynamic": true
+      }
+     },
+     "numResults": 10,
+     "query": "{{QUERY}}",
+     "type": "auto"
+    },
+    "post_steps": [
+     {
+      "endpoint": "POST https://api.exa.ai/contents",
+      "op": "fetch",
+      "params": {
+       "text": {
+        "maxCharacters": 20000
+       },
+       "urls": "{{TOP_K_URLS}}"
+      },
+      "top_k": 3,
+      "why": "Search Best Practices: 'To get more context from a few pages, search with highlights first, then call the Contents API for those URLs.'"
+     }
+    ],
+    "query_transform": "verbatim",
+    "query_transform_notes": "Exa: 'Describe the pages you want rather than listing keywords.' Questions are 154-328 chars, natural language; no rewrite. No site: operators (use includeDomains). objective is optional and documented for agent tool use; omitted in the primary profile so the query is the only steer (variant EXA-S-OBJ adds a shared objective).",
+    "rationale": {
+     "contents.highlights": "Exa 3.0 headline configuration (auto + dynamic highlights is what Exa submitted to the Artificial Analysis index). The Highlights page says to use Dynamic 'when several results feed the same agent or context window', which is exactly a 10-result pack for one extractor. One shared budget across results cuts duplicate excerpts.",
+     "maxAgeHours": "Omitted: default is cache-if-available-else-live. Exa says use publication-date filters, not maxAgeHours, for recency.",
+     "numResults": "Fixed top-k 10 across arms; 10 is also the price break.",
+     "post_steps": "Top-3 full text gives the extractor enough page text to verify claims; the two-step pattern is Exa's own recommendation.",
+     "type": "Exa 3.0 recommended types are lite, auto, deep. 'auto' is the documented choice for ranked pages when the application does its own reasoning (our extractor); it gets more compute than lite on the same index. 'deep' is for synthesis/structured output; 'lite' serves cache only. 'fast'/'instant'/'deep-reasoning' are legacy; 'neural' is gone."
+    },
+    "top_k": 10,
+    "unverified": true,
+    "unverified_fields": {
+     "contents.highlights.dynamic": {
+      "note": "Conflict: the Exa 3.0 launch post (2026-10-19) says Dynamic Highlights is generally available; the API reference read 2026-11-11 still marks it beta (x-exa-lifecycle: beta) and says requests setting dynamic without the Exa-Beta: dynamic-highlights-2026-08-28 header are rejected. We send the header. Not compatible with highlights.maxCharacters. Fallback variant EXA-S-STD = highlights: true.",
+      "unverified": true
+     },
+     "est_cost_usd_per_question": {
+      "note": "Pricing page bills /contents per page per content type; neither it nor the /search reference says whether highlights inside /search bill separately. Read costDollars.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+   "unverified": [
+    "contents.highlights.dynamic",
+    "est_cost_usd_per_question"
+   ]
+  },
+  "firecrawl.research": {
+   "profile": {
+    "arm": "firecrawl",
+    "async": {
+     "interval_s": 30,
+     "on_credit_stop": "do not continue the threadId; score what returned (frozen budget)",
+     "poll_endpoint": "GET https://api.firecrawl.dev/v2/agent/{jobId}",
+     "timeout_s": 1800
+    },
+    "cost_model": "Dynamic credits; docs say most runs use 'a few hundred credits'; capped by maxCredits 1000. At $0.001-$0.005/credit = $0.30-$5.00 at the cap. 5 free runs/day.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "prompt, model spark-2, effort, maxCredits default 2500, polling, replaces /extract",
+      "url": "https://docs.firecrawl.dev/features/agent"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Standard 100 agent/min",
+      "url": "https://docs.firecrawl.dev/rate-limits.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "agent dynamic billing, 5 free daily runs",
+      "url": "https://docs.firecrawl.dev/billing.md"
+     }
+    ],
+    "endpoint": "POST https://api.firecrawl.dev/v2/agent",
+    "est_cost_usd_per_question": 1.5,
+    "freshness_overlay": {
+     "prompt_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+    },
+    "headers": {
+     "Authorization": "Bearer <FIRECRAWL_API_KEY>"
+    },
+    "operation": "research",
+    "pace_seconds": 0.6,
+    "params": {
+     "effort": "high",
+     "maxCredits": 1000,
+     "model": "spark-2",
+     "prompt": "{{RESEARCH_BRIEF}}"
+    },
+    "post_steps": [],
+    "query_transform": "research_brief",
+    "query_transform_notes": "Agent docs: specific prompts (<=10,000 chars) use fewer credits. No schema: our research output is prose claims with sources; Agent accepts schema optionally.",
+    "rationale": {
+     "effort": "'high' for deep research questions (thoroughness over cost); unverified semantics.",
+     "model": "spark-2 is the only routed model (spark-1 names route to it)."
+    },
+    "top_k": null,
+    "unverified": true,
+    "unverified_fields": {
+     "effort": {
+      "note": "Docs list low/medium/high (spark-2 only) without describing what each changes or recommending one for research.",
+      "unverified": true
+     },
+     "maxCredits": {
+      "note": "Our cap, not a vendor recommendation; 2026-09 used 100, below the documented typical run.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "eae1a261624f2d7d61edbffbfd657801bf749f3f81af530163afec1dcf6f0c42",
+   "unverified": [
+    "effort",
+    "maxCredits"
+   ]
+  },
+  "firecrawl.search": {
+   "profile": {
+    "arm": "firecrawl",
+    "async": null,
+    "cost_model": "2 credits per 10 results + 1 credit per scraped page (10) + 1 credit per PDF page = ~12+ credits. USD/credit $0.001-$0.005 by plan (price-table assumption $0.00083 Standard yearly). At $0.003 = $0.036. creditsUsed is authoritative.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "one-step scrapeOptions, don't answer from snippets, tbs, credits",
+      "url": "https://docs.firecrawl.dev/features/search"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "full v2 params; query <=500 chars; highlights default true; maxAge 2 days",
+      "url": "https://docs.firecrawl.dev/api-reference/endpoint/search"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "credits per endpoint; PAYG $/credit by plan",
+      "url": "https://docs.firecrawl.dev/billing.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Standard 500 search/min",
+      "url": "https://docs.firecrawl.dev/rate-limits.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "2026-07-22 new relevance model / highlights",
+      "url": "https://www.firecrawl.dev/changelog"
+     }
+    ],
+    "endpoint": "POST https://api.firecrawl.dev/v2/search",
+    "est_cost_usd_per_question": 0.036,
+    "freshness_overlay": {
+     "tbs": "cdr:1,cd_min:{{AFTER_DATE_MDY}},cd_max:{{RUN_DATE_MDY}}"
+    },
+    "headers": {
+     "Authorization": "Bearer <FIRECRAWL_API_KEY>"
+    },
+    "operation": "search",
+    "pace_seconds": 0.2,
+    "params": {
+     "ignoreInvalidURLs": true,
+     "limit": 10,
+     "query": "{{QUERY}}",
+     "scrapeOptions": {
+      "formats": [
+       {
+        "type": "markdown"
+       }
+      ],
+      "onlyMainContent": true
+     },
+     "sources": [
+      {
+       "type": "web"
+      }
+     ]
+    },
+    "post_steps": [],
+    "query_transform": "verbatim",
+    "query_transform_notes": "Docs: 'Use plain, specific queries.' query max 500 chars; all questions fit. 2026-09 harness sent a separately written keyword_query; current docs do not prescribe keyword rewriting, so verbatim.",
+    "rationale": {
+     "limit": "Fixed top-k 10; scraping all 10 gives each result page text (the two-step top-3 variant is FC-S-TOP3).",
+     "onlyMainContent": "Default true; strips nav/boilerplate.",
+     "scrapeOptions": "Docs: one-step search+scrape is 'simpler and faster'; 'Don't summarize from search snippets alone.'",
+     "sources": "web only; tbs filters only apply to web."
+    },
+    "top_k": 10,
+    "unverified": true,
+    "unverified_fields": {
+     "scrapeOptions.parsers": {
+      "note": "Default parsers ['pdf','image'] parse PDFs at 1 credit/page with no documented page cap in the v2 search reference; our 2026-09 maxPages:3 shape was not re-verified. Watch creditsUsed on PDF-heavy questions.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "d71fd451697811547b33724b478eedffa022727d815b86030edc794c852bfa82",
+   "unverified": [
+    "scrapeOptions.parsers"
+   ]
+  },
+  "parallel.research": {
+   "profile": {
+    "arm": "parallel",
+    "async": {
+     "interval_s": 15,
+     "poll_endpoint": "GET https://api.parallel.ai/v1/tasks/runs/{run_id}",
+     "result_endpoint": "GET https://api.parallel.ai/v1/tasks/runs/{run_id}/result",
+     "timeout_s": 2700
+    },
+    "cost_model": "Task 'ultra' $300/1k successful runs = $0.30, one charge per run regardless of output fields.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "processor latency/fields: pro 2-10 min exploratory; ultra 3-25 min multi-source deep research",
+      "url": "https://docs.parallel.ai/task-api/guides/choose-a-processor.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "output_schema json/text/auto; auto = deep research only on pro+",
+      "url": "https://docs.parallel.ai/task-api/guides/specify-a-task.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "auto schema for deep research tasks; field descriptions",
+      "url": "https://docs.parallel.ai/task-api/best-practices.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "lite $5 ... pro $100, ultra $300, ultra8x $2400 per 1k",
+      "url": "https://docs.parallel.ai/getting-started/pricing.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Task runs 2000/min",
+      "url": "https://docs.parallel.ai/getting-started/rate-limits.md"
+     }
+    ],
+    "endpoint": "POST https://api.parallel.ai/v1/tasks/runs",
+    "est_cost_usd_per_question": 0.3,
+    "freshness_overlay": {
+     "source_policy": {
+      "after_date": "{{AFTER_DATE}}"
+     }
+    },
+    "headers": {
+     "x-api-key": "<PARALLEL_API_KEY>"
+    },
+    "operation": "research",
+    "pace_seconds": 0.2,
+    "params": {
+     "input": "{{RESEARCH_BRIEF}}",
+     "processor": "ultra",
+     "task_spec": {
+      "output_schema": {
+       "type": "auto"
+      }
+     }
+    },
+    "post_steps": [],
+    "query_transform": "research_brief",
+    "query_transform_notes": "Task best practices: be specific about what you expect back; auto schema for Deep-Research-style tasks (works only on pro and above).",
+    "rationale": {
+     "output_schema": "auto = Deep Research style output with nested FieldBasis citations.",
+     "processor": "'ultra' is the documented tier for 'multi-source deep research'; 'pro' (our 2026-09 choice, $0.10) is 'exploratory web research'. Variant PAR-R-PRO pre-registered for price-matched comparison."
+    },
+    "top_k": null,
+    "unverified": true,
+    "unverified_fields": {
+     "async": {
+      "note": "Poll/result paths are from our 2026-09 harness (verified then); not re-read on 2026-11-11.",
+      "unverified": true
+     },
+     "freshness_overlay": {
+      "note": "Task API source_policy exists (docs page 'Source Policy (Task API)') but its after_date field was not read on 2026-11-11.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "9671bf032d6f0edd6927b228b7b7c7466f1908133b17daa81313654a2994dbbd",
+   "unverified": [
+    "async",
+    "freshness_overlay"
+   ]
+  },
+  "parallel.search": {
+   "profile": {
+    "arm": "parallel",
+    "async": null,
+    "cost_model": "advanced $5/1k requests (10 results included) + Extract $1/1k URLs x3 = $0.008. Response has a usage[] SKU list but no dollar figure.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "objective <=5000 chars, 1-5 keyword queries of 3-6 words, pitfalls",
+      "url": "https://docs.parallel.ai/search/best-practices.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "turbo/fast/basic/advanced latency, price, advanced for deep research",
+      "url": "https://docs.parallel.ai/search/modes.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "exact V1SearchRequest schema, advanced_settings, source_policy.after_date, fetch_policy",
+      "url": "https://docs.parallel.ai/api-reference/search/search.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "/v1/extract body, full_content in advanced_settings, <=20 URLs",
+      "url": "https://docs.parallel.ai/extract/best-practices.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "search, extract prices",
+      "url": "https://docs.parallel.ai/getting-started/pricing.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Search 600/min, Extract 600/min",
+      "url": "https://docs.parallel.ai/getting-started/rate-limits.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "2026-08-19 fast mode; 2026-11-05 MCP 2.0",
+      "url": "https://docs.parallel.ai/resources/changelog.md"
+     }
+    ],
+    "endpoint": "POST https://api.parallel.ai/v1/search",
+    "est_cost_usd_per_question": 0.008,
+    "freshness_overlay": {
+     "advanced_settings.source_policy": {
+      "after_date": "{{AFTER_DATE}}"
+     }
+    },
+    "headers": {
+     "x-api-key": "<PARALLEL_API_KEY>"
+    },
+    "operation": "search",
+    "pace_seconds": 0.2,
+    "params": {
+     "advanced_settings": {
+      "max_results": 10
+     },
+     "client_model": "{{EXTRACTOR_MODEL}}",
+     "mode": "advanced",
+     "objective": "{{OBJECTIVE}}",
+     "search_queries": "{{KEYWORD_QUERIES}}",
+     "session_id": "{{SESSION_ID}}"
+    },
+    "post_steps": [
+     {
+      "endpoint": "POST https://api.parallel.ai/v1/extract",
+      "op": "fetch",
+      "params": {
+       "advanced_settings": {
+        "full_content": true
+       },
+       "client_model": "{{EXTRACTOR_MODEL}}",
+       "objective": "{{OBJECTIVE}}",
+       "search_queries": "{{KEYWORD_QUERIES}}",
+       "session_id": "{{SESSION_ID}}",
+       "urls": "{{TOP_K_URLS}}"
+      },
+      "top_k": 3,
+      "why": "Search/Extract best practices: reuse one session_id across Search and Extract for a task; full_content when the whole page is needed."
+     }
+    ],
+    "query_transform": "objective+subqueries",
+    "query_transform_notes": "Required by the API shape and the docs: 'Don't send the raw question as both objective and the only search query.' The shared query-writer (frozen prompt, frozen model, run once per question, outputs stored) writes a goal-style objective that embeds the question verbatim, plus 2-3 keyword queries of 3-6 words, <=200 chars, no sentences, no site:, key entity in every query.",
+    "rationale": {
+     "client_model": "Lets Search size excerpts for the consuming model (documented field).",
+     "fetch_policy": "Omitted: live fetching 'noticeably increases latency' and restrictive settings reduce coverage.",
+     "mode": "'advanced' (API default) is documented for 'multi-hop background agents that can tolerate extra latency', deep research. sew/providers.py defaults to 'fast'; this profile must pin 'advanced'."
+    },
+    "top_k": 10,
+    "unverified": true,
+    "unverified_fields": {
+     "advanced_settings.excerpt_settings": {
+      "note": "No documented default for excerpt size; docs say max_chars_total default is dynamic by objective/queries/client_model. Left unset so the vendor sizes excerpts for the client model.",
+      "unverified": true
+     },
+     "client_model": {
+      "note": "Docs give examples (claude-opus-4-7, gpt-5.4, gemini-3.1-pro); whether newer ids are recognised is not stated.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+   "unverified": [
+    "advanced_settings.excerpt_settings",
+    "client_model"
+   ]
+  },
+  "perplexity.research": {
+   "profile": {
+    "arm": "perplexity",
+    "async": {
+     "interval_s": 10,
+     "note": "Polling counts against Agent API QPS (Tier 0 = 1 QPS).",
+     "poll_endpoint": "GET https://api.perplexity.ai/v1/agent/{id}",
+     "timeout_s": 1800
+    },
+    "cost_model": "Tokens of the effort's model (high = openai/gpt-6.1-terra) + tool calls: web_search fast $0.001 (presets default to Fast Search), fetch_url $0.0005. Up to 40 steps. Response usage.total_cost is authoritative.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "Sonar Chat Completions support ended 2026-09-27; model->effort mapping",
+      "url": "https://docs.perplexity.ai/docs/agent-api/migrate-from-sonar/overview.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "param mapping: search_context_size -> max_tokens, filters move into web_search tool",
+      "url": "https://docs.perplexity.ai/docs/agent-api/migrate-from-sonar/how-to.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "effort table: high = gpt-6.1-terra, 40 steps, web_search+fetch_url",
+      "url": "https://docs.perplexity.ai/docs/agent-api/effort.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "web_search filters, max_tokens, presets default to fast search",
+      "url": "https://docs.perplexity.ai/docs/agent-api/tools/web-search.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "tool call prices",
+      "url": "https://docs.perplexity.ai/docs/getting-started/pricing.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Sep-Nov effort changes, preset->effort rename, ultra",
+      "url": "https://docs.perplexity.ai/docs/resources/changelog.md"
+     }
+    ],
+    "endpoint": "POST https://api.perplexity.ai/v1/agent",
+    "est_cost_usd_per_question": 0.6,
+    "freshness_overlay": {
+     "tools": [
+      {
+       "filters": {
+        "search_after_date_filter": "{{AFTER_DATE_MDY}}"
+       },
+       "type": "web_search"
+      },
+      {
+       "type": "fetch_url"
+      }
+     ]
+    },
+    "headers": {
+     "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+    },
+    "operation": "research",
+    "pace_seconds": 1.0,
+    "params": {
+     "background": true,
+     "effort": "high",
+     "input": "{{RESEARCH_BRIEF}}"
+    },
+    "post_steps": [],
+    "query_transform": "research_brief",
+    "query_transform_notes": "Sonar migration guide: sonar-deep-research -> effort 'high'. Effort page: high = 'deep, source-heavy research without code execution, where completeness matters more than latency'.",
+    "rationale": {
+     "effort": "Vendor's own recommendation for deep research without code. 'xhigh' (Claude Opus 5.5, 300 steps, sandbox) and 'ultra' (broad coverage) are pre-registered variants; xhigh/ultra run on Anthropic models, which confounds a vendor comparison."
+    },
+    "top_k": null,
+    "unverified": true,
+    "unverified_fields": {
+     "background": {
+      "note": "Background mode is documented for long runs (ultra) and Sonar async migration; not explicitly for 'high'.",
+      "unverified": true
+     },
+     "est_cost_usd_per_question": {
+      "note": "No per-effort price published; gpt-6.1-terra token price not read. Estimate.",
+      "unverified": true
+     },
+     "freshness_overlay": {
+      "note": "Supplying a tools array alongside effort: docs only state that search_type on web_search overrides the preset; whether a filters-only tool entry merges with the preset's tool config is not documented.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "e575edb6a69c071dd2d4c3d0cff8b9511895bb4681f4f039b98b946b1ee068a7",
+   "unverified": [
+    "background",
+    "est_cost_usd_per_question",
+    "freshness_overlay"
+   ]
+  },
+  "perplexity.search": {
+   "profile": {
+    "arm": "perplexity",
+    "async": null,
+    "cost_model": "$5 per 1,000 successful requests (web); no token charge. A multi-query request bills as one request (price-table note 2026-09-27) but consumes one rate-limit unit per query.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "specific queries, multi-query up to 5, max_results <=20 web",
+      "url": "https://docs.perplexity.ai/docs/search/best-practices.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "request schema: query string|array, max_tokens(_per_page), search_type web/fast/people, filters",
+      "url": "https://docs.perplexity.ai/api-reference/search-post.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Search $5/1k web, $1/1k fast",
+      "url": "https://docs.perplexity.ai/docs/getting-started/pricing.md"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "50 query units/s",
+      "url": "https://docs.perplexity.ai/docs/admin/rate-limits-usage-tiers.md"
+     }
+    ],
+    "endpoint": "POST https://api.perplexity.ai/search",
+    "est_cost_usd_per_question": 0.005,
+    "freshness_overlay": {
+     "search_after_date_filter": "{{AFTER_DATE_MDY}}"
+    },
+    "headers": {
+     "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+    },
+    "operation": "search",
+    "pace_seconds": 0.1,
+    "params": {
+     "country": "US",
+     "max_results": 10,
+     "max_tokens_per_page": 4096,
+     "query": [
+      "{{QUERY}}",
+      "{{KEYWORD_QUERIES...}}"
+     ],
+     "search_type": "web"
+    },
+    "post_steps": [],
+    "query_transform": "multi-query:verbatim+subqueries(<=5)",
+    "query_transform_notes": "Best practices: specific queries with context and precise terminology; pass related sub-queries as a list to cover facets, up to 5 per request. The verbatim question plus the shared query-writer's 2-3 keyword queries (same ones Parallel gets). Variant PPLX-S-SINGLE sends the question alone.",
+    "rationale": {
+     "max_tokens_per_page": "Gives the extractor page text; search_context_size is not in the current Search API schema (sew/providers.py still references it).",
+     "search_type": "'web' (standard) over 'fast' for research quality."
+    },
+    "top_k": 10,
+    "unverified": true,
+    "unverified_fields": {
+     "est_cost_usd_per_question": {
+      "note": "Pricing page says per successful request; multi-query billing as one request is from the 2026-09-27 read, not re-confirmed.",
+      "unverified": true
+     },
+     "max_tokens_per_page": {
+      "note": "No documented default or recommendation for the Search API. 4096 matches the per-page budget Perplexity's own Agent effort presets give web_search (Oct 2026 changelog: 4,000).",
+      "unverified": true
+     },
+     "query(list) response shape": {
+      "note": "Whether max_results applies per sub-query and how results from several queries are ordered is not documented in the reference read. Harness keeps the first 10 unique URLs in returned order and records the raw count.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+   "unverified": [
+    "est_cost_usd_per_question",
+    "max_tokens_per_page",
+    "query(list) response shape"
+   ]
+  },
+  "tavily.research": {
+   "profile": {
+    "arm": "tavily",
+    "async": {
+     "interval_s": 10,
+     "poll_endpoint": "GET https://api.tavily.com/research/{request_id}?include_usage=true",
+     "timeout_s": 1200
+    },
+    "cost_model": "Dynamic: pro = 15-250 credits per request ($0.075-$2.00 at $0.005-$0.008/credit). Midpoint guess $1.00; read usage.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "input, model mini/pro/auto, output_schema, citation_format, output_length, domains",
+      "url": "https://docs.tavily.com/documentation/api-reference/endpoint/research"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "prompting, pro for complex multi-domain topics, report vs structured",
+      "url": "https://docs.tavily.com/documentation/best-practices/best-practices-research"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "research mini 4-110, pro 15-250 credits",
+      "url": "https://docs.tavily.com/documentation/api-credits"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "/research 20 RPM",
+      "url": "https://docs.tavily.com/documentation/rate-limits"
+     }
+    ],
+    "endpoint": "POST https://api.tavily.com/research",
+    "est_cost_usd_per_question": 1.0,
+    "freshness_overlay": {
+     "input_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+    },
+    "headers": {
+     "Authorization": "Bearer <TAVILY_API_KEY>"
+    },
+    "operation": "research",
+    "pace_seconds": 3.0,
+    "params": {
+     "citation_format": "numbered",
+     "input": "{{RESEARCH_BRIEF}}",
+     "model": "pro",
+     "output_length": "long",
+     "stream": false
+    },
+    "post_steps": [],
+    "query_transform": "research_brief",
+    "query_transform_notes": "Research best practices: clear goal, known context, desired output format, 'Include citations'; no contradictory constraints; state baseline knowledge.",
+    "rationale": {
+     "model": "'pro' = multi-agent research for complex topics and 'maximum accuracy'; our questions are multi-facet. 2026-09 used 'mini'; variant TAV-R-MINI pre-registered.",
+     "output_schema": "Omitted: a report is the documented shape for reading; judges grade claims from the report + sources."
+    },
+    "top_k": null,
+    "unverified": true,
+    "unverified_fields": {
+     "async.poll_endpoint": {
+      "note": "The /research reference read on 2026-11-11 does not describe polling; path is from our 2026-09 harness.",
+      "unverified": true
+     },
+     "output_length": {
+      "note": "'long' is a target, not a cap; effect on credits not documented.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "afa027340c4559002d9497ee104fb19f1f9889c3041898e6f581fd7ae4f5456e",
+   "unverified": [
+    "async.poll_endpoint",
+    "output_length"
+   ]
+  },
+  "tavily.search": {
+   "profile": {
+    "arm": "tavily",
+    "async": null,
+    "cost_model": "advanced search 2 credits + advanced extract 2 credits per 5 successful URLs (3 URLs) = up to 4 credits; $0.005-$0.008/credit by plan (PAYG $0.008) = $0.020-$0.032. usage.credits is authoritative.",
+    "docs": [
+     {
+      "read_on": "2026-11-11",
+      "supports": "query <1500 chars, splitting, depth choice, chunks, raw content vs extract, auto_parameters pitfall",
+      "url": "https://docs.tavily.com/documentation/best-practices/best-practices-search"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "full param table, depth credit costs",
+      "url": "https://docs.tavily.com/documentation/api-reference/endpoint/search"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "extract params, credit cost",
+      "url": "https://docs.tavily.com/documentation/api-reference/endpoint/extract"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "credit costs, USD per credit by plan",
+      "url": "https://docs.tavily.com/documentation/api-credits"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "1000 RPM paid; shared per org",
+      "url": "https://docs.tavily.com/documentation/rate-limits"
+     },
+     {
+      "read_on": "2026-11-11",
+      "supports": "Jul chunked basic; Aug include_domains_mode/language; Oct max_age_hours; Nov per-org limits",
+      "url": "https://docs.tavily.com/changelog"
+     }
+    ],
+    "endpoint": "POST https://api.tavily.com/search",
+    "est_cost_usd_per_question": 0.032,
+    "freshness_overlay": {
+     "start_date": "{{AFTER_DATE}}"
+    },
+    "headers": {
+     "Authorization": "Bearer <TAVILY_API_KEY>"
+    },
+    "operation": "search",
+    "pace_seconds": 0.1,
+    "params": {
+     "auto_parameters": false,
+     "chunks_per_source": 3,
+     "include_answer": false,
+     "include_raw_content": false,
+     "include_usage": true,
+     "max_results": 10,
+     "query": "{{QUERY}}",
+     "search_depth": "advanced",
+     "session_id": "{{SESSION_ID}}",
+     "topic": "general"
+    },
+    "post_steps": [
+     {
+      "endpoint": "POST https://api.tavily.com/extract",
+      "op": "fetch",
+      "params": {
+       "extract_depth": "advanced",
+       "format": "markdown",
+       "include_usage": true,
+       "urls": "{{TOP_K_URLS}}"
+      },
+      "top_k": 3,
+      "why": "Best practices: 'For thorough extraction, search first, then pass the URLs to the Extract API.'"
+     }
+    ],
+    "query_transform": "verbatim",
+    "query_transform_notes": "Under the 1,500-char limit. Tavily: keep queries short and send separate searches for multi-topic questions; 'advanced' is for 'multi-faceted questions, or long, detailed queries', so the single question is kept. Variant TAV-S-SPLIT3 (3 focused sub-queries, merged to top 10) pre-registered.",
+    "rationale": {
+     "auto_parameters": "Off: explicit params are frozen; auto may silently upgrade cost.",
+     "chunks_per_source": "Max (3): more query-relevant text per source for the extractor.",
+     "include_answer": "Off for the search arm: the fixed extractor reads content, not a vendor answer.",
+     "include_raw_content": "Off: docs prescribe Extract for thorough reading; post-step fetches top 3.",
+     "search_depth": "'advanced': highest relevance, for niche topics and multi-faceted questions."
+    },
+    "top_k": 10,
+    "unverified": true,
+    "unverified_fields": {
+     "max_results": {
+      "note": "API reference says default 10 (0-20); the best-practices page says default 5. We pin 10 explicitly, so the conflict does not matter.",
+      "unverified": true
+     },
+     "session_id": {
+      "note": "Named in Search Best Practices (session tracking) but not shown in the /search API reference table read on 2026-11-11. Drop it if the API rejects it.",
+      "unverified": true
+     }
+    }
+   },
+   "sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+   "unverified": [
+    "max_results",
+    "session_id"
+   ]
+  }
+ },
+ "questions": [
+  "Q01",
+  "Q02",
+  "Q03",
+  "Q04",
+  "Q05",
+  "Q06",
+  "Q07",
+  "Q08",
+  "Q09",
+  "Q10",
+  "Q11",
+  "Q12",
+  "Q13",
+  "Q14",
+  "Q15",
+  "Q16",
+  "Q17",
+  "Q18",
+  "Q19",
+  "Q20",
+  "Q21",
+  "Q22",
+  "Q23",
+  "Q24"
+ ],
+ "run_date": "2026-11-11",
+ "run_id": "sf-20261111",
+ "set_id": "software-factories-2026-11",
+ "set_sha256": "b262c19f5cc8b393cf53029ec53c7c2d2844b51504a3624db952a20b0f370f52",
+ "shared": {
+  "extractor_brief_template": "Question: {{QUERY}}\n\nSearch the web and read at most 10 pages. From what the pages actually state, list every specific, verifiable finding that answers the question (mechanisms, design details, numbers, names, dates, measured results, failure modes), each with the URL of the page that states it. Do not use prior knowledge. If something is not publicly disclosed, say so.",
+  "frozen_on": "2026-11-11",
+  "placeholders": {
+   "{{AFTER_DATE_MDY}}": "same date as MM/DD/YYYY (Firecrawl tbs uses M/D/YYYY; zero-padded accepted per our 2026-09 harness)",
+   "{{AFTER_DATE}}": "run_date - question.freshness_days, YYYY-MM-DD; overlay applied only when freshness_days is set",
+   "{{EXTRACTOR_BRIEF}}": "extractor_brief_template with {{QUERY}} substituted (native harness search arms only)",
+   "{{EXTRACTOR_MODEL}}": "the fixed extractor model id",
+   "{{KEYWORD_QUERIES...}}": "same list, spread into the enclosing array after {{QUERY}} (Perplexity multi-query; total <=5)",
+   "{{KEYWORD_QUERIES}}": "query-writer output.keyword_queries (list of 2-3 strings)",
+   "{{OBJECTIVE}}": "query-writer output.objective",
+   "{{QUERY}}": "question.text verbatim",
+   "{{RESEARCH_BRIEF}}": "research_brief_template with {{QUERY}} substituted",
+   "{{RUN_DATE_MDY}}": "run date MM/DD/YYYY",
+   "{{RUN_DATE}}": "run date YYYY-MM-DD",
+   "{{SESSION_ID}}": "'sl-' + arm + '-' + question.id + '-' + run_date",
+   "{{TOP_K_URLS}}": "URLs of the first k results of the main call, in returned order"
+  },
+  "purpose": "Shared transforms and templates used by every arm profile. Arms differ only in where the vendor's docs say text goes, never in wording.",
+  "query_writer": {
+   "consumers": [
+    "parallel.search (objective + search_queries)",
+    "parallel.search post-step extract",
+    "perplexity.search (keyword queries appended to the verbatim question)"
+   ],
+   "model": "{{EXTRACTOR_MODEL}}",
+   "prompt": "You write inputs for a web search API. Question: {{QUERY}}\n\nReturn JSON {\"objective\": string, \"keyword_queries\": [string]}.\n- objective: one self-contained paragraph (under 1,000 characters) that restates the question verbatim, then says what pages should rank first (primary sources: the organisation's own engineering posts, docs, talks, papers, filings, code; credible reporting) and what facts to pull (mechanisms, numbers, names, dates, measured results, failure modes).\n- keyword_queries: 2 or 3 keyword queries, each 3 to 6 words and under 200 characters, no sentences, no site: or other operators, each containing the question's key entity, varying synonyms or angles across queries.",
+   "run": "once per question, before any arm runs; outputs stored and hashed with the set",
+   "temperature": 0
+  },
+  "research_brief_template": "Research question: {{QUERY}}\n\nFind specific, verifiable facts that answer this question: how it works (mechanisms, components, design decisions), numbers and measured results, names, dates, and reported problems or failure modes. Prefer primary sources (the organisation's own engineering posts, documentation, talks, papers, filings, code) and credible independent reporting. Report every distinct finding as a short statement with the URL of the page that states it. Do not pad with generic background. If something is not publicly disclosed, say so plainly. Include citations.",
+  "search_arm_extraction": "Search arms: the fixed extractor model receives, per question, every result's url, title, published date and returned text (excerpts/highlights/chunks/markdown) plus post-step page text, in returned rank order, and the same extractor prompt as the native search arms."
+ },
+ "shared_sha256": "f5c37dde8f6be178ed49208c7b856917d864efb9401dfa2d548bec449589236f",
+ "version": "insight-run-v2"
+}

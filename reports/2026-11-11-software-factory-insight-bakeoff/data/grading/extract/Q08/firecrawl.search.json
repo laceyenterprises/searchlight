@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "f15b7c2c78a2ba3f",
+ "claims": [
+  {
+   "text": "Anthropic's long-running agent solution for the Claude Agent SDK has two parts: an initializer agent that sets up the environment on the first run, and a coding agent that makes incremental progress in every session while leaving clear artifacts for the next session.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent's specialized prompt asks the model to create an init.sh script, a claude-progress.txt file that logs what agents have done, and an initial git commit showing which files were added.",
+   "url": null
+  },
+  {
+   "text": "Every session after the first (the coding agent) is asked to make incremental progress and then leave structured updates.",
+   "url": null
+  },
+  {
+   "text": "The key insight was letting agents quickly understand the state of work in a fresh context window, which is accomplished with the claude-progress.txt file alongside the git history.",
+   "url": null
+  },
+  {
+   "text": "Compaction alone is insufficient: Opus 4.5 on the Claude Agent SDK looping across multiple context windows fails to build a production-quality web app from a high-level prompt such as 'build a clone of claude.ai'.",
+   "url": null
+  },
+  {
+   "text": "First failure mode: the agent tries to one-shot the app and runs out of context mid-implementation, leaving the next session with a half-implemented, undocumented feature; this happens even with compaction, which does not always pass clear instructions to the next agent.",
+   "url": null
+  },
+  {
+   "text": "Second failure mode: after some features were built, a later agent instance looked around, saw progress had been made, and declared the job done.",
+   "url": null
+  },
+  {
+   "text": "Each session should leave the environment in a 'clean state', meaning code appropriate for merging to a main branch: no major bugs, orderly and well-documented, so a developer can start a new feature without cleaning up an unrelated mess.",
+   "url": null
+  },
+  {
+   "text": "The initializer agent writes a comprehensive feature requirements file expanding the user's prompt; in the claude.ai clone example this was over 200 features, all initially marked 'failing' so later coding agents have a clear outline of full functionality.",
+   "url": null
+  },
+  {
+   "text": "The initializer's feature list was in JSON with a passes: false status for each feature, and this JSON structure proved more robust than markdown alternatives.",
+   "url": null
+  },
+  {
+   "text": "The initializer and coding agents are not truly separate agents but the same underlying system and harness with different initial prompts.",
+   "url": null
+  },
+  {
+   "text": "Anthropic's Research system uses an orchestrator-worker pattern: a lead agent analyzes the query, develops a strategy, and spawns subagents that explore different aspects in parallel.",
+   "url": null
+  },
+  {
+   "text": "Subagents aid search, which is compression, by operating in parallel with their own context windows and condensing the most important tokens for the lead agent; each also provides separation of concerns (distinct tools, prompts, and exploration trajectories), reducing path dependency.",
+   "url": null
+  },
+  {
+   "text": "A multi-agent system with Claude Opus 4 as lead and Claude Sonnet 4 subagents outperformed single-agent Claude Opus 4 by 90.2% on Anthropic's internal research eval.",
+   "url": null
+  },
+  {
+   "text": "On the BrowseComp evaluation, three factors explained 95% of performance variance, with token usage alone explaining 80%; tool call count and model choice were the other two factors.",
+   "url": null
+  },
+  {
+   "text": "Upgrading to Claude Sonnet 4 was a larger performance gain than doubling the token budget on Claude Sonnet 3.7.",
+   "url": null
+  },
+  {
+   "text": "Token cost: agents typically use about 4× more tokens than chat interactions, and multi-agent systems use about 15× more tokens than chats, so they require tasks valuable enough to pay for the added performance.",
+   "url": null
+  },
+  {
+   "text": "Multi-agent systems fit poorly for domains where all agents must share the same context or have many dependencies; most coding tasks have fewer parallelizable pieces than research, and LLM agents are not yet great at real-time coordination and delegation.",
+   "url": null
+  },
+  {
+   "text": "Multi-agent systems excel at valuable tasks involving heavy parallelization, information exceeding single context windows, and interfacing with numerous complex tools, especially breadth-first queries.",
+   "url": null
+  },
+  {
+   "text": "Anthropic found Claude Sonnet 4.5 wrapped up tasks prematurely as it sensed its context limit approaching ('context anxiety'), fixed it with context resets, but the behavior was gone on Claude Opus 4.5, making the resets dead weight; harness assumptions should be questioned as models improve.",
+   "url": null
+  },
+  {
+   "text": "Claude Managed Agents virtualizes an agent into a session (append-only event log), a harness (the loop calling Claude and routing tool calls), and a sandbox (execution environment), so each can be swapped independently.",
+   "url": null
+  },
+  {
+   "text": "Managed Agents decouples the 'brain' (Claude and harness) from the 'hands' (sandboxes/tools) and the session log; the container is called like any tool via execute(name, input), and a crashed harness is rebooted with wake(sessionId) and getSession(id) to resume from the last event.",
+   "url": null
+  },
+  {
+   "text": "The claude-agent-sdk package is the agent harness extracted from Claude Code, shipping the agent loop (gather context, act, verify, repeat), built-in tools, subagent spawning via an agents dict of AgentDefinition, MCP integration, and automatic context compaction with a PreCompact hook.",
+   "url": null
+  },
+  {
+   "text": "The SDK's boundary is a single agent process; coordination across multiple agents, repositories too large for one context window, and policies outliving a session remain in-house work, and ClaudeAgentOptions offers max_turns and max_budget_usd resource limits.",
+   "url": null
+  },
+  {
+   "text": "An Anthropic workshop on agents that run for hours claims that self-evaluation is a trap and adversarial evaluator agents work better, and that context compaction does not cure coherence drift but structured handoffs do.",
+   "url": null
+  }
+ ],
+ "question_id": "Q08"
+}

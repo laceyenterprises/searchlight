@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "597091e04eb919fe",
+ "claims": [
+  {
+   "text": "A Lyzr-deployed multi-agent outbound sales prospecting system for a B2B technology services firm (10-person outbound team, ~18,000 target accounts) uses seven specialist agents in three layers (Insight, Execution, Orchestration), orchestrated by a supervisor, integrated with HubSpot, Apollo, Microsoft Outlook and Jina Reader.",
+   "url": null
+  },
+  {
+   "text": "The Lyzr prospecting pipeline runs in sequence: CRM check, then research, then contact discovery and scoring, then email drafting, then CRM record creation.",
+   "url": null
+  },
+  {
+   "text": "The Lyzr prospecting system's Email Drafting Agent creates Outlook drafts only and never sends automatically; it uses approved messaging rules from a curated knowledge base with strict tone, length and forbidden-phrase rules.",
+   "url": null
+  },
+  {
+   "text": "The Lyzr prospecting supervisor enforces confidence gating at three decision points, prevents duplicate outreach when an account already exists, escalates ambiguous cases to human review, and maintains an audit trail.",
+   "url": null
+  },
+  {
+   "text": "The prospecting brief kept humans in control of targeting decisions, messaging approval and pipeline strategy while automating research, contact discovery, scoring, drafting and CRM entry.",
+   "url": null
+  },
+  {
+   "text": "Before automation, per-account preparation took 25 to 45 minutes, equating to 80 to 120 hours of preparation work per week across the outbound team, more than 2 FTE.",
+   "url": null
+  },
+  {
+   "text": "The prospecting system needed seven refinement passes over six weeks to reach a trusted production standard.",
+   "url": null
+  },
+  {
+   "text": "The first CRM Status Agent used domain-based search and failed for roughly two-thirds of companies in a HubSpot instance with over 12,000 active account records, causing duplicate company records, contacts and email drafts; a five-agent pipeline at 90% accuracy each yields only 59% end-to-end.",
+   "url": null
+  },
+  {
+   "text": "The CRM Status Agent was rebuilt with a multi-strategy search cascade (domain, name token, cleaned-name) and a five-state confidence rating; a supervisor trust rule blocks all downstream writes when CRM status is uncertain or failed.",
+   "url": null
+  },
+  {
+   "text": "When Apollo credits were low, masked last names and null emails led the email drafting agent to fabricate email addresses, producing real Outlook drafts to fabricated addresses and garbled HubSpot records such as 'Louise Mebur' instead of Louise Mercer.",
+   "url": null
+  },
+  {
+   "text": "The fix for fabrication was a six-check anti-fabrication system (asterisk detection in names, null-email filtering, domain validation, minimum field requirements, a partial-data search-status flag, and a hard gate skipping any contact without a verified email) plus input validation in the email drafting agent.",
+   "url": null
+  },
+  {
+   "text": "Splitting a 23,000+ character agent that did email writing, CRM creation and Outlook drafting into two agents cut the email agent's instructions to about 5,200 characters (78% reduction) and isolated failures; the split took under an hour in Lyzr.",
+   "url": null
+  },
+  {
+   "text": "Total instruction length across the prospecting agents grew to over 72,000 characters and was rewritten with goal-oriented framing to about 30,000 (roughly 58% reduction), making agents more consistent.",
+   "url": null
+  },
+  {
+   "text": "Switching knowledge-base retrieval for email drafting to Maximum Marginal Relevance with a relevance threshold and diversity parameter produced more varied messaging angles and noticeably better email quality.",
+   "url": null
+  },
+  {
+   "text": "The prospecting system right-sized models to roles: a larger-reasoning model for the supervisor and smaller, faster models for procedural agents like CRM lookups and record creation, instead of one frontier model for every agent.",
+   "url": null
+  },
+  {
+   "text": "Lyzr provides per-agent model, instructions, tools and iteration limits, supervisor orchestration, trace-level observability and configuration snapshots with per-agent rollback without redeploying, and the system also uses non-agent services (a weekly CRM summary refresh and a validation layer).",
+   "url": null
+  },
+  {
+   "text": "SocialJet, built by PG-AGI, is a multi-agent influencer-marketing agency platform with 11 specialised agents in three families (Sales, Campaign Ops, Finance and Analytics) orchestrated by LangGraph, using FastAPI, React, Claude Opus 5.5, Neon PostgreSQL, pgvector and Redis, built on a 10-week MVP plan.",
+   "url": null
+  },
+  {
+   "text": "In SocialJet, every externally visible or financially sensitive action (outreach sends, negotiation replies, shortlist approvals, content approvals, payouts) is gated behind a human approval queue; agents only recommend, draft, rank and monitor.",
+   "url": null
+  },
+  {
+   "text": "SocialJet's Operations Monitor is a deterministic, non-LLM service with threshold-based checks for stalls, overdue items and unpaid invoices; proposals with negative sentiment go to a Flagged for Review queue.",
+   "url": null
+  },
+  {
+   "text": "SocialJet outreach spans WhatsApp, Email, Telegram and Instagram DM with agent drafts the campaign manager approves, edits or rewrites before sending; follow-ups fire at 24 then 48 hours up to three attempts, and creator discovery uses pgvector matching with per-pick reasoning approved one by one.",
+   "url": null
+  },
+  {
+   "text": "SocialJet content goes through internal campaign manager vetting first, then client approval or feedback via a campaign-scoped magic-link portal; its outcomes are described as intended, and no measured results are reported.",
+   "url": null
+  },
+  {
+   "text": "ServiceNow is building a LangGraph/LangSmith multi-agent system for sales and customer success covering lead qualification, opportunity discovery, onboarding, adoption tracking, renewal and advocacy, using a supervisor agent with specialised subagents triggered by customer signals; it was still in QA testing, not full production, with no measured business results reported.",
+   "url": null
+  },
+  {
+   "text": "ServiceNow evaluates its agents with per-agent custom scorers and LLM-as-judge (e.g., email agents on accuracy and relevance; RAG agents on chunk relevancy and groundedness), automatically adds runs that meet score thresholds to golden datasets, and collects human feedback to prevent regressions.",
+   "url": null
+  },
+  {
+   "text": "Duvo, built on Claude Platform with MCP, the Agent SDK and computer use, automates enterprise operations across legacy systems, reporting €2.8M+ annualized savings within three months for retailer Rohlik Group and eight weeks from first conversation to production; high-risk actions require human approval and the agent persists the decision for future runs.",
+   "url": null
+  },
+  {
+   "text": "Optimizely Opal is a no-code agent orchestration platform for marketers that chains agents (sequential, parallel, loops, branching) triggered by chat, webhooks or schedules, with vendor claims of 50%+ higher engagement, halved content production time, and automated brand and compliance checks saving hundreds of review hours.",
+   "url": null
+  }
+ ],
+ "question_id": "Q22"
+}

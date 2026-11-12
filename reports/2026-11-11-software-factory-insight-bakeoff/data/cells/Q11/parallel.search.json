@@ -1,0 +1,123 @@
+{
+ "arm_id": "parallel.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.008
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:28.646340Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 956,
+   "page_chars_delivered": 7255,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Does the entire job restart from the beginning? If you're running an AI pipeline that calls an LLM, stores the result, then calls another LLM to evaluate the output, a failure on the evaluation step\n\n...\n\nThe answer is to break your long-running jobs into discrete steps. Each step runs independentl…",
+   "title": "Reliably run critical workflows - Inngest Docs",
+   "url": "https://www.inngest.com/docs/patterns/durable/reliably-run-critical-workflows?ref=patterns"
+  },
+  {
+   "chars_delivered": 990,
+   "page_chars_delivered": 4524,
+   "post_step": "fetched",
+   "published": null,
+   "text": "However, it's not easy to design an agent that waits for human feedback.\nThe key issue is **time** : a human might take hours or days to respond to an agent, so the agent must be able to reliably wait for a long time (during which the server might be restarted, software might be upgraded, etc.).\n\nD…",
+   "title": "Reliable Human-in-the-Loop | DBOS Docs",
+   "url": "https://docs.dbos.dev/ai/hitl"
+  },
+  {
+   "chars_delivered": 982,
+   "page_chars_delivered": 4916,
+   "post_step": "fetched",
+   "published": null,
+   "text": "A **durable function** is application code that Inngest coordinates as a run which survives failures and can wait indefinitely. A run has its own input, steps, and trace. Inngest stores each completed step's result. When work resumes after a retry or wait, functions resume from the last completed s…",
+   "title": "Durable Execution",
+   "url": "https://www.inngest.com/docs/durable-execution"
+  },
+  {
+   "chars_delivered": 925,
+   "published": null,
+   "text": "Search\n\nOn this page\n\n# Human-in-the-Loop\n\nThis example shows how to use DBOS to add **human-in-the-loop** to your AI agent.\n\nProduction AI agents often need to wait for human approval before performing critical tasks.\nHowever, because there are real people involved, approval doesn't always happen…",
+   "title": "Human-in-the-Loop | DBOS Docs",
+   "url": "https://docs.dbos.dev/python/examples/agent-inbox"
+  },
+  {
+   "chars_delivered": 949,
+   "published": null,
+   "text": "Durable Execution is a fault-tolerant approach to executing code that is achieved by handling failures and interruptions gracefully with automatic retries and state persistence. This means that your code can continue to run even if there are issues like network failures, timeouts, infrastructure ou…",
+   "title": "How Inngest Functions Execute | Durable Execution - Inngest Docs",
+   "url": "https://www.inngest.com/docs/learn/how-functions-are-executed"
+  },
+  {
+   "chars_delivered": 958,
+   "published": null,
+   "text": "**A durable agent keeps its progress when anything goes wrong.** An agent is a loop of model calls and tool calls. On Inngest, each call runs as a step. Inngest saves every completed step, retries only the step that failed, and resumes the agent after a crash, a deploy, or a wait of days. You write…",
+   "title": "Durable Agents",
+   "url": "https://www.inngest.com/docs/durable-execution/durable-agents"
+  },
+  {
+   "chars_delivered": 976,
+   "published": "2026-07-16",
+   "text": "# LangGraph in production: Temporal's LangGraph Plugin adds Durable Execution\n\nAUTHORS\n\nEthan Ruhe, David Hyde, Brian Strauch\n\nPUBLISHED\n\nJul 16, 2026\n\nCATEGORY\n\n...\n\nIf you build agents with LangGraph, you can now run them on Temporal without rewriting your codebase, and get automatic failure reco…",
+   "title": "LangGraph in production: Temporal's LangGraph Plugin adds Durable Execution | Temporal",
+   "url": "https://temporal.io/blog/temporal-langgraph-plugin-durable-execution"
+  },
+  {
+   "chars_delivered": 952,
+   "published": null,
+   "text": "## How Durability Works: Memoization and Deterministic Replay\n\nDurability for agents requires solving two problems simultaneously:\n\n**1. Support non-deterministic execution.** An agent's control flow is decided at runtime by the model. Which tools get called, how many loop iterations run, whether t…",
+   "title": "Durable Agents",
+   "url": "https://www.inngest.com/docs/learn/durable-agents"
+  },
+  {
+   "chars_delivered": 981,
+   "published": "2025-07-10",
+   "text": "You never have to think about checkpointing. |\n|We must allow for **humans in the loop** . |This is achieved through [Temporal Signals & Updates, and Temporal Queries](https://docs.temporal.io/encyclopedia/workflow-message-passing) . |\n|AI applications are often **long-running** .\n\n...\n\nFor example…",
+   "title": "Durable Execution meets AI: Why Temporal is ideal for AI agents & Generative AI Apps | Temporal",
+   "url": "https://temporal.io/blog/durable-execution-meets-ai-why-temporal-is-the-perfect-foundation-for-ai"
+  },
+  {
+   "chars_delivered": 906,
+   "published": null,
+   "text": "Restate automatically handles the reliability challenges of AI agents:\n\n![Durable AI Agent Execution](https://mintcdn.com/restate-6d46e1dc/R929v68twRp4jO8k/img/usecases/agents/durable-execution-animation-agents.gif?s=f8ed72d08c6e6fca1ad525e1422faf73)\n\n* **Automatically retry transient errors** like…",
+   "title": "AI Agents",
+   "url": "https://docs.restate.dev/use-cases/ai-agents"
+  }
+ ],
+ "latency_ms": 2753.9,
+ "notices": null,
+ "profile_sha256": "d143182259606be78b7cf033bd5ca3e5f47d821d9ede59572c1bd4a88342ff05",
+ "question_id": "Q11",
+ "request": {
+  "body": {
+   "advanced_settings": {
+    "max_results": 10
+   },
+   "client_model": "claude-sonnet-5-5",
+   "mode": "advanced",
+   "objective": "How are durable-execution engines (Temporal, Restate, Inngest, DBOS) used to run AI agents reliably? What patterns do they recommend for retries, human-in-the-loop waits, long-running workflows, and idempotent tool calls, and which companies run agents on them in production? Rank first primary sources: the vendors' own engineering blogs, documentation, conference talks, papers, code repositories, and customer case studies, plus credible technical reporting. Pull out concrete facts: mechanisms (event history replay, journaling, checkpointing to Postgres, signals, awakeables, waitForEvent, step memoization), retry and timeout policies, idempotency key practices, named production companies and use cases, dates, scale numbers, measured results, and failure modes or limitations.",
+   "search_queries": [
+    "Temporal durable execution AI agents production",
+    "Restate DBOS Inngest durable agents human-in-the-loop",
+    "durable execution LLM agent idempotent tool calls retries"
+   ],
+   "session_id": "sl-parallel.search-Q11-2026-11-11"
+  },
+  "headers": {
+   "x-api-key": "<PARALLEL_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.parallel.ai/v1/search"
+ },
+ "response": {
+  "chars": 11683,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:25.892418Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

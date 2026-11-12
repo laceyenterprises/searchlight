@@ -1,0 +1,20 @@
+{
+ "capture": "uncapturable",
+ "digest": "60e532efe9102f53",
+ "url": "https://raw.githubusercontent.com/steel-experiments/internal-agents-map/main/archive/sources/stripe-minions-source-2/content.md\\n[3",
+ "verdicts": {
+  "A blueprint is a workflow defined in code in which each node runs either deterministic code or an agent loop focused on a task.": null,
+  "A devbox is an AWS EC2 instance containing Stripe's source code and running services under development.": null,
+  "After a push, CI auto-applies autofixes for failing tests, and failures without an autofix go back to an agent node for one more local repair attempt.": null,
+  "Devboxes run in Stripe's QA environment, so minions have no access to real user data, production services, or arbitrary network egress, which lets the agent run with full permissions and no confirmation prompts.": null,
+  "Devboxes were built for human engineers before LLM agents existed; engineers already used one devbox per task (possibly half a dozen at once), and agents slot into the same parallel pattern, whereas git worktrees would not scale at Stripe.": null,
+  "Individual Stripe teams can build custom blueprints, for example to encode LLM-assisted migrations that a deterministic codemod cannot handle.": null,
+  "Pre-push hooks and a background lint daemon give fast lint feedback, and minions run a subset of linters locally as a deterministic blueprint node before pushing.": null,
+  "Stripe allows at most two rounds of CI, after which the branch returns to a human even if failures remain, citing cost and diminishing returns.": null,
+  "Stripe says deterministic nodes for small foreseeable decisions save tokens and CI costs at scale and give the agent less opportunity to err, producing a state machine mixing deterministic and agent nodes.": null,
+  "Stripe targets a ten-second devbox spin-up by proactively provisioning and warming a pool, including cloning large git repositories, warming Bazel and type-checking caches, and starting code-generation services.": null,
+  "Stripe's Part 2 post (2026.2.19) stated over 1,300 Stripe pull requests are merged each week by Minions, up from 1,000 as of Part 1.": null,
+  "The minion blueprint has agent nodes such as 'Implement task' and 'Fix CI failures' alongside deterministic nodes such as 'Run configured linters' and 'Push changes' that invoke no LLM.": null,
+  "Toolshed, Stripe's centralized internal MCP server, hosts nearly 500 tools (Part 1 says over 400), and minions get an intentionally small curated default subset.": null
+ }
+}

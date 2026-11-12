@@ -1,0 +1,410 @@
+{
+ "digest": "cc5e1c6e18fc9e81",
+ "values": {
+  "Q13-k1": {
+   "position": 5,
+   "reason": "A generic top-level description of AIOS.",
+   "score": 0
+  },
+  "Q13-k100": {
+   "position": 64,
+   "reason": "Restates the architecture split between scheduler and managers already covered in k22/k26.",
+   "score": 1
+  },
+  "Q13-k101": {
+   "position": 56,
+   "reason": "A concrete isolation and permission design (VM sandbox, three-tier permissions, progressive skill loading) the reader could adopt for general-purpose agent workloads.",
+   "score": 2
+  },
+  "Q13-k102": {
+   "position": 32,
+   "reason": "Identifies indirect instruction through documents or emails and multi-agent coordination as unsolved trust gaps, which is relevant for marketing and business-automation workloads that ingest external content.",
+   "score": 2
+  },
+  "Q13-k103": {
+   "position": 28,
+   "reason": "Exposing the agent OS itself as an MCP server so other agents can call its agents as tools is a concrete interop pattern that is relevant to the reader becoming a general platform.",
+   "score": 2
+  },
+  "Q13-k104": {
+   "position": 46,
+   "reason": "A synthesis that no system covers context, tools, trust and inter-agent communication, which is useful landscape framing but generic.",
+   "score": 1
+  },
+  "Q13-k105": {
+   "position": 12,
+   "reason": "A concrete failure mode where a minimal 'machine is trusted' permission model achieved wide adoption, which is a relevant cautionary data point for the reader's trust layer.",
+   "score": 1
+  },
+  "Q13-k106": {
+   "position": 80,
+   "reason": "Restates the context manager and access manager roles with no new detail.",
+   "score": 0
+  },
+  "Q13-k107": {
+   "position": 63,
+   "reason": "Concrete access-control syscall names, including a human-in-the-loop ask_permission primitive, are a useful API design reference for governed dispatch.",
+   "score": 2
+  },
+  "Q13-k108": {
+   "position": 30,
+   "reason": "Specific syscall names add minor detail to the context manager description.",
+   "score": 1
+  },
+  "Q13-k109": {
+   "position": 66,
+   "reason": "Storage syscalls including rollback and share suggest concrete primitives for versioned, shareable agent state.",
+   "score": 2
+  },
+  "Q13-k11": {
+   "position": 41,
+   "reason": "A list of kernel modules that corroborates other findings.",
+   "score": 1
+  },
+  "Q13-k12": {
+   "position": 9,
+   "reason": "A specific overflow trigger (total_tokens > context_window) with sliding-window versus full-summarization compaction, which is a concrete design choice for long-running worker sessions.",
+   "score": 2
+  },
+  "Q13-k13": {
+   "position": 51,
+   "reason": "Names a concrete cost failure mode, that memory operations as LLM calls add latency and token spend, which bears on whether to adopt self-editing memory for workers.",
+   "score": 2
+  },
+  "Q13-k16": {
+   "position": 1,
+   "reason": "A comparative observation about the ChatGPT Apps SDK lacking scheduling, shared memory and isolation, which is minor context for an agent fleet platform.",
+   "score": 1
+  },
+  "Q13-k17": {
+   "position": 25,
+   "reason": "A general critique of the OS metaphor that is useful framing but is not specific.",
+   "score": 1
+  },
+  "Q13-k18": {
+   "position": 34,
+   "reason": "A generic syscall/SDK layering description.",
+   "score": 1
+  },
+  "Q13-k19": {
+   "position": 50,
+   "reason": "Shows that AIOS interleaves agent steps with FIFO/RR scheduling to trade waiting time against turnaround time, a relevant but fairly general design point for fleet dispatch.",
+   "score": 2
+  },
+  "Q13-k2": {
+   "position": 31,
+   "reason": "LRU-k eviction, a versioned filesystem with 20 versions by default, and vector backends are concrete storage design parameters.",
+   "score": 2
+  },
+  "Q13-k20": {
+   "position": 49,
+   "reason": "Largely duplicates the context manager snapshot and summarization details in other findings.",
+   "score": 1
+  },
+  "Q13-k21": {
+   "position": 67,
+   "reason": "The short-term/persistent memory split is a minor corroborating detail.",
+   "score": 1
+  },
+  "Q13-k22": {
+   "position": 61,
+   "reason": "Grouping tools into categories is a minor organizational detail.",
+   "score": 1
+  },
+  "Q13-k23": {
+   "position": 52,
+   "reason": "Says only that an access manager enforces policies, with no mechanism described.",
+   "score": 1
+  },
+  "Q13-k24": {
+   "position": 45,
+   "reason": "A measured result of up to 2.1x throughput and 60-70% lower contention latency from centralized syscall scheduling could justify adding a scheduling layer over shared model endpoints.",
+   "score": 3
+  },
+  "Q13-k25": {
+   "position": 38,
+   "reason": "Architectural overview that largely corroborates other findings.",
+   "score": 1
+  },
+  "Q13-k26": {
+   "position": 73,
+   "reason": "Asynchronous sleep-time agents editing memory while the primary agent serves the user is a specific pattern applicable to postmortem-to-memory consolidation.",
+   "score": 2
+  },
+  "Q13-k27": {
+   "position": 11,
+   "reason": "Attribution trivia about where Anthropic's 'dreaming' consolidation idea came from.",
+   "score": 0
+  },
+  "Q13-k3": {
+   "position": 15,
+   "reason": "Privilege groups plus explicit permission checks before cross-agent or destructive operations is a specific access-control design that is relevant to multi-tenant platform use.",
+   "score": 2
+  },
+  "Q13-k31": {
+   "position": 54,
+   "reason": "A headline 'up to 2.1x' speedup claim with no conditions, closer to marketing than to a decision input.",
+   "score": 1
+  },
+  "Q13-k4": {
+   "position": 27,
+   "reason": "Text-based versus logits-based context snapshotting is a specific design detail, and the text-based variant is the one applicable to closed models like the reader's harnesses.",
+   "score": 2
+  },
+  "Q13-k44": {
+   "position": 47,
+   "reason": "Centralizing request queues in the scheduler rather than per module is a specific design choice.",
+   "score": 2
+  },
+  "Q13-k45": {
+   "position": 76,
+   "reason": "The LLM-as-CPU-core abstraction over diverse endpoints is analogous to the reader's existing multi-harness dispatch, so it corroborates rather than adds.",
+   "score": 1
+  },
+  "Q13-k47": {
+   "position": 33,
+   "reason": "Largely duplicates k32's LRU-K detail.",
+   "score": 1
+  },
+  "Q13-k5": {
+   "position": 42,
+   "reason": "Splitting the kernel from the SDK so the kernel runs as a remote RPC service is a specific deployment design that is relevant to a multi-tenant platform.",
+   "score": 2
+  },
+  "Q13-k50": {
+   "position": 60,
+   "reason": "Shows memory blocks can be rewritten by the agent or by dedicated memory agents, a new design option for maintaining scar memory asynchronously.",
+   "score": 2
+  },
+  "Q13-k51": {
+   "position": 44,
+   "reason": "A detailed breakdown of Letta's memory tiers, though mostly corroborating.",
+   "score": 1
+  },
+  "Q13-k52": {
+   "position": 79,
+   "reason": "A specific eviction policy (evict about 70% of messages, recursively summarize) that could be applied directly to long-running worker sessions.",
+   "score": 3
+  },
+  "Q13-k53": {
+   "position": 57,
+   "reason": "A specific three-tier memory design (core/recall/archival) that could shape how scar memory and session context are structured and injected.",
+   "score": 2
+  },
+  "Q13-k54": {
+   "position": 68,
+   "reason": "Contrasts an agents-run-inside-platform model with a pluggable add/search memory layer, a real architecture choice for a multi-harness platform.",
+   "score": 2
+  },
+  "Q13-k55": {
+   "position": 39,
+   "reason": "A concrete tradeoff between self-edited memory (lost if the model fails to save, inference cost per operation) and passive extraction (predictable but context-blind), which bears directly on the scar-memory design choice.",
+   "score": 3
+  },
+  "Q13-k56": {
+   "position": 13,
+   "reason": "A measured result where plain file tools reached 74.0% on LoCoMo versus Mem0's 68.5%, which could steer the reader toward simple file/grep tools over specialized memory stores for scar memory.",
+   "score": 3
+  },
+  "Q13-k57": {
+   "position": 37,
+   "reason": "The lesson that agents' skill with familiar tools matters more than the retrieval mechanism, and that iterative queries beat single-hop memory tools, could directly change how scar memory is surfaced to workers.",
+   "score": 3
+  },
+  "Q13-k58": {
+   "position": 58,
+   "reason": "An opinion piece's list of needed capabilities, mostly generic framing without evidence.",
+   "score": 1
+  },
+  "Q13-k59": {
+   "position": 65,
+   "reason": "A commentator's conclusion that no complete agent OS exists is context for positioning, not an architecture input.",
+   "score": 1
+  },
+  "Q13-k6": {
+   "position": 40,
+   "reason": "The maturity signal that AIOS is a research project with no known production workloads could change whether the reader adopts it or borrows from it.",
+   "score": 2
+  },
+  "Q13-k60": {
+   "position": 74,
+   "reason": "A comparable self-hosted agent OS with concrete features (isolated sub-agent terminals, cron, chat gateway) that are relevant for expanding toward business automation.",
+   "score": 2
+  },
+  "Q13-k61": {
+   "position": 14,
+   "reason": "The split of reasoning, policy and execution planes with brokered tool calls and decision-lineage audit is a specific design that maps directly onto the reader's governed dispatch and could reshape its platform architecture.",
+   "score": 3
+  },
+  "Q13-k62": {
+   "position": 21,
+   "reason": "Corroborates Letta's self-managed memory tools without adding new detail.",
+   "score": 1
+  },
+  "Q13-k63": {
+   "position": 7,
+   "reason": "A generic motivating argument for scheduling and resource management without specifics.",
+   "score": 0
+  },
+  "Q13-k64": {
+   "position": 71,
+   "reason": "An overview of the AIOS kernel's components, useful as a reference map but mostly descriptive.",
+   "score": 1
+  },
+  "Q13-k65": {
+   "position": 0,
+   "reason": "Describes the AIOS SDK-to-kernel syscall dispatch pattern, a basic architectural framing that's useful but not decision-changing.",
+   "score": 1
+  },
+  "Q13-k66": {
+   "position": 69,
+   "reason": "Background motivation that the reader already embodies.",
+   "score": 1
+  },
+  "Q13-k67": {
+   "position": 29,
+   "reason": "A generic concept mapping.",
+   "score": 0
+  },
+  "Q13-k68": {
+   "position": 2,
+   "reason": "Restates the well-known MemGPT memory hierarchy concept at a general level without specific new detail.",
+   "score": 1
+  },
+  "Q13-k69": {
+   "position": 16,
+   "reason": "The redesigned Tool Manager pairs a VM controller with an MCP server for sandboxed tool execution with consistent semantic mapping, which is a concrete tool-isolation design.",
+   "score": 2
+  },
+  "Q13-k7": {
+   "position": 62,
+   "reason": "A generic framing statement that overlaps other findings.",
+   "score": 1
+  },
+  "Q13-k70": {
+   "position": 59,
+   "reason": "Lists component names without design detail.",
+   "score": 0
+  },
+  "Q13-k71": {
+   "position": 10,
+   "reason": "A citation of the MemGPT paper's basic premise.",
+   "score": 0
+  },
+  "Q13-k72": {
+   "position": 72,
+   "reason": "Interrupt-based control flow is a minor historical detail with little bearing on the reader's design.",
+   "score": 1
+  },
+  "Q13-k74": {
+   "position": 22,
+   "reason": "Separating agent-to-kernel queries from module-to-module messages within scheduler queues is a specific queue design detail.",
+   "score": 2
+  },
+  "Q13-k8": {
+   "position": 35,
+   "reason": "Restates Letta's self-managed memory tiers, which is corroborating.",
+   "score": 1
+  },
+  "Q13-k80": {
+   "position": 23,
+   "reason": "Syscall-level scheduling granularity is a specific design choice that bears on fairness across workers.",
+   "score": 2
+  },
+  "Q13-k81": {
+   "position": 70,
+   "reason": "Concrete scheduler semantics (no preemption vs fixed time slices) that are useful when designing worker time limits.",
+   "score": 2
+  },
+  "Q13-k82": {
+   "position": 26,
+   "reason": "A minor detail about scheduler status enums.",
+   "score": 1
+  },
+  "Q13-k83": {
+   "position": 36,
+   "reason": "A minor implementation detail.",
+   "score": 1
+  },
+  "Q13-k84": {
+   "position": 20,
+   "reason": "API-level detail of an abstract class, which is minor.",
+   "score": 1
+  },
+  "Q13-k85": {
+   "position": 55,
+   "reason": "Thread/queue implementation and timeout values are low-level details of minor relevance to a Postgres-backed dispatcher.",
+   "score": 1
+  },
+  "Q13-k86": {
+   "position": 75,
+   "reason": "Mostly a repeat of the component list, with tool call conflict resolution as the only marginally new item.",
+   "score": 1
+  },
+  "Q13-k87": {
+   "position": 3,
+   "reason": "A pluggable scheduler base class is a standard extensibility pattern and a minor design detail.",
+   "score": 1
+  },
+  "Q13-k88": {
+   "position": 18,
+   "reason": "Preemptive multitasking that preserves LLM state with time-aware interruption is a specific context-switching mechanism, though it is less applicable to harness-level workers.",
+   "score": 2
+  },
+  "Q13-k89": {
+   "position": 77,
+   "reason": "A measured result that FIFO beats RR on overall execution time because of context-switch overhead, which directly informs the choice of scheduling policy.",
+   "score": 3
+  },
+  "Q13-k9": {
+   "position": 43,
+   "reason": "The memory block schema (label, description, value, character limit, pinned) is a specific structure that could inform how scar memory is injected.",
+   "score": 2
+  },
+  "Q13-k90": {
+   "position": 53,
+   "reason": "A measured result that RR improves p90 waiting time, useful for choosing a dispatch policy when tail latency matters to multi-tenant workloads.",
+   "score": 3
+  },
+  "Q13-k91": {
+   "position": 17,
+   "reason": "A layering description that adds little beyond what other findings already say.",
+   "score": 1
+  },
+  "Q13-k92": {
+   "position": 4,
+   "reason": "A stated goal of virtualizing per-user kernels on one machine is relevant to multi-tenancy, but it is aspirational rather than an implemented design.",
+   "score": 1
+  },
+  "Q13-k93": {
+   "position": 24,
+   "reason": "Project trivia about an incomplete Rust rewrite.",
+   "score": 0
+  },
+  "Q13-k94": {
+   "position": 19,
+   "reason": "The heartbeat flag for chaining tool calls and memory-pressure signals that prompt archiving are concrete loop-control design details.",
+   "score": 2
+  },
+  "Q13-k95": {
+   "position": 48,
+   "reason": "A concrete failure mode where sandboxes do not stop context injection driving arbitrary commands, which is critical for a platform running agents on untrusted business inputs.",
+   "score": 3
+  },
+  "Q13-k97": {
+   "position": 78,
+   "reason": "Decomposing queries into syscalls for parallelism is a design detail, but a fairly generic one.",
+   "score": 1
+  },
+  "Q13-k98": {
+   "position": 6,
+   "reason": "Lineage trivia about AIOS building on MemGPT.",
+   "score": 0
+  },
+  "Q13-k99": {
+   "position": 8,
+   "reason": "Lists four concrete failure modes of ad-hoc agent stacks that the reader can use as a checklist when evaluating its own dispatch and isolation, though the framing stays general.",
+   "score": 1
+  }
+ }
+}

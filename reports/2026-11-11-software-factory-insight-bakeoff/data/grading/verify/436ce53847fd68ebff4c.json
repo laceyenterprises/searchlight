@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "85cf8306deabd536",
+ "url": "https://zenodo.org/records/21328807/files/LLM_Code_Reviews_v2.pdf?download=1",
+ "verdicts": {
+  "56.8% of confirmed code defects (167/294) were found by exactly one model, with cross-model Jaccard overlap on code of about 0.29, and a permutation null confirmed the disjointness is real.": 0,
+  "Coverage of an artifact's confirmed defects rose from about 47% with one reviewer to about 72% with a second reviewer, the largest single step, with diminishing returns after; the authors recommend 2-3 independent, blind reviewers followed by reconciliation.": 0,
+  "In a live team's corpus of 33 code/mixed artifacts with 294 human-confirmed issues reviewed by fifteen model versions, no large-sample model exceeded about 61% recall on code, and a typical model missed about half of confirmed defects.": 0
+ }
+}

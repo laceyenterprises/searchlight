@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "665ca6cf4efa6544",
+ "claims": [
+  {
+   "text": "OpenHands CodeActAgent v1.8 using claude-3.5-sonnet achieved a 26% resolve rate on SWE-Bench, described as competitive with other open-source SWE specialists.",
+   "url": null
+  },
+  {
+   "text": "OpenHands CodeActAgent fixed 79.3% of bugs in the Python split of the benchmark it reports in Tab. 4, evaluated 0-shot.",
+   "url": null
+  },
+  {
+   "text": "SWE-Agent achieved 87.7% on the same Python split, but Yang et al. (2024) gave the model a full demonstration of a successful sample trajectory (1-shot), whereas the OpenHands evaluation was 0-shot.",
+   "url": null
+  },
+  {
+   "text": "OpenHands connects agents to the environment through a core set of general actions inspired by CodeAct, including IPythonRunCellAction and CmdRunAction, which execute arbitrary Python code and bash commands inside a sandbox (a securely isolated Linux operating system).",
+   "url": null
+  },
+  {
+   "text": "OpenHands uses an AgentDelegateAction action type that lets an agent delegate a specific subtask to another agent.",
+   "url": null
+  },
+  {
+   "text": "In the OpenHands runtime, a Docker container is launched from the OH runtime image at startup; the backend (runtime.py) sends actions to the runtime client over a RESTful API, and the client executes them in the sandbox and returns observations.",
+   "url": null
+  },
+  {
+   "text": "OpenHands evaluated agents over 15 challenging tasks, including software engineering (SWE-bench) and web browsing (WebArena); the same CodeAct agent with an unmodified system prompt showed competitive performance across software development, web interaction and miscellaneous tasks.",
+   "url": null
+  },
+  {
+   "text": "OpenHands contributors developed an image-agnostic Docker sandbox to make SWE-Bench evaluation more stable.",
+   "url": null
+  },
+  {
+   "text": "The OpenHands Software Agent SDK (V1) comprises nine components: event-sourced state management, LLM, tool system, agent, context window management, local conversation, secret registry, security and confirmation, and deployment architecture with local and remote workspaces.",
+   "url": null
+  },
+  {
+   "text": "OpenHands V1 provides seamless local-to-remote execution portability with integrated REST/WebSocket services and connects to interfaces such as VS Code, VNC, browser, CLI and APIs.",
+   "url": null
+  },
+  {
+   "text": "A 15-day production comparison showed OpenHands V1 reduced system-attributable failures by 61% relative to V0.",
+   "url": null
+  },
+  {
+   "text": "OpenHands V1 event-sourced state has sub-millisecond persist latency and crash recovery under 20 ms.",
+   "url": null
+  },
+  {
+   "text": "OpenHands V1 was evaluated across 14 language models and five benchmark categories (SWE-Bench Verified, GAIA, SWE-Bench Multimodal, SWT-Bench, Commit0), achieving state-of-the-art results on three of five tasks.",
+   "url": null
+  },
+  {
+   "text": "OpenHands states four lessons from scaling to production: strictly separate core agent logic from applications; use event-sourced state for reproducibility and fault recovery; use immutable component design to prevent configuration drift; and use a unified execution model for local and sandboxed deployment.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent pairs a language model with an Agent-Computer Interface (ACI) whose principal components are search/navigation, a file viewer, a file editor, and context management.",
+   "url": null
+  },
+  {
+   "text": "At each step SWE-agent generates a thought and a command and incorporates the command's execution feedback (ReAct), built atop the Linux shell so common Linux utilities remain available.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's codebase has three modules: the environment, the agent, and logging that saves task episodes as trajectories and patch generations.",
+   "url": null
+  },
+  {
+   "text": "SWE-agent's paper compares against a Shell-only baseline, adapted from InterCode, in which the LM resolves the issue by interacting with a Linux shell process.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent is about 100 lines of Python for the agent (roughly 100 more for environment, model and script) and scores above 74% on SWE-bench Verified.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent has no tools other than bash and a completely linear history in which each step appends to the messages, so the trajectory equals the messages passed to the LM.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent executes each action with subprocess.run independently rather than in a stateful shell session, so sandboxing is done by swapping subprocess.run for docker exec.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent supports local, docker/podman, singularity/apptainer, bubblewrap and contree environments, and is used as the basis of the SWE-bench (bash only) leaderboard that compares different LMs.",
+   "url": null
+  },
+  {
+   "text": "In mini-swe-agent v2 native tool calling with a single bash function is the default, and v1 (parsing commands from markdown code blocks) lives on the v1 branch, so the README/FAQ claim of no tool-calling is outdated.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent defaults to the local environment, which runs subprocess.Popen(command, shell=True) on the host with no sandbox; docker is the SWE-bench default, and batch runs use a non-interactive agent that never asks for approval.",
+   "url": null
+  },
+  {
+   "text": "mini-swe-agent's only rule mechanism is whitelist_actions, a list of regexes that skip confirmation in confirm mode, empty by default.",
+   "url": null
+  }
+ ],
+ "question_id": "Q09"
+}

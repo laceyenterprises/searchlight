@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "935d96ff26a73b84",
+ "url": "https://martinfowler.com/articles/durable-execution-agents.html",
+ "verdicts": {
+  "In a Martin Fowler article, measured waiting workflows used no CPU on either Cloudflare or local Temporal; a workflow in memory woke in 14 ms on Temporal, and one rebuilt from the log took under 0.1 s on Temporal versus about 2 s on Cloudflare.": 1,
+  "Temporal's continue_as_new carries state into a fresh run with an empty history, which keeps replay fast for long-lived entity workflows such as one-per-SKU agents.": 1
+ }
+}

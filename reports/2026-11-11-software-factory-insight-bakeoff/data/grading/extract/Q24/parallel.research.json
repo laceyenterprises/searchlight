@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.research",
+ "cell_sha": "27f461a72fa0a6e8",
+ "claims": [
+  {
+   "text": "Augment reports that between November 2025 and July 2026, size-adjusted output per active developer across Augment engineering rose from 12.3 to 55.7, a 4.5x increase.",
+   "url": "https://www.augmentcode.com/blog/beyond-ai-coding-agents-how-we-built-augments-software-factory"
+  },
+  {
+   "text": "Augment reports that raw pull requests per active developer rose from 16.6 to 45.5 (2.7x) between November 2025 and July 2026.",
+   "url": "https://www.augmentcode.com/blog/beyond-ai-coding-agents-how-we-built-augments-software-factory"
+  },
+  {
+   "text": "Augment reports that lines changed per active developer rose from 8,031 to 35,147 (4.4x) between November 2025 and July 2026.",
+   "url": "https://www.augmentcode.com/blog/beyond-ai-coding-agents-how-we-built-augments-software-factory"
+  },
+  {
+   "text": "Augment built its internal software factory on Augment Cosmos, its platform for running and coordinating agents, and added each component as a new bottleneck appeared.",
+   "url": "https://www.augmentcode.com/blog/beyond-ai-coding-agents-how-we-built-augments-software-factory"
+  },
+  {
+   "text": "In Augment's software factory, specialized agents automate the mechanical work at each SDLC transition while humans retain ownership of consequential decisions.",
+   "url": "https://www.augmentcode.com/blog/beyond-ai-coding-agents-how-we-built-augments-software-factory"
+  },
+  {
+   "text": "Factory announced on September 15, 2026 that it raised $200M at a $5B valuation, bringing its total funding to over $400 million.",
+   "url": "https://factory.com/news/5-billion-valuation"
+  },
+  {
+   "text": "Factory's investors in the round include Blackstone, Khosla Ventures, Sequoia Capital, Insight Partners, Evantic Capital, Sound Ventures, NEA, Mantis VC, and Clearlake.",
+   "url": "https://factory.com/news/5-billion-valuation"
+  },
+  {
+   "text": "Factory says its platform can be deployed in the cloud, on-premises, or in fully air-gapped environments, and lets enterprises control how the software factory learns and which models it uses.",
+   "url": "https://factory.com/news/5-billion-valuation"
+  },
+  {
+   "text": "GitLab 19.4, released September 17, 2026, put /goal in GitLab Duo CLI into public beta, turning an open-ended objective into a governed agentic flow.",
+   "url": "https://about.gitlab.com/press/releases/2026-09-17-gitlab-19-4-brings-new-agentic-automation-at-a-lower-cost/"
+  },
+  {
+   "text": "GitLab 19.4 lets flows run when a merge request opens and exposes GitLab to any MCP client through a governed set of tools.",
+   "url": "https://about.gitlab.com/press/releases/2026-09-17-gitlab-19-4-brings-new-agentic-automation-at-a-lower-cost/"
+  },
+  {
+   "text": "GitLab Credits usage visibility became generally available in GitLab 19.4 so platform owners can measure and control the costs of agentic automation.",
+   "url": "https://about.gitlab.com/press/releases/2026-09-17-gitlab-19-4-brings-new-agentic-automation-at-a-lower-cost/"
+  },
+  {
+   "text": "On October 6, 2026 GitLab announced the foundation for a 'governed software factory', aimed at replacing fragmented shadow software factories.",
+   "url": "https://about.gitlab.com/press/releases/2026-10-06-gitlab-announces-the-foundation-for-the-governed-software-factory/"
+  },
+  {
+   "text": "GitLab's GitLab Security Standard defines five controls to reduce the time from detection to verified remediation in agentic software development.",
+   "url": "https://about.gitlab.com/press/releases/2026-10-06-gitlab-announces-the-foundation-for-the-governed-software-factory/"
+  },
+  {
+   "text": "GitLab's announcement brings containers and packages into one control plane alongside source code management and CI pipelines.",
+   "url": "https://about.gitlab.com/press/releases/2026-10-06-gitlab-announces-the-foundation-for-the-governed-software-factory/"
+  },
+  {
+   "text": "On October 7, 2026 OutSystems announced general availability of Agent Experience, opening its platform and Enterprise Context Graph to coding agents including Claude Code, Cursor, Codex, and Kiro.",
+   "url": "https://www.outsystems.com/blog/posts/coding-agents-legacy-system-modernization"
+  },
+  {
+   "text": "In GitLab 19.5, after a one-time `glab govern setup`, externally connected agents such as Claude Code, Cursor, and Codex can be connected to GitLab AI Governance via the glab CLI.",
+   "url": "https://docs.gitlab.com/releases/19/gitlab-19-5-released"
+  },
+  {
+   "text": "GitLab 19.5 AI Governance captures each qualifying agent session, including who ran it, which agent, which project, and when.",
+   "url": "https://docs.gitlab.com/releases/19/gitlab-19-5-released"
+  },
+  {
+   "text": "VMware Tanzu Platform 11.0, dated October 23, 2026, introduces an agentic performance dashboard, an agentic trace detail view, and structured logging.",
+   "url": "https://blogs.vmware.com/tanzu/vmware-tanzu-platform-11-0-the-agent-platform-for-vmware-private-ai-cloud"
+  },
+  {
+   "text": "OpenAI built Pando, a new Git backend, without interrupting engineering work or changing how its team uses Git.",
+   "url": "https://openai.com/index/scaling-git-at-openai"
+  },
+  {
+   "text": "Pando targets horizontally scalable writes optimized for concurrent pushes to many branches, with a coordinator instructing nodes to perform the update once a majority acknowledges a pre-commit message.",
+   "url": "https://openai.com/index/scaling-git-at-openai"
+  },
+  {
+   "text": "GitHub Agentic Workflows (gh-aw) v1.2.0, released November 4, added artifact-backed durable workflow continuation so work can carry across agents.",
+   "url": "https://github.github.com/gh-aw/blog/2026-11-09-weekly-update"
+  },
+  {
+   "text": "gh-aw v1.2.1, released November 6, made security reviews fail closed when unresolved and added a warning for dynamic checkout refs.",
+   "url": "https://github.github.com/gh-aw/blog/2026-11-09-weekly-update"
+  },
+  {
+   "text": "OpenAI's November 9, 2026 case study says CodeRabbit uses Codex to ship 20 times more software with the same engineering team.",
+   "url": "https://openai.com/index/coderabbit-codex-daybreak"
+  },
+  {
+   "text": "ClickHouse announced on November 9, 2026 that it acquired Xata, an agent-native Postgres company, to give developers and agents isolated, production-like data environments on demand.",
+   "url": "https://clickhouse.com/blog/clickhouse-unifies-enterprise-ai-data-stack"
+  },
+  {
+   "text": "Thrum, announced November 10, 2026, is a multi-agent coordination platform for Claude Code, Codex, and Cursor supporting coordinator-reviewer workflows with approval loops, with a free tier and a Pro plan at $15/month or $120/year.",
+   "url": "https://www.getreadyforagents.com/news/thrum-multi-agent-coordination"
+  }
+ ],
+ "question_id": "Q24"
+}

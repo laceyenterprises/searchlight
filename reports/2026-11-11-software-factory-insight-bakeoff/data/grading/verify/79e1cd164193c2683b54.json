@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "bde1340bf1d621d5",
+ "url": "https://zylos.ai/research/2026-04-24-durable-execution-agent-runtimes",
+ "verdicts": {
+  "Hatchet's ordinary tasks are at-least-once, so idempotency remains the developer's responsibility unless durable boundaries are used carefully.": 1,
+  "Restate SDKs expose ctx.run-style durable steps, built-in key-value state, durable timers, idempotency keys, and callback waits called awakeables.": 1
+ }
+}

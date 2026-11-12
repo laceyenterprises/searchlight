@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:12.973192Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 4334,
+   "published": null,
+   "text": "# Spec-Driven Development in 2026: The Method Replacing Vibe Coding\nThe numbers back it: early adopters of spec-driven workflows report 3-10x higher first-pass success rates from AI agents on non-trivial tasks. GitHub's Spec Kit crossed 111,000 stars by June 2026 and has since passed 132,000, hitti…",
+   "title": "Spec-Driven Development in 2026: The Method Replacing Vibe Coding",
+   "url": "https://devtoollab.com/blog/spec-driven-development-ai-agents"
+  },
+  {
+   "chars_delivered": 14157,
+   "published": null,
+   "text": "***Abstract*—AI coding agents implement software from natural-language instructions, but the intent behind that work is lost**\n\n**when stated only in chat sessions. Spec-driven development**\n\n**(SDD) addresses this by having developers and agents write**\n\n**specifications that guide implementation,…",
+   "title": "Spec-Driven Development as Prescribed and as Practiced",
+   "url": "https://arxiv.org/pdf/2608.25202"
+  },
+  {
+   "chars_delivered": 4134,
+   "published": null,
+   "text": "# Spec-driven development and the backlog\nSpec-driven development is the practice of writing a structured specification before any code, having a coding agent turn it into a technical plan and a list of tasks, and then implementing against those tasks with the spec as the source of truth. It became…",
+   "title": "Spec-driven development and the backlog · Stride Learn",
+   "url": "https://www.stride.page/learn/ai-coding-agents/spec-driven-development"
+  },
+  {
+   "chars_delivered": 7514,
+   "published": null,
+   "text": "# Spec-Driven Development: From Code to Contract in the Age of AI Coding Assistants\n###### Abstract\nThe rise of AI coding assistants has reignited interest in an old idea: what if specifications—not code—were the primary artifact of software development? Spec-driven development (SDD) inverts the tr…",
+   "title": "Spec-Driven Development:From Code to Contract in the Age of AI Coding Assistants",
+   "url": "https://arxiv.org/html/2602.00180v1"
+  },
+  {
+   "chars_delivered": 8805,
+   "published": null,
+   "text": "# Spec-driven development (SDD)\n**Spec-driven development (SDD) is a way of building software with AI coding agents in which a written specification is the source of truth.** The team records **intent, constraints and acceptance criteria** in a versioned spec, agents plan and implement the work fro…",
+   "title": "What Is Spec-Driven Development? Tools and Specs",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "chars_delivered": 7952,
+   "published": null,
+   "text": "# What Is Spec-Driven Development? (And Why It Fixes Vibe Coding)\n- Spec-driven development (SDD) makes a machine-readable specification the primary artifact; code, tests, and docs are derived from it\n- GitHub released Spec Kit in September 2025; it reached version 1.0 in August 2026, has about 140…",
+   "title": "What Is Spec-Driven Development? (And Why It Fixes Vibe Coding) - VibeReady Blog",
+   "url": "https://vibeready.sh/blog/what-is-spec-driven-development/"
+  },
+  {
+   "chars_delivered": 5027,
+   "published": null,
+   "text": "# Spec-Driven Development with AI Coding Agents: A Guide\n**Spec-driven development** (SDD) is a way of working with AI coding agents where you write down what you want before any code exists, and the agent builds from that document instead of from a chat message. In this post I will show you how sp…",
+   "title": "Spec-Driven Development with AI Coding Agents: A Guide",
+   "url": "https://www.webdevdrops.com/spec-driven-development"
+  },
+  {
+   "chars_delivered": 3513,
+   "published": null,
+   "text": "# Agentic Harness: What Spec Driven Development Actually Is\n## What it is\nSpec driven development means you write down what you want before the agent writes any code, and that document becomes the source of truth for both of you. The agent plans from it, breaks it into tasks from it, and is checked…",
+   "title": "Spec-Driven Development: Spec Kit, Kiro, OpenSpec Compared",
+   "url": "https://juliantellez.com/blog/what-spec-driven-development-is"
+  },
+  {
+   "chars_delivered": 11417,
+   "published": null,
+   "text": "# Spec-Driven Development with AI Coding Agents: Specs, Tasks, Security\nSS\n\nSafeguard Security Team\n\nOctober 25, 2026 45 min read\n\nSpec-driven development means you and an AI coding agent write down what to build before any code exists: a requirements file with testable acceptance criteria, a desig…",
+   "title": "Spec-Driven Development with AI Coding Agents: Specs, Tasks, Security",
+   "url": "https://safeguard.sh/resources/blog/spec-driven-development-with-ai-coding-agents-explained-requirements-design-tasks-and-security-requirements"
+  },
+  {
+   "chars_delivered": 2966,
+   "published": null,
+   "text": "# Harness Engineering with Kiro: Spec-Driven Development for the Multi-Agent Era\nSpec-driven development is the Control layer of harness engineering, not a competing paradigm. See how Amazon Kiro's three-phase spec workflow plus a 9-agent topology rearchitected a full prototype stack in a single da…",
+   "title": "Harness Engineering with Kiro: Spec-Driven Development for the Multi-Agent Era",
+   "url": "https://builder.aws.com/content/3DlOO7A9RFAazBbwbNl2iV8WHr9/harness-engineering-with-kiro-spec-driven-development-for-the-multi-agent-era"
+  }
+ ],
+ "latency_ms": 1828.3,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q10",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What is spec-driven development as implemented by Amazon Kiro, GitHub Spec Kit and similar tools? How are specs, plans and tasks structured, and what evidence is there that it improves agent output quality?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 78035,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:11.144916Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

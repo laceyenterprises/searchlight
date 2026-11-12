@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "d9a7455a54bdf3e7",
+ "url": "https://zylos.ai/research/2026-05-28-ai-agent-memory-architecture-persistent-state-management/",
+ "verdicts": {
+  "Letta (formerly MemGPT, from UC Berkeley) has the LLM manage memory tiers itself through explicit tool calls, moving content among core context, recall storage, and archival storage (searched by embedding).": 1,
+  "Letta's trade-off is higher latency and token cost because memory operations are themselves LLM calls.": 1
+ }
+}

@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "23bc719008c71245",
+ "url": "https://replit.com/blog/architecture-behind-secure-agent-work",
+ "verdicts": {
+  "Replit's credential broker checks each request, retrieves secrets from a vault and attaches them only to authorized outgoing requests, keeping credentials outside agent context.": 1
+ }
+}

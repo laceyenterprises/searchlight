@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "4a492ecc8a4f8321",
+ "claims": [
+  {
+   "text": "GitHub Agent HQ's mission control is a single command center, consistent across GitHub, VS Code, mobile, and the CLI, used to assign, steer, and track the work of multiple agents in parallel.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "Agent HQ lets agents from vendors including Anthropic, OpenAI, Google, Cognition and xAI operate within GitHub's security perimeter, using the same identity controls, branch permissions and audit logging that enterprises use for human developers.",
+   "url": "https://venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too"
+  },
+  {
+   "text": "Agent HQ keeps GitHub's core primitives: teams still use their preferred compute, either GitHub Actions or self-hosted runners.",
+   "url": "https://venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too"
+  },
+  {
+   "text": "Agents operating through Agent HQ run within sandboxed GitHub Actions environments with firewall protections.",
+   "url": "https://venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too"
+  },
+  {
+   "text": "According to Rodriguez, even if an agent goes rogue, the firewall prevents it from accessing external networks or exfiltrating data unless those protections are explicitly disabled.",
+   "url": "https://venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too"
+  },
+  {
+   "text": "Agent HQ compartmentalizes agent access at the branch level, unlike standalone tools where agents typically receive broad permissions across entire repositories.",
+   "url": "https://venturebeat.com/ai/githubs-agent-hq-aims-to-solve-enterprises-biggest-ai-coding-problem-too"
+  },
+  {
+   "text": "The Copilot coding agent works inside an ephemeral GitHub Actions container that is destroyed after each session, set up using the repository's setup workflow.",
+   "url": "https://dev.to/pwd9000/using-github-copilot-coding-agent-for-devops-automation-3f43"
+  },
+  {
+   "text": "Copilot coding agent can run on self-hosted GitHub Actions runners managed by Actions Runner Controller (ARC), configured by setting runs-on in copilot-setup-steps.yml to the ARC scale set name.",
+   "url": "https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/"
+  },
+  {
+   "text": "Running the Copilot coding agent on ARC self-hosted runners lets it access internal resources, such as packages, that are not available on the public internet.",
+   "url": "https://github.blog/changelog/2025-10-28-copilot-coding-agent-now-supports-self-hosted-runners/"
+  },
+  {
+   "text": "The Copilot coding agent supports only Linux (Ubuntu x64) GitHub Actions runners, handles one repository and one pull request per task, and cannot sign commits without a ruleset bypass.",
+   "url": "https://dev.to/pwd9000/using-github-copilot-coding-agent-for-devops-automation-3f43"
+  },
+  {
+   "text": "The cloud agent can only push to a copilot/ branch it created, or to the branch of a PR it was explicitly pointed at.",
+   "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/"
+  },
+  {
+   "text": "The cloud agent opens draft PRs and cannot mark them ready, approve them, or merge them.",
+   "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/"
+  },
+  {
+   "text": "The person who triggered the Copilot coding agent cannot approve the resulting pull request, ensuring independent review.",
+   "url": "https://dev.to/pwd9000/using-github-copilot-coding-agent-for-devops-automation-3f43"
+  },
+  {
+   "text": "Pull requests from the Copilot coding agent are scanned by CodeQL, secret scanning, and dependency checks against the GitHub Advisory Database.",
+   "url": "https://dev.to/pwd9000/using-github-copilot-coding-agent-for-devops-automation-3f43"
+  },
+  {
+   "text": "A code review step was added to the Copilot coding agent's workflow so Copilot gets an initial first-line review and addresses problems before a human sees the code.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "Agent HQ adds branch controls giving granular oversight over when to run CI and other checks for agent-created code.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "Agent HQ identity features control which agent is building a task and manage its access and policies like any other developer on the team.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "The control plane is the agent governance layer, where enterprise admins set security policies, audit logging, and access, control which agents are allowed, define model access, and obtain Copilot usage metrics.",
+   "url": "https://github.blog/news-insights/company-news/welcome-home-agents/"
+  },
+  {
+   "text": "Cloud sessions are governed by a separate 'Copilot in the cloud' policy that is enabled by default, while the 'MCP servers in Copilot' policy is off by default and supports an optional registry URL and a 'Registry only' restriction.",
+   "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/"
+  },
+  {
+   "text": "By default a cloud session can only reach a recommended allowlist of package registries; an org owner can set Enable firewall to enforced, let repositories decide, or allow repository custom rules, and org entries cannot be removed at repo level.",
+   "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/"
+  },
+  {
+   "text": "Copilot code review can be allowed to submit approvals that count toward required approvals, which is off by default; a ruleset requiring a PR with at least one approval on main is what subjects the agent to review.",
+   "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/"
+  },
+  {
+   "text": "The cloud agent writes enterprise audit log events for firewall and MCP configuration changes per repo, and every commit it makes is signed and linked to its session log.",
+   "url": "https://gregorsuttie.com/2026/11/03/github-copilot-agents-governance-keeping-control/"
+  },
+  {
+   "text": "One source describes an Agent Control Plane at Organization Settings → Copilot → Agent Governance, with an agent allowlist, protected-branch enforcement that cannot be overridden at repo level, push-protection secret scanning of agent commits, and session audit logs recording actor, model, issue reference, token consumption and PR link.",
+   "url": "https://baeseokjae.github.io/posts/github-agent-hq-guide-2026/"
+  },
+  {
+   "text": "Enterprises can define source-controlled AGENTS.md custom agent configuration files with rules, tools and guardrails for Copilot behavior, and GitHub supports the full MCP specification so agents can reach external services without each implementing its own integration.",
+   "url": "https://developers.slashdot.org/story/25/11/02/2337254/github-announces-agent-hq-letting-copilot-subscribers-run-and-manage-coding-agents-from-multiple-vendors"
+  },
+  {
+   "text": "Plan Mode breaks a high-level objective into steps and suggests which agent suits each step, allowing a task to hand off between vendors.",
+   "url": "https://bex.co/blog/2026/07/28/github-agent-hq-multi-vendor-orchestrator"
+  }
+ ],
+ "question_id": "Q05"
+}

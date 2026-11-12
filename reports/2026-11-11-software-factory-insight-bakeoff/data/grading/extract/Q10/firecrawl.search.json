@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "2bde3c1ab017892c",
+ "claims": [
+  {
+   "text": "Birgitta Böckeler (Thoughtworks) defines spec-driven development (SDD) as writing a spec before writing code with AI, with the spec becoming the source of truth for both human and AI.",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler distinguishes three levels of SDD: spec-first (spec written first and used for the task at hand), spec-anchored (spec kept after the task to evolve and maintain the feature), and spec-as-source (only the spec is edited by humans, never the code).",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler found all SDD approaches she examined are spec-first, but not all aim to be spec-anchored or spec-as-source, and the long-term spec maintenance strategy is often left vague.",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler defines a spec as a structured, behavior-oriented artifact (or set of artifacts) in natural language that expresses software functionality and guides AI coding agents; she distinguishes specs from general context documents (rules files, product/codebase descriptions) that some tools call a 'memory bank'.",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "Böckeler reports that evaluating SDD tools realistically is time-consuming, and that two of the three tools she tried were harder to introduce into an existing codebase, making brownfield usefulness hard to judge.",
+   "url": "https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html"
+  },
+  {
+   "text": "In Böckeler's trials, Tessl generated different code from the same spec across runs, which is why spec-as-source is considered experimental due to non-deterministic generation.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "GitHub Spec Kit provides a CLI, templates and prompts that move work through four phases: /specify (user journeys, business requirements, success criteria), /plan (architecture, tech stack, dependencies), /tasks (granular work items, dependencies, acceptance criteria) and /implement.",
+   "url": "https://medium.com/@visrow/comprehensive-guide-to-spec-driven-development-kiro-github-spec-kit-and-bmad-method-5d28ff61b9b1"
+  },
+  {
+   "text": "Spec Kit's /constitution command creates a project's governing principles and development guidelines, typically as the first step, and each phase requires explicit human approval before proceeding.",
+   "url": "https://medium.com/@visrow/comprehensive-guide-to-spec-driven-development-kiro-github-spec-kit-and-bmad-method-5d28ff61b9b1"
+  },
+  {
+   "text": "Spec Kit maps to /speckit.constitution, /speckit.specify and /speckit.clarify, /speckit.plan, /speckit.tasks, and /speckit.implement, /speckit.analyze and /speckit.converge for building and checking.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Kiro structures a feature as requirements.md in EARS notation, design.md, and an implementation task list executed task by task, with steering files as standing rules.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "OpenSpec uses a proposal with delta specs, design.md and tasks.md, then apply, optional verify, and archive.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "OpenSpec uses a change-based propose, apply, archive loop, while BMAD-METHOD uses specialized planning agents such as analyst, PM and architect.",
+   "url": "https://ssojet.com/blog/best-spec-driven-development-tools"
+  },
+  {
+   "text": "A constitution in SDD holds architecture rules, security policies, testing standards and approved libraries, written once and inherited by every spec.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "The clarify step has the agent look for gaps and ambiguities in the spec and ask questions, with answers recorded in the spec.",
+   "url": "https://re-cinq.com/topics/spec-driven-development"
+  },
+  {
+   "text": "Tasks should be small, reviewable changes with dependencies and a completion check, each linked to the acceptance criterion it serves; for example, 'Add the owner-only export endpoint and verify that a member receives no file' rather than 'Build backend'.",
+   "url": "https://omidsaffari.com/blog/spec-driven-development"
+  },
+  {
+   "text": "SDD grew out of failures of conversational prompting, where agent code looks right but has compilation errors, half-finished features, or architecture drift.",
+   "url": "https://www.shiplight.ai/blog/what-is-spec-driven-development"
+  },
+  {
+   "text": "Shiplight argues the verify stage is the one most often skipped, and that without testing built software against the spec, the spec drifts back into being documentation.",
+   "url": "https://www.shiplight.ai/blog/what-is-spec-driven-development"
+  },
+  {
+   "text": "AWS Kiro is a paid spec-driven IDE priced from free (50 credits) to $200/month (Power, 10,000 credits), and GitHub Spec Kit is MIT-licensed with about 115,000 stars by June 2026, driving its loop across 30+ agents.",
+   "url": "https://ssojet.com/blog/best-spec-driven-development-tools"
+  },
+  {
+   "text": "Augment Code's comparison, a vendor source, classifies Kiro's specs (EARS notation) and Spec Kit's markdown specs as static, and claims static spec tools produce documents that drift from implementation within hours.",
+   "url": "https://www.augmentcode.com/tools/best-spec-driven-development-tools"
+  },
+  {
+   "text": "A CMU study (arXiv 2608.25202) notes that evidence on SDD comes largely from tool vendors, whose evaluations rarely extend beyond the authors' own projects.",
+   "url": "https://arxiv.org/html/2608.25202v4"
+  },
+  {
+   "text": "The CMU study analyzed Reddit discussions, interviews with 21 practitioners (eight of them tool makers), and 266 repositories from SpecMine, a corpus of 470,795 spec files from 73,030 public GitHub repositories.",
+   "url": "https://arxiv.org/html/2608.25202v4"
+  },
+  {
+   "text": "Practitioners in the CMU study reported more reliable agent behavior from SDD but also greater planning and review costs, used it selectively and mainly for new features, and often included implementation details in specs.",
+   "url": "https://arxiv.org/html/2608.25202v4"
+  },
+  {
+   "text": "The CMU study found implementation detail in specs may help agents but makes specs prone to decay, and spec–code checks were described mainly when changes are completed rather than over time.",
+   "url": "https://arxiv.org/html/2608.25202v4"
+  },
+  {
+   "text": "The CMU study suggests individual benefits may come from clarifying intent before delegation, while team benefits may depend on SDD becoming a shared process.",
+   "url": "https://arxiv.org/html/2608.25202v4"
+  },
+  {
+   "text": "Omid Saffari's walkthrough of the Spec Kit and Kiro workflow is an illustration, not a claimed production deployment or a measured productivity trial.",
+   "url": "https://omidsaffari.com/blog/spec-driven-development"
+  }
+ ],
+ "question_id": "Q10"
+}

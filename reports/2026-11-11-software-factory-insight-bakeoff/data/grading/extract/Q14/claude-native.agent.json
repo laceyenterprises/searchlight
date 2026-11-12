@@ -1,0 +1,47 @@
+{
+ "arm_id": "claude-native.agent",
+ "cell_sha": "de98b6e15474e25f",
+ "claims": [
+  {
+   "text": "Uber's MCP Gateway registers new tools disabled by default, following the principle 'discovery doesn't imply exposure'.",
+   "url": null
+  },
+  {
+   "text": "Uber's MCP Gateway requires owner approval of tool-description config diffs.",
+   "url": null
+  },
+  {
+   "text": "Uber's Omni MCP exposes four tools (discover_server, discover_tools, get_tool_schema, invoke_tool) to avoid loading the context of hundreds of servers.",
+   "url": null
+  },
+  {
+   "text": "Uber's MCP Gateway fronts over 800 MCP servers and 5,000 tools.",
+   "url": null
+  },
+  {
+   "text": "Uber's MCP Gateway redacts PII from tool responses.",
+   "url": null
+  },
+  {
+   "text": "Uber found that MCP loaded 50K-70K tokens of schema overhead per session.",
+   "url": null
+  },
+  {
+   "text": "Uber replaced MCP schema loading with CLI resolution and tool search to reduce token overhead.",
+   "url": null
+  },
+  {
+   "text": "Invariant Labs showed that a malicious public GitHub issue could steer an agent using the GitHub MCP server into leaking private repository data.",
+   "url": null
+  },
+  {
+   "text": "The Invariant Labs GitHub MCP attack did not require compromising the MCP tools themselves.",
+   "url": null
+  },
+  {
+   "text": "A2A (Agent2Agent) joined the Agentic AI Foundation alongside MCP in August 2026.",
+   "url": null
+  }
+ ],
+ "question_id": "Q14"
+}

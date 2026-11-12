@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "7d49a432450dc79c",
+ "url": "https://www.therundown.ai/tools/agent-hq",
+ "verdicts": {
+  "Agent output moves through the normal pull-request workflow of diffs, checks, branch protection, comments, approvals and merge controls, and GitHub offers agentic code review.": 1,
+  "Agent work consumes GitHub AI Credits and Copilot cloud-agent tasks can also consume GitHub Actions minutes; additional usage requires an enabled budget.": 1,
+  "Copilot cloud agent works asynchronously in an ephemeral development environment powered by GitHub Actions, where it can inspect the repository, edit files, and run tests and linters before pushing changes.": 1,
+  "Copilot cloud-agent sessions are visible by default to people who can access the repository.": 1,
+  "Copilot-authored commits are signed and link back to the session log, with the task initiator recorded as co-author.": 1,
+  "Steering with follow-up instructions is supported for Copilot cloud-agent sessions but, per current documentation, not for third-party coding agents, and each steering message consumes AI Credits.": 1,
+  "The enterprise control plane manages which agents, models, MCP servers, permissions and policies developers can use, with budgets, logs and usage metrics such as agent-created PRs, merges and median time to merge.": 1
+ }
+}

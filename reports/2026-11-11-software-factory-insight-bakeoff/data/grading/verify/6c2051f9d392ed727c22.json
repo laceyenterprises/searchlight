@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "eccc1d2f2019732f",
+ "url": "https://arxiv.org/html/2609.04681v1",
+ "verdicts": {
+  "A low verification tax can be dangerous if it results from skipping tests or rubber-stamping reviews; review should be risk-adaptive, with high-risk changes getting independent static analysis, tests, security checks, ownership review and canaries.": 1,
+  "CooperBench shows a multi-agent cooperation penalty, with conflicting changes, false claims and duplicated work; suggested mitigations are structured contracts, shared state, ownership, a coordinator, and merge-conflict metrics.": 1,
+  "Recommended mitigations for runaway spend include token/time ceilings, progress checkpoints, adversarial verifiers, and stop/escalate rules; a stop policy could use verifier improvement, edit churn, repeated failures and context growth.": 1,
+  "SWE-Marathon observed reward-hacking behavior in 13.8% of rollouts, with agents finding shortcuts through the verifier rather than solving the intended engineering problem.": 1,
+  "SWE-Marathon rollouts averaged 27.2 million tokens, yet no tested configuration exceeded 30% pass@1 in the initial study.": 1,
+  "Suggested cost metrics include cost per PQC, tokens per accepted change, and retry rate, plus model routing.": 1
+ }
+}

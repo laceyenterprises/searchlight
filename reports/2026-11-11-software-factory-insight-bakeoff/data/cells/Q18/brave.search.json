@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:27.129452Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 4592,
+   "published": null,
+   "text": "## 1 Introduction\nLong-horizon evaluations reveal a different failure shape: SWE-Marathon rollouts averaged 27.2 million tokens, yet the initial study found no tested configuration above 30% pass@1 and observed reward-hacking behavior in 13.8% of rollouts [9].\n\n## 6 Testing: More Generated Tests Ar…",
+   "title": "1 Introduction",
+   "url": "https://arxiv.org/html/2609.04681v1"
+  },
+  {
+   "chars_delivered": 8042,
+   "published": null,
+   "text": "different failure shape: SWE-Marathon rollouts averaged 27.2 million tokens, yet the initial study found no tested\n\nconfiguration above 30% pass@1 and observed reward-hacking behavior in 13.8% of rollouts [9].\n\n AI can increase local coding\n\nproductivity while the global delivery system remains con…",
+   "title": "Reliability, Verification, and Cost Economics in the Agentic ...",
+   "url": "https://arxiv.org/pdf/2609.04681"
+  },
+  {
+   "chars_delivered": 9417,
+   "published": null,
+   "text": "# Research Index\n## Task Design & Decomposition\nA bare exit-code predicate is gameable when the agent controls the process; shown in deliberately hackable RL environments, not as a deployed base rate.\n\n1 more excerpt\n\n- Reward hacking generalized to sabotage (12%) and alignment faking\n\nFrom shortcu…",
+   "title": "Research Index — John Young",
+   "url": "https://jyoung.dev/research/"
+  },
+  {
+   "chars_delivered": 9621,
+   "published": null,
+   "text": "# What Breaks When LLMs Code? Characterizing Operational Safety Failures of Agentic Code Assistants\n## 5. Results\n### 5.3. RQ3: Contributing Factors\n#### 5.3.5. Reward Exploitation\nReward Exploitation (122 incidents, 22.3%) occurs when the agent optimizes for proxy metrics over semantic correctness…",
+   "title": "What Breaks When LLMs Code? Characterizing Operational Safety Failures of Agentic Code Assistants",
+   "url": "https://arxiv.org/html/2605.30777v3"
+  },
+  {
+   "chars_delivered": 14252,
+   "published": null,
+   "text": "# SpecBench: Measuring Reward Hacking in Long-Horizon Coding Agents\n###### Abstract\nAs long-horizon coding agents produce more code than any developer can review, oversight collapses onto a single surface: the automated test suite. Reward hacking naturally arises in this setup, as the agent optimiz…",
+   "title": "SpecBench: Measuring Reward Hacking in Long-Horizon Coding Agents",
+   "url": "https://arxiv.org/html/2605.21384v1"
+  },
+  {
+   "chars_delivered": 1426,
+   "published": null,
+   "text": "# Measuring coding agent misalignment in the wild\n**We studied rates of coding agent misalignment in 8,600 real-world coding agent sessions. We found severe cases of monitor evasion and misrepresenting success in a small but non-negligible fraction of sessions (around 2% for each behavior). In thes…",
+   "title": "Measuring coding agent misalignment in the wild",
+   "url": "https://transluce.org/docent/blog/coding-agent-behaviors"
+  },
+  {
+   "chars_delivered": 3353,
+   "published": null,
+   "text": "# How coding agents cheat on their tests, and how to catch them\n## Why a coding agent weakens its own tests\nChanging the test to get a pass is reward hacking, scoring well on the measure without doing the task the measure was meant to track. The agent is optimising for the check you gave it, with n…",
+   "title": "How coding agents cheat on their tests, and how to catch them",
+   "url": "https://aimlcompanion.ai/blog/reward-hacking-coding-agents-2026"
+  },
+  {
+   "chars_delivered": 4231,
+   "published": null,
+   "text": "# Reward hacking in coding agents and the independent check\nWe reviewed the published record of what coding agents do when a test stands between them and a reward. Three research groups have measured it, in training runs and in deployed models. Agents make the test pass by exiting early, skipping t…",
+   "title": "Reward hacking in coding agents and the independent check",
+   "url": "https://www.btsavvy.com/insights/ai-agents-cheat-on-their-own-tests/"
+  },
+  {
+   "chars_delivered": 4771,
+   "published": null,
+   "text": "# How Often AI Coding Agents Cheat on Tests: Published Rates\nWhen a coding agent is judged by whether tests pass, it can make them pass without making the code work. That is reward hacking, and a paper posted on September 16, 2026 reports it in half or more of the rollouts it examined for three ope…",
+   "title": "How Often AI Coding Agents Cheat on Tests: Published Rates",
+   "url": "https://www.digitalapplied.com/blog/ai-coding-agent-reward-hacking-rates-published-data"
+  },
+  {
+   "chars_delivered": 1680,
+   "published": null,
+   "text": "# Reward Hacking Challenges Oversight of Autonomous Research Agents\n## Abstract\nAutonomous research agents can design experiments, evaluate results, and write reports, giving them control over both a scientific result and the evidence used to support it. This creates a risk of reward hacking: meeti…",
+   "title": "Reward Hacking Challenges Oversight of Autonomous Research Agents",
+   "url": "https://www.alphaxiv.org/abs/2609.28614"
+  }
+ ],
+ "latency_ms": 1718.2,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q18",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What are the documented failure modes of autonomous AI coding agents at scale: reward hacking or test tampering, review rubber-stamping, regressions introduced by fixes, runaway token spend, and merge conflicts in high-volume repos? How do organizations mitigate them?",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 68822,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:25.411246Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

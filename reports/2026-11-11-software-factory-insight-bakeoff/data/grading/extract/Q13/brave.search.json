@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "5ac684e6446a44e5",
+ "claims": [
+  {
+   "text": "AIOS is an LLM agent operating system that embeds a large language model into an operating system and uses an LLM-specific kernel to separate LLM-related duties from non-LLM OS tasks.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "The AIOS LLM kernel contains six modules: Agent Scheduler, Context Manager, Memory Manager, Storage Manager, Tool Manager, and Access Manager.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "The AIOS kernel exposes an LLM system call interface through which agents use kernel services, and the AIOS SDK wraps these system calls in library functions for agent developers.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "The AIOS Agent Scheduler uses strategies such as First-In-First-Out (FIFO) and Round Robin (RR) to interleave steps from different agents, balancing waiting time and turnaround time compared with sequential execution where one agent's steps all run first.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "The AIOS Context Manager supports snapshot and restoration of the LLM's intermediate generation state, and context window management using basic text summarization and other window-expansion techniques.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "The AIOS Memory Manager provides short-term memory for each agent's interaction logs, while the Storage Manager persists those logs to long-term storage for later retrieval.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "The AIOS Tool Manager manages agents' calls to external API tools, grouping them into categories such as web search, scientific computing, database retrieval, and image processing.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "The AIOS Access Manager enforces privacy and access control policies between agents.",
+   "url": "https://arxiv.org/html/2403.16971v1"
+  },
+  {
+   "text": "In AIOS, a central queue holds all syscalls (LLM, tool use, memory, storage), scheduled with FIFO and round-robin policies; reported results are up to 2.1x throughput and a 60-70% reduction in resource contention latency versus unmanaged baselines.",
+   "url": "https://www.emergentmind.com/topics/aios"
+  },
+  {
+   "text": "AIOS per-agent runtime memory blocks support LRU-k eviction from RAM to disk, and persistent storage uses a versioned filesystem (default 20 versions) plus vector database backends for semantic search.",
+   "url": "https://www.emergentmind.com/topics/aios"
+  },
+  {
+   "text": "AIOS enforces privilege groups and explicit inter-agent permission checks before any cross-agent or destructive operation.",
+   "url": "https://www.emergentmind.com/topics/aios"
+  },
+  {
+   "text": "AIOS supports LLM invocations that can be interrupted and resumed, using text-based or logits-based context snapshotting.",
+   "url": "https://www.emergentmind.com/topics/aios"
+  },
+  {
+   "text": "The AIOS 0.2 release splits the kernel from the SDK, allowing the kernel to run as a remote service with applications connecting over RPC.",
+   "url": "https://jacar.es/en/agent-os-the-concept-shaping-the-new-stack-layer/"
+  },
+  {
+   "text": "AIOS supports multiple agent frameworks including ReAct, AutoGen, Open Interpreter, and MetaGPT.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "AIOS treats LLM context switching as an OS-level concern rather than leaving each agent to manage its own state.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "Letta (formerly MemGPT, from UC Berkeley) has the LLM manage memory tiers itself through explicit tool calls, moving content among core context, recall storage, and archival storage (searched by embedding).",
+   "url": "https://zylos.ai/research/2026-05-28-ai-agent-memory-architecture-persistent-state-management/"
+  },
+  {
+   "text": "Letta core memory consists of named in-context blocks (e.g., persona, human, project_context), each with a character limit and description, which the model edits with tool calls and which appear in the prompt every turn.",
+   "url": "https://mr.technology/payloads/open_source_letta_memgpt_agent_framework_june_2026"
+  },
+  {
+   "text": "Letta's memory toolset includes core_memory_append, core_memory_replace, archival_memory_insert, archival_memory_search, and conversation_search.",
+   "url": "https://mr.technology/payloads/open_source_letta_memgpt_agent_framework_june_2026"
+  },
+  {
+   "text": "Letta's sleep-time compute uses a background agent to consolidate and rewrite memory blocks while the user is idle, avoiding latency during live conversation.",
+   "url": "https://mr.technology/payloads/open_source_letta_memgpt_agent_framework_june_2026"
+  },
+  {
+   "text": "Letta automatically detects context overflow (total_tokens > context_window) and compacts via a sliding window or full summarization, so developers need not write their own overflow handlers.",
+   "url": "https://chatforest.com/reviews/letta-memgpt-stateful-agent-framework/"
+  },
+  {
+   "text": "Letta's trade-off is higher latency and token cost because memory operations are themselves LLM calls.",
+   "url": "https://zylos.ai/research/2026-05-28-ai-agent-memory-architecture-persistent-state-management/"
+  },
+  {
+   "text": "Letta's memory quality is bounded by the model's tool-use capability, and smaller open models degrade the experience.",
+   "url": "https://mr.technology/payloads/open_source_letta_memgpt_agent_framework_june_2026"
+  },
+  {
+   "text": "The Letta API decouples agent identity, memory, and state from the underlying model, so the model can be swapped while the agent keeps its memory and history.",
+   "url": "https://mr.technology/payloads/open_source_letta_memgpt_agent_framework_june_2026"
+  },
+  {
+   "text": "The ChatGPT 'OS' lacks kernel-level primitives such as agent scheduling, shared memory between agents, and a process isolation model.",
+   "url": "https://medium.com/@marc.bara.iniesta/who-is-building-the-agent-native-operating-system-c6bae5a5a3f5"
+  },
+  {
+   "text": "The OS metaphor for agents breaks down because agents are probabilistic, the 'OS' owns none of the hardware it runs on, there is no enforceable kernel boundary, and there is no standard ABI.",
+   "url": "https://rerun.build/blog/agentic-os"
+  }
+ ],
+ "question_id": "Q13"
+}

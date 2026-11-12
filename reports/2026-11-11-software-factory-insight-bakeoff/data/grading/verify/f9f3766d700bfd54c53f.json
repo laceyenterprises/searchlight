@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "527e5ce702d63e48",
+ "url": "https://allcode.com/hardening-the-factory/",
+ "verdicts": {
+  "AllCode's Nexus Factory Reactor listened only for SIGINT while ECS sent SIGTERM, allowing deployments to hard-kill dispatch/merge work; the fix added SIGTERM handling and draining with a 60-second ECS stop timeout.": 1,
+  "An expired shared GitHub token produced HTTP 400 errors and wedged every merge in AllCode's factory; operations were changed to per-user OAuth tokens, and diff loading for 100+ branches (about 30 seconds sequentially) was fixed using branch-tip SHAs and concurrency of 12.": 1
+ }
+}

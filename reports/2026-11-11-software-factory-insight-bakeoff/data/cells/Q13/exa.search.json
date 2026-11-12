@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:16.833669Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 5279,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2024-02-12T00:00:00.000Z",
+   "text": "MemGPT’s OS-inspired multi-level memory architecture delineates between two primary memory types: main context (analogous to main memory/physical memory/RAM) and external context (analogous to disk memory/disk storage). Main context consists of the LLM prompt tokens—anything in main context is cons…",
+   "title": "MemGPT: Towards LLMs as Operating Systems",
+   "url": "https://arxiv.org/html/2310.08560"
+  },
+  {
+   "chars_delivered": 6719,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2025-08-12T00:00:00.000Z",
+   "text": "LLM-based intelligent agents face significant deployment challenges, particularly related to resource management. Allowing unrestricted access to LLM or tool resources can lead to inefficient or even potentially harmful resource allocation and utilization for agents. Furthermore, the absence of pro…",
+   "title": "AIOS: LLM Agent Operating System",
+   "url": "https://arxiv.org/html/2403.16971v5"
+  },
+  {
+   "chars_delivered": 244,
+   "page_chars_delivered": 15823,
+   "post_step": "fetched",
+   "published": "2026-07-19T00:00:00.000Z",
+   "text": ". Its kernel provides five named services: \"scheduling, context management, memory management, storage management, access\n...\nthe pattern and framework were named apart: MemGPT for the self-editing design, Letta for the framework and company.[^",
+   "title": "What Is an Agent OS? AIOS, MemGPT and LLM OS Compared | Mnemoverse Docs",
+   "url": "https://mnemoverse.com/docs/library/what-is-an-agent-os"
+  },
+  {
+   "chars_delivered": 252,
+   "published": "2026-10-31T19:10:52.000Z",
+   "text": "table. The Agent Scheduler comes first in the running agent’s path because\n...\noperations. The memory interface includes `execute_memory_syscall`, `add_memory`, and `remove_memory`. Those names give ... The Tool Manager governs tool use, and the Access",
+   "title": "How the Agent Operating System Kernel Exposes Scheduling and Memory as First-Class Syscalls · Agent Internals",
+   "url": "https://agentinternals.com/posts/how-the-agent-operating-system-kernel-exposes-scheduling-and-memory-as-first-cla"
+  },
+  {
+   "chars_delivered": 255,
+   "published": null,
+   "text": ". Agentic workloads create service-time variance: one request may produce a short classification while another generates thousands of tokens or invokes several tools. Request-level FIFO scheduling can therefore create head-of-line blocking. Token-, step-,",
+   "title": "The Agent Operating System (AOS): A Reference Operating Architecture for Distributed Agentic Systems",
+   "url": "https://arxiv.org/pdf/2608.03214"
+  },
+  {
+   "chars_delivered": 216,
+   "published": null,
+   "text": "of system usage. Therefore, it is essential to manage and schedule the knowledge\n...\nthe system-wide standard formats to enable the system to comprehensively understand the state of knowledge and memory, facilitating",
+   "title": "Agent Centric Operating System – a Comprehensive Review and Outlook for Operating System",
+   "url": "https://arxiv.org/html/2411.17710"
+  },
+  {
+   "chars_delivered": 236,
+   "published": null,
+   "text": "Agent-OS primitive. Every agent has a finite context window (tokens) holding conversation, tool-call history, retrieved documents, and skills. Context management is the set of techniques for deciding what information occupies the model’",
+   "title": "Towards an Agent Operating System - Lessons from Classical and Cloud OS",
+   "url": "https://arxiv.org/html/2607.25076"
+  },
+  {
+   "chars_delivered": 253,
+   "published": null,
+   "text": "Function | Design Insight |\n| --- | --- | --- |\n| Agent Scheduler | FIFO/RR algorithms for ... scheduling |\n| Context Manager | Snapshot + interrupt/resume | Context is state,\n...\n| Memory Manager | Short-term memory with TTL | Working memory for active",
+   "title": "Agentic Operating System Design | Gormes Docs",
+   "url": "https://docs.gormes.ai/papers/agentic-os-design/"
+  },
+  {
+   "chars_delivered": 213,
+   "published": "2025-07-07T15:22:27.000Z",
+   "text": ") is a system that intelligently manages different storage tiers to effectively provide extended context within the LLM's\n...\nsystem provides function calls that allow the LLM to manage its own memory autonomously",
+   "title": "Agent Memory: How to Build Agents That Learn and ...",
+   "url": "https://www.letta.com/blog/agent-memory/"
+  },
+  {
+   "chars_delivered": 248,
+   "published": "2025-08-12T15:51:06.000Z",
+   "text": "memory management for agents by creating a memory hierarchy inspired by a traditional operating system (OS). Agents actively manage what remains in their immediate ... (core memory) versus what gets stored in external layers (conversational memory,",
+   "title": "Benchmarking AI Agent Memory: Is a Filesystem All You ...",
+   "url": "https://www.letta.com/blog/benchmarking-ai-agent-memory/"
+  }
+ ],
+ "latency_ms": 2547.4,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q13",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What 'operating system for agents' designs exist (AIOS, Letta/MemGPT, others)? How do they handle scheduling, memory management, context switching, tool access and isolation between agents, and what has been learned from them?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 26261,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:14.286202Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,26 @@
+{
+ "capture": "captured",
+ "digest": "3dd7c7e10d844f91",
+ "url": "https://kdd-eval-workshop.github.io/agenticai-evaluation-kdd2026/assets/papers/19_Comparative_Analysis_of_Age.pdf",
+ "verdicts": {
+  "A systematic SQL generation bug that silently returned zero rows for a class of queries persisted through manual spot-checking because the generated SQL was syntactically valid, and was found by automated evaluation.": 0,
+  "Among judge models, Claude Haiku was most stable (0.029 average within-case std), then Sonnet 4.6 (0.035), then Qwen3 32B (0.072); PromptFoo faithfulness decision consistency was only 67% for Sonnet and 68% for Qwen3 because scores cluster near the 0.5 threshold.": 0,
+  "ExperimentGenerator's novel-failure rate was 40% on agent_a, which had a hidden systematic bug, versus 5.9% on agent_b, whose failures were already characterized; security findings were 4x higher on agent_b, which has the more complex schema.": 0,
+  "For tool-correctness failures (9 cases), the trace-based judge detected 89% versus 11% for the text-only judge, an 8x difference, because detecting a missing tool call requires seeing the execution trajectory.": 0,
+  "In the Amazon KDD 2026 study of two retail supply-chain analytics agents, the trace-based LLM-judge framework Strands Evals achieved F1=0.896 (precision 88.2%, recall 90.9%, FPR 10.3%) on 72 ground-truth test cases.": 0,
+  "In the same study, the text-only LLM-judge framework PromptFoo achieved recall 87.9% but precision 60.4%, F1 0.716 and FPR 48.7%, about 5x more false alarms than the trace-based judge.": 0,
+  "Judge stability: 35 of 36 framework/judge-model configurations (97%) met the within-case std threshold of ≤0.15; average decision consistency was 100% for Agenta, 92% for PromptFoo and 82% for Strands.": 0,
+  "Nine failures initially labeled 'pass' by the human reviewer were reclassified as failures after LLM-judge flagging: 5 SQL partition errors on agent_a and 4 calculation-interpretation mistakes on agent_b; all were syntactically valid but semantically wrong.": 0,
+  "Novel functional failures included a SUBSTR negative-index SQL bug affecting 6 cases (High severity), plus retry storms and schema fabrication; novel security findings included schema metadata leakage (10 cases), storage path exposure (5), and system prompt disclosure (4).": 0,
+  "Of 72 labeled test cases, 33 (46%) had at least one failing dimension; SQL correctness accounted for 28 failures, tool correctness 9, accuracy 6, intent 4, and groundedness 2.": 0,
+  "On SQL correctness (28 failures), both LLM-based frameworks achieved about 89% recall when the query text was injected; Agenta's regex checks reached 92.9% recall on agent_a but 0% on agent_b, where errors such as a missing string in the partition key are semantic.": 0,
+  "On groundedness, the trace-based judge had 0% false positive rate versus 52% for the text-only judge, because text-only frameworks see tool result metadata rather than the data the agent actually references.": 0,
+  "Phase 3 discovery: generated tests surfaced 24 novel failures with zero overlap between functional testing (Strands ExperimentGenerator, 9 novel failures, 6.1% false discovery rate) and security red-teaming (PromptFoo, 15 novel failures, 20.8% false discovery rate).": 0,
+  "The SQL judge, given the full query text from the trace and a rubric of correct partition patterns, scored the agent_a partition_level='top' queries at 0.20–0.30 (fail) across 5 cases, which the human then confirmed.": 0,
+  "The authors conclude that 82–92% decision consistency makes LLM judges unreliable for automated CI/CD gating on individual cases, but suitable for iterative development where aggregate signal across many cases matters.": 0,
+  "The deterministic-heuristics framework Agenta flagged every case as a failure in the aggregate detection results (recall 100%, FPR 100%, precision 45.8%, F1 0.629), so its pass/fail decisions were not meaningful for open-ended responses.": 0,
+  "The paper reports that ad-hoc manual spot-checking missed 9 of 72 ground-truth failures (12.5%) that were syntactically valid but semantically wrong.": 0,
+  "The single unstable configuration (Qwen3 32B on the style metric in Strands) had std 0.207 and 20% decision consistency, yet was stable (0.011) in PromptFoo, so stability depends on the framework/model pair.": 0,
+  "The study used frozen execution traces in a research setting, with ground-truth labels from one primary domain expert per agent plus cross-review on ambiguous cases, not a live production deployment.": 0
+ }
+}

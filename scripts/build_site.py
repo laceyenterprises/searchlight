@@ -1237,7 +1237,8 @@ def headline(boards: list[dict], analysis: dict) -> dict:
 
 
 def _nav(active: str) -> str:
-    links = [('index.html', 'Overview'), ('results.html', 'Results'), ('methodology.html', 'Methodology')]
+    links = [('index.html', 'Overview'), ('results.html', 'Results'), ('studies.html', 'Studies'),
+             ('methodology.html', 'Methodology')]
     on = ' class="on"'
     items = ''.join(f'<a href="{href}"{on if href == active else ""}>{label}</a>' for href, label in links)
     return (f'<header class="top"><div class="wrap"><a class="brand" href="index.html">{LOGO}<span>SEARCHLIGHT</span></a>'
@@ -1753,6 +1754,69 @@ def page(reports: dict, boards: list[dict], configs: list[dict], target: str) ->
     return head, body
 
 
+INSIGHT_SCHEMA = 'sew-insight-summary'
+ANALYTICS_NOTICE = ('Google Tag Manager loads on every page; analytics cookies are disabled for visitors in the EEA, '
+                    'the UK, Switzerland and listed territories. No consent opt-in is offered.')
+
+
+def insight_studies(root: Path = ROOT) -> list[dict]:
+    """Every published insight-bench study: a reports/<name>/ whose summary.json is an insight summary."""
+    studies = []
+    for path in sorted((root / 'reports').glob('*/summary.json')):
+        try:
+            summary = json.loads(path.read_text(encoding='utf-8'))
+        except (OSError, ValueError):
+            continue
+        dashboard = path.parent / 'dashboard.html'
+        if summary.get('schema') == INSIGHT_SCHEMA and dashboard.is_file():
+            studies.append({'name': path.parent.name, 'summary': summary,
+                            'page': f'study-{path.parent.name}.html',
+                            'dashboard': dashboard.read_text(encoding='utf-8')})
+    return sorted(studies, key=lambda s: s['name'], reverse=True)
+
+
+def study_page(study: dict) -> str:
+    """The study's own dashboard, hosted: site consent and tag markup, a way back, raw links to the bundle."""
+    raw = f"{REPO_URL}/blob/main/reports/{study['name']}/"
+    html = study['dashboard'].replace('<html lang="en">', f'<html lang="en" data-raw-base="{esc(raw)}">', 1)
+    viewport = '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    html = html.replace(viewport, f'{viewport}\n{GTM_HEAD}', 1)
+    back = ('<p class="small" style="margin:12px 0 0"><a href="studies.html">&larr; All Searchlight studies</a> · '
+            f'<a href="{REPO_URL}/tree/main/reports/{esc(study["name"])}">Data and method</a></p>')
+    html = html.replace('<div class="wrap">', f'<div class="wrap">\n{back}', 1)
+    footer = ('<footer class="small muted" style="max-width:1120px;margin:32px auto;padding:16px;border-top:1px solid '
+              f'var(--line)"><p>A <a href="{LACEY_URL}">Lacey Enterprises</a> project. Results are released under the '
+              f'<a href="{REPO_URL}/blob/main/LICENSE">Apache License 2.0</a>.</p>'
+              f'<p class="analytics-disclosure">{ANALYTICS_NOTICE}</p></footer>')
+    return html.replace('</body>', f'{footer}\n</body>', 1)
+
+
+def studies_page(studies: list[dict]) -> str:
+    rows = []
+    for s in studies:
+        summary, metrics = s['summary'], s['summary']['metrics']
+        per_q = lambda arm: (metrics.get(arm, {}).get('weighted_per_question') or {}).get('value')
+        leaders = sorted((a for a in summary['ranked'] if per_q(a) is not None), key=lambda a: -per_q(a))[:3]
+        sponsor = summary['set'].get('sponsor')
+        rows.append(
+            f'<article class="card"><h3><a href="{s["page"]}">{esc(summary["set"]["title"])}</a></h3>'
+            f'<p class="muted">{esc(summary["run"]["run_date"])} · {len(summary["arms"])} arms · '
+            f'{summary["set"]["questions"]} questions · ${summary["spend"]["total_usd"]:.2f} spent'
+            + (f' · sponsored by {esc(sponsor.get("name", ""))}' if sponsor else '') + '</p>'
+            f'<p>Most verified insight per question: '
+            + ', '.join(f'<strong>{esc(a)}</strong> ({per_q(a):.1f})' for a in leaders) + '.</p>'
+            f'<p><a class="btn" href="{s["page"]}">Open the interactive results</a> '
+            f'<a style="margin-left:16px" href="{REPO_URL}/tree/main/reports/{esc(s["name"])}">Report, data and method</a></p></article>')
+    intro = ('<section class="wrap"><h1>Insight studies</h1><p class="lede">The same questions go to every search and '
+             'research API, each run as its vendor documents. Every claim is checked on the page it cites, and a '
+             'blind judge values what each one found that the others did not.</p>'
+             '<p class="muted">Each study is one run on one day. Read its caveats before comparing vendors.</p>')
+    body = intro + (''.join(rows) or '<p>No studies yet.</p>') + '</section>'
+    return _document('Insight studies · Searchlight',
+                     'Which search APIs find the most unique, verified insight, study by study.',
+                     'studies.html', body)
+
+
 def build(root: Path = ROOT) -> dict[str, str]:
     reports = load_reports(root)
     boards = leaderboards(reports)
@@ -1768,7 +1832,10 @@ def build(root: Path = ROOT) -> dict[str, str]:
         'boards': [{key: value for key, value in board.items() if key != 'model'} for board in boards],
         'search_api_head_to_head': h2h,
     }
+    studies = insight_studies(root)
     return {
+        **{s['page']: study_page(s) for s in studies},
+        'studies.html': studies_page(studies),
         'index.html': landing(root, boards, analysis),
         'results.html': results_page(reports, boards, analysis),
         'methodology.html': methodology_page(configs),

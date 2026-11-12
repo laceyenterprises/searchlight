@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "b50b0a74bf55526b",
+ "claims": [
+  {
+   "text": "In LogRocket's measured benchmark, E2B took 717ms to create a sandbox and 662ms to resume from pause.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's measured benchmark, Daytona took 742ms to create a sandbox and 1254ms to resume, because its stop-then-start flow rebuilds more than a memory-preserving pause.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's measured benchmark, Modal took 2437ms to create a sandbox and 2347ms to boot from a snapshot; Modal has no in-place resume.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's measured benchmark, Vercel Sandbox took 1852ms to create and 3333ms to resume, the only platform where resume was slower than fresh create.",
+   "url": null
+  },
+  {
+   "text": "In LogRocket's measured benchmark, Blaxel took 2824ms to create a sandbox and 1924ms to resume from standby.",
+   "url": null
+  },
+  {
+   "text": "LogRocket's harness counted a sandbox as ready only when a command had actually executed inside it, not when the API acknowledged the request.",
+   "url": null
+  },
+  {
+   "text": "BeyondTrust research found AWS AgentCore's 'Sandbox' mode, which runs on Firecracker, still permitted outbound DNS A and AAAA queries; researchers built a DNS command-and-control channel and used an over-broad IAM role to read S3 buckets; AWS remediated DNS tunneling on April 15, 2026.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare's Worker Loader runs code in a V8 isolate that starts in milliseconds but isolates only at the process level, while Cloudflare's container-based Sandbox SDK is a separate, stronger product.",
+   "url": null
+  },
+  {
+   "text": "Daytona runs Docker containers (shared host kernel) by default, with Kata or Sysbox available as opt-in stronger isolation.",
+   "url": null
+  },
+  {
+   "text": "Firecracker snapshot restore is cited at 5-30ms versus 125-200ms for a cold boot, with snapshots stored on local NVMe (target 2-5ms load time).",
+   "url": null
+  },
+  {
+   "text": "Spheron states gVisor's user-space kernel blocks direct PCIe GPU passthrough, whereas Firecracker supports VFIO passthrough to give a microVM near-native GPU access; Firecracker requires bare metal because nested virtualization adds 5-15ms per VM operation and blocks PCIe passthrough.",
+   "url": null
+  },
+  {
+   "text": "Spheron's Firecracker network setup gives each microVM a TAP device bridged on the host, with per-sandbox iptables FORWARD rules (physdev match) to drop all egress except allowlisted destinations.",
+   "url": null
+  },
+  {
+   "text": "Spheron lists Modal Sandboxes as gVisor (runsc) with 100-300ms cold start and T4/A10G GPU support, and Daytona as Docker + gVisor with 200-500ms cold start (this conflicts with other sources describing Daytona as container-by-default).",
+   "url": null
+  },
+  {
+   "text": "E2B's docs cite about 150 ms startup from a snapshot or custom template and about 1 second to resume a paused sandbox; pausing saves filesystem and memory.",
+   "url": null
+  },
+  {
+   "text": "E2B pricing is $0.000014 per vCPU-second and $0.0000045 per GiB-second (default 2 vCPU/4 GiB), Pro is $150/month with 24-hour sessions and 100 concurrent sandboxes, Hobby is limited to 1-hour sessions and 20 concurrent sandboxes.",
+   "url": null
+  },
+  {
+   "text": "E2B egress can be controlled by CIDR or hostname, and a secrets vault injects credentials at the egress proxy.",
+   "url": null
+  },
+  {
+   "text": "Modal Sandboxes run on gVisor or a VM runtime, default to a 5-minute lifetime adjustable to 24 hours, and are billed at CPU $0.00003942/core-second and memory $0.00000667/GiB-second at non-preemptible rates (3x list).",
+   "url": null
+  },
+  {
+   "text": "Daytona states sandboxes spin up in under 90 ms; it bills $0.0504/vCPU-hour and $0.0162/GiB-hour memory, offers network controls (block all or allow CIDRs/domains), and auto-stops after 15 minutes idle by default.",
+   "url": null
+  },
+  {
+   "text": "Cloudflare states each Sandbox SDK container instance is a microVM with its own kernel and network, and Dynamic Workers can block outbound requests with globalOutbound: null; Cloudflare recommends keeping credentials in the Worker so they are added to outbound requests after leaving the sandbox.",
+   "url": null
+  },
+  {
+   "text": "Fly.io Sprites pause after about 30 seconds idle, with a warm wake of 100 to 500 ms and a cold wake of 1 to 2 seconds.",
+   "url": null
+  },
+  {
+   "text": "Vercel Sandbox bills $0.128 per Active CPU hour and $0.0212 per GB-hour of memory, and its firewall supports deny-all or domain/CIDR allowlists with credentials brokering.",
+   "url": null
+  },
+  {
+   "text": "Upstash lists Cloudflare Sandbox cold start at 1-3s, with the container in its own VM, sleeping after 10 minutes idle and retaining nothing by default except directory backups to R2.",
+   "url": null
+  },
+  {
+   "text": "AWS Lambda MicroVMs use Firecracker, preserve memory and disk across suspend for up to 8 hours, and independent testing clocked roughly 2 seconds to RUNNING; AWS publishes no latency figures.",
+   "url": null
+  },
+  {
+   "text": "A 1 vCPU/2 GB sandbox costs $0.126/hour on AWS MicroVMs versus $0.083/hour on Daytona and E2B (E2B adds a $150/month base fee); AWS also charges $0.08/GB-month snapshot storage, about $962/month for a 1,000-VM hibernating fleet.",
+   "url": null
+  },
+  {
+   "text": "Firecracker boots in ~125ms with under 5 MiB memory overhead per VM and up to 150 VMs per second per host; gVisor adds 10-30% overhead on I/O-heavy workloads; Kata Containers boot in ~200ms.",
+   "url": null
+  }
+ ],
+ "question_id": "Q16"
+}

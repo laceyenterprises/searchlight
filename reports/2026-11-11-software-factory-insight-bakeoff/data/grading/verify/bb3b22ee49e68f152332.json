@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "5b93a450dc7c61cf",
+ "url": "https://github.com/MikkoParkkola/mcp-gateway",
+ "verdicts": {
+  "The mcp-gateway project presents the agent with a compact meta-surface of 9 to 17 tools instead of every backend tool definition, while fronting MCP servers and REST APIs.": 1,
+  "The mcp-gateway project provides bearer tokens, API keys, admin keys, per-client rate limits, opt-in circuit breakers, and a security firewall with credential redaction, prompt-injection detection, and shell/SQL/path-traversal scanning.": 1,
+  "Without a gateway, the practical MCP tool limit is 20 to 50 tools under context pressure; the mcp-gateway project claims tools are discoverable on demand instead.": 1
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "c1e8f9996ffc556f",
+ "url": "https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production",
+ "verdicts": {
+  "A2A Agent Cards are served at /.well-known/agent-card.json (RFC 8615) and describe capabilities, auth schemes, endpoint, and skills; A2A tasks move through submitted, working, input-required, completed, failed, or canceled.": 1,
+  "A2A v1.0 introduced Signed Agent Cards, cryptographic signatures verifying the card issuer's identity and preventing forgery against the registry, along with multi-tenancy, JSON-RPC and gRPC bindings, and version negotiation.": 1,
+  "The 'A2A Agent Registry' pattern keeps a service registry of internal Agent Cards with trust levels (e.g., high, critical); agents register themselves and others discover them dynamically.": 1,
+  "The production composition pattern has each specialist agent acting as an MCP client internally to reach its own systems while being an A2A peer externally.": 1,
+  "The recommended 'Gateway-Backed MCP' pattern places an API gateway handling auth, rate limiting, and audit in front of a pool of MCP servers (database, analytics, CRM).": 1
+ }
+}

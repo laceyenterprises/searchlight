@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:07.273930Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 10157,
+   "page_chars_delivered": 14698,
+   "post_step": "fetched",
+   "published": null,
+   "text": "As a recap of Part 1 in this blog miniseries, minions are a homegrown unattended agentic coding flow at Stripe. Over 1,300 Stripe pull requests (up from 1,000 as of Part 1) merged each week are completely minion-produced, human-reviewed, but containing no human-written code.\n\n...\n\n### Devboxes, hot…",
+   "title": "Minions: Stripe’s one-shot, end-to-end coding agents—Part 2",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "chars_delivered": 1842,
+   "page_chars_delivered": 9157,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Minions are Stripe’s homegrown coding agents. They’re fully unattended and built to one-shot tasks. Over a thousand pull requests merged each week at Stripe are completely minion-produced, and while they’re human-reviewed, they contain no human-written code.\n\nOur developers can still plan and colla…",
+   "title": "Minions: Stripe’s one-shot, end-to-end coding agents",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"
+  },
+  {
+   "chars_delivered": 253,
+   "page_chars_delivered": 3610,
+   "post_step": "fetched",
+   "published": "2026-03-20T14:26:00.000Z",
+   "text": "CI/CD pipelines, automated tests, and static analysis, ensuring generated changes meet engineering standards before human review. Engineers noted that Minions perform best on well-defined tasks such as configuration adjustments, dependency upgrades, and",
+   "title": "Stripe Engineers Deploy Minions, Autonomous Agents Producing Thousands of Pull Requests Weekly - InfoQ",
+   "url": "https://www.infoq.com/news/2026/03/stripe-autonomous-coding-agents/"
+  },
+  {
+   "chars_delivered": 256,
+   "published": "2026-02-13T01:11:43.000Z",
+   "text": "```\nInvocation (Slack/CLI/Web)\n    ↓\nDevbox (isolated EC2 sandbox, 10s spin-up)\n    ↓\nMCP Server (Toolshed: ~500 tools)\n    ↓\nAgent Loop (Goose fork)\n    ↓\nLocal lint (under 5s) → CI (max 2 rounds) → Auto-fix\n    ↓\nPull Request (human review required)\n\n```",
+   "title": "Stripe Minions | Ry Walker Research | Ry Walker",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "chars_delivered": 254,
+   "published": "2026-03-16T15:31:14.000Z",
+   "text": "some nodes run deterministic code, and other nodes run an agentic loop. Think of it ... , the “implement the feature” step or “fix CI failures” step gets ... full agentic loop with tools and freedom. On the other hand, the “run linters” step is hardcoded",
+   "title": "How Stripe’s Minions Ship 1,300 PRs a Week",
+   "url": "https://blog.bytebytego.com/p/how-stripes-minions-ship-1300-prs"
+  },
+  {
+   "chars_delivered": 233,
+   "published": null,
+   "text": "Stripe's Minions are not a copilot pattern. They are unattended coding agents that can start from Slack, Jira, or a web UI, allocate a dev box, inspect the relevant code, make a change, run checks, and open a pull request for review.",
+   "title": "Stripe Minions: One-Shot Coding Agents on a 30M-Line Codebase | Alistair Gray",
+   "url": "https://background-agents.com/summit/sessions/alistair-gray/"
+  },
+  {
+   "chars_delivered": 253,
+   "published": "2026-06-24T05:54:07.000Z",
+   "text": "run code, not a prompt. They do not ask the model whether tests should be run. They run the tests. They do not ask the model whether CI policy is satisfied. They enforce it. The CI ... guideline in a system prompt. It is a policy encoded in the harness.",
+   "title": "Stripe Minions and the Hybrid Secret: Deterministic Rails Around AI - Dotzlaw Consulting",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/"
+  },
+  {
+   "chars_delivered": 246,
+   "published": "2026-02-20T12:00:00.000Z",
+   "text": "are hybrid workflows that mix deterministic code nodes with free-flowing agentic\n...\n-> [Agentic] Understand task, plan implementation\n  -> [Agentic] Write code\n  -> ... (<5 sec)\n  -> [Deterministic] Push branch\n  -> [Agentic] Fix CI failures (if",
+   "title": "Stripe's AI 'Minions' Now Ship 1,300 Pull Requests Per Week With Zero Human-Written Code | Awesome Agents",
+   "url": "https://awesomeagents.ai/news/stripe-minions-coding-agents-1300-prs/"
+  },
+  {
+   "chars_delivered": 252,
+   "published": "2026-03-04T11:37:18.000Z",
+   "text": "🔹 deterministic nodes (drawn as rectangles): \"run configured linters\", \"push changes\", \"apply autofixes\n...\n\"implement task\", \"fix CI failures\". full LLM autonomy — the agent decides what to do.\n...\n\"figure out what's failing and fix it\" step is always",
+   "title": "Stripe's Minions: 1,300 PRs a Week — What Their Architecture Actually Teaches Us | Dominik Fretz",
+   "url": "https://dominikfretz.com/blog/stripe-minions-1300-prs-week-lessons"
+  },
+  {
+   "chars_delivered": 254,
+   "published": "2026-07-12T09:15:37.000Z",
+   "text": "model writes the code. Around it, plain deterministic code runs the checklist: git operations, linters, tests, in an order the model ... these workflows blueprints, meaning agent steps mixed with fixed steps. A minion gets two CI runs at most, and if the",
+   "title": "1,300 agent-written PRs a week, and almost none of the work is the model",
+   "url": "https://sumn.run/blog/stripe-minions-pattern"
+  }
+ ],
+ "latency_ms": 980.6,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q06",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "How does Stripe's 'Minions' system produce unattended pull requests at scale? Cover the devbox and sandbox model, the blueprint/workflow mix of deterministic and agentic steps, CI and review, and volume numbers.",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 18725,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:06.293338Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

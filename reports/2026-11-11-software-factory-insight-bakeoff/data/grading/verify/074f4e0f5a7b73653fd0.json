@@ -1,0 +1,13 @@
+{
+ "capture": "captured",
+ "digest": "0ab2aa7f3e6f7e11",
+ "url": "https://bencoding.com/2026/10/19/the-bottleneck-has-moved-why-ai-engineering-needs-to-grow-up/",
+ "verdicts": {
+  "Ben Coding's blog post 'The Bottleneck Has Moved: Why AI Engineering Needs to Grow Up' was published on Oct 19, 2026.": 1,
+  "The post argues that if an organization can produce five times as much software but architecture, code, security and regression review remain predominantly human, the bottleneck has been moved and made more expensive rather than removed.": 1,
+  "The post argues that the unit of engineering control should move from the code diff (pull request) to the system invariant, so that the build or repository makes illegal dependencies impossible rather than relying on human reviewers.": 1,
+  "The post attributes the idea of architectural fitness functions (automated architectural governance) to Neal Ford, Rebecca Parsons and others at Thoughtworks.": 1,
+  "The post identifies the key AI risk as code that is locally correct but globally wrong: for example, introducing a dependency that should not exist, duplicating functionality another domain owns, or bypassing an abstraction, even when tests pass.": 1,
+  "The post names dependency-cruiser (JavaScript/TypeScript), Nx (workspace project tagging), ArchUnit (Java), and ArchUnitNET and NetArchTest (.NET) as existing tooling for enforcing architecture, and cites NetArchTest's goal of a 'self-testing architecture'.": 1
+ }
+}

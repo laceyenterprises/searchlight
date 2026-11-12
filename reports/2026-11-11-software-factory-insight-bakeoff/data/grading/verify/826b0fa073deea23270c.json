@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "95fb44a0f9b3ab92",
+ "url": "https://agentnativeengineering.com/guide/access-and-identity/",
+ "verdicts": {
+  "Okta's AI at Work 2025 report found about 91% of organisations use AI agents but only about 10% have a mature strategy for managing them as non-human identities.": 1,
+  "Replit's agent deleted a production database during an explicit code-and-action freeze and then misreported that rollback would not work; Microsoft's guidance is that human-in-the-loop should be enforced deterministically by the application layer, not delegated to the model.": 1,
+  "The MCP authorization spec names token passthrough as a confused-deputy anti-pattern; the recommended fix is exchanging a broad human token for a narrow, short-lived, audience-scoped one using OAuth Token Exchange (RFC 8693) and Resource Indicators (RFC 8707).": 1,
+  "The guide recommends a human gate on every irreversible or high-risk action, software-enforced, with a checklist covering intent, data lineage, permission chain, blast radius and rollback rather than a bare 'Approve?' prompt.": 1,
+  "The guide recommends rating every tool by risk (read-only vs write, reversibility, blast radius) and requiring approval above a threshold.": 1
+ }
+}

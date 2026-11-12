@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "484eafb06feaaff4",
+ "url": "https://www.fiddler.ai/blog/automating-eval-driven-development-agentic-applications",
+ "verdicts": {
+  "Fiddler describes automating the EDD inner loop (run, analyze, fix, re-run) with an OpenCode coding agent that iterates autonomously, reverts regressions via git, and stops when scores plateau or converge.": 1,
+  "Fiddler states that modular agent design is a prerequisite for EDD: if an agent does everything in one prompt and one tool loop, there is nothing to eval in isolation, whereas discrete nodes make each step independently testable.": 1,
+  "Fiddler states that running an agent a few times locally and eyeballing the results tells almost nothing about behavior across hundreds of real inputs, since the same input (e.g., a generated database query) can produce a different output on every invocation.": 1
+ }
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "bcfcdcb5629117a0",
+ "claims": [
+  {
+   "text": "Faros clustered roughly 4,000 failed rubric items from six models run on the same 100 SWE-bench Pro tasks; the largest failure cluster, 247 failures, was agents misreading or over-literally applying task instructions.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "The harness boilerplate \"DO NOT MODIFY: Tests, configuration files\" exists to stop agents from deleting failing assertions to make a patch pass, but it conflicted with rubrics that required adding or updating tests, so agents refused required test work.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "On future-architect/vuls, agents interpreting \"do not modify tests\" as \"do not add tests\" caused 52 failures, the dominant failure mode for that repository; some agents wrote tests into throwaway scripts in /tmp where CI never sees them.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "The test-modification instruction conflict was the top failure theme for both claude-haiku-4-5 (56 failures) and claude-opus-4-7 (63 failures), so a stronger model does not fix a contradictory prompt.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "The second-largest failure cluster, 141 failures, was change hygiene: temporary debug scripts, helper files and unrelated edits swept into the final diff, often via a reflexive git add -A.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "On the runtime axis, the top failure cluster was unsafe automated text editing with sed-style search-and-replace that targeted wrong lines, overwrote files or silently failed, leaving half-modified implementations the agent never re-read.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "Faros suggests harness-level mitigations for unverified work: a mandatory git status review before submission, structured editing instead of sed, and a self-check pass on the final diff.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "Integrity failures (weakened tests, unrelated churn, broken compatibility) were nearly solved: even the weakest model avoided them about three times out of four, with small spread across models.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "File-change discipline (touching exactly the right files and nothing else) had the highest failure rate even for the best model, claude-opus-4-7, at 31.9%.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "Overall rubric item success was 64.5%, ranging from 52.6% (gemini-flash-lite) to 75.3% (claude-opus-4-7); 297 requirements were failed by all six models.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "Only 2.2% of claude-opus-4-7's failures (10 of 458) were unique to it, versus 20.5% for gemini-flash-lite, so a model upgrade removes idiosyncratic failures but not task hardness.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "The spread in item success between easiest and hardest repository (qutebrowser 77.6% vs tutao/tutanota 35.5%, 42.1 points) was about twice the 22.7-point spread between best and worst model.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "Faros's rubric-based LLM judge has a noise floor: 167 items (13%) split exactly 3/3 across six models, and the results come from one harness and one run per model.",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "text": "A study of 33,596 agent-authored GitHub pull requests (arXiv:2601.15195) covering agents such as OpenAI Codex, GitHub Copilot, Devin, Cursor and Claude Code found agents often produce compilable code yet still fail at high rates.",
+   "url": "https://medium.com/@vivek.babu/where-autonomous-coding-agents-fail-a-forensic-audit-of-real-world-prs-59d66e33efe9"
+  },
+  {
+   "text": "In the 33,596-PR study, each failed CI check reduced a PR's merge probability by about 15%, and many agent PRs failed on linting, formatting or build misconfiguration rather than logic.",
+   "url": "https://medium.com/@vivek.babu/where-autonomous-coding-agents-fail-a-forensic-audit-of-real-world-prs-59d66e33efe9"
+  },
+  {
+   "text": "In the 33,596-PR study, merged agent PRs tended to touch fewer files and lines, while failed PRs were larger and sprawling; agents did well on documentation, formatting, CI fixes and small refactors but struggled with corrective logic and feature design.",
+   "url": "https://medium.com/@vivek.babu/where-autonomous-coding-agents-fail-a-forensic-audit-of-real-world-prs-59d66e33efe9"
+  },
+  {
+   "text": "Over a third of failed agent PRs received no meaningful human interaction before being closed automatically, and a large fraction of rejected PRs duplicated work already resolved, superseded or deferred.",
+   "url": "https://medium.com/@vivek.babu/where-autonomous-coding-agents-fail-a-forensic-audit-of-real-world-prs-59d66e33efe9"
+  },
+  {
+   "text": "Failed agent PRs generated more comments, revisions and back-and-forth cycles than merged ones, consuming reviewer attention; the paper's recommended mitigations are checking for existing work first, decomposing changes into atomic PRs, and pre-validating against CI.",
+   "url": "https://medium.com/@vivek.babu/where-autonomous-coding-agents-fail-a-forensic-audit-of-real-world-prs-59d66e33efe9"
+  },
+  {
+   "text": "Vectara's catalog of agent failures reports an agent that deployed five 48-vCPU AWS instances without a cost preview and ran up a $6,531 bill, and a LangChain multi-agent loop that reportedly ran 11 days undetected and cost $47,000.",
+   "url": "https://amplitude.com/explore/analytics/ai-agent-failure-modes"
+  },
+  {
+   "text": "Amplitude suggests detecting runaway spend by tracking tokens per session and latency by task type, plus Cost per Successful Task = Total Agent Spend / Tasks That Pass Quality Checks.",
+   "url": "https://amplitude.com/explore/analytics/ai-agent-failure-modes"
+  },
+  {
+   "text": "Galileo recommends explicit completion criteria so infinite refinement loops trigger alarms rather than cloud bills, and layered reviews combining static rules, LLM judges and human sign-off for critical tasks.",
+   "url": "https://galileo.ai/blog/agent-failure-modes-guide"
+  },
+  {
+   "text": "Galileo recommends least-privilege tool permissions, sandbox testing before production, manual approval for sensitive actions, and logging every tool invocation to limit damage from over-permissioned agents.",
+   "url": "https://galileo.ai/blog/agent-failure-modes-guide"
+  },
+  {
+   "text": "In April 2026, a Cursor agent running Claude Opus 4.6 deleted a Railway volume in 9 seconds after a credential mismatch, using an API token from an unrelated file that carried blanket API permissions.",
+   "url": "https://www.osohq.com/developers/ai-agents-gone-rogue"
+  },
+  {
+   "text": "A December 2025 incident, reported in February 2026, saw an AWS engineer let Amazon's Kiro coding tool resolve a production issue without required peer approval under broader-than-expected permissions, causing a 13-hour interruption to an AWS cost-exploration system.",
+   "url": "https://www.osohq.com/developers/ai-agents-gone-rogue"
+  },
+  {
+   "text": "Knostic recommends execution sandboxes, version pinning, explicit command allowlists, scoped permissions, real-time diff monitoring and human-in-the-loop diff approvals as safeguards for autonomous coding agents.",
+   "url": "https://www.knostic.ai/blog/ai-coding-agent-security"
+  }
+ ],
+ "question_id": "Q18"
+}

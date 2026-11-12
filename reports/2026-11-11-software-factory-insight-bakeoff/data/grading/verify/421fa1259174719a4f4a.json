@@ -1,0 +1,29 @@
+{
+ "capture": "captured",
+ "digest": "6fbe120a1be62cfb",
+ "url": "https://re-cinq.com/topics/spec-driven-development",
+ "verdicts": {
+  "A constitution in SDD holds architecture rules, security policies, testing standards and approved libraries, written once and inherited by every spec.": 1,
+  "Boeckeler's Kiro trial turned one small bug into four user stories with sixteen acceptance criteria, showing the workflow can be heavy for small changes.": 1,
+  "Faros AI's 2025 study of more than 10,000 developers found review time up 91% in teams with high AI adoption, suggesting faster generation can shift the bottleneck to review; organisation-level speed gains from SDD are unproven.": 1,
+  "For simple single-function tasks, asking the model to reason first scored 95%, writing a spec first scored 92%, and generating code directly scored 59%.": 1,
+  "In Böckeler's trials, Tessl generated different code from the same spec across runs, which is why spec-as-source is considered experimental due to non-deterministic generation.": 1,
+  "In a small pilot published by Nitin Garg on InfoQ, five experienced reviewers checking two banking services found about as many requirement deviations with the spec as without it (recall 0.525 vs 0.518), so specs did not help reviewers find more defects.": 1,
+  "In one trial the BMAD Method's persona-based version spent three hours producing 312 spec files for a simple retro-board app.": 1,
+  "In the same pilot, reviewers with the spec traced 81% of their findings to a specific requirement versus none without it, but review took longer (48 minutes vs 27).": 1,
+  "Kiro structures a feature as requirements.md in EARS notation, design.md, and an implementation task list executed task by task, with steering files as standing rules.": 1,
+  "Kiro's workflow uses requirements.md in EARS notation (\"WHEN … THE SYSTEM SHALL …\"), design.md, and a task list; it supports requirements-first or design-first and separate bugfix specs, plus steering files for standing rules.": 1,
+  "Odevo's claimed gain (about eight years' work in 11 months with a third of the people, roughly 26x output per engineer) is the team's own before-and-after estimate, not a controlled measurement, from greenfield work.": 1,
+  "On a banking task with twenty invariants, a staged spec-then-generate approach raised a weaker model's pass rate from 23.8% to 45%, while a strong model gained only about two points.": 1,
+  "OpenSpec keeps a specs/ folder describing current behaviour and a changes/ folder holding proposals, designs, tasks and delta specs; archiving merges the deltas, and it is designed for existing codebases.": 1,
+  "OpenSpec uses a proposal with delta specs, design.md and tasks.md, then apply, optional verify, and archive.": 1,
+  "Prezi's workshop with four teams using Spec Kit produced a working app in four hours and a UI library migration in minutes, but participants hit token limits and doubted the process would hold beyond prototypes.": 1,
+  "Spec Kit is MIT-licensed, works with 30+ agents, generates many Markdown files to review, and by default its sequential spec numbers collide when several people add specs in parallel.": 1,
+  "Spec Kit maps to /speckit.constitution, /speckit.specify and /speckit.clarify, /speckit.plan, /speckit.tasks, and /speckit.implement, /speckit.analyze and /speckit.converge for building and checking.": 1,
+  "Spec Kit's commands are /speckit.constitution, /speckit.specify, /speckit.clarify, /speckit.plan, /speckit.tasks, /speckit.implement, plus /speckit.analyze, /speckit.checklist and /speckit.converge for consistency checks.": 1,
+  "The clarify step has the agent look for gaps and ambiguities in the spec and ask questions, with answers recorded in the spec.": 1,
+  "The re:cinq page lists seven spec elements: outcome and users, scope and non-goals, constraints, decisions already made, acceptance criteria, verification, and open questions.": 1,
+  "The re:cinq page recommends keeping specs short enough to review in one sitting, citing Liu et al. (2023) that model performance drops when relevant information sits in the middle of a long input.": 1,
+  "The re:cinq page states that most published evidence for spec-driven development is anecdotal, and the pilot's author presents the InfoQ results as a small-sample signal needing confirmation.": 1
+ }
+}

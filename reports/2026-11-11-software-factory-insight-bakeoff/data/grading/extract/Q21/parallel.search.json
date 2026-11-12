@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "942858cf4c7b7326",
+ "claims": [
+  {
+   "text": "Mergify states that with 20 PRs per day and a 30-minute CI pipeline, going from no batching to batches of 4 reduces CI time from 10 hours to 2.5 hours, a 75% reduction in CI resource usage.",
+   "url": "https://mergify.com/learn/merge-queue/batching"
+  },
+  {
+   "text": "Graphite reports that companies enabling Parallel CI on its merge queue saw 1.5x faster merges including CI time (33% decrease at p95, 26% at p75).",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite reports customers heavily using stacked PRs saw up to 2.5x faster merges with Parallel CI (60% decrease at p95, 34% decrease at p75).",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Aviator states that increasing batch_size from 1 to 3 lets the queue merge 6 PRs instead of 2 in the same time it takes to run 2 CI cycles.",
+   "url": "https://docs.aviator.co/mergequeue/concepts/batching"
+  },
+  {
+   "text": "Mergify's example: with batch_size 3 and max_parallel_checks 2, given 7 queued PRs and a 10-minute CI pipeline, the first 6 PRs merge in 10 minutes instead of the hour required for sequential validation.",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "text": "Mergify reports that its own merge queue, which tested every PR alone, choked on a morning when a burst of agent PRs landed faster than CI could clear them.",
+   "url": "https://mergify.com/blog/dynamic-merge-queue-batch-size"
+  },
+  {
+   "text": "Mergify made batch_size accept a {min, max} object so the queue stays at min when parallel-check slots are plentiful and grows batches only when the queue backs up.",
+   "url": "https://mergify.com/blog/dynamic-merge-queue-batch-size"
+  },
+  {
+   "text": "Before Mergify's dynamic batch-size change, 100% of its speculative checks were size 1; the first size-2 batch in its history fired on June 16 at 07:01 UTC, during a European morning with agent PRs stacking up.",
+   "url": "https://mergify.com/blog/dynamic-merge-queue-batch-size"
+  },
+  {
+   "text": "Mergify states that its dynamic batch sizing did not raise throughput; the post says it will not claim a throughput increase.",
+   "url": "https://mergify.com/blog/dynamic-merge-queue-batch-size"
+  },
+  {
+   "text": "Mergify runs parallel speculative checks and pays for the reliability and velocity in cost, specifically five bare-metal CI slots.",
+   "url": "https://mergify.com/blog/dynamic-merge-queue-batch-size"
+  },
+  {
+   "text": "Mergify's RCV theorem states that a merge queue can optimize only two of reliability, cost and velocity at a time.",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "text": "Under Mergify's RCV framing, parallel speculative checks give reliability plus velocity but waste CI runs when a PR ahead in the queue fails.",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "text": "Under Mergify's RCV framing, sequential validation gives reliability plus low cost but caps throughput at one PR per CI run.",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "text": "Under Mergify's RCV framing, batch mode gives velocity plus low cost, but hidden failures inside a passing batch can land on main.",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "text": "Mergify advises lowering batch size and parallelism for repositories with frequent flaky or failing PRs to limit wasted work, and sizing for peak load rather than averages.",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "text": "Mergify's Two-step CI runs fast preliminary tests when a PR is created or updated to gate queue entry, and exhaustive pre-merge tests just before merge, to keep queue-time CI short.",
+   "url": "https://docs.mergify.com/merge-queue/performance"
+  },
+  {
+   "text": "Graphite's Parallel CI only runs more CI when CI fails in the merge queue, so cost is low if tests are not flaky; a failure evicts the PR and restarts speculative runs for subsequent PRs, producing extra CI runs without slowing time-to-merge versus having it disabled.",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "In Graphite's parallel CI example with concurrency 3, when PR C fails, C is evicted, the speculative runs C←D and C←D←E are canceled, and CI restarts for D and D←E.",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite suggests choosing parallel CI concurrency to match peak PR volume given CI runtime: for 30-minute CI and 3 PRs per 30 minutes at peak, 3 concurrent runs give the most benefit; flaky repos should start lower.",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite's parallel CI can run CI on every PR in a stack individually (strongest correctness) or only on the topmost PR in the stack (fewer CI runs, relaxed per-PR guarantees).",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Graphite's batching feature, in private beta, isolates a failing stack in a failed batch either by full parallel isolation (default, fast) or by bisection (fewer CI runs, as each iteration clears half the remaining stacks).",
+   "url": "https://www.graphite.com/docs/merge-queue-optimizations"
+  },
+  {
+   "text": "Trunk states that batching saves CI cost but, when a batch fails, bisection and retesting to isolate the failure can slow CI and raise total costs.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "Trunk states that testing in parallel can be combined with batching and requires available CI workers and money for additional CI resources.",
+   "url": "https://trunk.io/blog/merge-fast-or-merge-cheap-fine-tuning-merge-queues-to-handle-an-increase-in-prs-f"
+  },
+  {
+   "text": "GitHub merge queue has a build concurrency setting of 1 to 100 that throttles concurrent merge_group CI builds, and merge limits of 1 to 100 PRs per merge.",
+   "url": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue"
+  },
+  {
+   "text": "In GitHub merge queue, jumping a PR to the top of the queue forces a full rebuild of all in-progress PRs, and heavy use can slow merge velocity.",
+   "url": "https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue"
+  }
+ ],
+ "question_id": "Q21"
+}

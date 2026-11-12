@@ -113,7 +113,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         for name, markup in files.items()
         if name.endswith(".html") and name != "social-card.html"
     }
-    assert set(pages) == {"index.html", "results.html", "methodology.html"}
+    assert set(pages) == {"index.html", "results.html", "methodology.html", "studies.html"}
     for name, markup in pages.items():
         head = markup.split("<head>", 1)[1].split("</head>", 1)[0]
         assert head.count(consent) == head.count(loader) == 1, name
@@ -692,7 +692,30 @@ def test_only_the_header_uses_the_top_class():
     # `.top` is the sticky header; any other element with that class becomes sticky too
     # (the leaderboard pills once did and slid over the header on phones).
     for name, html in site.build().items():
-        if not name.endswith('.html') or name == 'social-card.html':
-            continue
+        if not name.endswith('.html') or name == 'social-card.html' or name.startswith('study-'):
+            continue  # hosted study dashboards carry their own header
         uses = [tag for tag, cls in re.findall(r'<(\w+)[^>]*\bclass="([^"]*)"', html) if 'top' in cls.split()]
         assert uses == ['header'], (name, uses)
+
+
+def test_hosted_study_page_carries_consent_tags_notice_and_raw_links():
+    from pathlib import Path
+    template = Path(site.ROOT, "lib/python/sew/insight/dashboard.html").read_text(encoding="utf-8")
+    page = site.study_page({"name": "2026-01-01-example", "page": "study-2026-01-01-example.html",
+                            "dashboard": template, "summary": {}})
+    head = page.split("<head>", 1)[1].split("</head>", 1)[0]
+    assert head.count(site.GTM_HEAD) == 1 and page.count(site.GTM_CONTAINER_ID) == 1
+    assert head.index('<meta name="viewport"') < head.index("<script")
+    assert "<iframe" not in page and "<noscript>" not in page
+    footers = re.findall(r"<footer\b.*?</footer>", page, re.S)
+    assert sum(f.count(site.ANALYTICS_NOTICE) for f in footers) == 1
+    assert 'data-raw-base="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-01-01-example/"' in page
+    assert 'href="studies.html"' in page
+
+
+def test_studies_page_lists_published_insight_studies():
+    studies = site.insight_studies()
+    assert all(s["summary"]["schema"] == site.INSIGHT_SCHEMA for s in studies)
+    page = site.studies_page(studies)
+    for s in studies:
+        assert f'href="{s["page"]}"' in page

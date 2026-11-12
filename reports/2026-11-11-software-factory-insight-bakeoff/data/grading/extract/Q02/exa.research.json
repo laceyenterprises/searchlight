@@ -1,0 +1,107 @@
+{
+ "arm_id": "exa.research",
+ "cell_sha": "9630c889fac61c75",
+ "claims": [
+  {
+   "text": "Droid 1.0 adds a Script tool in which the model writes JavaScript that invokes Droid tools, filters results and chains dependent operations; the JavaScript sandbox has no filesystem, network or system access of its own.",
+   "url": null
+  },
+  {
+   "text": "In Droid 1.0, a replay of the same 15 tool calls used five model requests with Script versus ten with direct calls, finishing in 41.6 versus 56.8 seconds.",
+   "url": null
+  },
+  {
+   "text": "Droid 1.0 moves concurrent sessions into a shared daemon process with approximately 20 MB incremental memory per session, versus roughly 350 MB per session before; Factory says five subagents plus the main session previously exceeded 2 GB.",
+   "url": null
+  },
+  {
+   "text": "Factory reports a typical production Droid request reads 98% of input from cache and 98.6% of requests are strictly append-only, because newly discovered tools are appended to the end of the request to preserve the cached prefix.",
+   "url": null
+  },
+  {
+   "text": "Factory estimates at least a third of summaries were filling the previous 8,000-token compaction limit, contributing to dropped tasks; Droid 1.0 raises the summary allowance to 16,000 tokens.",
+   "url": null
+  },
+  {
+   "text": "Factory reports that on its Terminal-Bench 4 suite, Droid with GPT-6.1 Sol scored 3.5 points above Codex at 12% lower cost but took 10% longer, and Droid with Claude Opus 5.5 used 26% less time per passed task and 17% fewer tokens than Claude Code.",
+   "url": null
+  },
+  {
+   "text": "Droid 1.0 loop anti-stall rules stop after three consecutive turns without visible output, nudge on three identical tool calls and stop on six, except when repeats yield new results.",
+   "url": null
+  },
+  {
+   "text": "Droid's OS-enforced sandbox uses macOS Seatbelt or Linux/WSL2 bubblewrap plus seccomp with a filtering proxy for outbound traffic; the default per-command mode isolates shell commands but not the main Droid process, while whole-process mode isolates Droid and spawned MCP transports and subagents.",
+   "url": null
+  },
+  {
+   "text": "Factory warns that sandbox-allowed domains can still provide exfiltration paths and allowed writable paths can be changed arbitrarily, and recommends containers or dedicated VMs for untrusted code.",
+   "url": null
+  },
+  {
+   "text": "In Factory Private, OpenCompute provisions execution sandboxes inside the customer VPC and connects outbound to Factory with no inbound firewall ports required; the control plane remains Factory-hosted by default.",
+   "url": null
+  },
+  {
+   "text": "droid exec defaults to read-only reconnaissance; an action exceeding its autonomy level stops the headless run with a nonzero exit, leaving earlier edits in the working tree, and exit code zero does not mean the result is correct.",
+   "url": null
+  },
+  {
+   "text": "Factory calls its airgapped build a cooperative reliability contract: infrastructure network isolation, not the agent, provides the actual security boundary.",
+   "url": null
+  },
+  {
+   "text": "Factory's August 2025 context architecture injects repository summaries, uses code-tuned vector search to rank candidate files and folder summaries, then fetches targeted files, lines, diffs and terminal output; User Memory and Org Memory persist preferences and shared conventions.",
+   "url": null
+  },
+  {
+   "text": "The June 2024 Code Droid report names HyperCode, a multiresolution repository representation, and ByteRank, its retrieval algorithm.",
+   "url": null
+  },
+  {
+   "text": "Code Droid reported 19.27% on SWE-bench Full and 31.67% first-attempt on Lite, rising to 37.67% pass@2 and 42.67% pass@6 on Lite, with typical 5-20 minutes per patch, a maximum of 136 minutes, and up to 13 million tokens per patch.",
+   "url": null
+  },
+  {
+   "text": "On SWE-bench Lite, Factory reported missing the target file from analysis in 8% of tasks, analyzing but not ranking it in the top five in another 8%, and prioritizing but not editing it in 6%.",
+   "url": null
+  },
+  {
+   "text": "Factory's July 2025 compression approach, anchored iterative summarization, summarizes newly truncated spans and merges them into a persistent rolling summary, using a high-water trigger threshold and a lower retained-context threshold.",
+   "url": null
+  },
+  {
+   "text": "The May 2026 Deferred Context Engine loads only names and short descriptions of tools, skills and plugins initially and promotes needed ones on demand; over five days it showed 15.1% average and 39.4% p90 input-token reduction for sessions invoking MCP tools, and 50.8% average for sessions with over 100 hidden tools.",
+   "url": null
+  },
+  {
+   "text": "Custom droids (subagents) are Markdown-defined agents with their own prompt, model, tools and fresh context; they return a final result to the parent and cannot ask the user directly or spawn subagents.",
+   "url": null
+  },
+  {
+   "text": "Missions separate an orchestrator that writes a validation contract and decomposes work, fresh-context workers that implement features in order, and validators; each milestone has scrutiny validators and user-testing validators, with failures converted into fix features.",
+   "url": null
+  },
+  {
+   "text": "In Factory's 16.5-hour Slack-clone Mission, 778.5 million total tokens were consumed, 38.8k lines generated with 89.25% statement coverage, validation took 37.2% of runtime, and none of six milestones passed first validation.",
+   "url": null
+  },
+  {
+   "text": "Mission planning documentation estimates a minimum of about features + 2 × milestones agent runs, and mission settings allow separate worker and validator models and skipping scrutiny or user-testing validation.",
+   "url": null
+  },
+  {
+   "text": "Factory reported 58.75% on Terminal-Bench Core v0.1.1 (80 tasks) using Claude Opus 4.1 without thinking, in September 2025.",
+   "url": null
+  },
+  {
+   "text": "In Factory's December 2025 compression evaluation over 36,611 messages, GPT-5.2-judged overall scores were Factory 3.70, Anthropic 3.44, OpenAI 3.35, with artifact tracking lowest at Factory 2.45, Anthropic 2.33, OpenAI 2.19 out of 5.",
+   "url": null
+  },
+  {
+   "text": "Independent OctoBench (January 2026, Droid v0.42.2) found Droid at 40.17% instruction success versus Claude Code 28.39% with Opus 4.5, but with MiniMax-M2.1 Droid scored 15.38% versus Claude Code's 18.60%.",
+   "url": null
+  }
+ ],
+ "question_id": "Q02"
+}

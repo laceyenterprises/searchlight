@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "2411b29f7f05b090",
+ "url": "https://dev.to/theaicommit/how-many-pull-requests-a-merge-queue-can-land-in-an-hour-4ae2",
+ "verdicts": {
+  "Anthropic's merges grew from about 2,500 a day in May 2026 to over 30,000 a day by September, and the company stopped using a merge queue.": 1,
+  "In the modeled example, a queue with 20 pipelines and 8 PRs per hour has a 34-minute mean wait, and tripling arrivals to 24 per hour pushes the wait past 100 minutes.": 0,
+  "Queue throughput is capped at roughly 1/(p × T) PRs per hour, where p is the share of queued PRs that fail and T is CI time, regardless of how many pipelines run in parallel.": 0
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "52ce08750009b457",
+ "url": "https://llm-track.com/blog/ai-coding-agent-costs-per-engineer-per-pr",
+ "verdicts": {
+  "In llm-track's worked example, a five-call PR review costs $0.475 without prompt caching and $0.274 with caching of 30,000 repeated tokens (written at $2.50 per million, read at $0.20 per million), about 42% less.": 1,
+  "llm-track recommends labeling every call with the agent as the feature and the team or repo as the customer, then dividing spend by merged PRs; its worked example yields $0.274 per PR review, $1.03 per merged PR, and about $67 per engineer per month.": 1
+ }
+}

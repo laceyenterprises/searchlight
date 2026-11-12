@@ -1,0 +1,18 @@
+{
+ "capture": "captured",
+ "digest": "4545de45b23ccbe7",
+ "url": "https://factory.com/news/terminal-bench",
+ "verdicts": {
+  "Droid with Opus (58.8%) and Sonnet (50.5%) beats Claude Code with Opus (43.2%) on Terminal-Bench, and Droid with GPT-5 (52.5%) beats Codex CLI (42.8%).": 1,
+  "Droid with Opus 4.1 (no thinking) scored 58.8% on Terminal-Bench, first among all agents; Factory agents held three of the top five positions (GPT-5 medium 52.5%, Sonnet 4 no thinking 50.5%).": 1,
+  "Factory agents occupy three of the top five Terminal-Bench positions: Droid with Opus 4.1 (no thinking) at 58.8%, GPT-5 (medium reasoning) at 52.5%, and Sonnet 4 (no thinking) at 50.5%.": 1,
+  "Factory designed system notifications because agentic models (notably Sonnet 3.7 and o3) show recency bias, prioritizing recent context over system-level instructions for low-level details over long trajectories; notifications enable rapid error recovery and task-specific adjustments.": 1,
+  "Factory reports that tool reliability was the primary bottleneck for end-to-end task completion and adopted minimalist tool design principles.": 1,
+  "Factory says it is exploring memory that is durable, scoped (org/team/repo), searchable, and safe by default, plus orchestration patterns like racing solution approaches and cross-verifying critical changes across parallel Droids.": 1,
+  "Factory states that Droid with Sonnet outperforms all other agents using Opus on Terminal-Bench, and that agent framework can yield greater improvement than model selection.": 1,
+  "Factory uses a modular architecture that shares core components while allowing model-specific adaptations, because providers' models differ, e.g. FIND_AND_REPLACE vs V4A diff file-editing formats and relative vs absolute path preferences.": 1,
+  "Factory uses a three-tier prompting hierarchy: tool descriptions, system prompts, and system notifications (contextually injected user-level messages with time-sensitive guidance).": 1,
+  "Factory's Droid scored 58.75% (reported as 58.8%) on Terminal-Bench, placing first among all agents on the leaderboard as of the September 25, 2025 write-up.": 1,
+  "Terminal-Bench Core (v0.1.1) consists of 80 human-verified, Dockerized, time-boxed tasks; a task counts as resolved only when all post-run tests pass, and the benchmark reports task-resolution rate.": 1
+ }
+}

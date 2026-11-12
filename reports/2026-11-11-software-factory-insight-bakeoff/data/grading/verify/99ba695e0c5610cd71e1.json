@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "ee246cb948afbc05",
+ "url": "https://docs.langchain.com/oss/javascript/deepagents/sandboxes",
+ "verdicts": {
+  "Sandboxes isolate agent code execution from the host, but do not protect against context injection: an attacker controlling part of the agent's input can instruct it to run arbitrary commands inside the sandbox.": 1
+ }
+}

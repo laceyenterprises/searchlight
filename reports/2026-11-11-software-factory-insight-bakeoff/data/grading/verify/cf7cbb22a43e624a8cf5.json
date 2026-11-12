@@ -1,0 +1,16 @@
+{
+ "capture": "captured",
+ "digest": "c68cc2c6bc0e7e40",
+ "url": "https://orbi.build/cost/",
+ "verdicts": {
+  "Across 46 Orbi deliveries (as of 2026-09-12, including unmerged work), the median was 2,220,637 totalTokens per delivery, p90 13,290,932, max 37,627,783, and mean 4,742,066; the token mix was 95.9% cache reads, 3.4% input, 0.7% output.": 1,
+  "DeepSeek deepseek-flash off-peak prices used by Orbi: cache hit $0.003 per million tokens, cache miss $0.15 per million, output $0.60 per million; peak weekday hours (01:00-04:00 and 06:00-10:00 UTC) double every price.": 1,
+  "Every Orbi delivery runs two agent sessions: an implementation, then an independent review that can repair the branch and rerun the suite.": 1,
+  "In Orbi Cloud's 169-delivery sample, the 90th percentile cost per merged delivery was $0.22, the mean was $0.11, and all 169 deliveries together cost $18.45 (off-peak).": 1,
+  "In Orbi's 169-delivery sample, the median share of input tokens read from cache per delivery was 97.8%.": 1,
+  "Orbi Cloud recorded a median cost of $0.082 per merged delivery off-peak across 169 merged deliveries between 2026-09-16 and 2026-10-05, all on deepseek-flash.": 1,
+  "Orbi states that on an endpoint without prompt caching, where every token bills as a miss, the same work would cost roughly an order of magnitude more; a cache hit costs 1/50 of a miss.": 1,
+  "Orbi's earlier hand-measured sample of 20 merged PRs (22-24 September 2026, deepseek-flash) had a median cost of $0.125 off-peak and $0.249 at peak, a mean of $0.152 off-peak, a P90 of $0.298 off-peak, and a maximum of $0.417 off-peak.": 1,
+  "The 20-PR Orbi sample had a median of 10,612,802 tokens per merged PR, a median runtime of 60.4 minutes, and a median of 156 model requests.": 1
+ }
+}

@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:23.380364Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 5627,
+   "published": null,
+   "text": "# Best Code Execution Sandboxes for AI Agents in 2026\n## Why AI Agents Need Code Sandboxes\nThe tradeoff is always security strength vs. startup speed. Firecracker microVMs give you kernel-level isolation but add 150ms–2s to cold starts. Browser isolates start in under 50ms but support fewer languag…",
+   "title": "9 Best Code Execution Sandboxes for AI Agents (2026)",
+   "url": "https://fast.io/resources/best-code-execution-sandboxes-ai-agents/"
+  },
+  {
+   "chars_delivered": 5015,
+   "published": null,
+   "text": "# How Every Major Tech Company Is Sandboxing AI Agents Differently\n## MicroVMs: Hardware Isolation Without the VM Overhead\n**E2B** built their entire platform around this. Every code execution gets its own Firecracker microVM. Cold starts hit around 150 milliseconds. They went from 40,000 sandboxes…",
+   "title": "How Every Major Tech Company Is Sandboxing AI Agents Differently",
+   "url": "https://medium.com/@earlperry562/how-every-major-tech-company-is-sandboxing-ai-agents-differently-f41b65f14d8a"
+  },
+  {
+   "chars_delivered": 5008,
+   "published": null,
+   "text": "Shared Host Kernel  |\n| Security Boundary   | Hypervisor/KVM | User-space FS  | Namespaces/cgroups  |\n| Cold-Start Latency  | ~150 ms        | ~300ms - 1.0s  | ~90 ms              |\n| Hardware GPUs       | CPU only       | Full (NVIDIA)  | Custom / BYOC       |\n| State Model         | Ephemeral/For…",
+   "title": "AI Agent Sandboxes and Safe Code Execution Runtimes in Production: Comparing E2B, Modal, Daytona, and Docker/gVisor Architecture, Isolation Boundaries, Startup Latency, and Serving Economics — LLMs Blog",
+   "url": "https://www.llms.blog/posts/ai-agent-sandboxes-and-safe-code-execution-runtimes-in-production-comparing-e2b-modal-daytona-and-docker-gvisor-architecture-isolation-boundaries-startup-latency-and-serving-economics"
+  },
+  {
+   "chars_delivered": 3593,
+   "published": null,
+   "text": "# AI Agent Sandbox Infrastructure in 2026: E2B, Modal, Daytona, and Fly Machines Compete for the Secure Code Execution Layer\n## Daytona: The Fastest Pivot in Infrastructure\nCold starts as low as 27ms using pre-warmed sandbox pools — faster than E2B's Firecracker on some configurations. The security…",
+   "title": "AI Agent Sandbox Infrastructure in 2026: E2B, Modal, Daytona, and Fly Machines Compete for the Secure Code Execution Layer",
+   "url": "https://agentmarketcap.ai/blog/2026/04/07/ai-agent-sandbox-infrastructure-e2b-modal-daytona-fly-machines-secure-code-execution"
+  },
+  {
+   "chars_delivered": 6398,
+   "published": null,
+   "text": "## Master Comparison Table\n| Technology | Isolation Level | Startup Time | Overhead | Network Control | GPU Support | Open Source | Runs On |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Docker | Namespace + cgroup | <1s | <2% CPU | --network=none | --gpus flag | Apache 2.0 | Linux, macOS, W…",
+   "title": "AI Agent Sandboxing in 2026: Docker, E2B, Firecracker, gVisor, Modal & Daytona Compared — amux",
+   "url": "https://amux.io/guides/ai-agent-sandboxing/"
+  },
+  {
+   "chars_delivered": 4700,
+   "published": null,
+   "text": "# AI Agent Code Execution Sandboxes: E2B, Daytona, Firecracker (2026)\n## TL;DR: AI Agent Code Execution Sandboxes, E2B vs Daytona vs Firecracker\n- **Managed default:** E2B runs Firecracker microVMs with 5-30ms snapshot cold starts at about $0.000014 per sandbox-second (2026), but its managed tier h…",
+   "title": "AI Agent Code Execution Sandboxes: E2B, Daytona, Firecracker (2026)",
+   "url": "https://www.spheron.network/blog/ai-agent-code-execution-sandbox-e2b-daytona-firecracker/"
+  },
+  {
+   "chars_delivered": 7223,
+   "published": null,
+   "text": "# AI Agent Sandboxes Compared: 15 Providers on Isolation, Persistence, Agent Tooling, and Cost (2026)\n- **Isolation is three designs, not a ranking.** Hardware VMs with their own kernel (E2B, Vercel, Tensorlake, Sprites, Koyeb, Blaxel, Namespace, Kata on Northflank), gVisor's userspace kernel (Moda…",
+   "title": "AI Agent Sandboxes Compared: 15 Providers on Isolation, Persistence, Agent Tooling, and Cost (2026)",
+   "url": "https://upstash.com/blog/ai-agent-sandbox-providers-compared-2026"
+  },
+  {
+   "chars_delivered": 15350,
+   "published": null,
+   "text": "# Sandboxes for AI Agents: The Landscape, the Options, and How to Choose\n## 1. Core Concepts and Isolation Mechanisms\n### 1.1 What Actually Separates the Isolation Mechanisms\n| Term | Vendor / primary maintainer | In plain terms | Shares host kernel | Typical order of isolation strength | Startup /…",
+   "title": "Sandboxes for AI Agents: The Landscape, the Options, and How to Choose",
+   "url": "https://shipengtao.com/en/agent-sandbox/"
+  },
+  {
+   "chars_delivered": 4887,
+   "published": null,
+   "text": "# E2B vs Daytona vs Modal: AI Agent Sandboxes Compared (2026)\n## What changed since the July version#\n- **E2B: one-call forking.** sandbox.fork({ count }) snapshots a running sandbox with its filesystem and memory and boots up to 20 copies per call (E2B fork docs). Pro is still $150 a month plus us…",
+   "title": "E2B vs Daytona vs Modal: AI Agent Sandboxes Compared (2026)",
+   "url": "https://www.developersdigest.tech/blog/ai-agent-code-sandbox-comparison-2026"
+  },
+  {
+   "chars_delivered": 1866,
+   "published": null,
+   "text": "### Isolation matrix\n| Mechanism | Kernel isolation | Filesystem escape | Network egress | Cold start |\n| --- | --- | --- | --- | --- |\n| E2B (Firecracker KVM) | ✓ true hypervisor | ✓ ephemeral rootfs | ✗ open by default | \\~150 ms |\n| Docker 27 + default seccomp | ✗ shared host kernel | ✓ overlayf…",
+   "title": "Agent code execution sandboxing: E2B (Firecracker) vs Docker+seccomp vs gVisor vs Pyodide — what each actually isolates — ACHIVX Forum",
+   "url": "https://forum.achivx.com/threads/agent-code-execution-sandboxing-e2b-firecracker-vs-docker-seccomp-vs-gvi"
+  }
+ ],
+ "latency_ms": 1515.5,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q16",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "What sandboxing approaches are used for autonomous agents (Firecracker microVMs, gVisor, e2b, Modal, Daytona, Cloudflare, devcontainers)? Compare startup time, isolation strength, snapshot/resume, cost, and network egress control, with any published benchmarks.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 69067,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:21.864795Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

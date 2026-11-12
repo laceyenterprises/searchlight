@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "2453a486f00cb612",
+ "url": "https://mutagent.io/blog/introducing-architech-software-factory/",
+ "verdicts": {
+  "Architech has five agents: Orchestrator, Architect, Developer, LLM-Whisperer, and Reviewer; the Reviewer never reviews a change it wrote, so every change is read by a second session.": 1,
+  "In Mutagent Cloud, every labeled issue becomes its own run with its own sandboxes, limited by limits.maxActiveRuns (runs awaiting approval count toward it), with dollar budgets per run and per day; agents act through the Mutagent GitHub App rather than personal tokens.": 1,
+  "Mutagent gate approvals count only if a GitHub user with write access adds the label; labels from bots, apps or the factory are ignored, and merge-ready is removed if new commits land after approval.": 1,
+  "Mutagent's own board has run through the Software Factory on Mutagent Cloud since October 27, 2026.": 1,
+  "Mutagent's policy.autonomy has three levels: calibrating (default; plan and merge approval on every change), standard (merge approval only on protected paths), and autonomous (no plan approval, merge approval on protected paths); the merge always waits for a person's merge-ready or merge:yolo label.": 1,
+  "On 2026-10-30 Mutagent released Architech (a software-engineering harness) and the Software Factory in Early Access; the factory runs on a laptop or on Mutagent Cloud, taking board issues in and returning reviewed pull requests.": 1,
+  "The Mutagent Software Factory pipeline runs plan (Architect), plan gate (human), build (Developer), review (Reviewer, which can send work back to build at most twice), merge gate (human), and land (Orchestrator).": 1,
+  "The factory is configured by one committed file, .architech/factory/factory.yaml, which refuses unknown keys so that a typo fails validation rather than being silently dropped; credentials never go in it.": 1
+ }
+}

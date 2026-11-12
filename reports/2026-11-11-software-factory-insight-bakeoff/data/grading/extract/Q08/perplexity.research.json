@@ -1,0 +1,103 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "49e342a563833d6e",
+ "claims": [
+  {
+   "text": "Anthropic developed a two-part solution for the Claude Agent SDK to work across many context windows: an initializer agent that sets up the environment on the first run, and a coding agent that makes incremental progress in every session while leaving clear artifacts for the next session.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "The initializer agent's first session uses a specialized prompt to set up an init.sh script, a claude-progress.txt file that logs what agents have done, and an initial git commit showing which files were added.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "The coding agent in every subsequent session is asked to make incremental progress and then leave structured updates.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "The key insight of the long-running harness is finding a way for agents to quickly understand the state of work when starting with a fresh context window, accomplished with the claude-progress.txt file alongside git history.",
+   "url": "https://github.com/CraigKettleman/anthropic-engineering-cn/blob/main/articles/effective-harnesses-for-long-running-agents.md"
+  },
+  {
+   "text": "To prevent the agent from one-shotting an app or prematurely considering the project complete, the initializer agent is prompted to write a comprehensive file of feature requirements expanding on the user's initial prompt.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "In Anthropic's claude.ai clone example, the initializer's feature list contained over 200 features, such as a user opening a new chat, typing a query, pressing enter, and seeing an AI response.",
+   "url": "https://github.com/NickCollect/ai-coding-runbook/blob/main/01_Raw/anthropic.com/engineering/effective-harnesses-for-long-running-agents.md"
+  },
+  {
+   "text": "All features in the initializer's feature list were initially marked as failing so later coding agents have a clear outline of what full functionality looks like.",
+   "url": "https://github.com/CraigKettleman/anthropic-engineering-cn/blob/main/articles/effective-harnesses-for-long-running-agents.md"
+  },
+  {
+   "text": "Coding agents may edit only the passes field of the feature list JSON, never the requirements themselves; the harness states it is unacceptable to remove or edit tests.",
+   "url": "https://github.com/jugyo/loophub/blob/main/docs/canon/anthropic-effective-harnesses-for-long-running-agents.md"
+  },
+  {
+   "text": "Each coding agent session is asked to work on only one feature at a time.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Anthropic found the best way to get the model to leave the environment in a clean state was to ask it to commit progress to git with descriptive commit messages and write progress summaries in a progress file.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "Git commits let the model revert bad code changes and recover working states of the code base.",
+   "url": "https://github.com/RobGruhl/anthropic-docs-mirror/blob/main/engineering-blog/effective-harnesses-for-long-running-agents.md"
+  },
+  {
+   "text": "At session start, the coding agent runs pwd, reads the git logs and progress files, and reads the feature list file to choose the highest-priority feature not yet done.",
+   "url": "https://www.anthropic.com/research/effective-harnesses-for-long-running-agents"
+  },
+  {
+   "text": "The initializer writes an init.sh script to run the development server, and each coding agent runs a basic end-to-end test before implementing a new feature so it can detect if the app was left broken.",
+   "url": "https://github.com/chyornyy/anthropic_engineering_md/blob/main/anthropic_engineering_blog/Effective%20Harnesses%20for%20Long-Running%20Agents.md"
+  },
+  {
+   "text": "A later Anthropic harness-design article says context resets, which clear the context window entirely and start a fresh agent with a structured handoff of prior state and next steps, address problems seen with naive long-running implementations.",
+   "url": "https://www.anthropic.com/research/harness-design-long-running-apps"
+  },
+  {
+   "text": "Compaction takes a conversation nearing the context window limit, summarizes its contents, and reinitiates a new context window with the summary; Anthropic calls it typically the first lever in context engineering for long-term coherence.",
+   "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+  },
+  {
+   "text": "Structured note-taking (agentic memory) has the agent regularly write notes persisted outside the context window that are pulled back into context later.",
+   "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+  },
+  {
+   "text": "Sub-agent architectures let specialized subagents handle focused tasks with clean context windows, each exploring extensively with tens of thousands of tokens but returning only a condensed summary, often 1,000-2,000 tokens.",
+   "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+  },
+  {
+   "text": "Anthropic suggests compaction for tasks needing extensive back-and-forth, note-taking for iterative development with clear milestones, and multi-agent architectures for complex research where parallel exploration pays off.",
+   "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents"
+  },
+  {
+   "text": "The Claude Agent SDK gives developers the same tools, agent loop, and context management that power Claude Code, programmable in Python and TypeScript, with capabilities including subagents, sessions, skills, commands, and memory.",
+   "url": "https://code.claude.com/docs/en/agent-sdk"
+  },
+  {
+   "text": "In the Agent SDK, subagents are used to delegate an isolated subtask (such as research or review) to a fresh context, via the agents parameter plus allowedTools including \"Agent\".",
+   "url": "https://code.claude.com/docs/en/agent-sdk/claude-code-features"
+  },
+  {
+   "text": "Agent Skills are organized folders of instructions, scripts, and resources that agents can discover and load dynamically to perform better at specific tasks; a skill is a directory containing a SKILL.md with YAML frontmatter requiring name and description.",
+   "url": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"
+  },
+  {
+   "text": "Skills use progressive disclosure: the name and description of every installed skill are preloaded into the system prompt (level one), the full SKILL.md body is loaded when relevant (level two), and additional linked files are read only as needed (level three).",
+   "url": "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"
+  },
+  {
+   "text": "In the Agent SDK, skills must be created as filesystem artifacts such as .claude/skills/<name>/SKILL.md, are loaded according to settingSources, and have no programmatic registration API, unlike subagents which can be defined in the agents option.",
+   "url": "https://code.claude.com/docs/en/agent-sdk/skills"
+  },
+  {
+   "text": "Unlike CLAUDE.md, which loads every session, skills load on demand; the skills option on query() can be set to \"all\", a list of skill names, or [] to disable all.",
+   "url": "https://code.claude.com/docs/en/agent-sdk/claude-code-features"
+  }
+ ],
+ "question_id": "Q08"
+}

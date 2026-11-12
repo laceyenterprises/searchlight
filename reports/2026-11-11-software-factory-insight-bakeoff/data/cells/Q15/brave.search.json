@@ -1,0 +1,112 @@
+{
+ "arm_id": "brave.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:21.753415Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 6643,
+   "published": null,
+   "text": "# Why AI Agents Need Their Own Permission Model\n## Capability-Scoped Permissions\nOpenFGA, an open-source authorization engine created by Auth0's FGA team and now a Cloud Native Computing Foundation (CNCF) project, implements Relationship-Based Access Control (ReBAC). ReBAC excels at modelling *who…",
+   "title": "Why AI Agents Need Their Own Permission Model",
+   "url": "https://auth0.com/blog/why-ai-agents-need-their-own-permission-model/"
+  },
+  {
+   "chars_delivered": 6076,
+   "published": null,
+   "text": "# Cedar vs Open Policy Agent vs OpenFGA: Choosing a Policy Engine for AI Agent Authorization\nThat is the real job of a policy engine for AI agents: hold the rules the model must not be trusted with, and make missing rules easy to spot.  **Short answer: Cedar is the best fit for checking each agent…",
+   "title": "Cedar vs Open Policy Agent vs OpenFGA: Choosing a Policy Engine for AI Agent Authorization — Devs Core",
+   "url": "https://devs-core.com/blog/cedar-vs-opa-vs-openfga-ai-agent-authorization"
+  },
+  {
+   "chars_delivered": 4107,
+   "published": null,
+   "text": "# AI Agent Permission Models: Implementing Least-Privilege Access for Autonomous Systems\n## Four Agent Permission Models (And When Each One Breaks)\n### ABAC: Context Is Everything\n```yaml\n# Cerbos policy example\nresource:\n  kind: \"customer_record\"\nconditions:\n  match:\n    all:\n      - expr: request…",
+   "title": "AI Agent Permission Models: Least-Privilege Access Guide",
+   "url": "https://www.buildmvpfast.com/blog/ai-agent-permission-models-least-privilege-autonomous-2026"
+  },
+  {
+   "chars_delivered": 7023,
+   "published": null,
+   "text": "# Agent Authorization: Standing Privilege Is the Whole Problem\n|  | Amazon Bedrock AgentCore (Identity + Policy) | Aembit | Auth0 for AI Agents | Permit.io MCP Gateway | Cerbos |\n| --- | --- | --- | --- | --- | --- |\n| What it is | Token broker plus Cedar checks inside AWS's agent gateway | Credent…",
+   "title": "Agent Authorization: Standing Privilege Is the Whole Problem",
+   "url": "https://www.beri.net/article/agent-authorization-design-standing-privilege-buyers-guide"
+  },
+  {
+   "chars_delivered": 3173,
+   "published": null,
+   "text": "# Policy Engines for Agentic Action Gating\nA policy engine is the architectural layer that gates agentic actions against declarative rules. This article covers ABAC-style policy engines (OPA, Cedar), the policy-authoring patterns agentic systems need (context-aware, time-bounded, multi-tenant), and…",
+   "title": "Policy Engines for Agentic Action Gating",
+   "url": "https://www.compelframework.org/articles/policy-engines-for-agentic-action-gating"
+  },
+  {
+   "chars_delivered": 2448,
+   "published": null,
+   "text": "# Policy-as-Code for Agents: OPA, Rego, and the Decision Point Your Tool Loop Doesn't Have\nWhat is replacing it is policy-as-code: a dedicated policy engine — OPA with Rego, AWS Cedar, or a similar declarative tool — sitting in front of every tool call as a Policy Decision Point. The engine answers…",
+   "title": "Policy-as-Code for Agents: OPA, Rego, and the Decision Point Your Tool Loop Doesn't Have - TianPan.co",
+   "url": "https://tianpan.co/blog/2026/04/25/policy-as-code-agent-permissions-opa-rego"
+  },
+  {
+   "chars_delivered": 2792,
+   "published": null,
+   "text": "# Authentication for AI Applications\nAuthentication for AI applications is the practice of verifying the identity of **both** the human user and the AI agent acting on their behalf, then issuing short-lived, scoped, auditable credentials to each. Modern AI apps are dual-principal systems: a request…",
+   "title": "Authentication for AI Applications",
+   "url": "https://clerk.com/articles/authentication-for-ai-applications"
+  },
+  {
+   "chars_delivered": 5029,
+   "published": null,
+   "text": "# OPA for Protecting AI Agents and Agentic Stacks\nIf you already run OPA, AI agents don't require a new policy engine — they require a richer input schema, ephemeral identity, and enforcement at every layer. Learn how to evolve your OPA setup for delegated, multi-hop agentic authorization with Zero…",
+   "title": "OPA for Protecting AI Agents and Agentic Stacks",
+   "url": "https://www.permit.io/blog/opa-for-protecting-ai-agents-and-agentic-stacks"
+  },
+  {
+   "chars_delivered": 7548,
+   "published": null,
+   "text": "• Why does classic IAM fail? Traditional IAM presumes long-lived human accounts, whereas\n\nagents are autonomous, short-lived, self-updating, and operate as multi-tenant entities acting on behalf of many users simultaneously.\n\n• What do we propose? Assign each agent a short-lived, unique identity th…",
+   "title": "Agentic Identity and Access Management",
+   "url": "https://www.coalitionforsecureai.org/wp-content/uploads/2026/04/agentic-identity-and-access-control.pdf"
+  },
+  {
+   "chars_delivered": 3810,
+   "published": null,
+   "text": "# How to Let AI Agents Operate Production Infrastructure Safely\n## TL;DR\n1. **Agent identity.** Each agent has its own service account, never a person’s credentials.\n2. **Least privilege.** Permissions name specific resources and actions. Read-only is the default.\n3. **Short-lived credentials.** No…",
+   "title": "How to Let AI Agents Operate Production Infrastructure Safely — Control Plane",
+   "url": "https://controlplane.com/blog/post/ai-agents-production-infrastructure-safely"
+  }
+ ],
+ "latency_ms": 1522.6,
+ "notices": null,
+ "profile_sha256": "91fff64549250c699fb0cddbda0e7ced96b75eed2e87959b01e34fd57cc1e281",
+ "question_id": "Q15",
+ "request": {
+  "body": {
+   "count": 20,
+   "country": "us",
+   "maximum_number_of_tokens": 16384,
+   "maximum_number_of_urls": 10,
+   "q": "How do production agent platforms authorize agents to act on behalf of users and organizations? Cover policy engines (Cedar, OPA, OpenFGA / Zanzibar-style ReBAC) applied to agents, scoped short-lived credentials, agent identity standards, and approval gates for irreversible actions.",
+   "search_lang": "en"
+  },
+  "headers": {
+   "Accept": "application/json",
+   "X-Subscription-Token": "<BRAVE_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.search.brave.com/res/v1/llm/context"
+ },
+ "response": {
+  "chars": 57049,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:20.230774Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

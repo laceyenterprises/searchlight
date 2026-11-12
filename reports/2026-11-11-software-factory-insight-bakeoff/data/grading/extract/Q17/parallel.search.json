@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "a46f36bf1f58e914",
+ "claims": [
+  {
+   "text": "OpenAI reports that Codex code review comments on 36% of PRs generated entirely by Codex cloud, and 46% of those comments result in the author making a code change, versus 53% for comments on human-generated PRs.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "OpenAI reports that authors address reviewer comments with a code change in 52.7% of cases, and over 80% of comment reactions are positive.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "As of October 2025, OpenAI's Codex code reviewer handles more than 100k external PRs per day.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "OpenAI found that giving a GPT-5 reviewer repository access and code execution made it a stronger reviewer, catching more critical issues with fewer false alarms than a diff-only reviewer; dedicated code-review training improved results further.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "OpenAI deliberately accepted modestly reduced recall in exchange for high precision and developer trust in its code reviewer, optimizing signal-to-noise first.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "In OpenAI's controlled study, a reviewer at a small fraction of the generator's token spend caught a large share of previously identified high-severity issues; extra inference budget mostly improved calibration and reduced false alarms.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "OpenAI observed that reviewer recall on known bugs was consistently higher for human-written code than for Codex-generated code, and that performance dropped more rapidly with lower thinking budget on model-generated code.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "OpenAI's recall evaluation is limited because its test set contains only issues humans already identified, so it cannot validate new findings the reviewer makes with more time.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "OpenAI warns that over-reliance is a risk: teams may treat a clean automated review as a guarantee of safety rather than one defense layer.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "OpenAI argues that training-time verifiers (reward models) should be over-sensitive and may use task-specific information, while deployed reviewers must prioritize precision and user trust, so a single verifier should not serve both roles.",
+   "url": "https://alignment.openai.com/scaling-code-verification"
+  },
+  {
+   "text": "In a controlled experiment with 30 artifacts, 150 planted errors, 10 review conditions and 900 review sessions, a top-tier cross-model reviewer (GPT-5.4) was not significantly different in F1 from same-model review in a fresh session (CCR), which does not establish equivalence.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "Cross-model review and same-model fresh-session review found partly different planted errors, with a Jaccard overlap of 41.2%.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "At two review calls, one same-model fresh-session review plus one cross-model review matched 56.7% of planted errors versus 42.7% for two same-model reviews (Holm-adjusted p=.006), but not significantly more than two top-tier cross-model reviews, so model difference and reviewer capability are not separated.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "A lightweight cross-model reviewer (Gemini 2.5 Flash) scored no higher than same-model review, and numerically below baseline same-context review.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "Withholding requirements from the reviewer raised cross-model F1 by +2.2 and +3.0pp for the two lower-tier reviewers but not the top tier (-0.2pp), in untested point estimates.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "Same-model fresh-session review (CCR) exceeded same-context self-review by only 1.5pp F1 (28.6% vs 27.1%, unadjusted p=0.26) after excluding one baseline run of uncertain provenance.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "Pairwise finding overlap was 52.2% within the same model versus 37-46% across models, a descriptive comparison rather than a test of error correlation.",
+   "url": "https://arxiv.org/html/2610.01471v2"
+  },
+  {
+   "text": "In the cross-model review study, 187 of 1,995 cross-model false positives (9.4%) were classified as model-bias errors, where the reviewer flags issues based on its own training rather than real defects.",
+   "url": "https://arxiv.org/html/2610.01471v1"
+  },
+  {
+   "text": "Prior work cited in the cross-model study reports that in-context self-correction without external feedback degrades accuracy, and that evaluator LLMs miss quality drops in over 50% of cases on perturbed answers.",
+   "url": "https://arxiv.org/html/2610.01471v1"
+  },
+  {
+   "text": "StrongDM describes end-to-end scenarios kept outside the codebase, like a holdout set in model training, as validation that is harder for a model to cheat.",
+   "url": "https://assets-eu.researchsquare.com/files/rs-11224002/v1/03ed5c53-d832-4e4d-8011-5f0d4fdaa6a1.pdf?c=1791211391"
+  },
+  {
+   "text": "On SWE-bench Verified, 29.6% of plausible patches from three issue-solving tools behaved differently from the developers' patches, and the weaknesses found inflated reported resolution rates by 6.4 percentage points on average.",
+   "url": "https://assets-eu.researchsquare.com/files/rs-11224002/v1/03ed5c53-d832-4e4d-8011-5f0d4fdaa6a1.pdf?c=1791211391"
+  },
+  {
+   "text": "UTBoost found that SWE-Bench's manually written test cases are often insufficient, allowing generated patches to pass without resolving the issue; after fixing the parser it identified 64 erroneous agent patches that had been counted as correct.",
+   "url": "https://aclanthology.org/2025.acl-long.189.pdf"
+  },
+  {
+   "text": "A passing LLM-generated unit test suite provides evidence only that code is correct with respect to the LLM's understanding, not the developer's; the ScenarioBench study of 30 Defects4J methods with expert-curated scenarios found such suites can give a false sense of security.",
+   "url": "https://dl.acm.org/doi/pdf/10.1145/3832783.3844564"
+  },
+  {
+   "text": "An empirical study of LLM-as-judge for patch correctness recommends using it as a triage aid that ranks candidates for human review rather than a replacement for it.",
+   "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol394-esem2026/LIPIcs.ESEM.2026.21/LIPIcs.ESEM.2026.21.pdf"
+  },
+  {
+   "text": "One comparative study reported transformer-based models reaching 87.3% average accuracy on security vulnerabilities but only 62.1% on subtle logic errors in automated code review.",
+   "url": "https://annalsofappliedsciences.com/index.php/aas/article/view/28"
+  }
+ ],
+ "question_id": "Q17"
+}

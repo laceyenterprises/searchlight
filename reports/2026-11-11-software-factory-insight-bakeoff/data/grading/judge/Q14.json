@@ -1,0 +1,480 @@
+{
+ "digest": "c925311bbd9931a0",
+ "values": {
+  "Q14-k115": {
+   "position": 41,
+   "reason": "A basic definition of MCP.",
+   "score": 0
+  },
+  "Q14-k116": {
+   "position": 12,
+   "reason": "Explains why tool invocation chosen by natural language differs from deterministic API calls; important, but conceptual and widely stated.",
+   "score": 1
+  },
+  "Q14-k117": {
+   "position": 94,
+   "reason": "It provides a taxonomy of attack classes (naming, shadowing, rug pulls) that is useful for threat modeling but not detailed.",
+   "score": 1
+  },
+  "Q14-k118": {
+   "position": 44,
+   "reason": "A specific naming and typosquat attack example that argues for registry-pinned server identities.",
+   "score": 2
+  },
+  "Q14-k119": {
+   "position": 63,
+   "reason": "Confused deputy is a well-defined failure mode that argues for per-user scoped credentials rather than server-wide privileges in a multi-tenant platform.",
+   "score": 2
+  },
+  "Q14-k120": {
+   "position": 25,
+   "reason": "A general list of supply-chain risks without specifics.",
+   "score": 1
+  },
+  "Q14-k121": {
+   "position": 27,
+   "reason": "A vague mention of GitHub and Supabase exploits and a new spec, with no detail.",
+   "score": 1
+  },
+  "Q14-k122": {
+   "position": 34,
+   "reason": "Concrete production mistakes (plaintext keys in config files, shared service accounts destroying audit trails) map directly to multi-harness worker setup.",
+   "score": 2
+  },
+  "Q14-k123": {
+   "position": 7,
+   "reason": "Per-tool rather than per-server permissions is a useful principle, but the example is fairly generic.",
+   "score": 2
+  },
+  "Q14-k124": {
+   "position": 31,
+   "reason": "A measured 17% vs 76% incident rate by least-privilege enforcement is a strong quantitative argument, albeit vendor-sourced.",
+   "score": 2
+  },
+  "Q14-k125": {
+   "position": 86,
+   "reason": "This is a basic A2A role taxonomy.",
+   "score": 0
+  },
+  "Q14-k126": {
+   "position": 38,
+   "reason": "A standard description of the OAuth roles in MCP that is not new.",
+   "score": 1
+  },
+  "Q14-k127": {
+   "position": 15,
+   "reason": "A concrete step-by-step agent OAuth flow including DCR and per-call validation, though standard OAuth.",
+   "score": 2
+  },
+  "Q14-k128": {
+   "position": 1,
+   "reason": "Contrasting a scoped agent OAuth identity with reuse of the user's full session is a concrete blast-radius tradeoff that shapes how the fleet's workers should authenticate.",
+   "score": 3
+  },
+  "Q14-k130": {
+   "position": 66,
+   "reason": "Peer-reviewed quantification of wrong-provider tool execution under multi-server composition is a measured failure mode that argues for attestation and validation of tool providers.",
+   "score": 2
+  },
+  "Q14-k132": {
+   "position": 67,
+   "reason": "This is a basic A2A description that is likely already known.",
+   "score": 1
+  },
+  "Q14-k133": {
+   "position": 39,
+   "reason": "A2A's origin and donation history is trivia.",
+   "score": 0
+  },
+  "Q14-k134": {
+   "position": 64,
+   "reason": "Vendor adoption timelines are context and trivia rather than architecture-changing facts.",
+   "score": 1
+  },
+  "Q14-k135": {
+   "position": 18,
+   "reason": "Current spec versions matter for compatibility targets but do not change architecture.",
+   "score": 1
+  },
+  "Q14-k136": {
+   "position": 56,
+   "reason": "This vendor's ranking of top risks is generic and largely restated elsewhere.",
+   "score": 1
+  },
+  "Q14-k137": {
+   "position": 54,
+   "reason": "This is a vendor marketing claim for a single gateway product.",
+   "score": 0
+  },
+  "Q14-k138": {
+   "position": 14,
+   "reason": "Says only that neither protocol specifies security and MCP's auth path was bumpy, which is generic.",
+   "score": 1
+  },
+  "Q14-k139": {
+   "position": 48,
+   "reason": "A basic definition of A2A.",
+   "score": 0
+  },
+  "Q14-k140": {
+   "position": 78,
+   "reason": "Transport support in OpenAI's API is a minor integration detail.",
+   "score": 1
+  },
+  "Q14-k141": {
+   "position": 77,
+   "reason": "It corroborates the tool-count cost and latency problem and the allowlisting mitigation, without measured numbers.",
+   "score": 1
+  },
+  "Q14-k142": {
+   "position": 70,
+   "reason": "The specific per-call approval semantics in OpenAI's API are a useful design reference for approval gating, though vendor-specific.",
+   "score": 1
+  },
+  "Q14-k143": {
+   "position": 49,
+   "reason": "A minor API detail of require_approval configuration.",
+   "score": 1
+  },
+  "Q14-k144": {
+   "position": 76,
+   "reason": "This is a generic warning to use trusted servers.",
+   "score": 1
+  },
+  "Q14-k145": {
+   "position": 53,
+   "reason": "This is a generic best-practice recommendation for approvals and allowlists.",
+   "score": 1
+  },
+  "Q14-k146": {
+   "position": 73,
+   "reason": "That OAuth registration and authorization fall to the application is a minor vendor-specific detail.",
+   "score": 1
+  },
+  "Q14-k147": {
+   "position": 74,
+   "reason": "This is a vendor-specific tunnel feature of marginal relevance to a self-hosted OS.",
+   "score": 1
+  },
+  "Q14-k148": {
+   "position": 37,
+   "reason": "A generic caution about vendor connectors exposing data.",
+   "score": 0
+  },
+  "Q14-k149": {
+   "position": 13,
+   "reason": "Copilot Studio's default-on tools, with new tools off by default once 'Allow all' is disabled, is a concrete governance UX pattern worth copying.",
+   "score": 2
+  },
+  "Q14-k150": {
+   "position": 40,
+   "reason": "The generic MCP vs A2A complement framing.",
+   "score": 0
+  },
+  "Q14-k151": {
+   "position": 17,
+   "reason": "Copilot Studio governing MCP through Power Platform connector data policies is a vendor-specific detail with limited relevance to a self-hosted OS.",
+   "score": 1
+  },
+  "Q14-k152": {
+   "position": 92,
+   "reason": "This is a Foundry-specific deployment detail with little relevance.",
+   "score": 0
+  },
+  "Q14-k153": {
+   "position": 72,
+   "reason": "This is a vendor product description of a single tool endpoint with limited specific design insight for a self-hosted platform.",
+   "score": 1
+  },
+  "Q14-k154": {
+   "position": 10,
+   "reason": "The Foundry MCP auth-type taxonomy is a useful reference design for supporting multiple credential modes.",
+   "score": 2
+  },
+  "Q14-k155": {
+   "position": 89,
+   "reason": "A specific 100s timeout constraint is a measured limit relevant to long-running tool design, though vendor-specific.",
+   "score": 1
+  },
+  "Q14-k156": {
+   "position": 91,
+   "reason": "This is a Foundry-specific networking constraint irrelevant to a self-hosted OS.",
+   "score": 0
+  },
+  "Q14-k157": {
+   "position": 11,
+   "reason": "Describing MCP tools as stateless predefined functions is a generic characterization.",
+   "score": 0
+  },
+  "Q14-k158": {
+   "position": 62,
+   "reason": "This is a generic description of A2A capabilities without a decision-relevant detail.",
+   "score": 1
+  },
+  "Q14-k159": {
+   "position": 81,
+   "reason": "This is a generic framing of MCP versus A2A scope.",
+   "score": 0
+  },
+  "Q14-k160": {
+   "position": 33,
+   "reason": "The Agent Card location, its contents and the task state machine are concrete A2A design details for integration.",
+   "score": 2
+  },
+  "Q14-k161": {
+   "position": 71,
+   "reason": "This is a specific A2A auth flow detail (openIdConnect via Agent Card security schemes) needed if the reader implements A2A endpoints.",
+   "score": 2
+  },
+  "Q14-k162": {
+   "position": 5,
+   "reason": "Naming the two A2A send methods is basic protocol trivia.",
+   "score": 1
+  },
+  "Q14-k163": {
+   "position": 88,
+   "reason": "This is a generic statement of A2A's async and streaming support.",
+   "score": 1
+  },
+  "Q14-k210": {
+   "position": 24,
+   "reason": "Specific CVEs where repo-supplied .mcp.json ran commands before any trust decision are directly relevant to workers running Claude Code on repos.",
+   "score": 3
+  },
+  "Q14-k211": {
+   "position": 52,
+   "reason": "A specific high-CVSS CVE shows that local MCP listeners without auth are browser-reachable, which directly affects how a self-hosted platform binds MCP servers.",
+   "score": 3
+  },
+  "Q14-k212": {
+   "position": 46,
+   "reason": "A specific worm that injected a rogue MCP server into a home directory to steal credentials is directly relevant to fleet worker hosts.",
+   "score": 3
+  },
+  "Q14-k213": {
+   "position": 6,
+   "reason": "Concrete normative auth requirements (OAuth 2.1 + PKCE S256, RFC 8707, no token passthrough) translate directly into gateway design.",
+   "score": 3
+  },
+  "Q14-k214": {
+   "position": 85,
+   "reason": "Multiple concrete CVEs, including a fixed SDK version, show that authentication does not replace object-level authorization, which is a decision-changing point for a multi-tenant platform.",
+   "score": 3
+  },
+  "Q14-k215": {
+   "position": 9,
+   "reason": "Names specific gateway products and AWS IAM context keys that distinguish agent from human callers, giving concrete options for enforcing auth.",
+   "score": 2
+  },
+  "Q14-k216": {
+   "position": 26,
+   "reason": "The first known in-the-wild malicious MCP server (postmark-mcp) is a concrete incident that justifies pinning and vetting.",
+   "score": 2
+  },
+  "Q14-k217": {
+   "position": 51,
+   "reason": "The WhatsApp tool-poisoning exfiltration is a concrete incident that justifies vetting third-party MCP servers before letting business-automation tenants plug them in.",
+   "score": 2
+  },
+  "Q14-k218": {
+   "position": 47,
+   "reason": "Vulnerabilities in the official Git MCP server that chain with a filesystem server for RCE are highly relevant to a PR-centric fleet.",
+   "score": 3
+  },
+  "Q14-k219": {
+   "position": 30,
+   "reason": "Over 90 tools and 46k+ tokens in a single official server, mixing destructive and benign operations, quantifies the tool-count and context problem.",
+   "score": 3
+  },
+  "Q14-k220": {
+   "position": 21,
+   "reason": "Industry convergence on vetted internal registries plus treating tool output as untrusted is a useful but fairly broad pattern.",
+   "score": 2
+  },
+  "Q14-k221": {
+   "position": 61,
+   "reason": "It names a specific connect-time vs runtime trust gap with concrete mitigations (fixed-schema outputs, isolating high-privilege tools) that would shape tool integration design.",
+   "score": 3
+  },
+  "Q14-k222": {
+   "position": 79,
+   "reason": "The spec now mandates RFC 9728 metadata and audience validation while leaving per-tool scopes to servers, and a concrete gateway does CEL argument-level authz with list hiding, which would directly shape the authz architecture.",
+   "score": 3
+  },
+  "Q14-k223": {
+   "position": 57,
+   "reason": "The MCP Registry has no security metadata and A2A 1.0 has thin adoption, which are specific maturity facts that change whether to rely on public registries.",
+   "score": 3
+  },
+  "Q14-k224": {
+   "position": 90,
+   "reason": "A concrete practical 20-50 tool ceiling is a quantified constraint that informs how many tools to expose per worker.",
+   "score": 2
+  },
+  "Q14-k225": {
+   "position": 65,
+   "reason": "A specific design detail (a 9-17 tool meta-surface) offers a concrete answer to tool-count limits for multi-harness workers.",
+   "score": 2
+  },
+  "Q14-k226": {
+   "position": 3,
+   "reason": "Lists a concrete open-source gateway feature set (keys, rate limits, circuit breakers, redaction, injection scanning) that could be adopted or used as a checklist.",
+   "score": 2
+  },
+  "Q14-k227": {
+   "position": 36,
+   "reason": "A measured benchmark (72.8% attack success for o1-mini, under 3% refusal even for the best model) shows model-level defenses are insufficient.",
+   "score": 3
+  },
+  "Q14-k228": {
+   "position": 2,
+   "reason": "Finding that stronger models are more susceptible to tool poisoning is counterintuitive and argues against relying on model capability as a defense.",
+   "score": 3
+  },
+  "Q14-k229": {
+   "position": 93,
+   "reason": "The measured CVE count and the 43% exec/shell injection share quantify where MCP risk concentrates, justifying sandboxing MCP servers.",
+   "score": 3
+  },
+  "Q14-k230": {
+   "position": 32,
+   "reason": "A specific CVE where prompt injection flipped auto-approve to reach RCE shows approval settings must be immutable to the agent.",
+   "score": 3
+  },
+  "Q14-k243": {
+   "position": 55,
+   "reason": "The concrete spec release candidate contents (stateless core, Tasks, auth hardening, deprecation policy) affect how and when to build MCP integration.",
+   "score": 2
+  },
+  "Q14-k244": {
+   "position": 69,
+   "reason": "It gives a clear, specific decision rule for when to expose a capability as an MCP tool versus an A2A agent, useful for platform extension seam design.",
+   "score": 2
+  },
+  "Q14-k245": {
+   "position": 28,
+   "reason": "Teams shipping MCP servers with no auth because the tutorial omitted it is a minor anecdote supporting secure defaults.",
+   "score": 1
+  },
+  "Q14-k246": {
+   "position": 29,
+   "reason": "Token introspection at the entry point with scope-to-tool mapping and cached validation is a concrete gateway design detail.",
+   "score": 2
+  },
+  "Q14-k247": {
+   "position": 22,
+   "reason": "Propagating W3C traceparent through MCP is a concrete observability convention that fits the session ledger.",
+   "score": 2
+  },
+  "Q14-k248": {
+   "position": 80,
+   "reason": "Call depth limits against circular delegation are a concrete, actionable guardrail for multi-agent orchestration.",
+   "score": 2
+  },
+  "Q14-k249": {
+   "position": 68,
+   "reason": "A concrete duplicate-write failure on retry, plus the retry-then-fallback recommendation, maps directly onto the reader's governed dispatch and autonomous action design.",
+   "score": 2
+  },
+  "Q14-k250": {
+   "position": 4,
+   "reason": "A recipe-difficulty percentage from one cookbook is weak evidence and does little to inform architecture.",
+   "score": 1
+  },
+  "Q14-k251": {
+   "position": 59,
+   "reason": "This only says that documentation is missing for per-agent rate limiting behind gateways, which signals a gap but gives no actionable fact.",
+   "score": 0
+  },
+  "Q14-k252": {
+   "position": 50,
+   "reason": "Gateway in front of MCP servers is a generic, widely stated pattern, with no specific mechanism or measured result.",
+   "score": 1
+  },
+  "Q14-k253": {
+   "position": 82,
+   "reason": "A registry of internal Agent Cards with trust levels is a concrete pattern applicable to the fleet's governed dispatch, though moderately generic.",
+   "score": 2
+  },
+  "Q14-k254": {
+   "position": 83,
+   "reason": "Stateless core implications for load balancers and serverless are relevant but stated generically here.",
+   "score": 1
+  },
+  "Q14-k255": {
+   "position": 84,
+   "reason": "Signed Agent Cards and the v1.0 bindings are specific protocol features that address forgery and would inform registry trust design.",
+   "score": 2
+  },
+  "Q14-k256": {
+   "position": 87,
+   "reason": "A specific composition pattern (MCP internally, A2A externally) gives a useful blueprint for the platform's specialist agents.",
+   "score": 2
+  },
+  "Q14-k257": {
+   "position": 23,
+   "reason": "The M×N to M+N claim is generic marketing framing.",
+   "score": 0
+  },
+  "Q14-k258": {
+   "position": 43,
+   "reason": "A concrete pattern for tool-count explosion: a coordinator delegating to specialists instead of exposing all tools.",
+   "score": 2
+  },
+  "Q14-k259": {
+   "position": 19,
+   "reason": "A concrete failure mode: wrapping agents as MCP tools loses state tracking, multi-step workflows and capability negotiation, which bears directly on the seam design.",
+   "score": 3
+  },
+  "Q14-k260": {
+   "position": 75,
+   "reason": "Roadmap items indicate the A2A authorization in Agent Cards is not yet settled, which is mildly useful for timing decisions.",
+   "score": 1
+  },
+  "Q14-k261": {
+   "position": 0,
+   "reason": "Adoption figures (150+ A2A orgs, 10,000+ public MCP servers) show both protocols are viable extension seams, but they are ecosystem stats rather than design inputs.",
+   "score": 1
+  },
+  "Q14-k262": {
+   "position": 35,
+   "reason": "A brief list of failure modes per protocol that is mostly generic.",
+   "score": 1
+  },
+  "Q14-k263": {
+   "position": 8,
+   "reason": "Maps each protocol to its control point (MCP registry and policy gateway; agent registry, Agent Cards and task audit for A2A), which is useful framing for platform components.",
+   "score": 2
+  },
+  "Q14-k264": {
+   "position": 58,
+   "reason": "A specific audit schema (identities, scopes, tool calls, transitions, outputs) aligns with the reader's session ledger and is moderately useful.",
+   "score": 2
+  },
+  "Q14-k265": {
+   "position": 42,
+   "reason": "Storing task state, approvals and identity claims as durable ledger records rather than in model context aligns with and reinforces the Postgres ledger design.",
+   "score": 2
+  },
+  "Q14-k266": {
+   "position": 45,
+   "reason": "Treating Agent Cards as versioned API contracts with ownership because stale cards misroute work is a concrete governance detail.",
+   "score": 2
+  },
+  "Q14-k31": {
+   "position": 16,
+   "reason": "Shows poisoning can hide in any field of a tool definition, not just the description, so scanners must inspect full schemas.",
+   "score": 2
+  },
+  "Q14-k54": {
+   "position": 60,
+   "reason": "The GitHub MCP incident is a concrete failure mode directly relevant to a fleet that reads issues and opens PRs autonomously, and it argues for isolating private-repo access from untrusted inputs.",
+   "score": 3
+  },
+  "Q14-k68": {
+   "position": 20,
+   "reason": "A specific critical CVE in which a crafted OAuth endpoint triggered command execution in an MCP proxy shows the auth flow itself as an attack surface.",
+   "score": 3
+  }
+ }
+}

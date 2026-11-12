@@ -1,0 +1,12 @@
+{
+ "capture": "captured",
+ "digest": "5b7b4c1e16ede854",
+ "url": "https://builder.aws.com/content/3Eh9lgxjMNKtxCPXPSdQjqaVZfP/spec-driven-development-vs-vibe-coding-why-kiro-bets-on-writing-it-down",
+ "verdicts": {
+  "AWS's Kiro post cites GitClear's analysis of 211 million changed lines (2020–2024): copy-pasted code exceeded refactored code in 2024, duplicated blocks rose roughly eightfold, and churn rose from 3.1% to 5.7%; this evidences problems of unstructured AI coding, not a measured benefit of SDD.": 1,
+  "Kiro reached general availability in November 2025 after more than 250,000 developers used the preview.": 1,
+  "Kiro steering files are stored in .kiro/steering/, and Kiro offers two modes, Vibe and Spec, that the user can switch between.": 1,
+  "Kiro's requirements use EARS (Easy Approach to Requirements Syntax) notation for acceptance criteria; the design step analyzes the existing codebase; tasks are dependency-sequenced, each mapped to the requirement it satisfies, with optional tests.": 1,
+  "Kiro's specs are version-controlled files (requirements.md, design, tasks) that the user reviews and approves at each stage before moving on.": 1
+ }
+}

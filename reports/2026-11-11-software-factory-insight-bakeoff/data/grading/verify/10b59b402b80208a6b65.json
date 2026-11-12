@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "061e1c2e9f30a39f",
+ "url": "https://openai.com/index/introducing-swe-bench-verified",
+ "verdicts": {
+  "OpenAI notes SWE-bench is based on public GitHub repos so pretrained models are likely contaminated on its tasks, and that its tests can be easily gamed, which could mark invalid solutions as correct.": 0,
+  "OpenAI reports GPT-4o's score on its best scaffold rose to 33.2% on SWE-bench Verified from 16% on original SWE-bench, suggesting the original benchmark underestimated agent abilities because of overly specific or unrelated tests and underspecified issues.": 1,
+  "OpenAI's SWE-bench Verified annotation found 38.3% of samples flagged for underspecified problem statements and 61.1% flagged for unit tests that may unfairly mark valid solutions as incorrect, and 68.3% of SWE-bench samples were filtered out overall.": 1
+ }
+}

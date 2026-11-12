@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.search",
+ "cell_sha": "c282282a63e10c4f",
+ "claims": [
+  {
+   "text": "On May 21, 2026, the MCP project announced a 2026-07-28 release candidate with a stateless protocol core, first-class extensions, Tasks, MCP Apps, authorization hardening, a formal deprecation policy, and JSON Schema 2020-12 for tools.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "A stateless MCP core changes how teams deploy remote MCP servers behind gateways, load balancers, and serverless platforms.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "The A2A H2 2026 roadmap lists authorization schemes in Agent Cards, dynamic skill querying, dynamic UX negotiation inside tasks, more client-initiated methods, better streaming reliability, and improved push notifications.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "In April 2026 the Linux Foundation said A2A had passed 150 supporting organizations with integrations across Google, Microsoft, and AWS platforms; Anthropic reported more than 10,000 active public MCP servers when donating MCP to the Agentic AI Foundation.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "The listed failure modes for MCP are over-broad tools, prompt injection, and tool poisoning; for A2A they are agent impersonation, unclear ownership, and lost task state.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "The enterprise control point for MCP is an MCP server registry and policy gateway; for A2A it is an agent registry, Agent Cards, and a task audit trail.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "A policy gateway between orchestrator, MCP servers, and A2A agents should log identities, scopes, tool calls, task transitions, and final outputs, answering who asked, what they called, and what changed.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "Task state, tool results, approvals, artifacts, and identity claims should be stored as durable records with IDs in the workflow system and gateway, not only in model context, which is temporary, lossy, and hard to audit.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "A stale Agent Card can route work to the wrong capability, so Agent Cards should be treated like API contracts with versioning, ownership, review, and policy metadata.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "A specialist agent that merely wraps a single API call should be exposed as an MCP tool; an agent that negotiates scope, streams progress, and returns artifacts should be exposed as an A2A service agent.",
+   "url": "https://baeseokjae.github.io/posts/mcp-agent-to-agent-a2a-coordination-guide-2026"
+  },
+  {
+   "text": "The MCP protocol does not natively define authentication per the MuleSoft cookbook author, who has seen teams deploy MCP servers to CloudHub with no auth because the getting-started tutorial omitted it.",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "text": "The cookbook's oauth-security recipe adds token introspection at the MCP entry point, validating tokens before any tool executes, with scope-to-tool mapping and cached validation results to manage latency overhead.",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "text": "MCP does not mandate distributed tracing; the MuleSoft recipe propagates W3C Trace Context (traceparent) through the MCP layer as a convention so slow agent calls can be localized across hops.",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "text": "Multi-agent A2A orchestration needs call depth limits because circular agent calls cause infinite loops, and sequential calls compound latency.",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "text": "Retried A2A tasks must be idempotent; the author cites an agent triggering duplicate Salesforce record updates on retry, and recommends retry-then-fallback with a secondary agent.",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "text": "Of 17 MuleSoft MCP/A2A recipes, 14 are moderately hard or harder, so about 82% of implementation work lies above basic tutorial level (server setup and tool exposure).",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "text": "The author wants community patterns for MCP behind API gateways with rate limiting per agent, as these are not yet documented.",
+   "url": "https://dzone.com/articles/mulesoft-mcp-a2a-production-recipes"
+  },
+  {
+   "text": "The recommended 'Gateway-Backed MCP' pattern places an API gateway handling auth, rate limiting, and audit in front of a pool of MCP servers (database, analytics, CRM).",
+   "url": "https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production"
+  },
+  {
+   "text": "The 'A2A Agent Registry' pattern keeps a service registry of internal Agent Cards with trust levels (e.g., high, critical); agents register themselves and others discover them dynamically.",
+   "url": "https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production"
+  },
+  {
+   "text": "A2A v1.0 introduced Signed Agent Cards, cryptographic signatures verifying the card issuer's identity and preventing forgery against the registry, along with multi-tenancy, JSON-RPC and gRPC bindings, and version negotiation.",
+   "url": "https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production"
+  },
+  {
+   "text": "A2A Agent Cards are served at /.well-known/agent-card.json (RFC 8615) and describe capabilities, auth schemes, endpoint, and skills; A2A tasks move through submitted, working, input-required, completed, failed, or canceled.",
+   "url": "https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production"
+  },
+  {
+   "text": "The production composition pattern has each specialist agent acting as an MCP client internally to reach its own systems while being an A2A peer externally.",
+   "url": "https://niteagent.com/blog/2026-06-07-agent-protocol-stack-mcp-a2a-production"
+  },
+  {
+   "text": "MCP and A2A reduce integration burden from M×N custom connections to M+N standardized ones.",
+   "url": "https://www.ideabosque.com/library/mcp-a2a-agentic-ai-protocol-stack"
+  },
+  {
+   "text": "A team running 5 agents with 10 MCP tools each faced 50 possible tool invocations and used a coordinator agent that delegates to specialists via A2A-style delegation rather than calling MCP tools directly.",
+   "url": "https://github.com/a2aproject/A2A/discussions/955"
+  },
+  {
+   "text": "Registering agents as MCP tools (the 'meta-tool' pattern) simplified the mental model but lost state tracking, multi-step workflow handling, and capability negotiation.",
+   "url": "https://github.com/a2aproject/A2A/discussions/955"
+  }
+ ],
+ "question_id": "Q14"
+}

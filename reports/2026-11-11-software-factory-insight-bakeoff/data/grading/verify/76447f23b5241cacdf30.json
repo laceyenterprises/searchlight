@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "1bbfe1efddf1f581",
+ "url": "https://factory.strongdm.ai/techniques/semport",
+ "verdicts": {
+  "StrongDM's 'semport' technique daily checks openai/openai-agents-python commits for an internal Go implementation; Attractor records applicable fixes, runs tests and tags releases.": 1
+ }
+}

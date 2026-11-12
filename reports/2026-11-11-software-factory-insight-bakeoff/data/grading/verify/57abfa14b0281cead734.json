@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "2230ed8b030491ec",
+ "url": "https://dev.to/aws/why-ai-agents-fail-3-failure-modes-that-cost-you-tokens-and-time-1flb",
+ "verdicts": {
+  "Agents often fail silently by burning tokens calling the same tool repeatedly; the AWS series proposes a DebounceHook and clearing tool states to block repeated calls, and a memory pointer pattern to keep large tool outputs out of the context window.": 1,
+  "IBM research cited by AWS found a Materials Science workflow consumed 20M tokens and failed, while the same workflow with a memory pointer pattern used 1,234 tokens and succeeded.": 1
+ }
+}

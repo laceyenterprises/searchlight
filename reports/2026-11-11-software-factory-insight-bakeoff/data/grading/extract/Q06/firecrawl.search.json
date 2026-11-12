@@ -1,0 +1,107 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "e26f9b2abe281e89",
+ "claims": [
+  {
+   "text": "Over 1,300 Stripe pull requests merged each week are completely minion-produced and human-reviewed, containing no human-written code (up from 1,000 as of Part 1).",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Stripe's unattended agent coding requires a cloud developer environment that is parallelizable, predictable, and isolated, so agents have clean working directories and do not interfere with one another's changes.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Minions run on the devbox, the same standard developer environment Stripe engineers use, which is an AWS EC2 instance containing Stripe's source code and running services under development.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Stripe treats devboxes as 'cattle, not pets': standardized and easy to replace rather than bespoke and long-lived.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Many Stripe engineers use one devbox per task, and an engineer might have half a dozen running at a time.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Stripe aims for a devbox to be ready within 10 seconds by proactively provisioning and warming a pool of devboxes in advance.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Devbox warm-up includes cloning gigantic git repositories, warming Bazel and type-checking caches, and starting code generation services that run continually on devboxes.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "After the 10-second spin-up, a devbox is checked out to a recent copy of master across all of Stripe's main repos and is ready to run tests, type check, or start a web service.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Stripe built devboxes for human engineers long before LLM coding agents existed; their parallelism, predictability, and isolation also suit agents.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "In late 2024 Stripe internally forked Block's goose coding agent and customized it to work within Stripe's LLM infrastructure, later focusing its development on the needs of minions rather than human-supervised use.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Because minions are fully unattended, the agent harness cannot rely on human-facing features such as interruptibility or human-triggered commands to start or steer a run.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Because mistakes are confined to the limited blast radius of one quarantined devbox, Stripe runs the agent with full permissions and skips confirmation prompts.",
+   "url": "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"
+  },
+  {
+   "text": "Blueprints are workflow templates in which each node is either an agentic step (an LLM coding loop) or a deterministic step that enforces constraints the AI is not allowed to decide for itself.",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/"
+  },
+  {
+   "text": "The test-validation step in a Blueprint is a gate the harness enforces regardless of what the model decides, rather than a request made to the model.",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/"
+  },
+  {
+   "text": "Stripe's blueprints alternate between deterministic steps such as linting, type checking, and CI and agentic steps where the AI reasons and writes code.",
+   "url": "https://www.youtube.com/watch?v=NMWgXvm--to&vl=en"
+  },
+  {
+   "text": "Each minion PR is validated against a subset of Stripe's battery of over 3 million tests before a human engineer reviews and merges it.",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/"
+  },
+  {
+   "text": "Minions run at most two CI rounds before handing the result to a human, even if failures remain.",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "text": "The CI strategy is a local lint step taking under 5 seconds, then at most 2 CI rounds, with fixes auto-applied.",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "text": "Minion devboxes are isolated from production and the internet for security.",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "text": "Every minion PR requires human review before merge.",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "text": "Minions are invoked via Slack, a CLI, web interfaces, and internal platform integrations.",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/"
+  },
+  {
+   "text": "Minions access nearly 500 MCP tools through Toolshed, Stripe's internal tool server; Part 1 cited more than 400.",
+   "url": "https://dotzlaw.com/insights/ai-04-stripe-minions-deterministic-rails/"
+  },
+  {
+   "text": "Before the agent starts, the orchestrator deterministically pre-fetches context by scanning the prompt for links, pulling docs and ticket details, and searching code via Sourcegraph through MCP, giving agents curated tool subsets rather than all tools.",
+   "url": "https://www.youtube.com/watch?v=GQ6piqfwr5c&vl=en"
+  },
+  {
+   "text": "InfoQ reports minions perform best on well-defined tasks such as configuration adjustments, dependency upgrades, and minor refactoring, so the weekly PR count does not imply every PR is a large feature change.",
+   "url": "https://rywalker.com/research/stripe-minions"
+  },
+  {
+   "text": "Stripe's codebase consists of hundreds of millions of lines of code, mostly Ruby with Sorbet typing, with many homegrown libraries LLMs have not seen in training data.",
+   "url": "https://blog.bytebytego.com/p/how-stripes-minions-ship-1300-prs"
+  }
+ ],
+ "question_id": "Q06"
+}

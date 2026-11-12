@@ -1,0 +1,115 @@
+{
+ "arm_id": "perplexity.search",
+ "cost": {
+  "basis": "estimate",
+  "credits": 0.0,
+  "usd": 0.005
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:22:59.006882Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2354,
+   "published": "2026-10-29",
+   "text": "Droid is our agent harness.\nAn agent harness is everything around the model: the prompts, the tools, how tool results come back, and the loop that runs it all.\nAgents now work for hours or days across hundreds of turns, and every turn re-sends instructions, tools, and history.\n...\nOn the same tasks…",
+   "title": "Droid 1.0: Building a Frontier Harness",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "chars_delivered": 2449,
+   "published": "2026-10-31",
+   "text": "The main change is programmatic tool calling, now on by default.\nThe model writes a program that runs its tools.\nOne model request can now drive hundreds of tool calls.\n...\n- **Runs on:** macOS and Windows desktop app, a terminal UI, and the Node SDK `@factory/droid-sdk`.\nWorks with any supported m…",
+   "title": "Meet Factory Droid 1.0: A Model-Independent Coding Agent ...",
+   "url": "https://www.marktechpost.com/2026/10/31/factory-droid-1-0-frontier-harness/"
+  },
+  {
+   "chars_delivered": 2477,
+   "published": "2026-09-20",
+   "text": "# Droid (Factory)\n## What is an AI harness?\nAn AI harness is the software around a language model that makes it able to work: agent loop, tools, context, memory, permissions, verification and orchestration.\n...\n## The seven building blocks in Droid (Factory)\n### Agent loop\nDroid works interactively…",
+   "title": "Droid: Factory's Coding Agent Harness",
+   "url": "https://innfactory.ai/en/ai-harness/droid/"
+  },
+  {
+   "chars_delivered": 1040,
+   "published": null,
+   "text": "Droid keeps internal tools, MCP tools, skills, and plugins reachable without loading every schema on every turn.\nProduction telemetry quantifies estimated input-token savings by catalog size.\n...\nWed, 01 Jul 2026 00:00:00 GMT\nDroid: The #1 Software Development Agent on Terminal-Bench\nWith a score o…",
+   "title": "Factory News | RSS Feed",
+   "url": "https://factory.com/news/rss"
+  },
+  {
+   "chars_delivered": 725,
+   "published": "2026-10-01",
+   "text": "Factory's sandbox documentation describes OS-level filesystem and network isolation.\n...\nFactory's October 2026 Droid 1.0 post ran Droid and Devin head-to-head on Terminal-Bench 4.\nDroid passed 65.2% of tasks to Devin's 59.6% with Claude Opus 5.5, at 24% lower cost per passed task.\nWith GPT-6.1 Sol…",
+   "title": "Factory vs Cognition for enterprise agent controls",
+   "url": "https://factory.com/articles/factory-vs-cognition-enterprise-controls"
+  },
+  {
+   "chars_delivered": 89,
+   "published": null,
+   "text": "ctx can import Factory AI Droid local session history when supported records are present.",
+   "title": "Use ctx with Factory AI Droid",
+   "url": "https://www.ctx.rs/agents/factory-droid/"
+  },
+  {
+   "chars_delivered": 857,
+   "published": "2026-09-20",
+   "text": "# Knowledge Base for Factory Droid\nFactory Droid can plan, edit, test, review, delegate to custom droids, load Skills, connect MCP servers, and move interactive work into headless execution.\n...\n|Layer|Primary job|Trust boundary|\n|--|--|--|\n|Custom droid|Fresh-context subagent with model and tool p…",
+   "title": "Knowledge Base for Factory Droid | Govern Agents, Skills, MCP ...",
+   "url": "https://busabase.com/knowledge-base-for-factory-droid"
+  },
+  {
+   "chars_delivered": 3534,
+   "published": "2026-09-28",
+   "text": "The harness is the software around the model that makes this work possible.\nIt gives the model ways to read files, edit code, run commands, and check results.\n...\nIts Custom Models documentation describes connecting provider keys, open-model endpoints, or local models in the Droid CLI and desktop a…",
+   "title": "What is the best harness for AI coding? | Factory",
+   "url": "https://factory.com/articles/terminal-bench-agent-comparison"
+  },
+  {
+   "chars_delivered": 2279,
+   "published": null,
+   "text": "Specialist autonomous Droids handle coding, testing, code review, refactoring, and DevOps work across Desktop, CLI, SDK, Slack, ticketing, and CI, with Missions enabling long-horizon multi-agent workflows.\n...\nFactory - Droid #1 on Terminal-Bench — Droid reached #1 on Terminal-Bench at 58.8%, outpe…",
+   "title": "Factory Droids AI Agent Security Evaluation",
+   "url": "https://trustvector.guard0.ai/agents/factory-droids"
+  },
+  {
+   "chars_delivered": 2365,
+   "published": "2025-04-07",
+   "text": "Delegating production work takes more than a coding agent: it requires shared context, collaborative planning, reliable validation, and clear responsibility for what agents do.\n...\nThat environment needs four capabilities working together:\n- **Task management:** an intuitive interface for assigning…",
+   "title": "Ship Production Software in Minutes, Not Months | AI Engineer",
+   "url": "https://ai.engineer/talks/iheWKg2Tkrk-ship-production-software-in-minutes-not-months"
+  }
+ ],
+ "latency_ms": 589.9,
+ "notices": null,
+ "profile_sha256": "e6aecadc1d55ddb6e8a95404baeae397bf8db8d2642a6273bd49e5205decfe57",
+ "question_id": "Q02",
+ "request": {
+  "body": {
+   "country": "US",
+   "max_results": 10,
+   "max_tokens_per_page": 4096,
+   "query": [
+    "What is the architecture of Factory.ai's Droids: execution environment, context and memory, how tasks are delegated, and how output is verified? What do engineering write-ups or benchmarks say about results?",
+    "Factory.ai Droids architecture engineering blog",
+    "Factory AI Droid context memory delegation verification",
+    "Factory Droids Terminal-Bench SWE-bench benchmark results"
+   ],
+   "search_type": "web"
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/search"
+ },
+ "response": {
+  "chars": 20426,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:22:58.417012Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "222f263e4675217e",
+ "url": "https://factory.com/news/missions",
+ "verdicts": {
+  "Missions runs locally or in isolated cloud containers with git as the source of truth, classifies every command by risk level, runs Droid Shield to scan for secrets before content reaches a model, and logs every action with telemetry via OpenTelemetry.": 1,
+  "Missions uses different models per role: Opus 4.6 for orchestration, Sonnet 4.6/Opus 4.6 for feature implementation, GPT-5.3-Codex for validation and user testing; validation workers use native computer use to launch the app and click through flows.": 1,
+  "The median mission runs about 2 hours, 37% run longer than four hours, 14% exceed 24 hours, and the longest ran 16 days; a median mission consumes 12x more tokens than a normal session.": 1
+ }
+}

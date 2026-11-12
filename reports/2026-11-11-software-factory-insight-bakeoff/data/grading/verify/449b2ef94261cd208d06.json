@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "115c94744aa1e777",
+ "url": "https://checkmarx.com/learn/mcp-security-risks-real-world-incidents-and-security-controls/",
+ "verdicts": {
+  "In November 2025, Anthropic's official Git MCP server was found to have critical vulnerabilities (path validation bypass, argument injection, unsafe repository initialization) that could be chained with a filesystem MCP server for remote code execution via prompt injection.": 1,
+  "In November 2025, a WhatsApp MCP integration was exploited via a malicious MCP server that poisoned tool descriptions with hidden instructions, silently redirecting message data to an attacker-controlled phone number.": 1,
+  "In September 2025, researchers found the first known malicious MCP server in the wild: a compromised npm package called postmark-mcp.": 1
+ }
+}

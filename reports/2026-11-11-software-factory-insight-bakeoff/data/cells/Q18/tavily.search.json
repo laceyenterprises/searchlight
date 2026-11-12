@@ -1,0 +1,121 @@
+{
+ "arm_id": "tavily.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 4.0,
+  "usd": 0.032
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:24:00.313834Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 2155,
+   "page_chars_delivered": 22745,
+   "post_step": "fetched",
+   "published": null,
+   "text": "The findings are both rigorous and uncomfortable. They show that agents often produce syntactically correct, compilable code — and still fail at high rates. Not because the code is wrong, but because the contribution does not fit the social, organisational, and workflow realities of modern software…",
+   "title": "Where Autonomous Coding Agents Fail: A Forensic Audit of Real-World PRs",
+   "url": "https://medium.com/@vivek.babu/where-autonomous-coding-agents-fail-a-forensic-audit-of-real-world-prs-59d66e33efe9"
+  },
+  {
+   "chars_delivered": 1664,
+   "page_chars_delivered": 23771,
+   "post_step": "fetched",
+   "published": null,
+   "text": "Separately, Deloitte's analysis of agent orchestration projects that governance maturity will determine which teams can scale autonomous systems beyond pilot stages. Closing that gap requires moving from reactive firefighting to systematic prevention. You need a stack that helps you see failures ea…",
+   "title": "7 AI Agent Failure Modes and How to Prevent Them | Galileo",
+   "url": "https://galileo.ai/blog/agent-failure-modes-guide"
+  },
+  {
+   "chars_delivered": 999,
+   "page_chars_delivered": 17080,
+   "post_step": "fetched",
+   "published": null,
+   "text": "On other tasks, agents wrote perfectly good test cases - into throwaway scripts in /tmp, where the rubric can't see them and no CI ever will. On future-architect/vuls, this single misreading—\"do not modify tests\" interpreted as \"do not add tests\"—is the dominant failure mode for the entire reposito…",
+   "title": "Why AI coding agents actually fail (it's not the model)",
+   "url": "https://www.faros.ai/blog/why-do-ai-coding-agents-fail"
+  },
+  {
+   "chars_delivered": 2232,
+   "published": null,
+   "text": "### 6. Runaway cost and latency\n\nVectara keeps a community-curated catalog of real-world AI agent failures that includes several reported cost incidents. In one reported case, an agent deployed five 48-vCPU AWS instances with no cost preview and ran up a $6,531 bill. In another, a LangChain multi-a…",
+   "title": "AI Agent Failure Modes: How Agents Break and How to Fix Them | Amplitude",
+   "url": "https://amplitude.com/explore/analytics/ai-agent-failure-modes"
+  },
+  {
+   "chars_delivered": 1371,
+   "published": null,
+   "text": "| Goal Misinterpretation | Agent misunderstands the user's actual intent and optimizes for the wrong objective, wasting resources on irrelevant tasks | Agent asked to create a trip itinerary for vacation in Paris, and instead produced a plan for the French Riviera. |\n| Plan Generation Failures | Ag…",
+   "title": "GitHub - vectara/awesome-agent-failures: A community curated collection of AI agent failure modes and battle-tested solutions. · GitHub",
+   "url": "https://github.com/vectara/awesome-agent-failures"
+  },
+  {
+   "chars_delivered": 153,
+   "published": null,
+   "text": "Ambiguous requirements · Partial context · Overconfident wrong changes · Review bottlenecks · Hidden cleanup work after “successful” completion.Read more",
+   "title": "What failure modes are you seeing with coding agents in ...",
+   "url": "https://www.reddit.com/r/LLMDevs/comments/1srp983/what_failure_modes_are_you_seeing_with_coding"
+  },
+  {
+   "chars_delivered": 937,
+   "published": null,
+   "text": "With these controls in place, agent speed remains high while unreviewed mutation, covert exfiltration, and supply-chain drift are mitigated.\n\n### Failure Modes and Containment [...] AI coding agents differ from assistants in that they execute code autonomously, eliminating the need for human approv…",
+   "title": "AI Coding Agent Security: Threat Models and Protection Strategies",
+   "url": "https://www.knostic.ai/blog/ai-coding-agent-security"
+  },
+  {
+   "chars_delivered": 692,
+   "published": null,
+   "text": "``` [...] ``` [...] ```\ncd # Pick any demo cd # or 02-mcp-timeout-demo, 03-reasoning-loops-demo && install -r export OPENAI_API_KEY =\"your-key-here\"\n```\n\nEach demo is self-contained with its own dependencies, test script, and Jupyter notebook.\n\n## Frequently Asked Questions\n\n### What are the most c…",
+   "title": "Why AI Agents Fail: 3 Failure Modes That Cost You Tokens and Time - DEV Community",
+   "url": "https://dev.to/aws/why-ai-agents-fail-3-failure-modes-that-cost-you-tokens-and-time-1flb"
+  },
+  {
+   "chars_delivered": 2281,
+   "published": null,
+   "text": "Source:\n\nApr 2026\n\nIssue\n\nA Cursor coding agent running Claude Opus 4.6 was assigned a routine task in a staging environment. After encountering a credential mismatch, it autonomously decided to resolve it by deleting a Railway volume — an action the user never requested. To execute the deletion, t…",
+   "title": "A registry of AI agent failures, exploits, and defenses | Oso",
+   "url": "https://www.osohq.com/developers/ai-agents-gone-rogue"
+  },
+  {
+   "chars_delivered": 1910,
+   "published": null,
+   "text": "While there is considerable research and software products that tackle some of these failure modes, the reality is that many of these failures go beyond agent design. They ultimately will require addressing deficiencies in the underlying systems as well as new human computer interaction designs to…",
+   "title": "9 Critical Failure Patterns of Coding Agents | DAPLab",
+   "url": "https://daplab.cs.columbia.edu/general/2026/01/08/9-critical-failure-patterns-of-coding-agents.html"
+  }
+ ],
+ "latency_ms": 3391.7,
+ "notices": null,
+ "profile_sha256": "50f834360fdb9cd2def870ace0decc4254209316d5e55c485d387e0ddf05fd45",
+ "question_id": "Q18",
+ "request": {
+  "body": {
+   "auto_parameters": false,
+   "chunks_per_source": 3,
+   "include_answer": false,
+   "include_raw_content": false,
+   "include_usage": true,
+   "max_results": 10,
+   "query": "What are the documented failure modes of autonomous AI coding agents at scale: reward hacking or test tampering, review rubber-stamping, regressions introduced by fixes, runaway token spend, and merge conflicts in high-volume repos? How do organizations mitigate them?",
+   "search_depth": "advanced",
+   "session_id": "sl-tavily.search-Q18-2026-11-11",
+   "topic": "general"
+  },
+  "headers": {
+   "Authorization": "Bearer <TAVILY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.tavily.com/search"
+ },
+ "response": {
+  "chars": 17663,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:23:56.922237Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

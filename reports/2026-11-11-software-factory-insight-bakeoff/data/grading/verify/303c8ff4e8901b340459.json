@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "2f0f7b6aa1617b79",
+ "url": "https://simonwillison.net/2026/Feb/7/software-factory",
+ "verdicts": {
+  "CXDB, StrongDM's released AI Context Store that keeps conversation histories and tool outputs in an immutable DAG, comprises 16,000 lines of Rust, 9,500 of Go and 6,700 of TypeScript.": 1,
+  "Jay Taylor said the DTU's fidelity strategy was to use the most popular public reference SDK client libraries as compatibility targets, with the goal of 100% compatibility.": 1,
+  "Simon Willison reports that the DTU clones were built by feeding a service's full public API documentation into the agent harness and having it build an imitation as a self-contained Go binary, with a simplified UI on top.": 1,
+  "StrongDM released Attractor, a non-interactive coding agent whose repo contains only three markdown spec files and no code, and cxdb, an AI context store holding conversation histories and tool outputs in an immutable DAG.": 1,
+  "The software StrongDM demonstrated manages user permissions across connected services, which Willison found notable because it is security software built with unreviewed LLM code.": 1,
+  "Willison compares holdout scenarios, which are evaluated but not visible to the coding agents, to aggressive testing by an external QA team.": 1,
+  "Willison flags the $1,000/day per engineer figure as roughly $20,000/month per engineer, which he says makes the approach a business-model question and less interesting if the cost is real.": 1,
+  "Willison saw StrongDM's working demos in October 2025, when the three-person team was three months old, with the agent harness, DTU clones of about six services and a swarm of simulated test agents running scenarios.": 1
+ }
+}

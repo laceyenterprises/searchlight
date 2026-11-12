@@ -1,0 +1,63 @@
+{
+ "arm_id": "firecrawl.search",
+ "cell_sha": "fc6ca3ff9615bdd5",
+ "claims": [
+  {
+   "text": "Ben Coding's blog post 'The Bottleneck Has Moved: Why AI Engineering Needs to Grow Up' was published on Oct 19, 2026.",
+   "url": "https://bencoding.com/2026/10/19/the-bottleneck-has-moved-why-ai-engineering-needs-to-grow-up/"
+  },
+  {
+   "text": "The post argues that if an organization can produce five times as much software but architecture, code, security and regression review remain predominantly human, the bottleneck has been moved and made more expensive rather than removed.",
+   "url": "https://bencoding.com/2026/10/19/the-bottleneck-has-moved-why-ai-engineering-needs-to-grow-up/"
+  },
+  {
+   "text": "The post argues that the unit of engineering control should move from the code diff (pull request) to the system invariant, so that the build or repository makes illegal dependencies impossible rather than relying on human reviewers.",
+   "url": "https://bencoding.com/2026/10/19/the-bottleneck-has-moved-why-ai-engineering-needs-to-grow-up/"
+  },
+  {
+   "text": "The post names dependency-cruiser (JavaScript/TypeScript), Nx (workspace project tagging), ArchUnit (Java), and ArchUnitNET and NetArchTest (.NET) as existing tooling for enforcing architecture, and cites NetArchTest's goal of a 'self-testing architecture'.",
+   "url": "https://bencoding.com/2026/10/19/the-bottleneck-has-moved-why-ai-engineering-needs-to-grow-up/"
+  },
+  {
+   "text": "The post identifies the key AI risk as code that is locally correct but globally wrong: for example, introducing a dependency that should not exist, duplicating functionality another domain owns, or bypassing an abstraction, even when tests pass.",
+   "url": "https://bencoding.com/2026/10/19/the-bottleneck-has-moved-why-ai-engineering-needs-to-grow-up/"
+  },
+  {
+   "text": "The post attributes the idea of architectural fitness functions (automated architectural governance) to Neal Ford, Rebecca Parsons and others at Thoughtworks.",
+   "url": "https://bencoding.com/2026/10/19/the-bottleneck-has-moved-why-ai-engineering-needs-to-grow-up/"
+  },
+  {
+   "text": "A LinkedIn post states that the software factory is the product, and that teams now track autonomous run length, turns to merge and cost per output while retiring token counts and PR counts as metrics.",
+   "url": "https://www.linkedin.com/posts/josephbironas_elcannual-sre-aiengineering-activity-7516910389696090112-8LxK"
+  },
+  {
+   "text": "Copado describes Foundry as a complete app platform for building apps and agents, and as a software factory where agents plan, implement, test, review and document.",
+   "url": "https://www.facebook.com/CopadoSolutions/posts/in-the-last-month-thousands-of-developers-from-the-copado-community-started-buil/1718913423567150/"
+  },
+  {
+   "text": "A blog post by Naveed Kumbhar describes an 'agentic factory floor' with six autonomous persona roles: Spec & Architect, Developer/Builder, Test & Triage, Security & Compliance, DevOps & Release, and SRE & Observability agents.",
+   "url": "https://blog.naveedkumbhar.com/agentic-sdlc-explained/"
+  },
+  {
+   "text": "The Kumbhar post describes agentic SDLC as coordinated agent personas that take business specifications, implement microservices, run tests in ephemeral sandboxes, triage runtime errors and deploy code under human governance.",
+   "url": "https://blog.naveedkumbhar.com/agentic-sdlc-explained/"
+  },
+  {
+   "text": "Moderna's security team, led by Farzan Karimi, built a threat-modeling agent that completed 687 AI-assisted security reviews in a month, with a headline claiming savings of 6-7 FTEs.",
+   "url": "https://www.linkedin.com/posts/evabenn_farzan-karimi-and-his-security-team-at-moderna-activity-7515426894599634944-eOEJ"
+  },
+  {
+   "text": "An author on notafactoryanymore.com reports that AI agents working as autonomous workers in a shared workflow always knew their current status because the work and the record of the work were the same thing, so reporting becomes a view over the work itself.",
+   "url": "https://notafactoryanymore.com/category/uncategorized/"
+  },
+  {
+   "text": "A freeCodeCamp report cites an NBER study of over one hundred thousand developers finding a 180 percent increase in commits produced only a 30 percent increase in software releases and no measurable increase in end-user adoption.",
+   "url": "https://www.freecodecamp.org/news/the-state-of-ai-and-software-engineering-book/"
+  },
+  {
+   "text": "A freeCodeCamp report cites an Anthropic analysis of about four hundred thousand agent sessions finding the same model succeeded roughly twice as often when operated by an expert as by a novice.",
+   "url": "https://www.freecodecamp.org/news/the-state-of-ai-and-software-engineering-book/"
+  }
+ ],
+ "question_id": "Q24"
+}

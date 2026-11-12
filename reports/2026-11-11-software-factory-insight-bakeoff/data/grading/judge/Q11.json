@@ -1,0 +1,535 @@
+{
+ "digest": "e8c64818a3edfcb2",
+ "values": {
+  "Q11-k1": {
+   "position": 96,
+   "reason": "A hard history limit (50k events / 50MB) that forces continue_as_new for long reasoning loops, a concrete scaling constraint.",
+   "score": 3
+  },
+  "Q11-k100": {
+   "position": 27,
+   "reason": "It is an additional vendor option with feature bullets but little decision-changing detail.",
+   "score": 1
+  },
+  "Q11-k101": {
+   "position": 63,
+   "reason": "Explains the replay model and its determinism requirement forcing LLM calls into steps, a key architectural constraint.",
+   "score": 2
+  },
+  "Q11-k102": {
+   "position": 17,
+   "reason": "It is an illustrative example of naive retry costs and non-idempotent tools that is largely covered by other findings.",
+   "score": 1
+  },
+  "Q11-k103": {
+   "position": 32,
+   "reason": "This is a generic human-in-the-loop claim without mechanism detail.",
+   "score": 0
+  },
+  "Q11-k104": {
+   "position": 39,
+   "reason": "This is generic compounding-probability arithmetic.",
+   "score": 0
+  },
+  "Q11-k105": {
+   "position": 55,
+   "reason": "A specific journal-before-execute mechanism that gives exactly-once ctx.run semantics, relevant to how the ledger should record tool steps.",
+   "score": 2
+  },
+  "Q11-k106": {
+   "position": 31,
+   "reason": "It duplicates the description of Inngest checkpoint memoization.",
+   "score": 0
+  },
+  "Q11-k107": {
+   "position": 105,
+   "reason": "This is a generic description of durable execution journaling and replay with no engine-specific detail or measured result.",
+   "score": 0
+  },
+  "Q11-k108": {
+   "position": 3,
+   "reason": "It gives a specific placement rule for GPU and side-effecting work under replay determinism, though the same principle appears in other findings.",
+   "score": 2
+  },
+  "Q11-k109": {
+   "position": 25,
+   "reason": "Hard payload and history limits plus the claim-check workaround would constrain how large agent transcripts and diffs are passed through workflows.",
+   "score": 3
+  },
+  "Q11-k110": {
+   "position": 54,
+   "reason": "Describes the concrete activity_as_tool integration pattern that maps tool calls to Activities, but the customer names are marketing.",
+   "score": 2
+  },
+  "Q11-k111": {
+   "position": 12,
+   "reason": "It is a generic definitional list, and its 'exactly-once' claim is contradicted by more precise findings.",
+   "score": 0
+  },
+  "Q11-k112": {
+   "position": 66,
+   "reason": "A sharp distinction: checkpointers leave retry, resume and dedup to the developer, which is directly relevant to whether a Postgres session ledger is enough.",
+   "score": 3
+  },
+  "Q11-k113": {
+   "position": 28,
+   "reason": "This is a clear reference architecture that keeps the ReAct loop deterministic and puts every LLM or tool call in a recorded step, directly applicable to a multi-harness agent runtime.",
+   "score": 2
+  },
+  "Q11-k114": {
+   "position": 26,
+   "reason": "It lists specific determinism rules, but this is standard Temporal guidance that overlaps other findings.",
+   "score": 1
+  },
+  "Q11-k115": {
+   "position": 88,
+   "reason": "Funding and market news, not architectural.",
+   "score": 0
+  },
+  "Q11-k116": {
+   "position": 84,
+   "reason": "Funding and usage stats are market context, not architectural.",
+   "score": 0
+  },
+  "Q11-k117": {
+   "position": 75,
+   "reason": "A customer list and integration timeline; mostly marketing, though it partially answers the production-users question.",
+   "score": 1
+  },
+  "Q11-k118": {
+   "position": 41,
+   "reason": "The should_retry filter that separates transient from validation errors is a specific design detail for avoiding wasteful retries.",
+   "score": 2
+  },
+  "Q11-k119": {
+   "position": 94,
+   "reason": "A specific exception propagation behavior on retry exhaustion; a minor detail.",
+   "score": 1
+  },
+  "Q11-k120": {
+   "position": 19,
+   "reason": "It states DBOS step semantics precisely as at-least-once until completion, which is useful but brief.",
+   "score": 1
+  },
+  "Q11-k121": {
+   "position": 36,
+   "reason": "Using the workflow ID as an idempotency key that guarantees single execution is a concrete deduplication mechanism usable for dispatch and payments.",
+   "score": 2
+  },
+  "Q11-k122": {
+   "position": 104,
+   "reason": "The determinism constraint is a known, fairly generic rule across replay-based engines that corroborates the pattern without adding a new decision factor.",
+   "score": 1
+  },
+  "Q11-k123": {
+   "position": 82,
+   "reason": "Corroborates DBOS durable recv with a timeout for human input.",
+   "score": 1
+  },
+  "Q11-k124": {
+   "position": 73,
+   "reason": "A specific caveat that approval Signals may be duplicated and need idempotent handling.",
+   "score": 2
+  },
+  "Q11-k125": {
+   "position": 29,
+   "reason": "It is a specific audit design detail of recording all approval attempts with timestamps through a Query, which fits the reader's governance needs.",
+   "score": 2
+  },
+  "Q11-k126": {
+   "position": 15,
+   "reason": "It points to an implementation guide but contains no insight of its own.",
+   "score": 1
+  },
+  "Q11-k127": {
+   "position": 47,
+   "reason": "It is a concrete production pattern of carrying idempotency keys on signals to prevent double-processing on redelivery, relevant to session ingestion.",
+   "score": 3
+  },
+  "Q11-k128": {
+   "position": 8,
+   "reason": "It shows a concrete design that ingests sessions through Signals instead of polling or cron, which is relevant to how the reader's session ledger dispatches work.",
+   "score": 2
+  },
+  "Q11-k129": {
+   "position": 76,
+   "reason": "A concrete production case of intercepting tool calls, dispatching them to a remote sandbox and resuming each individually, which is analogous to multi-harness worker dispatch.",
+   "score": 2
+  },
+  "Q11-k130": {
+   "position": 0,
+   "reason": "This is a concrete production use case showing Restate running per-customer semantic-layer building and repo indexing with resume-on-failure, which maps to the reader's long-running pipelines.",
+   "score": 1
+  },
+  "Q11-k131": {
+   "position": 49,
+   "reason": "It gives a concrete integration stack (AI SDK, Restate, Postgres, ElectricSQL) for persisting and streaming LLM output, which is relevant to a Postgres-ledger platform.",
+   "score": 2
+  },
+  "Q11-k132": {
+   "position": 13,
+   "reason": "This is an anonymous production reference with little detail.",
+   "score": 1
+  },
+  "Q11-k133": {
+   "position": 98,
+   "reason": "A failure mode of lost responses causing duplicate external calls; corroborates k13.",
+   "score": 2
+  },
+  "Q11-k134": {
+   "position": 78,
+   "reason": "A minor example of using a business ID plus a ledger uniqueness constraint.",
+   "score": 1
+  },
+  "Q11-k135": {
+   "position": 67,
+   "reason": "A specific Inngest gotcha where code outside steps can trigger re-execution of the whole function.",
+   "score": 2
+  },
+  "Q11-k136": {
+   "position": 48,
+   "reason": "It is a generic description of how an Inngest agent run is triggered.",
+   "score": 0
+  },
+  "Q11-k137": {
+   "position": 37,
+   "reason": "It is a useful detail that dynamic, model-decided agent shapes need no up-front DAG, which contrasts with the reader's spec-to-DAG build packs.",
+   "score": 2
+  },
+  "Q11-k138": {
+   "position": 87,
+   "reason": "Duplicates k9 on DBOS step retry configuration.",
+   "score": 0
+  },
+  "Q11-k139": {
+   "position": 34,
+   "reason": "It repeats the per-step retry example already covered by k2.",
+   "score": 0
+  },
+  "Q11-k140": {
+   "position": 69,
+   "reason": "An example app demonstrating durable HITL waits; corroborates other DBOS findings.",
+   "score": 1
+  },
+  "Q11-k141": {
+   "position": 18,
+   "reason": "It duplicates the description of Inngest resuming from the last completed step.",
+   "score": 1
+  },
+  "Q11-k142": {
+   "position": 89,
+   "reason": "A generic definition of durable agents.",
+   "score": 1
+  },
+  "Q11-k143": {
+   "position": 72,
+   "reason": "A generic mention of flow controls and waits without compute.",
+   "score": 1
+  },
+  "Q11-k144": {
+   "position": 9,
+   "reason": "This is a product feature description with limited architectural specificity.",
+   "score": 1
+  },
+  "Q11-k145": {
+   "position": 6,
+   "reason": "It explains Inngest's step-level memoization mechanism clearly, but other Inngest findings duplicate it.",
+   "score": 1
+  },
+  "Q11-k147": {
+   "position": 60,
+   "reason": "Running LangGraph nodes as Activities with per-node checkpoints is a concrete integration design.",
+   "score": 2
+  },
+  "Q11-k148": {
+   "position": 45,
+   "reason": "It states minor, generic data-passing behavior.",
+   "score": 0
+  },
+  "Q11-k149": {
+   "position": 61,
+   "reason": "Corroborates per-step retry and resume on a different worker for the LangGraph plugin.",
+   "score": 1
+  },
+  "Q11-k150": {
+   "position": 50,
+   "reason": "Generic statement that Temporal supports human-in-the-loop via Signals, Updates and Queries, with no design detail.",
+   "score": 1
+  },
+  "Q11-k151": {
+   "position": 30,
+   "reason": "This is a generic statement about Activity retries.",
+   "score": 0
+  },
+  "Q11-k152": {
+   "position": 101,
+   "reason": "This is a standard description of Temporal's event-history replay model, useful as corroboration but not new or decision-changing for this reader.",
+   "score": 1
+  },
+  "Q11-k153": {
+   "position": 1,
+   "reason": "This restates the general step-decomposition pattern and corroborates other findings without adding a new mechanism.",
+   "score": 1
+  },
+  "Q11-k154": {
+   "position": 42,
+   "reason": "This is vendor competitive positioning.",
+   "score": 0
+  },
+  "Q11-k155": {
+   "position": 23,
+   "reason": "It is a specific detail that waiting state, including deadline and notification, survives restarts and code upgrades in DBOS's database-backed model.",
+   "score": 2
+  },
+  "Q11-k156": {
+   "position": 99,
+   "reason": "A durable-delivery guarantee for human responses via DB-persisted send, a useful design detail for the HITL ingress path.",
+   "score": 2
+  },
+  "Q11-k157": {
+   "position": 24,
+   "reason": "It describes a concrete primitive for exposing agent status to a frontend, which is useful for a platform UI.",
+   "score": 2
+  },
+  "Q11-k158": {
+   "position": 71,
+   "reason": "A concrete pattern for building an approval inbox by querying PENDING workflows, directly applicable to fleet HITL UX on Postgres.",
+   "score": 2
+  },
+  "Q11-k19": {
+   "position": 35,
+   "reason": "The measured overhead of 15 to 50 ms per step boundary is a concrete cost that affects how finely to decompose agent loops.",
+   "score": 3
+  },
+  "Q11-k211": {
+   "position": 85,
+   "reason": "A coarse summary of exactly-once mechanisms across engines that corroborates others.",
+   "score": 1
+  },
+  "Q11-k212": {
+   "position": 79,
+   "reason": "Gives a determinism constraint and an adoption-cost estimate (two weeks versus an afternoon) that informs the build-versus-adopt decision.",
+   "score": 2
+  },
+  "Q11-k213": {
+   "position": 14,
+   "reason": "It names a specific failure mode where changing workflow code while runs are open makes old histories replay down a mismatched path, which matters because the reader self-deploys with in-flight runs.",
+   "score": 3
+  },
+  "Q11-k214": {
+   "position": 4,
+   "reason": "It gives concrete per-step retry configuration values and a worked example of preserved partial progress.",
+   "score": 2
+  },
+  "Q11-k215": {
+   "position": 40,
+   "reason": "Function-level concurrency caps for GPU calls are a modest but specific control.",
+   "score": 1
+  },
+  "Q11-k216": {
+   "position": 100,
+   "reason": "Putting each runtime-chosen tool call in its own step so each one gets its own recovery boundary is a concrete design rule for agent step granularity that could shape how Agent OS checkpoints worker tool calls, though the pricing detail adds little.",
+   "score": 2
+  },
+  "Q11-k217": {
+   "position": 68,
+   "reason": "Notes at-least-once semantics in Hatchet requiring developer idempotency; a useful but minor caveat.",
+   "score": 1
+  },
+  "Q11-k218": {
+   "position": 62,
+   "reason": "A concrete failure mode (double charges, emails or tickets on replay) and the fact that neither Temporal nor Inngest reuses keys automatically, which directly shapes side-effect tool design.",
+   "score": 3
+  },
+  "Q11-k219": {
+   "position": 7,
+   "reason": "The failure mode where a timed-out step actually succeeded is specific and directly shapes how the reader's autonomous merge, deploy, and business-automation side effects must be guarded.",
+   "score": 3
+  },
+  "Q11-k220": {
+   "position": 80,
+   "reason": "A generic description of HITL suspension.",
+   "score": 1
+  },
+  "Q11-k221": {
+   "position": 56,
+   "reason": "A useful tradeoff: durable agents for long or approval-gated work, in-memory loops for short synchronous interactions.",
+   "score": 2
+  },
+  "Q11-k222": {
+   "position": 65,
+   "reason": "Glossary-level example use cases and an audit-trail claim, not very specific.",
+   "score": 1
+  },
+  "Q11-k223": {
+   "position": 52,
+   "reason": "A specific Restate dedup mechanism with a 24h default retention, but it largely overlaps k2.",
+   "score": 2
+  },
+  "Q11-k224": {
+   "position": 57,
+   "reason": "A failure mode: without explicit keys, Restate only dedups in-flight retries and not later duplicate requests, which affects key design.",
+   "score": 3
+  },
+  "Q11-k225": {
+   "position": 103,
+   "reason": "Restate's primitives (durable steps, KV state, timers, idempotency keys, awakeables for callback waits) are specific design details that map to human-in-the-loop waits and idempotent tool calls.",
+   "score": 2
+  },
+  "Q11-k226": {
+   "position": 46,
+   "reason": "The specific heartbeat configuration for detecting dead GPU workers within one interval is applicable to detecting stalled harness workers.",
+   "score": 2
+  },
+  "Q11-k23": {
+   "position": 51,
+   "reason": "Gives concrete per-engine dedup-key mechanics and retention windows (Temporal has no built-in key, Restate and Inngest keep 24h), which matters for designing idempotent tool calls in the ledger.",
+   "score": 3
+  },
+  "Q11-k24": {
+   "position": 44,
+   "reason": "It duplicates the Inngest step checkpointing description.",
+   "score": 0
+  },
+  "Q11-k25": {
+   "position": 81,
+   "reason": "A concrete waitForEvent pattern with timeout and correlation-key matching for approvals.",
+   "score": 2
+  },
+  "Q11-k27": {
+   "position": 77,
+   "reason": "A specific retry-multiplication failure mode between Restate and the AI SDK (default maxRetries of 2).",
+   "score": 3
+  },
+  "Q11-k28": {
+   "position": 2,
+   "reason": "Its claim that every engine is at-least-once for tool calls corrects the exactly-once marketing, and it would force receiver-side idempotency keys into the reader's tool and dispatch design.",
+   "score": 3
+  },
+  "Q11-k29": {
+   "position": 43,
+   "reason": "It gives concrete idempotency-key construction (run ID plus step name) across all three engines, which the reader can adopt directly.",
+   "score": 2
+  },
+  "Q11-k30": {
+   "position": 70,
+   "reason": "A precise failure mode: in-flight activities restart from scratch on a crash, so side-effecting tools still need idempotency keys.",
+   "score": 3
+  },
+  "Q11-k31": {
+   "position": 10,
+   "reason": "The non-obvious fact that the server cannot detect crashed workers without a Start-To-Close timeout is an operational failure mode that matters for long-running harness workers.",
+   "score": 3
+  },
+  "Q11-k32": {
+   "position": 20,
+   "reason": "It names the concrete Temporal primitive for a zero-compute durable approval wait.",
+   "score": 2
+  },
+  "Q11-k33": {
+   "position": 97,
+   "reason": "Corroborates that waits release workers and step results are checkpointed.",
+   "score": 1
+  },
+  "Q11-k34": {
+   "position": 93,
+   "reason": "Specific advice to bound retries on paid LLM activities because defaults are unlimited; overlaps k25.",
+   "score": 2
+  },
+  "Q11-k35": {
+   "position": 11,
+   "reason": "It gives measured wake-up latencies (14 ms in memory versus about 0.1 s rebuilt on Temporal versus about 2 s on Cloudflare) that could inform engine choice.",
+   "score": 3
+  },
+  "Q11-k36": {
+   "position": 86,
+   "reason": "A specific continue_as_new pattern for long-lived per-entity agent workflows to keep replay fast.",
+   "score": 2
+  },
+  "Q11-k37": {
+   "position": 53,
+   "reason": "The saga pattern with reverse-order compensation is a useful design pattern for multi-tool agents, though it is well known.",
+   "score": 2
+  },
+  "Q11-k38": {
+   "position": 92,
+   "reason": "A specific Postgres schema design (workflow_status, operation_outputs) for durable resume, directly applicable to the reader's Postgres session ledger.",
+   "score": 3
+  },
+  "Q11-k39": {
+   "position": 38,
+   "reason": "It is a production adopter list that partly overlaps k17 and is less agent-specific.",
+   "score": 1
+  },
+  "Q11-k40": {
+   "position": 59,
+   "reason": "Mostly product features and funding/customer marketing; step.ai.infer offloading is a minor detail.",
+   "score": 1
+  },
+  "Q11-k41": {
+   "position": 64,
+   "reason": "Specific default retry numbers (70 attempts, 50ms to 60s, then pause) that matter for cost and budget design.",
+   "score": 2
+  },
+  "Q11-k42": {
+   "position": 95,
+   "reason": "Specific Inngest per-step default retry counts and backoff.",
+   "score": 2
+  },
+  "Q11-k43": {
+   "position": 21,
+   "reason": "The non-obvious default that DBOS step retries are off could cause surprising failures if the reader adopted DBOS unaware.",
+   "score": 2
+  },
+  "Q11-k44": {
+   "position": 58,
+   "reason": "A per-step declarative retry policy is a specific API detail but a minor one.",
+   "score": 1
+  },
+  "Q11-k45": {
+   "position": 91,
+   "reason": "A useful error taxonomy (transient, retry-after, non-retriable) worth adopting in worker dispatch.",
+   "score": 2
+  },
+  "Q11-k46": {
+   "position": 90,
+   "reason": "A concrete limitation: no non-retryable exception selection in DBOS means retry budgets get wasted on permanent errors, which matters if the reader models on DBOS-in-Postgres.",
+   "score": 3
+  },
+  "Q11-k47": {
+   "position": 74,
+   "reason": "A concrete failure mode: Temporal's default unbounded retries combined with provider client retries multiply model-call costs, with a specific mitigation.",
+   "score": 3
+  },
+  "Q11-k71": {
+   "position": 5,
+   "reason": "This is a high-level feature list for Restate with little specific detail.",
+   "score": 1
+  },
+  "Q11-k73": {
+   "position": 83,
+   "reason": "A generic mention that Restate documents a human-approval pattern.",
+   "score": 0
+  },
+  "Q11-k80": {
+   "position": 16,
+   "reason": "It names high-signal production users that run coding agents on Temporal, a workload directly comparable to the reader's Claude Code and Codex fleet.",
+   "score": 2
+  },
+  "Q11-k91": {
+   "position": 22,
+   "reason": "Using Virtual Objects keyed by session or task for per-key serialization with cross-key parallelism maps directly onto the reader's session ledger and ticket concurrency.",
+   "score": 3
+  },
+  "Q11-k98": {
+   "position": 102,
+   "reason": "DBOS runs in-process as a library over Postgres with no new infrastructure, and that directly fits Agent OS's existing Postgres session ledger, which could shift the build-vs-adopt decision toward a lightweight embedded engine.",
+   "score": 3
+  },
+  "Q11-k99": {
+   "position": 33,
+   "reason": "It is mostly marketing and positioning, with a soft claim about serverless fit.",
+   "score": 1
+  }
+ }
+}

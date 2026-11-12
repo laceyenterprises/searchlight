@@ -1,0 +1,107 @@
+{
+ "arm_id": "tavily.research",
+ "cell_sha": "04ceb3aac9b3b630",
+ "claims": [
+  {
+   "text": "Temporal attaches retry policies to Activities by default rather than Workflows, and recommends against retrying an entire Workflow Execution because replay would repeat the same logic without resolving the underlying cause.",
+   "url": null
+  },
+  {
+   "text": "Temporal's Event History is limited to 50K (51,200) events or 50MB, beyond which the Workflow is terminated; Continue-As-New checkpoints state into a fresh execution to avoid this.",
+   "url": null
+  },
+  {
+   "text": "In Temporal, the Workflow Run ID plus Activity ID form an idempotency key that is consistent across retry attempts but unique among Workflow Executions, and the downstream service (e.g. a payment API) must enforce it.",
+   "url": null
+  },
+  {
+   "text": "Temporal recommends using business-meaningful Workflow IDs as idempotency keys combined with a Reject Duplicate Workflow ID Reuse Policy to prevent duplicate executions.",
+   "url": null
+  },
+  {
+   "text": "Temporal's human-in-the-loop cookbook uses Signals for approval decisions and durable timers for deadlines, so an agent can wait hours, days or indefinitely while consuming no compute, with all decisions logged.",
+   "url": null
+  },
+  {
+   "text": "Restate implements human-in-the-loop with durable promises (awakeables): the agent sends a callback ID to Slack/email, suspends, and resumes when the approver resolves the promise via HTTP API; timeouts are persisted so the correct remaining time survives restarts.",
+   "url": null
+  },
+  {
+   "text": "Restate's agent integration runs parallel LLM tool calls sequentially because parallel execution can cause non-deterministic replays of journaled events; real parallelism requires wrapping fan-out in one tool using restate.gather().",
+   "url": null
+  },
+  {
+   "text": "Restate's documented default retry policy is a 50ms initial interval, exponentiation factor 2.0, 70 max attempts, 60s max interval, with on-max-attempts set to pause.",
+   "url": null
+  },
+  {
+   "text": "Restate release 1.6 changed the default so invocations pause when max attempts are reached instead of being killed.",
+   "url": null
+  },
+  {
+   "text": "Restate's error-handling page says an unset retry policy retries indefinitely, which is inconsistent with the 70-attempt default on its configuration page; application code can throw RetryableError with retryAfter or TerminalError.",
+   "url": null
+  },
+  {
+   "text": "Inngest retries each step independently with backoff and jitter; RetryAfterError sets an explicit delay and NonRetriableError stops retries for permanent failures.",
+   "url": null
+  },
+  {
+   "text": "Inngest advises catching an exhausted step's error and passing it back to the model as a tool result, and using idempotency keys for writes, sends and payments in tool calls.",
+   "url": null
+  },
+  {
+   "text": "Inngest prevents duplicate runs via a stable event id for 24 hours and a function-level idempotency expression that dedupes on a business key for 24 hours.",
+   "url": null
+  },
+  {
+   "text": "Inngest's step.waitForEvent() pauses a function with no compute cost until a matching event arrives or a timeout (e.g. 24h, 7d) returns null; documented timeout strategies are auto-reject, auto-approve, escalate, or re-notify.",
+   "url": null
+  },
+  {
+   "text": "Inngest caps functions at 1,000 steps, step results at 4 MiB, run state at 32 MiB, step duration at 2 hours, and sleeps at 1 year.",
+   "url": null
+  },
+  {
+   "text": "DBOS achieves exactly-once execution for transactional steps by running the step in a single database transaction and committing the step checkpoint within that same transaction.",
+   "url": null
+  },
+  {
+   "text": "DBOS is an open-source library embedded in the application with no orchestration server, requiring only a PostgreSQL-compatible database for checkpointing.",
+   "url": null
+  },
+  {
+   "text": "DBOS benchmarked a single Postgres server (AWS RDS db.m7i.24xlarge) at 144K small writes per second or 43K durable workflows per second.",
+   "url": null
+  },
+  {
+   "text": "DBOS.sleep() persists the wakeup time in the database so a workflow wakes on schedule even after repeated interruptions, suitable for waits of days, weeks or months.",
+   "url": null
+  },
+  {
+   "text": "DBOS.send() and DBOS.recv() pass persisted messages between workflows with exactly-once delivery from workflows and an optional idempotency_key from ordinary code.",
+   "url": null
+  },
+  {
+   "text": "Replit moved its Agent from Temporal to Restate for lower latency and cost of many inline durable steps, Virtual Objects for stateful agents, and BYOC deployment, reaching about 25,000 durable actions per second per cell.",
+   "url": null
+  },
+  {
+   "text": "OpenAI began using Temporal in Q1 2025 and grew usage 60x in under a year, with Temporal underpinning agentic workflows.",
+   "url": null
+  },
+  {
+   "text": "Notion migrated Notion Mail's async jobs from BullMQ to DBOS, executing 190M durable workflows per day with peak 5K per second.",
+   "url": null
+  },
+  {
+   "text": "StackAI cut its knowledge-base indexing failure rate from about 20% to below 0.1% using Temporal.",
+   "url": null
+  },
+  {
+   "text": "Replay by a durable engine is not a safe provider retry: a replayed step that issues a new provider request creates a duplicate action, so idempotency must be enforced at the tool/provider boundary.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

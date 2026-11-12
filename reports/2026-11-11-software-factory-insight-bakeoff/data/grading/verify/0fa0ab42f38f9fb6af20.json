@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "d66a27a9c94e09d0",
+ "url": "https://docs.aviator.co/mergequeue/concepts/queue-modes",
+ "verdicts": {
+  "Aviator's default sequential mode merges one PR per full CI suite duration; with 30-minute CI the maximum is 48 PRs per day.": 1,
+  "Aviator's parallel mode creates bot PRs containing each PR plus all PRs ahead in the queue; if an earlier bot PR fails, a queue reset forces revalidation of all subsequent PRs, potentially wasting CI.": 1
+ }
+}

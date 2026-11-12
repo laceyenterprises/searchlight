@@ -1,0 +1,310 @@
+{
+ "digest": "18c76238b6663ae6",
+ "values": {
+  "Q08-k1": {
+   "position": 58,
+   "reason": "The initializer-plus-coding-agent split is a specific architecture pattern answering the core question, mapping onto build-pack setup versus per-ticket workers.",
+   "score": 2
+  },
+  "Q08-k10": {
+   "position": 23,
+   "reason": "Concrete failure of vague delegation plus a required delegation schema (objective, format, tools, boundaries) maps directly to ticket specs.",
+   "score": 2
+  },
+  "Q08-k104": {
+   "position": 40,
+   "reason": "Generic definition of compaction.",
+   "score": 1
+  },
+  "Q08-k108": {
+   "position": 32,
+   "reason": "Structured note-taking definition is generic.",
+   "score": 1
+  },
+  "Q08-k109": {
+   "position": 55,
+   "reason": "Clean-context subagents returning 1,000-2,000-token condensed summaries is a specific design detail for handoff sizing between workers.",
+   "score": 2
+  },
+  "Q08-k11": {
+   "position": 22,
+   "reason": "Concrete effort-budget tiers by query complexity are directly implementable as dispatch governance rules.",
+   "score": 3
+  },
+  "Q08-k113": {
+   "position": 49,
+   "reason": "Starting with about 20 eval queries and a single LLM-judge call with a 0-1 score plus pass/fail is concrete eval guidance applicable to the platform.",
+   "score": 2
+  },
+  "Q08-k114": {
+   "position": 12,
+   "reason": "Source-quality heuristics fixing content-farm reliance is relevant for content-factory use cases but duplicates k4.",
+   "score": 1
+  },
+  "Q08-k115": {
+   "position": 29,
+   "reason": "Resume-from-failure with checkpoints and retries is relevant but the reader's ledger likely already supports similar behavior.",
+   "score": 1
+  },
+  "Q08-k116": {
+   "position": 7,
+   "reason": "A 3-10x token multiplier is a measured cost figure relevant to dispatch economics, though k22 is more precise.",
+   "score": 2
+  },
+  "Q08-k117": {
+   "position": 39,
+   "reason": "Git commits for reverting bad changes is generic practice the reader already uses.",
+   "score": 0
+  },
+  "Q08-k118": {
+   "position": 18,
+   "reason": "Defines context resets with structured handoff, largely corroborating k17.",
+   "score": 1
+  },
+  "Q08-k119": {
+   "position": 2,
+   "reason": "Task-type mapping to compaction, note-taking, or multi-agent is useful guidance but fairly general.",
+   "score": 1
+  },
+  "Q08-k120": {
+   "position": 46,
+   "reason": "SDK mechanics for subagents via agents param and allowedTools is a minor configuration detail.",
+   "score": 1
+  },
+  "Q08-k121": {
+   "position": 8,
+   "reason": "Basic definition of Agent Skills and SKILL.md frontmatter is largely generic.",
+   "score": 1
+  },
+  "Q08-k122": {
+   "position": 43,
+   "reason": "Three-level progressive disclosure with all skill descriptions preloaded has context-budget implications for large skill catalogs.",
+   "score": 2
+  },
+  "Q08-k123": {
+   "position": 4,
+   "reason": "Skills require filesystem artifacts with no programmatic registration API, a specific constraint that affects how a multi-tenant platform provisions skills.",
+   "score": 3
+  },
+  "Q08-k124": {
+   "position": 5,
+   "reason": "On-demand loading and the skills option values are a specific SDK configuration detail for controlling worker context.",
+   "score": 2
+  },
+  "Q08-k125": {
+   "position": 51,
+   "reason": "The 200+ feature count and granularity example is a minor illustrative detail about feature-list sizing.",
+   "score": 1
+  },
+  "Q08-k126": {
+   "position": 45,
+   "reason": "Restricting agents to editing only the passes field with a prohibition on test edits is a specific guardrail against reward hacking.",
+   "score": 2
+  },
+  "Q08-k14": {
+   "position": 31,
+   "reason": "The SDK runs the Claude Code binary with the same loop and features, a useful fact for the reader's harness integration choices.",
+   "score": 2
+  },
+  "Q08-k25": {
+   "position": 54,
+   "reason": "The concrete session-start/end ritual (read progress, git log, feature list, init.sh, smoke test, commit, progress update) is a specific design detail for worker prompts, though partly overlapping with existing smoke-test practice.",
+   "score": 2
+  },
+  "Q08-k26": {
+   "position": 34,
+   "reason": "Using JSON over Markdown because models overwrite it less, with 200+ features initially failing, is a specific, non-obvious design detail.",
+   "score": 3
+  },
+  "Q08-k31": {
+   "position": 53,
+   "reason": "The explicit claim that coding tasks with shared context and dependencies are poor multi-agent fits directly informs whether to parallelize DAG tickets versus marketing/research-style breadth workloads on the platform.",
+   "score": 3
+  },
+  "Q08-k32": {
+   "position": 37,
+   "reason": "Persisting the lead plan externally due to 200K-token truncation is a specific design detail, though the orchestrator part repeats k15.",
+   "score": 2
+  },
+  "Q08-k33": {
+   "position": 3,
+   "reason": "Concrete failure modes (50 subagents for simple queries, endless searching) inform effort-budget governance for dispatch.",
+   "score": 2
+  },
+  "Q08-k37": {
+   "position": 44,
+   "reason": "Commit plus progress file for clean state is a minor corroboration of k25.",
+   "score": 1
+  },
+  "Q08-k38": {
+   "position": 11,
+   "reason": "Documented failure of compaction-only looping to build a production app, and handoff loss, would push toward structured handoff artifacts.",
+   "score": 2
+  },
+  "Q08-k39": {
+   "position": 24,
+   "reason": "Progress file plus git history as fresh-context state recovery is a key design detail, though it partly overlaps the reader's session ledger.",
+   "score": 2
+  },
+  "Q08-k40": {
+   "position": 28,
+   "reason": "init.sh plus a pre-work end-to-end smoke test to detect broken state is a specific practice the reader could add to worker startup.",
+   "score": 2
+  },
+  "Q08-k5": {
+   "position": 10,
+   "reason": "Orchestrator-worker description is generic and duplicated by k15/k38.",
+   "score": 1
+  },
+  "Q08-k54": {
+   "position": 59,
+   "reason": "The slowest-worker bottleneck of batch-synchronous dispatch and the coordination/state/error-propagation costs of going async is a concrete failure mode relevant to the fleet dispatcher's design.",
+   "score": 3
+  },
+  "Q08-k55": {
+   "position": 35,
+   "reason": "Rainbow deployments to avoid interrupting in-flight agents directly informs the reader's self-deploy design.",
+   "score": 3
+  },
+  "Q08-k56": {
+   "position": 27,
+   "reason": "Repeats the one-feature-at-a-time rationale already covered elsewhere.",
+   "score": 1
+  },
+  "Q08-k57": {
+   "position": 57,
+   "reason": "The observed failure that unit tests and curl missed broken user workflows while Puppeteer browser automation substantially improved detection could change the reader's self-deploy smoke-test design.",
+   "score": 3
+  },
+  "Q08-k58": {
+   "position": 1,
+   "reason": "Specific compaction content (decisions, bugs, details plus five most recent files) and recall-then-precision tuning guidance are actionable design details.",
+   "score": 2
+  },
+  "Q08-k59": {
+   "position": 60,
+   "reason": "This duplicates k6's tens-of-thousands-in, 1,000-2,000-out summary detail and adds nothing new.",
+   "score": 1
+  },
+  "Q08-k6": {
+   "position": 33,
+   "reason": "A measured up-to-90% time reduction from parallel subagents and tool calls is a result that could justify parallel dispatch.",
+   "score": 3
+  },
+  "Q08-k60": {
+   "position": 9,
+   "reason": "Model-specific finding that Sonnet 4.5 needs resets while Opus 4.5 can run continuously with compaction directly changes per-model harness configuration.",
+   "score": 3
+  },
+  "Q08-k61": {
+   "position": 15,
+   "reason": "Measured cost/time of solo ($9, 20 min) versus full harness ($200, 6 h) is a concrete tradeoff for deciding harness depth per workload.",
+   "score": 3
+  },
+  "Q08-k62": {
+   "position": 42,
+   "reason": "Ablating harness components one at a time after a failed radical simplification is a concrete methodology for evolving the reader's pipeline.",
+   "score": 2
+  },
+  "Q08-k63": {
+   "position": 20,
+   "reason": "Non-fork subagents get no parent context and return only the final message, which dictates how delegation payloads must be built.",
+   "score": 2
+  },
+  "Q08-k64": {
+   "position": 50,
+   "reason": "Three-stage progressive disclosure plus the exfiltration warning is a concrete loading-and-trust design detail relevant to a general-purpose platform that would host third-party skills.",
+   "score": 2
+  },
+  "Q08-k65": {
+   "position": 13,
+   "reason": "Adoption and foundation-donation figures are ecosystem marketing rather than architecture input.",
+   "score": 0
+  },
+  "Q08-k66": {
+   "position": 47,
+   "reason": "A 40% task-time reduction from an agent rewriting tool descriptions is a measured result suggesting a tool-description optimization loop.",
+   "score": 3
+  },
+  "Q08-k69": {
+   "position": 25,
+   "reason": "Two named failure patterns (one-shotting, premature done) corroborate k7/k28.",
+   "score": 1
+  },
+  "Q08-k7": {
+   "position": 19,
+   "reason": "Token usage explaining 80% of variance (95% with tool calls and model) is a measured result that shapes budgeting and model routing.",
+   "score": 3
+  },
+  "Q08-k70": {
+   "position": 41,
+   "reason": "False completion from unit/curl checks and Puppeteer MCP's blindness to native alert modals are concrete verification failure modes.",
+   "score": 2
+  },
+  "Q08-k72": {
+   "position": 36,
+   "reason": "Model upgrade beating doubled token budget is a measured result that should influence model-routing vs budget decisions.",
+   "score": 2
+  },
+  "Q08-k76": {
+   "position": 6,
+   "reason": "Concrete failure mode showing compaction alone fails for Opus 4.5 long runs, corroborating k12/k26.",
+   "score": 1
+  },
+  "Q08-k77": {
+   "position": 16,
+   "reason": "Context reset with structured handoff and its stated costs is a specific design option for worker session management.",
+   "score": 2
+  },
+  "Q08-k78": {
+   "position": 26,
+   "reason": "Planner/generator/evaluator with Playwright MCP testing live UI, API and DB state is a specific architecture extending the reader's review stage beyond PR diffs.",
+   "score": 2
+  },
+  "Q08-k79": {
+   "position": 0,
+   "reason": "A file-based sprint contract with hard-threshold failure is a concrete design detail directly applicable to Agent OS's ticket/PR gating.",
+   "score": 2
+  },
+  "Q08-k8": {
+   "position": 21,
+   "reason": "The 4x and 15x token multipliers relative to chat are measured costs that should gate when the platform uses multi-agent topologies.",
+   "score": 3
+  },
+  "Q08-k80": {
+   "position": 14,
+   "reason": "Adds the LeadResearcher loop and separate CitationAgent stage, a specific pipeline design detail.",
+   "score": 2
+  },
+  "Q08-k81": {
+   "position": 56,
+   "reason": "Durable execution, checkpoints, tracing and retries are largely generic recommendations the reader's ledger already embodies, with only the sync-bottleneck note adding minor value.",
+   "score": 1
+  },
+  "Q08-k82": {
+   "position": 30,
+   "reason": "Progressive disclosure description duplicates k44.",
+   "score": 1
+  },
+  "Q08-k84": {
+   "position": 52,
+   "reason": "Restricting edits to a passes field and the observed finding that JSON resists inappropriate overwriting better than Markdown is a specific failure mode that could change how the ledger/ticket artifacts agents touch are formatted.",
+   "score": 3
+  },
+  "Q08-k87": {
+   "position": 48,
+   "reason": "Subagents as context compression and separation of concerns is a fairly generic rationale.",
+   "score": 1
+  },
+  "Q08-k9": {
+   "position": 38,
+   "reason": "The 90.2% improvement of multi-agent over single-agent is a headline measured result relevant to topology decisions.",
+   "score": 3
+  },
+  "Q08-k99": {
+   "position": 17,
+   "reason": "One-feature-per-session is a minor restatement that the reader's ticket granularity likely already embodies.",
+   "score": 1
+  }
+ }
+}

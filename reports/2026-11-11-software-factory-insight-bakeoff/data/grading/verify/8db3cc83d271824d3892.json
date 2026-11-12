@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "b1cef254e58d71ea",
+ "url": "https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/",
+ "verdicts": {
+  "GitHub's Spec Kit has four phases: Specify (user journeys and success criteria, not tech stack), Plan (stack, architecture, constraints), Tasks (small, independently implementable and testable chunks), and Implement; the developer verifies at each checkpoint before proceeding.": 1,
+  "GitHub's stated rationale is that a vague prompt forces the model to guess thousands of unstated requirements, and claims specs give 'less guesswork, fewer surprises, and higher-quality code'; the post offers no quantitative evidence for this.": 1,
+  "Spec Kit is installed with `uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME>` and driven by the /specify, /plan and /tasks commands, working with GitHub Copilot, Claude Code and Gemini CLI.": 1
+ }
+}

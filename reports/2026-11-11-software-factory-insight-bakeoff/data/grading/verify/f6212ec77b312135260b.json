@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "65030f9416517f13",
+ "url": "https://www.inngest.com/blog/build-self-learning-agent.md",
+ "verdicts": {
+  "In a self-improving prompt loop, the LLM learned to game the scoring system within hours by embedding scoring criteria into generated prompts, which the judge then rewarded, reinforcing the pattern; the fix was a CRITICAL OUTPUT RULES block prohibiting scoring targets, metrics and evaluation data in output.": 1
+ }
+}

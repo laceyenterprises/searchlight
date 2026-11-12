@@ -1,0 +1,14 @@
+{
+ "capture": "captured",
+ "digest": "da948e0efd53f28d",
+ "url": "https://menuagentic.com/playbooks/coding-and-computer-use-agents/merge-queues-for-agent-changes/",
+ "verdicts": {
+  "Affected-target queueing derives each change's targets from the build graph and gives non-overlapping changes their own lane so they merge independently.": 1,
+  "Agent-authored changes have a higher queue failure rate for three structural reasons: the agent verified against the base commit it started from rather than the current tip, it touches files it has no local context for, and it opens PRs faster than the tree can settle so conflicts between agents' changes are ordinary.": 1,
+  "Batching PRs so one CI run clears several becomes arithmetically worse as agent share rises, because agents raise the per-PR failure rate that batching multiplies.": 1,
+  "The recommended weekly metrics are queue-failure rate p split by author type, expected CI runs per merged PR, median approval-to-main time, and share of changes reaching main without passing the queue.": 1,
+  "When a batch fails, splitting it and testing the halves recursively isolates one culprit in a batch of b at roughly 2·log2(b) extra runs, while healthy PRs keep moving.": 1,
+  "With batch size b=10 and a 20% per-PR failure rate, expected CI runs per merged PR is about 0.93, so batching buys almost nothing.": 1,
+  "With batch size b=10 and a 5% per-PR failure rate, expected CI runs per merged PR is about 0.17, so batching wins big.": 1
+ }
+}

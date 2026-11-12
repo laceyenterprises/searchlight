@@ -1,0 +1,37 @@
+{
+ "arm_id": "perplexity.research",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.24581
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:35:17.677258Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [],
+ "latency_ms": 260775.3,
+ "notices": null,
+ "profile_sha256": "e575edb6a69c071dd2d4c3d0cff8b9511895bb4681f4f039b98b946b1ee068a7",
+ "question_id": "Q22",
+ "request": {
+  "body": {
+   "background": true,
+   "effort": "high",
+   "input": "Research question: Beyond coding, what multi-agent systems run marketing, content production, sales or back-office automation in production? Cover architecture, human approval points, brand and quality control, and measured results, and say which are built on general agent platforms rather than bespoke code.\n\nFind specific, verifiable facts that answer this question: how it works (mechanisms, components, design decisions), numbers and measured results, names, dates, and reported problems or failure modes. Prefer primary sources (the organisation's own engineering posts, documentation, talks, papers, filings, code) and credible independent reporting. Report every distinct finding as a short statement with the URL of the page that states it. Do not pad with generic background. If something is not publicly disclosed, say so plainly. Include citations."
+  },
+  "headers": {
+   "Authorization": "Bearer <PERPLEXITY_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.perplexity.ai/v1/agent"
+ },
+ "response": {
+  "chars": 551371,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:30:56.900764Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

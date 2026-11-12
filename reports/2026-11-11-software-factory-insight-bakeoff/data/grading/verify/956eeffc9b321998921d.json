@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "52b86fdfcbcf8173",
+ "url": "https://simonw.substack.com/p/how-strongdms-ai-team-build-serious",
+ "verdicts": {
+  "StrongDM measures success probabilistically as 'satisfaction': of all observed trajectories through all scenarios, what fraction likely satisfy the user.": 1,
+  "StrongDM replaced the word 'test' with 'scenario': end-to-end user stories often stored outside the codebase, like a holdout set in model training, so code-generating agents cannot game them.": 0,
+  "The Digital Twin Universe is a set of behavioural clones of third-party services (Okta, Jira, Slack, Google Docs, Drive and Sheets) that lets the team run thousands of scenarios per hour without rate limits, abuse detection or API costs, and test failure modes dangerous against live services.": 1
+ }
+}

@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "d701d9abb80e516c",
+ "url": "https://docs.factory.com/harness/subagents",
+ "verdicts": {
+  "A custom droid is a Markdown-defined subagent with its own system prompt, model preference and tool policy, invoked through the Task tool in a fresh context window and returning a single final message to the parent.": 1,
+  "Subagents can run in the foreground or in the background (run_in_background returns a task_id), can be fetched with TaskOutput or stopped with TaskStop, and can be resumed with a prior task_id to keep their full prior context.": 1
+ }
+}

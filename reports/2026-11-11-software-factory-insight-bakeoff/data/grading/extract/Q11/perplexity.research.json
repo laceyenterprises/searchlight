@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "ebf9a02bf05c1a5e",
+ "claims": [
+  {
+   "text": "Temporal checkpoints at the Activity boundary, not inside an inference: an LLM call in flight when the Worker dies cannot resume mid-token, so that Activity retries from the start and the call is paid for again.",
+   "url": null
+  },
+  {
+   "text": "Temporal documentation says tool calls should be idempotent because a retry that recharges a card or double-books a driver is a bug; anything with a side effect needs an idempotency key or deduplication guard.",
+   "url": null
+  },
+  {
+   "text": "In Temporal, replaying from Event History returns the recorded result for an Activity call that already finished, so no new API call goes out and the call is not paid for again.",
+   "url": null
+  },
+  {
+   "text": "Temporal's workflow.wait_condition accepts a timeout and Timers are durable, so 'escalate to a backup after four hours' or 'auto-reject after a day' is that timeout plus a branch, and the Timer survives a crash.",
+   "url": null
+  },
+  {
+   "text": "In a Temporal human-approval wait, the Workflow parks while using zero compute and the pending decision lives in the Event History rather than RAM; in the demo the Worker is killed mid-wait and the approval is still pending after restart.",
+   "url": null
+  },
+  {
+   "text": "Temporal's documented agent pattern is that the agent loop is a Workflow and each model call and tool call is an Activity, so a crash resumes the conversation instead of restarting it.",
+   "url": null
+  },
+  {
+   "text": "Temporal's platform hub says LLM rate limits (HTTP 429) are handled by Activity retries with customizable backoff and delay extraction, instead of exponential backoff that ignores Retry-After headers.",
+   "url": null
+  },
+  {
+   "text": "Temporal's platform hub says human-in-the-loop is handled by native Signal and Update primitives that pause and resume Workflows, replacing custom polling loops, DB flags and webhook plumbing.",
+   "url": null
+  },
+  {
+   "text": "In Temporal, Signals and Updates supply human input to a running workflow and Queries extract state to show the user.",
+   "url": null
+  },
+  {
+   "text": "In Temporal's Pydantic AI integration, TemporalAgent offloads non-deterministic work (model calls, tool executions, external API calls) to Temporal Activities with built-in retry policies.",
+   "url": null
+  },
+  {
+   "text": "If a worker crashes after a dispatcher agent succeeds but before the researcher agent starts, Temporal replays the workflow using the recorded dispatcher result and does not re-run the dispatcher.",
+   "url": null
+  },
+  {
+   "text": "Temporal says AI teams at Gorgias and ZoomInfo rely on it for resilient applications, and that Gorgias's agents use Temporal for retries, sagas and human-in-the-loop steps.",
+   "url": null
+  },
+  {
+   "text": "Temporal's AI-crawler info page lists Netflix (150+ engineering teams, 500+ namespaces, 7 billion+ actions per month), Snap, Cloudflare, GitLab, Roblox, DoorDash and others as customers, and cites an NVIDIA use for long-running GPU workflows.",
+   "url": null
+  },
+  {
+   "text": "Temporal's open-source project is MIT-licensed, has been in production for 9 years, and is stated to be used by more than 2,900 customers; it also has a Google ADK integration that runs LLM calls and tool executions as Activities.",
+   "url": null
+  },
+  {
+   "text": "Restate records each agent step (LLM calls, tool executions, routing decisions) in a journal; after a crash the handler restarts, completed steps replay from the journal without re-execution, and execution resumes at the first incomplete step.",
+   "url": null
+  },
+  {
+   "text": "Restate's AI docs list automatic retries of transient errors such as rate limits and network failures, persisted LLM and tool steps, suspension of idle long-running agents to save cost, and compensation patterns that undo earlier actions when later steps fail.",
+   "url": null
+  },
+  {
+   "text": "Restate's human-approval pattern creates a durable promise (awakeable) with a callback ID, sends the ID to the approver via Slack, email or dashboard, suspends the agent without idle billing, and resumes when the approver resolves the promise through Restate's HTTP API.",
+   "url": null
+  },
+  {
+   "text": "Replit uses Restate as the durable orchestration layer for its coding agent, at many thousand durable actions per second across several BYOC regions; approval waits can suspend and resume potentially months later.",
+   "url": null
+  },
+  {
+   "text": "Replit developed and tested its Restate-based agent for about six weeks before internal launch, then moved a small percentage of users and ramped traffic over roughly two to three weeks.",
+   "url": null
+  },
+  {
+   "text": "Aient runs its backend (about 87 controller loops and services, including the agent harness and MCP server) entirely on Restate, using Virtual Objects to serialize each investigation's inbox and awakeables for human-in-the-loop via Slack, Linear and MCP.",
+   "url": null
+  },
+  {
+   "text": "Deliveru uses Restate for its recruiting platform and an autonomous CV-analysis agent, using Durable Promises for approval workflows where recruiters accept or reject candidate recommendations.",
+   "url": null
+  },
+  {
+   "text": "Restate raised a $20M Series A (announced 2026-09-30) and says hundreds of companies use it, including Replit, DOSS, BILT Rewards and Fortune 500 firms.",
+   "url": null
+  },
+  {
+   "text": "Perplexity's orchestration guidance recommends per-tool-call timeouts, capped retry attempts and total retry time, an overall workflow deadline, and limits on agent iterations and delegation depth, and says to classify failures before retrying.",
+   "url": null
+  },
+  {
+   "text": "Winder.ai advises retrying only genuinely transient failures (timeouts, 429, 503) with a hard retry budget and step ceiling, not semantic failures, and escalating to a human or narrower deterministic path when the budget is exhausted.",
+   "url": null
+  },
+  {
+   "text": "A Restate-hosted article says an idempotency key should be derived from the workflow ID and step name rather than per attempt, and that a robust approval binds to the exact action and parameters, the record version the approver saw, and an expiry time.",
+   "url": null
+  }
+ ],
+ "question_id": "Q11"
+}

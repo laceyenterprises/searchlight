@@ -1,0 +1,20 @@
+{
+ "capture": "captured",
+ "digest": "534b700b3b054b6c",
+ "url": "https://engineering.atspotify.com/2026/06/code-with-claude-coding-is-no-longer-the-constraint",
+ "verdicts": {
+  "Fleet Management's deterministic scripts hit breaking point on complex changes such as replacing API calls and refactoring usage patterns, which motivated using an LLM-based agent (Honk) for code modifications.": 1,
+  "Honk has access to a set of trusted tools, including the ability to run builds in Spotify's CI environment across multiple operating systems to verify its changes are correct.": 1,
+  "Honk is available over Slack, and Honk v2 adds shared multiplayer agent sessions, team projects, and orchestration through Chirp.": 1,
+  "In the Fleet Management integration, Fleetshift handles orchestration (identifying targets, scheduling changes, tracking progress) while Honk performs the actual code modifications.": 1,
+  "Spotify built Fleet Management (executed by a system called Fleetshift) after noticing its production codebase was growing seven times faster than the number of engineers, with migrations the top source of developer frustration.": 1,
+  "Spotify exposes Backstage capabilities (component ownership, documentation, contacting the owning team on Slack) to agents as MCPs and command-line tools.": 1,
+  "Spotify has merged more than 2.5 million automated maintenance PRs via Fleet Management, the vast majority auto-merged with no human in the loop.": 1,
+  "Spotify reports more than 99% of engineers use AI coding tools weekly, 94% report higher productivity, and pull request frequency rose 76%.": 1,
+  "Spotify says agent performance is measurably worse in its more fragmented codebases, and that consistent code (e.g., standardized backend services) lets Claude perform significantly better.": 1,
+  "Spotify states that migrations that used to take hundreds of teams weeks or months can now be done by a single engineer in a few days.": 1,
+  "Spotify uses Soundcheck and golden state standards combined with static analysis and linting as guardrails, so the agent gets immediate lint feedback and self-corrects when using non-optimal patterns.": 1,
+  "Spotify's Honk background coding agent runs Claude using the Agent SDK, wrapped inside Spotify's own harness and deployed in Kubernetes pods so many sessions can be scheduled concurrently.": 1,
+  "Spotify's most recent Java migration across its backend services took three days using Fleet Management and Honk.": 1
+ }
+}

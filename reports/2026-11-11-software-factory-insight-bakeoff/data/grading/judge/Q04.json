@@ -1,0 +1,320 @@
+{
+ "digest": "e24ae6983187e1d8",
+ "values": {
+  "Q04-k1": {
+   "position": 3,
+   "reason": "Model training details are mostly background for a multi-harness operator, though the iterate-until-tests-pass behavior is mildly relevant.",
+   "score": 1
+  },
+  "Q04-k13": {
+   "position": 49,
+   "reason": "A typical task duration of 1 to 30 minutes is a minor input for timeout and scheduling.",
+   "score": 1
+  },
+  "Q04-k16": {
+   "position": 17,
+   "reason": "OpenAI's report that a startup script, env vars, and internet access significantly cut error rate, plus Best-of-N selection, informs environment provisioning and dispatch strategy.",
+   "score": 2
+  },
+  "Q04-k17": {
+   "position": 29,
+   "reason": "A generic description of AGENTS.md that the reader likely already knows.",
+   "score": 0
+  },
+  "Q04-k18": {
+   "position": 62,
+   "reason": "Directory-scoped AGENTS.md precedence rules, with nested files overriding and direct prompts beating AGENTS.md, are a specific instruction-layering design useful for scar-memory injection.",
+   "score": 2
+  },
+  "Q04-k19": {
+   "position": 51,
+   "reason": "Mandating all AGENTS.md checks even for doc changes and a clean committed worktree with no new branches or amends is a specific worker-contract detail relevant to PR-bound review and autonomous merge.",
+   "score": 2
+  },
+  "Q04-k2": {
+   "position": 38,
+   "reason": "A product timeline and plan-availability fact is trivia for this reader.",
+   "score": 0
+  },
+  "Q04-k20": {
+   "position": 30,
+   "reason": "Citing terminal logs and test outputs as traceable evidence is a useful but familiar provenance design.",
+   "score": 1
+  },
+  "Q04-k21": {
+   "position": 58,
+   "reason": "The launch-time no-internet policy with setup-script dependency preinstallation is a concrete sandbox network-policy design detail, though since relaxed.",
+   "score": 2
+  },
+  "Q04-k22": {
+   "position": 46,
+   "reason": "A measured gain from retained reasoning and context compaction in the harness (13.3% to 38.3%) is a specific result that could change the reader's session ledger and context management design.",
+   "score": 3
+  },
+  "Q04-k23": {
+   "position": 57,
+   "reason": "The Codex harness being exposed as an app-server for persistent conversations with approvals is a specific integration detail relevant to multi-harness dispatch.",
+   "score": 2
+  },
+  "Q04-k24": {
+   "position": 48,
+   "reason": "Measured results (zero hand-written code, about 1M LOC, about 1,500 PRs, 3.5 PRs per engineer per day, roughly 1/10th the time) are a concrete benchmark for the reader's fleet throughput expectations.",
+   "score": 3
+  },
+  "Q04-k25": {
+   "position": 28,
+   "reason": "The Agents API beta date is mostly a market timing fact, though it matters for competitive positioning.",
+   "score": 1
+  },
+  "Q04-k26": {
+   "position": 14,
+   "reason": "Offering hosted, self-hosted, and partner sandboxes in the Agents API is relevant to the reader's platform positioning and sandbox abstraction.",
+   "score": 2
+  },
+  "Q04-k27": {
+   "position": 52,
+   "reason": "A reported failure mode of a single large AGENTS.md and the fix (~100-line TOC pointing to structured docs/) directly informs how scar memory and prompt injection should be structured.",
+   "score": 3
+  },
+  "Q04-k28": {
+   "position": 21,
+   "reason": "A secondary claim that every PR is auto-reviewed corroborates practice the reader already has.",
+   "score": 1
+  },
+  "Q04-k29": {
+   "position": 31,
+   "reason": "codex exec for bounded background jobs with structured output is directly relevant to how the reader's dispatcher would invoke Codex workers.",
+   "score": 2
+  },
+  "Q04-k3": {
+   "position": 9,
+   "reason": "Separating the setup script from a maintenance script run on cached-container resume is a specific, adoptable environment lifecycle detail.",
+   "score": 2
+  },
+  "Q04-k30": {
+   "position": 18,
+   "reason": "Exposing the harness through an SDK is a minor integration fact.",
+   "score": 1
+  },
+  "Q04-k31": {
+   "position": 4,
+   "reason": "Running well-scoped tasks in parallel is generic advice the reader already does with DAG-based dispatch.",
+   "score": 0
+  },
+  "Q04-k32": {
+   "position": 16,
+   "reason": "The listed launch limitations are dated and minor.",
+   "score": 1
+  },
+  "Q04-k33": {
+   "position": 56,
+   "reason": "Benchmark evaluation settings are trivia for this reader's architecture decisions.",
+   "score": 0
+  },
+  "Q04-k34": {
+   "position": 5,
+   "reason": "Isolated containers with network off by default are a baseline sandbox design and largely corroborate standard practice.",
+   "score": 1
+  },
+  "Q04-k35": {
+   "position": 20,
+   "reason": "A managed network policy that allows known destinations, blocks unwanted ones, and requires approval for unfamiliar domains is a concrete egress governance pattern to adopt.",
+   "score": 3
+  },
+  "Q04-k36": {
+   "position": 34,
+   "reason": "Concrete config details (cached-only web search, network proxy, specific deny and allow domains) are an adoptable egress policy template.",
+   "score": 2
+  },
+  "Q04-k37": {
+   "position": 59,
+   "reason": "An auto-approval subagent that gates actions by risk and user authorization is a specific governance design that could change how Agent OS handles approvals without human interruption.",
+   "score": 3
+  },
+  "Q04-k38": {
+   "position": 43,
+   "reason": "Plan-then-code and task sizing of roughly an hour or a few hundred lines is a specific heuristic for the reader's DAG ticket granularity.",
+   "score": 2
+  },
+  "Q04-k39": {
+   "position": 55,
+   "reason": "Measured review comment rates and code-change conversion (46% vs 53%, 52.7% baseline, 100k PRs/day, 80% positive) give concrete benchmarks for calibrating cross-model adversarial review.",
+   "score": 3
+  },
+  "Q04-k4": {
+   "position": 53,
+   "reason": "Routing all outbound traffic through an HTTP/HTTPS proxy is a concrete egress-control design point, though fairly standard.",
+   "score": 2
+  },
+  "Q04-k40": {
+   "position": 61,
+   "reason": "Being able to read and edit files and run tests or linters in a sandbox is a generic capability statement.",
+   "score": 0
+  },
+  "Q04-k41": {
+   "position": 12,
+   "reason": "The three-tier CLI approval model (Suggest, Auto Edit, Full Auto) is a concrete permission design the reader could map onto governed dispatch.",
+   "score": 2
+  },
+  "Q04-k42": {
+   "position": 2,
+   "reason": "A measured result that per-engineer throughput rose with team size bears on how to scale the human side of an agent fleet.",
+   "score": 2
+  },
+  "Q04-k43": {
+   "position": 25,
+   "reason": "Having Codex generate the initial scaffold and first AGENTS.md is an interesting but minor detail.",
+   "score": 1
+  },
+  "Q04-k44": {
+   "position": 19,
+   "reason": "Agent-to-agent review loops that iterate until all agent reviewers are satisfied, with humans optional, are a specific precedent for the reader's autonomous merge and adversarial review design.",
+   "score": 3
+  },
+  "Q04-k45": {
+   "position": 37,
+   "reason": "The measured failure modes (an underspecified environment slowing progress, and human QA becoming the bottleneck as throughput rose) are directly relevant to the reader's scaling design.",
+   "score": 3
+  },
+  "Q04-k46": {
+   "position": 15,
+   "reason": "Making each worktree bootable with CDP and an ephemeral observability stack of logs, metrics, and traces is a specific legibility design that would change how the reader's workers validate changes.",
+   "score": 3
+  },
+  "Q04-k47": {
+   "position": 10,
+   "reason": "Usage growth numbers are adoption marketing and do not inform architecture.",
+   "score": 0
+  },
+  "Q04-k48": {
+   "position": 47,
+   "reason": "The relaunch architecture, with a reusable published environment and the legacy architecture still powering review and integrations, is a concrete design split worth noting.",
+   "score": 2
+  },
+  "Q04-k49": {
+   "position": 35,
+   "reason": "The environment settings list mostly corroborates k9.",
+   "score": 1
+  },
+  "Q04-k5": {
+   "position": 13,
+   "reason": "A universal base image with pinnable runtime versions is a useful but fairly standard environment design detail.",
+   "score": 1
+  },
+  "Q04-k50": {
+   "position": 44,
+   "reason": "Mandatory manual review at launch is a generic caveat that runs counter to the reader's autonomous merge.",
+   "score": 1
+  },
+  "Q04-k52": {
+   "position": 23,
+   "reason": "Automatic dependency installation for common package managers is a minor convenience detail.",
+   "score": 1
+  },
+  "Q04-k53": {
+   "position": 26,
+   "reason": "The allowlist presets with an extensible domain list are a concrete design that largely overlaps with k23.",
+   "score": 2
+  },
+  "Q04-k54": {
+   "position": 0,
+   "reason": "A concrete egress control (restricting to safe HTTP methods) is a specific network policy design the reader could adopt for worker sandboxes.",
+   "score": 2
+  },
+  "Q04-k55": {
+   "position": 24,
+   "reason": "The concrete prompt-injection exfiltration example (hidden instructions in a GitHub issue triggering a curl POST) is a specific failure mode relevant to agents processing untrusted content, especially on a general platform.",
+   "score": 3
+  },
+  "Q04-k56": {
+   "position": 41,
+   "reason": "Example domains on the allowlist are a useful starting list but minor.",
+   "score": 1
+  },
+  "Q04-k57": {
+   "position": 33,
+   "reason": "The edit-check-validate loop is a generic agent loop description.",
+   "score": 0
+  },
+  "Q04-k58": {
+   "position": 60,
+   "reason": "Using AGENTS.md to find lint/test commands is minor and corroborated by other findings.",
+   "score": 1
+  },
+  "Q04-k59": {
+   "position": 27,
+   "reason": "The gotcha that setup-script exports do not persist into the agent's separate shell is a specific failure mode to avoid in worker bootstrapping.",
+   "score": 2
+  },
+  "Q04-k6": {
+   "position": 36,
+   "reason": "Showing an answer plus a diff with a PR option is generic UX.",
+   "score": 0
+  },
+  "Q04-k60": {
+   "position": 40,
+   "reason": "The 12-hour container cache with explicit invalidation triggers and cross-user sharing for Business and Enterprise is a specific caching design with security implications for multi-tenant environments.",
+   "score": 3
+  },
+  "Q04-k7": {
+   "position": 50,
+   "reason": "Splitting secrets (setup-only, removed before agent phase) from persistent env vars is a concrete credential-scoping design Agent OS could adopt for worker dispatch.",
+   "score": 3
+  },
+  "Q04-k74": {
+   "position": 54,
+   "reason": "The list of internal use cases is generic and does not change architecture.",
+   "score": 1
+  },
+  "Q04-k75": {
+   "position": 45,
+   "reason": "Pricing for an old model is outdated cost trivia.",
+   "score": 0
+  },
+  "Q04-k76": {
+   "position": 22,
+   "reason": "The current network presets behind a proxy are a specific policy-tier design.",
+   "score": 2
+  },
+  "Q04-k77": {
+   "position": 8,
+   "reason": "A create-once environment with a recorded install script and start skill, parallel isolated workspaces, and 7-day recoverable VM state is a concrete architecture pattern for worker provisioning.",
+   "score": 3
+  },
+  "Q04-k78": {
+   "position": 32,
+   "reason": "This internal usage advice is fairly generic best practice.",
+   "score": 1
+  },
+  "Q04-k79": {
+   "position": 1,
+   "reason": "Secondary-source, vague percentage claim about review time savings with weak provenance, so it should not drive decisions.",
+   "score": 1
+  },
+  "Q04-k80": {
+   "position": 7,
+   "reason": "Ordering the prompt static-first for caching, the ~10x cost difference, and the warning that mid-session AGENTS.md edits invalidate the cache directly affect how the reader injects scar memory into prompts.",
+   "score": 3
+  },
+  "Q04-k81": {
+   "position": 6,
+   "reason": "This secondary-source history of network access and approval pauses repeats other findings without adding new specifics.",
+   "score": 1
+  },
+  "Q04-k82": {
+   "position": 11,
+   "reason": "This is a vendor performance claim with no measured specifics.",
+   "score": 0
+  },
+  "Q04-k83": {
+   "position": 42,
+   "reason": "The system prompt telling the agent to run AGENTS.md tests, and noting that AGENTS.md can appear anywhere in the filesystem, is a specific prompt and discovery detail relevant to scar-memory injection.",
+   "score": 2
+  },
+  "Q04-k9": {
+   "position": 39,
+   "reason": "Per-project allowlists or denylists and safe-method guidance corroborate other network-policy findings.",
+   "score": 1
+  }
+ }
+}

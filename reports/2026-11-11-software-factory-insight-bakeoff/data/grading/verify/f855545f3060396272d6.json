@@ -1,0 +1,10 @@
+{
+ "capture": "captured",
+ "digest": "6981ec0343def36e",
+ "url": "https://decagon.ai/glossary/what-is-durable-execution",
+ "verdicts": {
+  "A step that timed out may have actually succeeded before retry, so refunds, emails, and account changes need idempotency keys or check-before-write at the receiving system.": 1,
+  "Because a model call can return a different answer each time, it must be treated as a recorded step rather than part of replayed workflow logic; changing workflow code while runs are open can make old histories replay down a mismatched path.": 1,
+  "Decagon's glossary describes customer-support uses such as refunds awaiting manager sign-off or warehouse confirmation, and says the event history doubles as an AI audit trail.": 1
+ }
+}

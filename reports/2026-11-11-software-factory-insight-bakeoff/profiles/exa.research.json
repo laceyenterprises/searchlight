@@ -1,0 +1,72 @@
+{
+ "arm": "exa",
+ "async": {
+  "interval_s": 10,
+  "on_timeout": "POST https://api.exa.ai/agent/runs/{id}/stop (keeps results gathered so far)",
+  "poll_endpoint": "GET https://api.exa.ai/agent/runs/{id}",
+  "terminal_states": [
+   "completed",
+   "failed",
+   "cancelled"
+  ],
+  "timeout_s": 1800
+ },
+ "cost_model": "Fixed effort 'high' = $0.50/request (pricing page). Fixed efforts are not metered by ACU; budget.maxCostDollars only caps contact enrichment for fixed efforts.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "POST /agent/runs fields, effort enum, polling, output.text/grounding, prices per effort",
+   "url": "https://exa.ai/docs/agent/quickstart.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "query as task spec, effort guidance, no outputSchema for prose, persist run id",
+   "url": "https://exa.ai/docs/agent/best-practices.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "minimal $0.012, low $0.025, medium $0.10, high $0.50, xhigh $1.00, auto/ultra metered",
+   "url": "https://exa.ai/pricing"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "/agent/runs 5 QPS, 50 active runs; POST counts as 2 requests; polling free",
+   "url": "https://exa.ai/docs/admin/billing.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "2026-09-24 Agent Ultra, /stop endpoint",
+   "url": "https://docs.exa.ai/changelog"
+  }
+ ],
+ "endpoint": "POST https://api.exa.ai/agent/runs",
+ "est_cost_usd_per_question": 0.5,
+ "exa_version": "Exa 3.0 era. 3.0 added no new research/agent product; Agent (2026-06-16) and ultra + /stop (2026-09-24) predate it. Whether Agent's internal searches use the 3.0 retrieval stack is not stated.",
+ "freshness_overlay": {
+  "query_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+ },
+ "headers": {
+  "x-api-key": "<EXA_API_KEY>"
+ },
+ "operation": "research",
+ "pace_seconds": 0.4,
+ "params": {
+  "effort": "high",
+  "query": "{{RESEARCH_BRIEF}}"
+ },
+ "post_steps": [],
+ "query_transform": "research_brief",
+ "query_transform_notes": "Exa Agent best practices: treat query as a task spec (entity, scope, evidence bar, fields to return). No outputSchema: 'If a prose answer is enough, omit it and read output.text'; citations come back in output.grounding.",
+ "rationale": {
+  "effort": "'high' is the most thorough fixed (predictable-price) effort below xhigh. Docs: use fixed effort for predictable per-request cost; xhigh/ultra when completeness matters more than cost. Variant EXA-R-XHIGH ($1.00) pre-registered.",
+  "outputSchema": "Omitted; prose + output.grounding is the documented shape when downstream reads text."
+ },
+ "top_k": null,
+ "unverified": true,
+ "unverified_fields": {
+  "async.timeout_s": {
+   "note": "Docs give no latency figures for effort levels ('high: slower, more thorough'). 30 min is our ceiling; record actual durations.",
+   "unverified": true
+  }
+ }
+}

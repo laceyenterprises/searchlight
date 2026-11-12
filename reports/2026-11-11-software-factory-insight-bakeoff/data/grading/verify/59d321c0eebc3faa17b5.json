@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "f122a7e70cdd88f2",
+ "url": "https://www.stepsecurity.io/blog/securing-github-copilot-in-github-actions-with-harden-runner",
+ "verdicts": {
+  "Copilot's agent firewall controls internet access for the Copilot coding agent in GitHub Actions and is enabled by default, limiting the agent's ability to make arbitrary network connections.": 1,
+  "StepSecurity notes that the Copilot firewall gives no visibility into what the agent does (spawned processes, which process made a network call, endpoints contacted, GitHub APIs invoked), and that standard Actions logs are insufficient to answer these questions; it recommends Harden-Runner for runtime monitoring.": 1
+ }
+}

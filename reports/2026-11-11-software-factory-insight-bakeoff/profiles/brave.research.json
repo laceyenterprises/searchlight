@@ -1,0 +1,73 @@
+{
+ "arm": "brave",
+ "async": {
+  "interval_s": null,
+  "poll_endpoint": null,
+  "stream": "SSE; keep <answer>, <blindspots>, <usage>; log <progress>",
+  "timeout_s": 330
+ },
+ "cost_model": "searches x $4/1k + input tokens x $5/M + output tokens x $5/M (Answers plan). Research defaults allow up to 20 queries ($0.08) plus large input contexts; read the <usage> tag.",
+ "docs": [
+  {
+   "read_on": "2026-11-11",
+   "supports": "endpoint, enable_research, stream required, pricing, 2 rps, research for thoroughness",
+   "url": "https://api-dashboard.search.brave.com/documentation/services/answers"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "research_* params, constraints, response tags, >=300 s client timeout",
+   "url": "https://raw.githubusercontent.com/brave/brave-search-skills/main/skills/answers/SKILL.md"
+  },
+  {
+   "read_on": "2026-11-11",
+   "supports": "research_maximum_number_of_queries 1-50 default 20; results per query default 30",
+   "url": "https://api-dashboard.search.brave.com/api-reference/summarizer/answers"
+  }
+ ],
+ "endpoint": "POST https://api.search.brave.com/res/v1/chat/completions",
+ "est_cost_usd_per_question": 0.5,
+ "freshness_overlay": {
+  "messages[0].content_suffix": "Only use sources published on or after {{AFTER_DATE}}."
+ },
+ "headers": {
+  "x-subscription-token": "<BRAVE_ANSWERS_KEY>"
+ },
+ "operation": "research",
+ "pace_seconds": 0.5,
+ "params": {
+  "country": "us",
+  "enable_research": true,
+  "language": "en",
+  "messages": [
+   {
+    "content": "{{RESEARCH_BRIEF}}",
+    "role": "user"
+   }
+  ],
+  "model": "brave",
+  "stream": true
+ },
+ "post_steps": [],
+ "query_transform": "research_brief",
+ "query_transform_notes": "Exactly one user message (Brave skill). No query-writing guidance published.",
+ "rationale": {
+  "enable_research": "Docs: research mode when thoroughness matters more than speed (background tasks).",
+  "research_* params": "Vendor defaults; no tuning beyond docs."
+ },
+ "top_k": null,
+ "unverified": true,
+ "unverified_fields": {
+  "enable_citations": {
+   "note": "Not set: research mode cannot be combined with enable_citations (SKILL.md). Whether research <answer> carries URLs inline is not documented; record what comes back.",
+   "unverified": true
+  },
+  "est_cost_usd_per_question": {
+   "note": "No published per-research-run figure; token volume of research mode not documented. Estimate only.",
+   "unverified": true
+  },
+  "research_* defaults": {
+   "note": "Vendor defaults are left in force. Official reference: max queries 20 (1-50), results per query default 30 (changelog 2026-08-21); the brave-search-skills SKILL.md still says 60. Iterations 4 (1-5) and seconds 180 (1-300) come from SKILL.md only.",
+   "unverified": true
+  }
+ }
+}

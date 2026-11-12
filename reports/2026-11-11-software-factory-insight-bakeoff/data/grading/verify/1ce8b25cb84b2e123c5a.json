@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "3555c4368d7afe21",
+ "url": "https://code.claude.com/docs/en/agent-sdk/subagents",
+ "verdicts": {
+  "A non-fork subagent starts fresh without the parent's conversation, tool results or system prompt, so delegations must include relevant context, and only its final message returns to the parent.": 1
+ }
+}

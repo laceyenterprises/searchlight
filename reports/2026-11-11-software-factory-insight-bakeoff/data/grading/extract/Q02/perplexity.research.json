@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.research",
+ "cell_sha": "6240698380385e49",
+ "claims": [
+  {
+   "text": "In Factory's own Terminal-Bench 4 run (all tasks, three trials per task, October 23-28, 2026, Claude Opus 5.5 at high reasoning), Droid scored 65.2% against 57.6% for claude-code@2.1.306, took 26% less time per passed task and used 17% fewer tokens.",
+   "url": "https://factory.com/articles/factory-claude-code-token-efficiency"
+  },
+  {
+   "text": "On Terminal-Bench 4 with GPT-6.1 Sol, Droid scored 57.6% versus 54.0% for Codex at 12% lower cost, but Droid took 10% longer per passed task than Codex.",
+   "url": "https://x.com/Marktechpost/status/2116480338906284437"
+  },
+  {
+   "text": "In Factory's Terminal-Bench 4 comparison with Devin, Droid passed 65.2% of tasks to Devin's 59.6% with Claude Opus 5.5 (24% lower cost, 16% less time per passed task), and 57.6% to 45.0% with GPT-6.1 Sol (37% lower cost, 11% less time).",
+   "url": "https://factory.com/articles/droid-vs-devin-enterprise-workflows"
+  },
+  {
+   "text": "Factory's Terminal-Bench 4 figures put Droid with Claude Opus 5.5 at 65.2% versus 62.1% for Cursor and 57.6% for Claude Code, and the figures are described as self-reported rather than independent.",
+   "url": "https://hitlistai.com/t/coding"
+  },
+  {
+   "text": "Droid with Claude Opus 5.5 on Terminal-Bench 4 reportedly cost $4.73 per passed task.",
+   "url": "https://gekro.com/news/2026-10-31/"
+  },
+  {
+   "text": "In Factory's Droid 1.0 benchmark methodology, trials that failed for reasons outside the harness (eval failed to launch, model request timed out, provider out of capacity) were rerun.",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "text": "Factory's evaluation approach pinned each harness version, ran three trials per task, and reran only trials that failed for reasons outside the harness.",
+   "url": "https://factory.com/articles/evaluating-coding-agents-on-your-codebase"
+  },
+  {
+   "text": "Droid 1.0 uses programmatic tool calling: the model writes JavaScript that runs in a sandbox with no file, network or system access of its own and invokes tools, so a Script can make hundreds of tool calls in one model request.",
+   "url": "https://factory.com/news/frontier-harness?ref=thenewway.ai"
+  },
+  {
+   "text": "Factory says moving 151 Linear issues and verifying each took 312 tool calls; with direct calls that is about 36 requests and 3.1M input tokens, while as a Script it took 2 requests and about 61K tokens.",
+   "url": "https://x.com/FactoryAI/status/2115934596496056512"
+  },
+  {
+   "text": "Droid 1.0 sessions share a daemon process, each session adding about 20 MB, whereas earlier each session was a separate process using about 350 MB (five parallel subagents plus the main session exceeded 2 GB).",
+   "url": "https://factory.com/news/frontier-harness?ref=thenewway.ai"
+  },
+  {
+   "text": "The model can move long-running work such as a subagent or command to the background and sleep, and Droid wakes it with a reminder when the work finishes.",
+   "url": "https://factory.com/news/frontier-harness?ref=thenewway.ai"
+  },
+  {
+   "text": "A custom droid is a Markdown-defined subagent with its own system prompt, model preference and tool policy, invoked through the Task tool in a fresh context window and returning a single final message to the parent.",
+   "url": "https://docs.factory.com/harness/subagents"
+  },
+  {
+   "text": "Subagents can run in the foreground or in the background (run_in_background returns a task_id), can be fetched with TaskOutput or stopped with TaskStop, and can be resumed with a prior task_id to keep their full prior context.",
+   "url": "https://docs.factory.com/harness/subagents"
+  },
+  {
+   "text": "Factory cloud sessions create a Computer from an Environment's successful snapshot, and each launch creates its own instance, so parallel agents do not share working-tree changes.",
+   "url": "https://docs.factory.com/environments/run-droids"
+  },
+  {
+   "text": "Shared delegation is configured in Settings → Delegations, where an agent profile with Dynamic compute uses exactly one organization Environment that must be Ready before work is delegated.",
+   "url": "https://docs.factory.com/environments/run-droids"
+  },
+  {
+   "text": "Droid's agent loop and runtime execute on the machine where it runs (workstation, CI runner, VM or container), file reads and writes stay local, and file contents leave only as part of LLM requests to the configured model endpoints.",
+   "url": "https://docs.factory.com/enterprise/privacy-and-data-flows"
+  },
+  {
+   "text": "In the Factory Private deployment, Droid sandboxes run in the customer's VPC through OpenCompute while Factory runs the control plane by default.",
+   "url": "https://docs.factory.com/enterprise/privacy-and-data-flows"
+  },
+  {
+   "text": "Droid Computers keep the whole environment between sessions, including installed packages, files and configuration, and can be self-managed or Factory-managed.",
+   "url": "https://factory.com/articles/droid-vs-devin-enterprise-workflows"
+  },
+  {
+   "text": "Droid loads AGENTS.md-style instruction files at startup (cap 80,000 characters) and via dynamic discovery per tool call (cap 40,000 characters), and picks up nested directory guidance when files are read, edited, listed or searched.",
+   "url": "https://docs.factory.ai/jp/guides/power-user/memory-management"
+  },
+  {
+   "text": "Factory's platform uses a coordinator-Droid architecture in which a coordinator decomposes tickets into role-scoped sub-agents (code, review, testing, documentation, security, knowledge), and uses a session compaction engine to preserve long-running context.",
+   "url": "https://devtune.ai/verticals/autonomous-coding-agents/factory-droid"
+  },
+  {
+   "text": "In Factory's August 27, 2026 ProgramBench experiment, a three-role system (orchestrator, implementer, validator) rebuilt gdal at 90% behavioral parity versus 36% for a single agent, with the validator building a completion standard before implementation.",
+   "url": "https://github.com/Quriosity-agent/articles/blob/main/2026-08-27/2026-08-27-factory-droid-completion-standard-programbench-en.md"
+  },
+  {
+   "text": "In the ProgramBench experiment the Fable 5 xhigh median rose from 56.7 (single) to 89.3 (system) while wall time rose from 8.5h to 96h; caveats included one run per cell, no variance estimates, hand-picked hard tasks, and six Fable cells using Opus substitutes.",
+   "url": "https://github.com/Quriosity-agent/articles/blob/main/2026-08-27/2026-08-27-factory-droid-completion-standard-programbench-en.md"
+  },
+  {
+   "text": "On Factory's Legacy-Bench, Droid with GPT-5.3 Codex led at 42.5% overall; Droid with Claude Opus 4.6 scored 34.6% versus 33% for Claude Code with the same model, and 31 of the 44 tasks no model solved were COBOL.",
+   "url": "https://docs.factory.com/benchmarks/legacy-bench"
+  },
+  {
+   "text": "Legacy-Bench tasks use verification tests the agent cannot see, and published results describe agents producing plausible output and declaring success despite failing the independent checks.",
+   "url": "https://factory.com/articles/evaluating-coding-agents-on-your-codebase"
+  },
+  {
+   "text": "Factory's September 2025 Terminal-Bench Core v0.1.1 report (80 human-verified tasks) had Droid with Opus 4.1 at 58.75%, Droid with GPT-5 at 52.5%, Claude Code with Opus at 43.2% and Codex CLI at 42.8%.",
+   "url": "https://factory.com/articles/droid-vs-devin-enterprise-workflows"
+  }
+ ],
+ "question_id": "Q02"
+}

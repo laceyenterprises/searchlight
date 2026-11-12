@@ -1,0 +1,103 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "4b0ff51bf62e0733",
+ "claims": [
+  {
+   "text": "When a Codex cloud task is submitted, Codex creates a container and checks out the repo at the selected branch or commit SHA.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "After creating the container, Codex runs the user's setup script, plus an optional maintenance script when a cached container is resumed.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "In Codex cloud tasks, the agent runs terminal commands in a loop: it edits code, runs checks, and tries to validate its work.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "If a repo includes AGENTS.md, the Codex cloud agent uses it to find project-specific lint and test commands.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "When the Codex cloud agent finishes, it shows its answer and a diff of changed files, and the user can open a PR or ask follow-up questions.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "The Codex cloud agent runs in a default container image called `universal`, pre-installed with common languages, packages, and tools; versions of Python, Node.js and other runtimes can be pinned via 'Set package versions'.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "Codex cloud secrets are stored with an additional layer of encryption, are available only to setup scripts, and are removed before the agent phase starts; environment variables persist for the full task including the agent phase.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "Codex cloud setup scripts run in a separate Bash session from the agent, so `export` commands do not persist into the agent phase; variables must be added to ~/.bashrc or set in environment settings.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "Codex caches cloud container state for up to 12 hours; the cache is invalidated when the setup script, maintenance script, environment variables, or secrets change, and for Business and Enterprise users caches are shared across all users with access to the environment.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "Codex cloud environments run behind an HTTP/HTTPS network proxy for security and abuse prevention, and all outbound internet traffic passes through it.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "For projects using npm, yarn, pnpm, pip, pipenv, and poetry, Codex can automatically install dependencies and tools.",
+   "url": "https://developers.openai.com/codex/cloud/environments.md"
+  },
+  {
+   "text": "Codex cloud setup scripts run with full internet access, after which control passes to the agent, and agent internet access defaults to off.",
+   "url": "https://developers.openai.com/codex/cloud/internet-access"
+  },
+  {
+   "text": "Agent internet access in Codex cloud is configured per environment: Off blocks all access; On allows access that can be limited by a domain allowlist and HTTP methods.",
+   "url": "https://developers.openai.com/codex/cloud/internet-access"
+  },
+  {
+   "text": "The Codex domain allowlist presets are None (empty), Common dependencies (a preset list of package-management and source-control domains), and All (unrestricted); extra domains can be added to None or Common dependencies.",
+   "url": "https://developers.openai.com/codex/cloud/internet-access"
+  },
+  {
+   "text": "Codex cloud network requests can be restricted to only GET, HEAD, and OPTIONS, blocking POST, PUT, PATCH, DELETE and other methods.",
+   "url": "https://developers.openai.com/codex/cloud/internet-access"
+  },
+  {
+   "text": "OpenAI warns that enabling agent internet access risks prompt injection, exfiltration of code or secrets, malware or vulnerabilities, and license-restricted content; its example is a GitHub issue with hidden instructions to run a curl POST that leaks the last commit message.",
+   "url": "https://developers.openai.com/codex/cloud/internet-access"
+  },
+  {
+   "text": "The Common dependencies allowlist includes domains such as github.com, npmjs.org, pypi.org, crates.io, rubygems.org, maven.org, golang.org, docker.io and nuget.org.",
+   "url": "https://developers.openai.com/codex/cloud/internet-access"
+  },
+  {
+   "text": "Codex launched as a research preview of a cloud-based software engineering agent that can work on many tasks in parallel, with each task running in its own cloud sandbox environment preloaded with the user's repository.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "Codex is powered by codex-1, a version of OpenAI o3 optimized for software engineering.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "At launch, OpenAI stated that internet access is disabled during Codex task execution, limiting the agent to code provided via GitHub repositories and pre-installed dependencies.",
+   "url": "https://openai.com/index/introducing-codex"
+  },
+  {
+   "text": "Codex Cloud uses a two-phase runtime: setup can access the network to install dependencies, then the agent phase runs offline by default unless internet access is enabled for that environment.",
+   "url": "https://developers.openai.com/codex/agent-approvals-security"
+  },
+  {
+   "text": "Each Codex cloud task starts from the prepared environment in its own isolated workspace with separate working files and changes, can continue while the user's computer is asleep, and users are advised to review changes and test results before using the work.",
+   "url": "https://help.openai.com/en/articles/20001545-using-codex-cloud"
+  },
+  {
+   "text": "In OpenAI's harness engineering write-up, engineers drive PRs by instructing Codex to review its own changes locally, request further agent reviews locally and in the cloud, respond to feedback, and iterate until all agent reviewers are satisfied (a 'Ralph Wiggum Loop').",
+   "url": "https://openai.com/index/harness-engineering/"
+  },
+  {
+   "text": "OpenAI's internal Codex policy does not allow open-ended outbound access: a managed network policy allows expected destinations, blocks unwanted ones, and requires approval for unfamiliar domains.",
+   "url": "https://openai.com/index/running-codex-safely"
+  }
+ ],
+ "question_id": "Q04"
+}

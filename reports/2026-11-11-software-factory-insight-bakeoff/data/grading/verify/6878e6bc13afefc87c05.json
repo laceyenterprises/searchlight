@@ -1,0 +1,9 @@
+{
+ "capture": "captured",
+ "digest": "edbb452090471263",
+ "url": "https://learnagentic.substack.com/p/your-prompt-optimizer-learns-from",
+ "verdicts": {
+  "A prompt rule learned from failures on impossible tasks ('Global code search is often limited or disabled') pushed the agent toward exhaustive exploration. Validation gating did not catch this harmful edit, because aggregate-score validation can pass a rule that fixes one noisy task and breaks another.": 1,
+  "GEPA-Curator, which skips failures caused by the harness, environment or a flaky judge, raised AppWorld success from 38.0% (plain GEPA) to 58.7% with the same actor model.": 1
+ }
+}

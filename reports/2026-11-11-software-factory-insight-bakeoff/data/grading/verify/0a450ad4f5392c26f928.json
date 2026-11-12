@@ -1,0 +1,8 @@
+{
+ "capture": "captured",
+ "digest": "0ca081f00ad31c91",
+ "url": "https://github.com/strongdm/attractor/blob/main/coding-agent-loop-spec.md#25-the-core-agentic-loop",
+ "verdicts": {
+  "The coding-agent-loop spec runs an LLM/tool cycle: the model emits tool calls, the execution environment runs them, results are appended to the conversation, and the loop continues until text-only completion, a round or turn limit, or abort. It exposes steering, event emission, tool-output truncation, timeouts and loop detection to the host application.": 1
+ }
+}

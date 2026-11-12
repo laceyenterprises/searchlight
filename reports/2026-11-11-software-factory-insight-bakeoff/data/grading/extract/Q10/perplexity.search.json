@@ -1,0 +1,107 @@
+{
+ "arm_id": "perplexity.search",
+ "cell_sha": "ec90f1d4d6854383",
+ "claims": [
+  {
+   "text": "An empirical study of open-source pull request workflows found that specification quality does not predict defects (p = 0.164) or rework (p = 0.860).",
+   "url": null
+  },
+  {
+   "text": "The same study found that specifications do not constrain the scope of AI-tagged changes (p = 0.997).",
+   "url": null
+  },
+  {
+   "text": "The study concludes that specification artifacts proxy for task complexity rather than quality improvement.",
+   "url": null
+  },
+  {
+   "text": "The study's sample contained no repository that commits actual SDD tool output, so SDD tool adoption itself remains untested.",
+   "url": null
+  },
+  {
+   "text": "The study states that no SDD tool vendor has published empirical evidence for its quality claims.",
+   "url": null
+  },
+  {
+   "text": "In the study, pull requests referencing a tracking issue made up 97.5% of the treatment group, which the authors say is not equivalent to Spec Kit or Kiro's guided-workflow output.",
+   "url": null
+  },
+  {
+   "text": "GitHub's Spec Kit blog claims that a clear specification up front, with a technical plan and focused tasks, gives the coding agent more clarity and improves its efficacy.",
+   "url": null
+  },
+  {
+   "text": "Kiro claims specifications enable fewer iterations and higher accuracy.",
+   "url": null
+  },
+  {
+   "text": "Böckeler defines spec-driven development as writing a spec before writing code with AI, where the spec becomes the source of truth for the human and the AI.",
+   "url": null
+  },
+  {
+   "text": "Spec Kit's template asks for core requirements, acceptance criteria, edge cases, data models, API contracts and user stories.",
+   "url": null
+  },
+  {
+   "text": "Kiro stores each feature's spec as three Markdown files in a per-feature folder under .kiro/specs/: requirements.md, design.md and tasks.md.",
+   "url": null
+  },
+  {
+   "text": "Kiro requirements.md uses numbered '### Requirement N' blocks, each with one user story and numbered EARS acceptance criteria, addressed as <requirement>.<criterion> (e.g. 1.2).",
+   "url": null
+  },
+  {
+   "text": "Kiro uses EARS patterns (event-driven WHEN, conditional IF, compound WHEN...AND, continuous WHILE, contextual WHERE), each ending in a SHALL response.",
+   "url": null
+  },
+  {
+   "text": "Kiro's generated design.md has sections in order: Overview, Architecture (often Mermaid diagrams), Components and Interfaces, Data Models, Error Handling, Testing Strategy.",
+   "url": null
+  },
+  {
+   "text": "Kiro's tasks.md is a numbered checkbox list titled 'Implementation Plan', at most two levels deep, with decimal sub-tasks (1.1, 1.2) and a final '_Requirements: …_' bullet back-referencing requirement criteria, giving task-to-requirement traceability.",
+   "url": null
+  },
+  {
+   "text": "Kiro's agent is instructed to keep tasks to coding work only (no deploy, metrics or manual QA tasks).",
+   "url": null
+  },
+  {
+   "text": "Kiro steering files (product.md, tech.md, structure.md) under .kiro/steering/ provide project-wide context alongside specs.",
+   "url": null
+  },
+  {
+   "text": "In Kiro's default Requirements-First workflow the user reviews and approves each file before the next is generated; Design-First derives requirements from the design instead.",
+   "url": null
+  },
+  {
+   "text": "Kiro recommends Design-First when an existing architecture exists, strict non-functional requirements (latency, throughput, compliance) apply, or technical feasibility is being explored; Requirements-First suits known behavior with flexible architecture.",
+   "url": null
+  },
+  {
+   "text": "Kiro's 'Analyze Requirements' feature runs a deep analysis to catch logical inconsistencies, ambiguities, conflicting constraints and gaps, and 'Sync Files' on tasks.md creates new tasks after requirements or design change.",
+   "url": null
+  },
+  {
+   "text": "When running all tasks, Kiro builds a dependency graph of tasks in tasks.md and groups independent tasks into waves; waves run sequentially while tasks within a wave run concurrently.",
+   "url": null
+  },
+  {
+   "text": "Kiro bugfix specs use bugfix.md in place of requirements.md, capturing current, expected and unchanged behavior.",
+   "url": null
+  },
+  {
+   "text": "Kiro's Quick Spec mode asks clarifying questions up front and then auto-generates requirements.md, design.md and tasks.md in sequence with no approval gates between phases.",
+   "url": null
+  },
+  {
+   "text": "Kiro recommends committing spec files under .kiro/specs to the repo alongside code so they serve as a record of intent and design for future developers and for Kiro.",
+   "url": null
+  },
+  {
+   "text": "Kiro's EARS requirements follow the pattern 'WHEN [condition/event] THE SYSTEM SHALL [expected behavior]', claimed to give clarity, testability, traceability and completeness.",
+   "url": null
+  }
+ ],
+ "question_id": "Q10"
+}

@@ -1,0 +1,107 @@
+{
+ "arm_id": "parallel.search",
+ "cell_sha": "5ce8ed5251f5e226",
+ "claims": [
+  {
+   "text": "Google SRE's L3 (High Autonomy) level has automation covering Monitoring, Investigation, Approval, and Actuation for specific, well-defined scenarios, so the AI agent can independently detect, decide, and act without human approval for bounded actions, though humans are often notified.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google SRE's autonomy table lists L1 Assisted as automation for the first two stages with humans handling the remaining three, L2 Partial as automation in the first two stages plus one later stage (the fourth column) with humans handling the rest, and L3 High as automation in the first four stages with a human handling only the last.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google SRE uses Progressive Authorization: AI agents are not granted full production access from day one, are released at lower autonomy levels (human approved), and are scaled up based on the SRE Autonomy Levels.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google SRE enforces strict architectural guardrails for any AI agent interacting with production, to support what it calls the Safety Trifecta.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google SRE requires SRE AI agents to have a strong identity, with roles and permissions assigned.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE requires SRE AI agents to be able to explain why and how they performed an action, including which options were considered and rejected, favoring transparency over black-box automation.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE requires SRE AI agents to have well-defined automated or manual backup options and high reliability SLOs, and requires business continuity plans to include contingencies for AI failures.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE says its agent ecosystem needs consistent controls to prevent unwanted mutations of production state.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE's anomaly detection has agents collect signals and feed them to a model such as TimesFM; an alerting agent then groups, pre-processes and enriches the alerts, and autonomous AI alert handlers address or mitigate many issues.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE's investigation agents use observability data (logging, monitoring, tracing) plus system topology, taxonomy and dependency data to establish domain and intent before forming hypotheses and proposing mitigations; in some cases they mitigate issues autonomously.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE built AI Insights, a system powered by Gemini embedding models and vector-enabled databases that continuously reviews known incidents and extracts information for agents, and it marks each incident with risk categories that agents can use before applying mitigations.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE built agents that continuously monitor and improve playbooks based on their usage during incidents and can generate new playbooks from incidents.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Google SRE AI is built on Gemini (including custom fine-tuned Gemini models), Gemini Enterprise Agent Platform, Agent Development Kit (ADK), and MCP servers running on standard Google API infrastructure.",
+   "url": "https://cloud.google.com/blog/products/devops-sre/how-google-sre-is-using-agentic-ai-to-improve-operations"
+  },
+  {
+   "text": "Datadog's Bits Investigation launches automatically when an alert fires, without initial prompting, gathering context from the monitor message, linked Confluence runbooks, past investigations of the same monitor, and exploratory queries.",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre"
+  },
+  {
+   "text": "Bits Investigation generates multiple root cause hypotheses and classifies each as validated, invalidated, or inconclusive, using tools to check dashboards, logs, traces, recent changes and Kubernetes events.",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre"
+  },
+  {
+   "text": "Bits Investigation learns from past alerts through memory, and engineers can correct or reinforce its conclusions to create a feedback loop.",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre"
+  },
+  {
+   "text": "Bits Investigation posts findings with supporting evidence to Slack and is integrated with the Datadog mobile app, On-Call, and Case Management (synced with ServiceNow and Jira).",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre"
+  },
+  {
+   "text": "In private preview, Bits Code proposes a fix as a pull request once Bits Investigation finds a code-related root cause, and engineers review and merge it.",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre"
+  },
+  {
+   "text": "Bits Investigation's preview 'recommended actions' suggest next steps and let engineers execute triage actions such as sending Slack summaries or creating Jira tickets with one click.",
+   "url": "https://www.datadoghq.com/blog/bits-ai-sre"
+  },
+  {
+   "text": "Datadog's Bits Remediation supported actions include sending Slack and Microsoft Teams messages, creating incidents in Datadog and PagerDuty, and paging engineers via Datadog On-Call.",
+   "url": "https://docs.datadoghq.com/bits_ai/bits_remediation/"
+  },
+  {
+   "text": "Datadog's Bits Guardrails (in Preview) let admins define which remediation actions Bits can take, where they apply, and who must approve them, and require the Guardrails Read and Guardrails Write permissions.",
+   "url": "https://docs.datadoghq.com/bits_ai/bits_remediation/"
+  },
+  {
+   "text": "Cleric's verification engine follows each change into production for up to 14 days starting from the change announcement in Slack, checking alert recurrence, downstream stability, metric recovery, and engineer overrides.",
+   "url": "https://cleric.ai/technology"
+  },
+  {
+   "text": "Cleric weights verification signals using context from the change and environment because each signal has known failure modes and none is conclusive alone, and it records the result and signals in its Decision Model.",
+   "url": "https://cleric.ai/technology"
+  },
+  {
+   "text": "Cleric's Decision Model comprises a world model of services and dependencies, strategies distilled from real investigations, and verification results, and its verification results show where Cleric has been reliable and where an engineer should still review its work.",
+   "url": "https://cleric.ai/technology"
+  },
+  {
+   "text": "Cleric's calibration engine tests investigation strategies against past production issues through replay and self-play, retaining strategies that produce correct diagnoses and dropping those that don't.",
+   "url": "https://cleric.ai/technology"
+  }
+ ],
+ "question_id": "Q20"
+}

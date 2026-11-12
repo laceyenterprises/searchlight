@@ -1,0 +1,15 @@
+{
+ "capture": "captured",
+ "digest": "3f851bbe2dcbd6c2",
+ "url": "https://zylos.ai/research/2026-02-17-durable-execution-ai-agents/",
+ "verdicts": {
+  "DBOS persists application data and execution state in Postgres or SQLite and runs in-process as a library with no new infrastructure; a DBOSAgent wrapper makes Pydantic AI agents durable, and it gives exactly-once execution via transactional semantics.": 1,
+  "Inngest offers step.ai.infer (proxies long-running LLM requests to reduce serverless compute cost), step.ai.wrap (adds retries and telemetry to any AI SDK call) and AgentKit; it has a $20M Series A and production users include Day.ai and Browser Use.": 1,
+  "Inngest production users include Day.ai and Browser Use.": 1,
+  "Journal-based replay (Temporal, Restate) re-executes the workflow function from the start, returns cached results for steps already in the journal, and continues from the first unjournaled step; it requires deterministic workflows, so LLM calls must be wrapped as activity steps.": 1,
+  "Microsoft's Azure Durable Task Extension (public preview, late 2025) supports multi-day human-in-the-loop pauses, scale-to-zero and orchestration versioning for the Microsoft Agent Framework.": 1,
+  "Restate Cloud opened publicly in 2025 with usage-based pricing; production use cases include AI workflows, crypto trading and banking infrastructure, and it suits edge/serverless deployments better than Temporal.": 1,
+  "Temporal raised $300M at a $5B valuation on February 17, 2026, with 9.1 trillion lifetime action executions on its cloud, 1.86 trillion from AI-native companies.": 1,
+  "Temporal's notable customers listed are OpenAI, Snap, Netflix and JPMorgan Chase; Temporal integrated with the OpenAI Agents SDK in September 2025, and Pydantic AI ships a first-class Temporal integration.": 1
+ }
+}

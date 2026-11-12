@@ -1,0 +1,107 @@
+{
+ "arm_id": "brave.search",
+ "cell_sha": "42908f171a058d05",
+ "claims": [
+  {
+   "text": "Google SRE defines five AI autonomy levels (L0 Manual, L1 Assisted, L2 Partial, L3 High, L4 Full) across the functions Monitor, Investigate, Mitigate, Actuate and Self Direct.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Under Google's Progressive Authorization, agents start at Level 2 autonomy, where they investigate, propose and stage mitigations but need explicit human approval to execute.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google agents advance to L3 or L4 only for specific, well-bounded scenarios after sustained, statistically significant success rates against human-verified Golden evaluation data.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's AI Operator currently runs at L2 (human SRE reviews and accepts mitigation suggestions for critical operations) and at L3, where it executes mitigations autonomously for minor incidents.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's AI Operator has run across thousands of incidents, with every execution trace stored in Spanner and evaluated with an LLM-as-a-Judge against Golden Data.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google runs nightly evaluations on its Everest evaluation platform against a rolling dataset of recent real incidents, combining LLM-as-a-Judge raters with strict deterministic scoring.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's Gemini-powered CLI can initiate policy-compliant mitigations such as traffic drains, gated by a central Mitigation Safety Verification Service.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Google's Actuation Agent provides a curated, dynamically filtered registry of mitigation tools (e.g. traffic draining, capacity upsizing) and turns an agent's EvaluateAction request into a concrete, verifiable execution plan.",
+   "url": "https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/"
+  },
+  {
+   "text": "Meta's root-cause system uses a two-stage architecture: heuristic retrieval, code ownership and runtime code graph traversal cut thousands of changes to a few hundred, then an LLM ranker identifies the root cause.",
+   "url": "https://www.augmentcode.com/guides/ai-sre-incident-management"
+  },
+  {
+   "text": "Meta's RCA system measured 42% accuracy at investigation creation time on its web monorepo, and it suppresses low-confidence answers rather than misleading engineers.",
+   "url": "https://www.augmentcode.com/guides/ai-sre-incident-management"
+  },
+  {
+   "text": "Meta's Diff Risk Score uses AI to predict the risk of code changes at the diff/PR stage to inform merge and gating decisions before release.",
+   "url": "https://www.augmentcode.com/guides/ai-sre-incident-management"
+  },
+  {
+   "text": "Google Cloud's Alert Triage Agent (announced at Cloud Next '25) analyzes each alert's context, gathers information and renders a verdict along with a history of its evidence and decisions, enabling audit of the reasoning.",
+   "url": "https://www.augmentcode.com/guides/ai-sre-incident-management"
+  },
+  {
+   "text": "Google's SRE materials describe fetch_playbook as a function call in an internal agentic framework, so the agent retrieves an approved runbook as a tool-style operation rather than running freeform commands.",
+   "url": "https://www.augmentcode.com/guides/ai-sre-incident-management"
+  },
+  {
+   "text": "Cleric uses graduated autonomy by problem type: per-problem-class accuracy scores decide where the agent acts independently and where it escalates to an engineer with a recommendation and evidence.",
+   "url": "https://cleric.ai/resources/reports/the-state-of-ai-sre"
+  },
+  {
+   "text": "Cleric verifies outcomes in a closed loop by triangulating after the fact: whether the alert recurred, whether downstream services stabilized, and whether the engineer overrode the fix.",
+   "url": "https://cleric.ai/resources/reports/the-state-of-ai-sre"
+  },
+  {
+   "text": "Cleric captures decision traces from investigations, corrections and follow-up actions, reinforcing patterns that led to verified outcomes and discarding others.",
+   "url": "https://cleric.ai/resources/reports/the-state-of-ai-sre"
+  },
+  {
+   "text": "Per Cleric's own report, Traversal verification is open-loop (no automated check that the inferred causal chain matched the true root cause), Resolve is designed for autonomous remediation against pre-defined workflows, and Traversal does investigation only with no remediation.",
+   "url": "https://cleric.ai/resources/reports/the-state-of-ai-sre"
+  },
+  {
+   "text": "Cleric is read-only by design and explicitly declines to remediate, reporting about five minutes to root cause on average, so the fix is still executed manually.",
+   "url": "https://usekestrel.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Resolve AI executes fixes without human intervention for well-defined incident patterns under a graduated trust model, using a knowledge graph of code commits, infrastructure topology and incident histories.",
+   "url": "https://www.anyshift.io/blog/top-10-ai-sre-tools-2026-comparison"
+  },
+  {
+   "text": "Resolve.ai's stated goal is to take 80% of incidents to resolution without human intervention, with confidence thresholds, scoped permissions and audit trails as failure-safety design.",
+   "url": "https://wetheflywheel.com/en/comparisons/resolve-ai-alternatives/"
+  },
+  {
+   "text": "Resolve.ai runs a multi-agent architecture that investigates several hypotheses in parallel, with write actions placed behind engineer approval.",
+   "url": "https://usekestrel.ai/blog/best-ai-sre-tools"
+  },
+  {
+   "text": "Traversal builds a Production World Model and a Causal Search Engine that traverses 10+ hops to locate root causes, delivering findings for human action rather than autonomous execution.",
+   "url": "https://vibraniumlabs.ai/blog/top-ai-sre-agents"
+  },
+  {
+   "text": "PagerDuty's Spring 2026 release added an SRE Agent that can be placed on on-call schedules and escalation policies like a human responder, triaging and diagnosing before paging a human.",
+   "url": "https://vibraniumlabs.ai/blog/top-ai-sre-agents"
+  },
+  {
+   "text": "Self-healing systems commonly use a three-tier escalation (auto-heal via restarts/rollbacks, alert-and-propose with human approval, then page on-call), with restart-loop prevention that escalates when a process oscillates faster than the cooldown window.",
+   "url": "https://zylos.ai/zh/research/2026-03-30-ai-ops-diagnostic-agents-conversational-monitoring/"
+  },
+  {
+   "text": "Safe autonomous remediation requires idempotent actions, pre-defined rollback plans, audit logs and human approval for state-mutating writes, with starting points such as restarting a single stateless instance or rolling back a feature flag with health gating.",
+   "url": "https://www.augmentcode.com/tools/platforms-with-ai-root-cause-analysis"
+  }
+ ],
+ "question_id": "Q20"
+}

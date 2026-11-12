@@ -1,0 +1,120 @@
+{
+ "arm_id": "exa.search",
+ "cost": {
+  "basis": "measured",
+  "credits": 0.0,
+  "usd": 0.01
+ },
+ "date": "2026-11-11",
+ "ended_at": "2026-11-11T17:23:02.307342Z",
+ "error_class": null,
+ "http_status": 200,
+ "items": [
+  {
+   "chars_delivered": 4464,
+   "page_chars_delivered": 10190,
+   "post_step": "fetched",
+   "published": "2026-04-10T07:00:00.000Z",
+   "text": "## Design Principles\n\n### Separation of concerns and incentives\n\nEach role has a single goal, and the system is structured so that nothing in an agent's trajectory pulls it away from that goal.\n\n- The orchestrator plans and decomposes an approach to the user's goal, and steers execution to completi…",
+   "title": "How Missions Work | Factory",
+   "url": "https://factory.com/news/missions-architecture"
+  },
+  {
+   "chars_delivered": 1956,
+   "page_chars_delivered": 20000,
+   "post_step": "fetched",
+   "published": "2026-10-29T00:00:00.000Z",
+   "text": "## Programmatic tool calling\n\nIn a standard agent loop, the model calls tools directly and every tool output is appended to its context. Programmatic tool calling (PTC) takes a different approach to long-horizon work: the agent writes a program that invokes the tools.\n\nWith PTC, the agent can reaso…",
+   "title": "Droid 1.0: Building a Frontier Harness | Factory",
+   "url": "https://factory.com/news/frontier-harness"
+  },
+  {
+   "chars_delivered": 245,
+   "page_chars_delivered": 8547,
+   "post_step": "fetched",
+   "published": "2025-02-26T00:00:00.000Z",
+   "text": "each representing a meaningful checkpoint of progress. Every milestone ends with a validation phase: workers review the accumulated work, run tests, ... for regressions, and verify that everything integrates. When validation surfaces issues, the",
+   "title": "Introducing Missions | Factory",
+   "url": "https://factory.com/news/missions"
+  },
+  {
+   "chars_delivered": 1442,
+   "published": "2025-09-25T00:00:00.000Z",
+   "text": "Terminal‑Bench is an open benchmark that measures AI agents' ability to complete complex end‑to‑end tasks in a terminal environment. The Core set (v0.1.1) has 80 human‑verified, Dockerized tasks spanning coding, build/test and dependency management, data and ML workflows, systems and networking, se…",
+   "title": "Droid: The #1 Software Development Agent on Terminal-Bench | Factory",
+   "url": "https://factory.com/news/terminal-bench"
+  },
+  {
+   "chars_delivered": 246,
+   "published": "2025-10-12T12:31:20.000Z",
+   "text": "loop: Spec, Test, Implement, Verify — where the Delegator plans and ... and Droids execute autonomously.\n\nThe Delegator never touches code. It dispatches tasks through this pipeline, monitors results, and closes the loop once verification passes.",
+   "title": "How to make Droids code for hours using Test-Driven Development and smart orchestration in Factory.ai | by Silas Schuettel | Medium",
+   "url": "https://medium.com/@silas_27632/how-to-make-droids-code-for-hours-using-test-driven-development-and-smart-orchestration-in-factory-a-40838d66e048"
+  },
+  {
+   "chars_delivered": 4134,
+   "published": "2026-08-27T07:00:00.000Z",
+   "text": "As a single agent, Droid implemented, checked its own work, and decided for itself when it was done. It wrote 17,000 lines of C++ and reproduced 36 percent of the program's behavior. The code was solid and the common paths worked, but most of the program was still missing. It did not run out of tim…",
+   "title": "What it Takes for Coding Agents to Complete Large Software Tasks | Factory",
+   "url": "https://factory.com/news/what-it-takes-for-coding-agents-to-complete-large-software-tasks"
+  },
+  {
+   "chars_delivered": 204,
+   "published": null,
+   "text": "5.\n- Devin scoring: When Devin stalled asking a question on GPT-6.1 Sol, Factory credited a pass if Codex passed that task. This\n...\n26% less time per passed task than Claude Code and 17% fewer tokens, as",
+   "title": "Droid 1.0 makes programmatic tool calling the default",
+   "url": "https://www.ai-primer.com/engineer/stories/factory-droid-1"
+  },
+  {
+   "chars_delivered": 254,
+   "published": "2025-05-29T18:44:13.000Z",
+   "text": "It's doing a semantic search on part of my query in that code base. And ... droid only has search enabled by default. But you'll note that as the system starts working, it may actually want those additional tools added so that it can they can do its job.",
+   "title": "Factory.ai: The A-SWE Droid Army — Latent Space",
+   "url": "https://latent.space/p/factory/"
+  },
+  {
+   "chars_delivered": 228,
+   "published": "2024-06-18T00:00:00.000Z",
+   "text": "on the first attempt. This benchmark includes 300 problems, focusing on evaluating the AI system’s ability to solve more straightforward software engineering tasks efficiently. The ... 37.67% pass@2 and further improved to 42.67",
+   "title": "Code Droid: A Technical Report | Factory",
+   "url": "https://factory.com/news/code-droid-technical-report"
+  },
+  {
+   "chars_delivered": 252,
+   "published": "2026-10-01T00:00:00.000Z",
+   "text": "to-head that included Devin. Droid scored higher with both models tested. With Claude Opus ... .5, Droid passed 65.2% of tasks to ... s 59.6%, at 24% lower cost and 16% less time per passed task\n...\nThe engineer and Droid agree on a plan, split it into",
+   "title": "Factory vs Devin: Droid workflows, privacy, and deployment",
+   "url": "https://factory.com/articles/droid-vs-devin-enterprise-workflows"
+  }
+ ],
+ "latency_ms": 3892.2,
+ "notices": null,
+ "profile_sha256": "517d698c1a4a1865c8a65382bf33761e9282d5f81c27af91b646e59641534a52",
+ "question_id": "Q02",
+ "request": {
+  "body": {
+   "contents": {
+    "highlights": {
+     "dynamic": true
+    }
+   },
+   "numResults": 10,
+   "query": "What is the architecture of Factory.ai's Droids: execution environment, context and memory, how tasks are delegated, and how output is verified? What do engineering write-ups or benchmarks say about results?",
+   "type": "auto"
+  },
+  "headers": {
+   "Exa-Beta": "dynamic-highlights-2026-08-28",
+   "x-api-key": "<EXA_API_KEY>"
+  },
+  "method": "POST",
+  "url": "https://api.exa.ai/search"
+ },
+ "response": {
+  "chars": 17460,
+  "local_only": true
+ },
+ "started_at": "2026-11-11T17:22:58.415060Z",
+ "status": "ok",
+ "stopped_at_timeout": false,
+ "version": "insight-run-v2"
+}

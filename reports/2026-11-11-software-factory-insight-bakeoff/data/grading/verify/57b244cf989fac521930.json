@@ -1,0 +1,11 @@
+{
+ "capture": "captured",
+ "digest": "f7699def1b3e9ac0",
+ "url": "https://www.inngest.com/docs/durable-execution/durable-agents",
+ "verdicts": {
+  "In Inngest durable agents, an event, schedule, or API call starts a run of the agent function, and each model call runs in step.run().": 1,
+  "Inngest durable agents resume without redoing model or tool calls, and the agent's shape (iteration count, tools, order) is decided at runtime by the model, so Inngest does not need the shape up front.": 1,
+  "Inngest's `step.waitForEvent()` pauses an agent until a matching event arrives or a timeout passes, used for actions needing human approval.": 1,
+  "On Inngest, an agent is a loop of model calls and tool calls where each call runs in its own `step.run()`; a successful step's result is saved as a checkpoint, and completed steps return saved results instead of re-running when a step fails and is retried.": 1
+ }
+}
