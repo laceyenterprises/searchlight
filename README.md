@@ -5,15 +5,21 @@
   <img src="docs/readme/hero-light.svg" alt="Searchlight. Does web search make AI agents better at real work? When the job is about something recent, search decides it: with no search the agents failed every brief; with any provider they passed most. searchlightai.dev">
 </picture>
 
-**An open benchmark of what web search does for AI coding agents.** Searchlight gives real agent harnesses real
-jobs and changes only the search: one vendor's search server, the harness's own built-in search, or none. It grades
-the finished job, not the search results, and records every tool call, so you can see *how* the agent used what it
-was given. The published results cover Claude Code and codex; Hermes Agent, Opencode and Pi run on
+**An open benchmark of what web search does for AI coding agents.** Searchlight gives real coding agents real jobs
+and changes only the search: one vendor's search server, the agent's own built-in search, or none. It grades the
+finished job, not the search results, and records every tool call, so you can see *how* the agent used what it was
+given. The published results cover Claude Code and Codex; Hermes Agent, Opencode and Pi run on
 [OSS models](#oss-models) behind a LiteLLM proxy.
 
 **[searchlightai.dev](https://searchlightai.dev)** · [Results](https://searchlightai.dev/results.html) ·
 [Methodology](https://searchlightai.dev/methodology.html) · [Reports](reports/README.md) ·
 [`leaderboard.json`](site/leaderboard.json)
+
+**Contents:** [60 seconds](#searchlight-in-60-seconds) · [Results](#results-so-far) ·
+[What it measures](#what-searchlight-measures) · [How a run works](#how-a-run-works) ·
+[Limitations](#fairness-and-known-limitations) · [Quickstart](#quickstart) · [OSS models](#oss-models) ·
+[Reproducing](#reproducing-the-published-results) · [For vendors](#for-vendors-corrections-and-re-runs) ·
+[Internals](#internals)
 
 ## Searchlight in 60 seconds
 
@@ -34,45 +40,41 @@ Past the training cutoff, search decides the outcome; among the providers, the t
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/results-tall-dark.svg">
   <source media="(max-width: 600px)" srcset="docs/readme/results-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/results-dark.svg">
-  <img src="docs/readme/results-light.svg" alt="Ranked pass rates with their 95% ranges: the top four search setups on the search gap bench for Claude Code and for Codex, and on the web search bakeoff with answering from memory as the control. On every board the leader's range overlaps the others', so the test cannot separate them.">
+  <img src="docs/readme/results-light.svg" alt="Search gap bench, Claude Code (claude-opus-5-5 · 21 runs per setup · 2026-10-03): Parallel 95% (95% range 77–99%, 20 of 21); Firecrawl 90% (95% range 71–97%, 19 of 21); Brave 81% (95% range 60–92%, 17 of 21); Built-in 76% (95% range 55–89%, 16 of 21); No search 0% (95% range 0–15%, 0 of 21). Parallel passed most often: 20 of 21 runs. Every other setup&#x27;s range overlaps the leader&#x27;s, so the test cannot separate them. Run again on 2026-10-06 on the same 7 tasks, Parallel went from 20/21 to 16/21 (Fisher exact, p = 0.18). Search gap bench, Codex (gpt-6.1-sol · 18 runs per setup · 2026-10-03): Brave 94% (95% range 74–99%, 17 of 18); Firecrawl 89% (95% range 67–97%, 16 of 18); Tavily 89% (95% range 67–97%, 16 of 18); Built-in 78% (95% range 55–91%, 14 of 18); No search 0% (95% range 0–18%, 0 of 18). Brave passed most often: 17 of 18 runs. Every other setup&#x27;s range overlaps the leader&#x27;s, so the test cannot separate them. Web search bakeoff, Claude Code (42 runs per setup · 2026-09-29): Firecrawl 90% (95% range 78–96%, 38 of 42); Perplexity 88% (95% range 75–95%, 37 of 42); Tavily 86% (95% range 72–93%, 36 of 42); Built-in 83% (95% range 69–92%, 35 of 42); No search 76% (95% range 61–87%, 32 of 42). Answering from memory passed 76%; the best search setup, Firecrawl, reached 90%: the two ranges overlap, so the test cannot separate them.">
 </picture>
 
-- **Small samples.** Each setup ran 18 to 21 times per agent on the gap bench and 42 times on the bakeoff, so the
-  ranges are wide and overlap almost everywhere: one place higher is not proof of better.
-- **Rerun.** In the first runs Claude Code's built-in search could not open pages; the built-in rows are the
-  2026-10-06 rerun with that fixed, and the original rows stay in the reports.
-- **One interface per vendor.** Every vendor ran through its own MCP server at a pinned version with default
-  settings. The separate [search API head-to-head](reports/2026-09-26-search-api-head-to-head/REPORT.md) called four
-  vendors' APIs directly with tuned parameters, ran each question once, and was run for a knowledge base about Exa,
-  one of the four.
-- **The agent matters.** Rankings changed between the two agents.
-
-Read [Fairness and known limitations](#fairness-and-known-limitations) before quoting a position. The
-[one-page infographic](site/infographic.svg) has every finding with its evidence.
+Each setup ran 18 to 42 times, so its range is wide: read [Fairness and known limitations](#fairness-and-known-limitations)
+before quoting a position. The [one-page infographic](site/infographic.svg) has every finding with its evidence.
 
 ## What Searchlight measures
 
-| Benchmark | Question it answers | Unit of work | Graded on |
-|---|---|---|---|
-| **WSB** (web search bakeoff) | Does an arm help an agent answer research questions correctly? | 18 production tasks, 3 repetitions | deterministic validators or a blinded rubric judge |
-| **GAP** (search gap bench) | Does search change the outcome of a job whose answer post-dates the model? | calibrated briefs (and code tasks) | the finished deliverable, judged against captured primary sources |
-| **DSB** (domain strength bench) | Which retrieval surface is strong in which domain? | recorded domain observations | per-domain scorecards |
-| **INS** ([insight bench](docs/insight-bench/README.md)) | Which search or research API finds the most verified insight no other API finds? | a versioned question set, every arm the same day, frozen request profiles | claims verified on their own cited page, valued blind, unique insight per arm |
-| **Behavior analysis** | How did the agent actually use its tool? | every logged tool call | query style, search versus fetch, primary-source retrieval |
+- **Web search bakeoff (WSB).** Does a search setup help an agent answer research questions correctly? 18 production
+  tasks, 3 repetitions each, graded by deterministic validators or a blinded rubric judge.
+- **Search gap bench (GAP).** Does search change the outcome of a job whose answer post-dates the model? Calibrated
+  briefs (and code tasks), graded on the finished deliverable against captured primary sources.
+- **Domain strength bench (DSB).** Which retrieval surface is strong in which domain? Recorded domain observations,
+  scored per domain.
+- **Insight bench (INS, [docs](docs/insight-bench/README.md)).** Which search or research API finds the most verified
+  insight no other API finds? A versioned question set, every service the same day with a frozen request profile;
+  claims verified on their own cited page and valued blind.
+- **Behavior analysis.** How did the agent actually use its tool? Every logged tool call: query style, search versus
+  fetch, primary-source retrieval.
 
-Each run gives the agent exactly one search setup; the model, prompt, budgets and workspace stay the same.
+Each run gives the agent exactly one search setup; the model, prompt, budgets and workspace stay the same. In the
+code, reports and CLI a search setup is an *arm*, one task × setup × repetition is a *cell*, and an agent is a
+*harness*.
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/setups-tall-dark.svg">
   <source media="(max-width: 600px)" srcset="docs/readme/setups-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/setups-dark.svg">
-  <img src="docs/readme/setups-light.svg" alt="The same agent and prompt in every run (Claude Code or codex, or Hermes Agent, Opencode or Pi on an OSS model). Only the search setup changes, exactly one per run: no search, the built-in search, or the Brave, Tavily, Exa, Parallel, Firecrawl or Perplexity MCP server. The search gap bench adds two reference setups per task: the floor, no search, and the ceiling, the answer excerpt in the prompt.">
+  <img src="docs/readme/setups-light.svg" alt="The same agent and prompt in every run (Claude Code or Codex, or Hermes Agent, Opencode or Pi on an OSS model). Only the search setup changes, exactly one per run: no search, the built-in search, or the Brave, Tavily, Exa, Parallel, Firecrawl or Perplexity MCP server. The search gap bench adds two reference setups per task: the floor, no search, and the ceiling, the answer excerpt in the prompt.">
 </picture>
 
 ## How a run works
 
-One test run is one task, one search setup and one repetition, in a fresh workspace. Every tool call is recorded,
-and the grader never learns the setup.
+One run is one task, one search setup and one repetition, in a fresh workspace. Every tool call is recorded, and the
+grader never learns the setup.
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-pipeline-tall-dark.svg">
@@ -81,59 +83,20 @@ and the grader never learns the setup.
   <img src="docs/readme/diagram-pipeline-light.svg" alt="From task to report: production tasks and gap briefs go into a fresh scratch workspace; the agent's tool calls pass through a metering proxy to the pinned search provider MCP server; the evidence bundle goes to deterministic validators and blinded judges; their results become reports/*/summary.json, which builds the site.">
 </picture>
 
-OSS models reach the harness through an opt-in LiteLLM proxy; see [OSS models](#oss-models).
+Inside a run, the runner writes the setup's contract and starts the agent with only that setup's tools. Each search
+or fetch passes through the metering proxy unchanged, and is recorded with its latency and size. When the agent
+answers, an audit checks every tool call against the contract, and the grader gets the answer without the setup's
+name. OSS models reach the agent through an opt-in LiteLLM proxy; see [OSS models](#oss-models).
 
-Harness metadata lives in [`sew.harnesses`](lib/python/sew/harnesses/registry.py).
-Each `HarnessSpec` defines the harness's binary, protocol, arm spawn writer and
-capabilities. To add a harness, define its spec in a harness module and register
-it in [`sew.harnesses.__init__`](lib/python/sew/harnesses/__init__.py). Schema
-validation, live CLI choices, binary checks and spawn dispatch read live registry
-views, so registrations made after import are visible to those consumers.
-Protocol, spawn writer and usage parser references can use `module:attribute`
-strings, resolved lazily to avoid import cycles. Judges remain explicitly pinned
-to the hosted harnesses they support.
+### What each setup can touch
 
-Protocols default to stdin prompts. A protocol that carries its prompt in argv
-must set `takes_prompt_in_argv = True` and implement `prompt_argv`; GAP uses this
-explicit capability to substitute the canary prompt while retaining qualified
-launch arguments for stdin protocols.
-
-### Anatomy of one cell
-
-```mermaid
-sequenceDiagram
-  autonumber
-  participant R as Runner
-  participant H as Harness (Claude Code, codex, Hermes Agent, Opencode or Pi)
-  participant M as Metering proxy
-  participant V as Vendor MCP server
-  participant A as Arm audit
-  participant G as Grader
-  R->>R: create scratch workspace, write arm contract
-  R->>H: spawn with only the arm's tools (strict MCP config)
-  loop until final answer or budget
-    H->>M: tool call (search / fetch)
-    M->>V: forward unchanged
-    V-->>M: result
-    M-->>H: result (call recorded with latency and size)
-  end
-  H-->>R: final answer + transcript
-  R->>A: every observed tool call vs the arm contract
-  A-->>R: clean, or contaminated (counted as failed, never scored)
-  R->>G: answer only, arm identity withheld
-  G-->>R: pass or fail with per-criterion evidence
-```
-
-### What each arm can touch
-
-Arms differ only in their retrieval surface. Everything else (model, prompt, budgets,
-workspace) is identical.
+Setups differ only in their retrieval surface. Everything else (model, prompt, budgets, workspace) is identical.
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-isolation-tall-dark.svg">
   <source media="(max-width: 600px)" srcset="docs/readme/diagram-isolation-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/diagram-isolation-dark.svg">
-  <img src="docs/readme/diagram-isolation-light.svg" alt="What each setup can touch. A search setup contract configures each spawn. Claude Code runs with a strict MCP config and only the setup's tools; codex runs read-only with shell, browser, apps and plugins disabled. Provider setups get one provider MCP server (Claude Code adds ToolSearch and Read); built-in setups get the agent's own search; no search, floor and ceiling get no tools. A setup audit checks every observed tool call against the contract.">
+  <img src="docs/readme/diagram-isolation-light.svg" alt="What each setup can touch. A search setup contract configures each spawn. Claude Code runs with a strict MCP config and only the setup's tools; Codex runs read-only with shell, browser, apps and plugins disabled. Provider setups get one provider MCP server (Claude Code adds ToolSearch and Read); built-in setups get the agent's own search; no search, floor and ceiling get no tools. A setup audit checks every observed tool call against the contract.">
 </picture>
 
 <details>
@@ -162,51 +125,42 @@ workspace) is identical.
 
 </details>
 
-The OSS harnesses get the same contract, built from their own configuration in a fresh
-per-cell home. Each runs only an explicit `litellm/<route>` model; see [OSS models](#oss-models).
+The OSS agents get the same contract, built from their own configuration in a fresh home for each run. Each runs
+only an explicit `litellm/<route>` model; see [OSS models](#oss-models).
 
-| Harness | Provider arm | Native arm | no-search, floor, ceiling |
-|---|---|---|---|
-| Hermes Agent | one `mcp-<server>` toolset; built-in web, shell and other toolsets disabled | not applicable (no isolated native search) | nothing |
-| Opencode | one local MCP server; built-in web, shell, filesystem and delegation tools denied | client-side `websearch` and `webfetch`; shell denied | nothing |
-| Pi | one MCP server through Searchlight's stdio bridge; built-in tools, extensions and skills off | not applicable (Pi has no web tools) | nothing |
+- **Hermes Agent.** Provider setup: one `mcp-<server>` toolset, with built-in web, shell and other toolsets disabled.
+  Built-in search: not applicable (no isolated native search). No search, floor and ceiling: nothing.
+- **Opencode.** Provider setup: one local MCP server, with built-in web, shell, filesystem and delegation tools
+  denied. Built-in search: client-side `websearch` and `webfetch`, shell denied. No search, floor and ceiling: nothing.
+- **Pi.** Provider setup: one MCP server through Searchlight's stdio bridge, with built-in tools, extensions and
+  skills off. Built-in search: not applicable (Pi has no web tools). No search, floor and ceiling: nothing.
 
-A not-applicable cell is recorded as such without launching the harness.
+A not-applicable run is recorded as such without launching the agent.
 
-After every cell an **arm audit** compares each observed tool call with the arm contract.
-A call outside the contract (for example, a provider arm reaching native search) marks the
-cell contaminated. A contaminated cell counts as a failure and is never scored as a pass.
+After every run an **audit** compares each observed tool call with the setup's contract. A call outside it (for
+example, a provider setup reaching built-in search) marks the run contaminated. A contaminated run counts as a
+failure and is never scored as a pass.
 
 ### Code tasks run inside an egress sandbox
 
-GAP code tasks give the agent a real repository, a shell and an offline wheel cache. The
-agent must not download the fixed package version, or read it from the verifier's copy.
+GAP code tasks give the agent a real repository, a shell and an offline wheel cache. The agent must not download the
+fixed package version, or read it from the verifier's copy.
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ host                                                                         │
-│  ┌─────────────────────────────────────────────────────────────────────────┐ │
-│  │ egress sandbox: Seatbelt (macOS) or bubblewrap (Linux)                  │ │
-│  │   network: deny all  ·  canary probes must be refused before the cell   │ │
-│  │  ┌───────────────────────────────────────────────────────────────────┐  │ │
-│  │  │ agent workspace: repo + old/dependency wheels only (no fixed one) │  │ │
-│  │  │   pip forced offline; package commands audited                    │  │ │
-│  │  └───────────────────────────────────────────────────────────────────┘  │ │
-│  │   verifier cache (old + new wheels): read-denied to the agent           │ │
-│  └─────────────────────────────────────────────────────────────────────────┘ │
-│  search arm traffic leaves only through the arm's MCP server                 │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+- **Host.** Search traffic leaves only through the setup's MCP server.
+  - **Egress sandbox:** Seatbelt on macOS, bubblewrap on Linux. Network denied; canary probes must be refused before
+    the run starts.
+    - **Agent workspace:** the repository and the old and dependency wheels only, never the fixed one. pip is forced
+      offline, and package commands are audited.
+    - **Verifier cache** (old and new wheels): read-denied to the agent.
 
-Cells whose isolation cannot be established are refused, not run. See
-[RUNBOOK-gap.md](RUNBOOK-gap.md) for the full isolation contract.
+Runs whose isolation cannot be established are refused, not run. See [RUNBOOK-gap.md](RUNBOOK-gap.md) for the full
+isolation contract.
 
 ## GAP: calibration and gap closure
 
-A GAP task counts only if it is out of the model's reach without search, and within reach
-when the answer is handed over. Calibration is repeated for each harness and model.
-Calibration defers temporarily unavailable cells and stops resumably on a provider
-wall; see [Validate and calibrate](RUNBOOK-gap.md#validate-and-calibrate) for recovery.
+A GAP task counts only if it is out of the model's reach without search, and within reach when the answer is handed
+over. Calibration is repeated for each agent and model. It defers temporarily unavailable runs and stops resumably on
+a provider wall; see [Validate and calibrate](RUNBOOK-gap.md#validate-and-calibrate) for recovery.
 
 <picture>
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-calibration-tall-dark.svg">
@@ -215,14 +169,7 @@ wall; see [Validate and calibrate](RUNBOOK-gap.md#validate-and-calibrate) for re
   <img src="docs/readme/diagram-calibration-light.svg" alt="Which tasks count: a candidate brief about an event after 2026-01-01 runs five times with no search (the floor) and five times with the answer excerpt in the prompt (the ceiling). It is admitted for this agent and model only if the floor passes at most once and the ceiling at least four times; otherwise it is rejected. Admitted tasks run in the battery, every search setup three times, and give each setup's gap closure.">
 </picture>
 
-```
-gap closure  =  (arm pass rate − floor pass rate) / (ceiling pass rate − floor pass rate)
-
-   floor                         arm                              ceiling
-   0%  ●────────────────────────────●──────────────────────────────●  95%
-       └─────────── closed ─────────┘└────────── remaining ────────┘
-   1.00 = the arm did as well as handing the agent the answer. It can exceed 1.
-```
+Gap closure of 1.00 means the setup did as well as handing the agent the answer; it can exceed 1.
 
 ## Grading
 
@@ -232,27 +179,27 @@ Two judges see the same inputs; neither is told the search setup.
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-grading-tall-dark.svg">
   <source media="(max-width: 600px)" srcset="docs/readme/diagram-grading-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/diagram-grading-dark.svg">
-  <img src="docs/readme/diagram-grading-light.svg" alt="How answers are graded: the agent's JSON answer goes to a schema validator, which rejects malformed answers; its cited URLs go to source capture; the readable source text and rubric, blinded to the search setup, go to judge 1 (Claude Code) and the same inputs to judge 2 (codex, gap bench). Judge 1 returns key-fact recall, unsupported claims and the decision; judge 2 returns independent labels, and their agreement is recorded. A brief passes with the right decision, recall of at least 0.7 and unsupported claims of at most 0.25.">
+  <img src="docs/readme/diagram-grading-light.svg" alt="How answers are graded: the agent's JSON answer goes to a schema validator, which rejects malformed answers; its cited URLs go to source capture; the readable source text and rubric, blinded to the search setup, go to judge 1 (Claude Code) and the same inputs to judge 2 (Codex, gap bench). Judge 1 returns key-fact recall, unsupported claims and the decision; judge 2 returns independent labels, and their agreement is recorded. A brief passes with the right decision, recall of at least 0.7 and unsupported claims of at most 0.25.">
 </picture>
 
-- **WSB** uses deterministic validators where a task has one. Otherwise a single blinded
-  Claude Code judge scores the task rubric.
+- **WSB** uses deterministic validators where a task has one. Otherwise a single blinded Claude Code judge scores the
+  task rubric.
 - **Statistics:**
   - Pass rates carry Wilson 95% intervals.
-  - GAP compares each arm with the floor by an exact McNemar test (paired by task and repetition).
+  - GAP compares each setup with the floor by an exact McNemar test (paired by task and repetition).
   - GAP gap-closure intervals use a seeded paired task bootstrap.
-- **GAP tokens per success** counts every agent token in an arm, failed cells included, divided by
-  the number of passing cells. **WSB tokens per success** uses measured tokens from graded cells
-  divided by measured successes; ungraded and unmeasured cells are excluded, and per-arm
-  coverage counts were not retained.
+- **GAP tokens per success** counts every agent token in a setup, failed runs included, divided by the number of
+  passing runs. **WSB tokens per success** uses measured tokens from graded runs divided by measured successes;
+  ungraded and unmeasured runs are excluded, and per-setup coverage counts were not retained.
 
 ## Measuring how agents search
 
+Every tool call is logged, so the transcripts show how each agent searched, not only whether it passed.
 `scripts/analyze_search_behavior.py` reads stored transcripts. It makes no network or model calls.
-It reads each harness's own event stream: Claude Code and codex, Opencode `tool_use` events,
-Hermes Agent tool calls and Pi tool results. Harnesses prefix a vendor's tool with its server
+It reads each agent's own event stream: Claude Code and Codex, Opencode `tool_use` events,
+Hermes Agent tool calls and Pi tool results. Agents prefix a vendor's tool with its server
 name in different ways (`mcp__exa__web_search_exa`, `mcp_exa_web_search_exa`,
-`exa_web_search_exa`); the analyzer drops the prefix, so every harness's call counts as
+`exa_web_search_exa`); the analyzer drops the prefix, so every agent's call counts as
 the vendor's `web_search_exa`. Opencode's native `websearch` and `webfetch` count as search and fetch.
 Failed Pi calls and calls interrupted before their results arrive still count as calls
 and contribute their queries. They provide no returned evidence: source coverage stays
@@ -290,45 +237,42 @@ record, code and data.
 
 ## Fairness and known limitations
 
-Engineers from every tested service will read this, so the limitations come first.
+Engineers from every tested service will read this. These are the limits to keep in mind before quoting any position.
 
 - **Small samples.**
-  - Each arm ran 18 to 21 cells per harness on GAP and 42 on the WSB competitive set.
+  - Each setup ran 18 to 21 times per agent on GAP and 42 times on the WSB competitive set.
   - Adjacent positions are not rankings.
-  - No WSB arm differs from answering without search at 95% confidence.
-- **One interface per vendor.** Each vendor ran through its own MCP server at the version
-  pinned in [`config/provider-arm-tools.yaml`](config/provider-arm-tools.yaml), with default
-  settings. Every tool the server advertised was available. In the agent benchmarks, direct
-  APIs, other modes, and vendor features the MCP server does not expose were not tested. For
-  example, Exa's advanced search tool was not enabled, and Parallel's hosted server ran without a
-  pinned mode. The [search API head-to-head](reports/2026-09-26-search-api-head-to-head/REPORT.md)
-  tested the APIs directly, with no agent; its results do not transfer to agents, or back.
-- **The agent matters.** Parallel led on Claude Code and tied for last on codex. A provider's
-  position on one harness does not transfer to another.
-- **Native-arm defect (corrected).**
-  - Claude Code's native arm exposed WebFetch but pre-approved only WebSearch.
-  - Headless Claude Code refused those WebFetch calls: in every GAP native cell and in 40 of 54
-    WSB native cells.
-  - Its native rows understate Claude Code's own web tools, and are flagged everywhere they appear.
-  - The arm configuration is fixed and pinned by a test.
-- **Agents fetch from memory.** On WSB's documented-knowledge tasks, Claude Code often
-  fetched remembered URLs without searching. Arms with a fetch tool therefore measured fetching
-  as much as search.
+  - No WSB setup differs from answering without search at 95% confidence.
+- **One interface per vendor.** Each vendor ran through its own MCP server at the version pinned in
+  [`config/provider-arm-tools.yaml`](config/provider-arm-tools.yaml), with default settings. Every tool the server
+  advertised was available. In the agent benchmarks, direct APIs, other modes, and vendor features the MCP server does
+  not expose were not tested. For example, Exa's advanced search tool was not enabled, and Parallel's hosted server ran
+  without a pinned mode. The [search API head-to-head](reports/2026-09-26-search-api-head-to-head/REPORT.md) tested the
+  APIs directly, with no agent, ran each question once, and was run for a knowledge base about Exa, one of the four;
+  its results do not transfer to agents, or back.
+- **The agent matters.** Parallel led on Claude Code and tied for last on Codex. A provider's position on one agent
+  does not transfer to another, and Parallel's lead on Claude Code did not repeat when the battery ran again.
+- **Built-in search defect (corrected).**
+  - Claude Code's built-in setup exposed WebFetch but pre-approved only WebSearch.
+  - Headless Claude Code refused those WebFetch calls: in every GAP built-in run and in 40 of 54 WSB built-in runs.
+  - The built-in rows shown are the 2026-10-06 rerun with that fixed; the original rows stay in the reports, flagged.
+  - The setup's configuration is fixed and pinned by a test.
+- **Agents fetch from memory.** On WSB's documented-knowledge tasks, Claude Code often fetched remembered URLs without
+  searching. Setups with a fetch tool therefore measured fetching as much as search.
 - **Cost.**
-  - GAP tokens per success counts all agent tokens, failed cells included. WSB excludes
-    ungraded and unmeasured cells; its per-arm coverage counts were not retained.
+  - GAP tokens per success counts all agent tokens, failed runs included. WSB excludes ungraded and unmeasured runs;
+    its per-setup coverage counts were not retained.
   - Vendor dollar spend was metered only on WSB, and only where a tariff or reported spend existed.
   - GAP batteries ran with vendor metering off.
-  - Dollar comparisons are therefore not published in the leaderboard. Pricing coverage per
-    vendor is reported separately.
-- **Grading.** Judges are models: Claude Code on both benchmarks, plus codex as a second judge
-  on GAP. They see sources and rubrics, never the arm.
+  - Dollar comparisons are therefore not published in the leaderboard. Pricing coverage per vendor is reported
+    separately.
+- **Grading.** Judges are models: Claude Code on both benchmarks, plus Codex as a second judge on GAP. They see
+  sources and rubrics, never the setup.
 - **Task mix.**
-  - GAP admitted 7 brief tasks for Claude Code and 6 for codex, so cross-harness comparisons
-    mix agent and task effects.
+  - GAP admitted 7 brief tasks for Claude Code and 6 for Codex, so cross-agent comparisons mix agent and task effects.
   - WSB is mostly stable, documented knowledge, where search adds least.
-- **Corrections are published beside the original numbers, never silently replaced.** If you
-  maintain a tested service and see something wrong, see [For vendors](#for-vendors-corrections-and-re-runs).
+- **Corrections are published beside the original numbers, never silently replaced.** If you maintain a tested
+  service and see something wrong, see [For vendors](#for-vendors-corrections-and-re-runs).
 
 ### Provider configurations used
 
@@ -352,15 +296,11 @@ sew doctor          # mode, state root, key presence, harness logins, sandbox qu
 
 `searchlight` and `sew` are the same command.
 
-```
- ┌──────────────── standalone (default) ────────────────┐   ┌─────── agent-os (optional) ──────┐
- │ provider keys:  SEW_<VENDOR>_API_KEY or a local .env │   │ keys via a host secrets service  │
- │ harness auth:   your own `claude` / `codex` login    │   │ harness auth via a token broker  │
- │ OSS models:     a LiteLLM proxy you run              │   │ LiteLLM key via host secrets     │
- │ state:          ~/.local/share/sew                   │   │ installs with the [agent-os]     │
- │ selected by:    SEW_MODE=standalone or auto          │   │ extra; never required            │
- └──────────────────────────────────────────────────────┘   └──────────────────────────────────┘
-```
+- **Standalone (the default):** provider keys from `SEW_<VENDOR>_API_KEY` or a local `.env`; your own `claude` /
+  `codex` login; a LiteLLM proxy you run, for OSS models; state in `~/.local/share/sew`. Selected by
+  `SEW_MODE=standalone` or `auto`.
+- **agent-os (optional):** keys from a host secrets service, agent logins from a token broker and the LiteLLM key from
+  host secrets. It installs with the `[agent-os]` extra and is never required.
 
 Provider keys come from environment variables: `SEW_EXA_API_KEY`, `SEW_PARALLEL_WEB_API_KEY`,
 `SEW_FIRECRAWL_API_KEY`, `SEW_BRAVE_API_KEY`, `SEW_BRAVE_ANSWERS_API_KEY`, `SEW_TAVILY_API_KEY`
@@ -425,13 +365,16 @@ flowchart LR
 
 ### Harnesses
 
-| Harness | id | Minimum version | Binary override | Models | Native arm | GAP |
-|---|---|---|---|---|---|---|
-| Claude Code | `claude-code` | | `SEW_CLAUDE_CODE_BIN` | its own, or a `litellm/<route>` | WebSearch + WebFetch; not applicable on an OSS model | yes |
-| codex | `codex` | | `SEW_CODEX_BIN` | its own, or a `litellm/<route>` | `--search`; not applicable on an OSS model | yes |
-| Hermes Agent | `hermes` | 0.16.0 | `SEW_HERMES_BIN` | a `litellm/<route>` only | not applicable | not yet |
-| Opencode | `opencode` | 1.17.3 | `SEW_OPENCODE_BIN` | a `litellm/<route>` only | `websearch` + `webfetch` | not yet |
-| Pi | `pi` | 0.79.8 (and Node.js) | `SEW_PI_BIN` | a `litellm/<route>` only | not applicable | not yet |
+- **Claude Code** (`claude-code`, binary override `SEW_CLAUDE_CODE_BIN`): its own models or a `litellm/<route>`.
+  Built-in search: WebSearch + WebFetch, not applicable on an OSS model. GAP: yes.
+- **Codex** (`codex`, `SEW_CODEX_BIN`): its own models or a `litellm/<route>`. Built-in search: `--search`, not
+  applicable on an OSS model. GAP: yes.
+- **Hermes Agent** (`hermes` 0.16.0 or newer, `SEW_HERMES_BIN`): a `litellm/<route>` only. Built-in search: not
+  applicable. GAP: not yet.
+- **Opencode** (`opencode` 1.17.3 or newer, `SEW_OPENCODE_BIN`): a `litellm/<route>` only. Built-in search:
+  `websearch` + `webfetch`. GAP: not yet.
+- **Pi** (`pi` 0.79.8 or newer, with Node.js; `SEW_PI_BIN`): a `litellm/<route>` only. Built-in search: not
+  applicable. GAP: not yet.
 
 `sew doctor` checks each OSS harness's version with `--version`, without a model call.
 GAP calibration and batteries accept `claude-code` and `codex`; code cells on the OSS
@@ -674,6 +617,25 @@ Open an issue with the configuration you recommend (server version, tools, setti
 grading decision you dispute, and include a cell from the published tables. Corrections
 are re-run and published as new, dated reports. Earlier numbers stay visible, with a note
 pointing to the correction.
+
+## Internals
+
+### Harness registry
+
+Harness metadata lives in [`sew.harnesses`](lib/python/sew/harnesses/registry.py).
+Each `HarnessSpec` defines the harness's binary, protocol, arm spawn writer and
+capabilities. To add a harness, define its spec in a harness module and register
+it in [`sew.harnesses.__init__`](lib/python/sew/harnesses/__init__.py). Schema
+validation, live CLI choices, binary checks and spawn dispatch read live registry
+views, so registrations made after import are visible to those consumers.
+Protocol, spawn writer and usage parser references can use `module:attribute`
+strings, resolved lazily to avoid import cycles. Judges remain explicitly pinned
+to the hosted harnesses they support.
+
+Protocols default to stdin prompts. A protocol that carries its prompt in argv
+must set `takes_prompt_in_argv = True` and implement `prompt_argv`; GAP uses this
+explicit capability to substitute the canary prompt while retaining qualified
+launch arguments for stdin protocols.
 
 ## Repository layout
 

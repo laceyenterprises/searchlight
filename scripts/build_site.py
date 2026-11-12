@@ -664,19 +664,21 @@ def main(argv=None) -> int:
         print(f'Preview written: {out}')
         return 0
     site = ROOT / 'site'
-    art = ROOT / readme.OUT
     files = {f'site/{name}': content for name, content in build().items()}
-    files.update({f'{readme.OUT}/{name}': content for name, content in readme_art().items()})
+    art = readme_art()
+    files.update({f'{readme.OUT}/{name}': content for name, content in art.items()})
+    files.update(readme.alt_texts(art))  # the charts' alt text in the READMEs, with their generated numbers
     # Report and study pages come and go with their report directories; README images with what they draw.
     orphans = sorted(p.relative_to(ROOT).as_posix() for folder, patterns in
-                     ((site, ('report-*.html', 'study-*.html')), (art, ('*.svg',)))
+                     ((site, ('report-*.html', 'study-*.html')), (ROOT / readme.OUT, ('*.svg',)))
                      for pattern in patterns for p in folder.glob(pattern)
                      if p.relative_to(ROOT).as_posix() not in files)
     if args.check:
         stale = [name for name, content in files.items()
                  if not (ROOT / name).is_file() or (ROOT / name).read_text(encoding='utf-8') != content] + orphans
         if stale:
-            print('site/ or docs/readme/ is stale; run python3 scripts/build_site.py: ' + ', '.join(stale),
+            print('site/, docs/readme/ or a README chart alt is stale; run python3 scripts/build_site.py: '
+                  + ', '.join(stale),
                   file=sys.stderr)
             return 1
         problem = card_problem(site, files['site/social-card.html'])
@@ -685,7 +687,7 @@ def main(argv=None) -> int:
             return 1
         print(f'Site and README art are current: {len(files)} files')
         return 0
-    for folder in (site, art):
+    for folder in (site, ROOT / readme.OUT):
         folder.mkdir(parents=True, exist_ok=True)
     for name in orphans:
         (ROOT / name).unlink()

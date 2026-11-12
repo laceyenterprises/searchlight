@@ -2,8 +2,8 @@
 
 **Which search or research API finds the most verified insight that no other API finds?**
 
-INS poses one versioned question set to every arm on the same day, with each vendor's request
-frozen in a profile. It turns what each arm returns into atomic claims, pools and clusters the
+INS poses one versioned question set to every arm (one service, with its request frozen in a profile) on the
+same day. It turns what each arm returns into atomic claims, pools and clusters the
 claims per question, and checks every claim on the page that claim cites. It then values the
 verified clusters blind. An arm is credited only for claims its own source supports. The headline
 is **unique verified insight**: what you lose if you drop that arm.
@@ -29,20 +29,8 @@ overlap, the test cannot separate them. Every study is in the [reports index](..
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="../readme/study-tall-dark.svg">
   <source media="(max-width: 600px)" srcset="../readme/study-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="../readme/study-dark.svg">
-  <img src="../readme/study-light.svg" alt="The newest insight study's top five services by useful findings per question, each with its 95% range, and the number of questions it ran; the leader's range overlaps most of the others', so there is no clear winner.">
+  <img src="../readme/study-light.svg" alt="Useful findings per question (Leading software factories and agent-platform architectures · 13 services · 24 questions · 2026-11-11): exa.research 26.9 (95% range 10.3–43.7, 9 questions); exa.search 26.2 (95% range 18.0–34.5, 24 questions); perplexity.research 24.7 (95% range 15.1–32.6, 9 questions); firecrawl.research 23.8 (95% range 9.0–38.1, 9 questions); parallel.search 22.9 (95% range 16.3–29.0, 24 questions). No clear winner: exa.research found the most useful findings per question (26.9), but its range overlaps 10 of the other 12 services&#x27;.">
 </picture>
-
-For corporate Claude grading on Agent OS, pin the extractor/judge models and
-pass `--harness-auth broker --claude-broker-provider claude-code-corp` to
-`sew insight run` (the shared query-writer) and `sew insight grade`. The updated SDK host
-forwards the model entitlement and provider; no `CLAUDE_MODEL_ID` or `CLAUDE_BROKER_PROVIDER` environment overrides
-are needed. `grading/grading.json` records the auth source and broker provider
-for executed extractor/judge calls. A provider selector requires broker auth and Claude Code
-for both roles; broker grading requires both models to be pinned (the extractor may come from
-the manifest). Explicit model/provider flags take precedence over selector environment variables.
-A requested provider must be confirmed in the broker receipt or the call is refused.
-Deploy the updated agent-os SDK before floating Searchlight; older hosts fail with a named
-model/provider-selector error. Standalone account login is unchanged.
 
 ## Run it
 
@@ -350,3 +338,17 @@ pairs to cluster, one per cited page to verify, and one per question to value.
   - Model calls reuse `HarnessJudgeTransport`, which gained a `json` contract mode.
   - Cells reuse the vendor adapters' parsers, `CredentialResolver`, `measured_spend` and the shared
     backoff.
+
+## Internals: corporate grading on Agent OS
+
+For corporate Claude grading on Agent OS, pin the extractor/judge models and
+pass `--harness-auth broker --claude-broker-provider claude-code-corp` to
+`sew insight run` (the shared query-writer) and `sew insight grade`. The updated SDK host
+forwards the model entitlement and provider; no `CLAUDE_MODEL_ID` or `CLAUDE_BROKER_PROVIDER` environment overrides
+are needed. `grading/grading.json` records the auth source and broker provider
+for executed extractor/judge calls. A provider selector requires broker auth and Claude Code
+for both roles; broker grading requires both models to be pinned (the extractor may come from
+the manifest). Explicit model/provider flags take precedence over selector environment variables.
+A requested provider must be confirmed in the broker receipt or the call is refused.
+Deploy the updated agent-os SDK before floating Searchlight; older hosts fail with a named
+model/provider-selector error. Standalone account login is unchanged.

@@ -7,16 +7,19 @@ tall layout for phones. Numbers come from the committed reports through the same
 """
 from __future__ import annotations
 
+import dataclasses
 import re
 
 from . import diagrams as dg
-from .components import ROW_NOTES, _floor_ceiling, board_says, report_date, site_map
-from .data import ROOT, BENCH_LABEL, GAP_PRIMARY, REPORT_TITLES, esc, harness_name, headline
+from .components import ROW_NOTES, board_says, report_date, site_map
+from .data import (ROOT, BENCH_LABEL, GAP_PRIMARY, REPORT_TITLES, data_rows, esc, gap_boards, harness_name, headline,
+                   parse_pct_ci, tables, wilson)
 from .design import LOGO_ID, TOKENS, glyphs, vocabulary
 from .pages import BEAM_ART
 
 OUT = 'docs/readme'
-WIDE, TALL = 840, 400  # README images: at most 840 wide for desktop, 400 for the phone layout
+WIDE, TALL = 840, 360  # README art: 840 for an 830 px column; 360 for phones, shown 326 to 358 px wide
+BOTTOM = 16  # clear space under each image, so the text after it does not sit on its edge
 SYSTEM = '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif'
 MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, monospace'
 THEMES = ('light', 'dark')
@@ -41,7 +44,7 @@ FLOW_CSS = ''.join(f'{sel.strip()}{{{body}}}' for sel, body in re.findall(r'\.fl
 # The README's own pieces, in the site's recipes: ranked rows, tiles, chips and the night hero.
 ART_CSS = """
 .pn{fill:var(--soft)}.cd{fill:var(--raised);stroke:var(--rule);stroke-width:1.5}.hr{stroke:var(--rule);stroke-width:1.5}
-.ey{font:500 14px var(--font-mono);letter-spacing:.08em;fill:var(--muted)}
+.ey{font:500 15px var(--font-mono);letter-spacing:.08em;fill:var(--muted)}
 .hd{font:700 21px var(--font-display);letter-spacing:-.01em;fill:var(--ink)}
 .mt{font:400 16px var(--font-body);fill:var(--muted)}
 .say{font:400 17px var(--font-body);fill:var(--ink-2)}
@@ -51,24 +54,26 @@ ART_CSS = """
 .pc.ctl{fill:var(--ink-2)}
 .rg{font:500 16px var(--font-body);fill:var(--ink-2);font-variant-numeric:tabular-nums}
 .kn{font:400 15px var(--font-body);fill:var(--muted);font-variant-numeric:tabular-nums}
-.tk{font:500 14px var(--font-mono);fill:var(--muted)}
+.tk{font:500 15px var(--font-mono);fill:var(--muted)}
 .trk{fill:var(--viz-track)}.ci{fill:var(--viz-interval)}.ci.ctl{fill:var(--viz-other);opacity:.55}
 .dot{fill:var(--blue);stroke:var(--paper);stroke-width:2}.dot.ctl{fill:var(--viz-ref)}
 .lb{stroke:var(--ink-2);stroke-width:2;stroke-dasharray:4 3;opacity:.55}
-.chip{fill:var(--amber-soft)}.chipt{font:600 14px var(--font-body);fill:var(--amber-ink)}
-.ctlchip{fill:var(--paper)}.ctlt{font:600 14px var(--font-body);fill:var(--ink-2)}
+.chip{fill:var(--amber-soft)}.chipt{font:600 15px var(--font-body);fill:var(--amber-ink)}
+.ctlchip{fill:var(--paper)}.ctlt{font:600 15px var(--font-body);fill:var(--ink-2)}
 .tn{font:650 19px var(--font-body);fill:var(--ink)}.tb{font:400 16px var(--font-body);fill:var(--ink-2)}
-.gid{font:500 14px var(--font-mono);fill:var(--ink-2)}
+.gid{font:500 15px var(--font-mono);fill:var(--ink-2)}
 .night{fill:var(--night)}.nf{fill:var(--night-fg)}.nmu{fill:var(--night-mute)}.nb{fill:#7DBBFF}
 .word{font:700 26px var(--font-display);letter-spacing:-.02em}
 .hq{font:750 36px var(--font-display);letter-spacing:-.03em}
 .ha{font:400 20px var(--font-body)}.ha .nb{font-weight:700}
-.hey{font:500 14px var(--font-mono);letter-spacing:.08em}
-.lnk{font:600 17px var(--font-body)}
-.dt{font:500 14px var(--font-mono);fill:var(--muted)}.ax{stroke:var(--rule);stroke-width:2}
+.hey{font:500 15px var(--font-mono);letter-spacing:.08em}
+.dt{font:500 15px var(--font-mono);fill:var(--muted)}.ax{stroke:var(--rule);stroke-width:2}
 .stop{fill:var(--raised);stroke:var(--rule);stroke-width:1.5}.stop.new{stroke:var(--blue)}
 use{color:var(--ink)}
+.tall .tk{font-size:16px}.tall .chipt{font-size:16px}.tall .ctlt{font-size:16px}.tall .kn{font-size:16px}
+.tall .gid{font-size:16px}.tall .dt{font-size:16px}.tall .hey{font-size:16px}.tall .hq{font-size:30px}
 """
+SMALL = {'wide': 15, 'tall': 16}  # the smallest type in each layout: chips, ticks, ids and dates
 
 _SYMBOLS = {g[0]: glyphs.SYMBOL.format(id=g[0], body=g[3]) for g in glyphs.GLYPHS}
 _SYMBOLS.update({g[0]: glyphs.SYMBOL.format(id=g[0], body=g[2]) for g in glyphs.LOGOS})
@@ -86,9 +91,13 @@ def standalone(svg: str, theme: str) -> str:
     """An SVG drawn with the site's classes and sprite, made self-contained for an <img> on GitHub."""
     m = re.match(r'<svg ([^>]*?)viewBox="0 0 ([\d.]+) ([\d.]+)"([^>]*)>', svg)
     w, h = m.group(2), m.group(3)
+    if w != '24':  # not a glyph set in a line of text
+        h = f'{float(h) + BOTTOM:.0f}'
     used = sorted({i for i in re.findall(r'href="#([\w-]+)"', svg) if i in _SYMBOLS})
+    cls = re.search(r'class="([^"]*)"', m.group(0)).group(1).split()
+    sizes = dg.type_css('readme' if 'wide' in cls else 'readme-tall') if 'rd' in cls else ''
     return (f'<svg xmlns="http://www.w3.org/2000/svg" {m.group(1)}viewBox="0 0 {w} {h}" width="{w}" height="{h}"'
-            f'{m.group(4)}><style>{THEME[theme]}{_css_for(svg)}</style>'
+            f'{m.group(4)}><style>{THEME[theme]}{_css_for(svg)}{sizes}</style>'
             f'<defs>{"".join(_SYMBOLS[i] for i in used)}</defs>{svg[m.end():]}\n')
 
 
@@ -120,9 +129,9 @@ def _lines(x: float, y: float, lines: list[str], cls: str, lh: float, anchor: st
 
 # ---------------------------------------------------------------- ranked rows with 95% ranges
 
-def _chip(x: float, y: float, label: str, kind: str = 'caveat') -> tuple[str, float]:
+def _chip(x: float, y: float, label: str, kind: str = 'caveat', size: int = 14) -> tuple[str, float]:
     """A note chip beside a name (amber: a caveat applies; grey: a control). Returns (svg, width)."""
-    w = dg._width(label, 14, 'b') + (34 if kind == 'caveat' else 20)
+    w = dg._width(label, size, 'b') + (34 if kind == 'caveat' else 20)
     body = f'<rect class="{"chip" if kind == "caveat" else "ctlchip"}" x="{x:.1f}" y="{y - 17:.1f}" width="{w:.1f}" height="24" rx="12"/>'
     if kind == 'caveat':
         body += _glyph('caveat', x + 6, y - 14, 18) + _text(x + 28, y, label, 'chipt')
@@ -160,10 +169,10 @@ def ranked(block: dict, layout: str, y: float, x0: float, x1: float) -> tuple[st
     meta = _wrap(block['meta'], x1 - x0, 16)
     out.append(_lines(x0, y + 26, meta, 'mt', 22))
     y += 26 + 22 * (len(meta) - 1) + 14
-    wide = layout == 'wide'
+    wide, small = layout == 'wide', SMALL[layout]
     # The big number sits just right of the longest name (and its glyph or chip), never on it.
     name_w = max(dg._width(r['label'], 19, 't') + (28 if r.get('glyph') else 0)
-                 + (dg._width(r['chip'][0], 14, 'b') + 44 if r.get('chip') else 0) for r in block['rows'])
+                 + (dg._width(r['chip'][0], small, 'b') + 44 if r.get('chip') else 0) for r in block['rows'])
     pc_x = max(x0 + 300, x0 + 30 + name_w + 16 + max(dg._width(r['value'], 30, 't') for r in block['rows']))
     tx0, tx1 = (pc_x + 22, x1 - 118) if wide else (x0 + 30, x1 - 104)
     out.append(_scale(tx0, tx1, y + 18, scale, unit))
@@ -178,7 +187,7 @@ def ranked(block: dict, layout: str, y: float, x0: float, x1: float) -> tuple[st
             out.append(_glyph(r['glyph'], x0 + 30, base - 18, 22))
         out.append(_text(name_x, base, r['label'], f'nm{ctl}'))
         if r.get('chip'):
-            chip, _ = _chip(name_x + dg._width(r['label'], 19, 't') + 10, base - 1, *r['chip'])
+            chip, _ = _chip(name_x + dg._width(r['label'], 19, 't') + 10, base - 1, *r['chip'], small)
             out.append(chip)
         if wide:
             out.append(_text(pc_x, y + 39, r['value'], f'pc{ctl}', 'end'))
@@ -188,13 +197,17 @@ def ranked(block: dict, layout: str, y: float, x0: float, x1: float) -> tuple[st
             y += 58
         else:
             out.append(_text(x1, y + 34, r['value'], f'pc{ctl}', 'end'))
-            out.append(_track(tx0, tx1, y + 58, r, scale, block.get('lower_bound')))
-            out.append(_text(x1, y + 64, r['range'], 'rg', 'end'))
-            y += 80
+            out.append(_track(tx0, tx1, y + 60, r, scale, block.get('lower_bound')))
+            out.append(_text(x1, y + 62, r['range'], 'rg', 'end'))
+            out.append(_text(x1, y + 83, r['n'], 'kn', 'end'))
+            y += 98
     out.append(f'<path class="hr" d="M{x0:.1f} {y:.1f}H{x1:.1f}"/>')
-    say = _wrap(block['say'], x1 - x0 - 34, 17)
-    out.append(_glyph('tie', x0, y + 14, 24) + _lines(x0 + 34, y + 33, say, 'say', 24))
-    return ''.join(out), y + 33 + 24 * (len(say) - 1) + 16
+    for glyph, text in (('tie', block['say']), ('repeat', block.get('note', ''))):
+        if text:
+            lines = _wrap(text, x1 - x0 - 34, 17)
+            out.append(_glyph(glyph, x0, y + 14, 24) + _lines(x0 + 34, y + 33, lines, 'say', 24))
+            y += 24 * len(lines) + 12
+    return ''.join(out), y + 20
 
 
 def _legend(x0: float, y: float, layout: str) -> tuple[str, float]:
@@ -202,7 +215,7 @@ def _legend(x0: float, y: float, layout: str) -> tuple[str, float]:
     out, x = [], x0
     for kind, label in keys:
         w = 34 + dg._width(label, 16, 'b')
-        if layout == 'tall' and x > x0 and x + w > TALL - 16:
+        if layout == 'tall' and x > x0 and x + w > TALL - 16:  # wrap the key on a phone
             x, y = x0, y + 28
         if kind == 'dot':
             out.append(f'<circle class="dot" cx="{x + 8:.1f}" cy="{y - 6:.1f}" r="7"/>')
@@ -235,38 +248,70 @@ def _panel(blocks: list[dict], layout: str, title: str, desc: str, legend: bool 
                 f'<rect class="pn" width="{width}" height="{height:.0f}" rx="16"/>' + ''.join(out))
 
 
-def _board_block(board: dict, top: int) -> dict:
+def _floor_row(board: dict) -> dict:
+    """A gap board's no-search reference as a control row: its published range, or Wilson's from its count."""
+    cells = board['rows'][0]['cells']
+    cell = board['reference'].get('floor (no search)', '')
+    try:
+        point, lo, hi = parse_pct_ci(cell)
+    except ValueError:
+        point = float(re.match(r'\d+(?:\.\d+)?', cell).group())
+        lo, hi = wilson(round(point * cells / 100), cells)
+    return {'arm': 'no-search', 'label': 'No search', 'pass_pct': point, 'ci': [lo, hi],
+            'passes': round(point * cells / 100), 'cells': cells}
+
+
+def _board_block(board: dict, top: int, note: str = '') -> dict:
     agent, model = harness_name(board)
-    shown = [(i, r) for i, r in enumerate(board['rows'], start=1) if i <= top or r['arm'] == 'no-search']
-    rows = []
+    rows = board['rows'] + ([_floor_row(board)] if board['bench'] == 'GAP' else [])
+    shown = [(i, r) for i, r in enumerate(rows, start=1) if i <= top or r['arm'] == 'no-search']
+    out = []
     for i, r in shown:
-        note = ROW_NOTES.get(r.get('note'))
+        row_note = ROW_NOTES.get(r.get('note'))
         chip = None
         if r['arm'] == 'no-search':
             chip = ('control', 'control')
-        elif note:
-            chip = (note[0], 'caveat')
-        rows.append({'rank': i, 'label': r['label'], 'value': f'{r["pass_pct"]:.0f}%', 'lo': r['ci'][0], 'hi': r['ci'][1],
+        elif row_note:
+            chip = (row_note[0], 'caveat')
+        out.append({'rank': i if r in board['rows'] else '', 'label': r['label'], 'value': f'{r["pass_pct"]:.0f}%', 'lo': r['ci'][0], 'hi': r['ci'][1],
                      'point': r['pass_pct'], 'range': f'{r["ci"][0]:.0f}–{r["ci"][1]:.0f}%',
                      'n': f'{r["passes"]} of {r["cells"]}', 'control': r['arm'] in ('no-search', 'native'), 'chip': chip})
     bench = BENCH_LABEL.get(board['bench'], board['bench'])
-    meta = [model, f'{board["rows"][0]["cells"]} runs per setup']
-    if board['bench'] == 'GAP':
-        meta.append(f'no search passed {_floor_ceiling(board)[0]}')
-    meta.append(report_date(board['source']))
-    return {'title': f'{bench} · {agent}', 'meta': ' · '.join(m for m in meta if m), 'rows': rows,
-            'scale': 100, 'unit': '%', 'lower_bound': board.get('top_lower_bound'), 'say': board_says(board)}
+    meta = [model, f'{board["rows"][0]["cells"]} runs per setup', report_date(board['source'])]
+    return {'title': f'{bench} · {agent}', 'meta': ' · '.join(m for m in meta if m), 'rows': out,
+            'scale': 100, 'unit': '%', 'lower_bound': board.get('top_lower_bound'), 'say': board_says(board),
+            'note': note}
 
 
 def _rows_desc(blocks: list[dict]) -> str:
-    return ' '.join(f'{b["title"]}: ' + '; '.join(f'{r["rank"]}. {r["label"]} {r["value"]}, 95% range {r["range"]}'
-                                                  for r in b['rows']) + f'. {b["say"]}' for b in blocks)
+    """The chart in words, every number included: it is also the image's alt text in the READMEs."""
+    return ' '.join(f'{b["title"].replace(" · ", ", ")} ({b["meta"]}): '
+                    + '; '.join(f'{r["label"]} {r["value"]} (95% range {r["range"]}, {r["n"]})' for r in b['rows'])
+                    + f'. {b["say"]}' + (f' {b["note"]}' if b.get('note') else '') for b in blocks)
 
 
-def results(boards: list[dict]) -> dict[str, str]:
-    """The results snapshot: each benchmark's top setups as ranked rows with their 95% ranges, and its tie sentence."""
+def replication(reports: dict, board: dict) -> str:
+    """How the board's leader did when its battery ran again on the same tasks, from the replication's comparison table."""
+    leader = board['rows'][0]['label']
+    for name, report in sorted(reports.items()):
+        if (board['bench'] != 'GAP' or name <= board['source'] or report['summary'].get('bench') != 'GAP'
+                or board['harness'] not in {b['harness'] for b in gap_boards(name, report['summary'], primary=False)}):
+            continue
+        for _, table in tables(report['summary']):
+            head = table[0]
+            row = next((r for r in data_rows(table) if r[0] == leader), None)
+            if row and len(head) > 3 and head[3].startswith('Fisher'):
+                same = re.search(r'\d+ tasks', head[2])
+                return (f'Run again on {report_date(name)} on the same {same.group() if same else "tasks"}, {leader} went '
+                        f'from {row[1].split(" ")[0]} to {row[2].split(" ")[0]} ({head[3]}, {row[3]}).')
+    return ''
+
+
+def results(boards: list[dict], reports: dict) -> dict[str, str]:
+    """The results snapshot: each benchmark's top setups as ranked rows with their 95% ranges, no search as the
+    control, its tie sentence and, where the battery was run again, how the leader did."""
     order = [b for b in boards if b['source'] == GAP_PRIMARY] + [b for b in boards if b['bench'] == 'WSB']
-    blocks = [_board_block(b, 4) for b in order]
+    blocks = [_board_block(b, 4, replication(reports, b)) for b in order]
     title = 'Searchlight results: pass rates with their 95% ranges'
     return {layout: _panel(blocks, layout, title, _rows_desc(blocks)) for layout in ('wide', 'tall')}
 
@@ -300,20 +345,21 @@ def hero(boards: list[dict], analysis: dict) -> dict[str, str]:
     parts = [('When the job is about something recent, search decides it: ', ''), (f'{floor:.0f}%', 'nb'), (' with no search, ', ''),
              (f'{lo:.0f}–{hi:.0f}%', 'nb'), (' with any provider.', '')]
     words = [(w, cls) for text, cls in parts for w in text.split(' ') if w]
-    desc = f'{question} {"".join(t for t, _ in parts)} searchlightai.dev'
+    desc = f'Searchlight. {question} {"".join(t for t, _ in parts)}'
     out = {}
     for layout in ('wide', 'tall'):
         wide = layout == 'wide'
         width = WIDE if wide else TALL
-        pad, text_w = (40, 470) if wide else (24, TALL - 48)
+        pad, text_w = (40, 470) if wide else (22, TALL - 44)
         body = [_glyph(LOGO_ID, pad, pad, 40, ON_NIGHT),
                 f'<text class="word nf" x="{pad + 52}" y="{pad + 30}">Searchlight</text>']
         y = pad + 84
         body.append(_text(pad, y, 'AN OPEN BENCHMARK', 'hey nmu'))
-        q = dg.wrap(question, text_w, 36 * 1.04, 't')
-        body.append(''.join(_text(pad, y + 44 + i * 42, line, 'hq nf') for i, line in enumerate(q)))
-        y += 44 + 42 * (len(q) - 1) + 40
-        lines, line, size = [], [], 20
+        size = 36 if wide else 30
+        q = dg.wrap(question, text_w, size * 1.04, 't')
+        body.append(''.join(_text(pad, y + size + 8 + i * (size + 6), line, 'hq nf') for i, line in enumerate(q)))
+        y += size + 8 + (size + 6) * (len(q) - 1) + 40
+        lines, line, size = [], [], 20 if wide else 19
         for word, cls in words:
             trial = ' '.join(w for w, _ in line + [(word, cls)])
             if line and dg._width(trial, size, 'b') > text_w:
@@ -324,18 +370,17 @@ def hero(boards: list[dict], analysis: dict) -> dict[str, str]:
         for i, ln in enumerate(lines):
             spans = ' '.join(f'<tspan class="{c}">{esc(w)}</tspan>' if c else esc(w) for w, c in ln)
             body.append(f'<text class="ha nf" x="{pad}" y="{y + i * 30:.1f}">{spans}</text>')
-        y += 30 * (len(lines) - 1) + 44
-        body.append(_text(pad, y, 'searchlightai.dev →', 'lnk nb'))
+        y += 30 * (len(lines) - 1)
         art = BEAM_ART[BEAM_ART.index('>') + 1:BEAM_ART.rindex('</svg>')]
         if wide:
-            height = max(y + pad, 330)
+            height = max(y + pad + 8, 300)
             scale = 0.78
             body.append(f'<g transform="translate({width - 420 * scale - 24:.1f} {(height - 300 * scale) / 2:.1f}) '
                         f'scale({scale})">{art}</g>')
         else:
             scale = 0.7
-            body.append(f'<g transform="translate({(width - 420 * scale) / 2:.1f} {y + 20:.1f}) scale({scale})">{art}</g>')
-            height = y + 20 + 300 * scale + pad
+            body.append(f'<g transform="translate({(width - 420 * scale) / 2:.1f} {y + 16:.1f}) scale({scale})">{art}</g>')
+            height = y + 16 + 300 * scale + pad
         out[layout] = _svg(layout, width, height, question, desc,
                            f'<rect class="night" width="{width}" height="{height:.0f}" rx="18"/>' + ''.join(body))
     return out
@@ -344,23 +389,28 @@ def hero(boards: list[dict], analysis: dict) -> dict[str, str]:
 # ---------------------------------------------------------------- Searchlight in 60 seconds
 
 def learn() -> dict[str, str]:
-    """The overview's eight concept tiles: a glyph, the term and its one line, from design/vocabulary.md."""
+    """The overview's eight concept tiles: a glyph, the term and its one line, from design/vocabulary.md. Four columns
+    wide; on a phone, one tile per row with the glyph beside the words."""
     concepts = vocabulary()['Concepts'][:8]
     desc = ' '.join(f'{term}: {one}' for term, _, one, _ in concepts)
     out = {}
-    for layout, cols, width in (('wide', 4, WIDE), ('tall', 2, TALL)):
-        pad, gap = (20, 12) if layout == 'wide' else (12, 10)
+    for layout, cols, width in (('wide', 4, WIDE), ('tall', 1, TALL)):
+        wide = layout == 'wide'
+        pad, gap = (20, 12) if wide else (12, 10)
         tw = (width - 2 * pad - gap * (cols - 1)) / cols
-        bodies = [_wrap(one, tw - 32, 16) for _, _, one, _ in concepts]
+        text_x = 16 if wide else 60  # beside the glyph on a phone
+        bodies = [_wrap(one, tw - text_x - 16, 16) for _, _, one, _ in concepts]
         body, y = [], pad
         for r in range(0, len(concepts), cols):
-            th = 16 + 32 + 14 + 22 + 8 + 22 * max(len(b) for b in bodies[r:r + cols]) + 10
+            lines = max(len(b) for b in bodies[r:r + cols])
+            th = (16 + 32 + 14 + 22 + 8 + 22 * lines + 10) if wide else (16 + 22 + 8 + 22 * lines + 12)
             for c, (term, glyph, _, _) in enumerate(concepts[r:r + cols]):
                 x = pad + c * (tw + gap)
+                ty = y + 16 + 32 + 14 + 18 if wide else y + 16 + 18
                 body.append(f'<rect class="cd" x="{x:.1f}" y="{y:.1f}" width="{tw:.1f}" height="{th:.1f}" rx="12"/>')
                 body.append(_glyph(glyph, x + 16, y + 16, 32))
-                body.append(_text(x + 16, y + 16 + 32 + 14 + 18, term, 'tn'))
-                body.append(_lines(x + 16, y + 16 + 32 + 14 + 22 + 22, bodies[r + c], 'tb', 22))
+                body.append(_text(x + text_x, ty, term, 'tn'))
+                body.append(_lines(x + text_x, ty + 26, bodies[r + c], 'tb', 22))
             y += th + gap
         height = y - gap + pad
         out[layout] = _svg(layout, width, height, 'Searchlight in 60 seconds', desc,
@@ -370,9 +420,6 @@ def learn() -> dict[str, str]:
 
 # ---------------------------------------------------------------- the search setups
 
-AGENT = dg.Node('A', 'agent', 'The same agent, the same prompt',
-                ['Claude Code (claude-opus-5-5) or Codex (gpt-6.1)', 'or Hermes Agent, Opencode or Pi on an OSS model'],
-                tall=['Claude Code or Codex, or Hermes Agent, Opencode or Pi on an OSS model'])
 SETUPS = [dg.Node('no-search', 'no-search', 'No search', ['memory alone']),
           dg.Node('native', 'built-in', 'Built-in', ["the agent's own"]),
           dg.Node('brave', 'provider', 'Brave', ['MCP server']),
@@ -385,34 +432,40 @@ REFERENCES = [dg.Node('floor', 'no-search', 'Floor', ['no search']),
               dg.Node('ceiling', 'source', 'Ceiling', ['the answer excerpt in the prompt'])]
 
 
-def setups() -> dict[str, str]:
-    """Exactly one search setup per run: the agent, the eight setups it can be given, and the gap bench's two references."""
-    desc = (f'{AGENT.title}: {" ".join(AGENT.body)}. Each run gives it exactly one search setup: '
+def setups(boards: list[dict]) -> dict[str, str]:
+    """Exactly one search setup per run: the agent, the eight setups it can be given, and the gap bench's two references.
+    The agents' models are the ones the published boards name."""
+    models = dict(harness_name(b) for b in boards if b['bench'] == 'GAP')
+    named = ' or '.join(f'{agent} ({model})' for agent, model in models.items())
+    agent_node = dg.Node('A', 'agent', 'The same agent, the same prompt',
+                         [named, 'or Hermes Agent, Opencode or Pi on an OSS model'],
+                         tall=[f'{" or ".join(models)}, or Hermes Agent, Opencode or Pi on an OSS model'])
+    desc = (f'{agent_node.title}: {" ".join(agent_node.body)}. Each run gives it exactly one search setup: '
             + ', '.join(f'{n.title} ({n.body[0]})' for n in SETUPS)
             + '. The search gap bench adds two reference setups per task: floor, no search; ceiling, the answer excerpt '
               'in the prompt.')
     out = {}
     for layout in ('wide', 'tall'):
-        t = dg.TYPE[layout]
+        t = dg.TYPE['readme' if layout == 'wide' else 'readme-tall']
         width = WIDE if layout == 'wide' else TALL
         cols, ref_cols = (4, 2) if layout == 'wide' else (2, 2)
         x0, x1 = 12, width - 12
         uid = f'fl-setups-{layout}'
-        aw = 520 if layout == 'wide' else x1 - x0
+        aw = 560 if layout == 'wide' else x1 - x0
         ax = (width - aw) / 2
-        ah = dg._height(AGENT, aw, t)
-        body = [dg._markers(uid), dg._node_svg(AGENT, (ax, 12, aw, ah), t)]
+        ah = dg._height(agent_node, aw, t)
+        body = [dg._markers(uid), dg._node_svg(agent_node, (ax, 12, aw, ah), t)]
         y = 12 + ah + 56
 
         def grid(nodes, label, y, cols):
             gx0, gx1 = x0 + 10, x1 - 10
             cw = (gx1 - gx0 - 12 * (cols - 1)) / cols
-            band = 14 + dg.LABEL_LH + 10
+            band = 14 + t['g'] + 4 + 10
             hs = [dg._height(n, cw, t) for n in nodes]
             rows = [max(hs[i:i + cols]) for i in range(0, len(nodes), cols)]
             parts = [f'<rect class="grp" x="{x0:.1f}" y="{y:.1f}" width="{x1 - x0:.1f}" '
                      f'height="{band + sum(rows) + 12 * (len(rows) - 1) + 10:.1f}" rx="16"/>',
-                     f'<text class="gl" x="{x0 + 12:.1f}" y="{y + 27:.1f}">{esc(label.upper())}</text>']
+                     f'<text class="gl" x="{x0 + 12:.1f}" y="{y + 13 + t["g"]:.1f}">{esc(label.upper())}</text>']
             cy = y + band
             for r, rh in enumerate(rows):
                 for c, n in enumerate(nodes[r * cols:(r + 1) * cols]):
@@ -429,7 +482,7 @@ def setups() -> dict[str, str]:
         g2, bottom = grid(REFERENCES, 'The search gap bench adds, per task' if layout == 'wide' else 'Gap bench adds',
                           bottom + 24, ref_cols)
         body.append(g2)
-        out[layout] = _svg(layout, width, bottom + 12, 'Exactly one search setup per run', desc, ''.join(body))
+        out[layout] = _svg(f'{layout} rd', width, bottom + 12, 'Exactly one search setup per run', desc, ''.join(body))
     return out
 
 
@@ -437,7 +490,7 @@ def setups() -> dict[str, str]:
 
 def reports_header(reports: dict, studies: list[dict]) -> dict[str, str]:
     """The reports index as a timeline: every report and study, oldest to newest, with its glyph and date."""
-    pages = list(reversed(site_map(reports, studies)))[-6:]
+    pages = list(reversed(site_map(reports, studies)))
     sets = {s['name']: s['summary']['set'].get('set_id', '') for s in studies}
     entries = []
     for href, title, glyph in pages:
@@ -448,7 +501,7 @@ def reports_header(reports: dict, studies: list[dict]) -> dict[str, str]:
         entries.append((report_date(name), short, glyph, href.startswith('study-')))
     runs = sum(r['cells'] for b in _boards(reports) for r in b['rows'])
     kinds = f'{len(reports)} reports and {len(studies)} {"study" if len(studies) == 1 else "studies"}'
-    lead = f'{kinds} · {runs} graded agent runs · every number transcribed from summary.json'
+    lead = f'{kinds} · {runs} graded runs on the leaderboard · every number transcribed from summary.json'
     desc = f'Searchlight reports. {lead}. ' + '; '.join(f'{d}: {t}' for d, t, _, _ in entries) + '.'
     out = {}
     for layout in ('wide', 'tall'):
@@ -469,7 +522,7 @@ def reports_header(reports: dict, studies: list[dict]) -> dict[str, str]:
                 body.append(f'<circle class="stop{" new" if new else ""}" cx="{cx:.1f}" cy="{ay:.1f}" r="24"/>')
                 body.append(_glyph(glyph, cx - 13, ay - 13, 26))
                 body.append(_text(cx, ay + 50, date, 'dt', 'middle'))
-                lines = _wrap(short, step - 12, 16)[:3]
+                lines = _wrap(short, step - 12, 16)
                 body.append(_lines(cx, ay + 76, lines, 'tb', 21, 'middle'))
                 bottom = max(bottom, ay + 76 + 21 * (len(lines) - 1))
             height = bottom + pad
@@ -507,7 +560,7 @@ def catalogue() -> dict[str, str]:
     items = [(g[0], g[1]) for g in glyphs.GLYPHS]
     desc = 'The Searchlight glyphs: ' + ', '.join(i for i, _ in items) + '.'
     out = {}
-    for layout, cols, width in (('wide', 6, WIDE), ('tall', 3, TALL)):
+    for layout, cols, width in (('wide', 6, WIDE), ('tall', 2, TALL)):
         pad = 20 if layout == 'wide' else 12
         cw = (width - 2 * pad) / cols
         body = []
@@ -521,33 +574,53 @@ def catalogue() -> dict[str, str]:
     return out
 
 
-def marks() -> str:
-    """The three marks, at 64 px on the page ground and on the night ground."""
+def marks() -> dict[str, str]:
+    """The three marks at 64 px, each on the page ground and on the night ground, with its id and name: side by side,
+    or one per row on a phone."""
     names = [(g[0], g[1].split(':')[0]) for g in glyphs.LOGOS]
     desc = 'The Searchlight marks: ' + '; '.join(f'{i}, {n}' for i, n in names) + '. Each on the page and on the night ground.'
-    cw, body = WIDE / len(names), []
-    for i, (gid, name) in enumerate(names):
-        x = i * cw
-        body.append(f'<rect class="cd" x="{x + 10:.1f}" y="10" width="{cw - 20:.1f}" height="186" rx="12"/>')
-        body.append(_glyph(gid, x + cw / 2 - 96, 40, 64))
-        body.append(f'<rect class="night" x="{x + cw / 2 + 8:.1f}" y="26" width="96" height="96" rx="12"/>')
-        body.append(_glyph(gid, x + cw / 2 + 24, 42, 64, ON_NIGHT))
-        body.append(_text(x + cw / 2, 148, gid, 'gid', 'middle'))
-        body.append(_text(x + cw / 2, 176, name, 'tb', 'middle'))
-    return _svg('wide', WIDE, 206, 'Searchlight marks', desc, ''.join(body))
+    out = {}
+    for layout in ('wide', 'tall'):
+        wide = layout == 'wide'
+        cw, ch = (WIDE / len(names), 196) if wide else (TALL, 150)
+        body = []
+        for i, (gid, name) in enumerate(names):
+            x, y = (i * cw, 10) if wide else (0, 10 + i * (ch + 10))
+            body.append(f'<rect class="cd" x="{x + 12:.1f}" y="{y:.1f}" width="{cw - 24:.1f}" height="{ch - 10}" rx="12"/>')
+            mx = x + cw / 2 - 96 if wide else x + 28
+            body.append(_glyph(gid, mx, y + 30, 64))
+            body.append(f'<rect class="night" x="{mx + 104:.1f}" y="{y + 14:.1f}" width="96" height="96" rx="12"/>')
+            body.append(_glyph(gid, mx + 120, y + 30, 64, ON_NIGHT))
+            if wide:
+                body.append(_text(x + cw / 2, y + 138, gid, 'gid', 'middle'))
+                body.append(_text(x + cw / 2, y + 166, name, 'tb', 'middle'))
+            else:
+                body.append(_text(x + 28, y + 128, f'{gid} · {name}', 'gid'))
+        height = 10 + (ch if wide else len(names) * (ch + 10))
+        out[layout] = _svg(layout, cw * len(names) if wide else TALL, height, 'Searchlight marks', desc, ''.join(body))
+    return out
 
 
 # ---------------------------------------------------------------- everything, both themes
 
+def readme_diagrams() -> dict[str, dg.Diagram]:
+    """The diagrams as the READMEs draw them: on GitHub, "this site" is a link away, so the pipeline names it."""
+    site = dataclasses.replace(dg.PIPELINE, nodes=[dataclasses.replace(n, title='searchlightai.dev') if n.id == 'S'
+                                                   else n for n in dg.PIPELINE.nodes])
+    return {**dg.DIAGRAMS, 'pipeline': site}
+
+
 def art(boards: list[dict], analysis: dict, reports: dict, studies: list[dict]) -> dict[str, str]:
     """Every README image, {file name in docs/readme/: standalone SVG}."""
-    pieces = {'hero': hero(boards, analysis), 'learn': learn(), 'results': results(boards), 'setups': setups(),
-              'reports': reports_header(reports, studies), 'glyphs': catalogue(), 'marks': {'wide': marks()}}
+    pieces = {'hero': hero(boards, analysis), 'learn': learn(), 'results': results(boards, reports),
+              'setups': setups(boards), 'reports': reports_header(reports, studies), 'glyphs': catalogue(),
+              'marks': marks()}
     if studies:
         pieces['study'] = study_results(studies[0])
-    for name in dg.DIAGRAMS:
-        pieces[f'diagram-{name}'] = {layout: dg._flow_svg(dg.DIAGRAMS[name], layout) for layout in ('wide', 'tall')}
-    pieces['diagram-grading'] = {'wide': dg._sequence_wide(dg.GRADING), 'tall': dg._sequence_tall(dg.GRADING)}
+    for name, diagram in readme_diagrams().items():
+        pieces[f'diagram-{name}'] = {'wide': dg._flow_svg(diagram, 'readme'), 'tall': dg._flow_svg(diagram, 'readme-tall')}
+    pieces['diagram-grading'] = {'wide': dg._sequence_wide(dg.GRADING, 'readme'),
+                                 'tall': dg._sequence_tall(dg.GRADING, 'readme-tall')}
     for gid in ('report', 'study'):
         pieces[f'glyph-{gid}'] = {'wide': glyph_icon(gid)}
     files = {}
@@ -557,3 +630,24 @@ def art(boards: list[dict], analysis: dict, reports: dict, studies: list[dict]) 
                 suffix = '' if layout == 'wide' else '-tall'
                 files[f'{name}{suffix}-{theme}.svg'] = standalone(svg, theme)
     return files
+
+
+DOCS = ('README.md', 'docs/insight-bench/README.md', 'reports/README.md', 'design/README.md')
+CHARTS = ('results', 'study')  # images whose alt text carries their numbers
+
+
+def alt_texts(files: dict[str, str], root=ROOT) -> dict[str, str]:
+    """The READMEs whose chart alt text is out of date, rewritten: a chart's alt text is its own generated description,
+    so the numbers a screen reader hears come from the reports too. {path: new text}"""
+    out = {}
+    for rel in DOCS:
+        text = (root / rel).read_text(encoding='utf-8')
+
+        def alt(m):
+            desc = re.search(r'<desc id="d">([^<]*)</desc>', files[f'{m.group(2)}-light.svg']).group(1)
+            return f'{m.group(1)}{m.group(2)}-light.svg" alt="{desc}"'
+        new = re.sub(r'(<img src="[^"]*/)(' + '|'.join(CHARTS) + r')-light\.svg" alt="[^"]*"', alt, text)
+        if new != text:
+            out[rel] = new
+    return out
+

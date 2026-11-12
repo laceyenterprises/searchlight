@@ -95,6 +95,8 @@ reading the results, the publication, the interface and the beam.
 ## The mark
 
 <picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="../docs/readme/marks-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="../docs/readme/marks-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="../docs/readme/marks-dark.svg">
   <img src="../docs/readme/marks-light.svg" alt="The three marks, each on the page ground and on the night ground: logo-lamp, lamp and beam; logo-lens, lens and beam; logo-tile, the tile.">
 </picture>
@@ -136,14 +138,17 @@ the search setups, the reports timeline, this page's catalogue and marks, and ev
 
 GitHub shows a README image through `<img>`, so each file stands alone:
 
+- **Bare `<picture>`.** Each `<picture>` stands on its own lines; wrapped in a link on the same line, GitHub drops its
+  sources.
 - **No outside requests.** It inlines the glyph symbols it uses and one theme's tokens, uses the system font stack,
   and loads no fonts, scripts or sprite.
 - **Both themes.** Every image has a light and a dark file, chosen with `<picture>` and
   `<source media="(prefers-color-scheme: dark)">`, GitHub's documented pattern.
-- **Phones.** Images with text also have a tall layout, offered with `<source media="(max-width: 600px)">`. GitHub may
-  ignore it, so the wide layout keeps its type at 14 px and up in viewBox units, in images at most 840 px wide (the
-  diagrams keep the site's 960 px layout).
-- **Alt text.** Each `<img>` carries a real description, and each SVG a title and description of its own.
+- **Readable type.** The wide images are at most 840 px wide, or 960 for the diagrams, with type that is 14 px or more
+  in GitHub's 830 px column (the diagrams' README layout sets 17 px type). Images with text also have a tall layout,
+  drawn at 360 px with type of 16 px or more and offered with `<source media="(max-width: 600px)">`.
+- **Alt text.** Each `<img>` carries a real description, and each SVG a title and description of its own. The charts'
+  alt text is their own description, numbers included, and the build writes it into the READMEs.
 
 To add one, draw it in `readme.py` with the site's classes and return it from `art()`, run the build, and reference it
 with the `<picture>` pattern above.
