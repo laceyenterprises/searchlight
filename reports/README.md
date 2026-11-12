@@ -1,11 +1,22 @@
 # Reports
 
-- [Web search bakeoff](2026-09-29-web-search-bakeoff/REPORT.md): the retrieval battery and its later regrade. Read the regrade before quoting the rankings.
-- [Search gap bench](2026-10-03-search-gap-bench/REPORT.md): calibrated job outcomes on Claude Code and Codex, including the Codex provider reruns and the Claude Code availability caveat.
-- [Search gap bench replication](2026-10-06-search-gap-replication/REPORT.md): the Claude Code battery run again on the current catalog with the fixed apparatus (built-in search can open pages). Search still decides the outcome; the provider ranking did not repeat. Primary-judge verdicts, with codex judge agreement measured on the same payloads.
-- [How agents used search](2026-10-05-agent-search-behavior/REPORT.md): query style, fetching from memory and primary-source retrieval, computed from the stored transcripts of the two batteries by `scripts/analyze_search_behavior.py`.
-- [Search API head-to-head](2026-09-26-search-api-head-to-head/REPORT.md): Exa, Tavily, Parallel and Firecrawl called directly, with no agent, on a pre-registered research workload, graded blind and verified on the page. Unlike the other reports, its directory also publishes the experiment's own record (`record/`), code (`code/`) and sanitized data (`data/`), and, for its Monitors probe only, the raw provider responses (`data/stage-b/runs/SM/raw/`). Read its context note before quoting it.
-- [Leading software factories and agent-platform architectures](2026-11-11-software-factory-insight-bakeoff/REPORT.md): an INS insight bake-off, 13 arms x 24 questions on 2026-11-11, graded blind and verified on each claim's own page; [interactive dashboard](2026-11-11-software-factory-insight-bakeoff/dashboard.html).
+Every published report and study, oldest first, each with its data, method and corrections.
+
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="../docs/readme/reports-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="../docs/readme/reports-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="../docs/readme/reports-dark.svg">
+  <img src="../docs/readme/reports-light.svg" alt="A timeline of every Searchlight report and study with its date and glyph, and how many reports, studies and graded agent runs there are.">
+</picture>
+
+- <picture><source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyph-report-dark.svg"><img src="../docs/readme/glyph-report-light.svg" width="20" height="20" alt=""></picture> [Search API head-to-head](2026-09-26-search-api-head-to-head/REPORT.md): Exa, Tavily, Parallel and Firecrawl called directly, with no agent, on a pre-registered research workload, graded blind and verified on the page. Unlike the other reports, its directory also publishes the experiment's own record (`record/`), code (`code/`) and sanitized data (`data/`), and, for its Monitors probe only, the raw provider responses (`data/stage-b/runs/SM/raw/`). Read its context note before quoting it.
+- <picture><source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyph-report-dark.svg"><img src="../docs/readme/glyph-report-light.svg" width="20" height="20" alt=""></picture> [Web search bakeoff](2026-09-29-web-search-bakeoff/REPORT.md): the retrieval battery and its later regrade. Read the regrade before quoting the rankings.
+- <picture><source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyph-report-dark.svg"><img src="../docs/readme/glyph-report-light.svg" width="20" height="20" alt=""></picture> [Search gap bench](2026-10-03-search-gap-bench/REPORT.md): calibrated job outcomes on Claude Code and Codex, including the Codex provider reruns and the Claude Code availability caveat.
+- <picture><source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyph-report-dark.svg"><img src="../docs/readme/glyph-report-light.svg" width="20" height="20" alt=""></picture> [How agents used search](2026-10-05-agent-search-behavior/REPORT.md): query style, fetching from memory and primary-source retrieval, computed from the stored transcripts of the two batteries by `scripts/analyze_search_behavior.py`.
+- <picture><source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyph-report-dark.svg"><img src="../docs/readme/glyph-report-light.svg" width="20" height="20" alt=""></picture> [Search gap bench replication](2026-10-06-search-gap-replication/REPORT.md): the Claude Code battery run again on the current catalog with the fixed apparatus (built-in search can open pages). Search still decides the outcome; the provider ranking did not repeat. Primary-judge verdicts, with codex judge agreement measured on the same payloads.
+- <picture><source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyph-study-dark.svg"><img src="../docs/readme/glyph-study-light.svg" width="20" height="20" alt=""></picture> [Leading software factories and agent-platform architectures](2026-11-11-software-factory-insight-bakeoff/REPORT.md): an INS insight bake-off, 13 arms x 24 questions on 2026-11-11, graded blind and verified on each claim's own page; [interactive dashboard](2026-11-11-software-factory-insight-bakeoff/dashboard.html).
+
+## How the reports are built and checked
 
 The [leaderboard, infographic and rendered reports](../README.md#how-the-leaderboard-stays-current) are generated from these
 directories by `scripts/build_site.py` and published to GitHub Pages.

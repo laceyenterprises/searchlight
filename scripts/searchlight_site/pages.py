@@ -29,10 +29,8 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict, studi
             card: dict, pages: list = ()) -> str:
     studies = studies or []
     h = headline(boards, analysis)
-    (cc_lo, cc_hi), (cx_lo, cx_hi) = h['cc'], h['cx']
-    lo, hi = min(cc_lo, cx_lo), max(cc_hi, cx_hi)
+    (lo, hi), floor = h['search'], h['floor']
     gap = [b for b in boards if b['bench'] == 'GAP']
-    floor = max(float(re.match(r'(\d+)', b['reference'].get('floor (no search)', '') or '0').group(1)) for b in gap)
     nos, best = h['wsb_none'], h['wsb_best']
     hero = (f'<section class="wrap"><div class="hero"><div><p class="eyebrow">{g("beam")}An open benchmark</p>'
             '<h1>Does web search make AI agents better at real work?</h1>'
@@ -472,17 +470,17 @@ def methodology_page(configs: list[dict], target: str = 'pages', body_only: bool
         f"sets, endpoints, amendments and costs are in the study's <a href=\"{report_page_name(H2H)}#method-{H2H}\">"
         f'methodology</a>, and its full pre-registered record is in <a href="{REPO_URL}/tree/main/reports/{H2H}">'
         f'reports/{H2H}/</a>.</p>'))
+    studies_more = more('What the study measures', (
+        '<p>An insight study sends one fixed set of questions to every search and research service, each run as its '
+        "vendor documents. A model extracts each answer's claims, another checks every claim on the page it cites, and a "
+        "blind judge values what each verified finding is worth to the question's reader. A service earns a finding "
+        'only if its own cited page supports it.</p>'), 'studies-method')
     install = f"pipx install 'git+{REPO_URL}'\nsew doctor\npython3 scripts/check_reports.py\npython3 scripts/build_site.py --check"
     rest = ''.join([
         more('Search provider configurations', (
             f'<p>Pinned in <a href="{REPO_URL}/blob/main/config/provider-arm-tools.yaml">config/provider-arm-tools.yaml</a>. '
             "Every tool a provider's server advertised was available to the agent.</p>" + provider_cards(configs)),
             'providers'),
-        more('Insight studies', (
-            '<p>An insight study sends one fixed set of questions to every search and research service, each run as its '
-            "vendor documents. A model extracts each answer's claims, another checks every claim on the page it cites, and a "
-            "blind judge values what each verified finding is worth to the question's reader. A service earns a finding "
-            'only if its own cited page supports it.</p>'), 'studies-method'),
         more('Reproduce, correct, contribute', (
             "<p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw "
             "transcripts and provider responses are not distributed (except the head-to-head's Monitors probe), so a new run "
@@ -523,6 +521,12 @@ setup.</p>
 <p>The APIs themselves, with no agent: the same pre-registered questions, each run once, so counts without ranges.</p>
 {diagrams.figure('direct')}
 {api_more}
+</section>
+
+<section id="insight"><h2>How an insight study works</h2>
+<p>One fixed set of questions goes to every search and research service, graded blind on the pages each one cites.</p>
+{diagrams.figure('insight')}
+{studies_more}
 </section>
 
 <section id="more"><h2>The rest of the apparatus</h2>

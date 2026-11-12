@@ -570,11 +570,14 @@ def headline(boards: list[dict], analysis: dict) -> dict:
     best = max((r for r in wsb['rows'] if r['arm'] != 'no-search'), key=lambda r: r['pass_pct'])
     tps = sorted(wsb['rows'], key=lambda r: float(r['tokens_per_success'].rstrip('k')))
     cells = sorted({r['cells'] for b in boards for r in b['rows']})
+    gap = [b for b in boards if b['bench'] == 'GAP']
+    floor = max(float(re.match(r'(\d+)', b['reference'].get('floor (no search)', '') or '0').group(1)) for b in gap)
     return {
         'runs': sum(r['cells'] for b in boards for r in b['rows']),
         'agents': len({b['harness'] for b in boards}),
         'providers': len({r['arm'] for b in boards for r in b['rows']} - {'native', 'no-search'}),
-        'cc': _gap_range(gap_cc), 'cx': _gap_range(gap_cx),
+        'cc': _gap_range(gap_cc), 'cx': _gap_range(gap_cx), 'floor': floor,
+        'search': (min(_gap_range(gap_cc)[0], _gap_range(gap_cx)[0]), max(_gap_range(gap_cc)[1], _gap_range(gap_cx)[1])),
         'cc_top': gap_cc['rows'][0], 'cx_top': gap_cx['rows'][0],
         'wsb_none': nos, 'wsb_best': best,
         'token_ratio': float(tps[-1]['tokens_per_success'].rstrip('k')) / float(tps[0]['tokens_per_success'].rstrip('k')),

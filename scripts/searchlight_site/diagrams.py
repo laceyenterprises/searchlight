@@ -13,9 +13,28 @@ from .data import esc
 
 WIDE, TALL = 960, 360
 # Type in each layout, in viewBox units. The wide layout shows from 900 px (a column of at least 860 px), so 16 is at
-# least 14.3 px on screen; the tall layout is drawn at 360 and shown 350 to 520 px wide.
-TYPE = {'wide': {'t': 17, 'b': 16, 'm': 15, 'e': 15, 'lh': 22, 'gap': 60, 'layout': 'wide'},
-        'tall': {'t': 16, 'b': 15, 'm': 14, 'e': 15, 'lh': 21, 'gap': 52, 'layout': 'tall'}}
+# least 14.3 px on screen; the tall layout is drawn at 360 and shown 350 to 520 px wide. 'g' is the group label.
+# The README layouts are the same rows with larger type, for GitHub's columns: 'readme' is shown in an 830 px column
+# (17 is 14.7 px), 'readme-tall' 326 to 358 px wide (16 is at least 14.5 px).
+TYPE = {'wide': {'t': 17, 'b': 16, 'm': 15, 'e': 15, 'g': 14, 'lh': 22, 'gap': 60, 'layout': 'wide', 'width': WIDE},
+        'tall': {'t': 16, 'b': 15, 'm': 14, 'e': 15, 'g': 14, 'lh': 21, 'gap': 52, 'layout': 'tall', 'width': TALL},
+        'readme': {'t': 18, 'b': 17, 'm': 17, 'e': 17, 'g': 17, 'lh': 24, 'gap': 60, 'layout': 'wide', 'width': WIDE,
+                   'rows': 'wide'},
+        'readme-tall': {'t': 16, 'b': 16, 'm': 16, 'e': 16, 'g': 16, 'lh': 22, 'gap': 52, 'layout': 'tall',
+                        'width': TALL, 'rows': 'tall'}}
+GUTTER = 12  # every card keeps this far from the drawing's edge, so no border is clipped
+
+
+def rows_for(diagram, layout: str) -> list[list[tuple]]:
+    """A layout's rows: a README layout draws the rows of the site layout it is based on."""
+    return getattr(diagram, TYPE[layout].get('rows', layout))
+
+
+def type_css(layout: str) -> str:
+    """Type sizes for a README layout's drawing (class rd), where they differ from the site's."""
+    t = TYPE[layout]
+    return (f'.rd .t{{font-size:{t["t"]}px}}.rd .b{{font-size:{t["b"]}px}}.rd .m{{font-size:{t["m"]}px}}'
+            f'.rd .el{{font-size:{t["e"]}px}}.rd .gl{{font-size:{t["g"]}px}}')
 PAD, GLYPH = 14, 26
 
 
@@ -109,9 +128,10 @@ def _bands(rows: list[list[tuple]], groups: list[tuple], layout: str) -> tuple[d
     for g in groups:
         members = [cells[m] for m in g[1]]
         x0, x1 = min(c[1] for c in members) - 10, max(c[1] + c[2] for c in members) + 10
-        lines[g[0]] = wrap(group_label(g, layout).upper(), x1 - x0 - 24, 14, 'm')
+        size = TYPE[layout]['g']
+        lines[g[0]] = wrap(group_label(g, TYPE[layout]['layout']).upper(), x1 - x0 - 24, size, 'm')
         first, last = min(c[0] for c in members), max(c[0] + c[3] - 1 for c in members)
-        band = 14 + LABEL_LH * len(lines[g[0]]) + 10
+        band = 14 + (size + 4) * len(lines[g[0]]) + 10
         before[first] = max(before.get(first, 0), band)
         after[last] = max(after.get(last, 0), GROUP_PAD)
     return lines, before, after
@@ -220,6 +240,8 @@ def _route(src: tuple, dst: tuple, rail: float | None, entry: float | None = Non
         mid = ((pts[1][0] + pts[-2][0]) / 2, (pts[1][1] + pts[-2][1]) / 2) if len(pts) > 2 else pts[0]
         return d, mid, pts
     (p0, d0), (p1, d1) = _anchor(src, dst, flow), _anchor(dst, src, flow)
+    if d0 == (-d1[0], -d1[1]) and (p1[0] - p0[0]) * d0[0] + (p1[1] - p0[1]) * d0[1] > 0:
+        return _elbow(p0, p1, d0)
     k = max(28.0, (abs(p1[0] - p0[0]) + abs(p1[1] - p0[1])) * 0.35)
     c0 = (p0[0] + d0[0] * k, p0[1] + d0[1] * k)
     c1 = (p1[0] + d1[0] * k, p1[1] + d1[1] * k)
@@ -227,6 +249,34 @@ def _route(src: tuple, dst: tuple, rail: float | None, entry: float | None = Non
     mid = (0.125 * p0[0] + 0.375 * c0[0] + 0.375 * c1[0] + 0.125 * p1[0],
            0.125 * p0[1] + 0.375 * c0[1] + 0.375 * c1[1] + 0.125 * p1[1])
     return d, mid, _bezier(p0, c0, c1, p1)
+
+
+def _elbow(p0: tuple, p1: tuple, d0: tuple, r: float = 10.0) -> tuple[str, tuple, list]:
+    """Facing sides join with a right-angled path that turns halfway, so edges fanning in or out of one box share a
+    single straight bus instead of crossing curves."""
+    if d0[0]:  # side to side: across, then along a vertical bus at the halfway x
+        m = (p0[0] + p1[0]) / 2
+        corners = [p0, (m, p0[1]), (m, p1[1]), p1]
+    else:  # top to bottom: down, then along a horizontal bus at the halfway y
+        m = (p0[1] + p1[1]) / 2
+        corners = [p0, (p0[0], m), (p1[0], m), p1]
+    corners = [c for i, c in enumerate(corners) if i == 0 or c != corners[i - 1]]
+    d = f'M{p0[0]:.1f} {p0[1]:.1f}'
+    for i in range(1, len(corners) - 1):
+        (ax, ay), (bx, by), (cx, cy) = corners[i - 1], corners[i], corners[i + 1]
+        rr = min(r, abs(bx - ax) / 2 + abs(by - ay) / 2, abs(cx - bx) / 2 + abs(cy - by) / 2)
+        ux, uy = (bx > ax) - (bx < ax), (by > ay) - (by < ay)
+        vx, vy = (cx > bx) - (cx < bx), (cy > by) - (cy < by)
+        d += f' L{bx - ux * rr:.1f} {by - uy * rr:.1f} Q{bx:.1f} {by:.1f} {bx + vx * rr:.1f} {by + vy * rr:.1f}'
+    d += f' L{p1[0]:.1f} {p1[1]:.1f}'
+    pts = []
+    for (ax, ay), (bx, by) in zip(corners, corners[1:]):
+        n = max(1, int((abs(bx - ax) + abs(by - ay)) // 8))
+        pts += [(ax + (bx - ax) * i / n, ay + (by - ay) * i / n) for i in range(n)]
+    pts.append(p1)
+    mid = ((corners[1][0] + corners[-2][0]) / 2, (corners[1][1] + corners[-2][1]) / 2) if len(corners) > 2 else \
+        ((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2)
+    return d, mid, pts
 
 
 def label_box(text: str, at: tuple, t: dict, upright: bool = False) -> tuple:
@@ -259,7 +309,7 @@ def geometry(diagram: Diagram, layout: str) -> dict:
     The SVG is drawn from this, and the tests check it: no group label is crossed by an edge, groups keep their
     distance, and no edge runs through a card it does not start or end at."""
     t = TYPE[layout]
-    rows = getattr(diagram, layout)
+    rows = rows_for(diagram, layout)
     nodes = {n.id: n for n in diagram.nodes}
     boxes = place(rows, nodes, t, diagram.groups, layout)
     lines, _, _ = _bands(rows, diagram.groups, layout)
@@ -267,9 +317,9 @@ def geometry(diagram: Diagram, layout: str) -> dict:
     for g in diagram.groups:
         xs = [boxes[m] for m in g[1]]
         x0, x1 = min(b[0] for b in xs) - 10, max(b[0] + b[2] for b in xs) + 10
-        band = 14 + LABEL_LH * len(lines[g[0]]) + 10
+        band = 14 + (t['g'] + 4) * len(lines[g[0]]) + 10
         y0, y1 = min(b[1] for b in xs) - band, max(b[1] + b[3] for b in xs) + GROUP_PAD
-        width = max(_width(line, 14, 'm') for line in lines[g[0]])
+        width = max(_width(line, t['g'], 'm') + 0.06 * t['g'] * len(line) for line in lines[g[0]])  # .06em tracking
         groups.append({'rect': (x0, y0, x1 - x0, y1 - y0), 'lines': lines[g[0]],
                        'label': (x0 + 8, y0 + 4, width + 8, band - 8)})
         for m in g[1]:
@@ -280,8 +330,9 @@ def geometry(diagram: Diagram, layout: str) -> dict:
         g = member_of.get(target)
         if g is not None and member_of.get(source) != g and boxes[source][1] + boxes[source][3] < groups[g]['rect'][1]:
             entry = groups[g]['rect'][1] - 14
-        flow = diagram.flow if layout == 'wide' else 'TB'
-        d, mid, pts = _route(boxes[source], boxes[target], rails.get(layout) if rails else None, entry, flow)
+        flow = diagram.flow if t['layout'] == 'wide' else 'TB'
+        rail = rails.get(t.get('rows', layout)) if rails else None
+        d, mid, pts = _route(boxes[source], boxes[target], rail, entry, flow)
         edges.append({'source': source, 'target': target, 'd': d, 'mid': mid, 'points': pts, 'both': both,
                       'label': label, 'label_box': label_box(label, mid, t, _upright(pts)) if label else None})
     return {'boxes': boxes, 'groups': groups, 'edges': edges, 't': t,
@@ -291,14 +342,14 @@ def geometry(diagram: Diagram, layout: str) -> dict:
 def _flow_svg(diagram: Diagram, layout: str) -> str:
     geo = geometry(diagram, layout)
     t = geo['t']
-    width = WIDE if layout == 'wide' else TALL
+    width = t['width']
     nodes = {n.id: n for n in diagram.nodes}
     uid = f'fl-{diagram.name}-{layout}'
     out, labels, group_text = [_markers(uid)], [], []
     for g in geo['groups']:
         x0, y0, w, h = g['rect']
         out.append(f'<rect class="grp" x="{x0:.1f}" y="{y0:.1f}" width="{w:.1f}" height="{h:.1f}" rx="16"/>')
-        group_text.append(''.join(f'<text class="gl" x="{x0 + 12:.1f}" y="{y0 + 14 + 13 + LABEL_LH * i:.1f}">'
+        group_text.append(''.join(f'<text class="gl" x="{x0 + 12:.1f}" y="{y0 + 14 + t["g"] - 1 + (t["g"] + 4) * i:.1f}">'
                                   f'{esc(line)}</text>' for i, line in enumerate(g['lines'])))
     for e in geo['edges']:
         start = f' marker-start="url(#{uid}-a)"' if e['both'] else ''
@@ -306,9 +357,13 @@ def _flow_svg(diagram: Diagram, layout: str) -> str:
         if e['label']:
             labels.append(_label(e['label'], e['label_box'], t))
     out += [_node_svg(nodes[nid], box, t) for nid, box in geo['boxes'].items()] + labels + group_text
-    return (f'<svg class="{layout}" viewBox="0 0 {width} {geo["height"]:.0f}" role="img" '
+    return (f'<svg class="{_cls(layout)}" viewBox="0 0 {width} {geo["height"]:.0f}" role="img" '
             f'aria-labelledby="{uid}-t {uid}-d"><title id="{uid}-t">{esc(diagram.title)}</title>'
             f'<desc id="{uid}-d">{esc(describe(diagram))}</desc>' + ''.join(out) + '</svg>')
+
+
+def _cls(layout: str) -> str:
+    return TYPE[layout]['layout'] + (' rd' if layout.startswith('readme') else '')
 
 
 def describe(diagram: Diagram) -> str:
@@ -329,16 +384,17 @@ class Sequence:
     note: str
 
 
-def _sequence_wide(seq: Sequence) -> str:
-    t = TYPE['wide']
-    uid = f'fl-{seq.name}-wide'
-    col = WIDE / len(seq.actors)
+def _sequence_wide(seq: Sequence, layout: str = 'wide') -> str:
+    t = TYPE[layout]
+    W = t['width']
+    uid = f'fl-{seq.name}-{layout}'
+    col = (W - 2 * GUTTER + 20) / len(seq.actors)
     w = col - 20
-    centres = {a.id: col * i + col / 2 for i, a in enumerate(seq.actors)}
+    centres = {a.id: GUTTER - 10 + col * i + col / 2 for i, a in enumerate(seq.actors)}
     head = max(_height(a, w, t) for a in seq.actors)
     out = [_markers(uid)]
     for i, a in enumerate(seq.actors):
-        out.append(_node_svg(a, (col * i + 10, 20, w, head), t))
+        out.append(_node_svg(a, (GUTTER + col * i, 20, w, head), t))
     y = 20 + head + 36
     rows = []
     for source, target, label, reply in seq.messages:
@@ -346,7 +402,7 @@ def _sequence_wide(seq: Sequence) -> str:
         lines = wrap(label, max(span, col - 30), t['e'], 'e')
         rows.append((source, target, lines, reply, y))
         y += len(lines) * t['lh'] + 34
-    note_lines = wrap(seq.note, WIDE - 60, t['b'], 'b')
+    note_lines = wrap(seq.note, W - 60, t['b'], 'b')
     note_h = len(note_lines) * t['lh'] + 24
     bottom = y + note_h + 10
     for a in seq.actors:
@@ -361,46 +417,67 @@ def _sequence_wide(seq: Sequence) -> str:
         out.append(f'<path class="e{" r" if reply else ""}" d="M{x0 + direction * 6:.1f} {ly:.1f} H{x1 - direction * 8:.1f}" '
                    f'marker-end="url(#{uid}-a)"/>')
     ny = bottom - note_h
-    out.append(f'<rect class="nd q" x="10" y="{ny:.1f}" width="{WIDE - 20}" height="{note_h:.1f}" rx="12"/>')
+    out.append(f'<rect class="nd q" x="{GUTTER}" y="{ny:.1f}" width="{W - 2 * GUTTER}" height="{note_h:.1f}" rx="12"/>')
     for i, line in enumerate(note_lines):
-        out.append(f'<text class="b strong" x="{WIDE / 2:.1f}" y="{ny + 12 + t["lh"] * (i + 1) - 4:.1f}" '
+        out.append(f'<text class="b strong" x="{W / 2:.1f}" y="{ny + 12 + t["lh"] * (i + 1) - 4:.1f}" '
                    f'text-anchor="middle">{esc(line)}</text>')
-    return (f'<svg class="wide" viewBox="0 0 {WIDE} {bottom + 10:.0f}" role="img" aria-labelledby="{uid}-t {uid}-d">'
+    return (f'<svg class="{_cls(layout)}" viewBox="0 0 {W} {bottom + 10:.0f}" role="img" aria-labelledby="{uid}-t {uid}-d">'
             f'<title id="{uid}-t">{esc(seq.title)}</title><desc id="{uid}-d">{esc(_sequence_words(seq))}</desc>'
             + ''.join(out) + '</svg>')
 
 
-def _sequence_tall(seq: Sequence) -> str:
-    """Each message as a step: who to whom, then what passes."""
-    t = TYPE['tall']
-    uid = f'fl-{seq.name}-tall'
+def steps(seq: Sequence) -> list[tuple[list[str], list[str], list[str], bool]]:
+    """The messages folded into steps for the tall layout: a reply joins its request, and messages that leave one actor
+    for several (or return from several to one) together are one step. (sources, targets, labels, all replies)."""
+    out = []
+    for source, target, label, reply in seq.messages:
+        if out:
+            srcs, dsts, labels, replies = out[-1]
+            back = reply and not replies and srcs == [target] and dsts == [source]
+            fan = not reply and not replies and srcs == [source] and target not in dsts and len(labels) == len(dsts)
+            gather = reply and replies and dsts == [target] and source not in srcs
+            if back or fan or gather:
+                out[-1] = (srcs + ([source] if gather else []), dsts + ([target] if fan else []), labels + [label],
+                           replies and reply)
+                continue
+        out.append(([source], [target], [label], reply))
+    return out
+
+
+def _sequence_tall(seq: Sequence, layout: str = 'tall') -> str:
+    """Each step as a card: who to whom, then what passes. A reply folds into its request, a fan-out into one step."""
+    t = TYPE[layout]
+    W = t['width']
+    uid = f'fl-{seq.name}-{layout}'
     names = {a.id: a for a in seq.actors}
     out = [_markers(uid)]
     y = 20.0
-    for n, (source, target, label, reply) in enumerate(seq.messages, start=1):
-        lines = wrap(label, TALL - 2 * PAD - 20, t['b'], 'b')
+    for n, (srcs, dsts, labels, reply) in enumerate(steps(seq), start=1):
+        lines = wrap('; '.join(labels), W - 2 * GUTTER - 2 * PAD, t['b'], 'b')
         h = 14 + 28 * 2 + 8 + len(lines) * t['lh'] + 10
-        out.append(f'<rect class="nd" x="10" y="{y:.1f}" width="{TALL - 20}" height="{h:.1f}" rx="12"/>')
-        out.append(f'<text class="gl" x="{10 + PAD}" y="{y + 32:.1f}">{n}</text>')
-        x = 10 + PAD + 22
-        for i, actor in enumerate((names[source], names[target])):
+        out.append(f'<rect class="nd" x="{GUTTER}" y="{y:.1f}" width="{W - 2 * GUTTER}" height="{h:.1f}" rx="12"/>')
+        out.append(f'<text class="gl" x="{GUTTER + PAD}" y="{y + 32:.1f}">{n}</text>')
+        x = GUTTER + PAD + 22
+        for i, group in enumerate((srcs, dsts)):
             ay = y + 14 + 28 * i
             if i == 1:
                 out.append(f'<path class="e{" r" if reply else ""}" d="M{x + 4:.1f} {ay - 6:.1f} V{ay + 8:.1f} H{x + 22:.1f}" '
                            f'marker-end="url(#{uid}-a)"/>')
             ox = x + (30 if i else 0)
+            actor = names[group[0]]
+            title = ' and '.join(names[a].title for a in group)
             out.append(f'<use href="#{actor.glyph}" x="{ox:.1f}" y="{ay:.1f}" width="20" height="20"/>')
-            out.append(f'<text class="t" x="{ox + 28:.1f}" y="{ay + 16:.1f}">{esc(actor.title)}</text>')
+            out.append(f'<text class="t" x="{ox + 28:.1f}" y="{ay + 16:.1f}">{esc(title)}</text>')
         for i, line in enumerate(lines):
-            out.append(f'<text class="b" x="{10 + PAD}" y="{y + 14 + 56 + 8 + i * t["lh"] + 10:.1f}">{esc(line)}</text>')
+            out.append(f'<text class="b" x="{GUTTER + PAD}" y="{y + 14 + 56 + 8 + i * t["lh"] + 10:.1f}">{esc(line)}</text>')
         y += h + 12
-    note_lines = wrap(seq.note, TALL - 2 * PAD - 20, t['b'], 'b')
+    note_lines = wrap(seq.note, W - 2 * GUTTER - 2 * PAD, t['b'], 'b')
     note_h = len(note_lines) * t['lh'] + 24
-    out.append(f'<rect class="nd q" x="10" y="{y:.1f}" width="{TALL - 20}" height="{note_h:.1f}" rx="12"/>')
+    out.append(f'<rect class="nd q" x="{GUTTER}" y="{y:.1f}" width="{W - 2 * GUTTER}" height="{note_h:.1f}" rx="12"/>')
     for i, line in enumerate(note_lines):
-        out.append(f'<text class="b strong" x="{10 + PAD}" y="{y + 12 + t["lh"] * (i + 1) - 4:.1f}">{esc(line)}</text>')
+        out.append(f'<text class="b strong" x="{GUTTER + PAD}" y="{y + 12 + t["lh"] * (i + 1) - 4:.1f}">{esc(line)}</text>')
     y += note_h + 20
-    return (f'<svg class="tall" viewBox="0 0 {TALL} {y:.0f}" role="img" aria-labelledby="{uid}-t {uid}-d">'
+    return (f'<svg class="{_cls(layout)}" viewBox="0 0 {W} {y:.0f}" role="img" aria-labelledby="{uid}-t {uid}-d">'
             f'<title id="{uid}-t">{esc(seq.title)}</title><desc id="{uid}-d">{esc(_sequence_words(seq))}</desc>'
             + ''.join(out) + '</svg>')
 
@@ -410,7 +487,7 @@ def _sequence_words(seq: Sequence) -> str:
     return '; '.join(f'{names[s]} to {names[d]}: {label}' for s, d, label, _ in seq.messages) + f'. {seq.note}'
 
 
-# ---------------------------------------------------------------- the five diagrams
+# ---------------------------------------------------------------- the diagrams
 
 L, R, F = (22, 148), (190, 148), (12, 336)  # tall columns: left, right, full width
 C = (44, 300)  # a single column with room for a rail on its left
@@ -437,11 +514,11 @@ PIPELINE = Diagram(
      ('Grading', ['D', 'J'])],
     wide=[[('T1', 12, 150), ('W', 206, 150, 2), ('H', 392, 150, 2), ('M', 650, 130, 2), ('V', 812, 136, 2)],
           [('T2', 12, 150)],
-          [('B', 392, 150, 2), ('D', 600, 160), ('R', 812, 136, 2)],
+          [('B', 392, 150, 2), ('D', 600, 160), ('R', 790, 158, 2)],
           [('J', 600, 160)],
-          [('S', 812, 136)]],
-    tall=[[('T1', 44, 146), ('T2', 204, 146)], [('W', *C)], [('H', *C)], [('M', *C)], [('V', *C)], [('B', *C)],
-          [('D', 44, 146), ('J', 204, 146)], [('R', *C)], [('S', *C)]],
+          [('S', 700, 248)]],
+    tall=[[('T1', 40, 146), ('T2', 196, 146)], [('W', *C)], [('H', *C)], [('M', *C)], [('V', *C)], [('B', *C)],
+          [('D', 48, 146), ('J', 200, 146)], [('R', *C)], [('S', *C)]],
 )
 
 ISOLATION = Diagram(
@@ -465,7 +542,7 @@ ISOLATION = Diagram(
      ('P2', 'AU', '', False, {'tall': 180}), ('N2', 'AU', '', False, {'tall': 180}), ('F2', 'AU', '', False, {'tall': 180})],
     [],
     wide=[[('A', 350, 260)], [('CC', 90, 330), ('CX', 540, 330)],
-          [('P1', 0, 150), ('N1', 162, 150), ('F1', 324, 150), ('P2', 486, 150), ('N2', 648, 150), ('F2', 810, 150)],
+          [('P1', 12, 146), ('N1', 169, 146), ('F1', 326, 146), ('P2', 483, 146), ('N2', 640, 146), ('F2', 797, 146)],
           [('AU', 300, 360)]],
     flow='TB',
     tall=[[('A', *F)], [('CC', *L), ('CX', *R)], [('P1', *L), ('P2', *R)], [('N1', *L), ('N2', *R)],
@@ -486,9 +563,9 @@ CALIBRATION = Diagram(
      ('Q', 'AD', 'yes', False, None), ('Q', 'RJ', 'no', False, None), ('AD', 'BAT', '', False, None),
      ('BAT', 'GC', '', False, None)],
     [],
-    wide=[[('T', 0, 180, 2), ('FL', 226, 210), ('Q', 482, 200, 2), ('RJ', 770, 190)],
-          [('CE', 226, 210), ('AD', 770, 190)],
-          [('GC', 482, 200), ('BAT', 770, 190)]],
+    wide=[[('T', 12, 170, 2), ('FL', 226, 210), ('Q', 476, 196, 2), ('RJ', 772, 176)],
+          [('CE', 226, 210), ('AD', 772, 176)],
+          [('GC', 476, 196), ('BAT', 772, 176)]],
     tall=[[('T', *F)], [('FL', *L), ('CE', *R)], [('Q', *F)], [('AD', *L), ('RJ', *R)], [('BAT', *L)], [('GC', *F)]],
 )
 
@@ -508,10 +585,10 @@ DIRECT = Diagram(
      ('F', 'PO', '', False, {'tall': 180}),
      ('PO', 'J', '', False, None), ('J', 'K', '', False, None), ('K', 'A', '', False, None), ('A', 'R', '', False, None)],
     [],
-    wide=[[('Q', 0, 200, 4), ('E', 250, 150), ('PO', 450, 180, 4), ('J', 680, 280)],
-          [('T', 250, 150), ('K', 680, 280)],
-          [('P', 250, 150), ('A', 680, 280)],
-          [('F', 250, 150), ('R', 680, 280)]],
+    wide=[[('Q', 12, 190, 4), ('E', 250, 150), ('PO', 450, 180, 4), ('J', 680, 268)],
+          [('T', 250, 150), ('K', 680, 268)],
+          [('P', 250, 150), ('A', 680, 268)],
+          [('F', 250, 150), ('R', 680, 268)]],
     tall=[[('Q', *F)], [('E', *L), ('T', *R)], [('P', *L), ('F', *R)], [('PO', *F)], [('J', *F)], [('K', *F)],
           [('A', *F)], [('R', *F)]],
 )
@@ -530,7 +607,34 @@ GRADING = Sequence(
     'Pass = right decision AND recall ≥ 0.7 AND unsupported ≤ 0.25',
 )
 
-DIAGRAMS = {d.name: d for d in (PIPELINE, ISOLATION, CALIBRATION, DIRECT)}
+INSIGHT = Diagram(
+    'insight', 'How an insight study works',
+    [Node('S', 'pre-registered', 'Question set', ['`catalogs/insight/*.json']),
+     Node('P', 'setup', 'Frozen request profiles', ['`config/insight/profiles/'], tall=['one per service']),
+     Node('W', 'query', 'Shared query-writer', ['once per question, stored']),
+     Node('R', 'run', '`sew insight run', ['every question × every service, same day; spend ledger, resumable'],
+          tall=['every question × every service, same day']),
+     Node('C', 'results-list', 'Cells', ['request, raw response, cost, latency'], 'st'),
+     Node('E', 'filter', 'Extract', ['one fixed model: atomic claims, each with its source URL'],
+          tall=['atomic claims with their sources']),
+     Node('K', 'overlap', 'Cluster', ['per question: lexical prefilter, then model equivalence'],
+          tall=['the same finding, pooled per question']),
+     Node('V', 'verified', 'Verify', ['each claim on the page it cites']),
+     Node('J', 'blind', 'Value 0–3', ['verified clusters, blind, in a seeded shuffle']),
+     Node('T', 'report', '`sew insight report', ['unique verified insight per service'], 'st')],
+    [('S', 'W', '', False, None), ('P', 'W', '', False, None), ('W', 'R', '', False, None), ('R', 'C', '', False, None),
+     ('C', 'E', '', False, None), ('E', 'K', '', False, None), ('K', 'V', '', False, None), ('V', 'J', '', False, None),
+     ('J', 'T', '', False, None)],
+    [('Grading: one extractor, a blind judge', ['E', 'K', 'V', 'J'], {'tall': 'Grading'})],
+    wide=[[('S', 12, 190), ('W', 252, 196, 2), ('R', 498, 214, 2), ('C', 762, 186, 2)],
+          [('P', 12, 190)],
+          [('J', 12, 190), ('V', 252, 196), ('K', 498, 214), ('E', 762, 186)],
+          [('T', 12, 190)]],
+    tall=[[('S', *L), ('P', *R)], [('W', *C)], [('R', *C)], [('C', *C)], [('E', *C)], [('K', *C)], [('V', *C)],
+          [('J', *C)], [('T', *C)]],
+)
+
+DIAGRAMS = {d.name: d for d in (PIPELINE, ISOLATION, CALIBRATION, DIRECT, INSIGHT)}
 
 
 def figure(name: str) -> str:

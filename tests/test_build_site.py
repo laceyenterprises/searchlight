@@ -394,10 +394,10 @@ def test_infographic_names_every_arm_and_no_private_paths():
 def test_page_has_apparatus_diagrams_and_resolved_links():
     files = site.build()
     methodology, results = files['methodology.html'], files['results.html']
-    # The apparatus diagrams are drawn by the generator: five figures, each with a wide and a tall layout, and no
-    # third-party diagram script on any page.
-    assert methodology.count('<figure class="flow"') == 5
-    assert methodology.count('<svg class="wide"') == 5 and methodology.count('<svg class="tall"') == 5
+    # The apparatus diagrams are drawn by the generator: six figures (the insight study's since the README upgrade),
+    # each with a wide and a tall layout, and no third-party diagram script on any page.
+    assert methodology.count('<figure class="flow"') == 6
+    assert methodology.count('<svg class="wide"') == 6 and methodology.count('<svg class="tall"') == 6
     assert all('mermaid' not in page for page in files.values())
     # Each report has its own page; the results page keeps the old #run- and #method- anchors on its index.
     assert 'id="run-2026-10-05-agent-search-behavior"' in results
@@ -911,26 +911,27 @@ def test_study_page_shares_the_site_shell():
 def test_diagrams_keep_every_node_and_edge_and_fit_their_column():
     from searchlight_site import diagrams as d
     for diagram in d.DIAGRAMS.values():
-        for layout, width in (('wide', d.WIDE), ('tall', d.TALL)):
-            placed = [cell[0] for row in getattr(diagram, layout) for cell in row]
+        for layout, t in d.TYPE.items():
+            placed = [cell[0] for row in d.rows_for(diagram, layout) for cell in row]
             assert sorted(placed) == sorted(n.id for n in diagram.nodes), (diagram.name, layout)
-            t = d.TYPE[layout]
-            boxes = d.place(getattr(diagram, layout), {n.id: n for n in diagram.nodes}, t)
-            assert all(0 <= x and x + w <= width for x, _, w, _ in boxes.values()), (diagram.name, layout)
+            boxes = d.place(d.rows_for(diagram, layout), {n.id: n for n in diagram.nodes}, t)
+            # Every card keeps a gutter inside the drawing, so no border is clipped at the edge.
+            assert all(d.GUTTER <= x and x + w <= t['width'] - d.GUTTER for x, _, w, _ in boxes.values()), (
+                diagram.name, layout)
         svg = d._flow_svg(diagram, 'wide')
         assert svg.count('class="e"') == len(diagram.edges)
     assert min(t[k] for t in d.TYPE.values() for k in ('t', 'b', 'm', 'e')) >= 14
     figure = d.figure('grading')
-    assert figure.count('class="e') >= 2 * len(d.GRADING.messages)
+    # The tall layout folds each reply into its request and each fan-out into one step.
+    assert figure.count('class="e') >= len(d.GRADING.messages) + len(d.steps(d.GRADING))
 
 
 def test_diagram_text_stays_inside_its_card():
     """Every wrapped line fits inside its card's padding, so no word, flag or path touches the border."""
-    from searchlight_site import diagrams as d
-    for diagram in d.DIAGRAMS.values():
-        for layout in ('wide', 'tall'):
-            t = d.TYPE[layout]
-            for row in getattr(diagram, layout):
+    from searchlight_site import diagrams as d, readme
+    for diagram in [*d.DIAGRAMS.values(), *readme.readme_diagrams().values()]:
+        for layout, t in d.TYPE.items():
+            for row in d.rows_for(diagram, layout):
                 for nid, _, w, *_ in row:
                     stacked, title, body = d._lines(next(n for n in diagram.nodes if n.id == nid), w, t)
                     title_room = w - 2 * d.PAD - (0 if stacked else d.GLYPH + 10)
@@ -957,7 +958,7 @@ def _overlap(a, b, gap=0.0):
                 or b[1] + b[3] + gap <= a[1])
 
 
-@pytest.mark.parametrize('layout', ['wide', 'tall'])
+@pytest.mark.parametrize('layout', ['wide', 'tall', 'readme', 'readme-tall'])
 def test_diagram_layouts_have_no_collisions(layout):
     """No edge crosses a group's label band or runs through a card it does not join, and groups keep apart."""
     from searchlight_site import diagrams as d
@@ -978,6 +979,36 @@ def test_diagram_layouts_have_no_collisions(layout):
             if e['label_box']:
                 assert not any(_overlap(e['label_box'], box) for box in geo['boxes'].values()), (diagram.name, layout,
                                                                                                e['label'])
-        width = d.WIDE if layout == 'wide' else d.TALL
+        width = d.TYPE[layout]['width']
         for g in geo['groups']:
             assert 0 <= g['rect'][0] and g['rect'][0] + g['rect'][2] <= width, (diagram.name, layout)
+
+
+def test_readme_art_stands_alone_and_every_reference_resolves():
+    """GitHub shows README images through <img>: no outside requests, every <use> resolves inside the file, both
+    themes exist, and every image a README names is generated."""
+    art = site.readme_art()
+    for name, svg in art.items():
+        assert svg.startswith('<svg xmlns="http://www.w3.org/2000/svg"') and '<title' in svg and '<desc' in svg, name
+        assert not re.search(r'(?:href|src)="(?:https?:|//)|@import|url\((?!#)', svg), name
+        defined = set(re.findall(r'<(?:symbol|marker|linearGradient)[^>]* id="([^"]+)"', svg))
+        assert set(re.findall(r'href="#([^"]+)"', svg)) <= defined, name
+        other = name.replace('-light.svg', '-dark.svg') if name.endswith('-light.svg') else name.replace('-dark', '-light')
+        assert other in art, name
+    for readme in ('README.md', 'docs/insight-bench/README.md', 'reports/README.md', 'design/README.md'):
+        refs = re.findall(r'docs/readme/([\w-]+\.svg)|\.\./readme/([\w-]+\.svg)', (site.ROOT / readme).read_text())
+        assert refs, readme
+        assert all((a or b) in art for a, b in refs), readme
+        # GitHub keeps a <picture> only when it opens its own line or sits whole on one line; wrapped in an inline
+        # tag such as <a>, the sources fall out and the image shows unthemed.
+        text = (site.ROOT / readme).read_text()
+        assert not re.search(r'<a\b[^>]*>\s*<picture', text), readme
+
+
+def test_reports_index_runs_oldest_first_like_its_timeline():
+    """The reports index lists every report and study oldest first, the order its timeline header draws them in."""
+    text = (site.ROOT / 'reports' / 'README.md').read_text()
+    dates = re.findall(r'^- .*?\]\((\d{4}-\d{2}-\d{2})-[^)]*/REPORT\.md\)', text, re.M)
+    pages = site.site_map(site.load_reports(), site.insight_studies())
+    assert dates == sorted(dates) and len(dates) == len(pages)
+
