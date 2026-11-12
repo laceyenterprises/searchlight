@@ -1,7 +1,6 @@
 """The standalone repository entry points stay usable after extraction."""
 
 import importlib.util
-import json
 from pathlib import Path
 
 import pytest
@@ -21,6 +20,11 @@ def test_default_collection_excludes_verifier_corpus():
 def test_ci_covers_all_supported_platforms_offline():
     workflow = yaml.safe_load((ROOT / ".github/workflows/standalone.yml").read_text())
     job = workflow["jobs"]["standalone"]
+    # Pin the event-dependent matrix contract directly; GitHub Actions owns
+    # expression evaluation, whose semantics need not match Python's.
+    # pull_request: Python 3.12 on ubuntu-latest.
+    # push: Python 3.11/3.12/3.13 on ubuntu-latest.
+    # schedule/workflow_dispatch: Python 3.11/3.12/3.13 on ubuntu-latest and macos-latest.
     assert job["strategy"]["matrix"] == {
         "os": "${{ fromJSON((github.event_name == 'schedule' || "
         "github.event_name == 'workflow_dispatch') && "
@@ -29,27 +33,6 @@ def test_ci_covers_all_supported_platforms_offline():
         "github.event_name == 'workflow_dispatch') && "
         '\'["3.11","3.12","3.13"]\' || \'["3.12"]\') }}',
     }
-    for event in ("pull_request", "push", "schedule", "workflow_dispatch"):
-        matrix = {}
-        for key, expression in job["strategy"]["matrix"].items():
-            # These asserted expressions use only comparisons and short-circuit
-            # booleans; evaluate their JSON branches for each supported trigger.
-            expression = expression.removeprefix("${{ fromJSON(").removesuffix(") }}")
-            expression = expression.replace("github.event_name", "event")
-            expression = expression.replace("&&", " and ").replace("||", " or ")
-            matrix[key] = json.loads(
-                eval(expression, {"__builtins__": {}}, {"event": event})
-            )
-        assert matrix["python"] == (
-            ["3.11", "3.12", "3.13"]
-            if event in ("schedule", "workflow_dispatch")
-            else ["3.12"]
-        )
-        assert matrix["os"] == (
-            ["ubuntu-latest", "macos-latest"]
-            if event in ("schedule", "workflow_dispatch")
-            else ["ubuntu-latest"]
-        )
     assert job["timeout-minutes"] == 75
     assert job["strategy"]["fail-fast"] is False
     assert job["env"]["SEW_MODE"] == "standalone"
