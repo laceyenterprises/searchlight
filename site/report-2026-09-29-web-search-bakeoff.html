@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Google consent defaults: analytics storage denied in the EEA, UK, Switzerland and listed territories; no consent UI; ad storage off everywhere -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH','AX','GF','GP','MQ','RE','YT','MF','GI','JE','GG','IM']});</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TWQZV6F7');</script>
+<!-- End Google Tag Manager -->
+<meta name="description" content="Answering from memory passed 76%; the best search setup, Firecrawl, reached 90%: the two ranges overlap, so the test cannot separate them."><link rel="canonical" href="https://searchlightai.dev/report-2026-09-29-web-search-bakeoff.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Searchlight"><meta property="og:title" content="Web search bakeoff · Searchlight"><meta property="og:description" content="Answering from memory passed 76%; the best search setup, Firecrawl, reached 90%: the two ranges overlap, so the test cannot separate them."><meta property="og:url" content="https://searchlightai.dev/report-2026-09-29-web-search-bakeoff.html"><meta property="og:image" content="https://searchlightai.dev/social-card.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="2400"><meta property="og:image:height" content="1260"><meta property="og:image:alt" content="Searchlight: an open benchmark of what web search does for AI coding agents."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Web search bakeoff · Searchlight"><meta name="twitter:description" content="Answering from memory passed 76%; the best search setup, Firecrawl, reached 90%: the two ranges overlap, so the test cannot separate them."><meta name="twitter:image" content="https://searchlightai.dev/social-card.png"><meta name="twitter:image:alt" content="Searchlight: an open benchmark of what web search does for AI coding agents."><meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0C0F13" media="(prefers-color-scheme: dark)"><link rel="icon" type="image/svg+xml" href="logo.svg">
+<title>Web search bakeoff · Searchlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>/* Searchlight design tokens: the source of truth for colour, type, space and radius.
+   scripts/build_site.py inlines this file into every page and into the study dashboards.
+   Light values on :root; dark values under prefers-color-scheme or data-theme="dark", chosen for the dark ground. */
+:root {
+  /* Surfaces and ink */
+  --paper: #FFFFFF;
+  --soft: #F4F6F9;
+  --raised: #FFFFFF;    /* a card on the soft ground */
+  --rule: #E3E7EC;
+  --ink: #111111;
+  --ink-2: #4F5761;
+  --muted: #5F6873;
+
+  /* Brand: Lacey blue, the one accent (links, the highlighted series, the beam, glyph accents) */
+  --blue: #007BFF;
+  --blue-ink: #0057B3;
+  --blue-soft: #EAF3FF;
+  --on-blue: #FFFFFF;
+
+  /* Signals: reserved for meaning, never decoration or a series colour */
+  --go: #00A86B;        /* verified, supported */
+  --go-ink: #007A4D;
+  --red: #E5202E;       /* unsupported, failed */
+  --red-ink: #B3121C;
+  --amber: #F5B700;     /* a caveat applies, imported, unverifiable */
+  --amber-ink: #8A5A00;
+  --amber-soft: #FFF6D9;
+
+  /* The night ground: the hero and the beam illustration, dark in both themes */
+  --night: #0C0F13;
+  --night-2: #161B22;
+  --night-rule: #262C35;
+  --night-fg: #F2F4F7;
+  --night-mute: #9AA3AF;
+
+  /* Glyph inputs (the sprite reads these) */
+  --sl-accent: var(--blue);
+  --sl-go: var(--go);
+  --sl-red: var(--red);
+  --sl-amber: var(--amber);
+
+  /* Data */
+  --viz-track: #EEF0F3;     /* the 0-100% track behind a bar */
+  --viz-interval: #9EC5F4;  /* a 95% range */
+  --viz-other: #B4BBC5;     /* a series that is not highlighted: controls, references */
+  --viz-ref: #3A414B;       /* reference marks: no search, the answer handed over */
+
+  /* Type */
+  --font-body: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Space (4 px base), radius, width */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 80px;
+  --radius-xs: 3px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 18px;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+    --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+    --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+    --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+    --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+    --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+  --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+  --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+  --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+  --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+  --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+  color-scheme: dark;
+}
+/* Searchlight site styles. Every colour, font, space and radius comes from design/tokens.css, which the
+   generator inlines ahead of this file. Phone first: nothing under 14 px, no horizontal page scroll. */
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:150px}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--font-body);-webkit-font-smoothing:antialiased;
+overflow-wrap:break-word}
+a{color:var(--blue-ink);text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:var(--radius-sm)}
+.skip{position:absolute;left:-9999px;top:8px;z-index:20;background:var(--paper);color:var(--ink);padding:10px 14px;border-radius:var(--radius-md)}
+.skip:focus{left:16px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:20px}
+.g{width:24px;height:24px;flex:none;display:inline-block;vertical-align:middle}
+.g.s32{width:32px;height:32px}.g.s40{width:40px;height:40px}.g.s20{width:20px;height:20px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.js-only{display:none}html.js .js-only{display:revert}
+[hidden]{display:none!important}
+
+/* Header: the brand is generous; the bar shows from 860 px, the menu below that. */
+/* A solid ground: a backdrop filter would trap the fixed menu panel inside the header. */
+.top{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:72px}
+.brand{display:inline-flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;margin-right:auto}
+.brand .mark{width:44px;height:44px;flex:none}
+.brand .word{font-size:28px;font-weight:700;letter-spacing:-.035em;line-height:1}
+.navbar{display:none;align-items:center;gap:4px}
+.navbar a{padding:9px 14px;border-radius:999px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500}
+.navbar a:hover{background:var(--soft)}
+.navbar a[aria-current]{background:var(--ink);color:var(--paper);font-weight:600}
+.navbar a.gh{border:1.5px solid var(--rule);margin-left:8px}
+.menu{position:relative}
+.menu summary{list-style:none;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:14px;
+border:1.5px solid var(--rule);cursor:pointer;color:var(--ink)}
+.menu summary::-webkit-details-marker{display:none}
+.menu summary .g{width:26px;height:26px}
+.menu .close{display:none}.menu[open] .open{display:none}.menu[open] .close{display:block}
+.navpanel{position:fixed;left:0;right:0;top:72px;bottom:0;overflow-y:auto;background:var(--paper);padding:4px 20px 32px;
+border-top:1px solid var(--rule)}
+.navpanel a{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid var(--rule);color:var(--ink);
+text-decoration:none;font-size:19px;font-weight:500}
+.navpanel a .g{width:28px;height:28px;color:var(--ink)}
+.navpanel a[aria-current=page]{font-weight:700}.navpanel a[aria-current=page] .g{color:var(--blue)}
+.navpanel .sub{margin:22px 0 4px;font:500 14px/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.navpanel .sub+a,.navpanel a.small{font-size:17px;min-height:52px}
+@media (min-width:860px){.navbar{display:flex}.menu{display:none}}
+
+/* Type */
+h1,h2,h3{margin:0;line-height:1.1;text-wrap:balance;font-family:var(--font-display)}
+h1{font-size:clamp(36px,6.2vw,60px);font-weight:700;letter-spacing:-.035em}
+h2{font-size:clamp(27px,3.6vw,38px);font-weight:700;letter-spacing:-.03em}
+h3{font-size:21px;font-weight:650;letter-spacing:-.015em;line-height:1.25}
+p{margin:0}
+.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 14px;font:500 14px/1.3 var(--font-mono);letter-spacing:.08em;
+text-transform:uppercase;color:var(--blue-ink)}
+.lede{font-size:clamp(18px,1.7vw,21px);line-height:1.5;color:var(--ink-2);max-width:62ch;margin-top:18px}
+.muted{color:var(--muted)}.small{font-size:15px}
+.num{font-variant-numeric:tabular-nums}
+section.band{padding-block:clamp(48px,7vw,88px)}
+section.band.soft{background:var(--soft)}
+.head{margin-bottom:28px}
+.head p{color:var(--ink-2);margin-top:10px;max-width:64ch}
+.head p.eyebrow{color:var(--blue-ink);margin:0}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:28px 0 0;font-size:15px;color:var(--muted)}
+.crumbs a{color:var(--ink-2)}
+.pagehead{padding-block:36px 8px}
+
+/* Buttons: one primary per screen */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;
+font-size:17px;font-weight:600;text-decoration:none;border:0;cursor:pointer;background:var(--blue-ink);color:var(--on-blue)}
+.btn:hover{filter:brightness(1.07)}
+.btn.quiet{background:transparent;color:var(--ink);border:1.5px solid var(--rule)}
+.more{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--blue-ink);text-decoration:none;min-height:44px}
+.more:hover{text-decoration:underline}
+.more::after{content:"\2192"}
+
+/* Hero: one question, one picture, one action */
+.hero{margin-top:20px;background:var(--night);color:var(--night-fg);border-radius:var(--radius-xl);padding:clamp(28px,5vw,64px);
+display:grid;gap:28px;align-items:center;overflow:hidden}
+.hero .eyebrow{color:var(--night-mute)}
+.hero h1{max-width:15ch}
+.hero .what{margin-top:20px;font-size:clamp(18px,1.8vw,21px);line-height:1.5;color:var(--night-mute);max-width:42ch}
+.hero .answer{margin-top:14px;font-size:clamp(18px,1.8vw,22px);line-height:1.5;color:var(--night-fg);max-width:40ch}
+.hero .answer b{color:#7DBBFF;font-weight:700}
+.hero .btn{margin-top:28px;background:#3D9BFF;color:#06111F}
+.beamart{width:100%;max-width:480px;justify-self:center}
+.latest{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:12px;padding:14px 18px;border:1px solid var(--rule);border-radius:var(--radius-lg);color:var(--ink);text-decoration:none;background:var(--paper)}
+.latest:hover{border-color:var(--ink-2)}
+.latest .tag{font:600 14px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-blue);background:var(--blue-ink);border-radius:999px;padding:5px 10px}
+.latest .when{font:500 14px/1 var(--font-mono);color:var(--muted)}
+.latest .t{font-weight:650}
+.latest .m{color:var(--muted);font-size:15px}
+.latest::after{content:"\2192";margin-left:auto;color:var(--blue-ink);font-weight:700}
+@media (min-width:900px){.hero{grid-template-columns:1.25fr 1fr}}
+
+/* Big number */
+.big{font-size:clamp(40px,6vw,64px);font-weight:750;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.big.blue{color:var(--blue-ink)}
+
+/* Findings list on the overview */
+.takeaways{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule)}
+.takeaways li{border-bottom:1px solid var(--rule)}
+.takeaways a{display:grid;grid-template-columns:300px minmax(0,1fr);gap:6px 28px;align-items:baseline;padding:22px 0;color:var(--ink);text-decoration:none}
+.takeaways .k{grid-column:1;grid-row:1;font-size:clamp(28px,4vw,40px);font-weight:750;letter-spacing:-.03em;color:var(--blue-ink);
+font-variant-numeric:tabular-nums;white-space:nowrap}
+.takeaways .t{grid-column:2;grid-row:1;font-weight:650;font-size:20px;line-height:1.3}
+.takeaways .d{grid-column:2;grid-row:2;color:var(--ink-2);font-size:16px}
+.takeaways a:hover .t{text-decoration:underline}
+@media (max-width:620px){.takeaways a{grid-template-columns:1fr}.takeaways .k,.takeaways .t,.takeaways .d{grid-column:1;grid-row:auto}}
+
+/* Concept tiles: learn in 60 seconds */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (min-width:760px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:16px;border:1.5px solid var(--rule);
+border-radius:var(--radius-lg);background:var(--raised);color:var(--ink);text-decoration:none;line-height:1.3}
+.tile b{font-size:17px;font-weight:650}
+.tile span{font-size:15px;color:var(--ink-2);line-height:1.4}
+.tile .g{width:32px;height:32px}
+.tile:hover{border-color:var(--ink-2)}
+.tile[aria-selected=true]{border-color:var(--blue);background:var(--blue-soft)}
+.concepts{margin-top:14px;display:grid;gap:10px}
+.concept{background:var(--soft);border-radius:var(--radius-lg);padding:22px}
+.band.soft .concept,.band.soft .tile,.band.soft .card,.band.soft .term,.band.soft .readme{background:var(--raised)}
+.concept h3{display:flex;align-items:center;gap:12px}
+.concept p{margin-top:8px;color:var(--ink-2);max-width:68ch}
+.concept p.one{display:none}
+html.js .concept[hidden]{display:none}
+
+/* How to read these results */
+.readme{display:grid;grid-template-columns:minmax(0,1fr);gap:14px 18px;padding:22px;border:1px solid var(--rule);
+border-radius:var(--radius-lg);background:var(--paper)}
+.readme .g{width:32px;height:32px;color:var(--ink)}
+.readme h3{margin-bottom:6px}
+.readme p{color:var(--ink-2)}
+.readme ul{margin:10px 0 0;padding-left:20px;color:var(--ink-2)}
+.readme li{margin:4px 0}
+.readme .links{display:flex;flex-wrap:wrap;gap:4px 24px;margin-top:10px}
+
+@media (min-width:620px){.readme{grid-template-columns:auto minmax(0,1fr)}}
+/* Cards */
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius-lg);padding:22px;display:flex;flex-direction:column;gap:10px}
+.band.soft .card{border-color:transparent}
+.card .eyebrow{margin:0}
+.card p{color:var(--ink-2)}
+.card .foot{margin-top:auto;padding-top:8px}
+.card details{font-size:16px}
+.card blockquote{margin:10px 0 0;padding:14px 16px;border-radius:var(--radius-md);background:var(--soft);color:var(--ink);font-size:16px}
+.band.soft .card blockquote{background:var(--soft)}
+
+/* Reports list */
+.reports{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.reports li{border-bottom:1px solid var(--rule)}
+.reports a.row-link{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 16px;align-items:center;padding:18px 0;
+color:var(--ink);text-decoration:none}
+.reports .g{width:32px;height:32px;grid-row:span 3;align-self:start;color:var(--ink)}
+.reports .t{font-weight:650;font-size:18px;line-height:1.3}
+.reports .d{grid-column:2;color:var(--ink-2);font-size:16px}
+.reports .when{grid-row:1;grid-column:3;font:500 14px/1.3 var(--font-mono);color:var(--muted);white-space:nowrap}
+.reports a.row-link:hover .t{text-decoration:underline}
+@media (max-width:620px){.reports .when{grid-column:2;grid-row:auto;white-space:normal}}
+
+/* The record on the results page: one line per report */
+.reports.compact a.row-link{grid-template-columns:minmax(0,1fr) auto;padding:14px 0}
+.reports.compact .g{display:none}
+.reports.runs a.row-link{grid-template-columns:minmax(0,1fr) auto}.reports.runs .t{grid-column:1}.reports.runs .d{grid-column:1/-1}
+.reports.compact .t{grid-column:1;font-size:17px}.reports.compact .when{grid-column:2;grid-row:1}
+.reports.compact .d{grid-column:1/-1;grid-row:2}
+@media (max-width:620px){.reports.compact a.row-link{grid-template-columns:1fr;gap:2px}.reports.compact .when,.reports.compact .d{grid-column:1;grid-row:auto}}
+
+/* Findings on the results page */
+.finding{padding-block:clamp(36px,5vw,56px);border-top:1px solid var(--rule)}
+.finding:first-of-type{border-top:0}
+.finding>.head{display:grid;gap:10px;max-width:760px}
+.finding .so{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:2px 0 2px 14px;border-left:3px solid var(--blue);
+color:var(--ink);max-width:760px}
+.finding .so .g{color:var(--blue-ink);margin-top:1px}
+
+/* Filter bar: one row of chips per question, on a shared baseline; each row scrolls sideways on phones */
+.filters{background:var(--paper);border-block:1px solid var(--rule);padding:10px 0;margin-top:8px}
+.filters .wrap{display:grid;gap:8px}
+.seg{border:0;margin:0;padding:0;min-width:0;display:grid;grid-template-columns:110px minmax(0,1fr);align-items:center;gap:12px}
+.seg legend{float:left;padding:0;font:500 14px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.seg .opts{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.seg .opts::-webkit-scrollbar{display:none}
+.seg label{flex:none;position:relative}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border:1.5px solid var(--rule);border-radius:999px;
+font-size:15px;font-weight:550;color:var(--ink-2);white-space:nowrap;cursor:pointer;background:var(--paper)}
+.seg input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.seg input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+@media (max-width:620px){.seg{grid-template-columns:1fr;gap:6px}.seg .opts{flex-wrap:wrap;overflow:visible}.seg span{min-height:36px;padding:0 12px}}
+@media (min-width:860px){.filters{position:sticky;top:72px;z-index:5}}
+.empty{padding:24px;border:1.5px dashed var(--rule);border-radius:var(--radius-lg);color:var(--muted);margin-top:16px}
+
+/* Boards: ranked rows with a big number, a 95% range and n */
+.boards{display:grid;gap:20px;margin-top:24px}
+@media (min-width:1000px){.boards.two{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}}
+.board{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px 20px 8px;background:var(--paper);min-width:0;container-type:inline-size}
+.board>header h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.board>header .model{font:500 15px/1.3 var(--font-mono);color:var(--muted)}
+.board>header p{margin-top:6px;color:var(--ink-2);font-size:16px}
+.board .says{margin-top:12px;font-weight:550;color:var(--ink)}
+.scale{display:grid;grid-template-columns:28px minmax(0,1fr) 96px;gap:0 14px;margin-top:16px;padding-bottom:6px;border-bottom:1px solid var(--rule);
+font:500 14px/1.2 var(--font-mono);color:var(--muted)}
+.scale .ticks{grid-column:2;display:flex;justify-content:space-between}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:28px minmax(0,1fr) 96px;grid-template-areas:"rk nm pc" "rk tr nn";gap:6px 14px;align-items:center;
+padding:14px 0;border-bottom:1px solid var(--rule)}
+.row:last-child{border-bottom:0}
+.row .rk{grid-area:rk;align-self:start;font:600 15px/1.9 var(--font-mono);color:var(--muted);text-align:right}
+.row .nm{grid-area:nm;min-width:0;font-weight:650;font-size:18px;line-height:1.3}
+.row .name{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
+.row .nm small{display:block;font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
+.row .pc{grid-area:pc;text-align:right;font-size:30px;font-weight:750;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.row .tr{grid-area:tr}
+.row .nn{grid-area:nn;align-self:center;text-align:right;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.3}
+.row .nn b{display:block;color:var(--ink-2);font-weight:500}
+.row .nn .k{display:block}
+.row.ctl .pc{color:var(--ink-2)}
+.row.ctl .nm{font-weight:500;color:var(--ink-2)}
+.chip{display:inline-flex;align-items:center;gap:6px;font:600 14px/1.2 var(--font-body);border-radius:999px;padding:3px 10px;
+background:var(--blue-soft);color:var(--blue-ink);white-space:nowrap}
+.chip.ctl{background:var(--soft);color:var(--ink-2)}
+.row .tr{display:block;min-width:0}
+.track{display:block;position:relative;height:14px;border-radius:7px;background:var(--viz-track)}
+.track>span{display:block}
+.track .ci{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--viz-interval)}
+.track .dot{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--paper)}
+.track .lb{position:absolute;top:-5px;bottom:-5px;border-left:2px dashed var(--ink-2);opacity:.55}
+.row.ctl .track .ci{background:var(--viz-other);opacity:.55}
+.row.ctl .track .dot{background:var(--viz-ref)}
+.track .tick{position:absolute;top:-6px;bottom:-6px;width:0;border-left:3px solid var(--viz-ref)}
+.board>.bfoot{padding:8px 0 8px;margin-top:4px}
+@media (max-width:620px){
+.board{padding:14px 14px 4px}
+.board>header p{font-size:15px}
+.row{padding:10px 0}
+.row .nm small{display:none}
+h1{font-size:32px}
+.legend{font-size:14px;gap:6px 14px}
+.row .nn{font-size:14px}.row .nn b{display:inline}.row .nn .k{display:none}
+.finding{padding-block:24px}
+h2{font-size:25px}
+
+.finding>.head{gap:8px}
+.row,.scale{grid-template-columns:22px minmax(0,1fr) 96px;gap:4px 10px}
+.row .nn{white-space:nowrap}
+.row .pc{font-size:28px}
+}
+
+/* Notes: a caveat sits beside the number it qualifies */
+.notes{display:flex;flex-wrap:wrap;gap:0 10px;align-items:flex-start}
+.notes details.note[open]{flex-basis:100%}
+details.note{display:inline;font-size:15px}
+details.note>summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;font:600 14px/1.2 var(--font-body);
+color:var(--amber-ink);background:var(--amber-soft);border-radius:999px;padding:3px 10px 3px 6px}
+details.note.neutral>summary{color:var(--ink-2);background:var(--soft)}
+.row details.note[open]{flex-basis:100%}
+details.note>summary::-webkit-details-marker{display:none}
+details.note>summary .g{width:18px;height:18px}
+details.note[open]>summary{margin-bottom:6px}
+.notes{margin-top:4px}
+details.note>div{display:block;font-weight:400;font-size:15px;line-height:1.45;color:var(--ink-2);padding:10px 12px;border-left:3px solid var(--amber);
+background:var(--soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0;max-width:60ch}
+details.more-info{margin-top:8px}
+/* One disclosure pattern everywhere: a triangle at the left, closed ▸ and open ▾ */
+details.more-info>summary,details.allrows>summary,details.full>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;
+font-weight:600;color:var(--blue-ink);min-height:44px}
+details.more-info>summary::-webkit-details-marker,details.allrows>summary::-webkit-details-marker,details.full>summary::-webkit-details-marker{display:none}
+details.more-info>summary::before,details.allrows>summary::before,details.full>summary::before{content:"\25B8";width:1em;flex:none;color:var(--muted)}
+details.more-info[open]>summary::before,details.allrows[open]>summary::before,details.full[open]>summary::before{content:"\25BE"}
+details.more-info p{margin:8px 0;color:var(--ink-2);font-size:16px}
+
+/* Dumbbell: no search, with search, answer handed over */
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px;font-size:15px;color:var(--ink-2)}
+.dumb .row .nn{font-size:14px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;flex:none}
+.legend .k-dot{width:14px;height:14px;border-radius:50%;background:var(--viz-ref)}
+.legend .k-bar{width:26px;height:14px;border-radius:7px;background:var(--blue)}
+.legend .k-tick{width:0;height:20px;border-left:3px solid var(--viz-ref)}
+.legend .k-ci{width:26px;height:14px;border-radius:7px;background:var(--viz-interval)}
+.legend .k-pt{width:14px;height:14px;border-radius:50%;background:var(--blue)}
+.legend .k-lb{width:0;height:20px;border-left:2px dashed var(--ink-2)}
+.finding>.legend,.wrap>.legend{margin:20px 0 -4px}
+details.allrows>summary{min-height:48px;border-top:1px solid var(--rule)}
+details.allrows.forced>summary{display:none}
+.measures+details.allrows{margin-top:12px}
+.dumb .track .span{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--blue)}
+.dumb .track .dot{background:var(--viz-ref)}
+.dumb .row .pc{font-size:26px}
+.dumb .row,.dumb .scale{grid-template-columns:minmax(0,1fr) 128px;grid-template-areas:"nm pc" "tr nn"}
+.dumb .scale .ticks{grid-column:1}
+@media (max-width:620px){.dumb .row,.dumb .scale{grid-template-columns:minmax(0,1fr) 112px}}
+
+/* Stat tiles */
+.stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin-top:24px}
+.stat{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;gap:10px}
+@media (max-width:620px){.stats{gap:0;border-top:1px solid var(--rule)}.stat{display:block;border:0;border-bottom:1px solid var(--rule);
+border-radius:0;padding:14px 0}.stat .big{font-size:30px;white-space:nowrap}.stat p{font-size:15px;margin-top:4px}}
+.stat .big{font-size:clamp(36px,4.6vw,48px);color:var(--blue-ink)}
+.stat p{color:var(--ink-2);font-size:16px}
+
+/* Bars for counts (no interval published) */
+.measures{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));margin-top:24px}
+.measure{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:18px}
+.measure h3{font-size:17px}
+.measure .of{font-weight:400;color:var(--muted);font-size:15px}
+.bars{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+.bars li{display:grid;grid-template-columns:92px minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:16px}
+.bars .bt{height:14px;border-radius:7px;background:var(--viz-track);position:relative;overflow:hidden}
+.bars .bt i{position:absolute;inset:0 auto 0 0;border-radius:7px;background:var(--viz-other)}
+.bars li.lead .bt i{background:var(--blue)}
+.bars li.lead{font-weight:650}
+.bars .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:650}
+.bars .na{font-size:14px;color:var(--muted);text-align:right;white-space:nowrap}
+
+/* Studies: the photo finish, then the ranking */
+.study{padding-block:28px 40px;border-top:1px solid var(--rule)}
+.study:first-of-type{border-top:0}
+.study h2 a{color:var(--ink);text-decoration:none}.study h2 a:hover{text-decoration:underline}
+.study>p.muted{margin-top:8px}
+.finish{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.finish>li{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:18px;background:var(--paper);display:grid;gap:6px;align-content:start}
+.finish .q{font:500 14px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.finish .who{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.finish .big{font-size:40px;font-weight:750;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;color:var(--blue-ink)}
+.finish .big small{font-size:16px;font-weight:500;letter-spacing:0;color:var(--muted);margin-left:6px}
+.finish .ctx{font-size:15px;color:var(--ink-2)}
+.study .board{margin-top:16px}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:20px}
+.dash{margin-bottom:24px}
+
+/* Walkthrough: how a test works */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
+@media (min-width:1000px){.steps.strip{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.step{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:22px;background:var(--paper);display:grid;gap:10px;align-content:start}
+.step .n{font:500 14px/1.2 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue-ink)}
+.step .pic{display:flex;align-items:center;justify-content:center;gap:18px;min-height:120px;color:var(--ink);background:var(--soft);
+border-radius:var(--radius-md)}
+.step .pic .g{width:48px;height:48px}
+@media (min-width:760px){.steps.paged .step{grid-template-columns:minmax(220px,320px) minmax(0,1fr);column-gap:32px;padding:28px}
+.steps.paged .step>*{grid-column:2}.steps.paged .step .pic{grid-column:1;grid-row:1/6;min-height:220px}
+.steps.paged .step .pic .g{width:64px;height:64px}}
+.step .pic .arrow{width:24px;height:24px;color:var(--muted)}
+.step p{color:var(--ink-2)}
+.step p.notice{color:var(--ink);font-size:16px;border-top:1px solid var(--rule);padding-top:10px}
+.stepper{display:none;gap:12px;align-items:center;justify-content:flex-end;margin-top:16px}
+.btn:disabled{opacity:.4;cursor:default;filter:none}
+html.js .stepper{display:flex}
+html.js .steps.paged .step[hidden]{display:none}
+.stepper .pos{font:500 14px/1.2 var(--font-mono);color:var(--muted);margin-right:auto}
+
+/* Honest range explorer */
+.explorer{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:22px;display:grid;gap:16px;background:var(--paper)}
+.explorer .ctl{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.explorer button{width:48px;height:48px;border-radius:12px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);font-size:22px;cursor:pointer}
+.explorer .val{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums;min-width:4ch;text-align:center}
+.explorer .track{height:18px;border-radius:9px}
+.explorer .track .dot{width:18px;height:18px;margin:-9px 0 0 -9px}
+.explorer .axis{display:flex;justify-content:space-between;font:500 14px/1 var(--font-mono);color:var(--muted)}
+
+/* Methodology: step lists on phones, diagrams on wider screens; provider cards; a compact glossary */
+.pcards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));margin-top:16px}
+.pcard{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:16px 18px}
+.doc .pcard h3{margin:0 0 4px;font-size:18px}.doc .pcard p{margin:4px 0;color:var(--ink-2);font-size:15px}
+.doc .pcard details.more-info{margin-top:4px}.doc .pcard details.more-info>summary{min-height:36px}
+.pcard .ver code{overflow-wrap:anywhere}
+.pcard .tools{display:flex;flex-wrap:wrap;gap:6px}
+.glossary{display:grid;gap:0 32px;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));margin-top:12px}
+.gl{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.gl .g{width:28px;height:28px;margin-top:2px}
+.gl b{font-size:17px}.gl .alias{font:500 14px/1.4 var(--font-mono);color:var(--muted);margin-left:6px}
+.doc .gl p{margin:4px 0 0;color:var(--ink-2);font-size:16px}
+@media (max-width:620px){pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.steps.strip{gap:0}.steps.strip .step{border:0;border-bottom:1px solid var(--rule);border-radius:0;padding:14px 0;gap:4px}}
+
+/* Glossary */
+.terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.term{display:grid;align-content:start;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:18px;border-radius:var(--radius-lg);background:var(--soft)}
+.term .g{width:32px;height:32px;grid-row:span 2}
+.term b{font-size:17px}
+.term p{color:var(--ink-2);font-size:16px}
+.term .alias{font:500 14px/1.4 var(--font-mono);color:var(--muted)}
+
+/* Long text: reports and methodology */
+
+.doc h2{margin-top:56px;margin-bottom:12px}
+.doc h3{margin:32px 0 10px}
+.doc h4{margin:24px 0 8px;font-size:18px}
+.doc h5,.doc h6{margin:20px 0 6px;font-size:17px}
+.doc p,.doc li{max-width:72ch;color:var(--ink-2)}
+.doc p{margin:12px 0}
+.doc ul{padding-left:22px}
+.doc li{margin:6px 0}
+details.full{border:1px solid var(--rule);border-radius:var(--radius-lg);margin:16px 0;background:var(--paper)}
+details.full>summary{padding:14px 20px;font-size:18px;color:var(--ink)}
+details.full>.body{padding:0 20px 20px;border-top:1px solid var(--rule)}
+blockquote.note{margin:16px 0;padding:12px 16px;border-left:3px solid var(--amber);background:var(--soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+blockquote.note p{margin:6px 0}
+.tablewrap{overflow-x:auto;margin:14px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:14px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+code{font-family:var(--font-mono);font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:5px;white-space:nowrap}
+pre code{white-space:inherit}
+pre{font-family:var(--font-mono);font-size:14px;background:var(--soft);border-radius:var(--radius-md);padding:16px;overflow-x:auto;line-height:1.5}
+pre code{background:none;padding:0}
+/* Methodology diagrams: a wide layout from 900 px, a tall one below; neither is scaled down to fit */
+.flow{margin:18px 0 8px}
+.flow svg{display:block;height:auto;width:100%}
+.flow .wide{max-width:960px}
+.flow .tall{display:none;max-width:520px}
+@media (max-width:899px){.flow .wide{display:none}.flow .tall{display:block}}
+.flow .nd{fill:var(--raised);stroke:var(--rule);stroke-width:1.5}
+.flow .nd.st{fill:var(--soft)}
+.flow .nd.q{fill:var(--blue-soft);stroke:var(--blue)}
+.flow .grp{fill:none;stroke:var(--viz-other);stroke-width:1.5;stroke-dasharray:6 6}
+.flow .gl{font:500 14px var(--font-mono);letter-spacing:.06em;fill:var(--muted)}
+.flow .t{font:650 17px var(--font-body);fill:var(--ink)}
+.flow .b{font:400 16px var(--font-body);fill:var(--ink-2)}
+.flow .b.strong{font-weight:650;fill:var(--ink)}
+.flow .m{font:500 15px var(--font-mono);fill:var(--ink-2)}
+.flow .m.tt{font-weight:600;fill:var(--ink)}
+.flow .tall .t{font-size:16px}.flow .tall .b{font-size:15px}
+.flow .e{fill:none;stroke:var(--muted);stroke-width:2;stroke-linejoin:round}
+.flow .e.r{stroke-dasharray:6 5}
+.flow .life{fill:none;stroke:var(--rule);stroke-width:2;stroke-dasharray:4 6}
+.flow .ah{fill:var(--muted)}
+.flow .el{font:500 15px var(--font-body);fill:var(--ink-2)}
+.flow .elb{fill:var(--paper)}
+.flow use{color:var(--ink)}
+.arrives{display:flex;gap:12px;align-items:flex-start;margin-top:28px;padding:16px 18px;border-radius:var(--radius-lg);background:var(--blue-soft);color:var(--ink)}
+.arrives .g{color:var(--blue-ink);margin-top:2px}
+.files{font-size:15px;color:var(--muted);margin-top:12px}
+
+/* How to read: one line everywhere but Learn */
+.nw{white-space:nowrap}
+.name.nowrap{flex-wrap:nowrap;white-space:nowrap}
+.g.kd{width:20px;height:20px;color:var(--muted)}
+.keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:15px;color:var(--muted);margin-top:6px}
+.keys .g.kd{margin-left:6px}.keys .g.kd:first-child{margin-left:0}
+.finish .top3{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:4px}
+.finish .top3 li{display:flex;justify-content:space-between;gap:12px;font-size:16px;border-bottom:1px solid var(--rule);padding:4px 0}
+.finish .top3 b{font-variant-numeric:tabular-nums;color:var(--blue-ink);font-size:18px}
+.readlink{margin:14px 0 0}
+/* Footer */
+main>:last-child:not(.band){padding-bottom:72px}
+.foot{margin-top:0;border-top:1px solid var(--rule);background:var(--soft);padding-block:32px 28px;font-size:16px;color:var(--ink-2)}
+.foot .brand .mark{width:32px;height:32px}.foot .brand .word{font-size:20px}
+.foot-top{display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 22px}
+.foot-links a{color:var(--ink);text-decoration:none;font-size:16px}
+@media (max-width:620px){.foot-links{gap:6px 16px}.foot{padding-block:24px}}.foot-links a:hover{text-decoration:underline}
+.foot a{color:var(--ink)}
+.foot-base{margin-top:24px;padding-top:16px;border-top:1px solid var(--rule);font-size:15px;color:var(--muted)}
+.foot-base p{margin-top:6px}
+
+/* Wide boards: one row per setup */
+@container (min-width:620px){
+.row,.scale{grid-template-columns:28px minmax(150px,210px) minmax(0,1fr) 84px 92px;grid-template-areas:"rk nm tr pc nn"}
+.scale .ticks{grid-column:3}
+.row .rk{align-self:center;line-height:1.3}
+.dumb .row,.dumb .scale{grid-template-columns:minmax(150px,210px) minmax(0,1fr) 112px 120px;grid-template-areas:"nm tr pc nn"}
+.dumb .scale .ticks{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head><body>
+<script>document.documentElement.classList.add("js")</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="agent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M6 10l3 2.5L6 15"/><path d="M11 15h6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="provider" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M6.5 9.5h11v4a5.5 5.5 0 0 1-11 0zM12 19v3"/><path d="M9 3v6.5M15 3v6.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="setup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M6 9h4M14 9h4M6 15h12"/><circle cx="12" cy="9" r="2" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="built-in" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="4" width="19" height="16" rx="2"/><circle cx="11" cy="11.5" r="3.5" style="stroke:var(--sl-accent, currentColor)"/><path d="M13.6 14.1l3 3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="no-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.18 15.18L20.18 20.18" /><path d="M3.5 3.5l17 17" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="model" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9.5 2.5V6M14.5 2.5V6M9.5 18v3.5M14.5 18v3.5M2.5 9.5H6M2.5 14.5H6M18 9.5h3.5M18 14.5h3.5"/><rect x="9.5" y="9.5" width="5" height="5" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="brief" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8 7.5h8M8 11h8M8 14.5h4"/><path d="M13 17.5l1.6 1.6 3-3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="code-fix" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 6.5L2.5 12 8 17.5M16 6.5l5.5 5.5-5.5 5.5"/><path d="M13.5 4l-3 16" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="cutoff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M2.5 18h19M5 18v-3M9 18v-3"/><path d="M13 3.5v17" style="stroke:var(--sl-accent, currentColor)"/><circle cx="18" cy="10" r="2.2" fill="currentColor" stroke="none"/></symbol>
+<symbol id="query" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M6 12h6"/><circle cx="16.5" cy="12" r="2" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5 2.5h10l4 4v15H5z"/><path d="M15 2.5v4h4"/><path d="M8.5 12h7" style="stroke:var(--sl-accent, currentColor)"/><path d="M8.5 16h7"/></symbol>
+<symbol id="results-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 6h13.5M8 12h13.5M8 18h13.5"/><path d="M2.5 6h3" style="stroke:var(--sl-accent, currentColor)"/><path d="M2.5 12h3M2.5 18h3"/></symbol>
+<symbol id="answer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 4.5h18v11.5h-9.5L7 20.5V16H3z"/><path d="M7 8.5h10"/><path d="M7 12h6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="run" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M10 8l5.5 4-5.5 4z" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="2.5" width="13" height="13" rx="1.5"/><path d="M19 6v13H6"/><path d="M15.5 9.5v6h-6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="sealed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 2.5l8.5 4.5v10L12 21.5 3.5 17V7z"/><path d="M3.5 7L12 11.5 20.5 7M12 11.5v10"/><path d="M12 11.5l8.5-4.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="same-but-one" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="3" width="5" height="18" rx="1"/><rect x="9.5" y="3" width="5" height="18" rx="1"/><rect x="16.5" y="3" width="5" height="18" rx="1" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="blind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M2 12c2.6-4.3 6-6.5 10-6.5s7.4 2.2 10 6.5c-2.6 4.3-6 6.5-10 6.5S4.6 16.3 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 20L20 4" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="judge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 3v18M7 21h10M4 6.5h16"/><path d="M4 6.5L1.5 13a3 3 0 0 0 5 0zM20 6.5L17.5 13a3 3 0 0 0 5 0z"/><circle cx="12" cy="4" r="1.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="pre-registered" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="4.5" y="3" width="11" height="15" rx="1.5"/><path d="M7.5 7.5h5M7.5 11h5"/><rect x="13" y="14" width="8" height="7" rx="1" style="stroke:var(--sl-accent, currentColor)"/><path d="M14.5 14v-2a2.5 2.5 0 0 1 5 0v2" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="holdout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="5" width="13" height="15" rx="1.5"/><path d="M6 2.5h12.5a3 3 0 0 1 3 3v9"/><path d="M6 12.5h6" style="stroke:var(--sl-accent, currentColor)"/><path d="M6 16h4"/></symbol>
+<symbol id="verified" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M7.5 12.3l3 3 6-6.3" style="stroke:var(--sl-go, #00A86B)"/></symbol>
+<symbol id="unsupported" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" style="stroke:var(--sl-red, #E5202E)"/></symbol>
+<symbol id="unverifiable" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7v.5M12 16.5v1.5" style="stroke:var(--sl-amber, #F5B700)"/></symbol>
+<symbol id="strict-credit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5 2.5h10l4 4v15H5z"/><path d="M15 2.5v4h4"/><path d="M8.5 14l2.5 2.5 4.5-5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="insight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 2.5l2.4 6.1 6.6.5-5 4.3 1.6 6.4L12 16.3l-5.6 3.5L8 13.4 3 9.1l6.6-.5z"/><circle cx="12" cy="12" r="1.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="unique" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="5" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="19" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="5" cy="13" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="13" r="1.8" fill="currentColor" stroke="none"/><path d="M19 9.5l3.5 3.5-3.5 3.5-3.5-3.5z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="5" cy="20" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="20" r="1.8" fill="currentColor" stroke="none"/><circle cx="19" cy="20" r="1.8" fill="currentColor" stroke="none"/></symbol>
+<symbol id="overlap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="9" cy="12" r="6.5"/><circle cx="15" cy="12" r="6.5"/><path d="M12 6.2a6.5 6.5 0 0 1 0 11.6 6.5 6.5 0 0 1 0-11.6z" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="gap-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 20.5h18M3 3.5h18"/><rect x="8" y="3.5" width="8" height="17"/><rect x="8" y="9" width="8" height="11.5" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="ranking" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 5.5h18" style="stroke:var(--sl-accent, currentColor)"/><path d="M3 12h13M3 18.5h8"/></symbol>
+<symbol id="range" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3.5 7v10M20.5 7v10M3.5 12h17"/><circle cx="14" cy="12" r="2.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="tie" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M2.5 8h13M2.5 5.5v5M15.5 5.5v5M8.5 16h13M8.5 13.5v5M21.5 13.5v5"/><path d="M8.5 8h7M8.5 16h7" stroke-width="3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="tokens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="2.5" y="8" width="5" height="8" rx="1"/><rect x="16.5" y="8" width="5" height="8" rx="1"/><rect x="9.5" y="8" width="5" height="8" rx="1" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="cost" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M15 8.5h-4a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9"/><path d="M12 5.5v3M12 16.5v3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="latency" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="12" cy="13.5" r="7.5"/><path d="M9.5 2.5h5M12 2.5V6M18.2 6.8l1.6-1.6"/><path d="M12 13.5l3.2-3.6" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="caveat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 3L22 20.5H2z"/><path d="M12 9.5v5.5M12 17v1.5" style="stroke:var(--sl-amber, #F5B700)"/></symbol>
+<symbol id="filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 4.5h18l-7 8v6l-4 2v-8z"/><path d="M6.5 8.5h11" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="benchmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 17v-4M12 17V8"/><path d="M17 17V5.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="study" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M9 2.5h6M10 2.5v6.5L4 19a1.6 1.6 0 0 0 1.4 2.5h13.2A1.6 1.6 0 0 0 20 19l-6-10V2.5"/><path d="M6.5 15h11" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5 2.5h10l4 4v15H5z"/><path d="M15 2.5v4h4"/><path d="M8.5 17v-3M12 17v-6"/><path d="M15.5 17V9.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="method" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M12 6.5C10 5 7 4.5 3 4.5v14c4 0 7 .5 9 2 2-1.5 5-2 9-2v-14c-4 0-7 .5-9 2zM12 6.5v14"/><path d="M15.5 5.6v5.9l1.5-1.5 1.5 1.5V5.2" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="walkthrough" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><circle cx="4" cy="19" r="1.8"/><circle cx="9" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M5.2 17.6L8 13.4M10.6 12h2.8"/><path d="M16.2 10.6L19.5 5.5" style="stroke:var(--sl-accent, currentColor)"/><circle cx="20" cy="4.5" r="1.8" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="learn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M9 17.5h6M9.5 21h5M9 17.5c0-2.5-3.5-4-3.5-8a6.5 6.5 0 0 1 13 0c0 4-3.5 5.5-3.5 8"/><path d="M10.5 10.5L12 13l1.5-2.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="open-source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 7L3 12l5 5M16 7l5 5-5 5"/><path d="M10.5 12h3" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="contact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 4.5h18v11.5h-9.5L7 20.5V16H3z"/><path d="M7 10.5h.5M11.75 10.5h.5M16.5 10.5h.5" style="stroke:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="menu-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 6.5h18M3 12h18M3 17.5h18"/></symbol>
+<symbol id="menu-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/></symbol>
+<symbol id="beam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M3 16.5a3.5 3.5 0 1 0 7 0 3.5 3.5 0 1 0-7 0z"/><path d="M8.5 13.5L15 3.5l6.5 6.5-11 4.3z" stroke="none" style="fill:var(--sl-accent, currentColor)"/></symbol>
+<symbol id="logo-lamp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M7 17L12.81 1.03A17 17 0 0 1 22.97 11.19z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="7" cy="17" r="6" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r="2.2" stroke="none" style="fill:var(--paper, #FFFFFF)"/></symbol>
+<symbol id="logo-lens" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><path d="M8.5 15.5L13.97 .46A16 16 0 0 1 23.54 10.03z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="8.5" cy="15.5" r="5" stroke-width="2.6" style="fill:var(--paper, #FFFFFF)"/><path d="M4.9 19.1L1.5 22.5" stroke-width="2.6"/></symbol>
+<symbol id="logo-tile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="1" y="1" width="22" height="22" rx="5" fill="currentColor" stroke="none"/><path d="M6 18L10.4 1.58A17 17 0 0 1 22.42 13.6z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="6" cy="18" r="3.2" stroke="none" style="fill:var(--paper, #FFFFFF)"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="index.html" aria-label="Searchlight home"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><nav class="navbar" aria-label="Site"><a href="index.html">Overview</a><a href="results.html" aria-current="true">Results</a><a href="studies.html">Studies</a><a href="learn.html">Learn</a><a href="methodology.html">Methodology</a><a class="gh" href="https://github.com/laceyenterprises/searchlight">GitHub</a></nav><details class="menu"><summary aria-label="Menu"><svg class="g open" aria-hidden="true" focusable="false"><use href="#menu-open"/></svg><svg class="g close" aria-hidden="true" focusable="false"><use href="#menu-close"/></svg></summary><nav class="navpanel" aria-label="Site menu"><a href="index.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#beam"/></svg>Overview</a><a href="results.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#ranking"/></svg>Results</a><a href="studies.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Studies</a><a href="learn.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#learn"/></svg>Learn</a><a href="methodology.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#method"/></svg>Methodology</a><p class="sub">Reports and studies</p><a class="small" href="study-2026-11-11-software-factory-insight-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Leading software factories and agent-platform architectures</a><a class="small" href="report-2026-10-06-search-gap-replication.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench replication</a><a class="small" href="report-2026-10-05-agent-search-behavior.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>How agents used search</a><a class="small" href="report-2026-10-03-search-gap-bench.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench</a><a class="small" href="report-2026-09-29-web-search-bakeoff.html" aria-current="page"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Web search bakeoff</a><a class="small" href="report-2026-09-26-search-api-head-to-head.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search API head-to-head</a><a class="small" href="https://github.com/laceyenterprises/searchlight"><svg class="g" aria-hidden="true" focusable="false"><use href="#open-source"/></svg>Source on GitHub</a></nav></details></div></header>
+<main id="main">
+<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results</a><span aria-hidden="true">›</span><span>Web search bakeoff</span></nav><p class="eyebrow" style="margin-top:20px"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Web search bakeoff · 2026-09-29</p><h1>Web search bakeoff</h1><p class="lede">Answering from memory passed 76%; the best search setup, Firecrawl, reached 90%: the two ranges overlap, so the test cannot separate them.</p></div><div class="wrap"><p class="readlink"><a class="more" href="learn.html#read">How to read these numbers</a></p><div class="legend" aria-hidden="true"><span><i class="k-pt"></i>Pass rate</span><span><i class="k-ci"></i>95% range</span><span><i class="k-lb"></i>Where the leader's range starts</span></div><div class="boards"><section class="board" id="board-wsb-competitive" data-f-group data-agent="claude-code" data-bench="2026-09-29-web-search-bakeoff" data-providers="brave exa firecrawl native no-search parallel-web perplexity tavily"><header><h3>Claude Code</h3><p>42 runs per setup · Web search bakeoff · 2026-09-29</p><p class="says">Answering from memory passed 76%; the best search setup, Firecrawl, reached 90%: the two ranges overlap, so the test cannot separate them.</p></header><div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div><ol class="rows"><li class="row" id="r-wsb-competitive-firecrawl" data-rank="1" data-lead><span class="rk">1</span><span class="nm"><span class="name">Firecrawl<span class="chip">leader</span></span><small>61.5k tokens per pass</small></span><span class="pc">90%</span><span class="tr"><span class="track" role="img" aria-label="Firecrawl: 90% passed, 38 of 42 runs; 95% range 78 to 96%"><span class="ci" style="left:78.0%;width:18.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:90.0%"></span></span></span><span class="nn"><b>78–96%</b><span class="k">38 of 42</span></span></li><li class="row" id="r-wsb-competitive-perplexity" data-rank="2"><span class="rk">2</span><span class="nm"><span class="name">Perplexity</span><small>47.7k tokens per pass</small></span><span class="pc">88%</span><span class="tr"><span class="track" role="img" aria-label="Perplexity: 88% passed, 37 of 42 runs; 95% range 75 to 95%"><span class="ci" style="left:75.0%;width:20.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:88.0%"></span></span></span><span class="nn"><b>75–95%</b><span class="k">37 of 42</span></span></li><li class="row" id="r-wsb-competitive-tavily" data-rank="3"><span class="rk">3</span><span class="nm"><span class="name">Tavily</span><small>61.3k tokens per pass</small></span><span class="pc">86%</span><span class="tr"><span class="track" role="img" aria-label="Tavily: 86% passed, 36 of 42 runs; 95% range 72 to 93%"><span class="ci" style="left:72.0%;width:21.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:86.0%"></span></span></span><span class="nn"><b>72–93%</b><span class="k">36 of 42</span></span></li><li class="row ctl" id="r-wsb-competitive-native" data-rank="4"><span class="rk">4</span><span class="nm"><span class="name">Built-in<details class="note caveat"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#caveat"/></svg>Rerun</summary><div>In the first runs Claude Code&#x27;s built-in search could not open pages. It was fixed and rerun on 2026-10-06; this row is the rerun. The original row stays in the report.</div></details></span><small>39.7k tokens per pass</small></span><span class="pc">83%</span><span class="tr"><span class="track" role="img" aria-label="Built-in: 83% passed, 35 of 42 runs; 95% range 69 to 92%"><span class="ci" style="left:69.0%;width:23.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:83.0%"></span></span></span><span class="nn"><b>69–92%</b><span class="k">35 of 42</span></span></li><li class="row" id="r-wsb-competitive-exa" data-rank="5"><span class="rk">5</span><span class="nm"><span class="name">Exa</span><small>65.0k tokens per pass</small></span><span class="pc">83%</span><span class="tr"><span class="track" role="img" aria-label="Exa: 83% passed, 35 of 42 runs; 95% range 69 to 92%"><span class="ci" style="left:69.0%;width:23.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:83.0%"></span></span></span><span class="nn"><b>69–92%</b><span class="k">35 of 42</span></span></li><li class="row" id="r-wsb-competitive-parallel-web" data-rank="6"><span class="rk">6</span><span class="nm"><span class="name">Parallel</span><small>69.8k tokens per pass</small></span><span class="pc">79%</span><span class="tr"><span class="track" role="img" aria-label="Parallel: 79% passed, 33 of 42 runs; 95% range 64 to 88%"><span class="ci" style="left:64.0%;width:24.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:79.0%"></span></span></span><span class="nn"><b>64–88%</b><span class="k">33 of 42</span></span></li><li class="row ctl" id="r-wsb-competitive-no-search" data-rank="7"><span class="rk">7</span><span class="nm"><span class="name">No search<span class="chip ctl">control</span></span><small>20.9k tokens per pass</small></span><span class="pc">76%</span><span class="tr"><span class="track" role="img" aria-label="No search: 76% passed, 32 of 42 runs; 95% range 61 to 87%"><span class="ci" style="left:61.0%;width:26.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:76.0%"></span></span></span><span class="nn"><b>61–87%</b><span class="k">32 of 42</span></span></li><li class="row" id="r-wsb-competitive-brave" data-rank="8"><span class="rk">8</span><span class="nm"><span class="name">Brave</span><small>89.2k tokens per pass</small></span><span class="pc">74%</span><span class="tr"><span class="track" role="img" aria-label="Brave: 74% passed, 31 of 42 runs; 95% range 59 to 85%"><span class="ci" style="left:59.0%;width:26.0%"></span><span class="lb" style="left:78.0%"></span><span class="dot" style="left:74.0%"></span></span></span><span class="nn"><b>59–85%</b><span class="k">31 of 42</span></span></li></ol></section></div><details class="more-info"><summary>What the numbers mean</summary><p>14 research tasks with mostly well-documented answers, each run 3 times: 42 runs per setup. A run passes the task&#x27;s automatic checks or, for open-ended tasks, a blind AI grader&#x27;s checklist (regraded 2026-09-30 after grading fixes).</p><p>Tokens per pass counts only runs whose tokens were measured; how many runs each setup was missing was not recorded, so treat it as approximate.</p><p>Source: <a href="report-2026-09-29-web-search-bakeoff.html">Web search bakeoff</a>; ranges are 95% Wilson intervals, computed from its counts.</p></details></div><div class="wrap doc" style="margin-top:32px"><details class="full" id="run-2026-09-29-web-search-bakeoff"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>The full report</summary><div class="body"><h3 id="2026-09-29-web-search-bakeoff-wsb-live-battery--initial-results-2026-09-29">WSB live battery — initial results (2026-09-29)</h3>
+<blockquote class="note"><p><strong>Update (2026-10-06): the native setup was rerun with page fetching working.</strong> In the original battery the setup exposed WebSearch and WebFetch but pre-approved only WebSearch, and headless Claude Code refused WebFetch in 40 of 54 native runs (110 calls). The configuration is fixed and pinned by a test. All 54 native runs (18 tasks × 3) were rerun on 2026-10-06 with the same seed, per-task budgets and model, and graded against the historical regrade catalog by a blinded Claude judge; no call was refused. In the <a href="#2026-09-29-web-search-bakeoff-update-2026-09-30-operator-decisions">regrade table</a> the native row now comes from the rerun: 35/42 competitive runs (83%) at 39.7k tokens per success, against 33/42 (79%) and 36.3k recorded originally. The rerun's 12 expected-fail runs passed 0/12. The initial-grading tables below are the original record and still carry the original native runs. Provider setups were unaffected. Details: <a href="report-2026-10-05-agent-search-behavior.html#2026-10-05-agent-search-behavior-native-rerun-2026-10-06">agent search behavior</a>.</p></blockquote>
+<p><strong>Pack:</strong> <code>web-search-bakeoff</code> (WSB) on the Search Evaluation Workbench (SEW). <strong>Agent / model:</strong> claude-code, Claude Opus 5.5 (<code>claude-opus-5-5[1m]</code>), authenticated execution on the original host. <strong>Status:</strong> historical initial grading; headline and Results tables are superseded by the <a href="#2026-09-29-web-search-bakeoff-update-2026-09-30-operator-decisions">2026-09-30 regrade</a>, where Firecrawl leads at 90%. The numbers below are graded with SEWBENCH-01 applied to the stored deliverables. The same deliverables graded without those fixes are summarised in <a href="#2026-09-29-web-search-bakeoff-failure-dive">Failure dive</a> and were materially wrong.</p>
+<h4 id="2026-09-29-web-search-bakeoff-headline">Headline</h4>
+<p>Historical figures under the initial grader: rankings and cost lower bounds here apply only to that grading, not the later operator-ruled catalog.</p>
+<p>On the 14 <code>competitive</code> production tasks (42 runs per setup), every search setup except Brave scores above answering without search:</p>
+<ul><li><strong>Firecrawl and Perplexity lead at 83%.</strong> Exa is at 81%, Tavily 79%, native web search and Parallel 76%, no-search 71% and Brave 69%.
+</li><li><strong>The 95% intervals overlap.</strong> At n=42 per setup the ordering is directional, not conclusive: no setup's difference from no-search or from native has an interval that excludes zero.
+</li><li><strong>Search matters most on tasks that need live data.</strong> On the cloud egress pricing table only Firecrawl and Perplexity went 3/3 (Brave 2/3, the rest 0/3). The AWS pricing pages need JavaScript rendering, and most setups reported the intra-AZ run as unavailable, honestly.
+</li><li><strong>Among fully priced setups, native search costs least per success</strong> ($0.167), followed by Tavily ($0.206). Perplexity (at least $0.148; 37/42 runs priced) and Firecrawl (at least $0.159; 39/42 priced) are lower bounds, excluded from the cost ranking; Perplexity's <code>ask</code> spend is unmetered. Brave and no-search are also partially priced (at least $0.28 each); no-search had a few long runaway answers.
+</li><li><strong>Brave is last,</strong> failing <code>unanswerable-nonexistent-postgres-guc</code> and <code>upstream-diagnosis-node-openssl3-md4</code> in all three repetitions.
+</li></ul>
+<h4 id="2026-09-29-web-search-bakeoff-what-ran">What ran</h4>
+<div class="tablewrap"><table><thead><tr><th>Run</th><th>Setups</th><th class="num">Runs</th><th>Window (UTC)</th></tr></thead><tbody><tr><td>first setup group</td><td>no-search, native, brave, tavily</td><td class="num">216</td><td>2026-09-29 03:29 – 13:26</td></tr><tr><td>second setup group</td><td>exa, parallel-web, firecrawl, perplexity</td><td class="num">216</td><td>2026-09-29 13:39 – 22:49</td></tr></tbody></table></div>
+<ul><li><strong>Tasks:</strong> all 18 production tasks (<a href="https://github.com/laceyenterprises/searchlight/blob/main/catalogs/production/tasks.yaml">production task catalog</a>), × 3 repetitions.
+<ul><li>14 are <code>competitive</code>.
+</li><li>4 are <code>expected_fail</code> by design: no retrieval surface can answer them, and the honest deliverable is a partial answer or a decline.
+</li></ul>
+</li><li><strong>Setups:</strong>
+<ul><li>Provider setups expose one vendor MCP server each, and nothing else.
+</li><li>The native setup uses the agent's own web search.
+</li><li>The no-search setup has no network tools.
+</li></ul>
+</li><li><strong>Pinned MCP servers:</strong>
+<ul><li><a href="https://www.npmjs.com/package/@brave/brave-search-mcp-server">@brave/brave-search-mcp-server</a> version 2.1.4
+</li><li><code>tavily-mcp@0.2.22</code>
+</li><li><code>exa-mcp-server@3.4.1</code>
+</li><li><code>firecrawl-mcp@3.26.0</code>
+</li><li><a href="https://www.npmjs.com/package/@perplexity-ai/mcp-server">@perplexity-ai/mcp-server</a> version 1.3.0
+</li><li>Parallel's hosted Search MCP (<code>https://search.parallel.ai/mcp-oauth</code>, authenticated) via <code>mcp-remote@0.14.3</code>
+</li></ul>
+</li><li><strong>Grading:</strong>
+<ul><li>Deterministic validators where a task has one.
+</li><li>Otherwise a blinded claude-code judge scoring the task's rubric.
+</li><li><code>bakeoff grade --regrade</code> re-scores the stored deliverables. Nothing was re-run.
+</li></ul>
+</li><li><strong>Cost:</strong> model tokens are priced at the published Opus 5.5 rates. Vendor spend is metered per MCP call where a tariff exists. It is unknown for Exa, Parallel and Perplexity's <code>ask</code> tool, which report no spend over MCP. In the tables, <code>partial</code> is the priced runs' spend divided by all of the setup's successes. Unpriced runs can only add spend, so each <code>partial</code> figure is a lower bound on the full-setup $/success, and these setups are excluded from the cost ranking. <code>bakeoff report</code> divides by the successes among priced runs instead, which gives $0.172 for Perplexity, $0.163 for Firecrawl and $0.29 for Brave on the competitive set, and no figure for Exa or Parallel on the expected-fail set, where every success is in an unpriced run.
+</li></ul>
+<h4 id="2026-09-29-web-search-bakeoff-results">Results</h4>
+<p>All Results tables below use the historical initial grading. The <code>ungraded</code> column counts delivered answers that could not be graded. Runs that exhausted their budget before delivering are counted under <code>budget-exhausted</code> and as failures, rather than under <code>ungraded</code>.</p>
+<h5 id="2026-09-29-web-search-bakeoff-competitive-tasks-14-tasks--3-repetitions">Competitive tasks (14 tasks × 3 repetitions)</h5>
+<div class="tablewrap"><table><thead><tr><th>setup</th><th class="num">pass</th><th class="num">95% CI</th><th>$/success</th><th class="num">priced</th><th class="num">tokens/run</th><th class="num">provider calls</th><th class="num">budget-exhausted</th><th class="num">ungraded</th></tr></thead><tbody><tr><td>firecrawl</td><td class="num">35/42 (83%)</td><td class="num">69–92%</td><td>partial $0.159 (39/42 priced)</td><td class="num">39/42</td><td class="num">55k</td><td class="num">219</td><td class="num">2</td><td class="num">0</td></tr><tr><td>perplexity</td><td class="num">35/42 (83%)</td><td class="num">69–92%</td><td>partial $0.148 (37/42 priced)</td><td class="num">37/42</td><td class="num">42k</td><td class="num">145</td><td class="num">0</td><td class="num">0</td></tr><tr><td>exa</td><td class="num">34/42 (81%)</td><td class="num">67–90%</td><td>unpriced</td><td class="num">0/42</td><td class="num">54k</td><td class="num">105</td><td class="num">0</td><td class="num">0</td></tr><tr><td>tavily</td><td class="num">33/42 (79%)</td><td class="num">64–88%</td><td>$0.206</td><td class="num">42/42</td><td class="num">52k</td><td class="num">119</td><td class="num">0</td><td class="num">0</td></tr><tr><td>native</td><td class="num">32/42 (76%)</td><td class="num">61–87%</td><td>$0.167</td><td class="num">42/42</td><td class="num">28k</td><td class="num">256</td><td class="num">0</td><td class="num">0</td></tr><tr><td>parallel-web</td><td class="num">32/42 (76%)</td><td class="num">61–87%</td><td>unpriced</td><td class="num">0/42</td><td class="num">54k</td><td class="num">90</td><td class="num">1</td><td class="num">0</td></tr><tr><td>no-search</td><td class="num">30/42 (71%)</td><td class="num">56–83%</td><td>partial $0.285 (41/42 priced)</td><td class="num">41/42</td><td class="num">15k</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr><tr><td>brave</td><td class="num">29/42 (69%)</td><td class="num">54–81%</td><td>partial $0.280 (41/42 priced)</td><td class="num">41/42</td><td class="num">65k</td><td class="num">154</td><td class="num">0</td><td class="num">0</td></tr></tbody></table></div>
+<h5 id="2026-09-29-web-search-bakeoff-competitive-deltas-against-controls">Competitive deltas against controls</h5>
+<p>Each setup against each control over the same 14 tasks × 3 repetitions. Intervals are 95% Newcombe (hybrid Wilson score) intervals for a difference of two independent proportions. They ignore the task pairing, so they are conservative. Token ratios compare mean tokens per run. Provider setups and their controls come from two runs about ten hours apart (see <a href="#2026-09-29-web-search-bakeoff-caveats">Caveats</a>).</p>
+<div class="tablewrap"><table><thead><tr><th>setup</th><th>vs no-search: pass Δ (95% CI)</th><th class="num">vs no-search: tokens</th><th>vs native: pass Δ (95% CI)</th><th class="num">vs native: tokens</th></tr></thead><tbody><tr><td>firecrawl</td><td>+12 pp (−6 to +29)</td><td class="num">3.49×</td><td>+7 pp (−10 to +24)</td><td class="num">1.95×</td></tr><tr><td>perplexity</td><td>+12 pp (−6 to +29)</td><td class="num">2.63×</td><td>+7 pp (−10 to +24)</td><td class="num">1.47×</td></tr><tr><td>exa</td><td>+10 pp (−9 to +27)</td><td class="num">3.39×</td><td>+5 pp (−13 to +22)</td><td class="num">1.90×</td></tr><tr><td>tavily</td><td>+7 pp (−11 to +25)</td><td class="num">3.29×</td><td>+2 pp (−15 to +20)</td><td class="num">1.84×</td></tr><tr><td>native</td><td>+5 pp (−14 to +23)</td><td class="num">1.79×</td><td>—</td><td class="num">—</td></tr><tr><td>parallel-web</td><td>+5 pp (−14 to +23)</td><td class="num">3.44×</td><td>+0 pp (−18 to +18)</td><td class="num">1.92×</td></tr><tr><td>no-search</td><td>—</td><td class="num">—</td><td>−5 pp (−23 to +14)</td><td class="num">0.56×</td></tr><tr><td>brave</td><td>−2 pp (−21 to +17)</td><td class="num">4.13×</td><td>−7 pp (−25 to +12)</td><td class="num">2.31×</td></tr></tbody></table></div>
+<h5 id="2026-09-29-web-search-bakeoff-expected-fail-tasks-4-tasks--3-repetitions">Expected-fail tasks (4 tasks × 3 repetitions)</h5>
+<p>Passing here means an honest partial answer or decline, which the validator can confirm.</p>
+<div class="tablewrap"><table><thead><tr><th>setup</th><th class="num">pass</th><th class="num">95% CI</th><th>$/success</th><th class="num">priced</th><th class="num">tokens/run</th><th class="num">provider calls</th><th class="num">budget-exhausted</th><th class="num">ungraded</th></tr></thead><tbody><tr><td>exa</td><td class="num">5/12 (42%)</td><td class="num">19–68%</td><td>partial $0.046 (6/12 priced)</td><td class="num">6/12</td><td class="num">67k</td><td class="num">30</td><td class="num">0</td><td class="num">0</td></tr><tr><td>no-search</td><td class="num">3/12 (25%)</td><td class="num">9–53%</td><td>partial $2.827 (9/12 priced)</td><td class="num">9/12</td><td class="num">43k</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr><tr><td>native</td><td class="num">3/12 (25%)</td><td class="num">9–53%</td><td>$0.273</td><td class="num">12/12</td><td class="num">16k</td><td class="num">28</td><td class="num">0</td><td class="num">0</td></tr><tr><td>brave</td><td class="num">3/12 (25%)</td><td class="num">9–53%</td><td>partial $0.763 (11/12 priced)</td><td class="num">11/12</td><td class="num">66k</td><td class="num">45</td><td class="num">1</td><td class="num">0</td></tr><tr><td>firecrawl</td><td class="num">3/12 (25%)</td><td class="num">9–53%</td><td>partial $0.672 (10/12 priced)</td><td class="num">10/12</td><td class="num">75k</td><td class="num">104</td><td class="num">2</td><td class="num">0</td></tr><tr><td>perplexity</td><td class="num">3/12 (25%)</td><td class="num">9–53%</td><td>partial $0.197 (9/12 priced)</td><td class="num">9/12</td><td class="num">36k</td><td class="num">30</td><td class="num">0</td><td class="num">0</td></tr><tr><td>parallel-web</td><td class="num">2/12 (17%)</td><td class="num">5–45%</td><td>partial $0.116 (6/12 priced)</td><td class="num">6/12</td><td class="num">60k</td><td class="num">34</td><td class="num">1</td><td class="num">0</td></tr><tr><td>tavily</td><td class="num">1/12 (8%)</td><td class="num">1–35%</td><td>partial $1.923 (11/12 priced)</td><td class="num">11/12</td><td class="num">64k</td><td class="num">49</td><td class="num">1</td><td class="num">0</td></tr></tbody></table></div>
+<h5 id="2026-09-29-web-search-bakeoff-per-task">Per task</h5>
+<div class="tablewrap"><table><thead><tr><th>task</th><th>outcome</th><th class="num">no-search</th><th class="num">native</th><th class="num">brave</th><th class="num">tavily</th><th class="num">exa</th><th class="num">parallel-web</th><th class="num">firecrawl</th><th class="num">perplexity</th></tr></thead><tbody><tr><td><code>change-detection-kubernetes-dockershim-removal</code></td><td>competitive</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">1/3</td><td class="num">3/3</td><td class="num">2/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>change-detection-openapi-30-to-31</code></td><td>competitive</td><td class="num">1/3</td><td class="num">1/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">0/3</td><td class="num">1/3</td></tr><tr><td><code>competitive-table-cloud-egress-pricing</code></td><td>competitive</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">2/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>competitive-table-copyleft-obligations</code></td><td>competitive</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>list-build-kubernetes-122-api-removals</code></td><td>competitive</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>list-build-python313-pep594-removals</code></td><td>competitive</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>list-build-sca-tool-shortlist</code></td><td>competitive</td><td class="num">0/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">1/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">1/3</td><td class="num">3/3</td></tr><tr><td><code>multi-hop-cve-to-fixed-release</code></td><td>competitive</td><td class="num">3/3</td><td class="num">1/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">1/3</td></tr><tr><td><code>multi-hop-python-feature-peps</code></td><td>competitive</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>unanswerable-nonexistent-postgres-guc</code></td><td>competitive</td><td class="num">2/3</td><td class="num">3/3</td><td class="num">0/3</td><td class="num">3/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">3/3</td><td class="num">1/3</td></tr><tr><td><code>unanswerable-private-company-audited-arr</code></td><td>competitive</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">1/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>unanswerable-python4-ga-date</code></td><td>competitive</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>upstream-diagnosis-node-openssl3-md4</code></td><td>competitive</td><td class="num">1/3</td><td class="num">2/3</td><td class="num">0/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">2/3</td><td class="num">2/3</td></tr><tr><td><code>upstream-diagnosis-urllib3-libressl-import-error</code></td><td>competitive</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td></tr><tr><td><code>change-detection-unversioned-runtime-drift</code></td><td>expected_fail</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td></tr><tr><td><code>competitive-table-unpublished-enterprise-pricing</code></td><td>expected_fail</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">3/3</td><td class="num">1/3</td><td class="num">2/3</td><td class="num">1/3</td><td class="num">2/3</td><td class="num">3/3</td></tr><tr><td><code>multi-hop-npm-semver-dependents</code></td><td>expected_fail</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">3/3</td><td class="num">1/3</td><td class="num">1/3</td><td class="num">0/3</td></tr><tr><td><code>upstream-diagnosis-unindexed-ordering-regression</code></td><td>expected_fail</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td><td class="num">0/3</td></tr></tbody></table></div>
+<h4 id="2026-09-29-web-search-bakeoff-findings">Findings</h4>
+<p>1. <strong>Search earns its cost on live or long-tail data, not on stable knowledge.</strong></p>
+<ul><li>Tasks whose answers are stable and well known were 3/3 in every setup, including no-search: copyleft obligations, PEP 594 removals, Python feature PEPs and the urllib3 diagnosis.
+</li><li>The separation comes from the tasks that need current data:
+<ul><li>the egress pricing table;
+</li><li>the SCA tool shortlist (no-search 0/3; Exa, Parallel and Perplexity 3/3);
+</li><li>the dockershim change-detection task.
+</li></ul>
+</li></ul>
+<p>2. <strong>Rendering matters for vendor pricing pages.</strong> Firecrawl (which renders JavaScript) and Perplexity were the only setups to read AWS's intra-AZ transfer pricing. The others honestly reported it unavailable, and the validator fails an unavailable run. 3. <strong>Declining is not the default for search setups.</strong> <code>unanswerable-nonexistent-postgres-guc</code> separates the setups: Brave 0/3 and Perplexity 1/3 against 3/3 for native, Tavily and Firecrawl. 4. <strong>Exa handles impossible tasks best</strong> (5/12 honest partials on the expected-fail set). It is the only setup to go 3/3 on <code>multi-hop-npm-semver-dependents</code>, where the honest move is to state the method and its limits rather than invent a ranking. 5. <strong>Provider setups use more reported tokens per run.</strong> The MCP provider setups report 42k–65k tokens per run against 15k for no-search. Native search reports 28k. These totals do not separate input from output tokens, which have different prices, and some vendor spend is unknown; the totals alone cannot establish what dominates cost per success.</p>
+<h4 id="2026-09-29-web-search-bakeoff-failure-dive">Failure dive</h4>
+<p>Two tasks were initially at 0/24 across all setups; a third mostly failed, and the judged SCA task was mostly ungraded. All four exposed bench bugs. Each was confirmed by reading the deliverables, and each is fixed in the bench fix:</p>
+<div class="tablewrap"><table><thead><tr><th>Task</th><th>As first graded</th><th>Graded with SEWBENCH-01</th><th>Cause</th></tr></thead><tbody><tr><td><code>unanswerable-python4-ga-date</code></td><td>0/24</td><td>24/24</td><td>The decline rejected <strong>any</strong> date, including "as of 2026-09-28" and other releases' dates.</td></tr><tr><td><code>unanswerable-private-company-audited-arr</code></td><td>3/23 graded</td><td>22/23 graded</td><td>The prompt asks for how circulating revenue figures were derived; any dollar figure failed. The 24th run (Parallel) hit its budget before delivering, is not graded, and counts as a failure in the tables, so the per-task row reads 22/24.</td></tr><tr><td><code>upstream-diagnosis-urllib3-libressl-import-error</code></td><td>0/24</td><td>24/24</td><td>A URL-only check on a field every setup filled in prose; the URLs were in <code>evidence_urls</code>.</td></tr><tr><td><code>list-build-sca-tool-shortlist</code> (judged)</td><td>mostly ungraded</td><td>graded</td><td>The judge sometimes fences its JSON; the <code>default</code> profile name also counted as an setup-identity leak.</td></tr></tbody></table></div>
+<p>With the fixes, the competitive pass rate rose between 14 and 29 points per setup (no-search +14, Exa +29). It rose most for search setups, which had been penalised for citing and explaining evidence. <strong>The first reading of this battery, that no-search was about as good as any provider, was an artifact of these bugs.</strong></p>
+<p>Genuine failures that remain:</p>
+<ul><li><strong>Egress pricing:</strong> unavailable AWS intra-AZ runs, as above.
+</li><li><strong><code>change-detection-openapi-30-to-31</code>:</strong> most misses omit <code>example→examples</code> from the breaking changes. OAS 3.1 <em>deprecates</em> <code>example</code> rather than removing it. The tables above still require it; the operator has since ruled it is not a break (see the update below).
+</li><li><strong>Budget exhaustion:</strong> 8 runs. Six are Firecrawl or Parallel on long list-building and enumeration tasks; Brave and Tavily have one each.
+</li><li><strong>By design:</strong> the two remaining <code>expected_fail</code> tasks (<code>unversioned-runtime-drift</code>, <code>unindexed-ordering-regression</code>) are 0/3 everywhere.
+</li></ul>
+<h4 id="2026-09-29-web-search-bakeoff-codex-partial">Codex (partial)</h4>
+<p>The codex agent (gpt-6-sol) ran one competitive task on 2026-09-28 before its weekly quota ran out:</p>
+<ul><li><strong>Egress pricing:</strong> native 2/3, no-search 1/3. Brave and Tavily went 0/3 on the token budget, reading 393k–448k tokens per run.
+</li><li><strong>Expected-fail tasks:</strong> codex's search setups burned the full provider-call budget on <code>multi-hop-npm-semver-dependents</code> instead of declining.
+</li></ul>
+<p>A full codex battery waits for the quota reset (2026-10-04 12:52Z).</p>
+<h4 id="2026-09-29-web-search-bakeoff-caveats">Caveats</h4>
+<ul><li><strong>Sample size:</strong> n=42 per setup on the competitive set. Adjacent setups are within each other's intervals.
+</li><li><strong>Timing:</strong> the two runs were about ten hours apart. Same agent, model, tasks and budgets.
+</li><li><strong>Pricing:</strong> vendor spend is unpriced for Exa and Parallel, and for Perplexity's <code>ask</code> tool. Their $/success counts model tokens plus metered calls only.
+</li><li><strong>Grading:</strong> the judged tasks use a single claude judge, so agreement is not measured.
+</li></ul>
+<h4 id="2026-09-29-web-search-bakeoff-update-2026-09-30-operator-decisions">Update (2026-09-30): operator decisions</h4>
+<ul><li><strong>OpenAPI:</strong> <code>example→examples</code> is a deprecation, not a break, so the task no longer requires it. The task also stops requiring a construct labelled as the JSON Schema dialect: the dialect has its own field, and complete answers list its consequences instead. Both changes are in the bench fix. On replay, the task goes from 7/24 to 22/24. The two remaining misses cite hosts outside the allowlist.
+</li><li><strong>Codex native search</strong> is priced at Brave's per-request rate as a proxy for its backing vendor. Claude native search keeps Anthropic's published rate.
+</li><li><strong>Tokens and outcome rate are reported together.</strong> Tokens per success come from the bench fix.
+</li></ul>
+<p>Competitive pass rates regraded with the corrected catalog at the recorded grader revision (native: the 2026-10-06 rerun; see the update at the top):</p>
+<div class="tablewrap"><table><thead><tr><th>setup</th><th class="num">pass</th><th class="num">tokens/success</th></tr></thead><tbody><tr><td>firecrawl</td><td class="num">38/42 (90%)</td><td class="num">61.5k</td></tr><tr><td>perplexity</td><td class="num">37/42 (88%)</td><td class="num">47.7k</td></tr><tr><td>tavily</td><td class="num">36/42 (86%)</td><td class="num">61.3k</td></tr><tr><td>exa</td><td class="num">35/42 (83%)</td><td class="num">65.0k</td></tr><tr><td>native</td><td class="num">35/42 (83%)</td><td class="num">39.7k</td></tr><tr><td>parallel-web</td><td class="num">33/42 (79%)</td><td class="num">69.8k</td></tr><tr><td>no-search</td><td class="num">32/42 (76%)</td><td class="num">20.9k</td></tr><tr><td>brave</td><td class="num">31/42 (74%)</td><td class="num">89.2k</td></tr></tbody></table></div>
+<p>The historical <code>tokens/run</code> column averages measured total-billable tokens over attempted runs with measured usage; unknown or estimated usage is excluded, never treated as zero. The update's <code>tokens/success</code> sums measured tokens over graded runs and divides by measured successes, as defined by the bench fix; it excludes ungraded and unmeasured runs and is not a full-setup lower bound. The per-setup measured coverage counts were not retained here. Multiplying a measured-run mean by all 42 attempts need not reproduce it. The previously quoted fresh/cache/output means are withdrawn: their run coverage and bucket accounting were not recorded here and they do not reconcile for Firecrawl, Parallel or no-search. They cannot support a token-mix comparison from this document.</p>
+<p>The output-reduction claim is also withdrawn. The quoted no-search mean included long runaway answers; without a median or an outlier-excluded comparison, this battery does not establish a typical reduction or a causal effect of search on output length. Among the six MCP providers, a higher pass rate goes with fewer tokens per success: Perplexity is best on tokens, and Brave is worst on both. Spearman ρ ≈ −0.83 (pass rate versus tokens/success, n=6) is suggestive, not established, and is not significant at α=0.05. No setup's pass-rate difference from no-search has an interval that excludes zero. Firecrawl comes closest at +14 points (−2 to +30).</p></div></details><details class="full" id="method-2026-09-29-web-search-bakeoff"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#method"/></svg>How this was run</summary><div class="body"><h3 id="2026-09-29-web-search-bakeoff-method-wsb-methodology">WSB methodology</h3>
+<p>The experiment used Claude Code with <code>claude-opus-5-5[1m]</code>, all 18 production tasks, eight tool setups and three repetitions. The two setup groups ran about ten hours apart. Setups differ in exposed search tools: no-search, native, or exactly one provider MCP server. Budgets and contamination checks apply to each run.</p>
+<p>The 14 competitive tasks and four expected-fail tasks have separate denominators. Expected-fail success means an honest partial answer or decline. Deterministic validators grade structured tasks; a blinded Claude judge grades rubric tasks. Single-judge agreement was not measured. Pass-rate intervals are Wilson 95%; control deltas use independent-proportion Newcombe intervals, ignoring pairing. Adjacent rankings are not statistically established.</p>
+<p>The original bench corrections fixed overly strict date/dollar decline checks, a prose-versus-URL field mismatch and judge JSON parsing/blinding. The later regrade relaxed incorrect OpenAPI breaking-change requirements. Both grade the same stored answers; neither reran agents. REPORT.md retains initial and updated tables with their original precision.</p>
+<p>Historical cost lower bounds sum priced spend and divide by all successes. The report command instead uses priced-run successes, so its output can differ. Unknown vendor spend is not zero; partially priced setups are excluded from cost ranking. Updated tokens per success use measured tokens from graded runs divided by measured successes; coverage counts were not retained. Do not multiply the historical tokens/run means by attempted-run counts to derive that update. The output-reduction and fresh/cache/output comparisons were withdrawn.</p>
+<p>See <a href="report-2026-09-29-web-search-bakeoff.html">recorded results</a>, <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-09-29-web-search-bakeoff/summary.json">summary</a> and <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-09-29-web-search-bakeoff/reproduce.md">reproduction</a>. Calibration was not part of this experiment: <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-09-29-web-search-bakeoff/calibration.json">calibration record</a>.</p></div></details><p class="files">Files: <a href="https://github.com/laceyenterprises/searchlight/tree/main/reports/2026-09-29-web-search-bakeoff">reports/2026-09-29-web-search-bakeoff/</a></p></div>
+</main>
+<footer class="foot"><div class="wrap"><div class="foot-top"><a class="brand" href="index.html"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><nav class="foot-links" aria-label="Footer"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="studies.html">Studies</a><a href="learn.html">Learn</a><a href="methodology.html">Methodology</a><a href="https://github.com/laceyenterprises/searchlight">GitHub</a><a href="https://github.com/laceyenterprises/searchlight/tree/main/reports">Raw data</a><a href="https://github.com/laceyenterprises/searchlight/blob/main/LICENSE">Apache 2.0</a><a href="https://github.com/laceyenterprises/searchlight/issues/new">Report a problem</a></nav></div><div class="foot-base"><p>A <a href="https://www.laceyenterprises.com">Lacey Enterprises</a> project · © 2026 Lacey Enterprises LLC</p><p class="analytics-disclosure">Google Tag Manager loads on every page; analytics cookies are disabled for visitors in the EEA, the UK, Switzerland and listed territories. No consent opt-in is offered.</p></div></div></footer>
+<script>/* Searchlight site: small, dependency-free enhancements. Every page reads in full without this script. */
+(function () {
+  "use strict";
+  var $ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+  // Menu: Escape closes it.
+  $("details.menu").forEach(function (menu) {
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.open) { menu.open = false; menu.querySelector("summary").focus(); }
+    });
+  });
+
+  // Step-by-step walkthrough.
+  $("[data-stepper]").forEach(function (list) {
+    var steps = $(".step", list), ctl = list.nextElementSibling, at = 0;
+    if (!ctl || !steps.length) return;
+    var pos = ctl.querySelector(".pos"), back = ctl.querySelector('[data-step="-1"]'), next = ctl.querySelector('[data-step="1"]');
+    function show(i, focus) {
+      at = (i + steps.length) % steps.length;
+      steps.forEach(function (s, j) { s.hidden = j !== at; });
+      pos.textContent = "Step " + (at + 1) + " of " + steps.length;
+      back.disabled = at === 0;
+      next.textContent = at === steps.length - 1 ? "Start again" : "Next";
+      if (focus) { var h = steps[at].querySelector("h3"); h.setAttribute("tabindex", "-1"); h.focus(); }
+    }
+    back.addEventListener("click", function () { show(at - 1, true); });
+    next.addEventListener("click", function () { show(at + 1, true); });
+    var hash = /^#step-(\d+)$/.exec(location.hash);
+    show(hash ? +hash[1] - 1 : 0);
+  });
+
+  // Honest range explorer: Wilson's 95% interval for k passes in n runs.
+  function wilson(k, n) {
+    if (!n) return [0, 0];
+    var z = 1.959964, p = k / n, d = 1 + z * z / n, c = (p + z * z / (2 * n)) / d,
+      h = z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d;
+    return [Math.max(0, c - h) * 100, Math.min(1, c + h) * 100];
+  }
+  $("[data-explorer]").forEach(function (box) {
+    var k = +box.getAttribute("data-k"), n = +box.getAttribute("data-n");
+    var v = function (name) { return box.querySelector('[data-v="' + name + '"]'); };
+    var ci = box.querySelector(".track .ci"), dot = box.querySelector(".track .dot"), tr = box.querySelector(".track");
+    function draw() {
+      var r = wilson(k, n), pct = n ? 100 * k / n : 0;
+      v("k").textContent = k; v("n").textContent = n; v("pct").textContent = Math.round(pct) + "%";
+      v("range").textContent = Math.round(r[0]) + "% to " + Math.round(r[1]) + "%";
+      v("say").textContent = r[1] - r[0] > 30 ? "That is wide: with so few runs, the score could move a lot."
+        : r[1] - r[0] > 15 ? "Run the same test again and the score could land anywhere in that range."
+        : "That is tight: enough runs to separate setups a few points apart.";
+      ci.style.left = r[0].toFixed(1) + "%"; ci.style.width = Math.max(0.6, r[1] - r[0]).toFixed(1) + "%";
+      dot.style.left = pct.toFixed(1) + "%";
+      tr.setAttribute("aria-label", "95% range " + Math.round(r[0]) + " to " + Math.round(r[1]) + "%");
+    }
+    box.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-d]"); if (!b) return;
+      var d = b.getAttribute("data-d").split(","), step = +d[1];
+      if (d[0] === "k") k = Math.min(n, Math.max(0, k + step));
+      else { n = Math.min(500, Math.max(1, n + step)); k = Math.min(k, n); }
+      draw();
+    });
+    draw();
+  });
+
+  // Filters: agent, benchmark, setup, and search or research. They act on the rows the JSON lists and on any element
+  // marked data-f; a group (a board, a finding) hides when nothing inside it matches, and a finding's prose switches
+  // to the variant written for the chosen agent, so the words never contradict the rows.
+  $("form[data-filters]").forEach(function (form) {
+    var json = document.getElementById("filter-data"), facets = {};
+    if (json) JSON.parse(json.textContent).forEach(function (r) { facets[r.id] = r; });
+    var keys = ["agent", "bench", "provider", "kind"];
+    var items = Object.keys(facets).map(function (id) { return document.getElementById(id); }).filter(Boolean)
+      .concat($("[data-f]"));
+    var groups = $("[data-f-group]").sort(function (a, b) { return depth(b) - depth(a); });
+    var empty = document.getElementById("filter-empty");
+    function depth(el) { var d = 0; while ((el = el.parentElement)) d++; return d; }
+    function facet(el, key) {
+      var f = facets[el.id];
+      if (f) return f[key];
+      if (key === "provider" && el.hasAttribute("data-providers")) return el.getAttribute("data-providers").split(" ");
+      return el.getAttribute("data-" + key);
+    }
+    function match(el, want, skip) {
+      return keys.every(function (key) {
+        if (!want[key] || key === skip) return true;
+        var have = facet(el, key);
+        if (have === "-") return false;  // about no agent at all: shown only when no agent is chosen
+        if (have == null || have === "") return true;
+        return Array.isArray(have) ? have.indexOf(want[key]) >= 0 : have === want[key];
+      });
+    }
+    function value(key) { var f = form.elements[key]; return f ? f.value : ""; }
+    function apply() {
+      var want = {};
+      keys.forEach(function (key) { want[key] = value(key); });
+      items.forEach(function (el) {
+        // The leader stays beside a chosen setup, so its rank reads in context.
+        el.hidden = !(match(el, want) || (want.provider && el.hasAttribute("data-lead") && match(el, want, "provider")));
+      });
+      groups.forEach(function (gr) {
+        var inner = $("[data-f], .row[id]", gr);
+        gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return !el.hidden; }));
+      });
+      // A chosen setup opens the rows it sits in, without the "All n" line between it and its leader.
+      $("details.allrows").forEach(function (d) {
+        var forced = !!want.provider && $(".row[id], [data-f]", d).some(function (el) { return !el.hidden; });
+        d.open = forced;
+        d.classList.toggle("forced", forced);
+      });
+      $("[data-f-group]").forEach(function (gr) {
+        var variants = $(":scope > .head > [data-prose]", gr);
+        if (!variants.length) return;
+        var pick = variants.filter(function (p) { return p.getAttribute("data-prose") === want.agent; })[0] ||
+          variants.filter(function (p) { return p.getAttribute("data-prose") === ""; })[0];
+        variants.forEach(function (p) { p.hidden = p !== pick; });
+      });
+      if (empty) empty.hidden = groups.some(function (gr) { return !gr.hidden && !gr.parentElement.closest("[data-f-group]"); });
+      try {
+        var q = new URLSearchParams();
+        keys.forEach(function (key) { if (want[key]) q.set(key, want[key]); });
+        history.replaceState(null, "", (q.toString() ? "?" + q : location.pathname) + location.hash);
+      } catch (e) { /* file:// or sandboxed: filters still work */ }
+    }
+    var start = new URLSearchParams(location.search);
+    keys.forEach(function (key) {
+      $('input[name="' + key + '"]', form).forEach(function (r) { if (start.get(key) === r.value && r.value) r.checked = true; });
+    });
+    form.addEventListener("change", apply);
+    form.addEventListener("submit", function (e) { e.preventDefault(); });
+    apply();
+  });
+})();
+</script>
+</body></html>

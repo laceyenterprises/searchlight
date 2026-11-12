@@ -5,92 +5,229 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insight bake-off</title>
 <style>
-:root{--bg:#f7f7f5;--panel:#fff;--ink:#1b1d21;--muted:#61656d;--line:#e3e3df;--accent:#2f5bd3;--accent-soft:rgba(47,91,211,.12);
---good:#1f7a4d;--bad:#b3261e;--warn:#8a5a00;--chip:#eef0f4;--mark:#ffe58a;--radius:10px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
---sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111316;--panel:#191c20;--ink:#e8e9ec;--muted:#9aa0aa;--line:#2b2f36;
---accent:#7ea2ff;--accent-soft:rgba(126,162,255,.16);--good:#5fd39a;--bad:#ff8a80;--warn:#f2c14e;--chip:#23272e;--mark:#6b5a12;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#111316;--panel:#191c20;--ink:#e8e9ec;--muted:#9aa0aa;--line:#2b2f36;--accent:#7ea2ff;--accent-soft:rgba(126,162,255,.16);
---good:#5fd39a;--bad:#ff8a80;--warn:#f2c14e;--chip:#23272e;--mark:#6b5a12;color-scheme:dark}
+/* tokens: design/tokens.css, copied verbatim so the dashboard stays one offline file */
+/* Searchlight design tokens: the source of truth for colour, type, space and radius.
+   scripts/build_site.py inlines this file into every page and into the study dashboards.
+   Light values on :root; dark values under prefers-color-scheme or data-theme="dark", chosen for the dark ground. */
+:root {
+  /* Surfaces and ink */
+  --paper: #FFFFFF;
+  --soft: #F4F6F9;
+  --raised: #FFFFFF;    /* a card on the soft ground */
+  --rule: #E3E7EC;
+  --ink: #111111;
+  --ink-2: #4F5761;
+  --muted: #5F6873;
+
+  /* Brand: Lacey blue, the one accent (links, the highlighted series, the beam, glyph accents) */
+  --blue: #007BFF;
+  --blue-ink: #0057B3;
+  --blue-soft: #EAF3FF;
+  --on-blue: #FFFFFF;
+
+  /* Signals: reserved for meaning, never decoration or a series colour */
+  --go: #00A86B;        /* verified, supported */
+  --go-ink: #007A4D;
+  --red: #E5202E;       /* unsupported, failed */
+  --red-ink: #B3121C;
+  --amber: #F5B700;     /* a caveat applies, imported, unverifiable */
+  --amber-ink: #8A5A00;
+  --amber-soft: #FFF6D9;
+
+  /* The night ground: the hero and the beam illustration, dark in both themes */
+  --night: #0C0F13;
+  --night-2: #161B22;
+  --night-rule: #262C35;
+  --night-fg: #F2F4F7;
+  --night-mute: #9AA3AF;
+
+  /* Glyph inputs (the sprite reads these) */
+  --sl-accent: var(--blue);
+  --sl-go: var(--go);
+  --sl-red: var(--red);
+  --sl-amber: var(--amber);
+
+  /* Data */
+  --viz-track: #EEF0F3;     /* the 0-100% track behind a bar */
+  --viz-interval: #9EC5F4;  /* a 95% range */
+  --viz-other: #B4BBC5;     /* a series that is not highlighted: controls, references */
+  --viz-ref: #3A414B;       /* reference marks: no search, the answer handed over */
+
+  /* Type */
+  --font-body: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-display: Inter, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Space (4 px base), radius, width */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px;
+  --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 80px;
+  --radius-xs: 3px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 18px;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+    --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+    --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+    --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+    --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+    --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+  --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
+  --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
+  --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
+  --night: #141920; --night-2: #1B212A; --night-rule: #2B323C;
+  --viz-track: #1A2029; --viz-interval: #2A5D99; --viz-other: #56606D; --viz-ref: #B9C1CC;
+  color-scheme: dark;
+}
+/* end tokens */
+:root{--bg:var(--soft);--panel:var(--paper);--line:var(--rule);--accent:var(--blue);--accent-soft:var(--blue-soft);--good:var(--go-ink);--bad:var(--red-ink);--warn:var(--amber-ink);--chip:var(--viz-track);--mark:var(--amber-soft);--radius:var(--radius-lg);--mono:var(--font-mono);--sans:var(--font-body)}
+/* shell: the standalone file's own page; a hosted copy drops this block and uses the site's shell */
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-underline-offset:2px}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--font-body);-webkit-font-smoothing:antialiased}
+.skip{position:absolute;left:-999px;top:8px}.skip:focus{left:16px;background:var(--paper);padding:6px 10px;z-index:9}
+.dash-head{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;padding-top:28px;padding-bottom:8px}
+.dash-head h1{font-size:clamp(26px,4vw,36px);line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.03em}
+.dash-head p{margin:0;color:var(--muted);font-size:15px}
+/* end shell */
+@scope (.dash) {
+:scope{font-size:16px;line-height:1.5;color:var(--ink)}
+a{color:var(--blue-ink);text-underline-offset:2px}
+p{margin:0 0 10px}
 button,select,input{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
-.skip{position:absolute;left:-999px;top:8px}.skip:focus{left:16px;background:var(--panel);padding:6px 10px;z-index:9}
-.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
-header{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;padding:24px 0 12px}
-h1{font-size:22px;line-height:1.25;margin:0 0 4px;font-weight:650;letter-spacing:-.01em}
-h2{font-size:15px;margin:0 0 12px;font-weight:650}
-.muted{color:var(--muted)}.small{font-size:13px}.mono{font-family:var(--mono);font-size:12.5px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+h2{font-size:19px;margin:0 0 10px;font-weight:650;letter-spacing:-.01em;line-height:1.3}
+.muted{color:var(--muted)}.small{font-size:14px}.mono{font-family:var(--font-mono);font-size:14px}
 .num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-.ghost{background:transparent;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+.ghost{background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;font-size:15px;font-weight:600}
 .ghost:hover{border-color:var(--muted)}
-nav[role=tablist]{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);scrollbar-width:none}
-nav[role=tablist] button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 12px;cursor:pointer;color:var(--muted);white-space:nowrap}
-nav[role=tablist] button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
-.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 0}
-.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 10px;cursor:pointer;font-size:13px}
+nav[role=tablist]{display:flex;flex-wrap:wrap;gap:4px 6px;border-bottom:1px solid var(--line);padding-bottom:8px}
+nav[role=tablist] button{background:none;border:1.5px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;color:var(--ink-2);
+white-space:nowrap;font-size:15px;font-weight:500}
+nav[role=tablist] button[aria-selected=true]{color:var(--paper);background:var(--ink);font-weight:600}
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 0;position:static;border:0;margin:0;background:none}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 12px;
+cursor:pointer;font-size:14px;font-weight:500;color:var(--ink);margin:0;vertical-align:baseline}
 .chip[aria-pressed=false]{opacity:.55;text-decoration:line-through}
-.chip[aria-pressed=true]::before{content:"✓";font-size:11px}
-.pill{display:inline-block;border-radius:6px;padding:0 6px;font-size:12px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.chip[aria-pressed=true]::before{content:"✓";font-size:12px}
+.pill{display:inline-block;border-radius:999px;padding:1px 8px;font-size:13px;font-weight:600;background:var(--chip);color:var(--muted);white-space:nowrap}
 .pill.imported{color:var(--warn)}.pill.sponsor{color:var(--accent)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin:12px 0}
-.scroll{overflow-x:auto}
-table{border-collapse:collapse;width:100%}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
-th{font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:12px 0;position:static}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap}
 th button{all:unset;cursor:pointer}th button:focus-visible{outline:2px solid var(--accent)}
 th[aria-sort] button::after{content:" ↕";opacity:.4}th[aria-sort=descending] button::after{content:" ↓";opacity:1}th[aria-sort=ascending] button::after{content:" ↑";opacity:1}
 tr:last-child td{border-bottom:0}
 table.compact{width:auto}table.compact th{padding-right:32px}
-tbody th{color:var(--ink);font-size:14px;font-weight:600}
+tbody th{color:var(--ink);font-size:15px;font-weight:600}
 .bar{display:flex;align-items:flex-start;justify-content:flex-end;gap:10px;min-width:150px}
-.bar .track{flex:1 1 72px;max-width:96px;height:6px;margin-top:9px;background:var(--chip);border-radius:3px;overflow:hidden}
+.bar .track{flex:1 1 72px;max-width:96px;height:6px;margin-top:9px;background:var(--chip);border-radius:3px;overflow:hidden;position:relative}
 .bar .track i{display:block;height:100%;background:var(--accent);border-radius:3px}
 .bar .n{min-width:44px;text-align:right}
 .chart{max-width:720px}
-.ci{display:block;font-size:11.5px;color:var(--muted)}
-.value{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:22px;border-radius:6px;font-weight:650;font-size:13px;border:1px solid var(--line)}
-.v3{background:var(--accent);color:#fff;border-color:var(--accent)}.v2{background:var(--accent-soft)}.v0{color:var(--muted)}
+.ci{display:block;position:static;background:none;font-size:13px;color:var(--muted)}
+.value{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:24px;border-radius:6px;font-weight:650;font-size:14px;border:1px solid var(--line)}
+.v3{background:var(--accent);color:var(--on-blue);border-color:var(--accent)}.v2{background:var(--accent-soft)}.v0{color:var(--muted)}
 .list{list-style:none;margin:0;padding:0}
 .item{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.item:last-child{border-bottom:0}.item .meta{grid-column:2;font-size:13px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
-.verdict{font-size:12px;white-space:nowrap}.verdict.supported{color:var(--good)}.verdict.unsupported,.verdict.uncited{color:var(--bad)}.verdict.unverifiable{color:var(--warn)}
+.item:last-child{border-bottom:0}.item .meta{grid-column:2;font-size:14px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.verdict{font-size:14px;white-space:nowrap}.verdict.supported{color:var(--good)}.verdict.unsupported,.verdict.uncited{color:var(--bad)}.verdict.unverifiable{color:var(--warn)}
 .arms{display:flex;gap:6px;flex-wrap:wrap}
 .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-.toolbar input[type=search],.toolbar select{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 10px;min-width:0}
+.toolbar input[type=search],.toolbar select{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:9px 12px;min-width:0}
 .toolbar input[type=search]{flex:1 1 260px}
 details summary{cursor:pointer;list-style:none}details summary::-webkit-details-marker{display:none}
-details summary::before{content:"▸";display:inline-block;width:1em;color:var(--muted)}details[open] summary::before{content:"▾"}
+details summary::before{content:"▸";display:inline-block;width:1em;color:var(--muted)}details[open]>summary::before{content:"▾"}
 .heat td{text-align:center;font-variant-numeric:tabular-nums;min-width:44px}
-.heat th.row{text-align:left}
+.heat th.row{text-align:left;display:table-cell;padding:9px 10px}
 mark{background:var(--mark);color:inherit;border-radius:3px}
-svg text{fill:var(--ink);font-size:12px}svg .axis{stroke:var(--line)}svg .pt{fill:var(--accent);stroke:var(--panel);stroke-width:1.5}
-.krow{display:grid;grid-template-columns:28px minmax(120px,220px) 1fr 64px;grid-template-areas:"i n t p";gap:4px 12px;align-items:center;padding:6px 0}
+svg text{fill:var(--ink);font-size:14px}svg .axis{stroke:var(--line)}svg .pt{fill:var(--accent);stroke:var(--panel);stroke-width:1.5}
+.krow{display:grid;grid-template-columns:28px minmax(120px,220px) 1fr 72px;grid-template-areas:"i n t p";gap:4px 12px;align-items:center;padding:6px 0}
 .krow .ix{grid-area:i}.krow .nm{grid-area:n}.krow .pc{grid-area:p}
 .krow .track{grid-area:t;height:14px;background:var(--chip);border-radius:4px;position:relative;overflow:hidden}
 .krow .track i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:4px}
 .krow .track b{position:absolute;inset:0 auto 0 0;background:var(--accent-soft)}
-footer{padding:24px 0 40px;font-size:13px;color:var(--muted)}footer li{margin:2px 0}
-.empty{color:var(--muted);padding:16px 0}
-@media (max-width:640px){header{padding-top:16px}h1{font-size:19px}.krow{grid-template-columns:22px 1fr 60px;grid-template-areas:"i n p" "i t t"}
-th,td{padding:7px 8px}.hide-sm{display:none}.filters .arms{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1 1 100%;min-width:0;order:2}.chip{flex:none}.bar .track{display:none}.bar{min-width:0}.scroll tbody th[scope=row],.scroll thead th:first-child{position:sticky;left:0;background:var(--panel);z-index:1}}
+.empty{color:var(--muted);padding:16px 0;border:0;margin:0}
+.caveats{margin:24px 0 8px;font-size:15px;color:var(--ink-2)}.caveats ul{margin:0;padding-left:20px}.caveats li{margin:4px 0}
+.digest{margin:8px 0 20px}
+.digest .eyebrow{margin:0 0 8px;font:500 14px/1.3 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue-ink)}
+.finish{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.finish>li{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--panel);display:grid;gap:6px;align-content:start}
+.finish .q{font:500 14px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.finish .who{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.finish .big{font-size:40px;font-weight:750;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;color:var(--blue-ink)}
+.finish .big small{font-size:16px;font-weight:500;letter-spacing:0;color:var(--muted);margin-left:6px}
+.finish .ctx{font-size:15px;color:var(--ink-2)}
+.ranked{margin-top:24px;border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--panel)}
+.ranked .lede{color:var(--ink-2);font-size:15px}
+.rank{list-style:none;margin:8px 0 0;padding:0}
+.rank li{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(84px,auto);grid-template-areas:"r n v" "r t q";gap:6px 14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.rank .r{grid-area:r;align-self:start;font:600 15px/1.8 var(--font-mono);color:var(--muted);text-align:right}
+.rank .n{grid-area:n;font-weight:650;font-size:17px;min-width:0}
+.rank .v{grid-area:v;text-align:right;font-size:28px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.rank .t{grid-area:t;position:relative;height:14px;border-radius:7px;background:var(--viz-track)}
+.rank .t b{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--viz-interval)}
+.rank .t i{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--panel)}
+.rank .q{grid-area:q;text-align:right;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rank .n{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.kd{width:20px;height:20px;flex:none;color:var(--muted)}.kd .acc{stroke:var(--blue)}
+.keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px;color:var(--muted);margin:0 0 4px}.keys .kd{margin-left:8px}.keys .kd:first-child{margin-left:0}
+.rank .kind{display:inline-block;font-size:13px;font-weight:600;border-radius:999px;padding:1px 8px;background:var(--chip);color:var(--muted)}
+.top3{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:4px}
+.top3 li{display:flex;justify-content:space-between;gap:12px;font-size:16px;border-bottom:1px solid var(--line);padding:4px 0}
+.top3 b{font-variant-numeric:tabular-nums;color:var(--blue-ink);font-size:18px}
+.keys span{display:inline-block;white-space:nowrap;margin-right:14px}
+.readfirst{margin-top:20px}.readfirst ul{margin:0;padding-left:20px;color:var(--ink-2)}.readfirst li{margin:6px 0}
+.more-rows>summary{padding:12px 0 4px;font-weight:600;color:var(--blue-ink)}
+.how{margin:12px 0 0;font-size:14px;color:var(--muted)}
+.fulldata{margin-top:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+.fulldata>summary{padding:16px 18px;font-size:18px;font-weight:650}
+.fulldata>summary small{font-size:15px;font-weight:400;color:var(--muted);margin-left:6px}
+.fulldata>.in{padding:0 18px 18px}
+.fulldata .panel{border:0;padding:12px 0;margin:0}
+}
+@media (max-width:640px){
+.dash-head h1{font-size:24px}
+@scope (.dash) {
+.krow{grid-template-columns:22px 1fr 64px;grid-template-areas:"i n p" "i t t"}
+th,td{padding:8px}.hide-sm{display:none}
+.filters .arms{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1 1 100%;min-width:0;order:2}.chip{flex:none}
+.bar .track{display:none}.bar{min-width:0}
+.scroll tbody th[scope=row],.scroll thead th:first-child{position:sticky;left:0;background:var(--panel);z-index:1}
+.rank li{grid-template-columns:22px minmax(0,1fr) minmax(76px,auto);gap:6px 10px}
+.finish .big{font-size:34px}
+}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to results</a>
-<div class="wrap">
-<header>
-  <div><h1 id="title"></h1><p id="meta" class="muted small"></p><p id="sponsor" class="small"></p></div>
+<main id="main" class="dash" tabindex="-1">
+<!--shell--><div class="wrap dash-head">
+  <div><h1 id="title"></h1><p id="meta"></p><p id="sponsor"></p></div>
   <button id="theme" class="ghost" type="button" aria-label="Switch light or dark theme">Theme</button>
-</header>
+</div><!--/shell-->
+<div class="wrap">
+<!--__DIGEST__-->
+<details class="fulldata" id="full"><summary>Full data <small>every service, question and claim</small></summary><div class="in">
 <nav role="tablist" aria-label="Views" id="tabs"></nav>
-<div class="filters" role="group" aria-label="Filter arms"><span class="small muted">Arms</span><span id="chips" class="arms"></span>
+<div class="filters" role="group" aria-label="Filter services"><span class="small muted">Services</span><span id="chips" class="arms"></span>
   <button id="allarms" class="ghost small" type="button">Show all</button></div>
-<main id="main" tabindex="-1"></main>
-<footer><strong>Read this first</strong><ul id="caveats"></ul></footer>
+<div id="views" tabindex="-1"></div>
+<section class="caveats"><h2>Every caveat, as recorded</h2><ul id="caveats"></ul></section>
+</div></details>
 </div>
+</main>
 <script type="application/json" id="data">/*__DATA__*/</script>
 <script>
 (function(){
@@ -98,10 +235,11 @@ th,td{padding:7px 8px}.hide-sm{display:none}.filters .arms{display:flex;flex-wra
 var D=JSON.parse(document.getElementById("data").textContent);
 var ARMS={};D.arms.forEach(function(a){ARMS[a.arm_id]=a});
 var on={};D.ranked.forEach(function(a){on[a]=true});
-var main=document.getElementById("main");
+var main=document.getElementById("views");
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-// A hosted copy sets data-raw-base on <html> so relative raw-data links resolve to the published bundle.
-var RAW_BASE=document.documentElement.getAttribute("data-raw-base")||"";
+// A hosted copy sets data-raw-base on the dashboard (or <html>) so relative raw-data links resolve to the bundle.
+var HOST=document.querySelector("[data-raw-base]");
+var RAW_BASE=HOST?HOST.getAttribute("data-raw-base"):"";
 function href(u){if(!u)return null;u=String(u);if(/^https?:\/\//i.test(u))return u;if(!/^[a-z][\w+.-]*:/i.test(u))return RAW_BASE&&u.charAt(0)!=="#"?RAW_BASE+u.replace(/^\.\//,""):u;return null}
 function a(text,u,cls){if(u&&String(u).indexOf("local-only:")===0)return '<span class="muted small" title="'+esc(u.slice(11))+'">'+esc(text)+' (local only)</span>';
   var h=href(u);return h?'<a'+(cls?' class="'+cls+'"':'')+' href="'+esc(h)+'"'+(/^https?:/i.test(h)?' rel="noopener noreferrer" target="_blank"':'')+'>'+esc(text)+'</a>':'<span class="muted">'+esc(text)+'</span>'}
@@ -117,15 +255,19 @@ function M(arm,k){return D.metrics[arm][k]}
 function visible(){return D.ranked.filter(function(x){return on[x]})}
 function firstSupported(cl){var c=cl.claims.filter(function(c){return c.verdict==="supported"});return (c[0]||cl.claims[0]||{})}
 
-document.getElementById("title").textContent=D.set.title;
-document.getElementById("meta").textContent=D.run.run_date+" · "+D.arms.length+" arms · "+D.set.questions+" questions · "+D.pool.insights+" verified insights · run "+D.run.run_id;
-if(D.set.sponsor){document.getElementById("sponsor").innerHTML='<span class="pill sponsor">sponsored</span> '+esc(D.set.sponsor.name+": "+D.set.sponsor.disclosure)}
-document.getElementById("caveats").innerHTML=D.caveats.map(function(c){return"<li>"+esc(c)+"</li>"}).join("");
+function el(id){return document.getElementById(id)}
+// The standalone file has its own heading; a hosted copy uses the site's page heading instead.
+if(el("title"))el("title").textContent=D.set.title;
+if(el("meta"))el("meta").textContent=D.run.run_date+" · "+D.arms.length+" services · "+D.set.questions+" questions · "+D.pool.insights+" verified findings · run "+D.run.run_id;
+if(D.set.sponsor&&el("sponsor")){el("sponsor").innerHTML='<span class="pill sponsor">sponsored</span> '+esc(D.set.sponsor.name+": "+D.set.sponsor.disclosure)}
+// The caveats are the study's own words; "arm" reads as "service" for a general reader.
+function plain(t){return t.replace(/\b(A|a)rms\b/g,function(m,a){return a==="A"?"Services":"services"}).replace(/\b(A|a)n arm\b/g,function(m,a){return a==="A"?"A service":"a service"}).replace(/\b(A|a)rm\b/g,function(m,a){return a==="A"?"Service":"service"})}
+document.getElementById("caveats").innerHTML=D.caveats.map(function(c){return"<li>"+esc(plain(c))+"</li>"}).join("");
 
 // Theme: system by default, remembered when chosen.
 var root=document.documentElement;
 try{var saved=localStorage.getItem("ins-theme");if(saved)root.setAttribute("data-theme",saved)}catch(e){}
-document.getElementById("theme").addEventListener("click",function(){
+if(el("theme"))el("theme").addEventListener("click",function(){
   var dark=root.getAttribute("data-theme")?root.getAttribute("data-theme")==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
   var next=dark?"light":"dark";root.setAttribute("data-theme",next);try{localStorage.setItem("ins-theme",next)}catch(e){}});
 
@@ -137,7 +279,7 @@ document.getElementById("chips").addEventListener("click",function(e){var b=e.ta
 document.getElementById("allarms").addEventListener("click",function(){D.ranked.forEach(function(x){on[x]=true});chips();show(current)});
 
 // Views.
-var COLS=[["arm","Arm"],["weighted","Weighted"],["weighted_per_question","Per question"],["insights","Insights"],["unique_insights","Unique"],["share_of_pool","Share"],
+var COLS=[["arm","Service"],["weighted","Weighted"],["weighted_per_question","Per question"],["insights","Insights"],["unique_insights","Unique"],["share_of_pool","Share"],
   ["unsupported_rate","Unsupported"],["cost_usd","Cost"],["cost_per_unique_insight","$ / unique"],["latency_p50_ms","p50"]];
 var sort={key:"weighted",dir:-1};
 var V={
@@ -152,14 +294,14 @@ leaderboard:{label:"Leaderboard",render:function(){
     '<span class="ci">'+(w.ci95?w.ci95[0]+"–"+w.ci95[1]:"")+'</span></span></div></td><td class="num">'+(m.weighted_per_question.value==null?"—":m.weighted_per_question.value.toFixed(1))+'<span class="ci">'+m.weighted_per_question.n+' Qs</span></td><td class="num">'+m.insights.value+'</td><td class="num">'+m.unique_insights.value+
     '<span class="ci">'+m.unique_insights.ci95[0]+"–"+m.unique_insights.ci95[1]+'</span></td><td class="num">'+pct(m.share_of_pool.value)+'</td><td class="num">'+pct(m.unsupported_rate.value)+
     '<span class="ci">n '+m.unsupported_rate.n+'</span></td><td class="num">'+money(m.cost_usd.value)+'</td><td class="num">'+money(m.cost_per_unique_insight.value)+'</td><td class="num">'+ms(m.latency_p50_ms.value)+"</td></tr>"}).join("");
-  return '<div class="panel"><h2>Verified insight by arm</h2><p class="muted small">Sort by any column. Ranges are 95% question-bootstrap intervals over the questions each arm ran (up to '+D.set.questions+'). Arms that ran a subset are fairest compared per question.</p><div class="scroll"><table><caption class="muted small" style="caption-side:bottom;text-align:left;padding-top:8px">Insight: a credited finding valued 1–3. Unique: only this arm earned it.</caption><thead><tr>'+head+"</tr></thead><tbody>"+body+"</tbody></table></div></div>"},
+  return '<div class="panel"><h2>Every number, by service</h2><p class="muted small">Sort by any column. Ranges are 95% question-bootstrap intervals over the questions each service ran (up to '+D.set.questions+'). Services that ran a subset are fairest compared per question.</p><div class="scroll"><table><caption class="muted small" style="caption-side:bottom;text-align:left;padding-top:8px">Insight: a credited finding valued 1–3. Unique: only this arm earned it.</caption><thead><tr>'+head+"</tr></thead><tbody>"+body+"</tbody></table></div></div>"},
   bind:function(){main.querySelectorAll("[data-sort]").forEach(function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-sort");
     sort={key:k,dir:sort.key===k?-sort.dir:(k==="arm"?1:-1)};show("leaderboard");var n=main.querySelector('[data-sort="'+k+'"]');if(n)n.focus()})})}},
 unique:{label:"Unique",render:function(){
   var items=[];D.questions.forEach(function(q){q.clusters.forEach(function(cl){if(cl.unique&&on[cl.credited[0]])items.push({q:q,cl:cl})})});
   items.sort(function(x,y){return (y.cl.value-x.cl.value)||x.cl.credited[0].localeCompare(y.cl.credited[0])||x.q.id.localeCompare(y.q.id)});
-  if(!items.length)return '<div class="panel empty">No unique insight among the selected arms.</div>';
-  return '<div class="panel"><h2>Found by one arm only ('+items.length+')</h2><ul class="list">'+items.map(function(it){var c=firstSupported(it.cl);
+  if(!items.length)return '<div class="panel empty">No unique finding among the selected services.</div>';
+  return '<div class="panel"><h2>Found by one service only ('+items.length+')</h2><ul class="list">'+items.map(function(it){var c=firstSupported(it.cl);
     return '<li class="item">'+val(it.cl.value)+"<div>"+esc(c.text)+'</div><div class="meta"><strong>'+esc(it.cl.credited[0])+"</strong><span>"+esc(it.q.id)+"</span>"+a("source",c.url)+a("cell",c.links.cell)+a("verify",c.links.verify)+(it.cl.reason?'<span title="judge reason">'+esc(it.cl.reason)+"</span>":"")+"</div></li>"}).join("")+"</ul></div>"}},
 overlap:{label:"Overlap",render:function(){
   var arms=D.overlap.arms,idx={};arms.forEach(function(x,i){idx[x]=i});var vis=visible(),max=1;
@@ -167,11 +309,11 @@ overlap:{label:"Overlap",render:function(){
   var head="<tr><th></th>"+vis.map(function(y){return'<th scope="col" class="num"><span title="'+esc(y)+'">'+esc(y)+"</span></th>"}).join("")+"</tr>";
   var body=vis.map(function(x){return'<tr><th scope="row" class="row">'+esc(x)+"</th>"+vis.map(function(y){var n=D.overlap.matrix[idx[x]][idx[y]];
     return'<td style="background:color-mix(in srgb,var(--accent) '+Math.round(70*n/max)+'%,transparent)" aria-label="'+esc(x+" and "+y+": "+n)+'"'+(x===y?' class="diag"':"")+">"+(x===y?"<strong>"+n+"</strong>":n)+"</td>"}).join("")+"</tr>"}).join("");
-  return '<div class="panel"><h2>Insights both arms earned</h2><p class="muted small">Each cell counts shared verified insights; the bold diagonal is the arm’s total. Darker means more.</p><div class="scroll"><table class="heat"><thead>'+head+"</thead><tbody>"+body+"</tbody></table></div></div>"}},
-bestk:{label:"Best k",render:function(){
+  return '<div class="panel"><h2>Findings both services earned</h2><p class="muted small">Each cell counts shared verified findings; the bold diagonal is the service’s total. Darker means more.</p><div class="scroll"><table class="heat"><thead>'+head+"</thead><tbody>"+body+"</tbody></table></div></div>"}},
+bestk:{label:"Best combination",render:function(){
   var rows=D.greedy.map(function(g,i){var prev=i?D.greedy[i-1].cumulative_share||0:0,cur=g.cumulative_share||0;
     return'<div class="krow"><div class="num ix">'+(i+1)+'</div><div class="nm">'+esc(g.arm)+tags(g.arm)+'</div><div class="track" role="img" aria-label="'+esc(pct(cur)+" cumulative after adding "+g.arm)+'"><b style="width:'+(100*cur).toFixed(1)+'%"></b><i style="width:'+(100*prev).toFixed(1)+'%"></i></div><div class="num pc">'+pct(cur)+'<span class="ci">+'+g.added_weighted+"</span></div></div>"}).join("");
-  return '<div class="panel"><h2>If you could only buy k providers</h2><p class="muted small">Greedy order by added weighted insight; ties go to the cheaper arm. Solid: covered before this arm. Tint: what it adds. Uses every arm, ignoring the filter.</p><div>'+rows+"</div></div>"}},
+  return '<div class="panel"><h2>The best combination, one service at a time</h2><p class="muted small">Each step adds the service that adds the most valued findings; ties go to the cheaper one. Solid: covered before this service. Tint: what it adds. Uses every service, ignoring the filter.</p><div>'+rows+"</div></div>"}},
 cost:{label:"Cost",render:function(){
   var pts=visible().map(function(x){return{arm:x,c:M(x,"cost_usd").value,u:M(x,"unique_insights").value,k:ARMS[x].imported?"imported":ARMS[x].kind}});
   var known=pts.filter(function(p){return p.c!=null}),unknown=pts.filter(function(p){return p.c==null});
@@ -179,11 +321,11 @@ cost:{label:"Cost",render:function(){
   function X(c){return L+(W-L-16)*c/maxc}function Y(u){return H-B-(H-B-16)*u/maxu}
   function mark(p){var x=X(p.c),y=Y(p.u);if(p.k==="results")return'<circle class="pt" cx="'+x+'" cy="'+y+'" r="6"/>';
     if(p.k==="answer")return'<rect class="pt" x="'+(x-6)+'" y="'+(y-6)+'" width="12" height="12"/>';return'<path class="pt" d="M'+x+" "+(y-7)+"L"+(x+7)+" "+y+"L"+x+" "+(y+7)+"L"+(x-7)+" "+y+'Z"/>'}
-  var svg='<svg viewBox="0 0 '+W+" "+H+'" width="100%" role="img" aria-label="Cost against unique insight per arm"><line class="axis" x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-8)+'" y2="'+(H-B)+'"/><line class="axis" x1="'+L+'" y1="12" x2="'+L+'" y2="'+(H-B)+'"/>'+
+  var svg='<svg viewBox="0 0 '+W+" "+H+'" width="100%" role="img" aria-label="Cost against unique findings per service"><line class="axis" x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-8)+'" y2="'+(H-B)+'"/><line class="axis" x1="'+L+'" y1="12" x2="'+L+'" y2="'+(H-B)+'"/>'+
     '<text x="'+((W+L)/2)+'" y="'+(H-6)+'" text-anchor="middle">run cost (USD) →</text><text x="12" y="16">unique ↑</text><text x="'+L+'" y="'+(H-B+16)+'" text-anchor="middle">$0</text><text x="'+(W-16)+'" y="'+(H-B+16)+'" text-anchor="end">'+esc(money(maxc/1.08))+"</text>"+
     '<text x="'+(L-8)+'" y="'+(Y(Math.floor(maxu/1.12))+4)+'" text-anchor="end">'+Math.floor(maxu/1.12)+'</text><text x="'+(L-8)+'" y="'+(H-B+4)+'" text-anchor="end">0</text>'+
     known.map(function(p){var right=X(p.c)>W*0.62;return"<g><title>"+esc(p.arm+": "+money(p.c)+", "+p.u+" unique")+"</title>"+mark(p)+'<text x="'+(X(p.c)+(right?-11:11))+'" y="'+(Y(p.u)+4)+'"'+(right?' text-anchor="end"':"")+">"+esc(p.arm)+"</text></g>"}).join("")+"</svg>";
-  return '<div class="panel"><h2>Cost against unique insight</h2><p class="muted small">Up and to the left is better. Circle: search arm. Square: research arm. Diamond: imported arm.</p><div class="chart">'+svg+"</div>"+
+  return '<div class="panel"><h2>Cost against unique findings</h2><p class="muted small">Up and to the left is better. Circle: search service. Square: research service. Diamond: imported.</p><div class="chart">'+svg+"</div>"+
     (unknown.length?'<p class="small muted">Cost unknown: '+unknown.map(function(p){return esc(p.arm)+" ("+p.u+" unique)"}).join(", ")+"</p>":"")+"</div>"}},
 questions:{label:"Questions",render:function(){
   var q=D.questions[qi]||D.questions[0];if(!q)return'<div class="panel empty">No questions.</div>';
@@ -208,7 +350,7 @@ files:{label:"Files",render:function(){
   function li(t,u){return u?"<li>"+a(t,u)+"</li>":""}
   var run='<h2>Run</h2><ul class="list small">'+li("summary.json","summary.json")+li("REPORT.md","REPORT.md")+li("manifest",D.run.links.manifest)+li("spend ledger",D.run.links.ledger)+li("grading record",D.run.links.grading)+"</ul>";
   var qs='<h2 style="margin-top:16px">Per question</h2><div class="scroll"><table class="compact"><tbody>'+D.questions.map(function(q){return'<tr><th scope="row">'+esc(q.id)+"</th><td>"+[["clusters",q.links.clusters],["values",q.links.judge],["shared queries",q.links.query_writer]].filter(function(x){return x[1]}).map(function(x){return a(x[0],x[1])}).join(" · ")+"</td></tr>"}).join("")+"</tbody></table></div>";
-  var cells='<h2 style="margin-top:16px">Cells per arm</h2><div class="scroll"><table class="compact"><tbody>'+visible().map(function(x){var ls=M(x,"cost_usd").links.filter(function(l){return /cells\//.test(l)});
+  var cells='<h2 style="margin-top:16px">Runs per service</h2><div class="scroll"><table class="compact"><tbody>'+visible().map(function(x){var ls=M(x,"cost_usd").links.filter(function(l){return /cells\//.test(l)});
     return'<tr><th scope="row">'+esc(x)+"</th><td>"+ls.map(function(l){var m=/cells\/([^/]+)\//.exec(l);return a(m?m[1]:l,l)}).join(" ")+"</td></tr>"}).join("")+"</tbody></table></div>";
   return'<div class="panel">'+run+qs+cells+"</div>"}}
 };
@@ -221,14 +363,15 @@ function results(){var t=term.trim().toLowerCase(),hits=ALL.filter(function(r){r
     return'<li class="item">'+val(r.cl.value)+"<div>"+hi(r.c.text,term.trim())+'</div><div class="meta"><strong>'+esc(r.c.arm)+"</strong><span>"+esc(r.q.id)+"</span>"+verdict(r.c.verdict)+a("source",r.c.url)+a("cell",r.c.links.cell)+a("verify",r.c.links.verify)+"</div></li>"}).join("")+"</ul>"}
 
 var tabs=document.getElementById("tabs"),keys=Object.keys(V);
-tabs.innerHTML=keys.map(function(k){return'<button type="button" role="tab" id="tab-'+k+'" aria-controls="main" data-view="'+k+'">'+V[k].label+"</button>"}).join("");
+tabs.innerHTML=keys.map(function(k){return'<button type="button" role="tab" id="tab-'+k+'" aria-controls="views" data-view="'+k+'">'+V[k].label+"</button>"}).join("");
 function show(k){current=k;keys.forEach(function(x){var b=document.getElementById("tab-"+x);b.setAttribute("aria-selected",x===k);b.tabIndex=x===k?0:-1});
   main.setAttribute("role","tabpanel");main.setAttribute("aria-labelledby","tab-"+k);main.innerHTML=V[k].render();if(V[k].bind)V[k].bind()}
 tabs.addEventListener("click",function(e){var b=e.target.closest("[data-view]");if(!b)return;var k=b.getAttribute("data-view");
   try{history.replaceState(null,"","#"+k)}catch(err){}show(k)});
 tabs.addEventListener("keydown",function(e){var i=keys.indexOf(current),n=e.key==="ArrowRight"?i+1:e.key==="ArrowLeft"?i-1:e.key==="Home"?0:e.key==="End"?keys.length-1:null;
   if(n==null)return;e.preventDefault();n=(n+keys.length)%keys.length;show(keys[n]);document.getElementById("tab-"+keys[n]).focus()});
-chips();show(keys.indexOf(location.hash.slice(1))>=0?location.hash.slice(1):"leaderboard");
+chips();var start=keys.indexOf(location.hash.slice(1))>=0?location.hash.slice(1):"leaderboard";
+if(start!==location.hash.slice(1)||!el("full")){show(start)}else{el("full").open=true;show(start)}
 })();
 </script>
 </body>

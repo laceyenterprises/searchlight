@@ -1,10 +1,10 @@
 {
   "generated_from": [
+    "reports/2026-09-26-search-api-head-to-head/summary.json",
     "reports/2026-09-29-web-search-bakeoff/summary.json",
     "reports/2026-10-03-search-gap-bench/summary.json",
     "reports/2026-10-05-agent-search-behavior/summary.json",
-    "reports/2026-10-06-search-gap-replication/summary.json",
-    "reports/2026-09-26-search-api-head-to-head/summary.json"
+    "reports/2026-10-06-search-gap-replication/summary.json"
   ],
   "note": "Pass rates and intervals as published; WSB intervals are Wilson 95% computed from published counts. Overlapping intervals are not rankings.",
   "boards": [
@@ -429,6 +429,142 @@
       ],
       "source": "2026-09-29-web-search-bakeoff",
       "top_lower_bound": 78
+    },
+    {
+      "id": "gap-claude-code-2026-10-06",
+      "bench": "GAP",
+      "harness": "claude-code",
+      "title": "Search gap bench replication: Claude Code (claude-opus-5-5)",
+      "scope": "8 admitted post-cutoff brief tasks × 3 repetitions = 24 cells per arm. Pass = right decision, weighted key-fact recall ≥ 0.7, unsupported claims ≤ 0.25.",
+      "interval": "Wilson 95% (published)",
+      "token_accounting": "GAP tokens per success counts all agent tokens in the arm, failed cells included, divided by passing cells.",
+      "reference": {
+        "floor (no search)": "0% (0–14%)",
+        "ceiling (answer excerpt)": "92% (74–98%)"
+      },
+      "rows": [
+        {
+          "arm": "firecrawl",
+          "label": "Firecrawl",
+          "pass_pct": 83.0,
+          "ci": [
+            64.0,
+            93.0
+          ],
+          "passes": 20,
+          "cells": 24,
+          "gap_closure": "0.91 (0.80–1.00)",
+          "tokens_per_success": "141k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "exa",
+          "label": "Exa",
+          "pass_pct": 79.0,
+          "ci": [
+            60.0,
+            91.0
+          ],
+          "passes": 19,
+          "cells": 24,
+          "gap_closure": "0.86 (0.58–1.11)",
+          "tokens_per_success": "89k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "native",
+          "label": "Built-in",
+          "pass_pct": 75.0,
+          "ci": [
+            55.0,
+            88.0
+          ],
+          "passes": 18,
+          "cells": 24,
+          "gap_closure": "0.82 (0.60–0.96)",
+          "tokens_per_success": "55k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "parallel-web",
+          "label": "Parallel",
+          "pass_pct": 75.0,
+          "ci": [
+            55.0,
+            88.0
+          ],
+          "passes": 18,
+          "cells": 24,
+          "gap_closure": "0.82 (0.54–1.17)",
+          "tokens_per_success": "90k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "perplexity",
+          "label": "Perplexity",
+          "pass_pct": 75.0,
+          "ci": [
+            55.0,
+            88.0
+          ],
+          "passes": 18,
+          "cells": 24,
+          "gap_closure": "0.82 (0.64–0.96)",
+          "tokens_per_success": "72k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "brave",
+          "label": "Brave",
+          "pass_pct": 71.0,
+          "ci": [
+            51.0,
+            85.0
+          ],
+          "passes": 17,
+          "cells": 24,
+          "gap_closure": "0.77 (0.50–1.06)",
+          "tokens_per_success": "105k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        },
+        {
+          "arm": "tavily",
+          "label": "Tavily",
+          "pass_pct": 62.0,
+          "ci": [
+            43.0,
+            79.0
+          ],
+          "passes": 15,
+          "cells": 24,
+          "gap_closure": "0.68 (0.33–0.96)",
+          "tokens_per_success": "126k",
+          "vs_floor": "p < 0.0001",
+          "note": "",
+          "flagged": false,
+          "overlaps_top": true
+        }
+      ],
+      "source": "2026-10-06-search-gap-replication",
+      "top_lower_bound": 64.0
     }
   ],
   "search_api_head_to_head": {

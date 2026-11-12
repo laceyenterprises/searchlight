@@ -5,10 +5,36 @@ import hashlib
 import json
 import os
 import re
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORTS = ('2026-09-29-web-search-bakeoff', '2026-10-03-search-gap-bench', '2026-10-05-agent-search-behavior',
-           '2026-10-06-search-gap-replication', '2026-09-26-search-api-head-to-head')
+INSIGHT_SCHEMA = 'sew-insight-summary'
+
+
+def _schema(directory):
+    """The summary schema a report directory declares: 'insight', or 'transcription' for everything else.
+
+    A summary that cannot be read is a transcription, so the gates below still check and report it."""
+    try:
+        data = json.loads((directory / 'summary.json').read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return 'transcription'
+    return 'insight' if isinstance(data, dict) and data.get('schema') == INSIGHT_SCHEMA else 'transcription'
+
+
+def discover(root=ROOT, kind='transcription'):
+    """Every published report directory under reports/ of one kind, in date order (directory names start with it).
+
+    Publishing a new report directory, or running `sew insight publish`, is all it takes for the gates and the
+    site to pick it up: there is no list to edit."""
+    base = Path(root) / 'reports'
+    if not base.is_dir():
+        return ()
+    return tuple(sorted(d.name for d in base.iterdir()
+                        if d.is_dir() and not d.name.startswith('.') and _schema(d) == kind))
+
+
+REPORTS = discover()
 # Private infrastructure and credentials are never valid report content.
 # File URIs need an explicit branch: the path boundary below permits web URLs.
 FORBIDDEN = re.compile(
@@ -81,9 +107,38 @@ def check_calibration(name, data, calibration):
     return errors
 
 
-def check(root=ROOT, reports=REPORTS):
+def check_insight(root, name):
+    """An insight study: its REPORT.md and dashboard.html must be the renderings of its summary.json."""
+    if str(ROOT / 'lib' / 'python') not in sys.path:
+        sys.path.insert(0, str(ROOT / 'lib' / 'python'))
+    from sew.insight.dashboard import render_dashboard
+    from sew.insight.report import render as render_insight
+
+    directory = Path(root) / 'reports' / name
+    errors = [f'{name}: missing {f}' for f in ('REPORT.md', 'summary.json', 'dashboard.html', 'methodology.md',
+                                               'reproduce.md') if not (directory / f).is_file()]
+    if errors:
+        return errors
+    try:
+        summary = json.loads((directory / 'summary.json').read_text(encoding='utf-8'))
+        report = (directory / 'REPORT.md').read_bytes().decode('utf-8')
+        dashboard = (directory / 'dashboard.html').read_bytes().decode('utf-8')
+    except (UnicodeDecodeError, ValueError) as exc:
+        return [f'{name}: unreadable publication data ({type(exc).__name__})']
+    if report != render_insight(summary):
+        errors.append(f'{name}: REPORT.md differs from summary.json rendering')
+    if dashboard != render_dashboard(summary):
+        errors.append(f'{name}: dashboard.html differs from summary.json rendering; run sew insight publish again')
+    return errors
+
+
+def check(root=ROOT, reports=None, studies=None):
     root = Path(root)
+    reports = discover(root) if reports is None else reports
+    studies = discover(root, 'insight') if studies is None else studies
     errors = []
+    for name in studies:
+        errors.extend(check_insight(root, name))
     # Optional private input, supplied outside Git; never print its values.
     private_names = frozenset(
         name.strip().casefold()
@@ -158,11 +213,12 @@ if __name__ == '__main__':
     parser.add_argument('--write', action='store_true', help='render REPORT.md from reviewed summary.json')
     args = parser.parse_args()
     if args.write:
-        for name in REPORTS:
+        for name in discover():
             directory = ROOT / 'reports' / name
             summary = json.loads((directory / 'summary.json').read_text(encoding='utf-8'))
             (directory / 'REPORT.md').write_bytes(render(summary).encode('utf-8'))
     failures = check()
     if failures:
         raise SystemExit('\n'.join(failures))
-    print('Reports passed: scrub, summary rendering, calibration, catalog hashes and links')
+    print(f'Reports passed ({len(discover())} reports, {len(discover(kind="insight"))} studies): scrub, summary '
+          'rendering, dashboards, calibration, catalog hashes and links')

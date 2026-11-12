@@ -1,10 +1,14 @@
-"""Build the Searchlight results site, leaderboard data and infographic from published reports.
+"""Build the Searchlight site, leaderboard data, infographic and share card from published reports.
 
-Inputs are only files in this repository: the checked report transcriptions under
-``reports/`` (see ``scripts/check_reports.py``) and the pinned provider arm configuration
-in ``config/provider-arm-tools.yaml``. Nothing is recalculated from private run data;
-the only derived numbers are Wilson intervals for tables that publish counts without
-intervals, and they are labelled as computed.
+The one entry point. The page code lives in ``scripts/searchlight_site/`` (data, design, layout, components, pages,
+diagrams); this file builds the site from it, draws the one-page infographic and the share card, and writes or checks
+``site/``.
+
+Inputs are only files in this repository: every report and insight study under ``reports/`` (discovered by its summary
+schema, see ``scripts/check_reports.py``), the pinned provider arm configuration in ``config/provider-arm-tools.yaml``,
+and the design system in ``design/`` (tokens, glyphs, vocabulary). Nothing is recalculated from private run data; the
+only derived numbers are Wilson intervals for tables that publish counts without intervals, and they are labelled as
+computed. Publishing a new report directory and rebuilding adds its page, its boards and its index entries with no edits.
 
     python3 scripts/build_site.py            # write site/
     python3 scripts/build_site.py --check    # fail if site/ is stale
@@ -14,439 +18,46 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import struct
-import zlib
-import html
 import json
-import math
 import re
+import struct
 import sys
 import textwrap
+import zlib
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / 'scripts'))
-sys.path.insert(0, str(ROOT / 'lib' / 'python'))
-from check_reports import REPORTS  # noqa: E402
-from sew import harnesses  # noqa: E402
-
-REPO_URL = 'https://github.com/laceyenterprises/searchlight'
-# Container publishers control unpinned third-party script execution. Limit
-# publish access to trusted maintainers and review container/tag changes.
-# Consent defaults govern storage, not every network request or cookieless ping.
-GTM_CONTAINER_ID = "GTM-TWQZV6F7"
-GTM_HEAD = f"""<!-- Google consent defaults: analytics storage denied in the EEA, UK, Switzerland and listed territories; no consent UI; ad storage off everywhere -->
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}
-gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'}});
-gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH','AX','GF','GP','MQ','RE','YT','MF','GI','JE','GG','IM']}});</script>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
-new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-}})(window,document,'script','dataLayer','{GTM_CONTAINER_ID}');</script>
-<!-- End Google Tag Manager -->"""
-# No non-JavaScript iframe: it cannot apply the storage defaults above.
-GTM_BODY = ""
-MERMAID_URL = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js'
-# SHA-384 of the pinned CDN asset; update together with MERMAID_URL.
-MERMAID_INTEGRITY = 'sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I'
-RERUN_NOTE = 'Rerun 2026-10-06 with page opening fixed'
-ARM_LABEL = {
-    'no-search': 'No search', 'native': 'Built-in', 'brave': 'Brave', 'tavily': 'Tavily', 'exa': 'Exa',
-    'parallel-web': 'Parallel', 'firecrawl': 'Firecrawl', 'perplexity': 'Perplexity',
-}
-REPORT_TITLES = {
-    '2026-09-29-web-search-bakeoff': 'Web search bakeoff',
-    '2026-10-03-search-gap-bench': 'Search gap bench',
-    '2026-10-05-agent-search-behavior': 'How agents used search',
-    '2026-10-06-search-gap-replication': 'Search gap bench replication',
-    '2026-09-26-search-api-head-to-head': 'Search API head-to-head',
-}
-H2H = '2026-09-26-search-api-head-to-head'
-H2H_PROVIDERS = ('Exa', 'Tavily', 'Parallel', 'Firecrawl')
-RECALL_MIN, UNSUPPORTED_MAX = 0.7, 0.25  # the search gap bench's brief pass rule
-
-
-# ---------------------------------------------------------------- data
-
-def load_reports(root: Path = ROOT) -> dict:
-    out = {}
-    for name in REPORTS:
-        directory = root / 'reports' / name
-        out[name] = {
-            'summary': json.loads((directory / 'summary.json').read_text(encoding='utf-8')),
-            'methodology': (directory / 'methodology.md').read_text(encoding='utf-8'),
-        }
-    return out
-
-
-def tables(summary: dict) -> list[tuple[str, list[list[str]]]]:
-    """Return (preceding markdown, table) pairs in document order."""
-    pairs, last = [], ''
-    for block in summary['blocks']:
-        if 'markdown' in block:
-            last = block['markdown']
-        else:
-            pairs.append((last, block['table']))
-    return pairs
-
-
-def data_rows(table: list[list[str]]) -> list[list[str]]:
-    """Table rows without the header and the markdown separator row."""
-    return [row for row in table[1:] if not set(''.join(row)) <= set('-: ')]
-
-
-def wilson(k: int, n: int, z: float = 1.959964) -> tuple[float, float]:
-    if not n:
-        return 0.0, 0.0
-    p = k / n
-    denom = 1 + z * z / n
-    centre = (p + z * z / (2 * n)) / denom
-    half = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / denom
-    return max(0.0, centre - half) * 100, min(1.0, centre + half) * 100
-
-
-def parse_count(cell: str) -> tuple[int, int]:
-    match = re.match(r'\s*(\d+)/(\d+)', cell)
-    if not match:
-        raise ValueError(f'expected k/n in {cell!r}')
-    return int(match.group(1)), int(match.group(2))
-
-
-def parse_pct_ci(cell: str) -> tuple[float, float, float]:
-    number = r'\d+(?:\.\d+)?'
-    match = re.fullmatch(rf'\s*({number})%\s*\(\s*({number})\s*[-–]\s*({number})%\s*\)\s*', cell)
-    if not match:
-        raise ValueError(f'expected "p% (lo–hi%)" in {cell!r}')
-    return tuple(float(x) for x in match.groups())
-
-
-def heading_harness(heading: str) -> str:
-    """The registered harness id a GAP table heading names, as a whole token."""
-    named = [h for h in harnesses.ids() if re.search(rf'(?<![\w-]){re.escape(h)}(?![\w-])', heading)]
-    if len(named) != 1:
-        raise SystemExit(f'GAP heading must name exactly one registered harness: {heading!r}')
-    return named[0]
-
-
-def harness_models(summary: dict) -> dict[str, str]:
-    """{harness: model} from a GAP setup table's "Harnesses" row ("codex on gpt-6.1-sol, ...")."""
-    for _, table in tables(summary):
-        for row in data_rows(table):
-            if len(row) > 1 and row[0] == 'Harnesses':
-                return dict(re.findall(r'([\w.-]+) on ([\w./:-]+)', row[1]))
-    return {}
-
-
-def harness_name(board: dict) -> tuple[str, str]:
-    """(display label, model) for a board; the model is empty when the report does not name it."""
-    return harnesses.get(board['harness']).label, board.get('model', '')
-
-
-def leaderboards(reports: dict) -> list[dict]:
-    boards = []
-    gap = reports['2026-10-03-search-gap-bench']['summary']
-    models = harness_models(gap)
-    for intro, table in tables(gap):
-        if table[0][:3] != ['Arm', 'Gap closure (95% CI)', 'Pass rate (Wilson 95% CI)']:
-            continue
-        heading = [line for line in intro.splitlines() if line.startswith('### ')][-1]
-        harness = heading_harness(heading)
-        cells = int(re.search(r'(\d+) cells per arm', heading).group(1))
-        rows = []
-        for row in data_rows(table):
-            if row[0].startswith(('ceiling', 'floor')):
-                continue
-            point, lo, hi = parse_pct_ci(row[2])
-            arm = row[0].lower().replace('parallel', 'parallel-web')
-            rows.append({
-                'arm': arm, 'label': ARM_LABEL.get(arm, row[0]), 'pass_pct': point, 'ci': [lo, hi],
-                'passes': round(point * cells / 100), 'cells': cells, 'gap_closure': row[1],
-                'tokens_per_success': row[3], 'vs_floor': row[4],
-                'note': RERUN_NOTE if harness == 'claude-code' and arm == 'native' else '',
-                'flagged': False,
-            })
-        reference = {r[0].split(' ')[0]: r[2] for r in data_rows(table) if r[0].startswith(('ceiling', 'floor'))}
-        label = harnesses.get(harness).label
-        boards.append({
-            'id': f'gap-{harness}', 'bench': 'GAP', 'harness': harness, 'model': models.get(harness, ''),
-            'title': f'Search gap bench: {label}' + (f' ({models[harness]})' if harness in models else ''),
-            'scope': f'{cells // 3} admitted post-cutoff brief tasks × 3 repetitions = {cells} cells per arm. '
-                     f'Pass = right decision, weighted key-fact recall ≥ {RECALL_MIN}, unsupported claims ≤ {UNSUPPORTED_MAX}.',
-            'interval': 'Wilson 95% (published)',
-            'token_accounting': 'GAP tokens per success counts all agent tokens in the arm, failed cells included, '
-                                'divided by passing cells.',
-            'reference': {'floor (no search)': reference.get('floor', ''), 'ceiling (answer excerpt)': reference.get('ceiling', '')},
-            'rows': sorted(rows, key=lambda r: (-r['pass_pct'], r['label'])),
-            'source': '2026-10-03-search-gap-bench',
-        })
-    wsb = reports['2026-09-29-web-search-bakeoff']['summary']
-    regrade = next(t for _, t in tables(wsb) if t[0] == ['arm', 'pass', 'tokens/success'])
-    rows = []
-    for row in data_rows(regrade):
-        k, n = parse_count(row[1])
-        lo, hi = wilson(k, n)
-        arm = row[0].lower()
-        rows.append({
-            'arm': arm, 'label': ARM_LABEL.get(arm, arm), 'pass_pct': round(100 * k / n) if n else 0, 'ci': [round(lo), round(hi)],
-            'passes': k, 'cells': n, 'gap_closure': None, 'tokens_per_success': row[2], 'vs_floor': None,
-            'note': 'reference arm' if arm == 'no-search' else (RERUN_NOTE if arm == 'native' else ''),
-            'flagged': False,
-        })
-    boards.append({
-        'id': 'wsb-competitive', 'bench': 'WSB', 'harness': 'claude-code',
-        'title': 'Web search bakeoff: Claude Code (claude-opus-5-5)',
-        'scope': '14 competitive tasks × 3 repetitions = 42 cells per arm, regraded 2026-09-30. '
-                 'Mostly stable, documented knowledge; search adds less here than on post-cutoff jobs.',
-        'interval': 'Wilson 95% (computed from the published counts)',
-        'token_accounting': 'WSB tokens per success uses measured tokens from graded cells divided by measured '
-                            'successes. Ungraded and unmeasured cells are excluded; per-arm coverage counts '
-                            'were not retained, so complete accounting cannot be established.',
-        'reference': {},
-        'rows': sorted(rows, key=lambda r: (-r['pass_pct'], r['label'])),
-        'source': '2026-09-29-web-search-bakeoff',
-    })
-    for board in boards:
-        top = next(r for r in board['rows'] if r['arm'] != 'no-search')
-        board['top_lower_bound'] = top['ci'][0]
-        for row in board['rows']:
-            row['overlaps_top'] = row['ci'][1] >= top['ci'][0]
-    return boards
-
-
-def arm_configs(root: Path = ROOT) -> list[dict]:
-    import yaml
-    data = yaml.safe_load((root / 'config' / 'provider-arm-tools.yaml').read_text(encoding='utf-8'))
-    out = []
-    for arm, cfg in data['providers'].items():
-        args = cfg.get('args', [])
-        package = next((a for a in args if a not in ('-y',) and not a.startswith('-')), '')
-        remote = next((a for a in args if a.startswith('https://')), '')
-        tools = cfg.get('enabled_tools', [])
-        out.append({
-            'arm': arm, 'label': ARM_LABEL.get(arm, arm), 'package': package, 'remote': remote,
-            'tools': tools,
-        })
-    return out
-
-
-def behavior(reports: dict) -> dict:
-    return reports['2026-10-05-agent-search-behavior']['summary']['analysis']
-
-
-def parse_tally(cell: str) -> tuple[int, int | None]:
-    """'25' -> (25, None); '105/133 (78.9%)' -> (105, 133). Bold markers are ignored."""
-    match = re.fullmatch(r'\s*\**(\d+)\**(?:/(\d+))?(?:\s*\([^)]*\))?\s*', cell)
-    if not match:
-        raise ValueError(f'expected a count or k/n in {cell!r}')
-    return int(match.group(1)), int(match.group(2)) if match.group(2) else None
-
-
-def head_to_head(reports: dict) -> dict:
-    """Figures from the search API head-to-head, read from its transcribed tables; nothing is recalculated."""
-    pairs = tables(reports[H2H]['summary'])
-    stage_a = next(t for _, t in pairs if t[0][0].startswith('Stage A'))
-    stage_b = next(t for _, t in pairs if t[0][0] == 'Stage B')
-    stage_c = next(t for _, t in pairs if t[0][:2] == ['Provider', 'New tier-1 claims (either arm)'])
-    monitors = next(t for _, t in pairs if t[0][0].startswith('Monitor'))
-
-    def measure(table, prefix, key, label):
-        row = next(r for r in data_rows(table) if r[0].startswith(prefix))
-        values, of = {}, None
-        for provider, cell in zip(table[0][1:], row[1:]):
-            values[provider], n = parse_tally(cell)
-            of = of or n
-        bound = re.search(r'\(of (\d+)', row[0])
-        return {'id': key, 'label': label, 'of': of or (int(bound.group(1)) if bound else None),
-                'values': values, 'source_row': row[0]}
-
-    c_rows = {r[0]: r for r in data_rows(stage_c)}
-    measures = [
-        measure(stage_a, 'S1 new or correcting claims', 's1', 'New or corrected facts, 40 open questions'),
-        measure(stage_a, 'S4 new dated facts', 's4', 'New dated facts, two weeks of company news'),
-        measure(stage_a, 'S3 pages recovered', 's3', 'Pages it read that built-in tools could not'),
-        measure(stage_b, 'S6 right on KB ground truth', 's6', 'Correct values filling a fixed template'),
-        measure(stage_b, 'S5 entities verified and new', 's5', 'New entries found for three lists'),
-        {'id': 'sv', 'label': 'New key figures (prices, volumes, revenue) on four big vendors; no clear leader',
-         'of': None, 'values': {p: parse_tally(c_rows[p][1])[0] for p in H2H_PROVIDERS}, 'source_row': stage_c[0][1]},
-    ]
-    rows = data_rows(monitors)
-    probe = {'monitors': len(rows), 'runs': sum(int(r[1]) for r in rows),
-             'runs_with_changes': sum(int(r[2]) for r in rows), 'changes': sum(int(r[3]) for r in rows)}
-    if len(monitors[0]) > 4:
-        probe['confirmed'] = sum(int(r[4]) for r in rows)
-        probe['monitors_passing'] = sum(r[5].startswith('yes') for r in rows)
-    return {'title': REPORT_TITLES[H2H], 'source': H2H, 'providers': list(H2H_PROVIDERS), 'measures': measures,
-            'monitors': probe,
-            'note': 'Counts of checked items from one run per question, copied from the report. No ranges were '
-                    'published, so a difference of a few items may be chance.'}
-
-
-def leader(measure: dict) -> str:
-    top = max(measure['values'].values())
-    return ' and '.join(p for p, v in measure['values'].items() if v == top)
-
-
-# ---------------------------------------------------------------- markdown
-
-def inline(text: str, report: str, heading_report: str | None = None) -> str:
-    text = html.escape(text, quote=False)
-    text = re.sub(r'`([^`]+)`', lambda m: f'<code>{m.group(1)}</code>', text)
-    text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
-    text = re.sub(r'(?<![\w*])\*([^*\n]+)\*(?![\w*])', r'<em>\1</em>', text)
-
-    def link(match):
-        label, target = match.group(1), html.unescape(match.group(2))
-        context = heading_report if target.startswith('#') and heading_report else report
-        return f'<a href="{html.escape(resolve_link(target, context))}">{label}</a>'
-
-    return re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', link, text)
-
-
-def heading_anchor(report: str, fragment: str) -> str:
-    return f'{report}-{fragment}'
-
-
-def resolve_link(target: str, report: str) -> str:
-    if target.startswith(('http://', 'https://')):
-        return target
-    path, _, fragment = target.partition('#')
-    if not path:
-        return '#' + heading_anchor(report, fragment)
-    parts = (Path('reports') / report / path).as_posix().split('/')
-    stack = []
-    for part in parts:
-        if part == '..':
-            if stack:
-                stack.pop()
-        elif part != '.':
-            stack.append(part)
-    resolved = '/'.join(stack)
-    match = re.fullmatch(r'reports/([^/]+)/(REPORT|methodology)\.md', resolved)
-    if match and match.group(1) in REPORTS:
-        prefix = 'run' if match.group(2) == 'REPORT' else 'method'
-        if fragment:
-            namespace = match.group(1) + ('-method' if prefix == 'method' else '')
-            return '#' + heading_anchor(namespace, fragment)
-        return f'#{prefix}-{match.group(1)}'
-    return f'{REPO_URL}/blob/main/{resolved}' + (f'#{fragment}' if fragment else '')
-
-
-def slug(text: str) -> str:
-    return re.sub(r'[^\w -]', '', text.lower()).strip().replace(' ', '-')
-
-
-def markdown(text: str, report: str, heading_shift: int = 1, base: str | None = None) -> str:
-    base = base or report
-    out, para, lists, code, quote = [], [], [], None, []
-
-    def flush_para():
-        if para:
-            out.append(f'<p>{inline(" ".join(para), base, report)}</p>')
-            para.clear()
-
-    def flush_quote():
-        if quote:
-            paragraphs = re.split(r'\n\s*\n', "\n".join(quote))
-            body = ''.join(f'<p>{inline(" ".join(part.splitlines()), base, report)}</p>'
-                           for part in paragraphs if part.strip())
-            out.append(f'<blockquote class="note">{body}</blockquote>')
-            quote.clear()
-
-    def close_lists(level=-1):
-        while lists and lists[-1] > level:
-            lists.pop()
-            out.append('</li></ul>')
-
-    for raw in text.split('\n'):
-        if code is not None:
-            if raw.startswith('```'):
-                out.append(f'<pre><code>{html.escape(chr(10).join(code))}</code></pre>')
-                code = None
-            else:
-                code.append(raw)
-            continue
-        if raw.startswith('```'):
-            flush_para(); flush_quote(); close_lists(); code = []
-            continue
-        if raw.startswith('>'):
-            flush_para(); close_lists()
-            quote.append(raw.lstrip('> ').strip())
-            continue
-        flush_quote()
-        heading = re.match(r'^(#{1,6}) (.+)$', raw)
-        if heading:
-            flush_para(); close_lists()
-            level = min(6, len(heading.group(1)) + heading_shift)
-            title = heading.group(2)
-            out.append(f'<h{level} id="{heading_anchor(report, slug(title))}">{inline(title, base, report)}</h{level}>')
-            continue
-        item = re.match(r'^(\s*)- (.*)$', raw)
-        if item:
-            flush_para()
-            level = len(item.group(1)) // 2
-            if lists and lists[-1] >= level:
-                close_lists(level)
-                if lists and lists[-1] == level:
-                    out.append('</li><li>' + inline(item.group(2), base, report))
-                    continue
-            out.append('<ul><li>' + inline(item.group(2), base, report))
-            lists.append(level)
-            continue
-        if not raw.strip():
-            flush_para()
-            if lists:
-                continue
-            continue
-        if lists and raw.startswith('  '):
-            out[-1] += ' ' + inline(raw.strip(), base, report)
-            continue
-        close_lists()
-        para.append(raw.strip())
-    if code is not None:
-        out.append(f'<pre><code>{html.escape(chr(10).join(code))}</code></pre>')
-    flush_para(); flush_quote(); close_lists()
-    return '\n'.join(out)
-
-
-def table_html(rows: list[list[str]], report: str) -> str:
-    head, *body = rows
-    if body and set(''.join(body[0])) <= set('-: '):
-        body = body[1:]
-    body = [row + [''] * max(0, len(head) - len(row)) for row in body]
-    numeric = [all(re.match(r'^[\s\d.,%/+−–()kp<=×$—-]*$', r[i]) or not r[i] for r in body) if body else False
-               for i in range(len(head))]
-    attributes = [' class="num"' if is_numeric else '' for is_numeric in numeric]
-    th = ''.join(f'<th{attributes[i]}>{inline(c, report)}</th>' for i, c in enumerate(head))
-    trs = ''.join('<tr>' + ''.join(f'<td{attributes[i]}>{inline(c, report)}</td>'
-                                   for i, c in enumerate(r)) + '</tr>' for r in body)
-    return f'<div class="tablewrap"><table><thead><tr>{th}</tr></thead><tbody>{trs}</tbody></table></div>'
-
-
-def render_report(summary: dict, report: str) -> str:
-    parts = []
-    for block in summary['blocks']:
-        if 'markdown' in block:
-            parts.append(markdown(block['markdown'], report, heading_shift=2))
-        else:
-            parts.append(table_html(block['table'], report))
-    return '\n'.join(parts)
-
-
-# ---------------------------------------------------------------- charts
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+# The names below are the generator's public surface: the tests and scripts/render_social_card.py read them here.
+from searchlight_site import diagrams  # noqa: E402,F401
+from searchlight_site.components import (  # noqa: E402,F401
+    LEGEND, board_html, board_notes, board_says, digest, finding, measures_html, memory_clause, report_page_name, row_html,
+    site_map, track)
+from searchlight_site.data import (  # noqa: E402,F401
+    ANALYTICS_NOTICE, ARM_LABEL, BEHAVIOR, BENCH_LABEL, EXAMPLES, GAP_PRIMARY, H2H, H2H_PROVIDERS, INSIGHT_SCHEMA,
+    RECALL_MIN, REPO_URL, REPORT_TITLES, REPORTS, RERUN_NOTE, ROOT, UNSUPPORTED_MAX, WSB_PRIMARY, _catalog_prompt,
+    _ceiling, _gap_pct, _gap_range, _point_pct, arm_configs, arm_id, behavior, board_caption, data_rows, discover, esc,
+    harness_models, harness_name, head_to_head, heading_anchor, headline, inline, insight_studies, leader,
+    leaderboards, load_reports, markdown, more_boards, parse_count, parse_pct_ci, parse_tally, render_report,
+    report_title, resolve_link, results_language, slug, table_html, tables, wilson)
+from searchlight_site.design import CSS, FAVICON_ID, JS, LOGO, LOGO_ID, SPRITE, TOKENS, glyphs, vocabulary  # noqa: E402,F401
+from searchlight_site.layout import (  # noqa: E402,F401
+    CARD_ALT_DEFAULT, CARD_SCALE, CARD_SIZE, GTM_BODY, GTM_CONTAINER_ID, GTM_HEAD, LACEY_URL, NAV, SITE_URL, _document)
+from searchlight_site.pages import (  # noqa: E402,F401
+    landing, learn_page, methodology_page, report_page, results_page, studies_page, study_page)
 
 PALETTE = {  # the infographic is a single-theme graphic with its own ground
     'paper': '#F5F7FA', 'surface': '#FFFFFF', 'ink': '#111111', 'ink2': '#555D67', 'rule': '#E1E5EA',
     'beam': '#007BFF', 'beam_soft': '#D7E8FF', 'beam_mid': '#8DBDFF', 'ref': '#8A949E', 'hatch': '#C5CCD3',
 }
+
+
 FONT = "'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+
+
 MONO = "ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
+
+
 COND = FONT
-
-
-def esc(text) -> str:
-    return html.escape(str(text), quote=True)
 
 
 def forest(board: dict, x: float, y: float, width: float, row_h: float = 30, label_w: float = 112,
@@ -507,16 +118,6 @@ def _text(x, y, text, size=14, fill=PALETTE['ink'], family=FONT, weight=None, an
 def _para(x, y, text, chars, size=14, lead=20, **kw) -> tuple[list[str], float]:
     lines = _wrap(text, chars)
     return [_text(x, y + i * lead, line, size, **kw) for i, line in enumerate(lines)], lead * len(lines)
-
-
-def _gap_range(board: dict) -> tuple[float, float]:
-    pcts = [r['pass_pct'] for r in board['rows']]
-    return min(pcts), max(pcts)
-
-
-def _ceiling(board: dict) -> float:
-    match = re.match(r'(\d+)', board['reference'].get('ceiling (answer excerpt)', '') or '')
-    return float(match.group(1)) if match else 0.0
 
 
 def _dumbbell(boards, x, y, width, P) -> tuple[list[str], float]:
@@ -755,8 +356,8 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
                         f'L {ax - 7:.1f} {cy0 + ch / 2 + 10:.1f}" fill="none" stroke="{P["beam"]}" stroke-width="3" '
                         f'stroke-linecap="round" stroke-linejoin="round"/>')
     y = cy0 + ch + 30
-    body.append(_text(M, y, 'Pass rates are shown with their 95% range. Where two ranges overlap, the data cannot '
-                      'tell them apart.' + (' Finding 5 counts verified items instead.' if h2h else ''), 14, P['ink2']))
+    body.append(_text(M, y, 'Pass rates are shown with their 95% range. Where two ranges overlap, the test cannot '
+                      'separate them.' + (' Finding 5 counts verified items instead.' if h2h else ''), 14, P['ink2']))
 
     # ---- findings
     y += 62
@@ -782,7 +383,7 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
          lambda yy: _gap_forests(gap_boards, right_x, yy, right_w, P)),
         ('On documented knowledge, memory does most of the work',
          f'In the bakeoff, answering from memory passed {nos["passes"]}/{nos["cells"]} ({nos["pass_pct"]:.0f}%). '
-         f'The best provider reached {best_wsb["pass_pct"]:.0f}%, within the margin of error, '
+         f'The best provider reached {best_wsb["pass_pct"]:.0f}%: {memory_clause(nos, best_wsb)}, '
          f'while tokens used per passing run rose from {tps[0]["tokens_per_success"]} ({tps[0]["label"]}) to as much as '
          f'{tps[-1]["tokens_per_success"]} ({tps[-1]["label"]}).',
          'Search pays off where training data runs out. On stable, well-documented questions it mostly adds '
@@ -819,9 +420,9 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
             'Choose by job: finding new facts, reading hard pages and filling in data rewarded different providers. The study '
             'was run for a knowledge base about Exa, one of the four, so read its context note.',
             lambda yy: _h2h_panels(h2h, right_x, yy + 8, right_w, P)))
-    for n, (headline, text, sowhat, chart) in enumerate(findings, start=1):
+    for n, (title, text, sowhat, chart) in enumerate(findings, start=1):
         left: list[str] = [_text(M, y + 4, f'FINDING {n}', 12, P['beam'], MONO, '700', spacing=1)]
-        hl, hh = _para(M, y + 34, headline, 29, 24, 28, family=COND, weight='700')
+        hl, hh = _para(M, y + 34, title, 29, 24, 28, family=COND, weight='700')
         left += hl
         ly = y + 34 + hh + 4
         bl, bh = _para(M, ly, text, 49, 14, 20, fill=P['ink2'])
@@ -874,527 +475,7 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
     return '\n'.join(head + body + ['</svg>'])
 
 
-# ---------------------------------------------------------------- page
-
-APPARATUS = {
-    'pipeline': """flowchart LR
-  subgraph catalog[Task catalogs]
-    T1[production tasks<br/>web search bakeoff]
-    T2[gap briefs<br/>post-cutoff events]
-  end
-  subgraph cell[One test run = task x search setup x repetition]
-    W[fresh scratch<br/>workspace]
-    H[agent<br/>Claude Code or Codex]
-    M[metering proxy]
-    V[(search provider MCP server<br/>pinned version)]
-  end
-  subgraph grade[Grading]
-    D[deterministic<br/>validators]
-    J[blinded judges<br/>vs captured sources]
-  end
-  T1 & T2 --> W --> H
-  H <-->|tool calls| M <--> V
-  H --> B[(evidence bundle<br/>transcript, final answer,<br/>setup audit, metrics)]
-  B --> D & J --> R[reports/*/summary.json] --> S[this site]""",
-    'isolation': """flowchart TB
-  A[search setup contract] --> CC[Claude Code spawn<br/>--strict-mcp-config<br/>--tools: the setup's built-ins<br/>--allowedTools: the same set]
-  A --> CX[codex spawn<br/>exec --sandbox read-only<br/>--disable shell_tool, browser_use,<br/>apps, plugins, ...]
-  CC --> P1[search provider:<br/>one provider MCP server<br/>+ ToolSearch + Read]
-  CC --> N1[built-in search:<br/>WebSearch + WebFetch + Read]
-  CC --> F1[no-search / floor / ceiling:<br/>no tools]
-  CX --> P2[search provider:<br/>one provider MCP server]
-  CX --> N2[built-in search:<br/>codex --search]
-  CX --> F2[no-search / floor / ceiling:<br/>no tools]
-  P1 & N1 & F1 & P2 & N2 & F2 --> AU[setup audit:<br/>every observed tool call<br/>checked against the contract]""",
-    'calibration': """flowchart LR
-  T[candidate brief<br/>event after 2026-01-01] --> FL[floor: no search<br/>5 runs]
-  T --> CE[ceiling: answer excerpt<br/>in the prompt, 5 runs]
-  FL --> Q{floor passes ≤ 1<br/>and ceiling passes ≥ 4?}
-  CE --> Q
-  Q -- yes --> AD[admitted for this<br/>agent and model]
-  Q -- no --> RJ[rejected]
-  AD --> BAT[battery: every search setup x 3]
-  BAT --> GC[gap closure =<br/>setup - floor / ceiling - floor]""",
-    'grading': """sequenceDiagram
-  participant A as Agent answer
-  participant V as Schema validator
-  participant S as Source capture
-  participant J1 as Judge 1 (Claude Code)
-  participant J2 as Judge 2 (Codex, gap bench)
-  A->>V: JSON deliverable (brief, claims, citations)
-  V-->>A: reject malformed answers
-  A->>S: cited URLs
-  S->>J1: readable source text + rubric (blinded to the search setup)
-  S->>J2: same inputs
-  J1-->>A: key-fact recall, unsupported claims, decision
-  J2-->>A: independent labels, agreement recorded
-  Note over A,J2: pass = right decision AND recall >= 0.7 AND unsupported <= 0.25""",
-    'direct': """flowchart LR
-  Q[pre-registered question sets<br/>from one knowledge base] --> E[Exa] & T[Tavily] & P[Parallel] & F[Firecrawl]
-  E & T & P & F --> PO[(results pooled,<br/>deduplicated, shuffled)]
-  PO --> J[blind model judges<br/>verify each claim on its page]
-  J --> K{already in the<br/>knowledge base?}
-  K --> A[attribution rejoined:<br/>credit only where the provider's<br/>own page states the claim]
-  A --> R[reports/*/summary.json]""",
-}
-
-
-def ci_svg(row: dict, top_lo: float) -> str:
-    lo, hi = row['ci']
-    muted = row.get('flagged', False) or row['arm'] == 'no-search'
-    color = 'var(--ref)' if muted else 'var(--beam)'
-    return (f'<svg viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true">'
-            f'<line x1="0" y1="11" x2="100" y2="11" stroke="var(--rule)" stroke-width="1" vector-effect="non-scaling-stroke"/>'
-            f'<line x1="{top_lo:.1f}" y1="2" x2="{top_lo:.1f}" y2="20" stroke="var(--ink2)" stroke-width="1" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>'
-            f'<rect x="{lo:.1f}" y="6" width="{max(0.6, hi - lo):.1f}" height="10" fill="{"var(--hatch)" if muted else "var(--beam-soft)"}"/>'
-            f'<line x1="{lo:.1f}" y1="11" x2="{hi:.1f}" y2="11" stroke="{color}" stroke-width="2" vector-effect="non-scaling-stroke"/>'
-            f'<rect x="{row["pass_pct"] - 0.9:.1f}" y="4" width="1.8" height="14" fill="{color}"/></svg>')
-
-
-def _point_pct(cell: str) -> str:
-    """'89% (67–97%)' -> '89%'."""
-    match = re.match(r'\s*(\d+(?:\.\d+)?)%', cell)
-    return f'{float(match.group(1)):.0f}%' if match else cell
-
-
-def _gap_pct(cell: str) -> str:
-    """Gap closure as a share of the gap: '1.06 (0.88–1.29)' -> '106% (88–129%)'. Can be negative."""
-    number = r'-?\d+(?:\.\d+)?'
-    match = re.fullmatch(rf'\s*({number})\s*\(\s*({number})\s*[-–]\s*({number})\s*\)\s*', cell)
-    if not match:
-        return cell
-    point, lo, hi = (round(float(x) * 100) for x in match.groups())
-    return f'{point}% ({lo}–{hi}%)'
-
-
-def board_caption(board: dict) -> str:
-    """The tasks behind a leaderboard and what counts as a pass, in plain words."""
-    runs = board['rows'][0]['cells']
-    if board['bench'] == 'GAP':
-        return (f'{runs // 3} research briefs about events after the model\'s training data, each run 3 times: {runs} '
-                f'runs per setup. A brief passes if it reaches the right decision, gets at least '
-                f'{RECALL_MIN:.0%} of the key facts (important ones count more), and no more than '
-                f'{UNSUPPORTED_MAX:.0%} of its claims lack support in the sources it cites.')
-    return (f'{runs // 3} research tasks with mostly well-documented answers, each run 3 times: {runs} runs per setup. '
-            'A run passes the task\'s automatic checks or, for open-ended tasks, a blind AI grader\'s checklist '
-            '(regraded 2026-09-30 after grading fixes).')
-
-
-def board_html(board: dict) -> str:
-    top_lo = board['top_lower_bound']
-    has_gap = board['bench'] == 'GAP'
-    head = ('<tr><th>Search setup</th><th class="num">Passed</th><th>Likely range, 0–100%</th>'
-            + ('<th class="num">Gap closed</th>' if has_gap else '')
-            + '<th class="num">Tokens per pass</th><th>Notes</th></tr>')
-    best = max(r['pass_pct'] for r in board['rows'] if r['arm'] != 'no-search')
-    body = []
-    for row in board['rows']:
-        pill = ('<span class="pill lead">overlaps leader</span>' if row['overlaps_top']
-                else '<span class="pill">below leader</span>')
-        if row['pass_pct'] == best:
-            pill = '<span class="pill lead">leader</span>'
-        if row['arm'] == 'no-search':
-            pill = '<span class="pill">baseline</span>'
-        note = f'<div class="flag">{esc(row["note"])}</div>' if row['note'] and row['arm'] != 'no-search' else ''
-        body.append(
-            f'<tr><td class="setup">{esc(row["label"])}</td>'
-            f'<td class="num passed">{row["passes"]}/{row["cells"]} · {row["pass_pct"]:.0f}%'
-            f'<div class="flag">{row["ci"][0]:.0f}–{row["ci"][1]:.0f}%</div></td>'
-            f'<td class="ci">{ci_svg(row, top_lo)}</td>'
-            + (f'<td class="num gap" data-label="Gap closed">{esc(_gap_pct(row["gap_closure"]))}</td>' if has_gap else '')
-            + f'<td class="num tps" data-label="Tokens per pass">{esc(row["tokens_per_success"])}</td>'
-            f'<td class="notes">{pill}{note}</td></tr>')
-    if has_gap:
-        floor = _point_pct(board['reference']['floor (no search)'])
-        ceiling = _point_pct(board['reference']['ceiling (answer excerpt)'])
-        foot = (f'For scale: with no search the agent passed {floor}; handed an excerpt containing the answer, it passed '
-                f'{ceiling}. Gap closed is how far each setup got from {floor} toward {ceiling}; over 100% means it beat '
-                f'{ceiling}. Tokens per pass: all tokens used, failed runs included, divided by passing runs.')
-        ranges = 'as published'
-    else:
-        foot = ('Tokens per pass counts only runs whose tokens were measured; how many runs each setup was missing was '
-                'not recorded, so treat it as approximate.')
-        ranges = 'computed from its counts'
-    return (f'<section class="board" id="board-{board["id"]}"><h3>{esc(board["title"])}</h3>'
-            f'<p class="scope">{esc(board_caption(board))}</p>'
-            f'<div class="tablewrap"><table><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>'
-            f'<p class="flag">{esc(foot)}</p>'
-            f'<p class="flag">Source: <a href="#run-{board["source"]}">{esc(REPORT_TITLES[board["source"]])}</a>; '
-            f'ranges are 95% Wilson intervals, {ranges}.</p></section>')
-
-
-def mermaid(name: str) -> str:
-    return f'<div class="diagram"><pre class="mermaid">\n{html.escape(APPARATUS[name], quote=False)}\n</pre></div>'
-
-
-def configs_html(configs: list[dict]) -> str:
-    rows = [['Search provider', 'Connection', 'Version / endpoint', 'Tools exposed to the agent']]
-    for cfg in configs:
-        rows.append([cfg['label'], 'hosted MCP via `mcp-remote`' if cfg['remote'] else 'stdio MCP server (npx)',
-                     f'`{cfg["package"]}`' + (f' → `{cfg["remote"]}`' if cfg['remote'] else ''),
-                     f'{len(cfg["tools"])}: ' + ', '.join(f'`{t}`' for t in cfg['tools'])])
-    rows.append(['Built-in (Claude Code)', 'agent built-in', 'Claude Code 2.1.282', '`WebSearch`, `WebFetch` (refused before 2026-10-06), `Read`'])
-    rows.append(['Built-in (Codex)', 'agent built-in', 'codex `--search`', 'built-in web search and page views'])
-    return table_html(rows, 'apparatus')
-
-
-SITE_URL = 'https://searchlightai.dev'
-LACEY_URL = 'https://www.laceyenterprises.com'
-LOGO = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" role="img" '
-        'aria-label="Searchlight"><circle cx="31" cy="67" r="22" fill="#111111"/>'
-        '<path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/>'
-        '<circle cx="34" cy="69.5" r="6.4" fill="#FFFFFF"/></svg>')
-
-CSS = """
-:root{--ink:#111111;--ink2:#4F5761;--muted:#6B7480;--paper:#FFFFFF;--soft:#F4F6F9;--rule:#E3E7EC;
---accent:#007BFF;--accent-soft:#EAF3FF;--charcoal:#404040;--radius:22px;--wrap:1120px;
---beam:var(--accent);--beam-soft:var(--accent-soft);--hatch:#C5CCD3;--ref:#8A949E;
---sans:'Inter',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
-color-scheme:light}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--sans)}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:24px}
-.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:500;letter-spacing:.2em;font-size:14px}
-.brand:hover{text-decoration:none}.brand svg{width:28px;height:28px}
-.top{border-bottom:1px solid var(--rule);background:var(--paper);position:sticky;top:0;z-index:5}
-.top .wrap{display:flex;align-items:center;gap:16px 28px;min-height:72px}
-.top .brand{margin-right:auto}
-.nav{display:flex;align-items:center;gap:28px}
-.nav a{color:var(--ink);font-size:15px;letter-spacing:.02em}.nav a.on{font-weight:600}
-.btn{display:inline-block;border-radius:999px;padding:11px 22px;font-size:15px;font-weight:500;border:1.5px solid var(--ink);
-color:var(--ink);background:transparent;line-height:1.2}
-.btn:hover{text-decoration:none;background:var(--soft)}
-.btn.solid{background:var(--ink);color:var(--paper)}.btn.solid:hover{background:#2A2A2A}
-.top .gh{padding:8px 18px;font-size:14px}
-section{padding-block:72px}
-.soft{background:var(--soft)}
-.eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 14px}
-h1,h2,h3{font-weight:500;letter-spacing:-.02em;line-height:1.12;text-wrap:balance;margin:0}
-h1{font-size:clamp(38px,5.6vw,64px);max-width:21ch}
-h2{font-size:clamp(28px,3.4vw,40px);margin-bottom:12px}
-h3{font-size:20px;letter-spacing:-.01em}
-.lede{font-size:clamp(18px,1.6vw,21px);color:var(--ink2);max-width:60ch;margin:22px 0 0}
-.section-lede{color:var(--ink2);max-width:62ch;margin:0 0 36px}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
-.facts{display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:48px;padding-top:28px;border-top:1px solid var(--rule)}
-.facts div{font-size:15px;color:var(--ink2)}.facts strong{display:block;font-size:30px;font-weight:500;color:var(--ink);letter-spacing:-.02em}
-.grid{display:grid;gap:20px}
-.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
-.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
-.card{background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:28px}
-.finding .big{font-size:clamp(34px,3.6vw,46px);font-weight:500;letter-spacing:-.03em;color:var(--accent);line-height:1.05}
-.finding h3{margin:14px 0 8px}.finding p{margin:0;color:var(--ink2)}
-.step .n{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:600}
-.step h3{margin:18px 0 8px}.step p{margin:0;color:var(--ink2);font-size:15px}
-.example .kind{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.example h3{margin:10px 0 14px}
-.example blockquote{margin:0 0 16px;padding:16px 18px;border-radius:14px;background:var(--soft);font-size:15px;color:var(--ink)}
-.example dl{margin:0;display:grid;gap:10px}.example dt{font-size:13px;font-weight:600}.example dd{margin:0;color:var(--ink2);font-size:15px}
-.report{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:center}
-.report ul{padding-left:20px;color:var(--ink2)}.report li{margin:6px 0}
-.shot{display:block;border-radius:var(--radius);overflow:hidden;border:1px solid var(--rule);background:var(--soft);max-height:460px}
-.shot img{display:block;width:100%;height:auto}
-.foot{background:var(--charcoal);color:#E8EAED;padding-block:56px 32px}
-.foot a{color:#FFFFFF;text-decoration:underline;text-underline-offset:3px}
-.foot .brand{color:#FFFFFF;text-decoration:none}.foot .brand svg circle:nth-of-type(1){fill:#FFFFFF}.foot .brand svg circle:nth-of-type(2){fill:#404040}
-.foot-grid{display:grid;gap:32px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
-.foot h4{margin:0 0 10px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#B9BEC5;font-weight:600}
-.foot p{margin:0;font-size:15px;color:#E8EAED}
-.foot-base{margin-top:40px;padding-top:20px;border-top:1px solid #5A5A5A;font-size:14px;color:#B9BEC5}
-.foot-base .analytics-disclosure{margin-top:8px;font-size:14px;line-height:1.5}
-.page-head{padding-block:64px 24px}
-.doc section{padding-block:28px}
-.doc h2{font-size:30px;margin-top:8px}
-.doc h3{margin:28px 0 10px}
-.doc p,.doc li{max-width:78ch}
-.caveats{list-style:none;padding:0;display:grid;gap:12px}
-.caveats li{background:var(--soft);border-radius:14px;padding:16px 18px}.caveats strong{display:block;margin-bottom:4px}
-.infographic{border:1px solid var(--rule);border-radius:var(--radius);overflow-x:auto;background:#F5F7FA}
-.infographic svg{display:block;width:100%;height:auto;min-width:720px}
-figure{margin:0}figcaption{font-size:14px;color:var(--muted);margin-top:10px}
-.tablewrap{overflow-x:auto;margin:14px 0}
-table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
-th{font-weight:600;color:var(--ink2);font-size:13px}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-td.ci{min-width:180px}
-.flag{font-size:13px;color:var(--muted)}
-.pill{display:inline-block;font-size:12px;border-radius:999px;padding:2px 10px;background:var(--soft);color:var(--ink2);
-white-space:nowrap}
-.pill.lead{background:var(--accent-soft);color:#0057B3}
-.board{border:1px solid var(--rule);border-radius:var(--radius);padding:24px;margin:20px 0}
-.board h3{margin:0 0 8px}.scope{color:var(--ink2);font-size:15px}
-details.run{border:1px solid var(--rule);border-radius:14px;padding:12px 18px;margin:12px 0;background:var(--paper)}
-details.run summary{cursor:pointer;font-weight:600}
-code{font-family:var(--mono);font-size:.9em;background:var(--soft);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
-pre{font-family:var(--mono);font-size:13px;background:var(--soft);border-radius:14px;padding:16px;overflow-x:auto;line-height:1.5}
-pre code{background:none;padding:0}
-.diagram{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius);padding:20px;margin:14px 0;background:var(--paper)}
-pre.mermaid{background:none;padding:0;margin:0;font-size:.85rem;text-align:center}
-.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
-.terms div{background:var(--soft);border-radius:14px;padding:14px 16px;font-size:15px}.terms b{display:block}
-@media (max-width:640px){
-section{padding-block:48px}
-.top .wrap{gap:16px;min-height:56px}
-.top .brand span,.top .gh{display:none}
-.nav{gap:20px;min-width:0;overflow-x:auto;scrollbar-width:none}
-details.run a{overflow-wrap:anywhere}
-.nav a{white-space:nowrap;padding-block:6px}
-.board .tablewrap{overflow:visible}
-.board table,.board tbody{display:block}
-.board thead{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.board tr{display:grid;grid-template-columns:1fr auto;gap:8px 16px;padding:14px 0;border-bottom:1px solid var(--rule)}
-.board td{display:block;padding:0;border:0;min-width:0}
-.board td.setup{font-weight:600;font-size:16px;align-self:center}
-.board td.passed{text-align:right}
-.board td.ci,.board td.notes{grid-column:1/-1}
-.board td.ci svg{display:block;width:100%;height:22px}
-.board td.gap,.board td.tps{text-align:left}
-.board td.gap::before,.board td.tps::before{content:attr(data-label);display:block;font-size:12px;color:var(--muted)}
-.board td.notes .flag{margin-top:4px}
-.eyebrow{font-size:12px;letter-spacing:.12em}
-.actions .btn{flex:1 1 auto;text-align:center}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
-.facts strong{font-size:26px}
-.card{padding:20px}
-.board{padding:16px}
-.infographic{overflow:hidden}
-.infographic svg{min-width:0}
-.diagram{padding:14px}
-.diagram svg{min-width:600px;max-width:none!important}
-}
-@media (max-width:360px){.nav{gap:14px}.nav a{font-size:14px}}
-"""
-
-EXAMPLES = [
-    ('gap', 'gap-brief-python-security-march-2026', 'Research brief', 'Security releases the AI has never seen',
-     'Python shipped these security releases on March 3, 2026, after the AI models\' training data ends. '
-     'Without search, an agent can only guess.',
-     'The brief must reach the right decision, cover at least 70% of the key facts and keep unsupported claims '
-     'to 25% or less, checked against the original source.'),
-    ('gap', 'gap-brief-npm-token-scope-2026', 'Research brief', 'A platform policy that just changed',
-     'GitHub changed what npm access tokens can do on July 31, 2026. The answer only exists in recent sources.',
-     'Same bar as every brief: right decision, key facts covered, few unsupported claims.'),
-    ('gap', 'gap-code-jwt-middleware', 'Code fix', 'Patch a security advisory in real code',
-     'The fix shipped in a library release after the cutoff. The agent has to find the advisory and the release '
-     'that fixes it, then change the code.',
-     'Hidden tests must pass in an isolated workspace. Weakening the security check to make them pass fails.'),
-    ('production', 'list-build-kubernetes-122-api-removals', 'Documented knowledge', 'A well-documented technical question',
-     'This has been public for years and is probably in the AI\'s training data. It tests whether search adds '
-     'anything beyond memory.',
-     'The list must match the official release notes, scored by a grader that never sees which search provider '
-     'was used.'),
-]
-
-
-def _catalog_prompt(root: Path, catalog: str, task_id: str) -> tuple[str, str]:
-    """Prompt text and primary source for a catalog task; empty strings when absent."""
-    import yaml
-
-    path = root / 'catalogs' / catalog / 'tasks.yaml'
-    try:
-        data = yaml.safe_load(path.read_text(encoding='utf-8'))
-    except OSError:
-        return '', ''
-    tasks = data.get('tasks', data) if isinstance(data, dict) else data
-    task = next((t for t in tasks or [] if isinstance(t, dict) and t.get('id') == task_id), None)
-    if not task:
-        return '', ''
-    prompt = ' '.join(str(task.get('prompt') or '').split())
-    source = str((task.get('oracle') or {}).get('source_url') or '')
-    return prompt, source
-
-
-def _shorten(text: str, limit: int = 260) -> str:
-    if len(text) <= limit:
-        return text
-    cut = text[:limit].rsplit(' ', 1)[0].rstrip(',;:')
-    return cut + ' …'
-
-
-def headline(boards: list[dict], analysis: dict) -> dict:
-    """The few numbers the landing page and infographic both quote."""
-    gap_cc = next(b for b in boards if b['id'] == 'gap-claude-code')
-    gap_cx = next(b for b in boards if b['id'] == 'gap-codex')
-    wsb = next(b for b in boards if b['id'] == 'wsb-competitive')
-    nos = next(r for r in wsb['rows'] if r['arm'] == 'no-search')
-    best = max((r for r in wsb['rows'] if r['arm'] != 'no-search'), key=lambda r: r['pass_pct'])
-    tps = sorted(wsb['rows'], key=lambda r: float(r['tokens_per_success'].rstrip('k')))
-    cells = sorted({r['cells'] for b in boards for r in b['rows']})
-    return {
-        'runs': sum(r['cells'] for b in boards for r in b['rows']),
-        'agents': len({b['harness'] for b in boards}),
-        'providers': len({r['arm'] for b in boards for r in b['rows']} - {'native', 'no-search'}),
-        'cc': _gap_range(gap_cc), 'cx': _gap_range(gap_cx),
-        'cc_top': gap_cc['rows'][0], 'cx_top': gap_cx['rows'][0],
-        'wsb_none': nos, 'wsb_best': best,
-        'token_ratio': float(tps[-1]['tokens_per_success'].rstrip('k')) / float(tps[0]['tokens_per_success'].rstrip('k')),
-        'natural_pct': analysis['gap_totals']['natural_language_pct'],
-        'min_runs': cells[0], 'max_runs': cells[-1],
-    }
-
-
-def _nav(active: str) -> str:
-    links = [('index.html', 'Overview'), ('results.html', 'Results'), ('studies.html', 'Studies'),
-             ('methodology.html', 'Methodology')]
-    on = ' class="on"'
-    items = ''.join(f'<a href="{href}"{on if href == active else ""}>{label}</a>' for href, label in links)
-    return (f'<header class="top"><div class="wrap"><a class="brand" href="index.html">{LOGO}<span>SEARCHLIGHT</span></a>'
-            f'<nav class="nav" aria-label="Site">{items}</nav><a class="btn gh" href="{REPO_URL}">GitHub</a></div></header>')
-
-
-def _footer() -> str:
-    return (f'<footer class="foot"><div class="wrap"><div class="foot-grid">'
-            f'<div><a class="brand" href="index.html">{LOGO}<span>SEARCHLIGHT</span></a>'
-            '<p style="margin-top:14px">An open benchmark of what web search does for AI coding agents.</p></div>'
-            f'<div><h4>License</h4><p>Code, tasks and published results are released under the '
-            f'<a href="{REPO_URL}/blob/main/LICENSE">Apache License 2.0</a>.</p></div>'
-            f'<div><h4>Questions</h4><p><a href="{REPO_URL}/issues/new">Open an issue on GitHub</a>. If you run a search '
-            'service we tested and our setup misrepresents it, tell us: corrections are rerun and published beside the '
-            'original.</p></div>'
-            f'<div><h4>Source</h4><p><a href="{REPO_URL}">github.com/laceyenterprises/searchlight</a></p>'
-            f'<p style="margin-top:8px"><a href="{REPO_URL}/tree/main/reports">Raw report data</a></p></div>'
-            f'</div><div class="foot-base"><span>A <a href="{LACEY_URL}">Lacey Enterprises</a> project · '
-            '© 2026 Lacey Enterprises LLC</span>'
-            '<p class="analytics-disclosure">Google Tag Manager loads on every page; analytics cookies are disabled for '
-            'visitors in the EEA, the UK, Switzerland and listed territories. No consent opt-in is offered.</p></div></div></footer>')
-
-
-CARD_SIZE = (1200, 630)
-CARD_SCALE = 2
 CARD_KEY = 'searchlight-card-source-sha256'
-
-
-def _social_meta(title: str, description: str, active: str, alt: str) -> str:
-    url = f'{SITE_URL}/' if active == 'index.html' else f'{SITE_URL}/{active}'
-    image = f'{SITE_URL}/social-card.png'
-    width, height = (n * CARD_SCALE for n in CARD_SIZE)
-    tags = [('property', 'og:type', 'website'), ('property', 'og:site_name', 'Searchlight'),
-            ('property', 'og:title', title), ('property', 'og:description', description),
-            ('property', 'og:url', url), ('property', 'og:image', image),
-            ('property', 'og:image:type', 'image/png'), ('property', 'og:image:width', str(width)),
-            ('property', 'og:image:height', str(height)), ('property', 'og:image:alt', alt),
-            ('name', 'twitter:card', 'summary_large_image'), ('name', 'twitter:title', title),
-            ('name', 'twitter:description', description), ('name', 'twitter:image', image),
-            ('name', 'twitter:image:alt', alt)]
-    return (f'<link rel="canonical" href="{esc(url)}">'
-            + ''.join(f'<meta {kind}="{key}" content="{esc(value)}">' for kind, key, value in tags))
-
-
-def _document(title: str, description: str, active: str, main: str, script: str = '',
-              social_title: str = '', card_alt: str = '') -> str:
-    fonts = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" '
-             'href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" '
-             'href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">')
-    return ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
-            '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
-            f'\n{GTM_HEAD}\n'
-            f'<meta name="description" content="{esc(description)}">'
-            f'{_social_meta(social_title or title, description, active, card_alt or CARD_ALT_DEFAULT)}'
-            '<link rel="icon" type="image/svg+xml" href="logo.svg">'
-            f'\n<title>{esc(title)}</title>\n{fonts}\n<style>{CSS}</style>\n</head><body>\n'
-            f'{GTM_BODY}\n'
-            f'{_nav(active)}\n<main>\n{main}\n</main>\n{_footer()}\n{script}</body></html>\n')
-
-
-def landing(root: Path, boards: list[dict], analysis: dict) -> str:
-    h = headline(boards, analysis)
-    (cc_lo, cc_hi), (cx_lo, cx_hi) = h['cc'], h['cx']
-    nos, best = h['wsb_none'], h['wsb_best']
-    findings = [
-        ('0% → ' + f'{min(cc_lo, cx_lo):.0f}–{max(cc_hi, cx_hi):.0f}%', 'Search decides anything recent',
-         'Without search, both agents failed every task about events after their training data ends. With any of '
-         f'the {h["providers"]} search providers, they passed most of them.'),
-        ('No single winner', 'The best provider depends on the agent',
-         f'{h["cc_top"]["label"]} led on Claude Code and {h["cx_top"]["label"]} on Codex, and most providers were '
-         'statistically tied. Test on the agent you actually use.'),
-        (f'{nos["pass_pct"]:.0f}% vs {best["pass_pct"]:.0f}%', 'On well-known topics, memory did most of the work',
-         f'Answering from memory alone passed {nos["pass_pct"]:.0f}% of documented-knowledge tasks; the best search '
-         f'provider reached {best["pass_pct"]:.0f}%, a gap within the margin of error, while using up to '
-         f'{h["token_ratio"]:.0f}× the tokens.'),
-        (f'{h["natural_pct"]:.0f}%', 'Agents search like it is 2010',
-         f'Only {h["natural_pct"]:.0f}% of the agents\' searches were written as plain questions; the rest were '
-         'keyword strings. Agents did better when the original source showed up in the results.'),
-    ]
-    finding_html = ''.join(f'<div class="card finding"><div class="big">{esc(big)}</div><h3>{esc(title)}</h3>'
-                           f'<p>{esc(text)}</p></div>' for big, title, text in findings)
-    steps = [
-        ('Give the agent a real job', 'A research brief about something that changed after the AI\'s training '
-                                      'data ends, a code fix, or a question with a well-documented answer.'),
-        ('Change only the search provider', 'Same agent, same instructions every time. Each test plugs in one '
-                                            'search provider at its default settings, alongside two controls: no '
-                                            'search, and the agent\'s own built-in search.'),
-        ('Repeat it, in isolation', f'Every test runs in a fresh, sealed workspace and is repeated three times: '
-                                    f'{h["min_runs"]}–{h["max_runs"]} test runs per provider. Every search and page '
-                                    'visit is logged.'),
-        ('Grade blind', 'Answers are checked against the original sources by graders that never see which '
-                        'search provider was used.'),
-    ]
-    step_html = ''.join(f'<div class="card step"><div class="n">{i}</div><h3>{esc(t)}</h3><p>{esc(d)}</p></div>'
-                        for i, (t, d) in enumerate(steps, start=1))
-    examples = []
-    for catalog, task_id, kind, title, why, graded in EXAMPLES:
-        prompt, source = _catalog_prompt(root, catalog, task_id)
-        if not prompt:
-            continue
-        src = (f' <a href="{esc(source)}">Source</a>.' if source.startswith('https://') else '')
-        examples.append(f'<div class="card example"><div class="kind">{esc(kind)}</div><h3>{esc(title)}</h3>'
-                        f'<blockquote>“{esc(_shorten(prompt))}”</blockquote><dl>'
-                        f'<dt>Why search matters</dt><dd>{esc(why)}{src}</dd>'
-                        f'<dt>How it is graded</dt><dd>{esc(graded)}</dd></dl></div>')
-    main = f"""<section><div class="wrap">
-<p class="eyebrow">Open benchmark · by Lacey Enterprises</p>
-<h1>Does web search make AI coding agents better at real work?</h1>
-<p class="lede">Searchlight gives AI coding agents real jobs, changes only which search provider they can use, and grades
-the results blind. The tasks, the code and the data are all open.</p>
-<div class="actions"><a class="btn solid" href="results.html">See the results</a><a class="btn" href="#how">How it works</a>
-<a class="btn" href="{REPO_URL}">View on GitHub</a></div>
-<div class="facts"><div><strong>{h['runs']}</strong>graded test runs</div><div><strong>{h['agents']}</strong>AI coding agents</div>
-<div><strong>{h['providers']}</strong>search providers</div><div><strong>2</strong>benchmarks</div></div>
-</div></section>
-
-<section class="soft" id="findings"><div class="wrap">
-<h2>What we found</h2>
-<p class="section-lede">Results from {h['runs']} graded test runs between September 29 and October 5, 2026, using Claude Code and
-Codex.</p>
-<div class="grid g2">{finding_html}</div>
-</div></section>
-
-<section id="how"><div class="wrap">
-<h2>How it works</h2>
-<p class="section-lede">A controlled experiment: everything stays the same except the search provider.</p>
-<div class="grid g4">{step_html}</div>
-<p style="margin-top:24px"><a href="methodology.html">Read the full methodology →</a></p>
-</div></section>
-
-<section class="soft" id="examples"><div class="wrap">
-<h2>What we asked the agents to do</h2>
-<p class="section-lede">Real tasks from the benchmark, quoted from the task catalogs.</p>
-<div class="grid g2">{''.join(examples)}</div>
-</div></section>
-
-<section id="report"><div class="wrap report">
-<div><h2>The report</h2>
-<p class="section-lede" style="margin-bottom:16px">Five studies, published with their data, methodology and corrections.</p>
-<ul><li><strong>Search gap bench:</strong> research briefs and code fixes about events after the models' training data.</li>
-<li><strong>Web search bakeoff:</strong> research questions with well-documented answers.</li>
-<li><strong>How agents used search:</strong> what the agents actually typed and opened, across both benchmarks.</li>
-<li><strong>Search gap bench replication:</strong> the Claude Code battery run again on the current tasks. Search still
-decided the outcome; the provider ranking did not repeat.</li>
-<li><strong>Search API head-to-head:</strong> four search APIs called directly on a research workload, with the full
-pre-registered record.</li></ul>
-<div class="actions"><a class="btn solid" href="results.html">Read the full results</a>
-<a class="btn" href="methodology.html">Methodology</a></div></div>
-<a class="shot" href="results.html#infographic"><img src="infographic.svg" alt="Searchlight results infographic" loading="lazy"></a>
-</div></section>"""
-    card = card_facts(boards, analysis)
-    return _document('Searchlight', card['description'], 'index.html', main,
-                     social_title=card['title'], card_alt=card['alt'])
-
-
-CARD_ALT_DEFAULT = 'Searchlight: an open benchmark of what web search does for AI coding agents.'
 
 
 def card_facts(boards: list[dict], analysis: dict) -> dict:
@@ -1438,11 +519,6 @@ h1{margin-top:74px;max-width:740px;font-size:64px;line-height:1.04;font-weight:7
 .stat:first-child .big{color:#3D9BFF}
 .label{margin-top:12px;font-size:19px;color:#9AA5B1;white-space:nowrap}
 """
-
-CARD_MARK = ('<svg class="mark" viewBox="0 0 100 100" aria-hidden="true">'
-             '<circle cx="31" cy="67" r="22" fill="#FFFFFF"/>'
-             '<path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/>'
-             '<circle cx="34" cy="69.5" r="6.4" fill="#0A0C10"/></svg>')
 
 
 def social_card(boards: list[dict], analysis: dict) -> str:
@@ -1518,327 +594,46 @@ def card_problem(site: Path, source: str) -> str:
     return ''
 
 
-def results_language(markup: str) -> str:
-    """Use executive-facing terms in text, preserving report anchors and URLs.
-
-    Input is generated HTML without scripts or styles. Published source reports
-    and machine-readable leaderboard fields retain their original terminology.
-    """
-    terms = {'arm': 'setup', 'arms': 'setups', 'cell': 'run', 'cells': 'runs',
-             'harness': 'agent', 'harnesses': 'agents'}
-
-    def replace(match):
-        word = match.group()
-        replacement = terms[word.lower()]
-        return replacement.capitalize() if word[0].isupper() else replacement
-
-    return ''.join(part if i % 2 else re.sub(r'\b(?:arms?|cells?|harness(?:es)?)\b', replace, part, flags=re.I)
-                   for i, part in enumerate(re.split(r'(<[^>]*>)', markup)))
-
-
-def results_page(reports: dict, boards: list[dict], analysis: dict, body_only: bool = False) -> str:
-    # The head-to-head report uses "cell" for a table cell, "arm" for its search and research arms and "harness" for
-    # its own scripts, not the agent benchmarks' glossary terms, so its full report keeps its words.
-    protected = {}
-    runs = []
-    for name in REPORTS:
-        summary = reports[name]['summary']
-        section = (
-            f'<section id="run-{name}"><h3>{esc(REPORT_TITLES[name])} <span class="flag">({name[:10]})</span></h3>'
-            f'<details class="run" {"open" if name == REPORTS[-1] else ""}><summary>Full recorded report</summary>'
-            f'{render_report(summary, name)}</details>'
-            f'<details class="run" id="method-{name}"><summary>Methodology for this study</summary>'
-            f'{markdown(reports[name]["methodology"], name + "-method", heading_shift=2, base=name)}</details>'
-            f'<p class="flag">Files: <a href="{REPO_URL}/tree/main/reports/{name}">reports/{name}/</a></p></section>')
-        if name == H2H:
-            protected[f'\x00{name}\x00'] = section
-            section = f'\x00{name}\x00'
-        runs.append(section)
-    h = headline(boards, analysis)
-    h2h = head_to_head(reports)
-    head = ['Measure', *h2h['providers']]
-    rows = [head] + [[m['label'] + (f' (of {m["of"]})' if m['of'] else '')]
-                     + [str(m['values'][p]) if p in m['values'] else '—' for p in h2h['providers']]
-                     for m in h2h['measures']]
-    probe = h2h['monitors']
-    probe_text = (f'A side test of Exa\'s Monitors feature checked {probe["monitors"]} competitors\' pricing and changelog '
-                  f'pages daily ({probe["runs"]} checks) and reported {probe["changes"]} changes'
-                  + (f', {probe["confirmed"]} of them confirmed on the page; {probe["monitors_passing"]} of '
-                     f'{probe["monitors"]} monitors caught a real pricing or product change.'
-                     if 'confirmed' in probe else '.'))
-    direct = f"""<section id="head-to-head"><h2>Search APIs called directly</h2>
-<p>A separate study ({esc(REPORT_TITLES[H2H])}, 2026-09-26 to 2026-10-06) sent the same research questions, fixed in
-advance, straight to four search APIs, each set up as its vendor recommends. AI judges that were not told which API found
-what checked every counted item on its source page. It measures what each API adds to a knowledge base already built with
-built-in search, not how an agent uses it.</p>
-{table_html(rows, H2H)}
-<p class="flag">{esc(h2h['note'])} A dash means not run: Tavily sells no list-building or data-extraction product.
-{esc(probe_text)}</p>
-<p class="flag">Disclosure: the study was run while building a sales and marketing knowledge base about Exa, one of the four
-providers, and its questions came from that work. Full report: <a href="#run-{H2H}">{esc(REPORT_TITLES[H2H])}</a>.</p>
-</section>"""
-    main = f"""<div class="wrap doc">
-<div class="page-head"><p class="eyebrow">Results</p><h1>What the benchmark measured</h1>
-<p class="lede">Two AI coding agents, Claude Code and Codex, did the same tasks with each of {h['providers']} web search
-providers, their own built-in search, or no search, and {h['runs']} runs were graded blind. Also here: a rerun of the search gap bench, and a study that
-called four search APIs directly. Every number comes from the published reports.</p></div>
-
-<section id="before"><h2>Read this before comparing providers</h2>
-<ul class="caveats">
-<li><strong>Small samples</strong>{h['min_runs']} to {h['max_runs']} runs per provider. The likely ranges overlap widely,
-so a provider one place above another may not be better. On well-documented questions, no provider clearly beat answering
-from memory.</li>
-<li><strong>Default settings</strong>In the agent tests each provider was plugged in through its own official connector (an
-MCP server) at default settings; other modes and products were not tested. The API study called the APIs directly with
-tuned settings, so its results do not carry over to agents, or the reverse.</li>
-<li><strong>The agent matters</strong>Rankings changed between Claude Code and Codex, so a result on one agent may not hold on
-another.</li>
-<li><strong>Built-in search rerun</strong>In the original runs Claude Code's built-in search could not open pages. It was
-fixed and rerun on 2026-10-06, and its rows here come from the rerun. The original rows stay in the reports.</li>
-<li><strong>Cost</strong>We report tokens, the units AI models bill by, not dollars: providers' own charges were only partly
-tracked.</li>
-<li><strong>Grading</strong>Automatic checks where possible; otherwise AI graders compared each answer with the saved source
-pages, without knowing which provider was used.</li>
-</ul></section>
-
-<section id="infographic"><h2>Results at a glance</h2>
-<figure><div class="infographic">{infographic(boards, analysis, h2h)}</div>
-<figcaption><a href="infographic.svg">Open the infographic full size</a>. Generated from the published
-reports.</figcaption></figure></section>
-
-<section id="leaderboard"><h2>Leaderboards</h2>
-<p>Each table ranks the search setups by how often a run passed. The tick marks the pass rate; the bar shows the range
-the true rate likely falls in (95% confidence), and the dashed line marks the bottom of the leader's range. Where bars
-overlap, the difference may be chance. Data: <a href="leaderboard.json">leaderboard.json</a>.</p>
-{''.join(board_html(b) for b in boards)}
-</section>
-
-{direct}
-
-<section id="runs"><h2>Full reports</h2>
-<p>The complete technical reports, as recorded, with their statistics and corrections. Their terms are explained in
-<a href="methodology.html#terms">the methodology glossary</a>.</p>
-{''.join(runs)}
-</section>
-</div>"""
-    main = results_language(main)
-    for marker, section in protected.items():
-        main = main.replace(marker, section)
-    if body_only:
-        return main
-    return _document('Searchlight Results', 'Searchlight results: pass rates, leaderboards and full reports.',
-                     'results.html', main)
-
-
-def methodology_page(configs: list[dict], target: str = 'pages', body_only: bool = False) -> str:
-    claude_argv = ('claude --print --output-format stream-json --verbose --no-session-persistence \\\n'
-                   '  --model claude-opus-5-5 --mcp-config <run>/claude-mcp.json --strict-mcp-config \\\n'
-                   '  --tools ToolSearch,Read --allowedTools \'mcp__<provider>__*\'     # one search provider\n'
-                   '  --tools WebSearch,WebFetch,Read --allowedTools WebSearch,WebFetch   # built-in search (fixed)\n'
-                   '  --tools \'\' --allowedTools \'\'                                       # no search, floor, ceiling')
-    codex_argv = ('codex [--search] exec --json --ephemeral --skip-git-repo-check --sandbox read-only \\\n'
-                  '  --model gpt-6.1-sol --disable shell_tool --disable unified_exec \\\n'
-                  '  --disable browser_use --disable browser_use_external --disable computer_use \\\n'
-                  '  --disable in_app_browser --disable apps --disable plugins --disable remote_plugin ...\n'
-                  '# --search only for built-in search; a provider setup adds one MCP server via the run config')
-    main = f"""<div class="wrap doc">
-<div class="page-head"><p class="eyebrow">Methodology</p><h1>How Searchlight tests search</h1>
-<p class="lede">A controlled experiment: the same agent, model and instructions in every test run, with only the search
-provider changing. This page describes the apparatus in full.</p></div>
-
-<section id="terms"><h2>Terms used in the reports</h2>
-<div class="terms">
-<div><b>Search setup (report term: arm)</b>One way of giving the agent search: one provider's MCP server, the agent's built-in
-search (native), or no search at all.</div>
-<div><b>Test run (report term: cell)</b>One task, one search setup, one repetition, graded once.</div>
-<div><b>Agent (report term: harness)</b>The AI coding agent program: Claude Code or Codex.</div>
-<div><b>GAP, WSB, SEW</b>Short names for the search gap bench, the web search bakeoff and the Search Evaluation Workbench
-that runs them.</div>
-<div><b>MCP server</b>The standard connector that plugs a search provider into an agent.</div>
-<div><b>Brief</b>A short research report that ends in a decision and cites its sources. It passes with the right decision,
-key-fact recall of at least 0.7 (70% of the key facts, important ones weighted more) and unsupported claims of at most 0.25
-(a quarter of its claims not backed by the source it cites).</div>
-<div><b>Floor and ceiling</b>The same task with no search (floor) and with an excerpt containing the answer handed over
-(ceiling). A task is admitted only if the agent fails at the floor and passes at the ceiling.</div>
-<div><b>Gap closure</b>How far a search setup got from the floor toward the ceiling: 1.00 means all the way.</div>
-<div><b>Judge</b>An AI model that grades answers without knowing which setup produced them. In the search gap bench a
-Claude Code judge decides and a Codex judge checks; kappa measures their agreement (1 is perfect, 0 is chance).</div>
-<div><b>Tokens per success</b>Tokens used per passing run; the search gap bench counts failed runs' tokens too. Tokens are
-the units AI models bill by.</div>
-<div><b>95% range (CI)</b>The range the true value likely falls in; for pass rates, a Wilson interval. Overlapping ranges
-mean the data cannot separate two setups.</div>
-<div><b>p-value (McNemar, Fisher, sign test)</b>How likely a difference this large would be if the setups were really
-equal. Below 0.05 is the usual bar for a real difference.</div>
-<div><b>Pre-registered</b>Questions and scoring rules fixed before any results were seen.</div>
-</div></section>
-
-<section id="pipeline"><h2>From task to report</h2>
-<p>The runner gives the agent a fresh scratch workspace, starts it with exactly the tools its search setup allows, records
-every tool call and the final answer, and grades the answer without telling the grader which setup produced it.</p>
-{mermaid('pipeline')}</section>
-
-<section id="isolation"><h2>What each setup can touch</h2>
-<p>Search setups differ only in what the agent can use to search. Claude Code is started with
-<code>--strict-mcp-config</code>, so the only MCP server it can reach is the provider's, and <code>--tools</code> limits its
-built-ins. Codex runs read-only with its shell, browser, app and plugin features disabled. After each run an audit compares
-every observed tool call with the setup's contract; a call outside it marks the run contaminated.</p>
-{mermaid('isolation')}
-<h3>Claude Code invocation</h3><pre>{esc(claude_argv)}</pre>
-<h3>Codex invocation</h3><pre>{esc(codex_argv)}</pre>
-<h3>Limits per test run</h3>
-{table_html([['Limit', 'Search gap bench', 'Web search bakeoff'],
-             ['Wall clock', '1,200 s', '300 to 1,200 s (set per task)'],
-             ['Total tokens', '1,000,000', '120,000 to 350,000 (set per task)'],
-             ['Search provider calls', '60', '15 to 50 (set per task)'],
-             ['Agent start-up timeout', '120 s', '120 s'],
-             ['Repetitions', '3 (battery), 5 (calibration)', '3']], 'apparatus')}
-</section>
-
-<section id="calibration"><h2>Which tasks count</h2>
-<p>A search gap task counts only if it is genuinely beyond the model: with no search the agent must fail, and with the answer
-excerpt handed over it must succeed. Calibration is repeated for each agent and model.</p>
-{mermaid('calibration')}
-<pre>gap closure  =  (setup pass rate − floor pass rate) / (ceiling pass rate − floor pass rate)
-
-   floor          search setup           ceiling
-   0% ●─────────────────●──────────────────● 95%
-       └──── closed ────┘└──── remaining ────┘</pre></section>
-
-<section id="grading"><h2>How answers are graded</h2>{mermaid('grading')}
-<p>Search gap briefs pass when the decision is right, at least 70% of key facts are covered and at most 25% of claims are
-unsupported. Code fixes pass when hidden tests pass in an isolated workspace. Bakeoff tasks use automatic checks where a task
-has one, and otherwise a single blinded grader scores the task rubric.</p></section>
-
-<section id="providers"><h2>Search provider configurations</h2>
-<p>Pinned in <a href="{REPO_URL}/blob/main/config/provider-arm-tools.yaml">config/provider-arm-tools.yaml</a>. Every tool a
-provider's server advertised was available to the agent; no provider tool was hidden.</p>
-{configs_html(configs)}</section>
-
-<section id="direct-api"><h2>The search API head-to-head</h2>
-<p>One study tests the search APIs themselves rather than an agent using them. It sends the same pre-registered research
-questions to Exa, Tavily, Parallel and Firecrawl, each with the parameters its own documentation recommends, on the same
-day and with the same number of results. The results are pooled and shuffled, and blind model judges verify every counted
-claim on its source page. A provider is credited only when its own result page states the claim, and a claim counts as new
-only if the knowledge base the questions came from did not already have it. Unlike the benchmarks above, each question ran
-once, so the study reports counts without intervals.</p>
-{mermaid('direct')}
-<p>Its sets, endpoints, amendments and costs are in the study's
-<a href="results.html#method-{H2H}">methodology</a>, and its full pre-registered record is in
-<a href="{REPO_URL}/tree/main/reports/{H2H}">reports/{H2H}/</a>.</p></section>
-
-<section id="reproduce"><h2>Reproduce, correct, contribute</h2>
-<p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw transcripts and
-provider responses are not distributed, so exact replay of the published numbers is not possible; a new run measures the
-same method. The one exception is the search API head-to-head's Monitors probe, whose raw responses are published. If you run a tested service and a configuration here misrepresents it, open an issue with the configuration you
-recommend: corrections are rerun and published beside the original, never silently replaced.</p>
-<pre><code>pipx install 'git+{REPO_URL}'
-sew doctor
-python3 scripts/check_reports.py
-python3 scripts/build_site.py --check</code></pre></section>
-</div>"""
-    if body_only:
-        return main
-    script = ''
-    if target == 'pages':
-        script = (f'<script src="{MERMAID_URL}" integrity="{MERMAID_INTEGRITY}" crossorigin="anonymous"></script><script>'
-                  "mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral'});</script>\n")
-    return _document('Searchlight Methodology', 'How Searchlight tests web search for AI coding agents.',
-                     'methodology.html', main, script)
+CARD_MARK = ('<svg class="mark" viewBox="0 0 24 24" aria-hidden="true" style="color:#FFFFFF;--paper:#0A0C10;'
+             '--sl-accent:#3D9BFF">' + glyphs.LOGOS[[x[0] for x in glyphs.LOGOS].index(LOGO_ID)][2] + '</svg>')
 
 
 def page(reports: dict, boards: list[dict], configs: list[dict], target: str) -> tuple[str, str]:
     """Single-file preview: the results and methodology bodies, without scripts or the document shell."""
     analysis = behavior(reports)
     head = f'<title>Searchlight Results</title>\n<style>{CSS}</style>'
-    body = results_page(reports, boards, analysis, body_only=True) + methodology_page(configs, target, body_only=True)
+    body = (results_page(reports, boards, analysis, head_to_head(reports), body_only=True)
+            + methodology_page(configs, target, body_only=True))
     return head, body
-
-
-INSIGHT_SCHEMA = 'sew-insight-summary'
-ANALYTICS_NOTICE = ('Google Tag Manager loads on every page; analytics cookies are disabled for visitors in the EEA, '
-                    'the UK, Switzerland and listed territories. No consent opt-in is offered.')
-
-
-def insight_studies(root: Path = ROOT) -> list[dict]:
-    """Every published insight-bench study: a reports/<name>/ whose summary.json is an insight summary."""
-    studies = []
-    for path in sorted((root / 'reports').glob('*/summary.json')):
-        try:
-            summary = json.loads(path.read_text(encoding='utf-8'))
-        except (OSError, ValueError):
-            continue
-        dashboard = path.parent / 'dashboard.html'
-        if summary.get('schema') == INSIGHT_SCHEMA and dashboard.is_file():
-            studies.append({'name': path.parent.name, 'summary': summary,
-                            'page': f'study-{path.parent.name}.html',
-                            'dashboard': dashboard.read_text(encoding='utf-8')})
-    return sorted(studies, key=lambda s: s['name'], reverse=True)
-
-
-def study_page(study: dict) -> str:
-    """The study's own dashboard, hosted: site consent and tag markup, a way back, raw links to the bundle."""
-    raw = f"{REPO_URL}/blob/main/reports/{study['name']}/"
-    html = study['dashboard'].replace('<html lang="en">', f'<html lang="en" data-raw-base="{esc(raw)}">', 1)
-    viewport = '<meta name="viewport" content="width=device-width, initial-scale=1">'
-    html = html.replace(viewport, f'{viewport}\n{GTM_HEAD}', 1)
-    back = ('<p class="small" style="margin:12px 0 0"><a href="studies.html">&larr; All Searchlight studies</a> · '
-            f'<a href="{REPO_URL}/tree/main/reports/{esc(study["name"])}">Data and method</a></p>')
-    html = html.replace('<div class="wrap">', f'<div class="wrap">\n{back}', 1)
-    footer = ('<footer class="small muted" style="max-width:1120px;margin:32px auto;padding:16px;border-top:1px solid '
-              f'var(--line)"><p>A <a href="{LACEY_URL}">Lacey Enterprises</a> project. Results are released under the '
-              f'<a href="{REPO_URL}/blob/main/LICENSE">Apache License 2.0</a>.</p>'
-              f'<p class="analytics-disclosure">{ANALYTICS_NOTICE}</p></footer>')
-    return html.replace('</body>', f'{footer}\n</body>', 1)
-
-
-def studies_page(studies: list[dict]) -> str:
-    rows = []
-    for s in studies:
-        summary, metrics = s['summary'], s['summary']['metrics']
-        per_q = lambda arm: (metrics.get(arm, {}).get('weighted_per_question') or {}).get('value')
-        leaders = sorted((a for a in summary['ranked'] if per_q(a) is not None), key=lambda a: -per_q(a))[:3]
-        sponsor = summary['set'].get('sponsor')
-        rows.append(
-            f'<article class="card"><h3><a href="{s["page"]}">{esc(summary["set"]["title"])}</a></h3>'
-            f'<p class="muted">{esc(summary["run"]["run_date"])} · {len(summary["arms"])} arms · '
-            f'{summary["set"]["questions"]} questions · ${summary["spend"]["total_usd"]:.2f} spent'
-            + (f' · sponsored by {esc(sponsor.get("name", ""))}' if sponsor else '') + '</p>'
-            f'<p>Most verified insight per question: '
-            + ', '.join(f'<strong>{esc(a)}</strong> ({per_q(a):.1f})' for a in leaders) + '.</p>'
-            f'<p><a class="btn" href="{s["page"]}">Open the interactive results</a> '
-            f'<a style="margin-left:16px" href="{REPO_URL}/tree/main/reports/{esc(s["name"])}">Report, data and method</a></p></article>')
-    intro = ('<section class="wrap"><h1>Insight studies</h1><p class="lede">The same questions go to every search and '
-             'research API, each run as its vendor documents. Every claim is checked on the page it cites, and a '
-             'blind judge values what each one found that the others did not.</p>'
-             '<p class="muted">Each study is one run on one day. Read its caveats before comparing vendors.</p>')
-    body = intro + (''.join(rows) or '<p>No studies yet.</p>') + '</section>'
-    return _document('Insight studies · Searchlight',
-                     'Which search APIs find the most unique, verified insight, study by study.',
-                     'studies.html', body)
 
 
 def build(root: Path = ROOT) -> dict[str, str]:
     reports = load_reports(root)
     boards = leaderboards(reports)
+    extra = more_boards(reports)
     configs = arm_configs(root)
     analysis = behavior(reports)
     h2h = head_to_head(reports)
     data = {
-        'generated_from': [f'reports/{name}/summary.json' for name in REPORTS],
+        'generated_from': [f'reports/{name}/summary.json' for name in sorted(reports)],
         'note': 'Pass rates and intervals as published; WSB intervals are Wilson 95% computed from published counts. '
                 'Overlapping intervals are not rankings.',
         # Board titles already name each model; leaving the key out keeps the
         # published data file unchanged.
-        'boards': [{key: value for key, value in board.items() if key != 'model'} for board in boards],
+        'boards': [{key: value for key, value in board.items() if key != 'model'} for board in boards + extra],
         'search_api_head_to_head': h2h,
     }
     studies = insight_studies(root)
+    pages = site_map(reports, studies)
+    everything = boards + extra
     return {
-        **{s['page']: study_page(s) for s in studies},
-        'studies.html': studies_page(studies),
-        'index.html': landing(root, boards, analysis),
-        'results.html': results_page(reports, boards, analysis),
-        'methodology.html': methodology_page(configs),
+        **{s['page']: study_page(s, pages) for s in studies},
+        **{report_page_name(name): report_page(name, reports, everything, analysis, h2h, pages) for name in reports},
+        'studies.html': studies_page(studies, pages),
+        'index.html': landing(root, boards, analysis, reports, studies, h2h, card_facts(boards, analysis), pages),
+        'results.html': results_page(reports, boards, analysis, h2h, studies=studies, pages=pages),
+        'learn.html': learn_page(boards, analysis, pages),
+        'methodology.html': methodology_page(configs, boards=boards, analysis=analysis, pages=pages),
         'logo.svg': LOGO + '\n',
         'infographic.svg': infographic(boards, analysis, h2h) + '\n',
         'leaderboard.json': json.dumps(data, indent=2, ensure_ascii=False) + '\n',
@@ -1862,9 +657,12 @@ def main(argv=None) -> int:
         return 0
     files = build()
     site = ROOT / 'site'
+    # Report and study pages come and go with their report directories.
+    orphans = sorted(p.name for pattern in ('report-*.html', 'study-*.html') for p in site.glob(pattern)
+                     if p.name not in files)
     if args.check:
         stale = [name for name, content in files.items()
-                 if not (site / name).is_file() or (site / name).read_text(encoding='utf-8') != content]
+                 if not (site / name).is_file() or (site / name).read_text(encoding='utf-8') != content] + orphans
         if stale:
             print('site/ is stale; run python3 scripts/build_site.py: ' + ', '.join(stale), file=sys.stderr)
             return 1
@@ -1875,6 +673,8 @@ def main(argv=None) -> int:
         print('Site is current: ' + ', '.join(sorted(files)))
         return 0
     site.mkdir(exist_ok=True)
+    for name in orphans:
+        (site / name).unlink()
     for name, content in files.items():
         (site / name).write_text(content, encoding='utf-8')
     print('Site written: ' + ', '.join(f'site/{name}' for name in sorted(files)))
