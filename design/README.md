@@ -73,6 +73,13 @@ shadows.
 
 ## Glyphs
 
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="../docs/readme/glyphs-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="../docs/readme/glyphs-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyphs-dark.svg">
+  <img src="../docs/readme/glyphs-light.svg" alt="Every Searchlight glyph with its id: agent, provider, setup, built-in, no-search, model, brief, code-fix, cutoff, query, source, results-list, answer, run, repeat, sealed, same-but-one, blind, judge, pre-registered, holdout, verified, unsupported, unverifiable, strict-credit, insight, unique, overlap, gap-closed, ranking, range, tie, tokens, cost, latency, caveat, filter, benchmark, study, report, method, walkthrough, learn, open-source, contact, menu-open, menu-close and beam.">
+</picture>
+
 [`glyphs/searchlight-glyphs.svg`](glyphs/searchlight-glyphs.svg) holds the line glyphs, drawn in code by
 [`glyphs/searchlight_glyphs.py`](glyphs/searchlight_glyphs.py): who is tested, the job, running it fairly, grading,
 reading the results, the publication, the interface and the beam.
@@ -86,6 +93,11 @@ reading the results, the publication, the interface and the beam.
   `python3 design/glyphs/build_sheet.py` writes the catalogue page [`glyphs/glyphs.html`](glyphs/glyphs.html).
 
 ## The mark
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../docs/readme/marks-dark.svg">
+  <img src="../docs/readme/marks-light.svg" alt="The three marks, each on the page ground and on the night ground: logo-lamp, lamp and beam; logo-lens, lens and beam; logo-tile, the tile.">
+</picture>
 
 Three options, drawn on the glyph grid in ink plus one Lacey blue beam (see the catalogue page):
 
@@ -112,3 +124,27 @@ either, run `python3 scripts/build_site.py` and `python3 scripts/render_social_c
 | Filters | One row of chips per question on a shared baseline (each row scrolls sideways on phones), hidden without JavaScript; prose has a variant per agent so words never contradict the rows |
 | Photo finish | Three leaders for a study: most useful findings, most found by no one else, best value, each with its tie count |
 | Latest | One line under the hero naming the newest report or study, rebuilt when one is published |
+
+## README art
+
+The images in the repository's READMEs are drawn by the site generator, not by hand: `python3 scripts/build_site.py`
+writes them to [`docs/readme/`](../docs/readme/) next to `site/`, and `--check` fails when one is stale.
+[`scripts/searchlight_site/readme.py`](../scripts/searchlight_site/readme.py) draws them from the same reports, data
+module and components as the site: the hero, the results snapshot as ranked rows with 95% ranges, the concept tiles,
+the search setups, the reports timeline, this page's catalogue and marks, and every diagram in
+[`diagrams.py`](../scripts/searchlight_site/diagrams.py).
+
+GitHub shows a README image through `<img>`, so each file stands alone:
+
+- **No outside requests.** It inlines the glyph symbols it uses and one theme's tokens, uses the system font stack,
+  and loads no fonts, scripts or sprite.
+- **Both themes.** Every image has a light and a dark file, chosen with `<picture>` and
+  `<source media="(prefers-color-scheme: dark)">`, GitHub's documented pattern.
+- **Phones.** Images with text also have a tall layout, offered with `<source media="(max-width: 600px)">`. GitHub may
+  ignore it, so the wide layout keeps its type at 14 px and up in viewBox units, in images at most 840 px wide (the
+  diagrams keep the site's 960 px layout).
+- **Alt text.** Each `<img>` carries a real description, and each SVG a title and description of its own.
+
+To add one, draw it in `readme.py` with the site's classes and return it from `art()`, run the build, and reference it
+with the `<picture>` pattern above.
+

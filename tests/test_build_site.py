@@ -394,10 +394,10 @@ def test_infographic_names_every_arm_and_no_private_paths():
 def test_page_has_apparatus_diagrams_and_resolved_links():
     files = site.build()
     methodology, results = files['methodology.html'], files['results.html']
-    # The apparatus diagrams are drawn by the generator: five figures, each with a wide and a tall layout, and no
-    # third-party diagram script on any page.
-    assert methodology.count('<figure class="flow"') == 5
-    assert methodology.count('<svg class="wide"') == 5 and methodology.count('<svg class="tall"') == 5
+    # The apparatus diagrams are drawn by the generator: six figures (the insight study's since the README upgrade),
+    # each with a wide and a tall layout, and no third-party diagram script on any page.
+    assert methodology.count('<figure class="flow"') == 6
+    assert methodology.count('<svg class="wide"') == 6 and methodology.count('<svg class="tall"') == 6
     assert all('mermaid' not in page for page in files.values())
     # Each report has its own page; the results page keeps the old #run- and #method- anchors on its index.
     assert 'id="run-2026-10-05-agent-search-behavior"' in results
@@ -981,3 +981,21 @@ def test_diagram_layouts_have_no_collisions(layout):
         width = d.WIDE if layout == 'wide' else d.TALL
         for g in geo['groups']:
             assert 0 <= g['rect'][0] and g['rect'][0] + g['rect'][2] <= width, (diagram.name, layout)
+
+
+def test_readme_art_stands_alone_and_every_reference_resolves():
+    """GitHub shows README images through <img>: no outside requests, every <use> resolves inside the file, both
+    themes exist, and every image a README names is generated."""
+    art = site.readme_art()
+    for name, svg in art.items():
+        assert svg.startswith('<svg xmlns="http://www.w3.org/2000/svg"') and '<title' in svg and '<desc' in svg, name
+        assert not re.search(r'(?:href|src)="(?:https?:|//)|@import|url\((?!#)', svg), name
+        defined = set(re.findall(r'<(?:symbol|marker|linearGradient)[^>]* id="([^"]+)"', svg))
+        assert set(re.findall(r'href="#([^"]+)"', svg)) <= defined, name
+        other = name.replace('-light.svg', '-dark.svg') if name.endswith('-light.svg') else name.replace('-dark', '-light')
+        assert other in art, name
+    for readme in ('README.md', 'docs/insight-bench/README.md', 'reports/README.md', 'design/README.md'):
+        refs = re.findall(r'docs/readme/([\w-]+\.svg)|\.\./readme/([\w-]+\.svg)', (site.ROOT / readme).read_text())
+        assert refs, readme
+        assert all((a or b) in art for a, b in refs), readme
+

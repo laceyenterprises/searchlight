@@ -521,6 +521,23 @@ def test_publish_bundle_is_sanitized_and_passes_the_report_checks(tmp_path):
     assert checks.check(root=root, reports=()) == []  # scrub, links and anchors, as CI runs them
 
 
+def test_publish_index_line_keeps_the_glyph_convention(tmp_path):
+    """In a repository with the README art, index lines start with a glyph; a published study's line does too."""
+    from sew.insight.publish import publish
+
+    run_dir = _reported(tmp_path)
+    root = tmp_path / "repo"
+    (root / "docs" / "readme").mkdir(parents=True)
+    (root / "docs" / "readme" / "glyph-study-light.svg").write_text("<svg/>")
+    (root / "reports" / "old").mkdir(parents=True)
+    glyph = '<picture><img src="../docs/readme/glyph-report-light.svg" alt=""></picture> '
+    (root / "reports" / "README.md").write_text(f"# Reports\n\n- {glyph}[Old](old/REPORT.md): a study.\n\nMore text.\n")
+    publish(run_dir, root / "reports" / "2026-11-11-demo-insight", set_root=tmp_path)
+    rows = (root / "reports" / "README.md").read_text().split("\n")
+    line = next(r for r in rows if "demo-insight/REPORT.md" in r)
+    assert rows.index(line) == 3 and line.startswith("- <picture>") and "glyph-study-dark.svg" in line
+
+
 def test_publish_refusals(tmp_path):
     from sew.insight.publish import publish
 

@@ -1,48 +1,54 @@
-<img src="site/logo.svg" alt="" width="40" height="40">
+<a href="https://searchlightai.dev"><picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/hero-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/hero-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.svg">
+  <img src="docs/readme/hero-light.svg" alt="Searchlight. Does web search make AI agents better at real work? When the job is about something recent, search decides it: with no search the agents failed every brief; with any provider they passed most. searchlightai.dev">
+</picture></a>
 
-# Searchlight
+**An open benchmark of what web search does for AI coding agents.** Searchlight gives real agent harnesses real
+jobs and changes only the search: one vendor's search server, the harness's own built-in search, or none. It grades
+the finished job, not the search results, and records every tool call, so you can see *how* the agent used what it
+was given. The published results cover Claude Code and codex; Hermes Agent, Opencode and Pi run on
+[OSS models](#oss-models) behind a LiteLLM proxy.
 
-**Website: [searchlightai.dev](https://searchlightai.dev)**
+**[searchlightai.dev](https://searchlightai.dev)** · [Results](https://searchlightai.dev/results.html) ·
+[Methodology](https://searchlightai.dev/methodology.html) · [Reports](reports/README.md) ·
+[`leaderboard.json`](site/leaderboard.json)
 
-**An open benchmark of what web search does for coding agents.** Searchlight runs real
-agent harnesses against task catalogs: Claude Code and codex, and, with
-[OSS models](#oss-models) behind a LiteLLM proxy, Hermes Agent, Opencode and Pi. The
-published results so far cover Claude Code and codex. Each run gives the agent
-exactly one retrieval arm: one vendor's search server, the harness's own built-in search,
-or no search at all. Searchlight then grades the finished job, not the search results. It also
-records every tool call, so you can see *how* the agent used the tool it was given.
+## Searchlight in 60 seconds
 
-![Searchlight results to date: pass rates with 95% intervals per search arm, and how agents searched](site/infographic.svg)
+Eight ideas sit behind every number here; the [Learn page](https://searchlightai.dev/learn.html) explains each one.
 
-- **Website:** [searchlightai.dev](https://searchlightai.dev): an overview, then
-  [results](https://searchlightai.dev/results.html) (leaderboards and full run reports) and
-  [methodology](https://searchlightai.dev/methodology.html). Generated into [`site/`](site/) and
-  published from `main` on every report change.
-- **Machine-readable leaderboard:** [`site/leaderboard.json`](site/leaderboard.json).
-- **Recorded reports:** [`reports/`](reports/README.md).
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/learn-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/learn-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/learn-dark.svg">
+  <img src="docs/readme/learn-light.svg" alt="Eight concepts. Agent: the AI coding agent doing the job. Search setup: the one thing that changes. Training cutoff: the date a model's knowledge ends. Brief: a short research report that ends in a decision and cites its sources. Run: one task with one search setup, repeated three times. Blind grading: the grader never sees which setup produced the answer. 95% range: where the true score most likely sits. Tie: two ranges overlap, so the test cannot separate them.">
+</picture>
 
-> **Before comparing vendors:**
-> - Each arm ran 18 to 42 cells, and the 95% intervals overlap almost everywhere.
-> - In the agent benchmarks, every vendor was tested through its own MCP server at a pinned version with default
->   settings. The separate [search API head-to-head](reports/2026-09-26-search-api-head-to-head/REPORT.md) called
->   four vendors' APIs directly with tuned parameters, ran each question once, and was run for a knowledge base about
->   Exa, one of the four.
-> - Rankings changed between the two agents.
->
-> Read [Fairness and known limitations](#fairness-and-known-limitations) before quoting a position.
+## Results so far
 
----
+Past the training cutoff, search decides the outcome; among the providers, the test cannot separate the leaders.
 
-Grok is registered as a non-live harness. Search arms explicitly report
-unavailable until their tool isolation is qualified. On an entitled fleet host,
-`sew.harnesses.grok.fleet_cells(opt_in=True)` delegates native smoke to the
-shared fleet adapter; the lock is `config/locks/grok.json`. With the adapter
-installed, every role/auth cell is unavailable without opt-in. If the adapter
-or its dependencies cannot be imported, `fleet_cells()` raises a descriptive
-`sew.schema.SchemaError`; importing Searchlight does not require the adapter.
-Operator provisioning and MODEL-TURN
-receipts belong to GRK-16; hammer remains pending GRK-17. These cells do not
-qualify search arms or native resume.
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/results-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/results-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/results-dark.svg">
+  <img src="docs/readme/results-light.svg" alt="Ranked pass rates with their 95% ranges: the top four search setups on the search gap bench for Claude Code and for Codex, and on the web search bakeoff with answering from memory as the control. On every board the leader's range overlaps the others', so the test cannot separate them.">
+</picture>
+
+- **Small samples.** Each setup ran 18 to 21 times per agent on the gap bench and 42 times on the bakeoff, so the
+  ranges are wide and overlap almost everywhere: one place higher is not proof of better.
+- **Rerun.** In the first runs Claude Code's built-in search could not open pages; the built-in rows are the
+  2026-10-06 rerun with that fixed, and the original rows stay in the reports.
+- **One interface per vendor.** Every vendor ran through its own MCP server at a pinned version with default
+  settings. The separate [search API head-to-head](reports/2026-09-26-search-api-head-to-head/REPORT.md) called four
+  vendors' APIs directly with tuned parameters, ran each question once, and was run for a knowledge base about Exa,
+  one of the four.
+- **The agent matters.** Rankings changed between the two agents.
+
+Read [Fairness and known limitations](#fairness-and-known-limitations) before quoting a position. The
+[one-page infographic](site/infographic.svg) has every finding with its evidence.
 
 ## What Searchlight measures
 
@@ -54,22 +60,28 @@ qualify search arms or native resume.
 | **INS** ([insight bench](docs/insight-bench/README.md)) | Which search or research API finds the most verified insight no other API finds? | a versioned question set, every arm the same day, frozen request profiles | claims verified on their own cited page, valued blind, unique insight per arm |
 | **Behavior analysis** | How did the agent actually use its tool? | every logged tool call | query style, search versus fetch, primary-source retrieval |
 
-```
-                       ┌──────────────────────────────────────────────────────────┐
-                       │             the same agent, the same prompt              │
-                       │      Claude Code (claude-opus-5-5)  or  codex (gpt-6.1)  │
-                       │  or Hermes Agent, Opencode, Pi on an OSS model (LiteLLM) │
-                       └───────────────────────────┬──────────────────────────────┘
-                                                   │ exactly one retrieval arm
-   ┌──────────┬──────────┬──────────┬──────────┬───┴──────┬──────────┬──────────┬──────────┐
-   │no-search │  native  │  Brave   │  Tavily  │   Exa    │ Parallel │Firecrawl │Perplexity│
-   │ (memory) │ harness  │   MCP    │   MCP    │   MCP    │   MCP    │   MCP    │   MCP    │
-   │          │ built-in │  server  │  server  │  server  │  hosted  │  server  │  server  │
-   └──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
-   GAP adds two reference arms per task:  floor = no search    ceiling = answer excerpt in prompt
-```
+Each run gives the agent exactly one search setup; the model, prompt, budgets and workspace stay the same.
+
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/setups-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/setups-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/setups-dark.svg">
+  <img src="docs/readme/setups-light.svg" alt="The same agent and prompt in every run (Claude Code or codex, or Hermes Agent, Opencode or Pi on an OSS model). Only the search setup changes, exactly one per run: no search, the built-in search, or the Brave, Tavily, Exa, Parallel, Firecrawl or Perplexity MCP server. The search gap bench adds two reference setups per task: the floor, no search, and the ceiling, the answer excerpt in the prompt.">
+</picture>
 
 ## How a run works
+
+One test run is one task, one search setup and one repetition, in a fresh workspace. Every tool call is recorded,
+and the grader never learns the setup.
+
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-pipeline-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/diagram-pipeline-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/diagram-pipeline-dark.svg">
+  <img src="docs/readme/diagram-pipeline-light.svg" alt="From task to report: production tasks and gap briefs go into a fresh scratch workspace; the agent's tool calls pass through a metering proxy to the pinned search provider MCP server; the evidence bundle goes to deterministic validators and blinded judges; their results become reports/*/summary.json, which builds the site.">
+</picture>
+
+OSS models reach the harness through an opt-in LiteLLM proxy; see [OSS models](#oss-models).
 
 Harness metadata lives in [`sew.harnesses`](lib/python/sew/harnesses/registry.py).
 Each `HarnessSpec` defines the harness's binary, protocol, arm spawn writer and
@@ -85,37 +97,6 @@ Protocols default to stdin prompts. A protocol that carries its prompt in argv
 must set `takes_prompt_in_argv = True` and implement `prompt_argv`; GAP uses this
 explicit capability to substitute the canary prompt while retaining qualified
 launch arguments for stdin protocols.
-
-```mermaid
-flowchart LR
-  subgraph Catalogs
-    T1["production tasks (WSB)"]
-    T2["gap briefs and code tasks (GAP)"]
-  end
-  subgraph Cell["One cell = task x arm x repetition"]
-    W["fresh scratch workspace"]
-    H["harness: Claude Code, codex, Hermes Agent, Opencode or Pi"]
-    P["metering proxy"]
-    L["LiteLLM proxy (OSS models, opt-in)"]
-    V[("vendor MCP server, pinned version")]
-  end
-  subgraph Grading
-    D["deterministic validators"]
-    J["blinded judges vs captured sources"]
-  end
-  T1 --> W
-  T2 --> W
-  W --> H
-  H <-->|"tool calls"| P
-  H <-.->|"model calls"| L
-  P <--> V
-  H --> B[("evidence bundle: transcript, answer, arm audit, metrics")]
-  B --> D
-  B --> J
-  D --> R["reports/*/summary.json"]
-  J --> R
-  R --> S["site/ leaderboard + infographic"]
-```
 
 ### Anatomy of one cell
 
@@ -148,6 +129,16 @@ sequenceDiagram
 Arms differ only in their retrieval surface. Everything else (model, prompt, budgets,
 workspace) is identical.
 
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-isolation-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/diagram-isolation-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/diagram-isolation-dark.svg">
+  <img src="docs/readme/diagram-isolation-light.svg" alt="What each setup can touch. A search setup contract configures each spawn. Claude Code runs with a strict MCP config and only the setup's tools; codex runs read-only with shell, browser, apps and plugins disabled. Provider setups get one provider MCP server (Claude Code adds ToolSearch and Read); built-in setups get the agent's own search; no search, floor and ceiling get no tools. A setup audit checks every observed tool call against the contract.">
+</picture>
+
+<details>
+<summary>The exact spawn flags and tools per setup</summary>
+
 ```
  Claude Code                                         codex
  ───────────                                         ─────
@@ -168,6 +159,8 @@ workspace) is identical.
  └──────────────┴──────────────────────────────┘    └──────────────┴───────────────────────────┘
  Read is local: Claude Code saves oversized tool results to a file the model must Read.
 ```
+
+</details>
 
 The OSS harnesses get the same contract, built from their own configuration in a fresh
 per-cell home. Each runs only an explicit `litellm/<route>` model; see [OSS models](#oss-models).
@@ -215,17 +208,12 @@ when the answer is handed over. Calibration is repeated for each harness and mod
 Calibration defers temporarily unavailable cells and stops resumably on a provider
 wall; see [Validate and calibrate](RUNBOOK-gap.md#validate-and-calibrate) for recovery.
 
-```mermaid
-flowchart LR
-  T["candidate task (event after the authoring boundary)"] --> F["floor: no search, 5 runs"]
-  T --> C["ceiling: answer excerpt in prompt, 5 runs"]
-  F --> Q{"floor passes at most 1 and ceiling passes at least 4?"}
-  C --> Q
-  Q -->|yes| A["admitted for this harness and model"]
-  Q -->|no| X["rejected (task or rubric defect, or not a real gap)"]
-  A --> B["battery: every arm x 3 repetitions"]
-  B --> G["gap closure per arm"]
-```
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-calibration-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/diagram-calibration-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/diagram-calibration-dark.svg">
+  <img src="docs/readme/diagram-calibration-light.svg" alt="Which tasks count: a candidate brief about an event after 2026-01-01 runs five times with no search (the floor) and five times with the answer excerpt in the prompt (the ceiling). It is admitted for this agent and model only if the floor passes at most once and the ceiling at least four times; otherwise it is rejected. Admitted tasks run in the battery, every search setup three times, and give each setup's gap closure.">
+</picture>
 
 ```
 gap closure  =  (arm pass rate − floor pass rate) / (ceiling pass rate − floor pass rate)
@@ -238,22 +226,14 @@ gap closure  =  (arm pass rate − floor pass rate) / (ceiling pass rate − flo
 
 ## Grading
 
-```mermaid
-sequenceDiagram
-  participant A as Agent deliverable
-  participant V as Schema validator
-  participant S as Source capture
-  participant J1 as Judge 1 (Claude Code)
-  participant J2 as Judge 2 (codex, GAP)
-  A->>V: JSON answer (brief, claims, citations, decision)
-  V-->>A: malformed answers fail here
-  A->>S: cited URLs
-  S->>J1: readable source text and rubric, arm withheld
-  S->>J2: same inputs
-  J1-->>A: decision, key-fact recall, unsupported claims
-  J2-->>A: independent labels, agreement recorded
-  Note over A,J2: GAP pass = right decision, recall at least 0.7, unsupported claims at most 0.25
-```
+Two judges see the same inputs; neither is told the search setup.
+
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-grading-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/diagram-grading-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/diagram-grading-dark.svg">
+  <img src="docs/readme/diagram-grading-light.svg" alt="How answers are graded: the agent's JSON answer goes to a schema validator, which rejects malformed answers; its cited URLs go to source capture; the readable source text and rubric, blinded to the search setup, go to judge 1 (Claude Code) and the same inputs to judge 2 (codex, gap bench). Judge 1 returns key-fact recall, unsupported claims and the decision; judge 2 returns independent labels, and their agreement is recorded. A brief passes with the right decision, recall of at least 0.7 and unsupported claims of at most 0.25.">
+</picture>
 
 - **WSB** uses deterministic validators where a task has one. Otherwise a single blinded
   Claude Code judge scores the task rubric.
@@ -294,6 +274,19 @@ The rules are deliberately simple and are printed in the
 natural-language rule can miss descriptive phrasing, every Exa query was also checked by
 hand; Exa is the tool that explicitly asks for page descriptions. All 111 are published in
 the report's appendix.
+
+## The search API head-to-head
+
+A separate study called four search APIs directly, with no agent, on pre-registered questions, each run once, so it
+reports counts without ranges. Its [report](reports/2026-09-26-search-api-head-to-head/REPORT.md) publishes the
+record, code and data.
+
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/diagram-direct-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="docs/readme/diagram-direct-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/readme/diagram-direct-dark.svg">
+  <img src="docs/readme/diagram-direct-light.svg" alt="The search API head-to-head: pre-registered question sets from one knowledge base go to Exa, Tavily, Parallel and Firecrawl; their results are pooled, deduplicated and shuffled; blind model judges verify each claim on its page and check whether it is already in the knowledge base; attribution is rejoined, crediting a provider only where its own page states the claim; the results are reports/*/summary.json.">
+</picture>
 
 ## Fairness and known limitations
 
@@ -443,6 +436,17 @@ flowchart LR
 `sew doctor` checks each OSS harness's version with `--version`, without a model call.
 GAP calibration and batteries accept `claude-code` and `codex`; code cells on the OSS
 harnesses are refused.
+
+Grok is registered as a non-live harness. Search arms explicitly report
+unavailable until their tool isolation is qualified. On an entitled fleet host,
+`sew.harnesses.grok.fleet_cells(opt_in=True)` delegates native smoke to the
+shared fleet adapter; the lock is `config/locks/grok.json`. With the adapter
+installed, every role/auth cell is unavailable without opt-in. If the adapter
+or its dependencies cannot be imported, `fleet_cells()` raises a descriptive
+`sew.schema.SchemaError`; importing Searchlight does not require the adapter.
+Operator provisioning and MODEL-TURN
+receipts belong to GRK-16; hammer remains pending GRK-17. These cells do not
+qualify search arms or native resume.
 
 ### Setup
 
@@ -611,7 +615,7 @@ the bundled report.
 
 ```sh
 python3 scripts/check_reports.py        # transcription, scrub, catalog hashes, links
-python3 scripts/build_site.py --check   # pages, infographic and share image match the reports
+python3 scripts/build_site.py --check   # pages, infographic, share image and README art match the reports
 SEW_MODE=standalone python3 -m pytest -q
 ```
 
@@ -630,8 +634,12 @@ their original names.
 The builder accepts integer or decimal percentage intervals with hyphens or en dashes.
 Zero-count groups display 0% with their counts; short table rows receive empty cells,
 and code blocks missing a closing fence retain their content. Relative links are bounded
-at the repository root. The published page pins Mermaid with a SHA-384 integrity hash;
-update the hash alongside its CDN URL in `scripts/build_site.py` when changing versions.
+at the repository root. The site draws its diagrams itself and loads no diagram script.
+
+The README images in [`docs/readme/`](docs/readme/) come from the same build: the hero, the
+results snapshot, the drawn diagrams and the reports timeline are generated from the reports,
+in a light and a dark variant, and `build_site.py --check` fails when any of them is stale.
+[The design system](design/README.md#readme-art) explains how they are drawn.
 
 The share image (`site/social-card.png`, used by link previews) is rendered from
 `site/social-card.html`, whose figures come from the same reports. After a report
@@ -646,7 +654,7 @@ do not mask the render result or its original failure.
 flowchart LR
   N["new battery"] --> R["reports/DATE-BENCH/ with summary.json, methodology, reproduce"]
   R --> C["check_reports.py: transcription, scrub, hashes, links"]
-  C --> B["build_site.py: overview, results and methodology pages, infographic, leaderboard.json"]
+  C --> B["build_site.py: site pages, infographic, leaderboard.json, README art"]
   B --> S["render_social_card.py: share image"]
   S --> K["CI: build_site.py --check"]
   K --> P["GitHub Pages deploy from main"]
@@ -675,6 +683,8 @@ searchlight/
 ├── catalogs/                task catalogs: production (WSB), gap, domains, fixtures
 ├── config/                  pinned provider arm tools, price table, MCP meter tariffs,
 │                            OSS model catalog, example LiteLLM routes
+├── design/                  design system: tokens, glyphs, marks, vocabulary
+├── docs/                    insight bench, architecture notes; readme/ holds the generated README art
 ├── lib/python/sew/          runner, arms, harness adapters, meter, grading, reports
 │   └── gap/                 calibration, workspace sandbox, verifier, brief grading
 ├── reports/                 published reports (summary.json is the source of truth)

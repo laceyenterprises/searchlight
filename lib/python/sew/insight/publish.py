@@ -127,17 +127,28 @@ def _reproduce(summary: Mapping[str, Any], manifest: Mapping[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+INDEX_ENTRY = re.compile(r"- (?:<picture>.*?</picture> )?\[")  # an index line, with or without its glyph
+
+
+def _index_glyph(index: Path, glyph: str) -> str:
+    """The glyph that starts an index line, when this repository has the README art (docs/readme/), else nothing."""
+    if not (index.parent.parent / "docs" / "readme" / f"glyph-{glyph}-light.svg").is_file():
+        return ""
+    return (f'<picture><source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyph-{glyph}-dark.svg">'
+            f'<img src="../docs/readme/glyph-{glyph}-light.svg" width="20" height="20" alt=""></picture> ')
+
+
 def _link_from_index(index: Path, to: Path, summary: Mapping[str, Any]) -> None:
     if not index.is_file():
         return
     text = index.read_text(encoding="utf-8")
     if f"({to.name}/REPORT.md)" in text:
         return
-    line = (f"- [{summary['set']['title']}]({to.name}/REPORT.md): an INS insight bake-off, "
+    line = (f"- {_index_glyph(index, 'study')}[{summary['set']['title']}]({to.name}/REPORT.md): an INS insight bake-off, "
             f"{len(summary['arms'])} arms x {summary['set']['questions']} questions on {summary['run']['run_date']}, "
             f"graded blind and verified on each claim's own page; [interactive dashboard]({to.name}/dashboard.html).")
     rows = text.split("\n")
-    last = max((i for i, r in enumerate(rows) if r.startswith("- [")), default=len(rows) - 1)
+    last = max((i for i, r in enumerate(rows) if INDEX_ENTRY.match(r)), default=len(rows) - 1)
     rows.insert(last + 1, line)
     index.write_text("\n".join(rows), encoding="utf-8")
 

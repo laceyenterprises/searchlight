@@ -15,18 +15,22 @@ unique-to-arm counts, cost per new claim, sign tests and bootstraps. Each vendor
 its own current documentation: see [provider best practices](provider-best-practices.md). To run or
 sponsor a new study, start with the [study kit](STUDY-KIT.md).
 
-```mermaid
-flowchart LR
-  S["question set<br/>catalogs/insight/*.json"] --> W
-  P["frozen profiles + _shared.json<br/>config/insight/profiles/"] --> W
-  W["shared query-writer<br/>once per question, stored"] --> R
-  R["sew insight run<br/>every question x every arm, same day<br/>spend ledger, resumable"] --> C[("cells: request, raw response,<br/>cost, latency")]
-  C --> E["extract: one fixed model<br/>atomic claims + source URL"]
-  E --> K["cluster per question<br/>lexical prefilter + model equivalence"]
-  K --> V["verify each claim on its own cited page"]
-  V --> J["value verified clusters 0-3<br/>blind, seeded shuffle"]
-  J --> T["sew insight report<br/>REPORT.md, summary.json, run history"]
-```
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="../readme/diagram-insight-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="../readme/diagram-insight-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="../readme/diagram-insight-dark.svg">
+  <img src="../readme/diagram-insight-light.svg" alt="How an insight study works: a question set and frozen request profiles feed a shared query-writer, run once per question and stored; sew insight run sends every question to every service the same day, with a spend ledger, and stores each cell's request, raw response, cost and latency. Grading, with one fixed extractor and a blind judge: extract atomic claims with their source URLs, cluster the same finding per question, verify each claim on the page it cites, and value the verified clusters 0 to 3 blind in a seeded shuffle. sew insight report gives each service's unique verified insight.">
+</picture>
+
+The newest published study ranks each service by useful findings per question, with its 95% range; where ranges
+overlap, the test cannot separate them. Every study is in the [reports index](../../reports/README.md).
+
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="../readme/study-tall-dark.svg">
+  <source media="(max-width: 600px)" srcset="../readme/study-tall-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset="../readme/study-dark.svg">
+  <img src="../readme/study-light.svg" alt="The newest insight study's top five services by useful findings per question, each with its 95% range, and the number of questions it ran; the leader's range overlaps most of the others', so there is no clear winner.">
+</picture>
 
 For corporate Claude grading on Agent OS, pin the extractor/judge models and
 pass `--harness-auth broker --claude-broker-provider claude-code-corp` to

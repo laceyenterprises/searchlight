@@ -1,8 +1,8 @@
 """Build the Searchlight site, leaderboard data, infographic and share card from published reports.
 
 The one entry point. The page code lives in ``scripts/searchlight_site/`` (data, design, layout, components, pages,
-diagrams); this file builds the site from it, draws the one-page infographic and the share card, and writes or checks
-``site/``.
+diagrams, readme); this file builds the site from it, draws the one-page infographic and the share card, and writes or
+checks ``site/`` and the README images in ``docs/readme/``.
 
 Inputs are only files in this repository: every report and insight study under ``reports/`` (discovered by its summary
 schema, see ``scripts/check_reports.py``), the pinned provider arm configuration in ``config/provider-arm-tools.yaml``,
@@ -10,8 +10,8 @@ and the design system in ``design/`` (tokens, glyphs, vocabulary). Nothing is re
 only derived numbers are Wilson intervals for tables that publish counts without intervals, and they are labelled as
 computed. Publishing a new report directory and rebuilding adds its page, its boards and its index entries with no edits.
 
-    python3 scripts/build_site.py            # write site/
-    python3 scripts/build_site.py --check    # fail if site/ is stale
+    python3 scripts/build_site.py            # write site/ and docs/readme/
+    python3 scripts/build_site.py --check    # fail if either is stale
     python3 scripts/build_site.py --target preview --out /tmp/preview.html
 """
 from __future__ import annotations
@@ -44,6 +44,7 @@ from searchlight_site.layout import (  # noqa: E402,F401
     CARD_ALT_DEFAULT, CARD_SCALE, CARD_SIZE, GTM_BODY, GTM_CONTAINER_ID, GTM_HEAD, LACEY_URL, NAV, SITE_URL, _document)
 from searchlight_site.pages import (  # noqa: E402,F401
     landing, learn_page, methodology_page, report_page, results_page, studies_page, study_page)
+from searchlight_site import readme  # noqa: E402
 
 PALETTE = {  # the infographic is a single-theme graphic with its own ground
     'paper': '#F5F7FA', 'surface': '#FFFFFF', 'ink': '#111111', 'ink2': '#555D67', 'rule': '#E1E5EA',
@@ -641,6 +642,13 @@ def build(root: Path = ROOT) -> dict[str, str]:
     }
 
 
+def readme_art(root: Path = ROOT) -> dict[str, str]:
+    """The README images, {path under docs/readme/: SVG}, from the same reports as the site."""
+    reports = load_reports(root)
+    boards = leaderboards(reports)
+    return readme.art(boards, behavior(reports), reports, insight_studies(root))
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
     parser.add_argument('--check', action='store_true', help='fail if site/ differs from a fresh build')
@@ -655,29 +663,36 @@ def main(argv=None) -> int:
         out.write_text(head + '\n' + body + '\n', encoding='utf-8')
         print(f'Preview written: {out}')
         return 0
-    files = build()
     site = ROOT / 'site'
-    # Report and study pages come and go with their report directories.
-    orphans = sorted(p.name for pattern in ('report-*.html', 'study-*.html') for p in site.glob(pattern)
-                     if p.name not in files)
+    art = ROOT / readme.OUT
+    files = {f'site/{name}': content for name, content in build().items()}
+    files.update({f'{readme.OUT}/{name}': content for name, content in readme_art().items()})
+    # Report and study pages come and go with their report directories; README images with what they draw.
+    orphans = sorted(p.relative_to(ROOT).as_posix() for folder, patterns in
+                     ((site, ('report-*.html', 'study-*.html')), (art, ('*.svg',)))
+                     for pattern in patterns for p in folder.glob(pattern)
+                     if p.relative_to(ROOT).as_posix() not in files)
     if args.check:
         stale = [name for name, content in files.items()
-                 if not (site / name).is_file() or (site / name).read_text(encoding='utf-8') != content] + orphans
+                 if not (ROOT / name).is_file() or (ROOT / name).read_text(encoding='utf-8') != content] + orphans
         if stale:
-            print('site/ is stale; run python3 scripts/build_site.py: ' + ', '.join(stale), file=sys.stderr)
+            print('site/ or docs/readme/ is stale; run python3 scripts/build_site.py: ' + ', '.join(stale),
+                  file=sys.stderr)
             return 1
-        problem = card_problem(site, files['social-card.html'])
+        problem = card_problem(site, files['site/social-card.html'])
         if problem:
             print(f'site/ is stale: {problem}; run python3 scripts/render_social_card.py', file=sys.stderr)
             return 1
-        print('Site is current: ' + ', '.join(sorted(files)))
+        print(f'Site and README art are current: {len(files)} files')
         return 0
-    site.mkdir(exist_ok=True)
+    for folder in (site, art):
+        folder.mkdir(parents=True, exist_ok=True)
     for name in orphans:
-        (site / name).unlink()
+        (ROOT / name).unlink()
     for name, content in files.items():
-        (site / name).write_text(content, encoding='utf-8')
-    print('Site written: ' + ', '.join(f'site/{name}' for name in sorted(files)))
+        (ROOT / name).write_text(content, encoding='utf-8')
+    print('Site written: ' + ', '.join(name for name in sorted(files) if name.startswith('site/')))
+    print(f'README art written: {sum(1 for name in files if name.startswith(readme.OUT))} files in {readme.OUT}/')
     return 0
 
 

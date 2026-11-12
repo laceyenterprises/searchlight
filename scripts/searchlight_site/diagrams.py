@@ -410,7 +410,7 @@ def _sequence_words(seq: Sequence) -> str:
     return '; '.join(f'{names[s]} to {names[d]}: {label}' for s, d, label, _ in seq.messages) + f'. {seq.note}'
 
 
-# ---------------------------------------------------------------- the five diagrams
+# ---------------------------------------------------------------- the diagrams
 
 L, R, F = (22, 148), (190, 148), (12, 336)  # tall columns: left, right, full width
 C = (44, 300)  # a single column with room for a rail on its left
@@ -530,7 +530,34 @@ GRADING = Sequence(
     'Pass = right decision AND recall ≥ 0.7 AND unsupported ≤ 0.25',
 )
 
-DIAGRAMS = {d.name: d for d in (PIPELINE, ISOLATION, CALIBRATION, DIRECT)}
+INSIGHT = Diagram(
+    'insight', 'How an insight study works',
+    [Node('S', 'pre-registered', 'Question set', ['`catalogs/insight/*.json']),
+     Node('P', 'setup', 'Frozen request profiles', ['`config/insight/profiles/'], tall=['one per service']),
+     Node('W', 'query', 'Shared query-writer', ['once per question, stored']),
+     Node('R', 'run', '`sew insight run', ['every question × every service, same day; spend ledger, resumable'],
+          tall=['every question × every service, same day']),
+     Node('C', 'results-list', 'Cells', ['request, raw response, cost, latency'], 'st'),
+     Node('E', 'filter', 'Extract', ['one fixed model: atomic claims, each with its source URL'],
+          tall=['atomic claims with their sources']),
+     Node('K', 'overlap', 'Cluster', ['per question: lexical prefilter, then model equivalence'],
+          tall=['the same finding, pooled per question']),
+     Node('V', 'verified', 'Verify', ['each claim on the page it cites']),
+     Node('J', 'blind', 'Value 0–3', ['verified clusters, blind, in a seeded shuffle']),
+     Node('T', 'report', '`sew insight report', ['unique verified insight per service'], 'st')],
+    [('S', 'W', '', False, None), ('P', 'W', '', False, None), ('W', 'R', '', False, None), ('R', 'C', '', False, None),
+     ('C', 'E', '', False, None), ('E', 'K', '', False, None), ('K', 'V', '', False, None), ('V', 'J', '', False, None),
+     ('J', 'T', '', False, None)],
+    [('Grading: one extractor, a blind judge', ['E', 'K', 'V', 'J'], {'tall': 'Grading'})],
+    wide=[[('S', 12, 190), ('W', 252, 196, 2), ('R', 498, 214, 2), ('C', 762, 186, 2)],
+          [('P', 12, 190)],
+          [('J', 12, 190), ('V', 252, 196), ('K', 498, 214), ('E', 762, 186)],
+          [('T', 12, 190)]],
+    tall=[[('S', *L), ('P', *R)], [('W', *C)], [('R', *C)], [('C', *C)], [('E', *C)], [('K', *C)], [('V', *C)],
+          [('J', *C)], [('T', *C)]],
+)
+
+DIAGRAMS = {d.name: d for d in (PIPELINE, ISOLATION, CALIBRATION, DIRECT, INSIGHT)}
 
 
 def figure(name: str) -> str:
