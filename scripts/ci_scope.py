@@ -8,11 +8,21 @@ from pathlib import PurePosixPath
 
 
 def documentation_only(paths: list[str]) -> bool:
-    """Only published prose/data can omit the suite; unknown paths run it."""
+    """Only publication-gated prose/data can omit the suite.
+
+    Report code, raw data and reproduction inputs have additional suite-only
+    integrity checks, as does the generated architecture index.
+    """
     return bool(paths) and all(
-        (path.startswith("docs/") and PurePosixPath(path).suffix == ".md")
+        (
+            path.startswith("docs/")
+            and not path.startswith("docs/architecture/")
+            and PurePosixPath(path).suffix == ".md"
+        )
         or (
             path.startswith("reports/")
+            and not {"code", "data"}.intersection(PurePosixPath(path).parts[1:-1])
+            and PurePosixPath(path).name not in {"reproduce.md", "suite.yaml"}
             and PurePosixPath(path).suffix in {".md", ".json", ".yaml", ".yml", ".png"}
         )
         for path in paths
