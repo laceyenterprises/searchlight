@@ -21,6 +21,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* Surfaces and ink */
   --paper: #FFFFFF;
   --soft: #F4F6F9;
+  --raised: #FFFFFF;    /* a card on the soft ground */
   --rule: #E3E7EC;
   --ink: #111111;
   --ink-2: #4F5761;
@@ -75,7 +76,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+    --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
     --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
     --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
     --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
@@ -86,7 +87,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 :root[data-theme="dark"] {
-  --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+  --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
   --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
   --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
   --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
@@ -97,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 /* Searchlight site styles. Every colour, font, space and radius comes from design/tokens.css, which the
    generator inlines ahead of this file. Phone first: nothing under 14 px, no horizontal page scroll. */
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:150px}
 body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.55 var(--font-body);-webkit-font-smoothing:antialiased;
 overflow-wrap:break-word}
 a{color:var(--blue-ink);text-underline-offset:3px}
@@ -115,30 +116,30 @@ a:hover{text-decoration-thickness:2px}
 /* Header: the brand is generous; the bar shows from 860 px, the menu below that. */
 /* A solid ground: a backdrop filter would trap the fixed menu panel inside the header. */
 .top{position:sticky;top:0;z-index:10;background:var(--paper);border-bottom:1px solid var(--rule)}
-.top .wrap{display:flex;align-items:center;gap:16px;min-height:68px}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:72px}
 .brand{display:inline-flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;margin-right:auto}
-.brand .mark{width:40px;height:40px;flex:none}
-.brand .word{font-size:23px;font-weight:700;letter-spacing:-.03em;line-height:1}
-.bar{display:none;align-items:center;gap:4px}
-.bar a{padding:9px 14px;border-radius:999px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500}
-.bar a:hover{background:var(--soft)}
-.bar a[aria-current=page]{background:var(--ink);color:var(--paper);font-weight:600}
-.bar a.gh{border:1.5px solid var(--rule);margin-left:8px}
+.brand .mark{width:44px;height:44px;flex:none}
+.brand .word{font-size:28px;font-weight:700;letter-spacing:-.035em;line-height:1}
+.navbar{display:none;align-items:center;gap:4px}
+.navbar a{padding:9px 14px;border-radius:999px;color:var(--ink);text-decoration:none;font-size:16px;font-weight:500}
+.navbar a:hover{background:var(--soft)}
+.navbar a[aria-current]{background:var(--ink);color:var(--paper);font-weight:600}
+.navbar a.gh{border:1.5px solid var(--rule);margin-left:8px}
 .menu{position:relative}
 .menu summary{list-style:none;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:14px;
 border:1.5px solid var(--rule);cursor:pointer;color:var(--ink)}
 .menu summary::-webkit-details-marker{display:none}
 .menu summary .g{width:26px;height:26px}
 .menu .close{display:none}.menu[open] .open{display:none}.menu[open] .close{display:block}
-.panel{position:fixed;left:0;right:0;top:68px;bottom:0;overflow-y:auto;background:var(--paper);padding:4px 20px 32px;
+.navpanel{position:fixed;left:0;right:0;top:72px;bottom:0;overflow-y:auto;background:var(--paper);padding:4px 20px 32px;
 border-top:1px solid var(--rule)}
-.panel a{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid var(--rule);color:var(--ink);
+.navpanel a{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid var(--rule);color:var(--ink);
 text-decoration:none;font-size:19px;font-weight:500}
-.panel a .g{width:28px;height:28px;color:var(--ink)}
-.panel a[aria-current=page]{font-weight:700}.panel a[aria-current=page] .g{color:var(--blue)}
-.panel .sub{margin:22px 0 4px;font:500 14px/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.panel .sub+a,.panel a.small{font-size:17px;min-height:52px}
-@media (min-width:860px){.bar{display:flex}.menu{display:none}}
+.navpanel a .g{width:28px;height:28px;color:var(--ink)}
+.navpanel a[aria-current=page]{font-weight:700}.navpanel a[aria-current=page] .g{color:var(--blue)}
+.navpanel .sub{margin:22px 0 4px;font:500 14px/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.navpanel .sub+a,.navpanel a.small{font-size:17px;min-height:52px}
+@media (min-width:860px){.navbar{display:flex}.menu{display:none}}
 
 /* Type */
 h1,h2,h3{margin:0;line-height:1.1;text-wrap:balance;font-family:var(--font-display)}
@@ -174,10 +175,18 @@ font-size:17px;font-weight:600;text-decoration:none;border:0;cursor:pointer;back
 display:grid;gap:28px;align-items:center;overflow:hidden}
 .hero .eyebrow{color:var(--night-mute)}
 .hero h1{max-width:15ch}
-.hero .answer{margin-top:20px;font-size:clamp(18px,1.8vw,22px);line-height:1.5;color:var(--night-fg);max-width:40ch}
+.hero .what{margin-top:20px;font-size:clamp(18px,1.8vw,21px);line-height:1.5;color:var(--night-mute);max-width:42ch}
+.hero .answer{margin-top:14px;font-size:clamp(18px,1.8vw,22px);line-height:1.5;color:var(--night-fg);max-width:40ch}
 .hero .answer b{color:#7DBBFF;font-weight:700}
 .hero .btn{margin-top:28px;background:#3D9BFF;color:#06111F}
-.beamart{width:100%;max-width:420px;justify-self:center}
+.beamart{width:100%;max-width:480px;justify-self:center}
+.latest{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin-top:12px;padding:14px 18px;border:1px solid var(--rule);border-radius:var(--radius-lg);color:var(--ink);text-decoration:none;background:var(--paper)}
+.latest:hover{border-color:var(--ink-2)}
+.latest .tag{font:600 14px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--on-blue);background:var(--blue-ink);border-radius:999px;padding:5px 10px}
+.latest .when{font:500 14px/1 var(--font-mono);color:var(--muted)}
+.latest .t{font-weight:650}
+.latest .m{color:var(--muted);font-size:15px}
+.latest::after{content:"\2192";margin-left:auto;color:var(--blue-ink);font-weight:700}
 @media (min-width:900px){.hero{grid-template-columns:1.25fr 1fr}}
 
 /* Big number */
@@ -187,28 +196,30 @@ display:grid;gap:28px;align-items:center;overflow:hidden}
 /* Findings list on the overview */
 .takeaways{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule)}
 .takeaways li{border-bottom:1px solid var(--rule)}
-.takeaways a{display:grid;grid-template-columns:240px minmax(0,1fr);gap:4px 28px;align-items:center;padding:22px 0;color:var(--ink);text-decoration:none}
-.takeaways .k{grid-column:1;grid-row:1/3;font-size:clamp(28px,4vw,40px);font-weight:750;letter-spacing:-.03em;color:var(--blue-ink);
+.takeaways a{display:grid;grid-template-columns:300px minmax(0,1fr);gap:6px 28px;align-items:baseline;padding:22px 0;color:var(--ink);text-decoration:none}
+.takeaways .k{grid-column:1;grid-row:1;font-size:clamp(28px,4vw,40px);font-weight:750;letter-spacing:-.03em;color:var(--blue-ink);
 font-variant-numeric:tabular-nums;white-space:nowrap}
-.takeaways .t{grid-column:2;font-weight:650;font-size:19px;line-height:1.3}
-.takeaways .d{grid-column:2;color:var(--ink-2);font-size:16px}
+.takeaways .t{grid-column:2;grid-row:1;font-weight:650;font-size:20px;line-height:1.3}
+.takeaways .d{grid-column:2;grid-row:2;color:var(--ink-2);font-size:16px}
 .takeaways a:hover .t{text-decoration:underline}
 @media (max-width:620px){.takeaways a{grid-template-columns:1fr}.takeaways .k,.takeaways .t,.takeaways .d{grid-column:1;grid-row:auto}}
 
 /* Concept tiles: learn in 60 seconds */
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media (min-width:760px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.tile{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:104px;padding:16px;border:1.5px solid var(--rule);
-border-radius:var(--radius-lg);background:var(--paper);color:var(--ink);text-decoration:none;font-weight:650;font-size:17px;line-height:1.25}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:16px;border:1.5px solid var(--rule);
+border-radius:var(--radius-lg);background:var(--raised);color:var(--ink);text-decoration:none;line-height:1.3}
+.tile b{font-size:17px;font-weight:650}
+.tile span{font-size:15px;color:var(--ink-2);line-height:1.4}
 .tile .g{width:32px;height:32px}
 .tile:hover{border-color:var(--ink-2)}
 .tile[aria-selected=true]{border-color:var(--blue);background:var(--blue-soft)}
 .concepts{margin-top:14px;display:grid;gap:10px}
 .concept{background:var(--soft);border-radius:var(--radius-lg);padding:22px}
-.band.soft .concept,.band.soft .tile{background:var(--paper)}
+.band.soft .concept,.band.soft .tile,.band.soft .card,.band.soft .term,.band.soft .readme{background:var(--raised)}
 .concept h3{display:flex;align-items:center;gap:12px}
 .concept p{margin-top:8px;color:var(--ink-2);max-width:68ch}
-.concept p.one{color:var(--ink);font-weight:500}
+.concept p.one{display:none}
 html.js .concept[hidden]{display:none}
 
 /* How to read these results */
@@ -243,26 +254,39 @@ color:var(--ink);text-decoration:none}
 .reports .d{grid-column:2;color:var(--ink-2);font-size:16px}
 .reports .when{grid-row:1;grid-column:3;font:500 14px/1.3 var(--font-mono);color:var(--muted);white-space:nowrap}
 .reports a.row-link:hover .t{text-decoration:underline}
-@media (max-width:620px){.reports .when{grid-column:2;grid-row:auto}}
+@media (max-width:620px){.reports .when{grid-column:2;grid-row:auto;white-space:normal}}
+
+/* The record on the results page: one line per report */
+.reports.compact a.row-link{grid-template-columns:minmax(0,1fr) auto;padding:14px 0}
+.reports.compact .g{display:none}
+.reports.runs a.row-link{grid-template-columns:minmax(0,1fr) auto}.reports.runs .t{grid-column:1}.reports.runs .d{grid-column:1/-1}
+.reports.compact .t{grid-column:1;font-size:17px}.reports.compact .when{grid-column:2;grid-row:1}
+.reports.compact .d{grid-column:1/-1;grid-row:2}
+@media (max-width:620px){.reports.compact a.row-link{grid-template-columns:1fr;gap:2px}.reports.compact .when,.reports.compact .d{grid-column:1;grid-row:auto}}
 
 /* Findings on the results page */
 .finding{padding-block:clamp(36px,5vw,56px);border-top:1px solid var(--rule)}
 .finding:first-of-type{border-top:0}
 .finding>.head{display:grid;gap:10px;max-width:760px}
-.finding .so{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:16px 18px;border-radius:var(--radius-md);
-background:var(--blue-soft);color:var(--ink);max-width:760px}
+.finding .so{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:2px 0 2px 14px;border-left:3px solid var(--blue);
+color:var(--ink);max-width:760px}
 .finding .so .g{color:var(--blue-ink);margin-top:1px}
 
-/* Filter bar */
-.filters{background:var(--paper);border-block:1px solid var(--rule);padding:12px 0;margin-top:8px}
-.filters label.wide{grid-column:1/-1}
-.filters .wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.filters label{display:flex;flex-direction:column;gap:4px;font:500 14px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.filters select{font:600 16px/1.2 var(--font-body);color:var(--ink);background:var(--paper);border:1.5px solid var(--rule);
-border-radius:var(--radius-md);padding:10px 12px;min-height:46px;width:100%;letter-spacing:0;text-transform:none}
-.filters .count{grid-column:1/-1;font-size:15px;color:var(--muted)}
-@media (min-width:860px){.filters{position:sticky;top:68px;z-index:5}.filters .wrap{grid-template-columns:minmax(0,1fr) minmax(0,.8fr) minmax(0,1.6fr) minmax(0,1fr) auto;align-items:end}
-.filters label.wide{grid-column:auto}.filters .count{grid-column:auto;padding-bottom:12px}}
+/* Filter bar: one row of chips per question, on a shared baseline; each row scrolls sideways on phones */
+.filters{background:var(--paper);border-block:1px solid var(--rule);padding:10px 0;margin-top:8px}
+.filters .wrap{display:grid;gap:8px}
+.seg{border:0;margin:0;padding:0;min-width:0;display:grid;grid-template-columns:110px minmax(0,1fr);align-items:center;gap:12px}
+.seg legend{float:left;padding:0;font:500 14px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.seg .opts{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.seg .opts::-webkit-scrollbar{display:none}
+.seg label{flex:none;position:relative}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border:1.5px solid var(--rule);border-radius:999px;
+font-size:15px;font-weight:550;color:var(--ink-2);white-space:nowrap;cursor:pointer;background:var(--paper)}
+.seg input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.seg input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+@media (max-width:620px){.seg{grid-template-columns:100px minmax(0,1fr);gap:6px}.seg span{min-height:36px;padding:0 12px}}
+@media (min-width:860px){.filters{position:sticky;top:72px;z-index:5}}
 .empty{padding:24px;border:1.5px dashed var(--rule);border-radius:var(--radius-lg);color:var(--muted);margin-top:16px}
 
 /* Boards: ranked rows with a big number, a 95% range and n */
@@ -282,15 +306,17 @@ padding:14px 0;border-bottom:1px solid var(--rule)}
 .row:last-child{border-bottom:0}
 .row .rk{grid-area:rk;align-self:start;font:600 15px/1.9 var(--font-mono);color:var(--muted);text-align:right}
 .row .nm{grid-area:nm;min-width:0;font-weight:650;font-size:18px;line-height:1.3}
+.row .name{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}
 .row .nm small{display:block;font-weight:400;font-size:14px;color:var(--muted);margin-top:2px}
 .row .pc{grid-area:pc;text-align:right;font-size:30px;font-weight:750;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
 .row .tr{grid-area:tr}
 .row .nn{grid-area:nn;align-self:center;text-align:right;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.3}
 .row .nn b{display:block;color:var(--ink-2);font-weight:500}
+.row .nn .k{display:block}
 .row.ctl .pc{color:var(--ink-2)}
 .row.ctl .nm{font-weight:500;color:var(--ink-2)}
 .chip{display:inline-flex;align-items:center;gap:6px;font:600 14px/1.2 var(--font-body);border-radius:999px;padding:3px 10px;
-background:var(--blue-soft);color:var(--blue-ink);vertical-align:2px;margin-left:6px;white-space:nowrap}
+background:var(--blue-soft);color:var(--blue-ink);white-space:nowrap}
 .chip.ctl{background:var(--soft);color:var(--ink-2)}
 .row .tr{display:block;min-width:0}
 .track{display:block;position:relative;height:14px;border-radius:7px;background:var(--viz-track)}
@@ -303,8 +329,18 @@ background:var(--blue-soft);color:var(--blue-ink);vertical-align:2px;margin-left
 .track .tick{position:absolute;top:-6px;bottom:-6px;width:0;border-left:3px solid var(--viz-ref)}
 .board>.bfoot{padding:8px 0 8px;margin-top:4px}
 @media (max-width:620px){
-.board{padding:16px 16px 6px}
-.row,.scale{grid-template-columns:22px minmax(0,1fr) minmax(84px,auto);gap:6px 10px}
+.board{padding:14px 14px 4px}
+.board>header p{font-size:15px}
+.row{padding:10px 0}
+.row .nm small{display:none}
+h1{font-size:32px}
+.legend{font-size:14px;gap:6px 14px}
+.row .nn{font-size:14px}.row .nn b{display:inline}.row .nn .k{display:none}
+.finding{padding-block:24px}
+h2{font-size:25px}
+
+.finding>.head{gap:8px}
+.row,.scale{grid-template-columns:22px minmax(0,1fr) minmax(84px,auto);gap:4px 10px}
 .row .nn{white-space:nowrap}
 .row .pc{font-size:28px}
 }
@@ -314,10 +350,13 @@ background:var(--blue-soft);color:var(--blue-ink);vertical-align:2px;margin-left
 .notes details.note[open]{flex-basis:100%}
 details.note{display:inline;font-size:15px}
 details.note>summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;font:600 14px/1.2 var(--font-body);
-color:var(--amber-ink);background:var(--amber-soft);border-radius:999px;padding:3px 10px 3px 6px;margin-top:6px}
+color:var(--amber-ink);background:var(--amber-soft);border-radius:999px;padding:3px 10px 3px 6px}
+details.note.neutral>summary{color:var(--ink-2);background:var(--soft)}
+.row details.note[open]{flex-basis:100%}
 details.note>summary::-webkit-details-marker{display:none}
 details.note>summary .g{width:18px;height:18px}
 details.note[open]>summary{margin-bottom:6px}
+.notes{margin-top:4px}
 details.note>div{display:block;font-weight:400;font-size:15px;line-height:1.45;color:var(--ink-2);padding:10px 12px;border-left:3px solid var(--amber);
 background:var(--soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0;max-width:60ch}
 details.more-info{margin-top:8px}
@@ -333,6 +372,15 @@ details.more-info p{margin:8px 0;color:var(--ink-2);font-size:16px}
 .legend .k-bar{width:26px;height:14px;border-radius:7px;background:var(--blue)}
 .legend .k-tick{width:0;height:20px;border-left:3px solid var(--viz-ref)}
 .legend .k-ci{width:26px;height:14px;border-radius:7px;background:var(--viz-interval)}
+.legend .k-pt{width:14px;height:14px;border-radius:50%;background:var(--blue)}
+.legend .k-lb{width:0;height:20px;border-left:2px dashed var(--ink-2)}
+.finding>.legend,.wrap>.legend{margin:20px 0 -4px}
+details.allrows>summary{cursor:pointer;display:flex;align-items:center;gap:8px;min-height:48px;font-weight:600;color:var(--blue-ink);
+border-top:1px solid var(--rule)}
+details.allrows>summary::after{content:"\25BE";font-size:14px}details.allrows[open]>summary::after{content:"\25B4"}
+details.allrows>summary::-webkit-details-marker{display:none}
+details.allrows{list-style:none}
+.measures+details.allrows{margin-top:12px}
 .dumb .track .span{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--blue)}
 .dumb .track .dot{background:var(--viz-ref)}
 .dumb .row .pc{font-size:26px}
@@ -343,6 +391,8 @@ details.more-info p{margin:8px 0;color:var(--ink-2);font-size:16px}
 /* Stat tiles */
 .stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin-top:24px}
 .stat{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;gap:10px}
+@media (max-width:620px){.stats{gap:0;border-top:1px solid var(--rule)}.stat{display:grid;grid-template-columns:minmax(0,40%) minmax(0,1fr);
+align-items:baseline;gap:12px;border:0;border-bottom:1px solid var(--rule);border-radius:0;padding:14px 0}.stat .big{font-size:26px;white-space:nowrap}.stat p{font-size:15px}}
 .stat .big{font-size:clamp(36px,4.6vw,48px);color:var(--blue-ink)}
 .stat p{color:var(--ink-2);font-size:16px}
 
@@ -359,6 +409,22 @@ details.more-info p{margin:8px 0;color:var(--ink-2);font-size:16px}
 .bars li.lead{font-weight:650}
 .bars .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:650}
 .bars .na{font-size:14px;color:var(--muted);text-align:right;white-space:nowrap}
+
+/* Studies: the photo finish, then the ranking */
+.study{padding-block:28px 40px;border-top:1px solid var(--rule)}
+.study:first-of-type{border-top:0}
+.study h2 a{color:var(--ink);text-decoration:none}.study h2 a:hover{text-decoration:underline}
+.study>p.muted{margin-top:8px}
+.finish{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.finish li{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:18px;background:var(--paper);display:grid;gap:6px;align-content:start}
+.finish .q{font:500 14px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.finish .who{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.finish .big{font-size:40px;font-weight:750;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;color:var(--blue-ink)}
+.finish .big small{font-size:16px;font-weight:500;letter-spacing:0;color:var(--muted);margin-left:6px}
+.finish .ctx{font-size:15px;color:var(--ink-2)}
+.study .board{margin-top:16px}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:20px}
+.dash{margin-bottom:24px}
 
 /* Walkthrough: how a test works */
 .steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
@@ -388,6 +454,26 @@ html.js .steps.paged .step[hidden]{display:none}
 .explorer .track{height:18px;border-radius:9px}
 .explorer .track .dot{width:18px;height:18px;margin:-9px 0 0 -9px}
 .explorer .axis{display:flex;justify-content:space-between;font:500 14px/1 var(--font-mono);color:var(--muted)}
+
+/* Methodology: step lists on phones, diagrams on wider screens; provider cards; a compact glossary */
+.steplist{display:none;margin:14px 0;padding:0;list-style:none;counter-reset:st}
+.steplist li{counter-increment:st;position:relative;padding:10px 0 10px 44px;border-bottom:1px solid var(--rule);color:var(--ink);max-width:none}
+.steplist li::before{content:counter(st);position:absolute;left:0;top:9px;width:28px;height:28px;border-radius:50%;background:var(--blue-soft);
+color:var(--blue-ink);font:600 14px/28px var(--font-mono);text-align:center}
+@media (max-width:760px){.steplist{display:block}.diagram{display:none}}
+.pcards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));margin-top:16px}
+.pcard{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:16px 18px}
+.doc .pcard h3{margin:0 0 4px;font-size:18px}.doc .pcard p{margin:4px 0;color:var(--ink-2);font-size:15px}
+.doc .pcard details.more-info{margin-top:4px}.doc .pcard details.more-info>summary{min-height:36px}
+.pcard .ver code{overflow-wrap:anywhere}
+.pcard .tools{display:flex;flex-wrap:wrap;gap:6px}
+.glossary{display:grid;gap:0 32px;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));margin-top:12px}
+.gl{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.gl .g{width:28px;height:28px;margin-top:2px}
+.gl b{font-size:17px}.gl .alias{font:500 14px/1.4 var(--font-mono);color:var(--muted);margin-left:6px}
+.doc .gl p{margin:4px 0 0;color:var(--ink-2);font-size:16px}
+@media (max-width:620px){pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.steps.strip{gap:0}.steps.strip .step{border:0;border-bottom:1px solid var(--rule);border-radius:0;padding:14px 0;gap:4px}}
 
 /* Glossary */
 .terms{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
@@ -424,20 +510,23 @@ code{font-family:var(--font-mono);font-size:.88em;background:var(--soft);padding
 pre{font-family:var(--font-mono);font-size:14px;background:var(--soft);border-radius:var(--radius-md);padding:16px;overflow-x:auto;line-height:1.5}
 pre code{background:none;padding:0}
 .diagram{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px;margin:14px 0;background:var(--paper)}
-.diagram svg{min-width:560px}
+.diagram svg{max-width:none!important;height:auto}
 pre.mermaid{background:none;padding:0;margin:0;font-size:.85rem;text-align:center}
 .files{font-size:15px;color:var(--muted);margin-top:12px}
 
+/* How to read: one line everywhere but Learn */
+.readlink{margin:14px 0 0}
 /* Footer */
 main>:last-child:not(.band){padding-bottom:72px}
-.foot{margin-top:0;border-top:1px solid var(--rule);background:var(--soft);padding-block:40px 32px;font-size:16px;color:var(--ink-2)}
-.foot .brand .mark{width:32px;height:32px}.foot .brand .word{font-size:19px}
-.foot-grid{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));margin-top:20px}
-.foot h4{margin:0 0 8px;font:500 14px/1.3 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.foot p{margin:0 0 6px}
+.foot{margin-top:0;border-top:1px solid var(--rule);background:var(--soft);padding-block:32px 28px;font-size:16px;color:var(--ink-2)}
+.foot .brand .mark{width:32px;height:32px}.foot .brand .word{font-size:20px}
+.foot-top{display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 22px}
+.foot-links a{color:var(--ink);text-decoration:none;font-size:16px}
+@media (max-width:620px){.foot-links{gap:6px 16px}.foot{padding-block:24px}}.foot-links a:hover{text-decoration:underline}
 .foot a{color:var(--ink)}
-.foot-base{margin-top:32px;padding-top:18px;border-top:1px solid var(--rule);font-size:15px}
-.foot-base p{margin-top:8px}
+.foot-base{margin-top:24px;padding-top:16px;border-top:1px solid var(--rule);font-size:15px;color:var(--muted)}
+.foot-base p{margin-top:6px}
 
 /* Wide boards: one row per setup */
 @container (min-width:620px){
@@ -506,9 +595,9 @@ main>:last-child:not(.band){padding-bottom:72px}
 <symbol id="logo-tile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt" stroke-linejoin="miter"><rect x="1" y="1" width="22" height="22" rx="5" fill="currentColor" stroke="none"/><path d="M6 18L10.4 1.58A17 17 0 0 1 22.42 13.6z" stroke="none" style="fill:var(--sl-accent, currentColor)"/><circle cx="6" cy="18" r="3.2" stroke="none" style="fill:var(--paper, #FFFFFF)"/></symbol>
 </svg>
 <a class="skip" href="#main">Skip to content</a>
-<header class="top"><div class="wrap"><a class="brand" href="index.html" aria-label="Searchlight home"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><nav class="bar" aria-label="Site"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="studies.html">Studies</a><a href="learn.html">Learn</a><a href="methodology.html">Methodology</a><a class="gh" href="https://github.com/laceyenterprises/searchlight">GitHub</a></nav><details class="menu"><summary aria-label="Menu"><svg class="g open" aria-hidden="true" focusable="false"><use href="#menu-open"/></svg><svg class="g close" aria-hidden="true" focusable="false"><use href="#menu-close"/></svg></summary><nav class="panel" aria-label="Site menu"><a href="index.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#beam"/></svg>Overview</a><a href="results.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#ranking"/></svg>Results</a><a href="studies.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Studies</a><a href="learn.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#learn"/></svg>Learn</a><a href="methodology.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#method"/></svg>Methodology</a><p class="sub">Reports and studies</p><a class="small" href="study-2026-11-11-software-factory-insight-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Leading software factories and agent-platform architectures</a><a class="small" href="report-2026-10-06-search-gap-replication.html" aria-current="page"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench replication</a><a class="small" href="report-2026-10-05-agent-search-behavior.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>How agents used search</a><a class="small" href="report-2026-10-03-search-gap-bench.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench</a><a class="small" href="report-2026-09-29-web-search-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Web search bakeoff</a><a class="small" href="report-2026-09-26-search-api-head-to-head.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search API head-to-head</a><a class="small" href="https://github.com/laceyenterprises/searchlight"><svg class="g" aria-hidden="true" focusable="false"><use href="#open-source"/></svg>Source on GitHub</a></nav></details></div></header>
+<header class="top"><div class="wrap"><a class="brand" href="index.html" aria-label="Searchlight home"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><nav class="navbar" aria-label="Site"><a href="index.html">Overview</a><a href="results.html" aria-current="true">Results</a><a href="studies.html">Studies</a><a href="learn.html">Learn</a><a href="methodology.html">Methodology</a><a class="gh" href="https://github.com/laceyenterprises/searchlight">GitHub</a></nav><details class="menu"><summary aria-label="Menu"><svg class="g open" aria-hidden="true" focusable="false"><use href="#menu-open"/></svg><svg class="g close" aria-hidden="true" focusable="false"><use href="#menu-close"/></svg></summary><nav class="navpanel" aria-label="Site menu"><a href="index.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#beam"/></svg>Overview</a><a href="results.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#ranking"/></svg>Results</a><a href="studies.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Studies</a><a href="learn.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#learn"/></svg>Learn</a><a href="methodology.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#method"/></svg>Methodology</a><p class="sub">Reports and studies</p><a class="small" href="study-2026-11-11-software-factory-insight-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Leading software factories and agent-platform architectures</a><a class="small" href="report-2026-10-06-search-gap-replication.html" aria-current="page"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench replication</a><a class="small" href="report-2026-10-05-agent-search-behavior.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>How agents used search</a><a class="small" href="report-2026-10-03-search-gap-bench.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench</a><a class="small" href="report-2026-09-29-web-search-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Web search bakeoff</a><a class="small" href="report-2026-09-26-search-api-head-to-head.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search API head-to-head</a><a class="small" href="https://github.com/laceyenterprises/searchlight"><svg class="g" aria-hidden="true" focusable="false"><use href="#open-source"/></svg>Source on GitHub</a></nav></details></div></header>
 <main id="main">
-<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results</a><span aria-hidden="true">›</span><span>Search gap bench replication</span></nav><p class="eyebrow" style="margin-top:20px"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench · 2026-10-06</p><h1>Search gap bench replication</h1><p class="lede">With any search setup, Claude Code passed 62–83% of briefs about recent events; with no search, 0%.</p></div><div class="wrap"><div class="boards"><section class="board" id="board-gap-claude-code-2026-10-06" data-f-group data-agent="claude-code" data-bench="2026-10-06-search-gap-replication" data-providers="brave exa firecrawl native parallel-web perplexity tavily"><header><h3>Claude Code <span class=model>claude-opus-5-5</span></h3><p>24 runs per setup · Search gap bench replication · 2026-10-06</p><p class="says">Firecrawl passed most often: 20 of 24 runs. Every other setup&#x27;s range overlaps it: a tie.</p></header><div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div><ol class="rows"><li class="row" id="r-gap-claude-code-2026-10-06-firecrawl" data-rank="1" data-sort-label="firecrawl"><span class="rk">1</span><span class="nm">Firecrawl<span class="chip">leader</span><small>141k tokens per pass</small></span><span class="pc">83%</span><span class="tr"><span class="track" role="img" aria-label="Firecrawl: 83% passed, 20 of 24 runs; 95% range 64 to 93%"><span class="ci" style="left:64.0%;width:29.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:83.0%"></span></span></span><span class="nn"><b>64–93%</b>20 of 24</span></li><li class="row" id="r-gap-claude-code-2026-10-06-exa" data-rank="2" data-sort-label="exa"><span class="rk">2</span><span class="nm">Exa<small>89k tokens per pass</small></span><span class="pc">79%</span><span class="tr"><span class="track" role="img" aria-label="Exa: 79% passed, 19 of 24 runs; 95% range 60 to 91%"><span class="ci" style="left:60.0%;width:31.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:79.0%"></span></span></span><span class="nn"><b>60–91%</b>19 of 24</span></li><li class="row ctl" id="r-gap-claude-code-2026-10-06-native" data-rank="3" data-sort-label="built-in"><span class="rk">3</span><span class="nm">Built-in<small>55k tokens per pass</small></span><span class="pc">75%</span><span class="tr"><span class="track" role="img" aria-label="Built-in: 75% passed, 18 of 24 runs; 95% range 55 to 88%"><span class="ci" style="left:55.0%;width:33.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:75.0%"></span></span></span><span class="nn"><b>55–88%</b>18 of 24</span></li><li class="row" id="r-gap-claude-code-2026-10-06-parallel-web" data-rank="4" data-sort-label="parallel"><span class="rk">4</span><span class="nm">Parallel<small>90k tokens per pass</small></span><span class="pc">75%</span><span class="tr"><span class="track" role="img" aria-label="Parallel: 75% passed, 18 of 24 runs; 95% range 55 to 88%"><span class="ci" style="left:55.0%;width:33.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:75.0%"></span></span></span><span class="nn"><b>55–88%</b>18 of 24</span></li><li class="row" id="r-gap-claude-code-2026-10-06-perplexity" data-rank="5" data-sort-label="perplexity"><span class="rk">5</span><span class="nm">Perplexity<small>72k tokens per pass</small></span><span class="pc">75%</span><span class="tr"><span class="track" role="img" aria-label="Perplexity: 75% passed, 18 of 24 runs; 95% range 55 to 88%"><span class="ci" style="left:55.0%;width:33.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:75.0%"></span></span></span><span class="nn"><b>55–88%</b>18 of 24</span></li><li class="row" id="r-gap-claude-code-2026-10-06-brave" data-rank="6" data-sort-label="brave"><span class="rk">6</span><span class="nm">Brave<small>105k tokens per pass</small></span><span class="pc">71%</span><span class="tr"><span class="track" role="img" aria-label="Brave: 71% passed, 17 of 24 runs; 95% range 51 to 85%"><span class="ci" style="left:51.0%;width:34.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:71.0%"></span></span></span><span class="nn"><b>51–85%</b>17 of 24</span></li><li class="row" id="r-gap-claude-code-2026-10-06-tavily" data-rank="7" data-sort-label="tavily"><span class="rk">7</span><span class="nm">Tavily<small>126k tokens per pass</small></span><span class="pc">62%</span><span class="tr"><span class="track" role="img" aria-label="Tavily: 62% passed, 15 of 24 runs; 95% range 43 to 79%"><span class="ci" style="left:43.0%;width:36.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:62.0%"></span></span></span><span class="nn"><b>43–79%</b>15 of 24</span></li></ol><div class="bfoot"><details class="more-info"><summary>What the numbers mean</summary><p>8 research briefs about events after the model&#x27;s training data, each run 3 times: 24 runs per setup. A brief passes if it reaches the right decision, gets at least 70% of the key facts (important ones count more), and no more than 25% of its claims lack support in the sources it cites.</p><p>For scale: with no search the agent passed 0%; handed an excerpt containing the answer, it passed 92%. The full report gives each setup&#x27;s gap closed: how far it got from 0% toward 92%. Tokens per pass: all tokens used, failed runs included, divided by passing runs.</p><p>Source: <a href="report-2026-10-06-search-gap-replication.html">Search gap bench replication</a>; ranges are 95% Wilson intervals, as published.</p></details></div></section></div><div style="margin-top:28px"><aside class="readme" aria-label="How to read these results"><svg class="g s32" aria-hidden="true" focusable="false"><use href="#method"/></svg><div><h3>How to read these results</h3><p>A narrow measurement: a fixed set of jobs on the agents and settings named, not a ranking of any provider or product as a whole. Different jobs, agents or settings can give a different order.</p><p class="links"><a class="more" href="learn.html">Learn the ideas</a><a class="more" href="methodology.html">Read the method</a></p></div></aside></div></div><div class="wrap doc" style="margin-top:32px"><details class="full" id="run-2026-10-06-search-gap-replication"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>The full report</summary><div class="body"><h3 id="2026-10-06-search-gap-replication-gap-replication-on-claude-code-2026-10-06-the-search-gap-bench-run-again">GAP replication on Claude Code, 2026-10-06: the search gap bench, run again</h3>
+<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results</a><span aria-hidden="true">›</span><span>Search gap bench replication</span></nav><p class="eyebrow" style="margin-top:20px"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench · 2026-10-06</p><h1>Search gap bench replication</h1><p class="lede">With any search setup, Claude Code passed 62–83% of briefs about recent events; with no search, 0%.</p></div><div class="wrap"><p class="readlink"><a class="more" href="learn.html#read">How to read these numbers</a></p><div class="legend" aria-hidden="true"><span><i class="k-pt"></i>Pass rate</span><span><i class="k-ci"></i>95% range</span><span><i class="k-lb"></i>Where the leader's range starts</span></div><div class="boards"><section class="board" id="board-gap-claude-code-2026-10-06" data-f-group data-agent="claude-code" data-bench="2026-10-06-search-gap-replication" data-providers="brave exa firecrawl native parallel-web perplexity tavily"><header><h3>Claude Code <span class=model>claude-opus-5-5</span></h3><p>24 runs per setup · Search gap bench replication · 2026-10-06</p><p class="says">Firecrawl passed most often: 20 of 24 runs. Every other setup&#x27;s range overlaps it: a tie.</p></header><div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div><ol class="rows"><li class="row" id="r-gap-claude-code-2026-10-06-firecrawl" data-rank="1" data-lead><span class="rk">1</span><span class="nm"><span class="name">Firecrawl<span class="chip">leader</span></span><small>141k tokens per pass</small></span><span class="pc">83%</span><span class="tr"><span class="track" role="img" aria-label="Firecrawl: 83% passed, 20 of 24 runs; 95% range 64 to 93%"><span class="ci" style="left:64.0%;width:29.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:83.0%"></span></span></span><span class="nn"><b>64–93%</b><span class="k">20 of 24</span></span></li><li class="row" id="r-gap-claude-code-2026-10-06-exa" data-rank="2"><span class="rk">2</span><span class="nm"><span class="name">Exa</span><small>89k tokens per pass</small></span><span class="pc">79%</span><span class="tr"><span class="track" role="img" aria-label="Exa: 79% passed, 19 of 24 runs; 95% range 60 to 91%"><span class="ci" style="left:60.0%;width:31.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:79.0%"></span></span></span><span class="nn"><b>60–91%</b><span class="k">19 of 24</span></span></li><li class="row ctl" id="r-gap-claude-code-2026-10-06-native" data-rank="3"><span class="rk">3</span><span class="nm"><span class="name">Built-in</span><small>55k tokens per pass</small></span><span class="pc">75%</span><span class="tr"><span class="track" role="img" aria-label="Built-in: 75% passed, 18 of 24 runs; 95% range 55 to 88%"><span class="ci" style="left:55.0%;width:33.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:75.0%"></span></span></span><span class="nn"><b>55–88%</b><span class="k">18 of 24</span></span></li><li class="row" id="r-gap-claude-code-2026-10-06-parallel-web" data-rank="4"><span class="rk">4</span><span class="nm"><span class="name">Parallel</span><small>90k tokens per pass</small></span><span class="pc">75%</span><span class="tr"><span class="track" role="img" aria-label="Parallel: 75% passed, 18 of 24 runs; 95% range 55 to 88%"><span class="ci" style="left:55.0%;width:33.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:75.0%"></span></span></span><span class="nn"><b>55–88%</b><span class="k">18 of 24</span></span></li><li class="row" id="r-gap-claude-code-2026-10-06-perplexity" data-rank="5"><span class="rk">5</span><span class="nm"><span class="name">Perplexity</span><small>72k tokens per pass</small></span><span class="pc">75%</span><span class="tr"><span class="track" role="img" aria-label="Perplexity: 75% passed, 18 of 24 runs; 95% range 55 to 88%"><span class="ci" style="left:55.0%;width:33.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:75.0%"></span></span></span><span class="nn"><b>55–88%</b><span class="k">18 of 24</span></span></li><li class="row" id="r-gap-claude-code-2026-10-06-brave" data-rank="6"><span class="rk">6</span><span class="nm"><span class="name">Brave</span><small>105k tokens per pass</small></span><span class="pc">71%</span><span class="tr"><span class="track" role="img" aria-label="Brave: 71% passed, 17 of 24 runs; 95% range 51 to 85%"><span class="ci" style="left:51.0%;width:34.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:71.0%"></span></span></span><span class="nn"><b>51–85%</b><span class="k">17 of 24</span></span></li><li class="row" id="r-gap-claude-code-2026-10-06-tavily" data-rank="7"><span class="rk">7</span><span class="nm"><span class="name">Tavily</span><small>126k tokens per pass</small></span><span class="pc">62%</span><span class="tr"><span class="track" role="img" aria-label="Tavily: 62% passed, 15 of 24 runs; 95% range 43 to 79%"><span class="ci" style="left:43.0%;width:36.0%"></span><span class="lb" style="left:64.0%"></span><span class="dot" style="left:62.0%"></span></span></span><span class="nn"><b>43–79%</b><span class="k">15 of 24</span></span></li></ol></section></div><details class="more-info"><summary>What the numbers mean</summary><p>8 research briefs about events after the model&#x27;s training data, each run 3 times: 24 runs per setup. A brief passes if it reaches the right decision, gets at least 70% of the key facts (important ones count more), and no more than 25% of its claims lack support in the sources it cites.</p><p>For scale: with no search the agent passed 0%; handed an excerpt containing the answer, it passed 92%. The full report gives each setup&#x27;s gap closed: how far it got from 0% toward 92%. Tokens per pass: all tokens used, failed runs included, divided by passing runs.</p><p>Source: <a href="report-2026-10-06-search-gap-replication.html">Search gap bench replication</a>; ranges are 95% Wilson intervals, as published.</p></details></div><div class="wrap doc" style="margin-top:32px"><details class="full" id="run-2026-10-06-search-gap-replication"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>The full report</summary><div class="body"><h3 id="2026-10-06-search-gap-replication-gap-replication-on-claude-code-2026-10-06-the-search-gap-bench-run-again">GAP replication on Claude Code, 2026-10-06: the search gap bench, run again</h3>
 <blockquote class="note"><p><strong>Grading note.</strong> These verdicts come from the claude-code primary judge, which decides every verdict in GAP. The codex judge, which only measures agreement, was out of quota during the battery and scored the same stored payloads on 2026-10-07. It disputed 4 of the 211 judged verdicts and agreed on 96% of labels (kappa 0.82); no verdict changed. See <a href="#2026-10-06-search-gap-replication-judge-agreement">judge agreement</a>.</p></blockquote>
 <p>A second, independent Search Gap Bench battery on Claude Code (<code>claude-opus-5-5</code>), run on 2026-10-06 and 2026-10-07 with the apparatus as fixed after the <a href="report-2026-10-03-search-gap-bench.html">2026-10-03 battery</a>: the built-in search setup can open pages, and every provider setup loaded its tool in every run. It repeats that battery's method on the current task catalog: calibrate each brief, keep the tasks with a real knowledge gap, and run every admitted task on nine setups, three times each.</p>
 <p><strong>Headline.</strong></p>
@@ -557,7 +646,7 @@ main>:last-child:not(.band){padding-bottom:72px}
 <p>Statistics are unchanged: Wilson 95% intervals on pass rates, a seeded paired task bootstrap (10,000 resamples) for gap closure, exact McNemar tests against the floor and the built-in setup, and tokens per success counted over all agent tokens in the setup, failures included. The comparison with the 2026-10-03 battery uses two-sided Fisher exact tests on the seven shared briefs, because the two batteries' runs are not paired.</p>
 <p>See <a href="report-2026-10-06-search-gap-replication.html">recorded results</a>, <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-10-06-search-gap-replication/summary.json">summary</a>, <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-10-06-search-gap-replication/calibration.json">admission counts</a> and <a href="https://github.com/laceyenterprises/searchlight/blob/main/reports/2026-10-06-search-gap-replication/reproduce.md">reproduction</a>.</p></div></details><p class="files">Files: <a href="https://github.com/laceyenterprises/searchlight/tree/main/reports/2026-10-06-search-gap-replication">reports/2026-10-06-search-gap-replication/</a></p></div>
 </main>
-<footer class="foot"><div class="wrap"><a class="brand" href="index.html"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><div class="foot-grid"><div><h4>What this is</h4><p>An open benchmark of what web search does for AI agents doing real work.</p><p>A narrow measurement: a fixed set of jobs on the agents and settings named, not a ranking of any provider or product as a whole.</p></div><div><h4>Explore</h4><p><a href="index.html">Overview</a></p><p><a href="results.html">Results</a></p><p><a href="studies.html">Studies</a></p><p><a href="learn.html">Learn</a></p><p><a href="methodology.html">Methodology</a></p></div><div><h4>Source</h4><p><a href="https://github.com/laceyenterprises/searchlight">Searchlight on GitHub</a></p><p><a href="https://github.com/laceyenterprises/searchlight/tree/main/reports">Raw report data</a></p><p>Code, tasks and results: <a href="https://github.com/laceyenterprises/searchlight/blob/main/LICENSE">Apache License 2.0</a>.</p></div><div><h4>Questions</h4><p><a href="https://github.com/laceyenterprises/searchlight/issues/new">Open an issue on GitHub</a>. If you run a search service we tested and our setup misrepresents it, tell us: corrections are rerun and published beside the original.</p></div></div><div class="foot-base"><span>A <a href="https://www.laceyenterprises.com">Lacey Enterprises</a> project · © 2026 Lacey Enterprises LLC</span><p class="analytics-disclosure">Google Tag Manager loads on every page; analytics cookies are disabled for visitors in the EEA, the UK, Switzerland and listed territories. No consent opt-in is offered.</p></div></div></footer>
+<footer class="foot"><div class="wrap"><div class="foot-top"><a class="brand" href="index.html"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><nav class="foot-links" aria-label="Footer"><a href="index.html">Overview</a><a href="results.html">Results</a><a href="studies.html">Studies</a><a href="learn.html">Learn</a><a href="methodology.html">Methodology</a><a href="https://github.com/laceyenterprises/searchlight">GitHub</a><a href="https://github.com/laceyenterprises/searchlight/tree/main/reports">Raw data</a><a href="https://github.com/laceyenterprises/searchlight/blob/main/LICENSE">Apache 2.0</a><a href="https://github.com/laceyenterprises/searchlight/issues/new">Report a problem</a></nav></div><div class="foot-base"><p>A <a href="https://www.laceyenterprises.com">Lacey Enterprises</a> project · © 2026 Lacey Enterprises LLC</p><p class="analytics-disclosure">Google Tag Manager loads on every page; analytics cookies are disabled for visitors in the EEA, the UK, Switzerland and listed territories. No consent opt-in is offered.</p></div></div></footer>
 <script>/* Searchlight site: small, dependency-free enhancements. Every page reads in full without this script. */
 (function () {
   "use strict";
@@ -644,8 +733,9 @@ main>:last-child:not(.band){padding-bottom:72px}
     draw();
   });
 
-  // Filters: agent, benchmark, provider, search or research, and order. They act on the rows the JSON lists and on
-  // any element marked data-f; a group (a board, a finding) hides when nothing inside it matches.
+  // Filters: agent, benchmark, setup, and search or research. They act on the rows the JSON lists and on any element
+  // marked data-f; a group (a board, a finding) hides when nothing inside it matches, and a finding's prose switches
+  // to the variant written for the chosen agent, so the words never contradict the rows.
   $("form[data-filters]").forEach(function (form) {
     var json = document.getElementById("filter-data"), facets = {};
     if (json) JSON.parse(json.textContent).forEach(function (r) { facets[r.id] = r; });
@@ -653,7 +743,7 @@ main>:last-child:not(.band){padding-bottom:72px}
     var items = Object.keys(facets).map(function (id) { return document.getElementById(id); }).filter(Boolean)
       .concat($("[data-f]"));
     var groups = $("[data-f-group]").sort(function (a, b) { return depth(b) - depth(a); });
-    var empty = document.getElementById("filter-empty"), out = form.querySelector(".count");
+    var empty = document.getElementById("filter-empty");
     function depth(el) { var d = 0; while ((el = el.parentElement)) d++; return d; }
     function facet(el, key) {
       var f = facets[el.id];
@@ -661,47 +751,47 @@ main>:last-child:not(.band){padding-bottom:72px}
       if (key === "provider" && el.hasAttribute("data-providers")) return el.getAttribute("data-providers").split(" ");
       return el.getAttribute("data-" + key);
     }
-    function match(el, want) {
+    function match(el, want, skip) {
       return keys.every(function (key) {
-        if (!want[key]) return true;
+        if (!want[key] || key === skip) return true;
         var have = facet(el, key);
+        if (have === "-") return false;  // about no agent at all: shown only when no agent is chosen
         if (have == null || have === "") return true;
         return Array.isArray(have) ? have.indexOf(want[key]) >= 0 : have === want[key];
       });
     }
+    function value(key) { var f = form.elements[key]; return f ? f.value : ""; }
     function apply() {
-      var want = {}, shown = 0;
-      keys.concat(["sort"]).forEach(function (key) { var s = form.elements[key]; want[key] = s ? s.value : ""; });
-      items.forEach(function (el) { var on = match(el, want); el.hidden = !on; if (on) shown++; });
-      $("ol[data-limit]").forEach(function (ol) {
-        var limit = +ol.getAttribute("data-limit"), seen = 0;
-        $("[data-f]", ol).forEach(function (li) { if (!li.hidden && ++seen > limit) li.hidden = true; });
+      var want = {};
+      keys.forEach(function (key) { want[key] = value(key); });
+      items.forEach(function (el) {
+        // The leader stays beside a chosen setup, so its rank reads in context.
+        el.hidden = !(match(el, want) || (want.provider && el.hasAttribute("data-lead") && match(el, want, "provider")));
       });
       groups.forEach(function (gr) {
         var inner = $("[data-f], .row[id]", gr);
         gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return !el.hidden; }));
       });
-      $("ol.rows").forEach(function (ol) {
-        var lis = $(":scope > li", ol), by = want.sort === "label" ? "data-sort-label" : "data-rank";
-        if (!lis.length || !lis[0].hasAttribute(by)) return;
-        lis.sort(function (a, b) {
-          var x = a.getAttribute(by), y = b.getAttribute(by);
-          return by === "data-rank" ? x - y : x.localeCompare(y);
-        }).forEach(function (li) { ol.appendChild(li); });
+      $("details.allrows").forEach(function (d) {
+        d.open = !!want.provider && $(".row[id], [data-f]", d).some(function (el) { return !el.hidden; });
       });
-      shown = items.filter(function (el) { return !el.hidden; }).length;
-      if (out) out.textContent = "Showing " + shown + " of " + items.length;
+      $("[data-f-group]").forEach(function (gr) {
+        var variants = $(":scope > .head > [data-prose]", gr);
+        if (!variants.length) return;
+        var pick = variants.filter(function (p) { return p.getAttribute("data-prose") === want.agent; })[0] ||
+          variants.filter(function (p) { return p.getAttribute("data-prose") === ""; })[0];
+        variants.forEach(function (p) { p.hidden = p !== pick; });
+      });
       if (empty) empty.hidden = groups.some(function (gr) { return !gr.hidden && !gr.parentElement.closest("[data-f-group]"); });
       try {
         var q = new URLSearchParams();
-        keys.concat(["sort"]).forEach(function (key) { if (want[key] && !(key === "sort" && want[key] === "rank")) q.set(key, want[key]); });
+        keys.forEach(function (key) { if (want[key]) q.set(key, want[key]); });
         history.replaceState(null, "", (q.toString() ? "?" + q : location.pathname) + location.hash);
       } catch (e) { /* file:// or sandboxed: filters still work */ }
     }
     var start = new URLSearchParams(location.search);
-    keys.concat(["sort"]).forEach(function (key) {
-      var s = form.elements[key];
-      if (s && start.get(key) && $("option", s).some(function (o) { return o.value === start.get(key); })) s.value = start.get(key);
+    keys.forEach(function (key) {
+      $('input[name="' + key + '"]', form).forEach(function (r) { if (start.get(key) === r.value && r.value) r.checked = true; });
     });
     form.addEventListener("change", apply);
     form.addEventListener("submit", function (e) { e.preventDefault(); });

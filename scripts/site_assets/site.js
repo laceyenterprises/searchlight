@@ -84,8 +84,9 @@
     draw();
   });
 
-  // Filters: agent, benchmark, provider, search or research, and order. They act on the rows the JSON lists and on
-  // any element marked data-f; a group (a board, a finding) hides when nothing inside it matches.
+  // Filters: agent, benchmark, setup, and search or research. They act on the rows the JSON lists and on any element
+  // marked data-f; a group (a board, a finding) hides when nothing inside it matches, and a finding's prose switches
+  // to the variant written for the chosen agent, so the words never contradict the rows.
   $("form[data-filters]").forEach(function (form) {
     var json = document.getElementById("filter-data"), facets = {};
     if (json) JSON.parse(json.textContent).forEach(function (r) { facets[r.id] = r; });
@@ -93,7 +94,7 @@
     var items = Object.keys(facets).map(function (id) { return document.getElementById(id); }).filter(Boolean)
       .concat($("[data-f]"));
     var groups = $("[data-f-group]").sort(function (a, b) { return depth(b) - depth(a); });
-    var empty = document.getElementById("filter-empty"), out = form.querySelector(".count");
+    var empty = document.getElementById("filter-empty");
     function depth(el) { var d = 0; while ((el = el.parentElement)) d++; return d; }
     function facet(el, key) {
       var f = facets[el.id];
@@ -101,47 +102,47 @@
       if (key === "provider" && el.hasAttribute("data-providers")) return el.getAttribute("data-providers").split(" ");
       return el.getAttribute("data-" + key);
     }
-    function match(el, want) {
+    function match(el, want, skip) {
       return keys.every(function (key) {
-        if (!want[key]) return true;
+        if (!want[key] || key === skip) return true;
         var have = facet(el, key);
+        if (have === "-") return false;  // about no agent at all: shown only when no agent is chosen
         if (have == null || have === "") return true;
         return Array.isArray(have) ? have.indexOf(want[key]) >= 0 : have === want[key];
       });
     }
+    function value(key) { var f = form.elements[key]; return f ? f.value : ""; }
     function apply() {
-      var want = {}, shown = 0;
-      keys.concat(["sort"]).forEach(function (key) { var s = form.elements[key]; want[key] = s ? s.value : ""; });
-      items.forEach(function (el) { var on = match(el, want); el.hidden = !on; if (on) shown++; });
-      $("ol[data-limit]").forEach(function (ol) {
-        var limit = +ol.getAttribute("data-limit"), seen = 0;
-        $("[data-f]", ol).forEach(function (li) { if (!li.hidden && ++seen > limit) li.hidden = true; });
+      var want = {};
+      keys.forEach(function (key) { want[key] = value(key); });
+      items.forEach(function (el) {
+        // The leader stays beside a chosen setup, so its rank reads in context.
+        el.hidden = !(match(el, want) || (want.provider && el.hasAttribute("data-lead") && match(el, want, "provider")));
       });
       groups.forEach(function (gr) {
         var inner = $("[data-f], .row[id]", gr);
         gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return !el.hidden; }));
       });
-      $("ol.rows").forEach(function (ol) {
-        var lis = $(":scope > li", ol), by = want.sort === "label" ? "data-sort-label" : "data-rank";
-        if (!lis.length || !lis[0].hasAttribute(by)) return;
-        lis.sort(function (a, b) {
-          var x = a.getAttribute(by), y = b.getAttribute(by);
-          return by === "data-rank" ? x - y : x.localeCompare(y);
-        }).forEach(function (li) { ol.appendChild(li); });
+      $("details.allrows").forEach(function (d) {
+        d.open = !!want.provider && $(".row[id], [data-f]", d).some(function (el) { return !el.hidden; });
       });
-      shown = items.filter(function (el) { return !el.hidden; }).length;
-      if (out) out.textContent = "Showing " + shown + " of " + items.length;
+      $("[data-f-group]").forEach(function (gr) {
+        var variants = $(":scope > .head > [data-prose]", gr);
+        if (!variants.length) return;
+        var pick = variants.filter(function (p) { return p.getAttribute("data-prose") === want.agent; })[0] ||
+          variants.filter(function (p) { return p.getAttribute("data-prose") === ""; })[0];
+        variants.forEach(function (p) { p.hidden = p !== pick; });
+      });
       if (empty) empty.hidden = groups.some(function (gr) { return !gr.hidden && !gr.parentElement.closest("[data-f-group]"); });
       try {
         var q = new URLSearchParams();
-        keys.concat(["sort"]).forEach(function (key) { if (want[key] && !(key === "sort" && want[key] === "rank")) q.set(key, want[key]); });
+        keys.forEach(function (key) { if (want[key]) q.set(key, want[key]); });
         history.replaceState(null, "", (q.toString() ? "?" + q : location.pathname) + location.hash);
       } catch (e) { /* file:// or sandboxed: filters still work */ }
     }
     var start = new URLSearchParams(location.search);
-    keys.concat(["sort"]).forEach(function (key) {
-      var s = form.elements[key];
-      if (s && start.get(key) && $("option", s).some(function (o) { return o.value === start.get(key); })) s.value = start.get(key);
+    keys.forEach(function (key) {
+      $('input[name="' + key + '"]', form).forEach(function (r) { if (start.get(key) === r.value && r.value) r.checked = true; });
     });
     form.addEventListener("change", apply);
     form.addEventListener("submit", function (e) { e.preventDefault(); });

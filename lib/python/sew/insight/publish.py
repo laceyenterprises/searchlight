@@ -17,6 +17,8 @@ import json
 import re
 import shlex
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -171,4 +173,19 @@ def publish(run_dir: Path, to: Path, *, set_root: Path | None = None) -> dict[st
     (to / "methodology.md").write_text(_methodology(summary, manifest), encoding="utf-8")
     (to / "reproduce.md").write_text(_reproduce(summary, manifest), encoding="utf-8")
     _link_from_index(to.parent / "README.md", to, summary)
-    return {**paths, "bundle": str(to), "files": sum(1 for p in to.rglob("*") if p.is_file())}
+    site = rebuild_site(to.parent.parent)
+    return {**paths, "bundle": str(to), "files": sum(1 for p in to.rglob("*") if p.is_file()), "site": site}
+
+
+def rebuild_site(repo: Path) -> str:
+    """Regenerate the repository's site/ so the study lands on the site in the same commit as its bundle.
+
+    The site generator discovers every study under reports/ by its summary schema; nothing is edited by hand. A
+    checkout without the generator (a bundle published elsewhere) is left alone."""
+    builder = repo / "scripts" / "build_site.py"
+    if not builder.is_file():
+        return "skipped: no scripts/build_site.py"
+    done = subprocess.run([sys.executable, str(builder)], cwd=repo, capture_output=True, text=True, check=False)
+    if done.returncode:
+        raise InsightError(f"site build failed after publishing: {(done.stderr or done.stdout).strip()[-400:]}")
+    return "rebuilt site/"

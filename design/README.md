@@ -38,7 +38,8 @@ Use the token, never the hex.
 | Role | Token | Light | Dark |
 |---|---|---|---|
 | Page | `--paper` | `#FFFFFF` | `#0C0F13` |
-| Raised or soft ground | `--soft` | `#F4F6F9` | `#141920` |
+| Soft ground (bands) | `--soft` | `#F4F6F9` | `#141920` |
+| A card on the soft ground | `--raised` | `#FFFFFF` | `#1B212A` |
 | Rules and borders | `--rule` | `#E3E7EC` | `#262C35` |
 | Text | `--ink` | `#111111` | `#F2F4F7` |
 | Secondary text | `--ink-2` | `#4F5761` | `#B9C1CC` |
@@ -62,7 +63,7 @@ highlighted (controls, references), `--viz-ref` the reference marks (no search, 
 | Body | Inter (`--font-body`) | 17 px on the site, 400 and 600 |
 | Eyebrows, labels, axis ticks | JetBrains Mono (`--font-mono`) | 14 px, upper case, tracking 0.08 em |
 
-The brand in the header is the mark at 40 px beside the word at 23 px / 700.
+The brand in the header is the mark at 44 px beside the word at 28 px / 700.
 
 ## Space, radius, depth
 
@@ -93,8 +94,9 @@ Three options, drawn on the glyph grid in ink plus one Lacey blue beam (see the 
 - **`logo-lens`:** the search lens, lit: a magnifier ring with the beam leaving it.
 - **`logo-tile`:** the lamp and beam on a solid ink tile, the strongest at favicon size.
 
-`LOGO_ID` in `scripts/build_site.py` picks one; the header, footer, favicon (`site/logo.svg`), study pages and share
-card follow it. After changing it, run `python3 scripts/build_site.py` and `python3 scripts/render_social_card.py`.
+The site uses **A in the header, footer and share card** and **C for the favicon and app icon** (`site/logo.svg`), where
+a solid shape reads best at 16 px. `LOGO_ID` and `FAVICON_ID` in `scripts/build_site.py` pick them. After changing
+either, run `python3 scripts/build_site.py` and `python3 scripts/render_social_card.py`.
 
 ## Components
 
@@ -105,5 +107,7 @@ card follow it. After changing it, run `python3 scripts/build_site.py` and `pyth
 | Note | A caveat chip (amber glyph plus one or two words) that opens to one or two sentences, placed beside the number it qualifies |
 | Board | A card of ranked rows: agent and model, runs per setup, its takeaway sentence, then "What the numbers mean" behind a tap |
 | Concept tile | A glyph and a term; selecting it opens one short explanation. Without JavaScript every explanation shows. |
-| How to read these results | One panel with the method glyph, placed wherever results are ranked |
-| Filters | Selects above the ranked views, hidden without JavaScript (the page already shows everything) |
+| How to read these results | One panel, in full, on the Learn page; every other page links to it in one line |
+| Filters | One row of chips per question on a shared baseline (each row scrolls sideways on phones), hidden without JavaScript; prose has a variant per agent so words never contradict the rows |
+| Photo finish | Three leaders for a study: most useful findings, most found by no one else, best value, each with its tie count |
+| Latest | One line under the hero naming the newest report or study, rebuilt when one is published |

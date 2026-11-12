@@ -531,7 +531,8 @@ def test_boards_describe_interval_overlap_and_benchmark_token_coverage():
     assert 'how many runs each setup was missing was not recorded' in site.board_html(wsb)
     results = site.build()['results.html']
     assert 'Tokens per success is complete' not in results
-    assert 'the difference may be chance' in results
+    # "How to read these results" lives on Learn; every other page links to it in one line.
+    assert 'the difference may be chance' in site.build()['learn.html'] and 'href="learn.html#read"' in results
 
 
 def test_boards_explain_the_pass_rule_in_plain_words():
@@ -678,7 +679,7 @@ def test_header_brand_menu_and_phone_layout():
     for name in _page_names(files):
         header = re.search(r'<header class="top">.*?</header>', files[name], re.S).group(0)
         assert '<span class="word">Searchlight</span>' in header and f'href="#{site.LOGO_ID}"' in header
-        bar = re.search(r'<nav class="bar"[^>]*>.*?</nav>', header, re.S).group(0)
+        bar = re.search(r'<nav class="navbar"[^>]*>.*?</nav>', header, re.S).group(0)
         assert f'<a class="gh" href="{site.REPO_URL}">GitHub</a>' in bar
         panel = re.search(r'<details class="menu">.*?</details>', header, re.S).group(0)
         for href, _, _ in site.NAV:
@@ -687,9 +688,11 @@ def test_header_brand_menu_and_phone_layout():
             assert f'href="{report}"' in panel, (name, report)
         assert header.count('aria-current="page"') == (2 if name in dict((h, 1) for h, _, _ in site.NAV) else
                                                        1 if name.startswith('report-') else 0), name
+        if name.startswith('report-'):  # the bar marks the section a report sits in
+            assert '<a href="results.html" aria-current="true">' in bar
     css = site.CSS
     assert 'position:sticky' in re.search(r'\.top\{([^{}]*)\}', css).group(1)
-    assert '@media (min-width:860px){.bar{display:flex}.menu{display:none}}' in css
+    assert '@media (min-width:860px){.navbar{display:flex}.menu{display:none}}' in css
     # Phones: no text under 14 px in the site stylesheet.
     sizes = [int(n) for n in re.findall(r'font(?:-size)?:[^;{}]*?(\d+)px', css)]
     assert sizes and min(sizes) >= 14, sorted(sizes)[:5]
@@ -752,7 +755,8 @@ def test_logo_options_are_drawn_on_the_glyph_grid():
         svg = site.glyphs.logo_svg(logo_id)
         assert svg.startswith('<svg') and 'viewBox="0 0 24 24"' in svg and '#007BFF' in svg
         ET.fromstring(svg)
-    assert site.LOGO == site.glyphs.logo_svg(site.LOGO_ID)
+    # The header carries the lamp; the favicon and app icon carry the tile, the boldest at 16 px.
+    assert site.LOGO == site.glyphs.logo_svg(site.FAVICON_ID) and site.LOGO_ID == 'logo-lamp'
 
 
 def test_overview_teaches_with_the_vocabulary_and_has_one_primary_action():
@@ -771,20 +775,26 @@ def test_results_open_with_findings_and_rank_every_board():
     main = results.split('<main id="main">', 1)[1]
     assert main.index('id="finding-1"') < main.index('id="leaderboard"')
     reports = site.load_reports()
-    boards = site.leaderboards(reports) + site.more_boards(reports)
-    assert any(b['source'] == '2026-10-06-search-gap-replication' for b in boards)
+    boards = site.leaderboards(reports)
+    assert any(b['source'] == '2026-10-06-search-gap-replication' for b in site.more_boards(reports))
     data = json.loads(re.search(r'<script type="application/json" id="filter-data">(.*?)</script>', results, re.S).group(1))
     assert len(data) == sum(len(b['rows']) for b in boards)
     for row in data:
         assert f'id="{row["id"]}"' in results, row['id']
-    for board in boards:
+    for board in site.leaderboards(reports):
         assert f'id="board-{board["id"]}"' in results
-        assert site.esc(site.board_says(board)) in results
+        assert site.esc(site.board_says(board)) in files[site.report_page_name(board['source'])]
+    # Later runs are listed in the record with their takeaway; their boards live on their own pages.
+    for board in site.more_boards(reports):
+        assert f'href="{site.report_page_name(board["source"])}"' in results
+        assert f'id="board-{board["id"]}"' in files[site.report_page_name(board['source'])]
+    # Each finding leads with its top three rows; the rest open from "All n setups".
+    assert results.count('<details class="allrows">') >= 3
     # Filters are an enhancement: hidden without JavaScript, and every row is rendered on the server.
     assert '<form class="filters js-only"' in results
     # Caveats sit beside the number they qualify.
     native = re.search(r'<li class="row ctl" id="r-gap-claude-code-native".*?</li>', results, re.S).group(0)
-    assert '<details class="note">' in native and 'Rerun' in native
+    assert '<details class="note caveat">' in native and 'Rerun' in native
 
 
 def test_every_report_and_study_is_two_taps_from_home():
@@ -810,7 +820,8 @@ def test_a_new_report_directory_appears_on_the_site_without_edits(tmp_path):
     files = site.build(tmp_path)
     page = files['report-2026-12-01-search-gap-rerun.html']
     assert 'December rerun of the gap bench' in page and 'class="board"' in page
-    assert 'id="board-gap-claude-code-2026-12-01"' in files['results.html']
+    assert 'id="board-gap-claude-code-2026-12-01"' in page
+    assert 'href="report-2026-12-01-search-gap-rerun.html"' in files['results.html']
     assert 'href="report-2026-12-01-search-gap-rerun.html"' in files['index.html']
     data = json.loads(files['leaderboard.json'])
     assert 'reports/2026-12-01-search-gap-rerun/summary.json' in data['generated_from']
@@ -865,3 +876,32 @@ def test_studies_page_lists_published_insight_studies():
     page = site.studies_page(studies)
     for s in studies:
         assert f'href="{s["page"]}"' in page
+
+
+def test_filter_prose_has_a_variant_for_every_agent_and_hides_off_topic_findings():
+    results = site.build()['results.html']
+    reports = site.load_reports()
+    agents = {b['harness'] for b in site.leaderboards(reports) if b['bench'] == 'GAP'}
+    for n in (1, 2):
+        section = re.search(rf'<section class="finding" id="finding-{n}".*?</section>', results, re.S).group(0)
+        variants = set(re.findall(r'data-prose="([^"]*)"', section))
+        assert variants == {''} | agents, (n, variants)
+    # The direct-API finding is about no agent: an agent filter hides it.
+    assert re.search(r'<section class="finding" id="finding-5"[^>]*data-agent="-"', results)
+    # Tiles that describe one agent say so.
+    assert results.count('class="stat" data-f data-agent="claude-code"') == 2
+
+
+def test_latest_strip_names_the_newest_report_or_study():
+    files = site.build()
+    newest = site.site_map(site.load_reports(), site.insight_studies())[0]
+    strip = re.search(r'<a class="latest" href="([^"]+)">', files['index.html'])
+    assert strip and strip.group(1) == newest[0]
+
+
+def test_study_page_shares_the_site_shell():
+    files = site.build()
+    page = next(v for k, v in files.items() if k.startswith('study-'))
+    assert '<header class="top">' in page and 'id="theme"' not in page and '<footer class="foot">' in page
+    assert 'class="finish"' in page and 'Full data' in page and '@scope (.dash)' in page
+    assert '<main id="main">' in page and page.count('id="main"') == 1

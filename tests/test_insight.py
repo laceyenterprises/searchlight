@@ -477,10 +477,10 @@ def test_dashboard_is_self_contained(tmp_path):
     shell = html.replace(data.group(0), "")
     assert not re.search(r"https?://", shell)  # only data links, never fonts, scripts or trackers
     assert not re.search(r"<(link|img|iframe)\b|\bsrc=|@import|fetch\(|XMLHttpRequest", shell)
-    for view in ("Leaderboard", "Unique", "Overlap", "Best k", "Cost", "Questions", "Claims", "Files"):
+    for view in ("Leaderboard", "Unique", "Overlap", "Best combination", "Cost", "Questions", "Claims", "Files"):
         assert f'label:"{view}"' in shell
     assert re.search(r"prefers-color-scheme:\s*dark", shell) and 'role="tablist"' in shell and "aria-sort" in shell
-    assert 'class="digest"' in shell and 'class="say"' in shell  # the takeaway reads without JavaScript
+    assert 'class="digest"' in shell and 'class="finish"' in shell  # the photo finish reads without JavaScript
     assert "<" not in data.group(1)  # JSON must escape < as \u003c to prevent script breakout.
 
 
@@ -655,3 +655,16 @@ def test_streamed_usage_cost_is_measured():
     sse = "data: " + json.dumps(chunk) + "\ndata: [DONE]"
     profile = type("P", (), {"usd_per_credit": None, "est_cost_usd": 0.5})()
     assert R._cost(profile, [sse], 1) == {"usd": 1.25, "basis": "measured", "credits": 0.0}
+
+
+def test_publish_rebuilds_the_site_in_the_same_checkout(tmp_path):
+    from sew.insight.publish import rebuild_site
+
+    assert rebuild_site(tmp_path).startswith("skipped")
+    (tmp_path / "scripts").mkdir()
+    (tmp_path / "scripts" / "build_site.py").write_text(
+        "from pathlib import Path\nPath(__file__).resolve().parents[1].joinpath('site').mkdir()\n")
+    assert rebuild_site(tmp_path) == "rebuilt site/" and (tmp_path / "site").is_dir()
+    (tmp_path / "scripts" / "build_site.py").write_text("raise SystemExit('broken')\n")
+    with pytest.raises(InsightError, match="site build failed"):
+        rebuild_site(tmp_path)

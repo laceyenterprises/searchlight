@@ -1176,8 +1176,6 @@ h1{margin-top:74px;max-width:740px;font-size:64px;line-height:1.04;font-weight:7
 """
 
 
-
-
 def social_card(boards: list[dict], analysis: dict) -> str:
     """The 1200x630 share image's source; scripts/render_social_card.py renders it to site/social-card.png."""
     card = card_facts(boards, analysis)
@@ -1276,9 +1274,10 @@ SITE_ASSETS = ROOT / 'scripts' / 'site_assets'
 sys.path.insert(0, str(DESIGN / 'glyphs'))
 import searchlight_glyphs as glyphs  # noqa: E402
 
-# The default mark. design/glyphs/glyphs.html shows it beside the other options (logo-lens, logo-tile).
+# The header mark (A, lamp) and the favicon (C, tile). design/glyphs/glyphs.html shows every option.
 LOGO_ID = 'logo-lamp'
-LOGO = glyphs.logo_svg(LOGO_ID)
+FAVICON_ID = 'logo-tile'
+LOGO = glyphs.logo_svg(FAVICON_ID)
 SITE_URL = 'https://searchlightai.dev'
 LACEY_URL = 'https://www.laceyenterprises.com'
 
@@ -1371,9 +1370,12 @@ ROW_NOTES = {
 }
 
 
-def note(label: str, text: str) -> str:
-    """A caveat beside the number it qualifies: a short label that opens to one or two sentences."""
-    return (f'<details class="note"><summary>{g("caveat")}{esc(label)}</summary>'
+def note(label: str, text: str, kind: str = 'caveat') -> str:
+    """A note beside the number it qualifies: a short label that opens to one or two sentences.
+
+    Amber marks a real caveat (the number needs it to be read right); grey marks a neutral note."""
+    glyph = 'caveat' if kind == 'caveat' else 'source'
+    return (f'<details class="note {kind}"><summary>{g(glyph)}{esc(label)}</summary>'
             f'<div>{esc(text)}</div></details>')
 
 
@@ -1395,36 +1397,30 @@ def row_html(board: dict, row: dict, rank: int, best: float) -> str:
         chip = '<span class="chip ctl">control</span>'
     elif row['pass_pct'] == best:
         chip = '<span class="chip">leader</span>'
-    meta = []
-    if row.get('tokens_per_success'):
-        meta.append(f'{row["tokens_per_success"]} tokens per pass')
-    small = f'<small>{esc(" · ".join(meta))}</small>' if meta else ''
     flag = ''
     if row.get('note') in ROW_NOTES and row['arm'] != 'no-search':
         flag = note(*ROW_NOTES[row['note']])
+    small = f'<small>{esc(row["tokens_per_success"])} tokens per pass</small>' if row.get('tokens_per_success') else ''
     label = (f'{row["label"]}: {row["pass_pct"]:.0f}% passed, {row["passes"]} of {row["cells"]} runs; '
              f'95% range {lo:.0f} to {hi:.0f}%')
-    return (f'<li class="row{" ctl" if control else ""}" id="r-{board["id"]}-{row["arm"]}" data-rank="{rank}" '
-            f'data-sort-label="{esc(row["label"].lower())}">'
-            f'<span class="rk">{rank}</span><span class="nm">{esc(row["label"])}{chip}{small}{flag}</span>'
-            f'<span class="pc">{row["pass_pct"]:.0f}%</span>'
+    lead = ' data-lead' if row['pass_pct'] == best and row['arm'] != 'no-search' else ''
+    return (f'<li class="row{" ctl" if control else ""}" id="r-{board["id"]}-{row["arm"]}" data-rank="{rank}"{lead}>'
+            f'<span class="rk">{rank}</span><span class="nm"><span class="name">{esc(row["label"])}{chip}{flag}</span>'
+            f'{small}</span><span class="pc">{row["pass_pct"]:.0f}%</span>'
             f'<span class="tr">{track(lo, hi, row["pass_pct"], label, board.get("top_lower_bound"))}</span>'
-            f'<span class="nn"><b>{lo:.0f}–{hi:.0f}%</b>{row["passes"]} of {row["cells"]}</span></li>')
+            f'<span class="nn"><b>{lo:.0f}–{hi:.0f}%</b><span class="k">{row["passes"]} of {row["cells"]}</span></span></li>')
 
 
 SCALE = ('<div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span>'
          '<span>100%</span></span><span></span></div>')
 
 
-def board_html(board: dict) -> str:
-    """One benchmark as ranked rows: provider, a big number, its 95% range and n. Details are one tap away."""
-    agent, model = harness_name(board)
-    runs = board['rows'][0]['cells']
-    best = max(r['pass_pct'] for r in board['rows'] if r['arm'] != 'no-search')
-    rows = ''.join(row_html(board, row, i, best) for i, row in enumerate(board['rows'], start=1))
-    bench = BENCH_LABEL.get(board['bench'], board['bench'])
-    if board['source'] not in (GAP_PRIMARY, WSB_PRIMARY):
-        bench = REPORT_TITLES.get(board['source'], bench)
+LEGEND = ('<div class="legend" aria-hidden="true"><span><i class="k-pt"></i>Pass rate</span>'
+          '<span><i class="k-ci"></i>95% range</span><span><i class="k-lb"></i>Where the leader\'s range starts</span></div>')
+
+
+def board_notes(board: dict) -> str:
+    """What a board's numbers mean: the pass rule, the scale and the source."""
     if board['bench'] == 'GAP':
         floor, ceiling = _floor_ceiling(board)
         foot = (f'For scale: with no search the agent passed {floor}; handed an excerpt containing the answer, it passed '
@@ -1435,17 +1431,46 @@ def board_html(board: dict) -> str:
         foot = ('Tokens per pass counts only runs whose tokens were measured; how many runs each setup was missing was '
                 'not recorded, so treat it as approximate.')
         ranges = 'computed from its counts'
+    return (f'<p>{esc(board_caption(board))}</p><p>{esc(foot)}</p>'
+            f'<p>Source: <a href="{report_page_name(board["source"])}">{esc(REPORT_TITLES.get(board["source"], board["source"]))}'
+            f'</a>; ranges are 95% Wilson intervals, {ranges}.</p>')
+
+
+def numbers_mean(boards: list[dict]) -> str:
+    """One "What the numbers mean" per finding or report, however many boards it shows."""
+    seen, parts = set(), []
+    for board in boards:
+        key = (board['bench'], board['source'])
+        if key not in seen:
+            seen.add(key)
+            parts.append(board_notes(board))
+    return f'<details class="more-info"><summary>What the numbers mean</summary>{"".join(parts)}</details>'
+
+
+def board_html(board: dict, top: int | None = None, notes: bool = True, brief: bool = False) -> str:
+    """One benchmark as ranked rows: provider, a big number, its 95% range and n.
+
+    With ``top``, the first rows show and the rest sit behind "All n setups". ``brief`` drops the board's own sentence
+    where a finding's prose already says it. Details are one tap away."""
+    agent, model = harness_name(board)
+    runs = board['rows'][0]['cells']
+    best = max(r['pass_pct'] for r in board['rows'] if r['arm'] != 'no-search')
+    items = [row_html(board, row, i, best) for i, row in enumerate(board['rows'], start=1)]
+    shown, rest = (items[:top], items[top:]) if top else (items, [])
+    more = (f'<details class="allrows"><summary>All {len(items)} setups</summary>'
+            f'<ol class="rows" start="{len(shown) + 1}">{"".join(rest)}</ol></details>') if rest else ''
+    bench = BENCH_LABEL.get(board['bench'], board['bench'])
+    if board['source'] not in (GAP_PRIMARY, WSB_PRIMARY):
+        bench = REPORT_TITLES.get(board['source'], bench)
     providers = ' '.join(sorted({r['arm'] for r in board['rows']}))
+    foot = f'<div class="bfoot">{numbers_mean([board])}</div>' if notes else ''
     return (f'<section class="board" id="board-{board["id"]}" data-f-group data-agent="{board["harness"]}" '
             f'data-bench="{board["source"]}" data-providers="{esc(providers)}">'
             f'<header><h3>{esc(agent)}{f" <span class=model>{esc(model)}</span>" if model else ""}</h3>'
-            f'<p>{runs} runs per setup · {esc(bench)} · {report_date(board["source"])}</p>'
-            f'<p class="says">{esc(board_says(board))}</p></header>{SCALE}'
-            f'<ol class="rows">{rows}</ol>'
-            f'<div class="bfoot"><details class="more-info"><summary>What the numbers mean</summary>'
-            f'<p>{esc(board_caption(board))}</p><p>{esc(foot)}</p>'
-            f'<p>Source: <a href="{report_page_name(board["source"])}">{esc(REPORT_TITLES.get(board["source"], board["source"]))}'
-            f'</a>; ranges are 95% Wilson intervals, {ranges}.</p></details></div></section>')
+            + (f'<p>{runs} runs per setup</p>' if brief else
+               f'<p>{runs} runs per setup · {esc(bench)} · {report_date(board["source"])}</p>')
+            + ('' if brief else f'<p class="says">{esc(board_says(board))}</p>') + f'</header>{SCALE}'
+            f'<ol class="rows">{"".join(shown)}</ol>{more}{foot}</section>')
 
 
 def dumbbell(gap: list[dict]) -> str:
@@ -1459,8 +1484,8 @@ def dumbbell(gap: list[dict]) -> str:
         label = f'{agent}: no search {floor}; with search {lo:.0f} to {hi:.0f}%; answer handed over {ceiling}'
         rows.append(
             f'<li class="row" data-f data-agent="{board["harness"]}" data-bench="{board["source"]}">'
-            f'<span class="nm">{esc(agent)}<small>{esc(model)} · {board["rows"][0]["cells"]} runs per setup</small></span>'
-            f'<span class="pc">{lo:.0f}–{hi:.0f}%</span>'
+            f'<span class="nm"><span class="name">{esc(agent)}</span><small>{esc(model)} · {board["rows"][0]["cells"]} runs '
+            f'per setup</small></span><span class="pc">{lo:.0f}–{hi:.0f}%</span>'
             f'<span class="tr"><span class="track" role="img" aria-label="{esc(label)}">'
             f'<span class="span" style="left:{lo:.1f}%;width:{max(1.0, hi - lo):.1f}%"></span>'
             f'<span class="tick" style="left:{c:.1f}%"></span><span class="dot" style="left:{f:.1f}%"></span></span></span>'
@@ -1473,25 +1498,33 @@ def dumbbell(gap: list[dict]) -> str:
     return f'<div class="dumb board" data-f-group>{scale}<ol class="rows">{"".join(rows)}</ol>{legend}</div>'
 
 
-def measures_html(h2h: dict, ids=('s1', 's4', 's3', 's6')) -> str:
-    """Counts without intervals: one small bar list per measure, the leader in blue, every other bar grey."""
-    out = []
-    for m in (m for m in h2h['measures'] if m['id'] in ids):
-        scale = m['of'] or max(m['values'].values()) or 1
-        top = max(m['values'].values())
-        items = []
-        for provider in h2h['providers']:
-            if provider not in m['values']:
-                items.append(f'<li data-f data-provider="{arm_id(provider)}"><span>{esc(provider)}</span>'
-                             '<span class="bt"></span><span class="na">not run</span></li>')
-                continue
-            value = m['values'][provider]
-            items.append(f'<li class="{"lead" if value == top else ""}" data-f data-provider="{arm_id(provider)}">'
-                         f'<span>{esc(provider)}</span><span class="bt" role="img" aria-label="{esc(provider)}: {value}">'
-                         f'<i style="width:{100 * value / scale:.1f}%"></i></span><span class="v">{value}</span></li>')
-        of = f' <span class="of">of {m["of"]}</span>' if m['of'] else ''
-        out.append(f'<div class="measure" data-f-group><h3>{esc(m["label"])}{of}</h3><ul class="bars">{"".join(items)}</ul></div>')
-    return f'<div class="measures">{"".join(out)}</div>'
+def _measure(h2h: dict, m: dict) -> str:
+    scale = m['of'] or max(m['values'].values()) or 1
+    top = max(m['values'].values())
+    items = []
+    for provider in h2h['providers']:
+        if provider not in m['values']:
+            items.append(f'<li data-f data-provider="{arm_id(provider)}"><span>{esc(provider)}</span>'
+                         '<span class="bt"></span><span class="na">not run</span></li>')
+            continue
+        value = m['values'][provider]
+        items.append(f'<li class="{"lead" if value == top else ""}" data-f data-provider="{arm_id(provider)}">'
+                     f'<span>{esc(provider)}</span><span class="bt" role="img" aria-label="{esc(provider)}: {value}">'
+                     f'<i style="width:{100 * value / scale:.1f}%"></i></span><span class="v">{value}</span></li>')
+    of = f' <span class="of">of {m["of"]}</span>' if m['of'] else ''
+    return f'<div class="measure" data-f-group><h3>{esc(m["label"])}{of}</h3><ul class="bars">{"".join(items)}</ul></div>'
+
+
+def measures_html(h2h: dict, ids=('s1', 's4', 's3', 's6'), show: int = 2) -> str:
+    """Counts without intervals: one small bar list per measure, the leader in blue, every other bar grey.
+
+    The first ``show`` measures are visible; the rest open from "n more measures"."""
+    measures = [m for m in h2h['measures'] if m['id'] in ids]
+    head = ''.join(_measure(h2h, m) for m in measures[:show])
+    rest = ''.join(_measure(h2h, m) for m in measures[show:])
+    more = (f'<details class="allrows"><summary>{len(measures) - show} more measures</summary>'
+            f'<div class="measures">{rest}</div></details>') if rest else ''
+    return f'<div class="measures">{head}</div>{more}'
 
 
 def behavior_facts(analysis: dict) -> dict:
@@ -1509,18 +1542,19 @@ def behavior_facts(analysis: dict) -> dict:
 
 
 def behavior_tiles(analysis: dict) -> str:
+    """Three numbers about how the agents searched. A tile that describes one agent says so, for the filters."""
     b = behavior_facts(analysis)
     exa = b['fetch'].get('exa')
-    tiles = [(f'{b["natural"]:.0f}%', 'of searches about recent events read as plain questions. The rest were keyword strings.')]
+    tiles = [(f'{b["natural"]:.0f}%', 'of searches about recent events read as plain questions; the rest were '
+              'keyword strings.', '')]
     if exa:
-        others = ', '.join(f'{ARM_LABEL[a]} {r["fetch_only_cells"]} of {r["cells"]}' for a, r in b['fetch'].items() if a != 'exa')
         tiles.append((f'{exa["fetch_only_cells"]} of {exa["cells"]}',
-                      f'Exa bakeoff runs that opened pages from memory without searching ({others}).'))
+                      'Claude Code runs with Exa that skipped search for pages it remembered.', 'claude-code'))
     tiles.append((f'{b["hit_pct"]:.0f}% vs {b["miss_pct"]:.0f}%',
-                  f'Claude Code pass rate with the original source in its results ({b["hit"][0]} of {b["hit"][1]}) '
-                  f'and without it ({b["miss"][0]} of {b["miss"][1]}).'))
-    return '<div class="stats">' + ''.join(f'<div class="stat"><div class="big">{esc(big)}</div><p>{esc(text)}</p></div>'
-                                            for big, text in tiles) + '</div>'
+                  'Claude Code passes with the original source in its results, and without.', 'claude-code'))
+    return '<div class="stats">' + ''.join(
+        f'<div class="stat" data-f{f" data-agent={chr(34)}{agent}{chr(34)}" if agent else ""}><div class="big">{esc(big)}'
+        f'</div><p>{esc(text)}</p></div>' for big, text, agent in tiles) + '</div>'
 
 
 # ---------------------------------------------------------------- report digests
@@ -1589,9 +1623,10 @@ def digest(name: str, reports: dict, boards: list[dict], analysis: dict | None, 
         agents = ' and '.join(harness_name(b)[0] for b in mine)
         say = (f'With any search setup, {agents} passed {lo:.0f}–{hi:.0f}% of briefs about recent events; '
                f'with no search, {" to ".join(floors)}.')
-        return say, f'<div class="boards{" two" if len(mine) > 1 else ""}">{"".join(board_html(b) for b in mine)}</div>'
+        return say, (f'<div class="boards{" two" if len(mine) > 1 else ""}">'
+                     f'{"".join(board_html(b, notes=False) for b in mine)}</div>')
     if mine:
-        return board_says(mine[0]), f'<div class="boards">{"".join(board_html(b) for b in mine)}</div>'
+        return board_says(mine[0]), f'<div class="boards">{"".join(board_html(b, notes=False) for b in mine)}</div>'
     if name == H2H and h2h and {'s1', 's3', 's6'} <= {m['id'] for m in h2h.get('measures', [])}:
         hm = {m['id']: m for m in h2h['measures']}
         s1, s3, s6 = hm['s1'], hm['s3'], hm['s6']
@@ -1617,6 +1652,8 @@ def digest(name: str, reports: dict, boards: list[dict], analysis: dict | None, 
 
 NAV = [('index.html', 'Overview', 'beam'), ('results.html', 'Results', 'ranking'), ('studies.html', 'Studies', 'study'),
        ('learn.html', 'Learn', 'learn'), ('methodology.html', 'Methodology', 'method')]
+
+
 NARROW = ('A narrow measurement: a fixed set of jobs on the agents and settings named, not a ranking of any provider '
           'or product as a whole.')
 
@@ -1631,7 +1668,12 @@ def site_map(reports: dict, studies: list[dict]) -> list[tuple[str, str, str]]:
 def _nav(active: str, pages: list[tuple[str, str, str]] = ()) -> str:
     def current(href):
         return ' aria-current="page"' if href == active else ''
-    bar = ''.join(f'<a href="{href}"{current(href)}>{label}</a>' for href, label, _ in NAV)
+    # A report or study page sits under Results or Studies; the bar marks that section.
+    section = 'results.html' if active.startswith('report-') else 'studies.html' if active.startswith('study-') else active
+
+    def in_section(href):
+        return current(href) or (' aria-current="true"' if href == section else '')
+    bar = ''.join(f'<a href="{href}"{in_section(href)}>{label}</a>' for href, label, _ in NAV)
     panel = ''.join(f'<a href="{href}"{current(href)}>{g(glyph)}{label}</a>' for href, label, glyph in NAV)
     if pages:
         panel += '<p class="sub">Reports and studies</p>' + ''.join(
@@ -1639,31 +1681,24 @@ def _nav(active: str, pages: list[tuple[str, str, str]] = ()) -> str:
     panel += f'<a class="small" href="{REPO_URL}">{g("open-source")}Source on GitHub</a>'
     return (f'<header class="top"><div class="wrap"><a class="brand" href="index.html" aria-label="Searchlight home">'
             f'{mark()}<span class="word">Searchlight</span></a>'
-            f'<nav class="bar" aria-label="Site">{bar}<a class="gh" href="{REPO_URL}">GitHub</a></nav>'
+            f'<nav class="navbar" aria-label="Site">{bar}<a class="gh" href="{REPO_URL}">GitHub</a></nav>'
             f'<details class="menu"><summary aria-label="Menu">{g("menu-open", "open")}{g("menu-close", "close")}</summary>'
-            f'<nav class="panel" aria-label="Site menu">{panel}</nav></details></div></header>')
+            f'<nav class="navpanel" aria-label="Site menu">{panel}</nav></details></div></header>')
 
 
 def _footer() -> str:
-    return (f'<footer class="foot"><div class="wrap"><a class="brand" href="index.html">{mark()}'
-            '<span class="word">Searchlight</span></a>'
-            '<div class="foot-grid">'
-            '<div><h4>What this is</h4><p>An open benchmark of what web search does for AI agents doing real work.</p>'
-            f'<p>{NARROW}</p></div>'
-            '<div><h4>Explore</h4>' + ''.join(f'<p><a href="{href}">{label}</a></p>' for href, label, _ in NAV) + '</div>'
-            f'<div><h4>Source</h4><p><a href="{REPO_URL}">Searchlight on GitHub</a></p>'
-            f'<p><a href="{REPO_URL}/tree/main/reports">Raw report data</a></p>'
-            f'<p>Code, tasks and results: <a href="{REPO_URL}/blob/main/LICENSE">Apache License 2.0</a>.</p></div>'
-            f'<div><h4>Questions</h4><p><a href="{REPO_URL}/issues/new">Open an issue on GitHub</a>. If you run a search '
-            'service we tested and our setup misrepresents it, tell us: corrections are rerun and published beside the '
-            'original.</p></div>'
-            f'</div><div class="foot-base"><span>A <a href="{LACEY_URL}">Lacey Enterprises</a> project · '
-            '© 2026 Lacey Enterprises LLC</span>'
+    links = [(href, label) for href, label, _ in NAV] + [
+        (REPO_URL, 'GitHub'), (f'{REPO_URL}/tree/main/reports', 'Raw data'),
+        (f'{REPO_URL}/blob/main/LICENSE', 'Apache 2.0'), (f'{REPO_URL}/issues/new', 'Report a problem')]
+    return (f'<footer class="foot"><div class="wrap"><div class="foot-top"><a class="brand" href="index.html">{mark()}'
+            '<span class="word">Searchlight</span></a><nav class="foot-links" aria-label="Footer">'
+            + ''.join(f'<a href="{href}">{label}</a>' for href, label in links) + '</nav></div>'
+            f'<div class="foot-base"><p>A <a href="{LACEY_URL}">Lacey Enterprises</a> project · © 2026 Lacey Enterprises LLC</p>'
             f'<p class="analytics-disclosure">{ANALYTICS_NOTICE}</p></div></div></footer>')
 
 
 def _document(title: str, description: str, active: str, main: str, script: str = '',
-              social_title: str = '', card_alt: str = '', pages: list = ()) -> str:
+              social_title: str = '', card_alt: str = '', pages: list = (), head: str = '') -> str:
     fonts = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" '
              'href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" '
              'href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&'
@@ -1676,39 +1711,62 @@ def _document(title: str, description: str, active: str, main: str, script: str 
             '<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">'
             '<meta name="theme-color" content="#0C0F13" media="(prefers-color-scheme: dark)">'
             '<link rel="icon" type="image/svg+xml" href="logo.svg">'
-            f'\n<title>{esc(title)}</title>\n{fonts}\n<style>{CSS}</style>\n</head><body>\n'
+            f'\n<title>{esc(title)}</title>\n{fonts}\n<style>{CSS}{head}</style>\n</head><body>\n'
             '<script>document.documentElement.classList.add("js")</script>\n'
             f'{GTM_BODY}\n{SPRITE}<a class="skip" href="#main">Skip to content</a>\n'
             f'{_nav(active, pages)}\n<main id="main">\n{main}\n</main>\n{_footer()}\n'
             f'<script>{JS}</script>\n{script}</body></html>\n')
 
 
-def readme_panel(compact: bool = False) -> str:
-    """How to read these results: one panel, placed where results are ranked."""
-    points = '' if compact else (
-        '<ul><li>Every pass rate comes with its 95% range. When two ranges overlap, the data cannot separate them: '
-        'the difference may be chance.</li>'
-        '<li>Each benchmark is a few dozen runs per setup on one or two agents, at default settings.</li>'
-        '<li>A note beside a number says what qualifies it. Tap it to read.</li></ul>')
-    return (f'<aside class="readme" aria-label="How to read these results">{g("method", "s32")}<div>'
+def read_panel() -> str:
+    """How to read these results, in full. It lives on the Learn page; every other page links to it."""
+    return (f'<aside class="readme" id="read" aria-label="How to read these results">{g("method", "s32")}<div>'
             '<h3>How to read these results</h3>'
-            f'<p>{NARROW} Different jobs, agents or settings can give a different order.</p>{points}'
-            '<p class="links"><a class="more" href="learn.html">Learn the ideas</a>'
-            '<a class="more" href="methodology.html">Read the method</a></p></div></aside>')
+            f'<p>{NARROW} Different jobs, agents or settings can give a different order.</p>'
+            '<ul><li>Every pass rate comes with its 95% range. When two ranges overlap, the data cannot separate them: '
+            'the difference may be chance.</li>'
+            '<li>Each benchmark is a few dozen runs per setup on one or two agents, at default settings.</li>'
+            '<li>Studies ran each question once, so they report counts; a difference of a few items may be chance.</li>'
+            '<li>A note beside a number says what qualifies it. Tap it to read.</li></ul>'
+            '<p class="links"><a class="more" href="methodology.html">Read the method</a></p></div></aside>')
 
 
-def reports_list(reports: dict, studies: list[dict], takeaways: dict[str, str], anchors: bool = False) -> str:
+def read_link() -> str:
+    return '<p class="readlink"><a class="more" href="learn.html#read">How to read these numbers</a></p>'
+
+
+def page_meta(name: str, reports: dict, studies: list[dict]) -> str:
+    """A short fact for an index line: how big a study or report is."""
+    study = next((s for s in studies if s['name'] == name), None)
+    if study:
+        return f'{len(study["summary"]["arms"])} services · {study["summary"]["set"]["questions"]} questions'
+    return bench_label(reports[name]['summary'])
+
+
+def reports_list(reports: dict, studies: list[dict], takeaways: dict[str, str], anchors: bool = False,
+                 compact: bool = False) -> str:
     """Every report and study, newest first, each one tap from here."""
     items = []
     for href, title, glyph in site_map(reports, studies):
         name = href.removeprefix('report-').removeprefix('study-').removesuffix('.html')
-        summary = reports[name]['summary'] if name in reports else next(s['summary'] for s in studies if s['name'] == name)
         ids = f' id="run-{name}"' if anchors and name in reports else ''
         alias = f'<span id="method-{name}"></span>' if anchors and name in reports else ''
         items.append(f'<li{ids}>{alias}<a class="row-link" href="{href}">{g(glyph)}<span class="t">{esc(title)}</span>'
                      + (f'<span class="d">{esc(takeaways[name])}</span>' if takeaways.get(name) else '') +
-                     f'<span class="when">{esc(bench_label(summary))} · {report_date(name)}</span></a></li>')
-    return f'<ul class="reports">{"".join(items)}</ul>'
+                     f'<span class="when">{esc(page_meta(name, reports, studies))} · {report_date(name)}</span></a></li>')
+    return f'<ul class="reports{" compact" if compact else ""}">{"".join(items)}</ul>'
+
+
+def latest_strip(reports: dict, studies: list[dict]) -> str:
+    """The newest report or study, as one line near the top of the overview. Static: rebuilt when one is published."""
+    pages = site_map(reports, studies)
+    if not pages:
+        return ''
+    href, title, glyph = pages[0]
+    name = href.removeprefix('report-').removeprefix('study-').removesuffix('.html')
+    return (f'<a class="latest" href="{href}"><span class="tag">Latest</span><span class="when">{report_date(name)}</span>'
+            f'{g(glyph)}<span class="t">{esc(title)}</span><span class="m">{esc(page_meta(name, reports, studies))}</span>'
+            '</a>')
 
 
 def takeaways_for(reports: dict, studies: list[dict], boards: list[dict], analysis, h2h) -> dict[str, str]:
@@ -1720,13 +1778,14 @@ def takeaways_for(reports: dict, studies: list[dict], boards: list[dict], analys
 
 # ---------------------------------------------------------------- overview
 
-BEAM_ART = """<svg class="beamart" viewBox="0 0 360 260" role="img" aria-label="A searchlight beam lands on one page among many: search finding the source that holds the answer.">
-<defs><linearGradient id="beamfade" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3D9BFF" stop-opacity=".95"/><stop offset="1" stop-color="#3D9BFF" stop-opacity=".18"/></linearGradient></defs>
-<g fill="none" stroke="#9AA3AF" stroke-width="3"><path d="M196 34h56l14 14v66h-70z"/><path d="M276 120h56l14 14v66h-70z"/><path d="M164 150h48l12 12v58h-60z" opacity=".55"/></g>
-<path d="M58 214L216 46 330 152z" fill="url(#beamfade)"/>
-<g fill="none" stroke="#F2F4F7" stroke-width="3"><path d="M236 78h56l14 14v66h-70z" fill="#0C0F13"/><path d="M292 78v14h14"/></g>
-<path d="M248 112h44M248 126h30" stroke="#7DBBFF" stroke-width="5"/><path d="M252 142l9 9 18-19" fill="none" stroke="#2BD99A" stroke-width="5"/>
-<circle cx="58" cy="214" r="30" fill="#F2F4F7"/><circle cx="58" cy="214" r="11" fill="#0C0F13"/>
+BEAM_ART = """<svg class="beamart" viewBox="0 0 420 300" role="img" aria-label="A searchlight beam sweeps a pile of pages and lands on the one that holds the answer, marked verified.">
+<defs><linearGradient id="beamfade" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3D9BFF" stop-opacity=".95"/><stop offset="1" stop-color="#3D9BFF" stop-opacity=".12"/></linearGradient></defs>
+<g fill="none" stroke="#5C6573" stroke-width="3"><path d="M230 20h56l14 14v70h-70z"/><path d="M330 150h56l14 14v70h-70z"/><path d="M196 196h50l12 12v62h-62z"/><path d="M354 40h40l10 10v50h-50z"/></g>
+<path d="M62 250L236 40 398 196z" fill="url(#beamfade)"/>
+<g fill="#0C0F13" stroke="#F2F4F7" stroke-width="3.5"><path d="M262 82h64l16 16v84h-80z"/></g><path d="M326 82v16h16" fill="none" stroke="#F2F4F7" stroke-width="3.5"/>
+<path d="M276 120h50M276 136h50M276 152h30" stroke="#7DBBFF" stroke-width="6"/>
+<circle cx="330" cy="178" r="22" fill="#2BD99A"/><path d="M319 178l8 8 15-16" fill="none" stroke="#06111F" stroke-width="5"/>
+<circle cx="62" cy="250" r="36" fill="#F2F4F7"/><circle cx="62" cy="250" r="13" fill="#0C0F13"/>
 </svg>"""
 
 
@@ -1737,21 +1796,26 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict | None
     h = headline(boards, analysis)
     (cc_lo, cc_hi), (cx_lo, cx_hi) = h['cc'], h['cx']
     lo, hi = min(cc_lo, cx_lo), max(cc_hi, cx_hi)
-    floor = max(float(re.match(r'(\d+)', b['reference'].get('floor (no search)', '') or '0').group(1))
-                for b in boards if b['bench'] == 'GAP')
+    gap = [b for b in boards if b['bench'] == 'GAP']
+    floor = max(float(re.match(r'(\d+)', b['reference'].get('floor (no search)', '') or '0').group(1)) for b in gap)
     nos, best = h['wsb_none'], h['wsb_best']
+    others = [r for b in gap for r in b['rows'][1:] if r['arm'] != 'no-search']
+    tied = sum(1 for b in gap for r in b['rows'][1:] if r['arm'] != 'no-search' and r['ci'][1] >= b['top_lower_bound'])
     hero = (f'<section class="wrap"><div class="hero"><div><p class="eyebrow">{g("beam")}An open benchmark by Lacey '
             'Enterprises</p><h1>Does web search make AI agents better at real work?</h1>'
-            f'<p class="answer">When the job is about something recent, it decides the outcome: with no search, both '
-            f'agents passed <b>{floor:.0f}%</b> of those briefs; with any search provider, <b>{lo:.0f}–{hi:.0f}%</b>.</p>'
-            f'<a class="btn" href="results.html">See the results</a></div>{BEAM_ART}</div></section>')
+            '<p class="what">Searchlight gives AI agents real jobs, changes only the search provider, and grades the '
+            'results blind.</p>'
+            f'<p class="answer">When the job is about something recent, search decides it: with no search, both agents '
+            f'passed <b>{floor:.0f}%</b> of those briefs; with any provider, <b>{lo:.0f}–{hi:.0f}%</b>.</p>'
+            f'<a class="btn" href="results.html">See the results</a></div>{BEAM_ART}</div>'
+            f'{latest_strip(reports, studies)}</section>')
     rows = [
-        (f'{floor:.0f}% → {hi:.0f}%', 'Search decides anything recent',
-         f'With no search, both agents failed every brief about events after their training data. Every one of the '
+        (f'{floor:.0f}% → {lo:.0f}–{hi:.0f}%', 'Search decides anything recent',
+         f'With no search, both agents failed every brief about events after their training data. All '
          f'{h["providers"]} providers closed most of the gap.', 'finding-1'),
-        ('A tie', 'No provider wins everywhere',
-         f'{h["cc_top"]["label"]} led on Claude Code and {h["cx_top"]["label"]} on Codex, and most ranges overlap.',
-         'finding-2'),
+        (f'{tied} of {len(others)}', 'No provider wins everywhere',
+         f'{h["cc_top"]["label"]} led on Claude Code and {h["cx_top"]["label"]} on Codex, but {tied} of the '
+         f'{len(others)} other setups\' ranges overlap their leader\'s: ties.', 'finding-2'),
         (f'{nos["pass_pct"]:.0f}% vs {best["pass_pct"]:.0f}%', 'On well-known topics, memory does most of the work',
          f'Answering from memory passed {nos["pass_pct"]:.0f}%; the best provider reached {best["pass_pct"]:.0f}%, '
          f'within the margin of error, using up to {h["token_ratio"]:.0f}× the tokens.', 'finding-3'),
@@ -1762,16 +1826,17 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict | None
     if h2h and h2h.get('measures'):
         hm = {m['id']: m for m in h2h['measures']}
         if 's1' in hm and 's3' in hm:
-            rows.append((f'{len(h2h["providers"])} APIs', 'Called directly, each search API led a different job',
-                         f'{leader(hm["s1"])} added the most new facts; {leader(hm["s3"])} read the most pages other '
-                         'tools could not.', 'finding-5'))
+            s1, s3 = hm['s1'], hm['s3']
+            rows.append((f'{max(s1["values"].values())}', f'Called directly, {leader(s1)} added the most new facts',
+                         f'{max(s1["values"].values())} verified new facts on 40 open questions; {leader(s3)} read the '
+                         f'most pages other tools could not ({max(s3["values"].values())} of {s3["of"]}).', 'finding-5'))
     found = ''.join(f'<li><a href="results.html#{anchor}"><span class="k">{esc(k)}</span><span class="t">{esc(t)}</span>'
                     f'<span class="d">{esc(d)}</span></a></li>' for k, t, d, anchor in rows)
     concepts = vocabulary()['Concepts'][:8]
     tiles = ''.join(f'<a class="tile" href="#c-{slug(term)}" data-concept="c-{slug(term)}" role="tab" '
                     f'aria-controls="c-{slug(term)}" aria-selected="{"true" if i == 0 else "false"}">'
-                    f'{g(glyph)}<span>{esc(term)}</span></a>'
-                    for i, (term, glyph, _, _) in enumerate(concepts))
+                    f'{g(glyph)}<b>{esc(term)}</b><span>{esc(one)}</span></a>'
+                    for i, (term, glyph, one, _) in enumerate(concepts))
     panels = ''.join(f'<div class="concept" id="c-{slug(term)}" role="tabpanel"><h3>{g(glyph, "s32")}{esc(term)}</h3>'
                      f'<p class="one">{esc(one)}</p><p>{esc(more)}</p></div>'
                      for term, glyph, one, more in concepts)
@@ -1790,24 +1855,23 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict | None
 <section class="band" id="findings"><div class="wrap">
 <div class="head"><h2>What we found</h2><p>From {h['runs']} graded runs of Claude Code and Codex.</p></div>
 <ul class="takeaways">{found}</ul>
-<p style="margin-top:20px"><a class="more" href="results.html">Every finding, with its evidence</a></p>
+{read_link()}
 </div></section>
 
 <section class="band soft" id="how"><div class="wrap">
-<div class="head"><h2>Learn Searchlight in 60 seconds</h2><p>Eight ideas behind every number on this site.</p></div>
+<div class="head"><h2>Learn Searchlight in 60 seconds</h2><p>Eight ideas behind every number on this site. Pick one to
+read more.</p></div>
 <div class="tiles" role="tablist" aria-label="Ideas">{tiles}</div>
 <div class="concepts" data-tabs>{panels}</div>
 <p style="margin-top:20px"><a class="more" href="learn.html">See how a test works, step by step</a></p>
 </div></section>
 
-<section class="band"><div class="wrap">{readme_panel()}</div></section>
-
-<section class="band soft" id="examples"><div class="wrap">
+<section class="band" id="examples"><div class="wrap">
 <div class="head"><h2>What we asked the agents to do</h2><p>Real tasks from the benchmark, quoted from its task catalogs.</p></div>
 <div class="cards">{''.join(examples)}</div>
 </div></section>
 
-<section class="band" id="report"><div class="wrap">
+<section class="band soft" id="report"><div class="wrap">
 <div class="head"><h2>Every report and study</h2><p>Each one published with its data, method and corrections.</p></div>
 {reports_list(reports, studies, {})}
 </div></section>"""
@@ -1819,23 +1883,23 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict | None
 # ---------------------------------------------------------------- results
 
 def filter_bar(boards: list[dict], extra_providers: list[str] = ()) -> str:
-    """Client-side filters over the rendered rows. Hidden without JavaScript: the page already shows everything."""
+    """Client-side filters over the rendered rows: one row of chips per question. Hidden without JavaScript: the page
+    already shows everything."""
     agents = sorted({(b['harness'], harness_name(b)[0]) for b in boards}, key=lambda a: a[1])
     benches = sorted({b['source'] for b in boards} | {H2H}, reverse=True)
     providers = sorted({(r['arm'], r['label']) for b in boards for r in b['rows']} |
                        {(arm_id(p), ARM_LABEL.get(arm_id(p), p)) for p in extra_providers}, key=lambda p: p[1])
 
-    def select(name, label, options, wide=False):
-        opts = ''.join(f'<option value="{esc(v)}">{esc(t)}</option>' for v, t in options)
-        return f'<label{" class=wide" if wide else ""}>{label}<select name="{name}">{opts}</select></label>'
-    return ('<form class="filters js-only" id="filters" aria-label="Filter the results" data-filters>'
-            '<div class="wrap">'
-            + select('agent', 'Agent', [('', 'Every agent')] + agents)
-            + select('sort', 'Order', [('rank', 'Ranked'), ('label', 'A to Z')])
-            + select('bench', 'Benchmark', [('', 'Every benchmark')]
-                     + [(b, f'{REPORT_TITLES.get(b, b)} · {report_date(b)}') for b in benches], wide=True)
-            + select('provider', 'Search setup', [('', 'Every setup')] + providers, wide=True)
-            + '<output class="count" aria-live="polite"></output></div></form>')
+    def group(name, label, options):
+        chips = ''.join(f'<label><input type="radio" name="{name}" value="{esc(v)}"{" checked" if not v else ""}>'
+                        f'<span>{esc(t)}</span></label>' for v, t in options)
+        return f'<fieldset class="seg"><legend>{label}</legend><div class="opts">{chips}</div></fieldset>'
+    return ('<form class="filters js-only" id="filters" aria-label="Filter the results" data-filters><div class="wrap">'
+            + group('agent', 'Agent', [('', 'All')] + agents)
+            + group('bench', 'Benchmark', [('', 'All')] + [(b, f'{REPORT_TITLES.get(b, b)} · {report_date(b)[5:]}')
+                                                          for b in benches])
+            + group('provider', 'Setup', [('', 'All')] + providers)
+            + '</div></form>')
 
 
 def filter_data(boards: list[dict]) -> str:
@@ -1846,11 +1910,21 @@ def filter_data(boards: list[dict]) -> str:
     return f'<script type="application/json" id="filter-data">{data}</script>'
 
 
-def finding(n: int, title: str, lede: str, body: str, so: str, bench: str = '', note_html: str = '') -> str:
-    return (f'<section class="finding" id="finding-{n}" data-f-group{f" data-bench={chr(34)}{bench}{chr(34)}" if bench else ""}>'
-            f'<div class="head"><p class="eyebrow">Finding {n}</p><h2>{esc(title)}</h2><p>{esc(lede)}</p>'
+def prose(variants: dict[str, str]) -> str:
+    """A finding's lede, one variant per agent filter ('' is the unfiltered text). The filters show the one that
+    matches, so the words never contradict the rows."""
+    return ''.join(f'<p data-prose="{esc(agent)}"{" hidden" if agent else ""}>{esc(text)}</p>'
+                   for agent, text in variants.items())
+
+
+def finding(n: int, title: str, lede: str | dict, body: str, so: str, bench: str = '', note_html: str = '',
+            agent: str = '', notes: str = '') -> str:
+    text = prose(lede) if isinstance(lede, dict) else f'<p>{esc(lede)}</p>'
+    attrs = (f' data-bench="{bench}"' if bench else '') + (f' data-agent="{agent}"' if agent else '')
+    return (f'<section class="finding" id="finding-{n}" data-f-group{attrs}>'
+            f'<div class="head"><p class="eyebrow">Finding {n}</p><h2>{esc(title)}</h2>{text}'
             f'{f"<div class=notes>{note_html}</div>" if note_html else ""}</div>'
-            f'{body}<p class="so">{g("insight")}<span><strong>So what:</strong> {esc(so)}</span></p></section>')
+            f'{body}{notes}<p class="so">{g("insight")}<span><strong>So what:</strong> {esc(so)}</span></p></section>')
 
 
 def results_page(reports: dict, boards: list[dict], analysis: dict, body_only: bool = False,
@@ -1860,87 +1934,91 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, body_only: b
     extra = more_boards(reports)
     gap = [b for b in boards if b['bench'] == 'GAP']
     wsb = next(b for b in boards if b['id'] == 'wsb-competitive')
-    (cc_lo, cc_hi), (cx_lo, cx_hi) = h['cc'], h['cx']
     nos, best = h['wsb_none'], h['wsb_best']
     tps = sorted(wsb['rows'], key=lambda r: float(r['tokens_per_success'].rstrip('k')))
     b = behavior_facts(analysis) if analysis.get('gap_rows') else None
-    ceilings = ' and '.join(_floor_ceiling(x)[1] for x in gap)
+
+    def agent_name(board):
+        return harness_name(board)[0]
+    one = {}
+    for board in gap:
+        lo, hi = _gap_range(board)
+        floor, ceiling = _floor_ceiling(board)
+        one[board['harness']] = (lo, hi, floor, ceiling, board)
+    all_lo, all_hi = min(v[0] for v in one.values()), max(v[1] for v in one.values())
+    f1 = {'': f'With no search, both agents failed every brief about recent events; with any search setup they passed '
+              f'{all_lo:.0f}–{all_hi:.0f}%.'}
+    f2 = {'': ' and '.join(f'{v[4]["rows"][0]["label"]} led on {agent_name(v[4])}' for v in one.values())
+              + ', and most ranges overlap: the test cannot separate the leaders.'}
+    for harness, (lo, hi, floor, ceiling, board) in one.items():
+        name = agent_name(board)
+        f1[harness] = (f'With no search, {name} failed every brief about recent events ({floor}); with any search setup '
+                       f'it passed {lo:.0f}–{hi:.0f}%, close to the {ceiling} it reached when handed the answer.')
+        f2[harness] = f'On {name}: {board_says(board)}'
     findings = [
-        finding(1, 'Past the training cutoff, search decides the outcome',
-                f'With no search, both agents failed every brief about recent events. With any search setup, Claude Code '
-                f'passed {cc_lo:.0f}–{cc_hi:.0f}% and Codex {cx_lo:.0f}–{cx_hi:.0f}%, close to the {ceilings} they '
-                'reached when handed an excerpt containing the answer.',
-                dumbbell(gap),
-                'For work about recent events, search is not a tuning knob. It is the difference between failing and '
-                'passing, and every provider tested closes most of the gap.', GAP_PRIMARY),
-        finding(2, 'No provider wins everywhere',
-                f'{h["cc_top"]["label"]} led on Claude Code ({h["cc_top"]["passes"]} of {h["cc_top"]["cells"]}) and '
-                f'{h["cx_top"]["label"]} on Codex ({h["cx_top"]["passes"]} of {h["cx_top"]["cells"]}). With '
-                f'{h["min_runs"]}–{max(b_["rows"][0]["cells"] for b_ in gap)} runs per setup, most ranges overlap, so the '
-                'test cannot separate the leaders.',
-                f'<div class="boards two">{"".join(board_html(x) for x in gap)}</div>',
-                'Choose on cost, latency and integration, then measure on your own agent. Rankings did not carry over '
-                'from one agent to the other.', GAP_PRIMARY),
+        finding(1, 'Past the training cutoff, search decides the outcome', f1, dumbbell(gap),
+                'For recent events, search is the difference between failing and passing.', GAP_PRIMARY),
+        finding(2, 'No provider wins everywhere', f2,
+                LEGEND + f'<div class="boards two">{"".join(board_html(x, top=3, notes=False, brief=True) for x in gap)}</div>',
+                'Choose on cost and fit, then test on your own agent.', GAP_PRIMARY,
+                notes=numbers_mean(gap)),
         finding(3, 'On well-documented questions, memory does most of the work',
-                f'Answering from memory passed {nos["passes"]} of {nos["cells"]} ({nos["pass_pct"]:.0f}%). The best '
-                f'provider reached {best["pass_pct"]:.0f}%, within the margin of error, while tokens per passing run rose '
-                f'from {tps[0]["tokens_per_success"]} ({tps[0]["label"]}) to {tps[-1]["tokens_per_success"]} '
-                f'({tps[-1]["label"]}).',
-                f'<div class="boards">{board_html(wsb)}</div>',
-                'Search pays off where training data runs out. On stable, well-documented questions it mostly adds cost.',
-                WSB_PRIMARY),
+                {'': f'Answering from memory passed {nos["pass_pct"]:.0f}%; the best provider reached '
+                     f'{best["pass_pct"]:.0f}%, within the margin of error, at up to {h["token_ratio"]:.0f}× the tokens '
+                     f'({tps[0]["tokens_per_success"]} to {tps[-1]["tokens_per_success"]} per pass).'},
+                LEGEND + f'<div class="boards">{board_html(wsb, top=3, notes=False, brief=True)}</div>',
+                'On stable questions, search mostly adds cost.',
+                WSB_PRIMARY, agent=wsb['harness'], notes=numbers_mean([wsb])),
     ]
     if b:
+        queries = analysis.get('gap_totals', {}).get('queries', 0) + analysis.get('bakeoff_totals', {}).get('queries', 0)
         findings.append(finding(
             4, 'Agents still search like keyword users',
-            'Agents rarely wrote searches as questions, often skipped search to open pages they remembered, and did '
-            'better when the original source showed up in their results.',
+            {'': 'Agents rarely searched in plain questions, often skipped search for pages they remembered, and did '
+                 'better when the original source showed up.',
+             'codex': 'Across both agents, few searches read as plain questions. The other two measures were taken on '
+                      'Claude Code only.'},
             behavior_tiles(analysis),
-            'The next gains are in how agents ask and what results show: searches written as questions, and original '
-            'sources first. These are patterns across runs, not proven causes.', BEHAVIOR,
-            note(f'From {analysis["gap_totals"]["queries"] + analysis["bakeoff_totals"]["queries"]} logged searches',
-                 'Computed from the stored transcripts of the two benchmarks. Links between search behaviour and pass '
-                 'rates are patterns, not causes.') if 'queries' in analysis.get('gap_totals', {}) else ''))
+            'Better questions and original sources first are the next gains.',
+            BEHAVIOR,
+            note(f'From {queries} logged searches', 'Computed from the stored transcripts of the two benchmarks. Links '
+                 'between search behaviour and pass rates are patterns, not causes.', 'neutral') if queries else ''))
     if h2h.get('measures'):
         hm = {m['id']: m for m in h2h['measures']}
         if all(k in hm for k in ('s1', 's4', 's3', 's6')):
             s1, s3, s6 = hm['s1'], hm['s3'], hm['s6']
             findings.append(finding(
                 5, 'Called directly, each search API led a different job',
-                f'A separate study sent the same pre-registered research questions straight to four search APIs. '
-                f'{leader(s1)} added the most verified new facts ({max(s1["values"].values())} on 40 open questions), '
-                f'{leader(s3)} read the most pages built-in tools could not ({max(s3["values"].values())} of {s3["of"]}), '
-                f'and {leader(s6)} filled a fixed template most accurately ({max(s6["values"].values())} of {s6["of"]}).',
-                measures_html(h2h),
-                'Choose by job: finding new facts, reading hard pages and filling in data rewarded different providers.',
-                H2H,
+                {'': f'With no agent in the loop, {leader(s1)} added the most verified new facts '
+                     f'({max(s1["values"].values())}), {leader(s3)} read the most hard pages and {leader(s6)} filled a '
+                     'template best.'},
+                measures_html(h2h, ids=('s1', 's3', 's4', 's6'), show=1),
+                'Choose an API by the job you need done.', H2H,
                 note('Counts, no ranges', h2h['note'] + ' Tavily sells no data-extraction product, so it was not run on '
-                     'the template.') + note('Context', 'The study was run while building a sales and marketing knowledge '
-                                             'base about Exa, one of the four, and its questions came from that work.')))
-    more = ''
-    if extra:
-        more = ('<section class="finding" id="more-runs" data-f-group><div class="head"><p class="eyebrow">Run again</p>'
-                '<h2>Replications and newer runs</h2><p>Every other benchmark run, added as it is published.</p></div>'
-                f'<div class="boards{" two" if len(extra) > 1 else ""}">{"".join(board_html(x) for x in extra)}</div></section>')
-    takeaways = takeaways_for(reports, studies or [], boards + extra, analysis, h2h)
+                     'the template.') + note('Context', 'The study was run while building a sales and marketing '
+                                             'knowledge base about Exa, one of the four, and its questions came from '
+                                             'that work.', 'neutral'),
+                agent='-'))
+    # Every other benchmark run (replications, newer runs) is found automatically and listed in the record with its
+    # takeaway; its full board is one tap away on its report page.
+    later = {x['source'] for x in extra}
+    takeaways = {name: digest(name, reports, extra, analysis, h2h)[0] for name in later}
     providers = h2h.get('providers', [])
     main = f"""<div class="wrap pagehead"><p class="eyebrow">{g("ranking")}Results</p>
 <h1>Search decides recent work. Which provider matters less.</h1>
-<p class="lede">{h['runs']} graded runs of {h['agents']} AI coding agents with {h['providers']} search providers, their
-built-in search or none, plus a study that called four search APIs directly. Every number comes from the published reports.</p>
-<div style="margin-top:28px">{readme_panel()}</div></div>
-{filter_bar(boards + extra, providers)}
-<div class="wrap">
+<p class="lede">{h['runs']} graded runs of {h['agents']} AI coding agents with {h['providers']} search providers, plus one
+study that called four search APIs directly.</p></div>
+{filter_bar(boards, providers)}
+<div class="wrap">{read_link()}
 <p class="empty js-only" id="filter-empty" hidden>Nothing matches these filters. Widen one of them.</p>
 {''.join(findings)}
-{more}
 <section class="finding" id="leaderboard"><div class="head"><p class="eyebrow">{g("report")}The record</p>
-<h2>Every report and study</h2><p>Each one has its own page: the takeaway first, then the full report and its method.
-Data: <a href="leaderboard.json">leaderboard.json</a>. Poster: <a href="infographic.svg">the one-page infographic</a>.</p></div>
-{reports_list(reports, studies or [], takeaways, anchors=True)}
+<h2>Every report and study</h2><p>Each has its own page. Data: <a href="leaderboard.json">leaderboard.json</a> ·
+<a href="infographic.svg">one-page infographic</a></p></div>
+{reports_list(reports, studies or [], takeaways, anchors=True, compact=True)}
 </section>
 </div>
-{filter_data(boards + extra)}"""
+{filter_data(boards)}"""
     main = results_language(main)
     if body_only:
         return main
@@ -1968,13 +2046,14 @@ def report_page(name: str, reports: dict, boards: list[dict], analysis: dict | N
     summary = reports[name]['summary']
     title = report_title(name, summary)
     say, glance = digest(name, reports, boards, analysis, h2h)
+    mine = [b for b in boards if b['source'] == name]
     full = render_report(summary, name)
     method = markdown(reports[name]['methodology'], name + '-method', heading_shift=2, base=name)
     top = (f'<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results'
            f'</a><span aria-hidden="true">›</span><span>{esc(title)}</span></nav>'
            f'<p class="eyebrow" style="margin-top:20px">{g("report")}{esc(bench_label(summary))} · {report_date(name)}</p>'
            f'<h1>{esc(title)}</h1><p class="lede">{esc(say)}</p></div>'
-           f'<div class="wrap">{glance}<div style="margin-top:28px">{readme_panel(compact=True)}</div></div>')
+           f'<div class="wrap">{read_link()}{LEGEND if mine else ""}{glance}{numbers_mean(mine) if mine else ""}</div>')
     detail = (f'<div class="wrap doc" style="margin-top:32px">'
               f'<details class="full" id="run-{name}"><summary>{g("report")}The full report</summary>'
               f'<div class="body">{full}</div></details>'
@@ -1992,8 +2071,24 @@ def report_page(name: str, reports: dict, boards: list[dict], analysis: dict | N
 
 # ---------------------------------------------------------------- studies
 
+def study_question(summary: dict) -> str:
+    """A study's reader-facing question, from its set: the title says what the questions were about."""
+    title = summary.get('set', {}).get('title', '')
+    return f'Which search services found the most useful facts about {title[:1].lower() + title[1:]}?' if title else \
+        'Which search services found the most useful facts?'
+
+
+def finish_html(summary: dict) -> str:
+    from sew.insight.dashboard import finish
+
+    return '<ol class="finish">' + ''.join(
+        f'<li><span class="q">{esc(x["q"])}</span><span class="who">{esc(x["who"])}</span>'
+        f'<span class="big">{esc(x["big"])}<small>{esc(x["unit"])}</small></span><span class="ctx">{esc(x["ctx"])}</span></li>'
+        for x in finish(summary)) + '</ol>'
+
+
 def studies_page(studies: list[dict], pages: list = ()) -> str:
-    from sew.insight.dashboard import ranked, takeaway
+    from sew.insight.dashboard import ranked
 
     cards = []
     for s in studies:
@@ -2003,78 +2098,76 @@ def studies_page(studies: list[dict], pages: list = ()) -> str:
         items = []
         for i, r in enumerate(rows, start=1):
             kind = 'research' if r['kind'] == 'research' else 'search'
-            label = f'{r["arm"]}: {r["value"]:.1f} verified insight per question, 95% range {r["lo"]:.1f} to {r["hi"]:.1f}'
-            items.append(f'<li class="row" data-f data-kind="{kind}"'
-                         f'{" hidden" if i > 6 else ""}><span class="rk">{i}</span><span class="nm">{esc(r["arm"])}'
-                         f'<small>{kind} · {r["unique"]} found by no other service</small></span>'
+            label = f'{r["arm"]}: {r["value"]:.1f} useful findings per question, 95% range {r["lo"]:.1f} to {r["hi"]:.1f}'
+            items.append(f'<li class="row" data-f data-kind="{kind}"><span class="rk">{i}</span>'
+                         f'<span class="nm"><span class="name">{esc(r["arm"])}<span class="chip ctl">{kind}</span></span>'
+                         f'<small>{r["unique"]} found by no one else</small></span>'
                          f'<span class="pc">{r["value"]:.1f}</span><span class="tr">'
                          f'{track(r["lo"], r["hi"], r["value"], label, scale=scale)}</span>'
-                         f'<span class="nn">{r["questions"]} Qs</span></li>')
+                         f'<span class="nn">{r["questions"]} questions</span></li>')
+        top, rest = items[:3], items[3:]
+        more = (f'<details class="allrows"><summary>All {len(items)} services</summary>'
+                f'<ol class="rows" start="4">{"".join(rest)}</ol></details>') if rest else ''
         sponsor = summary['set'].get('sponsor')
         meta = (f'{len(summary["arms"])} services · {summary["set"]["questions"]} questions · '
                 f'${summary["spend"]["total_usd"]:.2f} spent' + (f' · sponsored by {sponsor.get("name", "")}' if sponsor else ''))
         cards.append(
-            f'<article class="board study" id="study-{s["name"]}" data-f-group>'
-            f'<header><p class="eyebrow">{g("study")}Study · {report_date(s["name"])}</p>'
-            f'<h3><a href="{s["page"]}">{esc(summary["set"]["title"])}</a></h3><p>{esc(meta)}</p>'
-            f'<p class="says">{esc(takeaway(summary, rows))}</p></header>'
-            '<p class="muted small" style="margin-top:14px">Verified insight per question, with its 95% range</p>'
-            f'<div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0</span>'
+            f'<article class="study" id="study-{s["name"]}" data-f-group>'
+            f'<p class="eyebrow">{g("study")}Study · {report_date(s["name"])} · {esc(meta)}</p>'
+            f'<h2><a href="{s["page"]}">{esc(study_question(summary))}</a></h2>'
+            f'{finish_html(summary)}'
+            f'<div class="board"><header><h3>Ranked by useful findings per question</h3>'
+            '<p>Search services hand back results; research services write an answer.</p></header>'
+            '<div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0</span>'
             f'<span>{scale / 2:.0f}</span><span>{scale:.0f}</span></span><span></span></div>'
-            f'<ol class="rows" data-limit="6">{"".join(items)}</ol>'
-            f'<div class="bfoot"><p style="display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:8px 0">'
-            f'<a class="btn" href="{s["page"]}">Open the study</a>'
-            f'<a href="{REPO_URL}/tree/main/reports/{esc(s["name"])}">Report, data and method</a></p></div></article>')
+            f'<ol class="rows">{"".join(top)}</ol>{more}</div>'
+            f'<p class="actions"><a class="btn" href="{s["page"]}">Open the study</a>'
+            f'<a class="more" href="{REPO_URL}/tree/main/reports/{esc(s["name"])}">Report, data and method</a></p></article>')
     filters = ('<form class="filters js-only" aria-label="Filter the studies" data-filters><div class="wrap">'
-               '<label>Services<select name="kind"><option value="">All</option>'
-               '<option value="search">Search only</option>'
-               '<option value="research">Research only</option></select></label>'
-               '<output class="count" aria-live="polite"></output></div></form>')
+               '<fieldset class="seg"><legend>Services</legend><div class="opts">'
+               '<label><input type="radio" name="kind" value="" checked><span>All</span></label>'
+               '<label><input type="radio" name="kind" value="search"><span>Search</span></label>'
+               '<label><input type="radio" name="kind" value="research"><span>Research</span></label>'
+               '</div></fieldset></div></form>')
     main = (f'<div class="wrap pagehead"><p class="eyebrow">{g("study")}Studies</p>'
             '<h1>Which search service finds the most that holds up?</h1>'
-            '<p class="lede">Each study sends one fixed set of questions to every search and research service, checks '
-            'every claim on the page it cites, and values what each one found that the others did not.</p>'
-            f'<div style="margin-top:28px">{readme_panel(compact=True)}</div></div>'
+            '<p class="lede">Each study sends one fixed set of questions to every search and research service and checks '
+            'every claim on the page it cites.</p></div>'
             + (filters if studies else '')
-            + '<div class="wrap"><div class="boards">' + (''.join(cards) or '<p class="empty">No studies yet.</p>')
-            + '</div></div>')
+            + f'<div class="wrap">{read_link()}' + (''.join(cards) or '<p class="empty">No studies yet.</p>') + '</div>')
     return _document('Insight studies · Searchlight',
                      'Which search APIs find the most unique, verified insight, study by study.',
                      'studies.html', main, pages=pages)
 
 
-STUDY_BAR_CSS = """
-.sl-site{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
-.sl-site .in{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.sl-site .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;
-font-size:20px;letter-spacing:-.02em;margin-right:auto}
-.sl-site .brand svg{width:34px;height:34px}
-.sl-site nav{display:flex;gap:16px;font-size:15px}
-.sl-site nav a{color:var(--ink-2);text-decoration:none;font-weight:500}
-"""
+STUDY_SHELL = re.compile(r'/\* shell: .*?/\* end shell \*/\n', re.S)
 
 
-def study_page(study: dict) -> str:
-    """The study's own dashboard, hosted: the site bar, consent and tag markup, a way back, raw links to the bundle."""
+def study_page(study: dict, pages: list = ()) -> str:
+    """The study's own dashboard, hosted in the site's shell: the same header, type and theme handling, and the page
+    heading, consent and tag markup, raw links to the bundle and footer of every other page."""
+    template = study['dashboard']
+    summary = study.get('summary') or {}
+    title = summary.get('set', {}).get('title', study['name'])
     raw = f"{REPO_URL}/blob/main/reports/{study['name']}/"
-    html = study['dashboard'].replace('<html lang="en">', f'<html lang="en" data-raw-base="{esc(raw)}">', 1)
-    viewport = '<meta name="viewport" content="width=device-width, initial-scale=1">'
-    html = html.replace(viewport, f'{viewport}\n{GTM_HEAD}\n<link rel="icon" type="image/svg+xml" href="logo.svg">', 1)
-    html = html.replace('</style>', STUDY_BAR_CSS + '</style>', 1)
-    lamp = glyphs.LOGOS[[x[0] for x in glyphs.LOGOS].index(LOGO_ID)][2]
-    bar = ('<div class="sl-site"><div class="in"><a class="brand" href="index.html" aria-label="Searchlight home">'
-           f'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">{lamp}</svg>'
-           'Searchlight</a><nav aria-label="Site"><a href="results.html">Results</a><a href="studies.html">Studies</a>'
-           '<a href="learn.html">Learn</a></nav></div></div>')
-    html = html.replace('<a class="skip" href="#main">', bar + '\n<a class="skip" href="#main">', 1)
-    back = ('<p class="small" style="margin:12px 0 0"><a href="studies.html">&larr; All Searchlight studies</a> · '
-            f'<a href="{REPO_URL}/tree/main/reports/{esc(study["name"])}">Data and method</a></p>')
-    html = html.replace('<div class="wrap">', f'<div class="wrap">\n{back}', 1)
-    footer = ('<footer class="small muted" style="max-width:1120px;margin:32px auto;padding:16px;border-top:1px solid '
-              f'var(--line)"><p>A <a href="{LACEY_URL}">Lacey Enterprises</a> project. Results are released under the '
-              f'<a href="{REPO_URL}/blob/main/LICENSE">Apache License 2.0</a>.</p>'
-              f'<p class="analytics-disclosure">{ANALYTICS_NOTICE}</p></footer>')
-    return html.replace('</body>', f'{footer}\n</body>', 1)
+    style = re.search(r'<style>(.*?)</style>', template, re.S).group(1)
+    style = re.sub(r'/\* tokens: design/tokens\.css.*?/\* end tokens \*/\n', '', style, flags=re.S)
+    style = STUDY_SHELL.sub('', style)
+    body = re.search(r'<main id="main" class="dash"[^>]*>(.*?)</main>', template, re.S).group(1)
+    body = re.sub(r'<!--shell-->.*?<!--/shell-->', '', body, flags=re.S)
+    scripts = template[template.index('<script type="application/json" id="data">'):template.rindex('</body>')]
+    meta = (f'{len(summary["arms"])} services · {summary["set"]["questions"]} questions · '
+            f'${summary["spend"]["total_usd"]:.2f} spent') if summary.get('arms') else ''
+    head = (f'<div class="wrap pagehead"><nav class="crumbs" aria-label="Breadcrumb"><a href="studies.html">Studies</a>'
+            f'<span aria-hidden="true">›</span><span>{report_date(study["name"])}</span></nav>'
+            f'<p class="eyebrow" style="margin-top:20px">{g("study")}Study · {report_date(study["name"])}'
+            f'{" · " + esc(meta) if meta else ""}</p><h1>{esc(study_question(summary))}</h1>'
+            f'<p class="readlink"><a class="more" href="{REPO_URL}/tree/main/reports/{esc(study["name"])}">Data and method'
+            '</a></p></div>')
+    main = (head + f'<div class="dash" data-raw-base="{esc(raw)}">{body}</div>'
+            f'<div class="wrap"><p class="readlink"><a class="more" href="studies.html">All Searchlight studies</a></p></div>')
+    return _document(f'{title} · Searchlight study', f'{study_question(summary)} One study, every claim checked.',
+                     study['page'], main, script=scripts, pages=pages, head=style)
 
 
 # ---------------------------------------------------------------- learn and method
@@ -2140,14 +2233,14 @@ def learn_page(boards: list[dict], analysis: dict, pages: list = ()) -> str:
                 '</div>')
     main = f"""<div class="wrap pagehead"><p class="eyebrow">{g("learn")}Learn</p>
 <h1>How a Searchlight test works.</h1>
-<p class="lede">Five steps, the same for every search setup. Use Next to walk through them.</p></div>
+<p class="lede">Five steps, the same for every search setup.</p></div>
 
 <section class="band" style="padding-top:24px"><div class="wrap">{steps_html(h, paged=True)}</div></section>
 
 <section class="band soft" id="ranges"><div class="wrap">
 <div class="head"><p class="eyebrow">{g("range")}Try it: honest ranges</p><h2>How sure is {100 * k / n:.0f}%?</h2>
 <p>A pass rate from a few dozen runs is a measurement, so it comes with a range. Change the passes and the runs, and watch
-the range move. This one starts at {best['label']}'s score in the web search bakeoff.</p></div>
+the range move. It starts at {best['label']}'s score in the web search bakeoff.</p></div>
 {explorer}
 <details class="more-info"><summary>How the range is worked out</summary>
 <p>Start with the score p = passes ÷ runs, and z = 1.96 for 95%. Wilson's interval sets the centre at
@@ -2155,15 +2248,70 @@ the range move. This one starts at {best['label']}'s score in the web search bak
 stays honest at the edges. To halve a range, run about four times as many tests.</p></details>
 </div></section>
 
-<section class="band" id="words"><div class="wrap">
+<section class="band" id="reading"><div class="wrap">{read_panel()}</div></section>
+
+<section class="band soft" id="words"><div class="wrap">
 <div class="head"><p class="eyebrow">{g("brief")}The words</p><h2>Every idea, in one line</h2>
 <p>The reports keep some technical words; the <a href="methodology.html#terms">methodology</a> maps them to these.</p></div>
-<div class="terms">{terms}</div></div></section>
-
-<section class="band soft"><div class="wrap">{readme_panel()}
-<p style="margin-top:28px"><a class="btn" href="results.html">See the results</a></p></div></section>"""
+<div class="terms">{terms}</div>
+<p style="margin-top:28px"><a class="more" href="results.html">Now read the results</a></p></div></section>"""
     return _document('Learn · Searchlight', 'How a Searchlight test works, in five steps, and the ideas behind every number.',
                      'learn.html', main, pages=pages)
+
+
+DIAGRAM_STEPS = {
+    'pipeline': ['Tasks come from two catalogs: production tasks and post-cutoff briefs.',
+                 'Each run gets a fresh scratch workspace and one agent: Claude Code or Codex.',
+                 'The agent calls one search provider through a metering proxy.',
+                 'The transcript, answer, setup audit and metrics form an evidence bundle.',
+                 'Automatic checks and blind judges grade it; the report and this site are built from the grades.'],
+    'isolation': ['Each search setup has a contract: the tools the agent may use.',
+                  'Claude Code starts with only the setup\'s connector and built-ins; Codex starts read-only with its '
+                  'shell, browser, apps and plugins off.',
+                  'A provider setup gets one search connector; built-in search gets the agent\'s own; no search gets '
+                  'no tools.',
+                  'After the run, an audit checks every tool call against the contract.'],
+    'calibration': ['A candidate brief is about an event after 2026-01-01.',
+                    'It runs five times with no search (floor) and five times with the answer handed over (ceiling).',
+                    'It counts only if the floor passes at most once and the ceiling at least four times.',
+                    'Admitted tasks then run three times on every search setup.'],
+    'grading': ['The answer must be valid JSON: a brief, its claims and citations.',
+                'The cited pages are captured and their text read.',
+                'A Claude Code judge, blind to the setup, scores key facts, unsupported claims and the decision.',
+                'A Codex judge scores the same inputs; their agreement is recorded.',
+                'Pass: the right decision, at least 70% of key facts, at most 25% unsupported claims.'],
+    'direct': ['Pre-registered questions from one knowledge base go to Exa, Tavily, Parallel and Firecrawl.',
+               'Their results are pooled, deduplicated and shuffled.',
+               'Blind judges verify each claim on its page and check whether the knowledge base already had it.',
+               'A provider is credited only where its own page states the claim.'],
+}
+
+
+def diagram(name: str) -> str:
+    """A flow as a site-styled step list on phones and as a diagram on wider screens."""
+    steps = ''.join(f'<li>{esc(step)}</li>' for step in DIAGRAM_STEPS[name])
+    return f'<ol class="steplist">{steps}</ol>{mermaid(name)}'
+
+
+def provider_cards(configs: list[dict]) -> str:
+    """One card per search provider: how it connects, its pinned version, and its tools behind one tap."""
+    cards = []
+    for cfg in configs:
+        tools = ''.join(f'<code>{esc(t)}</code>' for t in cfg['tools'])
+        version = esc(cfg['package']) + (f' → {esc(cfg["remote"])}' if cfg['remote'] else '')
+        cards.append(f'<div class="pcard"><h3>{esc(cfg["label"])}</h3>'
+                     f'<p>{"Hosted connector via mcp-remote" if cfg["remote"] else "Local connector (npx)"}</p>'
+                     f'<p class="ver"><code>{version}</code></p>'
+                     f'<details class="more-info"><summary>{len(cfg["tools"])} tools</summary><p class="tools">{tools}</p>'
+                     '</details></div>')
+    cards.append('<div class="pcard"><h3>Built-in (Claude Code)</h3><p>The agent\'s own search</p>'
+                 '<p class="ver"><code>Claude Code 2.1.282</code></p><details class="more-info"><summary>3 tools</summary>'
+                 '<p class="tools"><code>WebSearch</code><code>WebFetch</code><code>Read</code></p>'
+                 '<p>WebFetch was refused before 2026-10-06.</p></details></div>')
+    cards.append('<div class="pcard"><h3>Built-in (Codex)</h3><p>The agent\'s own search</p>'
+                 '<p class="ver"><code>codex --search</code></p><details class="more-info"><summary>2 tools</summary>'
+                 '<p class="tools"><code>web search</code><code>page views</code></p></details></div>')
+    return f'<div class="pcards">{"".join(cards)}</div>'
 
 
 def methodology_page(configs: list[dict], target: str = 'pages', body_only: bool = False,
@@ -2183,68 +2331,62 @@ def methodology_page(configs: list[dict], target: str = 'pages', body_only: bool
         strip = (f'<section style="margin-top:28px">{steps_html(headline(boards, analysis), compact=True)}'
                  '<p style="margin-top:16px"><a class="more" href="learn.html">Walk through it, with pictures</a></p>'
                  '</section>')
-    terms = ''.join(f'<div class="term">{g(glyph)}<b>{esc(plain[:1].upper() + plain[1:])}</b>'
-                    f'<p><span class="alias">Report term: {esc(term)}</span><br>{esc(meaning)}</p></div>'
+    terms = ''.join(f'<div class="gl">{g(glyph)}<div><b>{esc(plain[:1].upper() + plain[1:])}</b> '
+                    f'<span class="alias">{esc(term)}</span><p>{esc(meaning)}</p></div></div>'
                     for term, plain, glyph, meaning in vocabulary()['Report terms'])
     main = f"""<div class="wrap pagehead"><p class="eyebrow">{g("method")}Methodology</p><h1>How Searchlight tests search</h1>
-<p class="lede">A controlled experiment: the same agent, model and instructions in every run, with only the search
-setup changing. The steps first; the full apparatus after.</p>{strip}</div>
+<p class="lede">The same agent, model and instructions in every run, with only the search setup changing. The steps
+first; the full apparatus after.</p>{strip}</div>
 <div class="wrap doc">
 
 <section id="terms"><h2>Terms used in the reports</h2>
 <p>The reports keep their technical words. Each one, with the plain word this site uses:</p>
-<div class="terms">{terms}</div></section>
+<div class="glossary">{terms}</div></section>
 
 <section id="pipeline"><h2>From task to report</h2>
-<p>The runner gives the agent a fresh scratch workspace, starts it with exactly the tools its search setup allows, records
-every tool call and the final answer, and grades the answer without telling the grader which setup produced it.</p>
-{mermaid('pipeline')}</section>
+<p>A fresh workspace, exactly the tools the setup allows, every tool call recorded, and a grader that never learns the
+setup.</p>
+{diagram('pipeline')}</section>
 
 <section id="isolation"><h2>What each setup can touch</h2>
-<p>Search setups differ only in what the agent can use to search. Claude Code is started with
-<code>--strict-mcp-config</code>, so the only MCP server it can reach is the provider's, and <code>--tools</code> limits its
-built-ins. Codex runs read-only with its shell, browser, app and plugin features disabled. After each run an audit compares
-every observed tool call with the setup's contract; a call outside it marks the run contaminated.</p>
-{mermaid('isolation')}
-<h3>Claude Code invocation</h3><pre>{esc(claude_argv)}</pre>
-<h3>Codex invocation</h3><pre>{esc(codex_argv)}</pre>
+<p>Setups differ only in what the agent can use to search. Claude Code starts with <code>--strict-mcp-config</code>, so the
+only MCP server it can reach is the provider's, and <code>--tools</code> limits its built-ins. Codex runs read-only. An audit
+compares every tool call with the setup's contract; a call outside it marks the run contaminated.</p>
+{diagram('isolation')}
+<details class="more-info"><summary>The exact commands</summary>
+<h3>Claude Code</h3><pre>{esc(claude_argv)}</pre>
+<h3>Codex</h3><pre>{esc(codex_argv)}</pre></details>
 <h3>Limits per test run</h3>
 {table_html([['Limit', 'Search gap bench', 'Web search bakeoff'],
-             ['Wall clock', '1,200 s', '300 to 1,200 s (set per task)'],
-             ['Total tokens', '1,000,000', '120,000 to 350,000 (set per task)'],
-             ['Search provider calls', '60', '15 to 50 (set per task)'],
+             ['Wall clock', '1,200 s', '300 to 1,200 s'],
+             ['Total tokens', '1,000,000', '120,000 to 350,000'],
+             ['Search provider calls', '60', '15 to 50'],
              ['Agent start-up timeout', '120 s', '120 s'],
-             ['Repetitions', '3 (battery), 5 (calibration)', '3']], 'apparatus')}
+             ['Repetitions', '3 (5 to calibrate)', '3']], 'apparatus')}
+<p class="small muted">Bakeoff limits are set per task.</p>
 </section>
 
 <section id="calibration"><h2>Which tasks count</h2>
-<p>A search gap task counts only if it is genuinely beyond the model: with no search the agent must fail, and with the answer
+<p>A search gap task counts only if it is beyond the model: with no search the agent must fail, and with the answer
 excerpt handed over it must succeed. Calibration is repeated for each agent and model.</p>
-{mermaid('calibration')}
-<pre>gap closure  =  (setup pass rate − floor pass rate) / (ceiling pass rate − floor pass rate)
+{diagram('calibration')}
+<p><b>Gap closed</b> = (setup pass rate − no-search pass rate) ÷ (answer-handed-over pass rate − no-search pass rate).
+100% means the setup did as well as being handed the answer.</p></section>
 
-   floor          search setup           ceiling
-   0% ●─────────────────●──────────────────● 95%
-       └──── closed ────┘└──── remaining ────┘</pre></section>
-
-<section id="grading"><h2>How answers are graded</h2>{mermaid('grading')}
-<p>Search gap briefs pass when the decision is right, at least 70% of key facts are covered and at most 25% of claims are
-unsupported. Code fixes pass when hidden tests pass in an isolated workspace. Bakeoff tasks use automatic checks where a task
-has one, and otherwise a single blinded grader scores the task rubric.</p></section>
+<section id="grading"><h2>How answers are graded</h2>{diagram('grading')}
+<p>Code fixes pass when hidden tests pass in an isolated workspace. Bakeoff tasks use automatic checks where a task has one,
+and otherwise a single blinded grader scores the task rubric.</p></section>
 
 <section id="providers"><h2>Search provider configurations</h2>
 <p>Pinned in <a href="{REPO_URL}/blob/main/config/provider-arm-tools.yaml">config/provider-arm-tools.yaml</a>. Every tool a
-provider's server advertised was available to the agent; no provider tool was hidden.</p>
-{configs_html(configs)}</section>
+provider's server advertised was available to the agent.</p>
+{provider_cards(configs)}</section>
 
 <section id="direct-api"><h2>The search API head-to-head</h2>
-<p>One study tests the search APIs themselves rather than an agent using them. It sends the same pre-registered research
-questions to Exa, Tavily, Parallel and Firecrawl, each with the parameters its own documentation recommends, on the same
-day and with the same number of results. The results are pooled and shuffled, and blind model judges verify every counted
-claim on its source page. A provider is credited only when its own result page states the claim, and a claim counts as new
-only if the knowledge base the questions came from did not already have it. Unlike the benchmarks above, each question ran
-once, so the study reports counts without intervals.</p>
-{mermaid('direct')}
+<p>One study tests the search APIs themselves rather than an agent using them: the same pre-registered questions, each API
+set up as its documentation recommends, the same day and number of results. Each question ran once, so it reports counts
+without ranges.</p>
+{diagram('direct')}
 <p>Its sets, endpoints, amendments and costs are in the study's
 <a href="{report_page_name(H2H)}#method-{H2H}">methodology</a>, and its full pre-registered record is in
 <a href="{REPO_URL}/tree/main/reports/{H2H}">reports/{H2H}/</a>.</p></section>
@@ -2252,16 +2394,16 @@ once, so the study reports counts without intervals.</p>
 <section id="studies-method"><h2>Insight studies</h2>
 <p>An insight study sends one fixed set of questions to every search and research service, each run as its vendor documents.
 A model extracts each answer's claims, another checks every claim on the page it cites, and a blind judge values what each
-verified finding is worth to the question's reader. A service earns a finding only if its own cited page supports it. Each
-study page links its full record.</p></section>
+verified finding is worth to the question's reader. A service earns a finding only if its own cited page supports it.</p>
+</section>
 
 <section id="reproduce"><h2>Reproduce, correct, contribute</h2>
 <p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw transcripts and
-provider responses are not distributed, so exact replay of the published numbers is not possible; a new run measures the
-same method. The one exception is the search API head-to-head's Monitors probe, whose raw responses are published. If you run a tested service and a configuration here misrepresents it, open an issue with the configuration you
-recommend: corrections are rerun and published beside the original, never silently replaced.</p>
-<p>New reports appear on this site by themselves: publish a report directory under <code>reports/</code> (or run
-<code>sew insight publish</code>), rebuild, and its page, its rows and its index entries are generated from its files.</p>
+provider responses are not distributed (except the head-to-head's Monitors probe), so a new run measures the same method
+rather than replaying the numbers. If a configuration here misrepresents a service you run, open an issue: corrections are
+rerun and published beside the original.</p>
+<p>New reports appear here by themselves: publish a report directory under <code>reports/</code> (or run
+<code>sew insight publish</code>, which also rebuilds the site), and its page, rows and index entries are generated.</p>
 <pre><code>pipx install 'git+{REPO_URL}'
 sew doctor
 python3 scripts/check_reports.py
@@ -2272,8 +2414,16 @@ python3 scripts/build_site.py --check</code></pre></section>
     script = ''
     if target == 'pages':
         script = (f'<script src="{MERMAID_URL}" integrity="{MERMAID_INTEGRITY}" crossorigin="anonymous"></script><script>'
-                  "mermaid.initialize({startOnLoad:true,securityLevel:'strict',"
-                  "theme:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'neutral'});</script>\n")
+                  '(function(){var s=getComputedStyle(document.documentElement),v=function(n){return s.getPropertyValue(n)'
+                  '.trim()};mermaid.initialize({startOnLoad:true,securityLevel:"strict",theme:"base",'
+                  'flowchart:{useMaxWidth:false},sequence:{useMaxWidth:false},themeVariables:{'
+                  'fontFamily:"Inter, -apple-system, sans-serif",fontSize:"15px",background:v("--paper"),'
+                  'primaryColor:v("--soft"),primaryTextColor:v("--ink"),primaryBorderColor:v("--rule"),'
+                  'secondaryColor:v("--blue-soft"),tertiaryColor:v("--paper"),lineColor:v("--muted"),'
+                  'clusterBkg:v("--paper"),clusterBorder:v("--rule"),edgeLabelBackground:v("--paper"),'
+                  'actorBkg:v("--soft"),actorBorder:v("--rule"),actorTextColor:v("--ink"),signalColor:v("--ink-2"),'
+                  'signalTextColor:v("--ink"),noteBkgColor:v("--blue-soft"),noteTextColor:v("--ink"),'
+                  'noteBorderColor:v("--rule")}})})();</script>\n')
     return _document('Searchlight Methodology', 'How Searchlight tests web search for AI coding agents.',
                      'methodology.html', main, script, pages=pages)
 
@@ -2324,7 +2474,7 @@ def build(root: Path = ROOT) -> dict[str, str]:
     pages = site_map(reports, studies)
     everything = boards + extra
     return {
-        **{s['page']: study_page(s) for s in studies},
+        **{s['page']: study_page(s, pages) for s in studies},
         **{report_page_name(name): report_page(name, reports, everything, analysis, h2h, pages) for name in reports},
         'studies.html': studies_page(studies, pages),
         'index.html': landing(root, boards, analysis, reports, studies, h2h, pages),

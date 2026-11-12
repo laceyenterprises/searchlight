@@ -5,6 +5,7 @@
   /* Surfaces and ink */
   --paper: #FFFFFF;
   --soft: #F4F6F9;
+  --raised: #FFFFFF;    /* a card on the soft ground */
   --rule: #E3E7EC;
   --ink: #111111;
   --ink-2: #4F5761;
@@ -59,7 +60,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+    --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
     --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
     --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
     --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
@@ -70,7 +71,7 @@
 }
 
 :root[data-theme="dark"] {
-  --paper: #0C0F13; --soft: #141920; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
+  --paper: #0C0F13; --soft: #141920; --raised: #1B212A; --rule: #262C35; --ink: #F2F4F7; --ink-2: #B9C1CC; --muted: #939CAA;
   --blue: #3D9BFF; --blue-ink: #7DBBFF; --blue-soft: #0F2238; --on-blue: #06111F;
   --go: #2BD99A; --go-ink: #5BE3AE; --red: #FF4D4F; --red-ink: #FF8587;
   --amber: #FFC83D; --amber-ink: #FFD36B; --amber-soft: #2A2210;
