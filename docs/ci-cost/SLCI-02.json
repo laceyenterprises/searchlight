@@ -1,0 +1,2680 @@
+{
+  "window_start": "2026-10-12T23:31:00Z",
+  "window_end": "2026-11-11T23:31:00Z",
+  "unit": "unweighted runner-seconds from job completed_at minus started_at",
+  "runs": [
+    {
+      "id": 43118113368,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-11-11T23:13:11Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/43118113368",
+      "jobs": [
+        {
+          "id": 130851260787,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T23:13:14Z",
+          "completed_at": "2026-11-11T23:14:26Z",
+          "seconds": 72.0
+        },
+        {
+          "id": 130851261074,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T23:13:14Z",
+          "completed_at": "2026-11-11T23:14:26Z",
+          "seconds": 72.0
+        },
+        {
+          "id": 130851261473,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T23:13:15Z",
+          "completed_at": "2026-11-11T23:14:25Z",
+          "seconds": 70.0
+        }
+      ]
+    },
+    {
+      "id": 43117329412,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-11-11T23:07:18Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/43117329412",
+      "jobs": [
+        {
+          "id": 130848564682,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T23:07:21Z",
+          "completed_at": "2026-11-11T23:14:27Z",
+          "seconds": 426.0
+        }
+      ]
+    },
+    {
+      "id": 43114327629,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-11-11T22:44:53Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/43114327629",
+      "jobs": [
+        {
+          "id": 130838255121,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T22:44:57Z",
+          "completed_at": "2026-11-11T22:47:35Z",
+          "seconds": 158.0
+        },
+        {
+          "id": 130838255452,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T22:44:57Z",
+          "completed_at": "2026-11-11T22:47:35Z",
+          "seconds": 158.0
+        },
+        {
+          "id": 130838255656,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T22:44:57Z",
+          "completed_at": "2026-11-11T22:47:45Z",
+          "seconds": 168.0
+        }
+      ]
+    },
+    {
+      "id": 43106851621,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-11-11T21:52:22Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/43106851621",
+      "jobs": [
+        {
+          "id": 130812398417,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-11-11T21:52:37Z",
+          "completed_at": "2026-11-11T22:45:34Z",
+          "seconds": 3177.0
+        },
+        {
+          "id": 130812398644,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-11-11T21:52:37Z",
+          "completed_at": "2026-11-11T22:46:45Z",
+          "seconds": 3248.0
+        },
+        {
+          "id": 130812398665,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-11-11T21:52:37Z",
+          "completed_at": "2026-11-11T22:40:10Z",
+          "seconds": 2853.0
+        }
+      ]
+    },
+    {
+      "id": 43103347333,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-11-11T21:28:27Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/43103347333",
+      "jobs": [
+        {
+          "id": 130800204657,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T21:28:31Z",
+          "completed_at": "2026-11-11T21:52:33Z",
+          "seconds": 1442.0
+        },
+        {
+          "id": 130800205036,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T21:28:31Z",
+          "completed_at": "2026-11-11T21:52:32Z",
+          "seconds": 1441.0
+        },
+        {
+          "id": 130800205255,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T21:28:31Z",
+          "completed_at": "2026-11-11T21:52:33Z",
+          "seconds": 1442.0
+        }
+      ]
+    },
+    {
+      "id": 42972300580,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-11-11T06:25:17Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/42972300580",
+      "jobs": [
+        {
+          "id": 130363337854,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-11-11T06:25:20Z",
+          "completed_at": "2026-11-11T07:07:27Z",
+          "seconds": 2527.0
+        },
+        {
+          "id": 130363338102,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-11-11T06:25:20Z",
+          "completed_at": "2026-11-11T07:07:33Z",
+          "seconds": 2533.0
+        },
+        {
+          "id": 130363338155,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-11-11T06:25:20Z",
+          "completed_at": "2026-11-11T07:03:34Z",
+          "seconds": 2294.0
+        }
+      ]
+    },
+    {
+      "id": 42964376663,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-11-11T05:13:52Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/42964376663",
+      "jobs": [
+        {
+          "id": 130338130523,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-11-11T05:14:06Z",
+          "completed_at": "2026-11-11T05:48:02Z",
+          "seconds": 2036.0
+        },
+        {
+          "id": 130338130720,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-11-11T05:14:06Z",
+          "completed_at": "2026-11-11T06:11:29Z",
+          "seconds": 3443.0
+        },
+        {
+          "id": 130338130909,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-11-11T05:14:07Z",
+          "completed_at": "2026-11-11T05:47:51Z",
+          "seconds": 2024.0
+        }
+      ]
+    },
+    {
+      "id": 42962939200,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-11-11T05:01:06Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/42962939200",
+      "jobs": [
+        {
+          "id": 130333503758,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T05:01:09Z",
+          "completed_at": "2026-11-11T05:14:03Z",
+          "seconds": 774.0
+        },
+        {
+          "id": 130333503999,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T05:01:09Z",
+          "completed_at": "2026-11-11T05:14:02Z",
+          "seconds": 773.0
+        },
+        {
+          "id": 130333504064,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-11-11T05:01:09Z",
+          "completed_at": "2026-11-11T05:14:02Z",
+          "seconds": 773.0
+        }
+      ]
+    },
+    {
+      "id": 42593264235,
+      "name": "Standalone",
+      "event": "schedule",
+      "created_at": "2026-11-09T09:25:05Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/42593264235",
+      "jobs": [
+        {
+          "id": 129079751785,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-11-09T09:25:09Z",
+          "completed_at": "2026-11-09T09:59:51Z",
+          "seconds": 2082.0
+        },
+        {
+          "id": 129079752157,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-11-09T09:25:09Z",
+          "completed_at": "2026-11-09T10:12:27Z",
+          "seconds": 2838.0
+        },
+        {
+          "id": 129079752160,
+          "name": "standalone (macos-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-11-09T09:25:09Z",
+          "completed_at": "2026-11-09T09:25:37Z",
+          "seconds": 28.0
+        },
+        {
+          "id": 129079752396,
+          "name": "standalone (macos-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-11-09T09:25:10Z",
+          "completed_at": "2026-11-09T09:25:40Z",
+          "seconds": 30.0
+        },
+        {
+          "id": 129079752473,
+          "name": "standalone (macos-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-11-09T09:25:10Z",
+          "completed_at": "2026-11-09T09:25:45Z",
+          "seconds": 35.0
+        },
+        {
+          "id": 129079752474,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-11-09T09:25:09Z",
+          "completed_at": "2026-11-09T10:13:17Z",
+          "seconds": 2888.0
+        }
+      ]
+    },
+    {
+      "id": 42444529320,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-11-08T03:52:57Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/42444529320",
+      "jobs": [
+        {
+          "id": 128620559552,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-11-08T03:53:00Z",
+          "completed_at": "2026-11-08T04:33:10Z",
+          "seconds": 2410.0
+        },
+        {
+          "id": 128620559701,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-11-08T03:53:00Z",
+          "completed_at": "2026-11-08T04:35:35Z",
+          "seconds": 2555.0
+        },
+        {
+          "id": 128620559730,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-11-08T03:53:01Z",
+          "completed_at": "2026-11-08T04:34:55Z",
+          "seconds": 2514.0
+        }
+      ]
+    },
+    {
+      "id": 42440893636,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-11-08T03:00:53Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/42440893636",
+      "jobs": [
+        {
+          "id": 128609688648,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-11-08T03:00:56Z",
+          "completed_at": "2026-11-08T03:36:31Z",
+          "seconds": 2135.0
+        },
+        {
+          "id": 128609688746,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-11-08T03:00:56Z",
+          "completed_at": "2026-11-08T03:49:01Z",
+          "seconds": 2885.0
+        },
+        {
+          "id": 128609688939,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-11-08T03:00:57Z",
+          "completed_at": "2026-11-08T03:46:35Z",
+          "seconds": 2738.0
+        }
+      ]
+    },
+    {
+      "id": 42424493772,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-11-07T23:16:32Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/42424493772",
+      "jobs": [
+        {
+          "id": 128559743988,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-11-07T23:16:35Z",
+          "completed_at": "2026-11-07T23:58:16Z",
+          "seconds": 2501.0
+        },
+        {
+          "id": 128559744116,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-11-07T23:16:35Z",
+          "completed_at": "2026-11-08T00:11:37Z",
+          "seconds": 3302.0
+        },
+        {
+          "id": 128559744150,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-11-07T23:16:35Z",
+          "completed_at": "2026-11-07T23:50:33Z",
+          "seconds": 2038.0
+        }
+      ]
+    },
+    {
+      "id": 41420434198,
+      "name": "Standalone",
+      "event": "schedule",
+      "created_at": "2026-11-02T09:24:51Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/41420434198",
+      "jobs": [
+        {
+          "id": 125194397801,
+          "name": "standalone (macos-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T09:24:56Z",
+          "completed_at": "2026-11-02T09:25:25Z",
+          "seconds": 29.0
+        },
+        {
+          "id": 125194397987,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T09:24:55Z",
+          "completed_at": "2026-11-02T09:56:26Z",
+          "seconds": 1891.0
+        },
+        {
+          "id": 125194398026,
+          "name": "standalone (macos-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T09:24:55Z",
+          "completed_at": "2026-11-02T09:25:24Z",
+          "seconds": 29.0
+        },
+        {
+          "id": 125194398039,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T09:24:55Z",
+          "completed_at": "2026-11-02T10:24:33Z",
+          "seconds": 3578.0
+        },
+        {
+          "id": 125194398072,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T09:24:55Z",
+          "completed_at": "2026-11-02T10:15:22Z",
+          "seconds": 3027.0
+        },
+        {
+          "id": 125194398131,
+          "name": "standalone (macos-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-11-02T09:24:56Z",
+          "completed_at": "2026-11-02T09:25:15Z",
+          "seconds": 19.0
+        }
+      ]
+    },
+    {
+      "id": 41082646623,
+      "name": "Pages",
+      "event": "push",
+      "created_at": "2026-10-30T15:38:57Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/41082646623",
+      "jobs": [
+        {
+          "id": 124155494924,
+          "name": "deploy",
+          "conclusion": "success",
+          "started_at": "2026-10-30T15:39:02Z",
+          "completed_at": "2026-10-30T15:39:21Z",
+          "seconds": 19.0
+        }
+      ]
+    },
+    {
+      "id": 41082646658,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-30T15:38:57Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/41082646658",
+      "jobs": [
+        {
+          "id": 124155498219,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T15:39:01Z",
+          "completed_at": "2026-10-30T16:20:24Z",
+          "seconds": 2483.0
+        },
+        {
+          "id": 124155498549,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T15:39:01Z",
+          "completed_at": "2026-10-30T16:16:49Z",
+          "seconds": 2268.0
+        },
+        {
+          "id": 124155498656,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T15:39:01Z",
+          "completed_at": "2026-10-30T16:33:02Z",
+          "seconds": 3241.0
+        }
+      ]
+    },
+    {
+      "id": 41073691535,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-30T14:40:25Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/41073691535",
+      "jobs": [
+        {
+          "id": 124124109442,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T14:40:28Z",
+          "completed_at": "2026-10-30T15:33:55Z",
+          "seconds": 3207.0
+        },
+        {
+          "id": 124124109472,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T14:40:29Z",
+          "completed_at": "2026-10-30T15:22:53Z",
+          "seconds": 2544.0
+        },
+        {
+          "id": 124124109494,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T14:40:28Z",
+          "completed_at": "2026-10-30T15:37:00Z",
+          "seconds": 3392.0
+        }
+      ]
+    },
+    {
+      "id": 41053860012,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-30T12:14:31Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/41053860012",
+      "jobs": [
+        {
+          "id": 124056337870,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T12:14:35Z",
+          "completed_at": "2026-10-30T13:02:22Z",
+          "seconds": 2867.0
+        },
+        {
+          "id": 124056338272,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T12:14:34Z",
+          "completed_at": "2026-10-30T13:00:55Z",
+          "seconds": 2781.0
+        },
+        {
+          "id": 124056338294,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T12:14:34Z",
+          "completed_at": "2026-10-30T13:06:55Z",
+          "seconds": 3141.0
+        }
+      ]
+    },
+    {
+      "id": 41039314582,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-30T10:14:46Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/41039314582",
+      "jobs": [
+        {
+          "id": 124007895355,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T10:14:49Z",
+          "completed_at": "2026-10-30T10:58:24Z",
+          "seconds": 2615.0
+        },
+        {
+          "id": 124007895698,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T10:14:49Z",
+          "completed_at": "2026-10-30T11:12:01Z",
+          "seconds": 3432.0
+        },
+        {
+          "id": 124007895708,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-30T10:14:49Z",
+          "completed_at": "2026-10-30T10:46:14Z",
+          "seconds": 1885.0
+        }
+      ]
+    },
+    {
+      "id": 40301712715,
+      "name": "Standalone",
+      "event": "schedule",
+      "created_at": "2026-10-26T09:43:06Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40301712715",
+      "jobs": [
+        {
+          "id": 121500931509,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-26T09:43:10Z",
+          "completed_at": "2026-10-26T10:40:14Z",
+          "seconds": 3424.0
+        },
+        {
+          "id": 121500931836,
+          "name": "standalone (macos-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-10-26T09:43:10Z",
+          "completed_at": "2026-10-26T09:43:33Z",
+          "seconds": 23.0
+        },
+        {
+          "id": 121500931895,
+          "name": "standalone (macos-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-10-26T09:43:10Z",
+          "completed_at": "2026-10-26T09:43:31Z",
+          "seconds": 21.0
+        },
+        {
+          "id": 121500932077,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-26T09:43:10Z",
+          "completed_at": "2026-10-26T10:27:30Z",
+          "seconds": 2660.0
+        },
+        {
+          "id": 121500932082,
+          "name": "standalone (macos-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-10-26T09:43:11Z",
+          "completed_at": "2026-10-26T09:43:40Z",
+          "seconds": 29.0
+        },
+        {
+          "id": 121500932103,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-26T09:43:10Z",
+          "completed_at": "2026-10-26T10:34:03Z",
+          "seconds": 3053.0
+        }
+      ]
+    },
+    {
+      "id": 40206772672,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-25T15:24:22Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40206772672",
+      "jobs": [
+        {
+          "id": 121209275633,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-25T15:24:25Z",
+          "completed_at": "2026-10-25T16:07:39Z",
+          "seconds": 2594.0
+        },
+        {
+          "id": 121209275743,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-25T15:24:25Z",
+          "completed_at": "2026-10-25T16:20:52Z",
+          "seconds": 3387.0
+        },
+        {
+          "id": 121209275775,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-25T15:24:25Z",
+          "completed_at": "2026-10-25T16:06:25Z",
+          "seconds": 2520.0
+        }
+      ]
+    },
+    {
+      "id": 40202620376,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-25T14:31:14Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40202620376",
+      "jobs": [
+        {
+          "id": 121196798420,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-25T14:31:17Z",
+          "completed_at": "2026-10-25T15:08:28Z",
+          "seconds": 2231.0
+        },
+        {
+          "id": 121196798552,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-25T14:31:17Z",
+          "completed_at": "2026-10-25T15:23:20Z",
+          "seconds": 3123.0
+        },
+        {
+          "id": 121196798641,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-25T14:31:18Z",
+          "completed_at": "2026-10-25T15:16:35Z",
+          "seconds": 2717.0
+        }
+      ]
+    },
+    {
+      "id": 40138592651,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-24T22:26:50Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40138592651",
+      "jobs": [
+        {
+          "id": 121005381123,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-10-24T22:27:13Z",
+          "completed_at": "2026-10-24T23:21:02Z",
+          "seconds": 3229.0
+        },
+        {
+          "id": 121005381161,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-10-24T22:27:13Z",
+          "completed_at": "2026-10-24T23:25:29Z",
+          "seconds": 3496.0
+        },
+        {
+          "id": 121005381172,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-10-24T22:27:13Z",
+          "completed_at": "2026-10-24T23:13:08Z",
+          "seconds": 2755.0
+        }
+      ]
+    },
+    {
+      "id": 40137240787,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-24T22:08:07Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40137240787",
+      "jobs": [
+        {
+          "id": 121001248610,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-24T22:08:10Z",
+          "completed_at": "2026-10-24T22:27:00Z",
+          "seconds": 1130.0
+        },
+        {
+          "id": 121001248785,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-24T22:08:10Z",
+          "completed_at": "2026-10-24T22:27:00Z",
+          "seconds": 1130.0
+        },
+        {
+          "id": 121001248807,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-24T22:08:11Z",
+          "completed_at": "2026-10-24T22:27:10Z",
+          "seconds": 1139.0
+        }
+      ]
+    },
+    {
+      "id": 40118244277,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-24T17:54:17Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40118244277",
+      "jobs": [
+        {
+          "id": 120943991997,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T17:54:21Z",
+          "completed_at": "2026-10-24T18:51:25Z",
+          "seconds": 3424.0
+        },
+        {
+          "id": 120943992252,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T17:54:21Z",
+          "completed_at": "2026-10-24T18:46:57Z",
+          "seconds": 3156.0
+        },
+        {
+          "id": 120943992289,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T17:54:21Z",
+          "completed_at": "2026-10-24T18:46:19Z",
+          "seconds": 3118.0
+        }
+      ]
+    },
+    {
+      "id": 40112541392,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-24T16:39:07Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40112541392",
+      "jobs": [
+        {
+          "id": 120927096879,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T16:39:10Z",
+          "completed_at": "2026-10-24T17:14:36Z",
+          "seconds": 2126.0
+        },
+        {
+          "id": 120927097023,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T16:39:10Z",
+          "completed_at": "2026-10-24T17:34:33Z",
+          "seconds": 3323.0
+        },
+        {
+          "id": 120927097034,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T16:39:11Z",
+          "completed_at": "2026-10-24T17:20:51Z",
+          "seconds": 2500.0
+        }
+      ]
+    },
+    {
+      "id": 40104309299,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-24T14:50:45Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40104309299",
+      "jobs": [
+        {
+          "id": 120902701407,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-10-24T14:50:48Z",
+          "completed_at": "2026-10-24T15:43:26Z",
+          "seconds": 3158.0
+        },
+        {
+          "id": 120902701573,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-10-24T14:50:47Z",
+          "completed_at": "2026-10-24T15:41:39Z",
+          "seconds": 3052.0
+        },
+        {
+          "id": 120902701657,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-10-24T14:50:48Z",
+          "completed_at": "2026-10-24T15:40:11Z",
+          "seconds": 2963.0
+        }
+      ]
+    },
+    {
+      "id": 40095202766,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-24T12:44:48Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40095202766",
+      "jobs": [
+        {
+          "id": 120876112869,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T12:46:03Z",
+          "completed_at": "2026-10-24T13:37:09Z",
+          "seconds": 3066.0
+        },
+        {
+          "id": 120876113031,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T12:46:03Z",
+          "completed_at": "2026-10-24T13:29:05Z",
+          "seconds": 2582.0
+        },
+        {
+          "id": 120876113052,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T12:46:03Z",
+          "completed_at": "2026-10-24T13:46:07Z",
+          "seconds": 3604.0
+        }
+      ]
+    },
+    {
+      "id": 40093964815,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-24T12:26:58Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40093964815",
+      "jobs": [
+        {
+          "id": 120872239213,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-24T12:27:01Z",
+          "completed_at": "2026-10-24T12:45:59Z",
+          "seconds": 1138.0
+        },
+        {
+          "id": 120872239381,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-24T12:27:01Z",
+          "completed_at": "2026-10-24T12:46:00Z",
+          "seconds": 1139.0
+        },
+        {
+          "id": 120872239408,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-24T12:27:02Z",
+          "completed_at": "2026-10-24T12:44:59Z",
+          "seconds": 1077.0
+        }
+      ]
+    },
+    {
+      "id": 40046347093,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-24T00:43:04Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40046347093",
+      "jobs": [
+        {
+          "id": 120728838068,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T00:43:07Z",
+          "completed_at": "2026-10-24T01:39:50Z",
+          "seconds": 3403.0
+        },
+        {
+          "id": 120728838226,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T00:43:07Z",
+          "completed_at": "2026-10-24T01:33:22Z",
+          "seconds": 3015.0
+        },
+        {
+          "id": 120728838349,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-24T00:43:07Z",
+          "completed_at": "2026-10-24T01:25:43Z",
+          "seconds": 2556.0
+        }
+      ]
+    },
+    {
+      "id": 40040583954,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T23:36:04Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40040583954",
+      "jobs": [
+        {
+          "id": 120710510678,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T23:36:17Z",
+          "completed_at": "2026-10-24T00:32:23Z",
+          "seconds": 3366.0
+        },
+        {
+          "id": 120710510837,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T23:36:18Z",
+          "completed_at": "2026-10-24T00:27:36Z",
+          "seconds": 3078.0
+        },
+        {
+          "id": 120710511079,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T23:36:18Z",
+          "completed_at": "2026-10-24T00:27:42Z",
+          "seconds": 3084.0
+        }
+      ]
+    },
+    {
+      "id": 40038650248,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T23:15:42Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40038650248",
+      "jobs": [
+        {
+          "id": 120704207379,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T23:15:45Z",
+          "completed_at": "2026-10-23T23:36:15Z",
+          "seconds": 1230.0
+        },
+        {
+          "id": 120704207584,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T23:15:45Z",
+          "completed_at": "2026-10-23T23:36:14Z",
+          "seconds": 1229.0
+        },
+        {
+          "id": 120704207647,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T23:15:46Z",
+          "completed_at": "2026-10-23T23:36:14Z",
+          "seconds": 1228.0
+        }
+      ]
+    },
+    {
+      "id": 40014185016,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-23T19:47:31Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40014185016",
+      "jobs": [
+        {
+          "id": 120621894761,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T19:47:34Z",
+          "completed_at": "2026-10-23T20:21:18Z",
+          "seconds": 2024.0
+        },
+        {
+          "id": 120621895094,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T19:47:34Z",
+          "completed_at": "2026-10-23T20:28:23Z",
+          "seconds": 2449.0
+        },
+        {
+          "id": 120621895266,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T19:47:34Z",
+          "completed_at": "2026-10-23T20:43:07Z",
+          "seconds": 3333.0
+        }
+      ]
+    },
+    {
+      "id": 40006072015,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T18:46:36Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40006072015",
+      "jobs": [
+        {
+          "id": 120594829628,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T18:48:03Z",
+          "completed_at": "2026-10-23T19:38:08Z",
+          "seconds": 3005.0
+        },
+        {
+          "id": 120594829926,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T18:48:04Z",
+          "completed_at": "2026-10-23T19:24:40Z",
+          "seconds": 2196.0
+        },
+        {
+          "id": 120594830023,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T18:48:03Z",
+          "completed_at": "2026-10-23T19:21:18Z",
+          "seconds": 1995.0
+        }
+      ]
+    },
+    {
+      "id": 40004164555,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T18:32:45Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/40004164555",
+      "jobs": [
+        {
+          "id": 120587697929,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T18:32:48Z",
+          "completed_at": "2026-10-23T18:47:58Z",
+          "seconds": 910.0
+        },
+        {
+          "id": 120587697941,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T18:32:48Z",
+          "completed_at": "2026-10-23T18:47:59Z",
+          "seconds": 911.0
+        },
+        {
+          "id": 120587698062,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T18:32:48Z",
+          "completed_at": "2026-10-23T18:48:00Z",
+          "seconds": 912.0
+        }
+      ]
+    },
+    {
+      "id": 39976199185,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-23T15:11:57Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39976199185",
+      "jobs": [
+        {
+          "id": 120491313690,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T15:12:01Z",
+          "completed_at": "2026-10-23T16:09:00Z",
+          "seconds": 3419.0
+        },
+        {
+          "id": 120491314157,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T15:12:01Z",
+          "completed_at": "2026-10-23T16:01:43Z",
+          "seconds": 2982.0
+        },
+        {
+          "id": 120491314160,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T15:12:01Z",
+          "completed_at": "2026-10-23T15:56:37Z",
+          "seconds": 2676.0
+        }
+      ]
+    },
+    {
+      "id": 39965556694,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T13:57:41Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39965556694",
+      "jobs": [
+        {
+          "id": 120454377554,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T13:57:44Z",
+          "completed_at": "2026-10-23T14:43:56Z",
+          "seconds": 2772.0
+        },
+        {
+          "id": 120454377667,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T13:57:44Z",
+          "completed_at": "2026-10-23T14:41:00Z",
+          "seconds": 2596.0
+        },
+        {
+          "id": 120454378077,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T13:57:45Z",
+          "completed_at": "2026-10-23T14:52:44Z",
+          "seconds": 3299.0
+        }
+      ]
+    },
+    {
+      "id": 39934112877,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-23T09:44:59Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39934112877",
+      "jobs": [
+        {
+          "id": 120349316264,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T09:45:02Z",
+          "completed_at": "2026-10-23T10:31:42Z",
+          "seconds": 2800.0
+        },
+        {
+          "id": 120349316429,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T09:45:02Z",
+          "completed_at": "2026-10-23T10:18:53Z",
+          "seconds": 2031.0
+        },
+        {
+          "id": 120349316478,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T09:45:02Z",
+          "completed_at": "2026-10-23T10:25:03Z",
+          "seconds": 2401.0
+        }
+      ]
+    },
+    {
+      "id": 39926611398,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T08:42:55Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39926611398",
+      "jobs": [
+        {
+          "id": 120325014133,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T08:44:23Z",
+          "completed_at": "2026-10-23T09:39:48Z",
+          "seconds": 3325.0
+        },
+        {
+          "id": 120325014413,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T08:44:23Z",
+          "completed_at": "2026-10-23T09:21:04Z",
+          "seconds": 2201.0
+        },
+        {
+          "id": 120325014603,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T08:44:23Z",
+          "completed_at": "2026-10-23T09:27:23Z",
+          "seconds": 2580.0
+        }
+      ]
+    },
+    {
+      "id": 39924182992,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T08:22:31Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39924182992",
+      "jobs": [
+        {
+          "id": 120316538035,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T08:22:53Z",
+          "completed_at": "2026-10-23T08:44:20Z",
+          "seconds": 1287.0
+        },
+        {
+          "id": 120316538468,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T08:22:54Z",
+          "completed_at": "2026-10-23T08:43:06Z",
+          "seconds": 1212.0
+        },
+        {
+          "id": 120316538492,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-10-23T08:22:53Z",
+          "completed_at": "2026-10-23T08:23:35Z",
+          "seconds": 42.0
+        }
+      ]
+    },
+    {
+      "id": 39922894999,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T08:11:20Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39922894999",
+      "jobs": [
+        {
+          "id": 120312143944,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T08:11:24Z",
+          "completed_at": "2026-10-23T08:22:50Z",
+          "seconds": 686.0
+        },
+        {
+          "id": 120312144151,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T08:11:24Z",
+          "completed_at": "2026-10-23T08:22:50Z",
+          "seconds": 686.0
+        },
+        {
+          "id": 120312144230,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-10-23T08:11:24Z",
+          "completed_at": "2026-10-23T08:11:53Z",
+          "seconds": 29.0
+        }
+      ]
+    },
+    {
+      "id": 39909702173,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-23T06:08:21Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39909702173",
+      "jobs": [
+        {
+          "id": 120269578883,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T06:08:24Z",
+          "completed_at": "2026-10-23T06:49:24Z",
+          "seconds": 2460.0
+        },
+        {
+          "id": 120269579020,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T06:08:23Z",
+          "completed_at": "2026-10-23T06:49:10Z",
+          "seconds": 2447.0
+        },
+        {
+          "id": 120269579112,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T06:08:24Z",
+          "completed_at": "2026-10-23T07:03:30Z",
+          "seconds": 3306.0
+        }
+      ]
+    },
+    {
+      "id": 39903983398,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T05:07:06Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39903983398",
+      "jobs": [
+        {
+          "id": 120251613012,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T05:07:09Z",
+          "completed_at": "2026-10-23T05:43:54Z",
+          "seconds": 2205.0
+        },
+        {
+          "id": 120251613275,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T05:07:10Z",
+          "completed_at": "2026-10-23T06:00:13Z",
+          "seconds": 3183.0
+        },
+        {
+          "id": 120251613314,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T05:07:10Z",
+          "completed_at": "2026-10-23T05:46:37Z",
+          "seconds": 2367.0
+        }
+      ]
+    },
+    {
+      "id": 39897191036,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T03:51:04Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39897191036",
+      "jobs": [
+        {
+          "id": 120230427519,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T03:51:50Z",
+          "completed_at": "2026-10-23T04:47:37Z",
+          "seconds": 3347.0
+        },
+        {
+          "id": 120230427619,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T03:51:50Z",
+          "completed_at": "2026-10-23T04:43:12Z",
+          "seconds": 3082.0
+        },
+        {
+          "id": 120230427644,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-23T03:51:50Z",
+          "completed_at": "2026-10-23T04:27:54Z",
+          "seconds": 2164.0
+        }
+      ]
+    },
+    {
+      "id": 39895355015,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-23T03:30:13Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39895355015",
+      "jobs": [
+        {
+          "id": 120224403057,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T03:30:16Z",
+          "completed_at": "2026-10-23T03:51:45Z",
+          "seconds": 1289.0
+        },
+        {
+          "id": 120224403159,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T03:30:16Z",
+          "completed_at": "2026-10-23T03:51:43Z",
+          "seconds": 1287.0
+        },
+        {
+          "id": 120224403374,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-23T03:30:17Z",
+          "completed_at": "2026-10-23T03:51:47Z",
+          "seconds": 1290.0
+        }
+      ]
+    },
+    {
+      "id": 39818144990,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-22T16:55:25Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39818144990",
+      "jobs": [
+        {
+          "id": 119961953343,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T16:55:29Z",
+          "completed_at": "2026-10-22T17:45:54Z",
+          "seconds": 3025.0
+        },
+        {
+          "id": 119961953711,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T16:55:28Z",
+          "completed_at": "2026-10-22T17:32:06Z",
+          "seconds": 2198.0
+        },
+        {
+          "id": 119961954027,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T16:55:29Z",
+          "completed_at": "2026-10-22T17:45:49Z",
+          "seconds": 3020.0
+        }
+      ]
+    },
+    {
+      "id": 39805212012,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-22T15:28:49Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39805212012",
+      "jobs": [
+        {
+          "id": 119916501097,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T15:28:52Z",
+          "completed_at": "2026-10-22T16:02:57Z",
+          "seconds": 2045.0
+        },
+        {
+          "id": 119916501556,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T15:28:52Z",
+          "completed_at": "2026-10-22T16:19:44Z",
+          "seconds": 3052.0
+        },
+        {
+          "id": 119916501610,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T15:28:52Z",
+          "completed_at": "2026-10-22T16:25:17Z",
+          "seconds": 3385.0
+        }
+      ]
+    },
+    {
+      "id": 39793219233,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-22T14:09:05Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39793219233",
+      "jobs": [
+        {
+          "id": 119874148690,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T14:09:08Z",
+          "completed_at": "2026-10-22T14:45:32Z",
+          "seconds": 2184.0
+        },
+        {
+          "id": 119874149074,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T14:09:09Z",
+          "completed_at": "2026-10-22T15:05:09Z",
+          "seconds": 3360.0
+        },
+        {
+          "id": 119874149240,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T14:09:09Z",
+          "completed_at": "2026-10-22T14:57:28Z",
+          "seconds": 2899.0
+        }
+      ]
+    },
+    {
+      "id": 39790557662,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-22T13:51:14Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39790557662",
+      "jobs": [
+        {
+          "id": 119865154983,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T13:51:17Z",
+          "completed_at": "2026-10-22T14:31:39Z",
+          "seconds": 2422.0
+        },
+        {
+          "id": 119865155254,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T13:51:17Z",
+          "completed_at": "2026-10-22T14:45:50Z",
+          "seconds": 3273.0
+        },
+        {
+          "id": 119865155688,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T13:51:17Z",
+          "completed_at": "2026-10-22T14:43:48Z",
+          "seconds": 3151.0
+        }
+      ]
+    },
+    {
+      "id": 39778195353,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-22T12:25:18Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39778195353",
+      "jobs": [
+        {
+          "id": 119822877778,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T12:26:22Z",
+          "completed_at": "2026-10-22T13:17:39Z",
+          "seconds": 3077.0
+        },
+        {
+          "id": 119822878242,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T12:26:23Z",
+          "completed_at": "2026-10-22T13:07:12Z",
+          "seconds": 2449.0
+        },
+        {
+          "id": 119822878407,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T12:26:23Z",
+          "completed_at": "2026-10-22T13:21:34Z",
+          "seconds": 3311.0
+        }
+      ]
+    },
+    {
+      "id": 39776432146,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-22T12:12:17Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39776432146",
+      "jobs": [
+        {
+          "id": 119816443596,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-22T12:12:21Z",
+          "completed_at": "2026-10-22T12:26:17Z",
+          "seconds": 836.0
+        },
+        {
+          "id": 119816443895,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-22T12:12:21Z",
+          "completed_at": "2026-10-22T12:26:17Z",
+          "seconds": 836.0
+        },
+        {
+          "id": 119816444004,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-22T12:12:22Z",
+          "completed_at": "2026-10-22T12:26:19Z",
+          "seconds": 837.0
+        }
+      ]
+    },
+    {
+      "id": 39769261917,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-22T11:15:52Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39769261917",
+      "jobs": [
+        {
+          "id": 119792378904,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T11:15:55Z",
+          "completed_at": "2026-10-22T12:10:43Z",
+          "seconds": 3288.0
+        },
+        {
+          "id": 119792379215,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T11:15:56Z",
+          "completed_at": "2026-10-22T12:05:21Z",
+          "seconds": 2965.0
+        },
+        {
+          "id": 119792379259,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T11:15:55Z",
+          "completed_at": "2026-10-22T11:53:31Z",
+          "seconds": 2256.0
+        }
+      ]
+    },
+    {
+      "id": 39760702241,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-22T10:07:24Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39760702241",
+      "jobs": [
+        {
+          "id": 119763850955,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T10:07:27Z",
+          "completed_at": "2026-10-22T10:39:02Z",
+          "seconds": 1895.0
+        },
+        {
+          "id": 119763851371,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T10:07:27Z",
+          "completed_at": "2026-10-22T10:57:15Z",
+          "seconds": 2988.0
+        },
+        {
+          "id": 119763851639,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T10:07:28Z",
+          "completed_at": "2026-10-22T11:05:01Z",
+          "seconds": 3453.0
+        }
+      ]
+    },
+    {
+      "id": 39752269655,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-22T09:02:00Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39752269655",
+      "jobs": [
+        {
+          "id": 119736025293,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T09:03:19Z",
+          "completed_at": "2026-10-22T09:54:54Z",
+          "seconds": 3095.0
+        },
+        {
+          "id": 119736025728,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T09:03:19Z",
+          "completed_at": "2026-10-22T09:49:19Z",
+          "seconds": 2760.0
+        },
+        {
+          "id": 119736026046,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-22T09:03:19Z",
+          "completed_at": "2026-10-22T09:45:43Z",
+          "seconds": 2544.0
+        }
+      ]
+    },
+    {
+      "id": 39749030380,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-22T08:36:42Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39749030380",
+      "jobs": [
+        {
+          "id": 119724625142,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-22T08:36:46Z",
+          "completed_at": "2026-10-22T09:03:12Z",
+          "seconds": 1586.0
+        },
+        {
+          "id": 119724625399,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-22T08:36:46Z",
+          "completed_at": "2026-10-22T09:03:15Z",
+          "seconds": 1589.0
+        },
+        {
+          "id": 119724625425,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-22T08:36:46Z",
+          "completed_at": "2026-10-22T09:03:15Z",
+          "seconds": 1589.0
+        }
+      ]
+    },
+    {
+      "id": 39542361587,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-21T04:08:12Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39542361587",
+      "jobs": [
+        {
+          "id": 119032751449,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-21T04:08:15Z",
+          "completed_at": "2026-10-21T05:03:18Z",
+          "seconds": 3303.0
+        },
+        {
+          "id": 119032751562,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-21T04:08:15Z",
+          "completed_at": "2026-10-21T04:59:17Z",
+          "seconds": 3062.0
+        },
+        {
+          "id": 119032751584,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-21T04:08:16Z",
+          "completed_at": "2026-10-21T04:59:42Z",
+          "seconds": 3086.0
+        }
+      ]
+    },
+    {
+      "id": 39532412072,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-21T02:19:56Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39532412072",
+      "jobs": [
+        {
+          "id": 119001415797,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-21T02:20:47Z",
+          "completed_at": "2026-10-21T03:10:58Z",
+          "seconds": 3011.0
+        },
+        {
+          "id": 119001416006,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-21T02:20:47Z",
+          "completed_at": "2026-10-21T02:56:30Z",
+          "seconds": 2143.0
+        },
+        {
+          "id": 119001416080,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-21T02:20:48Z",
+          "completed_at": "2026-10-21T03:10:56Z",
+          "seconds": 3008.0
+        }
+      ]
+    },
+    {
+      "id": 39530815583,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-21T02:03:00Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39530815583",
+      "jobs": [
+        {
+          "id": 118996016663,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-21T02:03:03Z",
+          "completed_at": "2026-10-21T02:20:44Z",
+          "seconds": 1061.0
+        },
+        {
+          "id": 118996016833,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-21T02:03:03Z",
+          "completed_at": "2026-10-21T02:20:22Z",
+          "seconds": 1039.0
+        },
+        {
+          "id": 118996016862,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-21T02:03:03Z",
+          "completed_at": "2026-10-21T02:20:44Z",
+          "seconds": 1061.0
+        }
+      ]
+    },
+    {
+      "id": 39231620778,
+      "name": "Standalone",
+      "event": "schedule",
+      "created_at": "2026-10-19T09:38:47Z",
+      "conclusion": "failure",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39231620778",
+      "jobs": [
+        {
+          "id": 117990678579,
+          "name": "standalone (macos-latest, 3.11)",
+          "conclusion": "failure",
+          "started_at": "2026-10-19T09:38:57Z",
+          "completed_at": "2026-10-19T09:39:28Z",
+          "seconds": 31.0
+        },
+        {
+          "id": 117990678744,
+          "name": "standalone (macos-latest, 3.12)",
+          "conclusion": "failure",
+          "started_at": "2026-10-19T09:38:55Z",
+          "completed_at": "2026-10-19T09:39:31Z",
+          "seconds": 36.0
+        },
+        {
+          "id": 117990678799,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-19T09:38:51Z",
+          "completed_at": "2026-10-19T10:28:24Z",
+          "seconds": 2973.0
+        },
+        {
+          "id": 117990678841,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-19T09:38:50Z",
+          "completed_at": "2026-10-19T10:23:19Z",
+          "seconds": 2669.0
+        },
+        {
+          "id": 117990678860,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-19T09:38:50Z",
+          "completed_at": "2026-10-19T10:30:10Z",
+          "seconds": 3080.0
+        },
+        {
+          "id": 117990678915,
+          "name": "standalone (macos-latest, 3.13)",
+          "conclusion": "failure",
+          "started_at": "2026-10-19T09:38:56Z",
+          "completed_at": "2026-10-19T09:39:26Z",
+          "seconds": 30.0
+        }
+      ]
+    },
+    {
+      "id": 39025799975,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-17T10:40:32Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39025799975",
+      "jobs": [
+        {
+          "id": 117376414734,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T10:40:35Z",
+          "completed_at": "2026-10-17T11:31:23Z",
+          "seconds": 3048.0
+        },
+        {
+          "id": 117376414922,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T10:40:35Z",
+          "completed_at": "2026-10-17T11:13:19Z",
+          "seconds": 1964.0
+        },
+        {
+          "id": 117376414964,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T10:40:35Z",
+          "completed_at": "2026-10-17T11:33:56Z",
+          "seconds": 3201.0
+        }
+      ]
+    },
+    {
+      "id": 39022562568,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-17T09:49:10Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39022562568",
+      "jobs": [
+        {
+          "id": 117367113408,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T09:49:13Z",
+          "completed_at": "2026-10-17T10:32:36Z",
+          "seconds": 2603.0
+        },
+        {
+          "id": 117367113415,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T09:49:13Z",
+          "completed_at": "2026-10-17T10:39:11Z",
+          "seconds": 2998.0
+        },
+        {
+          "id": 117367113466,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T09:49:13Z",
+          "completed_at": "2026-10-17T10:20:04Z",
+          "seconds": 1851.0
+        }
+      ]
+    },
+    {
+      "id": 39010354233,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-17T06:33:31Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/39010354233",
+      "jobs": [
+        {
+          "id": 117331403344,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T06:33:35Z",
+          "completed_at": "2026-10-17T07:31:48Z",
+          "seconds": 3493.0
+        },
+        {
+          "id": 117331403472,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T06:33:35Z",
+          "completed_at": "2026-10-17T07:22:06Z",
+          "seconds": 2911.0
+        },
+        {
+          "id": 117331403481,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T06:33:34Z",
+          "completed_at": "2026-10-17T07:24:54Z",
+          "seconds": 3080.0
+        }
+      ]
+    },
+    {
+      "id": 38991793510,
+      "name": "Standalone",
+      "event": "push",
+      "created_at": "2026-10-17T01:39:34Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/38991793510",
+      "jobs": [
+        {
+          "id": 117275580855,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T01:39:37Z",
+          "completed_at": "2026-10-17T02:22:59Z",
+          "seconds": 2602.0
+        },
+        {
+          "id": 117275581039,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T01:39:38Z",
+          "completed_at": "2026-10-17T02:21:49Z",
+          "seconds": 2531.0
+        },
+        {
+          "id": 117275581159,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-17T01:39:38Z",
+          "completed_at": "2026-10-17T02:34:04Z",
+          "seconds": 3266.0
+        }
+      ]
+    },
+    {
+      "id": 38981667556,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-16T23:29:00Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/38981667556",
+      "jobs": [
+        {
+          "id": 117243707248,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T23:29:04Z",
+          "completed_at": "2026-10-17T00:01:47Z",
+          "seconds": 1963.0
+        },
+        {
+          "id": 117243707351,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T23:29:04Z",
+          "completed_at": "2026-10-16T23:59:44Z",
+          "seconds": 1840.0
+        },
+        {
+          "id": 117243707376,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T23:29:04Z",
+          "completed_at": "2026-10-17T00:25:19Z",
+          "seconds": 3375.0
+        }
+      ]
+    },
+    {
+      "id": 38970957573,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-16T21:40:34Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/38970957573",
+      "jobs": [
+        {
+          "id": 117208926946,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T21:40:37Z",
+          "completed_at": "2026-10-16T22:37:07Z",
+          "seconds": 3390.0
+        },
+        {
+          "id": 117208927167,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T21:40:37Z",
+          "completed_at": "2026-10-16T22:21:40Z",
+          "seconds": 2463.0
+        },
+        {
+          "id": 117208927373,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T21:40:37Z",
+          "completed_at": "2026-10-16T22:31:54Z",
+          "seconds": 3077.0
+        }
+      ]
+    },
+    {
+      "id": 38963037117,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-16T20:32:57Z",
+      "conclusion": "success",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/38963037117",
+      "jobs": [
+        {
+          "id": 117182866095,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T20:33:42Z",
+          "completed_at": "2026-10-16T21:18:07Z",
+          "seconds": 2665.0
+        },
+        {
+          "id": 117182866177,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T20:33:42Z",
+          "completed_at": "2026-10-16T21:16:47Z",
+          "seconds": 2585.0
+        },
+        {
+          "id": 117182866296,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "success",
+          "started_at": "2026-10-16T20:33:42Z",
+          "completed_at": "2026-10-16T21:20:05Z",
+          "seconds": 2783.0
+        }
+      ]
+    },
+    {
+      "id": 38961999081,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-16T20:24:22Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/38961999081",
+      "jobs": [
+        {
+          "id": 117179197412,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-16T20:24:40Z",
+          "completed_at": "2026-10-16T20:33:35Z",
+          "seconds": 535.0
+        },
+        {
+          "id": 117179197876,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-16T20:24:41Z",
+          "completed_at": "2026-10-16T20:33:38Z",
+          "seconds": 537.0
+        },
+        {
+          "id": 117179197904,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-16T20:24:41Z",
+          "completed_at": "2026-10-16T20:33:38Z",
+          "seconds": 537.0
+        }
+      ]
+    },
+    {
+      "id": 38959244673,
+      "name": "Standalone",
+      "event": "pull_request",
+      "created_at": "2026-10-16T20:01:50Z",
+      "conclusion": "cancelled",
+      "html_url": "https://github.com/laceyenterprises/searchlight/actions/runs/38959244673",
+      "jobs": [
+        {
+          "id": 117169853937,
+          "name": "standalone (ubuntu-latest, 3.13)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-16T20:01:54Z",
+          "completed_at": "2026-10-16T20:24:36Z",
+          "seconds": 1362.0
+        },
+        {
+          "id": 117169854388,
+          "name": "standalone (ubuntu-latest, 3.12)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-16T20:01:54Z",
+          "completed_at": "2026-10-16T20:24:37Z",
+          "seconds": 1363.0
+        },
+        {
+          "id": 117169854401,
+          "name": "standalone (ubuntu-latest, 3.11)",
+          "conclusion": "cancelled",
+          "started_at": "2026-10-16T20:01:54Z",
+          "completed_at": "2026-10-16T20:24:36Z",
+          "seconds": 1362.0
+        }
+      ]
+    }
+  ],
+  "slowest_job": {
+    "url": "https://github.com/laceyenterprises/searchlight/actions/runs/40095202766/job/120876113052",
+    "seconds": 3604.0,
+    "steps": [
+      {
+        "name": "Set up job",
+        "seconds": 1.0
+      },
+      {
+        "name": "Run actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5",
+        "seconds": 1.0
+      },
+      {
+        "name": "Fetch pull-request history",
+        "seconds": 0
+      },
+      {
+        "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+        "seconds": 0
+      },
+      {
+        "name": "Provision Linux sandbox",
+        "seconds": 10.0
+      },
+      {
+        "name": "Install public dependencies and local package",
+        "seconds": 6.0
+      },
+      {
+        "name": "Lint",
+        "seconds": 3.0
+      },
+      {
+        "name": "Installed standalone doctor",
+        "seconds": 0
+      },
+      {
+        "name": "Portable hardcode denylist",
+        "seconds": 0
+      },
+      {
+        "name": "Retain historical topology visibility report",
+        "seconds": 0
+      },
+      {
+        "name": "Tree and full reachable history secret scan",
+        "seconds": 0
+      },
+      {
+        "name": "Permissive public dependency licences",
+        "seconds": 0
+      },
+      {
+        "name": "Fresh installed clone suite without external network",
+        "seconds": 3581.0
+      },
+      {
+        "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+        "seconds": 0
+      },
+      {
+        "name": "Post Run actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5",
+        "seconds": 0
+      },
+      {
+        "name": "Complete job",
+        "seconds": 0
+      }
+    ]
+  },
+  "local_profile": {
+    "python": "3.12.13",
+    "workers": 4,
+    "wall_seconds": 175.78,
+    "passed": 4535,
+    "failed": 44,
+    "skipped": 273,
+    "errors": 1,
+    "slowest_phases": [
+      {
+        "seconds": 10.01,
+        "phase": "call",
+        "test": "tests/test_domain_surfaces.py::test_async_poll_is_bounded_by_the_callers_wall_clock_budget"
+      },
+      {
+        "seconds": 7.02,
+        "phase": "call",
+        "test": "tests/test_domain_surfaces.py::test_result_fetch_backs_off_between_attempts_and_stays_inside_the_budget"
+      },
+      {
+        "seconds": 6.45,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_requirements_setup_uses_clean_confined_offline_installer[empty]"
+      },
+      {
+        "seconds": 6.11,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[pypi-codex]"
+      },
+      {
+        "seconds": 5.97,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[shell-codex]"
+      },
+      {
+        "seconds": 5.89,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_requirements_setup_uses_clean_confined_offline_installer[timeout]"
+      },
+      {
+        "seconds": 5.81,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_backend_refusal_prevents_code_but_not_brief[bubblewrap unavailable]"
+      },
+      {
+        "seconds": 5.37,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[None-claude-code]"
+      },
+      {
+        "seconds": 5.32,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_bubblewrap_claude_refuses_without_host_srt_probe"
+      },
+      {
+        "seconds": 5.31,
+        "phase": "call",
+        "test": "tests/test_gap_verify.py::test_cell_and_verifier_use_same_pytest_version"
+      },
+      {
+        "seconds": 5.11,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[None-codex]"
+      },
+      {
+        "seconds": 5.03,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_canary_refuses_before_task[boot-failure-claude-code]"
+      },
+      {
+        "seconds": 4.94,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_claude_boundary_receives_selected_broker_auth"
+      },
+      {
+        "seconds": 4.87,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_canary_refuses_before_task[timeout-codex]"
+      },
+      {
+        "seconds": 4.66,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_requirements_setup_uses_clean_confined_offline_installer[success]"
+      },
+      {
+        "seconds": 4.55,
+        "phase": "call",
+        "test": "tests/test_live_harness.py::test_harness_that_streams_forever_still_times_out"
+      },
+      {
+        "seconds": 4.54,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_requirements_setup_uses_clean_confined_offline_installer[long]"
+      },
+      {
+        "seconds": 4.44,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_backend_refusal_prevents_code_but_not_brief[Linux Claude code cells require broker OAuth auth]"
+      },
+      {
+        "seconds": 4.42,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_requirements_setup_uses_clean_confined_offline_installer[exit]"
+      },
+      {
+        "seconds": 4.36,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[hidden-claude-code]"
+      },
+      {
+        "seconds": 4.06,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_backend_refusal_prevents_code_but_not_brief[bubblewrap canary denial unproven]"
+      },
+      {
+        "seconds": 4.06,
+        "phase": "call",
+        "test": "tests/test_live_harness.py::test_hung_task_is_killed_at_timeout_and_classified_timeout[claude-code]"
+      },
+      {
+        "seconds": 4.05,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_codex_canary_retains_qualified_launch[True-False]"
+      },
+      {
+        "seconds": 4.04,
+        "phase": "call",
+        "test": "tests/test_live_harness.py::test_hung_task_is_killed_at_timeout_and_classified_timeout[codex]"
+      },
+      {
+        "seconds": 4.04,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[pypi-claude-code]"
+      },
+      {
+        "seconds": 4.02,
+        "phase": "call",
+        "test": "tests/test_live_harness.py::test_a_straggler_that_ignores_sigterm_does_not_outlive_the_cell[straggler_hang-timeout]"
+      },
+      {
+        "seconds": 3.86,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[diff-secret-codex]"
+      },
+      {
+        "seconds": 3.77,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_per_cell_python_environment_is_offline[cell]"
+      },
+      {
+        "seconds": 3.76,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_codex_offline_pip_with_prepared_cell_env"
+      },
+      {
+        "seconds": 3.73,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[shell-claude-code]"
+      },
+      {
+        "seconds": 3.7,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_per_cell_python_environment_is_offline[cell's workspace]"
+      },
+      {
+        "seconds": 3.69,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_canary_uses_cell_interpreter_from_path"
+      },
+      {
+        "seconds": 3.67,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[hidden-codex]"
+      },
+      {
+        "seconds": 3.58,
+        "phase": "call",
+        "test": "tests/test_gap_oss_code_cells.py::test_live_code_cell_runs_canary_then_task[hermes]"
+      },
+      {
+        "seconds": 3.48,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[search-claude-code]"
+      },
+      {
+        "seconds": 3.43,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_pip_audit_uses_prepared_child_home[True-claude-code]"
+      },
+      {
+        "seconds": 3.43,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_codex_canary_retains_qualified_launch[False-False]"
+      },
+      {
+        "seconds": 3.39,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_reference_bundle[ceiling-claude-code]"
+      },
+      {
+        "seconds": 3.3,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[search-codex]"
+      },
+      {
+        "seconds": 3.29,
+        "phase": "call",
+        "test": "tests/test_gap_oss_code_cells.py::test_live_code_cell_refuses_task_after_failed_canary[pi]"
+      },
+      {
+        "seconds": 3.24,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_canary_refuses_before_task[missing-evidence-claude-code]"
+      },
+      {
+        "seconds": 3.24,
+        "phase": "call",
+        "test": "tests/test_gap_oss_code_cells.py::test_live_code_cell_runs_canary_then_task[pi]"
+      },
+      {
+        "seconds": 3.24,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_reference_bundle[floor-claude-code]"
+      },
+      {
+        "seconds": 3.23,
+        "phase": "call",
+        "test": "tests/test_gap_oss_code_cells.py::test_live_code_cell_refuses_task_after_failed_canary[opencode]"
+      },
+      {
+        "seconds": 3.2,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_codex_canary_retains_qualified_launch[False-True]"
+      },
+      {
+        "seconds": 3.18,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_reference_bundle[floor-codex]"
+      },
+      {
+        "seconds": 3.17,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_pip_audit_uses_prepared_child_home[False-claude-code]"
+      },
+      {
+        "seconds": 3.17,
+        "phase": "call",
+        "test": "tests/test_gap_oss_code_cells.py::test_live_code_cell_runs_canary_then_task[opencode]"
+      },
+      {
+        "seconds": 3.16,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_workspace_bundle[diff-oversized-codex]"
+      },
+      {
+        "seconds": 3.14,
+        "phase": "call",
+        "test": "tests/test_gap_workspace.py::test_live_canary_refuses_before_task[boot-failure-codex]"
+      }
+    ]
+  }
+}

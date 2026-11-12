@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from typing import Any, Mapping
+import time
+from collections.abc import Mapping
+from typing import Any
 
 import pytest
-
 from sew.domain_surfaces import (
     DOMAINS,
     DOWNGRADE_ENTITLEMENT_DENIED,
@@ -22,10 +23,10 @@ from sew.domain_surfaces import (
 )
 from sew.providers import (
     CredentialResolver,
-    ProviderRequest,
     HttpProvider,
     HttpResponse,
     ProviderCapabilities,
+    ProviderRequest,
     make_provider,
 )
 
@@ -288,7 +289,10 @@ def test_plan_gated_entitlement_refusal_downgrades_to_generic_not_failed() -> No
 
     result = provider.search_domain("target accounts", domain="gtm", run_id="gated-cell")
 
-    assert [call["json_body"].get("category") for call in transport.calls] == ["company", None]
+    assert [call["json_body"].get("category") for call in transport.calls] == [
+        "company",
+        None,
+    ]
     assert result.status == "ok"
     assert result.error_class is None
     surface = result.call_record["response"]["domain_surface"]
@@ -544,7 +548,10 @@ def test_inconclusive_generic_retry_does_not_poison_the_run() -> None:
     # succeeding. That is no evidence of an entitlement gap, so the original
     # refusal stands and no surface is marked unavailable for later cells.
     transport = RecordingTransport(
-        [HttpResponse(403, {"error": "plan gate"}), HttpResponse(504, {"error": "gateway"})]
+        [
+            HttpResponse(403, {"error": "plan gate"}),
+            HttpResponse(504, {"error": "gateway"}),
+        ]
     )
     provider = _exa(transport)
 
@@ -782,7 +789,13 @@ def test_claim_registry_vocabulary_joins_onto_providers_and_domains() -> None:
 def test_claim_registry_vocabulary_rejects_an_unjoinable_claimant() -> None:
     with pytest.raises(DomainSurfaceError, match="unknown claim registry claimant"):
         assert_claim_registry_vocabulary(
-            [{"hypothesis_id": "HX", "claimant": "parallel-web-systems", "domain": "legal"}]
+            [
+                {
+                    "hypothesis_id": "HX",
+                    "claimant": "parallel-web-systems",
+                    "domain": "legal",
+                }
+            ]
         )
 
 
@@ -834,7 +847,9 @@ def test_declared_variant_value_still_selects_the_variant() -> None:
     assert selection.generic_surface is False
 
 
-def test_async_poll_is_bounded_by_the_callers_wall_clock_budget() -> None:
+def test_async_poll_is_bounded_by_the_callers_wall_clock_budget(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Attempt-count bounding alone silently multiplies the operator's budget:
     # 30 attempts x 5s sleeps x a per-GET timeout is ~33 minutes inside one
     # cell, and nothing between cells interrupts it.
@@ -850,26 +865,29 @@ def test_async_poll_is_bounded_by_the_callers_wall_clock_budget() -> None:
     def _sleep(seconds: float) -> None:
         clock["t"] += seconds
 
+    monkeypatch.setattr(time, "monotonic", _monotonic)
+    monkeypatch.setattr(time, "sleep", _sleep)
+
     # The poll horizon is its own budget, independent of the per-request
     # timeout: reusing `timeout_seconds` made ASYNC_POLL_MAX_ATTEMPTS
     # unreachable at every suite timeout the repo ships.
     provider.ASYNC_POLL_BUDGET_SECONDS = 12.0
 
-    result = provider.resolve_async_run(
-        provider.search_domain(
-            "SaaS companies",
-            domain="gtm",
-            run_id="budget",
-            surface_context=_findall_context(),
-        ),
-        request=ProviderRequest("findall", run_id="budget", query="x", timeout_seconds=60.0),
-        sleep=_sleep,
-        monotonic=_monotonic,
+    result = provider.search_domain(
+        "SaaS companies",
+        domain="gtm",
+        run_id="budget",
+        timeout_seconds=60.0,
+        surface_context=_findall_context(),
     )
 
     # Stops on the poll budget, well short of the 30-attempt cap, and does not
     # inherit the much larger per-request timeout.
     assert clock["t"] <= 12.0
+    assert clock["t"] == 10.0
+    assert len(transport.calls) == 4  # POST and three status polls.
+    assert transport.calls[0]["json_body"]["entity_type"] == PARALLEL_FINDALL_ENTITY_TYPE
+    assert result.call_record["response"]["domain_surface"]["surface_id"] == "parallel.findall"
     assert result.error_class == "async_poll_deadline_exceeded"
 
 
@@ -907,7 +925,10 @@ def test_async_run_handle_is_rejected_when_it_could_escape_the_url_path() -> Non
     provider = _parallel(transport)
 
     result = provider.search_domain(
-        "SaaS companies", domain="gtm", run_id="evil", surface_context=_findall_context()
+        "SaaS companies",
+        domain="gtm",
+        run_id="evil",
+        surface_context=_findall_context(),
     )
 
     # Only the POST happened: no authenticated GET was built from that handle.
@@ -924,7 +945,10 @@ def test_resolved_async_run_keeps_the_submission_as_its_own_call_record() -> Non
     provider.ASYNC_POLL_INTERVAL_SECONDS = 0
 
     result = provider.search_domain(
-        "SaaS companies", domain="gtm", run_id="acct", surface_context=_findall_context()
+        "SaaS companies",
+        domain="gtm",
+        run_id="acct",
+        surface_context=_findall_context(),
     )
 
     assert result.status == "ok"
@@ -998,7 +1022,6 @@ def test_every_claimant_reaches_its_specialist_arm_from_the_catalog_alone() -> N
     import pathlib
 
     import yaml
-
     from sew.domain_surfaces import CLAIMANT_PROVIDER_IDS
 
     root = pathlib.Path(__file__).resolve().parents[1] / "catalogs/domains"
@@ -1039,7 +1062,10 @@ def test_declared_surfaces_engage_from_the_catalog_for_every_vendor() -> None:
             if domain != task["domain"] or declaration.surface_id is None:
                 continue
             selection = resolve_domain_surface(
-                provider_id, domain, providers[provider_id].capabilities, context=context
+                provider_id,
+                domain,
+                providers[provider_id].capabilities,
+                context=context,
             )
             assert selection.generic_surface is False, (
                 f"{provider_id} declares {declaration.surface_id} for {domain} but task "
@@ -1088,7 +1114,11 @@ class FlakyFindAllTransport(FindAllTransport):
                     raise failure
                 return failure
         return super().request(
-            method, url, headers=headers, json_body=json_body, timeout_seconds=timeout_seconds
+            method,
+            url,
+            headers=headers,
+            json_body=json_body,
+            timeout_seconds=timeout_seconds,
         )
 
 
@@ -1097,7 +1127,10 @@ def _resolve_findall(provider: HttpProvider, run_id: str) -> Any:
     provider.ASYNC_POLL_INTERVAL_SECONDS = 0
     provider.ASYNC_RETRY_BACKOFF_SECONDS = 0
     return provider.search_domain(
-        "SaaS companies", domain="gtm", run_id=run_id, surface_context=_findall_context()
+        "SaaS companies",
+        domain="gtm",
+        run_id=run_id,
+        surface_context=_findall_context(),
     )
 
 
@@ -1107,7 +1140,10 @@ def test_transient_status_poll_failure_does_not_discard_a_healthy_run() -> None:
     # job that went on to complete normally.
     transport = FlakyFindAllTransport(
         active_polls=1,
-        status_failures=[HttpResponse(502, {"error": "bad gateway"}), TimeoutError("read timeout")],
+        status_failures=[
+            HttpResponse(502, {"error": "bad gateway"}),
+            TimeoutError("read timeout"),
+        ],
     )
     provider = _parallel(transport)
 
@@ -1154,7 +1190,10 @@ def test_final_result_fetch_retries_a_transient_failure() -> None:
     # The result fetch is a single large-payload download at the end of a paid
     # run; one unretried timeout discarded the whole thing.
     transport = FlakyFindAllTransport(
-        result_failures=[TimeoutError("read timeout"), HttpResponse(502, {"error": "bad gateway"})]
+        result_failures=[
+            TimeoutError("read timeout"),
+            HttpResponse(502, {"error": "bad gateway"}),
+        ]
     )
     provider = _parallel(transport)
 
@@ -1165,7 +1204,9 @@ def test_final_result_fetch_retries_a_transient_failure() -> None:
     assert result.call_record["response"]["async_poll_calls"] == 4
 
 
-def test_result_fetch_backs_off_between_attempts_and_stays_inside_the_budget() -> None:
+def test_result_fetch_backs_off_between_attempts_and_stays_inside_the_budget(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Backoff must grow, and must never push the cell past the operator's
     # wall-clock budget: the deadline wins over the retry schedule.
     transport = FlakyFindAllTransport(result_failures=[HttpResponse(502, {})] * 10)
@@ -1181,13 +1222,15 @@ def test_result_fetch_backs_off_between_attempts_and_stays_inside_the_budget() -
         slept.append(seconds)
         clock["t"] += seconds
 
-    result = provider.resolve_async_run(
-        provider.search_domain(
-            "SaaS companies", domain="gtm", run_id="backoff", surface_context=_findall_context()
-        ),
-        request=ProviderRequest("findall", run_id="backoff", query="x", timeout_seconds=60.0),
-        sleep=_sleep,
-        monotonic=lambda: clock["t"],
+    monkeypatch.setattr(time, "monotonic", lambda: clock["t"])
+    monkeypatch.setattr(time, "sleep", _sleep)
+
+    result = provider.search_domain(
+        "SaaS companies",
+        domain="gtm",
+        run_id="backoff",
+        timeout_seconds=60.0,
+        surface_context=_findall_context(),
     )
 
     assert slept == [1.0, 2.0, 4.0]
@@ -1214,7 +1257,9 @@ def test_exhausted_result_retries_name_the_real_status_code() -> None:
     )
 
 
-def test_deadline_during_result_retries_records_what_was_being_retried() -> None:
+def test_deadline_during_result_retries_records_what_was_being_retried(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # "We ran out of time" must not hide "we ran out of time being rate
     # limited" -- those are different operator actions.
     transport = FlakyFindAllTransport(result_failures=[HttpResponse(429, {})] * 8)
@@ -1228,13 +1273,15 @@ def test_deadline_during_result_retries_records_what_was_being_retried() -> None
     def _sleep(seconds: float) -> None:
         clock["t"] += seconds
 
-    result = provider.resolve_async_run(
-        provider.search_domain(
-            "SaaS companies", domain="gtm", run_id="cut", surface_context=_findall_context()
-        ),
-        request=ProviderRequest("findall", run_id="cut", query="x", timeout_seconds=60.0),
-        sleep=_sleep,
-        monotonic=lambda: clock["t"],
+    monkeypatch.setattr(time, "monotonic", lambda: clock["t"])
+    monkeypatch.setattr(time, "sleep", _sleep)
+
+    result = provider.search_domain(
+        "SaaS companies",
+        domain="gtm",
+        run_id="cut",
+        timeout_seconds=60.0,
+        surface_context=_findall_context(),
     )
 
     assert result.error_class == "async_poll_deadline_exceeded"

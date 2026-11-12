@@ -22,7 +22,7 @@ jobs:
       matrix:
         # macOS bills ~8x Linux on this private repo: only on schedule/workflow_dispatch.
         os: ${{ fromJSON((github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && '["ubuntu-latest","macos-latest"]' || '["ubuntu-latest"]') }}
-        python: ${{ fromJSON(github.event_name == 'pull_request' && '["3.12"]' || '["3.11","3.12","3.13"]') }}
+        python: ${{ fromJSON((github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && '["3.11","3.12","3.13"]' || '["3.12"]') }}
     runs-on: ${{ matrix.os }}
     env:
       SEW_REQUIRE_CONTAINMENT_TESTS: ${{ matrix.os == 'ubuntu-latest' && '1' || '0' }}
@@ -34,6 +34,13 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: Select full suite or existing main smoke
+        id: scope
+        env:
+          CI_EVENT: ${{ github.event_name }}
+          CI_BASE: ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
+          CI_HEAD: ${{ github.sha }}
+        run: python3 scripts/ci_scope.py
       - name: Fetch pull-request history
         if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         env:
@@ -48,8 +55,10 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
       - name: Provision Linux sandbox
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && steps.scope.outputs.full_suite == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y bubblewrap
@@ -81,7 +90,14 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         run: python3 scripts/publication-gates.py licences
       - name: Fresh installed clone suite without external network
+        if: steps.scope.outputs.full_suite == 'true' || github.event_name == 'push'
+        env:
+          CI_EVENT: ${{ github.event_name }}
         run: |
+          if [[ "$CI_EVENT" == push ]]; then
+            python3 scripts/smoke.py
+            exit
+          fi
           if scripts/public-clone-proof.sh > "$RUNNER_TEMP/suite.log" 2>&1; then
             cat "$RUNNER_TEMP/suite.log"
           else

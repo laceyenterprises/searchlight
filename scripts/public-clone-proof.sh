@@ -18,11 +18,15 @@ git checkout --detach "$(git -C "$OLDPWD" rev-parse HEAD)"
 python3 -m venv "$proof_root/venv"
 # Isolated HOME/state and a minimal environment make host services unavailable.
 mkdir "$proof_root/home"
+# Share only pip's downloaded artifacts with setup-python's cache. The proof
+# still creates a fresh venv, installs the cloned package and isolates HOME/state.
+pip_cache="$(python3 -m pip cache dir)"
 # Preserve the caller's Actions marker for the macOS offline runner's host guard.
 # Variables in the command body expand in the isolated child shell.
 # shellcheck disable=SC2016
 env -i PATH="$proof_root/venv/bin:/usr/bin:/bin" HOME="$proof_root/home" \
   GITHUB_ACTIONS="${GITHUB_ACTIONS:-}" \
+  PIP_CACHE_DIR="$pip_cache" \
   SEW_REQUIRE_CONTAINMENT_TESTS="${SEW_REQUIRE_CONTAINMENT_TESTS:-0}" \
   SEW_GAP_CODE_WHEELHOUSE="$proof_root/wheels" SEW_MODE=standalone SEW_STATE_ROOT="$proof_root/state" PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 SEW_TEST_INSTALLED=1 SEW_PUBLICATION_BATTERY="${SEW_PUBLICATION_BATTERY:-1}" \
   bash -euo pipefail -c '
