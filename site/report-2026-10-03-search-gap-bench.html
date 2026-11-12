@@ -285,13 +285,13 @@ color:var(--ink);max-width:760px}
 font-size:15px;font-weight:550;color:var(--ink-2);white-space:nowrap;cursor:pointer;background:var(--paper)}
 .seg input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .seg input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
-@media (max-width:620px){.seg{grid-template-columns:100px minmax(0,1fr);gap:6px}.seg span{min-height:36px;padding:0 12px}}
+@media (max-width:620px){.seg{grid-template-columns:1fr;gap:6px}.seg .opts{flex-wrap:wrap;overflow:visible}.seg span{min-height:36px;padding:0 12px}}
 @media (min-width:860px){.filters{position:sticky;top:72px;z-index:5}}
 .empty{padding:24px;border:1.5px dashed var(--rule);border-radius:var(--radius-lg);color:var(--muted);margin-top:16px}
 
 /* Boards: ranked rows with a big number, a 95% range and n */
 .boards{display:grid;gap:20px;margin-top:24px}
-@media (min-width:1000px){.boards.two{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.boards.two{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}}
 .board{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px 20px 8px;background:var(--paper);min-width:0;container-type:inline-size}
 .board>header h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
 .board>header .model{font:500 15px/1.3 var(--font-mono);color:var(--muted)}
@@ -340,7 +340,7 @@ h1{font-size:32px}
 h2{font-size:25px}
 
 .finding>.head{gap:8px}
-.row,.scale{grid-template-columns:22px minmax(0,1fr) minmax(84px,auto);gap:4px 10px}
+.row,.scale{grid-template-columns:22px minmax(0,1fr) 96px;gap:4px 10px}
 .row .nn{white-space:nowrap}
 .row .pc{font-size:28px}
 }
@@ -360,12 +360,17 @@ details.note[open]>summary{margin-bottom:6px}
 details.note>div{display:block;font-weight:400;font-size:15px;line-height:1.45;color:var(--ink-2);padding:10px 12px;border-left:3px solid var(--amber);
 background:var(--soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0;max-width:60ch}
 details.more-info{margin-top:8px}
-details.more-info>summary{cursor:pointer;font-weight:600;color:var(--blue-ink);min-height:44px;display:flex;align-items:center;gap:8px}
-details.more-info>summary::marker{color:var(--muted)}
+/* One disclosure pattern everywhere: a triangle at the left, closed ▸ and open ▾ */
+details.more-info>summary,details.allrows>summary,details.full>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;
+font-weight:600;color:var(--blue-ink);min-height:44px}
+details.more-info>summary::-webkit-details-marker,details.allrows>summary::-webkit-details-marker,details.full>summary::-webkit-details-marker{display:none}
+details.more-info>summary::before,details.allrows>summary::before,details.full>summary::before{content:"\25B8";width:1em;flex:none;color:var(--muted)}
+details.more-info[open]>summary::before,details.allrows[open]>summary::before,details.full[open]>summary::before{content:"\25BE"}
 details.more-info p{margin:8px 0;color:var(--ink-2);font-size:16px}
 
 /* Dumbbell: no search, with search, answer handed over */
 .legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px;font-size:15px;color:var(--ink-2)}
+.dumb .row .nn{font-size:14px}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .legend i{display:inline-block;flex:none}
 .legend .k-dot{width:14px;height:14px;border-radius:50%;background:var(--viz-ref)}
@@ -375,11 +380,8 @@ details.more-info p{margin:8px 0;color:var(--ink-2);font-size:16px}
 .legend .k-pt{width:14px;height:14px;border-radius:50%;background:var(--blue)}
 .legend .k-lb{width:0;height:20px;border-left:2px dashed var(--ink-2)}
 .finding>.legend,.wrap>.legend{margin:20px 0 -4px}
-details.allrows>summary{cursor:pointer;display:flex;align-items:center;gap:8px;min-height:48px;font-weight:600;color:var(--blue-ink);
-border-top:1px solid var(--rule)}
-details.allrows>summary::after{content:"\25BE";font-size:14px}details.allrows[open]>summary::after{content:"\25B4"}
-details.allrows>summary::-webkit-details-marker{display:none}
-details.allrows{list-style:none}
+details.allrows>summary{min-height:48px;border-top:1px solid var(--rule)}
+details.allrows.forced>summary{display:none}
 .measures+details.allrows{margin-top:12px}
 .dumb .track .span{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--blue)}
 .dumb .track .dot{background:var(--viz-ref)}
@@ -391,8 +393,8 @@ details.allrows{list-style:none}
 /* Stat tiles */
 .stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin-top:24px}
 .stat{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;gap:10px}
-@media (max-width:620px){.stats{gap:0;border-top:1px solid var(--rule)}.stat{display:grid;grid-template-columns:minmax(0,40%) minmax(0,1fr);
-align-items:baseline;gap:12px;border:0;border-bottom:1px solid var(--rule);border-radius:0;padding:14px 0}.stat .big{font-size:26px;white-space:nowrap}.stat p{font-size:15px}}
+@media (max-width:620px){.stats{gap:0;border-top:1px solid var(--rule)}.stat{display:block;border:0;border-bottom:1px solid var(--rule);
+border-radius:0;padding:14px 0}.stat .big{font-size:30px;white-space:nowrap}.stat p{font-size:15px;margin-top:4px}}
 .stat .big{font-size:clamp(36px,4.6vw,48px);color:var(--blue-ink)}
 .stat p{color:var(--ink-2);font-size:16px}
 
@@ -416,7 +418,7 @@ align-items:baseline;gap:12px;border:0;border-bottom:1px solid var(--rule);borde
 .study h2 a{color:var(--ink);text-decoration:none}.study h2 a:hover{text-decoration:underline}
 .study>p.muted{margin-top:8px}
 .finish{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
-.finish li{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:18px;background:var(--paper);display:grid;gap:6px;align-content:start}
+.finish>li{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:18px;background:var(--paper);display:grid;gap:6px;align-content:start}
 .finish .q{font:500 14px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .finish .who{font-size:20px;font-weight:700;letter-spacing:-.02em}
 .finish .big{font-size:40px;font-weight:750;letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums;color:var(--blue-ink)}
@@ -456,11 +458,6 @@ html.js .steps.paged .step[hidden]{display:none}
 .explorer .axis{display:flex;justify-content:space-between;font:500 14px/1 var(--font-mono);color:var(--muted)}
 
 /* Methodology: step lists on phones, diagrams on wider screens; provider cards; a compact glossary */
-.steplist{display:none;margin:14px 0;padding:0;list-style:none;counter-reset:st}
-.steplist li{counter-increment:st;position:relative;padding:10px 0 10px 44px;border-bottom:1px solid var(--rule);color:var(--ink);max-width:none}
-.steplist li::before{content:counter(st);position:absolute;left:0;top:9px;width:28px;height:28px;border-radius:50%;background:var(--blue-soft);
-color:var(--blue-ink);font:600 14px/28px var(--font-mono);text-align:center}
-@media (max-width:760px){.steplist{display:block}.diagram{display:none}}
 .pcards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));margin-top:16px}
 .pcard{border:1px solid var(--rule);border-radius:var(--radius-lg);padding:16px 18px}
 .doc .pcard h3{margin:0 0 4px;font-size:18px}.doc .pcard p{margin:4px 0;color:var(--ink-2);font-size:15px}
@@ -494,10 +491,7 @@ color:var(--blue-ink);font:600 14px/28px var(--font-mono);text-align:center}
 .doc ul{padding-left:22px}
 .doc li{margin:6px 0}
 details.full{border:1px solid var(--rule);border-radius:var(--radius-lg);margin:16px 0;background:var(--paper)}
-details.full>summary{cursor:pointer;display:flex;align-items:center;gap:12px;padding:18px 20px;font-size:18px;font-weight:650;list-style:none}
-details.full>summary::-webkit-details-marker{display:none}
-details.full>summary::after{content:"+";margin-left:auto;font-size:24px;font-weight:400;color:var(--muted)}
-details.full[open]>summary::after{content:"\2212"}
+details.full>summary{padding:14px 20px;font-size:18px;color:var(--ink)}
 details.full>.body{padding:0 20px 20px;border-top:1px solid var(--rule)}
 blockquote.note{margin:16px 0;padding:12px 16px;border-left:3px solid var(--amber);background:var(--soft);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
 blockquote.note p{margin:6px 0}
@@ -506,15 +500,47 @@ table{border-collapse:collapse;width:100%;font-size:15px}
 th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
 th{font-weight:600;color:var(--ink-2);font-size:14px}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-code{font-family:var(--font-mono);font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+code{font-family:var(--font-mono);font-size:.88em;background:var(--soft);padding:1px 5px;border-radius:5px;white-space:nowrap}
+pre code{white-space:inherit}
 pre{font-family:var(--font-mono);font-size:14px;background:var(--soft);border-radius:var(--radius-md);padding:16px;overflow-x:auto;line-height:1.5}
 pre code{background:none;padding:0}
-.diagram{overflow-x:auto;border:1px solid var(--rule);border-radius:var(--radius-lg);padding:20px;margin:14px 0;background:var(--paper)}
-.diagram svg{max-width:none!important;height:auto}
-pre.mermaid{background:none;padding:0;margin:0;font-size:.85rem;text-align:center}
+/* Methodology diagrams: a wide layout from 900 px, a tall one below; neither is scaled down to fit */
+.flow{margin:18px 0 8px}
+.flow svg{display:block;height:auto;width:100%}
+.flow .wide{max-width:960px}
+.flow .tall{display:none;max-width:520px}
+@media (max-width:899px){.flow .wide{display:none}.flow .tall{display:block}}
+.flow .nd{fill:var(--raised);stroke:var(--rule);stroke-width:1.5}
+.flow .nd.st{fill:var(--soft)}
+.flow .nd.q{fill:var(--blue-soft);stroke:var(--blue)}
+.flow .grp{fill:none;stroke:var(--viz-other);stroke-width:1.5;stroke-dasharray:6 6}
+.flow .gl{font:500 14px var(--font-mono);letter-spacing:.06em;fill:var(--muted)}
+.flow .t{font:650 17px var(--font-body);fill:var(--ink)}
+.flow .b{font:400 16px var(--font-body);fill:var(--ink-2)}
+.flow .b.strong{font-weight:650;fill:var(--ink)}
+.flow .m{font:500 15px var(--font-mono);fill:var(--ink-2)}
+.flow .m.tt{font-weight:600;fill:var(--ink)}
+.flow .tall .t{font-size:16px}.flow .tall .b{font-size:15px}
+.flow .e{fill:none;stroke:var(--muted);stroke-width:2;stroke-linejoin:round}
+.flow .e.r{stroke-dasharray:6 5}
+.flow .life{fill:none;stroke:var(--rule);stroke-width:2;stroke-dasharray:4 6}
+.flow .ah{fill:var(--muted)}
+.flow .el{font:500 15px var(--font-body);fill:var(--ink-2)}
+.flow .elb{fill:var(--paper)}
+.flow use{color:var(--ink)}
+.arrives{display:flex;gap:12px;align-items:flex-start;margin-top:28px;padding:16px 18px;border-radius:var(--radius-lg);background:var(--blue-soft);color:var(--ink)}
+.arrives .g{color:var(--blue-ink);margin-top:2px}
 .files{font-size:15px;color:var(--muted);margin-top:12px}
 
 /* How to read: one line everywhere but Learn */
+.nw{white-space:nowrap}
+.name.nowrap{flex-wrap:nowrap;white-space:nowrap}
+.g.kd{width:20px;height:20px;color:var(--muted)}
+.keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:15px;color:var(--muted);margin-top:6px}
+.keys .g.kd{margin-left:6px}.keys .g.kd:first-child{margin-left:0}
+.finish .top3{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:4px}
+.finish .top3 li{display:flex;justify-content:space-between;gap:12px;font-size:16px;border-bottom:1px solid var(--rule);padding:4px 0}
+.finish .top3 b{font-variant-numeric:tabular-nums;color:var(--blue-ink);font-size:18px}
 .readlink{margin:14px 0 0}
 /* Footer */
 main>:last-child:not(.band){padding-bottom:72px}
@@ -597,7 +623,7 @@ main>:last-child:not(.band){padding-bottom:72px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap"><a class="brand" href="index.html" aria-label="Searchlight home"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#logo-lamp"/></svg><span class="word">Searchlight</span></a><nav class="navbar" aria-label="Site"><a href="index.html">Overview</a><a href="results.html" aria-current="true">Results</a><a href="studies.html">Studies</a><a href="learn.html">Learn</a><a href="methodology.html">Methodology</a><a class="gh" href="https://github.com/laceyenterprises/searchlight">GitHub</a></nav><details class="menu"><summary aria-label="Menu"><svg class="g open" aria-hidden="true" focusable="false"><use href="#menu-open"/></svg><svg class="g close" aria-hidden="true" focusable="false"><use href="#menu-close"/></svg></summary><nav class="navpanel" aria-label="Site menu"><a href="index.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#beam"/></svg>Overview</a><a href="results.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#ranking"/></svg>Results</a><a href="studies.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Studies</a><a href="learn.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#learn"/></svg>Learn</a><a href="methodology.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#method"/></svg>Methodology</a><p class="sub">Reports and studies</p><a class="small" href="study-2026-11-11-software-factory-insight-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#study"/></svg>Leading software factories and agent-platform architectures</a><a class="small" href="report-2026-10-06-search-gap-replication.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench replication</a><a class="small" href="report-2026-10-05-agent-search-behavior.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>How agents used search</a><a class="small" href="report-2026-10-03-search-gap-bench.html" aria-current="page"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench</a><a class="small" href="report-2026-09-29-web-search-bakeoff.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Web search bakeoff</a><a class="small" href="report-2026-09-26-search-api-head-to-head.html"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search API head-to-head</a><a class="small" href="https://github.com/laceyenterprises/searchlight"><svg class="g" aria-hidden="true" focusable="false"><use href="#open-source"/></svg>Source on GitHub</a></nav></details></div></header>
 <main id="main">
-<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results</a><span aria-hidden="true">›</span><span>Search gap bench</span></nav><p class="eyebrow" style="margin-top:20px"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench · 2026-10-03</p><h1>Search gap bench</h1><p class="lede">With any search setup, Claude Code and Codex passed 71–95% of briefs about recent events; with no search, 0%.</p></div><div class="wrap"><p class="readlink"><a class="more" href="learn.html#read">How to read these numbers</a></p><div class="legend" aria-hidden="true"><span><i class="k-pt"></i>Pass rate</span><span><i class="k-ci"></i>95% range</span><span><i class="k-lb"></i>Where the leader's range starts</span></div><div class="boards two"><section class="board" id="board-gap-claude-code" data-f-group data-agent="claude-code" data-bench="2026-10-03-search-gap-bench" data-providers="brave exa firecrawl native parallel-web perplexity tavily"><header><h3>Claude Code <span class=model>claude-opus-5-5</span></h3><p>21 runs per setup · Search gap bench · 2026-10-03</p><p class="says">Parallel passed most often: 20 of 21 runs. Every other setup&#x27;s range overlaps it: a tie.</p></header><div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div><ol class="rows"><li class="row" id="r-gap-claude-code-parallel-web" data-rank="1" data-lead><span class="rk">1</span><span class="nm"><span class="name">Parallel<span class="chip">leader</span></span><small>64k tokens per pass</small></span><span class="pc">95%</span><span class="tr"><span class="track" role="img" aria-label="Parallel: 95% passed, 20 of 21 runs; 95% range 77 to 99%"><span class="ci" style="left:77.0%;width:22.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:95.0%"></span></span></span><span class="nn"><b>77–99%</b><span class="k">20 of 21</span></span></li><li class="row" id="r-gap-claude-code-firecrawl" data-rank="2"><span class="rk">2</span><span class="nm"><span class="name">Firecrawl</span><small>116k tokens per pass</small></span><span class="pc">90%</span><span class="tr"><span class="track" role="img" aria-label="Firecrawl: 90% passed, 19 of 21 runs; 95% range 71 to 97%"><span class="ci" style="left:71.0%;width:26.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:90.0%"></span></span></span><span class="nn"><b>71–97%</b><span class="k">19 of 21</span></span></li><li class="row" id="r-gap-claude-code-brave" data-rank="3"><span class="rk">3</span><span class="nm"><span class="name">Brave</span><small>93k tokens per pass</small></span><span class="pc">81%</span><span class="tr"><span class="track" role="img" aria-label="Brave: 81% passed, 17 of 21 runs; 95% range 60 to 92%"><span class="ci" style="left:60.0%;width:32.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:81.0%"></span></span></span><span class="nn"><b>60–92%</b><span class="k">17 of 21</span></span></li><li class="row ctl" id="r-gap-claude-code-native" data-rank="4"><span class="rk">4</span><span class="nm"><span class="name">Built-in<details class="note caveat"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#caveat"/></svg>Rerun</summary><div>In the first runs Claude Code&#x27;s built-in search could not open pages. It was fixed and rerun on 2026-10-06; this row is the rerun. The original row stays in the report.</div></details></span><small>61k tokens per pass</small></span><span class="pc">76%</span><span class="tr"><span class="track" role="img" aria-label="Built-in: 76% passed, 16 of 21 runs; 95% range 55 to 89%"><span class="ci" style="left:55.0%;width:34.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:76.0%"></span></span></span><span class="nn"><b>55–89%</b><span class="k">16 of 21</span></span></li><li class="row" id="r-gap-claude-code-perplexity" data-rank="5"><span class="rk">5</span><span class="nm"><span class="name">Perplexity</span><small>74k tokens per pass</small></span><span class="pc">76%</span><span class="tr"><span class="track" role="img" aria-label="Perplexity: 76% passed, 16 of 21 runs; 95% range 55 to 89%"><span class="ci" style="left:55.0%;width:34.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:76.0%"></span></span></span><span class="nn"><b>55–89%</b><span class="k">16 of 21</span></span></li><li class="row" id="r-gap-claude-code-exa" data-rank="6"><span class="rk">6</span><span class="nm"><span class="name">Exa</span><small>89k tokens per pass</small></span><span class="pc">71%</span><span class="tr"><span class="track" role="img" aria-label="Exa: 71% passed, 15 of 21 runs; 95% range 50 to 86%"><span class="ci" style="left:50.0%;width:36.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:71.0%"></span></span></span><span class="nn"><b>50–86%</b><span class="k">15 of 21</span></span></li><li class="row" id="r-gap-claude-code-tavily" data-rank="7"><span class="rk">7</span><span class="nm"><span class="name">Tavily</span><small>83k tokens per pass</small></span><span class="pc">71%</span><span class="tr"><span class="track" role="img" aria-label="Tavily: 71% passed, 15 of 21 runs; 95% range 50 to 86%"><span class="ci" style="left:50.0%;width:36.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:71.0%"></span></span></span><span class="nn"><b>50–86%</b><span class="k">15 of 21</span></span></li></ol></section><section class="board" id="board-gap-codex" data-f-group data-agent="codex" data-bench="2026-10-03-search-gap-bench" data-providers="brave exa firecrawl native parallel-web perplexity tavily"><header><h3>Codex <span class=model>gpt-6.1-sol</span></h3><p>18 runs per setup · Search gap bench · 2026-10-03</p><p class="says">Brave passed most often: 17 of 18 runs. Every other setup&#x27;s range overlaps it: a tie.</p></header><div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div><ol class="rows"><li class="row" id="r-gap-codex-brave" data-rank="1" data-lead><span class="rk">1</span><span class="nm"><span class="name">Brave<span class="chip">leader</span></span><small>111k tokens per pass</small></span><span class="pc">94%</span><span class="tr"><span class="track" role="img" aria-label="Brave: 94% passed, 17 of 18 runs; 95% range 74 to 99%"><span class="ci" style="left:74.0%;width:25.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:94.0%"></span></span></span><span class="nn"><b>74–99%</b><span class="k">17 of 18</span></span></li><li class="row" id="r-gap-codex-firecrawl" data-rank="2"><span class="rk">2</span><span class="nm"><span class="name">Firecrawl</span><small>166k tokens per pass</small></span><span class="pc">89%</span><span class="tr"><span class="track" role="img" aria-label="Firecrawl: 89% passed, 16 of 18 runs; 95% range 67 to 97%"><span class="ci" style="left:67.0%;width:30.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:89.0%"></span></span></span><span class="nn"><b>67–97%</b><span class="k">16 of 18</span></span></li><li class="row" id="r-gap-codex-tavily" data-rank="3"><span class="rk">3</span><span class="nm"><span class="name">Tavily</span><small>129k tokens per pass</small></span><span class="pc">89%</span><span class="tr"><span class="track" role="img" aria-label="Tavily: 89% passed, 16 of 18 runs; 95% range 67 to 97%"><span class="ci" style="left:67.0%;width:30.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:89.0%"></span></span></span><span class="nn"><b>67–97%</b><span class="k">16 of 18</span></span></li><li class="row ctl" id="r-gap-codex-native" data-rank="4"><span class="rk">4</span><span class="nm"><span class="name">Built-in</span><small>117k tokens per pass</small></span><span class="pc">78%</span><span class="tr"><span class="track" role="img" aria-label="Built-in: 78% passed, 14 of 18 runs; 95% range 55 to 91%"><span class="ci" style="left:55.0%;width:36.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:78.0%"></span></span></span><span class="nn"><b>55–91%</b><span class="k">14 of 18</span></span></li><li class="row" id="r-gap-codex-exa" data-rank="5"><span class="rk">5</span><span class="nm"><span class="name">Exa</span><small>146k tokens per pass</small></span><span class="pc">78%</span><span class="tr"><span class="track" role="img" aria-label="Exa: 78% passed, 14 of 18 runs; 95% range 55 to 91%"><span class="ci" style="left:55.0%;width:36.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:78.0%"></span></span></span><span class="nn"><b>55–91%</b><span class="k">14 of 18</span></span></li><li class="row" id="r-gap-codex-parallel-web" data-rank="6"><span class="rk">6</span><span class="nm"><span class="name">Parallel</span><small>157k tokens per pass</small></span><span class="pc">72%</span><span class="tr"><span class="track" role="img" aria-label="Parallel: 72% passed, 13 of 18 runs; 95% range 49 to 88%"><span class="ci" style="left:49.0%;width:39.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:72.0%"></span></span></span><span class="nn"><b>49–88%</b><span class="k">13 of 18</span></span></li><li class="row" id="r-gap-codex-perplexity" data-rank="7"><span class="rk">7</span><span class="nm"><span class="name">Perplexity</span><small>117k tokens per pass</small></span><span class="pc">72%</span><span class="tr"><span class="track" role="img" aria-label="Perplexity: 72% passed, 13 of 18 runs; 95% range 49 to 88%"><span class="ci" style="left:49.0%;width:39.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:72.0%"></span></span></span><span class="nn"><b>49–88%</b><span class="k">13 of 18</span></span></li></ol></section></div><details class="more-info"><summary>What the numbers mean</summary><p>7 research briefs about events after the model&#x27;s training data, each run 3 times: 21 runs per setup. A brief passes if it reaches the right decision, gets at least 70% of the key facts (important ones count more), and no more than 25% of its claims lack support in the sources it cites.</p><p>For scale: with no search the agent passed 0%; handed an excerpt containing the answer, it passed 95%. The full report gives each setup&#x27;s gap closed: how far it got from 0% toward 95%. Tokens per pass: all tokens used, failed runs included, divided by passing runs.</p><p>Source: <a href="report-2026-10-03-search-gap-bench.html">Search gap bench</a>; ranges are 95% Wilson intervals, as published.</p></details></div><div class="wrap doc" style="margin-top:32px"><details class="full" id="run-2026-10-03-search-gap-bench"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>The full report</summary><div class="body"><h3 id="2026-10-03-search-gap-bench-gap-battery-results-2026-10-03-does-search-change-the-outcome-of-the-job">GAP battery results, 2026-10-03: does search change the outcome of the job?</h3>
+<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results</a><span aria-hidden="true">›</span><span>Search gap bench</span></nav><p class="eyebrow" style="margin-top:20px"><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>Search gap bench · 2026-10-03</p><h1>Search gap bench</h1><p class="lede">With any search setup, Claude Code and Codex passed 71–95% of briefs about recent events; with no search, 0%.</p></div><div class="wrap"><p class="readlink"><a class="more" href="learn.html#read">How to read these numbers</a></p><div class="legend" aria-hidden="true"><span><i class="k-pt"></i>Pass rate</span><span><i class="k-ci"></i>95% range</span><span><i class="k-lb"></i>Where the leader's range starts</span></div><div class="boards two"><section class="board" id="board-gap-claude-code" data-f-group data-agent="claude-code" data-bench="2026-10-03-search-gap-bench" data-providers="brave exa firecrawl native parallel-web perplexity tavily"><header><h3>Claude Code <span class=model>claude-opus-5-5</span></h3><p>21 runs per setup · Search gap bench · 2026-10-03</p><p class="says">Parallel passed most often: 20 of 21 runs. Every other setup&#x27;s range overlaps the leader&#x27;s, so the test cannot separate them.</p></header><div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div><ol class="rows"><li class="row" id="r-gap-claude-code-parallel-web" data-rank="1" data-lead><span class="rk">1</span><span class="nm"><span class="name">Parallel<span class="chip">leader</span></span><small>64k tokens per pass</small></span><span class="pc">95%</span><span class="tr"><span class="track" role="img" aria-label="Parallel: 95% passed, 20 of 21 runs; 95% range 77 to 99%"><span class="ci" style="left:77.0%;width:22.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:95.0%"></span></span></span><span class="nn"><b>77–99%</b><span class="k">20 of 21</span></span></li><li class="row" id="r-gap-claude-code-firecrawl" data-rank="2"><span class="rk">2</span><span class="nm"><span class="name">Firecrawl</span><small>116k tokens per pass</small></span><span class="pc">90%</span><span class="tr"><span class="track" role="img" aria-label="Firecrawl: 90% passed, 19 of 21 runs; 95% range 71 to 97%"><span class="ci" style="left:71.0%;width:26.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:90.0%"></span></span></span><span class="nn"><b>71–97%</b><span class="k">19 of 21</span></span></li><li class="row" id="r-gap-claude-code-brave" data-rank="3"><span class="rk">3</span><span class="nm"><span class="name">Brave</span><small>93k tokens per pass</small></span><span class="pc">81%</span><span class="tr"><span class="track" role="img" aria-label="Brave: 81% passed, 17 of 21 runs; 95% range 60 to 92%"><span class="ci" style="left:60.0%;width:32.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:81.0%"></span></span></span><span class="nn"><b>60–92%</b><span class="k">17 of 21</span></span></li><li class="row ctl" id="r-gap-claude-code-native" data-rank="4"><span class="rk">4</span><span class="nm"><span class="name">Built-in<details class="note caveat"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#caveat"/></svg>Rerun</summary><div>In the first runs Claude Code&#x27;s built-in search could not open pages. It was fixed and rerun on 2026-10-06; this row is the rerun. The original row stays in the report.</div></details></span><small>61k tokens per pass</small></span><span class="pc">76%</span><span class="tr"><span class="track" role="img" aria-label="Built-in: 76% passed, 16 of 21 runs; 95% range 55 to 89%"><span class="ci" style="left:55.0%;width:34.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:76.0%"></span></span></span><span class="nn"><b>55–89%</b><span class="k">16 of 21</span></span></li><li class="row" id="r-gap-claude-code-perplexity" data-rank="5"><span class="rk">5</span><span class="nm"><span class="name">Perplexity</span><small>74k tokens per pass</small></span><span class="pc">76%</span><span class="tr"><span class="track" role="img" aria-label="Perplexity: 76% passed, 16 of 21 runs; 95% range 55 to 89%"><span class="ci" style="left:55.0%;width:34.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:76.0%"></span></span></span><span class="nn"><b>55–89%</b><span class="k">16 of 21</span></span></li><li class="row" id="r-gap-claude-code-exa" data-rank="6"><span class="rk">6</span><span class="nm"><span class="name">Exa</span><small>89k tokens per pass</small></span><span class="pc">71%</span><span class="tr"><span class="track" role="img" aria-label="Exa: 71% passed, 15 of 21 runs; 95% range 50 to 86%"><span class="ci" style="left:50.0%;width:36.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:71.0%"></span></span></span><span class="nn"><b>50–86%</b><span class="k">15 of 21</span></span></li><li class="row" id="r-gap-claude-code-tavily" data-rank="7"><span class="rk">7</span><span class="nm"><span class="name">Tavily</span><small>83k tokens per pass</small></span><span class="pc">71%</span><span class="tr"><span class="track" role="img" aria-label="Tavily: 71% passed, 15 of 21 runs; 95% range 50 to 86%"><span class="ci" style="left:50.0%;width:36.0%"></span><span class="lb" style="left:77.0%"></span><span class="dot" style="left:71.0%"></span></span></span><span class="nn"><b>50–86%</b><span class="k">15 of 21</span></span></li></ol></section><section class="board" id="board-gap-codex" data-f-group data-agent="codex" data-bench="2026-10-03-search-gap-bench" data-providers="brave exa firecrawl native parallel-web perplexity tavily"><header><h3>Codex <span class=model>gpt-6.1-sol</span></h3><p>18 runs per setup · Search gap bench · 2026-10-03</p><p class="says">Brave passed most often: 17 of 18 runs. Every other setup&#x27;s range overlaps the leader&#x27;s, so the test cannot separate them.</p></header><div class="scale" aria-hidden="true"><span></span><span class="ticks"><span>0%</span><span>50%</span><span>100%</span></span><span></span></div><ol class="rows"><li class="row" id="r-gap-codex-brave" data-rank="1" data-lead><span class="rk">1</span><span class="nm"><span class="name">Brave<span class="chip">leader</span></span><small>111k tokens per pass</small></span><span class="pc">94%</span><span class="tr"><span class="track" role="img" aria-label="Brave: 94% passed, 17 of 18 runs; 95% range 74 to 99%"><span class="ci" style="left:74.0%;width:25.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:94.0%"></span></span></span><span class="nn"><b>74–99%</b><span class="k">17 of 18</span></span></li><li class="row" id="r-gap-codex-firecrawl" data-rank="2"><span class="rk">2</span><span class="nm"><span class="name">Firecrawl</span><small>166k tokens per pass</small></span><span class="pc">89%</span><span class="tr"><span class="track" role="img" aria-label="Firecrawl: 89% passed, 16 of 18 runs; 95% range 67 to 97%"><span class="ci" style="left:67.0%;width:30.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:89.0%"></span></span></span><span class="nn"><b>67–97%</b><span class="k">16 of 18</span></span></li><li class="row" id="r-gap-codex-tavily" data-rank="3"><span class="rk">3</span><span class="nm"><span class="name">Tavily</span><small>129k tokens per pass</small></span><span class="pc">89%</span><span class="tr"><span class="track" role="img" aria-label="Tavily: 89% passed, 16 of 18 runs; 95% range 67 to 97%"><span class="ci" style="left:67.0%;width:30.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:89.0%"></span></span></span><span class="nn"><b>67–97%</b><span class="k">16 of 18</span></span></li><li class="row ctl" id="r-gap-codex-native" data-rank="4"><span class="rk">4</span><span class="nm"><span class="name">Built-in</span><small>117k tokens per pass</small></span><span class="pc">78%</span><span class="tr"><span class="track" role="img" aria-label="Built-in: 78% passed, 14 of 18 runs; 95% range 55 to 91%"><span class="ci" style="left:55.0%;width:36.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:78.0%"></span></span></span><span class="nn"><b>55–91%</b><span class="k">14 of 18</span></span></li><li class="row" id="r-gap-codex-exa" data-rank="5"><span class="rk">5</span><span class="nm"><span class="name">Exa</span><small>146k tokens per pass</small></span><span class="pc">78%</span><span class="tr"><span class="track" role="img" aria-label="Exa: 78% passed, 14 of 18 runs; 95% range 55 to 91%"><span class="ci" style="left:55.0%;width:36.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:78.0%"></span></span></span><span class="nn"><b>55–91%</b><span class="k">14 of 18</span></span></li><li class="row" id="r-gap-codex-parallel-web" data-rank="6"><span class="rk">6</span><span class="nm"><span class="name">Parallel</span><small>157k tokens per pass</small></span><span class="pc">72%</span><span class="tr"><span class="track" role="img" aria-label="Parallel: 72% passed, 13 of 18 runs; 95% range 49 to 88%"><span class="ci" style="left:49.0%;width:39.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:72.0%"></span></span></span><span class="nn"><b>49–88%</b><span class="k">13 of 18</span></span></li><li class="row" id="r-gap-codex-perplexity" data-rank="7"><span class="rk">7</span><span class="nm"><span class="name">Perplexity</span><small>117k tokens per pass</small></span><span class="pc">72%</span><span class="tr"><span class="track" role="img" aria-label="Perplexity: 72% passed, 13 of 18 runs; 95% range 49 to 88%"><span class="ci" style="left:49.0%;width:39.0%"></span><span class="lb" style="left:74.0%"></span><span class="dot" style="left:72.0%"></span></span></span><span class="nn"><b>49–88%</b><span class="k">13 of 18</span></span></li></ol></section></div><details class="more-info"><summary>What the numbers mean</summary><p>7 research briefs about events after the model&#x27;s training data, each run 3 times: 21 runs per setup. A brief passes if it reaches the right decision, gets at least 70% of the key facts (important ones count more), and no more than 25% of its claims lack support in the sources it cites.</p><p>For scale: with no search the agent passed 0%; handed an excerpt containing the answer, it passed 95%. The full report gives each setup&#x27;s gap closed: how far it got from 0% toward 95%. Tokens per pass: all tokens used, failed runs included, divided by passing runs.</p><p>Source: <a href="report-2026-10-03-search-gap-bench.html">Search gap bench</a>; ranges are 95% Wilson intervals, as published.</p></details></div><div class="wrap doc" style="margin-top:32px"><details class="full" id="run-2026-10-03-search-gap-bench"><summary><svg class="g" aria-hidden="true" focusable="false"><use href="#report"/></svg>The full report</summary><div class="body"><h3 id="2026-10-03-search-gap-bench-gap-battery-results-2026-10-03-does-search-change-the-outcome-of-the-job">GAP battery results, 2026-10-03: does search change the outcome of the job?</h3>
 <blockquote class="note"><p><strong>Update (2026-10-06): the Claude Code native setup was rerun with page fetching working.</strong> In the original battery the setup exposed WebSearch and WebFetch but pre-approved only WebSearch, and headless Claude Code refused all 50 WebFetch calls across its 21 runs, so that row measured search without page fetching. The configuration is fixed and pinned by a test. The setup's 21 runs were rerun on 2026-10-06 on the same 7 tasks, repetitions, model and calibration; no call was refused. The Claude Code native row and every figure derived from it below use the rerun: 16/21 passed (76%), gap closure 0.80 (0.53–1.00), 61k tokens per success. The original row recorded 13/21 (62%), gap closure 0.65 (0.37–0.91) and 66k. The other setups are unchanged. The rerun's verdicts come from the claude-code primary judge, which decides every verdict in this battery. On 2026-10-07 the codex judge scored the same 21 stored payloads: it agreed on every verdict and on 94% of labels (kappa 0.70); see <a href="#2026-10-03-search-gap-bench-judge-agreement">judge agreement</a>. The rerun's agents used about 1.0M tokens. The codex native setup was unaffected. Details: <a href="report-2026-10-05-agent-search-behavior.html#2026-10-05-agent-search-behavior-native-rerun-2026-10-06">agent search behavior</a>.</p></blockquote>
 <p>The first full Search Gap Bench (GAP) battery ran on 2026-10-03, operator-approved: brief tasks on two agents, nine setups each, three repetitions.</p>
 <ul><li>GAP grades the job, not the retrieval.
@@ -728,29 +754,6 @@ main>:last-child:not(.band){padding-bottom:72px}
     });
   });
 
-  // Concept tiles: one explanation at a time.
-  $(".tiles[role=tablist]").forEach(function (list) {
-    var tiles = $("[data-concept]", list);
-    function pick(tile, focus) {
-      tiles.forEach(function (t) {
-        var on = t === tile;
-        t.setAttribute("aria-selected", on ? "true" : "false");
-        t.tabIndex = on ? 0 : -1;
-        var panel = document.getElementById(t.getAttribute("data-concept"));
-        if (panel) panel.hidden = !on;
-      });
-      if (focus) tile.focus();
-    }
-    tiles.forEach(function (t, i) {
-      t.addEventListener("click", function (e) { e.preventDefault(); pick(t); });
-      t.addEventListener("keydown", function (e) {
-        var d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-        if (d) { e.preventDefault(); pick(tiles[(i + d + tiles.length) % tiles.length], true); }
-      });
-    });
-    if (tiles.length) pick(tiles[0]);
-  });
-
   // Step-by-step walkthrough.
   $("[data-stepper]").forEach(function (list) {
     var steps = $(".step", list), ctl = list.nextElementSibling, at = 0;
@@ -841,8 +844,11 @@ main>:last-child:not(.band){padding-bottom:72px}
         var inner = $("[data-f], .row[id]", gr);
         gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return !el.hidden; }));
       });
+      // A chosen setup opens the rows it sits in, without the "All n" line between it and its leader.
       $("details.allrows").forEach(function (d) {
-        d.open = !!want.provider && $(".row[id], [data-f]", d).some(function (el) { return !el.hidden; });
+        var forced = !!want.provider && $(".row[id], [data-f]", d).some(function (el) { return !el.hidden; });
+        d.open = forced;
+        d.classList.toggle("forced", forced);
       });
       $("[data-f-group]").forEach(function (gr) {
         var variants = $(":scope > .head > [data-prose]", gr);

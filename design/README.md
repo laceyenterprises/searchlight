@@ -108,6 +108,7 @@ either, run `python3 scripts/build_site.py` and `python3 scripts/render_social_c
 | Board | A card of ranked rows: agent and model, runs per setup, its takeaway sentence, then "What the numbers mean" behind a tap |
 | Concept tile | A glyph and a term; selecting it opens one short explanation. Without JavaScript every explanation shows. |
 | How to read these results | One panel, in full, on the Learn page; every other page links to it in one line |
+| Diagram | Drawn by `scripts/searchlight_site/diagrams.py` from its nodes and edges: glyph nodes on raised cards, token colours, labels of 14 px and up, a wide layout from 900 px and a tall one below |
 | Filters | One row of chips per question on a shared baseline (each row scrolls sideways on phones), hidden without JavaScript; prose has a variant per agent so words never contradict the rows |
 | Photo finish | Three leaders for a study: most useful findings, most found by no one else, best value, each with its tie count |
 | Latest | One line under the hero naming the newest report or study, rebuilt when one is published |

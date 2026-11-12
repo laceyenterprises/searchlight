@@ -162,7 +162,7 @@ svg text{fill:var(--ink);font-size:14px}svg .axis{stroke:var(--line)}svg .pt{fil
 .digest{margin:8px 0 20px}
 .digest .eyebrow{margin:0 0 8px;font:500 14px/1.3 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--blue-ink)}
 .finish{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
-.finish li{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--panel);display:grid;gap:6px;align-content:start}
+.finish>li{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--panel);display:grid;gap:6px;align-content:start}
 .finish .q{font:500 14px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .finish .who{font-size:21px;font-weight:700;letter-spacing:-.02em}
 .finish .big{font-size:40px;font-weight:750;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;color:var(--blue-ink)}
@@ -179,7 +179,14 @@ svg text{fill:var(--ink);font-size:14px}svg .axis{stroke:var(--line)}svg .pt{fil
 .rank .t b{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--viz-interval)}
 .rank .t i{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--panel)}
 .rank .q{grid-area:q;text-align:right;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-.rank .kind{display:inline-block;margin-left:8px;font-size:13px;font-weight:600;border-radius:999px;padding:1px 8px;background:var(--chip);color:var(--muted);vertical-align:2px}
+.rank .n{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.kd{width:20px;height:20px;flex:none;color:var(--muted)}.kd .acc{stroke:var(--blue)}
+.keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px;color:var(--muted);margin:0 0 4px}.keys .kd{margin-left:8px}.keys .kd:first-child{margin-left:0}
+.rank .kind{display:inline-block;font-size:13px;font-weight:600;border-radius:999px;padding:1px 8px;background:var(--chip);color:var(--muted)}
+.top3{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:4px}
+.top3 li{display:flex;justify-content:space-between;gap:12px;font-size:16px;border-bottom:1px solid var(--line);padding:4px 0}
+.top3 b{font-variant-numeric:tabular-nums;color:var(--blue-ink);font-size:18px}
+.readfirst{margin-top:20px}.readfirst ul{margin:0;padding-left:20px;color:var(--ink-2)}.readfirst li{margin:6px 0}
 .more-rows>summary{padding:12px 0 4px;font-weight:600;color:var(--blue-ink)}
 .how{margin:12px 0 0;font-size:14px;color:var(--muted)}
 .fulldata{margin-top:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
@@ -216,8 +223,8 @@ th,td{padding:8px}.hide-sm{display:none}
 <div class="filters" role="group" aria-label="Filter services"><span class="small muted">Services</span><span id="chips" class="arms"></span>
   <button id="allarms" class="ghost small" type="button">Show all</button></div>
 <div id="views" tabindex="-1"></div>
+<section class="caveats"><h2>Every caveat, as recorded</h2><ul id="caveats"></ul></section>
 </div></details>
-<section class="caveats"><h2>Read this first</h2><ul id="caveats"></ul></section>
 </div>
 </main>
 <script type="application/json" id="data">/*__DATA__*/</script>

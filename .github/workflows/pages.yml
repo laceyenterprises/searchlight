@@ -12,6 +12,7 @@ on:
       - 'scripts/build_site.py'
       - 'scripts/check_reports.py'
       - 'scripts/site_assets/**'
+      - 'scripts/searchlight_site/**'
       - 'design/**'
       - 'lib/python/sew/insight/dashboard.*'
   workflow_dispatch:

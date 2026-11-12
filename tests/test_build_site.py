@@ -394,11 +394,11 @@ def test_infographic_names_every_arm_and_no_private_paths():
 def test_page_has_apparatus_diagrams_and_resolved_links():
     files = site.build()
     methodology, results = files['methodology.html'], files['results.html']
-    assert methodology.count('<pre class="mermaid">') == 5
-    assert (f'<script src="{site.MERMAID_URL}" '
-            'integrity="sha384-rbtjAdnIQE/aQJGEgXrVUlMibdfTSa4PQju4HDhN3sR2PmaKFzhEafuePsl9H/9I" '
-            'crossorigin="anonymous"></script>') in methodology
-    assert 'mermaid.min.js' not in files['index.html'] + results
+    # The apparatus diagrams are drawn by the generator: five figures, each with a wide and a tall layout, and no
+    # third-party diagram script on any page.
+    assert methodology.count('<figure class="flow"') == 5
+    assert methodology.count('<svg class="wide"') == 5 and methodology.count('<svg class="tall"') == 5
+    assert all('mermaid' not in page for page in files.values())
     # Each report has its own page; the results page keeps the old #run- and #method- anchors on its index.
     assert 'id="run-2026-10-05-agent-search-behavior"' in results
     assert 'id="method-2026-10-05-agent-search-behavior"' in results
@@ -763,10 +763,11 @@ def test_overview_teaches_with_the_vocabulary_and_has_one_primary_action():
     html = site.build()['index.html']
     main = html.split('<main id="main">', 1)[1].split('</main>', 1)[0]
     assert main.count('class="btn"') == 1 and 'href="results.html"' in main
+    # The overview's tiles are a teaser for the one glossary, on Learn.
     concepts = site.vocabulary()['Concepts'][:8]
-    assert main.count('class="tile"') == len(concepts) == main.count('class="concept"')
+    assert main.count('class="tile"') == len(concepts)
     for term, _, one, _ in concepts:
-        assert site.esc(one) in main, term
+        assert site.esc(one) in main and f'href="learn.html#t-{site.slug(term)}"' in main, term
 
 
 def test_results_open_with_findings_and_rank_every_board():
@@ -905,3 +906,26 @@ def test_study_page_shares_the_site_shell():
     assert '<header class="top">' in page and 'id="theme"' not in page and '<footer class="foot">' in page
     assert 'class="finish"' in page and 'Full data' in page and '@scope (.dash)' in page
     assert '<main id="main">' in page and page.count('id="main"') == 1
+
+
+def test_diagrams_keep_every_node_and_edge_and_fit_their_column():
+    from searchlight_site import diagrams as d
+    for diagram in d.DIAGRAMS.values():
+        for layout, width in (('wide', d.WIDE), ('tall', d.TALL)):
+            placed = [cell[0] for row in getattr(diagram, layout) for cell in row]
+            assert sorted(placed) == sorted(n.id for n in diagram.nodes), (diagram.name, layout)
+            t = d.TYPE[layout]
+            boxes = d.place(getattr(diagram, layout), {n.id: n for n in diagram.nodes}, t)
+            assert all(0 <= x and x + w <= width for x, _, w, _ in boxes.values()), (diagram.name, layout)
+        svg = d._flow_svg(diagram, 'wide')
+        assert svg.count('class="e"') == len(diagram.edges)
+    assert min(t[k] for t in d.TYPE.values() for k in ('t', 'b', 'm', 'e')) >= 14
+    figure = d.figure('grading')
+    assert figure.count('class="e') >= 2 * len(d.GRADING.messages)
+
+
+def test_one_glossary_lives_on_learn():
+    files = site.build()
+    assert 'id="report-terms"' in files['learn.html'] and 'class="glossary"' in files['learn.html']
+    assert 'class="glossary"' not in files['methodology.html'] and 'class="terms"' not in files['index.html']
+    assert 'Every published run appears here automatically when it is merged' in files['methodology.html']

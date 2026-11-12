@@ -55,11 +55,13 @@ def finish(summary: Mapping[str, Any], rows: list[dict[str, Any]] | None = None)
     out = []
     top = rows[0]
     tied = sum(1 for r in rows[1:] if r["hi"] >= top["lo"])
-    most = max(r["questions"] for r in rows)
-    subset = f"Ran {top['questions']} of the {most} questions. " if top["questions"] < most else ""
-    out.append({"q": "Most useful findings", "who": top["arm"], "big": f"{top['value']:.1f}", "unit": "per question",
-                "ctx": subset + (f"Tied with {tied} others: their ranges overlap." if tied
-                                 else "Clear of every other service.")})
+    if tied:
+        out.append({"q": "Most useful findings", "who": "No clear winner", "big": "", "unit": "",
+                    "top": [(r["arm"], f"{r['value']:.1f}") for r in rows[:3]],
+                    "ctx": f"Per question. The leader's range overlaps those of {tied} others."})
+    else:
+        out.append({"q": "Most useful findings", "who": top["arm"], "big": f"{top['value']:.1f}", "unit": "per question",
+                    "ctx": "Clear of every other service."})
     unique = sorted(((m.get("unique_insights") or {}, arm) for arm, m in metrics.items()
                      if (m.get("unique_insights") or {}).get("value") is not None),
                     key=lambda x: (-x[0]["value"], x[1]))
@@ -67,8 +69,13 @@ def finish(summary: Mapping[str, Any], rows: list[dict[str, Any]] | None = None)
         lead, arm = unique[0]
         lo = (lead.get("ci95") or [lead["value"]])[0]
         tied = sum(1 for m, _ in unique[1:] if (m.get("ci95") or [0, m["value"]])[1] >= lo)
-        out.append({"q": "Most found by no one else", "who": arm, "big": str(lead["value"]), "unit": "unique findings",
-                    "ctx": f"Tied with {tied} others." if tied else "Clear of every other service."})
+        if tied:
+            out.append({"q": "Most found by no one else", "who": "No clear winner", "big": "", "unit": "",
+                        "top": [(a, str(m["value"])) for m, a in unique[:3]],
+                        "ctx": f"Unique findings. The leader's range overlaps those of {tied} others."})
+        else:
+            out.append({"q": "Most found by no one else", "who": arm, "big": str(lead["value"]), "unit": "unique findings",
+                        "ctx": "Clear of every other service."})
     value = sorted(((m["cost_per_unique_insight"]["value"], arm) for arm, m in metrics.items()
                     if (m.get("cost_per_unique_insight") or {}).get("value") is not None
                     and (m.get("unique_insights") or {}).get("value")), key=lambda x: (x[0], x[1]))
@@ -85,24 +92,49 @@ def takeaway(summary: Mapping[str, Any], rows: list[dict[str, Any]] | None = Non
     rows = ranked(summary) if rows is None else rows
     if not rows:
         return "No service produced verified insight in this study."
-    lines = finish(summary, rows)
-    first = lines[0]
-    text = f"{first['who']} found the most useful findings per question ({first['big']})"
-    if len(lines) > 1 and lines[1]["who"] != first["who"]:
-        text += f"; {lines[1]['who']} found the most that no one else did ({lines[1]['big']})"
-    tied = sum(1 for r in rows[1:] if r["hi"] >= rows[0]["lo"])
-    return text + (f". {tied} of the other {len(rows) - 1} services are tied with the leader." if tied
-                   else ". No other service comes close.")
+    top = rows[0]
+    tied = sum(1 for r in rows[1:] if r["hi"] >= top["lo"])
+    if tied:
+        return (f"No clear winner: {top['arm']} found the most useful findings per question ({top['value']:.1f}), "
+                f"but its range overlaps {tied} of the other {len(rows) - 1} services'.")
+    return f"{top['arm']} found the most useful findings per question ({top['value']:.1f}); no other service comes close."
+
+
+# The search and research glyphs from design/glyphs (results-list, answer), inlined so the file stays offline.
+KIND_GLYPH = {
+    "search": '<path d="M8 6h13.5M8 12h13.5M8 18h13.5M2.5 12h3M2.5 18h3"/><path d="M2.5 6h3" class="acc"/>',
+    "research": '<path d="M3 4.5h18v11.5h-9.5L7 20.5V16H3z"/><path d="M7 8.5h10"/><path d="M7 12h6" class="acc"/>',
+}
+
+
+def kind_icon(kind: str) -> str:
+    label = "search: hands back results" if kind == "search" else "research: writes an answer"
+    return (f'<svg class="kd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" '
+            f'aria-label="{label}"><title>{label}</title>{KIND_GLYPH[kind]}</svg>')
+
+
+def caveats(summary: Mapping[str, Any]) -> list[str]:
+    """Three plain lines a reader needs before comparing services; the recorded caveats sit under Full data."""
+    rows = ranked(summary)
+    most = max([r["questions"] for r in rows] + [summary["set"]["questions"]])
+    subset = [r for r in rows if r["questions"] < most]
+    out = [f"One run on one day, with {most} questions at most: treat small gaps as noise."]
+    if subset:
+        fewest = min(r["questions"] for r in subset)
+        out.append(f"{len(subset)} services ran only {fewest} of the {most} questions, so compare per question.")
+    out.append("Models extracted, checked and valued every claim; a service earns a finding only if its own cited page "
+               "supports it.")
+    return out[:3]
 
 
 def _rank_item(i: int, r: dict[str, Any], scale: float) -> str:
     def pos(v):
         return f"{100 * v / scale:.1f}%"
     kind = "research" if r["kind"] == "research" else "search"
-    tag = "imported" if r["imported"] else kind
     questions = "question" if r["questions"] == 1 else "questions"
+    tag = '<span class="kind">imported</span>' if r["imported"] else ""
     return (f'<li data-kind="{kind}"><span class="r">{i}</span>'
-            f'<span class="n">{escape(r["arm"])}<span class="kind">{tag}</span></span>'
+            f'<span class="n">{kind_icon(kind)}{escape(r["arm"])}{tag}</span>'
             f'<span class="v">{r["value"]:.1f}</span>'
             f'<span class="t" role="img" aria-label="{escape(r["arm"])}: {r["value"]:.1f} useful findings per question, '
             f'95% range {r["lo"]:.1f} to {r["hi"]:.1f}"><b style="left:{pos(r["lo"])};width:'
@@ -113,19 +145,31 @@ def _rank_item(i: int, r: dict[str, Any], scale: float) -> str:
 def digest_html(summary: Mapping[str, Any], top: int = 5) -> str:
     rows = ranked(summary)
     scale = max([r["hi"] for r in rows] + [1.0])
-    lines = "".join(f'<li><span class="q">{escape(x["q"])}</span><span class="who">{escape(x["who"])}</span>'
-                    f'<span class="big">{escape(x["big"])}<small>{escape(x["unit"])}</small></span>'
-                    f'<span class="ctx">{escape(x["ctx"])}</span></li>' for x in finish(summary, rows))
+    lines = "".join(finish_item(x) for x in finish(summary, rows))
     head = "".join(_rank_item(i, r, scale) for i, r in enumerate(rows[:top], start=1))
     rest = "".join(_rank_item(i, r, scale) for i, r in enumerate(rows[top:], start=top + 1))
     more = (f'<details class="more-rows"><summary>All {len(rows)} services</summary><ol class="rank" start="{top + 1}">'
             f'{rest}</ol></details>') if rest else ""
-    return ('<section class="digest" aria-label="The takeaway"><p class="eyebrow">The photo finish</p>'
+    read = "".join(f"<li>{escape(c)}</li>" for c in caveats(summary))
+    return ('<section class="digest" aria-label="The takeaway"><p class="eyebrow">At the top</p>'
             f'<ol class="finish">{lines}</ol>'
             '<div class="ranked"><h2>Ranked by useful findings per question</h2>'
             '<p class="lede">The value of every finding a service earned on its own cited page, averaged over the '
             'questions it ran. The bar is its 95% range; where ranges overlap, the data cannot separate them.</p>'
-            f'<ol class="rank">{head}</ol>{more}</div></section>')
+            f'<p class="keys">{kind_icon("search")} search hands back results {kind_icon("research")} research writes '
+            f'an answer</p><ol class="rank">{head}</ol>{more}</div>'
+            f'<div class="readfirst"><h2>Read this first</h2><ul>{read}</ul></div></section>')
+
+
+def finish_item(x: Mapping[str, Any]) -> str:
+    """One line of the finish: a leader and its number, or no clear winner and the top three."""
+    if x.get("top"):
+        body = '<ol class="top3">' + "".join(f'<li><span>{escape(a)}</span><b>{escape(v)}</b></li>' for a, v in x["top"])
+        body += "</ol>"
+    else:
+        body = f'<span class="big">{escape(x["big"])}<small>{escape(x["unit"])}</small></span>'
+    return (f'<li><span class="q">{escape(x["q"])}</span><span class="who">{escape(x["who"])}</span>{body}'
+            f'<span class="ctx">{escape(x["ctx"])}</span></li>')
 
 
 def render_dashboard(summary: Mapping[str, Any]) -> str:

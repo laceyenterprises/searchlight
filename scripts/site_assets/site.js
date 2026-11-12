@@ -10,29 +10,6 @@
     });
   });
 
-  // Concept tiles: one explanation at a time.
-  $(".tiles[role=tablist]").forEach(function (list) {
-    var tiles = $("[data-concept]", list);
-    function pick(tile, focus) {
-      tiles.forEach(function (t) {
-        var on = t === tile;
-        t.setAttribute("aria-selected", on ? "true" : "false");
-        t.tabIndex = on ? 0 : -1;
-        var panel = document.getElementById(t.getAttribute("data-concept"));
-        if (panel) panel.hidden = !on;
-      });
-      if (focus) tile.focus();
-    }
-    tiles.forEach(function (t, i) {
-      t.addEventListener("click", function (e) { e.preventDefault(); pick(t); });
-      t.addEventListener("keydown", function (e) {
-        var d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-        if (d) { e.preventDefault(); pick(tiles[(i + d + tiles.length) % tiles.length], true); }
-      });
-    });
-    if (tiles.length) pick(tiles[0]);
-  });
-
   // Step-by-step walkthrough.
   $("[data-stepper]").forEach(function (list) {
     var steps = $(".step", list), ctl = list.nextElementSibling, at = 0;
@@ -123,8 +100,11 @@
         var inner = $("[data-f], .row[id]", gr);
         gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return !el.hidden; }));
       });
+      // A chosen setup opens the rows it sits in, without the "All n" line between it and its leader.
       $("details.allrows").forEach(function (d) {
-        d.open = !!want.provider && $(".row[id], [data-f]", d).some(function (el) { return !el.hidden; });
+        var forced = !!want.provider && $(".row[id], [data-f]", d).some(function (el) { return !el.hidden; });
+        d.open = forced;
+        d.classList.toggle("forced", forced);
       });
       $("[data-f-group]").forEach(function (gr) {
         var variants = $(":scope > .head > [data-prose]", gr);
