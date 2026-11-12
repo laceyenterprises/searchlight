@@ -497,7 +497,8 @@ def methodology_page(configs: list[dict], target: str = 'pages', body_only: bool
 <div class="wrap doc">
 
 <section id="pipeline"><h2>From task to report</h2>
-<p>Every tool call is recorded, and the grader never learns the setup.</p>
+<p>One test run = task × search setup × repetition. Every tool call is recorded, and the grader never learns the
+setup.</p>
 {diagrams.figure('pipeline')}</section>
 
 <section id="isolation"><h2>What each setup can touch</h2>

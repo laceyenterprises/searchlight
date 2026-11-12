@@ -929,3 +929,39 @@ def test_one_glossary_lives_on_learn():
     assert 'id="report-terms"' in files['learn.html'] and 'class="glossary"' in files['learn.html']
     assert 'class="glossary"' not in files['methodology.html'] and 'class="terms"' not in files['index.html']
     assert 'Every published run appears here automatically when it is merged' in files['methodology.html']
+
+
+def _inside(point, box, margin=0.0):
+    x, y, w, h = box
+    return x + margin < point[0] < x + w - margin and y + margin < point[1] < y + h - margin
+
+
+def _overlap(a, b, gap=0.0):
+    return not (a[0] + a[2] + gap <= b[0] or b[0] + b[2] + gap <= a[0] or a[1] + a[3] + gap <= b[1]
+                or b[1] + b[3] + gap <= a[1])
+
+
+@pytest.mark.parametrize('layout', ['wide', 'tall'])
+def test_diagram_layouts_have_no_collisions(layout):
+    """No edge crosses a group's label band or runs through a card it does not join, and groups keep apart."""
+    from searchlight_site import diagrams as d
+    for diagram in d.DIAGRAMS.values():
+        geo = d.geometry(diagram, layout)
+        for i, g in enumerate(geo['groups']):
+            for e in geo['edges']:
+                assert not any(_inside(p, g['label']) for p in e['points']), (diagram.name, layout, g['lines'], e['source'])
+            for other in geo['groups'][i + 1:]:
+                assert not _overlap(g['rect'], other['rect'], d.GROUP_GAP - 1), (diagram.name, layout, g['lines'])
+        for e in geo['edges']:
+            for nid, box in geo['boxes'].items():
+                if nid in (e['source'], e['target']):
+                    continue
+                assert not any(_inside(p, box, 2) for p in e['points']), (diagram.name, layout, e['source'],
+                                                                           e['target'], nid)
+        for e in geo['edges']:
+            if e['label_box']:
+                assert not any(_overlap(e['label_box'], box) for box in geo['boxes'].values()), (diagram.name, layout,
+                                                                                               e['label'])
+        width = d.WIDE if layout == 'wide' else d.TALL
+        for g in geo['groups']:
+            assert 0 <= g['rect'][0] and g['rect'][0] + g['rect'][2] <= width, (diagram.name, layout)
