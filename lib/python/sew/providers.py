@@ -239,6 +239,24 @@ class CredentialResolver:
                 f"unknown provider credential mapping: {provider_id}"
             ) from exc
 
+        # KEY-21: a configured Agent OS credential lease replaces the direct
+        # readers for this provider; neither the key nor its ref is consulted.
+        from .governed_credentials import (
+            PLACEHOLDER,
+            SOURCE,
+            GovernedCredentialError,
+            lease_config,
+        )
+
+        try:
+            governed = lease_config(provider_id, self._host_environ)
+        except GovernedCredentialError as exc:
+            raise CredentialUnavailable(str(exc)) from None
+        if governed is not None:
+            if self._host_environ.get("SEW_MODE") == "standalone":
+                raise CredentialUnavailable("credential lease requires Agent OS mode")
+            return PLACEHOLDER, SOURCE
+
         direct_value = self._environ.get(value_env)
         if direct_value:
             return direct_value, value_env
@@ -620,7 +638,14 @@ class HttpProvider(AsyncRunPollingMixin, SearchProvider):
         self._base_url = base_url.rstrip("/")
         self._endpoints = endpoints
         self._credential_resolver = credential_resolver or CredentialResolver()
-        self._transport = transport or UrllibTransport()
+        from .governed_credentials import LeasedTransport
+
+        # Pass-through unless a request carries the governed-lease placeholder.
+        self._transport = LeasedTransport(
+            transport or UrllibTransport(),
+            provider_id,
+            getattr(self._credential_resolver, "_host_environ", os.environ),
+        )
         self._live_enabled = (
             os.environ.get(LIVE_SMOKE_ENV) == "1" if live_enabled is None else live_enabled
         )
