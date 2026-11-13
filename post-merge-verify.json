@@ -19,7 +19,8 @@
         "Dispatch command and path selectors are relative to the Agent OS superproject root, where this repository is registered at tools/searchlight. In a standalone clone, run python3 scripts/smoke.py from the Searchlight root (or use its absolute path)."
       ],
       "exclusions": [
-        "No live model/provider/ledger/message transport; no runtime activation"
+        "No live model/provider/ledger/message transport; no runtime activation",
+        "KEY-23 migration adapters and no-legacy-reader fence are scoped synthetic unit tests, not new smoke promises or lifecycle states. KEY-25 owns operator config publication, verified canary, bounded pause rollback and separate deletion authority; see modules/worker-pool/post-merge-actions/key-23-migration.yaml in Agent OS."
       ]
     },
     "host": {
