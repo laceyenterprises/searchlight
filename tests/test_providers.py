@@ -4,6 +4,8 @@ import io
 import json
 import socket
 import urllib.error
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier, BrokenBarrierError
 from typing import Any, Mapping
 
 import pytest
@@ -574,6 +576,40 @@ def test_env_ref_credential_resolution_uses_operator_provided_environment() -> N
     )
 
     assert resolver.resolve("exa") == ("secret-from-env-ref", "SEW_EXA_API_KEY_REF")
+
+
+def test_shared_resolver_initializes_legacy_environment_once(monkeypatch) -> None:
+    from sew import host
+
+    start = Barrier(2)
+    readers = Barrier(2)
+    calls = []
+
+    def load_environment(env):
+        calls.append(env)
+        # Without serialization both initializers rendezvous here. With it,
+        # only the first enters; the second must reuse the completed snapshot.
+        try:
+            readers.wait(timeout=0.2)
+        except BrokenBarrierError:
+            pass
+        return {"SEW_EXA_API_KEY": "synthetic-direct"}
+
+    monkeypatch.setattr(host, "credential_environment", load_environment)
+    resolver = CredentialResolver(environ={})
+
+    def resolve():
+        start.wait(timeout=5)
+        return resolver.resolve("exa")
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures = [pool.submit(resolve) for _ in range(2)]
+        assert [future.result(timeout=5) for future in futures] == [
+            ("synthetic-direct", "SEW_EXA_API_KEY")
+        ] * 2
+    assert len(calls) == 1
+    assert resolver.resolve("exa") == ("synthetic-direct", "SEW_EXA_API_KEY")
+    assert len(calls) == 1
 
 
 def test_health_reports_unavailable_for_missing_secret_when_live_enabled() -> None:

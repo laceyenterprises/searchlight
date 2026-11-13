@@ -21,6 +21,28 @@ given. The published results cover Claude Code and Codex; Hermes Agent, Opencode
 [Reproducing](#reproducing-the-published-results) · [For vendors](#for-vendors-corrections-and-re-runs) ·
 [Internals](#internals)
 
+
+## Governed provider migration
+
+For the selected Brave cohort, `sew.credential_migration.switch_provider` prepares
+`credential_leases.brave.name` and a `credential_migrations.brave: broker-only`
+fence without I/O. Agent OS operator migration checkpoints own enrollment,
+verified broker readiness, canary, expected revision and rollback expiry. The
+`pause_provider` rollback removes the lease but retains the fence: no direct key
+or op reference reader can run when that migrated provider is paused. Existing
+lease refusal already has no fallback. Other providers remain pending, with
+fleet owners recorded by Agent OS inventory. KEY-25 owns actual config publication,
+owner/domain-correct restart, health and live acceptance after prerequisites;
+source merge activates nothing. Old copies require separate operator deletion
+authority. Never remove a migration fence to repair a delivery outage.
+
+Switching accepts an existing matching string lease shorthand and emits the
+canonical `name` mapping. Switch and pause treat absent or YAML-null lease and
+migration sections as empty mappings; other non-mapping values are refused.
+A null migration section alone does not fence an unmigrated provider. Legacy
+credential files are loaded once per resolver under a lock, only after the
+governed lease and migration-fence checks.
+
 ## Searchlight in 60 seconds
 
 Eight ideas sit behind every number here; the [Learn page](https://searchlightai.dev/learn.html) explains each one.

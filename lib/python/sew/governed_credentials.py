@@ -99,6 +99,15 @@ def lease_config(provider_id: str, environ: Mapping[str, str]) -> LeaseConfig | 
     raw_env = environ.get(ENV_KEYS[provider_id])
     entry = _yaml_entry(environ, provider_id) if not raw_env else {"name": raw_env}
     if entry is None:
+        from .host import read_config
+
+        migrations = read_config(environ).get("credential_migrations", {})
+        if migrations is None:
+            migrations = {}
+        if not isinstance(migrations, Mapping):
+            raise GovernedCredentialError("invalid credential migration config")
+        if provider_id in migrations:
+            raise GovernedCredentialError("migrated provider paused; direct reader forbidden")
         return None
     if isinstance(entry, str):
         entry = {"name": entry}

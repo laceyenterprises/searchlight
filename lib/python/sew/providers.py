@@ -16,6 +16,7 @@ import urllib.error
 from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime
 from pathlib import Path
+from threading import Lock
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Any, Mapping, Protocol
 from urllib import request as urlrequest
@@ -225,10 +226,9 @@ class CredentialResolver:
         environ: Mapping[str, str] | None = None,
         worker_class: str = "codex",
     ) -> None:
-        from .host import credential_environment
-
         self._host_environ = environ if environ is not None else os.environ
-        self._environ = credential_environment(self._host_environ)
+        self._environ = None  # legacy files are opened only for unmigrated providers
+        self._environ_lock = Lock()
         self._worker_class = worker_class
 
     def resolve(self, provider_id: str) -> tuple[str, str]:
@@ -257,6 +257,11 @@ class CredentialResolver:
                 raise CredentialUnavailable("credential lease requires Agent OS mode")
             return PLACEHOLDER, SOURCE
 
+        with self._environ_lock:
+            if self._environ is None:
+                from .host import credential_environment
+
+                self._environ = credential_environment(self._host_environ)
         direct_value = self._environ.get(value_env)
         if direct_value:
             return direct_value, value_env
