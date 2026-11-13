@@ -15,6 +15,7 @@ import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 from uuid import uuid4
 
 import pytest
@@ -231,6 +232,74 @@ def _request(tmp_path, **overrides):
     path = tmp_path / "request.json"
     path.write_text(json.dumps(document))
     return path
+
+
+@pytest.mark.parametrize("delivery", ["fd", "env"])
+@pytest.mark.parametrize("ending", ["", "\n", "\r", "\r\n", "\n\r\n"])
+def test_child_normalizes_delivered_line_endings(tmp_path, delivery, ending):
+    key = synthetic_key()
+    transport = FakeProviderTransport(key)
+    delivered = key + ending
+    if delivery == "fd":
+        read_end, write_end = os.pipe()
+        os.write(write_end, delivered.encode())
+        os.close(write_end)
+        env = {"AGENT_OS_CREDENTIAL_FD": str(read_end)}
+    else:
+        env = {"AGENT_OS_CREDENTIAL_AUDIENCE": "DELIVERED_KEY", "DELIVERED_KEY": delivered}
+    response = tmp_path / "response.json"
+    assert credential_child.run(
+        "brave", _request(tmp_path), response, environ=env, transport=transport
+    ) == 0
+    reply = json.loads(response.read_text())
+    assert reply["status_code"] == 200
+    assert key not in response.read_text()
+    assert reply["headers"]["x-echo"] == "[redacted]"
+
+
+@pytest.mark.parametrize("delivery", ["fd", "env"])
+def test_child_refuses_line_endings_only_credential(tmp_path, delivery):
+    if delivery == "fd":
+        read_end, write_end = os.pipe()
+        os.write(write_end, b"\r\n")
+        os.close(write_end)
+        env = {"AGENT_OS_CREDENTIAL_FD": str(read_end)}
+    else:
+        env = {"AGENT_OS_CREDENTIAL_AUDIENCE": "DELIVERED_KEY", "DELIVERED_KEY": "\r\n"}
+    transport = FakeProviderTransport(synthetic_key())
+    response = tmp_path / "response.json"
+    assert credential_child.run(
+        "brave", _request(tmp_path), response, environ=env, transport=transport
+    ) == 2
+    assert transport.calls == []
+    assert json.loads(response.read_text()) == {"error": "refused"}
+
+
+@pytest.mark.parametrize("size_delta", [-1, 0, 1])
+def test_child_writes_encoded_response_at_size_boundary(tmp_path, monkeypatch, size_delta):
+    limit = 4096
+    monkeypatch.setattr(credential_child, "MAX_RESPONSE_BYTES", limit)
+    reply = {"status_code": 200, "body": "", "headers": {}}
+    # Non-ASCII text exercises JSON escaping as well as the serialized size cap.
+    reply["body"] = "\u2603" + "x" * (limit + size_delta - len(json.dumps(reply)) - 6)
+    assert len(json.dumps(reply)) == limit + size_delta
+    transport = SimpleNamespace(request=lambda *args, **kwargs: HttpResponse(200, reply["body"], {}))
+    request = _request(tmp_path)
+    response = tmp_path / "response.json"
+    env = {"AGENT_OS_CREDENTIAL_AUDIENCE": "DELIVERED_KEY", "DELIVERED_KEY": synthetic_key()}
+    with (
+        patch.object(json, "loads", wraps=json.loads) as loads,
+        patch.object(json, "dump", wraps=json.dump) as dump,
+    ):
+        assert credential_child.run(
+            "brave", request, response, environ=env, transport=transport
+        ) == 0
+        # Only the input request is parsed; the encoded response is written as-is.
+        assert loads.call_count == 1
+        dump.assert_not_called()
+    expected = reply if size_delta <= 0 else {"error": "transport"}
+    assert response.read_text() == json.dumps(expected)
+    assert response.stat().st_mode & 0o777 == 0o600
 
 
 @pytest.mark.parametrize(

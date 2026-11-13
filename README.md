@@ -311,6 +311,7 @@ and `SEW_PERPLEXITY_API_KEY`.
   name, never a key) routes Brave calls through `host.credential`. The broker runs
   `sew.credential_child` with the key on a private FD; Searchlight never reads
   `SEW_BRAVE_API_KEY` or its ref, gets no fallback, and sees only key-free results.
+  The child strips trailing CR/LF from delivered keys and refuses empty keys.
 - Never commit keys.
 - Live runs require `SEW_HARNESS_LIVE=1` and spend model and provider quota.
 

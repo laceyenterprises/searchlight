@@ -28,6 +28,7 @@ from .governed_credentials import (
     MAX_RESPONSE_BYTES,
     PLACEHOLDER,
     write_private_json,
+    write_private_text,
 )
 
 REDACTED = "[redacted]"
@@ -47,6 +48,7 @@ def read_delivered(environ: Mapping[str, str]) -> str:
     else:
         name = environ.get("AGENT_OS_CREDENTIAL_AUDIENCE", "")
         value = environ.get(name, "") if name else ""
+    value = value.rstrip("\r\n")
     if not value or len(value) > 65536:
         raise Refused("no delivered credential")
     return value
@@ -144,7 +146,7 @@ def run(
     encoded = json.dumps(_scrub(reply, secret))
     if len(encoded) > MAX_RESPONSE_BYTES:
         encoded = json.dumps({"error": "transport"})
-    write_private_json(response_path, json.loads(encoded))
+    write_private_text(response_path, encoded)
     return 0
 
 
