@@ -14,7 +14,8 @@ The site's copy is tightened page by page, and each block now carries a picture 
 - "So what:" becomes "For your agent:" (`components.lesson`). Report pages open with an "In ten seconds" panel:
   the headline sentence, the headline chart and, where it adds something, one lesson.
 - Studies lead with the coverage picture and its claim, computed from the study's "If you could only buy k" table,
-  so a corrected table moves both.
+  so a corrected table moves both. Studies without usable coverage show the descriptive deck instead.
+- Empty coverage and tie inputs omit their SVG pictures. Report token lessons skip rows without token counts.
 - The learn walkthrough's notes are "Eval lesson:" lines. Methodology sections lead with a claim under a topic
   eyebrow.
 - No result, range, count or cost changed; `leaderboard.json` and `reports/` are unchanged.

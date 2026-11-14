@@ -272,7 +272,7 @@ def report_lesson(name: str, boards: list[dict], h2h: dict | None) -> str:
         wsb = next((b for b in boards if b['id'] == 'wsb-competitive'), None)
         nos = next((r for r in (wsb or {}).get('rows', []) if r['arm'] == 'no-search'), None)
         if nos and nos.get('tokens_per_success'):
-            most = max(float(r['tokens_per_success'].rstrip('k')) for r in wsb['rows'])
+            most = max(float(r['tokens_per_success'].rstrip('k')) for r in wsb['rows'] if r.get('tokens_per_success'))
             return (f'On well-documented topics, try memory first: search used up to '
                     f'{most / float(nos["tokens_per_success"].rstrip("k")):.0f}× the tokens.')
     if name == H2H and h2h and {'s1', 's3', 's6'} <= {m['id'] for m in h2h.get('measures', [])}:
@@ -397,7 +397,7 @@ def study_page(study: dict, pages: list = ()) -> str:
             f'<span aria-hidden="true">›</span><span>{report_date(study["name"])}</span></nav>'
             f'<p class="eyebrow" style="margin-top:20px">{g("study")}Study · {report_date(study["name"])}'
             f'{" · " + esc(meta) if meta else ""}</p><h1>{esc(title)}</h1>'
-            + (coverage_figure(summary) if summary.get('greedy') else f'<p class="lede">{STUDY_DECK}</p>') +
+            + (coverage_figure(summary) or f'<p class="lede">{STUDY_DECK}</p>') +
             f'<p class="readlink"><a class="more" href="{REPO_URL}/tree/main/reports/{esc(study["name"])}">Data and method'
             '</a></p></div>')
     main = (head + f'<div class="dash" data-raw-base="{esc(raw)}">{body}</div>'

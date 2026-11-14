@@ -38,6 +38,8 @@ def gap(floor: float, lo: float, hi: float) -> str:
 
 def tie(agents: list[tuple[str, dict, str]]) -> str:
     """Per agent, the leader's 95% range (blue) above every other search setup's (thin): they overlap."""
+    if not agents:
+        return ''
     body, y, said = [_glyph('tie', 0, 0)], 0.0, []
     for name, board, clause in agents:
         rows = [r for r in board['rows'] if r['arm'] != 'no-search']
@@ -110,6 +112,8 @@ def timeline(after: bool, when: str) -> str:
 def coverage(greedy: list[dict]) -> str:
     """How much of every useful finding the first one, two, three ... services found, best first: each column is
     what came before (light) plus what that service added (blue)."""
+    if not greedy:
+        return ''
     n = len(greedy)
     gap, width, base, tall = 4.0, 480.0, 132.0, 120.0
     w = (width - gap * (n - 1)) / n

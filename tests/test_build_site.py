@@ -1035,6 +1035,37 @@ def _pictures(markup):
     return re.findall(r'<svg class="pic[^"]*" viewBox="[^"]+" role="img" aria-label="([^"]+)">', markup)
 
 
+@pytest.mark.parametrize('picture', [site_pictures.coverage, site_pictures.tie])
+def test_pictures_omit_empty_data(picture):
+    assert picture([]) == ''
+
+
+@pytest.mark.parametrize('greedy', [None, [], [{}], [{'cumulative_share': None}]])
+def test_study_header_falls_back_when_coverage_has_no_claim(greedy):
+    template = (ROOT / 'lib/python/sew/insight/dashboard.html').read_text(encoding='utf-8')
+    page = site_pages.study_page({
+        'name': '2026-01-01-example', 'page': 'study-2026-01-01-example.html',
+        'dashboard': template, 'summary': {'greedy': greedy},
+    })
+    header = page.split('<div class="wrap pagehead">', 1)[1].split('<div class="dash"', 1)[0]
+    assert f'<p class="lede">{site_pages.STUDY_DECK}</p>' in header
+    assert '<figure class="cover">' not in header
+
+
+def test_report_lesson_uses_only_rows_with_token_counts():
+    rows = [
+        {'arm': 'no-search', 'tokens_per_success': '10k'},
+        {'arm': 'brave', 'tokens_per_success': '40k'},
+        {'arm': 'tavily'},
+        {'arm': 'exa', 'tokens_per_success': None},
+        {'arm': 'parallel', 'tokens_per_success': ''},
+    ]
+    boards = [{'id': 'wsb-competitive', 'rows': rows}]
+    assert '4× the tokens' in site_pages.report_lesson(site.WSB_PRIMARY, boards, None)
+    rows[0].pop('tokens_per_success')
+    assert site_pages.report_lesson(site.WSB_PRIMARY, boards, None) == ''
+
+
 def test_every_home_finding_and_lesson_has_an_illustration_with_an_accessible_label():
     index = site.build()['index.html']
     findings = re.search(r'<ul class="takeaways">(.*?)</ul>', index, re.S).group(1)
