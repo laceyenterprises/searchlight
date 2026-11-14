@@ -179,6 +179,7 @@ svg text{fill:var(--ink);font-size:14px}svg .axis{stroke:var(--line)}svg .pt{fil
 .rank .t b{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--viz-interval)}
 .rank .t i{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--panel)}
 .rank .q{grid-area:q;text-align:right;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rank .row-note{grid-column:2/-1;font-size:14px;color:var(--ink-2)}
 .rank .n{display:flex;align-items:center;gap:8px;white-space:nowrap}
 .kd{width:20px;height:20px;flex:none;color:var(--muted)}.kd .acc{stroke:var(--blue)}
 .keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px;color:var(--muted);margin:0 0 4px}.keys .kd{margin-left:8px}.keys .kd:first-child{margin-left:0}
@@ -188,6 +189,7 @@ svg text{fill:var(--ink);font-size:14px}svg .axis{stroke:var(--line)}svg .pt{fil
 .top3 b{font-variant-numeric:tabular-nums;color:var(--blue-ink);font-size:18px}
 .keys span{display:inline-block;white-space:nowrap;margin-right:14px}
 .readfirst{margin-top:20px}.readfirst ul{margin:0;padding-left:20px;color:var(--ink-2)}.readfirst li{margin:6px 0}
+.corrections{margin:20px 0;padding:20px;background:var(--soft);border:1px solid var(--rule);border-radius:var(--radius-md);overflow-wrap:anywhere}
 .more-rows>summary{padding:12px 0 4px;font-weight:600;color:var(--blue-ink)}
 .how{margin:12px 0 0;font-size:14px;color:var(--muted)}
 .fulldata{margin-top:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
@@ -249,7 +251,7 @@ function ms(v){return v==null?"n/a":(v/1000).toFixed(1)+" s"}
 function val(v){return v==null?'<span class="value v0" aria-label="not valued">–</span>':'<span class="value v'+v+'" aria-label="value '+v+' of 3">'+v+'</span>'}
 var VERDICT={supported:"✓ supported",unsupported:"✗ unsupported",uncited:"✗ uncited",unverifiable:"? page unreadable"};
 function verdict(v){return '<span class="verdict '+v+'">'+VERDICT[v]+'</span>'}
-function tags(id){var r=ARMS[id],t="";if(r.imported)t+=' <span class="pill imported" title="'+esc(r.note||"")+'">imported</span>';
+function tags(id){var r=ARMS[id]||{},t="";if(r.imported)t+=' <span class="pill imported" title="'+esc(r.note||"")+'">imported</span>';
   if(r.variant)t+=' <span class="pill">variant</span>';if(r.sponsor)t+=' <span class="pill sponsor">sponsor</span>';return t}
 function M(arm,k){return D.metrics[arm][k]}
 function visible(){return D.ranked.filter(function(x){return on[x]})}
@@ -290,7 +292,7 @@ leaderboard:{label:"Leaderboard",render:function(){
   var head=COLS.map(function(c){var s=sort.key===c[0]?(sort.dir<0?"descending":"ascending"):"none";
     return '<th scope="col" aria-sort="'+s+'"'+(c[0]==="arm"?"":' class="num"')+'><button type="button" data-sort="'+c[0]+'">'+c[1]+'</button></th>'}).join("");
   var body=rows.map(function(x){var m=D.metrics[x],w=m.weighted;
-    return "<tr><th scope=row>"+esc(x)+tags(x)+'</th><td class="num"><div class="bar"><span class="track" aria-hidden="true"><i style="width:'+(100*(w.value||0)/max).toFixed(1)+'%"></i></span><span class="n">'+w.value+
+    return "<tr><th scope=row>"+esc(x)+tags(x)+(ARMS[x]&&ARMS[x].note?'<p class="small">'+esc(ARMS[x].note)+'</p>':'')+'</th><td class="num"><div class="bar"><span class="track" aria-hidden="true"><i style="width:'+(100*(w.value||0)/max).toFixed(1)+'%"></i></span><span class="n">'+w.value+
     '<span class="ci">'+(w.ci95?w.ci95[0]+"–"+w.ci95[1]:"")+'</span></span></div></td><td class="num">'+(m.weighted_per_question.value==null?"—":m.weighted_per_question.value.toFixed(1))+'<span class="ci">'+m.weighted_per_question.n+' Qs</span></td><td class="num">'+m.insights.value+'</td><td class="num">'+m.unique_insights.value+
     '<span class="ci">'+m.unique_insights.ci95[0]+"–"+m.unique_insights.ci95[1]+'</span></td><td class="num">'+pct(m.share_of_pool.value)+'</td><td class="num">'+pct(m.unsupported_rate.value)+
     '<span class="ci">n '+m.unsupported_rate.n+'</span></td><td class="num">'+money(m.cost_usd.value)+'</td><td class="num">'+money(m.cost_per_unique_insight.value)+'</td><td class="num">'+ms(m.latency_p50_ms.value)+"</td></tr>"}).join("");
