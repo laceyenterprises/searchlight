@@ -2,6 +2,10 @@
 
 Run `sf-20261111`: 13 arms x 24 questions. Extractor claude-code / claude-sonnet-5-5; judge claude-code / claude-opus-5-5; seed 20261111; comparable key `cf35c94469fecf92`. [Interactive dashboard](dashboard.html) | [summary.json](summary.json)
 
+## Corrections
+
+- 2026-11-14 — Brave research citation explanation (case b: final answers have no source links). The study previously showed brave.research last at 0.0 useful findings per question (95% range 0.0–0.0), $10.6446 spent and 100% unsupported without explaining that all 193 extracted claims from nine answers had null URLs. This could be read as finding nothing, although the method could not check any of those claims against a cited page. All nine stored SSE responses were inspected after decoding their chat-completion chunks: each final answer block contains no URL or citation marker. URLs occur in thinking diagnostics as analyzed or selected candidates, not citations attached to final claims; the extractor already reads candidate URLs from the whole stream (up to 80) while excluding diagnostic prose from the answer. Brave’s documentation reviewed on 2026-11-14 places research citations in the final answer and describes thinking blocks as URL-selection reasoning; it does not identify a separate research citation event that we dropped. This is a result of what our method could verify on this run, not a conclusion that Brave found nothing or a claim about other runs. The report, study ranking, studies card and summary arm note now explain the zero. The original scores and spend remain unchanged; no arm was rerun or regraded.
+
 ## Read this first
 
 - One run on one day: n = 24 questions at most; treat small gaps as noise.
@@ -27,9 +31,9 @@ Insight counts and weighted scores carry 95% question-bootstrap intervals; the u
 | perplexity.research | 9 | 129 (76-170) | 222 (136-293) | 24.67 | 89 (53-123) | 6.9% | $2.2141 | $0.0172 | $0.0249 | 210.9 s | 28.7% (23.2%-35.0%) | 9/9 |
 | firecrawl.research | 9 | 107 (44-171) | 214 (81-343) | 23.78 | 64 (26-105) | 6.6% | $9.3550 | $0.0874 | $0.1462 | 213.1 s | 48.9% (42.3%-55.4%) | 9/9 |
 | parallel.research | 9 | 131 (82-175) | 198 (113-280) | 22.0 | 91 (47-131) | 6.1% | $2.7000 | $0.0206 | $0.0297 | 440.0 s | 24.3% (19.1%-30.4%) | 9/9 |
-| claude-native.agent (imported) | 24 | 56 (26-92) | 112 (47-182) | 4.67 | 34 (12-58) | 3.5% | n/a | n/a | n/a | n/a | 64.9% (57.9%-71.3%) | 24/24 |
+| claude-native.agent (imported): freeform research brief mapped to questions afterwards; not posed each question verbatim; 49 WebSearch + 48 WebFetch calls; cost not metered | 24 | 56 (26-92) | 112 (47-182) | 4.67 | 34 (12-58) | 3.5% | n/a | n/a | n/a | n/a | 64.9% (57.9%-71.3%) | 24/24 |
 | tavily.research | 9 | 50 (0-100) | 96 (29-192) | 10.67 | 31 (0-67) | 3.0% | $13.4000 | $0.2680 | $0.4323 | 163.0 s | 76.1% (70.1%-81.3%) | 9/9 |
-| brave.research | 9 | 0 (0-0) | 0 (0-0) | 0.0 | 0 (0-0) | 0.0% | $10.6446 | n/a | n/a | 177.8 s | 100.0% (98.0%-100.0%) | 9/9 |
+| brave.research: No extracted claim carried a source link, so none could be checked against a page; this is not the same as finding nothing. | 9 | 0 (0-0) | 0 (0-0) | 0.0 | 0 (0-0) | 0.0% | $10.6446 | n/a | n/a | 177.8 s | 100.0% (98.0%-100.0%) | 9/9 |
 
 Pooled: 1787 insights of 3596 claim clusters, weighted 3225. Shares overlap, because a shared insight counts for every arm that earned it.
 

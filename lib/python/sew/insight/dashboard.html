@@ -179,6 +179,7 @@ svg text{fill:var(--ink);font-size:14px}svg .axis{stroke:var(--line)}svg .pt{fil
 .rank .t b{position:absolute;top:0;bottom:0;border-radius:7px;background:var(--viz-interval)}
 .rank .t i{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--panel)}
 .rank .q{grid-area:q;text-align:right;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rank .row-note{grid-column:2/-1;font-size:14px;color:var(--ink-2)}
 .rank .n{display:flex;align-items:center;gap:8px;white-space:nowrap}
 .kd{width:20px;height:20px;flex:none;color:var(--muted)}.kd .acc{stroke:var(--blue)}
 .keys{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px;color:var(--muted);margin:0 0 4px}.keys .kd{margin-left:8px}.keys .kd:first-child{margin-left:0}
@@ -290,7 +291,7 @@ leaderboard:{label:"Leaderboard",render:function(){
   var head=COLS.map(function(c){var s=sort.key===c[0]?(sort.dir<0?"descending":"ascending"):"none";
     return '<th scope="col" aria-sort="'+s+'"'+(c[0]==="arm"?"":' class="num"')+'><button type="button" data-sort="'+c[0]+'">'+c[1]+'</button></th>'}).join("");
   var body=rows.map(function(x){var m=D.metrics[x],w=m.weighted;
-    return "<tr><th scope=row>"+esc(x)+tags(x)+'</th><td class="num"><div class="bar"><span class="track" aria-hidden="true"><i style="width:'+(100*(w.value||0)/max).toFixed(1)+'%"></i></span><span class="n">'+w.value+
+    return "<tr><th scope=row>"+esc(x)+tags(x)+(ARMS[x].note?'<p class="small">'+esc(ARMS[x].note)+'</p>':'')+'</th><td class="num"><div class="bar"><span class="track" aria-hidden="true"><i style="width:'+(100*(w.value||0)/max).toFixed(1)+'%"></i></span><span class="n">'+w.value+
     '<span class="ci">'+(w.ci95?w.ci95[0]+"–"+w.ci95[1]:"")+'</span></span></div></td><td class="num">'+(m.weighted_per_question.value==null?"—":m.weighted_per_question.value.toFixed(1))+'<span class="ci">'+m.weighted_per_question.n+' Qs</span></td><td class="num">'+m.insights.value+'</td><td class="num">'+m.unique_insights.value+
     '<span class="ci">'+m.unique_insights.ci95[0]+"–"+m.unique_insights.ci95[1]+'</span></td><td class="num">'+pct(m.share_of_pool.value)+'</td><td class="num">'+pct(m.unsupported_rate.value)+
     '<span class="ci">n '+m.unsupported_rate.n+'</span></td><td class="num">'+money(m.cost_usd.value)+'</td><td class="num">'+money(m.cost_per_unique_insight.value)+'</td><td class="num">'+ms(m.latency_p50_ms.value)+"</td></tr>"}).join("");

@@ -13,6 +13,8 @@ from html import escape
 from pathlib import Path
 from typing import Any, Mapping
 
+from .report import arm_note
+
 TEMPLATE = Path(__file__).with_name("dashboard.html")
 PLACEHOLDER = "/*__DATA__*/"
 DIGEST = "<!--__DIGEST__-->"
@@ -34,9 +36,19 @@ def ranked(summary: Mapping[str, Any]) -> list[dict[str, Any]]:
         ci = (metrics.get("weighted") or {}).get("ci95")
         lo, hi = (ci[0] / n, ci[1] / n) if ci else (value, value)
         meta = arms.get(arm, {})
-        rows.append({"arm": arm, "value": value, "lo": lo, "hi": hi, "questions": n,
-                     "unique": (metrics.get("unique_insights") or {}).get("value") or 0,
-                     "kind": meta.get("operation") or "search", "imported": bool(meta.get("imported"))})
+        rows.append(
+            {
+                "arm": arm,
+                "value": value,
+                "lo": lo,
+                "hi": hi,
+                "questions": n,
+                "unique": (metrics.get("unique_insights") or {}).get("value") or 0,
+                "kind": meta.get("operation") or "search",
+                "imported": bool(meta.get("imported")),
+                "note": arm_note(meta),
+            }
+        )
     return sorted(rows, key=lambda r: (-r["value"], r["arm"]))
 
 
@@ -133,13 +145,21 @@ def _rank_item(i: int, r: dict[str, Any], scale: float) -> str:
     kind = "research" if r["kind"] == "research" else "search"
     questions = "question" if r["questions"] == 1 else "questions"
     tag = '<span class="kind">imported</span>' if r["imported"] else ""
-    return (f'<li data-kind="{kind}"><span class="r">{i}</span>'
-            f'<span class="n">{kind_icon(kind)}{escape(r["arm"])}{tag}</span>'
-            f'<span class="v">{r["value"]:.1f}</span>'
-            f'<span class="t" role="img" aria-label="{escape(r["arm"])}: {r["value"]:.1f} useful findings per question, '
-            f'95% range {r["lo"]:.1f} to {r["hi"]:.1f}"><b style="left:{pos(r["lo"])};width:'
-            f'{100 * (r["hi"] - r["lo"]) / scale:.1f}%"></b><i style="left:{pos(r["value"])}"></i></span>'
-            f'<span class="q">{r["questions"]} {questions}</span></li>')
+    return (
+        f'<li data-kind="{kind}"><span class="r">{i}</span>'
+        f'<span class="n">{kind_icon(kind)}{escape(r["arm"])}{tag}</span>'
+        f'<span class="v">{r["value"]:.1f}</span>'
+        f'<span class="t" role="img" aria-label="{escape(r["arm"])}: {r["value"]:.1f} useful findings per question, '
+        f'95% range {r["lo"]:.1f} to {r["hi"]:.1f}"><b style="left:{pos(r["lo"])};width:'
+        f'{100 * (r["hi"] - r["lo"]) / scale:.1f}%"></b><i style="left:{pos(r["value"])}"></i></span>'
+        f'<span class="q">{r["questions"]} {questions}</span>'
+        + (
+            f'<span class="row-note">{escape(r["note"])}</span>'
+            if r.get("note")
+            else ""
+        )
+        + "</li>"
+    )
 
 
 def digest_html(summary: Mapping[str, Any], top: int = 5) -> str:
@@ -151,14 +171,26 @@ def digest_html(summary: Mapping[str, Any], top: int = 5) -> str:
     more = (f'<details class="more-rows"><summary>All {len(rows)} services</summary><ol class="rank" start="{top + 1}">'
             f'{rest}</ol></details>') if rest else ""
     read = "".join(f"<li>{escape(c)}</li>" for c in caveats(summary))
-    return ('<section class="digest" aria-label="The takeaway"><p class="eyebrow">At the top</p>'
-            f'<ol class="finish">{lines}</ol>'
-            f'<div class="readfirst"><h2>Before you compare</h2><ul>{read}</ul></div>'
-            '<div class="ranked"><h2>Ranked by useful findings per question</h2>'
-            '<p class="lede">The value of every finding a service earned on its own cited page, averaged over the '
-            'questions it ran. The bar is its 95% range; where ranges overlap, the test cannot separate them.</p>'
-            f'<p class="keys"><span>{kind_icon("search")} search hands back results</span> <span>'
-            f'{kind_icon("research")} research writes an answer</span></p><ol class="rank">{head}</ol>{more}</div></section>')
+    corrections = (
+        (
+            "<section><h2>Corrections</h2><ul>"
+            + "".join(f"<li>{escape(c)}</li>" for c in summary.get("corrections", []))
+            + "</ul></section>"
+        )
+        if summary.get("corrections")
+        else ""
+    )
+    return (
+        corrections
+        + '<section class="digest" aria-label="The takeaway"><p class="eyebrow">At the top</p>'
+        f'<ol class="finish">{lines}</ol>'
+        f'<div class="readfirst"><h2>Before you compare</h2><ul>{read}</ul></div>'
+        '<div class="ranked"><h2>Ranked by useful findings per question</h2>'
+        '<p class="lede">The value of every finding a service earned on its own cited page, averaged over the '
+        "questions it ran. The bar is its 95% range; where ranges overlap, the test cannot separate them.</p>"
+        f'<p class="keys"><span>{kind_icon("search")} search hands back results</span> <span>'
+        f'{kind_icon("research")} research writes an answer</span></p><ol class="rank">{head}</ol>{more}</div></section>'
+    )
 
 
 def finish_item(x: Mapping[str, Any]) -> str:
@@ -174,6 +206,10 @@ def finish_item(x: Mapping[str, Any]) -> str:
 
 def render_dashboard(summary: Mapping[str, Any]) -> str:
     template = TEMPLATE.read_text(encoding="utf-8")
+    summary = {
+        **summary,
+        "arms": [{**a, "note": arm_note(a) or None} for a in summary["arms"]],
+    }
     data = json.dumps(summary, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     # Inside <script type="application/json"> only "</" could end the element early.
     data = data.replace("<", "\\u003c")

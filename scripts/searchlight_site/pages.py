@@ -333,13 +333,17 @@ def studies_page(studies: list[dict], pages: list = ()) -> str:
             kind = 'research' if r['kind'] == 'research' else 'search'
             label = f'{r["arm"]}: {r["value"]:.1f} useful findings per question, 95% range {r["lo"]:.1f} to {r["hi"]:.1f}'
             icon = g('results-list' if kind == 'search' else 'answer', 'kd')
-            items.append(f'<li class="row" data-f data-kind="{kind}"><span class="rk">{i}</span>'
-                         f'<span class="nm"><span class="name nowrap">{icon}<span class="sr">{kind}: </span>{esc(r["arm"])}'
-                         '</span>'
-                         f'<small>{r["unique"]} found by no one else</small></span>'
-                         f'<span class="pc">{r["value"]:.1f}</span><span class="tr">'
-                         f'{track(r["lo"], r["hi"], r["value"], label, scale=scale)}</span>'
-                         f'<span class="nn">{r["questions"]} questions</span></li>')
+            items.append(
+                f'<li class="row" data-f data-kind="{kind}"><span class="rk">{i}</span>'
+                f'<span class="nm"><span class="name nowrap">{icon}<span class="sr">{kind}: </span>{esc(r["arm"])}'
+                "</span>"
+                f"<small>{r['unique']} found by no one else</small>"
+                + (f"<small>{esc(r['note'])}</small>" if r.get("note") else "")
+                + "</span>"
+                f'<span class="pc">{r["value"]:.1f}</span><span class="tr">'
+                f"{track(r['lo'], r['hi'], r['value'], label, scale=scale)}</span>"
+                f'<span class="nn">{r["questions"]} questions</span></li>'
+            )
         top, rest = items[:3], items[3:]
         more = (f'<details class="allrows"><summary>All {len(items)} services</summary>'
                 f'<ol class="rows" start="4">{"".join(rest)}</ol></details>') if rest else ''

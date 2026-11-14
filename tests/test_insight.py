@@ -323,6 +323,74 @@ def test_strict_credit_unique_and_report(tmp_path):
 def test_statistics():
     assert sign_test(5, 0) == pytest.approx(0.0625) and sign_test(0, 0) == 1.0
     assert sign_test(3, 3) == 1.0
+
+
+def test_entirely_uncited_arm_explains_zero_on_report_and_site(tmp_path):
+    from sew.insight.dashboard import render_dashboard
+    from sew.insight.report import (
+        NO_SOURCE_NOTE,
+        arm_note,
+        render as render_report,
+        score,
+    )
+    import sys
+
+    run_dir, _, _ = _graded(tmp_path)
+    for path in (run_dir / "grading" / "extract").glob("*/parallel.research.json"):
+        doc = read_json(path)
+        for claim in doc["claims"]:
+            claim["url"] = None
+        path.write_text(json.dumps(doc))
+    summary = score(run_dir, set_root=tmp_path)
+    arm = next(a for a in summary["arms"] if a["arm_id"] == "parallel.research")
+    assert arm["counts"]["claims"] > 0
+    assert arm["counts"]["uncited"] == arm["counts"]["claims"]
+    assert summary["metrics"]["parallel.research"]["weighted"]["value"] == 0
+    assert arm["note"] == NO_SOURCE_NOTE
+    assert arm_note(arm) == NO_SOURCE_NOTE  # no duplication on repeated rendering
+    assert arm_note({"counts": {"claims": 0, "uncited": 0}}) == ""
+    assert arm_note({"counts": {"claims": 2, "uncited": 1}}) == ""
+    assert arm_note({"counts": {"claims": 2, "uncited": 0, "unsupported": 2}}) == ""
+    assert arm_note({**arm, "note": "Imported."}) == "Imported. " + NO_SOURCE_NOTE
+
+    # Older summaries may have no note yet; renderers still derive it from counts.
+    arm["note"] = None
+    summary["corrections"] = ["2026-11-14: Explain the unchanged zero."]
+    report = render_report(summary)
+    assert NO_SOURCE_NOTE in next(
+        line
+        for line in report.splitlines()
+        if line.startswith("| parallel.research |")
+        or line.startswith("| parallel.research:")
+    )
+    assert "## Corrections\n\n- 2026-11-14:" in report
+    dashboard = render_dashboard(summary)
+    row = re.search(
+        r'<li data-kind="research">.*?parallel\.research.*?</li>', dashboard, re.S
+    ).group()
+    assert NO_SOURCE_NOTE in row
+    assert "<h2>Corrections</h2>" in dashboard
+    assert (
+        "esc(ARMS[x].note)" in dashboard
+    )  # the interactive leaderboard also displays the note
+    assert arm["note"] is None  # rendering does not mutate its input
+
+    sys.path.insert(0, str(MODULE_ROOT / "scripts"))
+    from searchlight_site.pages import studies_page
+
+    page = studies_page(
+        [
+            {
+                "name": "2026-11-14-synthetic",
+                "page": "study-synthetic.html",
+                "summary": summary,
+            }
+        ]
+    )
+    row = next(
+        r for r in page.split("</li>") if "parallel.research" in r and 'class="nm"' in r
+    )
+    assert NO_SOURCE_NOTE in row
     assert holm([0.01, 0.04, 0.03]) == pytest.approx([0.03, 0.06, 0.06])
     lo, hi = bootstrap_ci([1, 2, 3, 0], seed=1)
     assert (lo, hi) == bootstrap_ci([1, 2, 3, 0], seed=1) and 0 <= lo <= 6 <= hi <= 12

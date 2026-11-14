@@ -35,6 +35,21 @@ METRICS = ("insights", "weighted", "unique_insights", "unique_weighted", "share_
            "unsupported_rate", "cost_usd", "cost_per_insight", "cost_per_unique_insight",
            "latency_p50_ms")
 
+NO_SOURCE_NOTE = (
+    "No extracted claim carried a source link, so none could be checked against a page; "
+    "this is not the same as finding nothing."
+)
+
+
+def arm_note(arm: Mapping[str, Any]) -> str:
+    """Explain an entirely uncited extraction, including in older published summaries."""
+    note = arm.get("note") or ""
+    counts = arm.get("counts") or {}
+    if counts.get("claims", 0) > 0 and counts.get("uncited") == counts["claims"]:
+        if NO_SOURCE_NOTE not in note:
+            note = f"{note} {NO_SOURCE_NOTE}".strip()
+    return note
+
 
 # --------------------------------------------------------------------------
 # Statistics
@@ -268,18 +283,30 @@ def score(run_dir: Path, *, set_root: Path | None = None,
         )
         metrics[arm] = m
         docs = profile.get("docs") or entry.get("docs") or []
-        arm_rows.append({
-            "arm_id": arm, "vendor": profile.get("arm", arm.split(".")[0]),
-            "operation": profile.get("operation", arm.split(".")[1]), "variant": profile.get("variant"),
-            "kind": profile.get("kind") or ("results" if arm.split(".")[1] == "search" else "answer"),
-            "imported": imported, "label": entry.get("label"), "note": entry.get("note"),
-            "sponsor": bool(sponsor and profile.get("arm") in sponsor.get("products", [])),
-            "profile_sha256": entry["sha256"],
-            "docs": [d["url"] if isinstance(d, Mapping) else str(d) for d in docs],
-            "unverified": list(entry.get("unverified") or []),
-            "cost_basis": sorted({c.get("cost", {}).get("basis", "none") for _, c in arm_cells}),
-            "counts": counts, "links": {"manifest": link("manifest.json")},
-        })
+        arm_rows.append(
+            {
+                "arm_id": arm,
+                "vendor": profile.get("arm", arm.split(".")[0]),
+                "operation": profile.get("operation", arm.split(".")[1]),
+                "variant": profile.get("variant"),
+                "kind": profile.get("kind")
+                or ("results" if arm.split(".")[1] == "search" else "answer"),
+                "imported": imported,
+                "label": entry.get("label"),
+                "note": arm_note({"note": entry.get("note"), "counts": counts}) or None,
+                "sponsor": bool(
+                    sponsor and profile.get("arm") in sponsor.get("products", [])
+                ),
+                "profile_sha256": entry["sha256"],
+                "docs": [d["url"] if isinstance(d, Mapping) else str(d) for d in docs],
+                "unverified": list(entry.get("unverified") or []),
+                "cost_basis": sorted(
+                    {c.get("cost", {}).get("basis", "none") for _, c in arm_cells}
+                ),
+                "counts": counts,
+                "links": {"manifest": link("manifest.json")},
+            }
+        )
 
     def cost_key(a: str) -> float:
         value = metrics[a]["cost_usd"]["value"]
@@ -422,6 +449,10 @@ def render(summary: Mapping[str, Any], *, base: str = "") -> str:
     if summary["set"]["sponsor"]:
         s = summary["set"]["sponsor"]
         lines += [f"> **Sponsor disclosure.** {s['name']} sponsored this study. {s['disclosure']}", ""]
+    if summary.get("corrections"):
+        lines += (
+            ["## Corrections", ""] + [f"- {c}" for c in summary["corrections"]] + [""]
+        )
     lines += ["## Read this first", ""] + [f"- {c}" for c in summary["caveats"]] + [
         "", "## Arms", "",
         "Insight counts and weighted scores carry 95% question-bootstrap intervals; the unsupported rate "
@@ -432,13 +463,17 @@ def render(summary: Mapping[str, Any], *, base: str = "") -> str:
     for arm in summary["ranked"]:
         m, row = metrics[arm], arms[arm]
         latency = m["latency_p50_ms"]["value"]
+        label = name(arm)
+        if note := arm_note(row):
+            label += ": " + note.replace("|", "\\|").replace("\n", " ")
         lines.append(
-            f"| {name(arm)} | {row['counts']['questions_run']} | {_ci(m['insights'])} | {_ci(m['weighted'])} "
+            f"| {label} | {row['counts']['questions_run']} | {_ci(m['insights'])} | {_ci(m['weighted'])} "
             f"| {m['weighted_per_question']['value']} | {_ci(m['unique_insights'])} "
             f"| {_pct(m['share_of_pool']['value'])} | {_money(m['cost_usd']['value'])} "
             f"| {_money(m['cost_per_insight']['value'])} | {_money(m['cost_per_unique_insight']['value'])} "
             f"| {'n/a' if latency is None else f'{latency / 1000:.1f} s'} "
-            f"| {_ci(m['unsupported_rate'], _pct)} | {row['counts']['cells_ok']}/{row['counts']['cells']} |")
+            f"| {_ci(m['unsupported_rate'], _pct)} | {row['counts']['cells_ok']}/{row['counts']['cells']} |"
+        )
     pool = summary["pool"]
     lines += ["", f"Pooled: {pool['insights']} insights of {pool['clusters']} claim clusters, weighted "
               f"{pool['weighted']}. Shares overlap, because a shared insight counts for every arm that earned it.", ""]
