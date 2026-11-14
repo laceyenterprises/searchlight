@@ -77,7 +77,7 @@ shadows.
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="../docs/readme/glyphs-tall-dark.svg">
   <source media="(max-width: 600px)" srcset="../docs/readme/glyphs-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="../docs/readme/glyphs-dark.svg">
-  <img src="../docs/readme/glyphs-light.svg" alt="Every Searchlight glyph with its id: agent, provider, setup, built-in, no-search, model, brief, code-fix, cutoff, query, source, results-list, answer, run, repeat, sealed, same-but-one, blind, judge, pre-registered, holdout, verified, unsupported, unverifiable, strict-credit, insight, unique, overlap, gap-closed, ranking, range, tie, tokens, cost, latency, caveat, filter, benchmark, study, report, method, walkthrough, learn, open-source, contact, menu-open, menu-close and beam.">
+  <img src="../docs/readme/glyphs-light.svg" alt="Every Searchlight glyph with its id: agent, provider, setup, built-in, no-search, memory, model, brief, code-fix, cutoff, query, keywords, question, source, primary-source, results-list, answer, run, repeat, sealed, same-but-one, blind, judge, pre-registered, holdout, verified, unsupported, unverifiable, strict-credit, insight, unique, overlap, combine, gap-closed, ranking, range, tie, tokens, cost, latency, caveat, filter, benchmark, study, report, method, walkthrough, learn, open-source, contact, menu-open, menu-close and beam.">
 </picture>
 
 [`glyphs/searchlight-glyphs.svg`](glyphs/searchlight-glyphs.svg) holds the line glyphs, drawn in code by

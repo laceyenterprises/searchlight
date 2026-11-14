@@ -171,9 +171,9 @@ color:var(--ink);text-decoration:none}
 .finding{padding-block:clamp(36px,5vw,56px);border-top:1px solid var(--rule)}
 .finding:first-of-type{border-top:0}
 .finding>.head{display:grid;gap:10px;max-width:760px}
-.finding .so{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:2px 0 2px 14px;border-left:3px solid var(--blue);
+.so{display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:2px 0 2px 14px;border-left:3px solid var(--blue);
 color:var(--ink);max-width:760px}
-.finding .so .g{color:var(--blue-ink);margin-top:1px}
+.so .g{color:var(--blue-ink);margin-top:1px}
 
 /* Filter bar: one row of chips per question, on a shared baseline; each row scrolls sideways on phones */
 .filters{background:var(--paper);border-block:1px solid var(--rule);padding:10px 0;margin-top:8px}
@@ -456,6 +456,48 @@ main>:last-child:not(.band){padding-bottom:72px}
 .foot a{color:var(--ink)}
 .foot-base{margin-top:24px;padding-top:16px;border-top:1px solid var(--rule);font-size:15px;color:var(--muted)}
 .foot-base p{margin-top:6px}
+
+/* Pictures: inline SVG that carries a point without the words; colours are the tokens, so both themes follow */
+.pic{display:block;width:100%;max-width:260px;height:auto;overflow:visible}
+.pic.wide{max-width:640px}
+.pic .gy{color:var(--ink)}
+.pic .tk{fill:var(--viz-track)}.pic .pt{fill:var(--blue)}.pic .ci{fill:var(--viz-interval)}.pic .ot{fill:var(--viz-other)}
+.pic .rf{fill:var(--viz-ref)}
+.pic .dash{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:3 3}
+.pic .cut{fill:none;stroke:var(--blue);stroke-width:2}
+.pic text{font:500 14px var(--font-mono);fill:var(--muted)}
+.takeaways .pic{grid-column:1;grid-row:2;align-self:start;margin-top:10px}
+@media (max-width:620px){.takeaways .pic{grid-row:auto;margin:6px 0}}
+.card .pic.line{max-width:240px;margin:2px 0}
+.stat .pic{max-width:240px;margin-top:6px}
+
+/* Rules of thumb for builders, on the overview */
+.rules{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.rules a{display:grid;grid-template-columns:auto minmax(0,1fr);align-content:start;gap:4px 14px;height:100%;padding:18px;
+border:1.5px solid transparent;border-radius:var(--radius-lg);background:var(--raised);color:var(--ink);text-decoration:none}
+.rules a:hover{border-color:var(--ink-2)}
+.rules .g{grid-row:span 3;color:var(--ink)}
+.rules b{font-size:18px;font-weight:650;line-height:1.3}
+.rules span{color:var(--ink-2);font-size:16px}
+.rules .src{margin-top:4px;font:500 14px/1.3 var(--font-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--blue-ink)}
+.rules .src::after{content:" \2192"}
+
+/* In ten seconds: a report's headline and its chart, first */
+.tens{margin-top:20px;padding:clamp(14px,2.5vw,24px);background:var(--soft);border-radius:var(--radius-xl)}
+.tens>.eyebrow{margin-bottom:10px}
+.tens .say{font-size:clamp(18px,1.8vw,21px);line-height:1.45;font-weight:550;color:var(--ink);max-width:62ch}
+.tens>.legend{margin:18px 0 -4px}
+
+/* A study's point: how much the best one, two, three services found together */
+.cover{margin:18px 0 0;max-width:560px}
+.cover .pic.wide{max-width:420px;margin-top:12px}
+.cover figcaption{display:flex;gap:10px;align-items:flex-start;font-size:clamp(17px,1.7vw,20px);font-weight:600;
+line-height:1.4;color:var(--ink)}
+.cover figcaption .g{color:var(--blue-ink);flex:none}
+
+/* Methodology: a topic eyebrow above each section's claim */
+.doc section>.eyebrow{margin:56px 0 8px}
+.doc section>.eyebrow+h2{margin-top:0}
 
 /* Wide boards: one row per setup */
 @container (min-width:620px){

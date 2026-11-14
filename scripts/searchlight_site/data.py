@@ -323,6 +323,11 @@ def head_to_head(reports: dict) -> dict:
                     'published, so a difference of a few items may be chance.'}
 
 
+# The same caveat where the site shows it beside the counts; leaderboard.json keeps the note above unchanged.
+COUNTS_NOTE = ('Counts from one run per question, copied from the report. No ranges were published, so a gap of a few '
+               'items may be chance.')
+
+
 def leader(measure: dict) -> str:
     top = max(measure['values'].values())
     return ' and '.join(p for p, v in measure['values'].items() if v == top)
@@ -522,24 +527,24 @@ def board_caption(board: dict) -> str:
             '(regraded 2026-09-30 after grading fixes).')
 
 
-EXAMPLES = [
+EXAMPLES = [  # (catalog, task, kind, title, why, how it is graded, after the cutoff?, when)
     ('gap', 'gap-brief-python-security-march-2026', 'Research brief', 'Security releases the AI has never seen',
-     'Python shipped these security releases on March 3, 2026, after the AI models\' training data ends. '
-     'Without search, an agent can only guess.',
+     'Python shipped these on March 3, 2026, after the models\' training data ends: without search, an agent can only '
+     'guess.',
      'The brief must reach the right decision, cover at least 70% of the key facts and keep unsupported claims '
-     'to 25% or less, checked against the original source.'),
+     'to 25% or less, checked against the original source.', True, 'March 3, 2026'),
     ('gap', 'gap-brief-npm-token-scope-2026', 'Research brief', 'A platform policy that just changed',
-     'GitHub changed what npm access tokens can do on July 31, 2026. The answer only exists in recent sources.',
-     'Same bar as every brief: right decision, key facts covered, few unsupported claims.'),
+     'GitHub changed what npm access tokens can do on July 31, 2026; only recent sources have the answer.',
+     'Same bar as every brief: right decision, key facts covered, few unsupported claims.', True, 'July 31, 2026'),
     ('gap', 'gap-code-jwt-middleware', 'Code fix', 'Patch a security advisory in real code',
-     'The fix shipped in a library release after the cutoff. The agent has to find the advisory and the release '
-     'that fixes it, then change the code.',
-     'Hidden tests must pass in an isolated workspace. Weakening the security check to make them pass fails.'),
+     'The fix shipped after the cutoff: the agent must find the advisory and the fixing release, then change the '
+     'code.',
+     'Hidden tests must pass in an isolated workspace. Weakening the security check to make them pass fails.',
+     True, "The fix's release"),
     ('production', 'list-build-kubernetes-122-api-removals', 'Documented knowledge', 'A well-documented technical question',
-     'This has been public for years and is probably in the AI\'s training data. It tests whether search adds '
-     'anything beyond memory.',
+     'Public for years and probably in the training data: does search add anything beyond memory?',
      'The list must match the official release notes, scored by a grader that never sees which search provider '
-     'was used.'),
+     'was used.', False, 'Public for years'),
 ]
 
 

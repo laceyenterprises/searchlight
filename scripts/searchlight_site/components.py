@@ -4,9 +4,10 @@ from __future__ import annotations
 import json
 import re
 
-from .data import (ARM_LABEL, BEHAVIOR, BENCH_LABEL, GAP_PRIMARY, H2H, INSIGHT_SCHEMA, REPORT_TITLES, RERUN_NOTE,
-                   WSB_PRIMARY, _gap_range, _point_pct, arm_id, board_caption, data_rows, esc, harness_name, leader,
+from .data import (ARM_LABEL, BEHAVIOR, BENCH_LABEL, COUNTS_NOTE, GAP_PRIMARY, H2H, INSIGHT_SCHEMA, REPORT_TITLES,
+                   RERUN_NOTE, WSB_PRIMARY, _gap_range, _point_pct, arm_id, board_caption, data_rows, esc, harness_name, leader,
                    parse_count, parse_pct_ci, report_title, tables, wilson)
+from . import pictures
 from .design import g
 from .layout import NARROW  # noqa: F401  (re-exported for pages)
 
@@ -55,13 +56,26 @@ def memory_clause(nos: dict, top: dict) -> str:
     return "its range sits above memory's"
 
 
-def tie_sentence(boards: list[dict]) -> str:
-    """The tie clause across several boards, said once when it is the same for all of them."""
+def memory_short(nos: dict, top: dict) -> str:
+    """The same comparison in a clause short enough for a finding's one line."""
+    return 'the ranges overlap' if nos['ci'][1] >= top['ci'][0] else "the provider's range sits above memory's"
+
+
+def memory_said(nos: dict, top: dict, ratio: float, tokens: str = '') -> str:
+    """Memory against the best provider, and what search cost in tokens: one sentence for the overview and results."""
+    return (f'Memory alone passed {nos["pass_pct"]:.0f}% and the best provider {top["pass_pct"]:.0f}%: '
+            f'{memory_short(nos, top)}, and search used up to {ratio:.0f}× the tokens{tokens}.')
+
+
+def lead_clause(boards: list[dict], short: bool = False) -> str:
+    """How each leader's range sits against the rest, as one clause: said once when it is the same on every board.
+    ``short`` leaves out what follows from an overlap, for a line the Tie tile beside it already explains."""
     clauses = [(harness_name(b)[0], tie_clause(*overlap(b))) for b in boards]
+    if short:
+        clauses = [(a, c.split(', so the test cannot separate')[0]) for a, c in clauses]
     if len({c for _, c in clauses}) == 1:
-        text = clauses[0][1]
-        return f'On each agent, {text}.' if len(clauses) > 1 else f'{text[:1].upper()}{text[1:]}.'
-    return '; '.join(f'on {agent}, {clause}' for agent, clause in clauses).capitalize() + '.'
+        return clauses[0][1]
+    return '; '.join(f'on {agent}, {clause}' for agent, clause in clauses)
 
 
 def board_says(board: dict) -> str:
@@ -162,11 +176,13 @@ def numbers_mean(boards: list[dict]) -> str:
     return f'<details class="more-info"><summary>What the numbers mean</summary>{"".join(parts)}</details>'
 
 
-def board_html(board: dict, top: int | None = None, notes: bool = True, brief: bool = False) -> str:
+def board_html(board: dict, top: int | None = None, notes: bool = True, brief: bool = False, meta: bool = True,
+               says: bool = True) -> str:
     """One benchmark as ranked rows: provider, a big number, its 95% range and n.
 
     With ``top``, the first rows show and the rest sit behind "All n setups". ``brief`` drops the board's own sentence
-    where a finding's prose already says it. Details are one tap away."""
+    where a finding's prose already says it; ``meta=False`` drops the benchmark and date a report page already names,
+    and ``says=False`` drops the sentence a page already leads with. Details are one tap away."""
     agent, model = harness_name(board)
     runs = board['rows'][0]['cells']
     best = max(r['pass_pct'] for r in board['rows'] if r['arm'] != 'no-search')
@@ -182,9 +198,9 @@ def board_html(board: dict, top: int | None = None, notes: bool = True, brief: b
     return (f'<section class="board" id="board-{board["id"]}" data-f-group data-agent="{board["harness"]}" '
             f'data-bench="{board["source"]}" data-providers="{esc(providers)}">'
             f'<header><h3>{esc(agent)}{f" <span class=model>{esc(model)}</span>" if model else ""}</h3>'
-            + (f'<p>{runs} runs per setup</p>' if brief else
+            + (f'<p>{runs} runs per setup</p>' if brief or not meta else
                f'<p>{runs} runs per setup · {esc(bench)} · {report_date(board["source"])}</p>')
-            + ('' if brief else f'<p class="says">{esc(board_says(board))}</p>') + f'</header>{SCALE}'
+            + ('' if brief or not says else f'<p class="says">{esc(board_says(board))}</p>') + f'</header>{SCALE}'
             f'<ol class="rows">{"".join(shown)}</ol>{more}{foot}</section>')
 
 
@@ -261,16 +277,16 @@ def behavior_tiles(analysis: dict) -> str:
     """Three numbers about how the agents searched. A tile that describes one agent says so, for the filters."""
     b = behavior_facts(analysis)
     exa = b['fetch'].get('exa')
-    tiles = [(f'{b["natural"]:.0f}%', 'of searches about recent events read as plain questions; the rest were '
-              'keyword strings.', '')]
+    tiles = [(f'{b["natural"]:.0f}%', 'of recent-event searches read as plain questions.', '',
+              pictures.queries(b['natural']))]
     if exa:
         tiles.append((f'{exa["fetch_only_cells"]} of {exa["cells"]}',
-                      'Claude Code runs with Exa that skipped search for pages it remembered.', 'claude-code'))
+                      'Claude Code Exa runs that fetched remembered pages instead of searching.', 'claude-code', ''))
     tiles.append((f'{b["hit_pct"]:.0f}% vs {b["miss_pct"]:.0f}%',
-                  'Claude Code passes with the original source in its results, and without.', 'claude-code'))
+                  'Claude Code passes with the original source in results, and without.', 'claude-code', ''))
     return '<div class="stats">' + ''.join(
         f'<div class="stat" data-f{f" data-agent={chr(34)}{agent}{chr(34)}" if agent else ""}><div class="big">{esc(big)}'
-        f'</div><p>{esc(text)}</p></div>' for big, text, agent in tiles) + '</div>'
+        f'</div><p>{esc(text)}</p>{pic}</div>' for big, text, agent, pic in tiles) + '</div>'
 
 
 def generic_rankings(summary: dict) -> list[tuple[str, list[dict]]]:
@@ -338,21 +354,21 @@ def digest(name: str, reports: dict, boards: list[dict], analysis: dict | None, 
         say = (f'With any search setup, {agents} passed {lo:.0f}–{hi:.0f}% of briefs about recent events; '
                f'with no search, {" to ".join(floors)}.')
         return say, (f'<div class="boards{" two" if len(mine) > 1 else ""}">'
-                     f'{"".join(board_html(b, notes=False) for b in mine)}</div>')
-    if mine:
-        return board_says(mine[0]), f'<div class="boards">{"".join(board_html(b, notes=False) for b in mine)}</div>'
+                     f'{"".join(board_html(b, notes=False, meta=False) for b in mine)}</div>')
+    if mine:  # the page leads with this board's sentence, so its header does not repeat it
+        return board_says(mine[0]), (f'<div class="boards">{board_html(mine[0], notes=False, meta=False, says=False)}'
+                                     f'{"".join(board_html(b, notes=False, meta=False) for b in mine[1:])}</div>')
     if name == H2H and h2h and {'s1', 's3', 's6'} <= {m['id'] for m in h2h.get('measures', [])}:
         hm = {m['id']: m for m in h2h['measures']}
         s1, s3, s6 = hm['s1'], hm['s3'], hm['s6']
         say = (f'Called directly, {leader(s1)} added the most verified new facts ({max(s1["values"].values())} on 40 open '
                f'questions), {leader(s3)} read the most pages built-in tools could not ({max(s3["values"].values())} of '
-               f'{s3["of"]}), and {leader(s6)} filled a fixed template most accurately.')
-        return say, measures_html(h2h) + f'<p class="muted small" style="margin-top:12px">{esc(h2h["note"])}</p>'
+               f'{s3["of"]}), and {leader(s6)} filled a template best.')
+        return say, measures_html(h2h) + f'<p class="muted small" style="margin-top:12px">{esc(COUNTS_NOTE)}</p>'
     if name == BEHAVIOR and analysis and analysis.get('gap_rows'):
         b = behavior_facts(analysis)
-        say = (f'Only {b["natural"]:.0f}% of searches about recent events read as plain questions, and Claude Code passed '
-               f'{b["hit_pct"]:.0f}% of briefs when the original source showed up in its results, against '
-               f'{b["miss_pct"]:.0f}% when it did not.')
+        say = (f'Only {b["natural"]:.0f}% of searches about recent events read as plain questions; Claude Code passed '
+               f'{b["hit_pct"]:.0f}% of briefs with the original source in results, {b["miss_pct"]:.0f}% without.')
         return say, behavior_tiles(analysis)
     rankings = generic_rankings(summary)
     if rankings:
@@ -370,6 +386,12 @@ def page_meta(name: str, reports: dict, studies: list[dict]) -> str:
     return bench_label(reports[name]['summary'])
 
 
+def index_meta(name: str, title: str, reports: dict, studies: list[dict]) -> str:
+    """The index line's fact, left out where the title already says it ("Search gap bench" twice)."""
+    meta = page_meta(name, reports, studies)
+    return '' if meta.lower() in title.lower() else meta
+
+
 def reports_list(reports: dict, studies: list[dict], takeaways: dict[str, str], anchors: bool = False,
                  compact: bool = False) -> str:
     """Every report and study, newest first, each one tap from here."""
@@ -380,7 +402,8 @@ def reports_list(reports: dict, studies: list[dict], takeaways: dict[str, str], 
         alias = f'<span id="method-{name}"></span>' if anchors and name in reports else ''
         items.append(f'<li{ids}>{alias}<a class="row-link" href="{href}">{g(glyph)}<span class="t">{esc(title)}</span>'
                      + (f'<span class="d">{esc(takeaways[name])}</span>' if takeaways.get(name) else '') +
-                     f'<span class="when">{esc(page_meta(name, reports, studies))} · <span class="nw">{report_date(name)}'
+                     f'<span class="when">{esc(index_meta(name, title, reports, studies) + " · ").lstrip(" ·")}'
+                     f'<span class="nw">{report_date(name)}'
                      '</span></span></a></li>')
     return f'<ul class="reports{" compact" if compact else ""}">{"".join(items)}</ul>'
 
@@ -432,6 +455,14 @@ def prose(variants: dict[str, str]) -> str:
                    for agent, text in variants.items())
 
 
+LESSON = 'For your agent:'
+
+
+def lesson(text: str) -> str:
+    """A rule of thumb that follows from the data beside it: at most one per block, and only where it earns its place."""
+    return f'<p class="so">{g("agent")}<span><strong>{LESSON}</strong> {esc(text)}</span></p>' if text else ''
+
+
 def finding(n: int, title: str, lede: str | dict, body: str, so: str, bench: str = '', note_html: str = '',
             agent: str = '', notes: str = '') -> str:
     text = prose(lede) if isinstance(lede, dict) else f'<p>{esc(lede)}</p>'
@@ -439,7 +470,7 @@ def finding(n: int, title: str, lede: str | dict, body: str, so: str, bench: str
     return (f'<section class="finding" id="finding-{n}" data-f-group{attrs}>'
             f'<div class="head"><p class="eyebrow">Finding {n}</p><h2>{esc(title)}</h2>{text}'
             f'{f"<div class=notes>{note_html}</div>" if note_html else ""}</div>'
-            f'{body}{notes}<p class="so">{g("insight")}<span><strong>So what:</strong> {esc(so)}</span></p></section>')
+            f'{body}{notes}{lesson(so)}</section>')
 
 
 def localize_links(markup: str, name: str, names: list[str]) -> str:

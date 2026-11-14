@@ -342,7 +342,7 @@ def hero(boards: list[dict], analysis: dict) -> dict[str, str]:
     h = headline(boards, analysis)
     (lo, hi), floor = h['search'], h['floor']
     question = 'Does web search make AI agents better at real work?'
-    parts = [('When the job is about something recent, search decides it: ', ''), (f'{floor:.0f}%', 'nb'), (' with no search, ', ''),
+    parts = [('On anything recent, search decides it: ', ''), (f'{floor:.0f}%', 'nb'), (' without it, ', ''),
              (f'{lo:.0f}–{hi:.0f}%', 'nb'), (' with any provider.', '')]
     words = [(w, cls) for text, cls in parts for w in text.split(' ') if w]
     desc = f'Searchlight. {question} {"".join(t for t, _ in parts)}'

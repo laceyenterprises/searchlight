@@ -25,6 +25,11 @@
     "meaning": "No search: the control run that answers from memory alone"
   },
   {
+    "id": "memory",
+    "group": "cast",
+    "meaning": "Memory: the model answers from what it learned in training, without searching"
+  },
+  {
     "id": "model",
     "group": "cast",
     "meaning": "Model: the AI model inside the agent, whose knowledge stops at a training cutoff"
@@ -50,9 +55,24 @@
     "meaning": "Query: what the agent typed into search"
   },
   {
+    "id": "keywords",
+    "group": "job",
+    "meaning": "Keywords: a search typed as a few separate words"
+  },
+  {
+    "id": "question",
+    "group": "job",
+    "meaning": "Plain question: a search typed as a whole question, the way a person would ask it"
+  },
+  {
     "id": "source",
     "group": "job",
     "meaning": "Source: the page a claim comes from"
+  },
+  {
+    "id": "primary-source",
+    "group": "job",
+    "meaning": "Original source first: the page a fact comes from, at the top of the results"
   },
   {
     "id": "results-list",
@@ -138,6 +158,11 @@
     "id": "overlap",
     "group": "grading",
     "meaning": "Overlap: findings two providers both earned"
+  },
+  {
+    "id": "combine",
+    "group": "grading",
+    "meaning": "Combine services: each one added finds more that the others missed"
   },
   {
     "id": "gap-closed",
