@@ -125,7 +125,7 @@ def read_panel() -> str:
             'them.</li>'
             '<li>Each benchmark is a few dozen runs per setup on one or two agents, at default settings.</li>'
             '<li>Studies ran each question once, so they report counts; a difference of a few items may be chance.</li>'
-            '<li>A note beside a number says what qualifies it. Tap it to read.</li></ul>'
+            '<li>A note beside a number qualifies it; tap to read.</li></ul>'
             '<p class="links"><a class="more" href="methodology.html">Read the method</a></p></div></aside>')
 
 

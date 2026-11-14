@@ -4,11 +4,12 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from . import diagrams
-from .components import (LEGEND, memory_clause, tie_sentence, behavior_facts, behavior_tiles, bench_label, board_html, board_says, digest, dumbbell,
-                         filter_bar, filter_data, finding, latest_strip, localize_links, measures_html, note,
-                         numbers_mean, report_date, report_page_name, reports_list, track, _floor_ceiling)
-from .data import (BEHAVIOR, EXAMPLES, GAP_PRIMARY, H2H, REPO_URL, WSB_PRIMARY, _catalog_prompt, _gap_range, esc,
+from . import diagrams, pictures
+from .components import (LEGEND, behavior_facts, behavior_tiles, bench_label, board_html, digest, dumbbell, filter_bar,
+                         filter_data, finding, latest_strip, lead_clause, lesson, localize_links, measures_html,
+                         memory_clause, memory_said, note, numbers_mean, overlap, report_date, report_page_name,
+                         reports_list, tie_clause, track)
+from .data import (BEHAVIOR, COUNTS_NOTE, EXAMPLES, GAP_PRIMARY, H2H, REPO_URL, WSB_PRIMARY, _catalog_prompt, _gap_range, esc,
                    harness_name, headline, leader, markdown, more_boards, render_report, report_title, results_language,
                    slug, table_html, wilson)
 from .design import g, vocabulary
@@ -25,54 +26,96 @@ BEAM_ART = """<svg class="beamart" viewBox="0 0 420 300" role="img" aria-label="
 </svg>"""
 
 
+def home_lessons(boards: list[dict], analysis: dict, h2h: dict | None) -> list[dict]:
+    """Rules of thumb for builders, each from the report it links to: (glyph, rule, the number behind it, report).
+
+    A rule of thumb, not a requirement: one that a finding row on the overview already makes is left out (search
+    past the cutoff, memory first on documented questions, questions over keywords), and one the data cannot back
+    is never added."""
+    out = []
+    if analysis.get('gap_rows'):
+        b = behavior_facts(analysis)
+        out.append({'glyph': 'primary-source', 'rule': 'Put the original source first',
+                    'line': f'Claude Code passed {b["hit_pct"]:.0f}% with it in results, {b["miss_pct"]:.0f}% '
+                            'without: a pattern, not a cause.',
+                    'numbers': (round(b['hit_pct']), round(b['miss_pct'])), 'report': BEHAVIOR})
+    if h2h and h2h.get('measures'):
+        hm = {m['id']: m for m in h2h['measures']}
+        if {'s1', 's3', 's6'} <= set(hm) and len({leader(hm[k]) for k in ('s1', 's3', 's6')}) == 3:
+            out.append({'glyph': 'results-list', 'rule': 'Match the API to the job',
+                        'line': 'New facts, hard pages, filling a template: a different leader for each.',
+                        'numbers': tuple(leader(hm[k]) for k in ('s1', 's3', 's6')), 'report': H2H})
+    out.append({'glyph': 'same-but-one', 'rule': 'Test it like this',
+                'line': 'Change one thing, run each task three times, grade blind against saved sources, report a range.',
+                'numbers': (), 'report': 'methodology.html'})
+    return out
+
+
+def lessons_html(lessons: list[dict], reports: dict) -> str:
+    items = []
+    for x in lessons:
+        page = x['report'] if x['report'].endswith('.html') else report_page_name(x['report'])
+        source = 'The method' if page == 'methodology.html' else report_title(x['report'], reports[x['report']]['summary'])
+        items.append(f'<li><a href="{page}">{g(x["glyph"], "s32")}<b>{esc(x["rule"])}</b>'
+                     f'<span>{esc(x["line"])}</span><span class="src">{esc(source)}</span></a></li>')
+    return f'<ul class="rules">{"".join(items)}</ul>'
+
+
 def landing(root: Path, boards: list[dict], analysis: dict, reports: dict, studies: list | None, h2h: dict | None,
             card: dict, pages: list = ()) -> str:
     studies = studies or []
     h = headline(boards, analysis)
     (lo, hi), floor = h['search'], h['floor']
     gap = [b for b in boards if b['bench'] == 'GAP']
+    wsb = next(b for b in boards if b['id'] == 'wsb-competitive')
     nos, best = h['wsb_none'], h['wsb_best']
+    most = max(wsb['rows'], key=lambda r: float(r['tokens_per_success'].rstrip('k')))['tokens_per_success']
+    ratio = float(most.rstrip('k')) / float(nos['tokens_per_success'].rstrip('k'))
     hero = (f'<section class="wrap"><div class="hero"><div><p class="eyebrow">{g("beam")}An open benchmark</p>'
             '<h1>Does web search make AI agents better at real work?</h1>'
-            '<p class="answer">Searchlight gives AI agents real jobs and changes only the search. When the job is about '
-            f'something recent, search decides it: <b>{floor:.0f}%</b> with no search, <b>{lo:.0f}–{hi:.0f}%</b> with any '
-            'provider.</p>'
+            '<p class="answer">We give AI agents real jobs and change only the search. On anything recent, search '
+            f'decides it: <b>{floor:.0f}%</b> without it, <b>{lo:.0f}–{hi:.0f}%</b> with any provider.</p>'
             f'<a class="btn" href="results.html">See the results</a></div>{BEAM_ART}</div>'
             f'{latest_strip(reports, studies)}</section>')
+    agents = [(harness_name(b)[0], b, tie_clause(*overlap(b))) for b in gap]
     rows = [
         (f'{floor:.0f}% → {lo:.0f}–{hi:.0f}%', 'Search decides anything recent',
-         f'With no search, both agents failed every brief about events after their training data. All '
-         f'{h["providers"]} providers closed most of the gap.', 'finding-1'),
+         f'Without search, both agents failed every brief past their training data; all {h["providers"]} providers '
+         'closed most of the gap.', 'finding-1', pictures.gap(floor, lo, hi)),
         (f'{h["cc_top"]["label"]} · {h["cx_top"]["label"]}', 'A different leader on each agent',
-         f'{h["cc_top"]["label"]} led on Claude Code and {h["cx_top"]["label"]} on Codex. {tie_sentence(gap)}', 'finding-2'),
+         f'{h["cc_top"]["label"]} led on Claude Code and {h["cx_top"]["label"]} on Codex, but '
+         f'{lead_clause(gap, short=True)}.', 'finding-2', pictures.tie(agents)),
         (f'{nos["pass_pct"]:.0f}% vs {best["pass_pct"]:.0f}%', 'On well-known topics, memory does most of the work',
-         f'Answering from memory passed {nos["pass_pct"]:.0f}%; the best provider reached {best["pass_pct"]:.0f}%, '
-         f'{memory_clause(nos, best)}, using up to {h["token_ratio"]:.0f}× the tokens.', 'finding-3'),
+         memory_said(nos, best, ratio), 'finding-3',
+         pictures.memory(nos, best, memory_clause(nos, best), ratio, most)),
         (f'{h["natural_pct"]:.0f}%', 'Agents still search with keywords',
-         f'Only {h["natural_pct"]:.0f}% of searches read as plain questions. Runs did better when the original source '
-         'showed up.', 'finding-4'),
+         f'Only {h["natural_pct"]:.0f}% of searches read as plain questions.', 'finding-4',
+         pictures.queries(h['natural_pct'])),
     ]
     if h2h and h2h.get('measures'):
         hm = {m['id']: m for m in h2h['measures']}
-        if 's1' in hm and 's3' in hm:
+        if {'s1', 's3', 's6'} <= set(hm):
             s1, s3 = hm['s1'], hm['s3']
             rows.append((f'{max(s1["values"].values())}', f'Called directly, {leader(s1)} added the most new facts',
                          f'{max(s1["values"].values())} verified new facts on 40 open questions; {leader(s3)} read the '
-                         f'most pages other tools could not ({max(s3["values"].values())} of {s3["of"]}).', 'finding-5'))
-    found = ''.join(f'<li><a href="results.html#{anchor}"><span class="k">{esc(k)}</span><span class="t">{esc(t)}</span>'
-                    f'<span class="d">{esc(d)}</span></a></li>' for k, t, d, anchor in rows)
+                         f'most pages other tools could not ({max(s3["values"].values())} of {s3["of"]}).', 'finding-5',
+                         pictures.jobs(h2h)))
+    found = ''.join(f'<li><a href="results.html#{anchor}"><span class="k">{esc(k)}</span>{pic}'
+                    f'<span class="t">{esc(t)}</span><span class="d">{esc(d)}</span></a></li>'
+                    for k, t, d, anchor, pic in rows)
     concepts = vocabulary()['Concepts'][:8]
     tiles = ''.join(f'<a class="tile" href="learn.html#t-{slug(term)}">{g(glyph)}<b>{esc(term)}</b><span>{esc(one)}</span></a>'
                     for term, glyph, one, _ in concepts)
     examples = []
-    for catalog, task_id, kind, title, why, graded in EXAMPLES:
+    for catalog, task_id, kind, title, why, graded, after, when in EXAMPLES:
         prompt, source = _catalog_prompt(root, catalog, task_id)
         if not prompt:
             continue
         glyph = {'Research brief': 'brief', 'Code fix': 'code-fix'}.get(kind, 'source')
         src = f' <a href="{esc(source)}">The source</a>.' if source.startswith('https://') else ''
         examples.append(f'<article class="card example"><p class="eyebrow">{g(glyph)}{esc(kind)}</p><h3>{esc(title)}</h3>'
-                        f'<p>{esc(why)}{src}</p><details class="more-info"><summary>Read the task and how it is graded'
+                        f'{pictures.timeline(after, when)}'
+                        f'<p>{esc(why)}{src}</p><details class="more-info"><summary>The task and its grading'
                         f'</summary><blockquote>{esc(prompt)}</blockquote><p>{esc(graded)}</p></details></article>')
     main = f"""{hero}
 
@@ -82,19 +125,24 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict, studi
 {read_link()}
 </div></section>
 
-<section class="band soft" id="how"><div class="wrap">
-<div class="head"><h2>Learn Searchlight in 60 seconds</h2><p>Eight ideas behind every number on this site.</p></div>
-<div class="tiles">{tiles}</div>
-<p style="margin-top:20px"><a class="more" href="learn.html">See how a test works, step by step</a></p>
+<section class="band soft" id="build"><div class="wrap">
+<div class="head"><h2>Building your own agent knowledge system?</h2></div>
+{lessons_html(home_lessons(boards, analysis, h2h), reports)}
 </div></section>
 
-<section class="band" id="examples"><div class="wrap">
-<div class="head"><h2>What we asked the agents to do</h2><p>Real tasks from the benchmark, quoted from its task catalogs.</p></div>
+<section class="band" id="how"><div class="wrap">
+<div class="head"><h2>Learn Searchlight in 60 seconds</h2><p>Eight ideas behind every number.</p></div>
+<div class="tiles">{tiles}</div>
+<p style="margin-top:20px"><a class="more" href="learn.html">How a test works, step by step</a></p>
+</div></section>
+
+<section class="band soft" id="examples"><div class="wrap">
+<div class="head"><h2>What we asked the agents to do</h2><p>Real tasks, quoted from the catalogs.</p></div>
 <div class="cards">{''.join(examples)}</div>
 </div></section>
 
-<section class="band soft" id="report"><div class="wrap">
-<div class="head"><h2>Every report and study</h2><p>Each one published with its data, method and corrections.</p></div>
+<section class="band" id="report"><div class="wrap">
+<div class="head"><h2>Every report and study</h2><p>Each with its data, method and corrections.</p></div>
 {reports_list(reports, studies, {})}
 </div></section>"""
     return _document('Searchlight', card['description'], 'index.html', main,
@@ -111,47 +159,36 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, h2h: dict, b
     tps = sorted(wsb['rows'], key=lambda r: float(r['tokens_per_success'].rstrip('k')))
     b = behavior_facts(analysis) if analysis.get('gap_rows') else None
 
-    def agent_name(board):
-        return harness_name(board)[0]
-    one = {}
-    for board in gap:
-        lo, hi = _gap_range(board)
-        floor, ceiling = _floor_ceiling(board)
-        one[board['harness']] = (lo, hi, floor, ceiling, board)
-    all_lo, all_hi = min(v[0] for v in one.values()), max(v[1] for v in one.values())
-    f1 = {'': f'With no search, both agents failed every brief about recent events; with any search setup they passed '
-              f'{all_lo:.0f}–{all_hi:.0f}%.'}
-    f2 = {'': ' and '.join(f'{v[4]["rows"][0]["label"]} led on {agent_name(v[4])}' for v in one.values())
-              + '. ' + tie_sentence(gap)}
-    for harness, (lo, hi, floor, ceiling, board) in one.items():
-        name = agent_name(board)
-        f1[harness] = (f'With no search, {name} failed every brief about recent events ({floor}); with any search setup '
-                       f'it passed {lo:.0f}–{hi:.0f}%, close to the {ceiling} it reached when handed the answer.')
-        f2[harness] = f'On {name}: {board_says(board)}'
+    all_lo, all_hi = min(_gap_range(x)[0] for x in gap), max(_gap_range(x)[1] for x in gap)
+    leads = ' and '.join(f'{x["rows"][0]["label"]} {"led " if not i else ""}on {harness_name(x)[0]}'
+                         for i, x in enumerate(gap))
+    most = tps[-1]['tokens_per_success']
+    ratio = float(most.rstrip('k')) / float(nos['tokens_per_success'].rstrip('k'))
+    # One sentence per finding: each board's own labels carry the per-agent numbers.
     findings = [
-        finding(1, 'Past the training cutoff, search decides the outcome', f1, dumbbell(gap),
-                'For recent events, search is the difference between failing and passing.', GAP_PRIMARY),
-        finding(2, 'No provider wins everywhere', f2,
+        finding(1, 'Past the training cutoff, search decides the outcome',
+                f'With no search, both agents failed every brief about recent events; with any search setup they '
+                f'passed {all_lo:.0f}–{all_hi:.0f}%.', dumbbell(gap),
+                'Give it search for anything past its training cutoff.', GAP_PRIMARY),
+        finding(2, 'No provider wins everywhere', f'{leads}, but {lead_clause(gap)}.',
                 LEGEND + f'<div class="boards two">{"".join(board_html(x, top=3, notes=False, brief=True) for x in gap)}</div>',
                 'Choose on cost and fit, then test on your own agent.', GAP_PRIMARY),
         finding(3, 'On well-documented questions, memory does most of the work',
-                {'': f'Answering from memory passed {nos["pass_pct"]:.0f}%; the best provider reached '
-                     f'{best["pass_pct"]:.0f}%: {memory_clause(nos, best)}, at up to {h["token_ratio"]:.0f}× the tokens '
-                     f'({tps[0]["tokens_per_success"]} to {tps[-1]["tokens_per_success"]} per pass).'},
+                memory_said(nos, best, ratio, f' ({nos["tokens_per_success"]} to {most} per pass)'),
                 LEGEND + f'<div class="boards">{board_html(wsb, top=3, notes=False, brief=True)}</div>',
-                'On stable questions, search mostly adds cost.',
+                'On stable questions, try memory first.',
                 WSB_PRIMARY, agent=wsb['harness']),
     ]
     if b:
         queries = analysis.get('gap_totals', {}).get('queries', 0) + analysis.get('bakeoff_totals', {}).get('queries', 0)
         findings.append(finding(
             4, 'Agents still search like keyword users',
-            {'': 'Agents rarely searched in plain questions, often skipped search for pages they remembered, and did '
-                 'better when the original source showed up.',
+            {'': 'Agents rarely searched in plain questions, often fetched remembered pages instead, and passed more '
+                 'often when the original source showed up.',
              'codex': 'Across both agents, few searches read as plain questions. The other two measures were taken on '
                       'Claude Code only.'},
             behavior_tiles(analysis),
-            'Better questions and original sources first are the next gains.',
+            'Aim searches at the original source; it went with more passes.',
             BEHAVIOR,
             note(f'From {queries} logged searches', 'Computed from the stored transcripts of the two benchmarks. Links '
                  'between search behaviour and pass rates are patterns, not causes.', 'neutral') if queries else ''))
@@ -165,8 +202,8 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, h2h: dict, b
                      f'({max(s1["values"].values())}), {leader(s3)} read the most hard pages and {leader(s6)} filled a '
                      'template best.'},
                 measures_html(h2h, ids=('s1', 's3', 's4', 's6'), show=1),
-                'Choose an API by the job you need done.', H2H,
-                note('Counts, no ranges', h2h['note'] + ' Tavily sells no data-extraction product, so it was not run on '
+                'Pick an API by the job.', H2H,
+                note('Counts, no ranges', COUNTS_NOTE + ' Tavily sells no data-extraction product, so it was not run on '
                      'the template.') + note('Context', 'The study was run while building a sales and marketing '
                                              'knowledge base about Exa, one of the four, and its questions came from '
                                              'that work.', 'neutral'),
@@ -206,11 +243,14 @@ def report_page(name: str, reports: dict, boards: list[dict], analysis: dict | N
     mine = [b for b in boards if b['source'] == name]
     full = render_report(summary, name)
     method = markdown(reports[name]['methodology'], name + '-method', heading_shift=2, base=name)
+    panel = (f'<section class="tens" aria-label="In ten seconds"><p class="eyebrow">{g("latency")}In ten seconds</p>'
+             f'<p class="say">{esc(say)}</p>{LEGEND if mine else ""}{glance}'
+             f'{lesson(report_lesson(name, boards, h2h))}</section>')
     top = (f'<div class="wrap pagehead" id="top"><nav class="crumbs" aria-label="Breadcrumb"><a href="results.html">Results'
            f'</a><span aria-hidden="true">›</span><span>{esc(title)}</span></nav>'
            f'<p class="eyebrow" style="margin-top:20px">{g("report")}{esc(bench_label(summary))} · {report_date(name)}</p>'
-           f'<h1>{esc(title)}</h1><p class="lede">{esc(say)}</p></div>'
-           f'<div class="wrap">{read_link()}{LEGEND if mine else ""}{glance}{numbers_mean(mine) if mine else ""}</div>')
+           f'<h1>{esc(title)}</h1></div>'
+           f'<div class="wrap">{read_link()}{panel}{numbers_mean(mine) if mine else ""}</div>')
     detail = (f'<div class="wrap doc" style="margin-top:32px">'
               f'<details class="full" id="run-{name}"><summary>{g("report")}The full report</summary>'
               f'<div class="body">{full}</div></details>'
@@ -226,13 +266,58 @@ def report_page(name: str, reports: dict, boards: list[dict], analysis: dict | N
                      main, pages=pages)
 
 
+def report_lesson(name: str, boards: list[dict], h2h: dict | None) -> str:
+    """A report's rule of thumb, where it says something its headline does not; '' elsewhere. Read from its numbers."""
+    if name == WSB_PRIMARY:
+        wsb = next((b for b in boards if b['id'] == 'wsb-competitive'), None)
+        nos = next((r for r in (wsb or {}).get('rows', []) if r['arm'] == 'no-search'), None)
+        if nos and nos.get('tokens_per_success'):
+            most = max(float(r['tokens_per_success'].rstrip('k')) for r in wsb['rows'])
+            return (f'On well-documented topics, try memory first: search used up to '
+                    f'{most / float(nos["tokens_per_success"].rstrip("k")):.0f}× the tokens.')
+    if name == H2H and h2h and {'s1', 's3', 's6'} <= {m['id'] for m in h2h.get('measures', [])}:
+        hm = {m['id']: m for m in h2h['measures']}
+        if len({leader(hm[k]) for k in ('s1', 's3', 's6')}) == 3:
+            return ''  # its headline already names a different leader for each job
+    if name == BEHAVIOR:
+        return 'Aim searches at the original source (a pattern, not a cause).'
+    return ''
+
+
 STUDY_DECK = 'Which search services found the most useful facts, checked on the pages they cite.'
 
 
 def finish_html(summary: dict) -> str:
+    """The study's photo finish, its notes cut to what the line above them does not already say."""
     from sew.insight.dashboard import finish, finish_item
 
-    return '<ol class="finish">' + ''.join(finish_item(x) for x in finish(summary)) + '</ol>'
+    def tight(x):
+        ctx = re.sub(r"^(?:Per question|Unique findings)\. The leader's range overlaps those of (\d+) others\.$",
+                     r"The leader's range overlaps \1 others'.", x['ctx'])
+        return {**x, 'ctx': ctx}
+    return '<ol class="finish">' + ''.join(finish_item(tight(x)) for x in finish(summary)) + '</ol>'
+
+
+def coverage_claim(summary: dict) -> str:
+    """The study's point in one line, from its published cumulative-coverage table ("If you could only buy k")."""
+    steps = [x for x in summary.get('greedy') or [] if x.get('cumulative_share') is not None]
+    if not steps:
+        return ''
+    first = steps[0]['cumulative_share']
+    if first >= 0.5:
+        return f'{steps[0]["arm"]} alone found {first:.0%} of all useful findings.'
+    k = next((i for i, x in enumerate(steps, start=1) if x['cumulative_share'] >= 0.5), len(steps))
+    words = {2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine'}
+    return (f'No one service found most: the top one found {first:.0%}, the top {words.get(k, k)} together '
+            f'{steps[k - 1]["cumulative_share"]:.0%}.')
+
+
+def coverage_figure(summary: dict) -> str:
+    claim = coverage_claim(summary)
+    if not claim:
+        return ''
+    return (f'<figure class="cover"><figcaption>{g("combine")}<span>{esc(claim)}</span></figcaption>'
+            f'{pictures.coverage(summary["greedy"])}</figure>')
 
 
 def studies_page(studies: list[dict], pages: list = ()) -> str:
@@ -265,7 +350,7 @@ def studies_page(studies: list[dict], pages: list = ()) -> str:
             f'<article class="study" id="study-{s["name"]}" data-f-group>'
             f'<p class="eyebrow">{g("study")}Study · {report_date(s["name"])} · {esc(meta)}</p>'
             f'<h2><a href="{s["page"]}">{esc(summary["set"]["title"])}</a></h2>'
-            f'{finish_html(summary)}'
+            f'{coverage_figure(summary)}{finish_html(summary)}'
             f'<div class="board"><header><h3>Ranked by useful findings per question</h3>'
             f'<p class="keys">{g("results-list", "kd")} search hands back results {g("answer", "kd")} research writes an '
             'answer</p></header>'
@@ -282,8 +367,7 @@ def studies_page(studies: list[dict], pages: list = ()) -> str:
                '</div></fieldset></div></form>')
     main = (f'<div class="wrap pagehead"><p class="eyebrow">{g("study")}Studies</p>'
             '<h1>Which search service finds the most that holds up?</h1>'
-            '<p class="lede">Each study sends one fixed set of questions to every search and research service and checks '
-            'every claim on the page it cites.</p></div>'
+            '<p class="lede">Same questions for every service; every claim checked on the page it cites.</p></div>'
             + (filters if studies else '')
             + f'<div class="wrap">{read_link()}' + (''.join(cards) or '<p class="empty">No studies yet.</p>') + '</div>')
     return _document('Insight studies · Searchlight',
@@ -312,11 +396,12 @@ def study_page(study: dict, pages: list = ()) -> str:
     head = (f'<div class="wrap pagehead"><nav class="crumbs" aria-label="Breadcrumb"><a href="studies.html">Studies</a>'
             f'<span aria-hidden="true">›</span><span>{report_date(study["name"])}</span></nav>'
             f'<p class="eyebrow" style="margin-top:20px">{g("study")}Study · {report_date(study["name"])}'
-            f'{" · " + esc(meta) if meta else ""}</p><h1>{esc(title)}</h1><p class="lede">{STUDY_DECK}</p>'
+            f'{" · " + esc(meta) if meta else ""}</p><h1>{esc(title)}</h1>'
+            + (coverage_figure(summary) if summary.get('greedy') else f'<p class="lede">{STUDY_DECK}</p>') +
             f'<p class="readlink"><a class="more" href="{REPO_URL}/tree/main/reports/{esc(study["name"])}">Data and method'
             '</a></p></div>')
     main = (head + f'<div class="dash" data-raw-base="{esc(raw)}">{body}</div>'
-            f'<div class="wrap"><p class="readlink"><a class="more" href="studies.html">All Searchlight studies</a></p></div>')
+            f'<div class="wrap"><p class="readlink"><a class="more" href="studies.html">All studies</a></p></div>')
     return _document(f'{title} · Searchlight study', f'{title}. {STUDY_DECK}',
                      study['page'], main, script=scripts, pages=pages, head=style)
 
@@ -327,19 +412,19 @@ def walkthrough(h: dict) -> list[tuple[str, list[str], str, str]]:
         ('Give the agent a real job', ['cutoff', 'brief', 'code-fix'],
          "A research brief or a code fix about something that changed after the model's training cutoff, or a "
          'question with a well-documented answer.',
-         'Past the cutoff, memory alone cannot pass. That is what makes search measurable.'),
+         'Past the cutoff, memory alone cannot pass, so search becomes measurable.'),
         ('Change only the search', ['agent', 'setup', 'no-search', 'built-in'],
          'The same agent, model and instructions every time. Each run plugs in one search provider at its default '
          'settings.',
-         "Two controls frame every provider: no search at all, and the agent's own built-in search."),
+         "Frame every provider with two controls: no search, and the agent's own built-in search."),
         ('Run it sealed, three times', ['sealed', 'repeat'],
          f'Each run starts in a fresh, isolated workspace, and every task runs three times: {h["min_runs"]}–'
          f'{h["max_runs"]} runs per setup. Every search and page visit is logged.',
-         'A few dozen runs is a small sample. That is why every score carries a range.'),
+         'A few dozen runs is a small sample, so every score carries a range.'),
         ('Grade it blind', ['blind', 'judge', 'source'],
          'Automatic checks run where a task has them. Otherwise an AI judge compares the answer with the saved source '
          'pages, never told which setup produced it.',
-         'A brief passes with the right decision, 70% of the key facts and few unsupported claims.'),
+         'Fix the pass bar first: the right decision, 70% of the key facts, few unsupported claims.'),
         ('Rank it honestly', ['ranking', 'range', 'tie'],
          'Setups are ranked by how often their runs passed. Every pass rate shows its 95% range.',
          'When ranges overlap, the test cannot separate them, so no winner is named.'),
@@ -350,7 +435,7 @@ def steps_html(h: dict, paged: bool = False, compact: bool = False) -> str:
     items = []
     for i, (title, icons, body, notice) in enumerate(walkthrough(h), start=1):
         pic = '' if compact else ('<div class="pic">' + ''.join(g(x) for x in icons) + '</div>')
-        tail = '' if compact else f'<p class="notice"><strong>Notice:</strong> {esc(notice)}</p>'
+        tail = '' if compact else f'<p class="notice"><strong>Eval lesson:</strong> {esc(notice)}</p>'
         items.append(f'<li class="step" id="step-{i}"><p class="n">Step {i} of {len(walkthrough(h))}</p>{pic}'
                      f'<h3>{esc(title)}</h3><p>{esc(body)}</p>{tail}</li>')
     cls = 'steps' + (' paged' if paged else '') + (' strip' if compact else '')
@@ -392,8 +477,8 @@ def learn_page(boards: list[dict], analysis: dict, pages: list = ()) -> str:
 
 <section class="band soft" id="ranges"><div class="wrap">
 <div class="head"><p class="eyebrow">{g("range")}Try it: honest ranges</p><h2>How sure is {100 * k / n:.0f}%?</h2>
-<p>A pass rate from a few dozen runs is a measurement, so it comes with a range. Change the passes and the runs, and watch
-the range move. It starts at {best['label']}'s score in the web search bakeoff.</p></div>
+<p>A pass rate from a few dozen runs comes with a range. Change the passes and the runs and watch it move; it starts at
+{best['label']}'s score in the web search bakeoff.</p></div>
 {explorer}
 <details class="more-info"><summary>How the range is worked out</summary>
 <p>Start with the score p = passes ÷ runs, and z = 1.96 for 95%. Wilson's interval sets the centre at
@@ -405,7 +490,7 @@ stays honest at the edges. To halve a range, run about four times as many tests.
 
 <section class="band soft" id="words"><div class="wrap">
 <div class="head"><p class="eyebrow">{g("brief")}The words</p><h2>Every idea, in one line</h2>
-<p>The one glossary on this site. The reports keep some technical words; they are mapped below.</p></div>
+<p>Every term on this site; report terms are mapped below.</p></div>
 <div class="terms">{terms}</div>
 <details class="more-info" id="report-terms"><summary>Words in the reports</summary><div class="glossary">{report_terms}</div>
 </details>
@@ -471,10 +556,10 @@ def methodology_page(configs: list[dict], target: str = 'pages', body_only: bool
         f'methodology</a>, and its full pre-registered record is in <a href="{REPO_URL}/tree/main/reports/{H2H}">'
         f'reports/{H2H}/</a>.</p>'))
     studies_more = more('What the study measures', (
-        '<p>An insight study sends one fixed set of questions to every search and research service, each run as its '
-        "vendor documents. A model extracts each answer's claims, another checks every claim on the page it cites, and a "
-        "blind judge values what each verified finding is worth to the question's reader. A service earns a finding "
-        'only if its own cited page supports it.</p>'), 'studies-method')
+        '<p>One fixed set of questions goes to every search and research service, each run as its vendor documents. '
+        "One model extracts each answer's claims, another checks each claim on the page it cites, and a blind judge "
+        "values each verified finding for the question's reader. A service earns a finding only if its own cited page "
+        'supports it.</p>'), 'studies-method')
     install = f"pipx install 'git+{REPO_URL}'\nsew doctor\npython3 scripts/check_reports.py\npython3 scripts/build_site.py --check"
     rest = ''.join([
         more('Search provider configurations', (
@@ -484,47 +569,48 @@ def methodology_page(configs: list[dict], target: str = 'pages', body_only: bool
         more('Reproduce, correct, contribute', (
             "<p>Install Searchlight, run <code>sew doctor</code>, then follow each study's <code>reproduce.md</code>. Raw "
             "transcripts and provider responses are not distributed (except the head-to-head's Monitors probe), so a new run "
-            'measures the same method rather than replaying the numbers. If a configuration here misrepresents a service you '
-            'run, open an issue: corrections are rerun and published beside the original.</p>'
+            'repeats the method, not the numbers. If a configuration here misrepresents a service you run, open an issue: '
+            'corrections are rerun and published beside the original.</p>'
             f'<pre><code>{esc(install)}</code></pre>'), 'reproduce'),
-        more('Terms used in the reports', '<p>The reports keep some technical words. <a href="learn.html#words">The '
-             'glossary</a> gives each one with the plain word this site uses.</p>', 'terms')])
+        more('Terms used in the reports', '<p><a href="learn.html#words">The glossary</a> maps each technical word in '
+             'the reports to the plain word this site uses.</p>', 'terms')])
     main = f"""<div class="wrap pagehead"><p class="eyebrow">{g("method")}Methodology</p><h1>How Searchlight tests search</h1>
 <p class="lede">The same agent, model and instructions in every run; only the search setup changes.</p>
 <p class="readlink"><a class="more" href="learn.html#words">The words used here</a></p>{strip}</div>
 <div class="wrap doc">
 
-<section id="pipeline"><h2>From task to report</h2>
-<p>One test run = task × search setup × repetition. Every tool call is recorded, and the grader never learns the
-setup.</p>
+<section id="pipeline"><p class="eyebrow">{g("run")}From task to report</p>
+<h2>One run: one task, one search setup, one repetition</h2>
+<p>Every tool call is recorded, and the grader never learns the setup.</p>
 {diagrams.figure('pipeline')}</section>
 
-<section id="isolation"><h2>What each setup can touch</h2>
-<p>An audit checks every tool call against the setup's contract; a call outside it marks the run contaminated.</p>
+<section id="isolation"><p class="eyebrow">{g("sealed")}What each setup can touch</p>
+<h2>A call outside the setup's contract marks the run contaminated</h2>
+<p>An audit checks every tool call against it.</p>
 {diagrams.figure('isolation')}
 {more('The exact commands', f'<h3>Claude Code</h3><pre>{esc(claude_argv)}</pre><h3>Codex</h3><pre>{esc(codex_argv)}</pre>')}
 {more('Limits per test run', limits + '<p>Bakeoff limits are set per task.</p>')}
 </section>
 
-<section id="calibration"><h2>Which tasks count</h2>
-<p>A gap task counts only if the agent fails it with no search and passes it with the answer handed over.</p>
+<section id="calibration"><p class="eyebrow">{g("cutoff")}Which tasks count</p>
+<h2>A gap task counts only if search decides it</h2>
 {diagrams.figure('calibration')}</section>
 
-<section id="grading"><h2>How answers are graded</h2>
-<p>Two judges see the same inputs; neither is told the search setup.</p>
+<section id="grading"><p class="eyebrow">{g("blind")}How answers are graded</p>
+<h2>Two judges see the same inputs; neither is told the search setup</h2>
 {diagrams.figure('grading')}
 {more('Code fixes and bakeoff tasks', '<p>Code fixes pass when hidden tests pass in an isolated workspace. Bakeoff tasks use '
       'automatic checks where a task has one, and otherwise a single blinded grader scores the task rubric.</p>')}
 </section>
 
-<section id="direct-api"><h2>The search API head-to-head</h2>
-<p>The APIs themselves, with no agent: the same pre-registered questions, each run once, so counts without ranges.</p>
+<section id="direct-api"><p class="eyebrow">{g("results-list")}The search API head-to-head</p>
+<h2>With no agent, each API ran the same pre-registered questions once: counts, not ranges</h2>
 {diagrams.figure('direct')}
 {api_more}
 </section>
 
-<section id="insight"><h2>How an insight study works</h2>
-<p>One fixed set of questions goes to every search and research service, graded blind on the pages each one cites.</p>
+<section id="insight"><p class="eyebrow">{g("study")}How an insight study works</p>
+<h2>Every service answers the same questions, graded blind on the pages it cites</h2>
 {diagrams.figure('insight')}
 {studies_more}
 </section>

@@ -53,6 +53,9 @@ GLYPHS = [
      f'<circle cx="11" cy="11.5" r="3.5" {A}/><path d="M13.6 14.1l3 3" {A}/>'),
     ("no-search", "cast", "No search: the control run that answers from memory alone",
      lens(10.5, 10.5, 6.5) + '<path d="M3.5 3.5l17 17" style="stroke:var(--sl-accent, currentColor)"/>'),
+    ("memory", "cast", "Memory: the model answers from what it learned in training, without searching",
+     '<path d="M15 21v-3.5h2.5a1.5 1.5 0 0 0 1.5-1.5v-2.5l2-.8-2-3.7A7.5 7.5 0 1 0 6.5 15.4V21"/>'
+     f'<circle cx="11.5" cy="9.5" r="2.2" {A}/>'),
     ("model", "cast", "Model: the AI model inside the agent, whose knowledge stops at a training cutoff",
      '<rect x="6" y="6" width="12" height="12" rx="1.5"/>'
      '<path d="M9.5 2.5V6M14.5 2.5V6M9.5 18v3.5M14.5 18v3.5M2.5 9.5H6M2.5 14.5H6M18 9.5h3.5M18 14.5h3.5"/>'
@@ -70,8 +73,17 @@ GLYPHS = [
     ("query", "job", "Query: what the agent typed into search",
      '<rect x="2" y="7" width="20" height="10" rx="5"/><path d="M6 12h6"/>'
      f'<circle cx="16.5" cy="12" r="2" {A}/>'),
+    ("keywords", "job", "Keywords: a search typed as a few separate words",
+     '<rect x="2" y="7" width="20" height="10" rx="5"/><path d="M6 12h2.5M10.75 12h2.5"/>'
+     f'<path d="M15.5 12h2.5" {A}/>'),
+    ("question", "job", "Plain question: a search typed as a whole question, the way a person would ask it",
+     '<rect x="2" y="4.5" width="20" height="15" rx="7.5"/><path d="M6.5 12h5"/>'
+     f'<path d="M14.5 9.6a2.2 2.2 0 1 1 3 2.05c-.6.25-.95.75-.95 1.4v.45M16.55 14.6v1.6" {A}/>'),
     ("source", "job", "Source: the page a claim comes from",
      page() + f'<path d="M8.5 12h7" {A}/><path d="M8.5 16h7"/>'),
+    ("primary-source", "job", "Original source first: the page a fact comes from, at the top of the results",
+     f'<path d="M2.5 2h6.5l3 3v8.5H2.5zM9 2v3h3" {A}/>'
+     '<path d="M15 5h6.5M15 9.5h4.5M2.5 17h19M2.5 21h19"/>'),
     ("results-list", "job", "Search setup: hands back a list of results for the agent to read",
      '<path d="M8 6h13.5M8 12h13.5M8 18h13.5"/>' + f'<path d="M2.5 6h3" {A}/>'
      + '<path d="M2.5 12h3M2.5 18h3"/>'),
@@ -124,6 +136,8 @@ GLYPHS = [
     ("overlap", "grading", "Overlap: findings two providers both earned",
      '<circle cx="9" cy="12" r="6.5"/><circle cx="15" cy="12" r="6.5"/>'
      f'<path d="M12 6.2a6.5 6.5 0 0 1 0 11.6 6.5 6.5 0 0 1 0-11.6z" {AF}/>'),
+    ("combine", "grading", "Combine services: each one added finds more that the others missed",
+     '<path d="M2.5 2.5v19h19"/>' f'<path d="M5.5 18.5H9v-5h3.5v-4H16v-3h3.5" {A}/>'),
     ("gap-closed", "grading", "Gap closed: how far a setup got from the no-search score toward the answer-handed-over score",
      '<path d="M3 20.5h18M3 3.5h18"/>' '<rect x="8" y="3.5" width="8" height="17"/>'
      f'<rect x="8" y="9" width="8" height="11.5" {AF}/>'),

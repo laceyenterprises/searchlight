@@ -2,7 +2,7 @@
   <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset="docs/readme/hero-tall-dark.svg">
   <source media="(max-width: 600px)" srcset="docs/readme/hero-tall-light.svg">
   <source media="(prefers-color-scheme: dark)" srcset="docs/readme/hero-dark.svg">
-  <img src="docs/readme/hero-light.svg" alt="Searchlight. Does web search make AI agents better at real work? When the job is about something recent, search decides it: with no search the agents failed every brief; with any provider they passed most. searchlightai.dev">
+  <img src="docs/readme/hero-light.svg" alt="Searchlight. Does web search make AI agents better at real work? On anything recent, search decides it: without it the agents failed every brief; with any provider they passed most. searchlightai.dev">
 </picture>
 
 **An open benchmark of what web search does for AI coding agents.** Searchlight gives real coding agents real jobs

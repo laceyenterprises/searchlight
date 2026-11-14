@@ -879,14 +879,22 @@ def test_studies_page_lists_published_insight_studies():
         assert f'href="{s["page"]}"' in page
 
 
-def test_filter_prose_has_a_variant_for_every_agent_and_hides_off_topic_findings():
+def test_gap_findings_say_it_once_and_their_charts_carry_each_agents_numbers():
     results = site.build()['results.html']
     reports = site.load_reports()
-    agents = {b['harness'] for b in site.leaderboards(reports) if b['bench'] == 'GAP'}
+    gap = [b for b in site.leaderboards(reports) if b['bench'] == 'GAP']
     for n in (1, 2):
-        section = re.search(rf'<section class="finding" id="finding-{n}".*?</section>', results, re.S).group(0)
-        variants = set(re.findall(r'data-prose="([^"]*)"', section))
-        assert variants == {''} | agents, (n, variants)
+        section = results[results.index(f'id="finding-{n}"'):results.index(f'id="finding-{n + 1}"')]
+        # One sentence, true for every agent filter; no per-agent restatement.
+        assert set(re.findall(r'data-prose="([^"]*)"', section)) <= {''}, n
+    one = results[results.index('id="finding-1"'):results.index('id="finding-2"')]
+    two = results[results.index('id="finding-2"'):results.index('id="finding-3"')]
+    for board in gap:  # no number left the page: the chart labels carry each agent's floor, ceiling and leader
+        floor, ceiling = site_components._floor_ceiling(board)
+        assert f'no search {floor}' in one and f'answer {ceiling}' in one, board['id']
+        top = board['rows'][0]
+        assert f'{top["passes"]} of {top["cells"]}' in two and site.esc(top['label']) in two, board['id']
+    assert 'so the test cannot separate them' in two  # the overlap statement, once
     # The direct-API finding is about no agent: an agent filter hides it.
     assert re.search(r'<section class="finding" id="finding-5"[^>]*data-agent="-"', results)
     # Tiles that describe one agent say so.
@@ -1012,3 +1020,111 @@ def test_reports_index_runs_oldest_first_like_its_timeline():
     pages = site.site_map(site.load_reports(), site.insight_studies())
     assert dates == sorted(dates) and len(dates) == len(pages)
 
+
+
+# -- every block makes its point with a picture; lessons are rules of thumb read from the data -------------------
+
+import searchlight_site.pages as site_pages  # noqa: E402  (on the path once build_site is loaded)
+import searchlight_site.pictures as site_pictures  # noqa: E402
+import searchlight_site.components as site_components  # noqa: E402
+
+NEW_GLYPHS = ('memory', 'keywords', 'question', 'primary-source', 'combine')
+
+
+def _pictures(markup):
+    return re.findall(r'<svg class="pic[^"]*" viewBox="[^"]+" role="img" aria-label="([^"]+)">', markup)
+
+
+def test_every_home_finding_and_lesson_has_an_illustration_with_an_accessible_label():
+    index = site.build()['index.html']
+    findings = re.search(r'<ul class="takeaways">(.*?)</ul>', index, re.S).group(1)
+    rows = re.findall(r'<li>(.*?)</li>', findings, re.S)
+    assert len(rows) == 5
+    for row in rows:
+        labels = _pictures(row)
+        assert len(labels) == 1 and len(labels[0]) > 20, row[:120]
+    lessons = re.findall(r'<li>(.*?)</li>', re.search(r'<ul class="rules">(.*?)</ul>', index, re.S).group(1), re.S)
+    assert lessons
+    for item in lessons:  # a glyph, with the rule and its number in words beside it
+        assert re.search(r'<svg class="g[^"]*" aria-hidden="true"', item) and '<b>' in item and '<span>' in item
+    # Each task card shows where its event sits against the training cutoff.
+    cards = re.findall(r'<article class="card example">(.*?)</article>', index, re.S)
+    assert cards and all('training cutoff' in ' '.join(_pictures(card)) for card in cards)
+
+
+def test_lessons_quote_the_numbers_of_the_data_they_cite():
+    reports = site.load_reports()
+    boards = site.leaderboards(reports)
+    analysis = site.behavior(reports)
+    h2h = site.head_to_head(reports)
+    lessons = site_pages.home_lessons(boards, analysis, h2h)
+    index = site.build()['index.html']
+    facts = site_components.behavior_facts(analysis)
+    by_glyph = {x['glyph']: x for x in lessons}
+    source = by_glyph['primary-source']
+    assert source['report'] == site.BEHAVIOR
+    assert source['numbers'] == (round(facts['hit_pct']), round(facts['miss_pct']))
+    assert f'{facts["hit_pct"]:.0f}%' in source['line'] and f'{facts["miss_pct"]:.0f}%' in source['line']
+    assert 'a pattern, not a cause' in source['line']  # observational data says so
+    # The behaviour report states the same pooled counts the lesson rounds.
+    report = '\n'.join(b['markdown'] for b in reports[site.BEHAVIOR]['summary']['blocks'] if 'markdown' in b)
+    assert f'({facts["hit_pct"]:.0f}%)' in report and f'({facts["miss_pct"]:.0f}%)' in report
+    if 'results-list' in by_glyph:  # only while each job really had its own leader
+        hm = {m['id']: m for m in h2h['measures']}
+        assert by_glyph['results-list']['numbers'] == tuple(site.leader(hm[k]) for k in ('s1', 's3', 's6'))
+        assert len(set(by_glyph['results-list']['numbers'])) == 3
+    for lesson in lessons:  # every lesson is on the page and links to the report it comes from
+        assert site.esc(lesson['line']) in index
+        page = lesson['report'] if lesson['report'].endswith('.html') else site.report_page_name(lesson['report'])
+        assert f'<a href="{page}">' in index
+    # A rule of thumb that repeats a finding row is left out: the overview has no lesson about memory or keywords.
+    rules = re.search(r'<ul class="rules">(.*?)</ul>', index, re.S).group(1)
+    assert 'memory' not in rules.lower() and 'keyword' not in rules.lower()
+
+
+def test_report_lessons_follow_their_numbers_and_never_repeat_the_headline():
+    reports = site.load_reports()
+    boards = site.leaderboards(reports)
+    h2h = site.head_to_head(reports)
+    wsb = next(b for b in boards if b['id'] == 'wsb-competitive')
+    nos = next(r for r in wsb['rows'] if r['arm'] == 'no-search')
+    most = max(float(r['tokens_per_success'].rstrip('k')) for r in wsb['rows'])
+    ratio = most / float(nos['tokens_per_success'].rstrip('k'))
+    assert f'{ratio:.0f}×' in site_pages.report_lesson(site.WSB_PRIMARY, boards, h2h)
+    assert site_pages.report_lesson(site.H2H, boards, h2h) == ''  # its headline already names each job's leader
+    assert 'not a cause' in site_pages.report_lesson(site.BEHAVIOR, boards, h2h)
+    files = site.build()
+    for name in reports:
+        page = files[site.report_page_name(name)]
+        panel = re.search(r'<section class="tens" aria-label="In ten seconds">(.*?)</section>', page, re.S)
+        assert panel and 'class="say"' in panel.group(1), name  # the headline sentence opens the page
+        assert page.count('For your agent:') <= 1, name
+
+
+def test_study_point_is_drawn_from_its_cumulative_coverage_table():
+    study = site.insight_studies()[0]
+    summary = study['summary']
+    greedy = summary['greedy']
+    claim = site_pages.coverage_claim(summary)
+    assert f'{greedy[0]["cumulative_share"]:.0%}' in claim
+    label = _pictures(site_pictures.coverage(greedy))[0]
+    assert all(f'{x["cumulative_share"]:.0%}' in label for x in greedy)
+    files = site.build()
+    assert site.esc(claim) in files['studies.html'] and site.esc(claim) in files[study['page']]
+    # A correction to the table moves the claim with it.
+    changed = copy.deepcopy(summary)
+    changed['greedy'][0]['cumulative_share'] = 0.61
+    assert '61%' in site_pages.coverage_claim(changed) and 'alone' in site_pages.coverage_claim(changed)
+
+
+def test_new_glyphs_are_in_the_module_the_index_and_the_sheet():
+    glyphs = {g[0]: g for g in site.glyphs.GLYPHS}
+    index = {g['id']: g for g in json.loads((site.ROOT / 'design/glyphs/index.json').read_text(encoding='utf-8'))}
+    sheet = (site.ROOT / 'design/glyphs/glyphs.html').read_text(encoding='utf-8')
+    sprite = (site.ROOT / 'design/glyphs/searchlight-glyphs.svg').read_text(encoding='utf-8')
+    for gid in NEW_GLYPHS:
+        assert gid in glyphs and index[gid]['meaning'] == glyphs[gid][2], gid
+        assert f'<div class="id">{gid}</div>' in sheet and site.esc(glyphs[gid][2]) in sheet, gid
+        assert f'<symbol id="{gid}"' in sprite and f'<symbol id="{gid}"' in site.SPRITE, gid
+        body = glyphs[gid][3]  # stroke-only, one accent stroke through --sl-accent
+        assert 'fill' not in body and body.count('var(--sl-accent') == 1, gid
