@@ -81,7 +81,7 @@ GLYPHS = [
      f'<path d="M14.5 9.6a2.2 2.2 0 1 1 3 2.05c-.6.25-.95.75-.95 1.4v.45M16.55 14.6v1.6" {A}/>'),
     ("source", "job", "Source: the page a claim comes from",
      page() + f'<path d="M8.5 12h7" {A}/><path d="M8.5 16h7"/>'),
-    ("primary-source", "job", "Original source first: the page a fact comes from, at the top of the results",
+    ("primary-source", "job", "Official page: the project's own page a fact comes from",
      f'<path d="M2.5 2h6.5l3 3v8.5H2.5zM9 2v3h3" {A}/>'
      '<path d="M15 5h6.5M15 9.5h4.5M2.5 17h19M2.5 21h19"/>'),
     ("results-list", "job", "Search setup: hands back a list of results for the agent to read",

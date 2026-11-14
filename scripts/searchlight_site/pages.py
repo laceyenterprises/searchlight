@@ -35,8 +35,8 @@ def home_lessons(boards: list[dict], analysis: dict, h2h: dict | None) -> list[d
     out = []
     if analysis.get('gap_rows'):
         b = behavior_facts(analysis)
-        out.append({'glyph': 'primary-source', 'rule': 'Put the original source first',
-                    'line': f'Claude Code passed {b["hit_pct"]:.0f}% with it in results, {b["miss_pct"]:.0f}% '
+        out.append({'glyph': 'primary-source', 'rule': 'Find the official page',
+                    'line': f'Claude Code passed {b["hit_pct"]:.0f}% with the project\'s own page in results, {b["miss_pct"]:.0f}% '
                             'without: a pattern, not a cause.',
                     'numbers': (round(b['hit_pct']), round(b['miss_pct'])), 'report': BEHAVIOR})
     if h2h and h2h.get('measures'):
@@ -96,8 +96,8 @@ def landing(root: Path, boards: list[dict], analysis: dict, reports: dict, studi
         hm = {m['id']: m for m in h2h['measures']}
         if {'s1', 's3', 's6'} <= set(hm):
             s1, s3 = hm['s1'], hm['s3']
-            rows.append((f'{max(s1["values"].values())}', f'Called directly, {leader(s1)} added the most new facts',
-                         f'{max(s1["values"].values())} verified new facts on 40 open questions; {leader(s3)} read the '
+            rows.append((f'{max(s1["values"].values())}', f'{leader(s1)} added the most new facts',
+                         f'Verified on 40 open questions, with no agent; {leader(s3)} read the '
                          f'most pages other tools could not ({max(s3["values"].values())} of {s3["of"]}).', 'finding-5',
                          pictures.jobs(h2h)))
     found = ''.join(f'<li><a href="results.html#{anchor}"><span class="k">{esc(k)}</span>{pic}'
@@ -184,11 +184,11 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, h2h: dict, b
         findings.append(finding(
             4, 'Agents still search like keyword users',
             {'': 'Agents rarely searched in plain questions, often fetched remembered pages instead, and passed more '
-                 'often when the original source showed up.',
+                 'often when search found the official page (release notes, advisory or docs).',
              'codex': 'Across both agents, few searches read as plain questions. The other two measures were taken on '
                       'Claude Code only.'},
             behavior_tiles(analysis),
-            'Aim searches at the original source; it went with more passes.',
+            'Find the official page; it went with more passes.',
             BEHAVIOR,
             note(f'From {queries} logged searches', 'Computed from the stored transcripts of the two benchmarks. Links '
                  'between search behaviour and pass rates are patterns, not causes.', 'neutral') if queries else ''))
@@ -197,10 +197,10 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, h2h: dict, b
         if all(k in hm for k in ('s1', 's4', 's3', 's6')):
             s1, s3, s6 = hm['s1'], hm['s3'], hm['s6']
             findings.append(finding(
-                5, 'Called directly, each search API led a different job',
-                {'': f'With no agent in the loop, {leader(s1)} added the most verified new facts '
+                5, 'Each search API led a different job',
+                {'': f'{leader(s1)} added the most verified new facts '
                      f'({max(s1["values"].values())}), {leader(s3)} read the most hard pages and {leader(s6)} filled a '
-                     'template best.'},
+                     'template best, tested without an agent.'},
                 measures_html(h2h, ids=('s1', 's3', 's4', 's6'), show=1),
                 'Pick an API by the job.', H2H,
                 note('Counts, no ranges', COUNTS_NOTE + ' Tavily sells no data-extraction product, so it was not run on '
@@ -280,7 +280,7 @@ def report_lesson(name: str, boards: list[dict], h2h: dict | None) -> str:
         if len({leader(hm[k]) for k in ('s1', 's3', 's6')}) == 3:
             return ''  # its headline already names a different leader for each job
     if name == BEHAVIOR:
-        return 'Aim searches at the original source (a pattern, not a cause).'
+        return 'Find the official page (a pattern, not a cause).'
     return ''
 
 

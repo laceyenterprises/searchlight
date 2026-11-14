@@ -283,7 +283,7 @@ def behavior_tiles(analysis: dict) -> str:
         tiles.append((f'{exa["fetch_only_cells"]} of {exa["cells"]}',
                       'Claude Code Exa runs that fetched remembered pages instead of searching.', 'claude-code', ''))
     tiles.append((f'{b["hit_pct"]:.0f}% vs {b["miss_pct"]:.0f}%',
-                  'Claude Code passes with the original source in results, and without.', 'claude-code', ''))
+                  'Claude Code passes, official page found vs not.', 'claude-code', ''))
     return '<div class="stats">' + ''.join(
         f'<div class="stat" data-f{f" data-agent={chr(34)}{agent}{chr(34)}" if agent else ""}><div class="big">{esc(big)}'
         f'</div><p>{esc(text)}</p>{pic}</div>' for big, text, agent, pic in tiles) + '</div>'
@@ -361,14 +361,15 @@ def digest(name: str, reports: dict, boards: list[dict], analysis: dict | None, 
     if name == H2H and h2h and {'s1', 's3', 's6'} <= {m['id'] for m in h2h.get('measures', [])}:
         hm = {m['id']: m for m in h2h['measures']}
         s1, s3, s6 = hm['s1'], hm['s3'], hm['s6']
-        say = (f'Called directly, {leader(s1)} added the most verified new facts ({max(s1["values"].values())} on 40 open '
+        say = (f'{leader(s1)} added the most verified new facts ({max(s1["values"].values())} on 40 open '
                f'questions), {leader(s3)} read the most pages built-in tools could not ({max(s3["values"].values())} of '
                f'{s3["of"]}), and {leader(s6)} filled a template best.')
         return say, measures_html(h2h) + f'<p class="muted small" style="margin-top:12px">{esc(COUNTS_NOTE)}</p>'
     if name == BEHAVIOR and analysis and analysis.get('gap_rows'):
         b = behavior_facts(analysis)
         say = (f'Only {b["natural"]:.0f}% of searches about recent events read as plain questions; Claude Code passed '
-               f'{b["hit_pct"]:.0f}% of briefs with the original source in results, {b["miss_pct"]:.0f}% without.')
+               f'{b["hit_pct"]:.0f}% of briefs when search found the official page (release notes, advisory or docs), '
+               f'{b["miss_pct"]:.0f}% without.')
         return say, behavior_tiles(analysis)
     rankings = generic_rankings(summary)
     if rankings:
