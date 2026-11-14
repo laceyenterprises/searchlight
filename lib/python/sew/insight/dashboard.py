@@ -173,7 +173,7 @@ def digest_html(summary: Mapping[str, Any], top: int = 5) -> str:
     read = "".join(f"<li>{escape(c)}</li>" for c in caveats(summary))
     corrections = (
         (
-            "<section><h2>Corrections</h2><ul>"
+            '<section class="corrections readfirst" aria-label="Corrections"><h2>Corrections</h2><ul>'
             + "".join(f"<li>{escape(c)}</li>" for c in summary.get("corrections", []))
             + "</ul></section>"
         )

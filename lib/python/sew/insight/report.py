@@ -371,7 +371,12 @@ def score(run_dir: Path, *, set_root: Path | None = None,
     caveats += [f"{i['arm_id']} is imported: {i['note'] or 'produced outside this run'}." for i in imported]
     if sponsor:
         caveats.append(f"Sponsored by {sponsor['name']}: {sponsor['disclosure']}")
+    # Corrections are editorial audit notes, not derived scores. Retain them
+    # when rebuilding the run's report, while recomputing every metric.
+    previous_path = run_dir / "report" / "summary.json"
+    previous = read_json(previous_path) if previous_path.is_file() else {}
     return {
+        **({"corrections": previous["corrections"]} if "corrections" in previous else {}),
         "schema": "sew-insight-summary", "schema_version": SCHEMA_VERSION,
         "run": {"run_id": manifest["run_id"], "run_date": manifest["run_date"],
                 "set_sha256": manifest["set_sha256"], "shared_sha256": manifest.get("shared_sha256"),

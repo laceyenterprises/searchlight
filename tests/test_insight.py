@@ -323,9 +323,12 @@ def test_strict_credit_unique_and_report(tmp_path):
 def test_statistics():
     assert sign_test(5, 0) == pytest.approx(0.0625) and sign_test(0, 0) == 1.0
     assert sign_test(3, 3) == 1.0
+    assert holm([0.01, 0.04, 0.03]) == pytest.approx([0.03, 0.06, 0.06])
+    lo, hi = bootstrap_ci([1, 2, 3, 0], seed=1)
+    assert (lo, hi) == bootstrap_ci([1, 2, 3, 0], seed=1) and 0 <= lo <= 6 <= hi <= 12
 
 
-def test_entirely_uncited_arm_explains_zero_on_report_and_site(tmp_path):
+def test_entirely_uncited_arm_explains_zero_on_report_and_site(tmp_path, monkeypatch):
     from sew.insight.dashboard import render_dashboard
     from sew.insight.report import (
         NO_SOURCE_NOTE,
@@ -333,8 +336,6 @@ def test_entirely_uncited_arm_explains_zero_on_report_and_site(tmp_path):
         render as render_report,
         score,
     )
-    import sys
-
     run_dir, _, _ = _graded(tmp_path)
     for path in (run_dir / "grading" / "extract").glob("*/parallel.research.json"):
         doc = read_json(path)
@@ -370,12 +371,13 @@ def test_entirely_uncited_arm_explains_zero_on_report_and_site(tmp_path):
     ).group()
     assert NO_SOURCE_NOTE in row
     assert "<h2>Corrections</h2>" in dashboard
+    assert 'class="corrections readfirst" aria-label="Corrections"' in dashboard
     assert (
         "esc(ARMS[x].note)" in dashboard
     )  # the interactive leaderboard also displays the note
     assert arm["note"] is None  # rendering does not mutate its input
 
-    sys.path.insert(0, str(MODULE_ROOT / "scripts"))
+    monkeypatch.syspath_prepend(str(MODULE_ROOT / "scripts"))
     from searchlight_site.pages import studies_page
 
     page = studies_page(
@@ -391,9 +393,50 @@ def test_entirely_uncited_arm_explains_zero_on_report_and_site(tmp_path):
         r for r in page.split("</li>") if "parallel.research" in r and 'class="nm"' in r
     )
     assert NO_SOURCE_NOTE in row
-    assert holm([0.01, 0.04, 0.03]) == pytest.approx([0.03, 0.06, 0.06])
-    lo, hi = bootstrap_ci([1, 2, 3, 0], seed=1)
-    assert (lo, hi) == bootstrap_ci([1, 2, 3, 0], seed=1) and 0 <= lo <= 6 <= hi <= 12
+
+
+def test_report_preserves_corrections_on_rescore(tmp_path):
+    from sew.insight.publish import publish
+    from sew.insight.report import score
+
+    run_dir = _reported(tmp_path)
+    summary_path = run_dir / "report" / "summary.json"
+    summary = read_json(summary_path)
+    corrections = [
+        "2026-11-14: Explain the unchanged zero.",
+        "2026-11-14 — Existing published notes also remain valid.",
+    ]
+    summary["corrections"] = corrections
+    # Only editorial notes carry over; an obsolete metric must be recomputed.
+    summary["metrics"]["exa.search"]["weighted"]["value"] = -999
+    summary_path.write_text(json.dumps(summary))
+    rescored = score(run_dir, set_root=tmp_path)
+    assert rescored["corrections"] == corrections
+    assert rescored["metrics"]["exa.search"]["weighted"]["value"] == 10
+    write_report(run_dir, set_root=tmp_path)
+    assert read_json(summary_path)["corrections"] == corrections
+    assert corrections[0] in (run_dir / "report" / "REPORT.md").read_text()
+    assert corrections[0] in (run_dir / "report" / "dashboard.html").read_text()
+    first = {p.name: p.read_bytes() for p in (run_dir / "report").iterdir()}
+    write_report(run_dir, set_root=tmp_path)
+    assert {p.name: p.read_bytes() for p in (run_dir / "report").iterdir()} == first
+    published = tmp_path / "reports" / "2026-11-14-corrected-insight"
+    publish(run_dir, published, set_root=tmp_path)
+    assert read_json(published / "summary.json")["corrections"] == corrections
+
+
+@pytest.mark.parametrize("correction", ["", "Undated correction", "2026-11-14: "])
+def test_report_rejects_invalid_corrections_without_overwriting(tmp_path, correction):
+    from sew.insight.report import write_bundle
+
+    run_dir = _reported(tmp_path)
+    directory = run_dir / "report"
+    summary = read_json(directory / "summary.json")
+    summary["corrections"] = [correction]
+    first = {p.name: p.read_bytes() for p in directory.iterdir()}
+    with pytest.raises(InsightError, match="corrections"):
+        write_bundle(directory, summary)
+    assert {p.name: p.read_bytes() for p in directory.iterdir()} == first
 
 
 def test_a_failed_model_step_is_reported_and_retried_later(tmp_path):

@@ -201,9 +201,17 @@ When an arm has extracted claims and every one is uncited, its `note` explains
 that none could be checked against a page. Report and site ranking rows derive
 this explanation from the counts, including for older summaries without a note.
 This describes a verification limit; it does not mean the service found nothing.
-Published summaries may also carry an optional `corrections` list of dated notes,
-shown before the results in the report and dashboard. Preserve the original
-figures and explain any change there.
+Summaries may also carry an optional `corrections` list of notes in
+`YYYY-MM-DD: explanation` or `YYYY-MM-DD — explanation` format, shown before the
+results in the report and dashboard. Preserve the original figures and explain
+any change there.
+`score()` and `sew insight report` retain corrections from the run's existing
+`<run>/report/summary.json` while recomputing scores; `sew insight publish` carries
+them into the published bundle. If a correction was added only to a published
+summary, copy its `corrections` list back to `<run>/report/summary.json` before
+re-scoring or re-publishing that run. A fresh run has no corrections to inherit.
+All stored arm notes, including imported-arm caveats, also appear on report,
+dashboard and studies ranking rows; the Markdown arm cell includes the note.
 
 **The dashboard** has a view for each of these:
 - the leaderboard, sortable by every metric;
