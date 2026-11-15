@@ -34,9 +34,9 @@ env -i PATH="$proof_root/venv/bin:/usr/bin:/bin" HOME="$proof_root/home" \
     python3 bin/prepare-gap-code-wheelhouse --wheelhouse "$SEW_GAP_CODE_WHEELHOUSE" --download
     sew doctor > doctor.txt
     grep "mode         standalone" doctor.txt
-    scripts/test-offline.sh
+    scripts/test-offline.sh "$@"
     if [[ "$SEW_PUBLICATION_BATTERY" == 1 ]]; then
       python3 scripts/offline-fixture-battery.py
     fi
-  '
+  ' bash "$@"
 echo 'public-clone proof passed'

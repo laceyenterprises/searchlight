@@ -23,8 +23,9 @@ def executable(path, body):
 
 
 @pytest.mark.parametrize("github_actions", ["true", "false", None])
+@pytest.mark.parametrize("selected", [[], ["tests/test_example.py"]])
 def test_clone_proof_reaches_macos_offline_suite_only_on_actions(
-    tmp_path, github_actions
+    tmp_path, github_actions, selected
 ):
     commands = tmp_path / "commands"
     commands.mkdir()
@@ -68,6 +69,7 @@ if [[ "$*" == *pytest* ]]; then
   [[ "$SEW_OFFLINE_TESTS" == 1 && "$SEW_REQUIRE_SEATBELT" == 1 ]]
   [[ "$PYTEST_DISABLE_PLUGIN_AUTOLOAD" == 1 ]]
   [[ "$*" == *"-p xdist.plugin -n auto --durations=30"* ]]
+  if [[ "$*" == *tests/test_example.py* ]]; then echo 'selected file reached'; fi
   echo 'offline pytest reached'
 fi
 """,
@@ -81,7 +83,7 @@ fi
     if github_actions is not None:
         environment["GITHUB_ACTIONS"] = github_actions
     result = subprocess.run(
-        ["bash", str(ROOT / "scripts/public-clone-proof.sh")],
+        ["bash", str(ROOT / "scripts/public-clone-proof.sh"), *selected],
         check=False,
         env=environment,
         capture_output=True,
@@ -90,6 +92,7 @@ fi
     )
     if github_actions == "true":
         assert result.returncode == 0, result.stdout + result.stderr
+        assert ("selected file reached" in result.stdout) == bool(selected)
         assert "offline pytest reached" in result.stdout
         assert "public-clone proof passed" in result.stdout
     else:
@@ -174,6 +177,7 @@ def test_suite_step_reports_failures(tmp_path, output, exit_code, annotations):
             "PATH": f"{commands}:/usr/bin:/bin",
             "RUNNER_TEMP": str(tmp_path),
             "CI_EVENT": "pull_request",
+            "TEST_FILES": "[]",
         },
         capture_output=True,
         text=True,
@@ -236,18 +240,18 @@ def test_main_uses_existing_smoke_without_entering_clone_suite(tmp_path):
         (["docs/architecture/STATE-MACHINES.md"], False),
         (["docs/guide.md", "reports/2026-09-29-web-search-bakeoff/suite.yaml"], False),
         (["docs/changes/SLCI-02.md", "lib/python/sew/cli.py"], False),
-        (["docs/example.py"], False),
-        (["reports/example/test.py"], False),
-        (["reports/example/script.sh"], False),
-        (["reports/example/index.html"], False),
-        (["docs/fixture.json"], False),
+        (["docs/example.py"], True),
+        (["reports/example/test.py"], True),
+        (["reports/example/script.sh"], True),
+        (["reports/example/index.html"], True),
+        (["docs/fixture.json"], True),
         ([".github/workflows/standalone.yml"], False),
         (["pyproject.toml"], False),
         (["tests/test_ci_runners.py"], False),
         (["scripts/ci_scope.py"], False),
         (["catalogs/gap/tasks.json"], False),
         (["config/provider-arm-tools.yaml"], False),
-        (["site/index.html"], False),
+        (["site/index.html"], True),
     ],
 )
 def test_documentation_scope_is_an_allowlist(paths, expected):
@@ -266,8 +270,11 @@ def test_scope_diff_keeps_deletions_and_renames(tmp_path, monkeypatch):
     (tmp_path / "docs").mkdir()
     subprocess.run(["git", "mv", "code.py", "docs/guide.md"], check=True)
     subprocess.run(["git", "commit", "-qm", "rename"], check=True)
-    assert ci_scope.full_suite("pull_request", base, "HEAD")
-    assert ci_scope.full_suite("pull_request", "missing-ref", "HEAD")
+    assert ci_scope.scope("pull_request", base, "HEAD", tmp_path)["mode"] == "full"
+    assert (
+        ci_scope.scope("pull_request", "missing-ref", "HEAD", tmp_path)["mode"]
+        == "full"
+    )
     assert ci_scope.full_suite("pull_request", "HEAD", "HEAD")
     assert ci_scope.full_suite("schedule", "", "")
     assert ci_scope.full_suite("workflow_dispatch", "", "")
@@ -303,3 +310,106 @@ def test_workflow_event_matrices(event, oses, versions):
             )
             == expected
         )
+
+
+@pytest.mark.parametrize(
+    "path, included, excluded",
+    [
+        (
+            "scripts/searchlight_site/pages.py",
+            "tests/test_build_site.py",
+            "tests/test_gap_code_corpus.py",
+        ),
+        (
+            "lib/python/sew/insight/dashboard.py",
+            "tests/test_dashboard_leaderboard.py",
+            "tests/test_gap_code_corpus.py",
+        ),
+        (
+            "tests/test_build_site.py",
+            "tests/test_build_site.py",
+            "tests/test_gap_code_corpus.py",
+        ),
+    ],
+)
+def test_affected_test_selection(path, included, excluded):
+    result = ci_scope.select([path])
+    assert result["mode"] == "selected", result
+    assert included in result["tests"]
+    assert excluded not in result["tests"]
+
+
+def test_wording_change_skips_clone_proof():
+    paths = [
+        "reports/study/summary.json",
+        "reports/study/REPORT.md",
+        "reports/study/dashboard.html",
+        "site/study-example.html",
+    ]
+    result = ci_scope.select(paths)
+    assert result["mode"] == "content-only"
+    assert not result["tests"] and not result["battery"]
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "pyproject.toml",
+        "tests/conftest.py",
+        "tests/containment.py",
+        ".github/workflows/standalone.yml",
+        "unknown-input",
+    ],
+)
+def test_unmapped_and_shared_inputs_run_full(path):
+    assert ci_scope.select([path])["mode"] == "full"
+
+
+def test_parse_error_runs_full(tmp_path):
+    (tmp_path / "scripts").mkdir()
+    (tmp_path / "scripts/bad.py").write_text("invalid python!\n")
+    assert ci_scope.select(["scripts/bad.py"], tmp_path)["mode"] == "full"
+
+
+def test_path_loads_transitive_imports_and_data(tmp_path):
+    for directory in ("scripts", "tests", "lib/python/sew"):
+        (tmp_path / directory).mkdir(parents=True)
+    (tmp_path / "scripts/load.py").write_text("import sew.child\n")
+    (tmp_path / "lib/python/sew/child.py").write_text(
+        "INPUT = ROOT / 'tasks' / 'example.json'\n"
+    )
+    (tmp_path / "tests/test_load.py").write_text(
+        "spec_from_file_location('load', ROOT / 'scripts' / 'load.py')\n"
+    )
+    (tmp_path / "tests/test_other.py").write_text("pass\n")
+    for path in ("scripts/load.py", "lib/python/sew/child.py", "tasks/example.json"):
+        result = ci_scope.select([path], tmp_path)
+        assert result["mode"] == "selected", result
+        assert list(result["tests"]) == ["tests/test_load.py"]
+    assert ci_scope.select(["fixtures/unknown.json"], tmp_path)["mode"] == "full"
+
+
+def test_gap_verify_uses_broad_dependency_backstop():
+    closures, _ = ci_scope.dependency_map(ROOT)
+    assert "lib/python/sew/gap/verify.py" in closures["tests/test_gap_verify.py"]
+    assert "lib/python/sew/gap/verify.py" in closures["tests/test_gap_code_corpus.py"]
+    result = ci_scope.select(["lib/python/sew/gap/verify.py"])
+    assert result["mode"] == "full"
+    assert "60%" in result["reason"]
+
+
+def test_fixture_battery_tracks_inputs():
+    assert not ci_scope.select(["scripts/searchlight_site/pages.py"])["battery"]
+    assert ci_scope.select(["fixtures/example.json"])["battery"]
+    assert ci_scope.select(["scripts/offline-fixture-battery.py"])["battery"]
+
+
+def test_site_assets_select_their_readers():
+    result = ci_scope.select(["scripts/site_assets/site.css"])
+    assert result["mode"] == "selected"
+    assert "tests/test_build_site.py" in result["tests"]
+    assert "tests/test_gap_code_corpus.py" not in result["tests"]
+
+
+def test_full_scope_does_not_run_unaffected_fixture_battery():
+    assert not ci_scope.select([".github/workflows/standalone.yml"])["battery"]
