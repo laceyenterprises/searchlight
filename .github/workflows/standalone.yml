@@ -39,7 +39,7 @@ jobs:
           python-version: ${{ matrix.python }}
           cache: pip
           cache-dependency-path: pyproject.toml
-      - name: Select full suite or existing main smoke
+      - name: Select affected tests or existing main smoke
         id: scope
         env:
           CI_EVENT: ${{ github.event_name }}
@@ -58,7 +58,7 @@ jobs:
             GIT_CONFIG_VALUE_0="$auth_header" git fetch --prune origin \
             '+refs/pull/*:refs/remotes/pull/*'
       - name: Provision Linux sandbox
-        if: runner.os == 'Linux' && steps.scope.outputs.full_suite == 'true'
+        if: runner.os == 'Linux' && steps.scope.outputs.run_suite == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y bubblewrap
@@ -90,15 +90,19 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
         run: python3 scripts/publication-gates.py licences
       - name: Fresh installed clone suite without external network
-        if: steps.scope.outputs.full_suite == 'true' || github.event_name == 'push'
+        if: steps.scope.outputs.run_suite == 'true' || github.event_name == 'push'
         env:
           CI_EVENT: ${{ github.event_name }}
+          TEST_FILES: ${{ steps.scope.outputs.test_files }}
+          SEW_PUBLICATION_BATTERY: ${{ matrix.os == 'ubuntu-latest' && matrix.python == '3.12' && steps.scope.outputs.battery == '1' && '1' || '0' }}
         run: |
           if [[ "$CI_EVENT" == push ]]; then
             python3 scripts/smoke.py
             exit
           fi
-          if scripts/public-clone-proof.sh > "$RUNNER_TEMP/suite.log" 2>&1; then
+          test_files=()
+          while IFS= read -r file; do test_files+=("$file"); done < <(python3 -c 'import json, os; print("\n".join(json.loads(os.environ["TEST_FILES"])))' | sed '/^$/d')
+          if scripts/public-clone-proof.sh ${test_files[@]+"${test_files[@]}"} > "$RUNNER_TEMP/suite.log" 2>&1; then
             cat "$RUNNER_TEMP/suite.log"
           else
             cat "$RUNNER_TEMP/suite.log"
