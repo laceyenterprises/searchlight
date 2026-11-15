@@ -532,7 +532,7 @@ EXAMPLES = [  # (catalog, task, kind, title, why, how it is graded, after the cu
      'Python shipped these on March 3, 2026, after the models\' training data ends: without search, an agent can only '
      'guess.',
      'The brief must reach the right decision, cover at least 70% of the key facts and keep unsupported claims '
-     'to 25% or less, checked against the original source.', True, 'March 3, 2026'),
+     'to 25% or less, checked against the official page.', True, 'March 3, 2026'),
     ('gap', 'gap-brief-npm-token-scope-2026', 'Research brief', 'A platform policy that just changed',
      'GitHub changed what npm access tokens can do on July 31, 2026; only recent sources have the answer.',
      'Same bar as every brief: right decision, key facts covered, few unsupported claims.', True, 'July 31, 2026'),

@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2668" width="1200" height="2668" role="img" aria-labelledby="ig-title ig-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2686" width="1200" height="2686" role="img" aria-labelledby="ig-title ig-desc">
 <title id="ig-title">Searchlight results to date</title>
 <desc id="ig-desc">How the Searchlight test works, five findings with their evidence (pass rates with 95% ranges for search providers on two benchmarks and two coding agents, how the agents searched, and counts from a study that called four search APIs directly), and the caveats for reading them.</desc>
-<rect width="1200" height="2668" fill="#F5F7FA"/>
+<rect width="1200" height="2686" fill="#F5F7FA"/>
 <rect x="0" y="0" width="1200" height="150" fill="#111111"/>
 <path d="M 1200 0 L 1200 150 L 780 150 Z" fill="#007BFF" opacity="0.22"/>
 <g transform="translate(48 28) scale(0.42)"><circle cx="31" cy="67" r="22" fill="#FFFFFF"/><path d="M34 69.5 L52.1 10.2 A62 62 0 0 1 91.1 45.3 Z" fill="#007BFF"/><circle cx="34" cy="69.5" r="6.4" fill="#111111"/></g>
@@ -9,7 +9,7 @@
 <text x="48.0" y="100.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="22" fill="#F5F7FA">Does web search help coding agents do real work?</text>
 <text x="48.0" y="128.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14" fill="#C9D3DA">Results to date, 2026-09-26 to 2026-10-06 · 609 graded agent runs · 2 coding agents · 6 providers · 1 API study</text>
 <text x="48.0" y="206.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" fill="#111111" font-weight="700">How the test works</text>
-<rect x="48.0" y="230.0" width="249.0" height="210.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
+<rect x="48.0" y="230.0" width="249.0" height="228.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
 <circle cx="78.0" cy="262.0" r="15" fill="#007BFF"/>
 <text x="78.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">1</text>
 <text x="102.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#111111" font-weight="600">A real job</text>
@@ -18,8 +18,8 @@
 <text x="66.0" y="338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">after the model&#x27;s training data</text>
 <text x="66.0" y="356.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">ends, or a question with a</text>
 <text x="66.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">well-documented answer.</text>
-<path d="M 308.0 325.0 L 320.0 335.0 L 308.0 345.0" fill="none" stroke="#007BFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="333.0" y="230.0" width="249.0" height="210.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
+<path d="M 308.0 334.0 L 320.0 344.0 L 308.0 354.0" fill="none" stroke="#007BFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="333.0" y="230.0" width="249.0" height="228.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
 <circle cx="363.0" cy="262.0" r="15" fill="#007BFF"/>
 <text x="363.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">2</text>
 <text x="387.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#111111" font-weight="600">Swap only the search</text>
@@ -30,8 +30,8 @@
 <text x="351.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">settings. Controls: no search,</text>
 <text x="351.0" y="392.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">and the agent&#x27;s built-in</text>
 <text x="351.0" y="410.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">search.</text>
-<path d="M 593.0 325.0 L 605.0 335.0 L 593.0 345.0" fill="none" stroke="#007BFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="618.0" y="230.0" width="249.0" height="210.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
+<path d="M 593.0 334.0 L 605.0 344.0 L 593.0 354.0" fill="none" stroke="#007BFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="618.0" y="230.0" width="249.0" height="228.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
 <circle cx="648.0" cy="262.0" r="15" fill="#007BFF"/>
 <text x="648.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">3</text>
 <text x="672.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#111111" font-weight="600">Isolated, repeated runs</text>
@@ -40,368 +40,368 @@
 <text x="636.0" y="338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">logged. 18–42 test runs per</text>
 <text x="636.0" y="356.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">provider: three repetitions of</text>
 <text x="636.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">each task.</text>
-<path d="M 878.0 325.0 L 890.0 335.0 L 878.0 345.0" fill="none" stroke="#007BFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="903.0" y="230.0" width="249.0" height="210.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
+<path d="M 878.0 334.0 L 890.0 344.0 L 878.0 354.0" fill="none" stroke="#007BFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="903.0" y="230.0" width="249.0" height="228.0" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
 <circle cx="933.0" cy="262.0" r="15" fill="#007BFF"/>
 <text x="933.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#FFFFFF" font-weight="700" text-anchor="middle">4</text>
 <text x="957.0" y="268.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16" fill="#111111" font-weight="600">Blind grading</text>
 <text x="921.0" y="302.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">Answers are checked against the</text>
-<text x="921.0" y="320.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">original sources by graders</text>
-<text x="921.0" y="338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">that never see which provider</text>
-<text x="921.0" y="356.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">was used. Briefs need the right</text>
-<text x="921.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">decision, 70% of the key facts,</text>
-<text x="921.0" y="392.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">and sources that back their</text>
-<text x="921.0" y="410.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">claims.</text>
-<text x="48.0" y="470.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Pass rates are shown with their 95% range. Where two ranges overlap, the test cannot separate them. Finding 5 counts verified items instead.</text>
-<text x="48.0" y="532.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" fill="#111111" font-weight="700">What we found</text>
-<text x="48.0" y="570.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 1</text>
-<text x="48.0" y="600.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Past the training cutoff,</text>
-<text x="48.0" y="628.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">search decides the outcome</text>
-<text x="48.0" y="660.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Without search, both agents failed every brief</text>
-<text x="48.0" y="680.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">about recent events (0%). With any search setup,</text>
-<text x="48.0" y="700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Claude Code passed 71–95% and Codex 72–94%, close</text>
-<text x="48.0" y="720.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">to the 95% and 89% reached when handed an excerpt</text>
-<text x="48.0" y="740.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">containing the answer.</text>
-<rect x="48" y="770.0" width="380" height="120.0" rx="6" fill="#EAF3FF"/>
-<rect x="48" y="770.0" width="5" height="120.0" rx="2" fill="#007BFF"/>
-<text x="68.0" y="792.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
-<text x="68.0" y="814.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">For work that depends on recent events,</text>
-<text x="68.0" y="834.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">search is not a tuning knob. It is the</text>
-<text x="68.0" y="854.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">difference between failing and passing, and</text>
-<text x="68.0" y="874.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">every provider tested closes most of the gap.</text>
-<text x="460.0" y="570.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on briefs about recent events (search gap bench)</text>
-<circle cx="466.0" cy="593.0" r="6" fill="#111111"/>
-<text x="480.0" y="598.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">No search</text>
-<rect x="567.0" y="587.0" width="22" height="12" rx="3" fill="#007BFF"/>
-<text x="597.0" y="598.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Range across all search setups</text>
-<path d="M 831.0 588.0 L 843.0 588.0 L 837.0 598.0 Z" fill="#111111"/>
-<text x="851.0" y="598.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Answer excerpt handed over</text>
-<line x1="610.0" y1="622.0" x2="610.0" y2="750.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="610.0" y="766.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">0%</text>
-<line x1="713.5" y1="622.0" x2="713.5" y2="750.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="713.5" y="766.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">25%</text>
-<line x1="817.0" y1="622.0" x2="817.0" y2="750.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="817.0" y="766.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">50%</text>
-<line x1="920.5" y1="622.0" x2="920.5" y2="750.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="920.5" y="766.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">75%</text>
-<line x1="1024.0" y1="622.0" x2="1024.0" y2="750.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="1024.0" y="766.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">100%</text>
-<text x="460.0" y="652.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#111111" font-weight="600">Claude Code</text>
-<text x="460.0" y="670.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">21 runs per setup</text>
-<line x1="610.0" y1="654.0" x2="1024.0" y2="654.0" stroke="#C5CCD3" stroke-width="2"/>
-<rect x="903.9" y="646.0" width="99.4" height="16" rx="4" fill="#007BFF"/>
-<circle cx="610.0" cy="654.0" r="7" fill="#111111"/>
-<path d="M 997.3 632.0 L 1009.3 632.0 L 1003.3 642.0 Z" fill="#111111"/>
-<text x="1152.0" y="646.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">no search 0%</text>
-<text x="1152.0" y="662.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="600" text-anchor="end">search 71–95%</text>
-<text x="1152.0" y="678.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67" text-anchor="end">handed over 95%</text>
-<text x="460.0" y="716.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#111111" font-weight="600">Codex</text>
-<text x="460.0" y="734.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">18 runs per setup</text>
-<line x1="610.0" y1="718.0" x2="1024.0" y2="718.0" stroke="#C5CCD3" stroke-width="2"/>
-<rect x="908.1" y="710.0" width="91.1" height="16" rx="4" fill="#007BFF"/>
-<circle cx="610.0" cy="718.0" r="7" fill="#111111"/>
-<path d="M 972.5 696.0 L 984.5 696.0 L 978.5 706.0 Z" fill="#111111"/>
-<text x="1152.0" y="710.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">no search 0%</text>
-<text x="1152.0" y="726.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="600" text-anchor="end">search 72–94%</text>
-<text x="1152.0" y="742.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67" text-anchor="end">handed over 89%</text>
-<line x1="48" y1="908.0" x2="1152" y2="908.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="48.0" y="942.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 2</text>
-<text x="48.0" y="972.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">No provider wins everywhere</text>
-<text x="48.0" y="1004.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">The top provider was Parallel on Claude Code</text>
-<text x="48.0" y="1024.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">(20/21) and Brave on Codex (17/18), and most</text>
-<text x="48.0" y="1044.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">ranges overlap. With 18–21 test runs per</text>
-<text x="48.0" y="1064.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">provider, the test cannot separate the leaders.</text>
-<rect x="48" y="1094.0" width="380" height="100.0" rx="6" fill="#EAF3FF"/>
-<rect x="48" y="1094.0" width="5" height="100.0" rx="2" fill="#007BFF"/>
-<text x="68.0" y="1116.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
-<text x="68.0" y="1138.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Choose on cost, latency and integration, then</text>
-<text x="68.0" y="1158.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">measure on your own agent. Rankings did not</text>
-<text x="68.0" y="1178.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">carry over from one agent to the other.</text>
-<text x="460.0" y="942.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Claude Code</text>
-<text x="567.0" y="942.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">claude-opus-5-5</text>
-<line x1="540.0" y1="960.0" x2="540.0" y2="1142.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="540.0" y="1160.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
-<line x1="617.0" y1="960.0" x2="617.0" y2="1142.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="617.0" y="1160.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">50%</text>
-<line x1="694.0" y1="960.0" x2="694.0" y2="1142.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="694.0" y="1160.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">100%</text>
-<text x="460.0" y="977.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Parallel</text>
-<rect x="658.6" y="968.0" width="33.9" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="658.6" y1="973.0" x2="692.5" y2="973.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="686.3" cy="973.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="794.0" y="977.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">20/21 · 95%</text>
-<text x="460.0" y="1003.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Firecrawl</text>
-<rect x="649.3" y="994.0" width="40.0" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="649.3" y1="999.0" x2="689.4" y2="999.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="678.6" cy="999.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="794.0" y="1003.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">19/21 · 90%</text>
-<text x="460.0" y="1029.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Brave</text>
-<rect x="632.4" y="1020.0" width="49.3" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="632.4" y1="1025.0" x2="681.7" y2="1025.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="664.7" cy="1025.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="794.0" y="1029.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">17/21 · 81%</text>
-<text x="460.0" y="1055.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Built-in</text>
-<rect x="624.7" y="1046.0" width="52.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="624.7" y1="1051.0" x2="677.1" y2="1051.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="657.0" cy="1051.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="794.0" y="1055.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/21 · 76%</text>
-<text x="460.0" y="1081.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Perplexity</text>
-<rect x="624.7" y="1072.0" width="52.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="624.7" y1="1077.0" x2="677.1" y2="1077.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="657.0" cy="1077.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="794.0" y="1081.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/21 · 76%</text>
-<text x="460.0" y="1107.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa</text>
-<rect x="617.0" y="1098.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="617.0" y1="1103.0" x2="672.4" y2="1103.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="649.3" cy="1103.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="794.0" y="1107.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">15/21 · 71%</text>
-<text x="460.0" y="1133.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Tavily</text>
-<rect x="617.0" y="1124.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="617.0" y1="1129.0" x2="672.4" y2="1129.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="649.3" cy="1129.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="794.0" y="1133.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">15/21 · 71%</text>
-<text x="818.0" y="942.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Codex</text>
-<text x="871.0" y="942.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">gpt-6.1-sol</text>
-<line x1="898.0" y1="960.0" x2="898.0" y2="1142.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="898.0" y="1160.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
-<line x1="975.0" y1="960.0" x2="975.0" y2="1142.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="975.0" y="1160.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">50%</text>
-<line x1="1052.0" y1="960.0" x2="1052.0" y2="1142.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="1052.0" y="1160.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">100%</text>
-<text x="818.0" y="977.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Brave</text>
-<rect x="1012.0" y="968.0" width="38.5" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="1012.0" y1="973.0" x2="1050.5" y2="973.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="1042.8" cy="973.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="977.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">17/18 · 94%</text>
-<text x="818.0" y="1003.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Firecrawl</text>
-<rect x="1001.2" y="994.0" width="46.2" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="1001.2" y1="999.0" x2="1047.4" y2="999.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="1035.1" cy="999.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1003.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/18 · 89%</text>
-<text x="818.0" y="1029.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Tavily</text>
-<rect x="1001.2" y="1020.0" width="46.2" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="1001.2" y1="1025.0" x2="1047.4" y2="1025.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="1035.1" cy="1025.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1029.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/18 · 89%</text>
-<text x="818.0" y="1055.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Built-in</text>
-<rect x="982.7" y="1046.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="982.7" y1="1051.0" x2="1038.1" y2="1051.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="1018.1" cy="1051.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1055.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">14/18 · 78%</text>
-<text x="818.0" y="1081.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa</text>
-<rect x="982.7" y="1072.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="982.7" y1="1077.0" x2="1038.1" y2="1077.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="1018.1" cy="1077.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1081.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">14/18 · 78%</text>
-<text x="818.0" y="1107.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Parallel</text>
-<rect x="973.5" y="1098.0" width="60.1" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="973.5" y1="1103.0" x2="1033.5" y2="1103.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="1008.9" cy="1103.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1107.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">13/18 · 72%</text>
-<text x="818.0" y="1133.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Perplexity</text>
-<rect x="973.5" y="1124.0" width="60.1" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="973.5" y1="1129.0" x2="1033.5" y2="1129.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="1008.9" cy="1129.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1133.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">13/18 · 72%</text>
-<text x="460.0" y="1186.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Claude Code built-in search: rerun on 2026-10-06 after a fix let the agent open pages. In the original runs it</text>
-<text x="460.0" y="1202.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">could only search.</text>
-<line x1="48" y1="1236.0" x2="1152" y2="1236.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="48.0" y="1270.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 3</text>
-<text x="48.0" y="1300.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">On documented knowledge,</text>
-<text x="48.0" y="1328.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">memory does most of the work</text>
-<text x="48.0" y="1360.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">In the bakeoff, answering from memory passed</text>
-<text x="48.0" y="1380.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">32/42 (76%). The best provider reached 90%: the</text>
-<text x="48.0" y="1400.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">two ranges overlap, so the test cannot separate</text>
-<text x="48.0" y="1420.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">them, while tokens used per passing run rose from</text>
-<text x="48.0" y="1440.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">20.9k (No search) to as much as 89.2k (Brave).</text>
-<rect x="48" y="1470.0" width="380" height="100.0" rx="6" fill="#EAF3FF"/>
-<rect x="48" y="1470.0" width="5" height="100.0" rx="2" fill="#007BFF"/>
-<text x="68.0" y="1492.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
-<text x="68.0" y="1514.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Search pays off where training data runs out.</text>
-<text x="68.0" y="1534.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">On stable, well-documented questions it</text>
-<text x="68.0" y="1554.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">mostly adds cost.</text>
-<text x="460.0" y="1270.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on well-documented questions (web search bakeoff, Claude Code)</text>
-<text x="931.8" y="1304.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">no search 76%</text>
-<line x1="564.0" y1="1310.0" x2="564.0" y2="1518.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="564.0" y="1536.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
-<line x1="685.0" y1="1310.0" x2="685.0" y2="1518.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="685.0" y="1536.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">25%</text>
-<line x1="806.0" y1="1310.0" x2="806.0" y2="1518.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="806.0" y="1536.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">50%</text>
-<line x1="927.0" y1="1310.0" x2="927.0" y2="1518.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="927.0" y="1536.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">75%</text>
-<line x1="1048.0" y1="1310.0" x2="1048.0" y2="1518.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="1048.0" y="1536.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">100%</text>
-<text x="460.0" y="1327.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Firecrawl</text>
-<rect x="941.5" y="1318.0" width="87.1" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="941.5" y1="1323.0" x2="1028.6" y2="1323.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="999.6" cy="1323.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1327.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">38/42 · 90%</text>
-<text x="460.0" y="1353.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Perplexity</text>
-<rect x="927.0" y="1344.0" width="96.8" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="927.0" y1="1349.0" x2="1023.8" y2="1349.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="989.9" cy="1349.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1353.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">37/42 · 88%</text>
-<text x="460.0" y="1379.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Tavily</text>
-<rect x="912.5" y="1370.0" width="101.6" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="912.5" y1="1375.0" x2="1014.1" y2="1375.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="980.2" cy="1375.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1379.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">36/42 · 86%</text>
-<text x="460.0" y="1405.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Built-in</text>
-<rect x="898.0" y="1396.0" width="111.3" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="898.0" y1="1401.0" x2="1009.3" y2="1401.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="965.7" cy="1401.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1405.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">35/42 · 83%</text>
-<text x="460.0" y="1431.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa</text>
-<rect x="898.0" y="1422.0" width="111.3" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="898.0" y1="1427.0" x2="1009.3" y2="1427.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="965.7" cy="1427.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1431.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">35/42 · 83%</text>
-<text x="460.0" y="1457.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Parallel</text>
-<rect x="873.8" y="1448.0" width="116.2" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="873.8" y1="1453.0" x2="989.9" y2="1453.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="946.4" cy="1453.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1457.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">33/42 · 79%</text>
-<text x="460.0" y="1483.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">No search</text>
-<rect x="859.2" y="1474.0" width="125.8" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="859.2" y1="1479.0" x2="985.1" y2="1479.0" stroke="#8A949E" stroke-width="2"/>
-<circle cx="931.8" cy="1479.0" r="5.5" fill="#8A949E" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1483.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">32/42 · 76%</text>
-<text x="460.0" y="1509.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Brave</text>
-<rect x="849.6" y="1500.0" width="125.8" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
-<line x1="849.6" y1="1505.0" x2="975.4" y2="1505.0" stroke="#007BFF" stroke-width="2"/>
-<circle cx="922.2" cy="1505.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
-<text x="1152.0" y="1509.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">31/42 · 74%</text>
-<line x1="931.8" y1="1310.0" x2="931.8" y2="1518.0" stroke="#111111" stroke-width="1.5" stroke-dasharray="4 4"/>
-<line x1="48" y1="1588.0" x2="1152" y2="1588.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="48.0" y="1622.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 4</text>
-<text x="48.0" y="1652.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Agents still search like</text>
-<text x="48.0" y="1680.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">keyword users</text>
-<text x="48.0" y="1712.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Only 7% of searches about recent events read as</text>
-<text x="48.0" y="1732.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">plain questions, and Codex limited many searches</text>
-<text x="48.0" y="1752.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">to one website (31–67% of its provider searches).</text>
-<text x="48.0" y="1772.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Agents often skipped search and opened pages they</text>
-<text x="48.0" y="1792.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">remembered. Runs did better when the original</text>
-<text x="48.0" y="1812.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">source showed up.</text>
-<rect x="48" y="1842.0" width="380" height="120.0" rx="6" fill="#EAF3FF"/>
-<rect x="48" y="1842.0" width="5" height="120.0" rx="2" fill="#007BFF"/>
-<text x="68.0" y="1864.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
-<text x="68.0" y="1886.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">The next gains are in how agents ask and what</text>
-<text x="68.0" y="1906.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">results show: searches written as questions,</text>
-<text x="68.0" y="1926.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">and original sources first. These are</text>
-<text x="68.0" y="1946.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">patterns across runs, not proven causes.</text>
-<rect x="460.0" y="1630.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
-<text x="476.0" y="1674.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">7%</text>
-<text x="476.0" y="1700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">of searches about recent</text>
-<text x="476.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">events read as plain</text>
-<text x="476.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">questions; the rest were</text>
-<text x="476.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">keyword strings.</text>
-<rect x="696.0" y="1630.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
-<text x="712.0" y="1674.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">36/55</text>
-<text x="712.0" y="1700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa bakeoff runs that</text>
-<text x="712.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">opened remembered pages</text>
-<text x="712.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">without searching</text>
-<text x="712.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">(Firecrawl 35/55, Tavily</text>
-<text x="712.0" y="1772.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">34/54, Parallel 30/55).</text>
-<rect x="932.0" y="1630.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
-<text x="948.0" y="1674.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">85% vs 61%</text>
-<text x="948.0" y="1700.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Claude Code pass rate with</text>
-<text x="948.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">the original source in its</text>
-<text x="948.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">results (94/111) vs without</text>
-<text x="948.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">it (20/33).</text>
-<line x1="48" y1="1980.0" x2="1152" y2="1980.0" stroke="#E1E5EA" stroke-width="1"/>
-<text x="48.0" y="2014.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 5</text>
-<text x="48.0" y="2044.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Called directly, each search</text>
-<text x="48.0" y="2072.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">API led a different job</text>
-<text x="48.0" y="2104.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">A separate study called four search APIs directly</text>
-<text x="48.0" y="2124.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">on a research workload. Exa added the most</text>
-<text x="48.0" y="2144.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">verified new claims (25 on 40 open questions) and</text>
-<text x="48.0" y="2164.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">the most new dated news facts (20). Firecrawl</text>
-<text x="48.0" y="2184.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">read the most pages other tools could not (14 of</text>
-<text x="48.0" y="2204.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">15), and Parallel filled in a fixed template most</text>
-<text x="48.0" y="2224.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">accurately (113 of 133 values).</text>
-<rect x="48" y="2254.0" width="380" height="140.0" rx="6" fill="#EAF3FF"/>
-<rect x="48" y="2254.0" width="5" height="140.0" rx="2" fill="#007BFF"/>
-<text x="68.0" y="2276.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
-<text x="68.0" y="2298.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Choose by job: finding new facts, reading</text>
-<text x="68.0" y="2318.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">hard pages and filling in data rewarded</text>
-<text x="68.0" y="2338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">different providers. The study was run for a</text>
-<text x="68.0" y="2358.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">knowledge base about Exa, one of the four, so</text>
-<text x="68.0" y="2378.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">read its context note.</text>
-<text x="460.0" y="2034.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New or corrected facts, 40 open questions</text>
-<text x="460.0" y="2063.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
-<rect x="534.0" y="2053.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2053.0" width="192.0" height="12" rx="2" fill="#007BFF"/>
-<text x="792.0" y="2063.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">25</text>
-<text x="460.0" y="2085.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
-<rect x="534.0" y="2075.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2075.0" width="84.5" height="12" rx="2" fill="#8DBDFF"/>
-<text x="792.0" y="2085.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">11</text>
-<text x="460.0" y="2107.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
-<rect x="534.0" y="2097.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2097.0" width="145.9" height="12" rx="2" fill="#8DBDFF"/>
-<text x="792.0" y="2107.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">19</text>
-<text x="460.0" y="2129.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
-<rect x="534.0" y="2119.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2119.0" width="76.8" height="12" rx="2" fill="#8DBDFF"/>
-<text x="792.0" y="2129.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">10</text>
-<text x="820.0" y="2034.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New dated facts, two weeks of company news</text>
-<text x="820.0" y="2063.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
-<rect x="894.0" y="2053.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="894.0" y="2053.0" width="192.0" height="12" rx="2" fill="#007BFF"/>
-<text x="1152.0" y="2063.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">20</text>
-<text x="820.0" y="2085.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
-<rect x="894.0" y="2075.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="894.0" y="2075.0" width="115.2" height="12" rx="2" fill="#8DBDFF"/>
-<text x="1152.0" y="2085.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">12</text>
-<text x="820.0" y="2107.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
-<rect x="894.0" y="2097.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="894.0" y="2097.0" width="28.8" height="12" rx="2" fill="#8DBDFF"/>
-<text x="1152.0" y="2107.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">3</text>
-<text x="820.0" y="2129.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
-<rect x="894.0" y="2119.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="894.0" y="2119.0" width="19.2" height="12" rx="2" fill="#8DBDFF"/>
-<text x="1152.0" y="2129.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">2</text>
-<text x="460.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Pages it read that built-in tools could not (of 15)</text>
-<text x="460.0" y="2201.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
-<rect x="534.0" y="2191.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2191.0" width="64.0" height="12" rx="2" fill="#8DBDFF"/>
-<text x="792.0" y="2201.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">5</text>
-<text x="460.0" y="2223.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
-<rect x="534.0" y="2213.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2213.0" width="128.0" height="12" rx="2" fill="#8DBDFF"/>
-<text x="792.0" y="2223.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">10</text>
-<text x="460.0" y="2245.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
-<rect x="534.0" y="2235.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2235.0" width="153.6" height="12" rx="2" fill="#8DBDFF"/>
-<text x="792.0" y="2245.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">12</text>
-<text x="460.0" y="2267.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
-<rect x="534.0" y="2257.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="534.0" y="2257.0" width="179.2" height="12" rx="2" fill="#007BFF"/>
-<text x="792.0" y="2267.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">14</text>
-<text x="820.0" y="2172.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Correct values filling a fixed template (of 133)</text>
-<text x="820.0" y="2201.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
-<rect x="894.0" y="2191.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="894.0" y="2191.0" width="151.6" height="12" rx="2" fill="#8DBDFF"/>
-<text x="1152.0" y="2201.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">105</text>
-<text x="820.0" y="2223.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
-<rect x="894.0" y="2213.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<text x="900.0" y="2223.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">not run</text>
-<text x="820.0" y="2245.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
-<rect x="894.0" y="2235.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="894.0" y="2235.0" width="163.1" height="12" rx="2" fill="#007BFF"/>
-<text x="1152.0" y="2245.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">113</text>
-<text x="820.0" y="2267.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
-<rect x="894.0" y="2257.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
-<rect x="894.0" y="2257.0" width="135.7" height="12" rx="2" fill="#8DBDFF"/>
-<text x="1152.0" y="2267.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">94</text>
-<text x="460.0" y="2296.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Counts of checked items, one run per question; no 95% ranges were published, so a difference of a few</text>
-<text x="460.0" y="2312.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">items may be chance. Tavily sells no data-extraction product, so it was not run on the template.</text>
-<rect x="48" y="2434.0" width="1104" height="186" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
-<text x="72.0" y="2468.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18" fill="#111111" font-weight="700">Read before comparing</text>
-<text x="72.0" y="2498.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  18–42 test runs per provider: ranges are wide, so one place higher may not mean better.</text>
-<text x="72.0" y="2522.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  In the agent tests each provider was plugged in through its official connector at default settings; the API study called tuned APIs directly.</text>
-<text x="72.0" y="2546.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Grading used automatic checks and AI graders that never saw the provider. Dollar costs were only partly tracked.</text>
-<text x="72.0" y="2570.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Search behavior comes from 1629 logged searches; its links to pass rates are patterns, not causes.</text>
-<text x="72.0" y="2600.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#555D67">searchlightai.dev · github.com/laceyenterprises/searchlight · a Lacey Enterprises project</text>
+<text x="921.0" y="320.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">official pages (release notes,</text>
+<text x="921.0" y="338.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">advisories or docs) by graders</text>
+<text x="921.0" y="356.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">that never see which provider</text>
+<text x="921.0" y="374.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">was used. Briefs need the right</text>
+<text x="921.0" y="392.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">decision, 70% of the key facts,</text>
+<text x="921.0" y="410.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">and sources that back their</text>
+<text x="921.0" y="428.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#555D67">claims.</text>
+<text x="48.0" y="488.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Pass rates are shown with their 95% range. Where two ranges overlap, the test cannot separate them. Finding 5 counts verified items instead.</text>
+<text x="48.0" y="550.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="26" fill="#111111" font-weight="700">What we found</text>
+<text x="48.0" y="588.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 1</text>
+<text x="48.0" y="618.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Past the training cutoff,</text>
+<text x="48.0" y="646.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">search decides the outcome</text>
+<text x="48.0" y="678.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Without search, both agents failed every brief</text>
+<text x="48.0" y="698.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">about recent events (0%). With any search setup,</text>
+<text x="48.0" y="718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Claude Code passed 71–95% and Codex 72–94%, close</text>
+<text x="48.0" y="738.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">to the 95% and 89% reached when handed an excerpt</text>
+<text x="48.0" y="758.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">containing the answer.</text>
+<rect x="48" y="788.0" width="380" height="120.0" rx="6" fill="#EAF3FF"/>
+<rect x="48" y="788.0" width="5" height="120.0" rx="2" fill="#007BFF"/>
+<text x="68.0" y="810.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="832.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">For work that depends on recent events,</text>
+<text x="68.0" y="852.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">search is not a tuning knob. It is the</text>
+<text x="68.0" y="872.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">difference between failing and passing, and</text>
+<text x="68.0" y="892.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">every provider tested closes most of the gap.</text>
+<text x="460.0" y="588.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on briefs about recent events (search gap bench)</text>
+<circle cx="466.0" cy="611.0" r="6" fill="#111111"/>
+<text x="480.0" y="616.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">No search</text>
+<rect x="567.0" y="605.0" width="22" height="12" rx="3" fill="#007BFF"/>
+<text x="597.0" y="616.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Range across all search setups</text>
+<path d="M 831.0 606.0 L 843.0 606.0 L 837.0 616.0 Z" fill="#111111"/>
+<text x="851.0" y="616.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Answer excerpt handed over</text>
+<line x1="610.0" y1="640.0" x2="610.0" y2="768.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="610.0" y="784.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">0%</text>
+<line x1="713.5" y1="640.0" x2="713.5" y2="768.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="713.5" y="784.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">25%</text>
+<line x1="817.0" y1="640.0" x2="817.0" y2="768.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="817.0" y="784.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">50%</text>
+<line x1="920.5" y1="640.0" x2="920.5" y2="768.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="920.5" y="784.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">75%</text>
+<line x1="1024.0" y1="640.0" x2="1024.0" y2="768.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="1024.0" y="784.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">100%</text>
+<text x="460.0" y="670.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#111111" font-weight="600">Claude Code</text>
+<text x="460.0" y="688.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">21 runs per setup</text>
+<line x1="610.0" y1="672.0" x2="1024.0" y2="672.0" stroke="#C5CCD3" stroke-width="2"/>
+<rect x="903.9" y="664.0" width="99.4" height="16" rx="4" fill="#007BFF"/>
+<circle cx="610.0" cy="672.0" r="7" fill="#111111"/>
+<path d="M 997.3 650.0 L 1009.3 650.0 L 1003.3 660.0 Z" fill="#111111"/>
+<text x="1152.0" y="664.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">no search 0%</text>
+<text x="1152.0" y="680.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="600" text-anchor="end">search 71–95%</text>
+<text x="1152.0" y="696.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67" text-anchor="end">handed over 95%</text>
+<text x="460.0" y="734.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15" fill="#111111" font-weight="600">Codex</text>
+<text x="460.0" y="752.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">18 runs per setup</text>
+<line x1="610.0" y1="736.0" x2="1024.0" y2="736.0" stroke="#C5CCD3" stroke-width="2"/>
+<rect x="908.1" y="728.0" width="91.1" height="16" rx="4" fill="#007BFF"/>
+<circle cx="610.0" cy="736.0" r="7" fill="#111111"/>
+<path d="M 972.5 714.0 L 984.5 714.0 L 978.5 724.0 Z" fill="#111111"/>
+<text x="1152.0" y="728.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">no search 0%</text>
+<text x="1152.0" y="744.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="600" text-anchor="end">search 72–94%</text>
+<text x="1152.0" y="760.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67" text-anchor="end">handed over 89%</text>
+<line x1="48" y1="926.0" x2="1152" y2="926.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="48.0" y="960.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 2</text>
+<text x="48.0" y="990.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">No provider wins everywhere</text>
+<text x="48.0" y="1022.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">The top provider was Parallel on Claude Code</text>
+<text x="48.0" y="1042.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">(20/21) and Brave on Codex (17/18), and most</text>
+<text x="48.0" y="1062.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">ranges overlap. With 18–21 test runs per</text>
+<text x="48.0" y="1082.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">provider, the test cannot separate the leaders.</text>
+<rect x="48" y="1112.0" width="380" height="100.0" rx="6" fill="#EAF3FF"/>
+<rect x="48" y="1112.0" width="5" height="100.0" rx="2" fill="#007BFF"/>
+<text x="68.0" y="1134.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="1156.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Choose on cost, latency and integration, then</text>
+<text x="68.0" y="1176.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">measure on your own agent. Rankings did not</text>
+<text x="68.0" y="1196.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">carry over from one agent to the other.</text>
+<text x="460.0" y="960.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Claude Code</text>
+<text x="567.0" y="960.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">claude-opus-5-5</text>
+<line x1="540.0" y1="978.0" x2="540.0" y2="1160.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="540.0" y="1178.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
+<line x1="617.0" y1="978.0" x2="617.0" y2="1160.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="617.0" y="1178.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">50%</text>
+<line x1="694.0" y1="978.0" x2="694.0" y2="1160.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="694.0" y="1178.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">100%</text>
+<text x="460.0" y="995.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Parallel</text>
+<rect x="658.6" y="986.0" width="33.9" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="658.6" y1="991.0" x2="692.5" y2="991.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="686.3" cy="991.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="995.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">20/21 · 95%</text>
+<text x="460.0" y="1021.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Firecrawl</text>
+<rect x="649.3" y="1012.0" width="40.0" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="649.3" y1="1017.0" x2="689.4" y2="1017.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="678.6" cy="1017.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1021.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">19/21 · 90%</text>
+<text x="460.0" y="1047.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Brave</text>
+<rect x="632.4" y="1038.0" width="49.3" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="632.4" y1="1043.0" x2="681.7" y2="1043.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="664.7" cy="1043.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1047.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">17/21 · 81%</text>
+<text x="460.0" y="1073.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Built-in</text>
+<rect x="624.7" y="1064.0" width="52.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="624.7" y1="1069.0" x2="677.1" y2="1069.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="657.0" cy="1069.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1073.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/21 · 76%</text>
+<text x="460.0" y="1099.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Perplexity</text>
+<rect x="624.7" y="1090.0" width="52.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="624.7" y1="1095.0" x2="677.1" y2="1095.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="657.0" cy="1095.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1099.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/21 · 76%</text>
+<text x="460.0" y="1125.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa</text>
+<rect x="617.0" y="1116.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="617.0" y1="1121.0" x2="672.4" y2="1121.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="649.3" cy="1121.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1125.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">15/21 · 71%</text>
+<text x="460.0" y="1151.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Tavily</text>
+<rect x="617.0" y="1142.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="617.0" y1="1147.0" x2="672.4" y2="1147.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="649.3" cy="1147.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="794.0" y="1151.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">15/21 · 71%</text>
+<text x="818.0" y="960.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Codex</text>
+<text x="871.0" y="960.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555D67">gpt-6.1-sol</text>
+<line x1="898.0" y1="978.0" x2="898.0" y2="1160.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="898.0" y="1178.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
+<line x1="975.0" y1="978.0" x2="975.0" y2="1160.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="975.0" y="1178.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">50%</text>
+<line x1="1052.0" y1="978.0" x2="1052.0" y2="1160.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="1052.0" y="1178.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">100%</text>
+<text x="818.0" y="995.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Brave</text>
+<rect x="1012.0" y="986.0" width="38.5" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="1012.0" y1="991.0" x2="1050.5" y2="991.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="1042.8" cy="991.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="995.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">17/18 · 94%</text>
+<text x="818.0" y="1021.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Firecrawl</text>
+<rect x="1001.2" y="1012.0" width="46.2" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="1001.2" y1="1017.0" x2="1047.4" y2="1017.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="1035.1" cy="1017.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1021.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/18 · 89%</text>
+<text x="818.0" y="1047.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Tavily</text>
+<rect x="1001.2" y="1038.0" width="46.2" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="1001.2" y1="1043.0" x2="1047.4" y2="1043.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="1035.1" cy="1043.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1047.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">16/18 · 89%</text>
+<text x="818.0" y="1073.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Built-in</text>
+<rect x="982.7" y="1064.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="982.7" y1="1069.0" x2="1038.1" y2="1069.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="1018.1" cy="1069.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1073.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">14/18 · 78%</text>
+<text x="818.0" y="1099.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa</text>
+<rect x="982.7" y="1090.0" width="55.4" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="982.7" y1="1095.0" x2="1038.1" y2="1095.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="1018.1" cy="1095.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1099.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">14/18 · 78%</text>
+<text x="818.0" y="1125.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Parallel</text>
+<rect x="973.5" y="1116.0" width="60.1" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="973.5" y1="1121.0" x2="1033.5" y2="1121.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="1008.9" cy="1121.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1125.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">13/18 · 72%</text>
+<text x="818.0" y="1151.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Perplexity</text>
+<rect x="973.5" y="1142.0" width="60.1" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="973.5" y1="1147.0" x2="1033.5" y2="1147.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="1008.9" cy="1147.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1151.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">13/18 · 72%</text>
+<text x="460.0" y="1204.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Claude Code built-in search: rerun on 2026-10-06 after a fix let the agent open pages. In the original runs it</text>
+<text x="460.0" y="1220.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">could only search.</text>
+<line x1="48" y1="1254.0" x2="1152" y2="1254.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="48.0" y="1288.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 3</text>
+<text x="48.0" y="1318.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">On documented knowledge,</text>
+<text x="48.0" y="1346.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">memory does most of the work</text>
+<text x="48.0" y="1378.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">In the bakeoff, answering from memory passed</text>
+<text x="48.0" y="1398.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">32/42 (76%). The best provider reached 90%: the</text>
+<text x="48.0" y="1418.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">two ranges overlap, so the test cannot separate</text>
+<text x="48.0" y="1438.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">them, while tokens used per passing run rose from</text>
+<text x="48.0" y="1458.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">20.9k (No search) to as much as 89.2k (Brave).</text>
+<rect x="48" y="1488.0" width="380" height="100.0" rx="6" fill="#EAF3FF"/>
+<rect x="48" y="1488.0" width="5" height="100.0" rx="2" fill="#007BFF"/>
+<text x="68.0" y="1510.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="1532.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Search pays off where training data runs out.</text>
+<text x="68.0" y="1552.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">On stable, well-documented questions it</text>
+<text x="68.0" y="1572.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">mostly adds cost.</text>
+<text x="460.0" y="1288.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111" font-weight="600">Pass rate on well-documented questions (web search bakeoff, Claude Code)</text>
+<text x="931.8" y="1322.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67" text-anchor="middle">no search 76%</text>
+<line x1="564.0" y1="1328.0" x2="564.0" y2="1536.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="564.0" y="1554.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">0%</text>
+<line x1="685.0" y1="1328.0" x2="685.0" y2="1536.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="685.0" y="1554.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">25%</text>
+<line x1="806.0" y1="1328.0" x2="806.0" y2="1536.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="806.0" y="1554.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">50%</text>
+<line x1="927.0" y1="1328.0" x2="927.0" y2="1536.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="927.0" y="1554.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">75%</text>
+<line x1="1048.0" y1="1328.0" x2="1048.0" y2="1536.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="1048.0" y="1554.0" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">100%</text>
+<text x="460.0" y="1345.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Firecrawl</text>
+<rect x="941.5" y="1336.0" width="87.1" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="941.5" y1="1341.0" x2="1028.6" y2="1341.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="999.6" cy="1341.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1345.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">38/42 · 90%</text>
+<text x="460.0" y="1371.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Perplexity</text>
+<rect x="927.0" y="1362.0" width="96.8" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="927.0" y1="1367.0" x2="1023.8" y2="1367.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="989.9" cy="1367.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1371.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">37/42 · 88%</text>
+<text x="460.0" y="1397.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Tavily</text>
+<rect x="912.5" y="1388.0" width="101.6" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="912.5" y1="1393.0" x2="1014.1" y2="1393.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="980.2" cy="1393.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1397.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">36/42 · 86%</text>
+<text x="460.0" y="1423.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Built-in</text>
+<rect x="898.0" y="1414.0" width="111.3" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="898.0" y1="1419.0" x2="1009.3" y2="1419.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="965.7" cy="1419.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1423.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">35/42 · 83%</text>
+<text x="460.0" y="1449.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa</text>
+<rect x="898.0" y="1440.0" width="111.3" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="898.0" y1="1445.0" x2="1009.3" y2="1445.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="965.7" cy="1445.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1449.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">35/42 · 83%</text>
+<text x="460.0" y="1475.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Parallel</text>
+<rect x="873.8" y="1466.0" width="116.2" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="873.8" y1="1471.0" x2="989.9" y2="1471.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="946.4" cy="1471.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1475.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">33/42 · 79%</text>
+<text x="460.0" y="1501.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">No search</text>
+<rect x="859.2" y="1492.0" width="125.8" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="859.2" y1="1497.0" x2="985.1" y2="1497.0" stroke="#8A949E" stroke-width="2"/>
+<circle cx="931.8" cy="1497.0" r="5.5" fill="#8A949E" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1501.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">32/42 · 76%</text>
+<text x="460.0" y="1527.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Brave</text>
+<rect x="849.6" y="1518.0" width="125.8" height="10" rx="2" fill="#D7E8FF" opacity="0.9"/>
+<line x1="849.6" y1="1523.0" x2="975.4" y2="1523.0" stroke="#007BFF" stroke-width="2"/>
+<circle cx="922.2" cy="1523.0" r="5.5" fill="#007BFF" stroke="#FFFFFF" stroke-width="1.5"/>
+<text x="1152.0" y="1527.0" text-anchor="end" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111">31/42 · 74%</text>
+<line x1="931.8" y1="1328.0" x2="931.8" y2="1536.0" stroke="#111111" stroke-width="1.5" stroke-dasharray="4 4"/>
+<line x1="48" y1="1606.0" x2="1152" y2="1606.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="48.0" y="1640.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 4</text>
+<text x="48.0" y="1670.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Agents still search like</text>
+<text x="48.0" y="1698.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">keyword users</text>
+<text x="48.0" y="1730.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Only 7% of searches about recent events read as</text>
+<text x="48.0" y="1750.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">plain questions, and Codex limited many searches</text>
+<text x="48.0" y="1770.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">to one website (31–67% of its provider searches).</text>
+<text x="48.0" y="1790.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">Agents often skipped search and opened pages they</text>
+<text x="48.0" y="1810.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">remembered. Runs did better when the official</text>
+<text x="48.0" y="1830.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">page showed up.</text>
+<rect x="48" y="1860.0" width="380" height="120.0" rx="6" fill="#EAF3FF"/>
+<rect x="48" y="1860.0" width="5" height="120.0" rx="2" fill="#007BFF"/>
+<text x="68.0" y="1882.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="1904.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">The next gains are in how agents ask and what</text>
+<text x="68.0" y="1924.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">results show: searches written as questions,</text>
+<text x="68.0" y="1944.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">and official pages first. These are patterns</text>
+<text x="68.0" y="1964.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">across runs, not proven causes.</text>
+<rect x="460.0" y="1648.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
+<text x="476.0" y="1692.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">7%</text>
+<text x="476.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">of searches about recent</text>
+<text x="476.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">events read as plain</text>
+<text x="476.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">questions; the rest were</text>
+<text x="476.0" y="1772.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">keyword strings.</text>
+<rect x="696.0" y="1648.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
+<text x="712.0" y="1692.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">36/55</text>
+<text x="712.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Exa bakeoff runs that</text>
+<text x="712.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">opened remembered pages</text>
+<text x="712.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">without searching</text>
+<text x="712.0" y="1772.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">(Firecrawl 35/55, Tavily</text>
+<text x="712.0" y="1790.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">34/54, Parallel 30/55).</text>
+<rect x="932.0" y="1648.0" width="220.0" height="160.0" rx="6" fill="#FFFFFF" stroke="#E1E5EA"/>
+<text x="948.0" y="1692.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="32" fill="#007BFF" font-weight="700">85% vs 61%</text>
+<text x="948.0" y="1718.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">Claude Code pass rate,</text>
+<text x="948.0" y="1736.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">official page found</text>
+<text x="948.0" y="1754.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111">(94/111) vs not (20/33).</text>
+<line x1="48" y1="1998.0" x2="1152" y2="1998.0" stroke="#E1E5EA" stroke-width="1"/>
+<text x="48.0" y="2032.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#007BFF" font-weight="700" letter-spacing="1">FINDING 5</text>
+<text x="48.0" y="2062.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">Each search API led a</text>
+<text x="48.0" y="2090.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#111111" font-weight="700">different job</text>
+<text x="48.0" y="2122.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">A separate study called four search APIs directly</text>
+<text x="48.0" y="2142.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">on a research workload. Exa added the most</text>
+<text x="48.0" y="2162.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">verified new claims (25 on 40 open questions) and</text>
+<text x="48.0" y="2182.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">the most new dated news facts (20). Firecrawl</text>
+<text x="48.0" y="2202.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">read the most pages other tools could not (14 of</text>
+<text x="48.0" y="2222.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">15), and Parallel filled in a fixed template most</text>
+<text x="48.0" y="2242.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#555D67">accurately (113 of 133 values).</text>
+<rect x="48" y="2272.0" width="380" height="140.0" rx="6" fill="#EAF3FF"/>
+<rect x="48" y="2272.0" width="5" height="140.0" rx="2" fill="#007BFF"/>
+<text x="68.0" y="2294.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#007BFF" font-weight="700" letter-spacing="1">SO WHAT</text>
+<text x="68.0" y="2316.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">Choose by job: finding new facts, reading</text>
+<text x="68.0" y="2336.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">hard pages and filling in data rewarded</text>
+<text x="68.0" y="2356.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">different providers. The study was run for a</text>
+<text x="68.0" y="2376.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">knowledge base about Exa, one of the four, so</text>
+<text x="68.0" y="2396.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">read its context note.</text>
+<text x="460.0" y="2052.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New or corrected facts, 40 open questions</text>
+<text x="460.0" y="2081.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="534.0" y="2071.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2071.0" width="192.0" height="12" rx="2" fill="#007BFF"/>
+<text x="792.0" y="2081.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">25</text>
+<text x="460.0" y="2103.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="534.0" y="2093.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2093.0" width="84.5" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2103.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">11</text>
+<text x="460.0" y="2125.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="534.0" y="2115.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2115.0" width="145.9" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2125.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">19</text>
+<text x="460.0" y="2147.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="534.0" y="2137.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2137.0" width="76.8" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2147.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">10</text>
+<text x="820.0" y="2052.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">New dated facts, two weeks of company news</text>
+<text x="820.0" y="2081.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="894.0" y="2071.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2071.0" width="192.0" height="12" rx="2" fill="#007BFF"/>
+<text x="1152.0" y="2081.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">20</text>
+<text x="820.0" y="2103.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="894.0" y="2093.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2093.0" width="115.2" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2103.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">12</text>
+<text x="820.0" y="2125.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="894.0" y="2115.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2115.0" width="28.8" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2125.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">3</text>
+<text x="820.0" y="2147.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="894.0" y="2137.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2137.0" width="19.2" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2147.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">2</text>
+<text x="460.0" y="2190.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Pages it read that built-in tools could not (of 15)</text>
+<text x="460.0" y="2219.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="534.0" y="2209.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2209.0" width="64.0" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2219.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">5</text>
+<text x="460.0" y="2241.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="534.0" y="2231.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2231.0" width="128.0" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2241.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">10</text>
+<text x="460.0" y="2263.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="534.0" y="2253.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2253.0" width="153.6" height="12" rx="2" fill="#8DBDFF"/>
+<text x="792.0" y="2263.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">12</text>
+<text x="460.0" y="2285.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="534.0" y="2275.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="534.0" y="2275.0" width="179.2" height="12" rx="2" fill="#007BFF"/>
+<text x="792.0" y="2285.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">14</text>
+<text x="820.0" y="2190.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="13" fill="#111111" font-weight="600">Correct values filling a fixed template (of 133)</text>
+<text x="820.0" y="2219.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Exa</text>
+<rect x="894.0" y="2209.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2209.0" width="151.6" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2219.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">105</text>
+<text x="820.0" y="2241.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Tavily</text>
+<rect x="894.0" y="2231.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<text x="900.0" y="2241.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="11" fill="#555D67">not run</text>
+<text x="820.0" y="2263.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Parallel</text>
+<rect x="894.0" y="2253.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2253.0" width="163.1" height="12" rx="2" fill="#007BFF"/>
+<text x="1152.0" y="2263.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" font-weight="600" text-anchor="end">113</text>
+<text x="820.0" y="2285.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Firecrawl</text>
+<rect x="894.0" y="2275.0" width="192.0" height="12" rx="2" fill="#E1E5EA"/>
+<rect x="894.0" y="2275.0" width="135.7" height="12" rx="2" fill="#8DBDFF"/>
+<text x="1152.0" y="2285.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#111111" text-anchor="end">94</text>
+<text x="460.0" y="2314.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">Counts of checked items, one run per question; no 95% ranges were published, so a difference of a few</text>
+<text x="460.0" y="2330.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12" fill="#555D67">items may be chance. Tavily sells no data-extraction product, so it was not run on the template.</text>
+<rect x="48" y="2452.0" width="1104" height="186" rx="8" fill="#FFFFFF" stroke="#E1E5EA"/>
+<text x="72.0" y="2486.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="18" fill="#111111" font-weight="700">Read before comparing</text>
+<text x="72.0" y="2516.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  18–42 test runs per provider: ranges are wide, so one place higher may not mean better.</text>
+<text x="72.0" y="2540.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  In the agent tests each provider was plugged in through its official connector at default settings; the API study called tuned APIs directly.</text>
+<text x="72.0" y="2564.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Grading used automatic checks and AI graders that never saw the provider. Dollar costs were only partly tracked.</text>
+<text x="72.0" y="2588.0" font-family="'Inter', -apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#111111">·  Search behavior comes from 1629 logged searches; its links to pass rates are patterns, not causes.</text>
+<text x="72.0" y="2618.0" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="13" fill="#555D67">searchlightai.dev · github.com/laceyenterprises/searchlight · a Lacey Enterprises project</text>
 </svg>

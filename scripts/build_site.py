@@ -331,7 +331,7 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
                                  "agent's built-in search."),
         ('Isolated, repeated runs', f'A fresh, sealed workspace for every run, with every search logged. '
                                     f'{cells[0]}–{cells[-1]} test runs per provider: three repetitions of each task.'),
-        ('Blind grading', 'Answers are checked against the original sources by graders that never see which '
+        ('Blind grading', 'Answers are checked against the official pages (release notes, advisories or docs) by graders that never see which '
                           'provider was used. Briefs need the right decision, 70% of the key facts, and sources that back '
                           'their claims.'),
     ]
@@ -393,9 +393,9 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
         ('Agents still search like keyword users',
          f'Only {totals["natural_language_pct"]:.0f}% of searches about recent events read as plain questions, and Codex '
          f'limited many searches to one website ({site_lo:.0f}–{site_hi:.0f}% of its provider searches). Agents often '
-         'skipped search and opened pages they remembered. Runs did better when the original source showed up.',
+         'skipped search and opened pages they remembered. Runs did better when the official page showed up.',
          'The next gains are in how agents ask and what results show: searches written as questions, and '
-         'original sources first. These are patterns across runs, not proven causes.',
+         'official pages first. These are patterns across runs, not proven causes.',
          lambda yy: _tiles([
              (f'{totals["natural_language_pct"]:.0f}%', 'of searches about recent events read as plain questions; '
                                                          'the rest were keyword strings.'),
@@ -403,8 +403,8 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
                                                            f'searching (Firecrawl {fc["fetch_only_cells"]}/{fc["cells"]}, '
                                                            f'Tavily {tv["fetch_only_cells"]}/{tv["cells"]}, '
                                                            f'Parallel {pw["fetch_only_cells"]}/{pw["cells"]}).'),
-             (f'{hit_pct:.0f}% vs {miss_pct:.0f}%', 'Claude Code pass rate with the original source in its results '
-                                                    f'({hit[0]}/{hit[1]}) vs without it ({miss[0]}/{miss[1]}).'),
+             (f'{hit_pct:.0f}% vs {miss_pct:.0f}%', 'Claude Code pass rate, official page found '
+                                                    f'({hit[0]}/{hit[1]}) vs not ({miss[0]}/{miss[1]}).'),
          ], right_x, yy + 8, right_w, P)),
     ]
     if h2h:
@@ -412,7 +412,7 @@ def infographic(boards: list[dict], analysis: dict, h2h: dict | None = None) -> 
         s1, s4, s3, s6 = hm['s1'], hm['s4'], hm['s3'], hm['s6']
         news = '' if leader(s4) == leader(s1) else f'{leader(s4)} '
         findings.append((
-            'Called directly, each search API led a different job',
+            'Each search API led a different job',
             f'A separate study called four search APIs directly on a research workload. {leader(s1)} added the most '
             f'verified new claims ({max(s1["values"].values())} on 40 open questions) and {news}the most new dated '
             f'news facts ({max(s4["values"].values())}). {leader(s3)} read the most pages other tools could not '

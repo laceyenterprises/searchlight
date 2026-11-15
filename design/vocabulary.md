@@ -48,7 +48,7 @@ The published reports keep their technical words. The site uses the plain word a
 | Wilson 95% CI | 95% range | range | The range the true pass rate likely falls in, worked out with Wilson's method so it never runs past 0% or 100%. |
 | p-value (McNemar, Fisher, sign test) | chance of a fluke | tie | How likely a difference this large would be if the setups were really equal. Below 0.05 is the usual bar for a real difference. |
 | holdout | held-back questions | holdout | Questions kept back from tuning, so a result cannot be fitted to them. |
-| pre-registered | fixed in advance | pre-registered | Questions and scoring rules fixed before any results were seen. |
+| primary source | official page | primary-source | The project's own release notes, advisory or docs. |
 
 ## Wording rules
 

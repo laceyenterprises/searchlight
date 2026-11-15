@@ -1159,3 +1159,27 @@ def test_new_glyphs_are_in_the_module_the_index_and_the_sheet():
         assert f'<symbol id="{gid}"' in sprite and f'<symbol id="{gid}"' in site.SPRITE, gid
         body = glyphs[gid][3]  # stroke-only, one accent stroke through --sl-accent
         assert 'fill' not in body and body.count('var(--sl-accent') == 1, gid
+
+
+def test_pages_say_the_official_page_and_lead_with_the_point_not_the_method():
+    """The site's word for the reports' "primary source" is "the official page"; a search API finding leads with what
+    it found, and "called directly" (the method) never opens a heading, headline, lesson or rule."""
+    from searchlight_site import readme
+    files = {f'site/{name}': text for name, text in site.build().items()}
+    files.update({f'{readme.OUT}/{name}': text for name, text in site.readme_art().items()})
+    files.update({rel: (site.ROOT / rel).read_text(encoding='utf-8') for rel in readme.DOCS})
+    headline = re.compile(r'<(h[1-6]|b|summary)\b[^>]*>(?:<[^>]+>)*\s*([^<]*)|class="(?:say|t)">\s*([^<]*)|'
+                          r'content="([^"]*)"|For your agent:(?:\s|<[^>]+>)*([^<]*)|^\s*(?:#+|[-*])\s*(.*)$|'
+                          r'font-weight="700">([^<]*)', re.M)
+    for name, text in files.items():
+        assert 'original source' not in text.lower(), name
+        for m in headline.finditer(text):
+            first = next(g for g in m.groups()[1:] if g is not None)
+            assert not first.strip().lower().startswith('called directly'), (name, first[:80])
+    reports = site.load_reports()
+    lessons = site_pages.home_lessons(site.leaderboards(reports), site.behavior(reports), site.head_to_head(reports))
+    rule = next(x for x in lessons if x['glyph'] == 'primary-source')
+    assert rule['rule'] == 'Find the official page' and 'a pattern, not a cause' in rule['line']
+    assert '<b>Official page</b> <span class="alias">primary source</span>' in files['site/learn.html']  # term map
+    glyph = next(g for g in site.glyphs.GLYPHS if g[0] == 'primary-source')
+    assert glyph[2].startswith('Official page')
