@@ -789,8 +789,9 @@ def test_results_open_with_findings_and_rank_every_board():
     for board in site.more_boards(reports):
         assert f'href="{site.report_page_name(board["source"])}"' in results
         assert f'id="board-{board["id"]}"' in files[site.report_page_name(board['source'])]
-    # Each finding leads with its top three rows; the rest open from "All n setups".
-    assert results.count('<details class="allrows">') >= 3
+    # Every row is ranked once, under the filters; each finding repeats only its top three and a chosen setup.
+    ranked = main[main.index('id="ranked"'):main.index('id="finding-1"')]
+    assert all(f'id="{row["id"]}"' in ranked for row in data) and not re.search(r'>All \d+ setups<', results)
     # Filters are an enhancement: hidden without JavaScript, and every row is rendered on the server.
     assert '<form class="filters js-only"' in results
     # Caveats sit beside the number they qualify.

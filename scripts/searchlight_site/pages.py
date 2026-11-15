@@ -171,11 +171,12 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, h2h: dict, b
                 f'passed {all_lo:.0f}–{all_hi:.0f}%.', dumbbell(gap),
                 'Give it search for anything past its training cutoff.', GAP_PRIMARY),
         finding(2, 'No provider wins everywhere', f'{leads}, but {lead_clause(gap)}.',
-                LEGEND + f'<div class="boards two">{"".join(board_html(x, top=3, notes=False, brief=True) for x in gap)}</div>',
+                f'<div class="boards two">{"".join(board_html(x, top=3, notes=False, brief=True, copy=True) for x in gap)}'
+                '</div>',
                 'Choose on cost and fit, then test on your own agent.', GAP_PRIMARY),
         finding(3, 'On well-documented questions, memory does most of the work',
                 memory_said(nos, best, ratio, f' ({nos["tokens_per_success"]} to {most} per pass)'),
-                LEGEND + f'<div class="boards">{board_html(wsb, top=3, notes=False, brief=True)}</div>',
+                f'<div class="boards">{board_html(wsb, top=3, notes=False, brief=True, copy=True)}</div>',
                 'On stable questions, try memory first.',
                 WSB_PRIMARY, agent=wsb['harness']),
     ]
@@ -213,6 +214,11 @@ def results_page(reports: dict, boards: list[dict], analysis: dict, h2h: dict, b
     later = {x['source'] for x in extra}
     takeaways = {name: digest(name, reports, extra, analysis, h2h)[0] for name in later}
     providers = h2h.get('providers', [])
+    # Every setup of every board, ranked, right under the filters: a chip's rows show on the first screen. The findings
+    # below repeat only their leaders and a chosen setup.
+    ranked = (f'<section class="finding" id="ranked" data-f-group><div class="head"><h2>Every setup, ranked</h2></div>'
+              f'{LEGEND}<div class="boards two">{"".join(board_html(x, notes=False, says=False) for x in boards)}'
+              '</div></section>')
     main = f"""<div class="wrap pagehead"><p class="eyebrow">{g("ranking")}Results</p>
 <h1>Search decides recent work. Which provider matters less.</h1>
 <p class="lede">{h['runs']} graded runs of {h['agents']} AI coding agents with {h['providers']} search providers, plus one
@@ -220,6 +226,7 @@ study that called four search APIs directly.</p></div>
 {filter_bar(boards, providers)}
 <div class="wrap">{read_link()}
 <p class="empty js-only" id="filter-empty" hidden>Nothing matches these filters. Widen one of them.</p>
+{ranked}
 {''.join(findings)}
 <section class="finding" id="leaderboard"><div class="head"><p class="eyebrow">{g("report")}The record</p>
 <h2>Every report and study</h2><p>Each has its own page. Data: <a href="leaderboard.json">leaderboard.json</a> ·

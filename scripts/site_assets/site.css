@@ -239,6 +239,7 @@ background:var(--blue-soft);color:var(--blue-ink);white-space:nowrap}
 h1{font-size:32px}
 .legend{font-size:14px;gap:6px 14px}
 .row .nn{font-size:14px}.row .nn b{display:inline}.row .nn .k{display:none}
+#ranked .row .nm small,#ranked .row .nn b,#ranked .row .nn .k{display:block}
 .finding{padding-block:24px}
 h2{font-size:25px}
 
