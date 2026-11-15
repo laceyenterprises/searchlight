@@ -3,6 +3,7 @@
 import importlib.util
 import json
 import os
+import runpy
 import shlex
 import subprocess
 import sys
@@ -389,13 +390,91 @@ def test_path_loads_transitive_imports_and_data(tmp_path):
     assert ci_scope.select(["fixtures/unknown.json"], tmp_path)["mode"] == "full"
 
 
-def test_gap_verify_uses_broad_dependency_backstop():
+def test_pr_74_selects_build_site_without_gap_corpus():
+    paths = [
+        "design/glyphs/glyphs.html",
+        "design/glyphs/index.json",
+        "design/glyphs/searchlight_glyphs.py",
+        "design/vocabulary.md",
+        "scripts/build_site.py",
+        "scripts/searchlight_site/components.py",
+        "scripts/searchlight_site/data.py",
+        "scripts/searchlight_site/pages.py",
+        "site/index.html",
+        "site/infographic.svg",
+        "site/learn.html",
+        "site/report-2026-09-26-search-api-head-to-head.html",
+        "site/report-2026-10-05-agent-search-behavior.html",
+        "site/results.html",
+        "tests/test_build_site.py",
+    ]
+    result = ci_scope.select(paths)
+    assert result["mode"] == "selected", result
+    assert "tests/test_build_site.py" in result["tests"]
+    assert "tests/test_gap_code_corpus.py" not in result["tests"]
+    assert (
+        "design/glyphs/searchlight_glyphs.py"
+        in result["tests"]["tests/test_build_site.py"]
+    )
+
+
+def test_unreached_mapped_python_selects_nothing(tmp_path):
+    (tmp_path / "scripts").mkdir()
+    (tmp_path / "scripts/orphan.py").write_text("pass\n")
+    result = ci_scope.select(["scripts/orphan.py"], tmp_path)
+    assert result["mode"] == "selected", result
+    assert not result["tests"]
+    assert "no test reaches scripts/orphan.py" in result["reason"]
+    assert ci_scope.select(["scripts/deleted.py"], tmp_path)["mode"] == "full"
+
+
+def test_empty_selection_skips_suite_and_logs_to_summary(tmp_path, monkeypatch, capsys):
+    (tmp_path / "scripts").mkdir()
+    (tmp_path / "scripts/orphan.py").write_text("pass\n")
+    selector = tmp_path / "scripts/ci_scope.py"
+    selector.write_bytes((ROOT / "scripts/ci_scope.py").read_bytes())
+    summary, output = tmp_path / "summary", tmp_path / "output"
+    for key, value in {
+        "CI_EVENT": "pull_request",
+        "CI_BASE": "base",
+        "CI_HEAD": "head",
+        "GITHUB_STEP_SUMMARY": str(summary),
+        "GITHUB_OUTPUT": str(output),
+    }.items():
+        monkeypatch.setenv(key, value)
+    monkeypatch.setattr(
+        subprocess, "check_output", lambda *args, **kwargs: b"scripts/orphan.py\0"
+    )
+    runpy.run_path(str(selector), run_name="__main__")
+    assert "run_suite=false\n" in output.read_text()
+    assert "no test reaches scripts/orphan.py" in summary.read_text()
+    assert "no test reaches scripts/orphan.py" in capsys.readouterr().out
+
+
+def test_broad_selection_stays_selected(tmp_path):
+    (tmp_path / "scripts").mkdir()
+    (tmp_path / "tests").mkdir()
+    (tmp_path / "scripts/shared.py").write_text("pass\n")
+    for number in range(5):
+        (tmp_path / f"tests/test_{number}.py").write_text(
+            "import shared\n" if number < 4 else "pass\n"
+        )
+    result = ci_scope.select(["scripts/shared.py"], tmp_path)
+    assert result["mode"] == "selected", result
+    assert len(result["tests"]) == 4
+
+
+def test_gap_verify_selects_its_broad_dependency_closure():
     closures, _ = ci_scope.dependency_map(ROOT)
     assert "lib/python/sew/gap/verify.py" in closures["tests/test_gap_verify.py"]
     assert "lib/python/sew/gap/verify.py" in closures["tests/test_gap_code_corpus.py"]
     result = ci_scope.select(["lib/python/sew/gap/verify.py"])
-    assert result["mode"] == "full"
-    assert "60%" in result["reason"]
+    assert result["mode"] == "selected"
+    assert (
+        len(result["tests"])
+        > len([p for p in closures if p.startswith("tests/test_")]) * 0.6
+    )
+    assert "tests/test_gap_code_corpus.py" in result["tests"]
 
 
 def test_fixture_battery_tracks_inputs():

@@ -68,7 +68,7 @@ def dependency_map(root):
     files = sorted(
         {
             p.relative_to(root).as_posix()
-            for directory in ("lib/python/sew", "scripts", "tests")
+            for directory in ("lib/python/sew", "scripts", "tests", "design")
             for p in (root / directory).rglob("*.py")
         }
     )
@@ -78,6 +78,8 @@ def dependency_map(root):
             path.removeprefix("lib/python/")
             .removeprefix("scripts/")
             .removeprefix("tests/")
+            .removeprefix("design/glyphs/")
+            .removeprefix("design/")
         )
         name = name.removesuffix(".py").replace("/", ".")
         modules[name.removesuffix(".__init__")] = path
@@ -184,7 +186,7 @@ def select(paths, root=ROOT):
         }
         for ref in refs:
             data_owners.setdefault(ref, set()).add(test)
-    selected = {}
+    selected, unreached = {}, []
     for path in paths:
         if content_path(path):
             continue
@@ -211,15 +213,16 @@ def select(paths, root=ROOT):
                 )
             )
         if not affected:
+            if path in closures and path.endswith(".py"):
+                unreached.append(f"no test reaches {path}")
+                continue
             return full(f"unmapped path: {path}")
         for test in affected:
             selected.setdefault(test, []).append(path)
-        if len(selected) > len(tests) * 0.6:
-            return full("selection exceeds 60% of test files")
     return {
         "mode": "selected",
         "tests": dict(sorted(selected.items())),
-        "reason": "static dependency closure",
+        "reason": "; ".join(["static dependency closure", *unreached]),
         "battery": battery_needed(closures),
     }
 
@@ -266,7 +269,7 @@ if __name__ == "__main__":
 
     with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
         output.write(
-            f"run_suite={str(decision['mode'] in {'full', 'selected'}).lower()}\n"
+            f"run_suite={str(decision['mode'] == 'full' or bool(decision['tests'])).lower()}\n"
         )
         output.write(f"test_files={json.dumps(list(decision['tests']))}\n")
         output.write(f"battery={int(decision['battery'])}\n")
