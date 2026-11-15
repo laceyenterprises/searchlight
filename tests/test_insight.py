@@ -606,7 +606,7 @@ def test_dashboard_data_edits_have_small_diffs(tmp_path, monkeypatch):
     summary = read_json(_reported(tmp_path) / "report" / "summary.json")
     claim = summary["questions"][0]["clusters"][0]["claims"][0]
     claim["text"] = (
-        "A synthetic claim with </script>, café and a newline.\nStill one value."
+        "A synthetic claim with </script>, café, \u2028, \u2029, \u0085 and a newline.\nStill one value."
     )
     before = render_dashboard(summary)
     data = re.search(
@@ -617,17 +617,17 @@ def test_dashboard_data_edits_have_small_diffs(tmp_path, monkeypatch):
     )
     assert json.loads(data.group(1)) == json.loads(compact)
     assert "<" not in data.group(1)
-    assert max(len(line.encode("utf-8")) for line in before.splitlines()) <= 16 * 1024
+    assert max(len(line.encode("utf-8")) for line in before.split("\n")) <= 16 * 1024
 
     claim["text"] = "A changed synthetic claim."
     after = render_dashboard(summary)
     changed = [
         line
-        for line in difflib.ndiff(before.splitlines(), after.splitlines())
-        if line.startswith(("- ", "+ "))
+        for line in difflib.unified_diff(before.split("\n"), after.split("\n"), n=0)
+        if line.startswith(("-", "+")) and not line.startswith(("---", "+++"))
     ]
     assert 0 < len(changed) <= 5
-    assert max(len(line.encode("utf-8")) for line in after.splitlines()) <= 16 * 1024
+    assert max(len(line.encode("utf-8")) for line in after.split("\n")) <= 16 * 1024
 
     monkeypatch.syspath_prepend(str(MODULE_ROOT / "scripts"))
     from searchlight_site.pages import study_page
