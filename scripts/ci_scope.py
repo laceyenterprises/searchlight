@@ -44,7 +44,7 @@ def content_path(path):
     return (
         p.parts[0] in {"site", "docs", "changes"}
         or (len(p.parts) == 1 and p.suffix == ".md")
-        or p.parts[0] == "reports"
+        or (p.parts[0] == "reports" and p.suffix not in {".py", ".sh", ".js", ".ts"})
         or (p.parts[0] == "design" and p.suffix not in {".py", ".sh", ".js", ".ts"})
     )
 
@@ -64,7 +64,7 @@ def path_literal(node):
     return ""
 
 
-def dependency_map(root):
+def dependency_map(root, ambiguous=None):
     files = sorted(
         {
             p.relative_to(root).as_posix()
@@ -72,7 +72,7 @@ def dependency_map(root):
             for p in (root / directory).rglob("*.py")
         }
     )
-    modules = {}
+    modules, path_names, claims = {}, {}, {}
     for path in files:
         name = (
             path.removeprefix("lib/python/")
@@ -82,12 +82,24 @@ def dependency_map(root):
             .removeprefix("design/")
         )
         name = name.removesuffix(".py").replace("/", ".")
-        modules[name.removesuffix(".__init__")] = path
+        name = name.removesuffix(".__init__")
+        if name == "__init__":
+            name = path.removesuffix("/__init__.py").replace("/", ".")
+        path_names[path] = name
+        claims.setdefault(name, []).append(path)
+    for name, claimants in claims.items():
+        if len(claimants) == 1:
+            modules[name] = claimants[0]
+        elif ambiguous is not None:
+            ambiguous.update((path, name) for path in claimants)
+    for path in files:
+        qualified = path.removesuffix(".py").replace("/", ".")
+        modules[qualified.removesuffix(".__init__")] = path
     edges, references = {}, {}
     for path in files:
         tree = ast.parse((root / path).read_bytes(), filename=path)
         names, refs = set(), set()
-        module = next(name for name, file in modules.items() if file == path)
+        module = path_names[path]
         package = module if path.endswith("/__init__.py") else module.rpartition(".")[0]
         for node in ast.walk(tree):
             literal = path_literal(node)
@@ -165,10 +177,14 @@ def select(paths, root=ROOT):
             "reason": "publication content only",
             "battery": False,
         }
+    ambiguous = {}
     try:
-        closures, references = dependency_map(root)
+        closures, references = dependency_map(root, ambiguous)
     except (SyntaxError, OSError, UnicodeError, ValueError) as error:
         return full(f"dependency map unavailable: {type(error).__name__}")
+    for path in paths:
+        if path in ambiguous:
+            return full(f"ambiguous module name: {ambiguous[path]}")
     tests = sorted(
         p
         for p in closures

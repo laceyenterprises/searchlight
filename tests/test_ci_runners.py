@@ -242,8 +242,8 @@ def test_main_uses_existing_smoke_without_entering_clone_suite(tmp_path):
         (["docs/guide.md", "reports/2026-09-29-web-search-bakeoff/suite.yaml"], False),
         (["docs/changes/SLCI-02.md", "lib/python/sew/cli.py"], False),
         (["docs/example.py"], True),
-        (["reports/example/test.py"], True),
-        (["reports/example/script.sh"], True),
+        (["reports/example/test.py"], False),
+        (["reports/example/script.sh"], False),
         (["reports/example/index.html"], True),
         (["docs/fixture.json"], True),
         ([".github/workflows/standalone.yml"], False),
@@ -340,12 +340,12 @@ def test_affected_test_selection(path, included, excluded):
     assert excluded not in result["tests"]
 
 
-def test_wording_change_skips_clone_proof():
+def test_pr_78_wording_change_skips_clone_proof():
     paths = [
-        "reports/study/summary.json",
-        "reports/study/REPORT.md",
-        "reports/study/dashboard.html",
-        "site/study-example.html",
+        "reports/2026-11-11-software-factory-insight-bakeoff/summary.json",
+        "reports/2026-11-11-software-factory-insight-bakeoff/REPORT.md",
+        "reports/2026-11-11-software-factory-insight-bakeoff/dashboard.html",
+        "site/study-2026-11-11-software-factory-insight-bakeoff.html",
     ]
     result = ci_scope.select(paths)
     assert result["mode"] == "content-only"
@@ -388,6 +388,91 @@ def test_path_loads_transitive_imports_and_data(tmp_path):
         assert result["mode"] == "selected", result
         assert list(result["tests"]) == ["tests/test_load.py"]
     assert ci_scope.select(["fixtures/unknown.json"], tmp_path)["mode"] == "full"
+
+
+@pytest.mark.parametrize("directory", ["tests", "scripts"])
+@pytest.mark.parametrize("qualified", [False, True])
+def test_helper_import_names_select_the_importer(tmp_path, directory, qualified):
+    (tmp_path / directory).mkdir()
+    (tmp_path / "tests").mkdir(exist_ok=True)
+    helper = f"{directory}/probe_helper.py"
+    (tmp_path / helper).write_text("X = 1\n")
+    module = f"{directory}.probe_helper" if qualified else "probe_helper"
+    (tmp_path / "tests/test_probe_q.py").write_text(f"from {module} import X\n")
+    result = ci_scope.select([helper], tmp_path)
+    assert result["mode"] == "selected", result
+    assert list(result["tests"]) == ["tests/test_probe_q.py"]
+
+
+@pytest.mark.parametrize("suffix", [".py", ".sh", ".js", ".ts"])
+def test_report_executable_runs_full(tmp_path, suffix):
+    path = f"reports/probe/build{suffix}"
+    (tmp_path / path).parent.mkdir(parents=True)
+    (tmp_path / path).write_text("# synthetic build script\n")
+    result = ci_scope.select([path], tmp_path)
+    assert result["mode"] == "full", result
+    assert result["reason"] == f"unmapped path: {path}"
+
+
+def test_colliding_module_names_run_full_only_for_colliding_changes(tmp_path):
+    for directory in ("scripts", "tests", "lib/python/sew"):
+        (tmp_path / directory).mkdir(parents=True)
+    for directory in ("scripts", "tests"):
+        (tmp_path / f"{directory}/probe_dup.py").write_text("X = 1\n")
+        (tmp_path / f"tests/test_{directory}.py").write_text(
+            f"from {directory}.probe_dup import X\n"
+        )
+    (tmp_path / "tests/test_bare.py").write_text("from probe_dup import X\n")
+    (tmp_path / "lib/python/sew/probe.py").write_text("pass\n")
+    # An unrelated change must build the map without the former StopIteration.
+    result = ci_scope.select(["lib/python/sew/probe.py"], tmp_path)
+    assert result["mode"] == "selected", result
+    closures, _ = ci_scope.dependency_map(tmp_path)
+    for directory in ("scripts", "tests"):
+        path = f"{directory}/probe_dup.py"
+        assert path in closures[f"tests/test_{directory}.py"]
+        assert path not in closures["tests/test_bare.py"]
+        result = ci_scope.select([path], tmp_path)
+        assert result["mode"] == "full", result
+        assert result["reason"] == "ambiguous module name: probe_dup"
+
+
+@pytest.mark.parametrize(
+    "directories",
+    [("scripts",), ("scripts", "tests", "design", "design/glyphs")],
+)
+def test_root_initializers_keep_package_names(tmp_path, directories):
+    (tmp_path / "tests").mkdir()
+    for directory in directories:
+        package = directory.replace("/", ".")
+        helper = directory.replace("/", "_") + "_probe"
+        (tmp_path / directory).mkdir(parents=True, exist_ok=True)
+        (tmp_path / directory / "__init__.py").write_text(f"from .{helper} import X\n")
+        (tmp_path / directory / f"{helper}.py").write_text("X = 1\n")
+        test = f"tests/test_import_{package.replace('.', '_')}.py"
+        (tmp_path / test).write_text(f"import {package}\n")
+    bare_test = "tests/test_bare_initializer.py"
+    (tmp_path / bare_test).write_text("import __init__\n")
+
+    ambiguous = {}
+    closures, _ = ci_scope.dependency_map(tmp_path, ambiguous)
+    assert not ambiguous
+    assert closures[bare_test] == {bare_test}
+    for directory in directories:
+        package = directory.replace("/", ".")
+        test = f"tests/test_import_{package.replace('.', '_')}.py"
+        initializer = f"{directory}/__init__.py"
+        assert initializer in closures[test]
+        helper = directory.replace("/", "_") + "_probe"
+        assert f"{directory}/{helper}.py" in closures[test]
+        result = ci_scope.select([initializer], tmp_path)
+        assert result["mode"] == "selected", result
+        expected = {
+            f"tests/test_import_{other.replace('/', '_')}.py"
+            for other in directories
+            if other == directory or other.startswith(f"{directory}/")
+        }
+        assert set(result["tests"]) == expected
 
 
 def test_pr_74_selects_build_site_without_gap_corpus():
