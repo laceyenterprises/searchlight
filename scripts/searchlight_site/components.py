@@ -118,7 +118,9 @@ def track(lo: float, hi: float, point: float, label: str, lower_bound: float | N
             f'<span class="dot" style="left:{at(point)}"></span></span>')
 
 
-def row_html(board: dict, row: dict, rank: int, best: float) -> str:
+def row_html(board: dict, row: dict, rank: int, best: float, copy: bool = False, chosen: bool = False) -> str:
+    """One ranked row. A ``copy`` repeats a row the page lists in full elsewhere: it carries its facets instead of
+    the id, and with ``chosen`` it shows only beside a chosen setup."""
     control = row['arm'] in ('no-search', 'native')
     lo, hi = row['ci']
     chip = ''
@@ -133,7 +135,11 @@ def row_html(board: dict, row: dict, rank: int, best: float) -> str:
     label = (f'{row["label"]}: {row["pass_pct"]:.0f}% passed, {row["passes"]} of {row["cells"]} runs; '
              f'95% range {lo:.0f} to {hi:.0f}%')
     lead = ' data-lead' if row['pass_pct'] == best and row['arm'] != 'no-search' else ''
-    return (f'<li class="row{" ctl" if control else ""}" id="r-{board["id"]}-{row["arm"]}" data-rank="{rank}"{lead}>'
+    ident = f'id="r-{board["id"]}-{row["arm"]}"'
+    if copy:
+        ident = (f'data-f data-agent="{board["harness"]}" data-bench="{board["source"]}" data-provider="{row["arm"]}"'
+                 + (' data-chosen hidden' if chosen else ''))
+    return (f'<li class="row{" ctl" if control else ""}" {ident} data-rank="{rank}"{lead}>'
             f'<span class="rk">{rank}</span><span class="nm"><span class="name">{esc(row["label"])}{chip}{flag}</span>'
             f'{small}</span><span class="pc">{row["pass_pct"]:.0f}%</span>'
             f'<span class="tr">{track(lo, hi, row["pass_pct"], label, board.get("top_lower_bound"))}</span>'
@@ -177,17 +183,18 @@ def numbers_mean(boards: list[dict]) -> str:
 
 
 def board_html(board: dict, top: int | None = None, notes: bool = True, brief: bool = False, meta: bool = True,
-               says: bool = True) -> str:
+               says: bool = True, copy: bool = False) -> str:
     """One benchmark as ranked rows: provider, a big number, its 95% range and n.
 
-    With ``top``, the first rows show and the rest sit behind "All n setups". ``brief`` drops the board's own sentence
-    where a finding's prose already says it; ``meta=False`` drops the benchmark and date a report page already names,
+    With ``top``, the first rows show and the rest sit behind "All n setups"; on a ``copy`` of a board the page
+    already lists in full, the rest show only beside a chosen setup and nothing carries an id. ``brief`` drops the
+    board's own sentence where a finding's prose already says it; ``meta=False`` drops the benchmark and date a report page already names,
     and ``says=False`` drops the sentence a page already leads with. Details are one tap away."""
     agent, model = harness_name(board)
     runs = board['rows'][0]['cells']
     best = max(r['pass_pct'] for r in board['rows'] if r['arm'] != 'no-search')
-    items = [row_html(board, row, i, best) for i, row in enumerate(board['rows'], start=1)]
-    shown, rest = (items[:top], items[top:]) if top else (items, [])
+    items = [row_html(board, row, i, best, copy, bool(top) and i > top) for i, row in enumerate(board['rows'], start=1)]
+    shown, rest = (items[:top], items[top:]) if top and not copy else (items, [])
     more = (f'<details class="allrows"><summary>All {len(items)} setups</summary>'
             f'<ol class="rows" start="{len(shown) + 1}">{"".join(rest)}</ol></details>') if rest else ''
     bench = BENCH_LABEL.get(board['bench'], board['bench'])
@@ -195,7 +202,8 @@ def board_html(board: dict, top: int | None = None, notes: bool = True, brief: b
         bench = REPORT_TITLES.get(board['source'], bench)
     providers = ' '.join(sorted({r['arm'] for r in board['rows']}))
     foot = f'<div class="bfoot">{numbers_mean([board])}</div>' if notes else ''
-    return (f'<section class="board" id="board-{board["id"]}" data-f-group data-agent="{board["harness"]}" '
+    ident = '' if copy else f' id="board-{board["id"]}"'
+    return (f'<section class="board"{ident} data-f-group data-agent="{board["harness"]}" '
             f'data-bench="{board["source"]}" data-providers="{esc(providers)}">'
             f'<header><h3>{esc(agent)}{f" <span class=model>{esc(model)}</span>" if model else ""}</h3>'
             + (f'<p>{runs} runs per setup</p>' if brief or not meta else

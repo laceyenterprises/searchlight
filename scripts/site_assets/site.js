@@ -88,17 +88,22 @@
         return Array.isArray(have) ? have.indexOf(want[key]) >= 0 : have === want[key];
       });
     }
+    function shown(el, root) {  // a row counts only if nothing between it and its group is hidden
+      for (; el && el !== root; el = el.parentElement) if (el.hidden) return false;
+      return true;
+    }
     function value(key) { var f = form.elements[key]; return f ? f.value : ""; }
     function apply() {
       var want = {};
       keys.forEach(function (key) { want[key] = value(key); });
       items.forEach(function (el) {
-        // The leader stays beside a chosen setup, so its rank reads in context.
-        el.hidden = !(match(el, want) || (want.provider && el.hasAttribute("data-lead") && match(el, want, "provider")));
+        // The leader stays beside a chosen setup, so its rank reads in context; a data-chosen row shows only then.
+        el.hidden = !(match(el, want) || (want.provider && el.hasAttribute("data-lead") && match(el, want, "provider")))
+          || (!want.provider && el.hasAttribute("data-chosen"));
       });
       groups.forEach(function (gr) {
         var inner = $("[data-f], .row[id]", gr);
-        gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return !el.hidden; }));
+        gr.hidden = !match(gr, want) || (inner.length > 0 && !inner.some(function (el) { return shown(el, gr); }));
       });
       // A chosen setup opens the rows it sits in, without the "All n" line between it and its leader.
       $("details.allrows").forEach(function (d) {
