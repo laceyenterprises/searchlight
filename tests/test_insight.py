@@ -6,6 +6,7 @@ Offline: provider HTTP goes through a fixture transport on the adapters' own
 
 from __future__ import annotations
 
+import difflib
 import json
 import random
 import re
@@ -528,7 +529,11 @@ def test_imported_arm_is_regraded_and_marked_in_the_report(tmp_path):
     assert any(CAVEAT in c for c in summary["caveats"])
     report = (run_dir / "report" / "REPORT.md").read_text()
     assert "| claude-native.agent (imported) |" in report and f"Caveat: {CAVEAT}" in report
-    assert '"imported":true' in (run_dir / "report" / "dashboard.html").read_text()
+    dashboard = (run_dir / "report" / "dashboard.html").read_text()
+    data = re.search(
+        r'<script type="application/json" id="data">(.*?)</script>', dashboard, re.S
+    )
+    assert any(a.get("imported") is True for a in json.loads(data.group(1))["arms"])
     # Re-import with no Q1 claims replaces only this arm's cells.
     import_arm(run_dir, arm_id="claude-native.agent", label="again", set_root=tmp_path,
                profile_dir=tmp_path / "profiles",
@@ -593,6 +598,60 @@ def test_dashboard_is_self_contained(tmp_path):
     assert re.search(r"prefers-color-scheme:\s*dark", shell) and 'role="tablist"' in shell and "aria-sort" in shell
     assert 'class="digest"' in shell and 'class="finish"' in shell  # the photo finish reads without JavaScript
     assert "<" not in data.group(1)  # JSON must escape < as \u003c to prevent script breakout.
+
+
+def test_dashboard_data_edits_have_small_diffs(tmp_path, monkeypatch):
+    from sew.insight.dashboard import render_dashboard
+
+    summary = read_json(_reported(tmp_path) / "report" / "summary.json")
+    claim = summary["questions"][0]["clusters"][0]["claims"][0]
+    claim["text"] = (
+        "A synthetic claim with </script>, café and a newline.\nStill one value."
+    )
+    before = render_dashboard(summary)
+    data = re.search(
+        r'<script type="application/json" id="data">(.*?)</script>', before, re.S
+    )
+    compact = json.dumps(
+        summary, sort_keys=True, ensure_ascii=False, separators=(",", ":")
+    )
+    assert json.loads(data.group(1)) == json.loads(compact)
+    assert "<" not in data.group(1)
+    assert max(len(line.encode("utf-8")) for line in before.splitlines()) <= 16 * 1024
+
+    claim["text"] = "A changed synthetic claim."
+    after = render_dashboard(summary)
+    changed = [
+        line
+        for line in difflib.ndiff(before.splitlines(), after.splitlines())
+        if line.startswith(("- ", "+ "))
+    ]
+    assert 0 < len(changed) <= 5
+    assert max(len(line.encode("utf-8")) for line in after.splitlines()) <= 16 * 1024
+
+    monkeypatch.syspath_prepend(str(MODULE_ROOT / "scripts"))
+    from searchlight_site.pages import study_page
+
+    hosted = study_page(
+        {
+            "name": "synthetic",
+            "page": "study-synthetic.html",
+            "dashboard": before,
+            "summary": summary,
+        }
+    )
+    hosted_data = re.search(
+        r'<script type="application/json" id="data">(.*?)</script>', hosted, re.S
+    )
+    assert hosted_data.group(1) == data.group(1)
+    assert (
+        before[
+            before.index('<script type="application/json" id="data">') : before.rindex(
+                "</body>"
+            )
+        ]
+        in hosted
+    )
 
 
 def test_publish_bundle_is_sanitized_and_passes_the_report_checks(tmp_path):

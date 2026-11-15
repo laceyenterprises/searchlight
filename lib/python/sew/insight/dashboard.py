@@ -4,6 +4,7 @@ One HTML file: inline CSS and JS, the summary embedded as JSON, no network
 access, so it opens from file:// and works unchanged when published. It opens
 with a digest rendered here, so the takeaway and the ranking read without
 JavaScript; the site's studies page uses the same digest.
+The embedded JSON is multi-line so a data edit produces a small, reviewable diff.
 """
 
 from __future__ import annotations
@@ -210,7 +211,7 @@ def render_dashboard(summary: Mapping[str, Any]) -> str:
         **summary,
         "arms": [{**a, "note": arm_note(a) or None} for a in summary["arms"]],
     }
-    data = json.dumps(summary, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    data = json.dumps(summary, sort_keys=True, ensure_ascii=False, indent=0)
     # Inside <script type="application/json"> only "</" could end the element early.
     data = data.replace("<", "\\u003c")
     title = f"{summary['set']['title']} ({summary['run']['run_date']})"
