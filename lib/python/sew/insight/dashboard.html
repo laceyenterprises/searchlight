@@ -324,7 +324,7 @@ var KEY="Insight: a credited finding valued 1–3. Unique: only this arm earned 
 function fig(x,k){var m=D.metrics[x][k],v=m.value;
   if(k==="weighted")return [v,m.ci95?m.ci95[0]+"–"+m.ci95[1]:""];
   if(k==="weighted_per_question")return [v==null?"—":v.toFixed(1),m.n+" Qs"];
-  if(k==="unique_insights")return [v,m.ci95[0]+"–"+m.ci95[1]];
+  if(k==="unique_insights")return [v,m.ci95?m.ci95[0]+"–"+m.ci95[1]:""];
   if(k==="unsupported_rate")return [pct(v),"n "+m.n];
   if(k==="share_of_pool")return [pct(v),""];
   if(k==="cost_usd"||k==="cost_per_unique_insight")return [money(v),""];
@@ -349,7 +349,7 @@ leaderboard:{label:"Leaderboard",render:function(){
   var order=sort.key==="arm"?(sort.dir>0?"A to Z":"Z to A"):(sort.dir<0?"Highest first":"Lowest first");
   var cards=rows.map(function(x,i){var f=fig(x,"weighted");
     return '<li class="lbcard"><div class="lbname"><span class="rk"><span class="sr">Rank </span>'+(i+1)+'</span><h3>'+esc(x)+tags(x)+'</h3></div>'+note(x)+
-    '<dl><div class="lbhero"><dt>'+esc(LONG.weighted)+'</dt><dd><span class="v">'+f[0]+'</span><span class="lbtrack" aria-hidden="true"><i style="width:'+bar(x)+'"></i></span>'+ci(f[1])+'</dd></div>'+
+    '<dl><div class="lbhero'+(sort.key==="weighted"?' on':'')+'"><dt>'+esc(LONG.weighted)+'</dt><dd><span class="v">'+f[0]+'</span><span class="lbtrack" aria-hidden="true"><i style="width:'+bar(x)+'"></i></span>'+ci(f[1])+'</dd></div>'+
     CARD.map(function(c){var f=fig(x,c[0]);return '<div'+(sort.key===c[0]?' class="on"':'')+'><dt>'+esc(LONG[c[0]])+'</dt><dd>'+f[0]+ci(f[1])+'</dd></div>'}).join("")+'</dl></li>'}).join("");
   return '<div class="panel"><h2>Every number, by service</h2><p class="muted small">Sort by any column. Ranges are 95% question-bootstrap intervals over the questions each service ran (up to '+D.set.questions+'). Services that ran a subset are fairest compared per question.</p><div class="scroll lbwide"><table><caption class="muted small" style="caption-side:bottom;text-align:left;padding-top:8px">'+KEY+'</caption><thead><tr>'+head+"</tr></thead><tbody>"+body+"</tbody></table></div>"+
     '<div class="lbphone"><div class="lbsort"><label for="lbsort">Sort by</label><select id="lbsort">'+opts+'</select><button type="button" id="lbdir" class="ghost small" aria-label="'+order+'. Reverse the order">'+(sort.dir<0?"↓ ":"↑ ")+order+'</button></div>'+
@@ -357,7 +357,7 @@ leaderboard:{label:"Leaderboard",render:function(){
   bind:function(){main.querySelectorAll("[data-sort]").forEach(function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-sort");
     sort={key:k,dir:sort.key===k?-sort.dir:(k==="arm"?1:-1)};show("leaderboard");var n=main.querySelector('[data-sort="'+k+'"]');if(n)n.focus()})});
     var s=main.querySelector("#lbsort"),d=main.querySelector("#lbdir");
-    if(s)s.addEventListener("change",function(){var k=s.value;sort={key:k,dir:k==="arm"?1:-1};show("leaderboard");main.querySelector("#lbsort").focus()});
+    if(s)s.addEventListener("change",function(){var k=s.value;sort={key:k,dir:k==="arm"?1:-1};show("leaderboard");if(!matchMedia("(pointer: coarse)").matches)main.querySelector("#lbsort").focus({preventScroll:true})});
     if(d)d.addEventListener("click",function(){sort={key:sort.key,dir:-sort.dir};show("leaderboard");main.querySelector("#lbdir").focus()})}},
 unique:{label:"Unique",render:function(){
   var items=[];D.questions.forEach(function(q){q.clusters.forEach(function(cl){if(cl.unique&&on[cl.credited[0]])items.push({q:q,cl:cl})})});

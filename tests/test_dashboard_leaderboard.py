@@ -11,6 +11,7 @@ import json
 import re
 import shutil
 import subprocess
+from copy import deepcopy
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -32,16 +33,18 @@ HARNESS = r'''
 const fs = require("fs");
 const page = fs.readFileSync(process.argv[2], "utf8");
 const steps = JSON.parse(process.argv[3]);
+const coarsePointer = JSON.parse(process.argv[4]);
 const data = page.match(/<script type="application\/json" id="data">([\s\S]*?)<\/script>/)[1];
 const code = page.slice(page.lastIndexOf("<script>") + 8, page.lastIndexOf("</script>"));
 const bound = {};
+const focused = [];
 function El(key) { this.key = key; this.attrs = {}; this.listeners = {}; this.innerHTML = ""; this.textContent = "";
   this.value = ""; this.style = {}; this.tabIndex = 0; }
 El.prototype.addEventListener = function (type, fn) { (this.listeners[type] = this.listeners[type] || []).push(fn);
   bound[this.key] = this; };
 El.prototype.setAttribute = function (k, v) { this.attrs[k] = String(v); };
 El.prototype.getAttribute = function (k) { return k in this.attrs ? this.attrs[k] : null; };
-El.prototype.focus = function () {};
+El.prototype.focus = function (options) { focused.push({ key: this.key, options }); };
 El.prototype.querySelector = function (sel) { return new El(sel); };
 El.prototype.querySelectorAll = function (sel) {
   if (sel !== "[data-sort]") return [];
@@ -53,18 +56,19 @@ function byId(id) { return ids[id] || (ids[id] = new El("#" + id)); }
 byId("data").textContent = data;
 global.document = { getElementById: byId, querySelector: () => null, documentElement: new El("html") };
 global.localStorage = { getItem: () => null, setItem() {} };
-global.matchMedia = () => ({ matches: false });
+global.matchMedia = query => ({ matches: query === "(pointer: coarse)" && coarsePointer });
 global.history = { replaceState() {} };
 global.location = { hash: "#leaderboard" };
 eval(code);
 const fire = (key, type, event) => bound[key].listeners[type].forEach(fn => fn(event || {}));
-const out = [byId("views").innerHTML];
+const snapshot = () => ({ html: byId("views").innerHTML, focused: focused.splice(0) });
+const out = [snapshot()];
 for (const [what, arg] of steps) {
   if (what === "select") { bound["#lbsort"].value = arg; fire("#lbsort", "change"); }
   else if (what === "reverse") fire("#lbdir", "click");
   else if (what === "header") fire("sort:" + arg, "click");
   else if (what === "chip") fire("#chips", "click", { target: { closest: () => ({ getAttribute: () => arg }) } });
-  out.push(byId("views").innerHTML);
+  out.push(snapshot());
 }
 process.stdout.write(JSON.stringify(out));
 '''
@@ -73,8 +77,9 @@ process.stdout.write(JSON.stringify(out));
 class Leaderboard(HTMLParser):
     """Reads one rendering: the table's header and rows, the sort options and the cards, as text."""
 
-    def __init__(self, html: str):
+    def __init__(self, html: str, focused: list):
         super().__init__()
+        self.focused = focused
         self.head: list[dict] = []
         self.rows: list[list[str]] = []
         self.options: list[tuple[str, str]] = []
@@ -164,15 +169,15 @@ def study():
     return summary, render_dashboard(summary)
 
 
-def run(tmp_path, html: str, steps: list) -> list[Leaderboard]:
+def run(tmp_path, html: str, steps: list, *, coarse_pointer=False) -> list[Leaderboard]:
     if not NODE:
         pytest.skip('node is not installed')
     page, harness = tmp_path / 'dashboard.html', tmp_path / 'harness.js'
     page.write_text(html)
     harness.write_text(HARNESS)
-    done = subprocess.run([NODE, str(harness), str(page), json.dumps(steps)], capture_output=True, text=True,
-                          timeout=60, check=True)
-    return [Leaderboard(h) for h in json.loads(done.stdout)]
+    done = subprocess.run([NODE, str(harness), str(page), json.dumps(steps), json.dumps(coarse_pointer)],
+                          capture_output=True, text=True, timeout=60, check=True)
+    return [Leaderboard(frame['html'], frame['focused']) for frame in json.loads(done.stdout)]
 
 
 def names(board: Leaderboard) -> list[str]:
@@ -213,21 +218,54 @@ def test_the_phone_layout_has_one_card_per_service_with_every_figure_the_table_r
 def test_the_phone_sort_offers_the_table_keys_and_orders_the_same_way(tmp_path, study):
     summary, html = study
     boards = run(tmp_path, html, [['select', 'cost_usd'], ['reverse'], ['select', 'arm'], ['reverse'],
-                                  ['select', 'unsupported_rate'], ['header', 'cost_usd'], ['header', 'cost_usd']])
-    default, cost, cost_up, arm, arm_down, unsupported, header_cost, header_cost_up = boards
+                                  ['select', 'unsupported_rate'], ['header', 'cost_usd'], ['header', 'cost_usd'],
+                                  ['select', 'weighted']])
+    default, cost, cost_up, arm, arm_down, unsupported, header_cost, header_cost_up, weighted = boards
     assert [k for k, _ in default.options] == [h['key'] for h in default.head] == KEYS
     assert default.options[1] == ('weighted', 'Weighted')
     for board, key, direction in ((default, 'weighted', -1), (cost, 'cost_usd', -1), (cost_up, 'cost_usd', 1),
                                   (arm, 'arm', 1), (arm_down, 'arm', -1), (unsupported, 'unsupported_rate', -1),
-                                  (header_cost, 'cost_usd', -1), (header_cost_up, 'cost_usd', 1)):
+                                  (header_cost, 'cost_usd', -1), (header_cost_up, 'cost_usd', 1),
+                                  (weighted, 'weighted', -1)):
         assert names(board) == table_names(board) == expected(summary, key, direction), key
         assert [k for k, _ in board.options] == KEYS and board.selected == key
         marked = [h['key'] for h in board.head if h['aria-sort'] != 'none']
         assert marked == [key]
+        active_metric = KEYS.index(key) - 1 if key != 'arm' else None
+        assert all(card['on'] == active_metric for card in board.cards)
     # The phone control and the table headers are one sort: the same key, the same direction.
     assert names(cost) == names(header_cost) and names(cost_up) == names(header_cost_up)
     assert cost.cards[0]['on'] == 6 and arm.cards[0]['on'] is None  # the sorted metric is marked on each card
     assert any(v is None for v in (summary['metrics'][a]['cost_usd']['value'] for a in summary['ranked']))
+
+
+@pytest.mark.parametrize('missing', [True, False], ids=['absent-ci', 'null-ci'])
+def test_unique_counts_render_without_confidence_intervals(tmp_path, study, missing):
+    summary = deepcopy(study[0])
+    for metrics in summary['metrics'].values():
+        if missing:
+            metrics['unique_insights'].pop('ci95', None)
+        else:
+            metrics['unique_insights']['ci95'] = None
+    board, = run(tmp_path, render_dashboard(summary), [])
+    assert names(board) == table_names(board) == expected(summary, 'weighted', -1)
+    for card, row, arm in zip(board.cards, board.rows, names(board)):
+        value = str(summary['metrics'][arm]['unique_insights']['value'])
+        assert card['pairs'][3] == ['Unique', value]
+        assert row[4] == value
+
+
+@pytest.mark.parametrize('coarse_pointer', [False, True], ids=['keyboard', 'touch'])
+def test_sort_select_restores_focus_without_scroll_only_for_fine_pointers(tmp_path, study, coarse_pointer):
+    summary, html = study
+    default, cost, weighted = run(tmp_path, html, [['select', 'cost_usd'], ['select', 'weighted']],
+                                  coarse_pointer=coarse_pointer)
+    assert default.focused == []
+    for board, key in ((cost, 'cost_usd'), (weighted, 'weighted')):
+        assert board.selected == key
+        assert names(board) == table_names(board) == expected(summary, key, -1)
+        assert board.focused == ([] if coarse_pointer else [
+            {'key': '#lbsort', 'options': {'preventScroll': True}}])
 
 
 def test_the_service_filter_applies_to_the_cards_and_the_table(tmp_path, study):

@@ -11,6 +11,9 @@ page and the report's `dashboard.html` are regenerated from it.
 - A labelled "Sort by" select offers the table's ten sort keys. It shares the table's sort state: the same default
   (Weighted, highest first), the same default direction per key, missing values last and ties by service name. A
   reverse button does what a second click on a column header does. The sorted metric is marked on each card.
+  Weighted's hero label is marked for the default sort and when reselected. Selecting a sort restores focus without
+  scrolling on fine-pointer devices; coarse-pointer devices skip focus restoration to avoid reopening native pickers.
+- If Unique has no confidence interval (absent or null), the cards and table show its count without a range.
 - From 641 px the table keeps its columns, sort buttons and `aria-sort`, and its HTML is unchanged. The one change is
   that a service's note now wraps under its name. Before, `th{white-space:nowrap}` also applied to row headers, so
   the long notes on brave.research and claude-native.agent stretched the Service column to about 1,010 px at every
@@ -20,6 +23,6 @@ page and the report's `dashboard.html` are regenerated from it.
 - On a phone, the "Full data" box keeps its top and bottom rules but gives up its side border and padding. Every
   tab's panel now spans the page gutter (20 px each side) instead of being inset by about 39 px.
 - `tests/test_dashboard_leaderboard.py` runs the dashboard script in Node against a stand-in DOM. It checks the
-  cards against the table rows, the select against the header sort, and the service filter. It is skipped where
-  Node is not installed.
+  cards against the table rows, the select against the header sort, the active metric label, missing Unique ranges,
+  focus restoration for fine and coarse pointers, and the service filter. It is skipped where Node is not installed.
 - No number, range, count, cost, label meaning or caveat changed. The embedded summary data is byte-identical.
