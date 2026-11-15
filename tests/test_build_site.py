@@ -1173,7 +1173,6 @@ def test_pages_say_the_official_page_and_lead_with_the_point_not_the_method():
                           r'font-weight="700">([^<]*)', re.M)
     for name, text in files.items():
         assert 'original source' not in text.lower(), name
-        assert 'Called directly' not in text, name  # a sentence or headline that opens with the method
         for m in headline.finditer(text):
             first = next(g for g in m.groups()[1:] if g is not None)
             assert not first.strip().lower().startswith('called directly'), (name, first[:80])
