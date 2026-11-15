@@ -437,6 +437,44 @@ def test_colliding_module_names_run_full_only_for_colliding_changes(tmp_path):
         assert result["reason"] == "ambiguous module name: probe_dup"
 
 
+@pytest.mark.parametrize(
+    "directories",
+    [("scripts",), ("scripts", "tests", "design", "design/glyphs")],
+)
+def test_root_initializers_keep_package_names(tmp_path, directories):
+    (tmp_path / "tests").mkdir()
+    for directory in directories:
+        package = directory.replace("/", ".")
+        helper = directory.replace("/", "_") + "_probe"
+        (tmp_path / directory).mkdir(parents=True, exist_ok=True)
+        (tmp_path / directory / "__init__.py").write_text(f"from .{helper} import X\n")
+        (tmp_path / directory / f"{helper}.py").write_text("X = 1\n")
+        test = f"tests/test_import_{package.replace('.', '_')}.py"
+        (tmp_path / test).write_text(f"import {package}\n")
+    bare_test = "tests/test_bare_initializer.py"
+    (tmp_path / bare_test).write_text("import __init__\n")
+
+    ambiguous = {}
+    closures, _ = ci_scope.dependency_map(tmp_path, ambiguous)
+    assert not ambiguous
+    assert closures[bare_test] == {bare_test}
+    for directory in directories:
+        package = directory.replace("/", ".")
+        test = f"tests/test_import_{package.replace('.', '_')}.py"
+        initializer = f"{directory}/__init__.py"
+        assert initializer in closures[test]
+        helper = directory.replace("/", "_") + "_probe"
+        assert f"{directory}/{helper}.py" in closures[test]
+        result = ci_scope.select([initializer], tmp_path)
+        assert result["mode"] == "selected", result
+        expected = {
+            f"tests/test_import_{other.replace('/', '_')}.py"
+            for other in directories
+            if other == directory or other.startswith(f"{directory}/")
+        }
+        assert set(result["tests"]) == expected
+
+
 def test_pr_74_selects_build_site_without_gap_corpus():
     paths = [
         "design/glyphs/glyphs.html",

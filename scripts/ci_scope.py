@@ -83,6 +83,8 @@ def dependency_map(root, ambiguous=None):
         )
         name = name.removesuffix(".py").replace("/", ".")
         name = name.removesuffix(".__init__")
+        if name == "__init__":
+            name = path.removesuffix("/__init__.py").replace("/", ".")
         path_names[path] = name
         claims.setdefault(name, []).append(path)
     for name, claimants in claims.items():
