@@ -640,6 +640,8 @@ th[aria-sort] button::after{content:" ↕";opacity:.4}th[aria-sort=descending] b
 tr:last-child td{border-bottom:0}
 table.compact{width:auto}table.compact th{padding-right:32px}
 tbody th{color:var(--ink);font-size:15px;font-weight:600}
+/* a service note wraps under the name instead of stretching the Service column across the table */
+.lbwide th,.lbwide td{padding-inline:9px}.lbwide tbody th{white-space:normal}.lbwide tbody th p.small{max-width:36ch;margin:4px 0 0;font-weight:400;color:var(--ink-2)}
 .bar{display:flex;align-items:flex-start;justify-content:flex-end;gap:10px;min-width:150px}
 .bar .track{flex:1 1 72px;max-width:96px;height:6px;margin-top:9px;background:var(--chip);border-radius:3px;overflow:hidden;position:relative}
 .bar .track i{display:block;height:100%;background:var(--accent);border-radius:3px}
@@ -707,6 +709,31 @@ svg text{fill:var(--ink);font-size:14px}svg .axis{stroke:var(--line)}svg .pt{fil
 .fulldata>summary small{font-size:15px;font-weight:400;color:var(--muted);margin-left:6px}
 .fulldata>.in{padding:0 18px 18px}
 .fulldata .panel{border:0;padding:12px 0;margin:0}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* leaderboard on a phone: one card per service (shown below 641 px, where the table is hidden) */
+.lbphone{display:none}
+.lbsort{display:flex;align-items:center;gap:8px;margin:4px 0 12px}
+.lbsort label{font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap}
+.lbsort select{flex:1 1 auto;min-width:0;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 10px;font-size:15px}
+.lbsort .ghost{flex:none;padding:7px 12px;font-size:14px;white-space:nowrap}
+.lbcards{list-style:none;margin:0;padding:0}
+.lbcard{padding:14px 0 16px;border-top:1px solid var(--line)}
+.lbname{display:flex;align-items:baseline;gap:10px}
+.lbname .rk{flex:none;min-width:22px;font:600 15px/1.3 var(--font-mono);color:var(--muted)}
+.lbname h3{margin:0;min-width:0;font-size:17px;font-weight:650;line-height:1.3;overflow-wrap:anywhere}
+.lbcard>p.small{margin:4px 0 0 32px;color:var(--ink-2)}
+.lbcard dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin:10px 0 0}
+.lbcard dt{font-size:13px;line-height:1.3;color:var(--muted)}
+.lbcard dd{margin:0;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+.lbcard dl>.on dt{color:var(--blue-ink);font-weight:600}
+.lbcard dd .ci{display:inline;margin-left:6px;font-weight:400}
+.lbhero dd .ci{margin-left:0}
+.lbhero{grid-column:1/-1}
+.lbhero dd{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.lbhero .v{font-size:32px;font-weight:750;letter-spacing:-.03em;line-height:1.1;color:var(--blue-ink)}
+.lbhero .ci{font-size:14px}
+.lbtrack{order:3;flex:0 0 100%;height:8px;margin-top:4px;background:var(--chip);border-radius:4px;overflow:hidden}
+.lbtrack i{display:block;height:100%;background:var(--accent);border-radius:4px}
 }
 @media (max-width:640px){
 .dash-head h1{font-size:24px}
@@ -718,6 +745,11 @@ th,td{padding:8px}.hide-sm{display:none}
 .scroll tbody th[scope=row],.scroll thead th:first-child{position:sticky;left:0;background:var(--panel);z-index:1}
 .rank li{grid-template-columns:22px minmax(0,1fr) minmax(76px,auto);gap:6px 10px}
 .finish .big{font-size:34px}
+.lbwide{display:none}.lbphone{display:block}
+/* one frame, not two: the full-data box keeps its rules but gives its sides back to the page gutter */
+.fulldata{border-width:1px 0;border-radius:0;background:none}
+.fulldata>summary{padding:16px 0}
+.fulldata>.in{padding:0 0 18px}
 }
 }
 </style>
@@ -985,6 +1017,21 @@ document.getElementById("allarms").addEventListener("click",function(){D.ranked.
 // Views.
 var COLS=[["arm","Service"],["weighted","Weighted"],["weighted_per_question","Per question"],["insights","Insights"],["unique_insights","Unique"],["share_of_pool","Share"],
   ["unsupported_rate","Unsupported"],["cost_usd","Cost"],["cost_per_unique_insight","$ / unique"],["latency_p50_ms","p50"]];
+// The other eight columns, as a card shows them (label, then the value and its range or n).
+var CARD=COLS.slice(2);
+var LONG={arm:"Service",weighted:"Weighted",weighted_per_question:"Per question",insights:"Insights",unique_insights:"Unique",share_of_pool:"Share of pool",
+  unsupported_rate:"Unsupported",cost_usd:"Cost",cost_per_unique_insight:"Cost per unique",latency_p50_ms:"p50 latency"};
+var KEY="Insight: a credited finding valued 1–3. Unique: only this arm earned it.";
+// One formatting for the table and the cards: [value, range or n].
+function fig(x,k){var m=D.metrics[x][k],v=m.value;
+  if(k==="weighted")return [v,m.ci95?m.ci95[0]+"–"+m.ci95[1]:""];
+  if(k==="weighted_per_question")return [v==null?"—":v.toFixed(1),m.n+" Qs"];
+  if(k==="unique_insights")return [v,m.ci95[0]+"–"+m.ci95[1]];
+  if(k==="unsupported_rate")return [pct(v),"n "+m.n];
+  if(k==="share_of_pool")return [pct(v),""];
+  if(k==="cost_usd"||k==="cost_per_unique_insight")return [money(v),""];
+  if(k==="latency_p50_ms")return [ms(v),""];
+  return [v,""]}
 var sort={key:"weighted",dir:-1};
 var V={
 leaderboard:{label:"Leaderboard",render:function(){
@@ -993,14 +1040,27 @@ leaderboard:{label:"Leaderboard",render:function(){
     if(p==null&&q==null)return 0;if(p==null)return 1;if(q==null)return -1;return sort.dir*(p-q)||x.localeCompare(y)});
   var head=COLS.map(function(c){var s=sort.key===c[0]?(sort.dir<0?"descending":"ascending"):"none";
     return '<th scope="col" aria-sort="'+s+'"'+(c[0]==="arm"?"":' class="num"')+'><button type="button" data-sort="'+c[0]+'">'+c[1]+'</button></th>'}).join("");
-  var body=rows.map(function(x){var m=D.metrics[x],w=m.weighted;
-    return "<tr><th scope=row>"+esc(x)+tags(x)+(ARMS[x]&&ARMS[x].note?'<p class="small">'+esc(ARMS[x].note)+'</p>':'')+'</th><td class="num"><div class="bar"><span class="track" aria-hidden="true"><i style="width:'+(100*(w.value||0)/max).toFixed(1)+'%"></i></span><span class="n">'+w.value+
-    '<span class="ci">'+(w.ci95?w.ci95[0]+"–"+w.ci95[1]:"")+'</span></span></div></td><td class="num">'+(m.weighted_per_question.value==null?"—":m.weighted_per_question.value.toFixed(1))+'<span class="ci">'+m.weighted_per_question.n+' Qs</span></td><td class="num">'+m.insights.value+'</td><td class="num">'+m.unique_insights.value+
-    '<span class="ci">'+m.unique_insights.ci95[0]+"–"+m.unique_insights.ci95[1]+'</span></td><td class="num">'+pct(m.share_of_pool.value)+'</td><td class="num">'+pct(m.unsupported_rate.value)+
-    '<span class="ci">n '+m.unsupported_rate.n+'</span></td><td class="num">'+money(m.cost_usd.value)+'</td><td class="num">'+money(m.cost_per_unique_insight.value)+'</td><td class="num">'+ms(m.latency_p50_ms.value)+"</td></tr>"}).join("");
-  return '<div class="panel"><h2>Every number, by service</h2><p class="muted small">Sort by any column. Ranges are 95% question-bootstrap intervals over the questions each service ran (up to '+D.set.questions+'). Services that ran a subset are fairest compared per question.</p><div class="scroll"><table><caption class="muted small" style="caption-side:bottom;text-align:left;padding-top:8px">Insight: a credited finding valued 1–3. Unique: only this arm earned it.</caption><thead><tr>'+head+"</tr></thead><tbody>"+body+"</tbody></table></div></div>"},
+  function bar(x){return (100*(M(x,"weighted").value||0)/max).toFixed(1)+"%"}
+  function note(x){return ARMS[x]&&ARMS[x].note?'<p class="small">'+esc(ARMS[x].note)+'</p>':''}
+  function ci(s){return s?'<span class="ci">'+s+'</span>':""}
+  var body=rows.map(function(x){var w=D.metrics[x].weighted;
+    return "<tr><th scope=row>"+esc(x)+tags(x)+note(x)+'</th><td class="num"><div class="bar"><span class="track" aria-hidden="true"><i style="width:'+bar(x)+'"></i></span><span class="n">'+w.value+
+    '<span class="ci">'+fig(x,"weighted")[1]+'</span></span></div></td>'+CARD.map(function(c){var f=fig(x,c[0]);return '<td class="num">'+f[0]+ci(f[1])+'</td>'}).join("")+"</tr>"}).join("");
+  // A phone gets one card per service: the same figures, the same order, the bar on the same scale.
+  var opts=COLS.map(function(c){return '<option value="'+c[0]+'"'+(sort.key===c[0]?" selected":"")+'>'+esc(LONG[c[0]])+'</option>'}).join("");
+  var order=sort.key==="arm"?(sort.dir>0?"A to Z":"Z to A"):(sort.dir<0?"Highest first":"Lowest first");
+  var cards=rows.map(function(x,i){var f=fig(x,"weighted");
+    return '<li class="lbcard"><div class="lbname"><span class="rk"><span class="sr">Rank </span>'+(i+1)+'</span><h3>'+esc(x)+tags(x)+'</h3></div>'+note(x)+
+    '<dl><div class="lbhero"><dt>'+esc(LONG.weighted)+'</dt><dd><span class="v">'+f[0]+'</span><span class="lbtrack" aria-hidden="true"><i style="width:'+bar(x)+'"></i></span>'+ci(f[1])+'</dd></div>'+
+    CARD.map(function(c){var f=fig(x,c[0]);return '<div'+(sort.key===c[0]?' class="on"':'')+'><dt>'+esc(LONG[c[0]])+'</dt><dd>'+f[0]+ci(f[1])+'</dd></div>'}).join("")+'</dl></li>'}).join("");
+  return '<div class="panel"><h2>Every number, by service</h2><p class="muted small">Sort by any column. Ranges are 95% question-bootstrap intervals over the questions each service ran (up to '+D.set.questions+'). Services that ran a subset are fairest compared per question.</p><div class="scroll lbwide"><table><caption class="muted small" style="caption-side:bottom;text-align:left;padding-top:8px">'+KEY+'</caption><thead><tr>'+head+"</tr></thead><tbody>"+body+"</tbody></table></div>"+
+    '<div class="lbphone"><div class="lbsort"><label for="lbsort">Sort by</label><select id="lbsort">'+opts+'</select><button type="button" id="lbdir" class="ghost small" aria-label="'+order+'. Reverse the order">'+(sort.dir<0?"↓ ":"↑ ")+order+'</button></div>'+
+    '<ol class="lbcards" aria-label="Services, in this order">'+cards+'</ol><p class="muted small">'+KEY+'</p></div></div>'},
   bind:function(){main.querySelectorAll("[data-sort]").forEach(function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-sort");
-    sort={key:k,dir:sort.key===k?-sort.dir:(k==="arm"?1:-1)};show("leaderboard");var n=main.querySelector('[data-sort="'+k+'"]');if(n)n.focus()})})}},
+    sort={key:k,dir:sort.key===k?-sort.dir:(k==="arm"?1:-1)};show("leaderboard");var n=main.querySelector('[data-sort="'+k+'"]');if(n)n.focus()})});
+    var s=main.querySelector("#lbsort"),d=main.querySelector("#lbdir");
+    if(s)s.addEventListener("change",function(){var k=s.value;sort={key:k,dir:k==="arm"?1:-1};show("leaderboard");main.querySelector("#lbsort").focus()});
+    if(d)d.addEventListener("click",function(){sort={key:sort.key,dir:-sort.dir};show("leaderboard");main.querySelector("#lbdir").focus()})}},
 unique:{label:"Unique",render:function(){
   var items=[];D.questions.forEach(function(q){q.clusters.forEach(function(cl){if(cl.unique&&on[cl.credited[0]])items.push({q:q,cl:cl})})});
   items.sort(function(x,y){return (y.cl.value-x.cl.value)||x.cl.credited[0].localeCompare(y.cl.credited[0])||x.q.id.localeCompare(y.q.id)});
