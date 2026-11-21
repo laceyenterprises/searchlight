@@ -25,6 +25,23 @@ DATA_NAMES = {
     "reproduce.md",
     "suite.yaml",
 }
+REPORT_CONTENT_SUFFIXES = {
+    ".md",
+    ".json",
+    ".jsonl",
+    ".yaml",
+    ".yml",
+    ".html",
+    ".css",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".svg",
+    ".webp",
+    ".pdf",
+    ".txt",
+    ".csv",
+}
 
 
 def data_path(path):
@@ -44,7 +61,7 @@ def content_path(path):
     return (
         p.parts[0] in {"site", "docs", "changes"}
         or (len(p.parts) == 1 and p.suffix == ".md")
-        or (p.parts[0] == "reports" and p.suffix not in {".py", ".sh", ".js", ".ts"})
+        or (p.parts[0] == "reports" and p.suffix.lower() in REPORT_CONTENT_SUFFIXES)
         or (p.parts[0] == "design" and p.suffix not in {".py", ".sh", ".js", ".ts"})
     )
 
