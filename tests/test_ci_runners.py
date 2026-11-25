@@ -23,10 +23,8 @@ def executable(path, body):
     path.chmod(0o755)
 
 
-@pytest.mark.parametrize("github_actions", ["true", "false", None])
-@pytest.mark.parametrize("selected", [[], ["tests/test_example.py"]])
-def test_clone_proof_reaches_macos_offline_suite_only_on_actions(
-    tmp_path, github_actions, selected
+def run_macos_clone_proof(
+    tmp_path, github_actions, selected, firewall_status, *, rule_load_status=0
 ):
     commands = tmp_path / "commands"
     commands.mkdir()
@@ -54,10 +52,27 @@ cp {shlex.quote(str(tools))}/* "${{@: -1}}/bin/"
     )
     executable(tools / "uname", "echo Darwin\n")
     executable(
-        tools / "sudo", 'if [[ "$1" == --preserve-env=* ]]; then shift; fi\nexec "$@"\n'
-    )
-    executable(
-        tools / "pfctl", 'if [[ "$1" == -s ]]; then echo "Status: Disabled"; fi\n'
+        tools / "sudo",
+        f"""case "$1" in
+  /sbin/pfctl)
+    shift
+    case "$*" in
+      "-s info") {firewall_status} ;;
+      "-f /etc/pf.conf") echo "firewall restored" ;;
+      "-f "*)
+        grep -Fx 'set skip on lo0' "$2"
+        grep -Fx 'block return out proto {{ tcp udp }} all user root' "$2"
+        exit {rule_load_status}
+        ;;
+      "-e") echo "firewall enabled" ;;
+      "-d") echo "firewall disabled" ;;
+      *) exit 25 ;;
+    esac
+    ;;
+  --preserve-env=*) shift; exec "$@" ;;
+  *) printf 'sudo: %s: command not found\\n' "$1" >&2; exit 1 ;;
+esac
+""",
     )
     executable(tools / "sew", "echo 'mode         standalone'\n")
     executable(
@@ -83,7 +98,7 @@ fi
     }
     if github_actions is not None:
         environment["GITHUB_ACTIONS"] = github_actions
-    result = subprocess.run(
+    return subprocess.run(
         ["bash", str(ROOT / "scripts/public-clone-proof.sh"), *selected],
         check=False,
         env=environment,
@@ -91,15 +106,60 @@ fi
         text=True,
         timeout=15,
     )
+
+
+@pytest.mark.parametrize("github_actions", ["true", "false", None])
+@pytest.mark.parametrize("selected", [[], ["tests/test_example.py"]])
+def test_clone_proof_reaches_macos_offline_suite_only_on_actions(
+    tmp_path, github_actions, selected
+):
+    result = run_macos_clone_proof(
+        tmp_path, github_actions, selected, 'echo "Status: Disabled"'
+    )
     if github_actions == "true":
         assert result.returncode == 0, result.stdout + result.stderr
         assert ("selected file reached" in result.stdout) == bool(selected)
         assert "offline pytest reached" in result.stdout
+        assert result.stdout.index("firewall enabled") < result.stdout.index(
+            "offline pytest reached"
+        )
+        assert result.stdout.index("offline pytest reached") < result.stdout.index(
+            "firewall restored"
+        )
+        assert "firewall disabled" in result.stdout
         assert "public-clone proof passed" in result.stdout
     else:
         assert result.returncode == 1, result.stdout + result.stderr
-        assert "requires a disposable hosted runner" in result.stderr
+        assert (
+            "Offline runner failed (runner check): "
+            "macOS offline runner requires a disposable hosted runner\n"
+        ) in result.stderr
         assert "offline pytest reached" not in result.stdout
+
+
+def test_macos_clone_proof_reports_firewall_status_failure(tmp_path):
+    result = run_macos_clone_proof(
+        tmp_path, "true", [], "echo 'pfctl: status probe refused' >&2; exit 23"
+    )
+    assert result.returncode == 23
+    assert "pfctl: status probe refused" in result.stderr
+    assert "Offline runner failed (exit 23): sudo /sbin/pfctl -s info" in result.stderr
+    assert (
+        'Standalone clone proof failed (exit 23): scripts/test-offline.sh "$@"'
+        in result.stderr
+    )
+    assert "offline pytest reached" not in result.stdout
+
+
+def test_macos_clone_proof_restores_firewall_when_loading_rules_fails(tmp_path):
+    result = run_macos_clone_proof(
+        tmp_path, "true", [], 'echo "Status: Enabled"', rule_load_status=24
+    )
+    assert result.returncode == 24
+    assert "Offline runner failed (exit 24): sudo /sbin/pfctl -f " in result.stderr
+    assert "firewall restored" in result.stdout
+    assert "firewall disabled" not in result.stdout
+    assert "offline pytest reached" not in result.stdout
 
 
 @pytest.mark.parametrize(
@@ -140,16 +200,22 @@ fi
             ],
         ),
         (
-            "".join(f"setup diagnostic {index}\n" for index in range(25)),
-            1,
-            [f"setup diagnostic {index}" for index in range(15, 25)],
+            "Successfully installed searchlight\n[notice] update pip\n"
+            "pfctl: status probe refused\n"
+            "Offline runner failed (exit 23): sudo /sbin/pfctl -s info\n"
+            'Standalone clone proof failed (exit 23): scripts/test-offline.sh "$@"\n',
+            23,
+            [
+                "Offline runner failed (exit 23): sudo /sbin/pfctl -s info",
+                'Standalone clone proof failed (exit 23): scripts/test-offline.sh "$@"',
+            ],
         ),
         (
-            "macOS offline runner requires a disposable hosted runner\n",
+            "Successfully installed searchlight\n[notice] update pip\n",
             1,
-            ["macOS offline runner requires a disposable hosted runner"],
+            ["Standalone clone proof exited with status 1. See the step log."],
         ),
-        ("", 1, ["Standalone clone proof failed without output"]),
+        ("", 1, ["Standalone clone proof exited with status 1. See the step log."]),
     ],
 )
 def test_suite_step_reports_failures(tmp_path, output, exit_code, annotations):

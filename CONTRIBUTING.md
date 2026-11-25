@@ -24,8 +24,9 @@ cancel scheduled or manual macOS coverage.
 
 On clone-proof failure, CI prints the full log and annotates the last ten pytest
 failure lines, retaining trailing summaries. Indented traceback source does not
-count as a pytest `E` marker. If there are no pytest failure lines, annotations
-use the last ten non-empty setup diagnostic lines instead.
+count as a pytest `E` marker. If there are no pytest failure lines, CI annotates
+explicit command failures or reports the clone proof's exit status. The full
+step log includes the failing command's stderr.
 
 Standalone CI exercises a dependency-free, canonical-writer-shaped Codex receipt
 with float epoch times and a microsecond `Z` refresh stamp. Real SDK integration

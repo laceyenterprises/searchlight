@@ -105,8 +105,9 @@ jobs:
           if scripts/public-clone-proof.sh ${test_files[@]+"${test_files[@]}"} > "$RUNNER_TEMP/suite.log" 2>&1; then
             cat "$RUNNER_TEMP/suite.log"
           else
+            status=$?
             cat "$RUNNER_TEMP/suite.log"
-            python3 - "$RUNNER_TEMP/suite.log" <<'PYTHON'
+            python3 - "$RUNNER_TEMP/suite.log" "$status" <<'PYTHON'
           import re
           import sys
           with open(sys.argv[1], encoding='utf-8', errors='replace') as log:
@@ -114,12 +115,14 @@ jobs:
           # Pytest's E marker is unindented; indented source is not a failure.
           failures = [line.strip() for line in lines if line.startswith('E   ')
                       or line.lstrip().startswith(('FAILED ', 'ERROR '))]
-          # Setup can fail before pytest starts; retain its diagnostic too.
+          # Annotate explicit setup failures while keeping raw stderr in the log.
+          setup = [line for line in lines if line.startswith(
+              ('Offline runner failed (', 'Standalone clone proof failed ('))]
           # Keep trailing summaries within the step's ten-error annotation limit.
-          messages = (failures or [line.strip() for line in lines if line.strip()])[-10:]
-          for line in messages or ['Standalone clone proof failed without output']:
+          messages = (failures or setup)[-10:]
+          for line in messages or [f'Standalone clone proof exited with status {sys.argv[2]}. See the step log.']:
               message = line.replace('%', '%25').replace('\r', '%0D')
               print(f'::error::{message}')
           PYTHON
-            exit 1
+            exit "$status"
           fi
