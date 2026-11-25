@@ -16,7 +16,10 @@ if [[ "$(uname -s)" == Linux ]]; then
 else
   # A Seatbelt wrapper would prevent the suite from applying its own profiles.
   # Use the hosted runner's firewall to preserve real nested verifier coverage.
-  [[ "${GITHUB_ACTIONS:-}" == true ]] || { echo 'macOS offline runner requires a disposable hosted runner' >&2; exit 1; }
+  [[ "${GITHUB_ACTIONS:-}" == true ]] || {
+    printf 'Offline runner failed (runner check): macOS offline runner requires a disposable hosted runner\n' >&2
+    exit 1
+  }
   run_pfctl() {
     local status=0
     # The clone proof's minimal PATH does not include /sbin.

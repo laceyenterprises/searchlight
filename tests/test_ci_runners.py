@@ -23,8 +23,6 @@ def executable(path, body):
     path.chmod(0o755)
 
 
-@pytest.mark.parametrize("github_actions", ["true", "false", None])
-@pytest.mark.parametrize("selected", [[], ["tests/test_example.py"]])
 def run_macos_clone_proof(
     tmp_path, github_actions, selected, firewall_status, *, rule_load_status=0
 ):
@@ -132,7 +130,10 @@ def test_clone_proof_reaches_macos_offline_suite_only_on_actions(
         assert "public-clone proof passed" in result.stdout
     else:
         assert result.returncode == 1, result.stdout + result.stderr
-        assert "requires a disposable hosted runner" in result.stderr
+        assert (
+            "Offline runner failed (runner check): "
+            "macOS offline runner requires a disposable hosted runner\n"
+        ) in result.stderr
         assert "offline pytest reached" not in result.stdout
 
 
