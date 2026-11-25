@@ -30,6 +30,7 @@ env -i PATH="$proof_root/venv/bin:/usr/bin:/bin" HOME="$proof_root/home" \
   SEW_REQUIRE_CONTAINMENT_TESTS="${SEW_REQUIRE_CONTAINMENT_TESTS:-0}" \
   SEW_GAP_CODE_WHEELHOUSE="$proof_root/wheels" SEW_MODE=standalone SEW_STATE_ROOT="$proof_root/state" PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 SEW_TEST_INSTALLED=1 SEW_PUBLICATION_BATTERY="${SEW_PUBLICATION_BATTERY:-1}" \
   bash -euo pipefail -c '
+    trap "printf \"Standalone clone proof failed (exit %d): %s\\n\" \"\$?\" \"\$BASH_COMMAND\" >&2" ERR
     python3 -m pip install ".[test]"
     python3 bin/prepare-gap-code-wheelhouse --wheelhouse "$SEW_GAP_CODE_WHEELHOUSE" --download
     sew doctor > doctor.txt
